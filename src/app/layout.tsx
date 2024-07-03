@@ -1,34 +1,21 @@
-import type { Metadata } from "next";
-import { Rubik } from "next/font/google";
+import type { Metadata } from "next"
+import { Rubik } from "next/font/google"
 
+import "./globals.css"
 
+import { VercelToolbar } from "@vercel/toolbar/next"
+import { ThemeProvider } from "next-themes"
 
-
-
-
-import "./globals.css";
-
-
-
-import { VercelToolbar } from "@vercel/toolbar/next";
-import { ThemeProvider } from "next-themes";
-
-
-
-import { Analytics } from "@/app/components/analytics";
-import { FloatNav } from "@/app/components/floatNav";
-import Footer from "@/app/components/footer";
-
-
-
-
+import { Analytics } from "@/app/components/analytics"
+import { FloatNav } from "@/app/components/floatNav"
+import Footer from "@/app/components/footer"
 
 const rubik = Rubik({
   subsets: ["latin"],
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://smoothui.educalvolopez.com"),
+  metadataBase: new URL("https://www.smoothui.dev"),
   title: {
     default: "SmoothUI",
     template: "%s | SmoothUI",
@@ -41,11 +28,11 @@ export const metadata: Metadata = {
     title: "SmoothUI",
     description:
       "A collection of awesome test components with smooth animations",
-    url: "https://smoothui.educalvolopez.com",
+    url: "https://www.smoothui.dev",
     siteName: "SmoothUI",
     images: [
       {
-        url: "https://smoothui.educalvolopez.com/og.jpg",
+        url: "https://www.smoothui.dev/og.jpg",
         width: 1920,
         height: 1080,
       },
