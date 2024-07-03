@@ -1,13 +1,27 @@
-import type { Metadata } from "next"
-import { Rubik } from "next/font/google"
+import type { Metadata } from "next";
+import { Rubik } from "next/font/google";
 
-import "./globals.css"
 
-import { ThemeProvider } from "next-themes"
 
-import { Analytics } from "@/app/components/analytics"
-import { FloatNav } from "@/app/components/floatNav"
-import Footer from "@/app/components/footer"
+
+
+
+import "./globals.css";
+
+
+
+import { VercelToolbar } from "@vercel/toolbar/next";
+import { ThemeProvider } from "next-themes";
+
+
+
+import { Analytics } from "@/app/components/analytics";
+import { FloatNav } from "@/app/components/floatNav";
+import Footer from "@/app/components/footer";
+
+
+
+
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -19,11 +33,14 @@ export const metadata: Metadata = {
     default: "SmoothUI",
     template: "%s | SmoothUI",
   },
-  description: "",
-  keywords: [""],
+  description: "A collection of awesome test components with smooth animations",
+  keywords: [
+    "components, Smooth animations, Awesome test components, framermotion, framer-motion, Interactive components",
+  ],
   openGraph: {
     title: "SmoothUI",
-    description: "",
+    description:
+      "A collection of awesome test components with smooth animations",
     url: "https://smoothui.educalvolopez.com",
     siteName: "SmoothUI",
     images: [
@@ -48,7 +65,7 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: "smoothui",
+    title: "SmoothUI",
     card: "summary_large_image",
   },
   icons: {
@@ -61,6 +78,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const shouldInjectToolbar = process.env.NODE_ENV === "development"
   return (
     <html lang="en">
       <body
@@ -72,6 +90,7 @@ export default function RootLayout({
           <Footer />
           <Analytics />
         </ThemeProvider>
+        {shouldInjectToolbar && <VercelToolbar />}
       </body>
     </html>
   )

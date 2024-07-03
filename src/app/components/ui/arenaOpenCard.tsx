@@ -88,7 +88,7 @@ export const ArenaOpenCard = () => {
                     </p>
                   </div>
 
-                  <button className="cursor-pointer">
+                  <button className="cursor-pointer" aria-label="Close Icon">
                     <CircleX size={16} />
                   </button>
                 </div>

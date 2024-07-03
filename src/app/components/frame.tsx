@@ -13,12 +13,12 @@ export default function Frame({ component }: { component: ComponentsProps }) {
                 <div className="false h-6 w-6 rounded-full bg-red-300 object-cover" />
                 <div className="absolute inset-0 flex rounded-full border border-light11 dark:border-dark11"></div>
               </span> */}
-              <h2 className="text-sm font-medium text-light12 transition dark:text-dark12">
+              <h3 className="text-sm font-medium text-light12 transition dark:text-dark12">
                 <span className="text-light11 transition dark:text-dark11">
                   #{component.id}
                 </span>{" "}
                 {component.componentTitle}
-              </h2>
+              </h3>
             </div>
           </div>
           <div className="relative flex h-[640px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 transition dark:border-dark3 dark:bg-dark2 md:w-[600px] md:flex-1">

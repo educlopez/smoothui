@@ -10,11 +10,11 @@ export default function Head() {
         <h1 className="text-center text-4xl font-bold text-light12 transition dark:text-dark12">
           SmoothUI
         </h1>
-        <p className="text-center text-lg text-light11 transition dark:text-dark11">
+        <h2 className="text-center text-lg text-light11 transition dark:text-dark11">
           A collection of <span className="line-through">awesome</span> test
           components
           <br /> with smooth animations
-        </p>
+        </h2>
       </div>
     </div>
   )
