@@ -21,7 +21,7 @@ export default function Frame({ component }: { component: ComponentsProps }) {
               </h3>
             </div>
           </div>
-          <div className="relative flex h-[640px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 transition dark:border-dark3 dark:bg-dark2 md:w-[600px] md:flex-1">
+          <div className="relative flex h-[640px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 transition dark:border-dark3 dark:bg-dark2 md:flex-1">
             {component.componentUi
               ? React.createElement(component.componentUi)
               : null}
