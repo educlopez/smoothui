@@ -40,12 +40,14 @@ export const ArenaOpenCard = () => {
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
             disabled
+            aria-label="Share"
             className="cursor-not-allowed rounded-full border border-light3 bg-light1 p-3 transition disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >
             <Share size={16} />
           </button>
           <button
             disabled
+            aria-label="Connect"
             className="cursor-not-allowed rounded-full border border-light3 bg-light1 px-4 py-3 text-sm transition disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >
             Connect
@@ -54,6 +56,7 @@ export const ArenaOpenCard = () => {
             {!openInfo ? (
               <motion.button
                 className="cursor-pointer border border-light3 bg-light1 p-3 shadow-sm transition dark:border-dark3 dark:bg-dark1"
+                aria-label="Open Metadata Preview"
                 style={{ borderRadius: 100 }}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
                 animate={{ opacity: 1, filter: "blur(0px)" }}
