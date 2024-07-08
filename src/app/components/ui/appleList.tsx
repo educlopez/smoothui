@@ -156,7 +156,6 @@ const content: {
   company: string
   title: string
   logo: JSX.Element
-
   job_description: string
   salary: string
   location: string

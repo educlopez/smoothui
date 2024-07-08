@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   darkMode: "class",
@@ -13,11 +13,13 @@ const config: Config = {
         dark1: "hsl(0 0% 8.5%)",
         dark2: "hsl(0 0% 11.0%)",
         dark3: "hsl(0 0% 13.6%)",
+        dark4: "hsl(0 0% 15.8%)",
         dark11: "hsl(0 0% 62.8%)",
         dark12: "hsl(0 0% 93.0%)",
         light1: "hsl(0 0% 99.0%)",
         light2: "hsl(0 0% 97.3%)",
         light3: "hsl(0 0% 95.1%)",
+        light4: "hsl(0 0% 93.0%)",
         light11: "hsl(0 0% 43.5%)",
         light12: "hsl(0 0% 9.0%)",
       },
@@ -29,5 +31,5 @@ const config: Config = {
     },
   },
   plugins: [],
-};
-export default config;
+}
+export default config
