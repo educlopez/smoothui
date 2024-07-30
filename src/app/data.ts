@@ -1,5 +1,7 @@
 import { AppleList } from "@/app/components/ui/appleList"
 import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
+import FluidMorph from "@/app/components/ui/fluidMorph"
+import { LogoVanish } from "@/app/components/ui/logoVanish"
 import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
 export interface ComponentsProps {
@@ -35,5 +37,13 @@ export const components: ComponentsProps[] = [
     href: "https://x.com/educlopez93",
     info: "Component that displays tags with an animation when they are added or removed from the list of selected tags",
     componentUi: TagsVanish,
+  },
+  {
+    id: 4,
+    componentTitle: "Fluid Morph",
+    tags: ["react", "tailwindcss", "framer-motion"],
+    href: "https://x.com/educlopez93",
+    info: "Component that morphs a fluid shape into another fluid shape",
+    componentUi: FluidMorph,
   },
 ]
