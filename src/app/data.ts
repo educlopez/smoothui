@@ -1,7 +1,6 @@
 import { AppleList } from "@/app/components/ui/appleList"
 import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
 import FluidMorph from "@/app/components/ui/fluidMorph"
-import { LogoVanish } from "@/app/components/ui/logoVanish"
 import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
 export interface ComponentsProps {
