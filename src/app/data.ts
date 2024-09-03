@@ -1,6 +1,7 @@
 import { AppleList } from "@/app/components/ui/appleList"
 import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
 import FluidMorph from "@/app/components/ui/fluidMorph"
+import ImageSelector from "@/app/components/ui/imageSelector"
 import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
 export interface ComponentsProps {
@@ -44,5 +45,13 @@ export const components: ComponentsProps[] = [
     href: "https://x.com/educlopez93",
     info: "Component that morphs a fluid shape into another fluid shape",
     componentUi: FluidMorph,
+  },
+  {
+    id: 5,
+    componentTitle: "Interactive Image Selector",
+    tags: ["react", "tailwindcss", "framer-motion"],
+    href: "https://x.com/educlopez93",
+    info: "Select images by clicking on them, delete selected images using the trash icon, and reset the gallery with the refresh button. Inspired by the smooth and intuitive photo gallery experience of iPhones, this interface features seamless animations for an engaging user experience.",
+    componentUi: ImageSelector,
   },
 ]
