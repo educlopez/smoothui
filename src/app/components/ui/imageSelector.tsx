@@ -86,9 +86,7 @@ export default function ImageSelector() {
       </div>
       <div className="absolute left-5 right-5 top-16 z-20 flex justify-between p-4">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-light12 dark:text-dark12">
-            Art Gallery
-          </span>
+          <span className="text-2xl font-bold text-white">Art Gallery</span>
         </div>
       </div>
       <motion.div className="grid grid-cols-3 gap-1 overflow-scroll" layout>
