@@ -40,7 +40,7 @@ export default function FluidMorph() {
   }, [index])
 
   return (
-    <main className="flex flex-col items-center justify-center">
+    <main className="flex flex-col items-center justify-center p-4">
       <svg
         viewBox="0 0 256 256"
         className="w-[500px]"

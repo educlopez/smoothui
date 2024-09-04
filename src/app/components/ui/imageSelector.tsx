@@ -67,7 +67,7 @@ export default function ImageSelector() {
 
   return (
     <div className="flex h-full w-full flex-col justify-between p-4">
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-gradient-to-b from-black/50 to-transparent"></div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-gradient-to-b from-black/20 to-transparent dark:from-black/50"></div>
       <div className="absolute left-5 right-5 top-5 z-20 flex justify-between p-4">
         <motion.button
           whileHover={{ scale: 1.05 }}

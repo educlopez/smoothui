@@ -21,11 +21,11 @@ export function TagsVanish() {
     setTags([...tags, tag])
   }
   return (
-    <div className="flex w-[300px] flex-col gap-4">
+    <div className="flex w-[300px] flex-col gap-4 p-4">
       <div className="flex flex-col items-start justify-center gap-1">
         <p>Selected Tags</p>
         <AnimatePresence>
-          <div className="border-light4 dark:border-dark4 flex min-h-12 w-full flex-wrap items-center gap-1 rounded-xl border p-2">
+          <div className="flex min-h-12 w-full flex-wrap items-center gap-1 rounded-xl border border-light4 p-2 dark:border-dark4">
             {selectedTag?.map((tag) => (
               <motion.div
                 key={tag}
