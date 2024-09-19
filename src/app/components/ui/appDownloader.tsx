@@ -129,7 +129,7 @@ export default function AppDownloader() {
                   width={64}
                   height={64}
                   alt={`${app.name} Logo`}
-                  className="absolute inset-0 rounded-xl border-none shadow-md"
+                  className="absolute inset-0 rounded-xl border-none"
                   custom={index}
                   variants={stackVariants}
                   initial="initial"
@@ -213,7 +213,7 @@ export default function AppDownloader() {
                         width={80}
                         height={80}
                         alt={`${app.name} Logo`}
-                        className="z-0 w-auto rounded-xl border-none shadow-md"
+                        className="z-0 w-auto rounded-xl border-none"
                       />
                     </button>
                   </motion.li>
@@ -221,10 +221,10 @@ export default function AppDownloader() {
               </motion.ul>
               <motion.button
                 layoutId="download-button"
-                className={`mt-2 w-full rounded-full py-2 font-sans font-medium transition-colors ${
+                className={`mt-2 w-full rounded-full border border-light3 p-3 py-2 font-sans font-medium shadow-sm transition dark:border-dark3 ${
                   selectedApps.length > 0
-                    ? "bg-blue-500 text-white"
-                    : "bg-mauve-3 text-mauve-9"
+                    ? "cursor-pointer bg-light1 dark:bg-dark1"
+                    : "cursor-not-allowed"
                 }`}
                 disabled={selectedApps.length === 0}
                 onClick={handleDownload}
@@ -261,7 +261,7 @@ export default function AppDownloader() {
                       width={64}
                       height={64}
                       alt={`${app?.name} Logo`}
-                      className="absolute inset-0 h-16 w-16 rounded-xl border-none shadow-md"
+                      className="absolute inset-0 h-16 w-16 rounded-xl border-none"
                       style={{
                         rotate: index % 2 === 0 ? "12deg" : "-8deg",
                         transformOrigin: "50% 50% 0px",
@@ -273,14 +273,12 @@ export default function AppDownloader() {
               <motion.div className="relative w-full overflow-hidden rounded-full">
                 <motion.button
                   layoutId="download-button"
-                  className={`relative w-full rounded-full px-4 py-2 font-sans font-medium text-white ${
-                    downloadComplete ? "bg-[#30a46c]" : "bg-blue-500"
-                  }`}
+                  className={`relative w-full cursor-pointer rounded-full border border-light3 bg-light1 p-3 px-4 py-2 font-sans font-medium text-light12 shadow-sm transition dark:border-dark3 dark:bg-dark1 dark:text-dark12`}
                   onClick={confirmDownload}
                   disabled={downloadComplete}
                 >
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+                    className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-transparent opacity-30 dark:via-white"
                     initial={{ x: "-100%" }}
                     animate={shineControls}
                   />
