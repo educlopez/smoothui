@@ -109,7 +109,7 @@ export default function AppDownloader() {
   )
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
+    <div className="flex h-auto flex-col items-center justify-center">
       <motion.div layout className="flex flex-col items-center justify-center">
         <AnimatePresence mode="wait">
           {!isExpanded && !isDownloading && (

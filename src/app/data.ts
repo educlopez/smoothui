@@ -4,8 +4,10 @@ import path from "path"
 import AppDownloader from "@/app/components/ui/appDownloader"
 import { AppleList } from "@/app/components/ui/appleList"
 import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
+import AvatarDrop from "@/app/components/ui/avatarDrop"
 import FluidMorph from "@/app/components/ui/fluidMorph"
 import ImageSelector from "@/app/components/ui/imageSelector"
+import IosPoweroff from "@/app/components/ui/iosPoweroff"
 import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
 function getComponentCode(componentName: string): string {
@@ -91,5 +93,23 @@ export const components: ComponentsProps[] = [
     info: "Inspired by Family.co and the example by Jenson Wong, this component presents a stack of apps, allowing users to open the stack, select the apps they want, and download them.",
     componentUi: AppDownloader,
     code: getComponentCode("appDownloader"),
+  },
+  {
+    id: 7,
+    componentTitle: "iOS Power off",
+    tags: ["react", "tailwindcss", "framer-motion"],
+    href: "https://x.com/educlopez93",
+    info: "Inspired by the power off animation of iPhones, this component allows the user to slide to power off the device.",
+    componentUi: IosPoweroff,
+    code: getComponentCode("iosPoweroff"),
+  },
+  {
+    id: 8,
+    componentTitle: "User Account Avatar",
+    tags: ["react", "tailwindcss", "framer-motion", "radix-ui"],
+    href: "https://x.com/educlopez93",
+    info: "Component that displays a user's avatar and allows the user to edit their profile information and order history.",
+    componentUi: AvatarDrop,
+    code: getComponentCode("avatarDrop"),
   },
 ]
