@@ -4,8 +4,8 @@ export function FloatNav() {
   return (
     <nav className="fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border border-light11/20 bg-light1/70 px-4 py-2 text-light12 bg-blend-luminosity shadow-sm backdrop-blur-xl transition dark:border-dark11/20 dark:bg-dark1/50 dark:text-dark12">
       <a
-        href="https://x.com/educlopez93"
-        aria-label="X Profile educlopez93"
+        href="https://x.com/educalvolpz"
+        aria-label="X Profile educalvolpz"
         target="_blank"
         className="flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
       >

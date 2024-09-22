@@ -6,7 +6,7 @@ export default function Footer() {
       <p className="text-center text-sm text-light11 transition dark:text-dark11">
         Made with <Pizza size={14} className="inline" /> by{" "}
         <a
-          href="https://x.com/educlopez93"
+          href="https://x.com/educalvolpz"
           aria-label="X Profile Eduardo Calvo"
           target="_blank"
           className="text-light12 transition dark:text-dark12"
