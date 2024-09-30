@@ -52,13 +52,7 @@ export default function AvatarDrop() {
   }
 
   const renderEditProfile = () => (
-    <motion.form
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      onSubmit={handleProfileSave}
-      className="flex flex-col gap-2 p-4"
-    >
+    <form onSubmit={handleProfileSave} className="flex flex-col gap-2 p-4">
       <label
         htmlFor="name"
         className="text-xs font-medium text-light11 dark:text-dark11"
@@ -92,16 +86,11 @@ export default function AvatarDrop() {
       >
         Save
       </button>
-    </motion.form>
+    </form>
   )
 
   const renderLastOrders = () => (
-    <motion.div
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      className="flex flex-col gap-2 p-2"
-    >
+    <div className="flex flex-col gap-2 p-2">
       {mockOrders.map((order) => (
         <div
           key={order.id}
@@ -139,7 +128,7 @@ export default function AvatarDrop() {
           </div>
         </div>
       ))}
-    </motion.div>
+    </div>
   )
 
   return (
@@ -161,30 +150,58 @@ export default function AvatarDrop() {
           sideOffset={5}
         >
           <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
+            initial={{ height: "auto" }}
+            animate={{ height: "auto" }}
+            transition={{ type: "spring", duration: 0.3, bounce: 0 }}
           >
-            <div
-              className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
-              onClick={() => handleSectionClick("profile")}
-            >
-              <User size={16} className="mr-2 inline" />
-              Edit Profile
+            <div className="flex flex-col">
+              <div
+                className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
+                onClick={() => handleSectionClick("profile")}
+              >
+                <User size={16} className="mr-2 inline" />
+                Edit Profile
+              </div>
+              <AnimatePresence initial={false}>
+                {activeSection === "profile" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                    animate={{
+                      opacity: 1,
+                      height: "auto",
+                      filter: "blur(0px)",
+                    }}
+                    exit={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                    transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+                  >
+                    {renderEditProfile()}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              <div
+                className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
+                onClick={() => handleSectionClick("orders")}
+              >
+                <Package size={16} className="mr-2 inline" />
+                Last Orders
+              </div>
+              <AnimatePresence initial={false}>
+                {activeSection === "orders" && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                    animate={{
+                      opacity: 1,
+                      height: "auto",
+                      filter: "blur(0px)",
+                    }}
+                    exit={{ opacity: 0, height: 0, filter: "blur(10px)" }}
+                    transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+                  >
+                    {renderLastOrders()}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
-            <AnimatePresence>
-              {activeSection === "profile" && renderEditProfile()}
-            </AnimatePresence>
-            <div
-              className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
-              onClick={() => handleSectionClick("orders")}
-            >
-              <Package size={16} className="mr-2 inline" />
-              Last Orders
-            </div>
-            <AnimatePresence>
-              {activeSection === "orders" && renderLastOrders()}
-            </AnimatePresence>
           </motion.div>
         </Popover.Content>
       </Popover.Portal>
