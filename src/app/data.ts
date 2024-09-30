@@ -116,7 +116,7 @@ export const components: ComponentsProps[] = [
   {
     id: 9,
     componentTitle: "Button Copy",
-    tags: ["react", "tailwindcss", "framer-motion", "radix-ui"],
+    tags: ["react", "tailwindcss", "framer-motion"],
     href: "https://x.com/educalvolpz",
     info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
     componentUi: ButtonCopyStates,
