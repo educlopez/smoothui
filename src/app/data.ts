@@ -5,6 +5,7 @@ import AppDownloader from "@/app/components/ui/appDownloader"
 import { AppleList } from "@/app/components/ui/appleList"
 import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
 import AvatarDrop from "@/app/components/ui/avatarDrop"
+import ButtonCopyStates from "@/app/components/ui/buttonCopyStates"
 import FluidMorph from "@/app/components/ui/fluidMorph"
 import ImageSelector from "@/app/components/ui/imageSelector"
 import IosPoweroff from "@/app/components/ui/iosPoweroff"
@@ -111,5 +112,14 @@ export const components: ComponentsProps[] = [
     info: "Component that displays a user's avatar and allows the user to edit their profile information and order history.",
     componentUi: AvatarDrop,
     code: getComponentCode("avatarDrop"),
+  },
+  {
+    id: 9,
+    componentTitle: "Button Copy",
+    tags: ["react", "tailwindcss", "framer-motion", "radix-ui"],
+    href: "https://x.com/educalvolpz",
+    info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
+    componentUi: ButtonCopyStates,
+    code: getComponentCode("buttonCopyStates"),
   },
 ]

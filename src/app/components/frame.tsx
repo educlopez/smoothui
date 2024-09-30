@@ -1,18 +1,38 @@
-import React from "react"
+"use client"
+
+import React, { useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
+import { Check, Code, Copy, Eye } from "lucide-react"
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 import type { ComponentsProps } from "@/app/data"
+import { copyToClipboard } from "@/app/utils/copyToClipboard"
 
 export default function Frame({ component }: { component: ComponentsProps }) {
+  const [showCode, setShowCode] = useState(false)
+  const [isCopied, setIsCopied] = useState(false)
+
+  const toggleView = () => {
+    setShowCode(!showCode)
+  }
+
+  const handleCopyCode = async () => {
+    if (component.code) {
+      const success = await copyToClipboard(component.code)
+      if (success) {
+        setIsCopied(true)
+        setTimeout(() => setIsCopied(false), 1000)
+      }
+    }
+  }
+
   return (
     <div className="w-full py-12 last:pb-0 odd:pt-0 md:w-[600px]">
       <div className="mx-auto w-full px-4">
         <article className="grid gap-3">
           <div className="flex justify-between gap-8">
             <div className="flex items-center gap-2">
-              {/* <span className="relative inline-flex h-6 w-6 select-none items-center justify-center overflow-hidden rounded-full align-middle">
-                <div className="false h-6 w-6 rounded-full bg-red-300 object-cover" />
-                <div className="absolute inset-0 flex rounded-full border border-light11 dark:border-dark11"></div>
-              </span> */}
               <h3 className="text-sm font-medium text-light12 transition dark:text-dark12">
                 <span className="text-light11 transition dark:text-dark11">
                   #{component.id}
@@ -20,11 +40,98 @@ export default function Frame({ component }: { component: ComponentsProps }) {
                 {component.componentTitle}
               </h3>
             </div>
+            <AnimatePresence mode="popLayout" initial={false}>
+              <button
+                key={showCode ? "check" : "copy"}
+                onClick={toggleView}
+                className="flex w-32 items-center gap-2 overflow-hidden rounded-full bg-light3 px-3 py-1 text-center text-sm font-medium text-light12 transition hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4"
+              >
+                {showCode ? (
+                  <motion.span
+                    key="view-component"
+                    initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
+                    transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+                    className="flex w-full items-center justify-center gap-1"
+                  >
+                    <Eye size={16} /> <span>Component</span>
+                  </motion.span>
+                ) : (
+                  <motion.span
+                    key="view-component"
+                    initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
+                    animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
+                    transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+                    className="flex w-full items-center justify-center gap-1"
+                  >
+                    <Code size={16} />
+                    View Code
+                  </motion.span>
+                )}
+              </button>
+            </AnimatePresence>
           </div>
-          <div className="relative flex h-auto w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 transition dark:border-dark3 dark:bg-dark2 md:h-[640px] md:flex-1">
-            {component.componentUi
-              ? React.createElement(component.componentUi)
-              : null}
+          <div
+            id={`component-${component.id}`}
+            className="relative flex h-auto min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 transition dark:border-dark3 dark:bg-dark2 md:h-[640px] md:flex-1"
+          >
+            {showCode ? (
+              <>
+                <SyntaxHighlighter
+                  language="typescript"
+                  style={vscDarkPlus}
+                  customStyle={{
+                    margin: 0,
+                    padding: "1rem",
+                    height: "100%",
+                    width: "100%",
+                    overflow: "auto",
+                  }}
+                >
+                  {component.code || "// Code not available"}
+                </SyntaxHighlighter>
+                <AnimatePresence mode="popLayout" initial={false}>
+                  <button
+                    key={isCopied ? "check" : "copy"}
+                    onClick={handleCopyCode}
+                    className="absolute right-2 top-2 rounded-md bg-light3 p-2 text-light12 transition hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4"
+                    aria-label="Copy code"
+                  >
+                    {isCopied ? (
+                      <motion.span
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, filter: "blur(10px)" }}
+                        transition={{
+                          type: "spring",
+                          duration: 0.3,
+                          bounce: 0,
+                        }}
+                      >
+                        <Check size={16} />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        initial={{ opacity: 0, filter: "blur(10px)" }}
+                        animate={{ opacity: 1, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, filter: "blur(10px)" }}
+                        transition={{
+                          type: "spring",
+                          duration: 0.3,
+                          bounce: 0,
+                        }}
+                      >
+                        <Copy size={16} />
+                      </motion.span>
+                    )}
+                  </button>
+                </AnimatePresence>
+              </>
+            ) : component.componentUi ? (
+              React.createElement(component.componentUi)
+            ) : null}
           </div>
           <div className="flex justify-between gap-8">
             <div className="flex items-center gap-1 odd:border-pink-400">
@@ -37,16 +144,6 @@ export default function Frame({ component }: { component: ComponentsProps }) {
                 </div>
               ))}
             </div>
-            {/* <a
-              className="cursor-pointer text-light11 transition hover:text-light12 dark:text-dark11 hover:dark:text-dark12"
-              target="_blank"
-              rel="noopener nofollow"
-              href="https://x.com/educlopez93"
-            >
-              <svg height="16" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-              </svg>
-            </a> */}
           </div>
           <p className="text-sm text-light12 transition dark:text-dark12">
             {component.info}
