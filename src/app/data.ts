@@ -13,6 +13,7 @@ import ImageSelector from "@/app/components/ui/imageSelector";
 import IosPoweroff from "@/app/components/ui/iosPoweroff";
 import MatrixCard from "@/app/components/ui/matrixCard";
 import { TagsVanish } from "@/app/components/ui/tagsVanish";
+import DynamicIsland from "@/app/components/ui/dynamicIsland";
 
 
 
@@ -137,5 +138,14 @@ export const components: ComponentsProps[] = [
     info: "A reusable card component that displays a matrix rain effect on hover, combining smooth animations with canvas-based effects.",
     componentUi: MatrixCard,
     code: getComponentCode("matrixCard"),
+  },
+  {
+    id: 11,
+    componentTitle: "Dynamic Island",
+    tags: ["react", "framer-motion", "tailwindcss"],
+    href: "https://x.com/educalvolpz",
+    info: "A reusable Dynamic Island component inspired by Apple's design, featuring smooth state transitions and animations.",
+    componentUi: DynamicIsland,
+    code: getComponentCode("dynamicIsland"),
   },
 ]
