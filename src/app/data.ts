@@ -1,15 +1,22 @@
-import fs from "fs"
-import path from "path"
+import fs from "fs";
+import path from "path";
 
-import AppDownloader from "@/app/components/ui/appDownloader"
-import { AppleList } from "@/app/components/ui/appleList"
-import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
-import AvatarDrop from "@/app/components/ui/avatarDrop"
-import ButtonCopyStates from "@/app/components/ui/buttonCopyStates"
-import FluidMorph from "@/app/components/ui/fluidMorph"
-import ImageSelector from "@/app/components/ui/imageSelector"
-import IosPoweroff from "@/app/components/ui/iosPoweroff"
-import { TagsVanish } from "@/app/components/ui/tagsVanish"
+
+
+import AppDownloader from "@/app/components/ui/appDownloader";
+import { AppleList } from "@/app/components/ui/appleList";
+import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard";
+import AvatarDrop from "@/app/components/ui/avatarDrop";
+import ButtonCopyStates from "@/app/components/ui/buttonCopyStates";
+import FluidMorph from "@/app/components/ui/fluidMorph";
+import ImageSelector from "@/app/components/ui/imageSelector";
+import IosPoweroff from "@/app/components/ui/iosPoweroff";
+import MatrixCard from "@/app/components/ui/matrixCard";
+import { TagsVanish } from "@/app/components/ui/tagsVanish";
+
+
+
+
 
 function getComponentCode(componentName: string): string {
   if (typeof window === "undefined") {
@@ -121,5 +128,14 @@ export const components: ComponentsProps[] = [
     info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
     componentUi: ButtonCopyStates,
     code: getComponentCode("buttonCopyStates"),
+  },
+  {
+    id: 10,
+    componentTitle: "Matrix Card",
+    tags: ["react", "tailwindcss", "framer-motion"],
+    href: "https://x.com/educalvolpz",
+    info: "A reusable card component that displays a matrix rain effect on hover, combining smooth animations with canvas-based effects.",
+    componentUi: MatrixCard,
+    code: getComponentCode("matrixCard"),
   },
 ]
