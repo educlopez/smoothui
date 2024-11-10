@@ -24,7 +24,7 @@ export default function MatrixCard() {
     }
 
     resizeCanvas()
-    window.addEventListener('resize', resizeCanvas)
+    window.addEventListener("resize", resizeCanvas)
 
     const fontSize = 14
     const columns = Math.floor(canvas.width / fontSize)
@@ -54,15 +54,15 @@ export default function MatrixCard() {
 
     return () => {
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener("resize", resizeCanvas)
     }
   }, [isHovered])
 
   return (
-    <div className="flex min-h-[300px] w-full items-center justify-center p-4 h-[400px] md:h-[640px]">
+    <div className="flex h-[400px] min-h-[300px] w-full items-center justify-center p-4 md:h-[640px]">
       <motion.div
         ref={containerRef}
-        className="group relative h-full w-full max-w-md overflow-hidden rounded-xl border p-6 transition-colors border-dark3 bg-dark1 hover:border-dark4"
+        className="group relative h-full w-full max-w-md overflow-hidden rounded-xl border border-dark3 bg-dark1 p-6 transition-colors hover:border-dark4"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -76,11 +76,12 @@ export default function MatrixCard() {
           className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-20"
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
-          <h3 className="mb-2 text-xl font-bold text-dark12 pointer-events-none select-none">
+          <h3 className="pointer-events-none mb-2 select-none text-xl font-bold text-dark12">
             Matrix Effect Card
           </h3>
-          <p className="text-center text-dark11 pointer-events-none select-none">
-            Hover or hold down over this card to see the matrix rain effect in action.
+          <p className="pointer-events-none select-none text-center text-dark11">
+            Hover or hold down over this card to see the matrix rain effect in
+            action.
           </p>
         </div>
       </motion.div>

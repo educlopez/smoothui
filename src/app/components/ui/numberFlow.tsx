@@ -9,19 +9,10 @@ const springTransition = {
   stiffness: 700,
   damping: 30,
   mass: 1,
+  bounce: 0.5,
 }
 
-const AnimatedDigit = ({
-  value,
-  prev,
-  index,
-  total,
-}: {
-  value: number
-  prev: number
-  index: number
-  total: number
-}) => {
+const AnimatedDigit = ({ value, prev }: { value: number; prev: number }) => {
   const increasing = value > prev
 
   return (
@@ -45,11 +36,7 @@ const AnimatedDigit = ({
           transition={{
             duration: 0.3,
             delay: 0.05,
-            type: "spring",
-            stiffness: 700,
-            damping: 30,
-            mass: 1,
-            bounce: 0.5,
+            ...springTransition,
           }}
           className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
         >
@@ -92,8 +79,6 @@ export default function NumberFlow() {
               key={`digit-${index}`}
               value={digit}
               prev={prevDigits[index]}
-              index={index}
-              total={digits.length}
             />
           ))}
         </motion.div>

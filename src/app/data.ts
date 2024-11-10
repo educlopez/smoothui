@@ -1,23 +1,18 @@
-import fs from "fs";
-import path from "path";
+import fs from "fs"
+import path from "path"
 
-
-
-import AppDownloader from "@/app/components/ui/appDownloader";
-import { AppleList } from "@/app/components/ui/appleList";
-import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard";
-import AvatarDrop from "@/app/components/ui/avatarDrop";
-import ButtonCopyStates from "@/app/components/ui/buttonCopyStates";
-import FluidMorph from "@/app/components/ui/fluidMorph";
-import ImageSelector from "@/app/components/ui/imageSelector";
-import IosPoweroff from "@/app/components/ui/iosPoweroff";
-import MatrixCard from "@/app/components/ui/matrixCard";
-import { TagsVanish } from "@/app/components/ui/tagsVanish";
-import DynamicIsland from "@/app/components/ui/dynamicIsland";
-
-
-
-
+import AppDownloader from "@/app/components/ui/appDownloader"
+import { AppleList } from "@/app/components/ui/appleList"
+import { ArenaOpenCard } from "@/app/components/ui/arenaOpenCard"
+import AvatarDrop from "@/app/components/ui/avatarDrop"
+import ButtonCopyStates from "@/app/components/ui/buttonCopyStates"
+import DynamicIsland from "@/app/components/ui/dynamicIsland"
+import FluidMorph from "@/app/components/ui/fluidMorph"
+import ImageSelector from "@/app/components/ui/imageSelector"
+import IosPoweroff from "@/app/components/ui/iosPoweroff"
+import MatrixCard from "@/app/components/ui/matrixCard"
+import NumberFlow from "@/app/components/ui/numberFlow"
+import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
 function getComponentCode(componentName: string): string {
   if (typeof window === "undefined") {
@@ -147,5 +142,14 @@ export const components: ComponentsProps[] = [
     info: "A reusable Dynamic Island component inspired by Apple's design, featuring smooth state transitions and animations.",
     componentUi: DynamicIsland,
     code: getComponentCode("dynamicIsland"),
+  },
+  {
+    id: 12,
+    componentTitle: "Number Flow",
+    tags: ["react", "framer-motion", "tailwindcss"],
+    href: "https://x.com/educalvolpz",
+    info: "A component that animates the transition of numbers, showcasing smooth animations for incrementing and decrementing values.",
+    componentUi: NumberFlow,
+    code: getComponentCode("numberFlow"),
   },
 ]
