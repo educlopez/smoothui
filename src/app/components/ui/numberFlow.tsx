@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useRef, useState } from "react"
+import { AnimatePresence, motion } from "framer-motion"
 import { Minus, Plus } from "lucide-react"
 
 const springTransition = {
@@ -10,7 +10,6 @@ const springTransition = {
   damping: 30,
   mass: 1,
 }
-
 
 const AnimatedDigit = ({
   value,
@@ -26,24 +25,33 @@ const AnimatedDigit = ({
   const increasing = value > prev
 
   return (
-    <div className="relative h-16 w-12 overflow-hidden rounded-lg bg-white">
+    <div className="relative h-16 w-12 overflow-hidden rounded-lg bg-light2 dark:bg-dark2">
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
           key={value}
-          initial={{ y: increasing ? 100 : -100 ,opacity: 0,
-            scale: 0.8 }}
-          animate={{ y: 0, opacity: 1,
-            scale: 1 }}
-          exit={{ y: increasing ? -100 : 100,  opacity: 0,scale: 0.8}}
+          initial={{
+            y: increasing ? 100 : -100,
+            opacity: 0,
+            filter: "blur(5px)",
+            scale: 0.8,
+          }}
+          animate={{ y: 0, opacity: 1, filter: "blur(0px)", scale: 1 }}
+          exit={{
+            y: increasing ? -100 : 100,
+            opacity: 0,
+            scale: 0.8,
+            filter: "blur(5px)",
+          }}
           transition={{
             duration: 0.3,
-            delay: (total - index - 1) * 0.1,
+            delay: 0.05,
             type: "spring",
             stiffness: 700,
             damping: 30,
             mass: 1,
+            bounce: 0.5,
           }}
-          className="absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+          className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
         >
           {value}
         </motion.div>
@@ -73,8 +81,8 @@ export default function NumberFlow() {
     .map(Number)
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-8 ">
-      <div className="flex items-center gap-2 rounded-xl bg-white p-4 shadow-lg">
+    <div className="flex min-h-screen flex-col items-center justify-center gap-8">
+      <div className="flex items-center gap-2 rounded-xl bg-light1 p-4 shadow-sm dark:bg-dark1">
         <motion.div
           className="flex items-center gap-1"
           transition={springTransition}
@@ -89,21 +97,20 @@ export default function NumberFlow() {
             />
           ))}
         </motion.div>
-        <div className="ml-2 flex flex-col gap-2">
-        <button
+        <div className="flex flex-col gap-1">
+          <button
             onClick={increment}
             disabled={value >= max}
-            className="h-8 w-8"
+            className="relative w-auto overflow-hidden rounded-md border border-light3 bg-light1 p-2 disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >
-            <Plus className="h-4 w-4" />
+            <Plus className="h-3 w-3" />
           </button>
           <button
-
             onClick={decrement}
             disabled={value <= min}
-            className="h-8 w-8"
+            className="relative w-auto overflow-hidden rounded-md border border-light3 bg-light1 p-2 disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >
-            <Minus className="h-4 w-4" />
+            <Minus className="h-3 w-3" />
           </button>
         </div>
       </div>
