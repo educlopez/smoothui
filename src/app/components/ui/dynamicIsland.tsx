@@ -32,32 +32,11 @@ const variants = {
   }),
 };
 
-// Weather types and configs
-type WeatherType = 'sunny' | 'cloudy' | 'rainy' | 'storm';
-
-const WEATHER_CONFIGS = {
-  sunny: { icon: Sun, color: 'yellow-400', temp: '24°C' },
-  cloudy: { icon: Cloud, color: 'gray-400', temp: '18°C' },
-  rainy: { icon: CloudRain, color: 'blue-400', temp: '15°C' },
-  storm: { icon: CloudLightning, color: 'purple-500', temp: '12°C' },
-} as const;
 
 // Idle Component with Weather
 const Idle = () => {
-  const [weather, setWeather] = useState<WeatherType>('sunny');
   const [showTemp, setShowTemp] = useState(false);
 
-  // Simulate weather changes
-  useEffect(() => {
-    const weathers: WeatherType[] = ['sunny', 'cloudy', 'rainy', 'storm'];
-    const interval = setInterval(() => {
-      setWeather(weathers[Math.floor(Math.random() * weathers.length)]);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const config = WEATHER_CONFIGS[weather];
-  const WeatherIcon = config.icon;
 
   return (
     <motion.div
@@ -68,13 +47,13 @@ const Idle = () => {
     >
       <AnimatePresence mode="wait">
         <motion.div
-          key={weather}
+          key="storm"
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          className={`text-${config.color}`}
+          className="text-white"
         >
-          <WeatherIcon className="h-5 w-5" />
+          <CloudLightning className="h-5 w-5" />
         </motion.div>
       </AnimatePresence>
 
@@ -87,7 +66,7 @@ const Idle = () => {
             className="flex items-center gap-1 text-white overflow-hidden"
           >
             <Thermometer className="h-3 w-3" />
-            <span className="text-xs whitespace-nowrap">{config.temp}</span>
+            <span className="text-xs whitespace-nowrap pointer-events-none">12°C</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -98,11 +77,11 @@ const Idle = () => {
 // Ring Component
 const Ring = () => {
   return (
-    <div className="flex items-center gap-3 px-4 py-2 text-white w-64">
+    <div className="flex items-center gap-3 px-4 py-2 text-white w-64 overflow-hidden">
       <Phone className="h-5 w-5" />
       <div className="flex-1">
-        <p className="text-sm font-medium">Incoming Call</p>
-        <p className="text-xs opacity-70">John Doe</p>
+        <p className="text-sm font-medium pointer-events-none">Incoming Call</p>
+        <p className="text-xs opacity-70 pointer-events-none">Guillermo Rauch</p>
       </div>
       <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
     </div>
@@ -121,10 +100,10 @@ const Timer = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2 text-white w-64">
+    <div className="flex items-center gap-3 px-4 py-2 text-white w-64 overflow-hidden">
       <TimerIcon className="h-5 w-5" />
       <div className="flex-1">
-        <p className="text-sm font-medium">{time}s remaining</p>
+        <p className="text-sm font-medium pointer-events-none">{time}s remaining</p>
       </div>
       <div className="h-1 w-24 overflow-hidden rounded-full bg-white/20">
         <motion.div
@@ -215,15 +194,15 @@ export default function DynamicIsland() {
           </AnimatePresence>
         </div>
 
-        <div className="flex w-full justify-center gap-4">
+        <div className="flex w-full justify-center gap-1 md:gap-4">
           {["idle", "ring", "timer"].map((v) => (
             <motion.button
               type="button"
               key={v}
               onClick={() => handleViewChange(v as View)}
               className={`
-                rounded-full capitalize w-32 h-10
-                bg-white px-2.5 py-1.5 text-sm font-medium
+                rounded-full capitalize w-fit md:w-32 h-10
+                bg-white px-10 md:px-2.5 py-1.5 text-sm font-medium
                 text-gray-900 shadow-sm ring-1 ring-inset
                 ring-gray-300/50 hover:bg-gray-50
                 ${view === v ? "ring-2 ring-blue-500" : ""}
