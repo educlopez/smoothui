@@ -76,11 +76,11 @@ export default function MatrixCard() {
           className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-20"
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
-          <h3 className="mb-2 text-xl font-bold text-dark12">
+          <h3 className="mb-2 text-xl font-bold text-dark12 pointer-events-none">
             Matrix Effect Card
           </h3>
-          <p className="text-center text-dark11">
-            Hover or touch over this card to see the matrix rain effect in action.
+          <p className="text-center text-dark11 pointer-events-none">
+            Hover or hold down over this card to see the matrix rain effect in action.
           </p>
         </div>
       </motion.div>
