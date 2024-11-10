@@ -59,12 +59,14 @@ export default function MatrixCard() {
   }, [isHovered])
 
   return (
-    <div className="flex min-h-[300px] w-full items-center justify-center p-4 md:h-[640px]">
+    <div className="flex min-h-[300px] w-full items-center justify-center p-4 h-[400px] md:h-[640px]">
       <motion.div
         ref={containerRef}
-        className="group relative h-full w-full max-w-md overflow-hidden rounded-xl border   p-6 transition-colors  border-dark3 bg-dark1 hover:border-dark4"
+        className="group relative h-full w-full max-w-md overflow-hidden rounded-xl border p-6 transition-colors border-dark3 bg-dark1 hover:border-dark4"
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
+        onTouchStart={() => setIsHovered(true)}
+        onTouchEnd={() => setIsHovered(false)}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.3 }}
@@ -78,7 +80,7 @@ export default function MatrixCard() {
             Matrix Effect Card
           </h3>
           <p className="text-center text-dark11">
-            Hover over this card to see the matrix rain effect in action.
+            Hover or touch over this card to see the matrix rain effect in action.
           </p>
         </div>
       </motion.div>
