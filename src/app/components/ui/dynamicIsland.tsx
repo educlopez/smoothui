@@ -1,13 +1,10 @@
 "use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import {
-  Cloud,
   CloudLightning,
-  CloudRain,
   Phone,
-  Sun,
   Thermometer,
   Timer as TimerIcon,
 } from "lucide-react"
