@@ -2,8 +2,8 @@
 
 import { useCallback, useState } from "react"
 import Image from "next/image"
-import { AnimatePresence, motion } from "framer-motion"
 import { Share2, Trash2 } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 import blueArt from "@/app/components/resources/images/blueart.jpeg"
 import orangeArt from "@/app/components/resources/images/orangeart.jpeg"

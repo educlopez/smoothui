@@ -1,8 +1,8 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import { Minus, Plus } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 const springTransition = {
   type: "spring",

@@ -47,7 +47,7 @@ export const components: ComponentsProps[] = [
   {
     id: 1,
     componentTitle: "Job Listing Component",
-    tags: ["react", "framer-motion", "tailwindcss"],
+    tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "Job listing component with animation when showing more information",
     componentUi: AppleList,
@@ -56,7 +56,7 @@ export const components: ComponentsProps[] = [
   {
     id: 2,
     componentTitle: "Image Metadata Preview",
-    tags: ["react", "framer-motion", "tailwindcss"],
+    tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "Component that displays the metadata information of an image, uses useMeasure to get the size of the information box and move the image on the Y axis",
     componentUi: ArenaOpenCard,
@@ -65,7 +65,7 @@ export const components: ComponentsProps[] = [
   {
     id: 3,
     componentTitle: "Animated Tags",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Component that displays tags with an animation when they are added or removed from the list of selected tags",
     componentUi: TagsVanish,
@@ -74,7 +74,7 @@ export const components: ComponentsProps[] = [
   {
     id: 4,
     componentTitle: "Fluid Morph",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Component that morphs a fluid shape into another fluid shape",
     componentUi: FluidMorph,
@@ -83,7 +83,7 @@ export const components: ComponentsProps[] = [
   {
     id: 5,
     componentTitle: "Interactive Image Selector",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Select images by clicking on them, delete selected images using the trash icon, and reset the gallery with the refresh button. Inspired by the smooth and intuitive photo gallery experience of iPhones, this interface features seamless animations for an engaging user experience.",
     componentUi: ImageSelector,
@@ -92,7 +92,7 @@ export const components: ComponentsProps[] = [
   {
     id: 6,
     componentTitle: "App Download Stack",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Inspired by Family.co and the example by Jenson Wong, this component presents a stack of apps, allowing users to open the stack, select the apps they want, and download them.",
     componentUi: AppDownloader,
@@ -101,7 +101,7 @@ export const components: ComponentsProps[] = [
   {
     id: 7,
     componentTitle: "iOS Power off",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Inspired by the power off animation of iPhones, this component allows the user to slide to power off the device.",
     componentUi: IosPoweroff,
@@ -110,7 +110,7 @@ export const components: ComponentsProps[] = [
   {
     id: 8,
     componentTitle: "User Account Avatar",
-    tags: ["react", "tailwindcss", "framer-motion", "radix-ui"],
+    tags: ["react", "tailwindcss", "motion", "radix-ui"],
     href: "https://x.com/educalvolpz",
     info: "Component that displays a user's avatar and allows the user to edit their profile information and order history.",
     componentUi: AvatarDrop,
@@ -119,7 +119,7 @@ export const components: ComponentsProps[] = [
   {
     id: 9,
     componentTitle: "Button Copy",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
     componentUi: ButtonCopyStates,
@@ -128,7 +128,7 @@ export const components: ComponentsProps[] = [
   {
     id: 10,
     componentTitle: "Matrix Card",
-    tags: ["react", "tailwindcss", "framer-motion"],
+    tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "A reusable card component that displays a matrix rain effect on hover, combining smooth animations with canvas-based effects.",
     componentUi: MatrixCard,
@@ -137,7 +137,7 @@ export const components: ComponentsProps[] = [
   {
     id: 11,
     componentTitle: "Dynamic Island",
-    tags: ["react", "framer-motion", "tailwindcss"],
+    tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "A reusable Dynamic Island component inspired by Apple's design, featuring smooth state transitions and animations.",
     componentUi: DynamicIsland,
@@ -146,7 +146,7 @@ export const components: ComponentsProps[] = [
   {
     id: 12,
     componentTitle: "Number Flow",
-    tags: ["react", "framer-motion", "tailwindcss"],
+    tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "A component that animates the transition of numbers, showcasing smooth animations for incrementing and decrementing values.",
     componentUi: NumberFlow,

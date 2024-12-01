@@ -1,8 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import { Check, Code, Copy, Eye } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 

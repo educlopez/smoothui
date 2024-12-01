@@ -1,14 +1,14 @@
 "use client"
 
 import { RefObject, useRef, useState } from "react"
+import { Power } from "lucide-react"
 import {
   motion,
   useAnimation,
   useAnimationFrame,
   useMotionValue,
   useTransform,
-} from "framer-motion"
-import { Power } from "lucide-react"
+} from "motion/react"
 
 export default function IosPoweroff() {
   const [isPoweringOff, setIsPoweringOff] = useState(false)

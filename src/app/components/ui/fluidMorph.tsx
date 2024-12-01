@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { animate } from "framer-motion"
+import { animate } from "motion/react"
 
 const numbers = [
   "M128 40L230 215.766H26L128 40Z",

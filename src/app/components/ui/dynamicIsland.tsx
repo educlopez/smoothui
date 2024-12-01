@@ -1,13 +1,13 @@
 "use client"
 
 import { useMemo, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import {
   CloudLightning,
   Phone,
   Thermometer,
   Timer as TimerIcon,
 } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 // Animation variants remain the same
 const ANIMATION_VARIANTS = {

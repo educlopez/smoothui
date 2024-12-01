@@ -1,8 +1,8 @@
 "use client"
 
 import { useCallback, useMemo, useState } from "react"
-import { AnimatePresence, motion, useAnimation } from "framer-motion"
 import { ChevronDown } from "lucide-react"
+import { AnimatePresence, motion, useAnimation } from "motion/react"
 
 import Arc from "@/app/components/resources/iconapps/arc.png"
 import Canary from "@/app/components/resources/iconapps/canary.png"

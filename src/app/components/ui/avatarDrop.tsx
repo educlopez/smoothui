@@ -3,8 +3,8 @@
 import { useState } from "react"
 import Image from "next/image"
 import * as Popover from "@radix-ui/react-popover"
-import { AnimatePresence, motion } from "framer-motion"
 import { Eye, Package, User } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 import Avatar from "@/app/components/resources/avatardrop/avatar.jpg"
 

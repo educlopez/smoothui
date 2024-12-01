@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import { CircleX, Plus } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 export function TagsVanish() {
   const [selectedTag, setSelectedTag] = useState<string[]>([])

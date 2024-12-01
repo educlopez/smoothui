@@ -2,8 +2,8 @@
 
 import { useState } from "react"
 import Image from "next/image"
-import { AnimatePresence, motion } from "framer-motion"
 import { ChevronUp, CircleX, Share } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
 import arenaOpenCard from "../../../../public/images/arenaOpenCard.png"

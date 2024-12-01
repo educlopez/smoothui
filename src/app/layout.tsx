@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   },
   description: "A collection of awesome test components with smooth animations",
   keywords: [
-    "components, Smooth animations, Awesome test components, framermotion, framer-motion, Interactive components",
+    "components, Smooth animations, Awesome test components, motion, framer-motion, Interactive components",
   ],
   openGraph: {
     title: "SmoothUI",

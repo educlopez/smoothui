@@ -1,8 +1,8 @@
 "use client"
 
 import { ReactNode, useCallback, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
 import { Check, Copy, LoaderCircle } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 interface Button {
   idle: ReactNode
