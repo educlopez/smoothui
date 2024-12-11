@@ -2,96 +2,179 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Minus, Plus } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
 
-const springTransition = {
-  type: "spring",
-  stiffness: 700,
-  damping: 30,
-  mass: 1,
-  bounce: 0.5,
-}
-
-const AnimatedDigit = ({ value, prev }: { value: number; prev: number }) => {
-  const increasing = value > prev
-
-  return (
-    <div className="relative h-16 w-12 overflow-hidden rounded-lg bg-light2 dark:bg-dark2">
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.div
-          key={value}
-          initial={{
-            y: increasing ? 100 : -100,
-            opacity: 0,
-            filter: "blur(5px)",
-            scale: 0.8,
-          }}
-          animate={{ y: 0, opacity: 1, filter: "blur(0px)", scale: 1 }}
-          exit={{
-            y: increasing ? -100 : 100,
-            opacity: 0,
-            scale: 0.8,
-            filter: "blur(5px)",
-          }}
-          transition={{
-            duration: 0.3,
-            delay: 0.05,
-            ...springTransition,
-          }}
-          className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
-        >
-          {value}
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  )
-}
+import { cn } from "@/app/utils/utils"
 
 export default function NumberFlow() {
   const [value, setValue] = useState(0)
-  const prevValue = useRef(0)
+  const [prevValue, setPrevValue] = useState(0)
   const min = 0
   const max = 999
 
+  const prevValueRef = useRef<HTMLElement>(null)
+  const nextValueRef = useRef<HTMLElement>(null)
+  const prevValueTens = useRef<HTMLElement>(null)
+  const nextValueTens = useRef<HTMLElement>(null)
+  const prevValueHunds = useRef<HTMLElement>(null)
+  const nextValueHunds = useRef<HTMLElement>(null)
+
+  const add = () => {
+    if (value < max) {
+      setPrevValue(value)
+      setValue((prevValue) => prevValue + 1)
+    }
+  }
+
+  const subtract = () => {
+    if (value > min) {
+      setPrevValue(value)
+      setValue((prevValue) => prevValue - 1)
+    }
+  }
+
   useEffect(() => {
-    prevValue.current = value
-  }, [value])
+    const prev = prevValueRef.current
+    const next = nextValueRef.current
+    const prevTens = prevValueTens.current
+    const nextTens = nextValueTens.current
+    const prevHunds = prevValueTens.current
+    const nextHunds = nextValueTens.current
 
-  const increment = () => setValue((prev) => Math.min(prev + 1, max))
-  const decrement = () => setValue((prev) => Math.max(prev - 1, min))
+    if (prev && next) {
+      if (value > prevValue) {
+        prev.classList.add("slide-out-up")
+        next.classList.add("slide-in-up")
+      } else {
+        prev.classList.add("slide-out-down")
+        next.classList.add("slide-in-down")
+      }
 
-  const digits = value.toString().padStart(3, "0").split("").map(Number)
-  const prevDigits = prevValue.current
-    .toString()
-    .padStart(3, "0")
-    .split("")
-    .map(Number)
+      const handleAnimationEnd = () => {
+        prev.classList.remove("slide-out-up", "slide-out-down")
+        next.classList.remove("slide-in-up", "slide-in-down")
+        prev.removeEventListener("animationend", handleAnimationEnd)
+      }
+
+      prev.addEventListener("animationend", handleAnimationEnd)
+    }
+
+    if (
+      prevTens &&
+      nextTens &&
+      Math.floor(value / 10) !== Math.floor(prevValue / 10)
+    ) {
+      if (Math.floor(value / 10) > Math.floor(prevValue / 10)) {
+        prevTens.classList.add("slide-out-up")
+        nextTens.classList.add("slide-in-up")
+      } else if (Math.floor(value / 10) < Math.floor(prevValue / 10)) {
+        prevTens.classList.add("slide-out-down")
+        nextTens.classList.add("slide-in-down")
+      }
+
+      const handleAnimationEndTens = () => {
+        prevTens.classList.remove("slide-out-up", "slide-out-down")
+        nextTens.classList.remove("slide-in-up", "slide-in-down")
+        prevTens.removeEventListener("animationend", handleAnimationEndTens)
+      }
+
+      prevTens.addEventListener("animationend", handleAnimationEndTens)
+    }
+
+    if (
+      prevHunds &&
+      nextHunds &&
+      Math.floor(value / 100) !== Math.floor(prevValue / 100)
+    ) {
+      if (Math.floor(value / 100) > Math.floor(prevValue / 100)) {
+        prevHunds.classList.add("slide-out-up")
+        nextHunds.classList.add("slide-in-up")
+      } else if (Math.floor(value / 100) < Math.floor(prevValue / 100)) {
+        prevHunds.classList.add("slide-out-down")
+        nextHunds.classList.add("slide-in-down")
+      }
+
+      const handleAnimationEndTens = () => {
+        prevHunds.classList.remove("slide-out-up", "slide-out-down")
+        nextHunds.classList.remove("slide-in-up", "slide-in-down")
+        prevHunds.removeEventListener("animationend", handleAnimationEndTens)
+      }
+
+      prevHunds.addEventListener("animationend", handleAnimationEndTens)
+    }
+  }, [value, prevValue])
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
       <div className="flex items-center gap-2 rounded-xl bg-light1 p-4 shadow-sm dark:bg-dark1">
-        <motion.div
-          className="flex items-center gap-1"
-          transition={springTransition}
-        >
-          {digits.map((digit, index) => (
-            <AnimatedDigit
-              key={`digit-${index}`}
-              value={digit}
-              prev={prevDigits[index]}
-            />
-          ))}
-        </motion.div>
+        <div className={cn("flex items-center gap-1")}>
+          <div
+            className={cn(
+              "relative h-16 w-12 overflow-hidden rounded-lg bg-light2 dark:bg-dark2"
+            )}
+          >
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={prevValueHunds}
+              style={{ transform: `translateY(-100%)` }}
+            >
+              {Math.floor(prevValue / 100)}
+            </span>
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={nextValueHunds}
+              style={{ transform: `translateY(0%)` }}
+            >
+              {Math.floor(value / 100)}
+            </span>
+          </div>
+          <div
+            className={cn(
+              "relative h-16 w-12 overflow-hidden rounded-lg bg-light2 dark:bg-dark2"
+            )}
+          >
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={prevValueTens}
+              style={{ transform: `translateY(-100%)` }}
+            >
+              {Math.floor(prevValue / 10) % 10}
+            </span>
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={nextValueTens}
+              style={{ transform: `translateY(0%)` }}
+            >
+              {Math.floor(value / 10) % 10}
+            </span>
+          </div>
+          <div className="relative h-16 w-12 overflow-hidden rounded-lg bg-light2 dark:bg-dark2">
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={prevValueRef}
+              style={{ transform: `translateY(-100%)` }}
+            >
+              {prevValue % 10}
+            </span>
+            <span
+              className="text-ligh12 absolute inset-0 flex items-center justify-center text-2xl font-semibold dark:text-dark12"
+              ref={nextValueRef}
+              style={{ transform: `translateY(0%)` }}
+            >
+              {value % 10}
+            </span>
+          </div>
+        </div>
+
         <div className="flex flex-col gap-1">
           <button
-            onClick={increment}
+            onClick={add}
             disabled={value >= max}
             className="relative w-auto overflow-hidden rounded-md border border-light3 bg-light1 p-2 disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >
             <Plus className="h-3 w-3" />
           </button>
           <button
-            onClick={decrement}
+            onClick={subtract}
             disabled={value <= min}
             className="relative w-auto overflow-hidden rounded-md border border-light3 bg-light1 p-2 disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
           >

@@ -146,7 +146,7 @@ export const components: ComponentsProps[] = [
   {
     id: 12,
     componentTitle: "Number Flow",
-    tags: ["react", "motion", "tailwindcss"],
+    tags: ["react", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "A component that animates the transition of numbers, showcasing smooth animations for incrementing and decrementing values.",
     componentUi: NumberFlow,
