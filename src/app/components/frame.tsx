@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Check, Code, Copy, Eye } from "lucide-react"
+import { Check, Code, Copy, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
@@ -44,8 +44,8 @@ export default function Frame({ component }: FrameProps) {
                 {component.componentTitle}
               </h3>
               {component.isUpdated && (
-                <span className="ml-2 rounded-sm bg-pink-200 px-2 py-1 text-xs text-pink-800">
-                  Update
+                <span className="ml-2 flex select-none flex-row gap-1 overflow-hidden rounded-md bg-pink-600/10 px-2 py-1 text-xs font-medium text-pink-600 transition-colors duration-200 ease-out dark:bg-pink-600/15">
+                  <FlaskConical size={14} /> Update
                 </span>
               )}
             </div>
