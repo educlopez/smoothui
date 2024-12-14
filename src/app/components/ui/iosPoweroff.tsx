@@ -58,20 +58,7 @@ export default function IosPoweroff() {
             className="relative h-14 overflow-hidden rounded-full bg-light5 dark:bg-dark5"
           >
             <div className="absolute inset-0 left-8 z-0 flex items-center justify-center overflow-hidden">
-              <div
-                ref={textRef}
-                className="text-md relative w-full select-none text-center font-normal text-light12 dark:invert"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(90deg, currentColor 0%, currentColor 45%, white 50%, currentColor 55%, currentColor 100%)",
-                  backgroundSize: "200% 100%",
-                  backgroundPosition: "var(--x, 100%) 0",
-                  backgroundClip: "text",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  transition: "none",
-                }}
-              >
+              <div className="text-md loading-shimmer relative w-full select-none text-center font-normal text-light12">
                 Slide to power off
               </div>
             </div>

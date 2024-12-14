@@ -41,6 +41,7 @@ export interface ComponentsProps {
   info: string
   componentUi?: React.ElementType
   code?: string
+  isUpdated?: boolean
 }
 
 export const components: ComponentsProps[] = [
@@ -52,6 +53,7 @@ export const components: ComponentsProps[] = [
     info: "Job listing component with animation when showing more information",
     componentUi: AppleList,
     code: getComponentCode("appleList"),
+    isUpdated: false,
   },
   {
     id: 2,
@@ -61,6 +63,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays the metadata information of an image, uses useMeasure to get the size of the information box and move the image on the Y axis",
     componentUi: ArenaOpenCard,
     code: getComponentCode("arenaOpenCard"),
+    isUpdated: false,
   },
   {
     id: 3,
@@ -70,6 +73,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays tags with an animation when they are added or removed from the list of selected tags",
     componentUi: TagsVanish,
     code: getComponentCode("tagsVanish"),
+    isUpdated: false,
   },
   {
     id: 4,
@@ -79,6 +83,7 @@ export const components: ComponentsProps[] = [
     info: "Component that morphs a fluid shape into another fluid shape",
     componentUi: FluidMorph,
     code: getComponentCode("fluidMorph"),
+    isUpdated: false,
   },
   {
     id: 5,
@@ -88,6 +93,7 @@ export const components: ComponentsProps[] = [
     info: "Select images by clicking on them, delete selected images using the trash icon, and reset the gallery with the refresh button. Inspired by the smooth and intuitive photo gallery experience of iPhones, this interface features seamless animations for an engaging user experience.",
     componentUi: ImageSelector,
     code: getComponentCode("imageSelector"),
+    isUpdated: false,
   },
   {
     id: 6,
@@ -97,6 +103,7 @@ export const components: ComponentsProps[] = [
     info: "Inspired by Family.co and the example by Jenson Wong, this component presents a stack of apps, allowing users to open the stack, select the apps they want, and download them.",
     componentUi: AppDownloader,
     code: getComponentCode("appDownloader"),
+    isUpdated: false,
   },
   {
     id: 7,
@@ -106,6 +113,7 @@ export const components: ComponentsProps[] = [
     info: "Inspired by the power off animation of iPhones, this component allows the user to slide to power off the device.",
     componentUi: IosPoweroff,
     code: getComponentCode("iosPoweroff"),
+    isUpdated: true,
   },
   {
     id: 8,
@@ -115,6 +123,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays a user's avatar and allows the user to edit their profile information and order history.",
     componentUi: AvatarDrop,
     code: getComponentCode("avatarDrop"),
+    isUpdated: false,
   },
   {
     id: 9,
@@ -124,6 +133,7 @@ export const components: ComponentsProps[] = [
     info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
     componentUi: ButtonCopyStates,
     code: getComponentCode("buttonCopyStates"),
+    isUpdated: false,
   },
   {
     id: 10,
@@ -133,6 +143,7 @@ export const components: ComponentsProps[] = [
     info: "A reusable card component that displays a matrix rain effect on hover, combining smooth animations with canvas-based effects.",
     componentUi: MatrixCard,
     code: getComponentCode("matrixCard"),
+    isUpdated: false,
   },
   {
     id: 11,
@@ -142,6 +153,7 @@ export const components: ComponentsProps[] = [
     info: "A reusable Dynamic Island component inspired by Apple's design, featuring smooth state transitions and animations.",
     componentUi: DynamicIsland,
     code: getComponentCode("dynamicIsland"),
+    isUpdated: false,
   },
   {
     id: 12,
@@ -151,5 +163,6 @@ export const components: ComponentsProps[] = [
     info: "A component that animates the transition of numbers, showcasing smooth animations for incrementing and decrementing values.",
     componentUi: NumberFlow,
     code: getComponentCode("numberFlow"),
+    isUpdated: true,
   },
 ]

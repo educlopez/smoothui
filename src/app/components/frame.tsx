@@ -9,7 +9,11 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 import type { ComponentsProps } from "@/app/data"
 import { copyToClipboard } from "@/app/utils/copyToClipboard"
 
-export default function Frame({ component }: { component: ComponentsProps }) {
+interface FrameProps {
+  component: ComponentsProps
+}
+
+export default function Frame({ component }: FrameProps) {
   const [showCode, setShowCode] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
 
@@ -39,6 +43,11 @@ export default function Frame({ component }: { component: ComponentsProps }) {
                 </span>{" "}
                 {component.componentTitle}
               </h3>
+              {component.isUpdated && (
+                <span className="ml-2 rounded-sm bg-pink-200 px-2 py-1 text-xs text-pink-800">
+                  Update
+                </span>
+              )}
             </div>
             <AnimatePresence mode="popLayout" initial={false}>
               <button
@@ -59,7 +68,7 @@ export default function Frame({ component }: { component: ComponentsProps }) {
                   </motion.span>
                 ) : (
                   <motion.span
-                    key="view-component"
+                    key="view-code"
                     initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
                     animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                     exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
