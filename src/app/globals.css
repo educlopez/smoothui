@@ -101,7 +101,7 @@
   background-position: -100% top;
 }
 .loading-shimmer:hover {
-  -webkit-text-fill-color: var(--text-primary);
+  -webkit-text-fill-color: var(--text-quaternary);
   animation: none;
   background: transparent;
 }
