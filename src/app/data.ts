@@ -14,6 +14,8 @@ import MatrixCard from "@/app/components/ui/matrixCard"
 import NumberFlow from "@/app/components/ui/numberFlow"
 import { TagsVanish } from "@/app/components/ui/tagsVanish"
 
+import SocialSelector from "./components/ui/socialSelector"
+
 function getComponentCode(componentName: string): string {
   if (typeof window === "undefined") {
     const filePath = path.join(
@@ -164,5 +166,15 @@ export const components: ComponentsProps[] = [
     componentUi: NumberFlow,
     code: getComponentCode("numberFlow"),
     isUpdated: true,
+  },
+  {
+    id: 13,
+    componentTitle: "Social selector",
+    tags: ["react", "tailwindcss", "motion"],
+    href: "https://x.com/educalvolpz",
+    info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
+    componentUi: SocialSelector,
+    code: getComponentCode("socialselector"),
+    isUpdated: false,
   },
 ]
