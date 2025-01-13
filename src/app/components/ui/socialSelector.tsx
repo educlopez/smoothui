@@ -53,7 +53,7 @@ export default function SocialSelector() {
                 className={`relative z-10 rounded-full p-2 transition-colors ${
                   selectedPlatform.name === platform.name
                     ? "fill-white"
-                    : "fill-zinc-400 hover:bg-zinc-800/50 hover:fill-white"
+                    : "fill-zinc-400 hover:bg-zinc-800/50 hover:fill-white dark:fill-zinc-500"
                 }`}
                 aria-label={`Select ${platform.name} platform`}
               >
@@ -63,7 +63,7 @@ export default function SocialSelector() {
             ))}
             <motion.div
               layoutId="background"
-              className="absolute inset-0 z-0 h-9 w-9 rounded-full bg-zinc-800"
+              className="absolute inset-0 z-0 h-9 w-9 rounded-full bg-zinc-800 dark:bg-zinc-950"
               initial={false}
               animate={{
                 x:
@@ -78,9 +78,9 @@ export default function SocialSelector() {
             />
           </div>
         </div>
-        <p className="text-sm text-zinc-500">
+        <p className="text-sm text-zinc-500 dark:text-zinc-300">
           Updates on{" "}
-          <span className="font-medium text-zinc-500">
+          <span className="font-medium text-zinc-500 dark:text-zinc-300">
             <motion.a
               key={selectedPlatform.domain}
               initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
@@ -99,7 +99,7 @@ export default function SocialSelector() {
             href={selectedPlatform.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium text-zinc-950"
+            className="font-medium text-zinc-950 dark:text-zinc-50"
           >
             @{handle}
           </a>
