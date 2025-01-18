@@ -16,7 +16,7 @@ const buttonCopy: Button = {
   success: <Check size={16} />,
 }
 
-export default function ButtonCopyStates() {
+export default function ButtonCopy() {
   const [buttonState, setButtonState] = useState<keyof Button>("idle")
 
   const handleClick = useCallback(() => {

@@ -32,7 +32,7 @@ const mockOrders: Order[] = [
   { id: "ORD002", date: "2023-03-20", status: "shipped", progress: 66 },
 ]
 
-export default function AvatarDrop() {
+export default function UserAccountAvatar() {
   const [activeSection, setActiveSection] = useState<string | null>(null)
   const [userData, setUserData] = useState<UserData>(initialUserData)
 

@@ -1,3 +1,6 @@
+import Link from "next/link"
+import { Component } from "lucide-react"
+
 import { ThemeSwitch } from "@/app/components/ui/themeSwitch"
 
 export function FloatNav() {
@@ -19,6 +22,13 @@ export function FloatNav() {
           <path d="M14.773 2.5h2.545l-5.56 6.354 6.54 8.646h-5.12l-4.01-5.244-4.59 5.244H2.032l5.946-6.796L1.704 2.5h5.25l3.626 4.793L14.773 2.5zm-.893 13.477h1.41L6.19 3.943H4.676l9.204 12.034z"></path>
         </svg>
       </a>
+      <Link
+        href="/doc"
+        aria-label="Documentation"
+        className="flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+      >
+        <Component size={20} />
+      </Link>
       <ThemeSwitch />
     </nav>
   )

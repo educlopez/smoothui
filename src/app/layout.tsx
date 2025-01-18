@@ -32,13 +32,33 @@ export const metadata: Metadata = {
     siteName: "SmoothUI",
     images: [
       {
-        url: "https://www.smoothui.dev/og.jpg",
         width: 1920,
         height: 1080,
+        url: "https://smoothui.dev/og.jpg",
+        alt: "SmoothUI Cover",
       },
     ],
-    locale: "en-EN",
+    locale: "en",
     type: "website",
+  },
+  twitter: {
+    title: "SmoothUI",
+    images: [
+      {
+        width: 1920,
+        height: 1080,
+        url: "https://smoothui.dev/og.jpg",
+        alt: "SmoothUI Cover",
+      },
+    ],
+    card: "summary_large_image",
+    description:
+      "A collection of awesome test components with smooth animations",
+    site: "@educalvolpz",
+    creator: "Eduardo Calvo",
+  },
+  icons: {
+    shortcut: "/favicon.ico",
   },
   robots: {
     index: true,
@@ -51,20 +71,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  twitter: {
-    title: "SmoothUI",
-    card: "summary_large_image",
-  },
-  icons: {
-    shortcut: "/favicon.ico",
-  },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+type ComponentPageLayout = {
   children: React.ReactNode
-}>) {
+}
+
+export default function RootLayout({ children }: ComponentPageLayout) {
   const shouldInjectToolbar = process.env.NODE_ENV === "development"
   return (
     <html lang="en">

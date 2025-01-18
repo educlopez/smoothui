@@ -6,7 +6,7 @@ import { motion } from "motion/react"
 export default function MatrixCard() {
   const [isHovered, setIsHovered] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const requestRef = useRef<number>()
+  const requestRef = useRef<number>(undefined)
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

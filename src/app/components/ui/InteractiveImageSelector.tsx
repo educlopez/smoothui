@@ -32,7 +32,7 @@ const initialImages: ImageData[] = [
 
 const imageMap = new Map(initialImages.map((img) => [img.id, img]))
 
-export default function ImageSelector() {
+export default function InteractiveImageSelector() {
   const [images, setImages] = useState<number[]>(
     initialImages.map((img) => img.id)
   )

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState, type JSX } from "react";
 import { AnimatePresence, motion } from "motion/react"
 import { useOnClickOutside } from "usehooks-ts"
 
@@ -10,7 +10,7 @@ import {
   Turso,
 } from "@/app/components/resources/logos/appleList"
 
-export const AppleList = () => {
+export const JobListingComponent = () => {
   const [activeItem, setActiveItem] = useState<{
     company: string
     logo: JSX.Element

@@ -10,12 +10,12 @@ import {
   useTransform,
 } from "motion/react"
 
-export default function IosPoweroff() {
+export default function IOSPowerOff() {
   const [isPoweringOff, setIsPoweringOff] = useState(false)
   const x = useMotionValue(0)
   const controls = useAnimation()
   const constraintsRef = useRef(null)
-  const textRef: RefObject<HTMLDivElement> = useRef(null)
+  const textRef: RefObject<HTMLDivElement | null> = useRef(null)
 
   const xInput = [0, 164]
   const opacityOutput = [0, 1]

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import { Minus, Plus } from "lucide-react"
 
-import { cn } from "@/app/utils/utils"
+import { cn } from "@/app/utils/cn"
 
 export default function NumberFlow() {
   const [value, setValue] = useState(0)
