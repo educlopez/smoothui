@@ -8,7 +8,7 @@ import DynamicIsland from "@/app/components/ui/DynamicIsland"
 import FluidMorph from "@/app/components/ui/FluidMorph"
 import { ImageMetadataPreview } from "@/app/components/ui/ImageMetadataPreview"
 import InteractiveImageSelector from "@/app/components/ui/InteractiveImageSelector"
-import IOSPowerOff from "@/app/components/ui/IOSPowerOff"
+import IOSPowerOffSlide from "@/app/components/ui/IOSPowerOffSlide"
 import { JobListingComponent } from "@/app/components/ui/JobListingComponent"
 import MatrixCard from "@/app/components/ui/MatrixCard"
 import NumberFlow from "@/app/components/ui/NumberFlow"
@@ -143,15 +143,15 @@ export const components: ComponentsProps[] = [
   },
   {
     id: 7,
-    componentTitle: "IOS Power off",
-    slug: "ios-power-off",
+    componentTitle: "IOS Power off slide",
+    slug: "ios-power-off-slide",
     type: "image",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Inspired by the power off animation of iPhones, this component allows the user to slide to power off the device.",
-    componentUi: IOSPowerOff,
-    code: getComponentCode("IOSPowerOff"),
+    componentUi: IOSPowerOffSlide,
+    code: getComponentCode("IOSPowerOffSlide"),
     download: "npm i motion clsx tailwind-merge",
     cnFunction: true,
     isUpdated: true,
