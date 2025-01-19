@@ -143,7 +143,7 @@ export const components: ComponentsProps[] = [
   },
   {
     id: 7,
-    componentTitle: "Power off slide",
+    componentTitle: "Power Off Slide",
     slug: "power-off-slide",
     type: "image",
     isNew: false,
