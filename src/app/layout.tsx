@@ -8,7 +8,6 @@ import { ThemeProvider } from "next-themes"
 
 import { Analytics } from "@/app/components/analytics"
 import { FloatNav } from "@/app/components/floatNav"
-import Footer from "@/app/components/footer"
 
 const rubik = Rubik({
   subsets: ["latin"],
@@ -87,7 +86,6 @@ export default function RootLayout({ children }: ComponentPageLayout) {
         <ThemeProvider attribute="class">
           <FloatNav />
           {children}
-          <Footer />
           <Analytics />
         </ThemeProvider>
         {shouldInjectToolbar && <VercelToolbar />}

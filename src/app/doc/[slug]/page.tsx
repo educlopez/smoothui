@@ -114,7 +114,11 @@ export default async function ComponentPage(props: {
             groupName="Components"
             currentPage={component.componentTitle}
           />
-          <h1 className="text-3xl font-bold -tracking-wide text-light12 dark:text-dark12">
+          <h1
+            data-table-content="Introduction"
+            data-level="1"
+            className="text-3xl font-bold -tracking-wide text-light12 dark:text-dark12"
+          >
             {component.componentTitle}
           </h1>
           <p className="text-sm text-light11 dark:text-dark11">
@@ -126,12 +130,14 @@ export default async function ComponentPage(props: {
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </ComponentView>
-
+          <h2 data-table-content="Code" data-level="2">
+            Code
+          </h2>
           {component.download && (
             <CodeBlock
               code={component.download}
               fileName="Terminal"
-              lang="shellscript"
+              lang="shell"
             />
           )}
 
@@ -142,6 +148,7 @@ export default async function ComponentPage(props: {
           <CodeBlock
             code={code}
             fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
+            collapsible={true}
           />
         </div>
 

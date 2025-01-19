@@ -14,31 +14,55 @@ export default function TableOfContent() {
   const pathname = usePathname()
 
   useEffect(() => {
-    // Get all heading elements h1-h6
-    const headingElements = document.querySelectorAll("h1, h2, h3, h4, h5, h6")
+    // Get all elements with data-table-content attribute
+    const contentElements = document.querySelectorAll("[data-table-content]")
+    if (!contentElements.length) return
 
     // Convert NodeList to array of TableOfContentItems
-    const headingItems: TableOfContentItem[] = Array.from(headingElements).map(
-      (heading) => {
-        // Get heading level from tag name (h1 = 1, h2 = 2, etc)
-        const level = parseInt(heading.tagName[1])
+    const headingItems: TableOfContentItem[] = Array.from(contentElements).map(
+      (element) => {
+        // Get heading level from data attribute or default to 2
+        const level = parseInt(element.getAttribute("data-level") || "2")
+        const id =
+          element.id || element.getAttribute("data-table-content") || ""
 
-        // Generate id if not present
-        if (!heading.id) {
-          heading.id =
-            heading.textContent?.toLowerCase().replace(/\s+/g, "-") || ""
+        // If no ID exists, create one from the text content
+        if (!element.id) {
+          element.id = id.toLowerCase().replace(/\s+/g, "-")
         }
 
         return {
-          id: heading.id,
-          text: heading.textContent || "",
+          id: element.id,
+          text:
+            element.getAttribute("data-table-content") ||
+            element.textContent ||
+            "",
           level: level,
         }
       }
     )
 
     setHeadings(headingItems)
-  }, [pathname]) // Add pathname as dependency
+  }, [pathname])
+
+  const getMarginClass = (level: number) => {
+    switch (level) {
+      case 1:
+        return "ml-1"
+      case 2:
+        return "ml-2"
+      case 3:
+        return "ml-4"
+      case 4:
+        return "ml-6"
+      case 5:
+        return "ml-8"
+      case 6:
+        return "ml-10"
+      default:
+        return "ml-2"
+    }
+  }
 
   return (
     <aside className="sticky top-0 hidden h-fit -translate-x-2 p-6 2xl:block">
@@ -70,7 +94,7 @@ export default function TableOfContent() {
             <li key={index} className="flex h-fit">
               <a
                 href={`#${heading.id}`}
-                className={`ml-${heading.level} inline-block h-5 truncate text-[13px] text-light11 no-underline transition-all hover:text-light12 dark:text-dark11 dark:hover:text-dark12`}
+                className={`${getMarginClass(heading.level)} inline-block h-5 truncate text-[13px] text-light11 no-underline transition-all hover:text-light12 dark:text-dark11 dark:hover:text-dark12`}
               >
                 {heading.text}
               </a>
