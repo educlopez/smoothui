@@ -233,7 +233,7 @@ export const components: ComponentsProps[] = [
   },
   {
     id: 13,
-    componentTitle: "Social selector",
+    componentTitle: "Social Selector",
     slug: "social-selector",
     type: "image",
     isNew: true,
