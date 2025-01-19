@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState, type JSX } from "react";
+import { useEffect, useRef, useState, type JSX } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import { useOnClickOutside } from "usehooks-ts"
 
@@ -21,7 +21,7 @@ export const JobListingComponent = () => {
     remote: string
     job_time: string
   } | null>(null)
-  const ref = useRef(null)
+  const ref = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
   useOnClickOutside(ref, () => setActiveItem(null))
 
   useEffect(() => {
