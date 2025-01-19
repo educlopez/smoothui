@@ -1,4 +1,8 @@
-import { CodeIcon, TerminalIcon } from "lucide-react"
+"use client"
+
+import { useEffect, useRef, useState } from "react"
+import { ChevronDown, ChevronUp, CodeIcon, TerminalIcon } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 import Code from "@/app/doc/_components/code"
 import { CopyCode } from "@/app/doc/_components/copyCode"
@@ -18,6 +22,17 @@ export function CodeBlock({
   lang,
   copyCode = true,
 }: CodeBlockProps) {
+  const [isExpanded, setIsExpanded] = useState(false)
+  const codeRef = useRef<HTMLDivElement>(null)
+  const [shouldShowButton, setShouldShowButton] = useState(false)
+  const maxHeight = 500
+
+  useEffect(() => {
+    if (codeRef.current) {
+      setShouldShowButton(codeRef.current.scrollHeight > maxHeight)
+    }
+  }, [code])
+
   return (
     <div
       className={cn(
@@ -43,9 +58,40 @@ export function CodeBlock({
           <CopyCode code={code} />
         </div>
       )}
-      <div className="relative overflow-x-auto p-4">
-        <Code code={code} lang={lang} />
-      </div>
+      <motion.div
+        ref={codeRef}
+        className="relative overflow-x-auto"
+        animate={{
+          height: shouldShowButton && !isExpanded ? maxHeight : "auto",
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="p-4">
+          <Code code={code} lang={lang} />
+        </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {shouldShowButton && (
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="absolute bottom-0 left-0 flex w-full items-center justify-center gap-2 bg-gradient-to-t from-light2 p-2 text-sm text-light11 hover:text-light12 dark:from-dark2 dark:text-dark11 dark:hover:text-dark12"
+          >
+            {isExpanded ? (
+              <>
+                Show Less <ChevronUp size={16} />
+              </>
+            ) : (
+              <>
+                Show All <ChevronDown size={16} />
+              </>
+            )}
+          </motion.button>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
