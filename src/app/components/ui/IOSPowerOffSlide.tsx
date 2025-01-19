@@ -10,7 +10,7 @@ import {
   useTransform,
 } from "motion/react"
 
-export default function IOSPowerOff() {
+export default function IOSPowerOffSlide() {
   const [isPoweringOff, setIsPoweringOff] = useState(false)
   const x = useMotionValue(0)
   const controls = useAnimation()
