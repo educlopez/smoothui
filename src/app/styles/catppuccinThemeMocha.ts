@@ -28,7 +28,7 @@ const colors = {
   crust: "#11111b",
 }
 
-export const catppuccinTheme = {
+export const Mocha = {
   'code[class*="language-"]': {
     color: colors.text,
     background: "none",

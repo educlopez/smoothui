@@ -1,7 +1,10 @@
 // @ts-nocheck
+import { useTheme } from "next-themes"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
+import { vs } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-import { catppuccinTheme } from "@/app/styles/catppuccinTheme"
+import { Frappe } from "@/app/styles/catppuccinThemeFrappe"
+import { Latte } from "@/app/styles/catppuccinThemeLatte"
 
 type CodeProps = {
   code: string
@@ -9,10 +12,11 @@ type CodeProps = {
 }
 
 function Code({ code, lang = "tsx" }: CodeProps) {
+  const { theme } = useTheme()
   return (
     <SyntaxHighlighter
       language={lang}
-      style={catppuccinTheme}
+      style={theme === "dark" ? Frappe : Latte}
       customStyle={{
         margin: 0,
         padding: "1rem",
