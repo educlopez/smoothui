@@ -61,7 +61,7 @@ export const Frappe = {
   },
   comment: {
     color: colors.overlay0,
-    fontStyle: "italic",
+    textAlign: "left",
   },
   prolog: {
     color: colors.overlay0,

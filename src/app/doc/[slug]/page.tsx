@@ -137,7 +137,7 @@ export default async function ComponentPage(props: {
             <CodeBlock
               code={component.download}
               fileName="Terminal"
-              lang="shell"
+              lang="bash"
             />
           )}
 
