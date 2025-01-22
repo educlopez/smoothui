@@ -115,3 +115,114 @@
     background-position: 250% top;
   }
 }
+
+:root {
+  --color-bg-light: #ec4899;
+  --color-bg: #ec4899;
+  --color-contrast-higher: #fff;
+  --color-contrast-highest: #fff;
+}
+@layer base {
+  .candy-btn {
+    color: hsl(from var(--color-contrast-higher) h s l / 0.83);
+    text-shadow: 0 1px 0 hsl(from white h s l / 0.3);
+    background: radial-gradient(
+        ellipse at -20px top,
+        hsl(from white h s l / 0.25),
+        hsl(from white h s l / 0)
+      ),
+      var(--color-bg-light);
+    background-blend-mode: overlay, normal;
+    box-shadow:
+      inset 0 0 0 1px hsl(from white h s l / 0.04),
+      0 0 0 1px hsl(from black h s l / 0.15),
+      0px 40px 11px rgba(236, 72, 153, 0.01),
+      0px 26px 10px rgba(236, 72, 153, 0.05),
+      0px 14px 9px rgba(236, 72, 153, 0.17),
+      0px 6px 6px rgba(236, 72, 153, 0.29),
+      0px 2px 4px rgba(236, 72, 153, 0.33);
+
+    &::after {
+      background: linear-gradient(
+          180deg,
+          hsl(from white h s l / 0.65),
+          hsl(from #5b4b32 h s l / 0.68) 41%,
+          hsl(from #7f6845 h s l / 0.46) 75%,
+          hsl(from white h s l / 0.25)
+        )
+        border-box;
+      mix-blend-mode: overlay;
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      border: 1.5px solid transparent;
+      -webkit-mask:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(black, black);
+      mask:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(black, black);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    @media (hover: hover) {
+      &:hover {
+        background: radial-gradient(
+            ellipse at -20px top,
+            hsl(from white h s l / 0.35),
+            hsl(from white h s l / 0)
+          ),
+          var(--color-bg-light);
+      }
+    }
+  }
+
+  .box-light {
+    &::after {
+      background: linear-gradient(
+          180deg,
+          hsl(from white h s l / 0.65),
+          hsl(from #5b4b32 h s l / 0.68) 41%,
+          hsl(from #7f6845 h s l / 0.46) 75%,
+          hsl(from white h s l / 0.25)
+        )
+        border-box;
+      mix-blend-mode: overlay;
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      border: 1.5px solid transparent;
+      -webkit-mask:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(black, black);
+      mask:
+        linear-gradient(black, black) padding-box,
+        linear-gradient(black, black);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    @media (hover: hover) {
+      &:hover {
+        background: radial-gradient(
+            ellipse at -20px top,
+            hsl(from white h s l / 0.25),
+            hsl(from white h s l / 0)
+          ),
+          var(--color-bg-light) !important;
+        background-blend-mode: overlay, normal;
+        box-shadow:
+          inset 0 0 0 1px hsl(from white h s l / 0.04),
+          0 0 0 1px hsl(from black h s l / 0.15),
+          0px 40px 11px rgba(236, 72, 153, 0.01),
+          0px 26px 10px rgba(236, 72, 153, 0.05),
+          0px 14px 9px rgba(236, 72, 153, 0.17),
+          0px 6px 6px rgba(236, 72, 153, 0.29),
+          0px 2px 4px rgba(236, 72, 153, 0.33);
+      }
+    }
+  }
+}

@@ -9,6 +9,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        body: ["var(--font-inter)"],
+        title: ["var(--font-asap)"],
+      },
+
+      boxShadow: {
+        custom:
+          "inset 0 0 0 1px hsla(0, 0%, 100%, 0.04), 0 0 0 1px hsla(0, 0%, 0%, 0.15), 0px 40px 11px rgba(136, 97, 46, 0.01), 0px 26px 10px rgba(136, 97, 46, 0.05), 0px 14px 9px rgba(136, 97, 46, 0.17), 0px 6px 6px rgba(136, 97, 46, 0.29), 0px 2px 4px rgba(136, 97, 46, 0.33)",
+      },
       colors: {
         dark1: "hsl(0 0% 8.5%)",
         dark2: "hsl(0 0% 11.0%)",

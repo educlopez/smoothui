@@ -110,7 +110,7 @@ export default async function ComponentPage(props: {
       <div className="space-y-10">
         <div className="space-y-4">
           <Breadcrumbs
-            backLink="/ui"
+            backLink="/doc"
             groupName="Components"
             currentPage={component.componentTitle}
           />

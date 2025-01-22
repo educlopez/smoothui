@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Rubik } from "next/font/google"
+import { Asap, Inter } from "next/font/google"
 
 import "./globals.css"
 
@@ -9,8 +9,14 @@ import { ThemeProvider } from "next-themes"
 import { Analytics } from "@/app/components/analytics"
 import { FloatNav } from "@/app/components/floatNav"
 
-const rubik = Rubik({
+const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
+})
+const asap = Asap({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-asap",
 })
 
 export const metadata: Metadata = {
@@ -81,7 +87,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   return (
     <html lang="en">
       <body
-        className={`bg-light1 antialiased transition dark:bg-dark1 ${rubik.className}`}
+        className={`bg-light1 antialiased transition dark:bg-dark1 ${asap.variable} ${inter.className}`}
       >
         <ThemeProvider attribute="class">
           <FloatNav />

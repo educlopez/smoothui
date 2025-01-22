@@ -3,6 +3,8 @@ import { Metadata } from "next"
 import { Sidebar } from "@/app/doc/_components/sidebar/sidebar"
 import TableOfContent from "@/app/doc/_components/tableOfContent"
 
+import Footer from "../components/footer"
+
 export const metadata: Metadata = {
   title: {
     default: "SmoothUI",
@@ -72,6 +74,7 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
         <Sidebar />
         <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 lg:grid lg:p-12 lg:pt-[92px] [&>*]:col-start-2">
           {children}
+          <Footer />
         </div>
         <TableOfContent />
       </div>
