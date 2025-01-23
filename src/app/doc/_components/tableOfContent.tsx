@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
+import { ListTree } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 interface TableOfContentItem {
   id: string
@@ -12,6 +14,7 @@ interface TableOfContentItem {
 export default function TableOfContent() {
   const [headings, setHeadings] = useState<TableOfContentItem[]>([])
   const pathname = usePathname()
+  const [activeId, setActiveId] = useState<string>("")
 
   useEffect(() => {
     // Get all elements with data-table-content attribute
@@ -45,6 +48,32 @@ export default function TableOfContent() {
     setHeadings(headingItems)
   }, [pathname])
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const headingElements = headings
+        .map(({ id }) => document.getElementById(id))
+        .filter((el): el is HTMLElement => el !== null)
+
+      const headingPositions = headingElements.map((el) => ({
+        id: el.id,
+        top: el.getBoundingClientRect().top,
+      }))
+
+      const activeHeading =
+        headingPositions.find((heading) => heading.top > 0) ||
+        headingPositions[headingPositions.length - 1]
+
+      if (activeHeading) {
+        setActiveId(activeHeading.id)
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll)
+    handleScroll() // Call once to set initial state
+
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [headings])
+
   const getMarginClass = (level: number) => {
     switch (level) {
       case 1:
@@ -66,35 +95,35 @@ export default function TableOfContent() {
 
   return (
     <aside className="sticky top-0 hidden h-fit -translate-x-2 p-6 2xl:block">
-      <span className="flex items-center gap-2 text-[13px] text-light12 dark:text-dark12">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M2.75 12H21.25M2.75 5.75H21.25M2.75 18.25H11.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
+      <span className="text-light12 dark:text-dark12 flex items-center gap-2 text-[13px]">
+        <ListTree size={16} />
         Table of content
       </span>
       <div className="relative">
-        <div
-          aria-hidden="true"
-          className="bg-gray-1200 absolute left-0 h-5 w-[3px] -translate-x-[1px] rounded-full"
-        />
-        <ul className="mt-4 space-y-2 border-l border-l-dark10 pl-2">
+        <ul className="border-l-dark10 mt-4 space-y-2 border-l pl-2">
           {headings.map((heading, index) => (
-            <li key={index} className="flex h-fit">
+            <li key={index} className="relative flex h-fit">
+              <AnimatePresence mode="wait">
+                {heading.id === activeId && (
+                  <motion.div
+                    aria-hidden="true"
+                    className="absolute left-0 h-5 w-[3px] -translate-x-[10px] rounded-full bg-pink-500"
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 30,
+                    }}
+                    layoutId="indicator"
+                  />
+                )}
+              </AnimatePresence>
               <a
                 href={`#${heading.id}`}
-                className={`${getMarginClass(heading.level)} inline-block h-5 truncate text-[13px] text-light11 no-underline transition-all hover:text-light12 dark:text-dark11 dark:hover:text-dark12`}
+                className={`${getMarginClass(heading.level)} ${
+                  heading.id === activeId
+                    ? "text-light12 dark:text-dark12"
+                    : "text-light11 hover:text-light12 dark:text-dark11 dark:hover:text-dark12"
+                } inline-block h-5 truncate text-[13px] no-underline transition-all`}
               >
                 {heading.text}
               </a>
