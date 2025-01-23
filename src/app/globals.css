@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -150,14 +150,7 @@
         color-stop(0.5, var(--text-primary)),
         to(var(--text-quaternary))
       );
-    background: var(--text-quaternary) -webkit-gradient(
-        linear,
-        100% 0,
-        0 0,
-        from(var(--text-quaternary)),
-        color-stop(0.5, var(--text-primary)),
-        to(var(--text-quaternary))
-      );
+    background: var(--text-quaternary) -webkit-gradient(linear, 100% 0, 0 0, from(var(--text-quaternary)), color-stop(0.5, var(--text-primary)), to(var(--text-quaternary)));
     background-clip: text;
     -webkit-background-clip: text;
     background-repeat: no-repeat;
@@ -294,4 +287,9 @@
       }
     }
   }
+}
+
+::selection {
+  background: var(--color-pink-500);
+  color: white;
 }

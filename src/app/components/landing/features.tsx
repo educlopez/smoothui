@@ -42,7 +42,7 @@ const features = [
   {
     title: "Tailwindcss",
     description:
-      "Fully customizable components using Tailwind CSS with dark mode support and consistent design tokens.",
+      "Built with Tailwind CSS v4, featuring the latest utility-first CSS framework with enhanced dark mode and modern design patterns.",
     icon: TailwindLogo,
   },
 ]
@@ -60,7 +60,7 @@ export function Features() {
       <Rule position="bottom-left" />
       <Divider />
       <motion.h2
-        className="text-center font-title text-3xl font-bold text-light12 transition dark:text-dark12"
+        className="font-title text-light12 dark:text-dark12 text-center text-3xl font-bold transition"
         variants={item}
       >
         Why Choose Smooth<span className="text-pink-500">UI</span>?
@@ -71,15 +71,15 @@ export function Features() {
             key={feature.title}
             variants={item}
             className={cn(
-              "group relative flex flex-col rounded-2xl border border-light3 bg-light2 p-6 backdrop-blur-lg transition-all hover:border-pink-200 dark:border-dark3 dark:bg-dark2",
+              "group border-light3 bg-light2 dark:border-dark3 dark:bg-dark2 relative flex flex-col rounded-2xl border p-6 backdrop-blur-lg transition-all hover:border-pink-200",
               "box-light dark:box-light"
             )}
           >
-            <feature.icon className="mb-4 h-8 w-8 text-pink-500 transition group-hover:text-light1" />
-            <h3 className="mb-2 text-xl font-semibold text-light12 transition group-hover:text-light1 dark:text-dark12">
+            <feature.icon className="group-hover:text-light1 mb-4 h-8 w-8 text-pink-500 transition" />
+            <h3 className="text-light12 group-hover:text-light1 dark:text-dark12 mb-2 text-xl font-semibold transition">
               {feature.title}
             </h3>
-            <p className="text-light11 transition group-hover:text-light1 dark:text-dark11">
+            <p className="text-light11 group-hover:text-light1 dark:text-dark11 group-hover:dark:text-dark12 transition">
               {feature.description}
             </p>
           </motion.div>

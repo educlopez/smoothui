@@ -44,7 +44,7 @@ export function FAQ() {
       <Divider />
       <motion.h2
         variants={item}
-        className="text-center font-title text-3xl font-bold text-light12 transition dark:text-dark12"
+        className="font-title text-light12 dark:text-dark12 text-center text-3xl font-bold transition"
       >
         Frequently Asked Questions
       </motion.h2>
@@ -53,12 +53,12 @@ export function FAQ() {
           <motion.div
             key={faq.question}
             variants={item}
-            className="box-light group relative flex flex-col rounded-lg border border-light3 bg-light2 p-6 backdrop-blur-lg transition-all hover:shadow-pink-500/5 dark:border-dark3 dark:bg-dark2"
+            className="box-light group border-light3 bg-light2 dark:border-dark3 dark:bg-dark2 relative mx-auto flex w-fit flex-col rounded-lg border p-6 backdrop-blur-lg transition-all hover:shadow-pink-500/5"
           >
-            <h3 className="text-lg font-semibold text-light12 transition group-hover:text-light1 dark:text-dark12">
+            <h3 className="text-light12 group-hover:text-light1 dark:text-dark12 text-lg font-semibold transition">
               {faq.question}
             </h3>
-            <p className="mt-2 text-light11 transition group-hover:text-light1 dark:text-dark11">
+            <p className="text-light11 group-hover:text-light1 dark:text-dark11 group-hover:dark:text-dark12 mt-2 transition">
               {faq.answer}
             </p>
           </motion.div>

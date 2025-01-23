@@ -50,7 +50,7 @@ export default function SocialSelector() {
               <button
                 key={platform.name}
                 onClick={() => setSelectedPlatform(platform)}
-                className={`relative z-10 rounded-full p-2 transition-colors ${
+                className={`relative z-10 cursor-pointer rounded-full p-2 transition-colors ${
                   selectedPlatform.name === platform.name
                     ? "fill-white"
                     : "fill-zinc-400 hover:bg-zinc-800/50 hover:fill-white dark:fill-zinc-500"
