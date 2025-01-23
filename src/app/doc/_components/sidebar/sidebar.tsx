@@ -7,6 +7,7 @@ import { X } from "lucide-react"
 
 import { components, ComponentsProps } from "@/app/data"
 
+import BadgeBeta from "../badgeBeta"
 import Logo from "./../../../../../public/images/icon.png"
 import { MobileHeader } from "./mobileHeader"
 import { SidebarButton } from "./sidebarButton"
@@ -31,11 +32,14 @@ export function Sidebar() {
           isSidebarOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
         }`}
       >
-        <div className="flex items-center justify-between pb-[14px] md:px-6">
+        <div className="flex items-center justify-between pb-[14px] md:px-2">
           {!isSidebarOpen && (
-            <Link href="/">
-              <Image src={Logo} alt="Logo SmoothUI" width={36} />
-            </Link>
+            <div className="flex flex-row items-center gap-4">
+              <Link href="/">
+                <Image src={Logo} alt="Logo SmoothUI" width={36} />
+              </Link>
+              <BadgeBeta />
+            </div>
           )}
           <button
             onClick={handleCloseSidebar}
