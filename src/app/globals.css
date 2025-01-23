@@ -195,14 +195,6 @@
       ),
       var(--color-bg-light);
     background-blend-mode: overlay, normal;
-    box-shadow:
-      inset 0 0 0 1px hsl(from white h s l / 0.04),
-      0 0 0 1px hsl(from black h s l / 0.15),
-      0px 40px 11px rgba(236, 72, 153, 0.01),
-      0px 26px 10px rgba(236, 72, 153, 0.05),
-      0px 14px 9px rgba(236, 72, 153, 0.17),
-      0px 6px 6px rgba(236, 72, 153, 0.29),
-      0px 2px 4px rgba(236, 72, 153, 0.33);
 
     &::after {
       background: linear-gradient(
@@ -237,6 +229,14 @@
             hsl(from white h s l / 0)
           ),
           var(--color-bg-light);
+        box-shadow:
+          inset 0 0 0 1px hsl(from white h s l / 0.04),
+          0 0 0 1px hsl(from black h s l / 0.15),
+          0px 40px 11px rgba(236, 72, 153, 0.01),
+          0px 26px 10px rgba(236, 72, 153, 0.05),
+          0px 14px 9px rgba(236, 72, 153, 0.17),
+          0px 6px 6px rgba(236, 72, 153, 0.29),
+          0px 2px 4px rgba(236, 72, 153, 0.33);
       }
     }
   }
