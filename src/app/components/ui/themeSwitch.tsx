@@ -28,12 +28,12 @@ export const ThemeSwitch = () => {
       onClick={handleButtonClick}
     >
       <Sun
-        size={16}
-        className="fill-light12 stroke-light12 transition dark:hidden"
+        size={20}
+        className="fill-light12 stroke-light12 transition hover:fill-pink-500 hover:stroke-pink-500 dark:hidden"
       />
       <Moon
-        size={16}
-        className="hidden transition dark:block dark:fill-dark12"
+        size={20}
+        className="dark:fill-dark12 hidden transition dark:block dark:hover:fill-pink-500 dark:hover:stroke-pink-500"
       />
     </div>
   )
