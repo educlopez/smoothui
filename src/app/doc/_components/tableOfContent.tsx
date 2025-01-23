@@ -100,7 +100,7 @@ export default function TableOfContent() {
         Table of content
       </span>
       <div className="relative">
-        <ul className="border-l-dark10 mt-4 space-y-2 border-l pl-2">
+        <ul className="border-l-light8 dark:border-l-dark8 mt-4 space-y-2 border-l pl-2">
           {headings.map((heading, index) => (
             <li key={index} className="relative flex h-fit">
               <AnimatePresence mode="wait">

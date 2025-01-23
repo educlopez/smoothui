@@ -44,7 +44,6 @@ export const Frappe = {
   },
   'pre[class*="language-"]': {
     color: colors.text,
-    background: colors.base,
     fontFamily: "var(--font-mono)",
     textAlign: "left",
     whiteSpace: "pre",
