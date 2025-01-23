@@ -51,8 +51,7 @@ export default function GetStartedPage() {
             </h1>
             <p className="text-light11 dark:text-dark11 text-[16px] leading-relaxed font-normal">
               SmoothUI is a collection of beautifully designed components with
-              smooth animations built with React, Tailwind CSS, and Framer
-              Motion.
+              smooth animations built with React, Tailwind CSS, and Motion.
             </p>
           </div>
         </div>

@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   description: "A collection of awesome test components with smooth animations",
   keywords: [
-    "components, Smooth animations, Awesome test components, motion, framer-motion, Interactive components",
+    "components, Smooth animations, Awesome test components, motion, motion, Interactive components",
   ],
   openGraph: {
     title: "SmoothUI",
@@ -87,7 +87,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   return (
     <html lang="en">
       <body
-        className={`bg-light1 antialiased transition-colors dark:bg-dark1 ${asap.variable} ${inter.className}`}
+        className={`bg-light1 dark:bg-dark1 antialiased transition-colors ${asap.variable} ${inter.className}`}
       >
         <ThemeProvider attribute="class">
           <FloatNav />

@@ -39,10 +39,10 @@ export async function generateMetadata(props: {
 
   return {
     title: componentTitle,
-    description: `Navigate to ${componentTitle} component, which will make your application sophisticated and luxurious.`,
+    description: `Navigate to ${componentTitle} component, which will make your application smooth .`,
     openGraph: {
       title: `SmoothUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application sophisticated and luxurious.`,
+      description: `Navigate to ${componentTitle} component, which will make your application smooth`,
       type: "website",
       url: `https://smoothui.dev/doc/${slug}`,
       images: [
@@ -56,7 +56,7 @@ export async function generateMetadata(props: {
     },
     twitter: {
       title: `SmootUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application sophisticated and luxurious.`,
+      description: `Navigate to ${componentTitle} component, which will make your application smooth.`,
       card: "summary_large_image",
       images: [
         {
@@ -117,11 +117,11 @@ export default async function ComponentPage(props: {
           <h1
             data-table-content="Introduction"
             data-level="1"
-            className="text-3xl font-bold -tracking-wide text-light12 dark:text-dark12"
+            className="text-light12 dark:text-dark12 text-3xl font-bold -tracking-wide"
           >
             {component.componentTitle}
           </h1>
-          <p className="text-sm text-light11 dark:text-dark11">
+          <p className="text-light11 dark:text-dark11 text-sm">
             {component.info}
           </p>
         </div>
