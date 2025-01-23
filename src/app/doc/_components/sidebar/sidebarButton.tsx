@@ -37,21 +37,21 @@ export function SidebarButton({
       )}
     >
       {isNew ? (
-        <div className="relative z-[1] flex items-center justify-between">
-          <span className="relative z-[1] block text-[13px]">{name}</span>
+        <div className="relative z-1 flex items-center justify-between">
+          <span className="relative z-1 block text-[13px]">{name}</span>
           <span className="rounded-md bg-amber-600/10 px-1.5 py-[0.5px] text-[10px] font-semibold leading-4 text-amber-600 dark:bg-amber-600/15">
             New
           </span>
         </div>
       ) : isUpdated ? (
-        <div className="relative z-[1] flex items-center justify-between">
-          <span className="relative z-[1] block text-[13px]">{name}</span>
+        <div className="relative z-1 flex items-center justify-between">
+          <span className="relative z-1 block text-[13px]">{name}</span>
           <span className="rounded-md bg-pink-600/10 px-1.5 py-[0.5px] text-[10px] font-semibold leading-4 text-pink-600 dark:bg-pink-600/15">
             Updated
           </span>
         </div>
       ) : (
-        <span className="relative z-[1] block text-[13px]">{name}</span>
+        <span className="relative z-1 block text-[13px]">{name}</span>
       )}
     </Link>
   )

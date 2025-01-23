@@ -273,12 +273,12 @@ export default function AppDownloadStack() {
               <motion.div className="relative w-full overflow-hidden rounded-full">
                 <motion.button
                   layoutId="download-button"
-                  className={`relative w-full cursor-pointer rounded-full border border-light3 bg-light1 p-3 px-4 py-2 font-sans font-medium text-light12 shadow-sm transition dark:border-dark3 dark:bg-dark1 dark:text-dark12`}
+                  className={`relative w-full cursor-pointer rounded-full border border-light3 bg-light1 p-3 px-4 py-2 font-sans font-medium text-light12 shadow-xs transition dark:border-dark3 dark:bg-dark1 dark:text-dark12`}
                   onClick={confirmDownload}
                   disabled={downloadComplete}
                 >
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-black/20 to-transparent opacity-30 dark:via-white"
+                    className="absolute inset-0 bg-linear-to-r from-transparent via-black/20 to-transparent opacity-30 dark:via-white"
                     initial={{ x: "-100%" }}
                     animate={shineControls}
                   />

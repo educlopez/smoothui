@@ -48,9 +48,9 @@ export default function FluidMorph() {
       >
         <defs>
           <filter id="filter">
-            <feGaussianBlur stdDeviation="12" result="blur" />
+            <feGaussianBlur stdDeviation="12" result="blur-sm" />
             <feColorMatrix
-              in="blur"
+              in="blur-sm"
               mode="matrix"
               values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -15"
               result="filter"

@@ -55,7 +55,7 @@ export const ImageMetadataPreview = () => {
           <AnimatePresence>
             {!openInfo ? (
               <motion.button
-                className="cursor-pointer border border-light3 bg-light1 p-3 shadow-sm transition dark:border-dark3 dark:bg-dark1"
+                className="cursor-pointer border border-light3 bg-light1 p-3 shadow-xs transition dark:border-dark3 dark:bg-dark1"
                 aria-label="Open Metadata Preview"
                 style={{ borderRadius: 100 }}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
@@ -70,7 +70,7 @@ export const ImageMetadataPreview = () => {
         <AnimatePresence>
           {openInfo ? (
             <motion.div
-              className="absolute bottom-0 w-full cursor-pointer gap-4 bg-light1 p-5 shadow-sm dark:bg-dark1"
+              className="absolute bottom-0 w-full cursor-pointer gap-4 bg-light1 p-5 shadow-xs dark:bg-dark1"
               style={{ borderRadius: 20 }}
               initial={{ opacity: 0, filter: "blur(4px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}

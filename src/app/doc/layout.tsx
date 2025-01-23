@@ -72,7 +72,7 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
     <div className="bg-light1 antialiased transition dark:bg-dark1">
       <div className="lg:grid lg:grid-cols-[260px_1fr] 2xl:grid-cols-[260px_1fr_260px]">
         <Sidebar />
-        <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 lg:grid lg:p-12 lg:pt-[92px] [&>*]:col-start-2">
+        <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 lg:grid lg:p-12 lg:pt-[92px] *:col-start-2">
           {children}
           <Footer />
         </div>

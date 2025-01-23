@@ -126,7 +126,7 @@ const Timer = () => {
   )
 }
 
-type View = "idle" | "ring" | "timer"
+type View = "idle" | "ring-3" | "timer"
 
 export default function DynamicIsland() {
   const [view, setView] = useState<View>("idle")
@@ -135,7 +135,7 @@ export default function DynamicIsland() {
 
   const content = useMemo(() => {
     switch (view) {
-      case "ring":
+      case "ring-3":
         return <Ring />
       case "timer":
         return <Timer />
@@ -207,12 +207,12 @@ export default function DynamicIsland() {
         </div>
 
         <div className="flex w-full justify-center gap-1 md:gap-4">
-          {["idle", "ring", "timer"].map((v) => (
+          {["idle", "ring-3", "timer"].map((v) => (
             <motion.button
               type="button"
               key={v}
               onClick={() => handleViewChange(v as View)}
-              className={`h-10 w-fit rounded-full bg-white px-10 py-1.5 text-sm font-medium capitalize text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300/50 hover:bg-gray-50 md:w-32 md:px-2.5 ${view === v ? "ring-2 ring-blue-500" : ""} `}
+              className={`h-10 w-fit rounded-full bg-white px-10 py-1.5 text-sm font-medium capitalize text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300/50 hover:bg-gray-50 md:w-32 md:px-2.5 ${view === v ? "ring-2 ring-blue-500" : ""} `}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={view === v}

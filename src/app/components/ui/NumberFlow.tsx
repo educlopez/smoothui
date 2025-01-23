@@ -105,7 +105,7 @@ export default function NumberFlow() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
-      <div className="flex items-center gap-2 rounded-xl bg-light1 p-4 shadow-sm dark:bg-dark1">
+      <div className="flex items-center gap-2 rounded-xl bg-light1 p-4 shadow-xs dark:bg-dark1">
         <div className={cn("flex items-center gap-1")}>
           <div
             className={cn(

@@ -30,7 +30,7 @@ export function AnimatedTags() {
               <motion.div
                 key={tag}
                 layout
-                className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-light3 px-2 py-1 text-light11 group-hover:bg-light2 group-hover:text-light12 dark:bg-dark3 dark:text-dark11 group-hover:dark:bg-dark2 group-hover:dark:text-dark12"
+                className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-light3 px-2 py-1 text-light11 group-hover:bg-light2 group-hover:text-light12 dark:bg-dark3 dark:text-dark11 dark:group-hover:bg-dark2 dark:group-hover:text-dark12"
                 onClick={() => handleDeleteTag(tag)}
                 initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
                 animate={{
@@ -71,7 +71,7 @@ export function AnimatedTags() {
               {tag}{" "}
               <Plus
                 size={16}
-                className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-light2 group-hover:text-light12 group-hover:dark:bg-dark2 dark:group-hover:text-dark12"
+                className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-light2 group-hover:text-light12 dark:group-hover:bg-dark2 dark:group-hover:text-dark12"
               />
             </motion.div>
           ))}

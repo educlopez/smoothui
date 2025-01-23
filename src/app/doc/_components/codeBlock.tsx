@@ -157,7 +157,7 @@ export function CodeBlock({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsExpanded(!isExpanded)}
-            className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-gradient-to-t from-light2 pb-8 pt-32 dark:from-dark2"
+            className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-linear-to-t from-light2 pb-8 pt-32 dark:from-dark2"
           >
             <button
               type="button"

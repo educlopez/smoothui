@@ -53,14 +53,14 @@ export function Hero() {
       <div className="mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium uppercase tracking-widest text-light11 transition dark:text-dark11 sm:flex sm:justify-center">
         <span>Built for</span>
         <span className="group flex items-center gap-1.5">
-          <ReactLogo className="h-6 text-light9 transition group-hover:text-pink-500 dark:text-dark9 group-hover:dark:text-pink-500" />
-          <span className="group-hover:text-pink-500 group-hover:dark:text-pink-500">
+          <ReactLogo className="h-6 text-light9 transition group-hover:text-pink-500 dark:text-dark9 dark:group-hover:text-pink-500" />
+          <span className="group-hover:text-pink-500 dark:group-hover:text-pink-500">
             React
           </span>
         </span>
         <span className="group flex items-center gap-1.5">
-          <TailwindLogo className="h-5 text-light9 transition group-hover:text-pink-500 dark:text-dark9 group-hover:dark:text-pink-500" />
-          <span className="group-hover:text-pink-500 group-hover:dark:text-pink-500">
+          <TailwindLogo className="h-5 text-light9 transition group-hover:text-pink-500 dark:text-dark9 dark:group-hover:text-pink-500" />
+          <span className="group-hover:text-pink-500 dark:group-hover:text-pink-500">
             Tailwind CSS
           </span>
         </span>

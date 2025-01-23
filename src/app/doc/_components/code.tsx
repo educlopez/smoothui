@@ -25,10 +25,10 @@ function Code({ code, lang = "tsx" }: CodeProps) {
     return (
       <div className="animate-pulse rounded-lg border border-light3 bg-light1 p-4 dark:border-dark3 dark:bg-dark2">
         <div className="flex flex-col gap-2">
-          <div className="h-4 w-3/4 rounded bg-light3 dark:bg-dark3" />
-          <div className="h-4 w-1/2 rounded bg-light3 dark:bg-dark3" />
-          <div className="h-4 w-5/6 rounded bg-light3 dark:bg-dark3" />
-          <div className="h-4 w-2/3 rounded bg-light3 dark:bg-dark3" />
+          <div className="h-4 w-3/4 rounded-sm bg-light3 dark:bg-dark3" />
+          <div className="h-4 w-1/2 rounded-sm bg-light3 dark:bg-dark3" />
+          <div className="h-4 w-5/6 rounded-sm bg-light3 dark:bg-dark3" />
+          <div className="h-4 w-2/3 rounded-sm bg-light3 dark:bg-dark3" />
         </div>
       </div>
     )

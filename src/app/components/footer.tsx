@@ -9,7 +9,7 @@ export default function Footer() {
           href="https://x.com/educalvolpz"
           aria-label="X Profile Eduardo Calvo"
           target="_blank"
-          className="text-light12 transition hover:text-pink-500 dark:text-dark12 hover:dark:text-pink-500"
+          className="text-light12 transition hover:text-pink-500 dark:text-dark12 dark:hover:text-pink-500"
         >
           Eduardo Calvo
         </a>

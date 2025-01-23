@@ -63,7 +63,7 @@ export default function UserAccountAvatar() {
         id="name"
         name="name"
         defaultValue={userData.name}
-        className="rounded border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
+        className="rounded-sm border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
         placeholder="Name"
       />
       <label
@@ -76,13 +76,13 @@ export default function UserAccountAvatar() {
         id="email"
         name="email"
         defaultValue={userData.email}
-        className="rounded border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
+        className="rounded-sm border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
         placeholder="Email"
       />
 
       <button
         type="submit"
-        className="rounded bg-light4 px-4 py-2 text-sm text-light12 hover:bg-light5 dark:bg-dark4 dark:text-dark12 dark:hover:bg-dark5"
+        className="rounded-sm bg-light4 px-4 py-2 text-sm text-light12 hover:bg-light5 dark:bg-dark4 dark:text-dark12 dark:hover:bg-dark5"
       >
         Save
       </button>
@@ -94,7 +94,7 @@ export default function UserAccountAvatar() {
       {mockOrders.map((order) => (
         <div
           key={order.id}
-          className="flex flex-col items-center justify-between gap-3 rounded border border-light4 bg-light2 p-2 text-xs dark:border-dark4 dark:bg-dark2"
+          className="flex flex-col items-center justify-between gap-3 rounded-sm border border-light4 bg-light2 p-2 text-xs dark:border-dark4 dark:bg-dark2"
         >
           <div className="flex w-full items-center justify-between">
             <div className="font-medium">{order.id}</div>
@@ -106,7 +106,7 @@ export default function UserAccountAvatar() {
                 <span>{order.status}</span>
                 <span>{order.progress}%</span>
               </div>
-              <div className="mt-1 h-1 w-full rounded bg-gray-200">
+              <div className="mt-1 h-1 w-full rounded-sm bg-gray-200">
                 <div
                   className={`h-full rounded ${
                     order.status === "processing"
@@ -120,7 +120,7 @@ export default function UserAccountAvatar() {
               </div>
             </div>
             <button
-              className="rounded border border-light4 bg-light1 p-1 dark:border-dark4 dark:bg-dark1"
+              className="rounded-sm border border-light4 bg-light1 p-1 dark:border-dark4 dark:bg-dark1"
               aria-label="View Order"
             >
               <Eye size={14} />

@@ -52,7 +52,7 @@ export const JobListingComponent = () => {
           <>
             <div className="group absolute inset-0 z-10 grid place-items-center">
               <motion.div
-                className="flex h-fit w-[90%] cursor-pointer flex-col items-start gap-4 overflow-hidden bg-light1 p-4 shadow-sm dark:bg-dark1"
+                className="flex h-fit w-[90%] cursor-pointer flex-col items-start gap-4 overflow-hidden bg-light1 p-4 shadow-xs dark:bg-dark1"
                 ref={ref}
                 layoutId={`workItem-${activeItem.company}`}
                 style={{ borderRadius: 12 }}
@@ -112,7 +112,7 @@ export const JobListingComponent = () => {
             <motion.div
               layoutId={`workItem-${role.company}`}
               key={role.company}
-              className="group flex w-full cursor-pointer flex-row items-center gap-4 border border-light3 bg-light1 p-2 shadow-sm dark:border-dark3 dark:bg-dark1 md:p-4"
+              className="group flex w-full cursor-pointer flex-row items-center gap-4 border border-light3 bg-light1 p-2 shadow-xs dark:border-dark3 dark:bg-dark1 md:p-4"
               onClick={() => setActiveItem(role)}
               style={{ borderRadius: 8 }}
             >

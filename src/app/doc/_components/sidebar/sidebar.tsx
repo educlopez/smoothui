@@ -31,7 +31,7 @@ export function Sidebar() {
         </div>
         <div aria-hidden className="top-dotted mx-1 mb-6 mt-4 h-px" />
         <div className="flex flex-col gap-1">
-          <span className="relative z-[1] -ml-0.5 text-xs font-medium text-light12 dark:text-dark12">
+          <span className="relative z-1 -ml-0.5 text-xs font-medium text-light12 dark:text-dark12">
             Components
           </span>
           <div className="flex flex-col pb-8">
