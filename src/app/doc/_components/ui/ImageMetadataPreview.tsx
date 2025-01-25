@@ -6,7 +6,7 @@ import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
-import arenaOpenCard from "../../../../public/images/arenaOpenCard.png"
+import arenaOpenCard from "../../../../../public/images/arenaOpenCard.png"
 
 export const ImageMetadataPreview = () => {
   const [openInfo, setopenInfo] = useState(false)
@@ -41,21 +41,21 @@ export const ImageMetadataPreview = () => {
           <button
             disabled
             aria-label="Share"
-            className="cursor-not-allowed rounded-full border border-light3 bg-light1 p-3 transition disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
+            className="border-light3 bg-light1 dark:border-dark3 dark:bg-dark1 cursor-not-allowed rounded-full border p-3 transition disabled:opacity-50"
           >
             <Share size={16} />
           </button>
           <button
             disabled
             aria-label="Connect"
-            className="cursor-not-allowed rounded-full border border-light3 bg-light1 px-4 py-3 text-sm transition disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
+            className="border-light3 bg-light1 dark:border-dark3 dark:bg-dark1 cursor-not-allowed rounded-full border px-4 py-3 text-sm transition disabled:opacity-50"
           >
             Connect
           </button>
           <AnimatePresence>
             {!openInfo ? (
               <motion.button
-                className="cursor-pointer border border-light3 bg-light1 p-3 shadow-xs transition dark:border-dark3 dark:bg-dark1"
+                className="border-light3 bg-light1 dark:border-dark3 dark:bg-dark1 cursor-pointer border p-3 shadow-xs transition"
                 aria-label="Open Metadata Preview"
                 style={{ borderRadius: 100 }}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
@@ -70,7 +70,7 @@ export const ImageMetadataPreview = () => {
         <AnimatePresence>
           {openInfo ? (
             <motion.div
-              className="absolute bottom-0 w-full cursor-pointer gap-4 bg-light1 p-5 shadow-xs dark:bg-dark1"
+              className="bg-light1 dark:bg-dark1 absolute bottom-0 w-full cursor-pointer gap-4 p-5 shadow-xs"
               style={{ borderRadius: 20 }}
               initial={{ opacity: 0, filter: "blur(4px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -92,17 +92,17 @@ export const ImageMetadataPreview = () => {
                     <CircleX size={16} />
                   </button>
                 </div>
-                <table className="flex w-full flex-col items-center gap-4 text-light12 dark:text-dark12">
+                <table className="text-light12 dark:text-dark12 flex w-full flex-col items-center gap-4">
                   <tbody className="w-full">
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Created</td>
-                      <td className="w-1/2 text-light11 dark:text-dark11">
+                      <td className="text-light11 dark:text-dark11 w-1/2">
                         2 yrs ago
                       </td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Updated</td>
-                      <td className="w-1/2 text-light11 dark:text-dark11">
+                      <td className="text-light11 dark:text-dark11 w-1/2">
                         2 yrs ago
                       </td>
                     </tr>

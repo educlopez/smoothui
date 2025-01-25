@@ -5,10 +5,10 @@ import React from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { components } from "@/app/data"
 import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
 import { ComponentView } from "@/app/doc/_components/componentView"
+import { components } from "@/app/doc/data"
 import { cn } from "@/app/utils/cn"
 
 // import { Pagination } from "../_components/Pagination"
@@ -94,7 +94,7 @@ export default async function ComponentPage(props: {
   //     component.type
   //   }/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
-  const filePath = `./src/app/components/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
+  const filePath = `./src/app/doc/_components/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
   const code = await readFilePath(filePath)
 

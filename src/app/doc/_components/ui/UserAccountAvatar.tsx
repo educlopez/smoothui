@@ -6,7 +6,7 @@ import * as Popover from "@radix-ui/react-popover"
 import { Eye, Package, User } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-import Avatar from "@/app/components/resources/avatardrop/avatar.jpg"
+import Avatar from "@/app/doc/_components/resources/avatardrop/avatar.jpg"
 
 interface UserData {
   name: string
@@ -55,7 +55,7 @@ export default function UserAccountAvatar() {
     <form onSubmit={handleProfileSave} className="flex flex-col gap-2 p-4">
       <label
         htmlFor="name"
-        className="text-xs font-medium text-light11 dark:text-dark11"
+        className="text-light11 dark:text-dark11 text-xs font-medium"
       >
         Name
       </label>
@@ -63,12 +63,12 @@ export default function UserAccountAvatar() {
         id="name"
         name="name"
         defaultValue={userData.name}
-        className="rounded-sm border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
+        className="border-light6 bg-light2 text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12 rounded-sm border p-2 text-xs"
         placeholder="Name"
       />
       <label
         htmlFor="email"
-        className="text-xs font-medium text-light11 dark:text-dark11"
+        className="text-light11 dark:text-dark11 text-xs font-medium"
       >
         Email
       </label>
@@ -76,13 +76,13 @@ export default function UserAccountAvatar() {
         id="email"
         name="email"
         defaultValue={userData.email}
-        className="rounded-sm border border-light6 bg-light2 p-2 text-xs text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12"
+        className="border-light6 bg-light2 text-light12 dark:border-dark6 dark:bg-dark2 dark:text-dark12 rounded-sm border p-2 text-xs"
         placeholder="Email"
       />
 
       <button
         type="submit"
-        className="rounded-sm bg-light4 px-4 py-2 text-sm text-light12 hover:bg-light5 dark:bg-dark4 dark:text-dark12 dark:hover:bg-dark5"
+        className="bg-light4 text-light12 hover:bg-light5 dark:bg-dark4 dark:text-dark12 dark:hover:bg-dark5 rounded-sm px-4 py-2 text-sm"
       >
         Save
       </button>
@@ -94,7 +94,7 @@ export default function UserAccountAvatar() {
       {mockOrders.map((order) => (
         <div
           key={order.id}
-          className="flex flex-col items-center justify-between gap-3 rounded-sm border border-light4 bg-light2 p-2 text-xs dark:border-dark4 dark:bg-dark2"
+          className="border-light4 bg-light2 dark:border-dark4 dark:bg-dark2 flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
         >
           <div className="flex w-full items-center justify-between">
             <div className="font-medium">{order.id}</div>
@@ -120,7 +120,7 @@ export default function UserAccountAvatar() {
               </div>
             </div>
             <button
-              className="rounded-sm border border-light4 bg-light1 p-1 dark:border-dark4 dark:bg-dark1"
+              className="border-light4 bg-light1 dark:border-dark4 dark:bg-dark1 rounded-sm border p-1"
               aria-label="View Order"
             >
               <Eye size={14} />
@@ -134,7 +134,7 @@ export default function UserAccountAvatar() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="flex items-center gap-2 rounded-full border border-light4 bg-light1 dark:border-dark4 dark:bg-dark1">
+        <button className="border-light4 bg-light1 dark:border-dark4 dark:bg-dark1 flex items-center gap-2 rounded-full border">
           <Image
             src={userData.avatar}
             alt="User Avatar"
@@ -146,7 +146,7 @@ export default function UserAccountAvatar() {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          className="w-48 overflow-hidden rounded-lg border border-light4 bg-light1 text-sm shadow-lg dark:border-dark4 dark:bg-dark1"
+          className="border-light4 bg-light1 dark:border-dark4 dark:bg-dark1 w-48 overflow-hidden rounded-lg border text-sm shadow-lg"
           sideOffset={5}
         >
           <motion.div
@@ -156,7 +156,7 @@ export default function UserAccountAvatar() {
           >
             <div className="flex flex-col">
               <div
-                className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
+                className="hover:bg-light3 dark:hover:bg-dark3 cursor-pointer p-2"
                 onClick={() => handleSectionClick("profile")}
               >
                 <User size={16} className="mr-2 inline" />
@@ -179,7 +179,7 @@ export default function UserAccountAvatar() {
                 )}
               </AnimatePresence>
               <div
-                className="cursor-pointer p-2 hover:bg-light3 dark:hover:bg-dark3"
+                className="hover:bg-light3 dark:hover:bg-dark3 cursor-pointer p-2"
                 onClick={() => handleSectionClick("orders")}
               >
                 <Package size={16} className="mr-2 inline" />

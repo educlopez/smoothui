@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "motion/react"
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
-import type { ComponentsProps } from "@/app/data"
+import type { ComponentsProps } from "@/app/doc/data"
 import { cn } from "@/app/utils/cn"
 import { copyToClipboard } from "@/app/utils/copyToClipboard"
 
@@ -48,14 +48,14 @@ export default function Frame({
             <>
               <div className="flex justify-between gap-8">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-sm font-medium text-light12 transition dark:text-dark12">
-                    <span className="text-light11 transition dark:text-dark11">
+                  <h3 className="text-light12 dark:text-dark12 text-sm font-medium transition">
+                    <span className="text-light11 dark:text-dark11 transition">
                       #{component.id}
                     </span>{" "}
                     {component.componentTitle}
                   </h3>
                   {component.isUpdated && (
-                    <span className="ml-2 flex select-none flex-row gap-1 overflow-hidden rounded-md bg-pink-600/10 px-2 py-1 text-xs font-medium text-pink-600 transition-colors duration-200 ease-out dark:bg-pink-600/15">
+                    <span className="ml-2 flex flex-row gap-1 overflow-hidden rounded-md bg-pink-600/10 px-2 py-1 text-xs font-medium text-pink-600 transition-colors duration-200 ease-out select-none dark:bg-pink-600/15">
                       <FlaskConical size={14} /> Update
                     </span>
                   )}
@@ -64,7 +64,7 @@ export default function Frame({
                   <button
                     key={showCode ? "check" : "copy"}
                     onClick={toggleView}
-                    className="flex w-32 items-center gap-2 overflow-hidden rounded-full bg-light3 px-3 py-1 text-center text-sm font-medium text-light12 transition hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4"
+                    className="bg-light3 text-light12 hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
                   >
                     {showCode ? (
                       <motion.span
@@ -105,7 +105,7 @@ export default function Frame({
           )}
           <div
             id={`component-${component.id}`}
-            className="relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light1 transition dark:border-dark3 dark:bg-dark1 md:flex-1"
+            className="border-light3 bg-light1 dark:border-dark3 dark:bg-dark1 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
           >
             {!clean && showCode ? (
               <>
@@ -126,7 +126,7 @@ export default function Frame({
                   <button
                     key={isCopied ? "check" : "copy"}
                     onClick={handleCopyCode}
-                    className="absolute right-2 top-2 rounded-md bg-light3 p-2 text-light12 transition hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4"
+                    className="bg-light3 text-light12 hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4 absolute top-2 right-2 rounded-md p-2 transition"
                     aria-label="Copy code"
                   >
                     {isCopied ? (
@@ -170,14 +170,14 @@ export default function Frame({
                   {component.tags.map((tag) => (
                     <div
                       key={tag}
-                      className="inline-flex h-[24px] cursor-default select-none items-center justify-center gap-2 rounded-full border border-light3 px-2 text-xs text-light11 transition dark:border-dark3 dark:text-dark11"
+                      className="border-light3 text-light11 dark:border-dark3 dark:text-dark11 inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
                     >
                       {tag}
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="text-sm text-light12 transition dark:text-dark12">
+              <p className="text-light12 dark:text-dark12 text-sm transition">
                 {component.info}
               </p>
             </>

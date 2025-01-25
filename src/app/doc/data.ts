@@ -1,16 +1,18 @@
-import { AnimatedTags } from "@/app/components/ui/AnimatedTags"
-import AppDownloadStack from "@/app/components/ui/AppDownloadStack"
-import ButtonCopy from "@/app/components/ui/ButtonCopy"
-import DynamicIsland from "@/app/components/ui/DynamicIsland"
-import FluidMorph from "@/app/components/ui/FluidMorph"
-import { ImageMetadataPreview } from "@/app/components/ui/ImageMetadataPreview"
-import InteractiveImageSelector from "@/app/components/ui/InteractiveImageSelector"
-import { JobListingComponent } from "@/app/components/ui/JobListingComponent"
-import MatrixCard from "@/app/components/ui/MatrixCard"
-import NumberFlow from "@/app/components/ui/NumberFlow"
-import PowerOffSlide from "@/app/components/ui/PowerOffSlide"
-import SocialSelector from "@/app/components/ui/SocialSelector"
-import UserAccountAvatar from "@/app/components/ui/UserAccountAvatar"
+import { AnimatedTags } from "@/app/doc/_components/ui/AnimatedTags"
+import AppDownloadStack from "@/app/doc/_components/ui/AppDownloadStack"
+import ButtonCopy from "@/app/doc/_components/ui/ButtonCopy"
+import DynamicIsland from "@/app/doc/_components/ui/DynamicIsland"
+import FluidMorph from "@/app/doc/_components/ui/FluidMorph"
+import { ImageMetadataPreview } from "@/app/doc/_components/ui/ImageMetadataPreview"
+import InteractiveImageSelector from "@/app/doc/_components/ui/InteractiveImageSelector"
+import { JobListingComponent } from "@/app/doc/_components/ui/JobListingComponent"
+import MatrixCard from "@/app/doc/_components/ui/MatrixCard"
+import NumberFlow from "@/app/doc/_components/ui/NumberFlow"
+import PowerOffSlide from "@/app/doc/_components/ui/PowerOffSlide"
+import SocialSelector from "@/app/doc/_components/ui/SocialSelector"
+import UserAccountAvatar from "@/app/doc/_components/ui/UserAccountAvatar"
+
+import { ColorSelector } from "./_components/ui/ColorSelector"
 
 export interface ComponentsProps {
   id: number
@@ -219,6 +221,20 @@ export const components: ComponentsProps[] = [
     info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
     componentUi: SocialSelector,
 
+    download: "npm i motion",
+    cnFunction: false,
+    isUpdated: false,
+  },
+  {
+    id: 14,
+    componentTitle: "Color Selector",
+    slug: "color-selector",
+    type: "image",
+    isNew: true,
+    tags: ["react", "tailwindcss", "motion"],
+    href: "https://x.com/educalvolpz",
+    info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
+    componentUi: ColorSelector,
     download: "npm i motion",
     cnFunction: false,
     isUpdated: false,

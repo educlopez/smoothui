@@ -4,10 +4,10 @@ import { useCallback, useMemo, useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion, useAnimation } from "motion/react"
 
-import Arc from "@/app/components/resources/iconapps/arc.png"
-import Canary from "@/app/components/resources/iconapps/canary.png"
-import Figma from "@/app/components/resources/iconapps/figma.png"
-import Github from "@/app/components/resources/iconapps/github.png"
+import Arc from "@/app/doc/_components/resources/iconapps/arc.png"
+import Canary from "@/app/doc/_components/resources/iconapps/canary.png"
+import Figma from "@/app/doc/_components/resources/iconapps/figma.png"
+import Github from "@/app/doc/_components/resources/iconapps/github.png"
 
 const STARTER_KIT_TITLE = "Starter Mac"
 
@@ -155,11 +155,11 @@ export default function AppDownloadStack() {
                 onClick={() => setIsExpanded(false)}
                 aria-label="Collapse app selection"
               >
-                <p className="leading-0 my-0 font-medium">
+                <p className="my-0 leading-0 font-medium">
                   {STARTER_KIT_TITLE}
                 </p>
                 <div className="flex items-center gap-1">
-                  <p className="leading-0 my-0 font-medium">
+                  <p className="my-0 leading-0 font-medium">
                     {selectedApps.length}
                   </p>
                   <ChevronDown size={16} className="text-mauve-11" />
@@ -175,7 +175,7 @@ export default function AppDownloadStack() {
                     transition={{ delay: index * 0.1 }}
                   >
                     <div
-                      className={`pointer-events-none absolute right-2 top-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid ${
+                      className={`pointer-events-none absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid ${
                         selectedApps.includes(app.id)
                           ? "border-blue-500 bg-blue-500"
                           : "border-white/60"
@@ -221,9 +221,9 @@ export default function AppDownloadStack() {
               </motion.ul>
               <motion.button
                 layoutId="download-button"
-                className={`mt-2 w-full rounded-full border border-light3 p-3 py-2 font-sans font-medium shadow-sm transition dark:border-dark3 ${
+                className={`border-light3 dark:border-dark3 mt-2 w-full rounded-full border p-3 py-2 font-sans font-medium shadow-sm transition ${
                   selectedApps.length > 0
-                    ? "cursor-pointer bg-light1 dark:bg-dark1"
+                    ? "bg-light1 dark:bg-dark1 cursor-pointer"
                     : "cursor-not-allowed"
                 }`}
                 disabled={selectedApps.length === 0}
@@ -273,7 +273,7 @@ export default function AppDownloadStack() {
               <motion.div className="relative w-full overflow-hidden rounded-full">
                 <motion.button
                   layoutId="download-button"
-                  className={`relative w-full cursor-pointer rounded-full border border-light3 bg-light1 p-3 px-4 py-2 font-sans font-medium text-light12 shadow-xs transition dark:border-dark3 dark:bg-dark1 dark:text-dark12`}
+                  className={`border-light3 bg-light1 text-light12 dark:border-dark3 dark:bg-dark1 dark:text-dark12 relative w-full cursor-pointer rounded-full border p-3 px-4 py-2 font-sans font-medium shadow-xs transition`}
                   onClick={confirmDownload}
                   disabled={downloadComplete}
                 >
@@ -302,7 +302,7 @@ export default function AppDownloadStack() {
             transition={{ delay: 0.5 }}
             className="mt-4 text-center"
           >
-            <h2 className="text-xl font-bold text-light12 dark:text-dark12">
+            <h2 className="text-light12 dark:text-dark12 text-xl font-bold">
               {STARTER_KIT_TITLE}
             </h2>
             <p className="text-light11 dark:text-dark11">

@@ -8,7 +8,7 @@ import {
   Resend,
   Supabase,
   Turso,
-} from "@/app/components/resources/logos/appleList"
+} from "@/app/doc/_components/resources/logos/appleList"
 
 export const JobListingComponent = () => {
   const [activeItem, setActiveItem] = useState<{

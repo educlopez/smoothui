@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next"
 
-import { components } from "@/app/data"
+import { components } from "@/app/doc/data"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://www.smoothui.dev"

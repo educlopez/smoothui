@@ -5,7 +5,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { X } from "lucide-react"
 
-import { components, ComponentsProps } from "@/app/data"
+import { components, ComponentsProps } from "@/app/doc/data"
 
 import BadgeBeta from "../badgeBeta"
 import Logo from "./../../../../../public/images/icon.png"

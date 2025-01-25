@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Component } from "lucide-react"
 
-import { ThemeSwitch } from "@/app/components/ui/themeSwitch"
+import { ThemeSwitch } from "@/app/components/themeSwitch"
 
 export function FloatNav() {
   return (

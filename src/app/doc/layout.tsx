@@ -4,6 +4,7 @@ import { Sidebar } from "@/app/doc/_components/sidebar/sidebar"
 import TableOfContent from "@/app/doc/_components/tableOfContent"
 
 import Footer from "../components/footer"
+import { ColorProvider } from "./context/ColorContext"
 
 export const metadata: Metadata = {
   title: {
@@ -69,15 +70,17 @@ type ComponentPageLayout = {
 
 export default function ComponentPageLayout({ children }: ComponentPageLayout) {
   return (
-    <div className="bg-light1 dark:bg-dark1 antialiased transition">
-      <div className="lg:grid lg:grid-cols-[260px_1fr] 2xl:grid-cols-[260px_1fr_260px]">
-        <Sidebar />
-        <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 *:col-start-2 lg:grid lg:p-12 lg:pt-[92px]">
-          {children}
-          <Footer />
+    <ColorProvider>
+      <div className="bg-light1 dark:bg-dark1 antialiased transition">
+        <div className="lg:grid lg:grid-cols-[260px_1fr] 2xl:grid-cols-[260px_1fr_260px]">
+          <Sidebar />
+          <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 *:col-start-2 lg:grid lg:p-12 lg:pt-[92px]">
+            {children}
+            <Footer />
+          </div>
+          <TableOfContent />
         </div>
-        <TableOfContent />
       </div>
-    </div>
+    </ColorProvider>
   )
 }

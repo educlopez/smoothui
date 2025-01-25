@@ -3,9 +3,9 @@
 import { useState } from "react"
 import { motion } from "motion/react"
 
-import { BskyIcon } from "@/app/components/resources/iconssocial/bsky"
-import { ThreadsIcon } from "@/app/components/resources/iconssocial/threads"
-import { XIcon } from "@/app/components/resources/iconssocial/x"
+import { BskyIcon } from "@/app/doc/_components/resources/iconssocial/bsky"
+import { ThreadsIcon } from "@/app/doc/_components/resources/iconssocial/threads"
+import { XIcon } from "@/app/doc/_components/resources/iconssocial/x"
 
 interface Platform {
   name: string

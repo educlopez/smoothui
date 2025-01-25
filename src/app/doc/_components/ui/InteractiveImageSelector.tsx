@@ -5,10 +5,10 @@ import Image from "next/image"
 import { Share2, Trash2 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-import blueArt from "@/app/components/resources/images/blueart.jpeg"
-import orangeArt from "@/app/components/resources/images/orangeart.jpeg"
-import orangePurpleArt from "@/app/components/resources/images/oranpurart.jpeg"
-import pinkArt from "@/app/components/resources/images/pinkart.jpeg"
+import blueArt from "@/app/doc/_components/resources/images/blueart.jpeg"
+import orangeArt from "@/app/doc/_components/resources/images/orangeart.jpeg"
+import orangePurpleArt from "@/app/doc/_components/resources/images/oranpurart.jpeg"
+import pinkArt from "@/app/doc/_components/resources/images/pinkart.jpeg"
 
 interface ImageData {
   id: number
@@ -68,23 +68,23 @@ export default function InteractiveImageSelector() {
   return (
     <div className="flex h-full w-full flex-col justify-between p-4">
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b from-black/20 to-transparent dark:from-black/50"></div>
-      <div className="absolute left-5 right-5 top-5 z-20 flex justify-between p-4">
+      <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="rounded-full bg-light1/20 px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-light1/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={handleReset}
         >
           Reset
         </motion.button>
         <button
-          className="rounded-full bg-light1/20 px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-light1/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={toggleSelecting}
         >
           {isSelecting ? "Cancel" : "Select"}
         </button>
       </div>
-      <div className="absolute left-5 right-5 top-16 z-20 flex justify-between p-4">
+      <div className="absolute top-16 right-5 left-5 z-20 flex justify-between p-4">
         <div className="flex items-center gap-2">
           <span className="text-2xl font-bold text-white">Art Gallery</span>
         </div>
@@ -119,7 +119,7 @@ export default function InteractiveImageSelector() {
                   loading="lazy"
                 />
                 {isSelecting && selectedImages.includes(image.id) && (
-                  <div className="absolute bottom-2 right-2 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-blue-500 text-white">
+                  <div className="absolute right-2 bottom-2 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-blue-500 text-white">
                     ✓
                   </div>
                 )}
@@ -134,7 +134,7 @@ export default function InteractiveImageSelector() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="absolute bottom-0 left-0 right-0 z-10 flex items-center justify-between bg-light1/20 p-4 bg-blend-luminosity backdrop-blur-xl dark:bg-dark1/20"
+            className="bg-light1/20 dark:bg-dark1/20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
           >
             <button className="text-blue-500">
               <Share2 size={24} />
