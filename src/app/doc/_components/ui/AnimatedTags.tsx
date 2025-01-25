@@ -25,12 +25,12 @@ export function AnimatedTags() {
       <div className="flex flex-col items-start justify-center gap-1">
         <p>Selected Tags</p>
         <AnimatePresence>
-          <div className="flex min-h-12 w-full flex-wrap items-center gap-1 rounded-xl border border-light4 p-2 dark:border-dark4">
+          <div className="border-light-300 dark:border-dark-300 flex min-h-12 w-full flex-wrap items-center gap-1 rounded-xl border p-2">
             {selectedTag?.map((tag) => (
               <motion.div
                 key={tag}
                 layout
-                className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-light3 px-2 py-1 text-light11 group-hover:bg-light2 group-hover:text-light12 dark:bg-dark3 dark:text-dark11 dark:group-hover:bg-dark2 dark:group-hover:text-dark12"
+                className="group bg-light-200 text-light-900 group-hover:bg-light-100 group-hover:text-light-950 dark:bg-dark-200 dark:text-dark-900 dark:group-hover:bg-dark-100 dark:group-hover:text-dark-950 flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
                 onClick={() => handleDeleteTag(tag)}
                 initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
                 animate={{
@@ -57,7 +57,7 @@ export function AnimatedTags() {
             <motion.div
               layout
               key={index}
-              className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md bg-light3 px-2 py-1 text-light11 dark:bg-dark3 dark:text-dark11"
+              className="group bg-light-200 text-light-900 dark:bg-dark-200 dark:text-dark-900 flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md px-2 py-1"
               onClick={() => handleTagClick(tag)}
               initial={{ y: -20, opacity: 0, filter: "blur(4px)" }}
               animate={{
@@ -71,7 +71,7 @@ export function AnimatedTags() {
               {tag}{" "}
               <Plus
                 size={16}
-                className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-light2 group-hover:text-light12 dark:group-hover:bg-dark2 dark:group-hover:text-dark12"
+                className="hover:bg-light-100 group-hover:text-light-950 dark:group-hover:bg-dark-100 dark:group-hover:text-dark-950 flex items-center justify-center rounded-full transition-all duration-300 ease-in-out"
               />
             </motion.div>
           ))}

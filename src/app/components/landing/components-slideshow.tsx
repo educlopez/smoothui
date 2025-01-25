@@ -12,12 +12,12 @@ const SHOWCASE_COMPONENTS = [
 
 export function ComponentsSlideshow() {
   return (
-    <section className="bg-light2 dark:bg-dark2 relative py-24 transition">
+    <section className="bg-light-100 dark:bg-dark-100 relative py-24 transition">
       <Rule position="bottom-right" />
       <Rule position="bottom-left" />
       <Divider />
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-title text-light12 dark:text-dark12 text-center text-3xl font-bold transition">
+        <h2 className="font-title text-light-950 dark:text-dark-950 text-center text-3xl font-bold transition">
           Component Showcase
         </h2>
         <div className="mt-16 grid md:grid-cols-2 lg:grid-cols-3">

@@ -33,8 +33,8 @@ export function SidebarButton({
       className={cn(
         "relative mt-1 rounded-lg px-2 py-1.5 text-sm font-normal select-none",
         isActive
-          ? "bg-light3 dark:bg-dark4 z-0"
-          : "text-light11 hover:bg-light3 dark:text-dark11 dark:hover:bg-dark4"
+          ? "bg-light-200 dark:bg-dark-300 z-0"
+          : "text-light-900 hover:bg-light-200 dark:text-dark-900 dark:hover:bg-dark-300"
       )}
     >
       {isNew ? (

@@ -117,11 +117,11 @@ export default async function ComponentPage(props: {
           <h1
             data-table-content="Introduction"
             data-level="1"
-            className="text-light12 dark:text-dark12 text-3xl font-bold -tracking-wide"
+            className="text-light-950 dark:text-dark-950 text-3xl font-bold -tracking-wide"
           >
             {component.componentTitle}
           </h1>
-          <p className="text-light11 dark:text-dark11 text-sm">
+          <p className="text-light-900 dark:text-dark-900 text-sm">
             {component.info}
           </p>
         </div>

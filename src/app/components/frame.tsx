@@ -48,8 +48,8 @@ export default function Frame({
             <>
               <div className="flex justify-between gap-8">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-light12 dark:text-dark12 text-sm font-medium transition">
-                    <span className="text-light11 dark:text-dark11 transition">
+                  <h3 className="text-light-950 dark:text-dark-950 text-sm font-medium transition">
+                    <span className="text-light-900 dark:text-dark-900 transition">
                       #{component.id}
                     </span>{" "}
                     {component.componentTitle}
@@ -64,7 +64,7 @@ export default function Frame({
                   <button
                     key={showCode ? "check" : "copy"}
                     onClick={toggleView}
-                    className="bg-light3 text-light12 hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
+                    className="bg-light-200 text-light-950 hover:bg-light-300 dark:bg-dark-200 dark:text-dark-950 dark:hover:bg-dark-300 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
                   >
                     {showCode ? (
                       <motion.span
@@ -105,7 +105,7 @@ export default function Frame({
           )}
           <div
             id={`component-${component.id}`}
-            className="border-light3 bg-light1 dark:border-dark3 dark:bg-dark1 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
+            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
           >
             {!clean && showCode ? (
               <>
@@ -126,7 +126,7 @@ export default function Frame({
                   <button
                     key={isCopied ? "check" : "copy"}
                     onClick={handleCopyCode}
-                    className="bg-light3 text-light12 hover:bg-light4 dark:bg-dark3 dark:text-dark12 dark:hover:bg-dark4 absolute top-2 right-2 rounded-md p-2 transition"
+                    className="bg-light-200 text-light-950 hover:bg-light-300 dark:bg-dark-200 dark:text-dark-950 dark:hover:bg-dark-300 absolute top-2 right-2 rounded-md p-2 transition"
                     aria-label="Copy code"
                   >
                     {isCopied ? (
@@ -170,14 +170,14 @@ export default function Frame({
                   {component.tags.map((tag) => (
                     <div
                       key={tag}
-                      className="border-light3 text-light11 dark:border-dark3 dark:text-dark11 inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
+                      className="border-light-200 text-light-900 dark:border-dark-200 dark:text-dark-900 inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
                     >
                       {tag}
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="text-light12 dark:text-dark12 text-sm transition">
+              <p className="text-light-950 dark:text-dark-950 text-sm transition">
                 {component.info}
               </p>
             </>

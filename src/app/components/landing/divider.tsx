@@ -12,8 +12,8 @@ export default function Divider({
       className={`absolute ${
         orientation === "horizontal"
           ? "bottom-0 left-0 h-[2px] w-full"
-          : "right-0 top-0 h-full w-[2px]"
-      } z-1 border-light4 bg-white transition dark:border-dark4 dark:bg-black ${
+          : "top-0 right-0 h-full w-[2px]"
+      } border-light-300 dark:border-dark-300 z-1 bg-white transition dark:bg-black ${
         orientation === "horizontal" ? "border-t" : "border-r"
       } ${className}`}
     />

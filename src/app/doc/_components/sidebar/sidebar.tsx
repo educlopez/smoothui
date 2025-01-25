@@ -28,7 +28,7 @@ export function Sidebar() {
       <MobileHeader onOpenSidebar={handleOpenSidebar} />
 
       <aside
-        className={`bg-light2 dark:bg-dark2 border-light5 dark:border-dark5 fixed inset-y-0 right-0 z-50 w-64 transform overflow-y-auto rounded-s-2xl border-l p-3 transition-transform duration-200 ease-in-out md:rounded-s-none md:p-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-auto lg:flex-1 lg:transform-none lg:flex-col ${
+        className={`bg-light-100 dark:bg-dark-100 border-light-400 dark:border-dark-400 fixed inset-y-0 right-0 z-50 w-64 transform overflow-y-auto rounded-s-2xl border-l p-3 transition-transform duration-200 ease-in-out md:rounded-s-none md:p-6 lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-auto lg:flex-1 lg:transform-none lg:flex-col ${
           isSidebarOpen ? "translate-x-0" : "translate-x-full lg:translate-x-0"
         }`}
       >
@@ -43,7 +43,7 @@ export function Sidebar() {
           )}
           <button
             onClick={handleCloseSidebar}
-            className="hover:bg-light3 dark:hover:bg-dark3 mt-2 rounded-lg lg:hidden"
+            className="hover:bg-light-200 dark:hover:bg-dark-200 mt-2 rounded-lg lg:hidden"
             aria-label="Close sidebar"
           >
             <X size={16} />
@@ -52,7 +52,7 @@ export function Sidebar() {
 
         <nav className="flex h-auto flex-col gap-4.5 overflow-y-auto px-0 pt-[20px] pb-10 md:px-2">
           <div className="flex flex-col gap-1">
-            <span className="text-light12 dark:text-dark12 text-xs font-medium">
+            <span className="text-light-950 dark:text-dark-950 text-xs font-medium">
               Get Started
             </span>
             <div className="flex flex-col">
@@ -60,7 +60,7 @@ export function Sidebar() {
             </div>
           </div>
           <div className="flex h-[calc(100vh-330px)] flex-col gap-1 overflow-y-scroll">
-            <span className="text-light12 dark:text-dark12 relative z-1 text-xs font-medium">
+            <span className="text-light-950 dark:text-dark-950 relative z-1 text-xs font-medium">
               Components
             </span>
             <div className="flex flex-col pb-8">
@@ -79,11 +79,11 @@ export function Sidebar() {
                 ))}
             </div>
           </div>
-          <div className="border-light3 dark:border-dark3 absolute bottom-3 left-0 mt-auto flex w-full flex-col gap-3 border-t px-3 pt-4">
+          <div className="border-light-200 dark:border-dark-200 absolute bottom-3 left-0 mt-auto flex w-full flex-col gap-3 border-t px-3 pt-4">
             <a
               href="https://sparkbites.dev/"
               target="_blank"
-              className="shadow-light dark:shadow-dark bg-light1 dark:bg-dark4 dark:hover:bg-light1/10 hover:bg-dark1/1 flex flex-col rounded-lg p-3 transition-colors"
+              className="shadow-light dark:shadow-dark bg-light-50 dark:bg-dark-300 dark:hover:bg-light-50/10 hover:bg-dark-50/1 flex flex-col rounded-lg p-3 transition-colors"
             >
               <h3 className="mb-1 text-xs font-medium text-black dark:text-white">
                 Sparkbites

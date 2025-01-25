@@ -29,11 +29,11 @@ export const ThemeSwitch = () => {
     >
       <Sun
         size={20}
-        className="fill-light12 stroke-light12 transition hover:fill-pink-500 hover:stroke-pink-500 dark:hidden"
+        className="fill-light-950 stroke-light-950 transition hover:fill-pink-500 hover:stroke-pink-500 dark:hidden"
       />
       <Moon
         size={20}
-        className="dark:fill-dark12 hidden transition dark:block dark:hover:fill-pink-500 dark:hover:stroke-pink-500"
+        className="dark:fill-dark-950 hidden transition dark:block dark:hover:fill-pink-500 dark:hover:stroke-pink-500"
       />
     </div>
   )

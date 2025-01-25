@@ -120,7 +120,7 @@ export function ColorSelector() {
 
   return (
     <div className="space-y-4">
-      <h3 className="text-light12 dark:text-dark12 text-lg font-semibold">
+      <h3 className="text-light-950 dark:text-dark-950 text-lg font-semibold">
         Color Scheme
       </h3>
       <div className="flex flex-row gap-1">
@@ -131,7 +131,7 @@ export function ColorSelector() {
             className={`relative flex flex-col items-center space-y-2 rounded-lg border p-4 transition-all ${
               selectedScheme.name === scheme.name
                 ? `border-${scheme.name.toLowerCase()}-500 bg-${scheme.name.toLowerCase()}-500/10`
-                : "border-light3 dark:border-dark3 hover:border-stone-500/50"
+                : "border-light-200 dark:border-dark-200 hover:border-stone-500/50"
             }`}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}

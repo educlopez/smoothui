@@ -71,7 +71,7 @@ type ComponentPageLayout = {
 export default function ComponentPageLayout({ children }: ComponentPageLayout) {
   return (
     <ColorProvider>
-      <div className="bg-light1 dark:bg-dark1 antialiased transition">
+      <div className="bg-light-50 dark:bg-dark-50 antialiased transition">
         <div className="lg:grid lg:grid-cols-[260px_1fr] 2xl:grid-cols-[260px_1fr_260px]">
           <Sidebar />
           <div className="grid-cols-[1fr_760px_1fr] px-4 pt-16 *:col-start-2 lg:grid lg:p-12 lg:pt-[92px]">

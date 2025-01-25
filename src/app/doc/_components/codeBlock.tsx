@@ -84,24 +84,24 @@ export function CodeBlock({
   return (
     <div
       className={cn(
-        "relative overflow-hidden rounded-xl border border-light3 bg-light2 dark:border-dark3 dark:bg-dark2",
+        "border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative overflow-hidden rounded-xl border",
         className
       )}
     >
       {fileName && copyCode && (
-        <div className="flex h-10 items-center justify-between border-b border-light3 bg-light2 px-4 dark:border-dark3 dark:bg-dark4">
+        <div className="border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-300 flex h-10 items-center justify-between border-b px-4">
           <div className="flex items-center gap-1.5">
             {fileName === "Terminal" ? (
               <>
                 <TerminalIcon
                   size={14}
-                  className="text-light10 dark:text-dark10"
+                  className="text-light-800 dark:text-dark-800"
                 />
                 <div className="flex items-center gap-2">
                   <h3
                     data-table-content={fileName}
                     data-level="3"
-                    className="text-[13px] font-medium leading-none text-light11 dark:text-dark11"
+                    className="text-light-900 dark:text-dark-900 text-[13px] leading-none font-medium"
                   >
                     {fileName}
                   </h3>
@@ -110,7 +110,7 @@ export function CodeBlock({
                     onChange={(e) =>
                       setSelectedPM(e.target.value as PackageManager)
                     }
-                    className="ml-2 rounded-md border border-light3 bg-light1 px-2 py-0.5 text-xs text-light11 dark:border-dark3 dark:bg-dark1 dark:text-dark11"
+                    className="border-light-200 bg-light-50 text-light-900 dark:border-dark-200 dark:bg-dark-50 dark:text-dark-900 ml-2 rounded-md border px-2 py-0.5 text-xs"
                   >
                     {Object.keys(packageManagers).map((pm) => (
                       <option key={pm} value={pm}>
@@ -122,11 +122,14 @@ export function CodeBlock({
               </>
             ) : (
               <>
-                <CodeIcon size={14} className="text-light10 dark:text-dark10" />
+                <CodeIcon
+                  size={14}
+                  className="text-light-800 dark:text-dark-800"
+                />
                 <h3
                   data-table-content={fileName}
                   data-level="3"
-                  className="text-[13px] font-medium leading-none text-light11 dark:text-dark11"
+                  className="text-light-900 dark:text-dark-900 text-[13px] leading-none font-medium"
                 >
                   {fileName}
                 </h3>
@@ -157,11 +160,11 @@ export function CodeBlock({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsExpanded(!isExpanded)}
-            className="pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-linear-to-t from-light2 pb-8 pt-32 dark:from-dark2"
+            className="from-dark-100 pointer-events-none absolute inset-x-0 bottom-0 flex justify-center bg-linear-to-t pt-32 pb-8"
           >
             <button
               type="button"
-              className="pointer-events-auto relative flex flex-row items-center gap-2 text-sm text-light11 hover:text-light12 dark:text-dark11 dark:hover:text-dark12"
+              className="text-dark-900 hover:text-dark-950 pointer-events-auto relative flex flex-row items-center gap-2 text-sm"
             >
               {isExpanded ? (
                 <>

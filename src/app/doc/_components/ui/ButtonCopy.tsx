@@ -33,7 +33,7 @@ export default function ButtonCopy() {
   return (
     <div className="flex justify-center">
       <button
-        className="relative w-auto overflow-hidden rounded-full border border-light3 bg-light1 p-3 disabled:opacity-50 dark:border-dark3 dark:bg-dark1"
+        className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto overflow-hidden rounded-full border p-3 disabled:opacity-50"
         disabled={buttonState !== "idle"}
         onClick={handleClick}
       >

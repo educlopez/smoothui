@@ -221,9 +221,9 @@ export default function AppDownloadStack() {
               </motion.ul>
               <motion.button
                 layoutId="download-button"
-                className={`border-light3 dark:border-dark3 mt-2 w-full rounded-full border p-3 py-2 font-sans font-medium shadow-sm transition ${
+                className={`border-light-200 dark:border-dark-200 mt-2 w-full rounded-full border p-3 py-2 font-sans font-medium shadow-sm transition ${
                   selectedApps.length > 0
-                    ? "bg-light1 dark:bg-dark1 cursor-pointer"
+                    ? "bg-light-50 dark:bg-dark-50 cursor-pointer"
                     : "cursor-not-allowed"
                 }`}
                 disabled={selectedApps.length === 0}
@@ -273,7 +273,7 @@ export default function AppDownloadStack() {
               <motion.div className="relative w-full overflow-hidden rounded-full">
                 <motion.button
                   layoutId="download-button"
-                  className={`border-light3 bg-light1 text-light12 dark:border-dark3 dark:bg-dark1 dark:text-dark12 relative w-full cursor-pointer rounded-full border p-3 px-4 py-2 font-sans font-medium shadow-xs transition`}
+                  className={`border-light-200 bg-light-50 text-light-950 dark:border-dark-200 dark:bg-dark-50 dark:text-dark-950 relative w-full cursor-pointer rounded-full border p-3 px-4 py-2 font-sans font-medium shadow-xs transition`}
                   onClick={confirmDownload}
                   disabled={downloadComplete}
                 >
@@ -302,10 +302,10 @@ export default function AppDownloadStack() {
             transition={{ delay: 0.5 }}
             className="mt-4 text-center"
           >
-            <h2 className="text-light12 dark:text-dark12 text-xl font-bold">
+            <h2 className="text-light-950 dark:text-dark-950 text-xl font-bold">
               {STARTER_KIT_TITLE}
             </h2>
-            <p className="text-light11 dark:text-dark11">
+            <p className="text-light-900 dark:text-dark-900">
               {apps.length} Applications
             </p>
           </motion.div>

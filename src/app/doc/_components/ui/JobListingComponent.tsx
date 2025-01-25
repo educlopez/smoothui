@@ -43,7 +43,7 @@ export const JobListingComponent = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="pointer-events-none absolute inset-0 z-10 bg-light11/10 bg-blend-luminosity backdrop-blur-xl dark:bg-dark1/10"
+            className="bg-light-900/10 dark:bg-dark-50/10 pointer-events-none absolute inset-0 z-10 bg-blend-luminosity backdrop-blur-xl"
           />
         ) : null}
       </AnimatePresence>
@@ -52,7 +52,7 @@ export const JobListingComponent = () => {
           <>
             <div className="group absolute inset-0 z-10 grid place-items-center">
               <motion.div
-                className="flex h-fit w-[90%] cursor-pointer flex-col items-start gap-4 overflow-hidden bg-light1 p-4 shadow-xs dark:bg-dark1"
+                className="bg-light-50 dark:bg-dark-50 flex h-fit w-[90%] cursor-pointer flex-col items-start gap-4 overflow-hidden p-4 shadow-xs"
                 ref={ref}
                 layoutId={`workItem-${activeItem.company}`}
                 style={{ borderRadius: 12 }}
@@ -65,7 +65,7 @@ export const JobListingComponent = () => {
                     <div className="flex w-full flex-col gap-0.5">
                       <div className="flex w-full flex-row justify-between gap-0.5">
                         <motion.div
-                          className="text-light13 dark:text-dark13 text-sm font-medium"
+                          className="text-light-503 dark:text-dark-503 text-sm font-medium"
                           layoutId={`workItemCompany-${activeItem.company}`}
                         >
                           {activeItem.company}
@@ -73,12 +73,12 @@ export const JobListingComponent = () => {
                       </div>
                       <motion.p
                         layoutId={`workItemTitle-${activeItem.company}`}
-                        className="text-sm text-light11 dark:text-dark11"
+                        className="text-light-900 dark:text-dark-900 text-sm"
                       >
                         {activeItem.title} / {activeItem.salary}
                       </motion.p>
                       <motion.div
-                        className="flex flex-row gap-2 text-xs text-light11 dark:text-dark11"
+                        className="text-light-900 dark:text-dark-900 flex flex-row gap-2 text-xs"
                         layoutId={`workItemExtras-${activeItem.company}`}
                       >
                         {activeItem.remote === "Yes" &&
@@ -97,7 +97,7 @@ export const JobListingComponent = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0, transition: { duration: 0.05 } }}
-                  className="text-sm text-light11 dark:text-dark11"
+                  className="text-light-900 dark:text-dark-900 text-sm"
                 >
                   {activeItem.job_description}
                 </motion.p>
@@ -112,7 +112,7 @@ export const JobListingComponent = () => {
             <motion.div
               layoutId={`workItem-${role.company}`}
               key={role.company}
-              className="group flex w-full cursor-pointer flex-row items-center gap-4 border border-light3 bg-light1 p-2 shadow-xs dark:border-dark3 dark:bg-dark1 md:p-4"
+              className="group border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 flex w-full cursor-pointer flex-row items-center gap-4 border p-2 shadow-xs md:p-4"
               onClick={() => setActiveItem(role)}
               style={{ borderRadius: 8 }}
             >
@@ -121,20 +121,20 @@ export const JobListingComponent = () => {
               </motion.div>
               <div className="flex w-full flex-col items-start justify-between gap-0.5">
                 <motion.div
-                  className="font-medium text-light12 dark:text-dark12"
+                  className="text-light-950 dark:text-dark-950 font-medium"
                   layoutId={`workItemCompany-${role.company}`}
                 >
                   {role.company}
                 </motion.div>
                 <motion.div
-                  className="text-xs text-light11 dark:text-dark11"
+                  className="text-light-900 dark:text-dark-900 text-xs"
                   layoutId={`workItemTitle-${role.company}`}
                 >
                   {role.title} / {role.salary}
                 </motion.div>
 
                 <motion.div
-                  className="flex flex-row gap-2 text-xs text-light11 dark:text-dark11"
+                  className="text-light-900 dark:text-dark-900 flex flex-row gap-2 text-xs"
                   layoutId={`workItemExtras-${role.company}`}
                 >
                   {role.remote === "Yes" && ` ${role.location} `}

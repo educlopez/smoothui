@@ -18,7 +18,7 @@ export function ComponentView({ children }: ComponentViewProps) {
   return (
     <div
       className={cn(
-        "relative flex h-auto min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border border-light3 bg-light2 py-12 transition dark:border-dark3 dark:bg-dark2 md:h-[640px] md:flex-1"
+        "border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative flex h-auto min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border py-12 transition md:h-[640px] md:flex-1"
       )}
     >
       {children}

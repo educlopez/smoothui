@@ -11,31 +11,28 @@
     0px 26px 10px rgba(136, 97, 46, 0.05), 0px 14px 9px rgba(136, 97, 46, 0.17),
     0px 6px 6px rgba(136, 97, 46, 0.29), 0px 2px 4px rgba(136, 97, 46, 0.33);
 
-  --color-dark1: hsl(0 0% 8.5%);
-  --color-dark2: hsl(0 0% 11%);
-  --color-dark3: hsl(0 0% 13.6%);
-  --color-dark4: hsl(0 0% 15.8%);
-  --color-dark5: hsl(0 0% 17.9%);
-  --color-dark6: hsl(0 0% 20.5%);
-  --color-dark7: hsl(0 0% 24.3%);
-  --color-dark8: hsl(0 0% 31.2%);
-  --color-dark9: hsl(0 0% 43.9%);
-  --color-dark10: hsl(0 0% 49.4%);
-  --color-dark11: hsl(0 0% 62.8%);
-  --color-dark12: hsl(0 0% 93%);
-
-  --color-light1: hsl(0 0% 99%);
-  --color-light2: hsl(0 0% 97.3%);
-  --color-light3: hsl(0 0% 95.1%);
-  --color-light4: hsl(0 0% 93%);
-  --color-light5: hsl(0 0% 90.9%);
-  --color-light6: hsl(0 0% 88.3%);
-  --color-light7: hsl(0 0% 84.5%);
-  --color-light8: hsl(0 0% 77.6%);
-  --color-light9: hsl(0 0% 65.9%);
-  --color-light10: hsl(0 0% 60.4%);
-  --color-light11: hsl(0 0% 43.5%);
-  --color-light12: hsl(0 0% 9%);
+  --color-dark-50: hsl(0 0% 8.5%);
+  --color-dark-100: hsl(0 0% 11%);
+  --color-dark-200: hsl(0 0% 13.6%);
+  --color-dark-300: hsl(0 0% 15.8%);
+  --color-dark-400: hsl(0 0% 17.9%);
+  --color-dark-500: hsl(0 0% 20.5%);
+  --color-dark-600: hsl(0 0% 31.2%);
+  --color-dark-700: hsl(0 0% 43.9%);
+  --color-dark-800: hsl(0 0% 49.4%);
+  --color-dark-900: hsl(0 0% 62.8%);
+  --color-dark-950: hsl(0 0% 93%);
+  --color-light-50: hsl(0 0% 99%);
+  --color-light-100: hsl(0 0% 97.3%);
+  --color-light-200: hsl(0 0% 95.1%);
+  --color-light-300: hsl(0 0% 93%);
+  --color-light-400: hsl(0 0% 90.9%);
+  --color-light-500: hsl(0 0% 88.3%);
+  --color-light-600: hsl(0 0% 77.6%);
+  --color-light-700: hsl(0 0% 65.9%);
+  --color-light-800: hsl(0 0% 60.4%);
+  --color-light-900: hsl(0 0% 43.5%);
+  --color-light-950: hsl(0 0% 9%);
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-conic: conic-gradient(
@@ -64,13 +61,13 @@
 
 @layer base {
   html {
-    --text-primary: var(--color-light3);
-    --text-quaternary: var(--color-light12);
+    --text-primary: var(--color-light-200);
+    --text-quaternary: var(--color-light-950);
   }
 
   .dark {
-    --text-primary: var(--color-dark3);
-    --text-quaternary: var(--color-dark12);
+    --text-primary: var(--color-dark-200);
+    --text-quaternary: var(--color-dark-950);
   }
 }
 

@@ -72,13 +72,13 @@ export default function InteractiveImageSelector() {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-light1/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-light-50/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={handleReset}
         >
           Reset
         </motion.button>
         <button
-          className="bg-light1/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-light-50/20 rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={toggleSelecting}
         >
           {isSelecting ? "Cancel" : "Select"}
@@ -134,12 +134,12 @@ export default function InteractiveImageSelector() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="bg-light1/20 dark:bg-dark1/20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
+            className="bg-light-50/20 dark:bg-dark-50/20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
           >
             <button className="text-blue-500">
               <Share2 size={24} />
             </button>
-            <span className="text-light12 dark:text-dark12">
+            <span className="text-light-950 dark:text-dark-950">
               {selectedImages.length} selected
             </span>
             <button
