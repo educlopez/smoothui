@@ -12,8 +12,6 @@ import PowerOffSlide from "@/app/doc/_components/ui/PowerOffSlide"
 import SocialSelector from "@/app/doc/_components/ui/SocialSelector"
 import UserAccountAvatar from "@/app/doc/_components/ui/UserAccountAvatar"
 
-import { ColorSelector } from "./_components/ui/ColorSelector"
-
 export interface ComponentsProps {
   id: number
   componentTitle: string
@@ -221,20 +219,6 @@ export const components: ComponentsProps[] = [
     info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
     componentUi: SocialSelector,
 
-    download: "npm i motion",
-    cnFunction: false,
-    isUpdated: false,
-  },
-  {
-    id: 14,
-    componentTitle: "Color Selector",
-    slug: "color-selector",
-    type: "image",
-    isNew: true,
-    tags: ["react", "tailwindcss", "motion"],
-    href: "https://x.com/educalvolpz",
-    info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
-    componentUi: ColorSelector,
     download: "npm i motion",
     cnFunction: false,
     isUpdated: false,

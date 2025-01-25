@@ -10,8 +10,6 @@ interface ColorScheme {
   name: string
   colors: {
     neutral: string
-    secondary: string
-    accent: string
   }
 }
 
@@ -20,40 +18,30 @@ const colorSchemes: ColorScheme[] = [
     name: "default",
     colors: {
       neutral: "pink-500",
-      secondary: "purple-500",
-      accent: "blue-500",
     },
   },
   {
     name: "pink",
     colors: {
       neutral: "pink-500",
-      secondary: "purple-500",
-      accent: "blue-500",
     },
   },
   {
     name: "blue",
     colors: {
       neutral: "blue-500",
-      secondary: "cyan-500",
-      accent: "teal-500",
     },
   },
   {
     name: "green",
     colors: {
       neutral: "green-500",
-      secondary: "emerald-500",
-      accent: "lime-500",
     },
   },
   {
     name: "amber",
     colors: {
       neutral: "amber-500",
-      secondary: "orange-500",
-      accent: "yellow-500",
     },
   },
 ]
@@ -120,8 +108,11 @@ export function ColorSelector() {
 
   return (
     <div className="space-y-4">
+      <div className={`bg-${selectedScheme.name}-500 h-6 w-6`}>
+        {selectedScheme.name}
+      </div>
       <h3 className="text-light-950 dark:text-dark-950 text-lg font-semibold">
-        Color Scheme
+        Color Selector
       </h3>
       <div className="flex flex-row gap-1">
         {colorSchemes.map((scheme) => (
