@@ -32,7 +32,7 @@ export const Frappe = {
   'code[class*="language-"]': {
     color: colors.text,
     background: "none",
-    fontFamily: "var(--font-mono)",
+    fontFamily: "var(--font-commit)",
     textAlign: "left",
     whiteSpace: "pre",
     wordSpacing: "normal",
@@ -44,7 +44,7 @@ export const Frappe = {
   },
   'pre[class*="language-"]': {
     color: colors.text,
-    fontFamily: "var(--font-mono)",
+    fontFamily: "var(--font-commit)",
     textAlign: "left",
     whiteSpace: "pre",
     wordSpacing: "normal",

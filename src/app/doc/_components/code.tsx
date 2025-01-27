@@ -22,7 +22,7 @@ function Code({ code, lang = "tsx" }: CodeProps) {
       }}
       wrapLongLines={true}
       showLineNumbers={true}
-      className="bg-dark-300 rounded-lg"
+      className="bg-dark-300 font-code rounded-lg"
     >
       {code}
     </SyntaxHighlighter>
