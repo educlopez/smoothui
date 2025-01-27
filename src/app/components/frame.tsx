@@ -3,8 +3,6 @@
 import React, { useState } from "react"
 import { Check, Code, Copy, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism"
 
 import type { ComponentsProps } from "@/app/doc/data"
 import { cn } from "@/app/utils/cn"
@@ -103,66 +101,7 @@ export default function Frame({
               </div>
             </>
           )}
-          <div
-            id={`component-${component.id}`}
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
-          >
-            {!clean && showCode ? (
-              <>
-                <SyntaxHighlighter
-                  language="typescript"
-                  style={vscDarkPlus}
-                  customStyle={{
-                    margin: 0,
-                    padding: "1rem",
-                    height: "100%",
-                    width: "100%",
-                    overflow: "auto",
-                  }}
-                >
-                  {component.code || "// Code not available"}
-                </SyntaxHighlighter>
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <button
-                    key={isCopied ? "check" : "copy"}
-                    onClick={handleCopyCode}
-                    className="bg-light-200 text-light-950 hover:bg-light-300 dark:bg-dark-200 dark:text-dark-950 dark:hover:bg-dark-300 absolute top-2 right-2 rounded-md p-2 transition"
-                    aria-label="Copy code"
-                  >
-                    {isCopied ? (
-                      <motion.span
-                        initial={{ opacity: 0, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, filter: "blur(10px)" }}
-                        transition={{
-                          type: "spring",
-                          duration: 0.3,
-                          bounce: 0,
-                        }}
-                      >
-                        <Check size={16} />
-                      </motion.span>
-                    ) : (
-                      <motion.span
-                        initial={{ opacity: 0, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, filter: "blur(10px)" }}
-                        transition={{
-                          type: "spring",
-                          duration: 0.3,
-                          bounce: 0,
-                        }}
-                      >
-                        <Copy size={16} />
-                      </motion.span>
-                    )}
-                  </button>
-                </AnimatePresence>
-              </>
-            ) : component.componentUi ? (
-              React.createElement(component.componentUi)
-            ) : null}
-          </div>
+
           {!clean && (
             <>
               <div className="flex justify-between gap-8">
