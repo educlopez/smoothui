@@ -1,32 +1,15 @@
 // @ts-nocheck
-import { Prism as SyntaxHighlighter } from "react-syntax-highlighter"
-
-import { Frappe } from "@/app/styles/catppuccinThemeFrappe"
+import { codeToHtml } from "@/app/utils/shiki"
 
 type CodeProps = {
   code: string
   lang?: string
 }
 
-function Code({ code, lang = "tsx" }: CodeProps) {
-  return (
-    <SyntaxHighlighter
-      language={lang}
-      style={Frappe}
-      customStyle={{
-        margin: 0,
-        padding: "1rem",
-        height: "100%",
-        width: "100%",
-        overflow: "auto",
-      }}
-      wrapLongLines={true}
-      showLineNumbers={true}
-      className="bg-dark-300 font-code rounded-lg"
-    >
-      {code}
-    </SyntaxHighlighter>
-  )
+async function Code({ code, lang = "tsx" }: CodeProps) {
+  const html = await codeToHtml({ code, lang })
+
+  return <div dangerouslySetInnerHTML={{ __html: html }} />
 }
 
-export default Code
+export default Code as unknown as (props: CodeProps) => JSX.Element

@@ -1,5 +1,15 @@
+import * as React from "react"
+
 import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/doc/_components/tabs"
+
+import { CodeBlockWrapper } from "./_components/codeBlocKWarapper"
 
 export default function GetStartedPage() {
   const tailwindConfig = `@import "tailwindcss";
@@ -33,7 +43,10 @@ export default function GetStartedPage() {
   --color-light-950: hsl(0 0% 9.0%);
 }`
 
-  const installDeps = `npm install motion lucide-react clsx tailwind-merge`
+  const installNpm = `npm install motion lucide-react clsx tailwind-merge`
+  const installPnpm = `pnpm install motion lucide-react clsx tailwind-merge`
+  const installYarn = `yarn add motion lucide-react clsx tailwind-merge`
+  const installBun = `bun add motion lucide-react clsx tailwind-merge`
 
   return (
     <>
@@ -67,7 +80,47 @@ export default function GetStartedPage() {
             To use SmoothUI components, you will need to install the following
             dependencies:
           </p>
-          <CodeBlock code={installDeps} fileName="Terminal" lang="shell" />
+
+          <Tabs defaultValue="npm">
+            <TabsList>
+              <TabsTrigger
+                value="npm"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+              >
+                npm
+              </TabsTrigger>
+              <TabsTrigger
+                value="pnpm"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+              >
+                pnpm
+              </TabsTrigger>
+              <TabsTrigger
+                value="yarn"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+              >
+                yarn
+              </TabsTrigger>
+              <TabsTrigger
+                value="bun"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+              >
+                bun
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="npm">
+              <CodeBlock code={installNpm} fileName="Terminal" lang="shell" />
+            </TabsContent>
+            <TabsContent value="pnpm">
+              <CodeBlock code={installPnpm} fileName="Terminal" lang="shell" />
+            </TabsContent>
+            <TabsContent value="yarn">
+              <CodeBlock code={installYarn} fileName="Terminal" lang="shell" />
+            </TabsContent>
+            <TabsContent value="bun">
+              <CodeBlock code={installBun} fileName="Terminal" lang="shell" />
+            </TabsContent>
+          </Tabs>
         </div>
 
         <div className="space-y-4">
@@ -82,7 +135,12 @@ export default function GetStartedPage() {
             SmoothUI uses a carefully crafted color system with both light and
             dark variants. Add these colors to your tailwind.config.ts:
           </p>
-          <CodeBlock code={tailwindConfig} fileName="global.css" lang="css" />
+          <CodeBlockWrapper
+            expandButtonTitle="Expand"
+            className="my-6 overflow-hidden rounded-md"
+          >
+            <CodeBlock code={tailwindConfig} fileName="global.css" lang="css" />
+          </CodeBlockWrapper>
         </div>
 
         <div className="space-y-4">

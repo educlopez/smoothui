@@ -40,6 +40,9 @@
     from 180deg at 50% 50%,
     var(--tw-gradient-stops)
   );
+  --shiki-theme: var(--shiki--light);
+  --shiki--light: var(--shiki-theme,);
+  --shiki--dark: var(--shiki-theme,);
 }
 
 /*
@@ -57,6 +60,17 @@
   ::backdrop,
   ::file-selector-button {
     border-color: var(--color-gray-200, currentColor);
+  }
+  .dark {
+    --shiki-theme: var(--shiki--dark);
+    --shiki--light: var(--shiki-theme,);
+    --shiki--dark: var(--shiki-theme,);
+  }
+  [data-theme="dark"] {
+    --shiki-theme: var(--shiki--dark);
+  }
+  [data-theme="light"] {
+    --shiki-theme: var(--shiki--light);
   }
 }
 
@@ -336,4 +350,13 @@
   --tw-shadow-colored: var(--neutral-soft-hover);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
     var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.shiki {
+  background-color: transparent !important;
+  font-size: 14px;
+  & span {
+    color: var(--shiki--light, var(--_s-light))
+      var(--shiki--dark, var(--_s-dark));
+  }
 }

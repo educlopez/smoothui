@@ -9,7 +9,8 @@ import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
 import { ComponentView } from "@/app/doc/_components/componentView"
 import { components } from "@/app/doc/data"
-import { cn } from "@/app/utils/cn"
+
+import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
 
 // import { Pagination } from "../_components/Pagination"
 
@@ -145,11 +146,15 @@ export default async function ComponentPage(props: {
             <CodeBlock code={cnCode} fileName="utils/cn.ts" />
           )}
 
-          <CodeBlock
-            code={code}
-            fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
-            collapsible={true}
-          />
+          <CodeBlockWrapper
+            expandButtonTitle="Expand"
+            className="my-6 overflow-hidden rounded-md"
+          >
+            <CodeBlock
+              code={code}
+              fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
+            />
+          </CodeBlockWrapper>
         </div>
 
         {/* <Pagination
