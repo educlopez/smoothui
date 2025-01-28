@@ -41,7 +41,7 @@ export function CopyCode({ code }: CopyCode) {
       <button
         onClick={handleClick}
         disabled={buttonState !== "idle"}
-        className="relative flex items-center justify-center"
+        className="relative flex cursor-pointer items-center justify-center"
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span
