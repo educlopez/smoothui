@@ -113,14 +113,14 @@ export default function NumberFlow() {
             )}
           >
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueHunds}
               style={{ transform: `translateY(-100%)` }}
             >
               {Math.floor(prevValue / 100)}
             </span>
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueHunds}
               style={{ transform: `translateY(0%)` }}
             >
@@ -133,14 +133,14 @@ export default function NumberFlow() {
             )}
           >
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueTens}
               style={{ transform: `translateY(-100%)` }}
             >
               {Math.floor(prevValue / 10) % 10}
             </span>
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueTens}
               style={{ transform: `translateY(0%)` }}
             >
@@ -149,14 +149,14 @@ export default function NumberFlow() {
           </div>
           <div className="bg-light-100 dark:bg-dark-100 relative h-16 w-12 overflow-hidden rounded-lg">
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueRef}
               style={{ transform: `translateY(-100%)` }}
             >
               {prevValue % 10}
             </span>
             <span
-              className="text-ligh12 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueRef}
               style={{ transform: `translateY(0%)` }}
             >
