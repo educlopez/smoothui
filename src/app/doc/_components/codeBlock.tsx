@@ -9,6 +9,7 @@ type CodeBlockProps = {
   fileName?: string
   lang?: string
   copyCode?: boolean
+  installCommand?: string
 } & React.ComponentProps<"div">
 
 export function CodeBlock({
@@ -17,7 +18,11 @@ export function CodeBlock({
   className,
   lang,
   copyCode = true,
+  installCommand,
 }: CodeBlockProps) {
+  // Concatenate the install command with the code
+  const combinedCode = installCommand ? `${installCommand} ${code}` : code
+
   return (
     <div
       className={cn(
@@ -60,12 +65,20 @@ export function CodeBlock({
               </>
             )}
           </div>
-          <CopyCode code={code} />
+          {fileName === "Terminal" ? (
+            <CopyCode code={combinedCode} />
+          ) : (
+            <CopyCode code={code} />
+          )}
         </div>
       )}
       <div className="relative overflow-x-auto">
         <div className="p-4">
-          <Code code={code} lang={lang} />
+          {fileName === "Terminal" ? (
+            <Code code={combinedCode} lang={lang} />
+          ) : (
+            <Code code={code} lang={lang} />
+          )}
         </div>
       </div>
     </div>

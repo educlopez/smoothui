@@ -39,7 +39,7 @@ export const components: ComponentsProps[] = [
     href: "https://x.com/educalvolpz",
     info: "Job listing component with animation when showing more information",
     componentUi: JobListingComponent,
-    download: "npm i motion usehooks-ts",
+    download: "motion usehooks-ts",
     cnFunction: false,
     isUpdated: false,
   },
@@ -54,7 +54,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays the metadata information of an image, uses useMeasure to get the size of the information box and move the image on the Y axis",
     componentUi: ImageMetadataPreview,
 
-    download: "npm i motion lucide-react react-use-measure",
+    download: "motion lucide-react react-use-measure",
     cnFunction: false,
     isUpdated: false,
   },
@@ -69,7 +69,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays tags with an animation when they are added or removed from the list of selected tags",
     componentUi: AnimatedTags,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
   },
@@ -84,7 +84,7 @@ export const components: ComponentsProps[] = [
     info: "Component that morphs a fluid shape into another fluid shape",
     componentUi: FluidMorph,
 
-    download: "npm i motion",
+    download: "motion",
     cnFunction: false,
     isUpdated: false,
   },
@@ -99,7 +99,7 @@ export const components: ComponentsProps[] = [
     info: "Select images by clicking on them, delete selected images using the trash icon, and reset the gallery with the refresh button. Inspired by the smooth and intuitive photo gallery experience of iPhones, this interface features seamless animations for an engaging user experience.",
     componentUi: InteractiveImageSelector,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
   },
@@ -114,7 +114,7 @@ export const components: ComponentsProps[] = [
     info: "Inspired by Family.co and the example by Jenson Wong, this component presents a stack of apps, allowing users to open the stack, select the apps they want, and download them.",
     componentUi: AppDownloadStack,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
   },
@@ -129,7 +129,7 @@ export const components: ComponentsProps[] = [
     info: "Inspired by the power off animation of iPhones, this component allows the user to slide to power off the device.",
     componentUi: PowerOffSlide,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: true,
   },
@@ -144,7 +144,7 @@ export const components: ComponentsProps[] = [
     info: "Component that displays a user's avatar and allows the user to edit their profile information and order history.",
     componentUi: UserAccountAvatar,
 
-    download: "npm i motion lucide-react @radix-ui/react-popover",
+    download: "motion lucide-react @radix-ui/react-popover",
     cnFunction: false,
     isUpdated: false,
   },
@@ -159,7 +159,7 @@ export const components: ComponentsProps[] = [
     info: "This component is an interactive button that visually changes state when clicked. The states are 'idle', 'loading', and 'success', represented by animated icons. When clicked, the button transitions from idle to loading and then to success, using smooth animations.",
     componentUi: ButtonCopy,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
   },
@@ -174,7 +174,7 @@ export const components: ComponentsProps[] = [
     info: "A reusable card component that displays a matrix rain effect on hover, combining smooth animations with canvas-based effects.",
     componentUi: MatrixCard,
 
-    download: "npm i motion",
+    download: "motion",
     cnFunction: false,
     isUpdated: false,
   },
@@ -189,7 +189,7 @@ export const components: ComponentsProps[] = [
     info: "A reusable Dynamic Island component inspired by Apple's design, featuring smooth state transitions and animations.",
     componentUi: DynamicIsland,
 
-    download: "npm i motion lucide-react",
+    download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
   },
@@ -204,7 +204,7 @@ export const components: ComponentsProps[] = [
     info: "A component that animates the transition of numbers, showcasing smooth animations for incrementing and decrementing values.",
     componentUi: NumberFlow,
 
-    download: "npm i clsx tailwind-merge lucide-react",
+    download: "clsx tailwind-merge lucide-react",
     cnFunction: true,
     isUpdated: true,
   },
@@ -219,7 +219,7 @@ export const components: ComponentsProps[] = [
     info: "A social media selector component that displays usernames across different platforms with elegant blur animations. Users can interact with each social network option, triggering smooth transitions and blur effects that enhance the visual feedback. Perfect for profile pages or social media dashboards.",
     componentUi: SocialSelector,
 
-    download: "npm i motion",
+    download: "motion",
     cnFunction: false,
     isUpdated: false,
   },

@@ -8,6 +8,12 @@ import { notFound } from "next/navigation"
 import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
 import { ComponentView } from "@/app/doc/_components/componentView"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/app/doc/_components/tabs"
 import { components } from "@/app/doc/data"
 
 import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
@@ -135,11 +141,66 @@ export default async function ComponentPage(props: {
             Code
           </h2>
           {component.download && (
-            <CodeBlock
-              code={component.download}
-              fileName="Terminal"
-              lang="bash"
-            />
+            <Tabs defaultValue="npm">
+              <TabsList>
+                <TabsTrigger
+                  value="npm"
+                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                >
+                  npm
+                </TabsTrigger>
+                <TabsTrigger
+                  value="pnpm"
+                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                >
+                  pnpm
+                </TabsTrigger>
+                <TabsTrigger
+                  value="yarn"
+                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                >
+                  yarn
+                </TabsTrigger>
+                <TabsTrigger
+                  value="bun"
+                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                >
+                  bun
+                </TabsTrigger>
+              </TabsList>
+              <TabsContent value="npm">
+                <CodeBlock
+                  code={component.download}
+                  fileName="Terminal"
+                  installCommand="npm install"
+                  lang="shell"
+                />
+              </TabsContent>
+              <TabsContent value="pnpm">
+                <CodeBlock
+                  code={component.download}
+                  fileName="Terminal"
+                  installCommand="pnpm install"
+                  lang="shell"
+                />
+              </TabsContent>
+              <TabsContent value="yarn">
+                <CodeBlock
+                  code={component.download}
+                  fileName="Terminal"
+                  installCommand="yarn add"
+                  lang="shell"
+                />
+              </TabsContent>
+              <TabsContent value="bun">
+                <CodeBlock
+                  code={component.download}
+                  fileName="Terminal"
+                  installCommand="bun add"
+                  lang="shell"
+                />
+              </TabsContent>
+            </Tabs>
           )}
 
           {component.cnFunction && (

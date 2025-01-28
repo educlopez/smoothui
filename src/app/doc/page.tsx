@@ -43,10 +43,7 @@ export default function GetStartedPage() {
   --color-light-950: hsl(0 0% 9.0%);
 }`
 
-  const installNpm = `npm install motion lucide-react clsx tailwind-merge`
-  const installPnpm = `pnpm install motion lucide-react clsx tailwind-merge`
-  const installYarn = `yarn add motion lucide-react clsx tailwind-merge`
-  const installBun = `bun add motion lucide-react clsx tailwind-merge`
+  const codeInstall = `motion lucide-react clsx tailwind-merge`
 
   return (
     <>
@@ -109,16 +106,36 @@ export default function GetStartedPage() {
               </TabsTrigger>
             </TabsList>
             <TabsContent value="npm">
-              <CodeBlock code={installNpm} fileName="Terminal" lang="shell" />
+              <CodeBlock
+                code={codeInstall}
+                fileName="Terminal"
+                installCommand="npm install"
+                lang="shell"
+              />
             </TabsContent>
             <TabsContent value="pnpm">
-              <CodeBlock code={installPnpm} fileName="Terminal" lang="shell" />
+              <CodeBlock
+                code={codeInstall}
+                fileName="Terminal"
+                installCommand="pnpm install"
+                lang="shell"
+              />
             </TabsContent>
             <TabsContent value="yarn">
-              <CodeBlock code={installYarn} fileName="Terminal" lang="shell" />
+              <CodeBlock
+                code={codeInstall}
+                fileName="Terminal"
+                installCommand="yarn add"
+                lang="shell"
+              />
             </TabsContent>
             <TabsContent value="bun">
-              <CodeBlock code={installBun} fileName="Terminal" lang="shell" />
+              <CodeBlock
+                code={codeInstall}
+                fileName="Terminal"
+                installCommand="bun add"
+                lang="shell"
+              />
             </TabsContent>
           </Tabs>
         </div>
