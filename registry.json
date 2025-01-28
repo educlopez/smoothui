@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "smootui",
+  "homepage": "https://www.smoothui.dev/",
+  "items": [
+    {
+      "name": "animated-tags",
+      "type": "registry:component",
+      "title": "Animated Tags",
+      "description": "Animated tags component with magic",
+      "files": [
+        {
+          "path": "src/app/doc/_components/ui/AnimatedTags.tsx",
+          "type": "registry:component"
+        }
+      ]
+    }
+  ]
+}
