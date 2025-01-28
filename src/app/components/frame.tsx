@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState } from "react"
-import { Check, Code, Copy, Eye, FlaskConical } from "lucide-react"
+import { Code, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
 import type { ComponentsProps } from "@/app/doc/data"
@@ -101,7 +101,13 @@ export default function Frame({
               </div>
             </>
           )}
-
+          <div
+            id={`component-${component.id}`}
+            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
+          >
+            {component.componentUi &&
+              React.createElement(component.componentUi)}
+          </div>
           {!clean && (
             <>
               <div className="flex justify-between gap-8">
