@@ -66,7 +66,7 @@ export default function InteractiveImageSelector() {
   }, [isSelecting])
 
   return (
-    <div className="flex h-full w-full flex-col justify-between p-4">
+    <div className="relative flex h-full w-full max-w-[500px] flex-col justify-between p-4">
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b from-black/20 to-transparent dark:from-black/50"></div>
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
