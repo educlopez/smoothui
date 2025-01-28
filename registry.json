@@ -1,8 +1,20 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "smootui",
-  "homepage": "https://www.smoothui.dev/",
+  "homepage": "https://pre.smoothui.dev",
   "items": [
+    {
+      "name": "hello-world",
+      "type": "registry:component",
+      "title": "Hello World",
+      "description": "A simple hello world component",
+      "files": [
+        {
+          "path": "registry/hello-world/hello-world.tsx",
+          "type": "registry:component"
+        }
+      ]
+    },
     {
       "name": "animated-tags",
       "type": "registry:component",

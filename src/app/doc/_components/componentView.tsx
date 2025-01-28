@@ -23,7 +23,7 @@ export function ComponentView({ children }: ComponentViewProps) {
         "border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative flex h-auto min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border py-12 transition md:h-[640px] md:flex-1"
       )}
     >
-      <OpenInV0Button url="https://pre.smoothui.dev/r/animated-tags.json" />
+      <OpenInV0Button url="https://pre.smoothui.dev/r/hello-world.json" />
       {children}
     </div>
   )
