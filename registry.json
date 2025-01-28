@@ -10,7 +10,7 @@
       "description": "Animated tags component with magic",
       "files": [
         {
-          "path": "src/app/doc/_components/ui/AnimatedTags.tsx",
+          "path": "registry/animated-tags/animated-tags.tsx",
           "type": "registry:component"
         }
       ]
