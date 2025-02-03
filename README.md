@@ -4,9 +4,10 @@
 
 <div align="center">
 
-![Next.js](https://img.shields.io/badge/Next.js-black?logo=next.js&logoColor=white)
-![TailwindCSS](https://img.shields.io/badge/Tailwind%20CSS-%2338B2AC.svg?logo=tailwind-css&logoColor=white)
-![Motion](https://img.shields.io/badge/Motion-yellow)
+![Next.js Badge](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=flat)
+![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
+![Motion Badge](https://img.shields.io/badge/Motion-ECD53F?style=flat)
+
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fpheralb%2Fsvgl%2Fbadge%3Fref%3Dmain&style=flat)](https://actions-badge.atrox.dev/educlopez/smoothui/goto?ref=main)
 ![GitHub stars](https://img.shields.io/github/stars/educlopez/smoothui)
 ![GitHub issues](https://img.shields.io/github/issues/educlopez/smoothui)
