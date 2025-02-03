@@ -43,7 +43,7 @@ export default function GetStartedPage() {
   --color-light-950: hsl(0 0% 9.0%);
 }`
 
-  const codeInstall = `motion lucide-react clsx tailwind-merge`
+  const codeInstall = `motion tailwindcss lucide-react clsx tailwind-merge`
 
   return (
     <>
