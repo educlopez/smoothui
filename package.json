@@ -2,7 +2,7 @@
   "name": "@educlopez/smoothui",
   "version": "1.1.0",
   "author": "@educalvolpz",
-  "description": "A beautiful library with SVG logos.",
+  "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
   "private": true,
   "license": "MIT",
   "keywords": [
