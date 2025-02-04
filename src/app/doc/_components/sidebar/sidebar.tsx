@@ -94,7 +94,7 @@ export function Sidebar() {
               </p>
             </a>
             <a
-              href="https://github.com/educlopez/smoothui.dev-issues/issues/new/"
+              href="https://github.com/educlopez/smoothui/issues/new/"
               target="_blank"
               rel="noopener noreferrer"
               className="candy-btn group relative isolate flex w-full items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium"
