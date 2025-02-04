@@ -5,7 +5,6 @@
 @theme {
   --font-body: var(--font-inter);
   --font-title: var(--font-asap);
-  --font-code: var(--font-commit);
 
   --shadow-custom: inset 0 0 0 1px hsla(0, 0%, 100%, 0.04),
     0 0 0 1px hsla(0, 0%, 0%, 0.15), 0px 40px 11px rgba(136, 97, 46, 0.01),

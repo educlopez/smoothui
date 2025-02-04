@@ -57,6 +57,7 @@ export function Sidebar() {
             </span>
             <div className="flex flex-col">
               <SidebarButton key="1" name="Information" slug="/doc" />
+              <SidebarButton key="2" name="Changelog" slug="/doc/changelog" />
             </div>
           </div>
           <div className="flex h-[calc(100vh-330px)] flex-col gap-1 overflow-y-scroll">
