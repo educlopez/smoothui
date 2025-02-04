@@ -82,7 +82,7 @@ export default function UserAccountAvatar() {
 
       <button
         type="submit"
-        className="bg-light-300 text-light-950 hover:bg-light-400 dark:bg-dark-300 dark:text-dark-950 dark:hover:bg-dark-400 rounded-sm px-4 py-2 text-sm"
+        className="bg-light-300 text-light-950 hover:bg-light-400 dark:bg-dark-300 dark:text-dark-950 dark:hover:bg-dark-400 cursor-pointer rounded-sm px-4 py-2 text-sm"
       >
         Save
       </button>
@@ -136,7 +136,7 @@ export default function UserAccountAvatar() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border-light-300 bg-light-50 dark:border-dark-300 dark:bg-dark-50 flex items-center gap-2 rounded-full border">
+        <button className="border-light-300 bg-light-50 dark:border-dark-300 dark:bg-dark-50 flex cursor-pointer items-center gap-2 rounded-full border">
           <Image
             src={userData.avatar}
             alt="User Avatar"

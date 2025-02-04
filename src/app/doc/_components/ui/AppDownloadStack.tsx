@@ -1,13 +1,19 @@
-"use client"
+"use client";
 
-import { useCallback, useMemo, useState } from "react"
-import { ChevronDown } from "lucide-react"
-import { AnimatePresence, motion, useAnimation } from "motion/react"
+import { useCallback, useMemo, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import { AnimatePresence, motion, useAnimation } from "motion/react";
 
-import Arc from "@/app/doc/_components/resources/iconapps/arc.png"
-import Canary from "@/app/doc/_components/resources/iconapps/canary.png"
-import Figma from "@/app/doc/_components/resources/iconapps/figma.png"
-import Github from "@/app/doc/_components/resources/iconapps/github.png"
+
+
+import Arc from "@/app/doc/_components/resources/iconapps/arc.png";
+import Canary from "@/app/doc/_components/resources/iconapps/canary.png";
+import Figma from "@/app/doc/_components/resources/iconapps/figma.png";
+import Github from "@/app/doc/_components/resources/iconapps/github.png";
+
+
+
+
 
 const STARTER_KIT_TITLE = "Starter Mac"
 
@@ -115,7 +121,7 @@ export default function AppDownloadStack() {
           {!isExpanded && !isDownloading && (
             <motion.button
               key="initial-stack"
-              className="group relative isolate flex h-16 w-16 items-center justify-center"
+              className="group relative isolate flex h-16 w-16 cursor-pointer items-center justify-center"
               onClick={() => setIsExpanded(true)}
               whileHover="hover"
               layout
@@ -151,7 +157,7 @@ export default function AppDownloadStack() {
               layout
             >
               <button
-                className="flex w-full items-center justify-between px-0.5"
+                className="flex w-full cursor-pointer items-center justify-between px-0.5"
                 onClick={() => setIsExpanded(false)}
                 aria-label="Collapse app selection"
               >
@@ -200,6 +206,7 @@ export default function AppDownloadStack() {
                       )}
                     </div>
                     <button
+                      className="cursor-pointer"
                       onClick={() => toggleApp(app.id)}
                       aria-label={`${app.name} ${
                         selectedApps.includes(app.id)

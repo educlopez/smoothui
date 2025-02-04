@@ -69,7 +69,7 @@ const Idle = () => {
             className="flex items-center gap-1 overflow-hidden text-white"
           >
             <Thermometer className="h-3 w-3" />
-            <span className="pointer-events-none whitespace-nowrap text-xs">
+            <span className="pointer-events-none text-xs whitespace-nowrap">
               12°C
             </span>
           </motion.div>
@@ -126,7 +126,7 @@ const Timer = () => {
   )
 }
 
-type View = "idle" | "ring-3" | "timer"
+type View = "idle" | "ring" | "timer"
 
 export default function DynamicIsland() {
   const [view, setView] = useState<View>("idle")
@@ -135,7 +135,7 @@ export default function DynamicIsland() {
 
   const content = useMemo(() => {
     switch (view) {
-      case "ring-3":
+      case "ring":
         return <Ring />
       case "timer":
         return <Timer />
@@ -188,7 +188,7 @@ export default function DynamicIsland() {
           </motion.div>
         </motion.div>
 
-        <div className="pointer-events-none absolute left-1/2 top-0 flex h-[200px] w-[300px] -translate-x-1/2 items-start justify-center">
+        <div className="pointer-events-none absolute top-0 left-1/2 flex h-[200px] w-[300px] -translate-x-1/2 items-start justify-center">
           <AnimatePresence
             mode="popLayout"
             custom={
@@ -207,12 +207,12 @@ export default function DynamicIsland() {
         </div>
 
         <div className="flex w-full justify-center gap-1 md:gap-4">
-          {["idle", "ring-3", "timer"].map((v) => (
+          {["idle", "ring", "timer"].map((v) => (
             <motion.button
               type="button"
               key={v}
               onClick={() => handleViewChange(v as View)}
-              className={`h-10 w-fit rounded-full bg-white px-10 py-1.5 text-sm font-medium capitalize text-gray-900 shadow-xs ring-1 ring-inset ring-gray-300/50 hover:bg-gray-50 md:w-32 md:px-2.5 ${view === v ? "ring-2 ring-blue-500" : ""} `}
+              className={`h-10 w-fit cursor-pointer rounded-full bg-white px-10 py-1.5 text-sm font-medium text-gray-900 capitalize ring-1 shadow-xs ring-gray-300/50 ring-inset hover:bg-gray-50 md:w-32 md:px-2.5 ${view === v ? "ring-2 ring-blue-500" : ""} `}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               disabled={view === v}

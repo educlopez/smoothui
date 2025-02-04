@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import Logo from "./../../../public/images/icon.png"
+import Logo from "./../../../public/icon.png"
 
 export default function Head() {
   return (

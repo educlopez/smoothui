@@ -24,7 +24,7 @@ export function Hero() {
       <Divider />
 
       <Image
-        src="/images/icon.png"
+        src="/icon.png"
         alt="SmoothUI Logo"
         width={120}
         height={120}

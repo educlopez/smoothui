@@ -6,7 +6,7 @@ import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
-import arenaOpenCard from "../../../../../public/images/arenaOpenCard.png"
+import arenaOpenCard from "@/app/doc/_components/resources/arenaopencard/arenaOpenCard.png"
 
 export const ImageMetadataPreview = () => {
   const [openInfo, setopenInfo] = useState(false)

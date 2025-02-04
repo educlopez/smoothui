@@ -8,7 +8,7 @@ import { X } from "lucide-react"
 import { components, ComponentsProps } from "@/app/doc/data"
 
 import BadgeBeta from "../badgeBeta"
-import Logo from "./../../../../../public/images/icon.png"
+import Logo from "./../../../../../public/icon.png"
 import { MobileHeader } from "./mobileHeader"
 import { SidebarButton } from "./sidebarButton"
 

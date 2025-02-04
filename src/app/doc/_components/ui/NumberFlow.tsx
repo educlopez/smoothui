@@ -169,14 +169,14 @@ export default function NumberFlow() {
           <button
             onClick={add}
             disabled={value >= max}
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto overflow-hidden rounded-md border p-2 disabled:opacity-50"
+            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus className="h-3 w-3" />
           </button>
           <button
             onClick={subtract}
             disabled={value <= min}
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto overflow-hidden rounded-md border p-2 disabled:opacity-50"
+            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Minus className="h-3 w-3" />
           </button>
