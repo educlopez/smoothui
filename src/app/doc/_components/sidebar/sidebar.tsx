@@ -60,7 +60,7 @@ export function Sidebar() {
               <SidebarButton key="2" name="Changelog" slug="/doc/changelog" />
             </div>
           </div>
-          <div className="flex h-[calc(100vh-330px)] flex-col gap-1 overflow-y-scroll">
+          <div className="flex h-[calc(100vh-360px)] flex-col gap-1 overflow-y-scroll">
             <span className="text-light-950 dark:text-dark-950 relative z-1 text-xs font-medium">
               Components
             </span>
