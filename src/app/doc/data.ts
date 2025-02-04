@@ -17,7 +17,7 @@ export interface ComponentsProps {
   id: number
   componentTitle: string
   slug?: string
-  type?: string
+  type?: "component" | "block"
   isNew?: boolean
   tags: string[]
   href: string
@@ -27,6 +27,7 @@ export interface ComponentsProps {
   download?: string
   cnFunction?: boolean
   isUpdated?: boolean
+  collection?: string
 }
 
 export const components: ComponentsProps[] = [
@@ -34,7 +35,7 @@ export const components: ComponentsProps[] = [
     id: 1,
     componentTitle: "Job Listing Component",
     slug: "job-listing-component",
-    type: "list",
+    type: "component",
     isNew: false,
     tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
@@ -43,12 +44,13 @@ export const components: ComponentsProps[] = [
     download: "motion usehooks-ts",
     cnFunction: false,
     isUpdated: false,
+    collection: "dashboard",
   },
   {
     id: 2,
     componentTitle: "Image Metadata Preview",
     slug: "image-metadata-preview",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
@@ -57,12 +59,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react react-use-measure",
     cnFunction: false,
     isUpdated: false,
+    collection: "ecommerce",
   },
   {
     id: 3,
     componentTitle: "Animated Tags",
     slug: "animated-tags",
-    type: "input",
+    type: "component",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -71,12 +74,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "landing",
   },
   {
     id: 4,
     componentTitle: "Fluid Morph",
     slug: "fluid-morph",
-    type: "image",
+    type: "block",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -85,12 +89,13 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
+    collection: "landing",
   },
   {
     id: 5,
     componentTitle: "Interactive Image Selector",
     slug: "interactive-image-selector",
-    type: "image",
+    type: "block",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -99,12 +104,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "gallery",
   },
   {
     id: 6,
     componentTitle: "App Download Stack",
     slug: "app-download-stack",
-    type: "image",
+    type: "block",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -113,12 +119,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "utility",
   },
   {
     id: 7,
     componentTitle: "Power Off Slide",
     slug: "power-off-slide",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -127,12 +134,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: true,
+    collection: "utility",
   },
   {
     id: 8,
     componentTitle: "User Account Avatar",
     slug: "user-account-avatar",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "tailwindcss", "motion", "radix-ui"],
     href: "https://x.com/educalvolpz",
@@ -141,12 +149,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react @radix-ui/react-popover",
     cnFunction: false,
     isUpdated: false,
+    collection: "profile",
   },
   {
     id: 9,
     componentTitle: "Button Copy",
     slug: "button-copy",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -155,12 +164,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "utility",
   },
   {
     id: 10,
     componentTitle: "Matrix Card",
     slug: "matrix-card",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -169,12 +179,13 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
+    collection: "gallery",
   },
   {
     id: 11,
     componentTitle: "Dynamic Island",
     slug: "dynamic-island",
-    type: "image",
+    type: "component",
     isNew: false,
     tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
@@ -183,12 +194,13 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "utility",
   },
   {
     id: 12,
     componentTitle: "Number Flow",
     slug: "number-flow",
-    type: "image",
+    type: "block",
     isNew: false,
     tags: ["react", "tailwindcss"],
     href: "https://x.com/educalvolpz",
@@ -197,12 +209,13 @@ export const components: ComponentsProps[] = [
     download: "clsx tailwind-merge lucide-react",
     cnFunction: true,
     isUpdated: true,
+    collection: "utility",
   },
   {
     id: 13,
     componentTitle: "Social Selector",
     slug: "social-selector",
-    type: "image",
+    type: "block",
     isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -211,12 +224,13 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
+    collection: "social",
   },
   {
     id: 14,
     componentTitle: "Expandable Cards",
     slug: "expandable-cards",
-    type: "image",
+    type: "block",
     isNew: true,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
@@ -225,5 +239,6 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
+    collection: "gallery",
   },
 ]

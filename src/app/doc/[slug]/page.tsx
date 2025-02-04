@@ -18,8 +18,6 @@ import { components } from "@/app/doc/data"
 
 import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
 
-// import { Pagination } from "../_components/Pagination"
-
 export async function generateStaticParams() {
   const component = components.map((component) => ({
     slug: component.slug,
@@ -96,10 +94,6 @@ export default async function ComponentPage(props: {
   if (!component) {
     notFound()
   }
-
-  //   const filePath = `./src/app/_components/doc/${
-  //     component.type
-  //   }/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
   const filePath = `./src/app/doc/_components/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
@@ -217,17 +211,6 @@ export default async function ComponentPage(props: {
             />
           </CodeBlockWrapper>
         </div>
-
-        {/* <Pagination
-          back={{
-            href: previousComponent ? `/ui/${previousComponent.slug}` : "",
-            name: previousComponent ? previousComponent.componentTitle : "",
-          }}
-          next={{
-            href: nextComponent ? `/ui/${nextComponent.slug}` : "",
-            name: nextComponent ? nextComponent.componentTitle : "",
-          }}
-        /> */}
       </div>
     </main>
   )
