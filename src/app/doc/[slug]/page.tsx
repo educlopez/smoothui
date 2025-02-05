@@ -54,7 +54,7 @@ export async function generateMetadata(props: {
         {
           width: 1920,
           height: 1080,
-          url: `/doc/api/og?title=${componentTitle}`,
+          url: `/api/og?title=${componentTitle}`,
           alt: "SmoothUI cover",
         },
       ],
@@ -67,7 +67,7 @@ export async function generateMetadata(props: {
         {
           width: 1920,
           height: 1080,
-          url: `/doc/api/og?title=${componentTitle}`,
+          url: `/api/og?title=${componentTitle}`,
           alt: "SmoothUI cover",
         },
       ],
