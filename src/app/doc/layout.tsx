@@ -1,5 +1,4 @@
 import { Metadata } from "next"
-import localFont from "next/font/local"
 
 import { Sidebar } from "@/app/doc/_components/sidebar/sidebar"
 import TableOfContent from "@/app/doc/_components/tableOfContent"

@@ -5,6 +5,7 @@ import React from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { domain } from "@/lib/domain"
 import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
 import { ComponentView } from "@/app/doc/_components/componentView"
@@ -54,7 +55,7 @@ export async function generateMetadata(props: {
         {
           width: 1920,
           height: 1080,
-          url: "https://smoothui.dev/og.jpg",
+          url: `${domain}/doc/api/og?title=${componentTitle}`,
           alt: "SmoothUI cover",
         },
       ],
@@ -67,7 +68,7 @@ export async function generateMetadata(props: {
         {
           width: 1920,
           height: 1080,
-          url: "https://smoothui.dev/og.jpg",
+          url: `${domain}/doc/api/og?title=${componentTitle}`,
           alt: "SmoothUI cover",
         },
       ],
