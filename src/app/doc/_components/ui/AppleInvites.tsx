@@ -135,7 +135,9 @@ export default function AppleInvites() {
                 src={event.image}
                 alt={event.title}
                 className="h-full w-full object-cover"
-                layout="fill"
+                fill
+                sizes="(min-width: 640px) 320px, 100vw"
+                priority
               />
 
               {/* Badge */}
