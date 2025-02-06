@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og"
 
+import { domain } from "@/lib/domain"
+
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const title = searchParams.get("title")
@@ -8,7 +10,7 @@ export async function GET(request: Request) {
     (
       <div
         style={{
-          backgroundImage: `url(https://www.smoothui.dev/dynamic-og.png)`,
+          backgroundImage: `url(${domain}/dynamic-og.png)`,
           height: "100%",
           width: "100%",
           display: "flex",
