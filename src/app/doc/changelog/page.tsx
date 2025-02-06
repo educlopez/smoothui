@@ -4,6 +4,14 @@ import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 
 const changelogEntries = [
   {
+    date: "Feb 05, 2025",
+    changes: [
+      "Added new component: Apple Invites.",
+      "Add Custom CSS to the components",
+      "Dynamic OG images for each component",
+    ],
+  },
+  {
     date: "Feb 04, 2025",
     changes: [
       "Updated all cursor-pointers on components",

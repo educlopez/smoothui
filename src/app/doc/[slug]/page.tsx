@@ -198,9 +198,15 @@ export default async function ComponentPage(props: {
           )}
 
           {component.cnFunction && (
-            <CodeBlock code={cnCode} fileName="utils/cn.ts" />
+            <CodeBlock code={cnCode} fileName="utils/cn.ts" lang="typescript" />
           )}
-
+          {component.customCss && (
+            <CodeBlock
+              code={component.customCss}
+              fileName="global.css"
+              lang="css"
+            />
+          )}
           <CodeBlockWrapper
             expandButtonTitle="Expand"
             className="my-6 overflow-hidden rounded-md"

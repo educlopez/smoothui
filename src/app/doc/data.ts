@@ -26,6 +26,7 @@ export interface ComponentsProps {
   componentUi?: React.ElementType
   code?: string
   download?: string
+  customCss?: string
   cnFunction?: boolean
   isUpdated?: boolean
   collection?: string
@@ -253,6 +254,11 @@ export const components: ComponentsProps[] = [
     info: "Inspired by Apple's design, this component showcases a collection of event invites with smooth animations and transitions.",
     componentUi: AppleInvites,
     download: "motion lucide-react popmotion",
+    customCss: `//Progressive Blur
+.gradient-mask-t-0 {
+    -webkit-mask-image: linear-gradient(#0000, #000);
+    mask-image: linear-gradient(#0000, #000);
+}`,
     cnFunction: false,
     isUpdated: false,
     collection: "gallery",
