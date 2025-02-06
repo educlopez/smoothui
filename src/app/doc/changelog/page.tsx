@@ -4,6 +4,10 @@ import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 
 const changelogEntries = [
   {
+    date: "Feb 06, 2025",
+    changes: ["Improved the accessibility of the website and components"],
+  },
+  {
     date: "Feb 05, 2025",
     changes: [
       "Added new component: Apple Invites.",
