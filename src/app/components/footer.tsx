@@ -6,18 +6,18 @@ export default function Footer() {
     <footer className="mb-10 flex flex-col items-center justify-center gap-4 py-10">
       <div className="text-light-900 dark:text-dark-900 flex flex-col gap-2 text-center text-sm transition">
         <p>
-          Made with <Pizza size={14} className="inline" /> by
+          Made with <Pizza size={14} className="inline" aria-hidden="true" /> by
         </p>
         <a
           href="https://x.com/educalvolpz"
-          aria-label="X Profile Eduardo Calvo"
           target="_blank"
+          rel="noopener noreferrer"
           className="items-align-center group text-light-950 dark:text-dark-950 flex flex-row items-center justify-center gap-2 transition hover:text-pink-500 dark:hover:text-pink-500"
         >
           <div className="shadow-neutral-soft group-hover:shadow-neutral-soft-hover bg-light-50 dark:bg-dark-50 flex h-8 w-8 shrink-0 gap-2 rounded-full p-0.5">
             <Image
               src="/pixel-edu-calvo.png"
-              alt="avatar Edu"
+              alt="User Avatar of Eduardo Calvo"
               width={56}
               height={56}
               className="shrink-0 rounded-full"
