@@ -159,9 +159,9 @@ export default function AppleInvites() {
                     />
                   ))}
                 </div>
-                <h3 className="text-md mb-1 text-center font-bold md:text-2xl">
+                <p className="text-md mb-1 text-center font-bold md:text-2xl">
                   {event.title}
-                </h3>
+                </p>
                 <p className="text-center text-xs opacity-90 md:text-sm">
                   {event.subtitle}
                 </p>

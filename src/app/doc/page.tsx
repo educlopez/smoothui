@@ -82,25 +82,25 @@ export default function GetStartedPage() {
             <TabsList>
               <TabsTrigger
                 value="npm"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
               >
                 npm
               </TabsTrigger>
               <TabsTrigger
                 value="pnpm"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
               >
                 pnpm
               </TabsTrigger>
               <TabsTrigger
                 value="yarn"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
               >
                 yarn
               </TabsTrigger>
               <TabsTrigger
                 value="bun"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/10 data-[state=active]:text-pink-600 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/15"
+                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
               >
                 bun
               </TabsTrigger>

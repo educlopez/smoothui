@@ -41,7 +41,8 @@ export function CopyCode({ code }: CopyCode) {
       <button
         onClick={handleClick}
         disabled={buttonState !== "idle"}
-        className="relative flex cursor-pointer items-center justify-center"
+        className="relative flex cursor-pointer items-center justify-center p-2"
+        aria-label={buttonState === "loading" ? "Copying code..." : "Copy code"}
       >
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span

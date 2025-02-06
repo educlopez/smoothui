@@ -169,6 +169,7 @@ export default function NumberFlow() {
           <button
             onClick={add}
             disabled={value >= max}
+            aria-label="Increase number"
             className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus className="h-3 w-3" />
@@ -176,6 +177,7 @@ export default function NumberFlow() {
           <button
             onClick={subtract}
             disabled={value <= min}
+            aria-label="Decrease number"
             className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Minus className="h-3 w-3" />

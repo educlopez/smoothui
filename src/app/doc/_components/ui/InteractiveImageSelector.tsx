@@ -74,12 +74,14 @@ export default function InteractiveImageSelector() {
           whileTap={{ scale: 0.95 }}
           className="bg-light-50/20 cursor-pointer rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={handleReset}
+          aria-label="Reset selection"
         >
           Reset
         </motion.button>
         <button
           className="bg-light-50/20 cursor-pointer rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
           onClick={toggleSelecting}
+          aria-label={isSelecting ? "Cancel selection" : "Select images"}
         >
           {isSelecting ? "Cancel" : "Select"}
         </button>

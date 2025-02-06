@@ -129,7 +129,10 @@ export default function ExpandableCards() {
               <div className="text-light-50 dark:text-dark-950 absolute inset-0 flex flex-col justify-between p-6">
                 <h2 className="text-2xl font-bold">{card.title}</h2>
                 <div className="flex items-center gap-2">
-                  <button className="bg-light-50/30 dark:bg-dark-950/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110">
+                  <button
+                    aria-label="Play video"
+                    className="bg-light-50/30 dark:bg-dark-950/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110"
+                  >
                     <Play className="text-light-50 dark:text-dark-950 h-6 w-6" />
                   </button>
                   <span className="text-sm font-medium">Play video</span>

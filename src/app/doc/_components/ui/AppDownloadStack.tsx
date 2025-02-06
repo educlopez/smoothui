@@ -1,19 +1,13 @@
-"use client";
+"use client"
 
-import { useCallback, useMemo, useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useAnimation } from "motion/react";
+import { useCallback, useMemo, useState } from "react"
+import { ChevronDown } from "lucide-react"
+import { AnimatePresence, motion, useAnimation } from "motion/react"
 
-
-
-import Arc from "@/app/doc/_components/resources/iconapps/arc.png";
-import Canary from "@/app/doc/_components/resources/iconapps/canary.png";
-import Figma from "@/app/doc/_components/resources/iconapps/figma.png";
-import Github from "@/app/doc/_components/resources/iconapps/github.png";
-
-
-
-
+import Arc from "@/app/doc/_components/resources/iconapps/arc.png"
+import Canary from "@/app/doc/_components/resources/iconapps/canary.png"
+import Figma from "@/app/doc/_components/resources/iconapps/figma.png"
+import Github from "@/app/doc/_components/resources/iconapps/github.png"
 
 const STARTER_KIT_TITLE = "Starter Mac"
 
@@ -159,7 +153,6 @@ export default function AppDownloadStack() {
               <button
                 className="flex w-full cursor-pointer items-center justify-between px-0.5"
                 onClick={() => setIsExpanded(false)}
-                aria-label="Collapse app selection"
               >
                 <p className="my-0 leading-0 font-medium">
                   {STARTER_KIT_TITLE}

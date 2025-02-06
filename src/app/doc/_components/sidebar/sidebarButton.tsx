@@ -47,7 +47,7 @@ export function SidebarButton({
       ) : isUpdated ? (
         <div className="relative z-1 flex items-center justify-start gap-2">
           <span className="relative z-1 block text-[13px]">{name}</span>
-          <span className="rounded-md bg-pink-600/10 p-0.5 text-[10px] leading-4 font-semibold text-pink-600 dark:bg-pink-600/15">
+          <span className="rounded-md bg-pink-600/5 p-0.5 text-[10px] leading-4 font-semibold text-pink-600 dark:bg-pink-600/10 dark:text-pink-400">
             <CalendarClock size={12} />
           </span>
         </div>
