@@ -124,11 +124,7 @@ export default function AppleInvites() {
             initial="hidden"
             animate={index === 1 ? "center" : index === 0 ? "left" : "right"}
             exit="hidden"
-            className="absolute top-1/2 left-1/2 origin-center -translate-y-1/2"
-            style={{
-              width: 320,
-              height: 500,
-            }}
+            className="absolute top-1/2 left-1/2 h-[250] w-[160px] origin-center -translate-y-1/2 md:h-[500px] md:w-[320px]"
           >
             <div className="relative h-full w-full overflow-hidden rounded-3xl">
               <Image
@@ -142,7 +138,7 @@ export default function AppleInvites() {
 
               {/* Badge */}
               <div className="absolute top-4 left-4 z-3">
-                <span className="flex flex-row items-center gap-2 rounded-full bg-black/30 px-3 py-1 text-sm font-medium text-white backdrop-blur-xl">
+                <span className="flex flex-row items-center gap-2 rounded-full bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-xl md:text-sm">
                   <Crown size={14} />
                   {event.badge}
                 </span>
@@ -159,17 +155,17 @@ export default function AppleInvites() {
                       alt={`Participant ${idx + 1}`}
                       width={36}
                       height={36}
-                      className="rounded-full"
+                      className="w-6 rounded-full md:h-9 md:w-9"
                     />
                   ))}
                 </div>
-                <h3 className="mb-1 text-center text-2xl font-bold">
+                <h3 className="text-md mb-1 text-center font-bold md:text-2xl">
                   {event.title}
                 </h3>
-                <p className="text-center text-sm opacity-90">
+                <p className="text-center text-xs opacity-90 md:text-sm">
                   {event.subtitle}
                 </p>
-                <p className="text-center text-sm opacity-90">
+                <p className="text-center text-xs opacity-90 md:text-sm">
                   {event.location}
                 </p>
               </div>
