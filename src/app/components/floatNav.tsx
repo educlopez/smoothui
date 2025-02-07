@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Component } from "lucide-react"
 
 import { ThemeSwitch } from "@/app/components/themeSwitch"
+import ToastChangelog from "@/app/components/toastChangelog"
 
 export function FloatNav() {
   return (
@@ -35,6 +36,7 @@ export function FloatNav() {
       >
         <Component size={20} aria-hidden="true" />
       </Link>
+      <ToastChangelog />
       <ThemeSwitch />
     </nav>
   )

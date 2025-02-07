@@ -4,7 +4,7 @@ import React, { useState } from "react"
 import { Code, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-import type { ComponentsProps } from "@/app/doc/data"
+import type { ComponentsProps } from "@/app/doc/data/components"
 import { cn } from "@/app/utils/cn"
 import { copyToClipboard } from "@/app/utils/copyToClipboard"
 

@@ -1,6 +1,6 @@
 import Frame from "@/app/components/frame"
 import Divider from "@/app/components/landing/divider"
-import { components } from "@/app/doc/data"
+import { components } from "@/app/doc/data/components"
 
 import Rule from "./rule"
 

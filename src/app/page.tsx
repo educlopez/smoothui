@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <main className="relative mx-auto flex min-h-screen max-w-7xl flex-col">
         <Divider orientation="vertical" />
-        <Divider orientation="vertical" className="left-0 right-auto" />
+        <Divider orientation="vertical" className="right-auto left-0" />
         <Hero />
         <Features />
         <ComponentsSlideshow />

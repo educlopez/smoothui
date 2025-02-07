@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Asap, Inter } from "next/font/google"
+import { Toaster } from "sonner"
 
 import "./globals.css"
 
@@ -92,6 +93,19 @@ export default function RootLayout({ children }: ComponentPageLayout) {
         <ThemeProvider attribute="class">
           <FloatNav />
           {children}
+          <Toaster
+            offset={{ bottom: "76px" }}
+            mobileOffset={{ bottom: "76px" }}
+            position="bottom-center"
+            visibleToasts={1}
+            toastOptions={{
+              unstyled: true,
+              classNames: {
+                toast:
+                  "dark:bg-dark-300 bg-light-50 rounded-lg p-4 border border-light-500 dark:border-dark-500 text-xs shadow-xs w-full",
+              },
+            }}
+          />
           <Analytics />
         </ThemeProvider>
         {shouldInjectToolbar && <VercelToolbar />}

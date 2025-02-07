@@ -33,6 +33,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-use-measure": "^2.1.7",
+    "sonner": "^1.7.4",
     "tailwind-merge": "^3.0.1",
     "usehooks-ts": "^3.1.0"
   },

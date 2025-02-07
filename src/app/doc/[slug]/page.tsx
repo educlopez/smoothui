@@ -14,7 +14,7 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/app/doc/_components/tabs"
-import { components } from "@/app/doc/data"
+import { components } from "@/app/doc/data/components"
 
 import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
 
