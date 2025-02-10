@@ -105,10 +105,10 @@ function findDynamicComponentImports(sourceCode: string): string[] {
 
 function findExternalDependencies(sourceCode: string): string[] {
   // Match all imports that:
-  // - Don't start with @/
   // - Don't start with react or next (ignore react, react-dom, next, etc)
   // - Don't start with ./ or ../
-  const externalImportRegex = /from\s+['"]([^'"@\./][^'"]+)['"]/g
+  const externalImportRegex =
+    /from\s+['"](@radix-ui\/[^'"]+|[^'"@\./][^'"]+)['"]/g
   const dependencies = new Set<string>()
   let match
 
@@ -116,7 +116,7 @@ function findExternalDependencies(sourceCode: string): string[] {
     const [_, importPath] = match
     // Get the package name (everything before any / character)
     const packageName = importPath.split("/")[0]
-
+    console.log("packageName", packageName)
     // Skip react-related and next-related packages
     if (!packageName.startsWith("react") && !packageName.startsWith("next")) {
       dependencies.add(packageName)
