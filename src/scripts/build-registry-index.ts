@@ -107,6 +107,7 @@ function findExternalDependencies(sourceCode: string): string[] {
   // Match all imports that:
   // - Don't start with react or next (ignore react, react-dom, next, etc)
   // - Don't start with ./ or ../
+  // - Include @radix-ui imports
   const externalImportRegex =
     /from\s+['"](@radix-ui\/[^'"]+|[^'"@\./][^'"]+)['"]/g
   const dependencies = new Set<string>()
@@ -115,11 +116,12 @@ function findExternalDependencies(sourceCode: string): string[] {
   while ((match = externalImportRegex.exec(sourceCode)) !== null) {
     const [_, importPath] = match
     // Get the package name (everything before any / character)
-    const packageName = importPath.split("/")[0]
-    console.log("packageName", packageName)
+    const packageName = importPath.split("/").slice(0, 2).join("/")
+    console.log("importPath", importPath) // Log the full import path
+    console.log("packageName", packageName) // Log the package name
     // Skip react-related and next-related packages
     if (!packageName.startsWith("react") && !packageName.startsWith("next")) {
-      dependencies.add(packageName)
+      dependencies.add(importPath) // Add the full import path
     }
   }
 
