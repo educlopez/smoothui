@@ -4,18 +4,25 @@ import { useCallback, useMemo, useState } from "react"
 import { ChevronDown } from "lucide-react"
 import { AnimatePresence, motion, useAnimation } from "motion/react"
 
-import Arc from "@/app/doc/_components/resources/iconapps/arc.png"
-import Canary from "@/app/doc/_components/resources/iconapps/canary.png"
-import Figma from "@/app/doc/_components/resources/iconapps/figma.png"
-import Github from "@/app/doc/_components/resources/iconapps/github.png"
+const Canary =
+  "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/b47f43e02f04563447fa90d4ff6c8943_9KzW5GTggQ.png"
+
+const Github =
+  "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/9c9721583ecba33e59ebcebdca2248fd_Mmr12FRh5V.png"
+
+const Figma =
+  "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/f0b9cdefa67b57eeb080278c2f6984cc_sCqUJBg6Qq.png"
+
+const Arc =
+  "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/178c7b02003c933e6b5afe98bbee595b_low_res_Arc_Browser.png"
 
 const STARTER_KIT_TITLE = "Starter Mac"
 
 const apps = [
-  { id: 1, name: "GitHub", icon: Github.src },
-  { id: 2, name: "Canary", icon: Canary.src },
-  { id: 3, name: "Figma", icon: Figma.src },
-  { id: 4, name: "Arc", icon: Arc.src },
+  { id: 1, name: "GitHub", icon: Github },
+  { id: 2, name: "Canary", icon: Canary },
+  { id: 3, name: "Figma", icon: Figma },
+  { id: 4, name: "Arc", icon: Arc },
 ]
 
 const useAppDownloader = () => {

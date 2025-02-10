@@ -2,12 +2,13 @@ export function OpenInV0Button({ url }: { url: string }) {
   return (
     <button
       aria-label="Open in v0"
-      className="dark:bg-background h-8 gap-1 rounded-[6px] border px-3 text-xs"
+      className="dark:bg-dark-50 bg-light-50 absolute top-4 right-4 h-8 cursor-pointer gap-1 rounded-[6px] border px-3 text-xs"
     >
       <a
         href={`https://v0.dev/chat/api/open?url=${url}`}
         target="_blank"
         rel="noreferrer"
+        className="flex items-center gap-1"
       >
         Open in{" "}
         <svg

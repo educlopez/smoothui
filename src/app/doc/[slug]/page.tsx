@@ -17,6 +17,7 @@ import {
 import { components } from "@/app/doc/data/components"
 
 import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
+import { OpenInV0Button } from "../_components/openInV0"
 
 export async function generateStaticParams() {
   const component = components.map((component) => ({
@@ -128,12 +129,30 @@ export default async function ComponentPage(props: {
         </div>
         <div className="space-y-6">
           <ComponentView>
+            <OpenInV0Button
+              url={`https://smoothui.dev/r/${component.slug}.json`}
+            />
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </ComponentView>
           <h2 data-table-content="Code" data-level="2">
             Code
           </h2>
+          {component.slug && (
+            <>
+              <h3 data-table-content="shadcn" data-level="3">
+                Install with shadcn
+              </h3>
+              <CodeBlock
+                code={`npx shadcn@latest add "https://smoothui.dev/r/${component.slug}.json"`}
+                fileName="Terminal"
+                lang="shell"
+              />
+            </>
+          )}
+          <h3 data-table-content="Manual install" data-level="3">
+            Manual install
+          </h3>
           {component.download && (
             <Tabs defaultValue="npm">
               <TabsList>

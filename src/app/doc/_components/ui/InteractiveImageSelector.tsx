@@ -5,10 +5,17 @@ import Image from "next/image"
 import { Share2, Trash2 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-import blueArt from "@/app/doc/_components/resources/images/blueart.jpeg"
-import orangeArt from "@/app/doc/_components/resources/images/orangeart.jpeg"
-import orangePurpleArt from "@/app/doc/_components/resources/images/oranpurart.jpeg"
-import pinkArt from "@/app/doc/_components/resources/images/pinkart.jpeg"
+const pinkArt =
+  "https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?=jpg&fit=crop&w=300&q=80&fit=max"
+
+const orangePurpleArt =
+  "https://images.unsplash.com/photo-1603118675111-239b194fb8d8?=jpg&fit=crop&w=300&q=80&fit=max"
+
+const orangeArt =
+  "https://images.unsplash.com/photo-1612317248613-c1236be97f6f?=jpg&fit=crop&w=300&q=80&fit=max"
+
+const blueArt =
+  "https://images.unsplash.com/photo-1605478185737-99ae313e940c?=jpg&fit=crop&w=300&q=80&fit=max"
 
 interface ImageData {
   id: number
@@ -16,18 +23,18 @@ interface ImageData {
 }
 
 const initialImages: ImageData[] = [
-  { id: 1, src: blueArt.src },
-  { id: 2, src: pinkArt.src },
-  { id: 3, src: orangeArt.src },
-  { id: 4, src: orangePurpleArt.src },
-  { id: 5, src: blueArt.src },
-  { id: 6, src: pinkArt.src },
-  { id: 7, src: orangeArt.src },
-  { id: 8, src: pinkArt.src },
-  { id: 9, src: orangePurpleArt.src },
-  { id: 10, src: pinkArt.src },
-  { id: 11, src: orangeArt.src },
-  { id: 12, src: blueArt.src },
+  { id: 1, src: blueArt },
+  { id: 2, src: pinkArt },
+  { id: 3, src: orangeArt },
+  { id: 4, src: orangePurpleArt },
+  { id: 5, src: blueArt },
+  { id: 6, src: pinkArt },
+  { id: 7, src: orangeArt },
+  { id: 8, src: pinkArt },
+  { id: 9, src: orangePurpleArt },
+  { id: 10, src: pinkArt },
+  { id: 11, src: orangeArt },
+  { id: 12, src: blueArt },
 ]
 
 const imageMap = new Map(initialImages.map((img) => [img.id, img]))

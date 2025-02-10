@@ -1,15 +1,14 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Image from "next/image"
-import { Crown } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
-import { wrap } from "popmotion"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import { Crown } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { wrap } from "popmotion";
 
-import birthday from "@/app/doc/_components/resources/AppleInvites/birthday.jpeg"
-import golf from "@/app/doc/_components/resources/AppleInvites/golf.jpeg"
-import movie from "@/app/doc/_components/resources/AppleInvites/movie.jpeg"
-import yoga from "@/app/doc/_components/resources/AppleInvites/yoga.jpeg"
+
+
+
 
 interface Participant {
   avatar: string
@@ -31,36 +30,40 @@ const events: Event[] = [
     title: "Yoga",
     subtitle: "Sat, June 14, 6:00 AM",
     location: "Central Park",
-    image: yoga.src,
+    image:
+      "https://images.unsplash.com/photo-1593164842264-854604db2260?=jpg&fit=crop&w=640&q=80&fit=max",
     badge: "Hosting",
-    participants: [{ avatar: "/pixel-edu-calvo.png" }],
+    participants: [{ avatar: "https://github.com/educlopez.png" }],
   },
   {
     id: 2,
     title: "Tyler Turns 3!",
     subtitle: "Sat, June 14, 3:00 PM",
     location: "Central Park",
-    image: birthday.src,
+    image:
+      "https://images.unsplash.com/photo-1524293568345-75d62c3664f7?=jpg&fit=crop&w=640&q=80&fit=max",
     badge: "Going",
-    participants: [{ avatar: "/pixel-edu-calvo.png" }],
+    participants: [{ avatar: "https://github.com/educlopez.png" }],
   },
   {
     id: 3,
     title: "Golf party",
     subtitle: "Sun, April 15, 9:00 AM",
     location: "Golf Park",
-    image: golf.src,
+    image:
+      "https://images.unsplash.com/photo-1592919505780-303950717480?=jpg&fit=crop&w=640&q=80&fit=max",
     badge: "Going",
-    participants: [{ avatar: "/pixel-edu-calvo.png" }],
+    participants: [{ avatar: "https://github.com/educlopez.png" }],
   },
   {
     id: 4,
     title: "Movie Night",
     subtitle: "Fri, June 20, 8:00 PM",
     location: "Cine Town",
-    image: movie.src,
+    image:
+      "https://images.unsplash.com/photo-1571947453052-1e72ce0d19b9?=jpg&fit=crop&w=640&q=80&fit=max",
     badge: "Interested",
-    participants: [{ avatar: "/pixel-edu-calvo.png" }],
+    participants: [{ avatar: "https://github.com/educlopez.png" }],
   },
 ]
 

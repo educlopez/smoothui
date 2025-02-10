@@ -6,8 +6,8 @@ import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
-import arenaOpenCard from "@/app/doc/_components/resources/arenaopencard/arenaOpenCard.png"
-
+const arenaOpenCard =
+  "https://images.unsplash.com/photo-1594063596316-aa5f41ceb8dc?=jpg&fit=crop&w=600&q=80&fit=max"
 export default function ImageMetadataPreview() {
   const [openInfo, setopenInfo] = useState(false)
   const [height, setHeight] = useState("42px")
@@ -32,7 +32,8 @@ export default function ImageMetadataPreview() {
         <Image
           src={arenaOpenCard}
           alt="Scenario with orange black colors"
-          width="300"
+          width={300}
+          height={437}
         />
       </motion.div>
 

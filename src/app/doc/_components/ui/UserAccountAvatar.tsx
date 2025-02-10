@@ -6,8 +6,6 @@ import * as Popover from "@radix-ui/react-popover"
 import { Eye, Package, User } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-import Avatar from "@/app/doc/_components/resources/avatardrop/avatar.jpg"
-
 interface UserData {
   name: string
   email: string
@@ -24,7 +22,7 @@ interface Order {
 const initialUserData: UserData = {
   name: "John Doe",
   email: "john@example.com",
-  avatar: Avatar.src,
+  avatar: "https://github.com/educlopez.png",
 }
 
 const mockOrders: Order[] = [
