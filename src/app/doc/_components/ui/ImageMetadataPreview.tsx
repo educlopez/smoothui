@@ -8,7 +8,7 @@ import useMeasure from "react-use-measure"
 
 import arenaOpenCard from "@/app/doc/_components/resources/arenaopencard/arenaOpenCard.png"
 
-export const ImageMetadataPreview = () => {
+export default function ImageMetadataPreview() {
   const [openInfo, setopenInfo] = useState(false)
   const [height, setHeight] = useState("42px")
   const [elementRef, bounds] = useMeasure()

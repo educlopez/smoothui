@@ -10,7 +10,7 @@ import {
   Turso,
 } from "@/app/doc/_components/resources/logos/appleList"
 
-export const JobListingComponent = () => {
+export default function JobListingComponent() {
   const [activeItem, setActiveItem] = useState<{
     company: string
     logo: JSX.Element

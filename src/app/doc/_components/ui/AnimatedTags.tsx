@@ -4,7 +4,7 @@ import { useState } from "react"
 import { CircleX, Plus } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-export function AnimatedTags() {
+export default function AnimatedTags() {
   const [selectedTag, setSelectedTag] = useState<string[]>([])
 
   const [tags, setTags] = useState<string[]>(initialTags)

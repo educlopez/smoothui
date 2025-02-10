@@ -37,3 +37,9 @@ next-env.d.ts
 
 #cursorrules
 .cursorrules
+
+# generated files
+/.component-sources
+src/app/doc/index.ts
+/public/r
+/public/index.json
