@@ -16,6 +16,7 @@ import {
 } from "@/app/doc/_components/tabs"
 import { components } from "@/app/doc/data/components"
 
+import BadgeBeta from "../_components/badgeBeta"
 import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
 import { OpenInV0Button } from "../_components/openInV0"
 
@@ -140,8 +141,12 @@ export default async function ComponentPage(props: {
           </h2>
           {component.slug && (
             <>
-              <h3 data-table-content="shadcn" data-level="3">
-                Install with shadcn
+              <h3
+                data-table-content="shadcn"
+                data-level="3"
+                className="flex flex-row items-center gap-2"
+              >
+                Install with shadcn <BadgeBeta />
               </h3>
               <CodeBlock
                 code={`npx shadcn@latest add "https://smoothui.dev/r/${component.slug}.json"`}

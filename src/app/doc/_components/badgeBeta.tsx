@@ -1,6 +1,17 @@
-export default function BadgeBeta() {
+import { cn } from "@/app/utils/cn"
+
+interface BadgeBetaProps {
+  className?: string
+}
+
+export default function BadgeBeta({ className }: BadgeBetaProps) {
   return (
-    <span className="relative mt-[calc(3/16*1rem)] mr-auto inline-flex bg-pink-500/5 px-[0.1875rem] text-[0.625rem]/[0.875rem] font-medium text-pink-700 dark:bg-pink-500/10 dark:text-pink-400">
+    <span
+      className={cn(
+        "relative mt-[calc(3/16*1rem)] mr-auto inline-flex bg-pink-500/5 px-[0.1875rem] text-[0.625rem]/[0.875rem] font-medium text-pink-700 dark:bg-pink-500/10 dark:text-pink-400",
+        className
+      )}
+    >
       Beta
       <span className="absolute inset-x-[-0.1875rem] -top-px block transform-gpu text-pink-700 dark:text-pink-400">
         <svg

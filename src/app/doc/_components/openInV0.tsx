@@ -1,3 +1,5 @@
+import BadgeBeta from "./badgeBeta"
+
 export function OpenInV0Button({ url }: { url: string }) {
   return (
     <button
@@ -25,7 +27,8 @@ export function OpenInV0Button({ url }: { url: string }) {
             d="M13.7688 19.0956L0 3.68759H5.53933L13.6231 12.7337V3.68759H17.7535V17.5746C17.7535 19.6705 15.1654 20.6584 13.7688 19.0956Z"
             fill="currentColor"
           ></path>
-        </svg>
+        </svg>{" "}
+        <BadgeBeta className="mt-0 ml-2" />
       </a>
     </button>
   )
