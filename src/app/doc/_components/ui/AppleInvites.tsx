@@ -1,14 +1,10 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import Image from "next/image";
-import { Crown } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { wrap } from "popmotion";
-
-
-
-
+import { useEffect, useState } from "react"
+import Image from "next/image"
+import { Crown } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
+import { wrap } from "popmotion"
 
 interface Participant {
   avatar: string

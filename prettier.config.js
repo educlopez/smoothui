@@ -1,4 +1,6 @@
-/** @type {import('prettier').Config} */
+// @ts-check
+
+/** @type {import("prettier").Config} */
 module.exports = {
   endOfLine: "lf",
   semi: false,
@@ -15,8 +17,8 @@ module.exports = {
     "^@/config/(.*)$",
     "^@/lib/(.*)$",
     "^@/hooks/(.*)$",
-    "^@/components/resources/(.*)$",
-    "^@/components/ui/(.*)$",
+    "^@/_components/resources/(.*)$",
+    "^@/_components/ui/(.*)$",
     "^@/components/(.*)$",
     "^@/registry/(.*)$",
     "^@/styles/(.*)$",
