@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import Image from "next/image" // Only if you're using nextjs
 import * as Popover from "@radix-ui/react-popover"
 import { Eye, Package, User } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"

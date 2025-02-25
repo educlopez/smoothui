@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
+import Image from "next/image" // Only if you're using nextjs
 import { Crown } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { wrap } from "popmotion"

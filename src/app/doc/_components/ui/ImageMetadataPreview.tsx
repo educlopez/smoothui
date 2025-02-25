@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
+import Image from "next/image" // Only if you're using nextjs
 import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"

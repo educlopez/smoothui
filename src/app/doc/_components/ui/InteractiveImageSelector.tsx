@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import Image from "next/image"
+import Image from "next/image" // Only if you're using nextjs
 import { Share2, Trash2 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
