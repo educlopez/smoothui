@@ -46,10 +46,12 @@ export default function ToastChangelog() {
   }
 
   return (
-    <BellDot
-      size={20}
-      onClick={handleClick}
-      className={`hover:text-pink-500 ${isToastOpen ? "cursor-not-allowed text-pink-500" : "cursor-pointer"}`}
-    />
+    <div className="flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1">
+      <BellDot
+        size={20}
+        onClick={handleClick}
+        className={`hover:text-pink-500 ${isToastOpen ? "cursor-not-allowed text-pink-500" : "cursor-pointer"}`}
+      />
+    </div>
   )
 }
