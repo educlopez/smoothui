@@ -94,7 +94,7 @@ export default function TableOfContent() {
   }
 
   return (
-    <aside className="sticky top-0 hidden h-fit -translate-x-2 p-6 2xl:block">
+    <aside className="sticky top-0 z-30 hidden h-fit -translate-x-2 p-6 2xl:block">
       <span className="text-light-950 dark:text-dark-950 flex items-center gap-2 text-[13px]">
         <ListTree size={16} />
         Table of content

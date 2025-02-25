@@ -6,8 +6,9 @@
   --font-body: var(--font-inter);
   --font-title: var(--font-asap);
 
-  --shadow-custom: inset 0 0 0 1px hsla(0, 0%, 100%, 0.04),
-    0 0 0 1px hsla(0, 0%, 0%, 0.15), 0px 40px 11px rgba(136, 97, 46, 0.01),
+  --shadow-custom:
+    inset 0 0 0 1px hsla(0, 0%, 100%, 0.04), 0 0 0 1px hsla(0, 0%, 0%, 0.15),
+    0px 40px 11px rgba(136, 97, 46, 0.01),
     0px 26px 10px rgba(136, 97, 46, 0.05), 0px 14px 9px rgba(136, 97, 46, 0.17),
     0px 6px 6px rgba(136, 97, 46, 0.29), 0px 2px 4px rgba(136, 97, 46, 0.33);
 
@@ -162,7 +163,14 @@
         color-stop(0.5, var(--text-primary)),
         to(var(--text-quaternary))
       );
-    background: var(--text-quaternary) -webkit-gradient(linear, 100% 0, 0 0, from(var(--text-quaternary)), color-stop(0.5, var(--text-primary)), to(var(--text-quaternary)));
+    background: var(--text-quaternary) -webkit-gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
     background-clip: text;
     -webkit-background-clip: text;
     background-repeat: no-repeat;
@@ -196,22 +204,46 @@
     --color-contrast-highest: #fff;
     --tw-ring-offset-shadow: 0 0 #0000;
     --tw-ring-shadow: 0 0 #0000;
-    --neutral-soft: 0px 0px 0px 1px rgba(9, 9, 11, 0.08),
+    --neutral-soft:
+      0px 0px 0px 1px rgba(9, 9, 11, 0.08),
       0px 1px 2px -1px rgba(9, 9, 11, 0.08),
       0px 2px 4px 0px rgba(9, 9, 11, 0.04);
-    --neutral-soft-hover: 0px 0px 0px 1px rgba(9, 9, 11, 0.08),
+    --neutral-soft-hover:
+      0px 0px 0px 1px rgba(9, 9, 11, 0.08),
       0px 1px 2px -1px rgba(9, 9, 11, 0.08), 0px 2px 8px 0px rgba(9, 9, 11, 0.1);
   }
   .gradient-mask-t-0 {
     -webkit-mask-image: linear-gradient(#0000, #000);
     mask-image: linear-gradient(#0000, #000);
   }
+
+  .body-mask-b-0 {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      transparent 100%
+    );
+  }
+  .body-mask-t-0 {
+    -webkit-mask-image: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1) 0%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, transparent 100%);
+  }
 }
 @layer base {
   .candy-btn {
     color: hsl(from var(--color-contrast-higher) h s l / 0.83);
     text-shadow: 0 1px 0 hsl(from white h s l / 0.3);
-    background: radial-gradient(
+    background:
+      radial-gradient(
         ellipse at -20px top,
         hsl(from white h s l / 0.25),
         hsl(from white h s l / 0)
@@ -246,7 +278,8 @@
     }
     @media (hover: hover) {
       &:hover {
-        background: radial-gradient(
+        background:
+          radial-gradient(
             ellipse at -20px top,
             hsl(from white h s l / 0.35),
             hsl(from white h s l / 0)
@@ -292,7 +325,8 @@
     }
     @media (hover: hover) {
       &:hover {
-        background: radial-gradient(
+        background:
+          radial-gradient(
             ellipse at -20px top,
             hsl(from white h s l / 0.25),
             hsl(from white h s l / 0)
@@ -318,25 +352,31 @@
 }
 
 .shadow-light {
-  --tw-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 2px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
-  --tw-shadow-colored: 0px 0px 0px 1px var(--tw-shadow-color),
+  --tw-shadow:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.08),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --tw-shadow-colored:
+    0px 0px 0px 1px var(--tw-shadow-color),
     0px 1px 2px -1px var(--tw-shadow-color),
     0px 2px 4px 0px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 .shadow-dark {
-  --tw-shadow: 0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
+  --tw-shadow:
+    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
     0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
     0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
-  --tw-shadow-colored: 0px -1px 0px 0px var(--tw-shadow-color),
+  --tw-shadow-colored:
+    0px -1px 0px 0px var(--tw-shadow-color),
     0px 0px 0px 1px var(--tw-shadow-color),
     0px 0px 0px 1px var(--tw-shadow-color),
     0px 1px 2px 0px var(--tw-shadow-color),
     0px 2px 4px 0px var(--tw-shadow-color);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 
 .shadow-neutral-soft {
@@ -345,14 +385,16 @@
 }
 .shadow-neutral-soft-hover,
 .shadow-neutral-soft {
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 .shadow-neutral-soft-hover {
   --tw-shadow: var(--neutral-soft-hover);
   --tw-shadow-colored: var(--neutral-soft-hover);
-  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),
-    var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  box-shadow:
+    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+    var(--tw-shadow);
 }
 
 .shiki {
