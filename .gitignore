@@ -43,3 +43,6 @@ next-env.d.ts
 src/app/doc/index.ts
 /public/r
 /public/index.json
+
+#cursorrules
+/.cursor/
