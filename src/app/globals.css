@@ -105,7 +105,7 @@
 
   @keyframes slideInUp {
     from {
-      transform: translateY(30px);
+      transform: translateY(50px);
       filter: blur(5px);
     }
     to {
@@ -120,14 +120,14 @@
       filter: blur(0px);
     }
     to {
-      transform: translateY(-30px);
+      transform: translateY(-50px);
       filter: blur(5px);
     }
   }
 
   @keyframes slideInDown {
     from {
-      transform: translateY(-30px);
+      transform: translateY(-50px);
       filter: blur(5px);
     }
     to {
@@ -142,7 +142,7 @@
       filter: blur(0px);
     }
     to {
-      transform: translateY(30px);
+      transform: translateY(50px);
       filter: blur(5px);
     }
   }

@@ -40,7 +40,7 @@ export default function Frame({
     <div
       className={cn("w-full py-12 last:pb-0 odd:pt-0 md:w-[600px]", className)}
     >
-      <div className="mx-auto w-full px-4">
+      <div className="mx-auto w-full">
         <article className="grid gap-3">
           {!clean && (
             <>
@@ -103,7 +103,7 @@ export default function Frame({
           )}
           <div
             id={`component-${component.id}`}
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
+            className="border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
           >
             {component.componentUi &&
               React.createElement(component.componentUi)}

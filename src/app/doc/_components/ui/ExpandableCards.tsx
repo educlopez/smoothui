@@ -91,6 +91,15 @@ export default function ExpandableCards() {
       setSelectedCard(null)
     } else {
       setSelectedCard(id)
+      // Center the clicked card in view
+      const cardElement = document.querySelector(`[data-card-id="${id}"]`)
+      if (cardElement) {
+        cardElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        })
+      }
     }
   }
 
@@ -108,6 +117,7 @@ export default function ExpandableCards() {
           <motion.div
             key={card.id}
             layout
+            data-card-id={card.id}
             className="bg-light-50 dark:bg-dark-50 relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-lg"
             style={{
               scrollSnapAlign: "start",
