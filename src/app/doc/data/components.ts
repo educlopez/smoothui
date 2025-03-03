@@ -46,7 +46,7 @@ export const components: ComponentsProps[] = [
     download: "motion usehooks-ts",
     cnFunction: false,
     isUpdated: false,
-    collection: "dashboard",
+    collection: "data-display",
   },
   {
     id: 2,
@@ -61,7 +61,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react react-use-measure",
     cnFunction: false,
     isUpdated: false,
-    collection: "ecommerce",
+    collection: "media",
   },
   {
     id: 3,
@@ -76,7 +76,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
-    collection: "landing",
+    collection: "data-display",
   },
   {
     id: 4,
@@ -91,7 +91,7 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
-    collection: "landing",
+    collection: "animations",
   },
   {
     id: 5,
@@ -106,7 +106,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
-    collection: "gallery",
+    collection: "media",
   },
   {
     id: 6,
@@ -121,7 +121,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
-    collection: "utility",
+    collection: "navigation",
   },
   {
     id: 7,
@@ -136,7 +136,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: true,
-    collection: "utility",
+    collection: "inputs",
   },
   {
     id: 8,
@@ -151,7 +151,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react @radix-ui/react-popover",
     cnFunction: false,
     isUpdated: false,
-    collection: "profile",
+    collection: "user-interface",
   },
   {
     id: 9,
@@ -166,7 +166,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
-    collection: "utility",
+    collection: "inputs",
   },
   {
     id: 10,
@@ -181,7 +181,7 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
-    collection: "gallery",
+    collection: "animations",
   },
   {
     id: 11,
@@ -196,7 +196,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
-    collection: "utility",
+    collection: "notifications",
   },
   {
     id: 12,
@@ -211,7 +211,7 @@ export const components: ComponentsProps[] = [
     download: "clsx tailwind-merge lucide-react",
     cnFunction: true,
     isUpdated: true,
-    collection: "utility",
+    collection: "data-display",
   },
   {
     id: 13,
@@ -226,7 +226,7 @@ export const components: ComponentsProps[] = [
     download: "motion",
     cnFunction: false,
     isUpdated: false,
-    collection: "social",
+    collection: "navigation",
   },
   {
     id: 14,
@@ -241,7 +241,7 @@ export const components: ComponentsProps[] = [
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: true,
-    collection: "gallery",
+    collection: "data-display",
   },
   {
     id: 15,
@@ -261,6 +261,6 @@ export const components: ComponentsProps[] = [
 }`,
     cnFunction: false,
     isUpdated: false,
-    collection: "gallery",
+    collection: "notifications",
   },
 ]
