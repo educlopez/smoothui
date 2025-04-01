@@ -211,6 +211,16 @@
     --neutral-soft-hover:
       0px 0px 0px 1px rgba(9, 9, 11, 0.08),
       0px 1px 2px -1px rgba(9, 9, 11, 0.08), 0px 2px 8px 0px rgba(9, 9, 11, 0.1);
+    --border: var(--color-light-400);
+    --background: var(--color-light-50);
+  }
+  .dark {
+    --border: var(--color-dark-400);
+    --background: var(--color-dark-50);
+  }
+  @theme inline {
+    --color-background: var(--background);
+    --color-border: var(--border);
   }
   .gradient-mask-t-0 {
     -webkit-mask-image: linear-gradient(#0000, #000);
@@ -239,6 +249,9 @@
   }
 }
 @layer base {
+  * {
+    @apply border-border;
+  }
   .candy-btn {
     color: hsl(from var(--color-contrast-higher) h s l / 0.83);
     text-shadow: 0 1px 0 hsl(from white h s l / 0.3);

@@ -1,7 +1,7 @@
 export const changelogEntries = [
   {
     date: "Abr 01, 2025",
-    changes: ["New Basic Components"],
+    changes: ["New Basic Components", "New sidebar"],
   },
   {
     date: "Feb 10, 2025",
