@@ -51,7 +51,7 @@ export async function generateMetadata(props: {
       title: `SmoothUI — ${componentTitle}`,
       description: `Navigate to ${componentTitle} component, which will make your application smooth`,
       type: "website",
-      url: `https://smoothui.dev/doc/${slug}`,
+      url: `https://smoothui.dev/doc/basic/${slug}`,
       images: [
         {
           width: 1920,
