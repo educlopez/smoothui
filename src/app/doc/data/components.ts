@@ -1,6 +1,10 @@
 import AnimatedTags from "@/app/doc/_components/ui/AnimatedTags"
 import AppDownloadStack from "@/app/doc/_components/ui/AppDownloadStack"
 import AppleInvites from "@/app/doc/_components/ui/AppleInvites"
+import { AccordionDemo } from "@/app/doc/_components/ui/BasicAccordion"
+import { DropdownDemo } from "@/app/doc/_components/ui/BasicDropdown"
+import { ModalDemo } from "@/app/doc/_components/ui/BasicModal"
+import { ToastDemo } from "@/app/doc/_components/ui/BasicToast"
 import ButtonCopy from "@/app/doc/_components/ui/ButtonCopy"
 import DynamicIsland from "@/app/doc/_components/ui/DynamicIsland"
 import ExpandableCards from "@/app/doc/_components/ui/ExpandableCards"
@@ -248,7 +252,7 @@ export const components: ComponentsProps[] = [
     componentTitle: "Apple Invites",
     slug: "apple-invites",
     type: "block",
-    isNew: true,
+    isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "Inspired by Apple's design, this component showcases a collection of event invites with smooth animations and transitions.",

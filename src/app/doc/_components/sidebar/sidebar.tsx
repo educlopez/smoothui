@@ -5,6 +5,10 @@ import Image from "next/image"
 import Link from "next/link"
 import { X } from "lucide-react"
 
+import {
+  basicComponents,
+  BasicComponentsProps,
+} from "@/app/doc/data/basicComponents"
 import { components, ComponentsProps } from "@/app/doc/data/components"
 
 import BadgeBeta from "../badgeBeta"
@@ -61,6 +65,24 @@ export function Sidebar() {
             </div>
           </div>
           <div className="flex h-[calc(100vh-360px)] flex-col gap-1 overflow-y-scroll">
+            <span className="text-light-950 dark:text-dark-950 relative z-1 text-xs font-medium">
+              Basic Components
+            </span>
+            <div className="flex flex-col pb-8">
+              {basicComponents
+                .slice()
+                .reverse()
+                .map((component: BasicComponentsProps) => (
+                  <SidebarButton
+                    key={component.componentTitle}
+                    name={component.componentTitle}
+                    slug={`/doc/basic/${component.slug}`}
+                    isNew={component.isNew}
+                    isUpdated={component.isUpdated}
+                    onClick={handleCloseSidebar}
+                  />
+                ))}
+            </div>
             <span className="text-light-950 dark:text-dark-950 relative z-1 text-xs font-medium">
               Components
             </span>

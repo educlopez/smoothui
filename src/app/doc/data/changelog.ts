@@ -1,5 +1,9 @@
 export const changelogEntries = [
   {
+    date: "Abr 01, 2025",
+    changes: ["New Basic Components"],
+  },
+  {
     date: "Feb 10, 2025",
     changes: ["Beta: shadcn cli", "Beta: Open in V0"],
   },
