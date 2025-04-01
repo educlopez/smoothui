@@ -70,16 +70,10 @@ type ComponentPageLayout = {
   children: React.ReactNode
 }
 
-export default async function ComponentPageLayout({
-  children,
-}: ComponentPageLayout) {
-  const cookieStore = await cookies()
-
-  const defaultOpen = cookieStore.get("sidebar_state")?.value === "true"
+export default function ComponentPageLayout({ children }: ComponentPageLayout) {
   return (
     <div className={`bg-light-50 dark:bg-dark-50 antialiased transition`}>
       <SidebarProvider
-        defaultOpen={defaultOpen}
         style={
           {
             "--sidebar-width": "calc(var(--spacing) * 64)",
