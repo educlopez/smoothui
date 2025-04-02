@@ -14,9 +14,9 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="items-align-center group text-light-950 dark:text-dark-950 flex flex-row items-center justify-center gap-2 transition hover:text-pink-500 dark:hover:text-pink-500"
         >
-          <div className="shadow-neutral-soft group-hover:shadow-neutral-soft-hover bg-light-50 dark:bg-dark-50 flex h-8 w-8 shrink-0 gap-2 rounded-full p-0.5">
+          <div className="shadow-neutral-soft group-hover:shadow-neutral-soft-hover bg-light-50 dark:bg-dark-50 flex h-8 w-8 shrink-0 gap-2 rounded-full">
             <Image
-              src="/pixel-edu-calvo.png"
+              src="https://github.com/educlopez.png"
               alt="User Avatar of Eduardo Calvo"
               width={56}
               height={56}
