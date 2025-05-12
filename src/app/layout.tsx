@@ -87,7 +87,6 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   const shouldInjectToolbar = process.env.NODE_ENV === "development"
   return (
     <html lang="en">
-
       <body
         className={`bg-light-50 dark:bg-dark-50 antialiased transition-colors ${asap.variable} ${inter.className}`}
       >
