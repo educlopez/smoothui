@@ -51,30 +51,36 @@ export default function UserAccountAvatar() {
 
   const renderEditProfile = () => (
     <form onSubmit={handleProfileSave} className="flex flex-col gap-2 p-4">
-      <label htmlFor="name" className="text-smooth-900 text-xs font-medium">
+      <label
+        htmlFor="name"
+        className="text-primary-foreground text-xs font-medium"
+      >
         Name
       </label>
       <input
         id="name"
         name="name"
         defaultValue={userData.name}
-        className="border-smooth-500 bg-smooth-100 text-smooth-950 rounded-sm border p-2 text-xs"
+        className="bg-primary text-foreground rounded-sm border p-2 text-xs"
         placeholder="Name"
       />
-      <label htmlFor="email" className="text-smooth-900 text-xs font-medium">
+      <label
+        htmlFor="email"
+        className="text-primary-foreground text-xs font-medium"
+      >
         Email
       </label>
       <input
         id="email"
         name="email"
         defaultValue={userData.email}
-        className="border-smooth-500 bg-smooth-100 text-smooth-950 rounded-sm border p-2 text-xs"
+        className="bg-primary text-foreground rounded-sm border p-2 text-xs"
         placeholder="Email"
       />
 
       <button
         type="submit"
-        className="bg-smooth-300 text-smooth-950 hover:bg-smooth-400 cursor-pointer rounded-sm px-4 py-2 text-sm"
+        className="bg-smooth-300 text-foreground hover:bg-smooth-400 cursor-pointer rounded-sm px-4 py-2 text-sm"
       >
         Save
       </button>
@@ -86,11 +92,11 @@ export default function UserAccountAvatar() {
       {mockOrders.map((order) => (
         <div
           key={order.id}
-          className="border-smooth-300 bg-smooth-100 flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
+          className="bg-primary flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
         >
           <div className="flex w-full items-center justify-between">
             <div className="font-medium">{order.id}</div>
-            <div className="text-smooth-900">{order.date}</div>
+            <div className="text-primary-foreground">{order.date}</div>
           </div>
           <div className="flex w-full items-center gap-2">
             <div className="w-full">
@@ -112,7 +118,7 @@ export default function UserAccountAvatar() {
               </div>
             </div>
             <button
-              className="border-smooth-300 bg-smooth-50 rounded-sm border p-1"
+              className="bg-background rounded-sm border p-1"
               aria-label="View Order"
             >
               <Eye size={14} />
@@ -126,7 +132,7 @@ export default function UserAccountAvatar() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border-smooth-300 bg-smooth-50 flex cursor-pointer items-center gap-2 rounded-full border">
+        <button className="bg-background flex cursor-pointer items-center gap-2 rounded-full border">
           <Image
             src={userData.avatar}
             alt="User Avatar"
@@ -138,7 +144,7 @@ export default function UserAccountAvatar() {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          className="border-smooth-300 bg-smooth-50 w-48 overflow-hidden rounded-lg border text-sm shadow-lg"
+          className="bg-background w-48 overflow-hidden rounded-lg border text-sm shadow-lg"
           sideOffset={5}
         >
           <motion.div

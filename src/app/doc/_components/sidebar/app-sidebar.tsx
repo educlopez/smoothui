@@ -20,11 +20,7 @@ export async function AppSidebar({
   ...props
 }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      collapsible="offcanvas"
-      className="bg-smooth-100 border-smooth-400"
-      {...props}
-    >
+    <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -43,7 +39,7 @@ export async function AppSidebar({
         <SidebarLinkClient />
       </SidebarContent>
       <SidebarFooter>
-        <Button asChild variant="candy">
+        <Button asChild variant="candy" size="sm">
           <a
             href="https://github.com/educlopez/smoothui/issues/new/"
             target="_blank"

@@ -65,7 +65,7 @@ export default function BasicModal({
           {/* Backdrop */}
           <motion.div
             ref={overlayRef}
-            className="fixed inset-0 z-40 bg-black/40 backdrop-blur-sm"
+            className="bg-background/70 fixed inset-0 z-40 backdrop-blur-sm"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -86,7 +86,7 @@ export default function BasicModal({
           >
             <motion.div
               ref={modalRef}
-              className={`${modalSizes[size]} border-smooth-300 bg-smooth-100 relative mx-auto w-full rounded-xl border p-4 shadow-xl sm:p-6`}
+              className={`${modalSizes[size]} bg-primary relative mx-auto w-full rounded-xl border p-4 shadow-xl sm:p-6`}
               initial={{ scale: 0.9, y: 20, opacity: 0 }}
               animate={{ scale: 1, y: 0, opacity: 1 }}
               exit={{
@@ -103,7 +103,7 @@ export default function BasicModal({
                   <h3 className="text-xl leading-6 font-medium">{title}</h3>
                 )}
                 <motion.button
-                  className="hover:bg-smooth-200 ml-auto rounded-full p-1.5 transition-colors"
+                  className="hover:bg-secondary ml-auto rounded-full p-1.5 transition-colors"
                   onClick={onClose}
                   whileHover={{ rotate: 90 }}
                   transition={{ duration: 0.2 }}
@@ -130,7 +130,7 @@ export function ModalDemo() {
     <div className="flex flex-col gap-4 p-8">
       <button
         onClick={() => setIsOpen(true)}
-        className="border-smooth-200 bg-smooth-50 cursor-pointer rounded-md border p-3 shadow-xs"
+        className="bg-background cursor-pointer rounded-md border p-3 shadow-xs"
       >
         Open Modal
       </button>
@@ -161,13 +161,13 @@ export function ModalDemo() {
           <div className="mt-4 flex justify-end gap-2">
             <button
               onClick={() => setIsOpen(false)}
-              className="border-smooth-300 hover:bg-smooth-200 rounded-lg border px-4 py-2 transition-colors"
+              className="hover:bg-secondary rounded-lg border px-4 py-2 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="rounded-lg bg-pink-500 px-4 py-2 text-white transition-colors hover:bg-pink-600"
+              className="bg-candy hover:bg-candy-secondary rounded-lg px-4 py-2 text-white transition-colors"
             >
               Confirm
             </button>

@@ -60,7 +60,7 @@ export function Features() {
       <Rule position="bottom-left" />
       <Divider />
       <motion.h2
-        className="font-title text-smooth-950 text-center text-3xl font-bold transition"
+        className="font-title text-foreground text-center text-3xl font-bold transition"
         variants={item}
       >
         Why Choose Smooth<span className="text-candy">UI</span>?
@@ -76,10 +76,10 @@ export function Features() {
             )}
           >
             <feature.icon className="text-candy mb-4 h-8 w-8 transition group-hover:text-white" />
-            <h3 className="text-smooth-950 mb-2 text-xl font-semibold transition group-hover:text-white">
+            <h3 className="text-foreground mb-2 text-xl font-semibold transition group-hover:text-white">
               {feature.title}
             </h3>
-            <p className="text-smooth-900 transition group-hover:text-white">
+            <p className="text-primary-foreground transition group-hover:text-white">
               {feature.description}
             </p>
           </motion.div>

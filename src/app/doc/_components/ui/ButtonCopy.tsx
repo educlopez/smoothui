@@ -33,7 +33,7 @@ export default function ButtonCopy() {
   return (
     <div className="flex justify-center">
       <button
-        className="border-smooth-200 bg-smooth-50 relative w-auto cursor-pointer overflow-hidden rounded-full border p-3 disabled:opacity-50"
+        className="bg-background relative w-auto cursor-pointer overflow-hidden rounded-full border p-3 disabled:opacity-50"
         disabled={buttonState !== "idle"}
         onClick={handleClick}
         aria-label={buttonState === "loading" ? "Copying..." : "Copy"}

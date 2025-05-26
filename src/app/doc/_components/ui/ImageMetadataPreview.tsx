@@ -42,21 +42,21 @@ export default function ImageMetadataPreview() {
           <button
             disabled
             aria-label="Share"
-            className="border-smooth-200 bg-smooth-50 cursor-not-allowed rounded-full border p-3 transition disabled:opacity-50"
+            className="bg-background cursor-not-allowed rounded-full border p-3 transition disabled:opacity-50"
           >
             <Share size={16} />
           </button>
           <button
             disabled
             aria-label="Connect"
-            className="border-smooth-200 bg-smooth-50 cursor-not-allowed rounded-full border px-4 py-3 text-sm transition disabled:opacity-50"
+            className="bg-background cursor-not-allowed rounded-full border px-4 py-3 text-sm transition disabled:opacity-50"
           >
             Connect
           </button>
           <AnimatePresence>
             {!openInfo ? (
               <motion.button
-                className="border-smooth-200 bg-smooth-50 cursor-pointer border p-3 shadow-xs transition"
+                className="bg-background cursor-pointer border p-3 shadow-xs transition"
                 aria-label="Open Metadata Preview"
                 style={{ borderRadius: 100 }}
                 initial={{ opacity: 0, filter: "blur(4px)" }}
@@ -71,7 +71,7 @@ export default function ImageMetadataPreview() {
         <AnimatePresence>
           {openInfo ? (
             <motion.div
-              className="bg-smooth-50 absolute bottom-0 w-full cursor-pointer gap-4 p-5 shadow-xs"
+              className="bg-background absolute bottom-0 w-full cursor-pointer gap-4 border p-5 shadow-xs"
               style={{ borderRadius: 20 }}
               initial={{ opacity: 0, filter: "blur(4px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
@@ -81,25 +81,29 @@ export default function ImageMetadataPreview() {
               <div ref={elementRef} className="flex flex-col items-start">
                 <div className="flex w-full flex-row items-start justify-between gap-4">
                   <div>
-                    <p className="text-smooth-950">
+                    <p className="text-foreground">
                       screenshot 2024-06-12 at 20.00.22
                     </p>
-                    <p className="text-smooth-900">No description</p>
+                    <p className="text-primary-foreground">No description</p>
                   </div>
 
                   <button className="cursor-pointer" aria-label="Close Icon">
                     <CircleX size={16} />
                   </button>
                 </div>
-                <table className="text-smooth-950 flex w-full flex-col items-center gap-4">
+                <table className="text-foreground flex w-full flex-col items-center gap-4">
                   <tbody className="w-full">
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Created</td>
-                      <td className="text-smooth-900 w-1/2">2 yrs ago</td>
+                      <td className="text-primary-foreground w-1/2">
+                        2 yrs ago
+                      </td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Updated</td>
-                      <td className="text-smooth-900 w-1/2">2 yrs ago</td>
+                      <td className="text-primary-foreground w-1/2">
+                        2 yrs ago
+                      </td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">By</td>

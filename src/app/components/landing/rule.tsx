@@ -27,7 +27,7 @@ export default function Rule({ position = "top-left", className }: RuleProps) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
-      className={`absolute ${getPositionClasses(position)} text-smooth-950 z-2 transition ${className}`}
+      className={`absolute ${getPositionClasses(position)} text-foreground z-2 transition ${className}`}
     >
       <path
         opacity="0.4"

@@ -1,17 +1,13 @@
 "use client"
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { Home, Info } from "lucide-react"
-
-import { cn } from "@/lib/utils"
 import {
   SidebarGroup,
   SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
+  SidebarMenuSub,
+  SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
 import {
   basicComponents,
@@ -22,35 +18,37 @@ import { components, ComponentsProps } from "@/app/doc/data/components"
 import { SidebarButtonClient } from "./sidebarButtonClient"
 
 export default function SidebarLinkClient({}) {
-  const pathname = usePathname()
-
-  const isActive = (href: string) => pathname === href
-
-  const { isMobile, setOpenMobile } = useSidebar()
-  const handleClick = () => {
-    if (isMobile) {
-      setOpenMobile(false)
-    }
-  }
   return (
     <>
       <SidebarGroup>
-        <SidebarGroupLabel>Get Started</SidebarGroupLabel>
-        <SidebarMenu>
-          <SidebarButtonClient key="1" name="Information" slug="/doc" />
-          <SidebarButtonClient key="2" name="Changelog" slug="/doc/changelog" />
-        </SidebarMenu>
+        <SidebarGroupLabel className="text-foreground font-bold">
+          Get Started
+        </SidebarGroupLabel>
+        <SidebarMenuSub>
+          <SidebarMenuSubItem key="1">
+            <SidebarButtonClient key="1" name="Information" slug="/doc" />
+          </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="2">
+            <SidebarButtonClient
+              key="2"
+              name="Changelog"
+              slug="/doc/changelog"
+            />
+          </SidebarMenuSubItem>
+        </SidebarMenuSub>
       </SidebarGroup>
       <SidebarGroup>
-        <SidebarGroupLabel>Basic</SidebarGroupLabel>
-        <SidebarMenu>
+        <SidebarGroupLabel className="text-foreground font-bold">
+          Basic
+        </SidebarGroupLabel>
+        <SidebarMenuSub>
           {basicComponents
             .slice()
             .reverse()
             .map((component: BasicComponentsProps) => {
               const href = `/doc/basic/${component.slug}`
               return (
-                <SidebarMenuItem
+                <SidebarMenuSubItem
                   key={component.componentTitle}
                   className="group"
                 >
@@ -63,21 +61,23 @@ export default function SidebarLinkClient({}) {
                       isUpdated={component.isUpdated}
                     />
                   </SidebarMenuButton>
-                </SidebarMenuItem>
+                </SidebarMenuSubItem>
               )
             })}
-        </SidebarMenu>
+        </SidebarMenuSub>
       </SidebarGroup>
       <SidebarGroup>
-        <SidebarGroupLabel>Components</SidebarGroupLabel>
-        <SidebarMenu>
+        <SidebarGroupLabel className="text-foreground font-bold">
+          Components
+        </SidebarGroupLabel>
+        <SidebarMenuSub>
           {components
             .slice()
             .reverse()
             .map((component: ComponentsProps) => {
               const href = `/doc/basic/${component.slug}`
               return (
-                <SidebarMenuItem key={component.componentTitle}>
+                <SidebarMenuSubItem key={component.componentTitle}>
                   <SidebarMenuButton asChild tooltip={component.componentTitle}>
                     <SidebarButtonClient
                       key={component.componentTitle}
@@ -87,10 +87,10 @@ export default function SidebarLinkClient({}) {
                       isUpdated={component.isUpdated}
                     />
                   </SidebarMenuButton>
-                </SidebarMenuItem>
+                </SidebarMenuSubItem>
               )
             })}
-        </SidebarMenu>
+        </SidebarMenuSub>
       </SidebarGroup>
     </>
   )

@@ -6,15 +6,15 @@ import { Separator } from "@/components/ui/separator"
 
 export default function Footer() {
   return (
-    <footer className="bg-smooth-50 flex flex-col items-center justify-center text-center text-base">
+    <footer className="bg-backgroundflex flex-col items-center justify-center text-center text-base">
       <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
-        <p className="text-foreground/70 text-xs">I ALSO BUILD:</p>
+        <p className="text-primary-foreground text-xs">I ALSO BUILD:</p>
         <div className="flex flex-row items-center justify-center gap-2 text-xs md:gap-8">
           <a
             href="https://sparkbites.dev"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground/80 hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
+            className="hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
           >
             <Image
               src={SparkbitesIcon.src}
@@ -25,7 +25,7 @@ export default function Footer() {
             />
             <div className="flex max-w-[200px] flex-col items-start justify-start text-left">
               <p className="text-foreground font-bold">Sparkbites</p>
-              <p className="text-foreground/70 text-xs">
+              <p className="text-primary-foreground text-xs">
                 Inspiration directory for your next project
               </p>
             </div>
@@ -34,7 +34,7 @@ export default function Footer() {
             href="https://airlume.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-foreground/80 hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
+            className="hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
           >
             <Image
               src={AirlumeIcon.src}
@@ -45,7 +45,7 @@ export default function Footer() {
             />
             <div className="flex max-w-[200px] flex-col items-start justify-start text-left">
               <p className="text-foreground font-bold">Airlume</p>
-              <p className="text-foreground/70 text-xs">
+              <p className="text-primary-foreground text-xs">
                 Viral posts in seconds with AI
               </p>
             </div>
@@ -58,7 +58,7 @@ export default function Footer() {
           href="https://x.com/educalvolpz"
           target="_blank"
           rel="noopener noreferrer"
-          className="group text-foreground hover:text-foreground/80 hover:bg-primary hover:shadow-custom relative mt-4 mb-20 flex flex-row items-center justify-center gap-2 rounded-sm p-2"
+          className="group text-foreground hover:bg-primary hover:shadow-custom relative mx-auto mt-4 mb-20 flex w-fit flex-row items-center justify-center gap-2 rounded-sm p-2"
         >
           <p className="text-xs whitespace-nowrap">Made by</p>
           <div className="flex h-6 w-6 shrink-0 gap-2 rounded-full">

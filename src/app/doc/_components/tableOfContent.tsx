@@ -95,19 +95,19 @@ export default function TableOfContent() {
 
   return (
     <aside className="sticky top-0 z-30 hidden h-fit -translate-x-2 p-6 2xl:block">
-      <span className="text-smooth-950 flex items-center gap-2 text-[13px]">
+      <span className="text-foreground flex items-center gap-2 text-[13px]">
         <ListTree size={16} />
         Table of content
       </span>
       <div className="relative">
-        <ul className="border-l-smooth-600 mt-4 space-y-2 border-l pl-2">
+        <ul className="mt-4 space-y-2 border-l pl-2">
           {headings.map((heading, index) => (
             <li key={index} className="relative flex h-fit">
               <AnimatePresence mode="wait">
                 {heading.id === activeId && (
                   <motion.div
                     aria-hidden="true"
-                    className="absolute left-0 h-5 w-[3px] -translate-x-[10px] rounded-full bg-pink-500"
+                    className="bg-candy absolute left-0 h-5 w-[3px] -translate-x-[10px] rounded-full"
                     transition={{
                       type: "spring",
                       stiffness: 300,
@@ -121,8 +121,8 @@ export default function TableOfContent() {
                 href={`#${heading.id}`}
                 className={`${getMarginClass(heading.level)} ${
                   heading.id === activeId
-                    ? "text-smooth-950"
-                    : "text-smooth-900 hover:text-smooth-950"
+                    ? "text-foreground"
+                    : "text-primary-foreground hover:text-foreground"
                 } inline-block h-5 truncate text-[13px] no-underline transition-all`}
               >
                 {heading.text}

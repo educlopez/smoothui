@@ -228,9 +228,9 @@ export default function AppDownloadStack() {
               </motion.ul>
               <motion.button
                 layoutId="download-button"
-                className={`border-smooth-200 mt-2 w-full rounded-full border p-3 py-2 font-sans font-medium shadow-sm transition ${
+                className={`mt-2 w-full rounded-full border p-3 py-2 font-sans font-medium shadow-sm transition ${
                   selectedApps.length > 0
-                    ? "bg-smooth-50 cursor-pointer"
+                    ? "bg-background cursor-pointer"
                     : "cursor-not-allowed"
                 }`}
                 disabled={selectedApps.length === 0}
@@ -280,12 +280,12 @@ export default function AppDownloadStack() {
               <motion.div className="relative w-full overflow-hidden rounded-full">
                 <motion.button
                   layoutId="download-button"
-                  className={`border-smooth-200 bg-smooth-50 text-smooth-950 relative w-full cursor-pointer rounded-full border p-3 px-4 py-2 font-sans font-medium shadow-xs transition`}
+                  className={`bg-background text-foreground relative w-full cursor-pointer rounded-full border p-3 px-4 py-2 font-sans font-medium shadow-xs transition`}
                   onClick={confirmDownload}
                   disabled={downloadComplete}
                 >
                   <motion.div
-                    className="absolute inset-0 bg-linear-to-r from-transparent via-black/20 to-transparent opacity-30 dark:via-white"
+                    className="via-foreground/20 dark:via-background absolute inset-0 bg-linear-to-r from-transparent to-transparent opacity-30"
                     initial={{ x: "-100%" }}
                     animate={shineControls}
                   />
@@ -309,10 +309,12 @@ export default function AppDownloadStack() {
             transition={{ delay: 0.5 }}
             className="mt-4 text-center"
           >
-            <h2 className="text-smooth-950 text-xl font-bold">
+            <h2 className="text-foreground text-xl font-bold">
               {STARTER_KIT_TITLE}
             </h2>
-            <p className="text-smooth-900">{apps.length} Applications</p>
+            <p className="text-primary-foreground">
+              {apps.length} Applications
+            </p>
           </motion.div>
         )}
       </motion.div>

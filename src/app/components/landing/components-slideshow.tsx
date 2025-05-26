@@ -23,10 +23,10 @@ export function ComponentsSlideshow() {
       <Rule position="bottom-left" />
       <Divider />
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-title text-smooth-950 text-center text-3xl font-bold transition">
+        <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
           Component Showcase
         </h2>
-        <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-16 grid grid-cols-2 gap-4">
           {components
             .filter((comp) => SHOWCASE_COMPONENTS.includes(comp.componentTitle))
             .map((component) => (

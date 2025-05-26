@@ -23,18 +23,12 @@ export const ThemeSwitch = () => {
 
   return (
     <div
-      className="flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+      className="text-foreground hover:text-candy flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
       aria-label={mounted ? `Switch to ${otherTheme} theme` : "Toggle theme"}
       onClick={handleButtonClick}
     >
-      <Sun
-        size={20}
-        className="fill-smooth-950 stroke-smooth-950 transition hover:fill-pink-500 hover:stroke-pink-500 dark:hidden"
-      />
-      <Moon
-        size={20}
-        className="hidden transition dark:block dark:hover:fill-pink-500 dark:hover:stroke-pink-500"
-      />
+      <Sun size={20} className="transition dark:hidden" />
+      <Moon size={20} className="hidden transition dark:block" />
     </div>
   )
 }

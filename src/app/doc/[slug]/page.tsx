@@ -120,11 +120,11 @@ export default async function ComponentPage(props: {
           <h1
             data-table-content="Introduction"
             data-level="1"
-            className="text-smooth-950 text-3xl font-bold -tracking-wide"
+            className="text-foreground text-3xl font-bold -tracking-wide"
           >
             {component.componentTitle}
           </h1>
-          <p className="text-smooth-900 text-sm">{component.info}</p>
+          <p className="text-primary-foreground text-sm">{component.info}</p>
         </div>
         <div className="space-y-6">
           <ComponentView>
@@ -158,28 +158,28 @@ export default async function ComponentPage(props: {
           </h3>
           {component.download && (
             <Tabs defaultValue="npm">
-              <TabsList>
+              <TabsList className="text-primary-foreground bg-primary border">
                 <TabsTrigger
                   value="npm"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
                 >
                   npm
                 </TabsTrigger>
                 <TabsTrigger
                   value="pnpm"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
                 >
                   pnpm
                 </TabsTrigger>
                 <TabsTrigger
                   value="yarn"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
                 >
                   yarn
                 </TabsTrigger>
                 <TabsTrigger
                   value="bun"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
                 >
                   bun
                 </TabsTrigger>

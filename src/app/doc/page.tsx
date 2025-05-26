@@ -54,11 +54,11 @@ export default function GetStartedPage() {
             <h1
               data-table-content="Introduction"
               data-level="1"
-              className="text-smooth-950 text-3xl font-bold -tracking-wide"
+              className="text-foreground text-3xl font-bold -tracking-wide"
             >
               Introduction
             </h1>
-            <p className="text-smooth-900 text-[16px] leading-relaxed font-normal">
+            <p className="text-primary-foreground text-[16px] leading-relaxed font-normal">
               SmoothUI is a collection of beautifully designed components with
               smooth animations built with React, Tailwind CSS, and Motion.
             </p>
@@ -69,38 +69,38 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Installation"
             data-level="2"
-            className="text-smooth-950 text-2xl font-bold"
+            className="text-foreground text-2xl font-bold"
           >
             Installation
           </h2>
-          <p className="text-smooth-900 text-[16px] leading-relaxed">
+          <p className="text-primary-foreground text-[16px] leading-relaxed">
             To use SmoothUI components, you will need to install the following
             dependencies:
           </p>
 
           <Tabs defaultValue="npm">
-            <TabsList>
+            <TabsList className="text-primary-foreground bg-primary border">
               <TabsTrigger
                 value="npm"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 npm
               </TabsTrigger>
               <TabsTrigger
                 value="pnpm"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 pnpm
               </TabsTrigger>
               <TabsTrigger
                 value="yarn"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 yarn
               </TabsTrigger>
               <TabsTrigger
                 value="bun"
-                className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 bun
               </TabsTrigger>
@@ -144,18 +144,15 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Color System"
             data-level="2"
-            className="text-smooth-950 text-2xl font-bold"
+            className="text-foreground text-2xl font-bold"
           >
             Color System
           </h2>
-          <p className="text-smooth-900 text-[16px] leading-relaxed">
+          <p className="text-primary-foreground text-[16px] leading-relaxed">
             SmoothUI uses a carefully crafted color system with both light and
             dark variants. Add these colors to your tailwind.config.ts:
           </p>
-          <CodeBlockWrapper
-            expandButtonTitle="Expand"
-            className="my-6 overflow-hidden rounded-md"
-          >
+          <CodeBlockWrapper expandButtonTitle="Expand" className="my-6">
             <CodeBlock code={tailwindConfig} fileName="global.css" lang="css" />
           </CodeBlockWrapper>
         </div>
@@ -164,15 +161,15 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Usage Tips"
             data-level="2"
-            className="text-smooth-950 text-2xl font-bold"
+            className="text-foreground text-2xl font-bold"
           >
             Usage Tips
           </h2>
           <div className="space-y-3">
-            <p className="text-smooth-900 text-[16px] leading-relaxed">
+            <p className="text-primary-foreground text-[16px] leading-relaxed">
               Here are some tips to get the most out of SmoothUI components:
             </p>
-            <ul className="text-smooth-900 list-disc space-y-2 pl-6 text-[16px]">
+            <ul className="text-primary-foreground list-disc space-y-2 pl-6 text-[16px]">
               <li>
                 All components support both light and dark modes out of the box
               </li>

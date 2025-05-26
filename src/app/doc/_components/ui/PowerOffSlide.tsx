@@ -49,16 +49,16 @@ export default function PowerOffSlide() {
     <div className="flex h-auto items-center justify-center">
       <div className="w-56">
         {isPoweringOff ? (
-          <div className="text-smooth-950 text-center">
+          <div className="text-foreground text-center">
             <p className="mb-2 text-xl font-light">Shutting down...</p>
           </div>
         ) : (
           <div
             ref={constraintsRef}
-            className="bg-smooth-400 relative h-14 overflow-hidden rounded-full"
+            className="bg-secondary relative h-14 overflow-hidden rounded-full border"
           >
             <div className="absolute inset-0 left-8 z-0 flex items-center justify-center overflow-hidden">
-              <div className="text-md loading-shimmer text-smooth-950 relative w-full text-center font-normal select-none">
+              <div className="text-md loading-shimmer text-foreground relative w-full text-center font-normal select-none">
                 Slide to power off
               </div>
             </div>
@@ -70,7 +70,7 @@ export default function PowerOffSlide() {
               onDragEnd={handleDragEnd}
               animate={controls}
               style={{ x }}
-              className="bg-smooth-50 absolute top-1 left-1 z-10 flex h-12 w-12 cursor-grab items-center justify-center rounded-full shadow-md active:cursor-grabbing"
+              className="bg-background absolute top-1 left-1 z-10 flex h-12 w-12 cursor-grab items-center justify-center rounded-full shadow-md active:cursor-grabbing"
             >
               <Power size={32} className="text-red-600" />
             </motion.div>

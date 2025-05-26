@@ -2,6 +2,7 @@
 
 import * as React from "react"
 
+import { Button } from "@/app/components/button"
 import {
   Collapsible,
   CollapsibleContent,
@@ -23,7 +24,13 @@ export function CodeBlockWrapper({
 
   return (
     <Collapsible open={isOpened} onOpenChange={setIsOpened}>
-      <div className={cn("relative overflow-hidden", className)} {...props}>
+      <div
+        className={cn(
+          "relative overflow-hidden rounded-lg border [&_.border]:border-none",
+          className
+        )}
+        {...props}
+      >
         <CollapsibleContent
           forceMount
           className={cn("overflow-hidden", !isOpened && "max-h-42")}
@@ -39,14 +46,18 @@ export function CodeBlockWrapper({
         </CollapsibleContent>
         <div
           className={cn(
-            "from-smooth-50/10 to-smooth-50/90 absolute flex items-end justify-center bg-gradient-to-b p-2",
+            "from-primary/10 to-primary absolute flex items-end justify-center bg-gradient-to-b p-2",
             isOpened ? "inset-x-0 bottom-0 h-12" : "inset-0"
           )}
         >
           <CollapsibleTrigger asChild>
-            <button className="bg-smooth-200 text-smooth-900 flex w-auto cursor-pointer items-center justify-center rounded-md px-3 py-1 text-sm">
+            <Button
+              className="flex w-auto cursor-pointer items-center justify-center"
+              variant="outline"
+              size="sm"
+            >
               {isOpened ? "Collapse" : expandButtonTitle}
-            </button>
+            </Button>
           </CollapsibleTrigger>
         </div>
       </div>

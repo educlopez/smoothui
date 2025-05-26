@@ -19,14 +19,14 @@ export default function ToastChangelog() {
       (t) => (
         <div>
           <p className="font-bold">Last changes: {firstChangelog.date}</p>
-          <ul className="text-smooth-900 mt-1 list-disc pl-4">
+          <ul className="text-primary-foreground mt-1 list-disc pl-4">
             {firstChangelog.changes.map((change, index) => (
               <li key={index}>{change}</li>
             ))}
           </ul>
           <button
             aria-label="Dismiss changelog"
-            className="hover:bg-smooth-500 absolute top-2 right-2 cursor-pointer rounded-full p-1"
+            className="hover:bg-background absolute top-2 right-2 cursor-pointer rounded-full p-1"
             onClick={() => {
               toast.dismiss(t)
               setIsToastOpen(false)
@@ -50,7 +50,7 @@ export default function ToastChangelog() {
       <BellDot
         size={20}
         onClick={handleClick}
-        className={`hover:text-pink-500 ${isToastOpen ? "cursor-not-allowed text-pink-500" : "cursor-pointer"}`}
+        className={`hover:text-candy text-foreground ${isToastOpen ? "text-candy cursor-not-allowed" : "cursor-pointer"}`}
       />
     </div>
   )

@@ -40,7 +40,7 @@ export default function BasicAccordion({
 
   return (
     <div
-      className={`divide-smooth-300 flex w-full flex-col divide-y rounded-lg border ${className}`}
+      className={`divide-border flex w-full flex-col divide-y overflow-hidden rounded-lg border ${className}`}
     >
       {items.map((item) => {
         const isExpanded = expandedItems.includes(item.id)
@@ -49,7 +49,7 @@ export default function BasicAccordion({
           <div key={item.id} className="overflow-hidden">
             <button
               onClick={() => toggleItem(item.id)}
-              className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-black/5 dark:hover:bg-white/5"
+              className="hover:bg-primary flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors"
               aria-expanded={isExpanded}
             >
               <h3 className="font-medium">{item.title}</h3>
@@ -89,9 +89,7 @@ export default function BasicAccordion({
                   }}
                   className="overflow-hidden"
                 >
-                  <div className="border-smooth-300 border-t px-4 py-3">
-                    {item.content}
-                  </div>
+                  <div className="border-t px-4 py-3">{item.content}</div>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -126,7 +124,7 @@ export function AccordionDemo() {
             can also customize behavior with props like{" "}
             <code>allowMultiple</code> and <code>defaultExpandedIds</code>.
           </p>
-          <pre className="bg-smooth-200 rounded p-2">
+          <pre className="bg-primary rounded border p-2">
             {`<BasicAccordion
   items={accordionItems}
   allowMultiple={true}
@@ -155,7 +153,7 @@ export function AccordionDemo() {
         items={accordionItems}
         allowMultiple={true}
         defaultExpandedIds={[1]}
-        className="border-smooth-300 bg-smooth-50"
+        className="bg-background border"
       />
     </div>
   )

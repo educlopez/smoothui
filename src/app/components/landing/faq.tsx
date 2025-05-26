@@ -75,7 +75,7 @@ export function FAQ() {
       <Divider />
       <motion.h2
         variants={item}
-        className="font-title text-smooth-950 text-center text-3xl font-bold transition"
+        className="font-title text-foreground text-center text-3xl font-bold transition"
       >
         Frequently Asked Questions
       </motion.h2>
@@ -89,10 +89,10 @@ export function FAQ() {
               "shadow-custom"
             )}
           >
-            <h3 className="text-smooth-950 group-hover:text-smooth-50 text-lg font-semibold transition">
+            <h3 className="text-foreground group-hover:text-smooth-50 text-lg font-semibold transition">
               {faq.question}
             </h3>
-            <p className="text-smooth-900 group-hover:text-smooth-50 group-hover: mt-2 transition">
+            <p className="text-primary-foreground group-hover:text-smooth-50 group-hover: mt-2 transition">
               {faq.answer}
             </p>
           </motion.div>

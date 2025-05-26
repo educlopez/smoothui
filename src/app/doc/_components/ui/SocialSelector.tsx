@@ -96,8 +96,8 @@ export default function SocialSelector() {
                 onClick={() => setSelectedPlatform(platform)}
                 className={`relative z-10 cursor-pointer rounded-full p-2 transition-colors ${
                   selectedPlatform.name === platform.name
-                    ? "fill-white"
-                    : "fill-smooth-800 hover:bg-smooth-400/50 hover:fill-white"
+                    ? "fill-foreground"
+                    : "hover:bg-primary fill-primary-foreground"
                 }`}
                 aria-label={`Select ${platform.name} platform`}
               >
@@ -107,7 +107,7 @@ export default function SocialSelector() {
             ))}
             <motion.div
               layoutId="background"
-              className="bg-smooth-950 absolute inset-0 z-0 h-9 w-9 rounded-full"
+              className="bg-background absolute inset-0 z-0 h-9 w-9 rounded-full border"
               initial={false}
               animate={{
                 x:
@@ -122,9 +122,9 @@ export default function SocialSelector() {
             />
           </div>
         </div>
-        <p className="text-smooth-900 text-md">
+        <p className="text-primary-foreground text-md">
           Updates on{" "}
-          <span className="text-smooth-900 font-medium">
+          <span className="text-foreground font-medium">
             <motion.a
               key={selectedPlatform.domain}
               initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
@@ -143,7 +143,7 @@ export default function SocialSelector() {
             href={selectedPlatform.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-smooth-950 font-medium"
+            className="text-foreground font-medium"
           >
             @{handle}
           </a>

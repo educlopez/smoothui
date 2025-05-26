@@ -74,19 +74,19 @@ export default function InteractiveImageSelector() {
 
   return (
     <div className="relative flex h-full w-full max-w-[500px] flex-col justify-between p-4">
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b from-black/20 to-transparent dark:from-black/50"></div>
+      <div className="from-background/20 dark:from-background/50 pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b to-transparent"></div>
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-smooth-50/20 cursor-pointer rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-background/20 text-foreground cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl"
           onClick={handleReset}
           aria-label="Reset selection"
         >
           Reset
         </motion.button>
         <button
-          className="bg-smooth-50/20 cursor-pointer rounded-full px-3 py-1 text-sm font-semibold text-white bg-blend-luminosity backdrop-blur-xl"
+          className="bg-background/20 text-foreground cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl"
           onClick={toggleSelecting}
           aria-label={isSelecting ? "Cancel selection" : "Select images"}
         >
@@ -95,7 +95,9 @@ export default function InteractiveImageSelector() {
       </div>
       <div className="absolute top-16 right-5 left-5 z-20 flex justify-between p-4">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-white">Art Gallery</span>
+          <span className="text-foreground text-2xl font-bold">
+            Art Gallery
+          </span>
         </div>
       </div>
       <motion.div className="grid grid-cols-3 gap-1 overflow-scroll" layout>
@@ -143,12 +145,12 @@ export default function InteractiveImageSelector() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="bg-smooth-50/20 /20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
+            className="bg-background/20 /20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
           >
             <button className="cursor-pointer text-blue-500">
               <Share2 size={24} />
             </button>
-            <span className="text-smooth-950">
+            <span className="text-foreground">
               {selectedImages.length} selected
             </span>
             <button

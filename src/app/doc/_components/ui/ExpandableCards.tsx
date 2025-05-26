@@ -22,6 +22,7 @@ interface Card {
   author?: {
     name: string
     role: string
+    image: string
   }
 }
 
@@ -35,6 +36,7 @@ const cards: Card[] = [
     author: {
       name: "Zé Manuel",
       role: "Fundador, Summer Opening",
+      image: "https://github.com/educlopez.png",
     },
   },
   {
@@ -46,6 +48,7 @@ const cards: Card[] = [
     author: {
       name: "Maria Silva",
       role: "Fashion Curator",
+      image: "https://github.com/educlopez.png",
     },
   },
   {
@@ -57,6 +60,7 @@ const cards: Card[] = [
     author: {
       name: "João Santos",
       role: "Gallery Director",
+      image: "https://github.com/educlopez.png",
     },
   },
   {
@@ -68,6 +72,7 @@ const cards: Card[] = [
     author: {
       name: "Ana Rodrigues",
       role: "Dream Interpreter",
+      image: "https://github.com/educlopez.png",
     },
   },
 ]
@@ -118,7 +123,7 @@ export default function ExpandableCards() {
             key={card.id}
             layout
             data-card-id={card.id}
-            className="bg-smooth-50 relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-lg"
+            className="bg-background relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border shadow-lg"
             style={{
               scrollSnapAlign: "start",
             }}
@@ -140,14 +145,14 @@ export default function ExpandableCards() {
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-black/20" />
-              <div className="text-smooth-50 absolute inset-0 flex flex-col justify-between p-6">
+              <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
                 <h2 className="text-2xl font-bold">{card.title}</h2>
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Play video"
-                    className="bg-smooth-50/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110"
+                    className="bg-background/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110"
                   >
-                    <Play className="text-smooth-50 h-6 w-6" />
+                    <Play className="h-6 w-6 text-white" />
                   </button>
                   <span className="text-sm font-medium">Play video</span>
                 </div>
@@ -164,7 +169,7 @@ export default function ExpandableCards() {
                     ease: smoothEasing,
                     opacity: { duration: 0.3, delay: 0.2 },
                   }}
-                  className="bg-smooth-50 absolute top-0 right-0 h-full"
+                  className="bg-background absolute top-0 right-0 h-full"
                 >
                   <motion.div
                     className="flex h-full flex-col justify-between p-8"
@@ -173,15 +178,25 @@ export default function ExpandableCards() {
                     exit={{ opacity: 0, x: 20, filter: "blur(5px)" }}
                     transition={{ delay: 0.4, duration: 0.3 }}
                   >
-                    <p className="text-smooth-900 text-sm">{card.content}</p>
+                    <p className="text-primary-foreground text-sm">
+                      {card.content}
+                    </p>
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
-                        <div className="bg-smooth-500 h-12 w-12 rounded-full" />
+                        <div className="bg-primary h-12 w-12 overflow-hidden rounded-full border">
+                          <Image
+                            src={card.author.image}
+                            alt={card.author.name}
+                            width={48}
+                            height={48}
+                            className="h-full w-full object-cover"
+                          />
+                        </div>
                         <div>
-                          <p className="text-smooth-900 font-semibold">
+                          <p className="text-foreground font-semibold">
                             {card.author.name}
                           </p>
-                          <p className="text-smooth-800 text-xs">
+                          <p className="text-primary-foreground text-xs">
                             {card.author.role}
                           </p>
                         </div>

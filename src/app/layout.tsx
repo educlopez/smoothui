@@ -88,7 +88,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   return (
     <html lang="en">
       <body
-        className={`bg-smooth-50 antialiased transition-colors ${asap.variable} ${inter.className}`}
+        className={`bg-background antialiased transition-colors ${asap.variable} ${inter.className}`}
       >
         <ThemeProvider attribute="class">
           <FloatNav />
@@ -102,7 +102,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
               unstyled: true,
               classNames: {
                 toast:
-                  " bg-smooth-50 rounded-lg p-4 border border-smooth-500  text-xs shadow-xs w-full",
+                  " bg-background rounded-lg p-4 border border-smooth-500  text-xs shadow-xs w-full",
               },
             }}
           />

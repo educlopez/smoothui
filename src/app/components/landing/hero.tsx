@@ -21,7 +21,7 @@ export function Hero() {
       <div className="flex h-full flex-col items-start justify-start">
         <Logo />
         <h1 className="sr-only">SmoothUI</h1>
-        <p className="text-smooth-900 mt-6 max-w-2xl text-left text-xl transition">
+        <p className="text-primary-foreground mt-6 max-w-2xl text-left text-xl transition">
           A collection of{" "}
           <span className="line-through decoration-pink-500">awesome</span> test
           components
@@ -37,7 +37,7 @@ export function Hero() {
           <GithubStars />
         </div>
 
-        <div className="text-smooth-900 mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
+        <div className="text-primary-foreground mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
           <span>Built for</span>
           <span className="group flex items-center gap-1.5">
             <ReactLogo className="text-smooth-700 h-6 transition group-hover:text-pink-500 dark:group-hover:text-pink-500" />
