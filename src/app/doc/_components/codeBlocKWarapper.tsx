@@ -39,12 +39,12 @@ export function CodeBlockWrapper({
         </CollapsibleContent>
         <div
           className={cn(
-            "dark:from-dark-50/10 from-light-50/10 dark:to-dark-50/90 to-light-50/90 absolute flex items-end justify-center bg-gradient-to-b p-2",
+            "from-smooth-50/10 to-smooth-50/90 absolute flex items-end justify-center bg-gradient-to-b p-2",
             isOpened ? "inset-x-0 bottom-0 h-12" : "inset-0"
           )}
         >
           <CollapsibleTrigger asChild>
-            <button className="bg-light-200 dark:bg-dark-200 dark:text-dark-900 text-light-900 flex w-auto cursor-pointer items-center justify-center rounded-md px-3 py-1 text-sm">
+            <button className="bg-smooth-200 text-smooth-900 flex w-auto cursor-pointer items-center justify-center rounded-md px-3 py-1 text-sm">
               {isOpened ? "Collapse" : expandButtonTitle}
             </button>
           </CollapsibleTrigger>

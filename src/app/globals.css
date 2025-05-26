@@ -2,38 +2,27 @@
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
+@theme inline {
   --font-body: var(--font-inter);
   --font-title: var(--font-asap);
+  --color-candy: var(--color-candy);
+  --color-candy-secondary: var(--color-candy-secondary);
+  --color-border: var(--border);
 
-  --shadow-custom:
-    inset 0 0 0 1px hsla(0, 0%, 100%, 0.04), 0 0 0 1px hsla(0, 0%, 0%, 0.15),
-    0px 40px 11px rgba(136, 97, 46, 0.01),
-    0px 26px 10px rgba(136, 97, 46, 0.05), 0px 14px 9px rgba(136, 97, 46, 0.17),
-    0px 6px 6px rgba(136, 97, 46, 0.29), 0px 2px 4px rgba(136, 97, 46, 0.33);
-
-  --color-dark-50: hsl(0 0% 8.5%);
-  --color-dark-100: hsl(0 0% 11%);
-  --color-dark-200: hsl(0 0% 13.6%);
-  --color-dark-300: hsl(0 0% 15.8%);
-  --color-dark-400: hsl(0 0% 17.9%);
-  --color-dark-500: hsl(0 0% 20.5%);
-  --color-dark-600: hsl(0 0% 31.2%);
-  --color-dark-700: hsl(0 0% 43.9%);
-  --color-dark-800: hsl(0 0% 49.4%);
-  --color-dark-900: hsl(0 0% 62.8%);
-  --color-dark-950: hsl(0 0% 93%);
-  --color-light-50: hsl(0 0% 99%);
-  --color-light-100: hsl(0 0% 97.3%);
-  --color-light-200: hsl(0 0% 95.1%);
-  --color-light-300: hsl(0 0% 93%);
-  --color-light-400: hsl(0 0% 90.9%);
-  --color-light-500: hsl(0 0% 88.3%);
-  --color-light-600: hsl(0 0% 77.6%);
-  --color-light-700: hsl(0 0% 65.9%);
-  --color-light-800: hsl(0 0% 60.4%);
-  --color-light-900: hsl(0 0% 43.5%);
-  --color-light-950: hsl(0 0% 9%);
+  --color-smooth-50: var(--color-smooth-50);
+  --color-smooth-100: var(--color-smooth-100);
+  --color-smooth-200: var(--color-smooth-200);
+  --color-smooth-300: var(--color-smooth-300);
+  --color-smooth-400: var(--color-smooth-400);
+  --color-smooth-500: var(--color-smooth-500);
+  --color-smooth-600: var(--color-smooth-600);
+  --color-smooth-700: var(--color-smooth-700);
+  --color-smooth-800: var(--color-smooth-800);
+  --color-smooth-900: var(--color-smooth-900);
+  --color-smooth-950: var(--color-smooth-950);
+  --color-background: var(--color-smooth-50);
+  --color-foreground: var(--color-smooth-950);
+  --color-primary: var(--color-smooth-200);
 
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
   --background-image-gradient-conic: conic-gradient(
@@ -43,16 +32,69 @@
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme,);
   --shiki--dark: var(--shiki-theme,);
+
+  --shadow-custom: var(--shadow-custom);
+  --shadow-custom-colored: var(--shadow-custom-colored);
+}
+:root {
+  --color-smooth-50: hsl(0 0% 99%);
+  --color-smooth-100: hsl(0 0% 97.3%);
+  --color-smooth-200: hsl(0 0% 95.1%);
+  --color-smooth-300: hsl(0 0% 93%);
+  --color-smooth-400: hsl(0 0% 90.9%);
+  --color-smooth-500: hsl(0 0% 88.3%);
+  --color-smooth-600: hsl(0 0% 77.6%);
+  --color-smooth-700: hsl(0 0% 65.9%);
+  --color-smooth-800: hsl(0 0% 60.4%);
+  --color-smooth-900: hsl(0 0% 43.5%);
+  --color-smooth-950: hsl(0 0% 9%);
+
+  --color-candy: #ff64b1;
+  --color-candy-secondary: #ec4899;
+  --color-bt-gray: var(--bt-gray);
+  --color-contrast-higher: #fff;
+  --color-contrast-highest: #fff;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --neutral-soft:
+    0px 0px 0px 1px rgba(9, 9, 11, 0.08), 0px 1px 2px -1px rgba(9, 9, 11, 0.08),
+    0px 2px 4px 0px rgba(9, 9, 11, 0.04);
+  --neutral-soft-hover:
+    0px 0px 0px 1px rgba(9, 9, 11, 0.08), 0px 1px 2px -1px rgba(9, 9, 11, 0.08),
+    0px 2px 8px 0px rgba(9, 9, 11, 0.1);
+
+  --border: var(--color-smooth-400);
+
+  --bt-gray: #e5e7eb;
+
+  --shadow-custom:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.08),
+    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
 }
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+.dark {
+  --color-smooth-50: hsl(0 0% 8.5%);
+  --color-smooth-100: hsl(0 0% 11%);
+  --color-smooth-200: hsl(0 0% 13.6%);
+  --color-smooth-300: hsl(0 0% 15.8%);
+  --color-smooth-400: hsl(0 0% 17.9%);
+  --color-smooth-500: hsl(0 0% 20.5%);
+  --color-smooth-600: hsl(0 0% 31.2%);
+  --color-smooth-700: hsl(0 0% 43.9%);
+  --color-smooth-800: hsl(0 0% 49.4%);
+  --color-smooth-900: hsl(0 0% 62.8%);
+  --color-smooth-950: hsl(0 0% 93%);
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
+  --border: var(--color-smooth-400);
+
+  --bt-gray: black;
+
+  --shadow-custom:
+    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
+    0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
+    0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+}
+
 @layer base {
   *,
   ::after,
@@ -72,17 +114,14 @@
   [data-theme="light"] {
     --shiki-theme: var(--shiki--light);
   }
-}
-
-@layer base {
   html {
-    --text-primary: var(--color-light-200);
-    --text-quaternary: var(--color-light-950);
+    --text-primary: var(--color-smooth-200);
+    --text-quaternary: var(--color-smooth-950);
   }
 
   .dark {
-    --text-primary: var(--color-dark-200);
-    --text-quaternary: var(--color-dark-950);
+    --text-primary: var(--color-smooth-200);
+    --text-quaternary: var(--color-smooth-950);
   }
 }
 
@@ -197,31 +236,6 @@
     }
   }
 
-  :root {
-    --color-bg-light: #ec4899;
-    --color-bg: #ec4899;
-    --color-contrast-higher: #fff;
-    --color-contrast-highest: #fff;
-    --tw-ring-offset-shadow: 0 0 #0000;
-    --tw-ring-shadow: 0 0 #0000;
-    --neutral-soft:
-      0px 0px 0px 1px rgba(9, 9, 11, 0.08),
-      0px 1px 2px -1px rgba(9, 9, 11, 0.08),
-      0px 2px 4px 0px rgba(9, 9, 11, 0.04);
-    --neutral-soft-hover:
-      0px 0px 0px 1px rgba(9, 9, 11, 0.08),
-      0px 1px 2px -1px rgba(9, 9, 11, 0.08), 0px 2px 8px 0px rgba(9, 9, 11, 0.1);
-    --border: var(--color-light-400);
-    --background: var(--color-light-50);
-  }
-  .dark {
-    --border: var(--color-dark-400);
-    --background: var(--color-dark-50);
-  }
-  @theme inline {
-    --color-background: var(--background);
-    --color-border: var(--border);
-  }
   .gradient-mask-t-0 {
     -webkit-mask-image: linear-gradient(#0000, #000);
     mask-image: linear-gradient(#0000, #000);
@@ -248,166 +262,10 @@
     mask-image: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, transparent 100%);
   }
 }
-@layer base {
-  * {
-    @apply border-border;
-  }
-  .candy-btn {
-    color: hsl(from var(--color-contrast-higher) h s l / 0.83);
-    text-shadow: 0 1px 0 hsl(from white h s l / 0.3);
-    background:
-      radial-gradient(
-        ellipse at -20px top,
-        hsl(from white h s l / 0.25),
-        hsl(from white h s l / 0)
-      ),
-      var(--color-bg-light);
-    background-blend-mode: overlay, normal;
-
-    &::after {
-      background: linear-gradient(
-          180deg,
-          hsl(from white h s l / 0.65),
-          hsl(from #5b4b32 h s l / 0.68) 41%,
-          hsl(from #7f6845 h s l / 0.46) 75%,
-          hsl(from white h s l / 0.25)
-        )
-        border-box;
-      mix-blend-mode: overlay;
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      border: 1.5px solid transparent;
-      -webkit-mask:
-        linear-gradient(black, black) padding-box,
-        linear-gradient(black, black);
-      mask:
-        linear-gradient(black, black) padding-box,
-        linear-gradient(black, black);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-    @media (hover: hover) {
-      &:hover {
-        background:
-          radial-gradient(
-            ellipse at -20px top,
-            hsl(from white h s l / 0.35),
-            hsl(from white h s l / 0)
-          ),
-          var(--color-bg-light);
-        box-shadow:
-          inset 0 0 0 1px hsl(from white h s l / 0.04),
-          0 0 0 1px hsl(from black h s l / 0.15),
-          0px 40px 11px rgba(236, 72, 153, 0.01),
-          0px 26px 10px rgba(236, 72, 153, 0.05),
-          0px 14px 9px rgba(236, 72, 153, 0.17),
-          0px 6px 6px rgba(236, 72, 153, 0.29),
-          0px 2px 4px rgba(236, 72, 153, 0.33);
-      }
-    }
-  }
-
-  .box-light {
-    &::after {
-      background: linear-gradient(
-          180deg,
-          hsl(from white h s l / 0.65),
-          hsl(from #5b4b32 h s l / 0.68) 41%,
-          hsl(from #7f6845 h s l / 0.46) 75%,
-          hsl(from white h s l / 0.25)
-        )
-        border-box;
-      mix-blend-mode: overlay;
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      pointer-events: none;
-      border: 1.5px solid transparent;
-      -webkit-mask:
-        linear-gradient(black, black) padding-box,
-        linear-gradient(black, black);
-      mask:
-        linear-gradient(black, black) padding-box,
-        linear-gradient(black, black);
-      -webkit-mask-composite: xor;
-      mask-composite: exclude;
-    }
-    @media (hover: hover) {
-      &:hover {
-        background:
-          radial-gradient(
-            ellipse at -20px top,
-            hsl(from white h s l / 0.25),
-            hsl(from white h s l / 0)
-          ),
-          var(--color-bg-light) !important;
-        background-blend-mode: overlay, normal;
-        box-shadow:
-          inset 0 0 0 1px hsl(from white h s l / 0.04),
-          0 0 0 1px hsl(from black h s l / 0.15),
-          0px 40px 11px rgba(236, 72, 153, 0.01),
-          0px 26px 10px rgba(236, 72, 153, 0.05),
-          0px 14px 9px rgba(236, 72, 153, 0.17),
-          0px 6px 6px rgba(236, 72, 153, 0.29),
-          0px 2px 4px rgba(236, 72, 153, 0.33);
-      }
-    }
-  }
-}
 
 ::selection {
   background: var(--color-pink-500);
   color: white;
-}
-
-.shadow-light {
-  --tw-shadow:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.08),
-    0px 2px 4px 0px rgba(0, 0, 0, 0.04);
-  --tw-shadow-colored:
-    0px 0px 0px 1px var(--tw-shadow-color),
-    0px 1px 2px -1px var(--tw-shadow-color),
-    0px 2px 4px 0px var(--tw-shadow-color);
-  box-shadow:
-    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
-}
-.shadow-dark {
-  --tw-shadow:
-    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
-    0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
-    0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
-  --tw-shadow-colored:
-    0px -1px 0px 0px var(--tw-shadow-color),
-    0px 0px 0px 1px var(--tw-shadow-color),
-    0px 0px 0px 1px var(--tw-shadow-color),
-    0px 1px 2px 0px var(--tw-shadow-color),
-    0px 2px 4px 0px var(--tw-shadow-color);
-  box-shadow:
-    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
-}
-
-.shadow-neutral-soft {
-  --tw-shadow: var(--neutral-soft);
-  --tw-shadow-colored: var(--neutral-soft);
-}
-.shadow-neutral-soft-hover,
-.shadow-neutral-soft {
-  box-shadow:
-    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
-}
-.shadow-neutral-soft-hover {
-  --tw-shadow: var(--neutral-soft-hover);
-  --tw-shadow-colored: var(--neutral-soft-hover);
-  box-shadow:
-    var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
-    var(--tw-shadow);
 }
 
 .shiki {
@@ -417,4 +275,24 @@
     color: var(--shiki--light, var(--_s-light))
       var(--shiki--dark, var(--_s-dark));
   }
+}
+
+.gradient-candy {
+  @apply from-candy-secondary to-candy bg-gradient-to-bl;
+}
+.hover\:gradient-candy:hover {
+  @apply from-candy-secondary to-candy bg-gradient-to-bl;
+}
+.shadow-custom-candy {
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.4),
+    0px 0px 0px 1px var(--color-candy-secondary),
+    inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
+}
+
+.shadow-custom-btgray {
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.4),
+    0px 0px 0px 1px var(--color-bt-gray),
+    inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
 }

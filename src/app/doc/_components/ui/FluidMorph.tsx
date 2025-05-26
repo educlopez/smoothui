@@ -73,7 +73,7 @@ export default function FluidMorph() {
         <g>
           {[...Array(nbOfCircles)].map((_, i) => (
             <circle
-              className="fill-light-950 dark:fill-dark-950"
+              className="fill-smooth-950"
               key={`c_${i}`}
               ref={(ref) => {
                 if (ref) circles.current[i] = ref
@@ -89,10 +89,10 @@ export default function FluidMorph() {
         {numbers.map((_, i) => (
           <span
             key={i}
-            className={`border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 flex h-12 w-12 items-center justify-center rounded-full border text-sm transition disabled:opacity-50 ${
+            className={`border-smooth-200 bg-smooth-50 flex h-12 w-12 items-center justify-center rounded-full border text-sm transition disabled:opacity-50 ${
               i === index
                 ? "cursor-not-allowed text-amber-500"
-                : "text-light-950 dark:text-dark-950 cursor-pointer"
+                : "text-smooth-950 cursor-pointer"
             }`}
             onClick={() => setIndex(i)}
           >

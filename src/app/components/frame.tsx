@@ -46,8 +46,8 @@ export default function Frame({
             <>
               <div className="flex justify-between gap-8">
                 <div className="flex items-center gap-2">
-                  <h3 className="text-light-950 dark:text-dark-950 text-sm font-medium transition">
-                    <span className="text-light-900 dark:text-dark-900 transition">
+                  <h3 className="text-smooth-950 text-sm font-medium transition">
+                    <span className="text-smooth-900 transition">
                       #{component.id}
                     </span>{" "}
                     {component.componentTitle}
@@ -62,7 +62,7 @@ export default function Frame({
                   <button
                     key={showCode ? "check" : "copy"}
                     onClick={toggleView}
-                    className="bg-light-200 text-light-950 hover:bg-light-300 dark:bg-dark-200 dark:text-dark-950 dark:hover:bg-dark-300 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
+                    className="bg-smooth-200 text-smooth-950 hover:bg-smooth-300 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
                   >
                     {showCode ? (
                       <motion.span
@@ -103,7 +103,7 @@ export default function Frame({
           )}
           <div
             id={`component-${component.id}`}
-            className="border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
+            className="border-smooth-200 bg-smooth-100 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
           >
             {component.componentUi &&
               React.createElement(component.componentUi)}
@@ -115,14 +115,14 @@ export default function Frame({
                   {component.tags.map((tag) => (
                     <div
                       key={tag}
-                      className="border-light-200 text-light-900 dark:border-dark-200 dark:text-dark-900 inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
+                      className="border-smooth-200 text-smooth-900 inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
                     >
                       {tag}
                     </div>
                   ))}
                 </div>
               </div>
-              <p className="text-light-950 dark:text-dark-950 text-sm transition">
+              <p className="text-smooth-950 text-sm transition">
                 {component.info}
               </p>
             </>

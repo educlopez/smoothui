@@ -60,10 +60,10 @@ export function Features() {
       <Rule position="bottom-left" />
       <Divider />
       <motion.h2
-        className="font-title text-light-950 dark:text-dark-950 text-center text-3xl font-bold transition"
+        className="font-title text-smooth-950 text-center text-3xl font-bold transition"
         variants={item}
       >
-        Why Choose Smooth<span className="text-pink-500">UI</span>?
+        Why Choose Smooth<span className="text-candy">UI</span>?
       </motion.h2>
       <div className="mt-16 grid gap-8 px-4 md:grid-cols-3">
         {features.map((feature) => (
@@ -71,15 +71,15 @@ export function Features() {
             key={feature.title}
             variants={item}
             className={cn(
-              "group border-light-200 bg-light-100 dark:border-dark-200 dark:bg-dark-100 relative flex flex-col rounded-2xl border p-6 backdrop-blur-lg transition-all hover:border-pink-200",
-              "box-light dark:box-light"
+              "hover:gradient-candy group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
+              "shadow-custom"
             )}
           >
-            <feature.icon className="group-hover:text-light-50 mb-4 h-8 w-8 text-pink-500 transition" />
-            <h3 className="text-light-950 group-hover:text-light-50 dark:text-dark-950 mb-2 text-xl font-semibold transition">
+            <feature.icon className="text-candy mb-4 h-8 w-8 transition group-hover:text-white" />
+            <h3 className="text-smooth-950 mb-2 text-xl font-semibold transition group-hover:text-white">
               {feature.title}
             </h3>
-            <p className="text-light-900 group-hover:text-light-50 dark:text-dark-900 group-hover:dark:text-dark-950 transition">
+            <p className="text-smooth-900 transition group-hover:text-white">
               {feature.description}
             </p>
           </motion.div>

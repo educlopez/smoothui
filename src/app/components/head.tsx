@@ -7,10 +7,10 @@ export default function Head() {
     <div className="my-10 flex flex-col items-center justify-center gap-10 px-4">
       <Image src={Logo} alt="Logo SmoothUI" width={100} />
       <div className="flex flex-col items-center justify-center gap-4">
-        <h1 className="text-light-950 dark:text-dark-950 text-center text-4xl font-bold transition">
+        <h1 className="text-smooth-950 text-center text-4xl font-bold transition">
           SmoothUI
         </h1>
-        <h2 className="text-light-900 dark:text-dark-900 text-center text-lg transition">
+        <h2 className="text-smooth-900 text-center text-lg transition">
           A collection of <span className="line-through">awesome</span> test
           components
           <br /> with smooth animations

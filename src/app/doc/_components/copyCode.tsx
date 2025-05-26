@@ -51,7 +51,7 @@ export function CopyCode({ code }: CopyCode) {
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
             key={buttonState}
-            className="text-light-900 dark:text-dark-900 flex w-full items-center justify-center"
+            className="text-smooth-900 flex w-full items-center justify-center"
           >
             {buttonCopy[buttonState]}
           </motion.span>

@@ -52,7 +52,7 @@ export default function BasicDropdown({
     <div ref={dropdownRef} className={`relative inline-block ${className}`}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="border-light-300 bg-light-100 hover:bg-light-200 dark:border-dark-300 dark:bg-dark-100 dark:hover:bg-dark-200 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-left transition-colors"
+        className="border-smooth-300 bg-smooth-100 hover:bg-smooth-200 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-left transition-colors"
       >
         <span className="block truncate">
           {selectedItem ? selectedItem.label : label}
@@ -68,7 +68,7 @@ export default function BasicDropdown({
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="border-light-300 bg-light-100 dark:border-dark-300 dark:bg-dark-100 absolute left-0 z-10 mt-1 w-full origin-top rounded-lg border shadow-lg"
+            className="border-smooth-300 bg-smooth-100 absolute left-0 z-10 mt-1 w-full origin-top rounded-lg border shadow-lg"
             initial={{ opacity: 0, y: -10, scaleY: 0.8 }}
             animate={{ opacity: 1, y: 0, scaleY: 1 }}
             exit={{
@@ -98,7 +98,7 @@ export default function BasicDropdown({
                 >
                   <button
                     onClick={() => handleItemSelect(item)}
-                    className={`hover:bg-light-200 dark:hover:bg-dark-200 flex w-full items-center px-4 py-2 text-left text-sm ${
+                    className={`hover:bg-smooth-200 flex w-full items-center px-4 py-2 text-left text-sm ${
                       selectedItem?.id === item.id
                         ? "font-medium text-pink-500"
                         : ""

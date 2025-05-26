@@ -120,13 +120,11 @@ export default async function ComponentPage(props: {
           <h1
             data-table-content="Introduction"
             data-level="1"
-            className="text-light-950 dark:text-dark-950 text-3xl font-bold -tracking-wide"
+            className="text-smooth-950 text-3xl font-bold -tracking-wide"
           >
             {component.componentTitle}
           </h1>
-          <p className="text-light-900 dark:text-dark-900 text-sm">
-            {component.info}
-          </p>
+          <p className="text-smooth-900 text-sm">{component.info}</p>
         </div>
         <div className="space-y-6">
           <ComponentView>

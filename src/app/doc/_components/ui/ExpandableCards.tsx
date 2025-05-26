@@ -118,7 +118,7 @@ export default function ExpandableCards() {
             key={card.id}
             layout
             data-card-id={card.id}
-            className="bg-light-50 dark:bg-dark-50 relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-lg"
+            className="bg-smooth-50 relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl shadow-lg"
             style={{
               scrollSnapAlign: "start",
             }}
@@ -140,14 +140,14 @@ export default function ExpandableCards() {
                 className="h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-black/20" />
-              <div className="text-light-50 dark:text-dark-950 absolute inset-0 flex flex-col justify-between p-6">
+              <div className="text-smooth-50 absolute inset-0 flex flex-col justify-between p-6">
                 <h2 className="text-2xl font-bold">{card.title}</h2>
                 <div className="flex items-center gap-2">
                   <button
                     aria-label="Play video"
-                    className="bg-light-50/30 dark:bg-dark-950/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110"
+                    className="bg-smooth-50/30 flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-sm transition-transform hover:scale-110"
                   >
-                    <Play className="text-light-50 dark:text-dark-950 h-6 w-6" />
+                    <Play className="text-smooth-50 h-6 w-6" />
                   </button>
                   <span className="text-sm font-medium">Play video</span>
                 </div>
@@ -164,7 +164,7 @@ export default function ExpandableCards() {
                     ease: smoothEasing,
                     opacity: { duration: 0.3, delay: 0.2 },
                   }}
-                  className="bg-light-50 dark:bg-dark-50 absolute top-0 right-0 h-full"
+                  className="bg-smooth-50 absolute top-0 right-0 h-full"
                 >
                   <motion.div
                     className="flex h-full flex-col justify-between p-8"
@@ -173,17 +173,15 @@ export default function ExpandableCards() {
                     exit={{ opacity: 0, x: 20, filter: "blur(5px)" }}
                     transition={{ delay: 0.4, duration: 0.3 }}
                   >
-                    <p className="text-light-900 dark:text-dark-900 text-sm">
-                      {card.content}
-                    </p>
+                    <p className="text-smooth-900 text-sm">{card.content}</p>
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
-                        <div className="bg-light-500 dark:bg-dark-300 h-12 w-12 rounded-full" />
+                        <div className="bg-smooth-500 h-12 w-12 rounded-full" />
                         <div>
-                          <p className="text-light-900 dark:text-dark-900 font-semibold">
+                          <p className="text-smooth-900 font-semibold">
                             {card.author.name}
                           </p>
-                          <p className="text-light-800 dark:text-dark-800 text-xs">
+                          <p className="text-smooth-800 text-xs">
                             {card.author.role}
                           </p>
                         </div>

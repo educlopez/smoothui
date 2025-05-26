@@ -32,9 +32,7 @@ export function SidebarButtonClient({
       data-active={isActive}
       className={cn(
         "text-foreground group/link hover:bg-primary relative z-0 flex w-full cursor-pointer items-center justify-between gap-[6px] rounded-md p-2 text-xs ease-in-out",
-        isActive
-          ? "bg-light-200 dark:bg-dark-300 z-0"
-          : "text-light-900 hover:bg-light-200 dark:text-dark-900 dark:hover:bg-dark-300"
+        isActive ? "bg-smooth-200 z-0" : "text-smooth-900 hover:bg-smooth-200"
       )}
     >
       {isNew ? (

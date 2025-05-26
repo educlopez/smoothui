@@ -95,12 +95,12 @@ export default function TableOfContent() {
 
   return (
     <aside className="sticky top-0 z-30 hidden h-fit -translate-x-2 p-6 2xl:block">
-      <span className="text-light-950 dark:text-dark-950 flex items-center gap-2 text-[13px]">
+      <span className="text-smooth-950 flex items-center gap-2 text-[13px]">
         <ListTree size={16} />
         Table of content
       </span>
       <div className="relative">
-        <ul className="border-l-light-600 dark:border-l-dark-600 mt-4 space-y-2 border-l pl-2">
+        <ul className="border-l-smooth-600 mt-4 space-y-2 border-l pl-2">
           {headings.map((heading, index) => (
             <li key={index} className="relative flex h-fit">
               <AnimatePresence mode="wait">
@@ -121,8 +121,8 @@ export default function TableOfContent() {
                 href={`#${heading.id}`}
                 className={`${getMarginClass(heading.level)} ${
                   heading.id === activeId
-                    ? "text-light-950 dark:text-dark-950"
-                    : "text-light-900 hover:text-light-950 dark:text-dark-900 dark:hover:text-dark-950"
+                    ? "text-smooth-950"
+                    : "text-smooth-900 hover:text-smooth-950"
                 } inline-block h-5 truncate text-[13px] no-underline transition-all`}
               >
                 {heading.text}

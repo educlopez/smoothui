@@ -51,36 +51,30 @@ export default function UserAccountAvatar() {
 
   const renderEditProfile = () => (
     <form onSubmit={handleProfileSave} className="flex flex-col gap-2 p-4">
-      <label
-        htmlFor="name"
-        className="text-light-900 dark:text-dark-900 text-xs font-medium"
-      >
+      <label htmlFor="name" className="text-smooth-900 text-xs font-medium">
         Name
       </label>
       <input
         id="name"
         name="name"
         defaultValue={userData.name}
-        className="border-light-500 bg-light-100 text-light-950 dark:border-dark-500 dark:bg-dark-100 dark:text-dark-950 rounded-sm border p-2 text-xs"
+        className="border-smooth-500 bg-smooth-100 text-smooth-950 rounded-sm border p-2 text-xs"
         placeholder="Name"
       />
-      <label
-        htmlFor="email"
-        className="text-light-900 dark:text-dark-900 text-xs font-medium"
-      >
+      <label htmlFor="email" className="text-smooth-900 text-xs font-medium">
         Email
       </label>
       <input
         id="email"
         name="email"
         defaultValue={userData.email}
-        className="border-light-500 bg-light-100 text-light-950 dark:border-dark-500 dark:bg-dark-100 dark:text-dark-950 rounded-sm border p-2 text-xs"
+        className="border-smooth-500 bg-smooth-100 text-smooth-950 rounded-sm border p-2 text-xs"
         placeholder="Email"
       />
 
       <button
         type="submit"
-        className="bg-light-300 text-light-950 hover:bg-light-400 dark:bg-dark-300 dark:text-dark-950 dark:hover:bg-dark-400 cursor-pointer rounded-sm px-4 py-2 text-sm"
+        className="bg-smooth-300 text-smooth-950 hover:bg-smooth-400 cursor-pointer rounded-sm px-4 py-2 text-sm"
       >
         Save
       </button>
@@ -92,13 +86,11 @@ export default function UserAccountAvatar() {
       {mockOrders.map((order) => (
         <div
           key={order.id}
-          className="border-light-300 bg-light-100 dark:border-dark-300 dark:bg-dark-100 flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
+          className="border-smooth-300 bg-smooth-100 flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
         >
           <div className="flex w-full items-center justify-between">
             <div className="font-medium">{order.id}</div>
-            <div className="text-light-900 dark:text-dark-900">
-              {order.date}
-            </div>
+            <div className="text-smooth-900">{order.date}</div>
           </div>
           <div className="flex w-full items-center gap-2">
             <div className="w-full">
@@ -120,7 +112,7 @@ export default function UserAccountAvatar() {
               </div>
             </div>
             <button
-              className="border-light-300 bg-light-50 dark:border-dark-300 dark:bg-dark-50 rounded-sm border p-1"
+              className="border-smooth-300 bg-smooth-50 rounded-sm border p-1"
               aria-label="View Order"
             >
               <Eye size={14} />
@@ -134,7 +126,7 @@ export default function UserAccountAvatar() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="border-light-300 bg-light-50 dark:border-dark-300 dark:bg-dark-50 flex cursor-pointer items-center gap-2 rounded-full border">
+        <button className="border-smooth-300 bg-smooth-50 flex cursor-pointer items-center gap-2 rounded-full border">
           <Image
             src={userData.avatar}
             alt="User Avatar"
@@ -146,7 +138,7 @@ export default function UserAccountAvatar() {
       </Popover.Trigger>
       <Popover.Portal>
         <Popover.Content
-          className="border-light-300 bg-light-50 dark:border-dark-300 dark:bg-dark-50 w-48 overflow-hidden rounded-lg border text-sm shadow-lg"
+          className="border-smooth-300 bg-smooth-50 w-48 overflow-hidden rounded-lg border text-sm shadow-lg"
           sideOffset={5}
         >
           <motion.div
@@ -156,7 +148,7 @@ export default function UserAccountAvatar() {
           >
             <div className="flex flex-col">
               <div
-                className="hover:bg-light-200 dark:hover:bg-dark-200 cursor-pointer p-2"
+                className="hover:bg-smooth-200 cursor-pointer p-2"
                 onClick={() => handleSectionClick("profile")}
               >
                 <User size={16} className="mr-2 inline" />
@@ -179,7 +171,7 @@ export default function UserAccountAvatar() {
                 )}
               </AnimatePresence>
               <div
-                className="hover:bg-light-200 dark:hover:bg-dark-200 cursor-pointer p-2"
+                className="hover:bg-smooth-200 cursor-pointer p-2"
                 onClick={() => handleSectionClick("orders")}
               >
                 <Package size={16} className="mr-2 inline" />

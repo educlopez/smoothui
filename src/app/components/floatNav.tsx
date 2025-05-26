@@ -13,7 +13,7 @@ import {
 export function FloatNav() {
   return (
     <nav
-      className="border-light-900/20 bg-light-50/70 text-light-950 dark:border-dark-900/20 dark:bg-dark-50/50 dark:text-dark-950 fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border px-4 py-2 bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
+      className="border-smooth-900/20 bg-smooth-50/70 text-smooth-950 fixed bottom-5 left-1/2 z-50 flex -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border px-4 py-2 bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
       aria-label="Floating Navigation"
     >
       <TooltipProvider delayDuration={200}>
@@ -30,7 +30,7 @@ export function FloatNav() {
                 width="20"
                 height="20"
                 viewBox="0 0 20 20"
-                className="fill-light-950 dark:fill-dark-950 hover:fill-pink-500 dark:hover:fill-pink-500"
+                className="fill-smooth-950 hover:fill-pink-500 dark:hover:fill-pink-500"
                 xmlns="http://www.w3.org/2000/svg"
                 role="img"
                 aria-label="X Icon"
@@ -39,7 +39,7 @@ export function FloatNav() {
               </svg>
             </Link>
           </TooltipTrigger>
-          <TooltipContent className="dark:bg-dark-300 bg-light-50 border-light-500 dark:border-dark-500 rounded-full border px-4 py-2 text-xs shadow-xs">
+          <TooltipContent className="bg-smooth-50 border-smooth-500 rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>Follow me on X</p>
           </TooltipContent>
         </Tooltip>
@@ -56,7 +56,7 @@ export function FloatNav() {
               <Github size={20} aria-hidden="true" />
             </Link>
           </TooltipTrigger>
-          <TooltipContent className="dark:bg-dark-300 bg-light-50 border-light-500 dark:border-dark-500 rounded-full border px-4 py-2 text-xs shadow-xs">
+          <TooltipContent className="bg-smooth-50 border-smooth-500 rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>GitHub</p>
           </TooltipContent>
         </Tooltip>
@@ -71,7 +71,7 @@ export function FloatNav() {
               <Component size={20} aria-hidden="true" />
             </Link>
           </TooltipTrigger>
-          <TooltipContent className="dark:bg-dark-300 bg-light-50 border-light-500 dark:border-dark-500 rounded-full border px-4 py-2 text-xs shadow-xs">
+          <TooltipContent className="bg-smooth-50 border-smooth-500 rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>Documentation</p>
           </TooltipContent>
         </Tooltip>
@@ -80,7 +80,7 @@ export function FloatNav() {
           <TooltipTrigger>
             <ToastChangelog />
           </TooltipTrigger>
-          <TooltipContent className="dark:bg-dark-300 bg-light-50 border-light-500 dark:border-dark-500 rounded-full border px-4 py-2 text-xs shadow-xs">
+          <TooltipContent className="bg-smooth-50 border-smooth-500 rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>Latest Changes</p>
           </TooltipContent>
         </Tooltip>
@@ -89,7 +89,7 @@ export function FloatNav() {
           <TooltipTrigger>
             <ThemeSwitch />
           </TooltipTrigger>
-          <TooltipContent className="dark:bg-dark-300 bg-light-50 border-light-500 dark:border-dark-500 rounded-full border px-4 py-2 text-xs shadow-xs">
+          <TooltipContent className="bg-smooth-50 border-smooth-500 rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>Theme Switcher</p>
           </TooltipContent>
         </Tooltip>

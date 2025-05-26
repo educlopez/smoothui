@@ -40,7 +40,7 @@ export default function BasicAccordion({
 
   return (
     <div
-      className={`divide-light-300 dark:divide-dark-300 flex w-full flex-col divide-y rounded-lg border ${className}`}
+      className={`divide-smooth-300 flex w-full flex-col divide-y rounded-lg border ${className}`}
     >
       {items.map((item) => {
         const isExpanded = expandedItems.includes(item.id)
@@ -89,7 +89,7 @@ export default function BasicAccordion({
                   }}
                   className="overflow-hidden"
                 >
-                  <div className="border-light-300 dark:border-dark-300 border-t px-4 py-3">
+                  <div className="border-smooth-300 border-t px-4 py-3">
                     {item.content}
                   </div>
                 </motion.div>
@@ -126,7 +126,7 @@ export function AccordionDemo() {
             can also customize behavior with props like{" "}
             <code>allowMultiple</code> and <code>defaultExpandedIds</code>.
           </p>
-          <pre className="bg-light-200 dark:bg-dark-200 rounded p-2">
+          <pre className="bg-smooth-200 rounded p-2">
             {`<BasicAccordion
   items={accordionItems}
   allowMultiple={true}
@@ -155,7 +155,7 @@ export function AccordionDemo() {
         items={accordionItems}
         allowMultiple={true}
         defaultExpandedIds={[1]}
-        className="border-light-300 dark:border-dark-300 bg-light-50 dark:bg-dark-50"
+        className="border-smooth-300 bg-smooth-50"
       />
     </div>
   )

@@ -105,22 +105,22 @@ export default function NumberFlow() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-8">
-      <div className="bg-light-50 dark:bg-dark-50 flex items-center gap-2 rounded-xl p-4 shadow-xs">
+      <div className="bg-smooth-50 flex items-center gap-2 rounded-xl p-4 shadow-xs">
         <div className={cn("flex items-center gap-1")}>
           <div
             className={cn(
-              "bg-light-100 dark:bg-dark-100 relative h-16 w-12 overflow-hidden rounded-lg"
+              "bg-smooth-100 relative h-16 w-12 overflow-hidden rounded-lg"
             )}
           >
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueHunds}
               style={{ transform: `translateY(-100%)` }}
             >
               {Math.floor(prevValue / 100)}
             </span>
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueHunds}
               style={{ transform: `translateY(0%)` }}
             >
@@ -129,34 +129,34 @@ export default function NumberFlow() {
           </div>
           <div
             className={cn(
-              "bg-light-100 dark:bg-dark-100 relative h-16 w-12 overflow-hidden rounded-lg"
+              "bg-smooth-100 relative h-16 w-12 overflow-hidden rounded-lg"
             )}
           >
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueTens}
               style={{ transform: `translateY(-100%)` }}
             >
               {Math.floor(prevValue / 10) % 10}
             </span>
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueTens}
               style={{ transform: `translateY(0%)` }}
             >
               {Math.floor(value / 10) % 10}
             </span>
           </div>
-          <div className="bg-light-100 dark:bg-dark-100 relative h-16 w-12 overflow-hidden rounded-lg">
+          <div className="bg-smooth-100 relative h-16 w-12 overflow-hidden rounded-lg">
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={prevValueRef}
               style={{ transform: `translateY(-100%)` }}
             >
               {prevValue % 10}
             </span>
             <span
-              className="text-light-950 dark:text-dark-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
+              className="text-smooth-950 absolute inset-0 flex items-center justify-center text-2xl font-semibold"
               ref={nextValueRef}
               style={{ transform: `translateY(0%)` }}
             >
@@ -170,7 +170,7 @@ export default function NumberFlow() {
             onClick={add}
             disabled={value >= max}
             aria-label="Increase number"
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="border-smooth-200 bg-smooth-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Plus className="h-3 w-3" />
           </button>
@@ -178,7 +178,7 @@ export default function NumberFlow() {
             onClick={subtract}
             disabled={value <= min}
             aria-label="Decrease number"
-            className="border-light-200 bg-light-50 dark:border-dark-200 dark:bg-dark-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="border-smooth-200 bg-smooth-50 relative w-auto cursor-pointer overflow-hidden rounded-md border p-2 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Minus className="h-3 w-3" />
           </button>

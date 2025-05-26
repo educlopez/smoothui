@@ -19,14 +19,14 @@ export default function ToastChangelog() {
       (t) => (
         <div>
           <p className="font-bold">Last changes: {firstChangelog.date}</p>
-          <ul className="dark:text-dark-900 text-light-900 mt-1 list-disc pl-4">
+          <ul className="text-smooth-900 mt-1 list-disc pl-4">
             {firstChangelog.changes.map((change, index) => (
               <li key={index}>{change}</li>
             ))}
           </ul>
           <button
             aria-label="Dismiss changelog"
-            className="hover:bg-light-500 dark:hover:bg-dark-500 absolute top-2 right-2 cursor-pointer rounded-full p-1"
+            className="hover:bg-smooth-500 absolute top-2 right-2 cursor-pointer rounded-full p-1"
             onClick={() => {
               toast.dismiss(t)
               setIsToastOpen(false)

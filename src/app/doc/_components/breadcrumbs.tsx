@@ -27,7 +27,7 @@ export function Breadcrumbs({
       {backLink ? (
         <Link
           href={backLink}
-          className="text-light-900 hover:text-light-950 dark:text-dark-900 dark:hover:text-dark-950 flex w-fit items-center gap-1 text-sm font-medium duration-200"
+          className="text-smooth-900 hover:text-smooth-950 flex w-fit items-center gap-1 text-sm font-medium duration-200"
         >
           {groupName}
         </Link>
@@ -37,9 +37,7 @@ export function Breadcrumbs({
         </span>
       )}
       <ChevronRight size={14} />
-      <span className="text-light-950 dark:text-dark-950 text-sm font-medium">
-        {currentPage}
-      </span>
+      <span className="text-smooth-950 text-sm font-medium">{currentPage}</span>
     </div>
   )
 }

@@ -30,17 +30,17 @@ export default function GetStartedPage() {
   --color-dark-900: hsl(0 0% 62.8%);
   --color-dark-950: hsl(0 0% 93.0%);
   /* Colors: Light mode */
-  --color-light-50: hsl(0 0% 99.0%);
-  --color-light-100: hsl(0 0% 97.3%);
-  --color-light-200: hsl(0 0% 95.1%);
-  --color-light-300: hsl(0 0% 93.0%);
-  --color-light-400: hsl(0 0% 90.9%);
-  --color-light-500: hsl(0 0% 88.3%);
-  --color-light-600: hsl(0 0% 77.6%);
-  --color-light-700: hsl(0 0% 65.9%);
-  --color-light-800: hsl(0 0% 60.4%);
-  --color-light-900: hsl(0 0% 43.5%);
-  --color-light-950: hsl(0 0% 9.0%);
+  --color-smooth-50: hsl(0 0% 99.0%);
+  --color-smooth-100: hsl(0 0% 97.3%);
+  --color-smooth-200: hsl(0 0% 95.1%);
+  --color-smooth-300: hsl(0 0% 93.0%);
+  --color-smooth-400: hsl(0 0% 90.9%);
+  --color-smooth-500: hsl(0 0% 88.3%);
+  --color-smooth-600: hsl(0 0% 77.6%);
+  --color-smooth-700: hsl(0 0% 65.9%);
+  --color-smooth-800: hsl(0 0% 60.4%);
+  --color-smooth-900: hsl(0 0% 43.5%);
+  --color-smooth-950: hsl(0 0% 9.0%);
 }`
 
   const codeInstall = `motion tailwindcss lucide-react clsx tailwind-merge`
@@ -54,11 +54,11 @@ export default function GetStartedPage() {
             <h1
               data-table-content="Introduction"
               data-level="1"
-              className="text-light-950 dark:text-dark-950 text-3xl font-bold -tracking-wide"
+              className="text-smooth-950 text-3xl font-bold -tracking-wide"
             >
               Introduction
             </h1>
-            <p className="text-light-900 dark:text-dark-900 text-[16px] leading-relaxed font-normal">
+            <p className="text-smooth-900 text-[16px] leading-relaxed font-normal">
               SmoothUI is a collection of beautifully designed components with
               smooth animations built with React, Tailwind CSS, and Motion.
             </p>
@@ -69,11 +69,11 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Installation"
             data-level="2"
-            className="text-light-950 dark:text-dark-950 text-2xl font-bold"
+            className="text-smooth-950 text-2xl font-bold"
           >
             Installation
           </h2>
-          <p className="text-light-900 dark:text-dark-900 text-[16px] leading-relaxed">
+          <p className="text-smooth-900 text-[16px] leading-relaxed">
             To use SmoothUI components, you will need to install the following
             dependencies:
           </p>
@@ -144,11 +144,11 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Color System"
             data-level="2"
-            className="text-light-950 dark:text-dark-950 text-2xl font-bold"
+            className="text-smooth-950 text-2xl font-bold"
           >
             Color System
           </h2>
-          <p className="text-light-900 dark:text-dark-900 text-[16px] leading-relaxed">
+          <p className="text-smooth-900 text-[16px] leading-relaxed">
             SmoothUI uses a carefully crafted color system with both light and
             dark variants. Add these colors to your tailwind.config.ts:
           </p>
@@ -164,15 +164,15 @@ export default function GetStartedPage() {
           <h2
             data-table-content="Usage Tips"
             data-level="2"
-            className="text-light-950 dark:text-dark-950 text-2xl font-bold"
+            className="text-smooth-950 text-2xl font-bold"
           >
             Usage Tips
           </h2>
           <div className="space-y-3">
-            <p className="text-light-900 dark:text-dark-900 text-[16px] leading-relaxed">
+            <p className="text-smooth-900 text-[16px] leading-relaxed">
               Here are some tips to get the most out of SmoothUI components:
             </p>
-            <ul className="text-light-900 dark:text-dark-900 list-disc space-y-2 pl-6 text-[16px]">
+            <ul className="text-smooth-900 list-disc space-y-2 pl-6 text-[16px]">
               <li>
                 All components support both light and dark modes out of the box
               </li>

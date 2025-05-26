@@ -1,29 +1,76 @@
 import Image from "next/image"
-import { Pizza } from "lucide-react"
+import AirlumeIcon from "@/assets/images/airlume.png"
+import SparkbitesIcon from "@/assets/images/sparkbites.png"
+
+import { Separator } from "@/components/ui/separator"
 
 export default function Footer() {
   return (
-    <footer className="mb-10 flex flex-col items-center justify-center gap-4 py-10">
-      <div className="text-light-900 dark:text-dark-900 flex flex-col gap-2 text-center text-sm transition">
-        <p>
-          Made with <Pizza size={14} className="inline" aria-hidden="true" /> by
-        </p>
+    <footer className="bg-smooth-50 flex flex-col items-center justify-center text-center text-base">
+      <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
+        <p className="text-foreground/70 text-xs">I ALSO BUILD:</p>
+        <div className="flex flex-row items-center justify-center gap-2 text-xs md:gap-8">
+          <a
+            href="https://sparkbites.dev"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground/80 hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
+          >
+            <Image
+              src={SparkbitesIcon.src}
+              alt="Sparkbites"
+              width={20}
+              height={20}
+              className="h-5 w-5"
+            />
+            <div className="flex max-w-[200px] flex-col items-start justify-start text-left">
+              <p className="text-foreground font-bold">Sparkbites</p>
+              <p className="text-foreground/70 text-xs">
+                Inspiration directory for your next project
+              </p>
+            </div>
+          </a>
+          <a
+            href="https://airlume.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hover:text-foreground/80 hover:bg-primary hover:shadow-custom flex items-center gap-2 rounded-md p-2 transition-colors"
+          >
+            <Image
+              src={AirlumeIcon.src}
+              alt="Sparkbites"
+              width={20}
+              height={20}
+              className="h-5 w-5"
+            />
+            <div className="flex max-w-[200px] flex-col items-start justify-start text-left">
+              <p className="text-foreground font-bold">Airlume</p>
+              <p className="text-foreground/70 text-xs">
+                Viral posts in seconds with AI
+              </p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <Separator />
+      <div className="relative">
         <a
           href="https://x.com/educalvolpz"
           target="_blank"
           rel="noopener noreferrer"
-          className="items-align-center group text-light-950 dark:text-dark-950 flex flex-row items-center justify-center gap-2 transition hover:text-pink-500 dark:hover:text-pink-500"
+          className="group text-foreground hover:text-foreground/80 hover:bg-primary hover:shadow-custom relative mt-4 mb-20 flex flex-row items-center justify-center gap-2 rounded-sm p-2"
         >
-          <div className="shadow-neutral-soft group-hover:shadow-neutral-soft-hover bg-light-50 dark:bg-dark-50 flex h-8 w-8 shrink-0 gap-2 rounded-full">
+          <p className="text-xs whitespace-nowrap">Made by</p>
+          <div className="flex h-6 w-6 shrink-0 gap-2 rounded-full">
             <Image
               src="https://github.com/educlopez.png"
               alt="User Avatar of Eduardo Calvo"
-              width={56}
-              height={56}
-              className="shrink-0 rounded-full"
+              width={28}
+              height={28}
+              className="shrink-0 rounded-md"
             />
           </div>
-          <p className="font-bold">Eduardo Calvo</p>
+          <p className="text-xs font-bold whitespace-nowrap">Eduardo Calvo</p>
         </a>
       </div>
     </footer>

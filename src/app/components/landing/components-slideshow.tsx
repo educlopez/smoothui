@@ -4,6 +4,7 @@ import Frame from "@/app/components/frame"
 import Divider from "@/app/components/landing/divider"
 import { components } from "@/app/doc/data/components"
 
+import { Button } from "../button"
 import Rule from "./rule"
 
 const SHOWCASE_COMPONENTS = [
@@ -22,7 +23,7 @@ export function ComponentsSlideshow() {
       <Rule position="bottom-left" />
       <Divider />
       <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-title text-light-950 dark:text-dark-950 text-center text-3xl font-bold transition">
+        <h2 className="font-title text-smooth-950 text-center text-3xl font-bold transition">
           Component Showcase
         </h2>
         <div className="mt-16 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -39,12 +40,9 @@ export function ComponentsSlideshow() {
             ))}
         </div>
         <div className="mx-auto mt-8 flex justify-center">
-          <Link
-            href="/doc"
-            className="candy-btn group relative isolate inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium"
-          >
-            View All Components
-          </Link>
+          <Button asChild variant="candy">
+            <Link href="/doc">View All Components</Link>
+          </Button>
         </div>
       </div>
     </section>

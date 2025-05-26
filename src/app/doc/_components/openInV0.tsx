@@ -4,7 +4,7 @@ export function OpenInV0Button({ url }: { url: string }) {
   return (
     <button
       aria-label="Open in v0"
-      className="dark:bg-dark-50 bg-light-50 dark:border-dark-300 absolute top-4 right-4 h-8 cursor-pointer gap-1 rounded-[6px] border px-3 text-xs"
+      className="bg-smooth-50 absolute top-4 right-4 h-8 cursor-pointer gap-1 rounded-[6px] border px-3 text-xs"
     >
       <a
         href={`https://v0.dev/chat/api/open?url=${url}`}
