@@ -42,16 +42,12 @@ export function Hero() {
         <div className="text-primary-foreground mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
           <span>Built for</span>
           <span className="group flex items-center gap-1.5">
-            <ReactLogo className="text-smooth-700 h-6 transition group-hover:text-pink-500 dark:group-hover:text-pink-500" />
-            <span className="group-hover:text-pink-500 dark:group-hover:text-pink-500">
-              React
-            </span>
+            <ReactLogo className="text-smooth-700 group-hover:text-candy h-6 transition" />
+            <span className="group-hover:text-candy">React</span>
           </span>
           <span className="group flex items-center gap-1.5">
-            <TailwindLogo className="text-smooth-700 h-5 transition group-hover:text-pink-500 dark:group-hover:text-pink-500" />
-            <span className="group-hover:text-pink-500 dark:group-hover:text-pink-500">
-              Tailwind CSS
-            </span>
+            <TailwindLogo className="text-smooth-700 group-hover:text-candy h-5 transition" />
+            <span className="group-hover:text-candy">Tailwind CSS</span>
           </span>
         </div>
       </div>
