@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { Check, CheckCheck, RotateCcw, Save } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 import { Button } from "./button"
 
@@ -170,110 +171,159 @@ export function ColorPickerFloatNav() {
           }}
         />
       </button>
-      {show && (
-        <div
-          className="bg-background absolute bottom-12 left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col items-center rounded-xl border p-2 shadow-2xl transition-all duration-200"
-          style={{ boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)" }}
-          tabIndex={-1}
-          aria-modal="true"
-          role="dialog"
-        >
-          {/* Minimal palette selector */}
-          <div className="mb-2 flex flex-row gap-3">
-            {/* Default palette */}
-            <button
-              type="button"
-              className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${candy === originalCandy && candySecondary === originalCandySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
-              style={{
-                background: `linear-gradient(135deg, ${originalCandy} 60%, ${originalCandySecondary} 100%)`,
-              }}
-              onClick={() => {
-                setCandy(originalCandy)
-                setCandySecondary(originalCandySecondary)
-                document.body.style.setProperty("--color-candy", originalCandy)
-                document.body.style.setProperty(
-                  "--color-candy-secondary",
-                  originalCandySecondary
-                )
-                updateShadowCustomCandy(originalCandySecondary)
-              }}
-              aria-label="Select Default palette"
-            >
-              {candy === originalCandy &&
-                candySecondary === originalCandySecondary && (
-                  <span className="absolute inset-0 flex items-center justify-center">
-                    <span className="rounded-full bg-white/40 p-0.5">
-                      <Check className="h-4 w-4 text-white" />
-                    </span>
-                  </span>
-                )}
-            </button>
-            {/* Other palettes */}
-            {PALETTES.map((palette) => (
-              <button
-                key={palette.name}
+      <AnimatePresence>
+        {show && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 20 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="bg-background absolute bottom-12 left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col items-center rounded-xl border p-2 shadow-2xl"
+            style={{ boxShadow: "0 8px 32px 0 rgba(31, 38, 135, 0.15)" }}
+            tabIndex={-1}
+            aria-modal="true"
+            role="dialog"
+          >
+            {/* Minimal palette selector */}
+            <div className="mb-2 flex flex-row gap-3">
+              {/* Default palette */}
+              <motion.button
                 type="button"
-                className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
+                className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${candy === originalCandy && candySecondary === originalCandySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
                 style={{
-                  background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,
+                  background: `linear-gradient(135deg, ${originalCandy} 60%, ${originalCandySecondary} 100%)`,
                 }}
                 onClick={() => {
-                  setCandy(palette.candy)
-                  setCandySecondary(palette.candySecondary)
+                  setCandy(originalCandy)
+                  setCandySecondary(originalCandySecondary)
                   document.body.style.setProperty(
                     "--color-candy",
-                    palette.candy
+                    originalCandy
                   )
                   document.body.style.setProperty(
                     "--color-candy-secondary",
-                    palette.candySecondary
+                    originalCandySecondary
                   )
-                  updateShadowCustomCandy(palette.candySecondary)
+                  updateShadowCustomCandy(originalCandySecondary)
                 }}
-                aria-label={`Select ${palette.name} palette`}
+                aria-label="Select Default palette"
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.95 }}
+                animate={
+                  candy === originalCandy &&
+                  candySecondary === originalCandySecondary
+                    ? { scale: 1.12 }
+                    : { scale: 1 }
+                }
               >
-                {palette.candy === candy &&
-                  palette.candySecondary === candySecondary && (
-                    <span className="absolute inset-0 flex items-center justify-center">
-                      <span className="rounded-full bg-white/40 p-0.5">
-                        <Check className="h-4 w-4 text-white" />
-                      </span>
-                    </span>
-                  )}
-              </button>
-            ))}
-          </div>
-
-          <div className="mt-2 flex justify-end gap-2">
-            <Button
-              type="button"
-              onClick={handleReset}
-              aria-label="Reset to original colors"
-              size="sm"
-            >
-              <RotateCcw className="mr-1 h-4 w-4" />
-              Reset
-            </Button>
-            <Button
-              type="button"
-              variant="candy"
-              size="sm"
-              onClick={handleSave}
-              aria-label="Save colors to browser"
-            >
-              {saved ? (
-                <>
-                  <CheckCheck className="h-4 w-4" /> Saved!
-                </>
-              ) : (
-                <>
-                  <Save className="h-4 w-4" /> Save
-                </>
-              )}
-            </Button>
-          </div>
-        </div>
-      )}
+                <AnimatePresence>
+                  {candy === originalCandy &&
+                    candySecondary === originalCandySecondary && (
+                      <motion.span
+                        className="absolute inset-0 flex items-center justify-center"
+                        initial={{ opacity: 0, scale: 0.7 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.7 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 400,
+                          damping: 30,
+                        }}
+                      >
+                        <span className="rounded-full bg-white/40 p-0.5">
+                          <Check className="h-4 w-4 text-white" />
+                        </span>
+                      </motion.span>
+                    )}
+                </AnimatePresence>
+              </motion.button>
+              {/* Other palettes */}
+              {PALETTES.map((palette) => (
+                <motion.button
+                  key={palette.name}
+                  type="button"
+                  className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
+                  style={{
+                    background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,
+                  }}
+                  onClick={() => {
+                    setCandy(palette.candy)
+                    setCandySecondary(palette.candySecondary)
+                    document.body.style.setProperty(
+                      "--color-candy",
+                      palette.candy
+                    )
+                    document.body.style.setProperty(
+                      "--color-candy-secondary",
+                      palette.candySecondary
+                    )
+                    updateShadowCustomCandy(palette.candySecondary)
+                  }}
+                  aria-label={`Select ${palette.name} palette`}
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={
+                    palette.candy === candy &&
+                    palette.candySecondary === candySecondary
+                      ? { scale: 1.12 }
+                      : { scale: 1 }
+                  }
+                >
+                  <AnimatePresence>
+                    {palette.candy === candy &&
+                      palette.candySecondary === candySecondary && (
+                        <motion.span
+                          className="absolute inset-0 flex items-center justify-center"
+                          initial={{ opacity: 0, scale: 0.7 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 0.7 }}
+                          transition={{
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 30,
+                          }}
+                        >
+                          <span className="rounded-full bg-white/40 p-0.5">
+                            <Check className="h-4 w-4 text-white" />
+                          </span>
+                        </motion.span>
+                      )}
+                  </AnimatePresence>
+                </motion.button>
+              ))}
+            </div>
+            <div className="mt-2 flex justify-end gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleReset}
+                aria-label="Reset to original colors"
+                size="sm"
+              >
+                <RotateCcw className="mr-1 h-4 w-4" />
+                Reset
+              </Button>
+              <Button
+                type="button"
+                variant="candy"
+                size="sm"
+                onClick={handleSave}
+                aria-label="Save colors to browser"
+              >
+                {saved ? (
+                  <>
+                    <CheckCheck className="h-4 w-4" /> Saved!
+                  </>
+                ) : (
+                  <>
+                    <Save className="h-4 w-4" /> Save
+                  </>
+                )}
+              </Button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }
