@@ -4,87 +4,135 @@ import { ArrowRight } from "lucide-react"
 import Divider from "@/app/components/landing/divider"
 import { ReactLogo } from "@/app/components/resources/logos/ReactLogo"
 import { TailwindLogo } from "@/app/components/resources/logos/TailwindLogo"
-import AppleInvites, {
-  Event,
-} from "@/app/doc/_components/smoothui/AppleInvites"
 
 import { Button } from "../button"
-import Logo from "../logo"
+import { AnimatedGroup } from "./animated-group"
+import { AnimatedText } from "./animated-text"
 import GithubStars from "./githubstars"
 import Rule from "./rule"
 
-const demoEvents: Event[] = [
-  {
-    id: 1,
-    subtitle: "Bring your UI to life with smooth, modern motion.",
-    location: "Powered by Framer Motion",
-    backgroundClassName: "bg-gradient-to-br from-candy  to-candy-secondary",
-    badge: "SmoothUI",
+const transitionVariants = {
+  item: {
+    hidden: {
+      opacity: 0,
+      filter: "blur(12px)",
+      y: 12,
+    },
+    visible: {
+      opacity: 1,
+      filter: "blur(0px)",
+      y: 0,
+      transition: {
+        type: "spring",
+        bounce: 0.3,
+        duration: 1.5,
+      },
+    },
   },
-  {
-    id: 2,
-    subtitle: "Tweak every detail to match your brand.",
-    location: "Themeable & Flexible",
-    backgroundClassName: "bg-gradient-to-br from-candy to-candy-secondary",
-    badge: "Customizable",
-  },
-  {
-    id: 3,
-    subtitle: "A collection of stunning, ready-to-use UI blocks.",
-    location: "Pixel-perfect Design",
-    backgroundClassName: "bg-gradient-to-br from-candy to-candy-secondary",
-    badge: "Beautiful",
-  },
-  {
-    id: 4,
-    subtitle: "Easy to use, well-documented, and TypeScript ready.",
-    location: "Built for React & Tailwind CSS",
-    backgroundClassName: "bg-gradient-to-br from-candy to-candy-secondary",
-    badge: "Easy",
-  },
-]
+}
+
 export function Hero() {
   return (
-    <section className="relative flex min-h-[80vh] flex-row items-center justify-between px-4">
-      <Rule position="bottom-right" />
-      <Rule position="bottom-left" />
-      <Divider />
-      <div className="flex h-full flex-col items-start justify-start">
-        <Logo />
-        <h1 className="sr-only">SmoothUI</h1>
-        <p className="text-primary-foreground mt-6 max-w-2xl text-left text-xl transition">
-          A collection of{" "}
-          <span className="decoration-candy-secondary line-through">
-            awesome
-          </span>{" "}
-          test components
-          <br /> with smooth animations
-        </p>
-        <div className="mt-10 flex gap-4">
-          <Button variant="candy" asChild>
-            <Link href="/doc">
-              Get Started
-              <ArrowRight className="transition-transform group-hover:translate-x-1" />
-            </Link>
-          </Button>
-          <GithubStars />
-        </div>
+    <>
+      <main className="overflow-hidden">
+        <section>
+          <div className="relative py-24 md:py-36">
+            <Rule position="bottom-right" />
+            <Rule position="bottom-left" />
+            <Divider />
+            <div className="mx-auto max-w-7xl px-6">
+              <div className="text-center sm:mx-auto lg:mt-0 lg:mr-auto">
+                <AnimatedGroup variants={transitionVariants}>
+                  <Link
+                    href="/doc/changelog"
+                    className="hover:bg-background dark:hover:border-t-border bg-muted group mx-auto flex w-fit items-center gap-4 rounded-full border p-1 pl-4 shadow-md shadow-zinc-950/5 transition-colors duration-300 dark:border-t-white/5 dark:shadow-zinc-950"
+                  >
+                    <span className="text-foreground text-sm">Changelog</span>
+                    <span className="dark:border-background block h-4 w-0.5 border-l bg-white dark:bg-zinc-700"></span>
 
-        <div className="text-primary-foreground mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
-          <span>Built for</span>
-          <span className="group flex items-center gap-1.5">
-            <ReactLogo className="text-smooth-700 group-hover:text-candy h-6 transition" />
-            <span className="group-hover:text-candy">React</span>
-          </span>
-          <span className="group flex items-center gap-1.5">
-            <TailwindLogo className="text-smooth-700 group-hover:text-candy h-5 transition" />
-            <span className="group-hover:text-candy">Tailwind CSS</span>
-          </span>
-        </div>
-      </div>
-      <div className="flex flex-1 flex-col items-center justify-center">
-        <AppleInvites cardWidth={200} cardHeight={200} events={demoEvents} />
-      </div>
-    </section>
+                    <div className="bg-background group-hover:bg-muted size-6 overflow-hidden rounded-full duration-500">
+                      <div className="flex w-12 -translate-x-1/2 duration-500 ease-in-out group-hover:translate-x-0">
+                        <span className="flex size-6">
+                          <ArrowRight className="m-auto size-3" />
+                        </span>
+                        <span className="flex size-6">
+                          <ArrowRight className="m-auto size-3" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </AnimatedGroup>
+
+                <AnimatedText
+                  as="h1"
+                  className="mt-8 text-4xl text-balance md:text-5xl lg:mt-16"
+                >
+                  Build and Ship 10x Faster with Modern React & Tailwind
+                  Components
+                </AnimatedText>
+                <AnimatedText
+                  as="p"
+                  delay={0.5}
+                  className="mx-auto mt-8 max-w-2xl text-lg text-balance"
+                >
+                  Highly customizable, production-ready UI blocks for building
+                  beautiful websites and apps that look and feel the way you
+                  mean it.
+                </AnimatedText>
+                <AnimatedGroup
+                  variants={{
+                    container: {
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.05,
+                          delayChildren: 0.75,
+                        },
+                      },
+                    },
+                    ...transitionVariants,
+                  }}
+                  className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
+                >
+                  <Button variant="candy" asChild>
+                    <Link href="/doc">
+                      Get Started
+                      <ArrowRight className="transition-transform group-hover:translate-x-1" />
+                    </Link>
+                  </Button>
+                  <GithubStars />
+                </AnimatedGroup>
+                <AnimatedGroup
+                  variants={{
+                    container: {
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.05,
+                          delayChildren: 0.75,
+                        },
+                      },
+                    },
+                    ...transitionVariants,
+                  }}
+                >
+                  <div className="text-primary-foreground mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
+                    <span>Built for</span>
+                    <span className="group flex items-center gap-1.5">
+                      <ReactLogo className="text-smooth-700 group-hover:text-candy h-6 transition" />
+                      <span className="group-hover:text-candy">React</span>
+                    </span>
+                    <span className="group flex items-center gap-1.5">
+                      <TailwindLogo className="text-smooth-700 group-hover:text-candy h-5 transition" />
+                      <span className="group-hover:text-candy">
+                        Tailwind CSS
+                      </span>
+                    </span>
+                  </div>
+                </AnimatedGroup>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   )
 }
