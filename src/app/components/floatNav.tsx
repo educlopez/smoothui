@@ -99,7 +99,7 @@ export function FloatNav() {
           </TooltipContent>
         </Tooltip>
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <ColorPickerFloatNav />
           </TooltipTrigger>
           <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
