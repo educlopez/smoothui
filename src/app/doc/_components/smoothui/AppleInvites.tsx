@@ -12,12 +12,13 @@ export interface Participant {
 
 export interface Event {
   id: number
-  title: string
-  subtitle: string
+  title?: string
+  subtitle?: string
   location: string
-  image: string
+  image?: string
   badge?: string
-  participants: Participant[]
+  participants?: Participant[]
+  backgroundClassName?: string
 }
 
 const defaultEvents: Event[] = [
@@ -102,6 +103,8 @@ export interface AppleInvitesProps {
   cardClassName?: string
   activeIndex?: number
   onChange?: (index: number) => void
+  cardWidth?: number | string
+  cardHeight?: number | string
 }
 
 export default function AppleInvites({
@@ -111,6 +114,8 @@ export default function AppleInvites({
   cardClassName = "",
   activeIndex: controlledIndex,
   onChange,
+  cardWidth = 320,
+  cardHeight = 500,
 }: AppleInvitesProps) {
   const [internalPage, setInternalPage] = useState(0)
   const [direction, setDirection] = useState(0)
@@ -139,7 +144,7 @@ export default function AppleInvites({
 
   return (
     <div
-      className={`relative flex h-full w-[1200px] items-center justify-center ${className}`}
+      className={`relative flex h-full w-full items-center justify-center ${className}`}
     >
       <AnimatePresence initial={false} custom={direction}>
         {visibleEvents.map((event, index) => (
@@ -150,17 +155,27 @@ export default function AppleInvites({
             initial="hidden"
             animate={index === 1 ? "center" : index === 0 ? "left" : "right"}
             exit="hidden"
-            className={`absolute top-1/2 left-1/2 h-[250] w-[160px] origin-center -translate-y-1/2 md:h-[500px] md:w-[320px] ${cardClassName}`}
+            style={{
+              width:
+                typeof cardWidth === "number" ? `${cardWidth}px` : cardWidth,
+              height:
+                typeof cardHeight === "number" ? `${cardHeight}px` : cardHeight,
+            }}
+            className={`absolute top-1/2 left-1/2 origin-center -translate-y-1/2 ${cardClassName}`}
           >
-            <div className="relative h-full w-full overflow-hidden rounded-3xl">
-              <Image
-                src={event.image}
-                alt={event.title}
-                className="h-full w-full object-cover"
-                fill
-                sizes="(min-width: 640px) 320px, 100vw"
-                priority
-              />
+            <div className="bg-primary relative h-full w-full overflow-hidden rounded-3xl">
+              {event.backgroundClassName ? (
+                <div className={`h-full w-full ${event.backgroundClassName}`} />
+              ) : event.image ? (
+                <Image
+                  src={event.image}
+                  alt={event.title || ""}
+                  className="h-full w-full object-cover"
+                  fill
+                  sizes="(min-width: 640px) 320px, 100vw"
+                  priority
+                />
+              ) : null}
               {/* Badge */}
               <div className="absolute top-4 left-4 z-3">
                 <span className="flex flex-row items-center gap-2 rounded-full bg-black/30 px-3 py-1 text-xs font-medium text-white backdrop-blur-xl md:text-sm">
@@ -172,7 +187,7 @@ export default function AppleInvites({
               <div className="absolute bottom-0 z-3 w-full overflow-hidden rounded-b-3xl p-6 text-white">
                 {/* Participant Avatars */}
                 <div className="mx-auto mb-2 flex items-center justify-center gap-2">
-                  {event.participants.map((participant, idx) => (
+                  {event.participants?.map((participant, idx) => (
                     <Image
                       key={idx}
                       src={participant.avatar}
@@ -183,12 +198,16 @@ export default function AppleInvites({
                     />
                   ))}
                 </div>
-                <p className="text-md mb-1 text-center font-bold md:text-2xl">
-                  {event.title}
-                </p>
-                <p className="text-center text-xs opacity-90 md:text-sm">
-                  {event.subtitle}
-                </p>
+                {event.title && (
+                  <p className="text-md mb-1 text-center font-bold md:text-2xl">
+                    {event.title}
+                  </p>
+                )}
+                {event.subtitle && (
+                  <p className="text-center text-xs opacity-90 md:text-sm">
+                    {event.subtitle}
+                  </p>
+                )}
                 <p className="text-center text-xs opacity-90 md:text-sm">
                   {event.location}
                 </p>

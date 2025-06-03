@@ -1,17 +1,48 @@
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 
 import Divider from "@/app/components/landing/divider"
 import { ReactLogo } from "@/app/components/resources/logos/ReactLogo"
 import { TailwindLogo } from "@/app/components/resources/logos/TailwindLogo"
-import AppleInvites from "@/app/doc/_components/smoothui/AppleInvites"
+import AppleInvites, {
+  Event,
+} from "@/app/doc/_components/smoothui/AppleInvites"
 
 import { Button } from "../button"
 import Logo from "../logo"
 import GithubStars from "./githubstars"
 import Rule from "./rule"
 
+const demoEvents: Event[] = [
+  {
+    id: 1,
+    subtitle: "Bring your UI to life with smooth, modern motion.",
+    location: "Powered by Framer Motion",
+    backgroundClassName: "bg-gradient-to-br from-[#4B94FD]  to-[#1477F6]",
+    badge: "SmoothUI",
+  },
+  {
+    id: 2,
+    subtitle: "Tweak every detail to match your brand.",
+    location: "Themeable & Flexible",
+    backgroundClassName: "bg-gradient-to-br from-[#A764FF] to-[#6E48EC]",
+    badge: "Customizable",
+  },
+  {
+    id: 3,
+    subtitle: "A collection of stunning, ready-to-use UI blocks.",
+    location: "Pixel-perfect Design",
+    backgroundClassName: "bg-gradient-to-br from-[#FD4B4E] to-[#F61418]",
+    badge: "Beautiful",
+  },
+  {
+    id: 4,
+    subtitle: "Easy to use, well-documented, and TypeScript ready.",
+    location: "Built for React & Tailwind CSS",
+    backgroundClassName: "bg-gradient-to-br from-[#FF8743] to-[#FF5C00]",
+    badge: "Easy",
+  },
+]
 export function Hero() {
   return (
     <section className="relative flex min-h-[80vh] flex-row items-center justify-between px-4">
@@ -51,8 +82,8 @@ export function Hero() {
           </span>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center">
-        <AppleInvites />
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <AppleInvites cardWidth={200} cardHeight={200} events={demoEvents} />
       </div>
     </section>
   )
