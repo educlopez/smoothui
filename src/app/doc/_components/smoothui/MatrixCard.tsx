@@ -1,9 +1,25 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { ReactNode, useEffect, useRef, useState } from "react"
 import { motion } from "motion/react"
 
-export default function MatrixCard() {
+export interface MatrixCardProps {
+  title?: string
+  description?: string
+  fontSize?: number
+  chars?: string
+  className?: string
+  children?: ReactNode
+}
+
+export default function MatrixCard({
+  title = "Matrix Effect Card",
+  description = "Hover or hold down over this card to see the matrix rain effect in action.",
+  fontSize = 14,
+  chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$@#%",
+  className = "",
+  children,
+}: MatrixCardProps) {
   const [isHovered, setIsHovered] = useState(false)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const requestRef = useRef<number>(undefined)
@@ -26,10 +42,8 @@ export default function MatrixCard() {
     resizeCanvas()
     window.addEventListener("resize", resizeCanvas)
 
-    const fontSize = 14
     const columns = Math.floor(canvas.width / fontSize)
     const drops: number[] = new Array(columns).fill(1)
-    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$@#%"
 
     ctx.font = `${fontSize}px monospace`
 
@@ -56,13 +70,15 @@ export default function MatrixCard() {
       if (requestRef.current) cancelAnimationFrame(requestRef.current)
       window.removeEventListener("resize", resizeCanvas)
     }
-  }, [isHovered])
+  }, [isHovered, fontSize, chars])
 
   return (
-    <div className="flex h-[400px] min-h-[300px] w-full items-center justify-center p-4 md:h-[640px]">
+    <div
+      className={`flex h-[400px] min-h-[300px] w-full items-center justify-center p-4 md:h-[640px]`}
+    >
       <motion.div
         ref={containerRef}
-        className="group bg-background relative h-full w-full max-w-md overflow-hidden rounded-xl border p-6 transition-colors"
+        className={`group bg-background relative h-full w-full max-w-md overflow-hidden rounded-xl border p-6 transition-colors ${className}`}
         onHoverStart={() => setIsHovered(true)}
         onHoverEnd={() => setIsHovered(false)}
         onTouchStart={() => setIsHovered(true)}
@@ -76,13 +92,18 @@ export default function MatrixCard() {
           className="pointer-events-none absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300 group-hover:opacity-20"
         />
         <div className="relative z-10 flex h-full flex-col items-center justify-center">
-          <p className="text-foreground pointer-events-none mb-2 text-xl font-bold select-none">
-            Matrix Effect Card
-          </p>
-          <p className="text-primary-foreground pointer-events-none text-center select-none">
-            Hover or hold down over this card to see the matrix rain effect in
-            action.
-          </p>
+          {children ? (
+            children
+          ) : (
+            <>
+              <p className="text-foreground pointer-events-none mb-2 text-xl font-bold select-none">
+                {title}
+              </p>
+              <p className="text-primary-foreground pointer-events-none text-center select-none">
+                {description}
+              </p>
+            </>
+          )}
         </div>
       </motion.div>
     </div>

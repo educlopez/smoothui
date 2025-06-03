@@ -51,14 +51,14 @@ export const BskyIcon: React.FC<BskyIconProps> = ({ className, ...props }) => (
   </svg>
 )
 
-interface Platform {
+export interface Platform {
   name: string
   domain: string
   icon: React.ReactNode
   url: string
 }
 
-const platforms: Platform[] = [
+const defaultPlatforms: Platform[] = [
   {
     name: "X",
     domain: "x.com",
@@ -79,21 +79,38 @@ const platforms: Platform[] = [
   },
 ]
 
-export default function SocialSelector() {
-  const [selectedPlatform, setSelectedPlatform] = useState<Platform>(
+export interface SocialSelectorProps {
+  platforms?: Platform[]
+  handle?: string
+  selectedPlatform?: Platform
+  onChange?: (platform: Platform) => void
+  className?: string
+}
+
+export default function SocialSelector({
+  platforms = defaultPlatforms,
+  handle = "educalvolpz",
+  selectedPlatform: controlledSelected,
+  onChange,
+  className = "",
+}: SocialSelectorProps) {
+  const [internalSelected, setInternalSelected] = useState<Platform>(
     platforms[0]
   )
-  const handle = "educalvolpz"
+  const selectedPlatform = controlledSelected ?? internalSelected
 
   return (
-    <div className="mx-auto my-4 w-full max-w-2xl text-center">
+    <div className={`mx-auto my-4 w-full max-w-2xl text-center ${className}`}>
       <div className="space-y-6">
         <div className="flex items-center justify-center">
           <div className="relative flex w-fit items-center justify-center gap-4">
             {platforms.map((platform) => (
               <button
                 key={platform.name}
-                onClick={() => setSelectedPlatform(platform)}
+                onClick={() => {
+                  if (onChange) onChange(platform)
+                  else setInternalSelected(platform)
+                }}
                 className={`relative z-10 cursor-pointer rounded-full p-2 transition-colors ${
                   selectedPlatform.name === platform.name
                     ? "fill-foreground"

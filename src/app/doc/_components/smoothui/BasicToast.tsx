@@ -12,6 +12,7 @@ export interface ToastProps {
   duration?: number
   onClose?: () => void
   isVisible?: boolean
+  className?: string
 }
 
 const toastIcons = {
@@ -36,6 +37,7 @@ export default function BasicToast({
   duration = 3000,
   onClose,
   isVisible = true,
+  className = "",
 }: ToastProps) {
   const [visible, setVisible] = useState(isVisible)
 
@@ -57,7 +59,7 @@ export default function BasicToast({
     <AnimatePresence>
       {visible && (
         <motion.div
-          className={`fixed top-4 right-4 z-50 flex w-80 items-center gap-3 rounded-lg border p-4 shadow-lg ${toastClasses[type]}`}
+          className={`fixed top-4 right-4 z-50 flex w-80 items-center gap-3 rounded-lg border p-4 shadow-lg ${toastClasses[type]} ${className}`}
           initial={{ opacity: 0, x: 50, scale: 0.8 }}
           animate={{ opacity: 1, x: 0, scale: 1 }}
           exit={{

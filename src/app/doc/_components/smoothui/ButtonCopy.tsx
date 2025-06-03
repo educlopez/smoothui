@@ -4,37 +4,59 @@ import { ReactNode, useCallback, useState } from "react"
 import { Check, Copy, LoaderCircle } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-interface Button {
-  idle: ReactNode
-  loading: ReactNode
-  success: ReactNode
+export interface ButtonCopyProps {
+  onCopy?: () => Promise<void> | void
+  idleIcon?: ReactNode
+  loadingIcon?: ReactNode
+  successIcon?: ReactNode
+  className?: string
+  duration?: number
+  loadingDuration?: number
+  disabled?: boolean
 }
 
-const buttonCopy: Button = {
+const defaultIcons = {
   idle: <Copy size={16} />,
   loading: <LoaderCircle size={16} className="animate-spin" />,
   success: <Check size={16} />,
 }
 
-export default function ButtonCopy() {
-  const [buttonState, setButtonState] = useState<keyof Button>("idle")
+export default function ButtonCopy({
+  onCopy,
+  idleIcon = defaultIcons.idle,
+  loadingIcon = defaultIcons.loading,
+  successIcon = defaultIcons.success,
+  className = "",
+  duration = 2000,
+  loadingDuration = 1000,
+  disabled = false,
+}: ButtonCopyProps) {
+  const [buttonState, setButtonState] = useState<
+    "idle" | "loading" | "success"
+  >("idle")
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback(async () => {
     setButtonState("loading")
+    if (onCopy) await onCopy()
     setTimeout(() => {
       setButtonState("success")
-    }, 1000)
-
+    }, loadingDuration)
     setTimeout(() => {
       setButtonState("idle")
-    }, 3000)
-  }, [])
+    }, loadingDuration + duration)
+  }, [onCopy, loadingDuration, duration])
+
+  const icons = {
+    idle: idleIcon,
+    loading: loadingIcon,
+    success: successIcon,
+  }
 
   return (
     <div className="flex justify-center">
       <button
-        className="bg-background relative w-auto cursor-pointer overflow-hidden rounded-full border p-3 disabled:opacity-50"
-        disabled={buttonState !== "idle"}
+        className={`bg-background relative w-auto cursor-pointer overflow-hidden rounded-full border p-3 disabled:opacity-50 ${className}`}
+        disabled={buttonState !== "idle" || disabled}
         onClick={handleClick}
         aria-label={buttonState === "loading" ? "Copying..." : "Copy"}
       >
@@ -47,7 +69,7 @@ export default function ButtonCopy() {
             key={buttonState}
             className="flex w-full items-center justify-center"
           >
-            {buttonCopy[buttonState]}
+            {icons[buttonState]}
           </motion.span>
         </AnimatePresence>
       </button>

@@ -10,7 +10,21 @@ import {
   useTransform,
 } from "motion/react"
 
-export default function PowerOffSlide() {
+export interface PowerOffSlideProps {
+  onPowerOff?: () => void
+  label?: string
+  className?: string
+  duration?: number
+  disabled?: boolean
+}
+
+export default function PowerOffSlide({
+  onPowerOff,
+  label = "Slide to power off",
+  className = "",
+  duration = 2000,
+  disabled = false,
+}: PowerOffSlideProps) {
   const [isPoweringOff, setIsPoweringOff] = useState(false)
   const x = useMotionValue(0)
   const controls = useAnimation()
@@ -22,31 +36,32 @@ export default function PowerOffSlide() {
   const opacity = useTransform(x, xInput, opacityOutput)
 
   useAnimationFrame((t) => {
-    const duration = 2000
-    const progress = (t % duration) / duration
+    const animDuration = duration
+    const progress = (t % animDuration) / animDuration
     if (textRef.current) {
       textRef.current.style.setProperty("--x", `${(1 - progress) * 100}%`)
     }
   })
 
   const handleDragEnd = async () => {
+    if (disabled) return
     const dragDistance = x.get()
     if (dragDistance > 160) {
       await controls.start({ x: 168 })
       setIsPoweringOff(true)
-      // Add a timeout to reset the component after 2 seconds
+      if (onPowerOff) onPowerOff()
       setTimeout(() => {
         setIsPoweringOff(false)
         controls.start({ x: 0 })
         x.set(0)
-      }, 2000)
+      }, duration)
     } else {
       controls.start({ x: 0 })
     }
   }
 
   return (
-    <div className="flex h-auto items-center justify-center">
+    <div className={`flex h-auto items-center justify-center ${className}`}>
       <div className="w-56">
         {isPoweringOff ? (
           <div className="text-foreground text-center">
@@ -59,18 +74,20 @@ export default function PowerOffSlide() {
           >
             <div className="absolute inset-0 left-8 z-0 flex items-center justify-center overflow-hidden">
               <div className="text-md loading-shimmer text-foreground relative w-full text-center font-normal select-none">
-                Slide to power off
+                {label}
               </div>
             </div>
             <motion.div
-              drag="x"
+              drag={disabled ? false : "x"}
               dragConstraints={{ left: 0, right: 168 }}
               dragElastic={0}
               dragMomentum={false}
               onDragEnd={handleDragEnd}
               animate={controls}
               style={{ x }}
-              className="bg-background absolute top-1 left-1 z-10 flex h-12 w-12 cursor-grab items-center justify-center rounded-full shadow-md active:cursor-grabbing"
+              className={`bg-background absolute top-1 left-1 z-10 flex h-12 w-12 items-center justify-center rounded-full shadow-md ${disabled ? "cursor-not-allowed opacity-50" : "cursor-grab active:cursor-grabbing"}`}
+              tabIndex={disabled ? -1 : 0}
+              aria-disabled={disabled}
             >
               <Power size={32} className="text-red-600" />
             </motion.div>

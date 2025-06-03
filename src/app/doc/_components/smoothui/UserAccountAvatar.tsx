@@ -1,22 +1,30 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image" // Only if you're using nextjs
+import Image from "next/image"
 import * as Popover from "@radix-ui/react-popover"
 import { Eye, Package, User } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-interface UserData {
+export interface UserData {
   name: string
   email: string
   avatar: string
 }
 
-interface Order {
+export interface Order {
   id: string
   date: string
   status: "processing" | "shipped" | "delivered"
   progress: number
+}
+
+export interface UserAccountAvatarProps {
+  user?: UserData
+  orders?: Order[]
+  onProfileSave?: (user: UserData) => void
+  onOrderView?: (orderId: string) => void
+  className?: string
 }
 
 const initialUserData: UserData = {
@@ -30,9 +38,15 @@ const mockOrders: Order[] = [
   { id: "ORD002", date: "2023-03-20", status: "shipped", progress: 66 },
 ]
 
-export default function UserAccountAvatar() {
+export default function UserAccountAvatar({
+  user = initialUserData,
+  orders = mockOrders,
+  onProfileSave,
+  onOrderView,
+  className = "",
+}: UserAccountAvatarProps) {
   const [activeSection, setActiveSection] = useState<string | null>(null)
-  const [userData, setUserData] = useState<UserData>(initialUserData)
+  const [userData, setUserData] = useState<UserData>(user)
 
   const handleSectionClick = (section: string) => {
     setActiveSection(activeSection === section ? null : section)
@@ -41,11 +55,13 @@ export default function UserAccountAvatar() {
   const handleProfileSave = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    setUserData({
+    const updatedUser = {
       ...userData,
       name: formData.get("name") as string,
       email: formData.get("email") as string,
-    })
+    }
+    setUserData(updatedUser)
+    if (onProfileSave) onProfileSave(updatedUser)
     setActiveSection(null)
   }
 
@@ -89,7 +105,7 @@ export default function UserAccountAvatar() {
 
   const renderLastOrders = () => (
     <div className="flex flex-col gap-2 p-2">
-      {mockOrders.map((order) => (
+      {orders.map((order) => (
         <div
           key={order.id}
           className="bg-primary flex flex-col items-center justify-between gap-3 rounded-sm border p-2 text-xs"
@@ -120,6 +136,7 @@ export default function UserAccountAvatar() {
             <button
               className="bg-background rounded-sm border p-1"
               aria-label="View Order"
+              onClick={() => onOrderView && onOrderView(order.id)}
             >
               <Eye size={14} />
             </button>
@@ -132,7 +149,9 @@ export default function UserAccountAvatar() {
   return (
     <Popover.Root>
       <Popover.Trigger asChild>
-        <button className="bg-background flex cursor-pointer items-center gap-2 rounded-full border">
+        <button
+          className={`bg-background flex cursor-pointer items-center gap-2 rounded-full border ${className}`}
+        >
           <Image
             src={userData.avatar}
             alt="User Avatar"

@@ -5,16 +5,7 @@ import Image from "next/image" // Only if you're using nextjs
 import { Play } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-const dreams =
-  "https://images.unsplash.com/photo-1536893827774-411e1dc7c902?=jpg&fit=crop&w=400&q=80&fit=max"
-const fashion =
-  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?=jpg&fit=crop&w=400&q=80&fit=max"
-const galleryart =
-  "https://images.unsplash.com/photo-1522878308970-972ec5eedc0d?=jpg&fit=crop&w=400&q=80&fit=max"
-const summer =
-  "https://images.unsplash.com/photo-1572246538688-3f326dca3951?=jpg&fit=crop&w=400&q=80&fit=max"
-
-interface Card {
+export interface Card {
   id: number
   title: string
   image: string
@@ -26,7 +17,16 @@ interface Card {
   }
 }
 
-const cards: Card[] = [
+const dreams =
+  "https://images.unsplash.com/photo-1536893827774-411e1dc7c902?=jpg&fit=crop&w=400&q=80&fit=max"
+const fashion =
+  "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?=jpg&fit=crop&w=400&q=80&fit=max"
+const galleryart =
+  "https://images.unsplash.com/photo-1522878308970-972ec5eedc0d?=jpg&fit=crop&w=400&q=80&fit=max"
+const summer =
+  "https://images.unsplash.com/photo-1572246538688-3f326dca3951?=jpg&fit=crop&w=400&q=80&fit=max"
+
+const defaultCards: Card[] = [
   {
     id: 1,
     title: "Summer Opening",
@@ -79,9 +79,26 @@ const cards: Card[] = [
 
 const smoothEasing = [0.4, 0.0, 0.2, 1]
 
-export default function ExpandableCards() {
-  const [selectedCard, setSelectedCard] = useState<number | null>(null)
+export interface ExpandableCardsProps {
+  cards?: Card[]
+  selectedCard?: number | null
+  onSelect?: (id: number | null) => void
+  className?: string
+  cardClassName?: string
+}
+
+export default function ExpandableCards({
+  cards = defaultCards,
+  selectedCard: controlledSelected,
+  onSelect,
+  className = "",
+  cardClassName = "",
+}: ExpandableCardsProps) {
+  const [internalSelected, setInternalSelected] = useState<number | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+
+  const selectedCard =
+    controlledSelected !== undefined ? controlledSelected : internalSelected
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -93,9 +110,11 @@ export default function ExpandableCards() {
 
   const handleCardClick = (id: number) => {
     if (selectedCard === id) {
-      setSelectedCard(null)
+      if (onSelect) onSelect(null)
+      else setInternalSelected(null)
     } else {
-      setSelectedCard(id)
+      if (onSelect) onSelect(id)
+      else setInternalSelected(id)
       // Center the clicked card in view
       const cardElement = document.querySelector(`[data-card-id="${id}"]`)
       if (cardElement) {
@@ -109,7 +128,9 @@ export default function ExpandableCards() {
   }
 
   return (
-    <div className="flex w-full flex-col gap-4 overflow-scroll p-4">
+    <div
+      className={`flex w-full flex-col gap-4 overflow-scroll p-4 ${className}`}
+    >
       <div
         ref={scrollRef}
         className="scrollbar-hide mx-auto flex overflow-x-auto pt-4 pb-8"
@@ -123,7 +144,7 @@ export default function ExpandableCards() {
             key={card.id}
             layout
             data-card-id={card.id}
-            className="bg-background relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border shadow-lg"
+            className={`bg-background relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border shadow-lg ${cardClassName}`}
             style={{
               scrollSnapAlign: "start",
             }}

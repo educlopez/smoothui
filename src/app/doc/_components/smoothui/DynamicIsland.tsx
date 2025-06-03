@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { ReactNode, useMemo, useState } from "react"
 import {
   CloudLightning,
   Phone,
@@ -38,7 +38,7 @@ const variants = {
 }
 
 // Idle Component with Weather
-const Idle = () => {
+const DefaultIdle = () => {
   const [showTemp, setShowTemp] = useState(false)
 
   return (
@@ -54,7 +54,7 @@ const Idle = () => {
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.8 }}
-          className="text-background"
+          className="text-foreground"
         >
           <CloudLightning className="h-5 w-5" />
         </motion.div>
@@ -66,7 +66,7 @@ const Idle = () => {
             initial={{ opacity: 0, width: 0 }}
             animate={{ opacity: 1, width: "auto" }}
             exit={{ opacity: 0, width: 0 }}
-            className="text-background flex items-center gap-1 overflow-hidden"
+            className="text-foreground flex items-center gap-1 overflow-hidden"
           >
             <Thermometer className="h-3 w-3" />
             <span className="pointer-events-none text-xs whitespace-nowrap">
@@ -80,9 +80,9 @@ const Idle = () => {
 }
 
 // Ring Component
-const Ring = () => {
+const DefaultRing = () => {
   return (
-    <div className="text-background flex w-64 items-center gap-3 overflow-hidden px-4 py-2">
+    <div className="text-foreground flex w-64 items-center gap-3 overflow-hidden px-4 py-2">
       <Phone className="h-5 w-5" />
       <div className="flex-1">
         <p className="pointer-events-none text-sm font-medium">Incoming Call</p>
@@ -96,7 +96,7 @@ const Ring = () => {
 }
 
 // Timer Component
-const Timer = () => {
+const DefaultTimer = () => {
   const [time, setTime] = useState(60)
 
   useMemo(() => {
@@ -107,7 +107,7 @@ const Timer = () => {
   }, [])
 
   return (
-    <div className="text-background flex w-64 items-center gap-3 overflow-hidden px-4 py-2">
+    <div className="text-foreground flex w-64 items-center gap-3 overflow-hidden px-4 py-2">
       <TimerIcon className="h-5 w-5" />
       <div className="flex-1">
         <p className="pointer-events-none text-sm font-medium">
@@ -116,7 +116,7 @@ const Timer = () => {
       </div>
       <div className="bg-background/20 h-1 w-24 overflow-hidden rounded-full">
         <motion.div
-          className="bg-background h-full"
+          className="bg-foreground h-full"
           initial={{ width: "100%" }}
           animate={{ width: "0%" }}
           transition={{ duration: time, ease: "linear" }}
@@ -128,30 +128,49 @@ const Timer = () => {
 
 type View = "idle" | "ring" | "timer"
 
-export default function DynamicIsland() {
-  const [view, setView] = useState<View>("idle")
+export interface DynamicIslandProps {
+  view?: View
+  onViewChange?: (view: View) => void
+  idleContent?: ReactNode
+  ringContent?: ReactNode
+  timerContent?: ReactNode
+  className?: string
+}
+
+export default function DynamicIsland({
+  view: controlledView,
+  onViewChange,
+  idleContent,
+  ringContent,
+  timerContent,
+  className = "",
+}: DynamicIslandProps) {
+  const [internalView, setInternalView] = useState<View>("idle")
   const [variantKey, setVariantKey] =
     useState<keyof typeof BOUNCE_VARIANTS>("idle")
+
+  const view = controlledView ?? internalView
 
   const content = useMemo(() => {
     switch (view) {
       case "ring":
-        return <Ring />
+        return ringContent ?? <DefaultRing />
       case "timer":
-        return <Timer />
+        return timerContent ?? <DefaultTimer />
       default:
-        return <Idle />
+        return idleContent ?? <DefaultIdle />
     }
-  }, [view])
+  }, [view, idleContent, ringContent, timerContent])
 
   const handleViewChange = (newView: View) => {
     if (view === newView) return
     setVariantKey(`${view}-${newView}` as keyof typeof BOUNCE_VARIANTS)
-    setView(newView)
+    if (onViewChange) onViewChange(newView)
+    else setInternalView(newView)
   }
 
   return (
-    <div className="h-[200px]">
+    <div className={`h-[200px] ${className}`}>
       <div className="relative flex h-full w-full flex-col justify-between">
         <motion.div
           layout
@@ -206,20 +225,28 @@ export default function DynamicIsland() {
           </AnimatePresence>
         </div>
 
-        <div className="flex w-full justify-center gap-1 md:gap-4">
-          {["idle", "ring", "timer"].map((v) => (
-            <motion.button
-              type="button"
-              key={v}
-              onClick={() => handleViewChange(v as View)}
-              className={`bg-background text-foreground hover:bg-primary h-10 w-fit cursor-pointer rounded-full border px-10 py-1.5 text-sm font-medium capitalize md:w-32 md:px-2.5 ${view === v ? "ring-candy ring-2" : ""} `}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              disabled={view === v}
-            >
-              {v}
-            </motion.button>
-          ))}
+        <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2">
+          <button
+            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
+            onClick={() => handleViewChange("idle")}
+            aria-label="Idle"
+          >
+            Idle
+          </button>
+          <button
+            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
+            onClick={() => handleViewChange("ring")}
+            aria-label="Ring"
+          >
+            Ring
+          </button>
+          <button
+            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
+            onClick={() => handleViewChange("timer")}
+            aria-label="Timer"
+          >
+            Timer
+          </button>
         </div>
       </div>
     </div>
