@@ -4,24 +4,43 @@ import { useState } from "react"
 import { CircleX, Plus } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-export default function AnimatedTags() {
-  const [selectedTag, setSelectedTag] = useState<string[]>([])
+export interface AnimatedTagsProps {
+  initialTags?: string[]
+  selectedTags?: string[]
+  onChange?: (selected: string[]) => void
+  className?: string
+}
 
-  const [tags, setTags] = useState<string[]>(initialTags)
+export default function AnimatedTags({
+  initialTags = ["react", "tailwindcss", "javascript"],
+  selectedTags: controlledSelectedTags,
+  onChange,
+  className = "",
+}: AnimatedTagsProps) {
+  const [internalSelected, setInternalSelected] = useState<string[]>([])
+  const [internalTags, setInternalTags] = useState<string[]>(initialTags)
+
+  const selectedTag = controlledSelectedTags ?? internalSelected
+  const tags = initialTags.filter((tag) => !selectedTag.includes(tag))
 
   const handleTagClick = (tag: string) => {
-    if (!selectedTag.includes(tag)) {
-      setSelectedTag([...selectedTag, tag])
-      setTags(tags.filter((t) => t !== tag))
+    const newSelected = [...selectedTag, tag]
+    if (onChange) {
+      onChange(newSelected)
+    } else {
+      setInternalSelected(newSelected)
     }
   }
   const handleDeleteTag = (tag: string) => {
     const newSelectedTag = selectedTag.filter((selected) => selected !== tag)
-    setSelectedTag(newSelectedTag)
-    setTags([...tags, tag])
+    if (onChange) {
+      onChange(newSelectedTag)
+    } else {
+      setInternalSelected(newSelectedTag)
+    }
   }
   return (
-    <div className="flex w-[300px] flex-col gap-4 p-4">
+    <div className={`flex w-[300px] flex-col gap-4 p-4 ${className}`}>
       <div className="flex flex-col items-start justify-center gap-1">
         <p>Selected Tags</p>
         <AnimatePresence>
@@ -80,5 +99,3 @@ export default function AnimatedTags() {
     </div>
   )
 }
-
-const initialTags: string[] = ["react", "tailwindcss", "javascript"]

@@ -19,6 +19,13 @@ export interface BasicComponentsProps {
   cnFunction?: boolean
   isUpdated?: boolean
   collection?: string
+  props?: {
+    name: string
+    type: string
+    description: string
+    required: boolean
+    fields?: { name: string; type: string; description: string }[]
+  }[]
 }
 
 export const basicComponents: BasicComponentsProps[] = [

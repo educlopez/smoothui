@@ -8,6 +8,7 @@ import { notFound } from "next/navigation"
 import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
 import { CodeBlock } from "@/app/doc/_components/codeBlock"
 import { ComponentView } from "@/app/doc/_components/componentView"
+import PropsTable from "@/app/doc/_components/PropsTable"
 import {
   Tabs,
   TabsContent,
@@ -108,6 +109,23 @@ export default async function ComponentPage(props: {
   const previousComponent = components[currentComponent - 1]
   const nextComponent = components[currentComponent + 1]
 
+  // Try to read the demo file for the usage example
+  const demoFilePath = path.join(
+    process.cwd(),
+    "src/app/doc/_components/examples",
+    `${component.componentTitle.replace(/\s+/g, "")}Demo.tsx`
+  )
+  let usageExample = ""
+  try {
+    usageExample = fs.readFileSync(demoFilePath, "utf8")
+  } catch (e) {
+    usageExample = `import { ${component.componentTitle.replace(/\s/g, "")} } from "your-library"
+
+<${component.componentTitle.replace(/\s/g, "")}
+  // your props here
+/>`
+  }
+
   return (
     <main className="my-2 xl:mb-24">
       <div className="space-y-10">
@@ -134,7 +152,11 @@ export default async function ComponentPage(props: {
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </ComponentView>
-          <h2 data-table-content="Code" data-level="2">
+          <h2
+            className="text-xl font-semibold"
+            data-table-content="Code"
+            data-level="2"
+          >
             Code
           </h2>
           {component.slug && (
@@ -238,7 +260,32 @@ export default async function ComponentPage(props: {
               fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
             />
           </CodeBlockWrapper>
+          <h2
+            className="text-xl font-semibold"
+            data-table-content="How to use"
+            data-level="2"
+          >
+            How to use
+          </h2>
+          <CodeBlockWrapper
+            expandButtonTitle="Expand"
+            className="my-6 overflow-hidden rounded-md"
+          >
+            <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
+          </CodeBlockWrapper>
         </div>
+        {component.props && (
+          <div className="pt-6">
+            <h2
+              className="mb-8 text-xl font-semibold"
+              data-table-content="Props"
+              data-level="2"
+            >
+              Props
+            </h2>
+            <PropsTable props={component.props} />
+          </div>
+        )}
       </div>
     </main>
   )

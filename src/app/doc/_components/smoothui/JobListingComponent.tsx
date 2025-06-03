@@ -5,6 +5,23 @@ import type { SVGProps } from "react"
 import { AnimatePresence, motion } from "motion/react"
 import { useOnClickOutside } from "usehooks-ts"
 
+export interface Job {
+  company: string
+  title: string
+  logo: React.ReactNode
+  job_description: string
+  salary: string
+  location: string
+  remote: string
+  job_time: string
+}
+
+export interface JobListingComponentProps {
+  jobs: Job[]
+  className?: string
+  onJobClick?: (job: Job) => void
+}
+
 export const Resend = (props: SVGProps<SVGSVGElement>) => (
   <svg
     width="1em"
@@ -94,17 +111,12 @@ export const Supabase = (props: SVGProps<SVGSVGElement>) => (
   </svg>
 )
 
-export default function JobListingComponent() {
-  const [activeItem, setActiveItem] = useState<{
-    company: string
-    logo: JSX.Element
-    title: string
-    job_description: string
-    salary: string
-    location: string
-    remote: string
-    job_time: string
-  } | null>(null)
+export default function JobListingComponent({
+  jobs,
+  className,
+  onJobClick,
+}: JobListingComponentProps) {
+  const [activeItem, setActiveItem] = useState<Job | null>(null)
   const ref = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>
   useOnClickOutside(ref, () => setActiveItem(null))
 
@@ -190,14 +202,17 @@ export default function JobListingComponent() {
           </>
         ) : null}
       </AnimatePresence>
-      <div className="relative flex items-start p-6">
+      <div className={`relative flex items-start p-6 ${className || ""}`}>
         <div className="relative flex w-full flex-col items-center gap-4 px-2">
-          {content.map((role) => (
+          {jobs.map((role) => (
             <motion.div
               layoutId={`workItem-${role.company}`}
               key={role.company}
               className="group bg-background flex w-full cursor-pointer flex-row items-center gap-4 border p-2 shadow-xs md:p-4"
-              onClick={() => setActiveItem(role)}
+              onClick={() => {
+                setActiveItem(role)
+                if (onJobClick) onJobClick(role)
+              }}
               style={{ borderRadius: 8 }}
             >
               <motion.div layoutId={`workItemLogo-${role.company}`}>
@@ -235,48 +250,3 @@ export default function JobListingComponent() {
     </>
   )
 }
-
-const content: {
-  company: string
-  title: string
-  logo: JSX.Element
-  job_description: string
-  salary: string
-  location: string
-  remote: string
-  job_time: string
-}[] = [
-  {
-    company: "Supabase",
-    title: "I/UX Designer",
-    logo: <Supabase />,
-    job_description:
-      "We are looking for a creative and driven UI/UX Designer to join our team. You will be responsible for designing and implementing user interfaces for our web and mobile applications.",
-    salary: "$85,000 - $95,000",
-    location: "San Francisco, CA",
-    remote: "No",
-    job_time: "Full-time",
-  },
-  {
-    company: "Resend",
-    title: "UI Developer",
-    logo: <Resend className="fill-black dark:fill-white" />,
-    job_description:
-      "Seeking an experienced UI Developer to work on our latest project. The ideal candidate will have strong skills in HTML, CSS, and JavaScript, and a keen eye for detail.",
-    salary: "$75,000 - $85,000",
-    location: "Remote",
-    remote: "Yes",
-    job_time: "Contract",
-  },
-  {
-    company: "Turso",
-    title: "Graphic Designer",
-    logo: <Turso />,
-    job_description:
-      "We are in search of a talented Graphic Designer with UI experience to help create stunning visuals for our clients. This role involves collaboration with the design team and clients to deliver high-quality work.",
-    salary: "$60,000 - $70,000",
-    location: "New York, NY",
-    remote: "Hybrid",
-    job_time: "Part-time",
-  },
-]

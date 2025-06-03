@@ -6,9 +6,30 @@ import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
-const arenaOpenCard =
-  "https://images.unsplash.com/photo-1594063596316-aa5f41ceb8dc?=jpg&fit=crop&w=600&q=80&fit=max"
-export default function ImageMetadataPreview() {
+export interface ImageMetadata {
+  created: string
+  updated: string
+  by: string
+  source: string
+}
+
+export interface ImageMetadataPreviewProps {
+  imageSrc: string
+  alt?: string
+  filename?: string
+  description?: string
+  metadata: ImageMetadata
+  onShare?: () => void
+}
+
+export default function ImageMetadataPreview({
+  imageSrc,
+  alt = "Image preview",
+  filename = "screenshot.png",
+  description = "No description",
+  metadata,
+  onShare,
+}: ImageMetadataPreviewProps) {
   const [openInfo, setopenInfo] = useState(false)
   const [height, setHeight] = useState("42px")
   const [elementRef, bounds] = useMeasure()
@@ -29,20 +50,16 @@ export default function ImageMetadataPreview() {
         animate={{ y: -bounds.height }}
         className="pointer-events-none overflow-hidden rounded-xl"
       >
-        <Image
-          src={arenaOpenCard}
-          alt="Scenario with orange black colors"
-          width={300}
-          height={437}
-        />
+        <Image src={imageSrc} alt={alt} width={300} height={437} />
       </motion.div>
 
       <div className="relative flex w-full flex-col items-center gap-4">
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
-            disabled
             aria-label="Share"
-            className="bg-background cursor-not-allowed rounded-full border p-3 transition disabled:opacity-50"
+            className="bg-background rounded-full border p-3 transition"
+            onClick={onShare}
+            disabled={!onShare}
           >
             <Share size={16} />
           </button>
@@ -81,10 +98,8 @@ export default function ImageMetadataPreview() {
               <div ref={elementRef} className="flex flex-col items-start">
                 <div className="flex w-full flex-row items-start justify-between gap-4">
                   <div>
-                    <p className="text-foreground">
-                      screenshot 2024-06-12 at 20.00.22
-                    </p>
-                    <p className="text-primary-foreground">No description</p>
+                    <p className="text-foreground">{filename}</p>
+                    <p className="text-primary-foreground">{description}</p>
                   </div>
 
                   <button className="cursor-pointer" aria-label="Close Icon">
@@ -96,22 +111,22 @@ export default function ImageMetadataPreview() {
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Created</td>
                       <td className="text-primary-foreground w-1/2">
-                        2 yrs ago
+                        {metadata.created}
                       </td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Updated</td>
                       <td className="text-primary-foreground w-1/2">
-                        2 yrs ago
+                        {metadata.updated}
                       </td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">By</td>
-                      <td className="w-1/2">Edu Calvo</td>
+                      <td className="w-1/2">{metadata.by}</td>
                     </tr>
                     <tr className="flex w-full flex-row items-center gap-4">
                       <td className="w-1/2">Source</td>
-                      <td className="w-1/2 truncate">95d2a403ff12d7e3b</td>
+                      <td className="w-1/2 truncate">{metadata.source}</td>
                     </tr>
                   </tbody>
                 </table>
