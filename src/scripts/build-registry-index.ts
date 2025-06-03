@@ -6,7 +6,7 @@ const path = require("path")
 // @ts-ignore
 const baseDir = path.join(__dirname, "..", "app", "doc")
 console.log("baseDir", baseDir)
-const componentsDir = path.join(baseDir, "_components", "ui")
+const componentsDir = path.join(baseDir, "_components", "smoothui")
 const examplesDir = path.join(baseDir, "_components", "examples")
 const hooksDir = path.join(__dirname, "..", "app", "hooks")
 console.log("hooksDir", hooksDir)
@@ -53,7 +53,7 @@ function findHookImports(sourceCode: string): string[] {
 }
 
 function findComponentImports(sourceCode: string): string[] {
-  // MAtch static imports from @/app/doc/_components/ui
+  // MAtch static imports from @/app/doc/_components/smoothui
   const componentImportRegex =
     /import\s+([^'"]+?)\s+from\s+['"]@\/app\/doc\/(_components|examples)\/ui\/([^'"]+)['"]/g
   const components: string[] = []
@@ -84,7 +84,7 @@ function findComponentImports(sourceCode: string): string[] {
 
 function findDynamicComponentImports(sourceCode: string): string[] {
   const dynamicImportRegex =
-    /dynamic\(\s*\(\)\s*=>\s*import\(\s*['"]@\/app\/doc\/(_components|examples)\/ui\/([^'"]+)['"]\s*\)/g
+    /dynamic\(\s*\(\)\s*=>\s*import\(\s*['"]@\/app\/doc\/(_components|examples)\/smoothui\/([^'"]+)['"]\s*\)/g
   const dynComponents: string[] = []
   let match
 
