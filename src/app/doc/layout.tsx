@@ -81,7 +81,7 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
         }
       >
         <AppSidebar variant="inset" />
-        <SidebarInset className="overflow-hidden border md:peer-data-[variant=inset]:shadow-none">
+        <SidebarInset className="border md:peer-data-[variant=inset]:shadow-none">
           <Header />
           <div className="lg:grid lg:grid-cols-[1fr] 2xl:grid-cols-[1fr_248px]">
             <div className="grid-cols-[1fr_760px_1fr] px-4 pt-8 *:col-start-2 lg:grid lg:p-8">
