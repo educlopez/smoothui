@@ -26,7 +26,7 @@ export function ComponentsSlideshow() {
         <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
           Component Showcase
         </h2>
-        <div className="mt-16 grid grid-cols-2 gap-4">
+        <div className="mt-16 grid grid-cols-3 gap-4">
           {components
             .filter((comp) => SHOWCASE_COMPONENTS.includes(comp.componentTitle))
             .map((component) => (
