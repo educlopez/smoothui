@@ -187,7 +187,7 @@ function generateRegistryItem(
       ? "@/hooks/"
       : type === "example"
         ? "@/app/doc/_components/examples/"
-        : "@/app/doc/_components/ui/"
+        : "@/app/doc/_components/smoothui/"
   const importPath = `${basePath}${relativePath}`.replace(/\\/g, "/")
   const importPathWithoutExt = importPath.replace(/\.tsx?$/, "")
 

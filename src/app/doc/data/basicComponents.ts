@@ -1,7 +1,7 @@
-import { AccordionDemo } from "@/app/doc/_components/ui/BasicAccordion"
-import { DropdownDemo } from "@/app/doc/_components/ui/BasicDropdown"
-import { ModalDemo } from "@/app/doc/_components/ui/BasicModal"
-import { ToastDemo } from "@/app/doc/_components/ui/BasicToast"
+import { AccordionDemo } from "@/app/doc/_components/smoothui/BasicAccordion"
+import { DropdownDemo } from "@/app/doc/_components/smoothui/BasicDropdown"
+import { ModalDemo } from "@/app/doc/_components/smoothui/BasicModal"
+import { ToastDemo } from "@/app/doc/_components/smoothui/BasicToast"
 
 export interface BasicComponentsProps {
   id: number

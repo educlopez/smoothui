@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react"
 import Divider from "@/app/components/landing/divider"
 import { ReactLogo } from "@/app/components/resources/logos/ReactLogo"
 import { TailwindLogo } from "@/app/components/resources/logos/TailwindLogo"
-import AppleInvites from "@/app/doc/_components/ui/AppleInvites"
+import AppleInvites from "@/app/doc/_components/smoothui/AppleInvites"
 
 import { Button } from "../button"
 import Logo from "../logo"
@@ -23,8 +23,10 @@ export function Hero() {
         <h1 className="sr-only">SmoothUI</h1>
         <p className="text-primary-foreground mt-6 max-w-2xl text-left text-xl transition">
           A collection of{" "}
-          <span className="line-through decoration-pink-500">awesome</span> test
-          components
+          <span className="decoration-candy-secondary line-through">
+            awesome
+          </span>{" "}
+          test components
           <br /> with smooth animations
         </p>
         <div className="mt-10 flex gap-4">

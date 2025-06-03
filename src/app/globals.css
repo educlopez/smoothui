@@ -97,8 +97,9 @@
   --color-smooth-950: oklch(54.17% 0 0);
   --color-smooth-1000: oklch(20.46% 0 0);
 
-  --color-candy: #ff64b1;
-  --color-candy-secondary: #ec4899;
+  /* --color-candy: #ff64b1; */
+  --color-candy: oklch(0.72 0.2 352.53);
+  --color-candy-secondary: oklch(0.66 0.21 354.31);
   --color-bt-gray: var(--bt-gray);
   --color-contrast-higher: #fff;
   --color-contrast-highest: #fff;
@@ -345,4 +346,63 @@
     0px 1px 2px rgba(0, 0, 0, 0.4),
     0px 0px 0px 1px var(--color-bt-gray),
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
+}
+
+.blur-magic {
+  --blur: 1px;
+  --stop: 25%;
+  --height: 150px;
+  position: fixed;
+  pointer-events: none;
+  width: 100%;
+  height: var(--height);
+  user-select: none;
+  -webkit-user-select: none;
+  left: 0;
+  -webkit-backdrop-filter: blur(var(--blur));
+  backdrop-filter: blur(var(--blur));
+}
+
+.blur-magic[data-side="top"] {
+  top: 0;
+  background: linear-gradient(to top, transparent, var(--color-primary));
+  mask-image: linear-gradient(
+    to bottom,
+    var(--color-primary) var(--stop),
+    transparent
+  );
+}
+
+.blur-magic[data-side="left"] {
+  height: 100%;
+  width: var(--height);
+  left: 0;
+  background: linear-gradient(to left, transparent, var(--color-primary));
+  mask-image: linear-gradient(
+    to right,
+    var(--color-primary) var(--stop),
+    transparent
+  );
+}
+
+.blur-magic[data-side="right"] {
+  height: 100%;
+  width: var(--height);
+  right: 0;
+  left: unset;
+  background: linear-gradient(to right, transparent, var(--color-primary));
+  mask-image: linear-gradient(
+    to left,
+    var(--color-primary) var(--stop),
+    transparent
+  );
+}
+.blur-magic[data-side="bottom"] {
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent, var(--color-primary));
+  mask-image: linear-gradient(
+    to top,
+    var(--color-primary) var(--stop),
+    transparent
+  );
 }

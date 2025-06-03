@@ -97,7 +97,7 @@ export default async function ComponentPage(props: {
     notFound()
   }
 
-  const filePath = `./src/app/doc/_components/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
+  const filePath = `./src/app/doc/_components/smoothui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
   const code = await readFilePath(filePath)
 

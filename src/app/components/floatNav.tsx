@@ -10,6 +10,8 @@ import {
   TooltipTrigger,
 } from "@/app/components/tooltip"
 
+import { ColorPickerFloatNav } from "./ColorPickerFloatNav"
+
 export function FloatNav() {
   return (
     <nav
@@ -94,6 +96,14 @@ export function FloatNav() {
           </TooltipTrigger>
           <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
             <p>Theme Switcher</p>
+          </TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger>
+            <ColorPickerFloatNav />
+          </TooltipTrigger>
+          <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
+            <p>Color Switcher</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>

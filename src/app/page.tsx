@@ -1,3 +1,4 @@
+import BlurMagic from "@/app/components/blurMagic"
 import Footer from "@/app/components/footer"
 import { ComponentsSlideshow } from "@/app/components/landing/components-slideshow"
 import Divider from "@/app/components/landing/divider"
@@ -16,6 +17,8 @@ export default function Home() {
         <ComponentsSlideshow />
         <FAQ />
         <Footer />
+        <BlurMagic side="top" className="!h-[120px]" stop="50%" blur="4px" />
+        <BlurMagic side="bottom" className="!h-[120px]" stop="50%" blur="4px" />
       </main>
     </>
   )
