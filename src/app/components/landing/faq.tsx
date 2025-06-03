@@ -89,10 +89,10 @@ export function FAQ() {
               "shadow-custom"
             )}
           >
-            <h3 className="text-foreground group-hover:text-smooth-50 text-lg font-semibold transition">
+            <h3 className="text-foreground text-lg font-semibold transition">
               {faq.question}
             </h3>
-            <p className="text-primary-foreground group-hover:text-smooth-50 group-hover: mt-2 transition">
+            <p className="text-primary-foreground group-hover:text-smooth-1000 group-hover: mt-2 transition">
               {faq.answer}
             </p>
           </motion.div>
