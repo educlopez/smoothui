@@ -2,7 +2,9 @@
 
 import React, { useState } from "react"
 
-import AppleInvites, { Event } from "../smoothui/AppleInvites"
+import AppleInvites, {
+  Event,
+} from "@/app/doc/_components/smoothui/AppleInvites"
 
 const demoEvents: Event[] = [
   {

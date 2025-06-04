@@ -42,7 +42,12 @@ next-env.d.ts
 /.component-sources
 src/app/doc/index.ts
 /public/r
+/public/r-demo
+/public/r-install
 /public/index.json
 
 #cursorrules
 /.cursor/
+
+notes.md
+
