@@ -21,7 +21,7 @@ const asap = Asap({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.smoothui.dev"),
+  metadataBase: new URL("https://smoothui.dev"),
   title: {
     default: "SmoothUI",
     template: "%s | SmoothUI",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "SmoothUI",
     description:
       "A collection of awesome test components with smooth animations",
-    url: "https://www.smoothui.dev",
+    url: "https://smoothui.dev",
     siteName: "SmoothUI",
     images: [
       {
