@@ -17,8 +17,6 @@ module.exports = {
     "^@/config/(.*)$",
     "^@/lib/(.*)$",
     "^@/hooks/(.*)$",
-    "^@/_components/resources/(.*)$",
-    "^@/_components/smoothui/(.*)$",
     "^@/components/(.*)$",
     "^@/registry/(.*)$",
     "^@/styles/(.*)$",

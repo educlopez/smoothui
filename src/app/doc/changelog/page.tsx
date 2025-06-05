@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { changelogEntries } from "@/app/doc/data/changelog"
 
 export default function ChangelogPage() {

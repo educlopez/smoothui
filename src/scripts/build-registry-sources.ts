@@ -78,25 +78,23 @@ function processRegistryItem(name: string, item: any) {
       sourceFilePath = path.join(
         baseDir,
         "src",
-        "app",
-        "doc",
-        "_components",
+        "components",
+        "smoothui",
         "ui",
         `${componentPath}.tsx`
       )
-      targetPath = `/components/smootui/${fileName}.tsx`
+      targetPath = `/components/smoothui/${fileName}.tsx`
     } else if (file.type === "registry:block") {
       const examplePath = file.path.replace("smoothui/", "")
       sourceFilePath = path.join(
         baseDir,
         "src",
-        "app",
-        "doc",
-        "_components",
+        "components",
+        "smoothui",
         "examples",
         `${examplePath}.tsx`
       )
-      targetPath = `/components/smootui/${fileName}.tsx`
+      targetPath = `/components/smoothui/${fileName}.tsx`
     }
 
     if (sourceFilePath !== "") {

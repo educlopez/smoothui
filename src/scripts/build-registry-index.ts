@@ -4,13 +4,11 @@ const fs = require("fs")
 const path = require("path")
 
 // @ts-ignore
-const baseDir = path.join(__dirname, "..", "app", "doc")
-console.log("baseDir", baseDir)
-const componentsDir = path.join(baseDir, "_components", "smoothui")
-const examplesDir = path.join(baseDir, "_components", "examples")
-const hooksDir = path.join(__dirname, "..", "app", "hooks")
-console.log("hooksDir", hooksDir)
-const utilsDir = path.join(__dirname, "..", "app", "utils")
+const baseDir = path.join(__dirname, "..", "components", "smoothui")
+const componentsDir = path.join(baseDir, "ui")
+const examplesDir = path.join(baseDir, "examples")
+const hooksDir = path.join(baseDir, "hooks")
+const utilsDir = path.join(baseDir, "utils")
 
 type RegistryType =
   | "registry:ui"
@@ -186,8 +184,8 @@ function generateRegistryItem(
     type === "hook"
       ? "@/hooks/"
       : type === "example"
-        ? "@/app/doc/_components/examples/"
-        : "@/app/doc/_components/smoothui/"
+        ? "@/components/smoothui/examples/"
+        : "@/components/smoothui/ui/"
   const importPath = `${basePath}${relativePath}`.replace(/\\/g, "/")
   const importPathWithoutExt = importPath.replace(/\.tsx?$/, "")
 

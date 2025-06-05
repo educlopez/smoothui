@@ -1,11 +1,11 @@
-import BlurMagic from "@/app/components/blurMagic"
-import Footer from "@/app/components/footer"
-import { ComponentsSlideshow } from "@/app/components/landing/components-slideshow"
-import Divider from "@/app/components/landing/divider"
-import { FAQ } from "@/app/components/landing/faq"
-import { Features } from "@/app/components/landing/features"
-import { Hero } from "@/app/components/landing/hero"
-import Navbar from "@/app/components/landing/navbar"
+import BlurMagic from "@/components/blurMagic"
+import Footer from "@/components/footer"
+import { ComponentsSlideshow } from "@/components/landing/components-slideshow"
+import Divider from "@/components/landing/divider"
+import { FAQ } from "@/components/landing/faq"
+import { Features } from "@/components/landing/features"
+import { Hero } from "@/components/landing/hero"
+import Navbar from "@/components/landing/navbar"
 
 export default function Home() {
   return (

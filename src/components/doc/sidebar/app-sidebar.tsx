@@ -1,0 +1,69 @@
+import * as React from "react"
+import Image from "next/image"
+import Link from "next/link"
+
+import { Button } from "@/components/button"
+import Logo from "@/components/logo"
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from "@/components/ui/sidebar"
+
+import SidebarLinkClient from "./SidebarLinkClient"
+
+export async function AppSidebar({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar collapsible="offcanvas" {...props}>
+      <SidebarHeader>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              asChild
+              className="data-[slot=sidebar-menu-button]:!p-1.5 [&>svg]:size-auto [&>svg]:h-6"
+            >
+              <Link href="/" title="home" aria-label="Home">
+                <Logo className="h-auto w-auto" />
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarLinkClient />
+      </SidebarContent>
+      <SidebarFooter>
+        <Button asChild variant="candy" size="sm">
+          <a
+            href="https://github.com/educlopez/smoothui/issues/new/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Report an Issue</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="transition-transform group-hover:translate-x-0.5"
+            >
+              <path d="M7 7h10v10" />
+              <path d="M7 17 17 7" />
+            </svg>
+          </a>
+        </Button>
+      </SidebarFooter>
+    </Sidebar>
+  )
+}

@@ -1,12 +1,12 @@
 import { Metadata } from "next"
 import { cookies } from "next/headers"
 
+import { AppSidebar } from "@/components/doc/sidebar/app-sidebar"
+import TableOfContent from "@/components/doc/tableOfContent"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/app/doc/_components/sidebar/app-sidebar"
-import TableOfContent from "@/app/doc/_components/tableOfContent"
 
-import Footer from "../components/footer"
-import Header from "./_components/header"
+import Header from "../../components/doc/header"
+import Footer from "../../components/footer"
 
 export const metadata: Metadata = {
   title: {

@@ -2,13 +2,13 @@ import type { Metadata } from "next"
 import { Asap, Inter } from "next/font/google"
 import { Toaster } from "sonner"
 
-import "./globals.css"
+import "./styles/globals.css"
 
 import { VercelToolbar } from "@vercel/toolbar/next"
 import { ThemeProvider } from "next-themes"
 
-import { Analytics } from "@/app/components/analytics"
-import { FloatNav } from "@/app/components/floatNav"
+import { Analytics } from "@/components/analytics"
+import { FloatNav } from "@/components/floatNav"
 
 const inter = Inter({
   subsets: ["latin"],

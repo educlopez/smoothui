@@ -5,21 +5,16 @@ import React from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
-import { CodeBlock } from "@/app/doc/_components/codeBlock"
-import { ComponentView } from "@/app/doc/_components/componentView"
-import PropsTable from "@/app/doc/_components/PropsTable"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/doc/_components/tabs"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { CodeBlock } from "@/components/doc/codeBlock"
+import { ComponentView } from "@/components/doc/componentView"
+import PropsTable from "@/components/doc/PropsTable"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 
-import BadgeBeta from "../../_components/badgeBeta"
-import { CodeBlockWrapper } from "../../_components/codeBlocKWarapper"
-import { OpenInV0Button } from "../../_components/openInV0"
+import BadgeBeta from "../../../../components/doc/badgeBeta"
+import { CodeBlockWrapper } from "../../../../components/doc/codeBlocKWarapper"
+import { OpenInV0Button } from "../../../../components/doc/openInV0"
 
 export async function generateStaticParams() {
   const component = basicComponents.map((component) => ({
@@ -63,7 +58,7 @@ export async function generateMetadata(props: {
       ],
     },
     twitter: {
-      title: `SmootUI — ${componentTitle}`,
+      title: `SmoothUI — ${componentTitle}`,
       description: `Navigate to ${componentTitle} component, which will make your application smooth.`,
       card: "summary_large_image",
       images: [
@@ -98,11 +93,11 @@ export default async function ComponentPage(props: {
     notFound()
   }
 
-  const filePath = `./src/app/doc/_components/smoothui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
+  const filePath = `./src/components/smoothui/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
   const code = await readFilePath(filePath)
 
-  const cnPath = `./src/app/utils/cn.ts`
+  const cnPath = `./src/components/smoothui/utils/cn.ts`
   const cnCode = await readFilePath(cnPath)
 
   const currentComponent = basicComponents.indexOf(component)
@@ -112,7 +107,7 @@ export default async function ComponentPage(props: {
   // Try to read the demo file for the usage example
   const demoFilePath = path.join(
     process.cwd(),
-    "src/app/doc/_components/examples",
+    "src/components/smoothui/examples",
     `${component.componentTitle.replace(/\s+/g, "")}Demo.tsx`
   )
   let usageExample = ""

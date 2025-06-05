@@ -1,15 +1,10 @@
 import * as React from "react"
 
-import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
-import { CodeBlock } from "@/app/doc/_components/codeBlock"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/doc/_components/tabs"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { CodeBlock } from "@/components/doc/codeBlock"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 
-import { CodeBlockWrapper } from "./_components/codeBlocKWarapper"
+import { CodeBlockWrapper } from "../../components/doc/codeBlocKWarapper"
 
 export default function GetStartedPage() {
   const tailwindConfig = `@import "tailwindcss";
@@ -88,19 +83,19 @@ export default function GetStartedPage() {
               </TabsTrigger>
               <TabsTrigger
                 value="pnpm"
-                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 pnpm
               </TabsTrigger>
               <TabsTrigger
                 value="yarn"
-                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 yarn
               </TabsTrigger>
               <TabsTrigger
                 value="bun"
-                 className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
               >
                 bun
               </TabsTrigger>
