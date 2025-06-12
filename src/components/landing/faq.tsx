@@ -92,7 +92,7 @@ export function FAQ() {
             <h3 className="text-foreground text-lg font-semibold transition group-hover:text-white">
               {faq.question}
             </h3>
-            <p className="text-primary-foreground group-hover:text-smooth-1000 group-hover: mt-2 transition group-hover:text-white">
+            <p className="text-primary-foreground group-hover: mt-2 transition group-hover:text-white">
               {faq.answer}
             </p>
           </motion.div>
