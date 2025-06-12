@@ -11,6 +11,7 @@ import ExpandableCards from "@/app/doc/_components/ui/ExpandableCards"
 import FluidMorph from "@/app/doc/_components/ui/FluidMorph"
 import ImageMetadataPreview from "@/app/doc/_components/ui/ImageMetadataPreview"
 import InteractiveImageSelector from "@/app/doc/_components/ui/InteractiveImageSelector"
+import InteractiveTimeline from "@/app/doc/_components/ui/InteractiveTimeline"
 import JobListingComponent from "@/app/doc/_components/ui/JobListingComponent"
 import MatrixCard from "@/app/doc/_components/ui/MatrixCard"
 import NumberFlow from "@/app/doc/_components/ui/NumberFlow"
@@ -266,5 +267,20 @@ export const components: ComponentsProps[] = [
     cnFunction: false,
     isUpdated: false,
     collection: "notifications",
+  },
+  {
+    id: 16,
+    componentTitle: "Interactive Timeline",
+    slug: "interactive-timeline",
+    type: "block",
+    isNew: true,
+    tags: ["react", "tailwindcss", "motion"],
+    href: "https://x.com/educalvolpz",
+    info: "An interactive timeline component with smooth animations for displaying chronological events. Features include event highlighting, expandable details, and visual indication of event status.",
+    componentUi: InteractiveTimeline,
+    download: "motion lucide-react clsx tailwind-merge",
+    cnFunction: true,
+    isUpdated: false,
+    collection: "data-display",
   },
 ]
