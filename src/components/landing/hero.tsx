@@ -34,7 +34,7 @@ const transitionVariants = {
 export function Hero() {
   return (
     <>
-      <main className="overflow-hidden">
+      <main>
         <section>
           <div className="relative py-24 md:py-36">
             <Rule position="bottom-right" />

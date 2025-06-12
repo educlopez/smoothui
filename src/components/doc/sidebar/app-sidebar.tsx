@@ -26,10 +26,10 @@ export async function AppSidebar({
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5 [&>svg]:size-auto [&>svg]:h-6"
+              className="data-[slot=sidebar-menu-button]:!p-1.5 [&>h1]:text-2xl [&>svg]:size-auto [&>svg]:h-6"
             >
               <Link href="/" title="home" aria-label="Home">
-                <Logo className="h-auto w-auto" />
+                <Logo />
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
