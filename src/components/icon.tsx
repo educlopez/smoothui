@@ -1,12 +1,21 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { motion, useAnimationControls, useSpring } from "motion/react"
+import {
+  motion,
+  useAnimationControls,
+  useMotionValue,
+  useSpring,
+  useTransform,
+} from "motion/react"
 
 export function Icon({ className }: { className?: string }) {
   // Eye logic
   const [mouse, setMouse] = useState({ x: 0, y: 0 })
   const [hasMoved, setHasMoved] = useState(false)
+  const [clickCount, setClickCount] = useState(0)
+  const [lastClickTime, setLastClickTime] = useState(0)
+  const [defeated, setDefeated] = useState(false)
   const svgRef = useRef<SVGSVGElement>(null)
 
   // Animation controls for blinking
@@ -18,6 +27,16 @@ export function Icon({ className }: { className?: string }) {
   const leftEyeY = useSpring(0, { stiffness: 250, damping: 40 })
   const rightEyeX = useSpring(0, { stiffness: 250, damping: 40 })
   const rightEyeY = useSpring(0, { stiffness: 250, damping: 40 })
+
+  // Derived mouth movement (average of eyes, scaled)
+  const mouthX = useTransform(
+    [leftEyeX, rightEyeX],
+    ([lx, rx]: number[]) => ((lx + rx) / 2) * 0.3
+  )
+  const mouthY = useTransform(
+    [leftEyeY, rightEyeY],
+    ([ly, ry]: number[]) => ((ly + ry) / 2) * 0.3
+  )
 
   // Eye centers (from SVG, adjust as needed)
   const leftEyeCenter = { x: 180, y: 445 }
@@ -64,11 +83,14 @@ export function Icon({ className }: { className?: string }) {
   // Blinking logic
   useEffect(() => {
     let timeout: NodeJS.Timeout
+    let mounted = true
     const blink = async () => {
+      if (!mounted) return
       await Promise.all([
         leftEyeControls.start({ scaleY: 0.1 }),
         rightEyeControls.start({ scaleY: 0.1 }),
       ])
+      if (!mounted) return
       await Promise.all([
         leftEyeControls.start({ scaleY: 1 }),
         rightEyeControls.start({ scaleY: 1 }),
@@ -84,7 +106,10 @@ export function Icon({ className }: { className?: string }) {
       )
     }
     schedule()
-    return () => clearTimeout(timeout)
+    return () => {
+      mounted = false
+      clearTimeout(timeout)
+    }
   }, [leftEyeControls, rightEyeControls])
 
   // Remove click-to-blink that causes eye movement
@@ -101,11 +126,34 @@ export function Icon({ className }: { className?: string }) {
     }
     // Only trigger blink on click, not eye movement
     const handleClick = (e: MouseEvent) => {
-      blink()
+      // Defeat logic
+      const now = Date.now()
+      if (now - lastClickTime < 2000) {
+        setClickCount((prev) => prev + 1)
+      } else {
+        setClickCount(1)
+      }
+      setLastClickTime(now)
+      if (!defeated && clickCount + 1 >= 5) {
+        setDefeated(true)
+      } else if (!defeated) {
+        blink()
+      }
     }
     window.addEventListener("click", handleClick)
     return () => window.removeEventListener("click", handleClick)
-  }, [leftEyeControls, rightEyeControls])
+  }, [leftEyeControls, rightEyeControls, clickCount, lastClickTime, defeated])
+
+  // Defeat state reset
+  useEffect(() => {
+    if (defeated) {
+      const timeout = setTimeout(() => {
+        setDefeated(false)
+        setClickCount(0)
+      }, 2000)
+      return () => clearTimeout(timeout)
+    }
+  }, [defeated])
 
   return (
     <svg
@@ -129,55 +177,120 @@ export function Icon({ className }: { className?: string }) {
           fill="inherit"
           className="fill-foreground"
         />
-        <path
-          d="M301.208 509.132C304.581 509.323 307.565 509.871 310.297 512.002C313.585 514.565 315.477 519.073 315.92 523.137C316.498 528.457 314.171 532.898 310.853 536.876C296.839 553.678 276.572 563.208 254.962 565.077C230.563 567.187 202.779 560.379 183.911 544.389C178.964 539.674 173.099 534.233 171.671 527.265C170.882 523.417 171.468 519.242 173.719 515.974C176.125 512.478 180.085 510.193 184.248 509.545C194.403 507.966 199.794 518.141 207.048 523.301C225.703 536.574 257.288 539.085 276.83 526.401C285.061 521.058 291.219 510.839 301.208 509.132Z"
-          fill="inherit"
-          className="fill-background"
-        />
+        {/* Mouth */}
+        {!defeated ? (
+          <motion.path
+            d="M301.208 509.132C304.581 509.323 307.565 509.871 310.297 512.002C313.585 514.565 315.477 519.073 315.92 523.137C316.498 528.457 314.171 532.898 310.853 536.876C296.839 553.678 276.572 563.208 254.962 565.077C230.563 567.187 202.779 560.379 183.911 544.389C178.964 539.674 173.099 534.233 171.671 527.265C170.882 523.417 171.468 519.242 173.719 515.974C176.125 512.478 180.085 510.193 184.248 509.545C194.403 507.966 199.794 518.141 207.048 523.301C225.703 536.574 257.288 539.085 276.83 526.401C285.061 521.058 291.219 510.839 301.208 509.132Z"
+            fill="inherit"
+            className="fill-background"
+            style={{
+              x: mouthX,
+              y: mouthY,
+            }}
+          />
+        ) : (
+          <circle
+            cx={245}
+            cy={540}
+            r={28}
+            fill="inherit"
+            className="fill-background"
+            stroke="inherit"
+            strokeWidth={8}
+          />
+        )}
         {/* Left Eye (cartoon style, fixed blink origin) */}
-        <motion.circle
-          cx={leftEyeCenter.x}
-          cy={leftEyeCenter.y}
-          r="28"
-          fill="inherit"
-          className="fill-background"
-          animate={leftEyeControls}
-          transition={{ duration: 0.08 }}
-          style={{
-            x: leftEyeX,
-            y: leftEyeY,
-            originX: leftEyeCenter.x,
-            originY: leftEyeCenter.y,
-          }}
-        />
+        {!defeated && (
+          <motion.circle
+            cx={leftEyeCenter.x}
+            cy={leftEyeCenter.y}
+            r="28"
+            fill="inherit"
+            className="fill-background"
+            animate={leftEyeControls}
+            transition={{ duration: 0.08 }}
+            style={{
+              x: leftEyeX,
+              y: leftEyeY,
+              originX: leftEyeCenter.x,
+              originY: leftEyeCenter.y,
+            }}
+          />
+        )}
         {/* Right Eye (cartoon style, fixed blink origin) */}
-        <motion.circle
-          cx={rightEyeCenter.x}
-          cy={rightEyeCenter.y}
-          r="28"
-          fill="inherit"
-          className="fill-background"
-          animate={rightEyeControls}
-          transition={{ duration: 0.08 }}
-          style={{
-            x: rightEyeX,
-            y: rightEyeY,
-            originX: rightEyeCenter.x,
-            originY: rightEyeCenter.y,
-          }}
-        />
-        <path
-          d="M307.709 405.123C314.346 404.541 320.394 405.835 326.093 409.354C334.084 414.288 339.317 423.196 341.376 432.198C343.849 442.804 341.992 453.958 336.217 463.191C331.195 471.077 324.192 475.432 315.206 477.493C308.604 478.749 300.942 476.467 295.388 472.848C287.39 467.636 282.337 458.932 280.504 449.675C278.458 439.341 280.342 427.962 286.258 419.159C291.448 411.438 298.645 406.897 307.709 405.123Z"
-          fill="inherit"
-          className="fill-foreground"
-          opacity="0"
-        />
-        <path
-          d="M174.062 405.083C180.361 404.607 186.372 405.917 191.76 409.298C199.945 414.433 204.905 423.092 207.018 432.357C209.364 442.65 207.762 453.768 202.077 462.733C196.937 470.839 190.013 475.238 180.738 477.364C173.829 478.527 167.036 476.84 161.18 473.03C153.033 467.728 147.891 458.524 146.052 449.138C144.027 438.728 146.189 427.939 152.07 419.113C157.445 411.152 164.75 406.9 174.062 405.083Z"
-          fill="inherit"
-          className="fill-foreground"
-          opacity="0"
-        />
+        {!defeated && (
+          <motion.circle
+            cx={rightEyeCenter.x}
+            cy={rightEyeCenter.y}
+            r="28"
+            fill="inherit"
+            className="fill-background"
+            animate={rightEyeControls}
+            transition={{ duration: 0.08 }}
+            style={{
+              x: rightEyeX,
+              y: rightEyeY,
+              originX: rightEyeCenter.x,
+              originY: rightEyeCenter.y,
+            }}
+          />
+        )}
+        {/* Defeated Eyes (X) */}
+        {defeated && (
+          <g>
+            {/* Left Eye X */}
+            <motion.line
+              x1={leftEyeCenter.x - 32}
+              y1={leftEyeCenter.y - 32}
+              x2={leftEyeCenter.x + 32}
+              y2={leftEyeCenter.y + 32}
+              stroke="inherit"
+              className="stroke-background"
+              strokeWidth={18}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.line
+              x1={leftEyeCenter.x + 32}
+              y1={leftEyeCenter.y - 32}
+              x2={leftEyeCenter.x - 32}
+              y2={leftEyeCenter.y + 32}
+              stroke="inherit"
+              className="stroke-background"
+              strokeWidth={18}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+            />
+            {/* Right Eye X */}
+            <motion.line
+              x1={rightEyeCenter.x - 32}
+              y1={rightEyeCenter.y - 32}
+              x2={rightEyeCenter.x + 32}
+              y2={rightEyeCenter.y + 32}
+              stroke="inherit"
+              className="stroke-background"
+              strokeWidth={18}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.2 }}
+            />
+            <motion.line
+              x1={rightEyeCenter.x + 32}
+              y1={rightEyeCenter.y - 32}
+              x2={rightEyeCenter.x - 32}
+              y2={rightEyeCenter.y + 32}
+              stroke="inherit"
+              className="stroke-background"
+              strokeWidth={18}
+              initial={{ pathLength: 0 }}
+              animate={{ pathLength: 1 }}
+              transition={{ duration: 0.2, delay: 0.1 }}
+            />
+          </g>
+        )}
+
         <path
           d="M231.559 131.695C239.765 130.96 248.367 132.266 256.208 134.712C288.137 144.672 297.145 171.777 322.489 190.569C343.249 205.963 363.832 209.487 388.419 214.014C396.65 215.53 405.078 217.043 412.783 220.421C421.586 224.281 424.535 228.643 427.979 237.395C378.308 252.268 310.496 254.053 258.517 254.392C198.181 255.731 119.461 253.42 61.3892 237.673C63.8222 230.295 67.4112 222.304 72.3122 216.249C80.9522 205.572 95.0912 197.139 108.156 193.246C115.44 191.076 123.015 189.921 130.323 187.787C138.192 185.482 145.809 182.389 153.058 178.555C159.801 174.966 166.358 170.939 172.234 166.042C194.026 147.881 199.803 134.946 231.559 131.695Z"
           fill="inherit"

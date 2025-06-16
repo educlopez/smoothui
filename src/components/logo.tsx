@@ -12,7 +12,7 @@ export default function Logo({
 }) {
   return (
     <>
-      <Icon className={cn("w-6", classNameIcon)} />
+      <Icon className={cn("h-8", classNameIcon)} />
       <span
         className={cn(
           "font-title text-foreground text-center text-3xl font-bold transition",
