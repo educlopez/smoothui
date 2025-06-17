@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react"
 import {
   motion,
   useAnimationControls,
-  useMotionValue,
   useSpring,
   useTransform,
 } from "motion/react"
@@ -16,6 +15,9 @@ export function Icon({ className }: { className?: string }) {
   const [clickCount, setClickCount] = useState(0)
   const [lastClickTime, setLastClickTime] = useState(0)
   const [defeated, setDefeated] = useState(false)
+  const [petted, setPetted] = useState(false)
+  const [petDirections, setPetDirections] = useState<number[]>([])
+  const [lastPetX, setLastPetX] = useState<number | null>(null)
   const svgRef = useRef<SVGSVGElement>(null)
 
   // Animation controls for blinking
@@ -155,8 +157,59 @@ export function Icon({ className }: { className?: string }) {
     }
   }, [defeated])
 
+  // Petting logic: detect 5 rapid left-right changes over SVG
+  useEffect(() => {
+    if (!svgRef.current) return
+    let mounted = true
+    const handleMove = (e: MouseEvent) => {
+      if (!svgRef.current || defeated) return
+      const svgRect = svgRef.current.getBoundingClientRect()
+      if (
+        e.clientX < svgRect.left ||
+        e.clientX > svgRect.right ||
+        e.clientY < svgRect.top ||
+        e.clientY > svgRect.bottom
+      ) {
+        setLastPetX(null)
+        setPetDirections([])
+        return
+      }
+      if (lastPetX !== null) {
+        const dir = e.clientX > lastPetX ? 1 : -1
+        setPetDirections((prev) => {
+          if (prev.length === 0 || prev[prev.length - 1] !== dir) {
+            const now = Date.now()
+            const filtered = prev.filter((_, i) => now - prev[i] < 3000)
+            if (filtered.length >= 2 && !petted) {
+              setPetted(true)
+              return []
+            }
+            return [...filtered, now, dir]
+          }
+          return prev
+        })
+      }
+      setLastPetX(e.clientX)
+    }
+    window.addEventListener("mousemove", handleMove)
+    return () => {
+      mounted = false
+      window.removeEventListener("mousemove", handleMove)
+    }
+  }, [petted, defeated, lastPetX])
+
+  // Cuando petted se activa, lo desactivamos tras la duración real de la animación (1.4s)
+  useEffect(() => {
+    if (petted) {
+      const timeout = setTimeout(() => {
+        setPetted(false)
+      }, 1400) // 0.7s * 2 repeticiones = 1.4s
+      return () => clearTimeout(timeout)
+    }
+  }, [petted])
+
   return (
-    <svg
+    <motion.svg
       ref={svgRef}
       width="536"
       height="703"
@@ -165,6 +218,12 @@ export function Icon({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       style={{ display: "block" }}
+      animate={petted && !defeated ? { y: [0, -18, 0, -8, 0] } : { y: 0 }}
+      transition={
+        petted && !defeated
+          ? { duration: 0.7, times: [0, 0.2, 0.5, 0.7, 1], repeat: 2 }
+          : {}
+      }
     >
       <g clipPath="url(#clip0_42_2)">
         <path
@@ -178,17 +237,7 @@ export function Icon({ className }: { className?: string }) {
           className="fill-foreground"
         />
         {/* Mouth */}
-        {!defeated ? (
-          <motion.path
-            d="M301.208 509.132C304.581 509.323 307.565 509.871 310.297 512.002C313.585 514.565 315.477 519.073 315.92 523.137C316.498 528.457 314.171 532.898 310.853 536.876C296.839 553.678 276.572 563.208 254.962 565.077C230.563 567.187 202.779 560.379 183.911 544.389C178.964 539.674 173.099 534.233 171.671 527.265C170.882 523.417 171.468 519.242 173.719 515.974C176.125 512.478 180.085 510.193 184.248 509.545C194.403 507.966 199.794 518.141 207.048 523.301C225.703 536.574 257.288 539.085 276.83 526.401C285.061 521.058 291.219 510.839 301.208 509.132Z"
-            fill="inherit"
-            className="fill-background"
-            style={{
-              x: mouthX,
-              y: mouthY,
-            }}
-          />
-        ) : (
+        {defeated ? (
           <circle
             cx={245}
             cy={540}
@@ -198,9 +247,30 @@ export function Icon({ className }: { className?: string }) {
             stroke="inherit"
             strokeWidth={8}
           />
+        ) : petted ? (
+          <motion.path
+            d="M180 550 Q245 600 310 550"
+            fill="none"
+            stroke="inherit"
+            className="stroke-background"
+            strokeWidth={28}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.5 }}
+          />
+        ) : (
+          <motion.path
+            d="M301.208 509.132C304.581 509.323 307.565 509.871 310.297 512.002C313.585 514.565 315.477 519.073 315.92 523.137C316.498 528.457 314.171 532.898 310.853 536.876C296.839 553.678 276.572 563.208 254.962 565.077C230.563 567.187 202.779 560.379 183.911 544.389C178.964 539.674 173.099 534.233 171.671 527.265C170.882 523.417 171.468 519.242 173.719 515.974C176.125 512.478 180.085 510.193 184.248 509.545C194.403 507.966 199.794 518.141 207.048 523.301C225.703 536.574 257.288 539.085 276.83 526.401C285.061 521.058 291.219 510.839 301.208 509.132Z"
+            fill="inherit"
+            className="fill-background"
+            style={{
+              x: mouthX,
+              y: mouthY,
+            }}
+          />
         )}
         {/* Left Eye (cartoon style, fixed blink origin) */}
-        {!defeated && (
+        {!defeated && !petted && (
           <motion.circle
             cx={leftEyeCenter.x}
             cy={leftEyeCenter.y}
@@ -217,8 +287,21 @@ export function Icon({ className }: { className?: string }) {
             }}
           />
         )}
+        {/* Left Eye Happy Arc */}
+        {petted && !defeated && (
+          <motion.path
+            d={`M${leftEyeCenter.x - 32} ${leftEyeCenter.y} Q${leftEyeCenter.x} ${leftEyeCenter.y + 32} ${leftEyeCenter.x + 32} ${leftEyeCenter.y}`}
+            fill="none"
+            stroke="inherit"
+            className="stroke-background"
+            strokeWidth={28}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.4 }}
+          />
+        )}
         {/* Right Eye (cartoon style, fixed blink origin) */}
-        {!defeated && (
+        {!defeated && !petted && (
           <motion.circle
             cx={rightEyeCenter.x}
             cy={rightEyeCenter.y}
@@ -233,6 +316,19 @@ export function Icon({ className }: { className?: string }) {
               originX: rightEyeCenter.x,
               originY: rightEyeCenter.y,
             }}
+          />
+        )}
+        {/* Right Eye Happy Arc */}
+        {petted && !defeated && (
+          <motion.path
+            d={`M${rightEyeCenter.x - 32} ${rightEyeCenter.y} Q${rightEyeCenter.x} ${rightEyeCenter.y + 32} ${rightEyeCenter.x + 32} ${rightEyeCenter.y}`}
+            fill="none"
+            stroke="inherit"
+            className="stroke-background"
+            strokeWidth={28}
+            initial={{ pathLength: 0 }}
+            animate={{ pathLength: 1 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
           />
         )}
         {/* Defeated Eyes (X) */}
@@ -307,6 +403,6 @@ export function Icon({ className }: { className?: string }) {
           className="fill-foreground"
         />
       </g>
-    </svg>
+    </motion.svg>
   )
 }

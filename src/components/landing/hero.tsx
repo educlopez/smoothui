@@ -73,10 +73,7 @@ export function Hero() {
                   className="mt-12 flex flex-col items-center justify-center gap-2 md:flex-row"
                 >
                   <Button variant="candy" asChild>
-                    <Link href="/doc">
-                      Get Started
-                      <ArrowRight className="transition-transform group-hover:translate-x-1" />
-                    </Link>
+                    <Link href="/doc">Get Started</Link>
                   </Button>
                   <GithubStars />
                 </AnimatedGroup>
