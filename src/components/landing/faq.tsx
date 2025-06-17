@@ -85,7 +85,7 @@ export function FAQ() {
             key={faq.question}
             variants={item}
             className={cn(
-              "hover:gradient-candy group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
+              "hover:gradient-brand group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
               "shadow-custom"
             )}
           >

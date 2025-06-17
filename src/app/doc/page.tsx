@@ -77,25 +77,25 @@ export default function GetStartedPage() {
             <TabsList className="text-primary-foreground bg-primary border">
               <TabsTrigger
                 value="npm"
-                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
               >
                 npm
               </TabsTrigger>
               <TabsTrigger
                 value="pnpm"
-                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
               >
                 pnpm
               </TabsTrigger>
               <TabsTrigger
                 value="yarn"
-                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
               >
                 yarn
               </TabsTrigger>
               <TabsTrigger
                 value="bun"
-                className="data-[state=active]:bg-candy-secondary data-[state=active]:shadow-custom-candy data-[state=active]:border-none data-[state=active]:text-white"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
               >
                 bun
               </TabsTrigger>

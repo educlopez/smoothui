@@ -19,7 +19,7 @@ export default function Logo({
           className
         )}
       >
-        Smooth<span className="text-candy">UI</span>
+        Smooth<span className="text-brand">UI</span>
       </span>
     </>
   )

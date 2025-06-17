@@ -63,7 +63,7 @@ export function Features() {
         className="font-title text-foreground text-center text-3xl font-bold transition"
         variants={item}
       >
-        Why Choose Smooth<span className="text-candy">UI</span>?
+        Why Choose Smooth<span className="text-brand">UI</span>?
       </motion.h2>
       <div className="mt-16 grid gap-8 px-4 md:grid-cols-3">
         {features.map((feature) => (
@@ -71,11 +71,11 @@ export function Features() {
             key={feature.title}
             variants={item}
             className={cn(
-              "hover:gradient-candy group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
+              "hover:gradient-brand group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
               "shadow-custom"
             )}
           >
-            <feature.icon className="text-candy mb-4 h-8 w-8 transition group-hover:text-white" />
+            <feature.icon className="text-brand mb-4 h-8 w-8 transition group-hover:text-white" />
             <h3 className="text-foreground mb-2 text-xl font-semibold transition group-hover:text-white">
               {feature.title}
             </h3>

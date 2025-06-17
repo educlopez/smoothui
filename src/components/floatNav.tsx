@@ -26,7 +26,7 @@ export function FloatNav() {
               aria-label="Visit X Profile of educalvolpz"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground hover:text-candy flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+              className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
             >
               <svg
                 width="20"
@@ -56,7 +56,7 @@ export function FloatNav() {
               aria-label="Visit GitHub Repository"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-foreground hover:text-candy flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+              className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
             >
               <Github size={20} aria-hidden="true" />
             </Link>
@@ -71,7 +71,7 @@ export function FloatNav() {
             <Link
               href="/doc"
               aria-label="Documentation"
-              className="hover:text-candy text-foreground flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+              className="hover:text-brand text-foreground flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
             >
               <Component size={20} aria-hidden="true" />
             </Link>

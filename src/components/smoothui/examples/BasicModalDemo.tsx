@@ -45,7 +45,7 @@ const ModalDemo = () => {
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="bg-candy hover:bg-candy-secondary rounded-lg px-4 py-2 text-white transition-colors"
+              className="bg-brand hover:bg-brand-secondary rounded-lg px-4 py-2 text-white transition-colors"
             >
               Confirm
             </button>

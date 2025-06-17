@@ -20,7 +20,7 @@ const buttonVariants = cva(
         ghost: "hover:bg-background hover:text-foreground hover:shadow-custom",
         link: "text-primary underline-offset-4 hover:underline",
         candy:
-          "hover:from-candy-secondary hover:to-candy-secondary bg-gradient-to-b from-candy text-shadow-sm to-candy-secondary text-white shadow-custom-candy",
+          "hover:from-brand-secondary hover:to-brand-secondary bg-gradient-to-b from-brand text-shadow-sm to-brand-secondary text-white shadow-custom-brand",
       },
       size: {
         default: "h-10 px-4 py-2",

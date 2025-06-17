@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="flex items-center gap-6">
           <Link
             href="/doc"
-            className="hover:text-candy text-sm font-medium transition-colors"
+            className="hover:text-brand text-sm font-medium transition-colors"
           >
             Docs
           </Link>
@@ -22,7 +22,7 @@ export default function Navbar() {
             href="https://github.com/educlopez/smoothui/issues"
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:text-candy flex items-center gap-1 text-sm font-medium transition-colors"
+            className="hover:text-brand flex items-center gap-1 text-sm font-medium transition-colors"
           >
             <Github size={18} /> Issues
           </Link>

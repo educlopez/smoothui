@@ -50,7 +50,7 @@ export default function ToastChangelog() {
       <BellDot
         size={20}
         onClick={handleClick}
-        className={`hover:text-candy text-foreground ${isToastOpen ? "text-candy cursor-not-allowed" : "cursor-pointer"}`}
+        className={`hover:text-brand text-foreground ${isToastOpen ? "text-brand cursor-not-allowed" : "cursor-pointer"}`}
       />
     </div>
   )

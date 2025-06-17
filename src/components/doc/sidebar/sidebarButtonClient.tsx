@@ -33,7 +33,7 @@ export function SidebarButtonClient({
       className={cn(
         "text-foreground group/link hover:bg-primary relative z-0 flex w-full cursor-pointer items-center justify-between gap-[6px] rounded-md p-2 text-xs ease-in-out",
         isActive
-          ? "bg-background text-candy z-0 border font-medium"
+          ? "bg-background text-brand z-0 border font-medium"
           : "text-foreground hover:bg-background"
       )}
     >

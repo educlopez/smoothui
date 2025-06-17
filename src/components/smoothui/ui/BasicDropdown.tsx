@@ -100,7 +100,7 @@ export default function BasicDropdown({
                     onClick={() => handleItemSelect(item)}
                     className={`flex w-full items-center px-4 py-2 text-left text-sm ${
                       selectedItem?.id === item.id
-                        ? "text-candy font-medium"
+                        ? "text-brand font-medium"
                         : ""
                     }`}
                   >
@@ -119,7 +119,7 @@ export default function BasicDropdown({
                         }}
                       >
                         <svg
-                          className="text-candy h-4 w-4"
+                          className="text-brand h-4 w-4"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

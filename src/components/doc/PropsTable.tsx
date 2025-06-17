@@ -35,7 +35,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
           <React.Fragment key={prop.name}>
             <tr className="border-t">
               <td className="px-4 py-2 align-top">
-                <span className="text-candy bg-background inline-block rounded border px-2 py-0.5 font-mono text-xs">
+                <span className="text-brand bg-background inline-block rounded border px-2 py-0.5 font-mono text-xs">
                   {prop.name}
                   {prop.required ? "" : "?"}
                 </span>
@@ -70,7 +70,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
                         <tbody>
                           {prop.fields.map((field) => (
                             <tr key={field.name} className="border-t">
-                              <td className="text-candy bg-background px-2 py-1 font-mono">
+                              <td className="text-brand bg-background px-2 py-1 font-mono">
                                 {field.name}
                               </td>
                               <td className="text-foreground bg-background px-2 py-1 font-mono">

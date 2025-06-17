@@ -23,7 +23,7 @@ export const ThemeSwitch = () => {
 
   return (
     <div
-      className="text-foreground hover:text-candy flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+      className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
       aria-label={mounted ? `Switch to ${otherTheme} theme` : "Toggle theme"}
       onClick={handleButtonClick}
     >

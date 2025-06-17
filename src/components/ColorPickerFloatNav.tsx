@@ -9,7 +9,7 @@ import { Button } from "./button"
 // Helper to update shadow when secondary color changes
 function updateShadowCustomCandy(candySecondary: string) {
   document.body.style.setProperty(
-    "--shadow-custom-candy",
+    "--shadow-custom-brand",
     `0px 1px 2px #0006, 0px 0px 0px 1px ${candySecondary}, inset 0px .75px 0px #fff3`
   )
 }
@@ -54,9 +54,9 @@ export function ColorPickerFloatNav() {
         const { candy, candySecondary } = JSON.parse(saved)
         setCandy(candy)
         setCandySecondary(candySecondary)
-        document.body.style.setProperty("--color-candy", candy)
+        document.body.style.setProperty("--color-brand", candy)
         document.body.style.setProperty(
-          "--color-candy-secondary",
+          "--color-brand-secondary",
           candySecondary
         )
         updateShadowCustomCandy(candySecondary)
@@ -66,10 +66,10 @@ export function ColorPickerFloatNav() {
       } catch {}
     }
     const c = getComputedStyle(document.body)
-      .getPropertyValue("--color-candy")
+      .getPropertyValue("--color-brand")
       .trim()
     const cs = getComputedStyle(document.body)
-      .getPropertyValue("--color-candy-secondary")
+      .getPropertyValue("--color-brand-secondary")
       .trim()
     setCandy(c)
     setCandySecondary(cs)
@@ -106,8 +106,8 @@ export function ColorPickerFloatNav() {
 
   function handleColorChange(variable: string, value: string) {
     document.body.style.setProperty(variable, value)
-    if (variable === "--color-candy") setCandy(value)
-    if (variable === "--color-candy-secondary") {
+    if (variable === "--color-brand") setCandy(value)
+    if (variable === "--color-brand-secondary") {
       setCandySecondary(value)
       updateShadowCustomCandy(value)
     }
@@ -116,18 +116,18 @@ export function ColorPickerFloatNav() {
   function handleReset() {
     setCandy(originalCandy)
     setCandySecondary(originalCandySecondary)
-    document.body.style.setProperty("--color-candy", originalCandy)
+    document.body.style.setProperty("--color-brand", originalCandy)
     document.body.style.setProperty(
-      "--color-candy-secondary",
+      "--color-brand-secondary",
       originalCandySecondary
     )
     updateShadowCustomCandy(originalCandySecondary)
     localStorage.removeItem("smoothui-colors")
     const c = getComputedStyle(document.body)
-      .getPropertyValue("--color-candy")
+      .getPropertyValue("--color-brand")
       .trim()
     const cs = getComputedStyle(document.body)
-      .getPropertyValue("--color-candy-secondary")
+      .getPropertyValue("--color-brand-secondary")
       .trim()
     setOriginalCandy(c)
     setOriginalCandySecondary(cs)
@@ -158,7 +158,7 @@ export function ColorPickerFloatNav() {
     <div className="relative" ref={pickerRef}>
       <button
         aria-label="Open color picker"
-        className="shadow-custom-candy flex h-5 w-5 cursor-pointer items-center gap-1 overflow-hidden rounded-sm border transition-all duration-200"
+        className="shadow-custom-brand flex h-5 w-5 cursor-pointer items-center gap-1 overflow-hidden rounded-sm border transition-all duration-200"
         style={{
           background: `linear-gradient(90deg, ${candy} 60%, ${candySecondary} 100%)`,
         }}
@@ -189,7 +189,7 @@ export function ColorPickerFloatNav() {
               {/* Default palette */}
               <motion.button
                 type="button"
-                className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${candy === originalCandy && candySecondary === originalCandySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
+                className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${candy === originalCandy && candySecondary === originalCandySecondary ? "shadow-custom-brand cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
                 style={{
                   background: `linear-gradient(135deg, ${originalCandy} 60%, ${originalCandySecondary} 100%)`,
                 }}
@@ -197,11 +197,11 @@ export function ColorPickerFloatNav() {
                   setCandy(originalCandy)
                   setCandySecondary(originalCandySecondary)
                   document.body.style.setProperty(
-                    "--color-candy",
+                    "--color-brand",
                     originalCandy
                   )
                   document.body.style.setProperty(
-                    "--color-candy-secondary",
+                    "--color-brand-secondary",
                     originalCandySecondary
                   )
                   updateShadowCustomCandy(originalCandySecondary)
@@ -242,7 +242,7 @@ export function ColorPickerFloatNav() {
                 <motion.button
                   key={palette.name}
                   type="button"
-                  className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "shadow-custom-candy cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
+                  className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "shadow-custom-brand cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
                   style={{
                     background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,
                   }}
@@ -250,11 +250,11 @@ export function ColorPickerFloatNav() {
                     setCandy(palette.candy)
                     setCandySecondary(palette.candySecondary)
                     document.body.style.setProperty(
-                      "--color-candy",
+                      "--color-brand",
                       palette.candy
                     )
                     document.body.style.setProperty(
-                      "--color-candy-secondary",
+                      "--color-brand-secondary",
                       palette.candySecondary
                     )
                     updateShadowCustomCandy(palette.candySecondary)

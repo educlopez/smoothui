@@ -38,7 +38,7 @@ export default function AnimatedNumber({
     value > 999 ? (displayValue / 1000).toFixed(1) + "K" : displayValue
 
   return (
-    <span className="to-candy-secondary from-candy flex flex-row items-center justify-center gap-1 rounded-full bg-gradient-to-bl px-2 py-0.5 text-white">
+    <span className="to-brand-secondary from-brand flex flex-row items-center justify-center gap-1 rounded-full bg-gradient-to-bl px-2 py-0.5 text-white">
       <Star className="size-3" />
       {formatted}
     </span>

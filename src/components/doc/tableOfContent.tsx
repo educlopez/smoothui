@@ -107,7 +107,7 @@ export default function TableOfContent() {
                 {heading.id === activeId && (
                   <motion.div
                     aria-hidden="true"
-                    className="bg-candy absolute left-0 h-5 w-[3px] -translate-x-[10px] rounded-full"
+                    className="bg-brand absolute left-0 h-5 w-[3px] -translate-x-[10px] rounded-full"
                     transition={{
                       type: "spring",
                       stiffness: 300,

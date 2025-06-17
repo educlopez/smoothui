@@ -33,7 +33,7 @@ export function SidebarButton({
       className={cn(
         "group relative mt-1 rounded-lg px-2 py-1.5 text-sm font-normal select-none",
         isActive
-          ? "bg-background text-candy z-0 border font-medium"
+          ? "bg-background text-brand z-0 border font-medium"
           : "text-foreground hover:bg-background"
       )}
     >
