@@ -51,9 +51,9 @@ function findHookImports(sourceCode: string): string[] {
 }
 
 function findComponentImports(sourceCode: string): string[] {
-  // MAtch static imports from @/app/doc/_components/smoothui
+  // Match static imports from @/components/smoothui/ui or @/components/smoothui/examples
   const componentImportRegex =
-    /import\s+([^'"]+?)\s+from\s+['"]@\/app\/doc\/(_components|examples)\/ui\/([^'"]+)['"]/g
+    /import\s+([^'"]+?)\s+from\s+['"]@\/components\/smoothui\/(ui|examples)\/([^'"]+)['"]/g
   const components: string[] = []
   let match
 
@@ -82,7 +82,7 @@ function findComponentImports(sourceCode: string): string[] {
 
 function findDynamicComponentImports(sourceCode: string): string[] {
   const dynamicImportRegex =
-    /dynamic\(\s*\(\)\s*=>\s*import\(\s*['"]@\/app\/doc\/(_components|examples)\/smoothui\/([^'"]+)['"]\s*\)/g
+    /dynamic\(\s*\(\)\s*=>\s*import\(\s*['"]@\/components\/smoothui\/(ui|examples)\/([^'"]+)['"]\s*\)/g
   const dynComponents: string[] = []
   let match
 
@@ -251,6 +251,25 @@ function generateRegistryItem(
   // Find component dependencies
   const componentDeps = findComponentImports(sourceCode)
   const externalDeps = new Set(findExternalDependencies(sourceCode))
+
+  // If this is an example (demo), add the original component files to the files array
+  if (type === "example" && componentDeps.length > 0) {
+    componentDeps.forEach((dep) => {
+      // Only add if not already present in files
+      if (!files.some((f) => f.path === dep)) {
+        files.push({
+          path: dep,
+          type: "registry:ui",
+        })
+      }
+    })
+  }
+
+  // Patch: Replace 'motion/react' with 'motion' in dependencies
+  if (externalDeps.has("motion/react")) {
+    externalDeps.delete("motion/react")
+    externalDeps.add("motion")
+  }
 
   // Handle utils dependencies
   const utilDeps = findUtilImports(sourceCode)

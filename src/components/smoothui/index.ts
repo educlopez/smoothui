@@ -15,7 +15,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/AnimatedTags'))
@@ -31,7 +31,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/AppDownloadStack'))
@@ -47,8 +47,8 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react",
-      "popmotion"
+      "popmotion",
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/AppleInvites'))
@@ -64,7 +64,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/BasicAccordion'))
@@ -80,7 +80,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/BasicDropdown'))
@@ -96,8 +96,8 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react",
-      "usehooks-ts"
+      "usehooks-ts",
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/BasicModal'))
@@ -113,7 +113,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/BasicToast'))
@@ -129,7 +129,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/ButtonCopy'))
@@ -145,7 +145,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/DynamicIsland'))
@@ -161,7 +161,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/ExpandableCards'))
@@ -176,7 +176,7 @@ const smoothui: Registry = {
       }
     ],
     "dependencies": [
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/FluidMorph'))
@@ -192,7 +192,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/ImageMetadataPreview'))
@@ -208,7 +208,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/InteractiveImageSelector'))
@@ -223,8 +223,8 @@ const smoothui: Registry = {
       }
     ],
     "dependencies": [
-      "motion/react",
-      "usehooks-ts"
+      "usehooks-ts",
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/JobListingComponent'))
@@ -239,7 +239,7 @@ const smoothui: Registry = {
       }
     ],
     "dependencies": [
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/MatrixCard'))
@@ -270,7 +270,7 @@ const smoothui: Registry = {
     ],
     "dependencies": [
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/PowerOffSlide'))
@@ -285,7 +285,7 @@ const smoothui: Registry = {
       }
     ],
     "dependencies": [
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/SocialSelector'))
@@ -302,7 +302,7 @@ const smoothui: Registry = {
     "dependencies": [
       "@radix-ui/react-popover",
       "lucide-react",
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/ui/UserAccountAvatar'))
@@ -341,7 +341,14 @@ const example: Registry = {
       {
         "path": "examples/AppleInvitesDemo",
         "type": "registry:block"
+      },
+      {
+        "path": "smoothui/apple-invites",
+        "type": "registry:ui"
       }
+    ],
+    "registryDependencies": [
+      "smoothui/apple-invites"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/examples/AppleInvitesDemo'))
@@ -392,7 +399,7 @@ const example: Registry = {
       }
     ],
     "dependencies": [
-      "motion/react"
+      "motion"
     ],
     component: React.lazy(
       () => import('@/components/smoothui/examples/BasicToastDemo'))
@@ -543,7 +550,18 @@ const example: Registry = {
   }
 };
 
-const hooks: Registry = {};
+const hooks: Registry = {
+  "use-mobile": {
+    "name": "use-mobile",
+    "type": "registry:hook",
+    "files": [
+      {
+        "path": "hooks/use-mobile",
+        "type": "registry:hook"
+      }
+    ]
+  }
+};
 
 const utils: Registry = {
   "cn": {
