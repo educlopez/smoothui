@@ -17,6 +17,11 @@ function updateShadowCustomCandy(candySecondary: string) {
 // Predefined palettes
 const PALETTES = [
   {
+    name: "Candy",
+    candy: "oklch(0.72 0.2 352.53)",
+    candySecondary: "oklch(0.66 0.21 354.31)",
+  },
+  {
     name: "Indigo",
     candy: "#A764FF", // vibrant
     candySecondary: "#6E48EC", // darker
@@ -114,21 +119,24 @@ export function ColorPickerFloatNav() {
   }
 
   function handleReset() {
-    setCandy(originalCandy)
-    setCandySecondary(originalCandySecondary)
-    document.body.style.setProperty("--color-brand", originalCandy)
-    document.body.style.setProperty(
-      "--color-brand-secondary",
-      originalCandySecondary
-    )
-    updateShadowCustomCandy(originalCandySecondary)
+    // Remove custom variables so CSS falls back to default
+    document.body.style.removeProperty("--color-brand")
+    document.body.style.removeProperty("--color-brand-secondary")
+    document.body.style.removeProperty("--shadow-custom-brand") // Remove shadow as well
+
+    // Remove from localStorage
     localStorage.removeItem("smoothui-colors")
+
+    // Read the default values from CSS
     const c = getComputedStyle(document.body)
       .getPropertyValue("--color-brand")
       .trim()
     const cs = getComputedStyle(document.body)
       .getPropertyValue("--color-brand-secondary")
       .trim()
+
+    setCandy(c)
+    setCandySecondary(cs)
     setOriginalCandy(c)
     setOriginalCandySecondary(cs)
   }
@@ -186,57 +194,6 @@ export function ColorPickerFloatNav() {
           >
             {/* Minimal palette selector */}
             <div className="mb-2 flex flex-row gap-3">
-              {/* Default palette */}
-              <motion.button
-                type="button"
-                className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${candy === originalCandy && candySecondary === originalCandySecondary ? "shadow-custom-brand cursor-not-allowed border" : "cursor-pointer border border-transparent"}`}
-                style={{
-                  background: `linear-gradient(135deg, ${originalCandy} 60%, ${originalCandySecondary} 100%)`,
-                }}
-                onClick={() => {
-                  setCandy(originalCandy)
-                  setCandySecondary(originalCandySecondary)
-                  document.body.style.setProperty(
-                    "--color-brand",
-                    originalCandy
-                  )
-                  document.body.style.setProperty(
-                    "--color-brand-secondary",
-                    originalCandySecondary
-                  )
-                  updateShadowCustomCandy(originalCandySecondary)
-                }}
-                aria-label="Select Default palette"
-                whileHover={{ scale: 1.08 }}
-                whileTap={{ scale: 0.95 }}
-                animate={
-                  candy === originalCandy &&
-                  candySecondary === originalCandySecondary
-                    ? { scale: 1.12 }
-                    : { scale: 1 }
-                }
-              >
-                <AnimatePresence>
-                  {candy === originalCandy &&
-                    candySecondary === originalCandySecondary && (
-                      <motion.span
-                        className="absolute inset-0 flex items-center justify-center"
-                        initial={{ opacity: 0, scale: 0.7 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.7 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 400,
-                          damping: 30,
-                        }}
-                      >
-                        <span className="rounded-full bg-white/40 p-0.5">
-                          <Check className="h-4 w-4 text-white" />
-                        </span>
-                      </motion.span>
-                    )}
-                </AnimatePresence>
-              </motion.button>
               {/* Other palettes */}
               {PALETTES.map((palette) => (
                 <motion.button
