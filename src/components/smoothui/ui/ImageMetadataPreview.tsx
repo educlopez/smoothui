@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image" // Only if you're using nextjs
 import { ChevronUp, CircleX, Share } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
@@ -50,7 +49,7 @@ export default function ImageMetadataPreview({
         animate={{ y: -bounds.height }}
         className="pointer-events-none overflow-hidden rounded-xl"
       >
-        <Image src={imageSrc} alt={alt} width={300} height={437} />
+        <img src={imageSrc} alt={alt} width={300} height={437} />
       </motion.div>
 
       <div className="relative flex w-full flex-col items-center gap-4">

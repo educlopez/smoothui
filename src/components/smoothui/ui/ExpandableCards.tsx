@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import Image from "next/image" // Only if you're using nextjs
 import { Play } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
@@ -158,7 +157,7 @@ export default function ExpandableCards({
             onClick={() => handleCardClick(card.id)}
           >
             <div className="relative h-full w-[200px]">
-              <Image
+              <img
                 src={card.image || "/placeholder.svg"}
                 alt={card.title}
                 width={200}
@@ -205,7 +204,7 @@ export default function ExpandableCards({
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="bg-primary h-12 w-12 overflow-hidden rounded-full border">
-                          <Image
+                          <img
                             src={card.author.image}
                             alt={card.author.name}
                             width={48}

@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import Image from "next/image"
 import * as Popover from "@radix-ui/react-popover"
 import { Eye, Package, User } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
@@ -152,7 +151,7 @@ export default function UserAccountAvatar({
         <button
           className={`bg-background flex cursor-pointer items-center gap-2 rounded-full border ${className}`}
         >
-          <Image
+          <img
             src={userData.avatar}
             alt="User Avatar"
             width={48}

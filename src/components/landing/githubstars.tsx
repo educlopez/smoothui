@@ -32,8 +32,7 @@ export default async function GithubStars() {
         target="_blank"
         rel="noopener noreferrer"
       >
-        <Github className="size-4" /> Github{" "}
-        <AnimatedNumber value={starCount} />
+        <Github className="size-4" /> <AnimatedNumber value={starCount} />
       </Link>
     </Button>
   )

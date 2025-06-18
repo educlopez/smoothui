@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import Image from "next/image"
 import { Crown } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { wrap } from "popmotion"
@@ -167,13 +166,10 @@ export default function AppleInvites({
               {event.backgroundClassName ? (
                 <div className={`h-full w-full ${event.backgroundClassName}`} />
               ) : event.image ? (
-                <Image
+                <img
                   src={event.image}
                   alt={event.title || ""}
                   className="h-full w-full object-cover"
-                  fill
-                  sizes="(min-width: 640px) 320px, 100vw"
-                  priority
                 />
               ) : null}
               {/* Badge */}
@@ -188,12 +184,10 @@ export default function AppleInvites({
                 {/* Participant Avatars */}
                 <div className="mx-auto mb-2 flex items-center justify-center gap-2">
                   {event.participants?.map((participant, idx) => (
-                    <Image
+                    <img
                       key={idx}
                       src={participant.avatar}
                       alt={`Participant ${idx + 1}`}
-                      width={36}
-                      height={36}
                       className="w-6 rounded-full md:h-9 md:w-9"
                     />
                   ))}

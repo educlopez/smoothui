@@ -1,5 +1,18 @@
 export const changelogEntries = [
   {
+    date: "Jun 18, 2025",
+    changes: [
+      "New Design System",
+      "New Website look",
+      "New mascot called Smoothy",
+      "Props documentation",
+      "Refine shadcn/ui installation",
+      "Color switcher",
+      "New demo components",
+      "First stage for a custom theme for shadcn/ui",
+    ],
+  },
+  {
     date: "Apr 01, 2025",
     changes: ["New Basic Components", "New sidebar"],
   },

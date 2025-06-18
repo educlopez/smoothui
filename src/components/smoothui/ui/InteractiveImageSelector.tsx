@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useState } from "react"
-import Image from "next/image"
 import { Share2, Trash2 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
@@ -159,7 +158,7 @@ export default function InteractiveImageSelector({
               className="relative aspect-square cursor-pointer"
               onClick={() => handleImageClick(img.id)}
             >
-              <Image
+              <img
                 src={img.src}
                 alt={`Image ${img.id}`}
                 className={`h-full w-full rounded-lg object-cover ${
