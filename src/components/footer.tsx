@@ -1,5 +1,6 @@
 import Image from "next/image"
-import AirlumeIcon from "@/assets/images/airlume.png"
+import Link from "next/link"
+// import AirlumeIcon from "@/assets/images/airlume.png"
 import SparkbitesIcon from "@/assets/images/sparkbites.png"
 
 import { Separator } from "@/components/ui/separator"
@@ -10,7 +11,7 @@ export default function Footer() {
       <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
         <p className="text-primary-foreground text-xs">I ALSO BUILD:</p>
         <div className="flex flex-row items-center justify-center gap-2 text-xs md:gap-8">
-          <a
+          <Link
             href="https://sparkbites.dev"
             target="_blank"
             rel="noopener noreferrer"
@@ -29,8 +30,8 @@ export default function Footer() {
                 Inspiration directory for your next project
               </p>
             </div>
-          </a>
-          <a
+          </Link>
+          {/* <Link
             href="https://airlume.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
@@ -49,7 +50,7 @@ export default function Footer() {
                 Viral posts in seconds with AI
               </p>
             </div>
-          </a>
+          </Link> */}
         </div>
       </div>
       <Separator />

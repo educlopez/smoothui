@@ -38,8 +38,8 @@ export default function AnimatedNumber({
     value > 999 ? (displayValue / 1000).toFixed(1) + "K" : displayValue
 
   return (
-    <span className="to-brand-secondary from-brand flex flex-row items-center justify-center gap-1 rounded-full bg-gradient-to-bl px-2 py-0.5 text-white">
-      <Star className="size-3" />
+    <span className="hover:text-brand flex items-center gap-1 text-sm font-medium transition-colors">
+      <Star className="size-4" />
       {formatted}
     </span>
   )

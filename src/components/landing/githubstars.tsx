@@ -26,14 +26,12 @@ async function getRepoStarCount() {
 export default async function GithubStars() {
   const starCount = await getRepoStarCount()
   return (
-    <Button variant="ghost" asChild>
-      <Link
-        href="https://github.com/educlopez/smoothui"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Github className="size-4" /> <AnimatedNumber value={starCount} />
-      </Link>
-    </Button>
+    <Link
+      href="https://github.com/educlopez/smoothui"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <AnimatedNumber value={starCount} />
+    </Link>
   )
 }

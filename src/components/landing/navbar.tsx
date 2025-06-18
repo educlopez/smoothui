@@ -3,6 +3,7 @@ import { Github } from "lucide-react"
 
 import { Icon } from "../icon"
 import Logo from "../logo"
+import GithubStars from "./githubstars"
 
 export default function Navbar() {
   return (
@@ -24,8 +25,9 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="hover:text-brand flex items-center gap-1 text-sm font-medium transition-colors"
           >
-            <Github size={18} /> Issues
+            <Github className="size-4" /> Issues
           </Link>
+          <GithubStars />
         </div>
       </div>
     </nav>
