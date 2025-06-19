@@ -2,7 +2,9 @@
 
 import React, { useState } from "react"
 
-import SocialSelector, { Platform } from "../ui/SocialSelector"
+import SocialSelector, {
+  Platform,
+} from "@/components/smoothui/ui/SocialSelector"
 
 const demoPlatforms: Platform[] = [
   {

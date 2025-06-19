@@ -5,7 +5,7 @@ import JobListingComponent, {
   Resend,
   Supabase,
   Turso,
-} from "../ui/JobListingComponent"
+} from "@/components/smoothui/ui/JobListingComponent"
 
 const jobs: Job[] = [
   {

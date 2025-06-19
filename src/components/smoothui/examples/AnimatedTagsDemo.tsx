@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import AnimatedTags from "../ui/AnimatedTags"
+import AnimatedTags from "@/components/smoothui/ui/AnimatedTags"
 
 const initialTags = [
   "react",

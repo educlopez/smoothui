@@ -2,7 +2,9 @@
 
 import React, { useState } from "react"
 
-import DynamicIsland, { DynamicIslandProps } from "../ui/DynamicIsland"
+import DynamicIsland, {
+  DynamicIslandProps,
+} from "@/components/smoothui/ui/DynamicIsland"
 
 const DynamicIslandDemo = () => {
   const [view, setView] = useState<DynamicIslandProps["view"]>("idle")

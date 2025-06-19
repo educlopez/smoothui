@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import ButtonCopy from "../ui/ButtonCopy"
+import ButtonCopy from "@/components/smoothui/ui/ButtonCopy"
 
 const ButtonCopyDemo = () => {
   return (

@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import MatrixCard from "../ui/MatrixCard"
+import MatrixCard from "@/components/smoothui/ui/MatrixCard"
 
 const MatrixCardDemo = () => {
   return (

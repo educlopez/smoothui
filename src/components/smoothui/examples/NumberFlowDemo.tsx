@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import NumberFlow from "../ui/NumberFlow"
+import NumberFlow from "@/components/smoothui/ui/NumberFlow"
 
 const NumberFlowDemo = () => {
   const [value, setValue] = useState(0)

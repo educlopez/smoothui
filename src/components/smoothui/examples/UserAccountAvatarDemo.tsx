@@ -2,7 +2,10 @@
 
 import React, { useState } from "react"
 
-import UserAccountAvatar, { Order, UserData } from "../ui/UserAccountAvatar"
+import UserAccountAvatar, {
+  Order,
+  UserData,
+} from "@/components/smoothui/ui/UserAccountAvatar"
 
 const demoUser: UserData = {
   name: "Jane Doe",

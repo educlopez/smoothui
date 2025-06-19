@@ -4,7 +4,7 @@ import React, { useState } from "react"
 
 import InteractiveImageSelector, {
   ImageData,
-} from "../ui/InteractiveImageSelector"
+} from "@/components/smoothui/ui/InteractiveImageSelector"
 
 const demoImages: ImageData[] = [
   {

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import FluidMorph from "../ui/FluidMorph"
+import FluidMorph from "@/components/smoothui/ui/FluidMorph"
 
 const demoPaths = [
   "M128 40L230 215.766H26L128 40Z",
