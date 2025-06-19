@@ -10,8 +10,11 @@ import Footer from "../../components/footer"
 
 export const metadata: Metadata = {
   title: {
-    default: "SmoothUI",
+    default: "Documentation",
     template: "%s | SmoothUI",
+  },
+  alternates: {
+    canonical: `/doc`,
   },
   description: "A collection of awesome test components with smooth animations",
   keywords: [

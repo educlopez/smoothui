@@ -1,13 +1,28 @@
 import React from "react"
+import { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { changelogEntries } from "@/app/doc/data/changelog"
+
+export const metadata: Metadata = {
+  title: "Changelog",
+  description: "Changelog for SmoothUI",
+  alternates: {
+    canonical: "/doc/changelog",
+  },
+  openGraph: {
+    title: "Changelog",
+    description: "Changelog for SmoothUI",
+    url: "/doc/changelog",
+    siteName: "SmoothUI",
+  },
+}
 
 export default function ChangelogPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <Breadcrumbs groupName="Documentation" currentPage="Changelog" />
+        <Breadcrumbs groupName="Get Started" currentPage="Changelog" />
         <div className="space-y-3.5">
           <h1
             data-table-content="Changelog"

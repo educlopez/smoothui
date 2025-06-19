@@ -1,10 +1,16 @@
 import * as React from "react"
+import { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 
 import { CodeBlockWrapper } from "../../components/doc/codeBlocKWarapper"
+
+export const metadata: Metadata = {
+  title: "Introduction",
+  description: "Introduction to SmoothUI",
+}
 
 export default function GetStartedPage() {
   const tailwindConfig = `@import "tailwindcss";

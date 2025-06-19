@@ -43,11 +43,14 @@ export async function generateMetadata(props: {
   return {
     title: componentTitle,
     description: `Navigate to ${componentTitle} component, which will make your application smooth .`,
+    alternates: {
+      canonical: `/doc/basic/${slug}`,
+    },
     openGraph: {
       title: `SmoothUI — ${componentTitle}`,
       description: `Navigate to ${componentTitle} component, which will make your application smooth`,
       type: "website",
-      url: `https://smoothui.dev/doc/basic/${slug}`,
+      url: `/doc/basic/${slug}`,
       images: [
         {
           width: 1920,
