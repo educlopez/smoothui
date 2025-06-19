@@ -40,7 +40,7 @@ next-env.d.ts
 
 # generated files
 /.component-sources
-src/app/doc/index.ts
+src/components/smoothui/index.ts
 /public/r
 /public/r-demo
 /public/r-install

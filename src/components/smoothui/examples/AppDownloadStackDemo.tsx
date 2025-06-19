@@ -2,7 +2,9 @@
 
 import React, { useState } from "react"
 
-import AppDownloadStack, { AppData } from "../ui/AppDownloadStack"
+import AppDownloadStack, {
+  AppData,
+} from "@/components/smoothui/ui/AppDownloadStack"
 
 const demoApps: AppData[] = [
   {

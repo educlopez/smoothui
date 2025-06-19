@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import BasicAccordion from "../ui/BasicAccordion"
+import BasicAccordion from "@/components/smoothui/ui/BasicAccordion"
 
 const accordionItems = [
   {

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import PowerOffSlide from "../ui/PowerOffSlide"
+import PowerOffSlide from "@/components/smoothui/ui/PowerOffSlide"
 
 const PowerOffSlideDemo = () => {
   const [poweredOff, setPoweredOff] = useState(false)

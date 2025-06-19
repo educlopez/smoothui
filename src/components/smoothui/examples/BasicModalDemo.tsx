@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import BasicModal from "../ui/BasicModal"
+import BasicModal from "@/components/smoothui/ui/BasicModal"
 
 const ModalDemo = () => {
   const [isOpen, setIsOpen] = useState(false)

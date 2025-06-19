@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import BasicDropdown from "../ui/BasicDropdown"
+import BasicDropdown from "@/components/smoothui/ui/BasicDropdown"
 
 const items = [
   { id: 1, label: "Small" },

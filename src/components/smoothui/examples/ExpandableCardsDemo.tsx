@@ -2,7 +2,7 @@
 
 import React, { useState } from "react"
 
-import ExpandableCards, { Card } from "../ui/ExpandableCards"
+import ExpandableCards, { Card } from "@/components/smoothui/ui/ExpandableCards"
 
 const demoCards: Card[] = [
   {

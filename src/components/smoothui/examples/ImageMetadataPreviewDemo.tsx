@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import ImageMetadataPreview from "../ui/ImageMetadataPreview"
+import ImageMetadataPreview from "@/components/smoothui/ui/ImageMetadataPreview"
 
 const demoMetadata = {
   created: "2 yrs ago",

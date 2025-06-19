@@ -3,7 +3,7 @@
 import React, { useState } from "react"
 import { AnimatePresence } from "motion/react"
 
-import BasicToast, { ToastType } from "../ui/BasicToast"
+import BasicToast, { ToastType } from "@/components/smoothui/ui/BasicToast"
 
 const BasicToastDemo = () => {
   const [showToast, setShowToast] = useState(false)
