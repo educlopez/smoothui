@@ -2,13 +2,15 @@ import type { Metadata } from "next"
 import { Asap, Inter } from "next/font/google"
 import { Toaster } from "sonner"
 
-import "./globals.css"
+import { smoothUISchema } from "@/app/utils/schema"
+
+import "./styles/globals.css"
 
 import { VercelToolbar } from "@vercel/toolbar/next"
 import { ThemeProvider } from "next-themes"
 
-import { Analytics } from "@/app/components/analytics"
-import { FloatNav } from "@/app/components/floatNav"
+import { Analytics } from "@/components/analytics"
+import { FloatNav } from "@/components/floatNav"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,20 +23,32 @@ const asap = Asap({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.smoothui.dev"),
+  metadataBase: new URL("https://smoothui.dev"),
+  alternates: {
+    canonical: "/",
+  },
   title: {
-    default: "SmoothUI",
+    default: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     template: "%s | SmoothUI",
   },
-  description: "A collection of awesome test components with smooth animations",
+  description:
+    "Free React UI components built with TailwindCSS and Framer Motion. Customizable, responsive, dark mode-ready, and perfect for modern UIs.",
   keywords: [
-    "components, Smooth animations, Awesome test components, motion, motion, Interactive components",
+    "react components",
+    "tailwindcss ui",
+    "motion animations",
+    "framer motion",
+    "shadcn/ui",
+    "react ui library",
+    "customizable components",
+    "animated ui components",
+    "dark mode components",
   ],
   openGraph: {
-    title: "SmoothUI",
+    title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     description:
-      "A collection of awesome test components with smooth animations",
-    url: "https://www.smoothui.dev",
+      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion.",
+    url: "https://smoothui.dev",
     siteName: "SmoothUI",
     images: [
       {
@@ -44,11 +58,13 @@ export const metadata: Metadata = {
         alt: "SmoothUI Cover",
       },
     ],
-    locale: "en",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
-    title: "SmoothUI",
+    title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
+    description:
+      "Free React UI components styled with TailwindCSS and animated using Framer Motion.",
     images: [
       {
         width: 1920,
@@ -58,10 +74,8 @@ export const metadata: Metadata = {
       },
     ],
     card: "summary_large_image",
-    description:
-      "A collection of awesome test components with smooth animations",
     site: "@educalvolpz",
-    creator: "Eduardo Calvo",
+    creator: "@educalvolpz",
   },
   icons: {
     shortcut: "/favicon.ico",
@@ -77,6 +91,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  themeColor: "#FE65B0",
 }
 
 type ComponentPageLayout = {
@@ -87,8 +102,14 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   const shouldInjectToolbar = process.env.NODE_ENV === "development"
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
+        />
+      </head>
       <body
-        className={`bg-light-50 dark:bg-dark-50 antialiased transition-colors ${asap.variable} ${inter.className}`}
+        className={`bg-background antialiased transition-colors ${asap.variable} ${inter.className}`}
       >
         <ThemeProvider attribute="class">
           <FloatNav />
@@ -102,7 +123,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
               unstyled: true,
               classNames: {
                 toast:
-                  "dark:bg-dark-300 bg-light-50 rounded-lg p-4 border border-light-500 dark:border-dark-500 text-xs shadow-xs w-full",
+                  " bg-background rounded-lg p-4 border border-smooth-500  text-xs shadow-xs w-full",
               },
             }}
           />

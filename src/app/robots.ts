@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/cdn-cgi/",
     },
-    sitemap: "https://www.smoothui.dev/sitemap.xml",
+    sitemap: "https://smoothui.dev/sitemap.xml",
   }
 }

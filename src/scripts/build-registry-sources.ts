@@ -78,25 +78,22 @@ function processRegistryItem(name: string, item: any) {
       sourceFilePath = path.join(
         baseDir,
         "src",
-        "app",
-        "doc",
-        "_components",
+        "components",
+        "smoothui",
         "ui",
         `${componentPath}.tsx`
       )
-      targetPath = `/components/smootui/${fileName}.tsx`
+      targetPath = `/components/smoothui/ui/${fileName}.tsx`
     } else if (file.type === "registry:block") {
       const examplePath = file.path.replace("smoothui/", "")
       sourceFilePath = path.join(
         baseDir,
         "src",
-        "app",
-        "doc",
-        "_components",
-        "examples",
+        "components",
+        "smoothui",
         `${examplePath}.tsx`
       )
-      targetPath = `/components/smootui/${fileName}.tsx`
+      targetPath = `/components/smoothui/examples/${fileName}.tsx`
     }
 
     if (sourceFilePath !== "") {
@@ -119,6 +116,38 @@ function processRegistryItem(name: string, item: any) {
   return output
 }
 
+function extractCssVars(css: string, selector: string): Record<string, string> {
+  // Extracts CSS variables from a block like :root or .dark
+  const regex = new RegExp(`${selector}\\s*{([\\s\\S]*?)}\\s*`, "m")
+  const match = css.match(regex)
+  if (!match) return {}
+  const vars: Record<string, string> = {}
+  const lines = match[1].split("\n")
+  for (const line of lines) {
+    const varMatch = line.match(/--([\w-]+):\s*([^;]+);/)
+    if (varMatch) {
+      vars[varMatch[1]] = varMatch[2].trim()
+    }
+  }
+  return vars
+}
+
+function buildThemeRegistryItem() {
+  const cssPath = path.join(__dirname, "..", "app", "styles", "smoothui.css")
+  const css = fs.readFileSync(cssPath, "utf-8")
+  const lightVars = extractCssVars(css, ":root")
+  const darkVars = extractCssVars(css, ".dark")
+  return {
+    $schema: "https://ui.shadcn.com/schema/registry-item.json",
+    name: "custom-theme",
+    type: "registry:theme",
+    cssVars: {
+      light: lightVars,
+      dark: darkVars,
+    },
+  }
+}
+
 function buildSourceFiles() {
   // Read the registry
   const registry = JSON.parse(fs.readFileSync(registryJsonPath, "utf-8"))
@@ -132,6 +161,12 @@ function buildSourceFiles() {
     fs.writeFileSync(outputPath, JSON.stringify(sourceFile, null, 2))
     console.log(`Generated source file for: ${name}`)
   })
+
+  // Add custom theme registry item
+  const themeItem = buildThemeRegistryItem()
+  const themeOutputPath = path.join(registryOutputDir, "custom-theme.json")
+  fs.writeFileSync(themeOutputPath, JSON.stringify(themeItem, null, 2))
+  console.log("Generated custom theme registry file.")
 
   console.log("Source files generation completed.")
 }

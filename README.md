@@ -48,7 +48,7 @@ pnpm install motion tailwindcss lucide-react clsx tailwind-merge
 After installing the dependencies, you can start using SmoothUI components in your React application. Here’s an example of how to use a component:
 
 ```typescript
-import MyNewComponent from "@/app/doc/_components/ui/MyNewComponent";
+import MyNewComponent from "@/components/smoothui/ui/MyNewComponent";
 const App = () => {
     return (
         <div>

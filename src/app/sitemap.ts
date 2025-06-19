@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next"
 import { components } from "@/app/doc/data/components"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://www.smoothui.dev"
+  const baseUrl = "https://smoothui.dev"
 
   // Generate URLs for all component pages
   const componentUrls = components.map((component) => ({

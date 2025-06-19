@@ -48,7 +48,7 @@ Thank you for your interest in contributing to SmoothUI! This guide will help yo
 
 ## Adding New Components
 
-1. **Create a New Component**: In the `src/app/doc/_components/ui/` directory, create a new file for your component. Use a descriptive name for the file, e.g., `MyNewComponent.tsx`.
+1. **Create a New Component**: In the `src/components/smoothui/ui/` directory, create a new file for your component. Use a descriptive name for the file, e.g., `MyNewComponent.tsx`.
 
 2. **Implement Your Component**: Write your component code using React and TypeScript. Make sure to follow the existing structure and conventions used in the project.
 

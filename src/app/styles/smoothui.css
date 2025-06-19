@@ -1,0 +1,214 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-brand: var(--color-brand);
+  --color-brand-secondary: var(--color-brand-secondary);
+  --color-smooth-50: var(--color-smooth-50);
+  --color-smooth-100: var(--color-smooth-100);
+  --color-smooth-200: var(--color-smooth-200);
+  --color-smooth-300: var(--color-smooth-300);
+  --color-smooth-400: var(--color-smooth-400);
+  --color-smooth-500: var(--color-smooth-500);
+  --color-smooth-600: var(--color-smooth-600);
+  --color-smooth-700: var(--color-smooth-700);
+  --color-smooth-800: var(--color-smooth-800);
+  --color-smooth-900: var(--color-smooth-900);
+  --color-smooth-950: var(--color-smooth-950);
+  --color-smooth-1000: var(--color-smooth-1000);
+  --color-border: var(--color-smooth-400);
+  --color-sidebar-ring: var(--color-brand);
+  --color-sidebar-border: var(--color-smooth-400);
+  --color-sidebar-accent-foreground: var(--color-smooth-900);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--color-smooth-1000);
+  --color-sidebar-primary: var(--color-brand);
+  --color-sidebar-foreground: var(--color-smooth-1000);
+  --color-sidebar: var(--color-smooth-100);
+  --color-ring: var(--color-brand);
+  --color-input: var(--color-smooth-400);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--color-smooth-1000);
+  --color-accent: var(--color-brand);
+  --color-muted-foreground: var(--color-smooth-800);
+  --color-muted: var(--color-smooth-200);
+  --color-background: var(--color-smooth-50);
+  --color-foreground: var(--color-smooth-1000);
+  --color-primary: var(--color-smooth-100);
+  --color-primary-foreground: var(--color-smooth-950);
+  --color-secondary: var(--color-smooth-200);
+  --color-secondary-foreground: var(--color-smooth-900);
+  --color-popover-foreground: var(--color-smooth-1000);
+  --color-popover: var(--color-smooth-50);
+  --color-card-foreground: var(--color-smooth-1000);
+  --color-card: var(--color-smooth-100);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --color-brand: oklch(0.72 0.2 352.53);
+  --color-brand-secondary: oklch(0.66 0.21 354.31);
+  --color-smooth-50: oklch(99.11% 0 0);
+  --color-smooth-100: oklch(97.91% 0 0);
+  --color-smooth-200: oklch(96.42% 0 0);
+  --color-smooth-300: oklch(94.61% 0 0);
+  --color-smooth-400: oklch(93.1% 0 0);
+  --color-smooth-500: oklch(91.28% 0 0);
+  --color-smooth-600: oklch(89.14% 0 0);
+  --color-smooth-700: oklch(82.97% 0 0);
+  --color-smooth-800: oklch(65% 0 0);
+  --color-smooth-900: oklch(61.67% 0 0);
+  --color-smooth-950: oklch(54.17% 0 0);
+  --color-smooth-1000: oklch(20.46% 0 0);
+  --border: var(--color-smooth-100);
+  --text-primary: var(--color-smooth-200);
+  --text-quaternary: var(--color-smooth-1000);
+  --radius: 0.625rem;
+}
+
+.dark {
+  --color-smooth-50: oklch(20.02% 0 0);
+  --color-smooth-100: oklch(22.64% 0 0);
+  --color-smooth-200: oklch(25.62% 0 0);
+  --color-smooth-300: oklch(27.68% 0 0);
+  --color-smooth-400: oklch(30.12% 0 0);
+  --color-smooth-500: oklch(32.5% 0 0);
+  --color-smooth-600: oklch(36.39% 0 0);
+  --color-smooth-700: oklch(43.13% 0 0);
+  --color-smooth-800: oklch(54.52% 0 0);
+  --color-smooth-900: oklch(59.31% 0 0);
+  --color-smooth-950: oklch(70.58% 0 0);
+  --color-smooth-1000: oklch(94.61% 0 0);
+  --border: var(--color-smooth-100);
+  --text-primary: var(--color-smooth-200);
+  --text-quaternary: var(--color-smooth-1000);
+}
+
+/* Component NumberFlow */
+@layer utilities {
+  .slide-in-up {
+    animation: slideInUp 0.3s forwards;
+  }
+
+  .slide-out-up {
+    animation: slideOutUp 0.3s forwards;
+  }
+
+  .slide-in-down {
+    animation: slideInDown 0.3s forwards;
+  }
+
+  .slide-out-down {
+    animation: slideOutDown 0.3s forwards;
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutDown {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+  }
+}
+
+/* Component PowerOffSlide */
+@layer utilities {
+  .loading-shimmer {
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation-delay: 0.5s;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-name: loading-shimmer;
+    background: var(--text-quaternary)
+      gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
+    background: var(--text-quaternary) -webkit-gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 50% 200%;
+    display: inline-block;
+  }
+
+  .loading-shimmer {
+    background-position: -100% top;
+  }
+  .loading-shimmer:hover {
+    -webkit-text-fill-color: var(--text-quaternary);
+    animation: none;
+    background: transparent;
+  }
+
+  @keyframes loading-shimmer {
+    0% {
+      background-position: -100% top;
+    }
+
+    to {
+      background-position: 250% top;
+    }
+  }
+}
+
+/* Component AppleInvites */
+@layer utilities {
+  .gradient-mask-t-0 {
+    -webkit-mask-image: linear-gradient(#0000, #000);
+    mask-image: linear-gradient(#0000, #000);
+  }
+}

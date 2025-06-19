@@ -5,20 +5,16 @@ import React from "react"
 import { Metadata } from "next"
 import { notFound } from "next/navigation"
 
-import { Breadcrumbs } from "@/app/doc/_components/breadcrumbs"
-import { CodeBlock } from "@/app/doc/_components/codeBlock"
-import { ComponentView } from "@/app/doc/_components/componentView"
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/app/doc/_components/tabs"
+import BadgeBeta from "@/components/doc/badgeBeta"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { CodeBlock } from "@/components/doc/codeBlock"
+import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import { ComponentView } from "@/components/doc/componentView"
+import { OpenInV0Button } from "@/components/doc/openInV0"
+import PropsTable from "@/components/doc/PropsTable"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Separator } from "@/components/ui/separator"
 import { components } from "@/app/doc/data/components"
-
-import BadgeBeta from "../_components/badgeBeta"
-import { CodeBlockWrapper } from "../_components/codeBlocKWarapper"
-import { OpenInV0Button } from "../_components/openInV0"
 
 export async function generateStaticParams() {
   const component = components.map((component) => ({
@@ -45,34 +41,40 @@ export async function generateMetadata(props: {
   const { componentTitle, slug } = component
 
   return {
-    title: componentTitle,
-    description: `Navigate to ${componentTitle} component, which will make your application smooth .`,
+    title: `${componentTitle} - React Component`,
+    description: `Learn how to use the ${componentTitle} component from SmoothUI. Customizable, responsive, and animated with TailwindCSS and Framer Motion.`,
+    alternates: {
+      canonical: `/doc/${slug}`,
+    },
     openGraph: {
-      title: `SmoothUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application smooth`,
-      type: "website",
-      url: `https://smoothui.dev/doc/${slug}`,
+      title: `${componentTitle} - React Component | SmoothUI`,
+      description: `Explore the ${componentTitle} component. Built for React with TailwindCSS and Framer Motion to enhance modern UIs.`,
+      type: "article",
+      url: `/doc/${slug}`,
       images: [
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${componentTitle}`,
-          alt: "SmoothUI cover",
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          alt: `${componentTitle} component preview`,
         },
       ],
+      siteName: "SmoothUI",
     },
     twitter: {
-      title: `SmootUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application smooth.`,
+      title: `${componentTitle} - React Component | SmoothUI`,
+      description: `Discover how to use ${componentTitle} from SmoothUI - beautifully animated with TailwindCSS & Framer Motion.`,
       card: "summary_large_image",
       images: [
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${componentTitle}`,
-          alt: "SmoothUI cover",
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          alt: `${componentTitle} component preview`,
         },
       ],
+      site: "@educalvolpz",
+      creator: "@educalvolpz",
     },
   }
 }
@@ -97,16 +99,33 @@ export default async function ComponentPage(props: {
     notFound()
   }
 
-  const filePath = `./src/app/doc/_components/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
+  const filePath = `./src/components/smoothui/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
 
   const code = await readFilePath(filePath)
 
-  const cnPath = `./src/app/utils/cn.ts`
+  const cnPath = `./src/components/smoothui/utils/cn.ts`
   const cnCode = await readFilePath(cnPath)
 
   const currentComponent = components.indexOf(component)
   const previousComponent = components[currentComponent - 1]
   const nextComponent = components[currentComponent + 1]
+
+  // Try to read the demo file for the usage example
+  const demoFilePath = path.join(
+    process.cwd(),
+    "src/components/smoothui/examples",
+    `${component.componentTitle.replace(/\s/g, "")}Demo.tsx`
+  )
+  let usageExample = ""
+  try {
+    usageExample = fs.readFileSync(demoFilePath, "utf8")
+  } catch (e) {
+    usageExample = `import { ${component.componentTitle.replace(/\s/g, "")} } from "your-library"
+
+<${component.componentTitle.replace(/\s/g, "")}
+  // your props here
+/>`
+  }
 
   return (
     <main className="my-2 xl:mb-24">
@@ -120,127 +139,330 @@ export default async function ComponentPage(props: {
           <h1
             data-table-content="Introduction"
             data-level="1"
-            className="text-light-950 dark:text-dark-950 text-3xl font-bold -tracking-wide"
+            className="text-foreground text-3xl font-bold -tracking-wide"
           >
             {component.componentTitle}
           </h1>
-          <p className="text-light-900 dark:text-dark-900 text-sm">
-            {component.info}
-          </p>
+          <p className="text-primary-foreground text-sm">{component.info}</p>
         </div>
         <div className="space-y-6">
           <ComponentView>
             <OpenInV0Button
-              url={`https://smoothui.dev/r/${component.slug}.json`}
+              url={`https://smoothui.dev/r/${component.slug}-demo.json`}
             />
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </ComponentView>
-          <h2 data-table-content="Code" data-level="2">
+          <h2
+            className="text-xl font-semibold"
+            data-table-content="Code"
+            data-level="2"
+          >
             Code
           </h2>
           {component.slug && (
-            <>
-              <h3
-                data-table-content="shadcn"
-                data-level="3"
-                className="flex flex-row items-center gap-2"
-              >
-                Install with shadcn <BadgeBeta />
-              </h3>
-              <CodeBlock
-                code={`npx shadcn@latest add "https://smoothui.dev/r/${component.slug}.json"`}
-                fileName="Terminal"
-                lang="shell"
-              />
-            </>
-          )}
-          <h3 data-table-content="Manual install" data-level="3">
-            Manual install
-          </h3>
-          {component.download && (
-            <Tabs defaultValue="npm">
-              <TabsList>
+            <Tabs defaultValue="cli" className="mb-6">
+              <TabsList className="text-primary-foreground bg-primary mb-2 border">
                 <TabsTrigger
-                  value="npm"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  value="cli"
+                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
                 >
-                  npm
+                  CLI
                 </TabsTrigger>
                 <TabsTrigger
-                  value="pnpm"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
+                  value="manual"
+                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
                 >
-                  pnpm
-                </TabsTrigger>
-                <TabsTrigger
-                  value="yarn"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
-                >
-                  yarn
-                </TabsTrigger>
-                <TabsTrigger
-                  value="bun"
-                  className="data-[state=active]:border-none data-[state=active]:bg-pink-600/5 data-[state=active]:text-pink-700 data-[state=active]:shadow-none dark:data-[state=active]:bg-pink-600/10 dark:data-[state=active]:text-pink-400"
-                >
-                  bun
+                  Manual
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="npm">
-                <CodeBlock
-                  code={component.download}
-                  fileName="Terminal"
-                  installCommand="npm install"
-                  lang="shell"
-                />
+              <TabsContent value="cli">
+                {(() => {
+                  const steps = []
+                  // Step 1: Install with shadcn
+                  steps.push(
+                    <div className="relative" key="cli-step-1">
+                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                        <span className="text-foreground font-semibold">1</span>
+                      </div>
+                      <div className="ml-[1.1rem] border-l">
+                        <div className="space-y-4 pt-1 pb-10 pl-8">
+                          <p className="font-medium">
+                            Install with shadcn <BadgeBeta />
+                          </p>
+
+                          <CodeBlock
+                            code={`npx shadcn@latest add \"https://smoothui.dev/r/${component.slug}.json\"`}
+                            fileName="Terminal"
+                            lang="shell"
+                          />
+                          <p className="font-medium">Or install the demo</p>
+                          <CodeBlock
+                            code={`npx shadcn@latest add \"https://smoothui.dev/r/${component.slug}-demo.json\"`}
+                            fileName="Terminal"
+                            lang="shell"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  )
+                  // Step 2: Add the CSS (if present)
+                  if (component.customCss) {
+                    steps.push(
+                      <div className="relative" key="cli-step-2">
+                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                          <span className="text-foreground font-semibold">
+                            2
+                          </span>
+                        </div>
+                        <div className="ml-[1.1rem] border-l">
+                          <div className="space-y-4 pt-1 pb-10 pl-8">
+                            <p className="font-medium">Add the CSS</p>
+                            <CodeBlockWrapper
+                              expandButtonTitle="Expand"
+                              className="my-6 overflow-hidden rounded-md"
+                            >
+                              <CodeBlock
+                                code={component.customCss}
+                                fileName="global.css"
+                                lang="css"
+                              />
+                            </CodeBlockWrapper>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                  // Remove border from last step
+                  if (steps.length > 0) {
+                    const last = steps.length - 1
+                    steps[last] = React.cloneElement(
+                      steps[last],
+                      {},
+                      steps[last].props.children[0],
+                      <div className="ml-[1.1rem]">
+                        {steps[last].props.children[1].props.children}
+                      </div>
+                    )
+                  }
+                  return <div className="mb-4 space-y-0">{steps}</div>
+                })()}
               </TabsContent>
-              <TabsContent value="pnpm">
-                <CodeBlock
-                  code={component.download}
-                  fileName="Terminal"
-                  installCommand="pnpm install"
-                  lang="shell"
-                />
-              </TabsContent>
-              <TabsContent value="yarn">
-                <CodeBlock
-                  code={component.download}
-                  fileName="Terminal"
-                  installCommand="yarn add"
-                  lang="shell"
-                />
-              </TabsContent>
-              <TabsContent value="bun">
-                <CodeBlock
-                  code={component.download}
-                  fileName="Terminal"
-                  installCommand="bun add"
-                  lang="shell"
-                />
+              <TabsContent value="manual">
+                {(() => {
+                  const steps = []
+                  let stepNum = 1
+                  // Step 1: Install the packages
+                  steps.push(
+                    <div className="relative" key="manual-step-1">
+                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                        <span className="text-foreground font-semibold">
+                          {stepNum}
+                        </span>
+                      </div>
+                      <div className="ml-[1.1rem] border-l">
+                        <div className="space-y-4 pt-1 pb-10 pl-8">
+                          <p className="font-medium">Install the packages</p>
+
+                          {component.download && (
+                            <Tabs defaultValue="npm" className="mt-2">
+                              <TabsList className="text-primary-foreground bg-primary border">
+                                <TabsTrigger
+                                  value="npm"
+                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                                >
+                                  npm
+                                </TabsTrigger>
+                                <TabsTrigger
+                                  value="pnpm"
+                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                                >
+                                  pnpm
+                                </TabsTrigger>
+                                <TabsTrigger
+                                  value="yarn"
+                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                                >
+                                  yarn
+                                </TabsTrigger>
+                                <TabsTrigger
+                                  value="bun"
+                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                                >
+                                  bun
+                                </TabsTrigger>
+                              </TabsList>
+                              <TabsContent value="npm">
+                                <CodeBlock
+                                  code={component.download}
+                                  fileName="Terminal"
+                                  installCommand="npm install"
+                                  lang="shell"
+                                />
+                              </TabsContent>
+                              <TabsContent value="pnpm">
+                                <CodeBlock
+                                  code={component.download}
+                                  fileName="Terminal"
+                                  installCommand="pnpm install"
+                                  lang="shell"
+                                />
+                              </TabsContent>
+                              <TabsContent value="yarn">
+                                <CodeBlock
+                                  code={component.download}
+                                  fileName="Terminal"
+                                  installCommand="yarn add"
+                                  lang="shell"
+                                />
+                              </TabsContent>
+                              <TabsContent value="bun">
+                                <CodeBlock
+                                  code={component.download}
+                                  fileName="Terminal"
+                                  installCommand="bun add"
+                                  lang="shell"
+                                />
+                              </TabsContent>
+                            </Tabs>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )
+                  stepNum++
+                  // Step 2: Component code
+                  steps.push(
+                    <div className="relative" key="manual-step-2">
+                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                        <span className="text-foreground font-semibold">
+                          {stepNum}
+                        </span>
+                      </div>
+                      <div className="ml-[1.1rem] border-l">
+                        <div className="space-y-4 pt-1 pb-10 pl-8">
+                          <p className="font-medium">
+                            Copy and paste the following code into your project
+                          </p>
+
+                          <CodeBlockWrapper
+                            expandButtonTitle="Expand"
+                            className="overflow-hidden rounded-md"
+                          >
+                            <CodeBlock
+                              code={code}
+                              fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
+                            />
+                          </CodeBlockWrapper>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                  stepNum++
+                  // Step 3: utils/cn.ts (if present)
+                  if (component.cnFunction) {
+                    steps.push(
+                      <div className="relative" key="manual-step-3">
+                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                          <span className="text-foreground font-semibold">
+                            {stepNum}
+                          </span>
+                        </div>
+                        <div className="ml-[1.1rem] border-l">
+                          <div className="space-y-4 pt-1 pb-10 pl-8">
+                            <p className="font-medium">
+                              Create a file with the path{" "}
+                              <code>utils/cn.ts</code>
+                            </p>
+
+                            <CodeBlock
+                              code={cnCode}
+                              fileName="utils/cn.ts"
+                              lang="typescript"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    )
+                    stepNum++
+                  }
+                  // Step: CSS block (if present)
+                  if (component.customCss) {
+                    steps.push(
+                      <div className="relative" key="manual-step-css">
+                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                          <span className="text-foreground font-semibold">
+                            {stepNum}
+                          </span>
+                        </div>
+                        <div className="ml-[1.1rem] border-l">
+                          <div className="space-y-4 pt-1 pb-10 pl-8">
+                            <p className="font-medium">Add the CSS</p>
+                            <CodeBlockWrapper
+                              expandButtonTitle="Expand"
+                              className="my-6 overflow-hidden rounded-md"
+                            >
+                              <CodeBlock
+                                code={component.customCss}
+                                fileName="global.css"
+                                lang="css"
+                              />
+                            </CodeBlockWrapper>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  }
+                  // Remove border from last step
+                  if (steps.length > 0) {
+                    const last = steps.length - 1
+                    steps[last] = React.cloneElement(
+                      steps[last],
+                      {},
+                      steps[last].props.children[0],
+                      <div className="ml-[1.1rem]">
+                        {steps[last].props.children[1].props.children}
+                      </div>
+                    )
+                  }
+                  return <div className="mb-4 space-y-0">{steps}</div>
+                })()}
               </TabsContent>
             </Tabs>
           )}
-
-          {component.cnFunction && (
+          {/* Divider for separation */}
+          <Separator />
+          {/* {component.cnFunction && (
             <CodeBlock code={cnCode} fileName="utils/cn.ts" lang="typescript" />
-          )}
-          {component.customCss && (
-            <CodeBlock
-              code={component.customCss}
-              fileName="global.css"
-              lang="css"
-            />
-          )}
+          )} */}
+          <h2
+            className="text-xl font-semibold"
+            data-table-content="How to use"
+            data-level="2"
+          >
+            How to use
+          </h2>
           <CodeBlockWrapper
             expandButtonTitle="Expand"
             className="my-6 overflow-hidden rounded-md"
           >
-            <CodeBlock
-              code={code}
-              fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
-            />
+            <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
           </CodeBlockWrapper>
         </div>
+        {component.props && (
+          <>
+            <Separator />
+
+            <h2
+              className="mb-8 text-xl font-semibold"
+              data-table-content="Props"
+              data-level="2"
+            >
+              Props
+            </h2>
+            <PropsTable props={component.props} />
+          </>
+        )}
       </div>
     </main>
   )

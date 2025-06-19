@@ -1,23 +1,38 @@
 import { Metadata } from "next"
 import { cookies } from "next/headers"
 
+import { AppSidebar } from "@/components/doc/sidebar/app-sidebar"
+import TableOfContent from "@/components/doc/tableOfContent"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/app/doc/_components/sidebar/app-sidebar"
-import TableOfContent from "@/app/doc/_components/tableOfContent"
 
-import Footer from "../components/footer"
-import Header from "./_components/header"
+import Header from "../../components/doc/header"
+import Footer from "../../components/footer"
 
 export const metadata: Metadata = {
   title: {
-    default: "SmoothUI",
+    default: "Docs - TailwindCSS + Framer Motion Components for React",
     template: "%s | SmoothUI",
   },
-  description: "A collection of awesome test components with smooth animations",
+  alternates: {
+    canonical: `/doc`,
+  },
+  description:
+    "Documentation for SmoothUI - learn how to use free React components styled with TailwindCSS and animated with Framer Motion.",
   keywords: [
-    "components, Smooth animations, Awesome test components, motion, motion, Interactive components",
+    "react ui documentation",
+    "tailwindcss components",
+    "framer motion docs",
+    "animated components react",
+    "smoothui",
+    "component usage guide",
+    "interactive react ui",
   ],
   openGraph: {
+    title: "SmoothUI Docs - TailwindCSS + Motion Components",
+    description:
+      "Explore the SmoothUI documentation. Learn how to implement customizable React components with TailwindCSS and Framer Motion.",
+    url: "https://smoothui.dev/doc",
+    siteName: "SmoothUI",
     images: [
       {
         width: 1920,
@@ -26,29 +41,24 @@ export const metadata: Metadata = {
         alt: "Smoothui Cover",
       },
     ],
-    locale: "en",
-    siteName: "SmoothUI",
-    title: "SmoothUI",
-    description:
-      "A collection of awesome test components with smooth animations",
+    locale: "en_US",
     type: "website",
-    url: "https://smoothui.dev/doc",
   },
   twitter: {
+    title: "SmoothUI Docs - TailwindCSS + Motion Components for React",
+    description:
+      "Official documentation for SmoothUI. Learn how to use beautifully animated React UI components built with TailwindCSS and Framer Motion.",
     images: [
       {
         width: 1920,
         height: 1080,
         url: "https://smoothui.dev/og.jpg",
-        alt: "Smoothui Cover",
+        alt: "SmoothUI Cover",
       },
     ],
     card: "summary_large_image",
-    title: "Smoothui",
-    description:
-      "A collection of awesome test components with smooth animations",
     site: "@educalvolpz",
-    creator: "Eduardo Calvo",
+    creator: "@educalvolpz",
   },
   icons: {
     shortcut: "/favicon.ico",
@@ -72,7 +82,7 @@ type ComponentPageLayout = {
 
 export default function ComponentPageLayout({ children }: ComponentPageLayout) {
   return (
-    <div className={`bg-light-50 dark:bg-dark-50 antialiased transition`}>
+    <div className={`bg-background antialiased transition`}>
       <SidebarProvider
         style={
           {
@@ -81,24 +91,10 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
         }
       >
         <AppSidebar variant="inset" />
-        <SidebarInset>
+        <SidebarInset className="border md:peer-data-[variant=inset]:shadow-none">
           <Header />
           <div className="lg:grid lg:grid-cols-[1fr] 2xl:grid-cols-[1fr_248px]">
             <div className="grid-cols-[1fr_760px_1fr] px-4 pt-8 *:col-start-2 lg:grid lg:p-8">
-              <div className="fixed inset-x-0 top-0 isolate z-3 h-[50px]">
-                <div className="body-mask-b-0 absolute inset-0 backdrop-blur-[1px]"></div>
-                <div className="body-mask-b-0 absolute inset-0 backdrop-blur-[2px]"></div>
-                <div className="body-mask-b-0 absolute inset-0 backdrop-blur-[3px]"></div>
-                <div className="body-mask-b-0 absolute inset-0 backdrop-blur-[6px]"></div>
-                <div className="body-mask-b-0 absolute inset-0 backdrop-blur-[12px]"></div>
-              </div>
-              <div className="fixed inset-x-0 bottom-0 isolate z-3 h-[100px]">
-                <div className="body-mask-t-0 absolute inset-0 backdrop-blur-[1px]"></div>
-                <div className="body-mask-t-0 absolute inset-0 backdrop-blur-[2px]"></div>
-                <div className="body-mask-t-0 absolute inset-0 backdrop-blur-[3px]"></div>
-                <div className="body-mask-t-0 absolute inset-0 backdrop-blur-[6px]"></div>
-                <div className="body-mask-t-0 absolute inset-0 backdrop-blur-[12px]"></div>
-              </div>
               {children}
               <Footer />
             </div>
