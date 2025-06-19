@@ -37,11 +37,7 @@ export function CodeBlock({
               <>
                 <TerminalIcon size={14} className="text-primary-foreground" />
                 <div className="flex items-center gap-2">
-                  <h3
-                    data-table-content={fileName}
-                    data-level="3"
-                    className="text-foreground text-[13px] leading-none font-medium"
-                  >
+                  <h3 className="text-foreground text-[13px] leading-none font-medium">
                     {fileName}
                   </h3>
                 </div>
@@ -49,11 +45,7 @@ export function CodeBlock({
             ) : (
               <>
                 <CodeIcon size={14} className="text-primary-foreground" />
-                <h3
-                  data-table-content={fileName}
-                  data-level="3"
-                  className="text-foreground text-[13px] leading-none font-medium"
-                >
+                <h3 className="text-foreground text-[13px] leading-none font-medium">
                   {fileName}
                 </h3>
               </>

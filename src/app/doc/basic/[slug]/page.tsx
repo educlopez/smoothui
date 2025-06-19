@@ -13,6 +13,7 @@ import { ComponentView } from "@/components/doc/componentView"
 import { OpenInV0Button } from "@/components/doc/openInV0"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Separator } from "@/components/ui/separator"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 
 export async function generateStaticParams() {
@@ -211,11 +212,16 @@ export default async function ComponentPage(props: {
                         <div className="ml-[1.1rem] border border-l">
                           <div className="space-y-4 pt-1 pb-10 pl-8">
                             <p className="font-medium">Add the CSS</p>
-                            <CodeBlock
-                              code={component.customCss}
-                              fileName="global.css"
-                              lang="css"
-                            />
+                            <CodeBlockWrapper
+                              expandButtonTitle="Expand"
+                              className="my-6 overflow-hidden rounded-md"
+                            >
+                              <CodeBlock
+                                code={component.customCss}
+                                fileName="global.css"
+                                lang="css"
+                              />
+                            </CodeBlockWrapper>
                           </div>
                         </div>
                       </div>
@@ -248,7 +254,7 @@ export default async function ComponentPage(props: {
                           {stepNum}
                         </span>
                       </div>
-                      <div className="ml-[1.1rem] border-l border-neutral-200 dark:border-neutral-900">
+                      <div className="ml-[1.1rem] border-l">
                         <div className="space-y-4 pt-1 pb-10 pl-8">
                           <p className="font-medium">Install the packages</p>
                           {component.download && (
@@ -326,7 +332,7 @@ export default async function ComponentPage(props: {
                           {stepNum}
                         </span>
                       </div>
-                      <div className="ml-[1.1rem] border-l border-neutral-200 dark:border-neutral-900">
+                      <div className="ml-[1.1rem] border-l">
                         <div className="space-y-4 pt-1 pb-10 pl-8">
                           <p className="font-medium">
                             Copy and paste the following code into your project
@@ -355,7 +361,7 @@ export default async function ComponentPage(props: {
                             {stepNum}
                           </span>
                         </div>
-                        <div className="ml-[1.1rem] border-l border-neutral-200 dark:border-neutral-900">
+                        <div className="ml-[1.1rem] border-l">
                           <div className="space-y-4 pt-1 pb-10 pl-8">
                             <p className="font-medium">
                               Create a file with the path{" "}
@@ -381,15 +387,19 @@ export default async function ComponentPage(props: {
                             {stepNum}
                           </span>
                         </div>
-                        <div className="ml-[1.1rem] border-l border-neutral-200 dark:border-neutral-900">
+                        <div className="ml-[1.1rem] border-l">
                           <div className="space-y-4 pt-1 pb-10 pl-8">
                             <p className="font-medium">Add the CSS</p>
-
-                            <CodeBlock
-                              code={component.customCss}
-                              fileName="global.css"
-                              lang="css"
-                            />
+                            <CodeBlockWrapper
+                              expandButtonTitle="Expand"
+                              className="my-6 overflow-hidden rounded-md"
+                            >
+                              <CodeBlock
+                                code={component.customCss}
+                                fileName="global.css"
+                                lang="css"
+                              />
+                            </CodeBlockWrapper>
                           </div>
                         </div>
                       </div>
@@ -412,11 +422,10 @@ export default async function ComponentPage(props: {
               </TabsContent>
             </Tabs>
           )}
-          {/* Divider for separation */}
-          <div className="border-muted my-8 border-t" />
-          {component.cnFunction && (
+          <Separator />
+          {/* {component.cnFunction && (
             <CodeBlock code={cnCode} fileName="utils/cn.ts" lang="typescript" />
-          )}
+          )} */}
           <h2
             className="text-xl font-semibold"
             data-table-content="How to use"
@@ -431,7 +440,9 @@ export default async function ComponentPage(props: {
             <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
           </CodeBlockWrapper>
           {component.props && (
-            <div className="pt-6">
+            <>
+              <Separator />
+
               <h2
                 className="mb-8 text-xl font-semibold"
                 data-table-content="Props"
@@ -440,7 +451,7 @@ export default async function ComponentPage(props: {
                 Props
               </h2>
               <PropsTable props={component.props} />
-            </div>
+            </>
           )}
         </div>
       </div>

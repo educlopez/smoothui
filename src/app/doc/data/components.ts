@@ -429,7 +429,58 @@ export const components: ComponentsProps[] = [
     componentUi: PowerOffSlideDemo,
     download: "motion lucide-react",
     cnFunction: false,
-    isUpdated: true,
+    customCss: `@layer utilities {
+  .loading-shimmer {
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation-delay: 0.5s;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-name: loading-shimmer;
+    background: var(--text-quaternary)
+      gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
+    background: var(--text-quaternary) -webkit-gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
+    background-clip: text;
+    -webkit-background-clip: text;
+    background-repeat: no-repeat;
+    background-size: 50% 200%;
+    display: inline-block;
+  }
+
+  .loading-shimmer {
+    background-position: -100% top;
+  }
+  .loading-shimmer:hover {
+    -webkit-text-fill-color: var(--text-quaternary);
+    animation: none;
+    background: transparent;
+  }
+
+  @keyframes loading-shimmer {
+    0% {
+      background-position: -100% top;
+    }
+
+    to {
+      background-position: 250% top;
+    }
+  }
+}`,
+    isUpdated: false,
     collection: "inputs",
     props: [
       {
@@ -714,7 +765,68 @@ export const components: ComponentsProps[] = [
     componentUi: NumberFlowDemo,
     download: "clsx tailwind-merge lucide-react",
     cnFunction: true,
-    isUpdated: true,
+    customCss: `@layer utilities {
+  .slide-in-up {
+    animation: slideInUp 0.3s forwards;
+  }
+
+  .slide-out-up {
+    animation: slideOutUp 0.3s forwards;
+  }
+
+  .slide-in-down {
+    animation: slideInDown 0.3s forwards;
+  }
+
+  .slide-out-down {
+    animation: slideOutDown 0.3s forwards;
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutDown {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+  }
+}`,
+    isUpdated: false,
     collection: "data-display",
     props: [
       {
@@ -826,7 +938,7 @@ export const components: ComponentsProps[] = [
     componentUi: ExpandableCardsDemo,
     download: "motion lucide-react",
     cnFunction: false,
-    isUpdated: true,
+    isUpdated: false,
     collection: "data-display",
     props: [
       {

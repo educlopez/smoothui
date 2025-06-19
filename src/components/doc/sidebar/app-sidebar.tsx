@@ -1,6 +1,7 @@
 import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
+import SparkbitesIcon from "@/assets/images/sparkbites.png"
 
 import { Button } from "@/components/button"
 import Logo from "@/components/logo"
@@ -39,29 +40,33 @@ export async function AppSidebar({
         <SidebarLinkClient />
       </SidebarContent>
       <SidebarFooter>
+        <Link
+          href="https://sparkbites.dev/"
+          target="_blank"
+          className="bg-primary hover:bg-background flex items-center gap-2 rounded-md border p-2 text-xs transition-colors"
+        >
+          <Image
+            src={SparkbitesIcon.src}
+            alt="Sparkbites"
+            width={20}
+            height={20}
+            className="h-5 w-5"
+          />
+          <div className="flex max-w-[200px] flex-col items-start justify-start text-left">
+            <p className="text-foreground font-bold">Sparkbites</p>
+            <p className="text-primary-foreground text-xs">
+              Inspiration directory for your next project
+            </p>
+          </div>
+        </Link>
         <Button asChild variant="candy" size="sm">
-          <a
+          <Link
             href="https://github.com/educlopez/smoothui/issues/new/"
             target="_blank"
             rel="noopener noreferrer"
           >
             <span>Report an Issue</span>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="transition-transform group-hover:translate-x-0.5"
-            >
-              <path d="M7 7h10v10" />
-              <path d="M7 17 17 7" />
-            </svg>
-          </a>
+          </Link>
         </Button>
       </SidebarFooter>
     </Sidebar>

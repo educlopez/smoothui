@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator"
 
 export default function Footer() {
   return (
-    <footer className="bg-backgroundflex flex-col items-center justify-center text-center text-base">
+    <footer className="z-20 flex flex-col items-center justify-center text-center text-base">
       <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
         <p className="text-primary-foreground text-xs">I ALSO BUILD:</p>
         <div className="flex flex-row items-center justify-center gap-2 text-xs md:gap-8">
