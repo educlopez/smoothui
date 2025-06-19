@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { Asap, Inter } from "next/font/google"
 import { Toaster } from "sonner"
 
+import { smoothUISchema } from "@/app/utils/schema"
+
 import "./styles/globals.css"
 
 import { VercelToolbar } from "@vercel/toolbar/next"
@@ -26,17 +28,26 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   title: {
-    default: "SmoothUI",
+    default: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     template: "%s | SmoothUI",
   },
-  description: "A collection of awesome test components with smooth animations",
+  description:
+    "Free React UI components built with TailwindCSS and Framer Motion. Customizable, responsive, dark mode-ready, and perfect for modern UIs.",
   keywords: [
-    "components, Smooth animations, Awesome test components, motion, motion, Interactive components",
+    "react components",
+    "tailwindcss ui",
+    "motion animations",
+    "framer motion",
+    "shadcn/ui",
+    "react ui library",
+    "customizable components",
+    "animated ui components",
+    "dark mode components",
   ],
   openGraph: {
-    title: "SmoothUI",
+    title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     description:
-      "A collection of awesome test components with smooth animations",
+      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion.",
     url: "https://smoothui.dev",
     siteName: "SmoothUI",
     images: [
@@ -47,11 +58,13 @@ export const metadata: Metadata = {
         alt: "SmoothUI Cover",
       },
     ],
-    locale: "en",
+    locale: "en_US",
     type: "website",
   },
   twitter: {
-    title: "SmoothUI",
+    title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
+    description:
+      "Free React UI components styled with TailwindCSS and animated using Framer Motion.",
     images: [
       {
         width: 1920,
@@ -61,10 +74,8 @@ export const metadata: Metadata = {
       },
     ],
     card: "summary_large_image",
-    description:
-      "A collection of awesome test components with smooth animations",
     site: "@educalvolpz",
-    creator: "Eduardo Calvo",
+    creator: "@educalvolpz",
   },
   icons: {
     shortcut: "/favicon.ico",
@@ -80,6 +91,7 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+  themeColor: "#FE65B0",
 }
 
 type ComponentPageLayout = {
@@ -90,6 +102,12 @@ export default function RootLayout({ children }: ComponentPageLayout) {
   const shouldInjectToolbar = process.env.NODE_ENV === "development"
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
+        />
+      </head>
       <body
         className={`bg-background antialiased transition-colors ${asap.variable} ${inter.className}`}
       >

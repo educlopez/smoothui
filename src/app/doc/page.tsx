@@ -9,7 +9,8 @@ import { CodeBlockWrapper } from "../../components/doc/codeBlocKWarapper"
 
 export const metadata: Metadata = {
   title: "Introduction",
-  description: "Introduction to SmoothUI",
+  description:
+    "Learn what SmoothUI is and how to get started with customizable React components built using TailwindCSS and Framer Motion.",
 }
 
 export default function GetStartedPage() {

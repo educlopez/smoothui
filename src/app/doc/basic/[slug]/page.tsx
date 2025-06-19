@@ -41,37 +41,40 @@ export async function generateMetadata(props: {
   const { componentTitle, slug } = component
 
   return {
-    title: componentTitle,
-    description: `Navigate to ${componentTitle} component, which will make your application smooth .`,
+    title: `${componentTitle} - Basic UI Component`,
+    description: `Explore the ${componentTitle} component from SmoothUI. A responsive, accessible, and animated basic UI element for modern React apps.`,
     alternates: {
       canonical: `/doc/basic/${slug}`,
     },
     openGraph: {
-      title: `SmoothUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application smooth`,
-      type: "website",
+      title: `${componentTitle} - Basic UI Component | SmoothUI`,
+      description: `Learn how to use the ${componentTitle} component. Built with TailwindCSS and Framer Motion to enhance your React UI effortlessly.`,
+      type: "article",
       url: `/doc/basic/${slug}`,
       images: [
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${componentTitle}`,
-          alt: "SmoothUI cover",
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          alt: `${componentTitle} component preview`,
         },
       ],
+      siteName: "SmoothUI",
     },
     twitter: {
-      title: `SmoothUI — ${componentTitle}`,
-      description: `Navigate to ${componentTitle} component, which will make your application smooth.`,
+      title: `${componentTitle} - Basic UI Component | SmoothUI`,
+      description: `Discover how to use ${componentTitle} from SmoothUI — a core building block for interactive React interfaces.`,
       card: "summary_large_image",
       images: [
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${componentTitle}`,
-          alt: "SmoothUI cover",
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          alt: `${componentTitle} component preview`,
         },
       ],
+      site: "@educalvolpz",
+      creator: "@educalvolpz",
     },
   }
 }

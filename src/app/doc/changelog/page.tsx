@@ -6,14 +6,16 @@ import { changelogEntries } from "@/app/doc/data/changelog"
 
 export const metadata: Metadata = {
   title: "Changelog",
-  description: "Changelog for SmoothUI",
+  description:
+    "View the release notes and updates for SmoothUI. Stay up to date with the latest changes in React components, TailwindCSS styles, and animations.",
   alternates: {
     canonical: "/doc/changelog",
   },
   openGraph: {
-    title: "Changelog",
-    description: "Changelog for SmoothUI",
-    url: "/doc/changelog",
+    title: "SmoothUI Changelog",
+    description:
+      "Stay up to date with the latest component updates, bug fixes, and improvements to SmoothUI.",
+    url: "https://smoothui.dev/doc/changelog",
     siteName: "SmoothUI",
   },
 }

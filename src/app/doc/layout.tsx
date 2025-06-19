@@ -10,17 +10,29 @@ import Footer from "../../components/footer"
 
 export const metadata: Metadata = {
   title: {
-    default: "Documentation",
+    default: "Docs - TailwindCSS + Framer Motion Components for React",
     template: "%s | SmoothUI",
   },
   alternates: {
     canonical: `/doc`,
   },
-  description: "A collection of awesome test components with smooth animations",
+  description:
+    "Documentation for SmoothUI - learn how to use free React components styled with TailwindCSS and animated with Framer Motion.",
   keywords: [
-    "components, Smooth animations, Awesome test components, motion, motion, Interactive components",
+    "react ui documentation",
+    "tailwindcss components",
+    "framer motion docs",
+    "animated components react",
+    "smoothui",
+    "component usage guide",
+    "interactive react ui",
   ],
   openGraph: {
+    title: "SmoothUI Docs - TailwindCSS + Motion Components",
+    description:
+      "Explore the SmoothUI documentation. Learn how to implement customizable React components with TailwindCSS and Framer Motion.",
+    url: "https://smoothui.dev/doc",
+    siteName: "SmoothUI",
     images: [
       {
         width: 1920,
@@ -29,29 +41,24 @@ export const metadata: Metadata = {
         alt: "Smoothui Cover",
       },
     ],
-    locale: "en",
-    siteName: "SmoothUI",
-    title: "SmoothUI",
-    description:
-      "A collection of awesome test components with smooth animations",
+    locale: "en_US",
     type: "website",
-    url: "https://smoothui.dev/doc",
   },
   twitter: {
+    title: "SmoothUI Docs - TailwindCSS + Motion Components for React",
+    description:
+      "Official documentation for SmoothUI. Learn how to use beautifully animated React UI components built with TailwindCSS and Framer Motion.",
     images: [
       {
         width: 1920,
         height: 1080,
         url: "https://smoothui.dev/og.jpg",
-        alt: "Smoothui Cover",
+        alt: "SmoothUI Cover",
       },
     ],
     card: "summary_large_image",
-    title: "Smoothui",
-    description:
-      "A collection of awesome test components with smooth animations",
     site: "@educalvolpz",
-    creator: "Eduardo Calvo",
+    creator: "@educalvolpz",
   },
   icons: {
     shortcut: "/favicon.ico",

@@ -13,8 +13,8 @@ const Header = () => {
     >
       <div className="flex flex-1 items-center gap-4">
         <CustomTrigger />
-        <div className="my-3 block px-0 py-1 lg:hidden">
-          <Logo className="h-6" />
+        <div className="my-3 flex flex-row items-center justify-center gap-2 px-0 py-1 lg:hidden">
+          <Logo classNameIcon="w-5" />
         </div>
       </div>
     </nav>
