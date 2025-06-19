@@ -13,79 +13,111 @@
 ![GitHub issues](https://img.shields.io/github/issues/educlopez/smoothui)
 ![GitHub forks](https://img.shields.io/github/forks/educlopez/smoothui)
 ![GitHub PRs](https://img.shields.io/github/issues-pr/educlopez/smoothui)
+[![Website](https://img.shields.io/badge/website-smoothui.dev-blue)](https://smoothui.dev)
 
 </div>
+
 SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion. This project aims to provide developers with a set of reusable UI components that enhance user experience through delightful animations and modern design patterns.
 
 ## Table of Contents
 
-- [SmoothUI](#smoothui)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Contributing](#contributing)
-  - [License](#license)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Components](#components)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Features
 
-- **Smooth Animations**: Built-in animations powered by Motion for delightful user experiences.
-- **Responsive Design**: Fully responsive components designed with Tailwind CSS.
-- **Easy to Use**: Simple API for integrating components into your projects.
-- **Customizable**: Tailwind CSS utility classes allow for easy customization of styles.
-- **Dark Mode Support**: Components support both light and dark themes out of the box.
+- **Modern Design System**: A cohesive and contemporary design language with a new mascot called Smoothy
+- **Smooth Animations**: Built-in animations powered by Motion for delightful user experiences
+- **Responsive Design**: Fully responsive components designed with Tailwind CSS
+- **Dark Mode Support**: Components support both light and dark themes out of the box
+- **Color Customization**: Dynamic color switcher for easy theme customization
+- **Documentation**: Comprehensive documentation with props, examples, and usage guidelines
+- **Accessibility**: Enhanced accessibility features across all components
+- **TypeScript Support**: Full TypeScript support with type definitions
+- **Easy Integration**: Simple API for integrating components into your projects
 
 ## Installation
 
-To use SmoothUI components, you will need to install the following dependencies:
+To use SmoothUI components in your project, install the required dependencies:
 
 ```bash
-pnpm install motion tailwindcss lucide-react clsx tailwind-merge
+pnpm add motion tailwindcss lucide-react clsx tailwind-merge
 ```
 
 ## Usage
 
-After installing the dependencies, you can start using SmoothUI components in your React application. Here’s an example of how to use a component:
+Import and use SmoothUI components in your React application:
 
 ```typescript
-import MyNewComponent from "@/components/smoothui/ui/MyNewComponent";
+import { ComponentName } from "@/components/smoothui/ui/ComponentName";
+
 const App = () => {
-    return (
-        <div>
-            <MyNewComponent />
-        </div>
-    );
+  return (
+    <div>
+      <ComponentName />
+    </div>
+  );
 };
+
 export default App;
 ```
 
+## Components
+
+SmoothUI offers a variety of components, including:
+
+- **Basic Components**
+
+  - Accordion
+  - Avatar
+  - Button
+  - Card
+  - Input
+  - Tooltip
+  - And more...
+
+- **Advanced Components**
+  - Dynamic Island
+  - Animated Tags
+  - Apple Invites
+  - Expandable Cards
+  - Number Flow
+  - Social Selector
+  - And many more...
+
+Visit our [documentation](https://smoothui.dev/doc) for a complete list of components and their usage.
+
 ## Contributing
 
-Thank you for your interest in contributing to SmoothUI! Please follow these steps to contribute:
+We welcome contributions! Please follow these steps:
 
-1. **Fork the Repository**: Click the "Fork" button in the top right corner of the page.
-2. **Clone Your Fork**: Run the following command to clone your forked repository to your local machine:
-   ```bash
-   git clone https://github.com/yourusername/smoothui.git
-   ```
-3. **Create a New Branch**: Create a new branch for your feature or bug fix:
-   ```bash
-   git checkout -b my-feature
-   ```
-4. **Make Your Changes**: Implement your changes and commit them with a descriptive message:
-   ```bash
-   git commit -m "Add my feature"
-   ```
-5. **Push Your Changes**: Push your changes to your forked repository:
-   ```bash
-   git push origin my-feature
-   ```
-6. **Create a Pull Request**: Go to the original SmoothUI repository on GitHub and click on the "Pull Requests" tab. Click the "New Pull Request" button and select your forked repository and branch.
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/amazing-feature`
+3. Install dependencies: `pnpm install`
+4. Make your changes
+5. Commit your changes: `git commit -m 'Add amazing feature'`
+6. Push to the branch: `git push origin feature/amazing-feature`
+7. Open a Pull Request
+
+For detailed guidelines, please read our [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-Thank you for contributing to SmoothUI! We appreciate your help in making this project better. If you have any questions, feel free to reach out to the maintainers.
+<div align="center">
+  <h3>
+    <a href="https://smoothui.dev">Website</a>
+    <span> | </span>
+    <a href="https://smoothui.dev/doc">Documentation</a>
+    <span> | </span>
+    <a href="https://github.com/educlopez/smoothui">GitHub</a>
+  </h3>
+  <p>Built with ❤️ by <a href="https://x.com/educalvolpz">@educalvolpz</a></p>
+</div>
