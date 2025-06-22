@@ -3,7 +3,7 @@ export const smoothUISchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareSourceCode",
   name: "SmoothUI",
-  url: "https://www.smoothui.dev",
+  url: "https://smoothui.dev",
   description:
     "Free React UI components with TailwindCSS and Motion animations.",
   applicationCategory: "UI library",
