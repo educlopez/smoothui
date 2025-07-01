@@ -11,6 +11,7 @@ import JobListingComponentDemo from "@/components/smoothui/examples/JobListingCo
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
+import ScrambleHoverDemo from "@/components/smoothui/examples/ScrambleHoverDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
 
@@ -1128,6 +1129,48 @@ export const components: ComponentsProps[] = [
         name: "imageClassName",
         type: "string",
         description: "Class name for the image.",
+        required: false,
+      },
+    ],
+  },
+  {
+    id: 1000,
+    componentTitle: "Scramble Hover",
+    slug: "scramble-hover",
+    type: "component",
+    isNew: true,
+    tags: ["react", "animation", "hover", "tailwindcss"],
+    href: "https://x.com/educalvolpz",
+    info: "Text component that animates by scrambling its letters on hover, then resolves to the original text. Useful for headings, buttons, and interactive UI.",
+    componentUi: ScrambleHoverDemo,
+    download: "",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "typography",
+    props: [
+      {
+        name: "children",
+        type: "string",
+        description: "The text to scramble on hover.",
+        required: true,
+      },
+      {
+        name: "duration",
+        type: "number",
+        description: "Total animation duration in milliseconds (default: 600).",
+        required: false,
+      },
+      {
+        name: "speed",
+        type: "number",
+        description:
+          "Interval between scrambles in milliseconds (default: 30).",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional additional class names for styling.",
         required: false,
       },
     ],
