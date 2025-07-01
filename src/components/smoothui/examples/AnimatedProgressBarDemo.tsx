@@ -22,13 +22,13 @@ export default function AnimatedProgressBarDemo() {
       />
       <div className="mt-4 flex gap-2">
         <button
-          className="bg-primary rounded px-4 py-2 text-white"
+          className="bg-background text-foreground rounded border px-4 py-2"
           onClick={() => setValue((v) => (v >= 100 ? 0 : v + 10))}
         >
           Increase
         </button>
         <button
-          className="bg-secondary rounded px-4 py-2 text-black"
+          className="bg-background text-foreground rounded border px-4 py-2"
           onClick={() => setRefreshKey((k) => k + 1)}
         >
           Refresh

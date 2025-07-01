@@ -34,9 +34,9 @@ export default function AnimatedProgressBar({
           {label}
         </div>
       )}
-      <div className="relative h-3 w-full overflow-hidden rounded bg-gray-200 dark:bg-gray-800">
+      <div className="bg-background relative h-3 w-full overflow-hidden rounded border">
         <motion.div
-          className={`bg-primary h-full rounded ${barClassName}`}
+          className={`bg-background h-full rounded ${barClassName}`}
           style={{ backgroundColor: color }}
           initial={{ width: 0 }}
           animate={{ width: `${Math.max(0, Math.min(100, value))}%` }}
