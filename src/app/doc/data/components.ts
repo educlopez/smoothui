@@ -1069,4 +1069,67 @@ export const components: ComponentsProps[] = [
       },
     ],
   },
+  {
+    id: 16,
+    componentTitle: "Phototab",
+    slug: "phototab",
+    type: "component",
+    isNew: true,
+    tags: ["react", "motion", "tailwindcss", "radix-ui"],
+    href: "https://x.com/educalvolpz",
+    info: "A configurable tabbed photo display component with animated tab transitions, supporting custom icons and images",
+    componentUi: require("@/components/smoothui/examples/PhototabDemo").default,
+    download: "motion lucide-react @radix-ui/react-tabs",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "media",
+    props: [
+      {
+        name: "tabs",
+        type: "{ name: string; icon: React.ReactNode; image: string; }[]",
+        description:
+          "Array of tab objects, each with a name, icon, and image URL.",
+        required: true,
+        fields: [
+          { name: "name", type: "string", description: "Tab label." },
+          { name: "icon", type: "React.ReactNode", description: "Tab icon." },
+          {
+            name: "image",
+            type: "string",
+            description: "Tab image URL or import.",
+          },
+        ],
+      },
+      {
+        name: "defaultTab",
+        type: "string",
+        description: "Default selected tab name.",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Class name for the root container.",
+        required: false,
+      },
+      {
+        name: "tabListClassName",
+        type: "string",
+        description: "Class name for the tab list.",
+        required: false,
+      },
+      {
+        name: "tabTriggerClassName",
+        type: "string",
+        description: "Class name for each tab trigger.",
+        required: false,
+      },
+      {
+        name: "imageClassName",
+        type: "string",
+        description: "Class name for the image.",
+        required: false,
+      },
+    ],
+  },
 ]
