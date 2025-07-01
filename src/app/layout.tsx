@@ -91,7 +91,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  themeColor: "#FE65B0",
 }
 
 type ComponentPageLayout = {

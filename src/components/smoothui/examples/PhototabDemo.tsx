@@ -1,6 +1,6 @@
 import { Dog, Map as MapIcon, User } from "lucide-react"
 
-import { Phototab, PhototabTab } from "../ui/Phototab"
+import Phototab, { PhototabTab } from "@/components/smoothui/ui/Phototab"
 
 // Placeholder images (replace with your own if available)
 const Images = [

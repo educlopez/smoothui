@@ -31,7 +31,7 @@ export interface PhototabProps {
   imageClassName?: string
 }
 
-export function Phototab({
+export default function Phototab({
   tabs,
   defaultTab,
   className = "",
