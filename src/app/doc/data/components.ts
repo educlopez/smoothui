@@ -2,6 +2,7 @@ import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
 import ButtonCopyDemo from "@/components/smoothui/examples/ButtonCopyDemo"
+import ClipCornersButtonDemo from "@/components/smoothui/examples/ClipCornersButtonDemo"
 import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
 import ExpandableCardsDemo from "@/components/smoothui/examples/ExpandableCardsDemo"
@@ -1145,6 +1146,42 @@ export const components: ComponentsProps[] = [
         name: "label",
         type: "string",
         description: "Button label text.",
+        required: true,
+      },
+      {
+        name: "onClick",
+        type: "() => void",
+        description: "Optional click handler.",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional additional class names for the button.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+  },
+  {
+    id: 18,
+    componentTitle: "Clip Corners Button",
+    slug: "clip-corners-button",
+    type: "component",
+    isNew: true,
+    tags: ["react", "tailwindcss", "motion"],
+    href: "https://x.com/educalvolpz",
+    info: "A rectangular button with clipped corners that animate outward on hover.",
+    componentUi: ClipCornersButtonDemo,
+    download: "framer-motion tailwindcss",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "inputs",
+    props: [
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "Button label or content.",
         required: true,
       },
       {
