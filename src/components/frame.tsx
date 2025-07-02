@@ -5,7 +5,7 @@ import { Code, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
 import { cn } from "@/components/smoothui/utils/cn"
-import type { ComponentsProps } from "@/app/doc/data/components"
+import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 import { copyToClipboard } from "@/app/utils/copyToClipboard"
 
 interface FrameProps {

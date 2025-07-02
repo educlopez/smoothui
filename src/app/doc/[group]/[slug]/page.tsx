@@ -14,43 +14,53 @@ import { OpenInV0Button } from "@/components/doc/openInV0"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import { Separator } from "@/components/ui/separator"
+import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
+import { textComponents } from "@/app/doc/data/textComponentes"
+import { ComponentsProps } from "@/app/doc/data/typeComponent"
+
+const groupDataMap: Record<string, ComponentsProps[]> = {
+  components,
+  basic: basicComponents,
+  text: textComponents,
+}
 
 export async function generateStaticParams() {
-  const component = components.map((component) => ({
-    slug: component.slug,
-  }))
-
-  return component
+  const params = []
+  for (const [group, data] of Object.entries(groupDataMap)) {
+    for (const component of data) {
+      params.push({ group, slug: component.slug })
+    }
+  }
+  return params
 }
 
 export const dynamicParams = false
 
-export async function generateMetadata(props: {
-  params: Promise<{ slug: string }>
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ group: string; slug: string }>
 }): Promise<Metadata | undefined> {
-  const params = await props.params
-  const component = components.find(
-    (component) => component.slug === params.slug
+  const { group, slug } = await params
+  const data = groupDataMap[group]
+  if (!data) return
+  const component = data.find(
+    (component: ComponentsProps) => component.slug === slug
   )
-
-  if (!component) {
-    return
-  }
-
-  const { componentTitle, slug } = component
-
+  if (!component) return
+  const { componentTitle } = component
   return {
     title: `${componentTitle} - React Component`,
     description: `Learn how to use the ${componentTitle} component from SmoothUI. Customizable, responsive, and animated with TailwindCSS and Framer Motion.`,
     alternates: {
-      canonical: `/doc/${slug}`,
+      canonical: `/doc/${group}/${slug}`,
     },
     openGraph: {
       title: `${componentTitle} - React Component | SmoothUI`,
       description: `Explore the ${componentTitle} component. Built for React with TailwindCSS and Framer Motion to enhance modern UIs.`,
       type: "article",
-      url: `/doc/${slug}`,
+      url: `/doc/${group}/${slug}`,
       images: [
         {
           width: 1920,
@@ -81,34 +91,31 @@ export async function generateMetadata(props: {
 
 async function readFilePath(filePath: string) {
   const readFile = promisify(fs.readFile)
-
   const fileContent = await readFile(path.join(process.cwd(), filePath), "utf8")
-
   return fileContent
 }
 
-export default async function ComponentPage(props: {
-  params: Promise<{ slug: string }>
+export default async function ComponentPage({
+  params,
+}: {
+  params: Promise<{ group: string; slug: string }>
 }) {
-  const params = await props.params
-  const component = components.find(
-    (component) => component.slug === params.slug
+  const { group, slug } = await params
+  const data = groupDataMap[group]
+  if (!data) notFound()
+  const component = data.find(
+    (component: ComponentsProps) => component.slug === slug
   )
-
-  if (!component) {
-    notFound()
-  }
+  if (!component) notFound()
 
   const filePath = `./src/components/smoothui/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
-
   const code = await readFilePath(filePath)
-
   const cnPath = `./src/components/smoothui/utils/cn.ts`
   const cnCode = await readFilePath(cnPath)
 
-  const currentComponent = components.indexOf(component)
-  const previousComponent = components[currentComponent - 1]
-  const nextComponent = components[currentComponent + 1]
+  const currentComponent = data.indexOf(component)
+  const previousComponent = data[currentComponent - 1]
+  const nextComponent = data[currentComponent + 1]
 
   // Try to read the demo file for the usage example
   const demoFilePath = path.join(
@@ -133,7 +140,7 @@ export default async function ComponentPage(props: {
         <div className="space-y-4">
           <Breadcrumbs
             backLink="/doc"
-            groupName="Components"
+            groupName={group.charAt(0).toUpperCase() + group.slice(1)}
             currentPage={component.componentTitle}
           />
           <h1
@@ -146,7 +153,7 @@ export default async function ComponentPage(props: {
           <p className="text-primary-foreground text-sm">{component.info}</p>
         </div>
         <div className="space-y-6">
-          <ComponentView>
+          <ComponentView hasRefreshDemo={component.hasRefreshDemo !== false}>
             <OpenInV0Button
               url={`https://smoothui.dev/r/${component.slug}-demo.json`}
             />
@@ -432,9 +439,6 @@ export default async function ComponentPage(props: {
           )}
           {/* Divider for separation */}
           <Separator />
-          {/* {component.cnFunction && (
-            <CodeBlock code={cnCode} fileName="utils/cn.ts" lang="typescript" />
-          )} */}
           <h2
             className="text-xl font-semibold"
             data-table-content="How to use"

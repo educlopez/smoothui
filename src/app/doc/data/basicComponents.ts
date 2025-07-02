@@ -3,32 +3,9 @@ import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"
 import ToastDemo from "@/components/smoothui/examples/BasicToastDemo"
 
-export interface BasicComponentsProps {
-  id: number
-  componentTitle: string
-  slug?: string
-  type?: "component" | "block"
-  isNew?: boolean
-  tags: string[]
-  href: string
-  info: string
-  componentUi?: React.ElementType
-  code?: string
-  download?: string
-  customCss?: string
-  cnFunction?: boolean
-  isUpdated?: boolean
-  collection?: string
-  props?: {
-    name: string
-    type: string
-    description: string
-    required: boolean
-    fields?: { name: string; type: string; description: string }[]
-  }[]
-}
+import { ComponentsProps } from "./typeComponent"
 
-export const basicComponents: BasicComponentsProps[] = [
+export const basicComponents: ComponentsProps[] = [
   {
     id: 1,
     componentTitle: "Basic Toast",
@@ -81,6 +58,7 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 2,
@@ -137,6 +115,7 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 3,
@@ -185,6 +164,7 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
 
   {
@@ -247,6 +227,7 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 5,
@@ -325,6 +306,7 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 6,
@@ -379,5 +361,6 @@ export const basicComponents: BasicComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: true,
   },
 ]

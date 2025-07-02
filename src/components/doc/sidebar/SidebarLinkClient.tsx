@@ -9,11 +9,10 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
-import {
-  basicComponents,
-  BasicComponentsProps,
-} from "@/app/doc/data/basicComponents"
-import { components, ComponentsProps } from "@/app/doc/data/components"
+import { basicComponents } from "@/app/doc/data/basicComponents"
+import { components } from "@/app/doc/data/components"
+import { textComponents } from "@/app/doc/data/textComponentes"
+import { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 import { SidebarButtonClient } from "./sidebarButtonClient"
 
@@ -45,7 +44,7 @@ export default function SidebarLinkClient({}) {
           {basicComponents
             .slice()
             .reverse()
-            .map((component: BasicComponentsProps) => {
+            .map((component: ComponentsProps) => {
               const href = `/doc/basic/${component.slug}`
               return (
                 <SidebarMenuSubItem
@@ -68,6 +67,35 @@ export default function SidebarLinkClient({}) {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
+          Text
+        </SidebarGroupLabel>
+        <SidebarMenuSub>
+          {textComponents
+            .slice()
+            .reverse()
+            .map((component: ComponentsProps) => {
+              const href = `/doc/text/${component.slug}`
+              return (
+                <SidebarMenuSubItem
+                  key={component.componentTitle}
+                  className="group"
+                >
+                  <SidebarMenuButton asChild tooltip={component.componentTitle}>
+                    <SidebarButtonClient
+                      key={component.componentTitle}
+                      name={component.componentTitle}
+                      slug={`/doc/text/${component.slug}`}
+                      isNew={component.isNew}
+                      isUpdated={component.isUpdated}
+                    />
+                  </SidebarMenuButton>
+                </SidebarMenuSubItem>
+              )
+            })}
+        </SidebarMenuSub>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel className="text-foreground font-bold">
           Components
         </SidebarGroupLabel>
         <SidebarMenuSub>
@@ -75,14 +103,14 @@ export default function SidebarLinkClient({}) {
             .slice()
             .reverse()
             .map((component: ComponentsProps) => {
-              const href = `/doc/basic/${component.slug}`
+              const href = `/doc/components/${component.slug}`
               return (
                 <SidebarMenuSubItem key={component.componentTitle}>
                   <SidebarMenuButton asChild tooltip={component.componentTitle}>
                     <SidebarButtonClient
                       key={component.componentTitle}
                       name={component.componentTitle}
-                      slug={`/doc/${component.slug}`}
+                      slug={`/doc/components/${component.slug}`}
                       isNew={component.isNew}
                       isUpdated={component.isUpdated}
                     />

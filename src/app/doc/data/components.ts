@@ -11,34 +11,10 @@ import JobListingComponentDemo from "@/components/smoothui/examples/JobListingCo
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
-import ScrambleHoverDemo from "@/components/smoothui/examples/ScrambleHoverDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
 
-export interface ComponentsProps {
-  id: number
-  componentTitle: string
-  slug?: string
-  type?: "component" | "block"
-  isNew?: boolean
-  tags: string[]
-  href: string
-  info: string
-  componentUi?: React.ElementType
-  code?: string
-  download?: string
-  customCss?: string
-  cnFunction?: boolean
-  isUpdated?: boolean
-  collection?: string
-  props?: {
-    name: string
-    type: string
-    description: string
-    required: boolean
-    fields?: { name: string; type: string; description: string }[]
-  }[]
-}
+import { ComponentsProps } from "./typeComponent"
 
 export const components: ComponentsProps[] = [
   {
@@ -101,6 +77,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 2,
@@ -173,6 +150,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 3,
@@ -214,6 +192,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 4,
@@ -274,6 +253,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 5,
@@ -347,6 +327,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: true,
   },
   {
     id: 6,
@@ -417,6 +398,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 7,
@@ -515,6 +497,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 8,
@@ -581,6 +564,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 9,
@@ -646,6 +630,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 10,
@@ -700,6 +685,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: true,
   },
   {
     id: 11,
@@ -753,6 +739,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 12,
@@ -873,6 +860,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 13,
@@ -926,6 +914,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 14,
@@ -989,6 +978,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 15,
@@ -1069,6 +1059,7 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
+    hasRefreshDemo: false,
   },
   {
     id: 16,
@@ -1132,47 +1123,6 @@ export const components: ComponentsProps[] = [
         required: false,
       },
     ],
-  },
-  {
-    id: 1000,
-    componentTitle: "Scramble Hover",
-    slug: "scramble-hover",
-    type: "component",
-    isNew: true,
-    tags: ["react", "animation", "hover", "tailwindcss"],
-    href: "https://x.com/educalvolpz",
-    info: "Text component that animates by scrambling its letters on hover, then resolves to the original text. Useful for headings, buttons, and interactive UI.",
-    componentUi: ScrambleHoverDemo,
-    download: "",
-    cnFunction: false,
-    isUpdated: false,
-    collection: "typography",
-    props: [
-      {
-        name: "children",
-        type: "string",
-        description: "The text to scramble on hover.",
-        required: true,
-      },
-      {
-        name: "duration",
-        type: "number",
-        description: "Total animation duration in milliseconds (default: 600).",
-        required: false,
-      },
-      {
-        name: "speed",
-        type: "number",
-        description:
-          "Interval between scrambles in milliseconds (default: 30).",
-        required: false,
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Optional additional class names for styling.",
-        required: false,
-      },
-    ],
+    hasRefreshDemo: false,
   },
 ]

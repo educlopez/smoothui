@@ -1,5 +1,25 @@
 export const changelogEntries = [
   {
+    date: "Jul 02, 2025",
+    changes: [
+      "New component: Reveal Text",
+      "New component: Typewriter Text",
+      "New component: Wave Text",
+      "Refresh button for the components",
+      "Redirect normal components to the new /doc/components/ page",
+      "New Text Section",
+    ],
+  },
+  {
+    date: "Jul 01, 2025",
+    changes: [
+      "New component: Animated Input",
+      "New component: Scramble Hover",
+      "New component: Phototab",
+      "New component: Animated Progress Bar",
+    ],
+  },
+  {
     date: "Jun 18, 2025",
     changes: [
       "New Design System",
