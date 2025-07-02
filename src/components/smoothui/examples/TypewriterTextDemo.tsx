@@ -6,7 +6,6 @@ export default function TypewriterTextDemo() {
   return (
     <div className="relative max-w-md space-y-6">
       <div>
-        <h2 className="text-xl font-bold">TypewriterText Demo</h2>
         <TypewriterText>Typewriter effect for your text!</TypewriterText>
         <div>
           <TypewriterText speed={100} className="text-brand font-mono text-lg">

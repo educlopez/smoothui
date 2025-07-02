@@ -63,7 +63,7 @@ export default function AnimatedInput({
         }}
         placeholder={isFloating ? placeholder : ""}
         disabled={disabled}
-        className={`peer focus:ring-primary bg-background w-full rounded border px-3 py-2 text-sm transition outline-none focus:ring-1 ${icon ? "pl-10" : ""} ${inputClassName}`}
+        className={`peer focus:ring-primary bg-background w-full rounded-sm border px-3 py-2 text-sm transition outline-none focus:ring-1 ${icon ? "pl-10" : ""} ${inputClassName}`}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />

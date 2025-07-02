@@ -7,7 +7,7 @@ import { ComponentsProps } from "./typeComponent"
 
 export const textComponents: ComponentsProps[] = [
   {
-    id: 17,
+    id: 1,
     componentTitle: "Scramble Hover",
     slug: "scramble-hover",
     type: "component",
@@ -50,7 +50,7 @@ export const textComponents: ComponentsProps[] = [
     hasRefreshDemo: false,
   },
   {
-    id: 18,
+    id: 2,
     componentTitle: "Typewriter Text",
     slug: "typewriter-text",
     type: "component",
@@ -92,7 +92,7 @@ export const textComponents: ComponentsProps[] = [
     hasRefreshDemo: true,
   },
   {
-    id: 19,
+    id: 3,
     componentTitle: "Wave Text",
     slug: "wave-text",
     type: "component",
@@ -134,7 +134,7 @@ export const textComponents: ComponentsProps[] = [
     hasRefreshDemo: false,
   },
   {
-    id: 20,
+    id: 4,
     componentTitle: "Reveal Text",
     slug: "reveal-text",
     type: "component",

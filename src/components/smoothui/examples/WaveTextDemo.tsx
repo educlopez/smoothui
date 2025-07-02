@@ -6,7 +6,6 @@ export default function WaveTextDemo() {
   return (
     <div className="relative max-w-md space-y-6">
       <div>
-        <h2 className="text-xl font-bold">WaveText Demo</h2>
         <WaveText>Wave animation for your text!</WaveText>
         <div>
           <WaveText amplitude={16} className="text-brand text-lg font-bold">

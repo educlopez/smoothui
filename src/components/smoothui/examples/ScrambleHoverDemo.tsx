@@ -6,7 +6,6 @@ export default function ScrambleHoverDemo() {
   return (
     <div className="relative max-w-md space-y-6">
       <div>
-        <h2 className="text-xl font-bold">ScrambleHover Demo</h2>
         <ScrambleHover>Hover over this text!</ScrambleHover>
         <div>
           <ScrambleHover

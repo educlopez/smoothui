@@ -2,6 +2,7 @@ import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
 import ButtonCopyDemo from "@/components/smoothui/examples/ButtonCopyDemo"
+import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
 import ExpandableCardsDemo from "@/components/smoothui/examples/ExpandableCardsDemo"
 import FluidMorphDemo from "@/components/smoothui/examples/FluidMorphDemo"
@@ -1120,6 +1121,42 @@ export const components: ComponentsProps[] = [
         name: "imageClassName",
         type: "string",
         description: "Class name for the image.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+  },
+  {
+    id: 17,
+    componentTitle: "Dot Morph Button",
+    slug: "dot-morph-button",
+    type: "component",
+    isNew: true,
+    tags: ["react", "tailwindcss", "motion"],
+    href: "https://x.com/educalvolpz",
+    info: "A pill-shaped button with a dot that morphs into a checkmark on click, featuring smooth Framer Motion animation.",
+    componentUi: DotMorphButtonDemo,
+    download: "framer-motion tailwindcss",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "inputs",
+    props: [
+      {
+        name: "label",
+        type: "string",
+        description: "Button label text.",
+        required: true,
+      },
+      {
+        name: "onClick",
+        type: "() => void",
+        description: "Optional click handler.",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional additional class names for the button.",
         required: false,
       },
     ],
