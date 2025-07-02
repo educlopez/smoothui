@@ -76,7 +76,7 @@ export function Hero() {
                     <Link href="/doc">Get Started</Link>
                   </Button>
                   <Button variant="outline" asChild>
-                    <Link href="/doc/job-listing-component">
+                    <Link href="/doc/components/job-listing-component">
                       Explore components
                     </Link>
                   </Button>
