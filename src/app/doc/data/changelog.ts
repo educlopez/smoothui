@@ -1,5 +1,12 @@
 export const changelogEntries = [
   {
+    date: "Jul 03, 2025",
+    changes: [
+      "New component: Dot Morph Button",
+      "New component: Clip Corners Button",
+    ],
+  },
+  {
     date: "Jul 02, 2025",
     changes: [
       "New component: Reveal Text",
