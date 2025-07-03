@@ -1,6 +1,6 @@
 "use client"
 
-import WaveText from "../ui/WaveText"
+import WaveText from "@/components/smoothui/ui/WaveText"
 
 export default function WaveTextDemo() {
   return (

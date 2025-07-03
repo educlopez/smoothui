@@ -1,6 +1,6 @@
 "use client"
 
-import TypewriterText from "../ui/TypewriterText"
+import TypewriterText from "@/components/smoothui/ui/TypewriterText"
 
 export default function TypewriterTextDemo() {
   return (

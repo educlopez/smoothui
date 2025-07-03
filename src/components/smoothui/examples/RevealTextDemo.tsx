@@ -1,6 +1,6 @@
 "use client"
 
-import RevealText from "../ui/RevealText"
+import RevealText from "@/components/smoothui/ui/RevealText"
 
 export default function RevealTextDemo() {
   return (

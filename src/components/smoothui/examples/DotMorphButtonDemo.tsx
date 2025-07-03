@@ -1,4 +1,4 @@
-import DotMorphButton from "../ui/DotMorphButton"
+import DotMorphButton from "@/components/smoothui/ui/DotMorphButton"
 
 export default function DotMorphButtonDemo() {
   return (

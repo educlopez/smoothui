@@ -1,4 +1,4 @@
-import ClipCornersButton from "../ui/ClipCornersButton"
+import ClipCornersButton from "@/components/smoothui/ui/ClipCornersButton"
 
 export default function ClipCornersButtonDemo() {
   return (
