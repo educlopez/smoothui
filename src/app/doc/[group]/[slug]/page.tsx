@@ -9,6 +9,7 @@ import BadgeBeta from "@/components/doc/badgeBeta"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import ComponentPager from "@/components/doc/ComponentPager"
 import { ComponentView } from "@/components/doc/componentView"
 import { OpenInV0Button } from "@/components/doc/openInV0"
 import PropsTable from "@/components/doc/PropsTable"
@@ -468,6 +469,17 @@ export default async function ComponentPage({
           </>
         )}
       </div>
+      {/* Pager navigation at the bottom */}
+      <ComponentPager
+        slug={slug}
+        components={data
+          .filter(({ slug }) => typeof slug === "string")
+          .map(({ slug, componentTitle, info }) => ({
+            slug: slug as string,
+            componentTitle,
+            info,
+          }))}
+      />
     </main>
   )
 }
