@@ -1,7 +1,4 @@
 import Link from "next/link"
-import { Github } from "lucide-react"
-
-import { Button } from "@/components/button"
 
 import AnimatedNumber from "./animated-number"
 

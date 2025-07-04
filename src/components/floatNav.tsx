@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Component, Github } from "lucide-react"
+import { BookText, Github } from "lucide-react"
 
 import { ThemeSwitch } from "@/components/themeSwitch"
 import ToastChangelog from "@/components/toastChangelog"
@@ -11,6 +11,7 @@ import {
 } from "@/components/tooltip"
 
 import { ColorPickerFloatNav } from "./ColorPickerFloatNav"
+import { Separator } from "./ui/separator"
 
 export function FloatNav() {
   return (
@@ -65,7 +66,7 @@ export function FloatNav() {
             <p>GitHub</p>
           </TooltipContent>
         </Tooltip>
-
+        <Separator orientation="vertical" className="h-4" />
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
@@ -73,7 +74,7 @@ export function FloatNav() {
               aria-label="Documentation"
               className="hover:text-brand text-foreground flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
             >
-              <Component size={20} aria-hidden="true" />
+              <BookText size={20} aria-hidden="true" />
             </Link>
           </TooltipTrigger>
           <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
@@ -89,7 +90,7 @@ export function FloatNav() {
             <p>Latest Changes</p>
           </TooltipContent>
         </Tooltip>
-
+        <Separator orientation="vertical" className="h-4" />
         <Tooltip>
           <TooltipTrigger>
             <ThemeSwitch />

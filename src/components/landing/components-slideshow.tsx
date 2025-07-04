@@ -1,11 +1,10 @@
 import Link from "next/link"
 
+import { Button } from "@/components/button"
 import Frame from "@/components/frame"
 import Divider from "@/components/landing/divider"
+import Rule from "@/components/landing/rule"
 import { components } from "@/app/doc/data/components"
-
-import { Button } from "../button"
-import Rule from "./rule"
 
 const SHOWCASE_COMPONENTS = [
   "Animated Tags",

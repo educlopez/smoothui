@@ -1,30 +1,10 @@
-"use client"
-
 import { Package } from "lucide-react"
-import { motion } from "motion/react"
 
 import Divider from "@/components/landing/divider"
+import Rule from "@/components/landing/rule"
 import { ReactLogo } from "@/components/resources/logos/ReactLogo"
 import { TailwindLogo } from "@/components/resources/logos/TailwindLogo"
 import { cn } from "@/components/smoothui/utils/cn"
-
-import Rule from "./rule"
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-}
 
 const features = [
   {
@@ -49,27 +29,19 @@ const features = [
 
 export function Features() {
   return (
-    <motion.section
-      className="relative mx-auto max-w-7xl px-4 py-24"
-      variants={container}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
-    >
+    <section className="relative mx-auto max-w-7xl px-4 py-24">
+      <Rule position="top-right" className="top-6.5" />
+      <Rule position="top-left" className="top-6.5" />
       <Rule position="bottom-right" />
       <Rule position="bottom-left" />
       <Divider />
-      <motion.h2
-        className="font-title text-foreground text-center text-3xl font-bold transition"
-        variants={item}
-      >
+      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Why Choose Smooth<span className="text-brand">UI</span>?
-      </motion.h2>
+      </h2>
       <div className="mt-16 grid gap-8 px-4 md:grid-cols-3">
         {features.map((feature) => (
-          <motion.div
+          <div
             key={feature.title}
-            variants={item}
             className={cn(
               "hover:gradient-brand group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
               "shadow-custom"
@@ -82,9 +54,9 @@ export function Features() {
             <p className="text-primary-foreground transition group-hover:text-white">
               {feature.description}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
-    </motion.section>
+    </section>
   )
 }

@@ -1,27 +1,6 @@
-"use client"
-
-import { motion } from "motion/react"
-
 import { cn } from "@/lib/utils"
 import Divider from "@/components/landing/divider"
-
-import Rule from "./rule"
-
-const container = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.3,
-    },
-  },
-}
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0 },
-}
+import Rule from "@/components/landing/rule"
 
 const faqs = [
   {
@@ -31,7 +10,7 @@ const faqs = [
   {
     question: "What is SmoothUI?",
     answer:
-      "SmoothUI is a collection of beautifully designed React components with smooth animations, built using React, Tailwind CSS, and Motion. It aims to provide reusable UI components that enhance user experience.",
+      "SmoothUI is a collection of beautifully designed React components with smooth animations, built using React, Tailwind CSS, and  It aims to provide reusable UI components that enhance user experience.",
   },
   {
     question: "What features does SmoothUI offer?",
@@ -63,27 +42,17 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <motion.section
-      className="relative w-full px-4 py-24"
-      variants={container}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true }}
-    >
+    <section className="relative w-full px-4 py-24">
       <Rule position="bottom-right" />
       <Rule position="bottom-left" />
       <Divider />
-      <motion.h2
-        variants={item}
-        className="font-title text-foreground text-center text-3xl font-bold transition"
-      >
+      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Frequently Asked Questions
-      </motion.h2>
+      </h2>
       <div className="mx-auto mt-16 max-w-3xl space-y-8">
         {faqs.map((faq) => (
-          <motion.div
+          <div
             key={faq.question}
-            variants={item}
             className={cn(
               "hover:gradient-brand group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
               "shadow-custom"
@@ -95,9 +64,9 @@ export function FAQ() {
             <p className="text-primary-foreground group-hover: mt-2 transition group-hover:text-white">
               {faq.answer}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
-    </motion.section>
+    </section>
   )
 }

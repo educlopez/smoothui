@@ -1,9 +1,8 @@
 import Link from "next/link"
 import { Github } from "lucide-react"
 
-import { Icon } from "../icon"
-import Logo from "../logo"
-import GithubStars from "./githubstars"
+import GithubStars from "@/components/landing/githubstars"
+import Logo from "@/components/logo"
 
 export default function Navbar() {
   return (
