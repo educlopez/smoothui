@@ -32,6 +32,7 @@ export const textComponents: ComponentsProps[] = [
         type: "number",
         description: "Total animation duration in milliseconds (default: 600).",
         required: false,
+        default: 600,
       },
       {
         name: "speed",
@@ -39,6 +40,7 @@ export const textComponents: ComponentsProps[] = [
         description:
           "Interval between scrambles in milliseconds (default: 30).",
         required: false,
+        default: 30,
       },
       {
         name: "className",
@@ -75,6 +77,7 @@ export const textComponents: ComponentsProps[] = [
         type: "number",
         description: "Milliseconds per character (default: 50).",
         required: false,
+        default: 50,
       },
       {
         name: "loop",
@@ -117,12 +120,14 @@ export const textComponents: ComponentsProps[] = [
         type: "number",
         description: "Height of the wave (default: 8).",
         required: false,
+        default: 8,
       },
       {
         name: "speed",
         type: "number",
         description: "Animation speed (default: 0.3).",
         required: false,
+        default: 0.3,
       },
       {
         name: "className",

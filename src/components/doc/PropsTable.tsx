@@ -1,5 +1,12 @@
 import React from "react"
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 interface FieldDefinition {
   name: string
   type: string
@@ -12,79 +19,105 @@ interface PropDefinition {
   description?: string
   required?: boolean
   fields?: FieldDefinition[]
+  default?: string
 }
 
 interface PropsTableProps {
   props: PropDefinition[]
 }
 
+const InfoIcon = ({ className }: { className?: string }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    className={
+      className || "text-muted-foreground ml-1 inline h-4 w-4 align-middle"
+    }
+    aria-hidden="true"
+  >
+    <circle
+      cx="10"
+      cy="10"
+      r="9"
+      stroke="currentColor"
+      strokeWidth="2"
+      fill="none"
+    />
+    <rect x="9" y="8" width="2" height="5" rx="1" fill="currentColor" />
+    <rect x="9" y="5" width="2" height="2" rx="1" fill="currentColor" />
+  </svg>
+)
+
 const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
-  <div className="bg-primary overflow-x-auto rounded-lg border">
-    <table className="min-w-full text-left text-sm">
+  <div className="bg-primary overflow-x-auto rounded-xl border">
+    <table className="min-w-full border-separate border-spacing-0 text-left text-sm">
       <thead className="bg-primary">
         <tr>
-          <th className="text-foreground px-4 py-2 font-semibold">Prop</th>
-          <th className="text-foreground px-4 py-2 font-semibold">Type</th>
-          <th className="text-foreground px-4 py-2 font-semibold">
-            Description
+          <th className="text-foreground rounded-tl-xl px-4 py-3 font-semibold">
+            Prop
+          </th>
+          <th className="text-foreground px-4 py-3 font-semibold">Type</th>
+          <th className="text-foreground rounded-tr-xl px-4 py-3 font-semibold">
+            Default
           </th>
         </tr>
       </thead>
       <tbody>
-        {props.map((prop) => (
+        {props.map((prop, idx) => (
           <React.Fragment key={prop.name}>
-            <tr className="border-t">
-              <td className="px-4 py-2 align-top">
-                <span className="text-brand bg-background inline-block rounded border px-2 py-0.5 font-mono text-xs">
+            <tr
+              className={
+                "border-t transition-colors " +
+                (idx % 2 === 0 ? "bg-primary/70" : "bg-primary/90")
+              }
+            >
+              <td className="rounded-l-xl px-4 py-3 align-top">
+                <span className="text-brand bg-background inline-flex items-center gap-1 rounded border px-2 py-1 font-mono text-xs font-semibold shadow-sm">
                   {prop.name}
-                  {prop.required ? "" : "?"}
+                  {!prop.required && (
+                    <span className="text-muted-foreground">?</span>
+                  )}
+                  {prop.description && (
+                    <span className="ml-1 align-middle">
+                      <TooltipProvider delayDuration={0}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <button
+                              type="button"
+                              tabIndex={0}
+                              aria-label="Show info"
+                              className="focus:outline-none"
+                            >
+                              <InfoIcon />
+                            </button>
+                          </TooltipTrigger>
+                          <TooltipContent className="bg-background max-w-xs border px-4 py-3 text-xs shadow-xl">
+                            <span className="text-foreground whitespace-pre-line">
+                              {prop.description}
+                            </span>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    </span>
+                  )}
                 </span>
               </td>
-              <td className="px-4 py-2 align-top">
-                <span className="bg-background text-foreground inline-block rounded border px-2 py-0.5 font-mono text-xs">
+              <td className="px-4 py-3 align-top">
+                <div
+                  className="bg-background text-foreground inline-block max-w-xs overflow-x-auto rounded border px-2 py-1 font-mono text-xs font-semibold whitespace-nowrap shadow-sm"
+                  style={{ WebkitOverflowScrolling: "touch" }}
+                >
                   {prop.type}
-                </span>
+                </div>
               </td>
-              <td className="text-primary-foreground px-4 py-2 align-top">
-                {prop.description || "-"}
-                {prop.fields && (
-                  <div className="mt-2">
-                    <div className="text-foreground mb-1 text-xs font-semibold">
-                      Object shape:
-                    </div>
-                    <div className="w-fit overflow-hidden rounded-sm border">
-                      <table className="bg-primary min-w-[300px] text-xs">
-                        <thead className="bg-primary">
-                          <tr>
-                            <th className="text-foreground px-2 py-1 font-semibold">
-                              Field
-                            </th>
-                            <th className="text-foreground px-2 py-1 font-semibold">
-                              Type
-                            </th>
-                            <th className="text-foreground px-2 py-1 font-semibold">
-                              Description
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {prop.fields.map((field) => (
-                            <tr key={field.name} className="border-t">
-                              <td className="text-brand bg-background px-2 py-1 font-mono">
-                                {field.name}
-                              </td>
-                              <td className="text-foreground bg-background px-2 py-1 font-mono">
-                                {field.type}
-                              </td>
-                              <td className="text-primary-foreground bg-background px-2 py-1">
-                                {field.description || "-"}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
+              <td className="text-muted-foreground rounded-r-xl px-4 py-3 align-top font-mono text-xs">
+                {prop.default !== undefined ? (
+                  <span className="bg-background rounded-full border px-3 py-1 shadow-sm">
+                    {prop.default}
+                  </span>
+                ) : (
+                  <span className="text-muted-foreground">-</span>
                 )}
               </td>
             </tr>

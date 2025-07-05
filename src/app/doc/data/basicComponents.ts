@@ -32,12 +32,14 @@ export const basicComponents: ComponentsProps[] = [
         type: '"success" | "error" | "info" | "warning"',
         description: "Toast type (default: 'info').",
         required: false,
+        default: "info",
       },
       {
         name: "duration",
         type: "number",
         description: "How long to show the toast (ms, default: 3000).",
         required: false,
+        default: 3000,
       },
       {
         name: "onClose",
@@ -341,6 +343,7 @@ export const basicComponents: ComponentsProps[] = [
         type: "string",
         description: "Bar color.",
         required: false,
+        default: "#6366f1",
       },
       {
         name: "className",
