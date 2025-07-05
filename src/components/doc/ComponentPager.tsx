@@ -25,7 +25,7 @@ export const ComponentPager: React.FC<ComponentPagerProps> = ({
   const next = idx < components.length - 1 ? components[idx + 1] : null
 
   return (
-    <div className="mt-12 mb-2 flex w-full justify-center gap-6">
+    <div className="mt-12 mb-2 flex w-full flex-col justify-center gap-6 md:flex-row">
       {prev && (
         <div className="flex-1">
           <Link
