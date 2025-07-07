@@ -11,11 +11,13 @@ interface PagerItem {
 }
 
 interface ComponentPagerProps {
+  group: string
   slug: string
   components: PagerItem[]
 }
 
 export const ComponentPager: React.FC<ComponentPagerProps> = ({
+  group,
   slug,
   components,
 }) => {
@@ -29,7 +31,7 @@ export const ComponentPager: React.FC<ComponentPagerProps> = ({
       {prev && (
         <div className="flex-1">
           <Link
-            href={`/doc/${prev.slug}`}
+            href={`/doc/${group}/${prev.slug}`}
             className="bg-primary hover:bg-background block rounded-2xl border px-6 py-6 text-left transition-colors"
           >
             <div className="mb-2 flex items-center gap-2 font-semibold">
@@ -45,7 +47,7 @@ export const ComponentPager: React.FC<ComponentPagerProps> = ({
       {next && (
         <div className="flex-1 text-right">
           <Link
-            href={`/doc/${next.slug}`}
+            href={`/doc/${group}/${next.slug}`}
             className="bg-primary hover:bg-background block rounded-2xl border px-6 py-6 text-left transition-colors"
           >
             <div className="mb-2 flex items-center justify-end gap-2 font-semibold">

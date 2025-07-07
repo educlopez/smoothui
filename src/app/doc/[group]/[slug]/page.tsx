@@ -471,6 +471,7 @@ export default async function ComponentPage({
       </div>
       {/* Pager navigation at the bottom */}
       <ComponentPager
+        group={group}
         slug={slug}
         components={data
           .filter(({ slug }) => typeof slug === "string")
