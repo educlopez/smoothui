@@ -26,7 +26,7 @@ function highlightMatch(text: string, query: string) {
   return (
     <>
       {text.slice(0, idx)}
-      <mark className="rounded bg-yellow-200 px-0.5 py-0.5 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100">
+      <mark className="bg-brand/20 text-brand-secondary rounded px-0.5 py-0.5">
         {text.slice(idx, idx + query.length)}
       </mark>
       {text.slice(idx + query.length)}
@@ -104,7 +104,7 @@ export default function SidebarLinkClient({}) {
         <SidebarGroupLabel className="text-foreground font-bold">
           Basic
         </SidebarGroupLabel>
-        <SidebarMenuSub>
+        <SidebarMenuSub className="border-none p-0">
           {filteredBasic.length === 0 ? (
             <SidebarMenuSubItem>
               <span className="text-muted-foreground px-2 py-1 text-xs">
@@ -132,6 +132,7 @@ export default function SidebarLinkClient({}) {
                         slug={`/doc/basic/${component.slug}`}
                         isNew={component.isNew}
                         isUpdated={component.isUpdated}
+                        icon={component.icon}
                       />
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
@@ -144,7 +145,7 @@ export default function SidebarLinkClient({}) {
         <SidebarGroupLabel className="text-foreground font-bold">
           Text
         </SidebarGroupLabel>
-        <SidebarMenuSub>
+        <SidebarMenuSub className="border-none p-0">
           {filteredText.length === 0 ? (
             <SidebarMenuSubItem>
               <span className="text-muted-foreground px-2 py-1 text-xs">
@@ -172,6 +173,7 @@ export default function SidebarLinkClient({}) {
                         slug={`/doc/text/${component.slug}`}
                         isNew={component.isNew}
                         isUpdated={component.isUpdated}
+                        icon={component.icon}
                       />
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>
@@ -184,7 +186,7 @@ export default function SidebarLinkClient({}) {
         <SidebarGroupLabel className="text-foreground font-bold">
           Components
         </SidebarGroupLabel>
-        <SidebarMenuSub>
+        <SidebarMenuSub className="border-none p-0">
           {filteredComponents.length === 0 ? (
             <SidebarMenuSubItem>
               <span className="text-muted-foreground px-2 py-1 text-xs">
@@ -209,6 +211,7 @@ export default function SidebarLinkClient({}) {
                         slug={`/doc/components/${component.slug}`}
                         isNew={component.isNew}
                         isUpdated={component.isUpdated}
+                        icon={component.icon}
                       />
                     </SidebarMenuButton>
                   </SidebarMenuSubItem>

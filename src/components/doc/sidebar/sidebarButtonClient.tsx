@@ -12,6 +12,7 @@ type SidebarButton = {
   isNew?: boolean
   onClick?: () => void
   isUpdated?: boolean
+  icon?: React.ElementType
 }
 
 export function SidebarButtonClient({
@@ -20,6 +21,7 @@ export function SidebarButtonClient({
   isNew = false,
   isUpdated = false,
   onClick,
+  icon: Icon,
 }: SidebarButton) {
   const pathname = usePathname()
 
@@ -40,6 +42,7 @@ export function SidebarButtonClient({
       {isNew ? (
         <>
           <div className="flex items-center gap-2">
+            {Icon && <Icon size={16} className="mr-1" />}
             <span className="truncate">{name}</span>
           </div>
           <span className="absolute right-1 z-2 flex flex-row items-center justify-center gap-1 rounded-md bg-amber-50 py-0.5 pl-1 text-[10px] leading-4 font-semibold text-amber-600 dark:bg-amber-950">
@@ -52,6 +55,7 @@ export function SidebarButtonClient({
       ) : isUpdated ? (
         <>
           <div className="flex items-center gap-2">
+            {Icon && <Icon size={16} className="mr-1" />}
             <span className="truncate">{name}</span>
           </div>
           <span className="absolute right-1 z-2 flex flex-row items-center justify-center gap-1 rounded-md bg-pink-100 py-0.5 pl-1 text-[10px] leading-4 font-semibold text-pink-600 dark:bg-pink-950 dark:text-pink-400">
@@ -63,7 +67,7 @@ export function SidebarButtonClient({
         </>
       ) : (
         <div className="flex items-center gap-2">
-          {" "}
+          {Icon && <Icon size={16} className="mr-1" />}
           <span className="truncate">{name}</span>
         </div>
       )}

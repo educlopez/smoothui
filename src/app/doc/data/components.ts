@@ -1,3 +1,24 @@
+import {
+  Briefcase,
+  Calendar,
+  Copy,
+  Download,
+  Droplet,
+  GalleryHorizontalEnd,
+  Hash,
+  Image,
+  ImageIcon,
+  LayoutDashboard,
+  List,
+  Loader,
+  MessageSquare,
+  MousePointerClick,
+  Power,
+  Tag,
+  User,
+  Users,
+} from "lucide-react"
+
 import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
@@ -80,6 +101,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Briefcase,
   },
   {
     id: 2,
@@ -153,6 +175,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Image,
   },
   {
     id: 3,
@@ -195,6 +218,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Tag,
   },
   {
     id: 4,
@@ -256,6 +280,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Droplet,
   },
   {
     id: 5,
@@ -330,6 +355,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
+    icon: GalleryHorizontalEnd,
   },
   {
     id: 6,
@@ -401,6 +427,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Download,
   },
   {
     id: 7,
@@ -500,6 +527,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Power,
   },
   {
     id: 8,
@@ -567,6 +595,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: User,
   },
   {
     id: 9,
@@ -633,6 +662,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Copy,
   },
   {
     id: 10,
@@ -688,6 +718,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
+    icon: Hash,
   },
   {
     id: 11,
@@ -742,6 +773,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: MessageSquare,
   },
   {
     id: 12,
@@ -863,6 +895,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Loader,
   },
   {
     id: 13,
@@ -917,6 +950,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: User,
   },
   {
     id: 14,
@@ -981,6 +1015,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: LayoutDashboard,
   },
   {
     id: 15,
@@ -1062,6 +1097,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Calendar,
   },
   {
     id: 16,
@@ -1126,6 +1162,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: ImageIcon,
   },
   {
     id: 17,
@@ -1162,6 +1199,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: List,
   },
   {
     id: 18,
@@ -1198,5 +1236,6 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: MousePointerClick,
   },
 ]

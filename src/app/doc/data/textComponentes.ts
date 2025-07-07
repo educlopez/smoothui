@@ -1,3 +1,5 @@
+import { Eye, Sparkles, Type, Waves } from "lucide-react"
+
 import RevealTextDemo from "@/components/smoothui/examples/RevealTextDemo"
 import ScrambleHoverDemo from "@/components/smoothui/examples/ScrambleHoverDemo"
 import TypewriterTextDemo from "@/components/smoothui/examples/TypewriterTextDemo"
@@ -50,6 +52,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Sparkles,
   },
   {
     id: 2,
@@ -93,6 +96,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
+    icon: Type,
   },
   {
     id: 3,
@@ -137,6 +141,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Waves,
   },
   {
     id: 4,
@@ -185,5 +190,6 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
+    icon: Eye,
   },
 ]

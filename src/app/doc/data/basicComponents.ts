@@ -1,3 +1,12 @@
+import {
+  Bell,
+  ChevronDown,
+  ListCollapse,
+  Loader,
+  Square,
+  Type,
+} from "lucide-react"
+
 import AccordionDemo from "@/components/smoothui/examples/BasicAccordionDemo"
 import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"
@@ -61,6 +70,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Bell,
   },
   {
     id: 2,
@@ -118,6 +128,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: ChevronDown,
   },
   {
     id: 3,
@@ -167,6 +178,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Square,
   },
 
   {
@@ -230,6 +242,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: ListCollapse,
   },
   {
     id: 5,
@@ -309,6 +322,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
+    icon: Type,
   },
   {
     id: 6,
@@ -365,5 +379,6 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
+    icon: Loader,
   },
 ]
