@@ -1,11 +1,13 @@
 "use client"
 
+import { useMemo, useState } from "react"
+import { X } from "lucide-react"
+
 import {
   SidebarGroup,
   SidebarGroupLabel,
-  SidebarMenu,
+  SidebarInput,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
@@ -16,9 +18,71 @@ import { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 import { SidebarButtonClient } from "./sidebarButtonClient"
 
-export default function SidebarLinkClient({}) {
+// Helper to highlight the matching part in the component title
+function highlightMatch(text: string, query: string) {
+  if (!query) return text
+  const idx = text.toLowerCase().indexOf(query.toLowerCase())
+  if (idx === -1) return text
   return (
     <>
+      {text.slice(0, idx)}
+      <mark className="rounded bg-yellow-200 px-0.5 py-0.5 text-yellow-900 dark:bg-yellow-800 dark:text-yellow-100">
+        {text.slice(idx, idx + query.length)}
+      </mark>
+      {text.slice(idx + query.length)}
+    </>
+  )
+}
+
+export default function SidebarLinkClient({}) {
+  const [search, setSearch] = useState("")
+
+  // Helper to filter components by search
+  const filterComponents = (list: ComponentsProps[]) => {
+    if (!search.trim()) return list
+    const q = search.toLowerCase()
+    return list.filter((c) => {
+      return (
+        c.componentTitle.toLowerCase().includes(q) ||
+        c.info.toLowerCase().includes(q) ||
+        (c.slug && c.slug.toLowerCase().includes(q)) ||
+        (c.tags && c.tags.some((tag) => tag.toLowerCase().includes(q)))
+      )
+    })
+  }
+
+  const filteredBasic = useMemo(
+    () => filterComponents(basicComponents),
+    [search]
+  )
+  const filteredText = useMemo(() => filterComponents(textComponents), [search])
+  const filteredComponents = useMemo(
+    () => filterComponents(components),
+    [search]
+  )
+
+  return (
+    <>
+      <div className="relative p-2">
+        <SidebarInput
+          placeholder="Search components..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          autoFocus={false}
+          className={search ? "pr-8" : undefined}
+        />
+        {search && (
+          <button
+            type="button"
+            aria-label="Clear search"
+            onClick={() => setSearch("")}
+            className="text-muted-foreground hover:text-foreground absolute top-1/2 right-4 -translate-y-1/2 focus:outline-none"
+            tabIndex={0}
+          >
+            <X size={16} />
+          </button>
+        )}
+      </div>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
           Get Started
@@ -41,28 +105,39 @@ export default function SidebarLinkClient({}) {
           Basic
         </SidebarGroupLabel>
         <SidebarMenuSub>
-          {basicComponents
-            .slice()
-            .reverse()
-            .map((component: ComponentsProps) => {
-              const href = `/doc/basic/${component.slug}`
-              return (
-                <SidebarMenuSubItem
-                  key={component.componentTitle}
-                  className="group"
-                >
-                  <SidebarMenuButton asChild tooltip={component.componentTitle}>
-                    <SidebarButtonClient
-                      key={component.componentTitle}
-                      name={component.componentTitle}
-                      slug={`/doc/basic/${component.slug}`}
-                      isNew={component.isNew}
-                      isUpdated={component.isUpdated}
-                    />
-                  </SidebarMenuButton>
-                </SidebarMenuSubItem>
-              )
-            })}
+          {filteredBasic.length === 0 ? (
+            <SidebarMenuSubItem>
+              <span className="text-muted-foreground px-2 py-1 text-xs">
+                No results
+              </span>
+            </SidebarMenuSubItem>
+          ) : (
+            filteredBasic
+              .slice()
+              .reverse()
+              .map((component: ComponentsProps) => {
+                const href = `/doc/basic/${component.slug}`
+                return (
+                  <SidebarMenuSubItem
+                    key={component.componentTitle}
+                    className="group"
+                  >
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={component.componentTitle}
+                    >
+                      <SidebarButtonClient
+                        key={component.componentTitle}
+                        name={highlightMatch(component.componentTitle, search)}
+                        slug={`/doc/basic/${component.slug}`}
+                        isNew={component.isNew}
+                        isUpdated={component.isUpdated}
+                      />
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                )
+              })
+          )}
         </SidebarMenuSub>
       </SidebarGroup>
       <SidebarGroup>
@@ -70,28 +145,39 @@ export default function SidebarLinkClient({}) {
           Text
         </SidebarGroupLabel>
         <SidebarMenuSub>
-          {textComponents
-            .slice()
-            .reverse()
-            .map((component: ComponentsProps) => {
-              const href = `/doc/text/${component.slug}`
-              return (
-                <SidebarMenuSubItem
-                  key={component.componentTitle}
-                  className="group"
-                >
-                  <SidebarMenuButton asChild tooltip={component.componentTitle}>
-                    <SidebarButtonClient
-                      key={component.componentTitle}
-                      name={component.componentTitle}
-                      slug={`/doc/text/${component.slug}`}
-                      isNew={component.isNew}
-                      isUpdated={component.isUpdated}
-                    />
-                  </SidebarMenuButton>
-                </SidebarMenuSubItem>
-              )
-            })}
+          {filteredText.length === 0 ? (
+            <SidebarMenuSubItem>
+              <span className="text-muted-foreground px-2 py-1 text-xs">
+                No results
+              </span>
+            </SidebarMenuSubItem>
+          ) : (
+            filteredText
+              .slice()
+              .reverse()
+              .map((component: ComponentsProps) => {
+                const href = `/doc/text/${component.slug}`
+                return (
+                  <SidebarMenuSubItem
+                    key={component.componentTitle}
+                    className="group"
+                  >
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={component.componentTitle}
+                    >
+                      <SidebarButtonClient
+                        key={component.componentTitle}
+                        name={highlightMatch(component.componentTitle, search)}
+                        slug={`/doc/text/${component.slug}`}
+                        isNew={component.isNew}
+                        isUpdated={component.isUpdated}
+                      />
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                )
+              })
+          )}
         </SidebarMenuSub>
       </SidebarGroup>
       <SidebarGroup>
@@ -99,25 +185,36 @@ export default function SidebarLinkClient({}) {
           Components
         </SidebarGroupLabel>
         <SidebarMenuSub>
-          {components
-            .slice()
-            .reverse()
-            .map((component: ComponentsProps) => {
-              const href = `/doc/components/${component.slug}`
-              return (
-                <SidebarMenuSubItem key={component.componentTitle}>
-                  <SidebarMenuButton asChild tooltip={component.componentTitle}>
-                    <SidebarButtonClient
-                      key={component.componentTitle}
-                      name={component.componentTitle}
-                      slug={`/doc/components/${component.slug}`}
-                      isNew={component.isNew}
-                      isUpdated={component.isUpdated}
-                    />
-                  </SidebarMenuButton>
-                </SidebarMenuSubItem>
-              )
-            })}
+          {filteredComponents.length === 0 ? (
+            <SidebarMenuSubItem>
+              <span className="text-muted-foreground px-2 py-1 text-xs">
+                No results
+              </span>
+            </SidebarMenuSubItem>
+          ) : (
+            filteredComponents
+              .slice()
+              .reverse()
+              .map((component: ComponentsProps) => {
+                const href = `/doc/components/${component.slug}`
+                return (
+                  <SidebarMenuSubItem key={component.componentTitle}>
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={component.componentTitle}
+                    >
+                      <SidebarButtonClient
+                        key={component.componentTitle}
+                        name={highlightMatch(component.componentTitle, search)}
+                        slug={`/doc/components/${component.slug}`}
+                        isNew={component.isNew}
+                        isUpdated={component.isUpdated}
+                      />
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                )
+              })
+          )}
         </SidebarMenuSub>
       </SidebarGroup>
     </>

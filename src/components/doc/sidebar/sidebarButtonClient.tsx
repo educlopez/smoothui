@@ -8,7 +8,7 @@ import { cn } from "@/components/smoothui/utils/cn"
 
 type SidebarButton = {
   slug: string
-  name: string
+  name: React.ReactNode
   isNew?: boolean
   onClick?: () => void
   isUpdated?: boolean
