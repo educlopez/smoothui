@@ -41,8 +41,8 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8">
-          <polygon points="0,0 8,0 0,8" fill="white" />
+        <svg width="8" height="8" className="fill-background">
+          <polygon points="0,0 8,0 0,8" fill="currentColor" />
         </svg>
       </motion.div>
       {/* Top-right triangle */}
@@ -56,8 +56,8 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8">
-          <polygon points="8,0 8,8 0,0" fill="white" />
+        <svg width="8" height="8" className="fill-background">
+          <polygon points="8,0 8,8 0,0" fill="currentColor" />
         </svg>
       </motion.div>
       {/* Bottom-left triangle */}
@@ -71,8 +71,8 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8">
-          <polygon points="0,8 8,8 0,0" fill="white" />
+        <svg width="8" height="8" className="fill-background">
+          <polygon points="0,8 8,8 0,0" fill="currentColor" />
         </svg>
       </motion.div>
       {/* Bottom-right triangle */}
@@ -86,8 +86,8 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8">
-          <polygon points="8,8 0,8 8,0" fill="white" />
+        <svg width="8" height="8" className="fill-background">
+          <polygon points="8,8 0,8 8,0" fill="currentColor" />
         </svg>
       </motion.div>
       <span className="relative z-10 flex w-full items-center justify-center select-none">
