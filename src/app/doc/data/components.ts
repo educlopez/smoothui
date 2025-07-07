@@ -101,7 +101,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Briefcase,
+    icon: "Briefcase",
   },
   {
     id: 2,
@@ -175,7 +175,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Image,
+    icon: "Image",
   },
   {
     id: 3,
@@ -218,7 +218,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Tag,
+    icon: "Tag",
   },
   {
     id: 4,
@@ -280,7 +280,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Droplet,
+    icon: "Droplet",
   },
   {
     id: 5,
@@ -355,7 +355,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
-    icon: GalleryHorizontalEnd,
+    icon: "GalleryHorizontalEnd",
   },
   {
     id: 6,
@@ -427,7 +427,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Download,
+    icon: "Download",
   },
   {
     id: 7,
@@ -527,7 +527,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Power,
+    icon: "Power",
   },
   {
     id: 8,
@@ -595,7 +595,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: User,
+    icon: "User",
   },
   {
     id: 9,
@@ -662,7 +662,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Copy,
+    icon: "Copy",
   },
   {
     id: 10,
@@ -718,7 +718,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
-    icon: Hash,
+    icon: "Hash",
   },
   {
     id: 11,
@@ -773,7 +773,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: MessageSquare,
+    icon: "MessageSquare",
   },
   {
     id: 12,
@@ -895,7 +895,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Loader,
+    icon: "Loader",
   },
   {
     id: 13,
@@ -950,7 +950,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: User,
+    icon: "User",
   },
   {
     id: 14,
@@ -1015,7 +1015,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: LayoutDashboard,
+    icon: "LayoutDashboard",
   },
   {
     id: 15,
@@ -1097,7 +1097,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Calendar,
+    icon: "Calendar",
   },
   {
     id: 16,
@@ -1162,7 +1162,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: ImageIcon,
+    icon: "ImageIcon",
   },
   {
     id: 17,
@@ -1199,7 +1199,7 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: List,
+    icon: "List",
   },
   {
     id: 18,
@@ -1236,6 +1236,6 @@ export const components: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: MousePointerClick,
+    icon: "MousePointerClick",
   },
 ]

@@ -23,5 +23,5 @@ export interface ComponentsProps {
     default?: any
   }[]
   hasRefreshDemo?: boolean
-  icon?: React.ElementType
+  icon?: string
 }

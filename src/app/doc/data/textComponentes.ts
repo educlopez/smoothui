@@ -52,7 +52,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Sparkles,
+    icon: "Sparkles",
   },
   {
     id: 2,
@@ -96,7 +96,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
-    icon: Type,
+    icon: "Type",
   },
   {
     id: 3,
@@ -141,7 +141,7 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Waves,
+    icon: "Waves",
   },
   {
     id: 4,
@@ -190,6 +190,6 @@ export const textComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
-    icon: Eye,
+    icon: "Eye",
   },
 ]

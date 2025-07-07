@@ -70,7 +70,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Bell,
+    icon: "Bell",
   },
   {
     id: 2,
@@ -128,7 +128,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: ChevronDown,
+    icon: "ChevronDown",
   },
   {
     id: 3,
@@ -178,7 +178,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Square,
+    icon: "Square",
   },
 
   {
@@ -242,7 +242,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: ListCollapse,
+    icon: "ListCollapse",
   },
   {
     id: 5,
@@ -322,7 +322,7 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: false,
-    icon: Type,
+    icon: "Type",
   },
   {
     id: 6,
@@ -379,6 +379,6 @@ export const basicComponents: ComponentsProps[] = [
       },
     ],
     hasRefreshDemo: true,
-    icon: Loader,
+    icon: "Loader",
   },
 ]

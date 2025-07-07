@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { CalendarClock, PackagePlus } from "lucide-react"
+import * as LucideIcons from "lucide-react"
 
 import { cn } from "@/components/smoothui/utils/cn"
 
@@ -12,7 +13,7 @@ type SidebarButton = {
   isNew?: boolean
   onClick?: () => void
   isUpdated?: boolean
-  icon?: React.ElementType
+  icon?: string // icon name
 }
 
 export function SidebarButtonClient({
@@ -21,11 +22,11 @@ export function SidebarButtonClient({
   isNew = false,
   isUpdated = false,
   onClick,
-  icon: Icon,
+  icon,
 }: SidebarButton) {
   const pathname = usePathname()
-
   const isActive = pathname === slug
+  const Icon = icon ? (LucideIcons as any)[icon] : undefined
 
   return (
     <Link
