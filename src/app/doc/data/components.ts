@@ -24,6 +24,7 @@ import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStac
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
 import ButtonCopyDemo from "@/components/smoothui/examples/ButtonCopyDemo"
 import ClipCornersButtonDemo from "@/components/smoothui/examples/ClipCornersButtonDemo"
+import CursorFollowDemo from "@/components/smoothui/examples/CursorFollowDemo"
 import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
 import ExpandableCardsDemo from "@/components/smoothui/examples/ExpandableCardsDemo"
@@ -1232,6 +1233,37 @@ export const components: ComponentsProps[] = [
         name: "className",
         type: "string",
         description: "Optional additional class names for the button.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "MousePointerClick",
+  },
+  {
+    id: 19,
+    componentTitle: "Cursor Follow",
+    slug: "cursor-follow",
+    type: "component",
+    isNew: true,
+    tags: ["react", "motion", "tailwindcss"],
+    href: "https://x.com/educalvolpz",
+    info: "A cursor-follow component that displays context-sensitive text when hovering over elements. Demo shows two images with different hover texts.",
+    componentUi: CursorFollowDemo,
+    download: "motion",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "interactions",
+    props: [
+      {
+        name: "children",
+        type: "React.ReactNode",
+        description: "Elements to render inside the cursor-follow area.",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional class name for the container.",
         required: false,
       },
     ],

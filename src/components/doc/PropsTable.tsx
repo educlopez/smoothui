@@ -73,7 +73,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
               }
             >
               <td className="rounded-l-xl px-4 py-3 align-top">
-                <span className="text-brand bg-background inline-flex items-center gap-1 rounded border px-2 py-1 font-mono text-xs font-semibold shadow-sm">
+                <span className="text-brand bg-background inline-flex items-center gap-1 rounded border px-2 py-1 font-mono text-xs font-semibold">
                   {prop.name}
                   {!prop.required && (
                     <span className="text-muted-foreground">?</span>
@@ -92,7 +92,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
                               <InfoIcon />
                             </button>
                           </TooltipTrigger>
-                          <TooltipContent className="bg-background max-w-xs border px-4 py-3 text-xs shadow-xl">
+                          <TooltipContent className="bg-background max-w-xs border px-4 py-3 text-xs">
                             <span className="text-foreground whitespace-pre-line">
                               {prop.description}
                             </span>
@@ -105,7 +105,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
               </td>
               <td className="px-4 py-3 align-top">
                 <div
-                  className="bg-background text-foreground inline-block max-w-xs overflow-x-auto rounded border px-2 py-1 font-mono text-xs font-semibold whitespace-nowrap shadow-sm"
+                  className="bg-background text-foreground inline-block max-w-xs overflow-x-auto rounded border px-2 py-1 font-mono text-xs font-semibold whitespace-nowrap"
                   style={{ WebkitOverflowScrolling: "touch" }}
                 >
                   {prop.type}
@@ -113,7 +113,7 @@ const PropsTable: React.FC<PropsTableProps> = ({ props }) => (
               </td>
               <td className="text-muted-foreground rounded-r-xl px-4 py-3 align-top font-mono text-xs">
                 {prop.default !== undefined ? (
-                  <span className="bg-background rounded-full border px-3 py-1 shadow-sm">
+                  <span className="bg-background rounded-full border px-3 py-1">
                     {prop.default}
                   </span>
                 ) : (
