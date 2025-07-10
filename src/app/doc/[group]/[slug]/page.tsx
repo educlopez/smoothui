@@ -14,6 +14,7 @@ import { ComponentView } from "@/components/doc/componentView"
 import { OpenInV0Button } from "@/components/doc/openInV0"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import Divider from "@/components/landing/divider"
 import { Separator } from "@/components/ui/separator"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
@@ -153,7 +154,7 @@ export default async function ComponentPage({
           </h1>
           <p className="text-primary-foreground text-sm">{component.info}</p>
         </div>
-        <div className="space-y-6">
+        <div className="relative space-y-6">
           <ComponentView hasRefreshDemo={component.hasRefreshDemo !== false}>
             <OpenInV0Button
               url={`https://smoothui.dev/r/${component.slug}-demo.json`}
@@ -439,7 +440,7 @@ export default async function ComponentPage({
             </Tabs>
           )}
           {/* Divider for separation */}
-          <Separator />
+          <Divider className="relative" />
           <h2
             className="text-xl font-semibold"
             data-table-content="How to use"
@@ -456,8 +457,7 @@ export default async function ComponentPage({
         </div>
         {component.props && (
           <>
-            <Separator />
-
+            <Divider className="relative" />
             <h2
               className="mb-8 text-xl font-semibold"
               data-table-content="Props"

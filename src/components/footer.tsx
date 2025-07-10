@@ -3,12 +3,13 @@ import Link from "next/link"
 // import AirlumeIcon from "@/assets/images/airlume.png"
 import SparkbitesIcon from "@/assets/images/sparkbites.png"
 
-import { Separator } from "@/components/ui/separator"
+import Divider from "./landing/divider"
+import Rule from "./landing/rule"
 
 export default function Footer() {
   return (
     <footer className="z-20 flex flex-col items-center justify-center text-center text-base">
-      <div className="flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
+      <div className="relative flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
         <p className="text-primary-foreground text-xs">I ALSO BUILD:</p>
         <div className="flex flex-row items-center justify-center gap-2 text-xs md:gap-8">
           <Link
@@ -52,9 +53,12 @@ export default function Footer() {
             </div>
           </Link> */}
         </div>
+        <Divider />
       </div>
-      <Separator />
-      <div className="relative">
+
+      <div className="bg-background relative flex w-full flex-col items-center justify-center gap-2 px-2 py-10">
+        <Divider orientation="vertical" />
+        <Divider orientation="vertical" className="right-auto left-0" />
         <a
           href="https://x.com/educalvolpz"
           target="_blank"

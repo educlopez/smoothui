@@ -17,32 +17,29 @@ const SHOWCASE_COMPONENTS = [
 
 export function ComponentsSlideshow() {
   return (
-    <section className="relative py-24 transition">
-      <Rule position="bottom-right" />
-      <Rule position="bottom-left" />
+    <section className="bg-background relative px-8 py-24 transition">
       <Divider />
-      <div className="mx-auto max-w-7xl px-4">
-        <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
-          Component Showcase
-        </h2>
-        <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
-          {components
-            .filter((comp) => SHOWCASE_COMPONENTS.includes(comp.componentTitle))
-            .map((component) => (
-              <div key={component.id} className="relative">
-                <Frame
-                  component={component}
-                  className="m-0 p-0 md:w-full"
-                  clean={true}
-                />
-              </div>
-            ))}
-        </div>
-        <div className="mx-auto mt-8 flex justify-center">
-          <Button asChild variant="candy">
-            <Link href="/doc">View All Components</Link>
-          </Button>
-        </div>
+      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
+        Component Showcase
+      </h2>
+      <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
+        {components
+          .filter((comp) => SHOWCASE_COMPONENTS.includes(comp.componentTitle))
+          .map((component) => (
+            <div key={component.id} className="relative">
+              <Frame
+                component={component}
+                className="m-0 p-0 md:w-full"
+                clean={false}
+                group="components"
+              />
+            </div>
+          ))}
+      </div>
+      <div className="mx-auto mt-8 flex justify-center">
+        <Button asChild variant="candy">
+          <Link href="/doc">View All Components</Link>
+        </Button>
       </div>
     </section>
   )

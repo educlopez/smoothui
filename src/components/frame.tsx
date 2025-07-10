@@ -1,7 +1,8 @@
 "use client"
 
 import React, { useState } from "react"
-import { Code, Eye, FlaskConical } from "lucide-react"
+import Link from "next/link"
+import { BookOpen, Code, Eye, FlaskConical } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
 import { cn } from "@/components/smoothui/utils/cn"
@@ -12,12 +13,14 @@ interface FrameProps {
   component: ComponentsProps
   className?: string
   clean?: boolean
+  group: string
 }
 
 export default function Frame({
   component,
   className,
   clean = false,
+  group,
 }: FrameProps) {
   const [showCode, setShowCode] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
@@ -42,91 +45,24 @@ export default function Frame({
     >
       <div className="mx-auto w-full">
         <article className="grid gap-3">
-          {!clean && (
-            <>
-              <div className="flex justify-between gap-8">
-                <div className="flex items-center gap-2">
-                  <h3 className="text-foreground text-sm font-medium transition">
-                    <span className="text-primary-foreground transition">
-                      #{component.id}
-                    </span>{" "}
-                    {component.componentTitle}
-                  </h3>
-                  {component.isUpdated && (
-                    <span className="ml-2 flex flex-row gap-1 overflow-hidden rounded-md bg-pink-600/10 px-2 py-1 text-xs font-medium text-pink-600 transition-colors duration-200 ease-out select-none dark:bg-pink-600/15">
-                      <FlaskConical size={14} /> Update
-                    </span>
-                  )}
-                </div>
-                <AnimatePresence mode="popLayout" initial={false}>
-                  <button
-                    key={showCode ? "check" : "copy"}
-                    onClick={toggleView}
-                    className="bg-smooth-200 text-foreground hover:bg-smooth-300 flex w-32 items-center gap-2 overflow-hidden rounded-full px-3 py-1 text-center text-sm font-medium transition"
-                  >
-                    {showCode ? (
-                      <motion.span
-                        key="view-component"
-                        initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
-                        transition={{
-                          type: "spring",
-                          duration: 0.3,
-                          bounce: 0,
-                        }}
-                        className="flex w-full items-center justify-center gap-1"
-                      >
-                        <Eye size={16} /> <span>Component</span>
-                      </motion.span>
-                    ) : (
-                      <motion.span
-                        key="view-code"
-                        initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
-                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                        exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
-                        transition={{
-                          type: "spring",
-                          duration: 0.3,
-                          bounce: 0,
-                        }}
-                        className="flex w-full items-center justify-center gap-1"
-                      >
-                        <Code size={16} />
-                        View Code
-                      </motion.span>
-                    )}
-                  </button>
-                </AnimatePresence>
-              </div>
-            </>
-          )}
           <div
             id={`component-${component.id}`}
             className="border-smooth-200 bg-smooth-100 relative flex h-[340px] w-full items-center justify-center overflow-hidden rounded-lg border transition md:flex-1"
           >
+            {/* Floating docs button */}
+            {!clean && component.slug && (
+              <Link
+                href={`/doc/${group}/${component.slug}`}
+                className="bg-background/80 absolute top-2 right-2 z-1 flex h-8 w-8 items-center justify-center rounded-md border backdrop-blur-lg transition hover:bg-white dark:hover:bg-black/50"
+                title={`Go to docs for ${component.componentTitle}`}
+                aria-label={`Go to docs for ${component.componentTitle}`}
+              >
+                <BookOpen size={12} className="text-foreground" />
+              </Link>
+            )}
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </div>
-          {!clean && (
-            <>
-              <div className="flex justify-between gap-8">
-                <div className="flex items-center gap-1 odd:border-pink-400">
-                  {component.tags.map((tag) => (
-                    <div
-                      key={tag}
-                      className="border-smooth-200 text-primary-foreground inline-flex h-[24px] cursor-default items-center justify-center gap-2 rounded-full border px-2 text-xs transition select-none"
-                    >
-                      {tag}
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <p className="text-foreground text-sm transition">
-                {component.info}
-              </p>
-            </>
-          )}
         </article>
       </div>
     </div>

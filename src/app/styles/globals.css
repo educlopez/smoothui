@@ -26,6 +26,7 @@
   --shadow-custom:
     0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.08),
     0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --lines-page: url("/lines-b.png");
 }
 
 .dark {
@@ -34,6 +35,7 @@
     0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
     0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
     0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+  --lines-page: url("/lines-w.png");
 }
 
 @layer base {
@@ -108,7 +110,7 @@
 
 .blur-magic[data-side="top"] {
   top: 0;
-  background: linear-gradient(to top, transparent, var(--color-primary));
+  background: linear-gradient(to top, transparent, transparent);
   mask-image: linear-gradient(
     to bottom,
     var(--color-primary) var(--stop),
@@ -149,3 +151,24 @@
     transparent
   );
 }
+.bg-lines-page {
+  background-image: var(--lines-page);
+  background-repeat: repeat;
+}
+/* .bg-hero {
+  background-image: radial-gradient(
+    140% 107.13% at 50% 10%,
+    transparent 37.41%,
+    var(--color-brand) 69.27%,
+    #fff 100%
+  );
+}
+
+.bg-hero-rotated {
+  background-image: radial-gradient(
+    140% 107.13% at 50% 90%,
+    transparent 37.41%,
+    var(--color-brand) 100%
+  );
+  opacity: 1;
+} */

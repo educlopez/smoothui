@@ -29,16 +29,12 @@ const features = [
 
 export function Features() {
   return (
-    <section className="relative mx-auto max-w-7xl px-4 py-24">
-      <Rule position="top-right" className="top-6.5" />
-      <Rule position="top-left" className="top-6.5" />
-      <Rule position="bottom-right" />
-      <Rule position="bottom-left" />
+    <section className="bg-background relative px-8 py-24">
       <Divider />
       <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Why Choose Smooth<span className="text-brand">UI</span>?
       </h2>
-      <div className="mt-16 grid gap-8 px-4 md:grid-cols-3">
+      <div className="mt-16 grid w-full gap-8 md:grid-cols-3">
         {features.map((feature) => (
           <div
             key={feature.title}

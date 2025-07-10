@@ -1,0 +1,179 @@
+@reference "../../../app/styles/smoothui.css";
+@reference "../../../app/styles/globals.css";
+
+.navbar-menu {
+  @apply fixed top-3 left-1/2 z-100 flex w-full -translate-x-1/2 justify-between px-8;
+}
+
+.menu-list {
+  @apply bg-background m-0 hidden list-none justify-center rounded-full border p-1 md:flex;
+}
+
+.trigger,
+.link {
+  @apply cursor-pointer rounded-full border border-transparent px-4 py-2 text-sm leading-none font-medium outline-0 transition-colors;
+}
+
+.trigger:hover,
+.link:hover {
+  @apply bg-primary border-border border;
+}
+
+.trigger {
+  @apply flex items-center justify-between gap-2;
+}
+
+.link {
+  @apply block text-sm leading-none;
+}
+
+.content {
+  @apply absolute top-0 left-0 w-auto;
+}
+
+.indicator {
+  @apply z-1 flex h-2 items-center justify-center overflow-hidden;
+}
+
+.viewport {
+  height: var(--radix-navigation-menu-viewport-height);
+  width: var(--radix-navigation-menu-viewport-width);
+  @apply bg-background relative mt-2 overflow-hidden rounded-lg border transition-all duration-250 ease-in-out;
+}
+
+.viewport[data-state="open"] {
+  animation: scaleIn 200ms ease;
+}
+
+.viewport[data-state="closed"] {
+  animation: scaleOut 200ms ease;
+}
+
+.list {
+  @apply m-0 grid list-none gap-2 p-5;
+}
+
+.list.one {
+  width: 500px;
+  grid-template-columns: 0.75fr 1fr;
+}
+
+.list.two {
+  width: 564px;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.list-item-link {
+  @apply block cursor-pointer rounded-md border border-transparent p-3 text-sm leading-none font-medium outline-0 transition-colors;
+}
+
+.list-item-link:hover {
+  @apply bg-primary border-border border;
+}
+
+.list-item-heading {
+  @apply text-foreground text-sm leading-tight font-medium;
+}
+
+.list-item-text {
+  @apply text-foreground/70 text-sm leading-tight font-medium;
+}
+
+.callout {
+  @apply from-brand to-brand-secondary flex h-full w-full flex-col justify-end rounded-lg bg-gradient-to-r p-6 outline-none;
+}
+
+.callout-heading {
+  @apply mb-2 text-lg leading-tight font-medium text-white;
+}
+
+.callout-text {
+  @apply text-sm leading-tight text-white opacity-60 mix-blend-plus-lighter;
+}
+
+.viewport-position {
+  @apply absolute top-full left-0 flex w-full justify-center;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    scale: 0.98;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+@keyframes scaleOut {
+  to {
+    opacity: 0;
+    scale: 0.98;
+  }
+}
+
+.content {
+  animation-duration: 250ms;
+  animation-timing-function: ease;
+}
+
+.content[data-motion="from-start"] {
+  animation-name: enterFromLeft;
+}
+
+.content[data-motion="from-end"] {
+  animation-name: enterFromRight;
+}
+
+.content[data-motion="to-start"] {
+  animation-name: exitToLeft;
+}
+
+.content[data-motion="to-end"] {
+  animation-name: exitToRight;
+}
+
+@keyframes enterFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes enterFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes exitToRight {
+  to {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+}
+
+@keyframes exitToLeft {
+  to {
+    opacity: 0;
+    transform: translateX(-200px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport,
+  .content {
+    animation: none !important;
+  }
+}

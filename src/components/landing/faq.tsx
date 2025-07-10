@@ -42,9 +42,7 @@ const faqs = [
 
 export function FAQ() {
   return (
-    <section className="relative w-full px-4 py-24">
-      <Rule position="bottom-right" />
-      <Rule position="bottom-left" />
+    <section className="bg-background relative w-full px-8 py-24">
       <Divider />
       <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Frequently Asked Questions
