@@ -102,6 +102,21 @@ export default function SidebarLinkClient({}) {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
+          Blocks
+        </SidebarGroupLabel>
+        <SidebarMenuSub>
+          <SidebarMenuSubItem key="blocks-pricing">
+            <SidebarButtonClient
+              key="blocks-pricing"
+              name="Pricing Sections"
+              slug="/doc/blocks/pricing-sections"
+              icon="PackagePlus"
+            />
+          </SidebarMenuSubItem>
+        </SidebarMenuSub>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel className="text-foreground font-bold">
           Basic
         </SidebarGroupLabel>
         <SidebarMenuSub className="border-none p-0">

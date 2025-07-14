@@ -137,7 +137,7 @@ export default async function ComponentPage({
   }
 
   return (
-    <main className="my-2 xl:mb-24">
+    <section className="my-2 xl:mb-24">
       <div className="space-y-10">
         <div className="space-y-4">
           <Breadcrumbs
@@ -481,6 +481,6 @@ export default async function ComponentPage({
             info,
           }))}
       />
-    </main>
+    </section>
   )
 }

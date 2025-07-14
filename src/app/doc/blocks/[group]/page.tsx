@@ -1,0 +1,109 @@
+import React from "react"
+
+import { CodeBlock } from "@/components/doc/codeBlock"
+import { CopyCode } from "@/components/doc/copyCode"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { readComponentSource } from "@/app/utils/readFile"
+
+// Map group to data file
+const groupDataMap: Record<string, () => Promise<any>> = {
+  "pricing-sections": async () =>
+    (await import("../data/pricing")).pricingBlocks,
+  // Add more groups here as needed
+}
+
+export default async function BlocksGroupPage({
+  params,
+}: {
+  params: { group: string }
+}) {
+  const getBlocks = groupDataMap[params.group]
+    ? await groupDataMap[params.group]()
+    : []
+
+  // Load source code for each block if componentPath is present
+  const blocksWithSource = await Promise.all(
+    getBlocks.map(async (block: any) => ({
+      ...block,
+      source: block.componentPath
+        ? await readComponentSource(block.componentPath)
+        : null,
+    }))
+  )
+
+  if (!getBlocks || getBlocks.length === 0) {
+    return (
+      <div className="p-8 text-center text-lg">
+        No blocks found for this group.
+      </div>
+    )
+  }
+
+  return (
+    <section className="my-2 xl:mb-24">
+      <div className="space-y-10">
+        <div className="space-y-4">
+          <h1
+            data-table-content="Introduction"
+            data-level="1"
+            className="text-foreground text-3xl font-bold -tracking-wide"
+          >
+            {params.group.replace(/-/g, " ")}
+          </h1>
+          <p className="text-primary-foreground text-sm">info</p>
+        </div>
+        <div className="bg-muted mb-8 rounded-lg border p-6">
+          <h2 className="mb-2 text-xl font-bold">How to install</h2>
+          <ul className="ml-6 list-disc space-y-1 text-sm">
+            <li>
+              Install <b>Tailwind CSS</b> and configure your project.
+            </li>
+            <li>
+              Install <b>Motion</b>: <code>npm install motion/react</code>
+            </li>
+            <li>
+              Install <b>Lucide React</b>: <code>npm install lucide-react</code>
+            </li>
+            <li>
+              Install <b>SmoothUI</b> and theme:{" "}
+              <code>npm install smoothui</code>
+            </li>
+          </ul>
+        </div>
+
+        {blocksWithSource.map((block: any, idx: number) => (
+          <section key={block.title + idx}>
+            <h2 className="mb-2 text-xl font-semibold">{block.title}</h2>
+            <p className="text-muted-foreground mb-4">{block.description}</p>
+            <Tabs defaultValue="preview" className="mb-2">
+              <TabsList>
+                <TabsTrigger value="preview">Preview</TabsTrigger>
+                <TabsTrigger value="code">Code</TabsTrigger>
+              </TabsList>
+              <TabsContent value="preview" className="py-4">
+                <>
+                  {block.component ? (
+                    block.component()
+                  ) : (
+                    <span className="text-muted-foreground">
+                      (Preview coming soon)
+                    </span>
+                  )}
+                </>
+              </TabsContent>
+              <TabsContent value="code" className="py-4">
+                <div className="relative">
+                  <CodeBlock
+                    code={block.source}
+                    fileName={block.title + ".tsx"}
+                    lang="tsx"
+                  />
+                </div>
+              </TabsContent>
+            </Tabs>
+          </section>
+        ))}
+      </div>
+    </section>
+  )
+}
