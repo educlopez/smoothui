@@ -121,6 +121,14 @@ export default function SidebarLinkClient({}) {
               icon="Sparkles"
             />
           </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="blocks-testimonial">
+            <SidebarButtonClient
+              key="blocks-testimonial"
+              name="Testimonial Blocks"
+              slug="/doc/blocks/testimonial"
+              icon="User"
+            />
+          </SidebarMenuSubItem>
         </SidebarMenuSub>
       </SidebarGroup>
       <SidebarGroup>

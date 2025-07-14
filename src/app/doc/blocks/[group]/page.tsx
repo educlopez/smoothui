@@ -4,6 +4,7 @@ import { CodeBlock } from "@/components/doc/codeBlock"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import { heroBlocks } from "@/app/doc/data/block-hero"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
+import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import { BlocksProps } from "@/app/doc/data/typeBlock"
 import { readComponentSource } from "@/app/utils/readFile"
 
@@ -11,6 +12,7 @@ import { readComponentSource } from "@/app/utils/readFile"
 const groupDataMap: Record<string, BlocksProps[]> = {
   hero: heroBlocks,
   pricing: pricingBlocks,
+  testimonial: testimonialBlocks,
   // Add more groups here as needed
 }
 
@@ -19,6 +21,8 @@ const groupDescriptionMap: Record<string, string> = {
   hero: "A collection of animated hero sections for landing pages, featuring modern layouts and engaging effects.",
   pricing:
     "Beautiful, responsive pricing sections to showcase your product plans with style and clarity.",
+  testimonial:
+    "Stylish testimonial sections to highlight user feedback and build trust with your audience.",
   // Add more group descriptions as needed
 }
 

@@ -65,17 +65,17 @@ export default function Navbar({ className }: { className?: string }) {
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="content">
             <ul className="list two">
-              <ListItem title="Landing Blocks" href="/doc/blocks/landing">
-                Hero, Features, FAQ, and more.
+              <ListItem title="Hero Blocks" href="/doc/blocks/hero">
+                Animated hero sections for landing pages.
               </ListItem>
-              <ListItem title="Dashboard Blocks" href="/doc/blocks/dashboard">
-                Cards, tables, charts, and more.
+              <ListItem title="Pricing Blocks" href="/doc/blocks/pricing">
+                Responsive pricing sections for your product.
               </ListItem>
-              <ListItem title="E-commerce Blocks" href="/doc/blocks/ecommerce">
-                Product, cart, checkout, and more.
-              </ListItem>
-              <ListItem title="Marketing Blocks" href="/doc/blocks/marketing">
-                CTAs, testimonials, pricing, and more.
+              <ListItem
+                title="Testimonial Blocks"
+                href="/doc/blocks/testimonial"
+              >
+                Stylish testimonial sections to build trust.
               </ListItem>
             </ul>
           </NavigationMenu.Content>
