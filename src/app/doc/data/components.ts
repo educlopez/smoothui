@@ -1,24 +1,3 @@
-import {
-  Briefcase,
-  Calendar,
-  Copy,
-  Download,
-  Droplet,
-  GalleryHorizontalEnd,
-  Hash,
-  Image,
-  ImageIcon,
-  LayoutDashboard,
-  List,
-  Loader,
-  MessageSquare,
-  MousePointerClick,
-  Power,
-  Tag,
-  User,
-  Users,
-} from "lucide-react"
-
 import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"

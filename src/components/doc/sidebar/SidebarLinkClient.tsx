@@ -109,8 +109,16 @@ export default function SidebarLinkClient({}) {
             <SidebarButtonClient
               key="blocks-pricing"
               name="Pricing Sections"
-              slug="/doc/blocks/pricing-sections"
+              slug="/doc/blocks/pricing"
               icon="PackagePlus"
+            />
+          </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="blocks-hero">
+            <SidebarButtonClient
+              key="blocks-hero"
+              name="Hero Blocks"
+              slug="/doc/blocks/hero"
+              icon="Sparkles"
             />
           </SidebarMenuSubItem>
         </SidebarMenuSub>

@@ -1,5 +1,3 @@
-import { Eye, Sparkles, Type, Waves } from "lucide-react"
-
 import RevealTextDemo from "@/components/smoothui/examples/RevealTextDemo"
 import ScrambleHoverDemo from "@/components/smoothui/examples/ScrambleHoverDemo"
 import TypewriterTextDemo from "@/components/smoothui/examples/TypewriterTextDemo"

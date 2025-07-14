@@ -1,12 +1,3 @@
-import {
-  Bell,
-  ChevronDown,
-  ListCollapse,
-  Loader,
-  Square,
-  Type,
-} from "lucide-react"
-
 import AccordionDemo from "@/components/smoothui/examples/BasicAccordionDemo"
 import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"

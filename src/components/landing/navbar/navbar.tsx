@@ -2,6 +2,8 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 
 import "./navbar.css"
 
+import Link from "next/link"
+
 import { cn } from "@/lib/utils"
 import Logo from "@/components/logo"
 import { components } from "@/app/doc/data/components"
@@ -34,13 +36,13 @@ export default function Navbar({ className }: { className?: string }) {
             <ul className="list one">
               <li style={{ gridRow: "span 3" }}>
                 <NavigationMenu.Link asChild>
-                  <a className="callout" href="/doc/components">
+                  <Link className="callout" href="/doc/components">
                     <div className="callout-heading">SmoothUI</div>
                     <p className="callout-text">
                       Beautiful, production-ready React components for every
                       team.
                     </p>
-                  </a>
+                  </Link>
                 </NavigationMenu.Link>
               </li>
 
