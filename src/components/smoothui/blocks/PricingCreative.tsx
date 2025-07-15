@@ -5,9 +5,6 @@ import { motion } from "motion/react"
 export function PricingCreative() {
   return (
     <section className="relative flex flex-col items-center py-12">
-      <h2 className="text-brand mb-24 text-center text-4xl font-black drop-shadow-lg">
-        Creative Pricing
-      </h2>
       <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
         {/* Starter Card */}
         <motion.div

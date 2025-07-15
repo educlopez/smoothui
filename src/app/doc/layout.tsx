@@ -6,6 +6,7 @@ import TableOfContent from "@/components/doc/tableOfContent"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 import Header from "../../components/doc/header"
+import { DocLayoutClient } from "./DocLayoutClient"
 
 export const metadata: Metadata = {
   title: {
@@ -92,12 +93,7 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
         <AppSidebar variant="inset" />
         <SidebarInset className="border md:peer-data-[variant=inset]:shadow-none">
           <Header />
-          <div className="lg:grid lg:grid-cols-[1fr] 2xl:grid-cols-[1fr_248px]">
-            <div className="mb-20 grid-cols-[1fr_760px_1fr] px-4 pt-8 *:col-start-2 md:mb-10 lg:grid lg:p-8">
-              {children}
-            </div>
-            <TableOfContent />
-          </div>
+          <DocLayoutClient>{children}</DocLayoutClient>
         </SidebarInset>
       </SidebarProvider>
     </div>

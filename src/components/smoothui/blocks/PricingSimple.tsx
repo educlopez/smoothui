@@ -5,9 +5,6 @@ import { motion } from "motion/react"
 export function PricingSimple() {
   return (
     <section className="relative flex flex-col items-center py-12">
-      <h2 className="text-brand mb-4 text-center text-2xl font-bold">
-        Simple Pricing
-      </h2>
       <div className="flex w-full flex-col items-center justify-center gap-8 md:flex-row">
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}

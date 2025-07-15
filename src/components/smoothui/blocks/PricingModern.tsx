@@ -5,9 +5,6 @@ import { motion } from "motion/react"
 export function PricingModern() {
   return (
     <section className="relative flex flex-col items-center py-12">
-      <h2 className="gradient-brand mb-10 bg-clip-text text-center text-3xl font-extrabold text-transparent drop-shadow-lg">
-        Modern Pricing
-      </h2>
       <div className="flex w-full flex-col items-center justify-center gap-8 md:flex-row">
         {/* Basic Plan */}
         <motion.div
