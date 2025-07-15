@@ -1,14 +1,19 @@
+import { cn } from "@/lib/utils"
 import { Button } from "@/components/button"
 
-import BadgeBeta from "./badgeBeta"
-
-export function OpenInV0Button({ url }: { url: string }) {
+export function OpenInV0Button({
+  url,
+  className,
+}: {
+  url: string
+  className?: string
+}) {
   return (
     <Button
       aria-label="Open in v0"
       variant="outline"
-      size="sm"
-      className="absolute top-4 right-4 cursor-pointer"
+      className={cn(className, "!shadow-none")}
+      asChild
     >
       <a
         href={`https://v0.dev/chat/api/open?url=${url}`}
@@ -16,7 +21,6 @@ export function OpenInV0Button({ url }: { url: string }) {
         rel="noreferrer"
         className="flex items-center gap-1"
       >
-        Open in{" "}
         <svg
           viewBox="0 0 40 20"
           fill="none"
@@ -32,7 +36,6 @@ export function OpenInV0Button({ url }: { url: string }) {
             fill="currentColor"
           ></path>
         </svg>{" "}
-        <BadgeBeta className="mt-0 ml-2" />
       </a>
     </Button>
   )

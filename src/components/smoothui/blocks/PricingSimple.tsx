@@ -10,7 +10,7 @@ export function PricingSimple() {
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", duration: 0.5 }}
-          className="bg-primary text-foreground flex w-80 flex-col items-center rounded-lg border px-8 py-6 text-center shadow-lg transition-transform hover:scale-105"
+          className="bg-primary text-foreground flex w-80 flex-col items-center rounded-lg border px-8 py-6 text-center transition-transform hover:scale-105"
         >
           <div className="mb-2 text-4xl font-extrabold">$19/mo</div>
           <div className="text-foreground/70 mb-4 text-sm">

@@ -11,7 +11,7 @@ export function PricingCreative() {
           initial={{ opacity: 0, y: 40, rotate: -6 }}
           animate={{ opacity: 1, y: 0, rotate: -6 }}
           transition={{ type: "spring", duration: 0.5 }}
-          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 shadow-2xl transition-transform hover:scale-105"
+          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 transition-transform hover:scale-105"
         >
           <div className="text-brand mb-2 text-lg font-bold">Starter</div>
           <div className="text-foreground mb-4 text-3xl font-extrabold">
@@ -30,12 +30,12 @@ export function PricingCreative() {
           initial={{ opacity: 0, y: 60, rotate: 0 }}
           animate={{ opacity: 1, y: -20, rotate: 0 }}
           transition={{ type: "spring", duration: 0.7 }}
-          className="gradient-brand text-background border-background relative z-20 flex w-80 scale-110 flex-col items-center rounded-3xl border-4 px-10 py-14 shadow-2xl transition-transform hover:scale-115"
+          className="gradient-brand text-background relative z-20 flex w-80 scale-110 flex-col items-center rounded-3xl px-10 py-14 transition-transform hover:scale-115"
         >
           <motion.div
             animate={{ y: [10, 6, 10] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="bg-background text-brand border-brand-secondary absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border-2 px-5 py-1 text-xs font-extrabold shadow-md"
+            className="bg-background text-brand border-brand-secondary absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border-2 px-5 py-1 text-xs font-extrabold"
           >
             Best Deal
           </motion.div>
@@ -56,7 +56,7 @@ export function PricingCreative() {
           initial={{ opacity: 0, y: 40, rotate: 6 }}
           animate={{ opacity: 1, y: 0, rotate: 6 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 shadow-2xl transition-transform hover:scale-105"
+          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 transition-transform hover:scale-105"
         >
           <div className="text-brand-secondary mb-2 text-lg font-bold">
             Enterprise

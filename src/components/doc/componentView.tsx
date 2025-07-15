@@ -29,9 +29,23 @@ export function ComponentView({
         "bg-primary relative flex h-auto min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg border py-12 transition md:h-[640px] md:flex-1"
       )}
     >
-      <div className="absolute top-4 right-4 z-10 flex gap-2">
-        {hasRefreshDemo && <RefreshButton onRefresh={handleReload} />}
-        {openInV0Url && <OpenInV0Button url={openInV0Url} />}
+      <div
+        className={cn(
+          "bg-background absolute top-4 right-4 z-20 flex gap-1 rounded-full border p-1"
+        )}
+      >
+        {openInV0Url && (
+          <OpenInV0Button
+            url={openInV0Url}
+            className="bg-primary size-9 rounded-full border px-2"
+          />
+        )}
+        {hasRefreshDemo && (
+          <RefreshButton
+            onRefresh={handleReload}
+            className="bg-primary size-9 rounded-full border px-2"
+          />
+        )}
       </div>
       <div key={reloadKey}>{children}</div>
     </div>

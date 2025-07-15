@@ -84,7 +84,7 @@ export default async function BlocksGroupPage({
             {groupDescriptionMap[group] || ""}
           </p>
         </div>
-        <div className="bg-muted mb-8 rounded-lg border p-6">
+        <div className="bg-primary mb-8 inline-flex flex-col rounded-lg border p-6">
           <h2 className="mb-2 text-xl font-bold">How to install</h2>
           <ul className="ml-6 list-disc space-y-1 text-sm">
             <li>
@@ -119,10 +119,10 @@ export default async function BlocksGroupPage({
                   <TabsTrigger value="code">Code</TabsTrigger>
                 </TabsList>
                 <TabsContent value="preview" className="py-4">
-                  <>
+                  <div className="overflow-hidden rounded-md border py-10">
                     {block.componentUi &&
                       React.createElement(block.componentUi)}
-                  </>
+                  </div>
                 </TabsContent>
                 <TabsContent value="code" className="py-4">
                   <div className="relative">

@@ -11,7 +11,7 @@ export function PricingModern() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", duration: 0.5 }}
-          className="bg-primary/80 border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-xl border p-8 shadow-lg backdrop-blur-md transition-transform hover:scale-105"
+          className="bg-primary/80 border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-xl border p-8 backdrop-blur-md transition-transform hover:scale-105"
         >
           <div className="text-brand mb-2 text-lg font-semibold">Basic</div>
           <div className="text-foreground mb-4 text-4xl font-bold">$12/mo</div>
@@ -29,9 +29,9 @@ export function PricingModern() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", duration: 0.6 }}
-          className="gradient-brand text-background border-background relative z-20 flex w-80 scale-110 flex-col items-center rounded-xl border-4 p-10 shadow-2xl transition-transform hover:scale-115"
+          className="gradient-brand text-background border-background relative z-20 flex w-80 scale-110 flex-col items-center rounded-xl border-4 p-10 transition-transform hover:scale-115"
         >
-          <div className="bg-brand-secondary text-background absolute -top-4 left-1/2 -translate-x-1/2 rounded-full px-4 py-1 text-xs font-bold shadow-md">
+          <div className="bg-brand-secondary text-background absolute -top-4 left-1/2 -translate-x-1/2 rounded-full border px-4 py-1 text-xs font-bold">
             Most Popular
           </div>
           <div className="mb-2 text-lg font-semibold">Pro</div>
@@ -51,7 +51,7 @@ export function PricingModern() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", duration: 0.7 }}
-          className="bg-primary/80 border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-xl border p-8 shadow-lg backdrop-blur-md transition-transform hover:scale-105"
+          className="bg-primary/80 border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-xl border p-8 backdrop-blur-md transition-transform hover:scale-105"
         >
           <div className="text-brand-secondary mb-2 text-lg font-semibold">
             Enterprise
