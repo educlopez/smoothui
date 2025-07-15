@@ -1,8 +1,6 @@
 import { Metadata } from "next"
-import { cookies } from "next/headers"
 
 import { AppSidebar } from "@/components/doc/sidebar/app-sidebar"
-import TableOfContent from "@/components/doc/tableOfContent"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 import Header from "../../components/doc/header"

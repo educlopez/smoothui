@@ -10,6 +10,8 @@ import {
 } from "@/components/doc/collapsible"
 import { cn } from "@/components/smoothui/utils/cn"
 
+import { BlurMagic } from "../blurmagic/blurMagic"
+
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
   expandButtonTitle?: string
 }
@@ -46,19 +48,26 @@ export function CodeBlockWrapper({
         </CollapsibleContent>
         <div
           className={cn(
-            "from-primary/10 to-primary absolute flex items-end justify-center bg-gradient-to-b p-2",
+            "absolute flex items-end justify-center p-2",
             isOpened ? "inset-x-0 bottom-0 h-12" : "inset-0"
           )}
         >
           <CollapsibleTrigger asChild>
             <Button
-              className="flex w-auto cursor-pointer items-center justify-center"
+              className="z-2 flex w-auto cursor-pointer items-center justify-center"
               variant="outline"
               size="sm"
             >
               {isOpened ? "Collapse" : expandButtonTitle}
             </Button>
           </CollapsibleTrigger>
+          {!isOpened && (
+            <BlurMagic
+              side="bottom"
+              className="!absolute z-1 h-15 w-full"
+              background="var(--color-background)"
+            />
+          )}
         </div>
       </div>
     </Collapsible>

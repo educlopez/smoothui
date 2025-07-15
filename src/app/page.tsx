@@ -1,4 +1,4 @@
-import BlurMagic from "@/components/blurMagic"
+import { BlurMagic } from "@/components/blurmagic/blurMagic"
 import Footer from "@/components/footer"
 import { BgLines } from "@/components/landing/bg-lines"
 import { ComponentsSlideshow } from "@/components/landing/components-slideshow"
@@ -24,8 +24,18 @@ export default function Home() {
           <Footer />
         </section>
       </main>
-      <BlurMagic side="top" className="z-2 !h-[120px]" stop="50%" blur="4px" />
-      <BlurMagic side="bottom" className="z-2 !h-[120px]" />
+      <BlurMagic
+        side="top"
+        className="z-2 !h-[120px]"
+        stop="50%"
+        blur="4px"
+        background="var(--color-background)"
+      />
+      <BlurMagic
+        side="bottom"
+        className="z-2 !h-[120px]"
+        background="var(--color-background)"
+      />
     </div>
   )
 }
