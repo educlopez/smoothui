@@ -172,3 +172,9 @@
   );
   opacity: 1;
 } */
+
+.link:hover {
+  border-radius: 2px;
+  outline: 2px solid var(--color-brand-secondary);
+  outline-offset: 2px;
+}

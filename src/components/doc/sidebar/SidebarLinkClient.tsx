@@ -69,7 +69,7 @@ export default function SidebarLinkClient({}) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           autoFocus={false}
-          className={search ? "pr-8" : undefined}
+          className={`rounded-md ${search ? "pr-8" : ""}`}
         />
         {search && (
           <button
