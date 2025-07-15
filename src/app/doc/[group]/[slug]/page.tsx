@@ -11,7 +11,6 @@ import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
 import ComponentPager from "@/components/doc/ComponentPager"
 import { ComponentView } from "@/components/doc/componentView"
-import { OpenInV0Button } from "@/components/doc/openInV0"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import Divider from "@/components/landing/divider"
@@ -154,10 +153,10 @@ export default async function ComponentPage({
           <p className="text-primary-foreground text-sm">{component.info}</p>
         </div>
         <div className="relative space-y-6">
-          <ComponentView hasRefreshDemo={component.hasRefreshDemo !== false}>
-            <OpenInV0Button
-              url={`https://smoothui.dev/r/${component.slug}-demo.json`}
-            />
+          <ComponentView
+            hasRefreshDemo={component.hasRefreshDemo !== false}
+            openInV0Url={`https://smoothui.dev/r/${component.slug}-demo.json`}
+          >
             {component.componentUi &&
               React.createElement(component.componentUi)}
           </ComponentView>
