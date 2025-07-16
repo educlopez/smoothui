@@ -29,7 +29,7 @@ const features = [
 
 export function Features() {
   return (
-    <section className="bg-background relative px-8 py-24">
+    <section className="bg-background transition relative px-8 py-24">
       <Divider />
       <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Why Choose Smooth<span className="text-brand">UI</span>?

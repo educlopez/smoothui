@@ -1,13 +1,9 @@
-"use client"
-
-import React, { useState } from "react"
+import React from "react"
 import Link from "next/link"
-import { BookOpen, Code, Eye, FlaskConical } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
+import { BookOpen } from "lucide-react"
 
 import { cn } from "@/components/smoothui/utils/cn"
 import type { ComponentsProps } from "@/app/doc/data/typeComponent"
-import { copyToClipboard } from "@/app/utils/copyToClipboard"
 
 interface FrameProps {
   component: ComponentsProps
@@ -22,23 +18,6 @@ export default function Frame({
   clean = false,
   group,
 }: FrameProps) {
-  const [showCode, setShowCode] = useState(false)
-  const [isCopied, setIsCopied] = useState(false)
-
-  const toggleView = () => {
-    setShowCode(!showCode)
-  }
-
-  const handleCopyCode = async () => {
-    if (component.code) {
-      const success = await copyToClipboard(component.code)
-      if (success) {
-        setIsCopied(true)
-        setTimeout(() => setIsCopied(false), 1000)
-      }
-    }
-  }
-
   return (
     <div
       className={cn("w-full py-12 last:pb-0 odd:pt-0 md:w-[600px]", className)}
@@ -51,14 +30,20 @@ export default function Frame({
           >
             {/* Floating docs button */}
             {!clean && component.slug && (
-              <Link
-                href={`/doc/${group}/${component.slug}`}
-                className="bg-background/80 absolute top-2 right-2 z-1 flex h-8 w-8 items-center justify-center rounded-md border backdrop-blur-lg transition hover:bg-white dark:hover:bg-black/50"
-                title={`Go to docs for ${component.componentTitle}`}
-                aria-label={`Go to docs for ${component.componentTitle}`}
+              <div
+                className={cn(
+                  "bg-background absolute top-4 right-4 z-20 flex gap-1 rounded-full border p-1"
+                )}
               >
-                <BookOpen size={12} className="text-foreground" />
-              </Link>
+                <Link
+                  href={`/doc/${group}/${component.slug}`}
+                  className="bg-primary flex size-8 items-center justify-center rounded-full border px-2"
+                  title={`Go to docs for ${component.componentTitle}`}
+                  aria-label={`Go to docs for ${component.componentTitle}`}
+                >
+                  <BookOpen size={16} className="text-foreground" />
+                </Link>
+              </div>
             )}
             {component.componentUi &&
               React.createElement(component.componentUi)}

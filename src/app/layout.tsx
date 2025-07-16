@@ -107,7 +107,7 @@ export default function RootLayout({ children }: ComponentPageLayout) {
         />
       </head>
       <body
-        className={`bg-background antialiased transition-colors ${asap.variable} ${inter.className}`}
+        className={`bg-background antialiased transition-all ${asap.variable} ${inter.className}`}
       >
         <ThemeProvider attribute="class">
           <FloatNav />

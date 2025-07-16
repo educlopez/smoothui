@@ -11,7 +11,7 @@
 
 .trigger,
 .link {
-  @apply cursor-pointer rounded-full border border-transparent px-4 py-2 text-sm leading-none font-medium outline-0 transition-colors;
+  @apply cursor-pointer rounded-full border border-transparent px-4 py-2 text-sm leading-none font-medium outline-0;
 }
 
 .trigger:hover,

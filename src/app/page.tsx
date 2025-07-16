@@ -10,7 +10,7 @@ import Navbar from "@/components/landing/navbar/navbar"
 
 export default function Home() {
   return (
-    <div className="bg-primary relative isolate">
+    <div className="bg-primary relative isolate transition">
       <BgLines />
       <main className="relative mx-auto min-h-screen max-w-7xl overflow-y-auto">
         <Navbar className="mx-auto max-w-7xl" />

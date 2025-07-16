@@ -12,10 +12,9 @@ import { TailwindLogo } from "@/components/resources/logos/TailwindLogo"
 export function Hero() {
   return (
     <>
-      <section className="bg-background">
+      <section className="bg-background transition">
         <div className="relative py-24 md:py-36">
           <Divider />
-          <div className="bg-hero-rotated absolute -top-20 left-0 h-svh w-full" />
           <motion.div
             className="box-border max-w-full"
             style={{ transformOrigin: "center top" }}
@@ -61,17 +60,17 @@ export function Hero() {
                 <div>
                   <div className="text-primary-foreground mt-14 hidden cursor-default items-center justify-start gap-3 text-xs font-medium tracking-widest uppercase transition sm:flex sm:justify-center">
                     <span className="group flex items-center gap-1.5">
-                      <ReactLogo className="text-smooth-700 group-hover:text-brand h-6 transition" />
+                      <ReactLogo className="text-smooth-700 group-hover:text-brand h-6" />
                       <span className="group-hover:text-brand">React</span>
                     </span>
                     <span className="group flex items-center gap-1.5">
-                      <TailwindLogo className="text-smooth-700 group-hover:text-brand h-5 transition" />
+                      <TailwindLogo className="text-smooth-700 group-hover:text-brand h-5" />
                       <span className="group-hover:text-brand">
                         Tailwind CSS
                       </span>
                     </span>
                     <span className="group flex items-center gap-1.5">
-                      <MotionLogo className="text-smooth-700 group-hover:text-brand h-4 transition" />
+                      <MotionLogo className="text-smooth-700 group-hover:text-brand h-4" />
                       <span className="group-hover:text-brand">Motion</span>
                     </span>
                   </div>
