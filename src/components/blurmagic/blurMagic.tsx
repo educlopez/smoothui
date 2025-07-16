@@ -5,6 +5,7 @@ import styles from "./blurMagic.module.css"
 export function BlurMagic({
   stop,
   blur,
+  height,
   side = "top",
   className,
   background,
@@ -14,6 +15,7 @@ export function BlurMagic({
 }: {
   stop?: string
   blur?: string
+  height?: string
   side: "top" | "bottom" | "left" | "right"
   className?: string
   background: string
@@ -31,6 +33,7 @@ export function BlurMagic({
         {
           "--stop": stop,
           "--blur": blur,
+          "--height": height,
           "--background": background,
           ...(debug && {
             outline: "2px solid var(--color-orange)",

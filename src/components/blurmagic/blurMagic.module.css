@@ -17,7 +17,7 @@
     background: linear-gradient(to top, transparent, transparent);
     mask-image: linear-gradient(
       to bottom,
-      var(--color-primary) var(--stop),
+      var(--background) var(--stop),
       transparent
     );
   }
@@ -26,10 +26,10 @@
     height: 100%;
     width: var(--height);
     left: 0;
-    background: linear-gradient(to left, transparent, var(--color-primary));
+    background: linear-gradient(to left, transparent, var(--background));
     mask-image: linear-gradient(
       to right,
-      var(--color-primary) var(--stop),
+      var(--background) var(--stop),
       transparent
     );
   }
@@ -39,7 +39,7 @@
     width: var(--height);
     right: 0;
     left: unset;
-    background: linear-gradient(to right, transparent, var(--color-primary));
+    background: linear-gradient(to right, transparent, var(--background));
     mask-image: linear-gradient(
       to left,
       var(--color-primary) var(--stop),
@@ -48,7 +48,7 @@
   }
   &[data-side="bottom"] {
     bottom: 0;
-    background: linear-gradient(to bottom, transparent, var(--color-primary));
+    background: linear-gradient(to bottom, transparent, var(--background));
     mask-image: linear-gradient(
       to top,
       var(--color-primary) var(--stop),

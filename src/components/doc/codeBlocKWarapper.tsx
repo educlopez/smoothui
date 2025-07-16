@@ -65,7 +65,7 @@ export function CodeBlockWrapper({
             <BlurMagic
               side="bottom"
               className="!absolute z-1 h-15 w-full"
-              background="var(--color-background)"
+              background="var(--color-primary)"
             />
           )}
         </div>
