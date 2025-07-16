@@ -1,6 +1,5 @@
 import type { Metadata } from "next"
 import { Asap, Inter } from "next/font/google"
-import { Toaster } from "sonner"
 
 import { smoothUISchema } from "@/app/utils/schema"
 
@@ -10,7 +9,7 @@ import { VercelToolbar } from "@vercel/toolbar/next"
 import { ThemeProvider } from "next-themes"
 
 import { Analytics } from "@/components/analytics"
-import { FloatNav } from "@/components/floatNav"
+import { FloatNav } from "@/components/floatnav/floatNav"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -113,19 +112,6 @@ export default function RootLayout({ children }: ComponentPageLayout) {
         <ThemeProvider attribute="class">
           <FloatNav />
           {children}
-          <Toaster
-            offset={{ bottom: "76px" }}
-            mobileOffset={{ bottom: "76px" }}
-            position="bottom-center"
-            visibleToasts={1}
-            toastOptions={{
-              unstyled: true,
-              classNames: {
-                toast:
-                  " bg-background rounded-lg p-4 border border-smooth-500  text-xs shadow-xs w-full",
-              },
-            }}
-          />
           <Analytics />
         </ThemeProvider>
         {shouldInjectToolbar && <VercelToolbar />}
