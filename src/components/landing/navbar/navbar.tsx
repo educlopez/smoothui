@@ -6,7 +6,9 @@ import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 import Logo from "@/components/logo"
+import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
+import { textComponents } from "@/app/doc/data/textComponentes"
 
 import { GithubStars } from "../githubstars"
 
@@ -25,7 +27,7 @@ export default function Navbar({ className }: { className?: string }) {
   return (
     <NavigationMenu.Root className={cn("navbar-menu", className)}>
       <div className="flex flex-1 items-center gap-2">
-        <Logo className="text-2xl" />
+        <Logo className="text-3xl" />
       </div>
       <NavigationMenu.List className="menu-list flex-auto">
         <NavigationMenu.Item>
@@ -46,13 +48,22 @@ export default function Navbar({ className }: { className?: string }) {
                 </NavigationMenu.Link>
               </li>
 
-              <ListItem href="/doc/text/" title="Texts">
+              <ListItem
+                href={`/doc/text/${textComponents[0].slug}`}
+                title="Texts"
+              >
                 Animate text, headings, and more.
               </ListItem>
-              <ListItem href="/doc/basic/" title="Basics">
+              <ListItem
+                href={`/doc/basic/${basicComponents[0].slug}`}
+                title="Basics"
+              >
                 Typography, spacing, and more.
               </ListItem>
-              <ListItem href="/doc/components/" title="Components">
+              <ListItem
+                href={`/doc/components/${components[0].slug}`}
+                title="Components"
+              >
                 Buttons, cards, forms, and more.
               </ListItem>
             </ul>
