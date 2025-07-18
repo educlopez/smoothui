@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 
 export function PricingCreative() {
   return (
-    <section className="relative flex flex-col items-center py-12">
+    <section className="relative flex flex-col items-center py-24">
       <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
         {/* Starter Card */}
         <motion.div

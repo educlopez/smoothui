@@ -1,127 +1,169 @@
-"use client";
+"use client"
 
-import Image from "next/image";
-import Link from "next/link";
-import { ChevronRight, CirclePlay } from "lucide-react";
-import { motion } from "motion/react";
+import * as React from "react"
+import Image from "next/image"
+import { ArrowDownRight, Star } from "lucide-react"
+import { motion } from "motion/react"
 
+import { Button } from "@/components/button"
+import { AnimatedGroup } from "@/components/landing/animated-group"
+import { AnimatedText } from "@/components/landing/animated-text"
+import { Avatar, AvatarImage } from "@/components/ui/avatar"
 
+interface HeroShowcaseProps {
+  heading?: string
+  description?: string
+  buttons?: {
+    primary?: {
+      text: string
+      url: string
+    }
+    secondary?: {
+      text: string
+      url: string
+    }
+  }
+  reviews?: {
+    count: number
+    avatars: {
+      src: string
+      alt: string
+    }[]
+    rating?: number
+  }
+}
 
-import { Button } from "@/components/ui/button";
-
-
-
-
-
-const logos = [
-  {
-    src: "/logos/column.svg",
-    alt: "Column Logo",
-    height: 16,
+export function HeroShowcase({
+  heading = "Build beautiful UIs, effortlessly.",
+  description = "Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.",
+  buttons = {
+    primary: {
+      text: "Get Started",
+      url: "#link",
+    },
+    secondary: {
+      text: "Watch demo",
+      url: "#link",
+    },
   },
-  {
-    src: "/logos/nvidia.svg",
-    alt: "Nvidia Logo",
-    height: 20,
+  reviews = {
+    count: 200,
+    rating: 5.0,
+    avatars: [
+      {
+        src: "https://github.com/educlopez.png",
+        alt: "Avatar 1",
+      },
+      {
+        src: "https://github.com/emilkowalski.png",
+        alt: "Avatar 2",
+      },
+      {
+        src: "https://github.com/raunofreiberg.png",
+        alt: "Avatar 3",
+      },
+      {
+        src: "https://github.com/shadcn.png",
+        alt: "Avatar 4",
+      },
+      {
+        src: "https://github.com/leerob.png",
+        alt: "Avatar 5",
+      },
+    ],
   },
-  {
-    src: "/logos/github.svg",
-    alt: "GitHub Logo",
-    height: 16,
-  },
-]
-
-export function HeroShowcase() {
+}: HeroShowcaseProps) {
   return (
-    <section className="from-background to-muted relative overflow-hidden bg-gradient-to-b">
-      <div className="relative py-36">
-        <div className="relative z-10 mx-auto w-full max-w-5xl px-6">
-          <div className="md:w-1/2">
-            <motion.h1
-              initial={{ y: 40, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ type: "spring", duration: 0.7 }}
-              className="text-brand max-w-md text-5xl font-black text-balance md:text-6xl"
-            >
-              Build beautiful UIs, effortlessly.
-            </motion.h1>
-            <motion.p
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.15, type: "spring", duration: 0.6 }}
-              className="text-muted-foreground my-8 max-w-2xl text-xl text-balance"
-            >
-              Smoothui gives you the building blocks to create stunning,
-              animated interfaces in minutes.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3, type: "spring", duration: 0.5 }}
-              className="flex items-center gap-3"
-            >
-              <Button asChild size="lg" className="pr-4.5">
-                <Link href="#link">
-                  <span className="text-nowrap">Get Started</span>
-                  <ChevronRight className="opacity-50" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="pl-5">
-                <Link href="#link">
-                  <CirclePlay className="fill-primary/25 stroke-primary" />
-                  <span className="text-nowrap">Watch demo</span>
-                </Link>
-              </Button>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, type: "spring", duration: 0.5 }}
-              className="mt-10"
-            >
-              <p className="text-muted-foreground">Trusted by modern teams:</p>
-              <div className="mt-6 grid max-w-sm grid-cols-3 gap-6">
-                {logos.map((logo, i) => (
-                  <motion.div
-                    key={logo.alt}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.7 + i * 0.15, duration: 0.4 }}
-                    className="flex"
-                  >
-                    <Image
-                      className="h-4 w-fit"
-                      src={logo.src}
-                      alt={logo.alt}
-                      height={logo.height}
-                      width={80}
-                    />
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </div>
-        <motion.div
-          initial={{ opacity: 0, y: 40, scale: 0.98 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ delay: 0.6, type: "spring", duration: 0.7 }}
-          className="mt-24 perspective-near md:absolute md:top-40 md:-right-6 md:bottom-16 md:left-1/2 md:mt-0 md:translate-x-0"
+    <motion.section
+      className="from-background to-muted relative overflow-hidden bg-gradient-to-b"
+      initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      transition={{ type: "spring", bounce: 0.32, duration: 0.9 }}
+    >
+      <div className="container mx-auto grid max-w-5xl items-center gap-10 lg:grid-cols-2 lg:gap-20">
+        <AnimatedGroup
+          preset="blur-slide"
+          className="mx-auto flex flex-col items-center text-center md:ml-auto lg:max-w-3xl lg:items-start lg:text-left"
         >
-          <div className="before:border-foreground/5 before:bg-foreground/5 relative h-full before:absolute before:-inset-x-4 before:top-0 before:bottom-7 before:skew-x-6 before:rounded-[calc(var(--radius)+1rem)] before:border">
-            <div className="bg-background shadow-foreground/10 ring-foreground/5 relative h-full -translate-y-12 skew-x-6 overflow-hidden rounded-[--radius] rounded-md border border-transparent ring-1 shadow-md">
-              <Image
-                src="/readme.png"
-                alt="app screen"
-                width={2880}
-                height={1842}
-                className="object-top-left size-full object-cover"
-                priority
-              />
+          <AnimatedText
+            as="h1"
+            className="my-6 text-4xl font-bold text-pretty lg:text-6xl xl:text-7xl"
+          >
+            {heading}
+          </AnimatedText>
+          <AnimatedText
+            as="p"
+            className="text-foreground/70 mb-8 max-w-xl lg:text-xl"
+            delay={0.12}
+          >
+            {description}
+          </AnimatedText>
+          <AnimatedGroup
+            preset="slide"
+            className="mb-12 flex w-fit flex-col items-center gap-4 sm:flex-row"
+          >
+            <span className="inline-flex items-center -space-x-4">
+              {reviews.avatars.map((avatar, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -8 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  style={{ display: "inline-block" }}
+                >
+                  <Avatar className="size-12 border">
+                    <AvatarImage src={avatar.src} alt={avatar.alt} />
+                  </Avatar>
+                </motion.div>
+              ))}
+            </span>
+            <div>
+              <div className="flex items-center gap-1">
+                {[...Array(5)].map((_, index) => (
+                  <Star
+                    key={index}
+                    className="size-5 fill-yellow-400 text-yellow-400"
+                  />
+                ))}
+                <span className="mr-1 font-semibold">
+                  {reviews.rating?.toFixed(1)}
+                </span>
+              </div>
+              <p className="text-foreground/70 text-left font-medium">
+                from {reviews.count}+ reviews
+              </p>
             </div>
-          </div>
-        </motion.div>
+          </AnimatedGroup>
+          <AnimatedGroup
+            preset="slide"
+            className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
+          >
+            {buttons.primary && (
+              <Button asChild variant="candy" className="w-full sm:w-auto">
+                <a href={buttons.primary.url}>{buttons.primary.text}</a>
+              </Button>
+            )}
+            {buttons.secondary && (
+              <Button asChild variant="outline">
+                <a href={buttons.secondary.url}>
+                  {buttons.secondary.text}
+                  <ArrowDownRight className="size-4" />
+                </a>
+              </Button>
+            )}
+          </AnimatedGroup>
+        </AnimatedGroup>
+        {/* Imagen completamente estática para que el blend mode funcione perfecto */}
+        <div className="flex">
+          <Image
+            src="/hero-example.png"
+            alt="app screen"
+            width={2880}
+            height={1842}
+            className="h-full w-full rounded-md object-cover mix-blend-lighten"
+            priority
+          />
+        </div>
       </div>
-    </section>
+    </motion.section>
   )
 }

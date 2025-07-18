@@ -4,7 +4,7 @@ import { motion } from "motion/react"
 
 export function PricingModern() {
   return (
-    <section className="relative flex flex-col items-center py-12">
+    <section className="relative flex flex-col items-center py-24">
       <div className="flex w-full flex-col items-center justify-center gap-8 md:flex-row">
         {/* Basic Plan */}
         <motion.div

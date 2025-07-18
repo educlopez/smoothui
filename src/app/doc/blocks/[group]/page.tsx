@@ -2,11 +2,12 @@ import React from "react"
 
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import Divider from "@/components/landing/divider"
 import { heroBlocks } from "@/app/doc/data/block-hero"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
 import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import { BlocksProps } from "@/app/doc/data/typeBlock"
-import { readComponentSource } from "@/app/utils/readFile"
+import { readComponentSource, readStyleSource } from "@/app/utils/readFile"
 
 // Map group to data file
 const groupDataMap: Record<string, BlocksProps[]> = {
@@ -58,6 +59,9 @@ export default async function BlocksGroupPage({
       source: block.componentPath
         ? await readComponentSource(block.componentPath)
         : null,
+      styleSource: block.stylePath
+        ? await readStyleSource(block.stylePath)
+        : null,
     }))
   )
 
@@ -84,25 +88,7 @@ export default async function BlocksGroupPage({
             {groupDescriptionMap[group] || ""}
           </p>
         </div>
-        <div className="bg-primary mb-8 inline-flex flex-col rounded-lg border p-6">
-          <h2 className="mb-2 text-xl font-bold">How to install</h2>
-          <ul className="ml-6 list-disc space-y-1 text-sm">
-            <li>
-              Install <b>Tailwind CSS</b> and configure your project.
-            </li>
-            <li>
-              Install <b>Motion</b>: <code>npm install motion/react</code>
-            </li>
-            <li>
-              Install <b>Lucide React</b>: <code>npm install lucide-react</code>
-            </li>
-            <li>
-              Install <b>SmoothUI</b> and theme:{" "}
-              <code>npm install smoothui</code>
-            </li>
-          </ul>
-        </div>
-
+        <Divider className="relative my-4" />
         {blocksWithSource.map((block: any, idx: number) => {
           // Generate slug from title (kebab-case)
           const slug = block.title
@@ -117,9 +103,12 @@ export default async function BlocksGroupPage({
                 <TabsList>
                   <TabsTrigger value="preview">Preview</TabsTrigger>
                   <TabsTrigger value="code">Code</TabsTrigger>
+                  {block.styleSource && (
+                    <TabsTrigger value="style">Style</TabsTrigger>
+                  )}
                 </TabsList>
                 <TabsContent value="preview" className="py-4">
-                  <div className="overflow-hidden rounded-md border py-10">
+                  <div className="overflow-hidden rounded-md border">
                     {block.componentUi &&
                       React.createElement(block.componentUi)}
                   </div>
@@ -133,6 +122,17 @@ export default async function BlocksGroupPage({
                     />
                   </div>
                 </TabsContent>
+                {block.styleSource && (
+                  <TabsContent value="style" className="py-4">
+                    <div className="relative">
+                      <CodeBlock
+                        code={block.styleSource}
+                        fileName={block.title + ".module.css"}
+                        lang="css"
+                      />
+                    </div>
+                  </TabsContent>
+                )}
               </Tabs>
             </section>
           )

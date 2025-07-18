@@ -7,7 +7,6 @@ import CursorFollowDemo from "@/components/smoothui/examples/CursorFollowDemo"
 import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
 import ExpandableCardsDemo from "@/components/smoothui/examples/ExpandableCardsDemo"
-import FluidMorphDemo from "@/components/smoothui/examples/FluidMorphDemo"
 import ImageMetadataPreviewDemo from "@/components/smoothui/examples/ImageMetadataPreviewDemo"
 import InteractiveImageSelectorDemo from "@/components/smoothui/examples/InteractiveImageSelectorDemo"
 import JobListingComponentDemo from "@/components/smoothui/examples/JobListingComponentDemo"
@@ -199,68 +198,6 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "Tag",
-  },
-  {
-    id: 4,
-    componentTitle: "Fluid Morph",
-    slug: "fluid-morph",
-    type: "block",
-    isNew: false,
-    tags: ["react", "tailwindcss", "motion"],
-    href: "https://x.com/educalvolpz",
-    info: "Component that morphs a fluid shape into another fluid shape",
-    componentUi: FluidMorphDemo,
-    download: "motion",
-    cnFunction: false,
-    isUpdated: false,
-    collection: "animations",
-    props: [
-      {
-        name: "paths",
-        type: "string[]",
-        description: "Array of SVG path strings to morph between.",
-        required: false,
-        fields: [
-          {
-            name: "[index]",
-            type: "string",
-            description: "SVG path string (d attribute)",
-          },
-        ],
-      },
-      {
-        name: "circleCount",
-        type: "number",
-        description: "Number of circles to animate.",
-        required: false,
-      },
-      {
-        name: "circleRadius",
-        type: "number",
-        description: "Radius of each circle.",
-        required: false,
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Optional additional class names for the root container.",
-        required: false,
-      },
-      {
-        name: "initialIndex",
-        type: "number",
-        description: "Which path to start on.",
-        required: false,
-      },
-      {
-        name: "onChange",
-        type: "(index: number) => void",
-        description: "Callback fired when the active shape index changes.",
-        required: false,
-      },
-    ],
-    hasRefreshDemo: false,
-    icon: "Droplet",
   },
   {
     id: 5,

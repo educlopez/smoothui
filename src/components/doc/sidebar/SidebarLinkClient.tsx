@@ -129,7 +129,7 @@ export default function SidebarLinkClient({}) {
           <SidebarMenuSubItem key="blocks-pricing">
             <SidebarButtonClient
               key="blocks-pricing"
-              name="Pricing Sections"
+              name="Pricing"
               slug="/doc/blocks/pricing"
               icon="PackagePlus"
             />
@@ -137,7 +137,7 @@ export default function SidebarLinkClient({}) {
           <SidebarMenuSubItem key="blocks-hero">
             <SidebarButtonClient
               key="blocks-hero"
-              name="Hero Blocks"
+              name="Hero"
               slug="/doc/blocks/hero"
               icon="Sparkles"
             />
@@ -145,7 +145,7 @@ export default function SidebarLinkClient({}) {
           <SidebarMenuSubItem key="blocks-testimonial">
             <SidebarButtonClient
               key="blocks-testimonial"
-              name="Testimonial Blocks"
+              name="Testimonial"
               slug="/doc/blocks/testimonial"
               icon="User"
             />
