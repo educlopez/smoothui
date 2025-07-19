@@ -4,9 +4,9 @@ import Phototab, { PhototabTab } from "@/components/smoothui/ui/Phototab"
 
 // Placeholder images (replace with your own if available)
 const Images = [
-  "https://images.unsplash.com/photo-1535295972055-1c762f4483e5?=webp&fit=crop&w=400&q=80&fit=max",
-  "https://images.unsplash.com/photo-1587300003388-59208cc962cb?=webp&fit=crop&w=400&q=80&fit=max",
-  "https://images.unsplash.com/photo-1508739773434-c26b3d09e071?=webp&fit=crop&w=400&q=80&fit=max",
+  "https://images.unsplash.com/photo-1505937059382-aab581fd88c8?=webp&fit=crop&w=800&fit=max",
+  "https://images.unsplash.com/photo-1705054476413-4aed25209459?=webp&fit=crop&w=800&fit=max",
+  "https://images.unsplash.com/photo-1591282063405-1752516fd16e?=webp&fit=crop&w=800&fit=max",
 ]
 
 const tabs: PhototabTab[] = [

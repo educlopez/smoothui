@@ -71,7 +71,7 @@ export default function Phototab({
 
   return (
     <Tabs.Root
-      className={`group relative overflow-hidden ${className}`}
+      className={`group relative h-100 w-100 overflow-hidden ${className}`}
       defaultValue={defaultTab || (tabs[0]?.name ?? "")}
       orientation="horizontal"
     >
@@ -120,13 +120,13 @@ export default function Phototab({
         ))}
       </Tabs.List>
       {tabs.map((tab) => (
-        <Tabs.Content key={tab.name} value={tab.name}>
+        <Tabs.Content key={tab.name} value={tab.name} className="h-full w-full">
           <img
             alt={tab.name}
-            className={`bg-primary aspect-square w-full rounded-2xl object-cover ${imageClassName}`}
+            className={`bg-primary h-full w-full rounded-2xl object-cover ${imageClassName}`}
             src={tab.image}
-            width={512}
-            height={288}
+            width={400}
+            height={400}
             loading="lazy"
           />
         </Tabs.Content>
