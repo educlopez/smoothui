@@ -1,8 +1,7 @@
 import React from "react"
 
 // You can adjust the path or use Tailwind for font if needed
-const gifUrl =
-  "https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWlqbmZlMXNhMWdpZXBwcXVwc2FmYXF2NGl4YXJsbDI0NGJnOG02byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/5gJs1toWJZvTa/giphy.gif"
+const gifUrl = "/smoothiegif.webp"
 
 export default function Footer() {
   return (

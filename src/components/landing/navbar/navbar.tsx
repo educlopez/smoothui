@@ -100,7 +100,7 @@ export default function Navbar({ className }: { className?: string }) {
         <NavigationMenu.Item>
           <NavigationMenu.Link
             className="link"
-            href="https://github.com/eduardocalvo/smoothui/issues"
+            href="https://github.com/educlopez/smoothui/issues"
             target="_blank"
             rel="noopener noreferrer"
           >
