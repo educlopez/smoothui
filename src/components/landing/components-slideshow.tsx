@@ -13,6 +13,9 @@ const SHOWCASE_COMPONENTS = [
   "Expandable Cards",
   "User Account Avatar",
   "Number Flow",
+  "Phototab",
+  "Dynamic Island",
+  "Image Metadata Preview",
 ]
 
 export function ComponentsSlideshow() {
