@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next"
 
 import { basicComponents } from "@/app/doc/data/basicComponents"
+import { heroBlocks } from "@/app/doc/data/block-hero"
+import { pricingBlocks } from "@/app/doc/data/block-pricing"
+import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
 
@@ -29,6 +32,28 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }))
 
+  // Generate URLs for all block pages
+  function toKebabCase(str: string) {
+    return str
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/(^-|-$)/g, "")
+  }
+
+  const blockGroups = [
+    { group: "hero", blocks: heroBlocks },
+    { group: "pricing", blocks: pricingBlocks },
+    { group: "testimonial", blocks: testimonialBlocks },
+  ]
+
+  // Add group listing URLs for blocks
+  const blockGroupUrls = blockGroups.map(({ group }) => ({
+    url: `${baseUrl}/doc/blocks/${group}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly" as const,
+    priority: 0.85,
+  }))
+
   return [
     {
       url: baseUrl,
@@ -45,5 +70,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...componentUrls,
     ...basicComponentUrls,
     ...textComponentUrls,
+    ...blockGroupUrls,
   ]
 }
