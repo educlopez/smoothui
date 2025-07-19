@@ -9,7 +9,7 @@ import {
 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
-// Animation variants remain the same
+// Animation variants
 const ANIMATION_VARIANTS = {
   "ring-idle": { scale: 0.9, scaleX: 0.9, bounce: 0.5 },
   "timer-ring": { scale: 0.7, y: -7.5, bounce: 0.35 },
@@ -30,11 +30,23 @@ const BOUNCE_VARIANTS = {
 } as const
 
 const variants = {
-  exit: (transition: any) => ({
-    ...transition,
-    opacity: [1, 0],
-    filter: "blur(5px)",
-  }),
+  exit: (transition: any, custom: any) => {
+    // custom is the animation variant, e.g., ANIMATION_VARIANTS[variantKey]
+    // We'll pass the target view as custom.nextView
+    if (custom && custom.nextView === "idle") {
+      return {
+        opacity: [1, 0],
+        scale: 0.7,
+        filter: "blur(5px)",
+        transition: { duration: 0.18, ease: "ease-in" },
+      }
+    }
+    return {
+      ...transition,
+      opacity: [1, 0],
+      filter: "blur(5px)",
+    }
+  },
 }
 
 // Idle Component with Weather
@@ -146,8 +158,7 @@ export default function DynamicIsland({
   className = "",
 }: DynamicIslandProps) {
   const [internalView, setInternalView] = useState<View>("idle")
-  const [variantKey, setVariantKey] =
-    useState<keyof typeof BOUNCE_VARIANTS>("idle")
+  const [variantKey, setVariantKey] = useState<string>("idle")
 
   const view = controlledView ?? internalView
 
@@ -164,7 +175,7 @@ export default function DynamicIsland({
 
   const handleViewChange = (newView: View) => {
     if (view === newView) return
-    setVariantKey(`${view}-${newView}` as keyof typeof BOUNCE_VARIANTS)
+    setVariantKey(`${view}-${newView}`)
     if (onViewChange) onViewChange(newView)
     else setInternalView(newView)
   }
@@ -176,7 +187,9 @@ export default function DynamicIsland({
           layout
           transition={{
             type: "spring",
-            bounce: BOUNCE_VARIANTS[variantKey],
+            bounce:
+              BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
+              0.5,
           }}
           style={{ borderRadius: 32 }}
           className="mx-auto w-fit min-w-[100px] overflow-hidden rounded-full bg-black"
@@ -184,7 +197,9 @@ export default function DynamicIsland({
           <motion.div
             transition={{
               type: "spring",
-              bounce: BOUNCE_VARIANTS[variantKey],
+              bounce:
+                BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
+                0.5,
             }}
             initial={{
               scale: 0.9,
@@ -207,46 +222,22 @@ export default function DynamicIsland({
           </motion.div>
         </motion.div>
 
-        <div className="pointer-events-none absolute top-0 left-1/2 flex h-[200px] w-[300px] -translate-x-1/2 items-start justify-center">
-          <AnimatePresence
-            mode="popLayout"
-            custom={
-              ANIMATION_VARIANTS[variantKey as keyof typeof ANIMATION_VARIANTS]
-            }
-          >
-            <motion.div
-              initial={{ opacity: 0 }}
-              exit="exit"
-              variants={variants}
-              key={view}
+        <div className="absolute bottom-2 left-1/2 z-10 flex w-full -translate-x-1/2 justify-center gap-4">
+          {["idle", "ring", "timer"].map((v) => (
+            <button
+              type="button"
+              className="h-10 w-32 rounded-full bg-white px-2.5 py-1.5 text-sm font-medium text-gray-900 capitalize ring-1 shadow-sm ring-gray-300/50 ring-inset hover:bg-gray-50"
+              onClick={() => {
+                if (view !== v) {
+                  setVariantKey(`${view}-${v}`)
+                  handleViewChange(v as View)
+                }
+              }}
+              key={v}
             >
-              {content}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 gap-2">
-          <button
-            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
-            onClick={() => handleViewChange("idle")}
-            aria-label="Idle"
-          >
-            Idle
-          </button>
-          <button
-            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
-            onClick={() => handleViewChange("ring")}
-            aria-label="Ring"
-          >
-            Ring
-          </button>
-          <button
-            className="rounded-full bg-black/80 px-3 py-1 text-xs text-white shadow"
-            onClick={() => handleViewChange("timer")}
-            aria-label="Timer"
-          >
-            Timer
-          </button>
+              {v}
+            </button>
+          ))}
         </div>
       </div>
     </div>
