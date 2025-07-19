@@ -1,13 +1,9 @@
 @reference "../../../../app/styles/smoothui.css";
-@reference "../../../../app/styles/globals.css";
 
-:root {
-  --grid-border: 1px solid var(--color-smooth-200);
-}
 .mainGrid {
   display: grid;
-  border-right: var(--grid-border);
-  border-top: var(--grid-border);
+  border-right: 1px solid var(--color-smooth-200);
+  border-top: 1px solid var(--color-smooth-200);
   position: absolute;
   top: 0;
   left: 0;
@@ -27,8 +23,8 @@
   height: var(--grid-cell-size);
   position: relative;
   user-select: none;
-  border-right: var(--grid-border);
-  border-top: var(--grid-border);
+  border-right: 1px solid var(--color-smooth-200);
+  border-top: 1px solid var(--color-smooth-200);
   pointer-events: auto;
 }
 
@@ -40,16 +36,16 @@
 }
 
 .cell:nth-child(1) {
-  border-right: var(--grid-border);
+  border-right: 1px solid var(--color-smooth-200);
 }
 .cell:nth-child(2) {
 }
 .cell:nth-child(3) {
-  border-top: var(--grid-border);
-  border-right: var(--grid-border);
+  border-top: 1px solid var(--color-smooth-200);
+  border-right: 1px solid var(--color-smooth-200);
 }
 .cell:nth-child(4) {
-  border-top: var(--grid-border);
+  border-top: 1px solid var(--color-smooth-200);
 }
 
 /* Reduce overlay size of hero text/button containers */
