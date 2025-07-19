@@ -97,3 +97,15 @@
   background-image: var(--lines-page);
   background-repeat: repeat;
 }
+
+[data-slot="dropdown-menu-item"] {
+  @apply focus:bg-primary focus:border-border text-foreground border border-transparent;
+}
+
+.float-trigger {
+  @apply text-foreground flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-medium outline-0;
+}
+
+.float-trigger:hover {
+  @apply bg-primary border-border border;
+}

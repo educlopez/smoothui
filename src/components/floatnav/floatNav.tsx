@@ -3,7 +3,15 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Github } from "lucide-react"
+import {
+  Book,
+  ChevronsUpDown,
+  Cuboid,
+  Github,
+  Home,
+  LayoutDashboard,
+  ListChecks,
+} from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
 
@@ -14,6 +22,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/tooltip"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { heroBlocks } from "@/app/doc/data/block-hero"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
@@ -69,18 +83,48 @@ export function FloatNav() {
   const pageTitle = getPageTitle(pathname)
   const [ref, bounds] = useMeasure()
 
+  // Dropdown options
+  const navOptions = [
+    { label: "Home", href: "/", icon: <Home size={16} /> },
+    { label: "Getting Started", href: "/doc", icon: <Book size={16} /> },
+    {
+      label: "Changelog",
+      href: "/doc/changelog",
+      icon: <ListChecks size={16} />,
+    },
+    {
+      label: "Components",
+      href: "/doc/components/apple-invites",
+      icon: <LayoutDashboard size={16} />,
+    },
+    {
+      label: "Blocks",
+      href: "/doc/blocks/testimonial",
+      icon: <Cuboid size={16} />,
+    },
+  ]
+  // Exclude current page, and hide Components link on any /doc/components/* page, Blocks link on any /doc/blocks/* page
+  const filteredOptions = navOptions.filter((opt) => {
+    if (opt.href === pathname) return false
+    if (opt.label === "Components" && pathname.startsWith("/doc/components/"))
+      return false
+    if (opt.label === "Blocks" && pathname.startsWith("/doc/blocks/"))
+      return false
+    return true
+  })
+
   return (
     <nav
-      className="bg-background/70 text-foreground fixed bottom-5 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-row items-center justify-center gap-2 rounded-full border px-4 py-2 whitespace-nowrap bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
+      className="bg-background/70 text-foreground fixed bottom-5 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-row items-center justify-center rounded-full border px-1 py-1 whitespace-nowrap bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
       aria-label="Floating Navigation"
     >
       <TooltipProvider delayDuration={200}>
-        {/* Animated Page Title */}
+        {/* Animated Page Title + Selector */}
         <motion.div
           animate={{ width: bounds.width > 0 ? bounds.width : "auto" }}
           transition={{ type: "spring", stiffness: 350, damping: 55 }}
         >
-          <div ref={ref} className="flex w-fit items-center gap-2">
+          <div ref={ref} className="relative flex w-fit items-center">
             <Tooltip>
               <TooltipTrigger asChild>
                 <Link
@@ -88,7 +132,7 @@ export function FloatNav() {
                   aria-label="Visit X Profile of educalvolpz"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+                  className="float-trigger h-auto w-auto !p-2"
                 >
                   <svg
                     width="20"
@@ -117,7 +161,7 @@ export function FloatNav() {
                   aria-label="Visit GitHub Repository"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+                  className="float-trigger h-auto w-auto !p-2"
                 >
                   <Github size={20} aria-hidden="true" />
                 </Link>
@@ -126,48 +170,68 @@ export function FloatNav() {
                 <p>GitHub</p>
               </TooltipContent>
             </Tooltip>
-            <Separator orientation="vertical" className="h-4" />
             <div className="text-foreground text-sm font-semibold">
-              <AnimatePresence mode="popLayout" initial={false}>
-                {pageTitle.split("").map((letter, index) => (
-                  <motion.div
-                    initial={{ opacity: 0, filter: "blur(2px)" }}
-                    animate={{
-                      opacity: 1,
-                      filter: "blur(0px)",
-                      transition: {
-                        type: "spring",
-                        stiffness: 350,
-                        damping: 55,
-                        delay: index * 0.015,
-                      },
-                    }}
-                    exit={{
-                      opacity: 0,
-                      filter: "blur(2px)",
-                      transition: {
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 55,
-                      },
-                    }}
-                    transition={{ type: "spring", stiffness: 350, damping: 55 }}
-                    key={index + letter + pageTitle}
-                    className="inline-block"
-                  >
-                    {letter}
-                    {letter === " " ? "\u00A0" : ""}
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+              <DropdownMenu>
+                <DropdownMenuTrigger className="float-trigger !pr-3 !pl-4">
+                  <AnimatePresence mode="popLayout" initial={false}>
+                    {pageTitle.split("").map((letter, index) => (
+                      <motion.div
+                        initial={{ opacity: 0, filter: "blur(2px)" }}
+                        animate={{
+                          opacity: 1,
+                          filter: "blur(0px)",
+                          transition: {
+                            type: "spring",
+                            stiffness: 350,
+                            damping: 55,
+                            delay: index * 0.015,
+                          },
+                        }}
+                        exit={{
+                          opacity: 0,
+                          filter: "blur(2px)",
+                          transition: {
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 55,
+                          },
+                        }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 350,
+                          damping: 55,
+                        }}
+                        key={index + letter + pageTitle}
+                        className="inline-block"
+                      >
+                        {letter}
+                        {letter === " " ? "\u00A0" : ""}
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                  <ChevronsUpDown size={16} className="ml-1" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="top" align="center">
+                  {filteredOptions.map((opt) => (
+                    <DropdownMenuItem key={opt.href} asChild>
+                      <Link
+                        href={opt.href}
+                        className="flex w-full cursor-pointer items-center justify-between"
+                      >
+                        <span>{opt.label}</span>
+                        {opt.icon}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
           </div>
         </motion.div>
-        <div className="flex items-center gap-2">
-          <Separator orientation="vertical" className="h-4" />
+        <div className="flex items-center">
           <Tooltip>
             <TooltipTrigger>
-              <ThemeSwitch />
+              <ThemeSwitch className="float-trigger h-auto w-auto !p-2" />
             </TooltipTrigger>
             <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
               <p>Theme Switcher</p>

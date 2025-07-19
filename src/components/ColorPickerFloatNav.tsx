@@ -163,7 +163,7 @@ export function ColorPickerFloatNav() {
   }, [open])
 
   return (
-    <div className="relative" ref={pickerRef}>
+    <div className="float-trigger relative !p-2" ref={pickerRef}>
       <button
         aria-label="Open color picker"
         className="shadow-custom-brand flex h-5 w-5 cursor-pointer items-center gap-1 overflow-hidden rounded-sm border transition-all duration-200"
