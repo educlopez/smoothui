@@ -78,7 +78,7 @@ export default function Phototab({
       <Tabs.List
         ref={listRef}
         aria-label="Phototab Tabs"
-        className={`hover:text-foreground bg-primary/40 ring-border/70 absolute right-0 bottom-2 left-0 mx-auto flex w-40 flex-row items-center justify-between rounded-full px-3 py-2 text-sm font-medium ring backdrop-blur-sm transition md:translate-y-20 md:group-hover:-translate-y-1/2 ${tabListClassName}`}
+        className={`hover:text-foreground bg-primary/40 ring-border/70 absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full px-3 py-2 text-sm font-medium ring backdrop-blur-sm transition md:translate-y-20 md:group-hover:-translate-y-1/2 ${tabListClassName}`}
         style={{ pointerEvents: "auto" }}
       >
         <AnimatePresence>
