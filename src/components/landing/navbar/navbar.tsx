@@ -31,7 +31,7 @@ export default function Navbar({ className }: { className?: string }) {
       </div>
       <NavigationMenu.List className="menu-list flex-auto">
         <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="trigger">
+          <NavigationMenu.Trigger className="trigger !cursor-default">
             Components
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="content">
@@ -71,7 +71,7 @@ export default function Navbar({ className }: { className?: string }) {
         </NavigationMenu.Item>
 
         <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="trigger">
+          <NavigationMenu.Trigger className="trigger !cursor-default">
             Blocks
           </NavigationMenu.Trigger>
           <NavigationMenu.Content className="content">
