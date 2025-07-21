@@ -71,14 +71,14 @@ export default function Phototab({
 
   return (
     <Tabs.Root
-      className={`group relative overflow-hidden ${className}`}
+      className={`group relative h-100 w-100 overflow-hidden ${className}`}
       defaultValue={defaultTab || (tabs[0]?.name ?? "")}
       orientation="horizontal"
     >
       <Tabs.List
         ref={listRef}
         aria-label="Phototab Tabs"
-        className={`hover:text-foreground bg-primary/40 absolute right-0 bottom-2 left-0 mx-auto flex w-40 flex-row items-center justify-between rounded-full border px-3 py-2 text-sm font-medium backdrop-blur-sm transition md:translate-y-20 md:group-hover:-translate-y-4 ${tabListClassName}`}
+        className={`hover:text-foreground bg-primary/40 ring-border/70 absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full px-3 py-2 text-sm font-medium ring backdrop-blur-sm transition md:translate-y-20 md:group-hover:-translate-y-1/2 ${tabListClassName}`}
         style={{ pointerEvents: "auto" }}
       >
         <AnimatePresence>
@@ -120,13 +120,13 @@ export default function Phototab({
         ))}
       </Tabs.List>
       {tabs.map((tab) => (
-        <Tabs.Content key={tab.name} value={tab.name}>
+        <Tabs.Content key={tab.name} value={tab.name} className="h-full w-full">
           <img
             alt={tab.name}
-            className={`bg-primary aspect-square w-full rounded-2xl object-cover ${imageClassName}`}
+            className={`bg-primary h-full w-full rounded-2xl object-cover ${imageClassName}`}
             src={tab.image}
-            width={512}
-            height={288}
+            width={400}
+            height={400}
             loading="lazy"
           />
         </Tabs.Content>

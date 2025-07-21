@@ -4,7 +4,9 @@ import { useEffect, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-export const ThemeSwitch = () => {
+import { cn } from "@/lib/utils"
+
+export const ThemeSwitch = ({ className }: { className?: string }) => {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -23,7 +25,10 @@ export const ThemeSwitch = () => {
 
   return (
     <div
-      className="text-foreground hover:text-brand flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1"
+      className={cn(
+        "flex h-auto w-auto cursor-pointer items-center justify-center gap-4 p-1",
+        className
+      )}
       aria-label={mounted ? `Switch to ${otherTheme} theme` : "Toggle theme"}
       onClick={handleButtonClick}
     >

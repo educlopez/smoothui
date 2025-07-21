@@ -3,6 +3,8 @@
 import { useMemo, useState } from "react"
 import { X } from "lucide-react"
 
+import { BlurMagic } from "@/components/blurmagic/blurMagic"
+import { useScrollOpacity } from "@/components/ui/hooks/useScrollOpacity"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -36,6 +38,11 @@ function highlightMatch(text: string, query: string) {
 
 export default function SidebarLinkClient({}) {
   const [search, setSearch] = useState("")
+  const {
+    ref: scrollRef,
+    opacity: blurOpacity,
+    handleScroll,
+  } = useScrollOpacity(15)
 
   // Helper to filter components by search
   const filterComponents = (list: ComponentsProps[]) => {
@@ -62,14 +69,28 @@ export default function SidebarLinkClient({}) {
   )
 
   return (
-    <>
-      <div className="relative p-2">
+    <div
+      ref={scrollRef}
+      style={{ minHeight: "unset" }}
+      className="h-full overflow-y-auto"
+      onScroll={handleScroll}
+    >
+      <BlurMagic
+        side="top"
+        className="!sticky z-2"
+        stop="50%"
+        blur="4px"
+        background="var(--color-primary)"
+        height="48px"
+        style={{ opacity: blurOpacity }}
+      />
+      <div className="relative -mt-[48px] p-2">
         <SidebarInput
           placeholder="Search components..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           autoFocus={false}
-          className={search ? "pr-8" : undefined}
+          className={`rounded-md ${search ? "pr-8" : ""}`}
         />
         {search && (
           <button
@@ -96,6 +117,37 @@ export default function SidebarLinkClient({}) {
               key="2"
               name="Changelog"
               slug="/doc/changelog"
+            />
+          </SidebarMenuSubItem>
+        </SidebarMenuSub>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel className="text-foreground font-bold">
+          Blocks
+        </SidebarGroupLabel>
+        <SidebarMenuSub className="border-none p-0">
+          <SidebarMenuSubItem key="blocks-pricing">
+            <SidebarButtonClient
+              key="blocks-pricing"
+              name="Pricing"
+              slug="/doc/blocks/pricing"
+              icon="PackagePlus"
+            />
+          </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="blocks-hero">
+            <SidebarButtonClient
+              key="blocks-hero"
+              name="Hero"
+              slug="/doc/blocks/hero"
+              icon="Sparkles"
+            />
+          </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="blocks-testimonial">
+            <SidebarButtonClient
+              key="blocks-testimonial"
+              name="Testimonial"
+              slug="/doc/blocks/testimonial"
+              icon="User"
             />
           </SidebarMenuSubItem>
         </SidebarMenuSub>
@@ -220,6 +272,6 @@ export default function SidebarLinkClient({}) {
           )}
         </SidebarMenuSub>
       </SidebarGroup>
-    </>
+    </div>
   )
 }

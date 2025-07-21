@@ -1,24 +1,3 @@
-import {
-  Briefcase,
-  Calendar,
-  Copy,
-  Download,
-  Droplet,
-  GalleryHorizontalEnd,
-  Hash,
-  Image,
-  ImageIcon,
-  LayoutDashboard,
-  List,
-  Loader,
-  MessageSquare,
-  MousePointerClick,
-  Power,
-  Tag,
-  User,
-  Users,
-} from "lucide-react"
-
 import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
@@ -28,7 +7,6 @@ import CursorFollowDemo from "@/components/smoothui/examples/CursorFollowDemo"
 import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
 import ExpandableCardsDemo from "@/components/smoothui/examples/ExpandableCardsDemo"
-import FluidMorphDemo from "@/components/smoothui/examples/FluidMorphDemo"
 import ImageMetadataPreviewDemo from "@/components/smoothui/examples/ImageMetadataPreviewDemo"
 import InteractiveImageSelectorDemo from "@/components/smoothui/examples/InteractiveImageSelectorDemo"
 import JobListingComponentDemo from "@/components/smoothui/examples/JobListingComponentDemo"
@@ -220,68 +198,6 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "Tag",
-  },
-  {
-    id: 4,
-    componentTitle: "Fluid Morph",
-    slug: "fluid-morph",
-    type: "block",
-    isNew: false,
-    tags: ["react", "tailwindcss", "motion"],
-    href: "https://x.com/educalvolpz",
-    info: "Component that morphs a fluid shape into another fluid shape",
-    componentUi: FluidMorphDemo,
-    download: "motion",
-    cnFunction: false,
-    isUpdated: false,
-    collection: "animations",
-    props: [
-      {
-        name: "paths",
-        type: "string[]",
-        description: "Array of SVG path strings to morph between.",
-        required: false,
-        fields: [
-          {
-            name: "[index]",
-            type: "string",
-            description: "SVG path string (d attribute)",
-          },
-        ],
-      },
-      {
-        name: "circleCount",
-        type: "number",
-        description: "Number of circles to animate.",
-        required: false,
-      },
-      {
-        name: "circleRadius",
-        type: "number",
-        description: "Radius of each circle.",
-        required: false,
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Optional additional class names for the root container.",
-        required: false,
-      },
-      {
-        name: "initialIndex",
-        type: "number",
-        description: "Which path to start on.",
-        required: false,
-      },
-      {
-        name: "onChange",
-        type: "(index: number) => void",
-        description: "Callback fired when the active shape index changes.",
-        required: false,
-      },
-    ],
-    hasRefreshDemo: false,
-    icon: "Droplet",
   },
   {
     id: 5,
@@ -1105,7 +1021,7 @@ export const components: ComponentsProps[] = [
     componentTitle: "Phototab",
     slug: "phototab",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "motion", "tailwindcss", "radix-ui"],
     href: "https://x.com/educalvolpz",
     info: "A configurable tabbed photo display component with animated tab transitions, supporting custom icons and images",
@@ -1170,12 +1086,12 @@ export const components: ComponentsProps[] = [
     componentTitle: "Dot Morph Button",
     slug: "dot-morph-button",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "A pill-shaped button with a dot that morphs into a checkmark on click, featuring smooth Framer Motion animation.",
     componentUi: DotMorphButtonDemo,
-    download: "framer-motion tailwindcss",
+    download: "motion/react tailwindcss",
     cnFunction: false,
     isUpdated: false,
     collection: "inputs",
@@ -1207,12 +1123,12 @@ export const components: ComponentsProps[] = [
     componentTitle: "Clip Corners Button",
     slug: "clip-corners-button",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "A rectangular button with clipped corners that animate outward on hover.",
     componentUi: ClipCornersButtonDemo,
-    download: "framer-motion tailwindcss",
+    download: "motion/react tailwindcss",
     cnFunction: false,
     isUpdated: false,
     collection: "inputs",
@@ -1244,7 +1160,7 @@ export const components: ComponentsProps[] = [
     componentTitle: "Cursor Follow",
     slug: "cursor-follow",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "motion", "tailwindcss"],
     href: "https://x.com/educalvolpz",
     info: "A cursor-follow component that displays context-sensitive text when hovering over elements. Demo shows two images with different hover texts.",

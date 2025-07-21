@@ -26,6 +26,7 @@
   --shadow-custom:
     0px 0px 0px 1px rgba(0, 0, 0, 0.08), 0px 1px 2px -1px rgba(0, 0, 0, 0.08),
     0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --lines-page: url("/lines-b.png");
 }
 
 .dark {
@@ -34,6 +35,7 @@
     0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
     0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
     0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+  --lines-page: url("/lines-w.png");
 }
 
 @layer base {
@@ -91,61 +93,19 @@
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
 }
 
-.blur-magic {
-  --blur: 1px;
-  --stop: 25%;
-  --height: 150px;
-  position: fixed;
-  pointer-events: none;
-  width: 100%;
-  height: var(--height);
-  user-select: none;
-  -webkit-user-select: none;
-  left: 0;
-  -webkit-backdrop-filter: blur(var(--blur));
-  backdrop-filter: blur(var(--blur));
+.bg-lines-page {
+  background-image: var(--lines-page);
+  background-repeat: repeat;
 }
 
-.blur-magic[data-side="top"] {
-  top: 0;
-  background: linear-gradient(to top, transparent, var(--color-primary));
-  mask-image: linear-gradient(
-    to bottom,
-    var(--color-primary) var(--stop),
-    transparent
-  );
+[data-slot="dropdown-menu-item"] {
+  @apply focus:bg-primary focus:border-border text-foreground border border-transparent;
 }
 
-.blur-magic[data-side="left"] {
-  height: 100%;
-  width: var(--height);
-  left: 0;
-  background: linear-gradient(to left, transparent, var(--color-primary));
-  mask-image: linear-gradient(
-    to right,
-    var(--color-primary) var(--stop),
-    transparent
-  );
+.float-trigger {
+  @apply text-foreground flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-medium outline-0;
 }
 
-.blur-magic[data-side="right"] {
-  height: 100%;
-  width: var(--height);
-  right: 0;
-  left: unset;
-  background: linear-gradient(to right, transparent, var(--color-primary));
-  mask-image: linear-gradient(
-    to left,
-    var(--color-primary) var(--stop),
-    transparent
-  );
-}
-.blur-magic[data-side="bottom"] {
-  bottom: 0;
-  background: linear-gradient(to bottom, transparent, var(--color-primary));
-  mask-image: linear-gradient(
-    to top,
-    var(--color-primary) var(--stop),
-    transparent
-  );
+.float-trigger:hover {
+  @apply bg-primary border-border border;
 }

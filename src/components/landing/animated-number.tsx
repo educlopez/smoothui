@@ -40,7 +40,7 @@ export default function AnimatedNumber({
   return (
     <span className="hover:text-brand flex items-center gap-1 text-sm font-medium transition-colors">
       <Star className="size-4" />
-      <span className="w-10">{formatted}</span>
+      <span className="w-auto">{formatted}</span>
     </span>
   )
 }

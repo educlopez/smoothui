@@ -34,7 +34,7 @@ export default function GetStartedPage() {
   --color-smooth-900: var(--color-smooth-900);
   --color-smooth-950: var(--color-smooth-950);
   --color-smooth-1000: var(--color-smooth-1000);
-  --color-border: var(--color-smooth-400);
+  --color-border: var(--color-smooth-500);
   --color-sidebar-ring: var(--color-brand);
   --color-sidebar-border: var(--color-smooth-400);
   --color-sidebar-accent-foreground: var(--color-smooth-900);
@@ -81,7 +81,7 @@ export default function GetStartedPage() {
   --color-smooth-900: oklch(61.67% 0 0);
   --color-smooth-950: oklch(54.17% 0 0);
   --color-smooth-1000: oklch(20.46% 0 0);
-  --border: var(--color-smooth-100);
+  --border: var(--color-smooth-300);
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
   --radius: 0.625rem;
@@ -100,7 +100,7 @@ export default function GetStartedPage() {
   --color-smooth-900: oklch(59.31% 0 0);
   --color-smooth-950: oklch(70.58% 0 0);
   --color-smooth-1000: oklch(94.61% 0 0);
-  --border: var(--color-smooth-100);
+  --border: var(--color-smooth-300);
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
 }

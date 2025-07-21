@@ -1,12 +1,3 @@
-import {
-  Bell,
-  ChevronDown,
-  ListCollapse,
-  Loader,
-  Square,
-  Type,
-} from "lucide-react"
-
 import AccordionDemo from "@/components/smoothui/examples/BasicAccordionDemo"
 import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"
@@ -249,7 +240,7 @@ export const basicComponents: ComponentsProps[] = [
     componentTitle: "Animated Input",
     slug: "animated-input",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "A text input with a floating label and smooth animation.",
@@ -329,7 +320,7 @@ export const basicComponents: ComponentsProps[] = [
     componentTitle: "Animated Progress Bar",
     slug: "animated-progress-bar",
     type: "component",
-    isNew: true,
+    isNew: false,
     tags: ["react", "tailwindcss", "motion"],
     href: "https://x.com/educalvolpz",
     info: "A progress bar with a smooth fill animation and optional label.",

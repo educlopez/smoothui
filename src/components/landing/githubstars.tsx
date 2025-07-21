@@ -20,7 +20,7 @@ async function getRepoStarCount() {
   return data.stargazers_count
 }
 
-export default async function GithubStars() {
+export async function GithubStars() {
   const starCount = await getRepoStarCount()
   return (
     <Link
