@@ -109,3 +109,16 @@
 .float-trigger:hover {
   @apply bg-primary border-border border;
 }
+
+.prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-inline-start: 1rem;
+  list-style-type: disc;
+}
+.prose
+  :where(ul > li):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  )::marker {
+  color: var(--color-smooth-800);
+}

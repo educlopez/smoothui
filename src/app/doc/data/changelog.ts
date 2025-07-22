@@ -1,6 +1,21 @@
 export const changelogEntries = [
   {
+    date: "Jul 21, 2025",
+    version: "2.5",
+    title: "Improve UX",
+    tags: ["Documentation", "Animation"],
+    changes: [
+      "Improvements on the documentation",
+      "Improvements on the landing",
+      "New Changelog Design",
+      "Update some components",
+    ],
+  },
+  {
     date: "Jul 03, 2025",
+    version: "2.1",
+    title: "New Animation Components",
+    tags: ["Components", "Animation"],
     changes: [
       "New component: Dot Morph Button",
       "New component: Clip Corners Button",
@@ -8,6 +23,9 @@ export const changelogEntries = [
   },
   {
     date: "Jul 02, 2025",
+    version: "2.0.2",
+    title: "Text Animation Components",
+    tags: ["Components", "Animation", "Text"],
     changes: [
       "New component: Reveal Text",
       "New component: Typewriter Text",
@@ -19,6 +37,9 @@ export const changelogEntries = [
   },
   {
     date: "Jul 01, 2025",
+    version: "2.0.1",
+    title: "Interactive Components",
+    tags: ["Components", "Animation", "Interactive"],
     changes: [
       "New component: Animated Input",
       "New component: Scramble Hover",
@@ -28,6 +49,9 @@ export const changelogEntries = [
   },
   {
     date: "Jun 18, 2025",
+    version: "2.0.0",
+    title: "Major Design Update",
+    tags: ["Design System", "UI", "Documentation"],
     changes: [
       "New Design System",
       "New Website look",
@@ -41,22 +65,37 @@ export const changelogEntries = [
   },
   {
     date: "Apr 01, 2025",
+    version: "1.2.0",
+    title: "Basic Components Update",
+    tags: ["Components", "UI"],
     changes: ["New Basic Components", "New sidebar"],
   },
   {
     date: "Feb 10, 2025",
+    version: "1.1.0",
+    title: "Beta Features",
+    tags: ["Beta", "Tools"],
     changes: ["Beta: shadcn cli", "Beta: Open in V0"],
   },
   {
     date: "Feb 07, 2025",
+    version: "1.0.3",
+    title: "Notification Update",
+    tags: ["UI", "UX"],
     changes: ["Add Changelog notifications on float nav"],
   },
   {
     date: "Feb 06, 2025",
+    version: "1.0.2",
+    title: "Accessibility Improvements",
+    tags: ["Accessibility", "UX"],
     changes: ["Improved the accessibility of the website and components"],
   },
   {
     date: "Feb 05, 2025",
+    version: "1.0.1",
+    title: "Component and UI Updates",
+    tags: ["Components", "UI", "SEO"],
     changes: [
       "Added new component: Apple Invites.",
       "Add Custom CSS to the components",
@@ -65,6 +104,9 @@ export const changelogEntries = [
   },
   {
     date: "Feb 04, 2025",
+    version: "1.0.0",
+    title: "Initial Release",
+    tags: ["Release", "Documentation"],
     changes: [
       "Updated all cursor-pointers on components",
       "Created a Changelog page",
@@ -74,10 +116,16 @@ export const changelogEntries = [
   },
   {
     date: "Jan 31, 2025",
+    version: "0.2.0",
+    title: "New Components",
+    tags: ["Components", "Beta"],
     changes: ["Added new component: Expandable Cards."],
   },
   {
     date: "Jan 23, 2025",
+    version: "0.1.0",
+    title: "Initial Beta",
+    tags: ["Beta", "Documentation"],
     changes: ["Redesign all the website", "Add documentation"],
   },
 ]
