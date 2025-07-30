@@ -36,7 +36,7 @@ function highlightMatch(text: string, query: string) {
   )
 }
 
-export default function SidebarLinkClient({}) {
+export default function SidebarLinkClient() {
   const [search, setSearch] = useState("")
   const {
     ref: scrollRef,

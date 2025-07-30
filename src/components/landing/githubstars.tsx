@@ -1,34 +1,54 @@
+"use client"
+
 import Link from "next/link"
+import { Star } from "lucide-react"
 
 import AnimatedNumber from "./animated-number"
+import { useGitHubStars } from "./hooks/use-github-stars"
 
-async function getRepoStarCount() {
-  const headers: HeadersInit = {}
-  if (process.env.GITHUB_TOKEN) {
-    headers["Authorization"] = `token ${process.env.GITHUB_TOKEN}`
+export function GithubStars() {
+  const { stars, isLoading, error, refresh } = useGitHubStars()
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <Link
+        href="https://github.com/educlopez/smoothui"
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={(e) => {
+          // Allow refresh on click if loading
+          e.preventDefault()
+          refresh()
+        }}
+      >
+        <span className="hover:text-brand flex items-center gap-1 text-sm font-medium transition-colors">
+          <Star className="size-4 animate-pulse" />
+          <span className="bg-muted h-4 w-8 animate-pulse rounded" />
+        </span>
+      </Link>
+    )
   }
 
-  const res = await fetch("https://api.github.com/repos/educlopez/smoothui", {
-    headers,
-  })
-  const data = await res.json()
-
-  if (data.stargazers_count === undefined) {
-    return 0
+  // Show error state (fallback to 0)
+  if (error) {
+    console.warn("GitHub stars error:", error)
   }
 
-  return data.stargazers_count
-}
-
-export async function GithubStars() {
-  const starCount = await getRepoStarCount()
   return (
     <Link
       href="https://github.com/educlopez/smoothui"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={(e) => {
+        // Refresh on click if there's an error
+        if (error) {
+          e.preventDefault()
+          refresh()
+        }
+      }}
     >
-      <AnimatedNumber value={starCount} />
+      <AnimatedNumber value={stars} />
     </Link>
   )
 }
