@@ -2,9 +2,14 @@ export const changelogEntries = [
   {
     date: "Jul 31, 2025",
     version: "2.6",
-    title: "New Components",
-    tags: ["Components", "Animation"],
-    changes: ["New component: Scroll Reveal Paragraph"],
+    title: "New Components & Updates",
+    tags: ["Components", "Animation", "Documentation", "SEO"],
+    changes: [
+      "New component: Scroll Reveal Paragraph",
+      "New component: Siri Orb - AI assistant orb with animated gradients",
+      "Updated OG images for better social media sharing",
+      "Added overview pages for better component discovery",
+    ],
   },
   {
     date: "Jul 21, 2025",
