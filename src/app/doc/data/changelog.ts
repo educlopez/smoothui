@@ -1,5 +1,12 @@
 export const changelogEntries = [
   {
+    date: "Jul 31, 2025",
+    version: "2.6",
+    title: "New Components",
+    tags: ["Components", "Animation"],
+    changes: ["New component: Scroll Reveal Paragraph"],
+  },
+  {
     date: "Jul 21, 2025",
     version: "2.5",
     title: "Improve UX",

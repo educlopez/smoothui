@@ -1,9 +1,10 @@
 import RevealTextDemo from "@/components/smoothui/examples/RevealTextDemo"
 import ScrambleHoverDemo from "@/components/smoothui/examples/ScrambleHoverDemo"
+import ScrollRevealParagraphDemo from "@/components/smoothui/examples/ScrollRevealParagraphDemo"
 import TypewriterTextDemo from "@/components/smoothui/examples/TypewriterTextDemo"
 import WaveTextDemo from "@/components/smoothui/examples/WaveTextDemo"
 
-import { ComponentsProps } from "./typeComponent"
+import type { ComponentsProps } from "./typeComponent"
 
 export const textComponents: ComponentsProps[] = [
   {
@@ -189,5 +190,37 @@ export const textComponents: ComponentsProps[] = [
     ],
     hasRefreshDemo: true,
     icon: "Eye",
+  },
+  {
+    id: 5,
+    componentTitle: "Scroll Reveal Paragraph",
+    slug: "scroll-reveal-paragraph",
+    type: "component",
+    isNew: true,
+    tags: ["react", "motion", "tailwindcss"],
+    href: "https://x.com/educalvolpz",
+    info: "A paragraph component that reveals words progressively as the user scrolls, creating a smooth text reveal animation effect.",
+    componentUi: ScrollRevealParagraphDemo,
+    download: "motion/react",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "text",
+    props: [
+      {
+        name: "paragraph",
+        type: "string",
+        description: "The text content to be revealed word by word.",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string",
+        description:
+          "Optional additional class names for the paragraph container.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "Type",
   },
 ]

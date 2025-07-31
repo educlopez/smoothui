@@ -16,7 +16,7 @@ import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
 
-import { ComponentsProps } from "./typeComponent"
+import type { ComponentsProps } from "./typeComponent"
 
 export const components: ComponentsProps[] = [
   {

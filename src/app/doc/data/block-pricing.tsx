@@ -2,7 +2,7 @@ import { PricingCreative } from "@/components/smoothui/blocks/PricingCreative"
 import { PricingModern } from "@/components/smoothui/blocks/PricingModern"
 import { PricingSimple } from "@/components/smoothui/blocks/PricingSimple"
 
-import { BlocksProps } from "./typeBlock"
+import type { BlocksProps } from "./typeBlock"
 
 export const pricingBlocks: BlocksProps[] = [
   {

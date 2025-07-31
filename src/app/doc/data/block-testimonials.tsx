@@ -1,6 +1,6 @@
 import { TestimonialsSimple } from "@/components/smoothui/blocks/TestimonialsSimple"
 
-import { BlocksProps } from "./typeBlock"
+import type { BlocksProps } from "./typeBlock"
 
 export const testimonialBlocks: BlocksProps[] = [
   {

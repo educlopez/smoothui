@@ -1,7 +1,7 @@
 import { HeroGrid } from "@/components/smoothui/blocks/HeroGrid/HeroGrid"
 import { HeroShowcase } from "@/components/smoothui/blocks/HeroShowcase"
 
-import { BlocksProps } from "./typeBlock"
+import type { BlocksProps } from "./typeBlock"
 
 export const heroBlocks: BlocksProps[] = [
   {

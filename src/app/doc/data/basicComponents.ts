@@ -3,7 +3,7 @@ import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"
 import ToastDemo from "@/components/smoothui/examples/BasicToastDemo"
 
-import { ComponentsProps } from "./typeComponent"
+import type { ComponentsProps } from "./typeComponent"
 
 export const basicComponents: ComponentsProps[] = [
   {
