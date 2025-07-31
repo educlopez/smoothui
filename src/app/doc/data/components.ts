@@ -13,6 +13,7 @@ import JobListingComponentDemo from "@/components/smoothui/examples/JobListingCo
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
+import SiriOrbDemo from "@/components/smoothui/examples/SiriOrbDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
 
@@ -1185,5 +1186,48 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "MousePointerClick",
+  },
+  {
+    id: 20,
+    componentTitle: "Siri Orb",
+    slug: "siri-orb",
+    type: "component",
+    isNew: true,
+    tags: ["react", "css", "animation"],
+    href: "https://x.com/educalvolpz",
+    info: "A mesmerizing animated orb with conic gradients that rotate continuously, featuring SmoothUI's signature pink color scheme.",
+    componentUi: SiriOrbDemo,
+    download: "css",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "visuals",
+    props: [
+      {
+        name: "size",
+        type: "string",
+        description: "Size of the orb (e.g., '192px', '256px').",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional additional class names for the orb.",
+        required: false,
+      },
+      {
+        name: "colors",
+        type: "{ bg?: string; c1?: string; c2?: string; c3?: string; }",
+        description: "Custom colors for the orb gradients.",
+        required: false,
+      },
+      {
+        name: "animationDuration",
+        type: "number",
+        description: "Duration of the rotation animation in seconds.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "Circle",
   },
 ]
