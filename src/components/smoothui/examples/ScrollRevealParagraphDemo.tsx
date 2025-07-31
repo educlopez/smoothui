@@ -1,5 +1,3 @@
-import React from "react"
-
 import ScrollRevealParagraph from "../ui/ScrollRevealParagraph"
 
 export default function ScrollRevealParagraphDemo() {
