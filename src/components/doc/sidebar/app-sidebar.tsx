@@ -43,7 +43,7 @@ export async function AppSidebar({
         <Link
           href="https://sparkbites.dev/"
           target="_blank"
-          className="bg-primary hover:bg-background flex items-center gap-2 rounded-md border p-2 text-xs transition-colors"
+          className="bg-background hover:bg-background flex items-center gap-2 rounded-md border p-2 text-xs transition-colors"
         >
           <Image
             src={SparkbitesIcon.src}
