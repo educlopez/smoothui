@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 import { promisify } from "util"
 import React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import BadgeBeta from "@/components/doc/badgeBeta"
@@ -17,7 +17,7 @@ import Divider from "@/components/landing/divider"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
-import { ComponentsProps } from "@/app/doc/data/typeComponent"
+import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 const groupDataMap: Record<string, ComponentsProps[]> = {
   components,
@@ -65,7 +65,7 @@ export async function generateMetadata({
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}&description=${encodeURIComponent(component.info)}`,
           alt: `${componentTitle} component preview`,
         },
       ],
@@ -79,7 +79,7 @@ export async function generateMetadata({
         {
           width: 1920,
           height: 1080,
-          url: `/api/og?title=${encodeURIComponent(componentTitle)}`,
+          url: `/api/og?title=${encodeURIComponent(componentTitle)}&description=${encodeURIComponent(component.info)}`,
           alt: `${componentTitle} component preview`,
         },
       ],

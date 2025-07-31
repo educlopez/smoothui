@@ -1,6 +1,7 @@
 "use client"
 
 import { useMemo, useState } from "react"
+import Link from "next/link"
 import { X } from "lucide-react"
 
 import { BlurMagic } from "@/components/blurmagic/blurMagic"
@@ -123,7 +124,12 @@ export default function SidebarLinkClient() {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
-          Blocks
+          <Link
+            href="/doc/blocks"
+            className="hover:text-brand transition-colors"
+          >
+            Blocks
+          </Link>
         </SidebarGroupLabel>
         <SidebarMenuSub className="border-none p-0">
           <SidebarMenuSubItem key="blocks-pricing">
@@ -154,7 +160,12 @@ export default function SidebarLinkClient() {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
-          Basic
+          <Link
+            href="/doc/basic"
+            className="hover:text-brand transition-colors"
+          >
+            Basic
+          </Link>
         </SidebarGroupLabel>
         <SidebarMenuSub className="border-none p-0">
           {filteredBasic.length === 0 ? (
@@ -195,7 +206,9 @@ export default function SidebarLinkClient() {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
-          Text
+          <Link href="/doc/text" className="hover:text-brand transition-colors">
+            Text
+          </Link>
         </SidebarGroupLabel>
         <SidebarMenuSub className="border-none p-0">
           {filteredText.length === 0 ? (
@@ -236,7 +249,12 @@ export default function SidebarLinkClient() {
       </SidebarGroup>
       <SidebarGroup>
         <SidebarGroupLabel className="text-foreground font-bold">
-          Components
+          <Link
+            href="/doc/components"
+            className="hover:text-brand transition-colors"
+          >
+            Components
+          </Link>
         </SidebarGroupLabel>
         <SidebarMenuSub className="border-none p-0">
           {filteredComponents.length === 0 ? (

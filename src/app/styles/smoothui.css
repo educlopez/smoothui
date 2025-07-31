@@ -43,7 +43,7 @@
   --color-popover-foreground: var(--color-smooth-1000);
   --color-popover: var(--color-smooth-50);
   --color-card-foreground: var(--color-smooth-1000);
-  --color-card: var(--color-smooth-100);
+  --color-card: var(--color-smooth-50);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);

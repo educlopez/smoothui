@@ -48,22 +48,13 @@ export default function Navbar({ className }: { className?: string }) {
                 </NavigationMenu.Link>
               </li>
 
-              <ListItem
-                href={`/doc/text/${textComponents[0].slug}`}
-                title="Texts"
-              >
+              <ListItem href="/doc/text" title="Texts">
                 Animate text, headings, and more.
               </ListItem>
-              <ListItem
-                href={`/doc/basic/${basicComponents[0].slug}`}
-                title="Basics"
-              >
+              <ListItem href="/doc/basic" title="Basics">
                 Typography, spacing, and more.
               </ListItem>
-              <ListItem
-                href={`/doc/components/${components[0].slug}`}
-                title="Components"
-              >
+              <ListItem href="/doc/components" title="Components">
                 Buttons, cards, forms, and more.
               </ListItem>
             </ul>
