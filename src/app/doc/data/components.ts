@@ -1206,7 +1206,6 @@ export const components: ComponentsProps[] = [
     href: "https://x.com/educalvolpz",
     info: "An AI assistant orb component inspired by Siri's visual interface. Features mesmerizing animated conic gradients that rotate continuously, perfect for AI chatbots, virtual assistants, and AI-powered applications. This orb component creates an engaging visual representation of AI processing and interaction, ideal for modern AI interfaces and conversational AI experiences.",
     componentUi: SiriOrbDemo,
-    download: "css",
     cnFunction: false,
     isUpdated: false,
     collection: "visuals",
