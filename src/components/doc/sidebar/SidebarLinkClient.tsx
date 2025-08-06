@@ -14,6 +14,7 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
 } from "@/components/ui/sidebar"
+import { aiComponents } from "@/app/doc/data/aiComponents"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
@@ -68,6 +69,7 @@ export default function SidebarLinkClient() {
     () => filterComponents(components),
     [search]
   )
+  const filteredAi = useMemo(() => filterComponents(aiComponents), [search])
 
   return (
     <div
@@ -236,6 +238,49 @@ export default function SidebarLinkClient() {
                         key={component.componentTitle}
                         name={highlightMatch(component.componentTitle, search)}
                         slug={`/doc/text/${component.slug}`}
+                        isNew={component.isNew}
+                        isUpdated={component.isUpdated}
+                        icon={component.icon}
+                      />
+                    </SidebarMenuButton>
+                  </SidebarMenuSubItem>
+                )
+              })
+          )}
+        </SidebarMenuSub>
+      </SidebarGroup>
+      <SidebarGroup>
+        <SidebarGroupLabel className="text-foreground font-bold">
+          <Link href="/doc/ai" className="hover:text-brand transition-colors">
+            AI
+          </Link>
+        </SidebarGroupLabel>
+        <SidebarMenuSub className="border-none p-0">
+          {filteredAi.length === 0 ? (
+            <SidebarMenuSubItem>
+              <span className="text-muted-foreground px-2 py-1 text-xs">
+                No results
+              </span>
+            </SidebarMenuSubItem>
+          ) : (
+            filteredAi
+              .slice()
+              .reverse()
+              .map((component: ComponentsProps) => {
+                const href = `/doc/ai/${component.slug}`
+                return (
+                  <SidebarMenuSubItem
+                    key={component.componentTitle}
+                    className="group"
+                  >
+                    <SidebarMenuButton
+                      asChild
+                      tooltip={component.componentTitle}
+                    >
+                      <SidebarButtonClient
+                        key={component.componentTitle}
+                        name={highlightMatch(component.componentTitle, search)}
+                        slug={`/doc/ai/${component.slug}`}
                         isNew={component.isNew}
                         isUpdated={component.isUpdated}
                         icon={component.icon}

@@ -14,12 +14,14 @@ import { ComponentView } from "@/components/doc/componentView"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import Divider from "@/components/landing/divider"
+import { aiComponents } from "@/app/doc/data/aiComponents"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
 import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 const groupDataMap: Record<string, ComponentsProps[]> = {
+  ai: aiComponents,
   components,
   basic: basicComponents,
   text: textComponents,
@@ -50,15 +52,23 @@ export async function generateMetadata({
   )
   if (!component) return
   const { componentTitle } = component
+  const isAIComponent = group === "ai"
+  const componentType = isAIComponent ? "AI Component" : "React Component"
+  const description = isAIComponent
+    ? `Learn how to use the ${componentTitle} AI component from SmoothUI. Perfect for building intelligent user interfaces with chat, reasoning, and response capabilities.`
+    : `Learn how to use the ${componentTitle} component from SmoothUI. Customizable, responsive, and animated with TailwindCSS and Framer Motion.`
+
   return {
-    title: `${componentTitle} - React Component`,
-    description: `Learn how to use the ${componentTitle} component from SmoothUI. Customizable, responsive, and animated with TailwindCSS and Framer Motion.`,
+    title: `${componentTitle} - ${componentType}`,
+    description,
     alternates: {
       canonical: `/doc/${group}/${slug}`,
     },
     openGraph: {
-      title: `${componentTitle} - React Component | SmoothUI`,
-      description: `Explore the ${componentTitle} component. Built for React with TailwindCSS and Framer Motion to enhance modern UIs.`,
+      title: `${componentTitle} - ${componentType} | SmoothUI`,
+      description: isAIComponent
+        ? `Explore the ${componentTitle} AI component. Built for intelligent user interfaces with chat, reasoning, and response capabilities.`
+        : `Explore the ${componentTitle} component. Built for React with TailwindCSS and Framer Motion to enhance modern UIs.`,
       type: "article",
       url: `/doc/${group}/${slug}`,
       images: [
@@ -72,8 +82,10 @@ export async function generateMetadata({
       siteName: "SmoothUI",
     },
     twitter: {
-      title: `${componentTitle} - React Component | SmoothUI`,
-      description: `Discover how to use ${componentTitle} from SmoothUI - beautifully animated with TailwindCSS & Framer Motion.`,
+      title: `${componentTitle} - ${componentType} | SmoothUI`,
+      description: isAIComponent
+        ? `Discover how to use ${componentTitle} from SmoothUI - AI-powered component for intelligent user interfaces.`
+        : `Discover how to use ${componentTitle} from SmoothUI - beautifully animated with TailwindCSS & Framer Motion.`,
       card: "summary_large_image",
       images: [
         {
@@ -140,7 +152,11 @@ export default async function ComponentPage({
         <div className="space-y-4">
           <Breadcrumbs
             backLink="/doc"
-            groupName={group.charAt(0).toUpperCase() + group.slice(1)}
+            groupName={
+              group === "ai"
+                ? "AI Components"
+                : group.charAt(0).toUpperCase() + group.slice(1)
+            }
             currentPage={component.componentTitle}
           />
           <h1

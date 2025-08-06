@@ -21,10 +21,10 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
   animationDuration = 20,
 }) => {
   const defaultColors = {
-    bg: "oklch(12.9% 0.042 264.695)",
-    c1: "oklch(0.72 0.2 352.53)", // SmoothUI brand pink
-    c2: "oklch(0.66 0.21 354.31)", // SmoothUI brand secondary
-    c3: "oklch(0.58 0.18 350)", // Lighter pink variant
+    bg: "oklch(95% 0.02 264.695)",
+    c1: "oklch(75% 0.15 350)", // Pastel pink
+    c2: "oklch(80% 0.12 200)", // Pastel blue
+    c3: "oklch(78% 0.14 280)", // Pastel purple/lavender
   }
 
   const finalColors = { ...defaultColors, ...colors }
@@ -33,10 +33,43 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
   const sizeValue = parseInt(size.replace("px", ""), 10)
 
   // Responsive calculations based on size
-  const blurAmount = Math.max(sizeValue * 0.015, 4) // Smaller blur for small sizes
-  const contrastAmount = Math.max(sizeValue * 0.008, 1.5) // Adjusted contrast
-  const dotSize = Math.max(sizeValue * 0.008, 0.8) // Smaller dots for small sizes
-  const shadowSpread = Math.max(sizeValue * 0.008, 2) // Responsive shadow
+  const blurAmount =
+    sizeValue < 50
+      ? Math.max(sizeValue * 0.008, 1) // Reduced blur for small sizes
+      : Math.max(sizeValue * 0.015, 4)
+
+  const contrastAmount =
+    sizeValue < 50
+      ? Math.max(sizeValue * 0.004, 1.2) // Reduced contrast for small sizes
+      : Math.max(sizeValue * 0.008, 1.5)
+
+  const dotSize =
+    sizeValue < 50
+      ? Math.max(sizeValue * 0.004, 0.05) // Smaller dots for small sizes
+      : Math.max(sizeValue * 0.008, 0.1)
+
+  const shadowSpread =
+    sizeValue < 50
+      ? Math.max(sizeValue * 0.004, 0.5) // Reduced shadow for small sizes
+      : Math.max(sizeValue * 0.008, 2)
+
+  // Adjust mask radius based on size to reduce black center in small sizes
+  const maskRadius =
+    sizeValue < 30
+      ? "0%"
+      : sizeValue < 50
+        ? "5%"
+        : sizeValue < 100
+          ? "15%"
+          : "25%"
+
+  // Use more subtle contrast for very small sizes
+  const finalContrast =
+    sizeValue < 30
+      ? 1.1 // Very subtle contrast for tiny sizes
+      : sizeValue < 50
+        ? Math.max(contrastAmount * 1.2, 1.3) // Reduced contrast for small sizes
+        : contrastAmount
 
   return (
     <div
@@ -51,9 +84,10 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
           "--c3": finalColors.c3,
           "--animation-duration": `${animationDuration}s`,
           "--blur-amount": `${blurAmount}px`,
-          "--contrast-amount": contrastAmount,
+          "--contrast-amount": finalContrast,
           "--dot-size": `${dotSize}px`,
           "--shadow-spread": `${shadowSpread}px`,
+          "--mask-radius": maskRadius,
         } as React.CSSProperties
       }
     >
@@ -70,6 +104,7 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
           overflow: hidden;
           border-radius: 50%;
           position: relative;
+          transform: scale(1.1);
         }
 
         .siri-orb::before,
@@ -134,10 +169,21 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
             transparent var(--dot-size)
           );
           background-size: calc(var(--dot-size) * 2) calc(var(--dot-size) * 2);
-          mask-image: radial-gradient(black 25%, transparent 75%);
           backdrop-filter: blur(calc(var(--blur-amount) * 2))
             contrast(calc(var(--contrast-amount) * 2));
           mix-blend-mode: overlay;
+        }
+
+        /* Apply mask only when radius is greater than 0 */
+        .siri-orb[style*="--mask-radius: 0%"]::after {
+          mask-image: none;
+        }
+
+        .siri-orb:not([style*="--mask-radius: 0%"])::after {
+          mask-image: radial-gradient(
+            black var(--mask-radius),
+            transparent 75%
+          );
         }
 
         @keyframes rotate {

@@ -25,6 +25,9 @@ const SiriOrbDemo: React.FC = () => {
       <SiriOrb
         size={selectedSize}
         animationDuration={animationDuration}
+        colors={{
+          bg: "var(--color-primary)",
+        }}
         className="drop-shadow-2xl"
       />
 
