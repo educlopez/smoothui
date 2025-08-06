@@ -1,6 +1,3 @@
-import React from "react"
-
-// You can adjust the path or use Tailwind for font if needed
 const gifUrl = "/smoothiegif.webp"
 
 export default function Footer() {
