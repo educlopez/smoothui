@@ -186,7 +186,14 @@ function generateRegistryItem(
       : type === "example"
         ? "@/components/smoothui/examples/"
         : "@/components/smoothui/ui/"
-  const importPath = `${basePath}${relativePath}`.replace(/\\/g, "/")
+
+  // Ensure the relative path uses the correct case for the filename
+  const fileName = path.basename(relativePath)
+  const dirName = path.dirname(relativePath)
+  const correctedRelativePath =
+    dirName === "." ? fileName : path.join(dirName, fileName)
+
+  const importPath = `${basePath}${correctedRelativePath}`.replace(/\\/g, "/")
   const importPathWithoutExt = importPath.replace(/\.tsx?$/, "")
 
   const getSimplifiedPath = (
