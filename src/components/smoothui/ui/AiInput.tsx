@@ -266,3 +266,6 @@ function Kbd({
     </kbd>
   )
 }
+
+// Add default export for lazy loading
+export default MorphSurface

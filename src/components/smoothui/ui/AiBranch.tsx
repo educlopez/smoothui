@@ -399,3 +399,6 @@ export function LegacyAiBranch({
 
 // Export the legacy component as the default for backward compatibility
 export { LegacyAiBranch as AiBranch }
+
+// Add default export for lazy loading
+export default LegacyAiBranch
