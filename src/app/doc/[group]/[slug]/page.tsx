@@ -120,28 +120,33 @@ export default async function ComponentPage({
   )
   if (!component) notFound()
 
-  const filePath = `./src/components/smoothui/ui/${component.componentTitle.replace(/\s+/g, "")}.tsx`
+  // Handle special case for AI components with specific naming
+  const getFileName = (title: string) => {
+    const normalizedTitle = title.replace(/\s+/g, "")
+    // Special case for AI components
+    if (normalizedTitle === "AIBranch") return "AiBranch"
+    if (normalizedTitle === "AIInput") return "AiInput"
+    return normalizedTitle
+  }
+
+  const filePath = `./src/components/smoothui/ui/${getFileName(component.componentTitle)}.tsx`
   const code = await readFilePath(filePath)
   const cnPath = `./src/components/smoothui/utils/cn.ts`
   const cnCode = await readFilePath(cnPath)
-
-  const currentComponent = data.indexOf(component)
-  const previousComponent = data[currentComponent - 1]
-  const nextComponent = data[currentComponent + 1]
 
   // Try to read the demo file for the usage example
   const demoFilePath = path.join(
     process.cwd(),
     "src/components/smoothui/examples",
-    `${component.componentTitle.replace(/\s/g, "")}Demo.tsx`
+    `${getFileName(component.componentTitle)}Demo.tsx`
   )
   let usageExample = ""
   try {
     usageExample = fs.readFileSync(demoFilePath, "utf8")
-  } catch (e) {
-    usageExample = `import { ${component.componentTitle.replace(/\s/g, "")} } from "your-library"
+  } catch {
+    usageExample = `import { ${getFileName(component.componentTitle)} } from "your-library"
 
-<${component.componentTitle.replace(/\s/g, "")}
+<${getFileName(component.componentTitle)}
   // your props here
 />`
   }
@@ -374,7 +379,7 @@ export default async function ComponentPage({
                           >
                             <CodeBlock
                               code={code}
-                              fileName={`${component.componentTitle.replace(/\s+/g, "")}.tsx`}
+                              fileName={`${getFileName(component.componentTitle)}.tsx`}
                             />
                           </CodeBlockWrapper>
                         </div>
