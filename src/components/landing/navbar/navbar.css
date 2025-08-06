@@ -59,7 +59,7 @@
 }
 
 .list.two {
-  width: 364px;
+  width: 400px;
   grid-auto-flow: column;
   grid-template-rows: repeat(3, 1fr);
 }

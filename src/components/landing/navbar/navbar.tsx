@@ -6,28 +6,14 @@ import Link from "next/link"
 
 import { cn } from "@/lib/utils"
 import Logo from "@/components/logo"
-import { basicComponents } from "@/app/doc/data/basicComponents"
-import { components } from "@/app/doc/data/components"
-import { textComponents } from "@/app/doc/data/textComponentes"
 
 import { GithubStars } from "../githubstars"
 
 export default function Navbar({ className }: { className?: string }) {
-  // Group components by collection
-  const grouped = components.reduce(
-    (acc, comp) => {
-      const group = comp.collection || "Other"
-      if (!acc[group]) acc[group] = []
-      acc[group].push(comp)
-      return acc
-    },
-    {} as Record<string, typeof components>
-  )
-
   return (
     <NavigationMenu.Root className={cn("navbar-menu", className)}>
       <div className="flex flex-1 items-center gap-2">
-        <Logo className="text-3xl" />
+        <Logo />
       </div>
       <NavigationMenu.List className="menu-list flex-auto">
         <NavigationMenu.Item>

@@ -12,10 +12,10 @@ export default function Logo({
 }) {
   return (
     <>
-      <Icon className={cn("h-8 w-8 cursor-grabbing", classNameIcon)} />
+      <Icon className={cn("h-6 w-auto cursor-grabbing", classNameIcon)} />
       <span
         className={cn(
-          "font-title text-foreground text-center text-3xl font-bold uppercase transition select-none",
+          "font-title text-foreground text-center text-lg font-bold uppercase transition select-none",
           className
         )}
       >
