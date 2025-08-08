@@ -12,7 +12,14 @@ export default function Home() {
   return (
     <div className="bg-primary relative isolate transition">
       <BgLines />
-      <main className="relative mx-auto min-h-screen max-w-7xl overflow-y-auto">
+      <main className="relative mx-auto min-h-screen w-full max-w-7xl overflow-y-auto">
+        <BlurMagic
+          side="top"
+          className="!left-1/2 z-2 !h-[120px] !w-full !max-w-[inherit] !-translate-x-1/2"
+          stop="50%"
+          blur="4px"
+          background="var(--color-background)"
+        />
         <Navbar className="mx-auto max-w-7xl" />
         <Divider orientation="vertical" />
         <Divider orientation="vertical" className="right-auto left-0" />
@@ -23,19 +30,12 @@ export default function Home() {
           <FAQ />
           <Footer />
         </section>
+        <BlurMagic
+          side="bottom"
+          className="!left-1/2 z-2 !h-[120px] !w-full !max-w-[inherit] !-translate-x-1/2"
+          background="var(--color-background)"
+        />
       </main>
-      <BlurMagic
-        side="top"
-        className="z-2 !h-[120px]"
-        stop="50%"
-        blur="4px"
-        background="var(--color-background)"
-      />
-      <BlurMagic
-        side="bottom"
-        className="z-2 !h-[120px]"
-        background="var(--color-background)"
-      />
     </div>
   )
 }
