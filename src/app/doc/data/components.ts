@@ -13,6 +13,7 @@ import JobListingComponentDemo from "@/components/smoothui/examples/JobListingCo
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
+import RichPopoverDemo from "@/components/smoothui/examples/RichPopoverDemo"
 import SiriOrbDemo from "@/components/smoothui/examples/SiriOrbDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
@@ -1237,5 +1238,97 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "Circle",
+  },
+  {
+    id: 21,
+    componentTitle: "Rich Popover",
+    slug: "rich-popover",
+    type: "component",
+    isNew: true,
+    tags: ["react", "popover", "radix", "tailwindcss", "ui", "accessible"],
+    href: "https://x.com/educalvolpz",
+    info: "A rich popover component that supports icon, title, description, meta text, and an action button/link. Built with Radix UI Popover for excellent accessibility and works seamlessly on both desktop and mobile with click interactions.",
+    componentUi: RichPopoverDemo,
+    cnFunction: false,
+    isUpdated: false,
+    collection: "interactions",
+    props: [
+      {
+        name: "trigger",
+        type: "React.ReactNode",
+        description: "Element that opens the popover when clicked.",
+        required: true,
+      },
+      {
+        name: "title",
+        type: "string",
+        description: "Main title displayed at the top.",
+        required: true,
+      },
+      {
+        name: "description",
+        type: "string",
+        description: "Optional supporting text for the popover.",
+        required: false,
+      },
+      {
+        name: "icon",
+        type: "React.ReactNode",
+        description: "Optional icon shown before the title.",
+        required: false,
+      },
+      {
+        name: "href",
+        type: "string",
+        description: "Optional link for the title; opens in a new tab.",
+        required: false,
+      },
+      {
+        name: "actionLabel",
+        type: "string",
+        description: "Label for the action button.",
+        required: false,
+      },
+      {
+        name: "actionHref",
+        type: "string",
+        description:
+          "URL for the action button; if omitted, `onActionClick` is used.",
+        required: false,
+      },
+      {
+        name: "onActionClick",
+        type: "() => void",
+        description: "Callback when the action button is clicked.",
+        required: false,
+      },
+      {
+        name: "meta",
+        type: "string",
+        description: "Optional meta badge text (e.g., a timestamp).",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional classes for the popover panel.",
+        required: false,
+      },
+      {
+        name: "side",
+        type: '"top" | "bottom" | "left" | "right"',
+        description: "Which side to place the popover (default: 'top').",
+        required: false,
+      },
+      {
+        name: "align",
+        type: '"start" | "center" | "end"',
+        description:
+          "How to align the popover relative to the trigger (default: 'center').",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "MessageSquare",
   },
 ]

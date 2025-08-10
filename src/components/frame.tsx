@@ -32,7 +32,7 @@ export default function Frame({
             {!clean && component.slug && (
               <div
                 className={cn(
-                  "bg-background absolute top-4 right-4 z-20 flex gap-1 rounded-full border p-1"
+                  "bg-background/40 absolute top-4 right-4 z-20 flex gap-1 rounded-full border p-1 backdrop-blur"
                 )}
               >
                 <Link
