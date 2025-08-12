@@ -1,5 +1,19 @@
 export const changelogEntries = [
   {
+    date: "Jan 15, 2025",
+    version: "2.7",
+    title: "AI Components & Enhanced Navigation",
+    tags: ["Components", "AI", "Navigation", "Animation"],
+    changes: [
+      "New AI section with AI-powered components for intelligent user interfaces",
+      "New component: AI Input - Animated Siri orb input with spring animations and keyboard shortcuts",
+      "New component: AI Branch - Conversation history manager with branching capabilities",
+      "New component: Scrollable Card Stack - Interactive card carousel with smooth scrolling",
+      "New component: Rich Popover - Enhanced popover with rich content support",
+      "New AI menu in the landing page navigation for easy access to AI components",
+    ],
+  },
+  {
     date: "Jul 31, 2025",
     version: "2.6",
     title: "New Components & Updates",

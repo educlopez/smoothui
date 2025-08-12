@@ -14,6 +14,7 @@ import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
 import RichPopoverDemo from "@/components/smoothui/examples/RichPopoverDemo"
+import ScrollableCardStackDemo from "@/components/smoothui/examples/ScrollableCardStackDemo"
 import SiriOrbDemo from "@/components/smoothui/examples/SiriOrbDemo"
 import SocialSelectorDemo from "@/components/smoothui/examples/SocialSelectorDemo"
 import UserAccountAvatarDemo from "@/components/smoothui/examples/UserAccountAvatarDemo"
@@ -1330,5 +1331,57 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "MessageSquare",
+  },
+  {
+    id: 22,
+    componentTitle: "Scrollable Card Stack",
+    slug: "scrollable-card-stack",
+    type: "component",
+    isNew: true,
+    tags: ["react", "motion", "tailwindcss", "3d", "carousel", "perspective"],
+    href: "https://x.com/educalvolpz",
+    info: "A vertical carousel component with 3D perspective effects that displays cards in a stacked layout. Features smooth scrolling animations, touch support, and configurable 3D transformations including scale, rotation, and opacity changes.",
+    componentUi: ScrollableCardStackDemo,
+    download: "motion",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "data-display",
+    props: [
+      {
+        name: "items",
+        type: "React.ReactNode[]",
+        description:
+          "Array of React elements to display as cards in the stack.",
+        required: true,
+      },
+      {
+        name: "cardHeight",
+        type: "number",
+        description: "Height of each card in pixels (default: 384).",
+        required: false,
+      },
+      {
+        name: "perspective",
+        type: "number",
+        description:
+          "CSS perspective value for 3D effects in pixels (default: 1000).",
+        required: false,
+      },
+      {
+        name: "transitionDuration",
+        type: "number",
+        description:
+          "Duration of transition animations in milliseconds (default: 300).",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional CSS classes for the container.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "Layers",
   },
 ]
