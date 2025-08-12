@@ -40,12 +40,12 @@ export function Hero() {
               }}
             >
               {/* Main heading */}
-              <h1 className="text-4xl font-bold text-balance md:text-5xl lg:text-6xl">
+              <h1 className="text-foreground text-4xl font-bold text-balance md:text-5xl lg:text-6xl">
                 Super Smooth UI Components for Every Team
               </h1>
 
               {/* Description */}
-              <p className="text-muted-foreground max-w-lg text-lg">
+              <p className="text-foreground/70 max-w-lg text-lg">
                 Highly customizable, production-ready UI blocks for building
                 beautiful websites and apps that look and feel the way you mean
                 it.
