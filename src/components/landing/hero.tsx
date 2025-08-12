@@ -21,7 +21,7 @@ export function Hero() {
     <section className="bg-background transition">
       <div className="relative py-24 md:py-36">
         <Divider />
-        <div className="mx-auto max-w-7xl px-6">
+        <div className="mx-auto max-w-7xl px-8">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             {/* Left side - Hero content */}
             <motion.div
