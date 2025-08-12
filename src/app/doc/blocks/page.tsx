@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     url: "/doc/blocks",
     images: [
       {
-        width: 1920,
-        height: 1080,
+        width: 1200,
+        height: 630,
         url: "/api/og?title=Blocks&description=Pre-built page sections and layouts for faster development with TailwindCSS and Framer Motion",
         alt: "SmoothUI Blocks showcase",
       },
@@ -47,8 +47,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: [
       {
-        width: 1920,
-        height: 1080,
+        width: 1200,
+        height: 630,
         url: "/api/og?title=Blocks&description=Pre-built page sections and layouts for faster development with TailwindCSS and Framer Motion",
         alt: "SmoothUI Blocks showcase",
       },

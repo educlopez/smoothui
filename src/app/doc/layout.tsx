@@ -33,8 +33,8 @@ export const metadata: Metadata = {
     siteName: "SmoothUI",
     images: [
       {
-        width: 1920,
-        height: 1080,
+        width: 1200,
+        height: 630,
         url: "https://smoothui.dev/og.jpg",
         alt: "Smoothui Cover",
       },
@@ -48,8 +48,8 @@ export const metadata: Metadata = {
       "Official documentation for SmoothUI. Learn how to use beautifully animated React UI components built with TailwindCSS and Framer Motion.",
     images: [
       {
-        width: 1920,
-        height: 1080,
+        width: 1200,
+        height: 630,
         url: "https://smoothui.dev/og.jpg",
         alt: "SmoothUI Cover",
       },
