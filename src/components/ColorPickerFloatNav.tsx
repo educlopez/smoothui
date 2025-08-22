@@ -14,6 +14,138 @@ function updateShadowCustomCandy(candySecondary: string) {
   )
 }
 
+// Helper to generate light and lighter variations of a color
+function generateColorVariations(baseColor: string) {
+  // Handle different color formats
+  if (baseColor.startsWith("oklch")) {
+    // For oklch colors, we can manipulate lightness and chroma
+    const lightColor = baseColor.replace(
+      /oklch\(([^)]+)\)/,
+      (match, values) => {
+        const parts = values.split(" ")
+        const lightness = Math.min(parseFloat(parts[0]) + 0.1, 1.0)
+        const chroma = Math.max(parseFloat(parts[1]) - 0.05, 0)
+        const hue = parts[2]
+        return `oklch(${lightness} ${chroma} ${hue})`
+      }
+    )
+
+    const lighterColor = baseColor.replace(
+      /oklch\(([^)]+)\)/,
+      (match, values) => {
+        const parts = values.split(" ")
+        const lightness = Math.min(parseFloat(parts[0]) + 0.2, 1.0)
+        const chroma = Math.max(parseFloat(parts[1]) - 0.1, 0)
+        const hue = parts[2]
+        return `oklch(${lightness} ${chroma} ${hue})`
+      }
+    )
+
+    return { lightColor, lighterColor }
+  } else if (baseColor.startsWith("#")) {
+    // For hex colors, convert to HSL and manipulate
+    const hex = baseColor.replace("#", "")
+    const r = parseInt(hex.substr(0, 2), 16) / 255
+    const g = parseInt(hex.substr(2, 2), 16) / 255
+    const b = parseInt(hex.substr(4, 2), 16) / 255
+
+    // Simple RGB to HSL conversion
+    const max = Math.max(r, g, b)
+    const min = Math.min(r, g, b)
+    let h: number,
+      s: number,
+      l = (max + min) / 2
+
+    if (max === min) {
+      h = s = 0
+    } else {
+      const d = max - min
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min)
+      switch (max) {
+        case r:
+          h = (g - b) / d + (g < b ? 6 : 0)
+          break
+        case g:
+          h = (b - r) / d + 2
+          break
+        case b:
+          h = (r - g) / d + 4
+          break
+        default:
+          h = 0
+          break
+      }
+      h /= 6
+    }
+
+    // Create lighter variations
+    const lightL = Math.min(l + 0.15, 1.0)
+    const lighterL = Math.min(l + 0.25, 1.0)
+
+    // Convert back to hex
+    const lightColor = hslToHex(h, s, lightL)
+    const lighterColor = hslToHex(h, s, lighterL)
+
+    return { lightColor, lighterColor }
+  } else {
+    // Fallback to opacity-based approach
+    const lightColor = baseColor
+      .replace(")", " / 0.7)")
+      .replace("oklch", "oklch")
+    const lighterColor = baseColor
+      .replace(")", " / 0.5)")
+      .replace("oklch", "oklch")
+
+    return { lightColor, lighterColor }
+  }
+}
+
+// Generate a complete color palette for a theme
+function generateColorPalette(primaryColor: string, secondaryColor: string) {
+  const primaryVariations = generateColorVariations(primaryColor)
+  const secondaryVariations = generateColorVariations(secondaryColor)
+
+  return {
+    primary: primaryColor,
+    primaryLight: primaryVariations.lightColor,
+    primaryLighter: primaryVariations.lighterColor,
+    secondary: secondaryColor,
+    secondaryLight: secondaryVariations.lightColor,
+    secondaryLighter: secondaryVariations.lighterColor,
+  }
+}
+
+// Helper function to convert HSL to hex
+function hslToHex(h: number, s: number, l: number): string {
+  const hue2rgb = (p: number, q: number, t: number) => {
+    if (t < 0) t += 1
+    if (t > 1) t -= 1
+    if (t < 1 / 6) return p + (q - p) * 6 * t
+    if (t < 1 / 2) return q
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6
+    return p
+  }
+
+  let r: number, g: number, b: number
+
+  if (s === 0) {
+    r = g = b = l
+  } else {
+    const q = l < 0.5 ? l * (1 + s) : l + s - l * s
+    const p = 2 * l - q
+    r = hue2rgb(p, q, h + 1 / 3)
+    g = hue2rgb(p, q, h)
+    b = hue2rgb(p, q, h - 1 / 3)
+  }
+
+  const toHex = (c: number) => {
+    const hex = Math.round(c * 255).toString(16)
+    return hex.length === 1 ? "0" + hex : hex
+  }
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`
+}
+
 // Predefined palettes
 const PALETTES = [
   {
@@ -41,6 +173,11 @@ const PALETTES = [
     candy: "#FF8743",
     candySecondary: "#FF5C00",
   },
+  {
+    name: "Green",
+    candy: "#10B981",
+    candySecondary: "#059669",
+  },
 ]
 
 export function ColorPickerFloatNav() {
@@ -64,6 +201,23 @@ export function ColorPickerFloatNav() {
           "--color-brand-secondary",
           candySecondary
         )
+
+        // Generate and set complete color palette
+        const palette = generateColorPalette(candy, candySecondary)
+        document.body.style.setProperty("--color-brand", palette.primary)
+        document.body.style.setProperty(
+          "--color-brand-light",
+          palette.primaryLight
+        )
+        document.body.style.setProperty(
+          "--color-brand-lighter",
+          palette.primaryLighter
+        )
+        document.body.style.setProperty(
+          "--color-brand-secondary",
+          palette.secondary
+        )
+
         updateShadowCustomCandy(candySecondary)
         setOriginalCandy(candy)
         setOriginalCandySecondary(candySecondary)
@@ -111,9 +265,31 @@ export function ColorPickerFloatNav() {
 
   function handleColorChange(variable: string, value: string) {
     document.body.style.setProperty(variable, value)
-    if (variable === "--color-brand") setCandy(value)
+    if (variable === "--color-brand") {
+      setCandy(value)
+      // Generate and set complete color palette
+      const palette = generateColorPalette(value, candySecondary)
+      document.body.style.setProperty(
+        "--color-brand-light",
+        palette.primaryLight
+      )
+      document.body.style.setProperty(
+        "--color-brand-lighter",
+        palette.primaryLighter
+      )
+    }
     if (variable === "--color-brand-secondary") {
       setCandySecondary(value)
+      // Regenerate palette with new secondary color
+      const palette = generateColorPalette(candy, value)
+      document.body.style.setProperty(
+        "--color-brand-light",
+        palette.primaryLight
+      )
+      document.body.style.setProperty(
+        "--color-brand-lighter",
+        palette.primaryLighter
+      )
       updateShadowCustomCandy(value)
     }
   }
@@ -122,6 +298,8 @@ export function ColorPickerFloatNav() {
     // Remove custom variables so CSS falls back to default
     document.body.style.removeProperty("--color-brand")
     document.body.style.removeProperty("--color-brand-secondary")
+    document.body.style.removeProperty("--color-brand-light")
+    document.body.style.removeProperty("--color-brand-lighter")
     document.body.style.removeProperty("--shadow-custom-brand") // Remove shadow as well
 
     // Remove from localStorage
@@ -165,6 +343,7 @@ export function ColorPickerFloatNav() {
   return (
     <div className="float-trigger relative !p-2" ref={pickerRef}>
       <button
+        type="button"
         aria-label="Open color picker"
         className="shadow-custom-brand flex h-5 w-5 cursor-pointer items-center gap-1 overflow-hidden rounded-sm border transition-all duration-200"
         style={{
@@ -214,6 +393,29 @@ export function ColorPickerFloatNav() {
                       "--color-brand-secondary",
                       palette.candySecondary
                     )
+
+                    // Generate and set complete color palette
+                    const colorPalette = generateColorPalette(
+                      palette.candy,
+                      palette.candySecondary
+                    )
+                    document.body.style.setProperty(
+                      "--color-brand",
+                      colorPalette.primary
+                    )
+                    document.body.style.setProperty(
+                      "--color-brand-light",
+                      colorPalette.primaryLight
+                    )
+                    document.body.style.setProperty(
+                      "--color-brand-lighter",
+                      colorPalette.primaryLighter
+                    )
+                    document.body.style.setProperty(
+                      "--color-brand-secondary",
+                      colorPalette.secondary
+                    )
+
                     updateShadowCustomCandy(palette.candySecondary)
                   }}
                   aria-label={`Select ${palette.name} palette`}
