@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   Book,
+  Bot,
   ChevronsUpDown,
   Cuboid,
   Github,
@@ -43,6 +44,7 @@ function getPageTitle(pathname: string): string {
   if (pathname === "/") return "Home"
   if (pathname === "/doc") return "Documentation"
   if (pathname === "/doc/changelog") return "Changelog"
+  if (pathname === "/doc/mcp") return "MCP Server"
   // /doc/basic/[slug]
   if (pathname.startsWith("/doc/basic/")) {
     const slug = pathname.split("/doc/basic/")[1]
@@ -91,6 +93,11 @@ export function FloatNav() {
       label: "Changelog",
       href: "/doc/changelog",
       icon: <ListChecks size={16} />,
+    },
+    {
+      label: "MCP",
+      href: "/doc/mcp",
+      icon: <Bot size={16} />,
     },
     {
       label: "Components",

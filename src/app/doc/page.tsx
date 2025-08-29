@@ -245,7 +245,7 @@ export default function GetStartedPage() {
             >
               Introduction
             </h1>
-            <p className="text-primary-foreground text-[16px] leading-relaxed font-normal">
+            <p className="text-primary-foreground text-[16px] font-normal leading-relaxed">
               SmoothUI is a collection of beautifully designed components with
               smooth animations built with React, Tailwind CSS, and Motion.
             </p>
@@ -260,10 +260,120 @@ export default function GetStartedPage() {
           >
             Installation
           </h2>
-          <p className="text-primary-foreground text-[16px] leading-relaxed">
-            To use SmoothUI components, you will need to install the following
-            dependencies:
-          </p>
+
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h3
+                data-table-content="Using shadcn CLI v3 (Recommended)"
+                data-level="3"
+                className="text-foreground text-xl font-semibold"
+              >
+                Using shadcn CLI v3 (Recommended)
+              </h3>
+              <p className="text-primary-foreground text-[16px] leading-relaxed">
+                SmoothUI is fully compatible with the new shadcn CLI v3
+                namespace system. This is the easiest way to install and manage
+                SmoothUI components.
+              </p>
+
+              <div className="space-y-4">
+                <h4 className="text-foreground text-lg font-medium">
+                  Step 1: Configure the Registry
+                </h4>
+                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                  Add the SmoothUI registry to your{" "}
+                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                    components.json
+                  </code>{" "}
+                  file:
+                </p>
+                <CodeBlock
+                  code={`{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui"
+  },
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}`}
+                  fileName="components.json"
+                  lang="json"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="text-foreground text-lg font-medium">
+                  Step 2: Install Components
+                </h4>
+                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                  Install components using the namespace:
+                </p>
+                <CodeBlock
+                  code={`# Install a single component
+npx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+npx shadcn@latest add @smoothui/scrollable-card-stack`}
+                  fileName="Terminal"
+                  lang="shell"
+                />
+              </div>
+
+              <div className="space-y-4">
+                <h4 className="text-foreground text-lg font-medium">
+                  Step 3: Use Components
+                </h4>
+                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                  Import and use the installed components:
+                </p>
+                <CodeBlock
+                  code={`import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { RichPopover } from "@/components/smoothui/ui/RichPopover"
+
+export default function App() {
+  return (
+    <div>
+      <SiriOrb size="200px" />
+      <RichPopover />
+    </div>
+  )
+}`}
+                  fileName="App.tsx"
+                  lang="tsx"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-4">
+              <h3
+                data-table-content="Manual Installation"
+                data-level="3"
+                className="text-foreground text-xl font-semibold"
+              >
+                Manual Installation
+              </h3>
+              <p className="text-primary-foreground text-[16px] leading-relaxed">
+                If you prefer to install components manually, you will need to
+                install the following dependencies:
+              </p>
+            </div>
+          </div>
 
           <Tabs defaultValue="npm">
             <TabsList className="text-primary-foreground bg-primary border">
@@ -325,6 +435,115 @@ export default function GetStartedPage() {
               />
             </TabsContent>
           </Tabs>
+        </div>
+
+        <div className="space-y-4">
+          <h2
+            data-table-content="Registry System"
+            data-level="2"
+            className="text-foreground text-2xl font-bold"
+          >
+            Registry System
+          </h2>
+          <p className="text-primary-foreground text-[16px] leading-relaxed">
+            SmoothUI uses a custom registry system compatible with shadcn CLI
+            v3. Each component includes all necessary dependencies and
+            utilities.
+          </p>
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-xl font-semibold">
+              Automatic Dependencies
+            </h3>
+            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
+              <li>
+                <strong>Package Dependencies</strong>: Required npm packages are
+                automatically included
+              </li>
+              <li>
+                <strong>Utility Files</strong>: Shared utilities like{" "}
+                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  cn
+                </code>{" "}
+                are automatically bundled
+              </li>
+              <li>
+                <strong>Import Paths</strong>: All import paths are
+                automatically resolved
+              </li>
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-xl font-semibold">
+              Component Structure
+            </h3>
+            <p className="text-primary-foreground text-[16px] leading-relaxed">
+              When you install a component, you get:
+            </p>
+            <CodeBlock
+              code={`components/smoothui/ui/
+├── ComponentName.tsx    # Main component file
+lib/utils/
+└── cn.ts               # Utility functions (if needed)`}
+              fileName="File Structure"
+              lang="shell"
+            />
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-foreground text-xl font-semibold">
+              Registry Features
+            </h3>
+            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
+              <li>
+                <strong>Self-contained</strong>: Each component includes all
+                necessary dependencies
+              </li>
+              <li>
+                <strong>Type-safe</strong>: Full TypeScript support with proper
+                types
+              </li>
+              <li>
+                <strong>Optimized</strong>: Components are optimized for
+                performance
+              </li>
+              <li>
+                <strong>Accessible</strong>: Built-in accessibility features
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          <h2
+            data-table-content="MCP Support"
+            data-level="2"
+            className="text-foreground text-2xl font-bold"
+          >
+            MCP Support
+          </h2>
+          <p className="text-primary-foreground text-[16px] leading-relaxed">
+            SmoothUI is fully compatible with the shadcn MCP server, enabling AI
+            assistants to discover and install components automatically.
+          </p>
+
+          <div className="bg-primary/50 rounded-lg border p-4">
+            <h3 className="text-foreground mb-2 text-lg font-semibold">
+              🤖 AI Assistant Integration
+            </h3>
+            <p className="text-primary-foreground mb-3 text-[16px] leading-relaxed">
+              With MCP support, AI assistants like Claude, Cursor, and GitHub
+              Copilot can discover, install, and help you use SmoothUI
+              components seamlessly.
+            </p>
+            <a
+              href="/doc/mcp"
+              className="text-brand font-medium hover:underline"
+            >
+              Learn more about MCP support →
+            </a>
+          </div>
         </div>
 
         <div className="space-y-4">

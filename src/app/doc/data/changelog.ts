@@ -1,6 +1,24 @@
 export const changelogEntries = [
   {
-    date: "Jan 15, 2025",
+    date: "Aug 29, 2025",
+    version: "2.8",
+    title: "shadcn CLI v3 Registry & MCP Support",
+    tags: ["Registry", "MCP", "AI", "CLI", "Documentation"],
+    changes: [
+      "Full compatibility with shadcn CLI v3 namespace system",
+      "New registry system with automatic dependency management",
+      "MCP (Model Context Protocol) support for AI assistants",
+      "AI assistants can now discover and install SmoothUI components automatically",
+      "Enhanced documentation with comprehensive installation guides",
+      "Automatic bundling of utility files and dependencies",
+      "Smart import path resolution for seamless component integration",
+      "Updated README with quick start guide and troubleshooting",
+      "New MCP documentation page in Get Started section",
+      "Registry index generation for component discovery",
+    ],
+  },
+  {
+    date: "Aug 14, 2025",
     version: "2.7",
     title: "AI Components & Enhanced Navigation",
     tags: ["Components", "AI", "Navigation", "Animation"],

@@ -111,15 +111,29 @@ export default function SidebarLinkClient() {
         <SidebarGroupLabel className="text-foreground font-bold">
           Get Started
         </SidebarGroupLabel>
-        <SidebarMenuSub>
+        <SidebarMenuSub className="border-none p-0">
           <SidebarMenuSubItem key="1">
-            <SidebarButtonClient key="1" name="Information" slug="/doc" />
+            <SidebarButtonClient
+              key="1"
+              name="Information"
+              slug="/doc"
+              icon="Book"
+            />
           </SidebarMenuSubItem>
           <SidebarMenuSubItem key="2">
             <SidebarButtonClient
               key="2"
               name="Changelog"
               slug="/doc/changelog"
+              icon="ListChecks"
+            />
+          </SidebarMenuSubItem>
+          <SidebarMenuSubItem key="3">
+            <SidebarButtonClient
+              key="3"
+              name="MCP"
+              slug="/doc/mcp"
+              icon="Bot"
             />
           </SidebarMenuSubItem>
         </SidebarMenuSub>

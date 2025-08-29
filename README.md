@@ -24,14 +24,15 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 - [SmoothUI](#smoothui)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
+  - [Quick Start](#quick-start)
   - [Installation](#installation)
     - [Using shadcn CLI v3 (Recommended)](#using-shadcn-cli-v3-recommended)
     - [Manual Installation](#manual-installation)
   - [Usage](#usage)
-  - [Components](#components)
+  - [Available Components](#available-components)
+  - [Registry System](#registry-system)
+  - [MCP Support](#mcp-support)
   - [Troubleshooting](#troubleshooting)
-    - [Authentication Error (401)](#authentication-error-401)
-    - [Registry Not Found](#registry-not-found)
   - [Contributing](#contributing)
   - [License](#license)
 
@@ -46,12 +47,13 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 - **Accessibility**: Enhanced accessibility features across all components
 - **TypeScript Support**: Full TypeScript support with type definitions
 - **Easy Integration**: Simple API for integrating components into your projects
+- **shadcn CLI v3 Support**: Full compatibility with the new shadcn CLI v3 namespace system
 
-## Installation
+## Quick Start
 
-### Using shadcn CLI v3 (Recommended)
+Get started with SmoothUI in just a few steps:
 
-SmoothUI now supports the new shadcn CLI v3 namespace system. Add the registry to your `components.json`:
+1. **Add the registry** to your `components.json`:
 
 ```json
 {
@@ -61,7 +63,59 @@ SmoothUI now supports the new shadcn CLI v3 namespace system. Add the registry t
 }
 ```
 
-Then install components using the namespace:
+2. **Install a component**:
+
+```bash
+npx shadcn@latest add @smoothui/siri-orb
+```
+
+3. **Use the component**:
+
+```tsx
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+
+export default function App() {
+  return <SiriOrb size="200px" />
+}
+```
+
+## Installation
+
+### Using shadcn CLI v3 (Recommended)
+
+SmoothUI is fully compatible with the new shadcn CLI v3 namespace system. This is the easiest way to install and manage SmoothUI components.
+
+#### Step 1: Configure the Registry
+
+Add the SmoothUI registry to your `components.json` file:
+
+```json
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "tailwind.config.js",
+    "css": "src/app/globals.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/components",
+    "utils": "@/lib/utils",
+    "ui": "@/components/ui"
+  },
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+#### Step 2: Install Components
+
+Install components using the namespace:
 
 ```bash
 # Install a single component
@@ -70,109 +124,318 @@ npx shadcn@latest add @smoothui/siri-orb
 # Install multiple components
 npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
 
-# View available components
+# Install components with dependencies
+npx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+#### Step 3: Use Components
+
+Import and use the installed components:
+
+```tsx
+import { RichPopover } from "@/components/smoothui/ui/RichPopover"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+
+export default function App() {
+  return (
+    <div>
+      <SiriOrb size="200px" />
+      <RichPopover />
+    </div>
+  )
+}
+```
+
+#### Available Commands
+
+```bash
+# View all available components
 npx shadcn@latest search @smoothui
 
 # View component details before installation
 npx shadcn@latest view @smoothui/siri-orb
+
+# Install components
+npx shadcn@latest add @smoothui/component-name
 ```
 
 ### Manual Installation
 
-To use SmoothUI components in your project, install the required dependencies:
+If you prefer to install components manually, you can copy the component files directly:
+
+1. **Install dependencies**:
 
 ```bash
 pnpm add motion tailwindcss lucide-react clsx tailwind-merge
 ```
 
-## Usage
+2. **Copy component files** from the [components directory](src/components/smoothui/ui/)
 
-Import and use SmoothUI components in your React application:
+3. **Set up utilities**:
 
-```typescript
-import { ComponentName } from "@/components/smoothui/ui/ComponentName";
-
-const App = () => {
-  return (
-    <div>
-      <ComponentName />
-    </div>
-  );
-};
-
-export default App;
+```bash
+# Create lib/utils/cn.ts
+mkdir -p lib/utils
 ```
 
-## Components
+```tsx
+// lib/utils/cn.ts
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
 
-SmoothUI offers a variety of components, including:
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+```
 
-- **Basic Components**
+## Usage
 
-  - Accordion
-  - Avatar
-  - Button
-  - Card
-  - Input
-  - Tooltip
-  - And more...
+### Basic Usage
 
-- **Advanced Components**
-  - Dynamic Island
-  - Animated Tags
-  - Apple Invites
-  - Expandable Cards
-  - Number Flow
-  - Social Selector
-  - And many more...
+```tsx
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
 
-Visit our [documentation](https://smoothui.dev/doc) for a complete list of components and their usage.
+export default function App() {
+  return (
+    <div className="flex min-h-screen items-center justify-center">
+      <SiriOrb
+        size="200px"
+        colors={{
+          bg: "oklch(95% 0.02 264.695)",
+          c1: "oklch(75% 0.15 350)",
+          c2: "oklch(80% 0.12 200)",
+          c3: "oklch(78% 0.14 280)",
+        }}
+        animationDuration={20}
+      />
+    </div>
+  )
+}
+```
+
+### Advanced Usage
+
+```tsx
+import { RichPopover } from "@/components/smoothui/ui/RichPopover"
+import { ScrollableCardStack } from "@/components/smoothui/ui/ScrollableCardStack"
+
+export default function Dashboard() {
+  const cards = [
+    {
+      id: "1",
+      name: "John Doe",
+      handle: "@johndoe",
+      avatar: "/avatars/john.jpg",
+      video: "/videos/john.mp4",
+      href: "https://twitter.com/johndoe",
+    },
+    // ... more cards
+  ]
+
+  return (
+    <div className="space-y-8">
+      <RichPopover />
+      <ScrollableCardStack items={cards} />
+    </div>
+  )
+}
+```
+
+## Available Components
+
+SmoothUI includes a wide variety of components:
+
+### UI Components
+
+- **SiriOrb** - Animated orb with smooth color transitions
+- **RichPopover** - Advanced popover with rich content
+- **ScrollableCardStack** - Interactive card stack with smooth scrolling
+- **AnimatedInput** - Input field with smooth animations
+- **DynamicIsland** - iOS-style dynamic island component
+- **FluidMorph** - Fluid morphing animations
+- **MatrixCard** - Matrix-style card with particle effects
+
+### Interactive Components
+
+- **CursorFollow** - Custom cursor following component
+- **ScrambleHover** - Text scramble effect on hover
+- **WaveText** - Animated wave text effect
+- **TypewriterText** - Typewriter text animation
+
+### Layout Components
+
+- **ExpandableCards** - Expandable card layout
+- **ScrollableCardStack** - Stack of scrollable cards
+- **AppDownloadStack** - App download showcase
+
+### Utility Components
+
+- **ButtonCopy** - Copy button with feedback
+- **ClipCornersButton** - Button with clipped corners
+- **DotMorphButton** - Button with morphing dot animation
+
+[View all components →](https://smoothui.dev)
+
+## MCP Support
+
+SmoothUI is fully compatible with the **shadcn MCP server**, enabling AI assistants to discover and install components automatically.
+
+### 🤖 AI Assistant Integration
+
+With MCP support, AI assistants like **Claude**, **Cursor**, and **GitHub Copilot** can:
+
+- **Discover Components**: Browse all available SmoothUI components
+- **Install Components**: Automatically install components with dependencies
+- **Provide Usage Examples**: Get code examples and integration help
+- **Smart Suggestions**: Receive intelligent component recommendations
+
+### Quick MCP Setup
+
+1. **Configure your registry** in `components.json`:
+
+```json
+{
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+2. **Install MCP server**:
+
+```bash
+npx shadcn@latest mcp init --client claude
+# or for Cursor: npx shadcn@latest mcp init --client cursor
+# or for VS Code: npx shadcn@latest mcp init --client vscode
+```
+
+3. **Try these prompts**:
+
+- "Show me the components in the smoothui registry"
+- "Install the SiriOrb component from smoothui"
+- "Create a landing page using smoothui components"
+
+[Learn more about MCP support →](https://smoothui.dev/doc/mcp)
+
+## Registry System
+
+SmoothUI uses a custom registry system compatible with shadcn CLI v3. Each component includes:
+
+### Automatic Dependencies
+
+- **Package Dependencies**: Required npm packages are automatically included
+- **Utility Files**: Shared utilities like `cn` are automatically bundled
+- **Import Paths**: All import paths are automatically resolved
+
+### Component Structure
+
+When you install a component, you get:
+
+```
+components/smoothui/ui/
+├── ComponentName.tsx    # Main component file
+lib/utils/
+└── cn.ts               # Utility functions (if needed)
+```
+
+### Registry Features
+
+- **Self-contained**: Each component includes all necessary dependencies
+- **Type-safe**: Full TypeScript support with proper types
+- **Optimized**: Components are optimized for performance
+- **Accessible**: Built-in accessibility features
 
 ## Troubleshooting
 
-### Authentication Error (401)
+### Common Issues
 
-If you get an authentication error when trying to install components, it means the Vercel deployment has deployment protection enabled. To fix this:
+#### 1. Authentication Error (401)
 
-1. **For Production**: Use the production URL: `https://smoothui.dev/r/{name}.json`
-2. **For Development**: Disable deployment protection in your Vercel project settings
-3. **For Testing**: Use the static file approach with proper CORS headers
+**Error**: `You are not authorized to access the item`
 
-### Registry Not Found
+**Solution**: This usually happens with Vercel preview deployments. Use the production URL:
 
-If components are not found, ensure:
+```json
+{
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
 
-- The registry URL is correct in your `components.json`
-- The component name matches exactly (case-sensitive)
-- The registry files are properly generated
+#### 2. Registry Not Found
+
+**Error**: `The item at https://smoothui.dev/r/registry.json was not found`
+
+**Solution**: The search command might not work as expected. Install components directly:
+
+```bash
+npx shadcn@latest add @smoothui/siri-orb
+```
+
+#### 3. Import Path Issues
+
+**Error**: `Cannot find module '@/lib/utils/cn'`
+
+**Solution**: Make sure your `tsconfig.json` includes the path alias:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+#### 4. Missing Dependencies
+
+**Error**: `Cannot find module 'clsx'`
+
+**Solution**: Install missing dependencies:
+
+```bash
+pnpm add clsx tailwind-merge motion
+```
+
+### Getting Help
+
+- **Documentation**: Visit [smoothui.dev](https://smoothui.dev) for detailed documentation
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/educlopez/smoothui/issues)
+- **Discussions**: Join discussions on [GitHub Discussions](https://github.com/educlopez/smoothui/discussions)
 
 ## Contributing
 
-We welcome contributions! Please follow these steps:
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
-1. Fork the repository
-2. Create your feature branch: `git checkout -b feature/amazing-feature`
-3. Install dependencies: `pnpm install`
-4. Make your changes
-5. Commit your changes: `git commit -m 'Add amazing feature'`
-6. Push to the branch: `git push origin feature/amazing-feature`
-7. Open a Pull Request
+### Development Setup
 
-For detailed guidelines, please read our [CONTRIBUTING.md](CONTRIBUTING.md).
+1. **Clone the repository**:
+
+```bash
+git clone https://github.com/educlopez/smoothui.git
+cd smoothui
+```
+
+2. **Install dependencies**:
+
+```bash
+pnpm install
+```
+
+3. **Start development server**:
+
+```bash
+pnpm dev
+```
+
+4. **Build registry**:
+
+```bash
+pnpm run build:registry
+```
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-<div align="center">
-  <h3>
-    <a href="https://smoothui.dev">Website</a>
-    <span> | </span>
-    <a href="https://smoothui.dev/doc">Documentation</a>
-    <span> | </span>
-    <a href="https://github.com/educlopez/smoothui">GitHub</a>
-  </h3>
-  <p>Built with ❤️ by <a href="https://x.com/educalvolpz">@educalvolpz</a></p>
-</div>
