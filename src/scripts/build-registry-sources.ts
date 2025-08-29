@@ -29,6 +29,53 @@ function getSourceContent(filePath: string): string {
   }
 }
 
+function getSourceFilePath(file: any, baseDir: string): string {
+  let sourceFilePath = ""
+
+  if (file.type === "registry:ui") {
+    const componentPath = file.path.replace("smoothui/", "")
+    sourceFilePath = path.join(
+      baseDir,
+      "src",
+      "components",
+      "smoothui",
+      "ui",
+      `${componentPath}.tsx`
+    )
+  } else if (file.type === "registry:block") {
+    const examplePath = file.path.replace("smoothui/", "")
+    sourceFilePath = path.join(
+      baseDir,
+      "src",
+      "components",
+      "smoothui",
+      `${examplePath}.tsx`
+    )
+  } else if (file.type === "registry:hook") {
+    const hookPath = file.path.replace("hooks/", "")
+    sourceFilePath = path.join(
+      baseDir,
+      "src",
+      "components",
+      "smoothui",
+      "hooks",
+      `${hookPath}.ts`
+    )
+  } else if (file.type === "registry:lib") {
+    const utilPath = file.path.replace("utils/", "")
+    sourceFilePath = path.join(
+      baseDir,
+      "src",
+      "components",
+      "smoothui",
+      "utils",
+      `${utilPath}.ts`
+    )
+  }
+
+  return sourceFilePath
+}
+
 function processRegistryItem(name: string, item: any) {
   const output: any = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
@@ -36,6 +83,49 @@ function processRegistryItem(name: string, item: any) {
     type: item.type,
     dependencies: item.dependencies || [],
     files: [],
+  }
+
+  // Check if any files import the cn utility
+  let needsCnUtility = false
+  item.files.forEach((file: any) => {
+    const sourceFilePath = getSourceFilePath(file, baseDir)
+    if (sourceFilePath) {
+      const content = getSourceContent(sourceFilePath)
+      if (
+        content &&
+        (content.includes('import { cn } from "../utils/cn"') ||
+          content.includes(
+            'import { cn } from "@/components/smoothui/utils/cn"'
+          ) ||
+          content.includes('import { cn } from "../../utils/cn"'))
+      ) {
+        needsCnUtility = true
+      }
+    }
+  })
+
+  // Add cn utility dependencies if needed
+  if (needsCnUtility) {
+    // Add clsx and tailwind-merge to dependencies
+    if (!output.dependencies.includes("clsx")) {
+      output.dependencies.push("clsx")
+    }
+    if (!output.dependencies.includes("tailwind-merge")) {
+      output.dependencies.push("tailwind-merge")
+    }
+
+    // Add the cn utility file
+    const cnContent = getSourceContent(
+      path.join(baseDir, "src", "components", "smoothui", "utils", "cn.ts")
+    )
+    if (cnContent) {
+      output.files.push({
+        path: "utils/cn.ts",
+        content: cnContent,
+        type: "registry:lib",
+        target: "lib/utils/cn.ts",
+      })
+    }
   }
 
   // Add registry dependencies with namespace format if they exist
@@ -131,9 +221,28 @@ function processRegistryItem(name: string, item: any) {
             ? `${safePath}.tsx`
             : `${safePath}.ts`
 
+        // Fix import paths for cn utility
+        let processedContent = content
+        if (needsCnUtility && file.type === "registry:ui") {
+          // Replace various cn import paths with the correct relative path
+          processedContent = processedContent
+            .replace(
+              /import { cn } from "\.\.\/utils\/cn"/g,
+              'import { cn } from "../../lib/utils/cn"'
+            )
+            .replace(
+              /import { cn } from "@\/components\/smoothui\/utils\/cn"/g,
+              'import { cn } from "../../lib/utils/cn"'
+            )
+            .replace(
+              /import { cn } from "\.\.\/\.\.\/utils\/cn"/g,
+              'import { cn } from "../../lib/utils/cn"'
+            )
+        }
+
         output.files.push({
           path: pathWithExt,
-          content,
+          content: processedContent,
           type: file.type,
           target: targetPath,
         })
