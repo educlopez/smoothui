@@ -224,19 +224,19 @@ function processRegistryItem(name: string, item: any) {
         // Fix import paths for cn utility
         let processedContent = content
         if (needsCnUtility && file.type === "registry:ui") {
-          // Replace various cn import paths with the correct relative path
+          // Replace various cn import paths with the absolute path using @/lib/utils alias
           processedContent = processedContent
             .replace(
               /import { cn } from "\.\.\/utils\/cn"/g,
-              'import { cn } from "../../lib/utils/cn"'
+              'import { cn } from "@/lib/utils/cn"'
             )
             .replace(
               /import { cn } from "@\/components\/smoothui\/utils\/cn"/g,
-              'import { cn } from "../../lib/utils/cn"'
+              'import { cn } from "@/lib/utils/cn"'
             )
             .replace(
               /import { cn } from "\.\.\/\.\.\/utils\/cn"/g,
-              'import { cn } from "../../lib/utils/cn"'
+              'import { cn } from "@/lib/utils/cn"'
             )
         }
 
