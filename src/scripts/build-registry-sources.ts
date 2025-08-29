@@ -84,7 +84,7 @@ function processRegistryItem(name: string, item: any) {
         "ui",
         `${componentPath}.tsx`
       )
-      targetPath = `/components/smoothui/ui/${fileName}.tsx`
+      targetPath = `components/smoothui/ui/${fileName}.tsx`
     } else if (file.type === "registry:block") {
       const examplePath = file.path.replace("smoothui/", "")
       sourceFilePath = path.join(
@@ -94,7 +94,7 @@ function processRegistryItem(name: string, item: any) {
         "smoothui",
         `${examplePath}.tsx`
       )
-      targetPath = `/components/smoothui/examples/${fileName}.tsx`
+      targetPath = `components/smoothui/examples/${fileName}.tsx`
     } else if (file.type === "registry:hook") {
       const hookPath = file.path.replace("hooks/", "")
       sourceFilePath = path.join(
@@ -105,7 +105,7 @@ function processRegistryItem(name: string, item: any) {
         "hooks",
         `${hookPath}.ts`
       )
-      targetPath = `/hooks/${fileName}.ts`
+      targetPath = `hooks/${fileName}.ts`
     } else if (file.type === "registry:lib") {
       const utilPath = file.path.replace("utils/", "")
       sourceFilePath = path.join(
@@ -116,20 +116,23 @@ function processRegistryItem(name: string, item: any) {
         "utils",
         `${utilPath}.ts`
       )
-      targetPath = `/lib/utils/${fileName}.ts`
+      targetPath = `lib/utils/${fileName}.ts`
     }
 
     if (sourceFilePath !== "") {
       const content = getSourceContent(sourceFilePath)
       if (content) {
-        // Add appropriate extension based on file type
+        // Generate safe file path without leading slash
+        const safePath = file.path.startsWith("/")
+          ? file.path.slice(1)
+          : file.path
         const pathWithExt =
           file.type === "registry:ui" || file.type === "registry:block"
-            ? `${file.path}.tsx`
-            : `${file.path}.ts`
+            ? `${safePath}.tsx`
+            : `${safePath}.ts`
 
         output.files.push({
-          path: pathWithExt.startsWith("/") ? pathWithExt : `/${pathWithExt}`,
+          path: pathWithExt,
           content,
           type: file.type,
           target: targetPath,

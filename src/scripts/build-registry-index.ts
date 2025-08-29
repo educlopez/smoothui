@@ -489,4 +489,24 @@ fs.writeFileSync(
   JSON.stringify(cleanRegistry, null, 2)
 )
 
+// Generate registry.json for search functionality
+const registryItems = Object.entries(cleanRegistry).map(
+  ([name, item]: [string, any]) => ({
+    name,
+    type: item.type,
+    description: `SmoothUI ${item.type.replace("registry:", "")} component`,
+    href: `https://smoothui.dev/r/${name}.json`,
+  })
+)
+
+const registryIndex = {
+  $schema: "https://ui.shadcn.com/schema/registry.json",
+  items: registryItems,
+}
+
+fs.writeFileSync(
+  path.join(jsonOutputDir, "r", "registry.json"),
+  JSON.stringify(registryIndex, null, 2)
+)
+
 console.log("Registry files generated successfully!")

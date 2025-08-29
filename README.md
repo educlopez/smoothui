@@ -141,6 +141,7 @@ If you get an authentication error when trying to install components, it means t
 ### Registry Not Found
 
 If components are not found, ensure:
+
 - The registry URL is correct in your `components.json`
 - The component name matches exactly (case-sensitive)
 - The registry files are properly generated
