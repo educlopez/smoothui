@@ -501,6 +501,8 @@ const registryItems = Object.entries(cleanRegistry).map(
 
 const registryIndex = {
   $schema: "https://ui.shadcn.com/schema/registry.json",
+  name: "smoothui",
+  homepage: "https://smoothui.dev",
   items: registryItems,
 }
 
