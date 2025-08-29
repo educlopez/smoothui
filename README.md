@@ -21,12 +21,19 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 
 ## Table of Contents
 
-- [Features](#features)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Components](#components)
-- [Contributing](#contributing)
-- [License](#license)
+- [SmoothUI](#smoothui)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Installation](#installation)
+    - [Using shadcn CLI v3 (Recommended)](#using-shadcn-cli-v3-recommended)
+    - [Manual Installation](#manual-installation)
+  - [Usage](#usage)
+  - [Components](#components)
+  - [Troubleshooting](#troubleshooting)
+    - [Authentication Error (401)](#authentication-error-401)
+    - [Registry Not Found](#registry-not-found)
+  - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features
 
@@ -41,6 +48,36 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 - **Easy Integration**: Simple API for integrating components into your projects
 
 ## Installation
+
+### Using shadcn CLI v3 (Recommended)
+
+SmoothUI now supports the new shadcn CLI v3 namespace system. Add the registry to your `components.json`:
+
+```json
+{
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+Then install components using the namespace:
+
+```bash
+# Install a single component
+npx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# View available components
+npx shadcn@latest search @smoothui
+
+# View component details before installation
+npx shadcn@latest view @smoothui/siri-orb
+```
+
+### Manual Installation
 
 To use SmoothUI components in your project, install the required dependencies:
 
@@ -90,6 +127,23 @@ SmoothUI offers a variety of components, including:
   - And many more...
 
 Visit our [documentation](https://smoothui.dev/doc) for a complete list of components and their usage.
+
+## Troubleshooting
+
+### Authentication Error (401)
+
+If you get an authentication error when trying to install components, it means the Vercel deployment has deployment protection enabled. To fix this:
+
+1. **For Production**: Use the production URL: `https://smoothui.dev/r/{name}.json`
+2. **For Development**: Disable deployment protection in your Vercel project settings
+3. **For Testing**: Use the static file approach with proper CORS headers
+
+### Registry Not Found
+
+If components are not found, ensure:
+- The registry URL is correct in your `components.json`
+- The component name matches exactly (case-sensitive)
+- The registry files are properly generated
 
 ## Contributing
 
