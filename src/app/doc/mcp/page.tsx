@@ -274,10 +274,16 @@ export default function MCPPage() {
               </h3>
               <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
                 <li>
-                  "Show me all available components in the smoothui registry"
+                  &ldquo;Show me all available components in the smoothui
+                  registry&rdquo;
                 </li>
-                <li>"What animation components are available in smoothui?"</li>
-                <li>"List all interactive components from smoothui"</li>
+                <li>
+                  &ldquo;What animation components are available in
+                  smoothui?&rdquo;
+                </li>
+                <li>
+                  &ldquo;List all interactive components from smoothui&rdquo;
+                </li>
               </ul>
             </div>
 
@@ -286,11 +292,15 @@ export default function MCPPage() {
                 Component Installation
               </h3>
               <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
-                <li>"Install the SiriOrb component from smoothui"</li>
-                <li>"Add the RichPopover component to my project"</li>
                 <li>
-                  "Install multiple components: SiriOrb, AnimatedInput, and
-                  ScrollableCardStack"
+                  &ldquo;Install the SiriOrb component from smoothui&rdquo;
+                </li>
+                <li>
+                  &ldquo;Add the RichPopover component to my project&rdquo;
+                </li>
+                <li>
+                  &ldquo;Install multiple components: SiriOrb, AnimatedInput,
+                  and ScrollableCardStack&rdquo;
                 </li>
               </ul>
             </div>
@@ -300,9 +310,17 @@ export default function MCPPage() {
                 Component Usage
               </h3>
               <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
-                <li>"Create a landing page using the SiriOrb component"</li>
-                <li>"Show me how to use the ScrollableCardStack component"</li>
-                <li>"Build a dashboard with smoothui components"</li>
+                <li>
+                  &ldquo;Create a landing page using the SiriOrb
+                  component&rdquo;
+                </li>
+                <li>
+                  &ldquo;Show me how to use the ScrollableCardStack
+                  component&rdquo;
+                </li>
+                <li>
+                  &ldquo;Build a dashboard with smoothui components&rdquo;
+                </li>
               </ul>
             </div>
           </div>

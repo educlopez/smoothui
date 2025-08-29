@@ -1,5 +1,6 @@
 import * as React from "react"
 import { Metadata } from "next"
+import Link from "next/link"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
@@ -245,7 +246,7 @@ export default function GetStartedPage() {
             >
               Introduction
             </h1>
-            <p className="text-primary-foreground text-[16px] font-normal leading-relaxed">
+            <p className="text-primary-foreground text-[16px] leading-relaxed font-normal">
               SmoothUI is a collection of beautifully designed components with
               smooth animations built with React, Tailwind CSS, and Motion.
             </p>
@@ -537,12 +538,12 @@ lib/utils/
               Copilot can discover, install, and help you use SmoothUI
               components seamlessly.
             </p>
-            <a
+            <Link
               href="/doc/mcp"
               className="text-brand font-medium hover:underline"
             >
               Learn more about MCP support →
-            </a>
+            </Link>
           </div>
         </div>
 
