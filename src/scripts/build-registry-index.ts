@@ -332,7 +332,11 @@ function generateRegistryItem(
             : "registry:ui",
     files,
     ...(componentDeps.length > 0 && {
-      registryDependencies: componentDeps,
+      registryDependencies: componentDeps.map((dep) => {
+        // Convert to namespace format for v3
+        const depName = dep.split("/").pop()
+        return `@smoothui/${depName}`
+      }),
     }),
     ...(externalDeps.size > 0 || additionalConfig?.devDependencies
       ? {

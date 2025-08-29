@@ -7,6 +7,51 @@ const tailwindSchema = z
   })
   .optional()
 
+// Schema for CSS variables
+const cssVarsSchema = z.object({
+  light: z.record(z.string(), z.string()).optional(),
+  dark: z.record(z.string(), z.string()).optional(),
+})
+
+// Schema for environment variables
+const envVarsSchema = z.record(z.string(), z.string())
+
+// Schema for registry file
+const registryFileSchema = z.object({
+  path: z.string(),
+  content: z.string(),
+  type: z.enum([
+    "registry:ui",
+    "registry:block",
+    "registry:hook",
+    "registry:lib",
+    "registry:theme",
+  ]),
+  target: z.string().optional(),
+})
+
+// Schema for registry item (v3 format)
+export const registryItemSchema = z.object({
+  $schema: z.string().optional(),
+  name: z.string(),
+  type: z.enum([
+    "registry:ui",
+    "registry:block",
+    "registry:hook",
+    "registry:lib",
+    "registry:theme",
+  ]),
+  dependencies: z.array(z.string()).optional(),
+  devDependencies: z.array(z.string()).optional(),
+  registryDependencies: z.array(z.string()).optional(),
+  files: z.array(registryFileSchema),
+  tailwind: tailwindSchema.optional(),
+  cssVars: cssVarsSchema.optional(),
+  envVars: envVarsSchema.optional(),
+  description: z.string().optional(),
+})
+
+// Legacy schema for backward compatibility
 export const registrySchema = z.record(
   z.string(),
   z.object({
@@ -37,3 +82,4 @@ export const registrySchema = z.record(
 )
 
 export type Registry = z.infer<typeof registrySchema>
+export type RegistryItem = z.infer<typeof registryItemSchema>
