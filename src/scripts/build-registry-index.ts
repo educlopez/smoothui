@@ -504,8 +504,14 @@ const registryIndex = {
   items: registryItems,
 }
 
+// Ensure the r directory exists
+const rOutputDir = path.join(jsonOutputDir, "r")
+if (!fs.existsSync(rOutputDir)) {
+  fs.mkdirSync(rOutputDir, { recursive: true })
+}
+
 fs.writeFileSync(
-  path.join(jsonOutputDir, "r", "registry.json"),
+  path.join(rOutputDir, "registry.json"),
   JSON.stringify(registryIndex, null, 2)
 )
 
