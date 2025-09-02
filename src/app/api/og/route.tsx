@@ -2,7 +2,17 @@ import { ImageResponse } from "next/og"
 
 import { domain } from "@/lib/domain"
 
+// Cache fonts in memory to avoid reloading on every request
+const fontCache = new Map<string, ArrayBuffer>()
+
 const loadGoogleFont = async (font: string, text: string, weights: string) => {
+  const cacheKey = `${font}-${weights}`
+
+  // Check cache first
+  if (fontCache.has(cacheKey)) {
+    return fontCache.get(cacheKey)!
+  }
+
   const url = `https://fonts.googleapis.com/css2?family=${font}:wght@${weights}&text=${encodeURIComponent(text)}`
   const css = await (await fetch(url)).text()
   const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
@@ -10,7 +20,10 @@ const loadGoogleFont = async (font: string, text: string, weights: string) => {
   if (resource) {
     const response = await fetch(resource[1])
     if (response.status === 200) {
-      return await response.arrayBuffer()
+      const fontData = await response.arrayBuffer()
+      // Cache the font data
+      fontCache.set(cacheKey, fontData)
+      return fontData
     }
   }
 
@@ -25,6 +38,12 @@ export async function GET(request: Request) {
     "Beautiful React components with smooth animations"
 
   const text = `SMOOTHUI ${title} ${description}`
+
+  // Load fonts in parallel
+  const [interFont, asapFont] = await Promise.all([
+    loadGoogleFont("Inter", text, "400"),
+    loadGoogleFont("Asap", text, "600"),
+  ])
 
   return new ImageResponse(
     (
@@ -121,15 +140,19 @@ export async function GET(request: Request) {
       fonts: [
         {
           name: "Inter ",
-          data: await loadGoogleFont("Inter", text, "400"),
+          data: interFont,
           style: "normal",
         },
         {
           name: "Asap",
-          data: await loadGoogleFont("Asap", text, "600"),
+          data: asapFont,
           style: "normal",
         },
       ],
     }
   )
 }
+
+// Add caching headers and revalidation
+export const runtime = "edge"
+export const revalidate = 3600 // Cache for 1 hour

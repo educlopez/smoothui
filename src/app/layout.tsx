@@ -17,7 +17,6 @@ const inter = Inter({
 })
 const asap = Asap({
   subsets: ["latin"],
-  display: "swap",
   variable: "--font-asap",
 })
 
@@ -63,7 +62,8 @@ export const metadata: Metadata = {
   twitter: {
     title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     description:
-      "Free React UI components styled with TailwindCSS and animated using Framer Motion.",
+      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion.",
+    card: "summary_large_image",
     images: [
       {
         width: 1200,
@@ -72,7 +72,6 @@ export const metadata: Metadata = {
         alt: "SmoothUI Cover",
       },
     ],
-    card: "summary_large_image",
     site: "@educalvolpz",
     creator: "@educalvolpz",
   },
