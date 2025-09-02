@@ -13,13 +13,6 @@ This document outlines the optimizations implemented to reduce Vercel edge reque
 - **Edge Runtime**: Configured to run on edge runtime for better performance
 - **Revalidation**: Set to cache for 1 hour with automatic revalidation
 
-#### GitHub Stars API (`/api/github-stars`)
-
-- **In-Memory Caching**: Added local cache to reduce external API calls
-- **Stale-While-Revalidate**: Returns cached data while fetching fresh data in background
-- **Fallback Strategy**: Uses expired cache data on API failures
-- **Edge Runtime**: Optimized for edge deployment
-
 ### 2. Component Data Optimization
 
 #### Static Data Cache (`src/app/utils/staticDataCache.ts`)
@@ -71,7 +64,6 @@ This document outlines the optimizations implemented to reduce Vercel edge reque
 ### Edge Requests Reduction
 
 - **OG Images**: ~80% reduction due to font caching and longer cache duration
-- **GitHub Stars**: ~90% reduction due to in-memory caching
 - **Component Data**: ~70% reduction due to static data caching
 
 ### Fast Data Transfer Reduction
@@ -91,8 +83,7 @@ This document outlines the optimizations implemented to reduce Vercel edge reque
 ### Environment Variables
 
 ```bash
-# GitHub API token for higher rate limits
-GITHUB_TOKEN=your_github_token_here
+
 
 # Vercel environment detection
 NEXT_PUBLIC_VERCEL_ENV=production
@@ -102,7 +93,6 @@ VERCEL_BRANCH_URL=your_branch_url
 ### Cache Durations
 
 - **OG Images**: 1 hour
-- **GitHub Stars**: 5 minutes
 - **Component Data**: 10 minutes
 - **Static Assets**: 1 year (immutable)
 
