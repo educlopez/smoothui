@@ -77,7 +77,7 @@ export default function SidebarLinkClient() {
       style={{ minHeight: "unset" }}
       onScroll={handleScroll}
     >
-      <div className="relative -mt-[48px] p-2">
+      <div className="relative p-2">
         <SidebarInput
           placeholder="Search components..."
           value={search}
