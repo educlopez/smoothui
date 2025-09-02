@@ -145,7 +145,7 @@ export default function SidebarLinkClient() {
       ref={scrollRef}
       style={{ minHeight: "unset" }}
       onScroll={handleScroll}
-      maskClassName="before:form-primary after:form-primary"
+      maskClassName="before:from-primary after:from-primary"
       maskHeight={50}
     >
       <div className="relative p-2">
