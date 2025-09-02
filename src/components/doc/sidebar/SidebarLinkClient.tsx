@@ -4,8 +4,8 @@ import { useMemo, useState } from "react"
 import Link from "next/link"
 import { X } from "lucide-react"
 
-import { BlurMagic } from "@/components/blurmagic/blurMagic"
 import { useScrollOpacity } from "@/components/ui/hooks/useScrollOpacity"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -72,21 +72,11 @@ export default function SidebarLinkClient() {
   const filteredAi = useMemo(() => filterComponents(aiComponents), [search])
 
   return (
-    <div
+    <ScrollArea
       ref={scrollRef}
       style={{ minHeight: "unset" }}
-      className="h-full overflow-y-auto"
       onScroll={handleScroll}
     >
-      <BlurMagic
-        side="top"
-        className="!sticky z-2"
-        stop="50%"
-        blur="4px"
-        background="var(--color-primary)"
-        height="48px"
-        style={{ opacity: blurOpacity }}
-      />
       <div className="relative -mt-[48px] p-2">
         <SidebarInput
           placeholder="Search components..."
@@ -349,6 +339,6 @@ export default function SidebarLinkClient() {
           )}
         </SidebarMenuSub>
       </SidebarGroup>
-    </div>
+    </ScrollArea>
   )
 }
