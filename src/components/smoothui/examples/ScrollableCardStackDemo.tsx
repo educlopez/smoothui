@@ -47,8 +47,8 @@ export default function ScrollableCardStackDemo() {
       <ScrollableCardStack
         items={cardData}
         cardHeight={384}
-        perspective={1000}
-        transitionDuration={180}
+        perspective={1200}
+        transitionDuration={200}
         className="mx-auto"
       />
     </div>
