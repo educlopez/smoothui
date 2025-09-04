@@ -51,7 +51,7 @@ export default function MCPPage() {
           <p className="text-primary-foreground text-[16px] leading-relaxed">
             The MCP server works by requesting your registry index. Make sure
             you have a registry item file at the root of your registry named{" "}
-            <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+            <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
               registry
             </code>
             .
@@ -59,11 +59,11 @@ export default function MCPPage() {
 
           <p className="text-primary-foreground text-[16px] leading-relaxed">
             For example, if your registry is hosted at{" "}
-            <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+            <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
               https://smoothui.dev/r/[name].json
             </code>
             , you should have a file at{" "}
-            <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+            <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
               https://smoothui.dev/r/registry.json
             </code>
             .
@@ -85,7 +85,7 @@ export default function MCPPage() {
           </h2>
           <p className="text-primary-foreground text-[16px] leading-relaxed">
             Ask your registry consumers to configure your registry in their{" "}
-            <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+            <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
               components.json
             </code>{" "}
             file and install the shadcn MCP server:
@@ -117,7 +117,7 @@ export default function MCPPage() {
               <div className="space-y-4">
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   <strong>Configure your registry</strong> in your{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     components.json
                   </code>{" "}
                   file:
@@ -155,7 +155,7 @@ export default function MCPPage() {
 
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   <strong>Note:</strong> You can use{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     /mcp
                   </code>{" "}
                   command in Claude Code to debug the MCP server.
@@ -167,7 +167,7 @@ export default function MCPPage() {
               <div className="space-y-4">
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   <strong>Configure your registry</strong> in your{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     components.json
                   </code>{" "}
                   file:
@@ -210,7 +210,7 @@ export default function MCPPage() {
               <div className="space-y-4">
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   <strong>Configure your registry</strong> in your{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     components.json
                   </code>{" "}
                   file:
@@ -236,7 +236,7 @@ export default function MCPPage() {
 
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   Open{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     .vscode/mcp.json
                   </code>{" "}
                   and click <strong>Start</strong> next to the shadcn server.
@@ -355,7 +355,7 @@ export default function MCPPage() {
               </h3>
               <p className="text-primary-foreground text-[16px] leading-relaxed">
                 List all{" "}
-                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                   dependencies
                 </code>{" "}
                 accurately so MCP can install them automatically.
@@ -368,7 +368,7 @@ export default function MCPPage() {
               </h3>
               <p className="text-primary-foreground text-[16px] leading-relaxed">
                 Use{" "}
-                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                   registryDependencies
                 </code>{" "}
                 to indicate relationships between items.
@@ -426,11 +426,11 @@ export default function MCPPage() {
               </h3>
               <p className="text-primary-foreground text-[16px] leading-relaxed">
                 Required packages like{" "}
-                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                   clsx
                 </code>{" "}
                 and{" "}
-                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                   tailwind-merge
                 </code>{" "}
                 are automatically detected and included.

@@ -283,33 +283,16 @@ export default function GetStartedPage() {
                 </h4>
                 <p className="text-primary-foreground text-[16px] leading-relaxed">
                   Add the SmoothUI registry to your{" "}
-                  <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                  <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     components.json
                   </code>{" "}
                   file:
                 </p>
                 <CodeBlock
-                  code={`{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/app/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui"
-  },
-  "registries": {
+                  code={`"registries": {
     "@smoothui": "https://smoothui.dev/r/{name}.json"
   }
-}`}
+`}
                   fileName="components.json"
                   lang="json"
                 />
@@ -463,7 +446,7 @@ export default function App() {
               </li>
               <li>
                 <strong>Utility Files</strong>: Shared utilities like{" "}
-                <code className="bg-primary rounded px-1.5 py-0.5 text-sm">
+                <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                   cn
                 </code>{" "}
                 are automatically bundled
