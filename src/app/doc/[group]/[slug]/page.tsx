@@ -220,13 +220,13 @@ export default async function ComponentPage({
                           </p>
 
                           <CodeBlock
-                            code={`npx shadcn@latest add \"https://smoothui.dev/r/${component.slug}.json\"`}
+                            code={`npx shadcn@latest add @smoothui/${component.slug}`}
                             fileName="Terminal"
                             lang="shell"
                           />
                           <p className="font-medium">Or install the demo</p>
                           <CodeBlock
-                            code={`npx shadcn@latest add \"https://smoothui.dev/r/${component.slug}-demo.json\"`}
+                            code={`npx shadcn@latest add @smoothui/${component.slug}-demo`}
                             fileName="Terminal"
                             lang="shell"
                           />
