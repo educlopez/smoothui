@@ -12,7 +12,6 @@ import InteractiveImageSelectorDemo from "@/components/smoothui/examples/Interac
 import JobListingComponentDemo from "@/components/smoothui/examples/JobListingComponentDemo"
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
-import PhototabDemo from "@/components/smoothui/examples/PhototabDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
 import RichPopoverDemo from "@/components/smoothui/examples/RichPopoverDemo"
 import ScrollableCardStackDemo from "@/components/smoothui/examples/ScrollableCardStackDemo"
@@ -1049,7 +1048,7 @@ export const components: ComponentsProps[] = [
     tags: ["media", "tabs", "gallery", "navigation", "photo", "viewer"],
     href: "https://x.com/educalvolpz",
     info: "A configurable tabbed photo display component with animated tab transitions, supporting custom icons and images",
-    componentUi: PhototabDemo,
+    componentUi: require("@/components/smoothui/examples/PhototabDemo").default,
     download: "motion lucide-react @radix-ui/react-tabs",
     cnFunction: false,
     isUpdated: false,
