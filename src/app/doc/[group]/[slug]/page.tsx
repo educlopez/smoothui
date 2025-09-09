@@ -1,31 +1,24 @@
-import fs from "fs";
-import path from "path";
-import { promisify } from "util";
-import React from "react";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import fs from "fs"
+import path from "path"
+import { promisify } from "util"
+import React from "react"
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
 
-
-
-import BadgeBeta from "@/components/doc/badgeBeta";
-import { Breadcrumbs } from "@/components/doc/breadcrumbs";
-import { CodeBlock } from "@/components/doc/codeBlock";
-import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper";
-import ComponentPager from "@/components/doc/ComponentPager";
-import { ComponentView } from "@/components/doc/componentView";
-import PropsTable from "@/components/doc/PropsTable";
-import { RelatedComponents } from "@/components/doc/RelatedComponents";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs";
-import Divider from "@/components/landing/divider";
-import { aiComponents } from "@/app/doc/data/aiComponents";
-import { basicComponents } from "@/app/doc/data/basicComponents";
-import { components } from "@/app/doc/data/components";
-import { textComponents } from "@/app/doc/data/textComponentes";
-import type { ComponentsProps } from "@/app/doc/data/typeComponent";
-
-
-
-
+import BadgeBeta from "@/components/doc/badgeBeta"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { CodeBlock } from "@/components/doc/codeBlock"
+import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import ComponentPager from "@/components/doc/ComponentPager"
+import { ComponentView } from "@/components/doc/componentView"
+import PropsTable from "@/components/doc/PropsTable"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import Divider from "@/components/landing/divider"
+import { aiComponents } from "@/app/doc/data/aiComponents"
+import { basicComponents } from "@/app/doc/data/basicComponents"
+import { components } from "@/app/doc/data/components"
+import { textComponents } from "@/app/doc/data/textComponentes"
+import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 const groupDataMap: Record<string, ComponentsProps[]> = {
   ai: aiComponents,
@@ -170,8 +163,6 @@ export default async function ComponentPage({
                 : group.charAt(0).toUpperCase() + group.slice(1)
             }
             currentPage={component.componentTitle}
-            collection={component.collection}
-            tag={component.tags?.[0]}
           />
           <h1
             data-table-content="Introduction"
@@ -496,11 +487,7 @@ export default async function ComponentPage({
             <PropsTable props={component.props} />
           </>
         )}
-        {/* Related Components Section */}
-        <Divider className="relative" />
-        <RelatedComponents currentComponent={component} group={group} />
       </div>
-
       {/* Pager navigation at the bottom */}
       <ComponentPager
         group={group}
