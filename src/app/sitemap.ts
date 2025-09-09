@@ -6,6 +6,7 @@ import { pricingBlocks } from "@/app/doc/data/block-pricing"
 import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
+import { getAllTags } from "@/app/utils/componentUtils"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = "https://smoothui.dev"
@@ -33,12 +34,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
   }))
 
   // Generate URLs for all block pages
-  function toKebabCase(str: string) {
-    return str
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/(^-|-$)/g, "")
-  }
 
   const blockGroups = [
     { group: "hero", blocks: heroBlocks },
@@ -54,6 +49,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }))
 
+  // Generate URLs for tag pages
+  const allTags = getAllTags()
+  const tagUrls = allTags.map((tag) => ({
+    url: `${baseUrl}/doc/tags/${tag.toLowerCase()}`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }))
+
+  // Add tags overview page
+  const tagsOverviewUrl = {
+    url: `${baseUrl}/doc/tags`,
+    lastModified: new Date(),
+    changeFrequency: "weekly" as const,
+    priority: 0.8,
+  }
+
   return [
     {
       url: baseUrl,
@@ -67,9 +79,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
+    tagsOverviewUrl,
     ...componentUrls,
     ...basicComponentUrls,
     ...textComponentUrls,
     ...blockGroupUrls,
+    ...tagUrls,
   ]
 }

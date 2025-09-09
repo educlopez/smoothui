@@ -1,4 +1,4 @@
-import * as React from "react"
+import type * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import SparkbitesIcon from "@/assets/images/sparkbites.png"
@@ -22,7 +22,7 @@ export async function AppSidebar({
 }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
+      <SidebarHeader className="hidden md:block">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
