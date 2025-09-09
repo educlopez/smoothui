@@ -7,11 +7,11 @@ import {
   Book,
   Bot,
   ChevronsUpDown,
-  Cuboid,
   Github,
   Home,
   LayoutDashboard,
   ListChecks,
+  Zap,
 } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import useMeasure from "react-use-measure"
@@ -38,7 +38,6 @@ import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
 
 import { ColorPickerFloatNav } from "../ColorPickerFloatNav"
-import { Separator } from "../ui/separator"
 
 function getPageTitle(pathname: string): string {
   if (pathname === "/") return "Home"
@@ -107,7 +106,7 @@ export function FloatNav() {
     {
       label: "Blocks",
       href: "/doc/blocks/testimonial",
-      icon: <Cuboid size={16} />,
+      icon: <Zap size={16} />,
     },
   ]
   // Exclude current page, and hide Components link on any /doc/components/* page, Blocks link on any /doc/blocks/* page

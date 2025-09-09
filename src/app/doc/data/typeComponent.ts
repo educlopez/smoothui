@@ -24,4 +24,5 @@ export interface ComponentsProps {
   }[]
   hasRefreshDemo?: boolean
   icon?: string
+  relatedComponents?: string[]
 }

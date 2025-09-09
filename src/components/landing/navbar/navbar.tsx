@@ -14,20 +14,18 @@ import {
   User,
   Zap,
 } from "lucide-react"
-import { AnimatePresence, motion } from "motion/react"
 
 import "./navbar.css"
 
 import Link from "next/link"
 
 import { cn } from "@/lib/utils"
+import { GithubStars } from "@/components/landing/githubstars"
 import {
   BlocksMenuIllustration,
   MenuIllustration,
 } from "@/components/landing/navbar/MenuIllustration"
 import Logo from "@/components/logo"
-
-import { GithubStars } from "../githubstars"
 
 // Preview components data
 const componentPreviews = {

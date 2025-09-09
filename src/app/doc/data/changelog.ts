@@ -1,5 +1,23 @@
 export const changelogEntries = [
   {
+    date: "Sep 8, 2025",
+    version: "2.9",
+    title: "Enhanced Search & Discovery System",
+    tags: ["Search", "Navigation", "UX", "Tags", "Discovery"],
+    changes: [
+      "New comprehensive search system with keyboard shortcuts and real-time results",
+      "Advanced tag-based component discovery with categorized organization",
+      "New tag pages with related components and category information",
+      "Enhanced component search dialog with popular tags and smart suggestions",
+      "Improved related components algorithm with better similarity scoring",
+      "New category selector for better navigation between component types",
+      "Enhanced breadcrumbs with better navigation context",
+      "Updated sitemap generation for better SEO and discoverability",
+      "Improved component metadata and tagging system",
+      "Better component organization with utility functions for search and filtering",
+    ],
+  },
+  {
     date: "Aug 29, 2025",
     version: "2.8",
     title: "shadcn CLI v3 Registry & MCP Support",

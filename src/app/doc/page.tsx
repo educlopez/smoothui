@@ -1,5 +1,4 @@
-import * as React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
@@ -571,6 +570,42 @@ lib/utils/
                 customization options
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Quick Navigation */}
+        <div className="space-y-4">
+          <h2
+            data-table-content="Quick Navigation"
+            data-level="2"
+            className="text-foreground text-xl font-semibold"
+          >
+            Quick Navigation
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Link
+              href="/doc/components"
+              className="group bg-primary hover:bg-primary/80 rounded-lg border p-4 transition-colors"
+            >
+              <h3 className="group-hover:text-brand font-semibold transition-colors">
+                Browse Components
+              </h3>
+              <p className="text-foreground/70 mt-1 text-sm">
+                Explore all available components with live demos
+              </p>
+            </Link>
+
+            <Link
+              href="/doc/tags"
+              className="group bg-primary hover:bg-primary/80 rounded-lg border p-4 transition-colors"
+            >
+              <h3 className="group-hover:text-brand font-semibold transition-colors">
+                Browse by Tags
+              </h3>
+              <p className="text-foreground/70 mt-1 text-sm">
+                Discover components by technology and features
+              </p>
+            </Link>
           </div>
         </div>
       </div>
