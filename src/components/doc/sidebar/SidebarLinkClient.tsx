@@ -31,14 +31,6 @@ const COMPONENT_DATA = {
   ai: aiComponents,
 } as const
 
-// Flatten all components for search
-const ALL_COMPONENTS = [
-  ...basicComponents,
-  ...textComponents,
-  ...components,
-  ...aiComponents,
-] as ComponentsProps[]
-
 export default function SidebarLinkClient() {
   const [selectedCategory, setSelectedCategory] = useState("all")
   const [isSearchDialogOpen, setIsSearchDialogOpen] = useState(false)
@@ -109,7 +101,6 @@ export default function SidebarLinkClient() {
       <SearchDialog
         open={isSearchDialogOpen}
         onOpenChange={setIsSearchDialogOpen}
-        components={ALL_COMPONENTS}
       />
       <ScrollArea
         ref={scrollRef}

@@ -9,19 +9,6 @@ import { SearchDialog } from "@/components/doc/SearchDialog"
 import { CustomTrigger } from "@/components/doc/sidebar/trigger"
 import Logo from "@/components/logo"
 import { useIsMobile } from "@/components/ui/hooks/use-mobile"
-import { aiComponents } from "@/app/doc/data/aiComponents"
-import { basicComponents } from "@/app/doc/data/basicComponents"
-import { components } from "@/app/doc/data/components"
-import { textComponents } from "@/app/doc/data/textComponentes"
-import type { ComponentsProps } from "@/app/doc/data/typeComponent"
-
-// Flatten all components for search
-const ALL_COMPONENTS = [
-  ...basicComponents,
-  ...textComponents,
-  ...components,
-  ...aiComponents,
-] as ComponentsProps[]
 
 const Header = () => {
   const isMobile = useIsMobile()
@@ -32,7 +19,6 @@ const Header = () => {
       <SearchDialog
         open={isSearchDialogOpen}
         onOpenChange={setIsSearchDialogOpen}
-        components={ALL_COMPONENTS}
       />
       <nav
         className="sticky top-0 right-0 left-0 z-30 flex items-center justify-between px-4 py-1 md:py-3"

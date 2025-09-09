@@ -17,16 +17,17 @@ import {
   CommandList,
 } from "@/components/ui/command"
 import { Separator } from "@/components/ui/separator"
+import { aiComponents } from "@/app/doc/data/aiComponents"
+import { basicComponents } from "@/app/doc/data/basicComponents"
+import { components } from "@/app/doc/data/components"
+import { textComponents } from "@/app/doc/data/textComponentes"
 import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 
-interface SearchDialogProps extends DialogProps {
-  components: ComponentsProps[]
-}
+interface SearchDialogProps extends DialogProps {}
 
 export function SearchDialog({
   open,
   onOpenChange,
-  components,
   ...props
 }: SearchDialogProps) {
   const router = useRouter()
@@ -35,8 +36,31 @@ export function SearchDialog({
   )
   const [copyPayload, setCopyPayload] = React.useState("")
 
+  // Combine all component data files
+  const allComponents = React.useMemo(() => {
+    return [
+      ...aiComponents,
+      ...basicComponents,
+      ...textComponents,
+      ...components,
+    ]
+  }, [])
+
   const getComponentGroup = React.useCallback(
     (component: ComponentsProps): string => {
+      // Check which data file the component belongs to
+      if (aiComponents.some((aiComp) => aiComp.slug === component.slug))
+        return "ai"
+      if (
+        basicComponents.some((basicComp) => basicComp.slug === component.slug)
+      )
+        return "basic"
+      if (textComponents.some((textComp) => textComp.slug === component.slug))
+        return "text"
+      if (components.some((comp) => comp.slug === component.slug))
+        return "components"
+
+      // Fallback logic
       if (component.componentTitle.toLowerCase().includes("ai")) return "ai"
       if (component.type === "block") return "components"
       return "components"
@@ -96,7 +120,7 @@ export function SearchDialog({
             heading="Components"
             className="!p-0 [&_[cmdk-group-heading]]:scroll-mt-16 [&_[cmdk-group-heading]]:!p-3 [&_[cmdk-group-heading]]:!pb-1"
           >
-            {components.map((component) => (
+            {allComponents.map((component) => (
               <CommandMenuItem
                 key={component.slug}
                 value={`${component.componentTitle} ${component.info}`}
