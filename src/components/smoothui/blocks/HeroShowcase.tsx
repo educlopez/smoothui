@@ -155,11 +155,11 @@ export function HeroShowcase({
         {/* Imagen completamente estática para que el blend mode funcione perfecto */}
         <div className="flex">
           <Image
-            src="/hero-example.png"
+            src="https://res.cloudinary.com/dyzxnud9z/image/upload/v1757401349/smoothui/hero-example_xertaz.png"
             alt="app screen"
             width={2880}
             height={1842}
-            className="h-full w-full rounded-md object-cover mix-blend-lighten"
+            className="h-full w-full rounded-md object-cover"
             priority
           />
         </div>
