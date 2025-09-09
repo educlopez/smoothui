@@ -29,48 +29,37 @@ function getSourceContent(filePath: string): string {
   }
 }
 
-function kebabToPascalCase(kebab: string): string {
-  return kebab
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join("")
-}
-
 function getSourceFilePath(file: any, baseDir: string): string {
   let sourceFilePath = ""
 
   if (file.type === "registry:ui") {
     const componentPath = file.path.replace("smoothui/", "")
-    const pascalCaseName = kebabToPascalCase(componentPath)
     sourceFilePath = path.join(
       baseDir,
       "src",
       "components",
       "smoothui",
       "ui",
-      `${pascalCaseName}.tsx`
+      `${componentPath}.tsx`
     )
   } else if (file.type === "registry:block") {
-    const examplePath = file.path.replace("examples/", "")
-    const pascalCaseName = kebabToPascalCase(examplePath)
+    const examplePath = file.path.replace("smoothui/", "")
     sourceFilePath = path.join(
       baseDir,
       "src",
       "components",
       "smoothui",
-      "examples",
-      `${pascalCaseName}.tsx`
+      `${examplePath}.tsx`
     )
   } else if (file.type === "registry:hook") {
     const hookPath = file.path.replace("hooks/", "")
-    // For hooks, keep the original case as they might be different
     sourceFilePath = path.join(
       baseDir,
       "src",
       "components",
       "smoothui",
       "hooks",
-      `${hookPath}.tsx`
+      `${hookPath}.ts`
     )
   } else if (file.type === "registry:lib") {
     const utilPath = file.path.replace("utils/", "")
@@ -176,7 +165,6 @@ function processRegistryItem(name: string, item: any) {
     let targetPath = ""
     if (file.type === "registry:ui") {
       const componentPath = file.path.replace("smoothui/", "")
-      const pascalCaseName = kebabToPascalCase(componentPath)
       console.log("componentPath", componentPath)
       sourceFilePath = path.join(
         baseDir,
@@ -184,19 +172,17 @@ function processRegistryItem(name: string, item: any) {
         "components",
         "smoothui",
         "ui",
-        `${pascalCaseName}.tsx`
+        `${componentPath}.tsx`
       )
       targetPath = `components/smoothui/ui/${fileName}.tsx`
     } else if (file.type === "registry:block") {
-      const examplePath = file.path.replace("examples/", "")
-      const pascalCaseName = kebabToPascalCase(examplePath)
+      const examplePath = file.path.replace("smoothui/", "")
       sourceFilePath = path.join(
         baseDir,
         "src",
         "components",
         "smoothui",
-        "examples",
-        `${pascalCaseName}.tsx`
+        `${examplePath}.tsx`
       )
       targetPath = `components/smoothui/examples/${fileName}.tsx`
     } else if (file.type === "registry:hook") {
@@ -207,7 +193,7 @@ function processRegistryItem(name: string, item: any) {
         "components",
         "smoothui",
         "hooks",
-        `${hookPath}.tsx`
+        `${hookPath}.ts`
       )
       targetPath = `hooks/${fileName}.ts`
     } else if (file.type === "registry:lib") {
