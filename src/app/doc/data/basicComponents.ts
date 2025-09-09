@@ -1,3 +1,5 @@
+import AnimatedInputDemo from "@/components/smoothui/examples/AnimatedInputDemo"
+import AnimatedProgressBarDemo from "@/components/smoothui/examples/AnimatedProgressBarDemo"
 import AccordionDemo from "@/components/smoothui/examples/BasicAccordionDemo"
 import DropdownDemo from "@/components/smoothui/examples/BasicDropdownDemo"
 import ModalDemo from "@/components/smoothui/examples/BasicModalDemo"
@@ -258,8 +260,7 @@ export const basicComponents: ComponentsProps[] = [
     tags: ["input", "form", "floating-label", "animation", "text", "field"],
     href: "https://x.com/educalvolpz",
     info: "A text input with a floating label and smooth animation.",
-    componentUi: require("@/components/smoothui/examples/AnimatedInputDemo")
-      .default,
+    componentUi: AnimatedInputDemo,
     download: "motion lucide-react",
     cnFunction: false,
     isUpdated: false,
@@ -338,8 +339,7 @@ export const basicComponents: ComponentsProps[] = [
     tags: ["display", "progress", "loading", "animation", "bar", "status"],
     href: "https://x.com/educalvolpz",
     info: "A progress bar with a smooth fill animation and optional label.",
-    componentUi:
-      require("@/components/smoothui/examples/AnimatedProgressBarDemo").default,
+    componentUi: AnimatedProgressBarDemo,
     download: "motion",
     cnFunction: false,
     isUpdated: false,
