@@ -95,7 +95,7 @@ export function CategorySelector({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
-          className={`bg-background hover:bg-primary w-full justify-between border ${className}`}
+          className={`bg-background hover:bg-primary w-full justify-between border p-2 shadow-none ${className}`}
         >
           <div className="flex items-center gap-2">
             <SelectedIcon className="h-4 w-4" />
