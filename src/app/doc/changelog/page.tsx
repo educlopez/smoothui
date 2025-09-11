@@ -1,14 +1,8 @@
-import React from "react";
-import { Metadata } from "next";
+import React from "react"
+import { Metadata } from "next"
 
-
-
-import { Breadcrumbs } from "@/components/doc/breadcrumbs";
-import { changelogEntries } from "@/app/doc/data/changelog";
-
-
-
-
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { changelogEntries } from "@/app/doc/data/changelog"
 
 export const metadata: Metadata = {
   title: "Changelog",
@@ -79,7 +73,7 @@ export default function ChangelogPage() {
                       </div>
                     )}
                   </div>
-                  <div className="prose dark:prose-invert prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance max-w-none">
+                  <div className="prose dark:prose-invert prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance max-w-none text-sm">
                     <ul>
                       {entry.changes.map((change, idx) => (
                         <li key={idx}>{change}</li>

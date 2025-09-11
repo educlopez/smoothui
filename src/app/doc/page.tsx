@@ -245,7 +245,7 @@ export default function GetStartedPage() {
             >
               Introduction
             </h1>
-            <p className="text-primary-foreground text-[16px] leading-relaxed font-normal">
+            <p className="text-primary-foreground text-sm leading-relaxed font-normal">
               SmoothUI is a collection of beautifully designed components with
               smooth animations built with React, Tailwind CSS, and Motion.
             </p>
@@ -270,7 +270,7 @@ export default function GetStartedPage() {
               >
                 Using shadcn CLI v3 (Recommended)
               </h3>
-              <p className="text-primary-foreground text-[16px] leading-relaxed">
+              <p className="text-primary-foreground text-sm leading-relaxed">
                 SmoothUI is fully compatible with the new shadcn CLI v3
                 namespace system. This is the easiest way to install and manage
                 SmoothUI components.
@@ -280,7 +280,7 @@ export default function GetStartedPage() {
                 <h4 className="text-foreground text-lg font-medium">
                   Step 1: Configure the Registry
                 </h4>
-                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                <p className="text-primary-foreground text-sm leading-relaxed">
                   Add the SmoothUI registry to your{" "}
                   <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
                     components.json
@@ -301,7 +301,7 @@ export default function GetStartedPage() {
                 <h4 className="text-foreground text-lg font-medium">
                   Step 2: Install Components
                 </h4>
-                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                <p className="text-primary-foreground text-sm leading-relaxed">
                   Install components using the namespace:
                 </p>
                 <CodeBlock
@@ -322,7 +322,7 @@ npx shadcn@latest add @smoothui/scrollable-card-stack`}
                 <h4 className="text-foreground text-lg font-medium">
                   Step 3: Use Components
                 </h4>
-                <p className="text-primary-foreground text-[16px] leading-relaxed">
+                <p className="text-primary-foreground text-sm leading-relaxed">
                   Import and use the installed components:
                 </p>
                 <CodeBlock
@@ -351,7 +351,7 @@ export default function App() {
               >
                 Manual Installation
               </h3>
-              <p className="text-primary-foreground text-[16px] leading-relaxed">
+              <p className="text-primary-foreground text-sm leading-relaxed">
                 If you prefer to install components manually, you will need to
                 install the following dependencies:
               </p>
@@ -428,7 +428,7 @@ export default function App() {
           >
             Registry System
           </h2>
-          <p className="text-primary-foreground text-[16px] leading-relaxed">
+          <p className="text-primary-foreground text-sm leading-relaxed">
             SmoothUI uses a custom registry system compatible with shadcn CLI
             v3. Each component includes all necessary dependencies and
             utilities.
@@ -438,7 +438,7 @@ export default function App() {
             <h3 className="text-foreground text-xl font-semibold">
               Automatic Dependencies
             </h3>
-            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
+            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-sm leading-relaxed">
               <li>
                 <strong>Package Dependencies</strong>: Required npm packages are
                 automatically included
@@ -461,7 +461,7 @@ export default function App() {
             <h3 className="text-foreground text-xl font-semibold">
               Component Structure
             </h3>
-            <p className="text-primary-foreground text-[16px] leading-relaxed">
+            <p className="text-primary-foreground text-sm leading-relaxed">
               When you install a component, you get:
             </p>
             <CodeBlock
@@ -478,7 +478,7 @@ lib/utils/
             <h3 className="text-foreground text-xl font-semibold">
               Registry Features
             </h3>
-            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-[16px] leading-relaxed">
+            <ul className="text-primary-foreground list-inside list-disc space-y-2 text-sm leading-relaxed">
               <li>
                 <strong>Self-contained</strong>: Each component includes all
                 necessary dependencies
@@ -506,7 +506,7 @@ lib/utils/
           >
             MCP Support
           </h2>
-          <p className="text-primary-foreground text-[16px] leading-relaxed">
+          <p className="text-primary-foreground text-sm leading-relaxed">
             SmoothUI is fully compatible with the shadcn MCP server, enabling AI
             assistants to discover and install components automatically.
           </p>
@@ -515,7 +515,7 @@ lib/utils/
             <h3 className="text-foreground mb-2 text-lg font-semibold">
               🤖 AI Assistant Integration
             </h3>
-            <p className="text-primary-foreground mb-3 text-[16px] leading-relaxed">
+            <p className="text-primary-foreground mb-3 text-sm leading-relaxed">
               With MCP support, AI assistants like Claude, Cursor, and GitHub
               Copilot can discover, install, and help you use SmoothUI
               components seamlessly.
@@ -537,7 +537,7 @@ lib/utils/
           >
             Design System
           </h2>
-          <p className="text-primary-foreground text-[16px] leading-relaxed">
+          <p className="text-primary-foreground text-sm leading-relaxed">
             SmoothUI uses a carefully crafted design system with both light and
             dark variants. Add this to your global.css:
           </p>
@@ -555,10 +555,10 @@ lib/utils/
             Usage Tips
           </h2>
           <div className="space-y-3">
-            <p className="text-primary-foreground text-[16px] leading-relaxed">
+            <p className="text-primary-foreground text-sm leading-relaxed">
               Here are some tips to get the most out of SmoothUI components:
             </p>
-            <ul className="text-primary-foreground list-disc space-y-2 pl-6 text-[16px]">
+            <ul className="text-primary-foreground list-disc space-y-2 pl-6 text-sm">
               <li>
                 All components support both light and dark modes out of the box
               </li>
