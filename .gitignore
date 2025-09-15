@@ -50,4 +50,5 @@ src/components/smoothui/index.ts
 /.cursor/
 
 notes.md
+.playwright-mcp
 
