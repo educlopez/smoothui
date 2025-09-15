@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { X } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { useOnClickOutside } from "usehooks-ts"
@@ -46,17 +46,8 @@ export default function BasicModal({
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [isOpen, onClose])
 
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
-    }
-    return () => {
-      document.body.style.overflow = ""
-    }
-  }, [isOpen])
+  // Note: Body scroll locking is handled by the overlay and modal positioning
+  // No need to manually set body overflow as it can conflict with other components
 
   return (
     <AnimatePresence>
