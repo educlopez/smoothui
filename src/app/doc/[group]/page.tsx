@@ -216,8 +216,8 @@ export default async function GroupPage({
               </CardDescription>
 
               {/* Component Demo */}
-              <div className="bg-primary mb-4 rounded-lg border p-4">
-                <div className="flex items-center justify-center">
+              <div className="bg-primary relative mb-4 rounded-lg border p-4">
+                <div className="flex aspect-square min-h-52 items-center justify-center">
                   {component.componentUi &&
                     React.createElement(component.componentUi)}
                 </div>
