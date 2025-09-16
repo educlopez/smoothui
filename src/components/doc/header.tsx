@@ -87,6 +87,7 @@ const Header = () => {
             variant="ghost"
             type="button"
             onClick={() => setIsSearchDialogOpen(true)}
+            className="md:hidden"
             aria-label="Search components"
           >
             <Search className="h-4 w-4" />
