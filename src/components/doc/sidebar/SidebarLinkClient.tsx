@@ -72,51 +72,57 @@ export default function SidebarLinkClient() {
         return {
           initial: {
             opacity: 0,
-            x: 20,
-            filter: "blur(4px)",
+            x: 30,
+            filter: "blur(8px)",
+            scale: 0.95,
           },
           animate: {
             opacity: 1,
             x: 0,
             filter: "blur(0px)",
+            scale: 1,
           },
           exit: {
             opacity: 0,
-            x: -20,
-            filter: "blur(4px)",
+            x: -30,
+            filter: "blur(8px)",
+            scale: 0.95,
           },
         }
       case "fromLeft":
         return {
           initial: {
             opacity: 0,
-            x: -20,
-            filter: "blur(4px)",
+            x: -30,
+            filter: "blur(8px)",
+            scale: 0.95,
           },
           animate: {
             opacity: 1,
             x: 0,
             filter: "blur(0px)",
+            scale: 1,
           },
           exit: {
             opacity: 0,
-            x: 20,
-            filter: "blur(4px)",
+            x: 30,
+            filter: "blur(8px)",
+            scale: 0.95,
           },
         }
       default:
         return {
           initial: {
             opacity: 0,
-            y: 10,
+            scale: 0.95,
           },
           animate: {
             opacity: 1,
-            y: 0,
+            scale: 1,
           },
           exit: {
             opacity: 0,
-            y: -10,
+            scale: 0.95,
           },
         }
     }
@@ -220,10 +226,15 @@ export default function SidebarLinkClient() {
           {selectedCategory === "blocks" && (
             <motion.div
               key="blocks-section"
+              layout
               {...getAnimationVariants(animationDirection)}
               transition={{
-                duration: 0.3,
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+                opacity: { duration: 0.3 },
+                filter: { duration: 0.35 },
+                scale: { duration: 0.35 },
+                layout: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
               }}
             >
               <SidebarGroup>
@@ -304,15 +315,18 @@ export default function SidebarLinkClient() {
               </SidebarGroup>
             </motion.div>
           )}
-        </AnimatePresence>
-        <AnimatePresence mode="wait">
           {selectedCategory === "components" && (
             <motion.div
               key="components-section"
+              layout
               {...getAnimationVariants(animationDirection)}
               transition={{
-                duration: 0.3,
-                ease: [0.22, 1, 0.36, 1],
+                duration: 0.4,
+                ease: [0.16, 1, 0.3, 1],
+                opacity: { duration: 0.3 },
+                filter: { duration: 0.35 },
+                scale: { duration: 0.35 },
+                layout: { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
               }}
             >
               <SidebarGroup>
