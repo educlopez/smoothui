@@ -9,6 +9,8 @@ import { SearchDialog } from "@/components/doc/SearchDialog"
 import { CustomTrigger } from "@/components/doc/sidebar/trigger"
 import Logo from "@/components/logo"
 
+import { Button } from "../button"
+
 const Header = () => {
   const [isSearchDialogOpen, setIsSearchDialogOpen] = useState(false)
 
@@ -62,7 +64,7 @@ const Header = () => {
           <button
             type="button"
             onClick={() => setIsSearchDialogOpen(true)}
-            className="bg-background text-muted-foreground hover:bg-accent hover:text-accent-foreground inline-flex w-full max-w-sm cursor-pointer items-center gap-2 rounded-lg border p-2 text-sm transition-colors"
+            className="bg-primary text-foreground/70 hover:text-foreground inline-flex w-full max-w-sm cursor-pointer items-center gap-2 rounded-lg border p-2 text-sm transition-colors"
             aria-label="Search components"
           >
             <Search className="h-4 w-4" />
@@ -91,39 +93,40 @@ const Header = () => {
           </button>
 
           {/* GitHub Link */}
-          <Link
-            href="https://github.com/educlopez/smoothui"
-            aria-label="Visit GitHub Repository"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-border/50 bg-background/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground flex h-8 w-8 items-center justify-center rounded-lg border transition-colors"
-          >
-            <Github className="h-4 w-4" />
-          </Link>
-
-          {/* X.com Link */}
-          <Link
-            href="https://x.com/intent/user?screen_name=educalvolpz"
-            aria-label="Visit X Profile of educalvolpz"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-border/50 bg-background/50 text-muted-foreground hover:bg-accent hover:text-accent-foreground flex h-8 w-8 items-center justify-center rounded-lg border transition-colors"
-          >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              aria-label="X Icon"
-              fill="currentColor"
+          <Button variant="ghost" asChild>
+            <Link
+              href="https://github.com/educlopez/smoothui"
+              aria-label="Visit GitHub Repository"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              <path
+              <Github className="h-4 w-4" />
+            </Link>
+          </Button>
+          {/* X.com Link */}
+          <Button variant="ghost" asChild>
+            <Link
+              href="https://x.com/intent/user?screen_name=educalvolpz"
+              aria-label="Visit X Profile of educalvolpz"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+                role="img"
+                aria-label="X Icon"
                 fill="currentColor"
-                d="M14.773 2.5h2.545l-5.56 6.354 6.54 8.646h-5.12l-4.01-5.244-4.59 5.244H2.032l5.946-6.796L1.704 2.5h5.25l3.626 4.793L14.773 2.5zm-.893 13.477h1.41L6.19 3.943H4.676l9.204 12.034z"
-              />
-            </svg>
-          </Link>
+              >
+                <path
+                  fill="currentColor"
+                  d="M14.773 2.5h2.545l-5.56 6.354 6.54 8.646h-5.12l-4.01-5.244-4.59 5.244H2.032l5.946-6.796L1.704 2.5h5.25l3.626 4.793L14.773 2.5zm-.893 13.477h1.41L6.19 3.943H4.676l9.204 12.034z"
+                />
+              </svg>
+            </Link>
+          </Button>
         </div>
       </nav>
     </>
