@@ -183,131 +183,140 @@ export default function SidebarLinkClient() {
             </SidebarMenuSubItem>
           </SidebarMenuSub>
         </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground font-bold">
-            <Link
-              href="/doc/blocks"
-              className="hover:text-brand transition-colors"
-            >
-              Blocks
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarMenuSub className="border-none p-0">
-            <SidebarMenuSubItem key="blocks-hero">
-              <SidebarButtonClient
-                key="blocks-hero"
-                name="Hero"
-                slug="/doc/blocks/hero"
-                icon="Sparkles"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-pricing">
-              <SidebarButtonClient
-                key="blocks-pricing"
-                name="Pricing"
-                slug="/doc/blocks/pricing"
-                icon="PackagePlus"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-testimonial">
-              <SidebarButtonClient
-                key="blocks-testimonial"
-                name="Testimonial"
-                slug="/doc/blocks/testimonial"
-                icon="User"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-logo-cloud">
-              <SidebarButtonClient
-                key="blocks-logo-cloud"
-                name="Logo Clouds"
-                slug="/doc/blocks/logo-cloud"
-                icon="Zap"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-stats">
-              <SidebarButtonClient
-                key="blocks-stats"
-                name="Stats"
-                slug="/doc/blocks/stats"
-                icon="BarChart3"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-team">
-              <SidebarButtonClient
-                key="blocks-team"
-                name="Team Sections"
-                slug="/doc/blocks/team"
-                icon="Users"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-footer">
-              <SidebarButtonClient
-                key="blocks-footer"
-                name="Footer"
-                slug="/doc/blocks/footer"
-                icon="Building2"
-              />
-            </SidebarMenuSubItem>
-            <SidebarMenuSubItem key="blocks-faqs">
-              <SidebarButtonClient
-                key="blocks-faqs"
-                name="FAQs"
-                slug="/doc/blocks/faqs"
-                icon="HelpCircle"
-              />
-            </SidebarMenuSubItem>
-          </SidebarMenuSub>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground font-bold">
-            <Link
-              href="/doc/basic"
-              className="hover:text-brand transition-colors"
-            >
-              Basic
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarMenuSub className="border-none p-0">
-            {renderComponentList(componentResults.basic, "basic")}
-          </SidebarMenuSub>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground font-bold">
-            <Link
-              href="/doc/text"
-              className="hover:text-brand transition-colors"
-            >
-              Text
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarMenuSub className="border-none p-0">
-            {renderComponentList(componentResults.text, "text")}
-          </SidebarMenuSub>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground font-bold">
-            <Link href="/doc/ai" className="hover:text-brand transition-colors">
-              AI
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarMenuSub className="border-none p-0">
-            {renderComponentList(componentResults.ai, "ai")}
-          </SidebarMenuSub>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-foreground font-bold">
-            <Link
-              href="/doc/components"
-              className="hover:text-brand transition-colors"
-            >
-              Components
-            </Link>
-          </SidebarGroupLabel>
-          <SidebarMenuSub className="border-none p-0">
-            {renderComponentList(componentResults.components, "components")}
-          </SidebarMenuSub>
-        </SidebarGroup>
+        {(selectedCategory === "all" || selectedCategory === "blocks") && (
+          <SidebarGroup>
+            <SidebarGroupLabel className="text-foreground font-bold">
+              <Link
+                href="/doc/blocks"
+                className="hover:text-brand transition-colors"
+              >
+                Blocks
+              </Link>
+            </SidebarGroupLabel>
+            <SidebarMenuSub className="border-none p-0">
+              <SidebarMenuSubItem key="blocks-hero">
+                <SidebarButtonClient
+                  key="blocks-hero"
+                  name="Hero"
+                  slug="/doc/blocks/hero"
+                  icon="Sparkles"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-pricing">
+                <SidebarButtonClient
+                  key="blocks-pricing"
+                  name="Pricing"
+                  slug="/doc/blocks/pricing"
+                  icon="PackagePlus"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-testimonial">
+                <SidebarButtonClient
+                  key="blocks-testimonial"
+                  name="Testimonial"
+                  slug="/doc/blocks/testimonial"
+                  icon="User"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-logo-cloud">
+                <SidebarButtonClient
+                  key="blocks-logo-cloud"
+                  name="Logo Clouds"
+                  slug="/doc/blocks/logo-cloud"
+                  icon="Zap"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-stats">
+                <SidebarButtonClient
+                  key="blocks-stats"
+                  name="Stats"
+                  slug="/doc/blocks/stats"
+                  icon="BarChart3"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-team">
+                <SidebarButtonClient
+                  key="blocks-team"
+                  name="Team Sections"
+                  slug="/doc/blocks/team"
+                  icon="Users"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-footer">
+                <SidebarButtonClient
+                  key="blocks-footer"
+                  name="Footer"
+                  slug="/doc/blocks/footer"
+                  icon="Building2"
+                />
+              </SidebarMenuSubItem>
+              <SidebarMenuSubItem key="blocks-faqs">
+                <SidebarButtonClient
+                  key="blocks-faqs"
+                  name="FAQs"
+                  slug="/doc/blocks/faqs"
+                  icon="HelpCircle"
+                />
+              </SidebarMenuSubItem>
+            </SidebarMenuSub>
+          </SidebarGroup>
+        )}
+        {(selectedCategory === "all" || selectedCategory === "components") && (
+          <>
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-foreground font-bold">
+                <Link
+                  href="/doc/basic"
+                  className="hover:text-brand transition-colors"
+                >
+                  Basic
+                </Link>
+              </SidebarGroupLabel>
+              <SidebarMenuSub className="border-none p-0">
+                {renderComponentList(componentResults.basic, "basic")}
+              </SidebarMenuSub>
+            </SidebarGroup>
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-foreground font-bold">
+                <Link
+                  href="/doc/text"
+                  className="hover:text-brand transition-colors"
+                >
+                  Text
+                </Link>
+              </SidebarGroupLabel>
+              <SidebarMenuSub className="border-none p-0">
+                {renderComponentList(componentResults.text, "text")}
+              </SidebarMenuSub>
+            </SidebarGroup>
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-foreground font-bold">
+                <Link
+                  href="/doc/ai"
+                  className="hover:text-brand transition-colors"
+                >
+                  AI
+                </Link>
+              </SidebarGroupLabel>
+              <SidebarMenuSub className="border-none p-0">
+                {renderComponentList(componentResults.ai, "ai")}
+              </SidebarMenuSub>
+            </SidebarGroup>
+            <SidebarGroup>
+              <SidebarGroupLabel className="text-foreground font-bold">
+                <Link
+                  href="/doc/components"
+                  className="hover:text-brand transition-colors"
+                >
+                  Components
+                </Link>
+              </SidebarGroupLabel>
+              <SidebarMenuSub className="border-none p-0">
+                {renderComponentList(componentResults.components, "components")}
+              </SidebarMenuSub>
+            </SidebarGroup>
+          </>
+        )}
       </ScrollArea>
     </>
   )

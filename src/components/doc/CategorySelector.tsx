@@ -2,13 +2,10 @@
 
 import { useRouter } from "next/navigation"
 import {
-  Bot,
   Check,
   ChevronsUpDown,
   Grid3X3,
-  Layers3,
   LayoutDashboard,
-  Type,
   Zap,
 } from "lucide-react"
 
@@ -29,8 +26,8 @@ interface CategorySelectorProps {
 const categories = [
   {
     value: "all",
-    label: "All Categories",
-    description: "Browse all components",
+    label: "All",
+    description: "Browse all components and blocks",
     icon: Grid3X3,
     path: "/doc",
   },
@@ -42,32 +39,11 @@ const categories = [
     path: "/doc/components",
   },
   {
-    value: "basic",
-    label: "Basics",
-    description: "Essential UI elements",
-    icon: Layers3,
-    path: "/doc/basic",
-  },
-  {
     value: "blocks",
     label: "Blocks",
     description: "Complete page sections",
     icon: Zap,
     path: "/doc/blocks",
-  },
-  {
-    value: "text",
-    label: "Text",
-    description: "Typography and text effects",
-    icon: Type,
-    path: "/doc/text",
-  },
-  {
-    value: "ai",
-    label: "AI",
-    description: "AI-powered components",
-    icon: Bot,
-    path: "/doc/ai",
   },
 ]
 

@@ -1,5 +1,23 @@
 export const changelogEntries = [
   {
+    date: "Sep 16, 2025",
+    version: "3.0",
+    title: "New Blocks Sections & Enhanced Sidebar Filter",
+    tags: ["Blocks", "Navigation", "UX", "Components", "Filter"],
+    changes: [
+      "New Logo Clouds blocks section with animated and simple variants",
+      "New Stats blocks section with comprehensive statistics displays",
+      "New Team sections with grid and carousel layouts for team showcases",
+      "New Footer blocks with simple and complex footer designs",
+      "New FAQs blocks section with comprehensive FAQ layouts",
+      "Enhanced sidebar filter system with All, Components, and Blocks categories",
+      "Improved navigation with conditional sidebar content based on selected category",
+      "Streamlined category selector with simplified three-option interface",
+      "Better content organization separating components from blocks",
+      "Enhanced user experience with focused content discovery",
+    ],
+  },
+  {
     date: "Sep 8, 2025",
     version: "2.9",
     title: "Enhanced Search & Discovery System",
