@@ -1,13 +1,11 @@
 "use client"
 
-import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import {
   Book,
   Bot,
   ChevronsUpDown,
-  Github,
   Home,
   LayoutDashboard,
   ListChecks,
@@ -131,51 +129,6 @@ export function FloatNav() {
           transition={{ type: "spring", stiffness: 350, damping: 55 }}
         >
           <div ref={ref} className="relative flex w-fit items-center">
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="https://x.com/intent/user?screen_name=educalvolpz"
-                  aria-label="Visit X Profile of educalvolpz"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="float-trigger h-auto w-auto !p-2"
-                >
-                  <svg
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                    role="img"
-                    aria-label="X Icon"
-                    fill="currentColor"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M14.773 2.5h2.545l-5.56 6.354 6.54 8.646h-5.12l-4.01-5.244-4.59 5.244H2.032l5.946-6.796L1.704 2.5h5.25l3.626 4.793L14.773 2.5zm-.893 13.477h1.41L6.19 3.943H4.676l9.204 12.034z"
-                    ></path>
-                  </svg>
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
-                <p>Follow me on X</p>
-              </TooltipContent>
-            </Tooltip>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Link
-                  href="https://github.com/educlopez/smoothui"
-                  aria-label="Visit GitHub Repository"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="float-trigger h-auto w-auto !p-2"
-                >
-                  <Github size={20} aria-hidden="true" />
-                </Link>
-              </TooltipTrigger>
-              <TooltipContent className="bg-background rounded-full border px-4 py-2 text-xs shadow-xs">
-                <p>GitHub</p>
-              </TooltipContent>
-            </Tooltip>
             <div className="text-foreground text-sm font-semibold">
               <DropdownMenu>
                 <DropdownMenuTrigger className="float-trigger !pr-3 !pl-4">

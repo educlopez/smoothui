@@ -1,9 +1,9 @@
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
+import Header from "@/components/doc/header"
 import { AppSidebar } from "@/components/doc/sidebar/app-sidebar"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
-import Header from "../../components/doc/header"
 import { DocLayoutClient } from "./DocLayoutClient"
 
 export const metadata: Metadata = {
@@ -88,8 +88,8 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="inset" />
-        <SidebarInset className="border md:peer-data-[variant=inset]:shadow-none">
+        <AppSidebar variant="floating" className="z-40" />
+        <SidebarInset className="md:peer-data-[variant=inset]:shadow-none">
           <Header />
           <DocLayoutClient>{children}</DocLayoutClient>
         </SidebarInset>

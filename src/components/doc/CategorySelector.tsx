@@ -1,21 +1,6 @@
 "use client"
 
 import { useRouter } from "next/navigation"
-import {
-  Check,
-  ChevronsUpDown,
-  Grid3X3,
-  LayoutDashboard,
-  Zap,
-} from "lucide-react"
-
-import { Button } from "@/components/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
 
 interface CategorySelectorProps {
   value: string
@@ -25,24 +10,13 @@ interface CategorySelectorProps {
 
 const categories = [
   {
-    value: "all",
-    label: "All",
-    description: "Browse all components and blocks",
-    icon: Grid3X3,
-    path: "/doc",
-  },
-  {
     value: "components",
     label: "Components",
-    description: "Interactive UI components",
-    icon: LayoutDashboard,
     path: "/doc/components",
   },
   {
     value: "blocks",
     label: "Blocks",
-    description: "Complete page sections",
-    icon: Zap,
     path: "/doc/blocks",
   },
 ]
@@ -53,58 +27,60 @@ export function CategorySelector({
   className = "",
 }: CategorySelectorProps) {
   const router = useRouter()
-  const selectedCategory =
-    categories.find((cat) => cat.value === value) || categories[0]
-  const SelectedIcon = selectedCategory.icon
 
   const handleCategorySelect = (categoryValue: string) => {
     const category = categories.find((cat) => cat.value === categoryValue)
     if (category) {
       onValueChange(categoryValue)
-
       // Navigate to the category page
       router.push(category.path)
     }
   }
 
+  const selectedIndex = categories.findIndex((cat) => cat.value === value)
+
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          className={`bg-background hover:bg-primary w-full justify-between border p-2 shadow-none ${className}`}
-        >
-          <div className="flex items-center gap-2">
-            <SelectedIcon className="h-4 w-4" />
-            <span>{selectedCategory.label}</span>
-          </div>
-          <ChevronsUpDown className="h-4 w-4 opacity-50" />
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-full min-w-[--radix-dropdown-menu-trigger-width]">
+    <div className={`relative my-2 px-1 md:my-0 ${className}`}>
+      <div
+        role="radiogroup"
+        aria-required="false"
+        dir="ltr"
+        className="bg-background grid grid-cols-2 rounded-lg border p-0.5"
+        aria-label="Select view"
+        tabIndex={0}
+        style={{ outline: "none" }}
+      >
+        {/* Animated background indicator */}
+        <div
+          className="bg-primary absolute top-1 bottom-1 left-2 rounded-md border"
+          style={{
+            width: "calc(50% - 8px)",
+            transform: `translateX(${selectedIndex * 100}%)`,
+            transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+          }}
+        />
+
         {categories.map((category) => {
-          const Icon = category.icon
           const isSelected = value === category.value
 
           return (
-            <DropdownMenuItem
+            <button
               key={category.value}
+              type="button"
+              data-state={isSelected ? "checked" : "unchecked"}
+              value={category.label}
+              className="hover:text-gray-1200 relative h-8 text-[13px] font-medium transition-colors"
               onClick={() => handleCategorySelect(category.value)}
-              className="hover:bg-accent hover:text-accent-foreground flex cursor-pointer items-center gap-2 rounded-lg p-1.5"
+              tabIndex={isSelected ? 0 : -1}
+              aria-pressed={isSelected}
             >
-              <div className="flex h-5 w-5 items-center justify-center">
-                <Icon className="text-muted-foreground h-4 w-4" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-medium">{category.label}</p>
-                <p className="text-muted-foreground truncate text-xs">
-                  {category.description}
-                </p>
-              </div>
-              {isSelected && <Check className="text-primary h-3.5 w-3.5" />}
-            </DropdownMenuItem>
+              <span className="relative flex items-center justify-center gap-1.5 text-inherit">
+                {category.label}
+              </span>
+            </button>
           )
         })}
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </div>
+    </div>
   )
 }

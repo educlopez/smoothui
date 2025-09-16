@@ -1,15 +1,9 @@
 "use client"
 
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 import Link from "next/link"
-import {
-  BarChart3,
-  Building2,
-  HelpCircle,
-  Search,
-  Users,
-  Zap,
-} from "lucide-react"
+import { BarChart3, Building2, HelpCircle, Users, Zap } from "lucide-react"
+import { AnimatePresence, motion } from "motion/react"
 
 import { useScrollOpacity } from "@/components/ui/hooks/useScrollOpacity"
 import { ScrollArea } from "@/components/ui/scroll-area"
@@ -27,7 +21,6 @@ import { textComponents } from "@/app/doc/data/textComponentes"
 import type { ComponentsProps } from "@/app/doc/data/typeComponent"
 
 import { CategorySelector } from "../CategorySelector"
-import { SearchDialog } from "../SearchDialog"
 import { SidebarButtonClient } from "./sidebarButtonClient"
 
 // Memoized component data to avoid recreating arrays on every render
@@ -39,22 +32,95 @@ const COMPONENT_DATA = {
 } as const
 
 export default function SidebarLinkClient() {
-  const [selectedCategory, setSelectedCategory] = useState("all")
-  const [isSearchDialogOpen, setIsSearchDialogOpen] = useState(false)
+  const [selectedCategory, setSelectedCategory] = useState("components")
+  const [previousCategory, setPreviousCategory] = useState<string | null>(null)
   const { ref: scrollRef, handleScroll } = useScrollOpacity(15)
 
-  // Handle Cmd+K shortcut
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault()
-        setIsSearchDialogOpen(true)
-      }
+  const handleCategoryChange = (newCategory: string) => {
+    setPreviousCategory(selectedCategory)
+    setSelectedCategory(newCategory)
+  }
+
+  // Helper function to determine animation direction based on category transition
+  const getAnimationDirection = (
+    currentCategory: string,
+    previousCategory: string | null
+  ) => {
+    if (!previousCategory) return "center"
+
+    // If going from components to blocks, animate from right
+    if (previousCategory === "components" && currentCategory === "blocks") {
+      return "fromRight"
+    }
+    // If going from blocks to components, animate from left
+    if (previousCategory === "blocks" && currentCategory === "components") {
+      return "fromLeft"
     }
 
-    document.addEventListener("keydown", handleKeyDown)
-    return () => document.removeEventListener("keydown", handleKeyDown)
-  }, [])
+    return "center"
+  }
+
+  const animationDirection = getAnimationDirection(
+    selectedCategory,
+    previousCategory
+  )
+
+  // Animation variants based on direction
+  const getAnimationVariants = (direction: string) => {
+    switch (direction) {
+      case "fromRight":
+        return {
+          initial: {
+            opacity: 0,
+            x: 20,
+            filter: "blur(4px)",
+          },
+          animate: {
+            opacity: 1,
+            x: 0,
+            filter: "blur(0px)",
+          },
+          exit: {
+            opacity: 0,
+            x: -20,
+            filter: "blur(4px)",
+          },
+        }
+      case "fromLeft":
+        return {
+          initial: {
+            opacity: 0,
+            x: -20,
+            filter: "blur(4px)",
+          },
+          animate: {
+            opacity: 1,
+            x: 0,
+            filter: "blur(0px)",
+          },
+          exit: {
+            opacity: 0,
+            x: 20,
+            filter: "blur(4px)",
+          },
+        }
+      default:
+        return {
+          initial: {
+            opacity: 0,
+            y: 10,
+          },
+          animate: {
+            opacity: 1,
+            y: 0,
+          },
+          exit: {
+            opacity: 0,
+            y: -10,
+          },
+        }
+    }
+  }
 
   // Memoized component results - always show all components
   const componentResults = useMemo(() => {
@@ -105,10 +171,6 @@ export default function SidebarLinkClient() {
 
   return (
     <>
-      <SearchDialog
-        open={isSearchDialogOpen}
-        onOpenChange={setIsSearchDialogOpen}
-      />
       <ScrollArea
         ref={scrollRef}
         style={{ minHeight: "unset" }}
@@ -117,39 +179,10 @@ export default function SidebarLinkClient() {
         maskHeight={50}
       >
         <div className="space-y-2 p-2">
-          {/* Search Button - Desktop */}
-          <button
-            type="button"
-            data-search-full=""
-            onClick={() => setIsSearchDialogOpen(true)}
-            className="bg-background text-muted-foreground hover:bg-primary hover:text-accent-foreground inline-flex w-full cursor-pointer items-center gap-2 rounded-lg border p-1.5 ps-2 text-sm transition-colors max-md:hidden"
-          >
-            <Search className="h-4 w-4" />
-            <span className="flex-1 text-left">Search</span>
-            <div className="ms-auto inline-flex gap-0.5">
-              <kbd className="bg-primary rounded border px-1.5 font-mono text-xs">
-                ⌘
-              </kbd>
-              <kbd className="bg-primary rounded border px-1.5 font-mono text-xs">
-                K
-              </kbd>
-            </div>
-          </button>
-
-          {/* Search Button - Mobile - Hidden since we have search in header */}
-          <button
-            type="button"
-            onClick={() => setIsSearchDialogOpen(true)}
-            className="bg-background text-muted-foreground hover:bg-primary hover:text-accent-foreground hidden w-full items-center justify-center gap-2 rounded-lg border p-2 text-sm transition-colors"
-          >
-            <Search className="h-4 w-4" />
-            <span>Search</span>
-          </button>
-
           {/* Category Selector */}
           <CategorySelector
             value={selectedCategory}
-            onValueChange={setSelectedCategory}
+            onValueChange={handleCategoryChange}
           />
         </div>
         <SidebarGroup>
@@ -183,140 +216,163 @@ export default function SidebarLinkClient() {
             </SidebarMenuSubItem>
           </SidebarMenuSub>
         </SidebarGroup>
-        {(selectedCategory === "all" || selectedCategory === "blocks") && (
-          <SidebarGroup>
-            <SidebarGroupLabel className="text-foreground font-bold">
-              <Link
-                href="/doc/blocks"
-                className="hover:text-brand transition-colors"
-              >
-                Blocks
-              </Link>
-            </SidebarGroupLabel>
-            <SidebarMenuSub className="border-none p-0">
-              <SidebarMenuSubItem key="blocks-hero">
-                <SidebarButtonClient
-                  key="blocks-hero"
-                  name="Hero"
-                  slug="/doc/blocks/hero"
-                  icon="Sparkles"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-pricing">
-                <SidebarButtonClient
-                  key="blocks-pricing"
-                  name="Pricing"
-                  slug="/doc/blocks/pricing"
-                  icon="PackagePlus"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-testimonial">
-                <SidebarButtonClient
-                  key="blocks-testimonial"
-                  name="Testimonial"
-                  slug="/doc/blocks/testimonial"
-                  icon="User"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-logo-cloud">
-                <SidebarButtonClient
-                  key="blocks-logo-cloud"
-                  name="Logo Clouds"
-                  slug="/doc/blocks/logo-cloud"
-                  icon="Zap"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-stats">
-                <SidebarButtonClient
-                  key="blocks-stats"
-                  name="Stats"
-                  slug="/doc/blocks/stats"
-                  icon="BarChart3"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-team">
-                <SidebarButtonClient
-                  key="blocks-team"
-                  name="Team Sections"
-                  slug="/doc/blocks/team"
-                  icon="Users"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-footer">
-                <SidebarButtonClient
-                  key="blocks-footer"
-                  name="Footer"
-                  slug="/doc/blocks/footer"
-                  icon="Building2"
-                />
-              </SidebarMenuSubItem>
-              <SidebarMenuSubItem key="blocks-faqs">
-                <SidebarButtonClient
-                  key="blocks-faqs"
-                  name="FAQs"
-                  slug="/doc/blocks/faqs"
-                  icon="HelpCircle"
-                />
-              </SidebarMenuSubItem>
-            </SidebarMenuSub>
-          </SidebarGroup>
-        )}
-        {(selectedCategory === "all" || selectedCategory === "components") && (
-          <>
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-foreground font-bold">
-                <Link
-                  href="/doc/basic"
-                  className="hover:text-brand transition-colors"
-                >
-                  Basic
-                </Link>
-              </SidebarGroupLabel>
-              <SidebarMenuSub className="border-none p-0">
-                {renderComponentList(componentResults.basic, "basic")}
-              </SidebarMenuSub>
-            </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-foreground font-bold">
-                <Link
-                  href="/doc/text"
-                  className="hover:text-brand transition-colors"
-                >
-                  Text
-                </Link>
-              </SidebarGroupLabel>
-              <SidebarMenuSub className="border-none p-0">
-                {renderComponentList(componentResults.text, "text")}
-              </SidebarMenuSub>
-            </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-foreground font-bold">
-                <Link
-                  href="/doc/ai"
-                  className="hover:text-brand transition-colors"
-                >
-                  AI
-                </Link>
-              </SidebarGroupLabel>
-              <SidebarMenuSub className="border-none p-0">
-                {renderComponentList(componentResults.ai, "ai")}
-              </SidebarMenuSub>
-            </SidebarGroup>
-            <SidebarGroup>
-              <SidebarGroupLabel className="text-foreground font-bold">
-                <Link
-                  href="/doc/components"
-                  className="hover:text-brand transition-colors"
-                >
-                  Components
-                </Link>
-              </SidebarGroupLabel>
-              <SidebarMenuSub className="border-none p-0">
-                {renderComponentList(componentResults.components, "components")}
-              </SidebarMenuSub>
-            </SidebarGroup>
-          </>
-        )}
+        <AnimatePresence mode="wait">
+          {selectedCategory === "blocks" && (
+            <motion.div
+              key="blocks-section"
+              {...getAnimationVariants(animationDirection)}
+              transition={{
+                duration: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-foreground font-bold">
+                  <Link
+                    href="/doc/blocks"
+                    className="hover:text-brand transition-colors"
+                  >
+                    Blocks
+                  </Link>
+                </SidebarGroupLabel>
+                <SidebarMenuSub className="border-none p-0">
+                  <SidebarMenuSubItem key="blocks-hero">
+                    <SidebarButtonClient
+                      key="blocks-hero"
+                      name="Hero"
+                      slug="/doc/blocks/hero"
+                      icon="Sparkles"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-pricing">
+                    <SidebarButtonClient
+                      key="blocks-pricing"
+                      name="Pricing"
+                      slug="/doc/blocks/pricing"
+                      icon="PackagePlus"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-testimonial">
+                    <SidebarButtonClient
+                      key="blocks-testimonial"
+                      name="Testimonial"
+                      slug="/doc/blocks/testimonial"
+                      icon="User"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-logo-cloud">
+                    <SidebarButtonClient
+                      key="blocks-logo-cloud"
+                      name="Logo Clouds"
+                      slug="/doc/blocks/logo-cloud"
+                      icon="Zap"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-stats">
+                    <SidebarButtonClient
+                      key="blocks-stats"
+                      name="Stats"
+                      slug="/doc/blocks/stats"
+                      icon="BarChart3"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-team">
+                    <SidebarButtonClient
+                      key="blocks-team"
+                      name="Team Sections"
+                      slug="/doc/blocks/team"
+                      icon="Users"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-footer">
+                    <SidebarButtonClient
+                      key="blocks-footer"
+                      name="Footer"
+                      slug="/doc/blocks/footer"
+                      icon="Building2"
+                    />
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem key="blocks-faqs">
+                    <SidebarButtonClient
+                      key="blocks-faqs"
+                      name="FAQs"
+                      slug="/doc/blocks/faqs"
+                      icon="HelpCircle"
+                    />
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarGroup>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        <AnimatePresence mode="wait">
+          {selectedCategory === "components" && (
+            <motion.div
+              key="components-section"
+              {...getAnimationVariants(animationDirection)}
+              transition={{
+                duration: 0.3,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-foreground font-bold">
+                  <Link
+                    href="/doc/basic"
+                    className="hover:text-brand transition-colors"
+                  >
+                    Basic
+                  </Link>
+                </SidebarGroupLabel>
+                <SidebarMenuSub className="border-none p-0">
+                  {renderComponentList(componentResults.basic, "basic")}
+                </SidebarMenuSub>
+              </SidebarGroup>
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-foreground font-bold">
+                  <Link
+                    href="/doc/text"
+                    className="hover:text-brand transition-colors"
+                  >
+                    Text
+                  </Link>
+                </SidebarGroupLabel>
+                <SidebarMenuSub className="border-none p-0">
+                  {renderComponentList(componentResults.text, "text")}
+                </SidebarMenuSub>
+              </SidebarGroup>
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-foreground font-bold">
+                  <Link
+                    href="/doc/ai"
+                    className="hover:text-brand transition-colors"
+                  >
+                    AI
+                  </Link>
+                </SidebarGroupLabel>
+                <SidebarMenuSub className="border-none p-0">
+                  {renderComponentList(componentResults.ai, "ai")}
+                </SidebarMenuSub>
+              </SidebarGroup>
+              <SidebarGroup>
+                <SidebarGroupLabel className="text-foreground font-bold">
+                  <Link
+                    href="/doc/components"
+                    className="hover:text-brand transition-colors"
+                  >
+                    Components
+                  </Link>
+                </SidebarGroupLabel>
+                <SidebarMenuSub className="border-none p-0">
+                  {renderComponentList(
+                    componentResults.components,
+                    "components"
+                  )}
+                </SidebarMenuSub>
+              </SidebarGroup>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </ScrollArea>
     </>
   )
