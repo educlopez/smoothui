@@ -79,7 +79,7 @@ export function TeamGrid({
   const isInView = useInView(ref, { once: true })
 
   return (
-    <section className="bg-white py-24 sm:py-32 dark:bg-gray-900">
+    <section className="bg-primary py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -88,12 +88,10 @@ export function TeamGrid({
           viewport={{ once: true }}
           className="mx-auto max-w-2xl lg:mx-0"
         >
-          <h2 className="text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
+          <h2 className="text-foreground text-4xl font-semibold tracking-tight text-pretty sm:text-5xl">
             {title}
           </h2>
-          <p className="mt-6 text-lg/8 text-gray-600 dark:text-gray-400">
-            {description}
-          </p>
+          <p className="text-foreground/70 mt-6 text-lg/8">{description}</p>
         </motion.div>
 
         <motion.ul
@@ -134,25 +132,23 @@ export function TeamGrid({
                 </motion.div>
 
                 {/* Name */}
-                <h3 className="mt-6 text-lg/8 font-semibold tracking-tight text-gray-900 dark:text-white">
+                <h3 className="text-foreground mt-6 text-lg/8 font-semibold tracking-tight">
                   {member.name}
                 </h3>
 
                 {/* Role */}
-                <p className="text-base/7 text-gray-600 dark:text-gray-300">
-                  {member.role}
-                </p>
+                <p className="text-foreground/70 text-base/7">{member.role}</p>
 
                 {/* Location */}
                 {member.location && (
-                  <p className="text-sm/6 text-gray-500 dark:text-gray-400">
+                  <p className="text-foreground/70 text-sm/6">
                     {member.location}
                   </p>
                 )}
 
                 {/* Bio */}
                 {member.bio && (
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-foreground/70 mt-2 text-sm">
                     {member.bio}
                   </p>
                 )}
