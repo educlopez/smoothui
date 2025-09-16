@@ -13,9 +13,9 @@ export const testimonialBlocks: BlocksProps[] = [
     componentUi: TestimonialsSimple,
   },
   {
-    title: "Grid Testimonials",
+    title: "Carousel Testimonials",
     description:
-      "A modern grid layout testimonials section featuring SmoothUI community feedback with hover animations and staggered entrance effects.",
+      "A modern carousel layout testimonials section featuring SmoothUI community feedback with hover animations and staggered entrance effects.",
     componentPath: "src/components/smoothui/blocks/TestimonialsGrid.tsx",
     componentUi: TestimonialsGrid,
   },
