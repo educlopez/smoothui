@@ -96,8 +96,8 @@ export function TestimonialsGrid() {
                 </h2>
                 <p className="text-muted-foreground text-lg text-balance">
                   Join thousands of developers who are building faster, more
-                  beautiful UIs with SmoothUI. See what they're saying about
-                  their experience.
+                  beautiful UIs with SmoothUI. See what they&apos;re saying
+                  about their experience.
                 </p>
               </div>
 

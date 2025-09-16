@@ -2,10 +2,16 @@ import React from "react"
 import type { Metadata } from "next"
 
 import { CodeBlock } from "@/components/doc/codeBlock"
+import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
 import Divider from "@/components/landing/divider"
+import { faqsBlocks } from "@/app/doc/data/block-faqs"
+import { footerBlocks } from "@/app/doc/data/block-footer"
 import { heroBlocks } from "@/app/doc/data/block-hero"
+import { logoCloudBlocks } from "@/app/doc/data/block-logo-cloud"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
+import { statsBlocks } from "@/app/doc/data/block-stats"
+import { teamBlocks } from "@/app/doc/data/block-team"
 import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import type { BlocksProps } from "@/app/doc/data/typeBlock"
 import { readComponentSource, readStyleSource } from "@/app/utils/readFile"
@@ -15,7 +21,11 @@ const groupDataMap: Record<string, BlocksProps[]> = {
   hero: heroBlocks,
   pricing: pricingBlocks,
   testimonial: testimonialBlocks,
-  // Add more groups here as needed
+  "logo-cloud": logoCloudBlocks,
+  stats: statsBlocks,
+  team: teamBlocks,
+  footer: footerBlocks,
+  faqs: faqsBlocks,
 }
 
 // Add group descriptions
@@ -25,7 +35,14 @@ const groupDescriptionMap: Record<string, string> = {
     "Beautiful, responsive pricing sections to showcase your product plans with style and clarity.",
   testimonial:
     "Stylish testimonial sections to highlight user feedback and build trust with your audience.",
-  // Add more group descriptions as needed
+  "logo-cloud":
+    "Elegant logo cloud sections to showcase trusted partners, clients, and integrations with smooth animations.",
+  stats:
+    "Impressive statistics sections with animated counters, trend indicators, and engaging visual presentations.",
+  team: "Professional team showcase sections with member profiles, social links, and interactive layouts.",
+  footer:
+    "Comprehensive footer sections with navigation, social links, newsletter signup, and company information.",
+  faqs: "User-friendly FAQ sections with accordion layouts and organized question categories for better UX.",
 }
 
 export async function generateStaticParams() {
@@ -198,6 +215,13 @@ export default async function BlocksGroupPage({
                     </TabsContent>
                   )}
                 </Tabs>
+                {block.props && (
+                  <>
+                    <Divider className="relative my-6" />
+                    <h3 className="mb-4 text-lg font-semibold">Props</h3>
+                    <PropsTable props={block.props} />
+                  </>
+                )}
               </section>
             )
           }

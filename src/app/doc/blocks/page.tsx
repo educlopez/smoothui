@@ -1,7 +1,17 @@
 import * as React from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
-import { ArrowRight, PackagePlus, Sparkles, User } from "lucide-react"
+import {
+  ArrowRight,
+  BarChart3,
+  Building2,
+  HelpCircle,
+  PackagePlus,
+  Sparkles,
+  User,
+  Users,
+  Zap,
+} from "lucide-react"
 
 import { Button } from "@/components/button"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
@@ -13,8 +23,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { faqsBlocks } from "@/app/doc/data/block-faqs"
+import { footerBlocks } from "@/app/doc/data/block-footer"
 import { heroBlocks } from "@/app/doc/data/block-hero"
+import { logoCloudBlocks } from "@/app/doc/data/block-logo-cloud"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
+import { statsBlocks } from "@/app/doc/data/block-stats"
+import { teamBlocks } from "@/app/doc/data/block-team"
 import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 
 export const metadata: Metadata = {
@@ -63,6 +78,11 @@ export default function BlocksPage() {
     Sparkles: Sparkles,
     PackagePlus: PackagePlus,
     User: User,
+    Zap: Zap,
+    BarChart3: BarChart3,
+    Users: Users,
+    Building2: Building2,
+    HelpCircle: HelpCircle,
   }
 
   const blockCategories = [
@@ -93,6 +113,56 @@ export default function BlocksPage() {
       count: testimonialBlocks.length,
       href: "/doc/blocks/testimonial",
       icon: "User",
+      color:
+        "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
+    },
+    {
+      name: "Logo Cloud",
+      description:
+        "Elegant logo cloud sections to showcase trusted partners, clients, and integrations with smooth animations.",
+      count: logoCloudBlocks.length,
+      href: "/doc/blocks/logo-cloud",
+      icon: "Zap",
+      color:
+        "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
+    },
+    {
+      name: "Stats",
+      description:
+        "Impressive statistics sections with animated counters, trend indicators, and engaging visual presentations.",
+      count: statsBlocks.length,
+      href: "/doc/blocks/stats",
+      icon: "BarChart3",
+      color:
+        "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
+    },
+    {
+      name: "Team",
+      description:
+        "Professional team showcase sections with member profiles, social links, and interactive layouts.",
+      count: teamBlocks.length,
+      href: "/doc/blocks/team",
+      icon: "Users",
+      color:
+        "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
+    },
+    {
+      name: "Footer",
+      description:
+        "Comprehensive footer sections with navigation, social links, newsletter signup, and company information.",
+      count: footerBlocks.length,
+      href: "/doc/blocks/footer",
+      icon: "Building2",
+      color:
+        "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
+    },
+    {
+      name: "FAQs",
+      description:
+        "User-friendly FAQ sections with accordion layouts and organized question categories for better UX.",
+      count: faqsBlocks.length,
+      href: "/doc/blocks/faqs",
+      icon: "HelpCircle",
       color:
         "bg-gradient-to-r from-brand to-brand-secondary border border-brand-secondary",
     },

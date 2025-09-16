@@ -1,8 +1,13 @@
 import type { MetadataRoute } from "next"
 
 import { basicComponents } from "@/app/doc/data/basicComponents"
+import { faqsBlocks } from "@/app/doc/data/block-faqs"
+import { footerBlocks } from "@/app/doc/data/block-footer"
 import { heroBlocks } from "@/app/doc/data/block-hero"
+import { logoCloudBlocks } from "@/app/doc/data/block-logo-cloud"
 import { pricingBlocks } from "@/app/doc/data/block-pricing"
+import { statsBlocks } from "@/app/doc/data/block-stats"
+import { teamBlocks } from "@/app/doc/data/block-team"
 import { testimonialBlocks } from "@/app/doc/data/block-testimonials"
 import { components } from "@/app/doc/data/components"
 import { textComponents } from "@/app/doc/data/textComponentes"
@@ -44,6 +49,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { group: "hero", blocks: heroBlocks },
     { group: "pricing", blocks: pricingBlocks },
     { group: "testimonial", blocks: testimonialBlocks },
+    { group: "logo-cloud", blocks: logoCloudBlocks },
+    { group: "stats", blocks: statsBlocks },
+    { group: "team", blocks: teamBlocks },
+    { group: "footer", blocks: footerBlocks },
+    { group: "faqs", blocks: faqsBlocks },
   ]
 
   // Add group listing URLs for blocks
