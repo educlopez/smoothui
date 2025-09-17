@@ -196,7 +196,7 @@ export default function BlocksPage() {
         {blockCategories.map((category) => (
           <Card
             key={category.name}
-            className="group !shadow-none transition-all duration-200"
+            className="group bg-primary !shadow-none transition-all duration-200"
           >
             <CardHeader>
               <div className="flex items-start justify-between">
