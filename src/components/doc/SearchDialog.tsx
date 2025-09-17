@@ -115,7 +115,7 @@ export function SearchDialog({ ...props }: DialogProps) {
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="rounded-xl border-none bg-clip-padding p-2 pb-11 ring-4 shadow-2xl ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800"
+        className="rounded-xl border bg-clip-padding p-2 pb-11 shadow-2xl"
       >
         <DialogHeader className="sr-only">
           <DialogTitle>Search components...</DialogTitle>
@@ -135,7 +135,7 @@ export function SearchDialog({ ...props }: DialogProps) {
         >
           <CommandInput placeholder="Search components..." />
           <CommandList className="no-scrollbar min-h-80 scroll-pt-2 scroll-pb-1.5">
-            <CommandEmpty className="text-muted-foreground py-12 text-center text-sm">
+            <CommandEmpty className="text-foreground/70 py-12 text-center text-sm">
               No results found.
             </CommandEmpty>
 
@@ -169,7 +169,10 @@ export function SearchDialog({ ...props }: DialogProps) {
                         {component.componentTitle}
                       </span>
                       {component.isNew && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="border-border border text-xs"
+                        >
                           New
                         </Badge>
                       )}
@@ -212,7 +215,10 @@ export function SearchDialog({ ...props }: DialogProps) {
                         {component.componentTitle}
                       </span>
                       {component.isNew && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="border-border border text-xs"
+                        >
                           New
                         </Badge>
                       )}
@@ -255,7 +261,10 @@ export function SearchDialog({ ...props }: DialogProps) {
                         {component.componentTitle}
                       </span>
                       {component.isNew && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="border-border border text-xs"
+                        >
                           New
                         </Badge>
                       )}
@@ -297,7 +306,10 @@ export function SearchDialog({ ...props }: DialogProps) {
                         {component.componentTitle}
                       </span>
                       {component.isNew && (
-                        <Badge variant="secondary" className="text-xs">
+                        <Badge
+                          variant="secondary"
+                          className="border-border border text-xs"
+                        >
                           New
                         </Badge>
                       )}
@@ -576,7 +588,7 @@ export function SearchDialog({ ...props }: DialogProps) {
             )}
           </CommandList>
         </Command>
-        <div className="text-muted-foreground absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t border-t-neutral-100 bg-neutral-50 px-4 text-xs font-medium dark:border-t-neutral-700 dark:bg-neutral-800">
+        <div className="text-foreground/70 bg-border absolute inset-x-0 bottom-0 z-20 flex h-10 items-center gap-2 rounded-b-xl border-t px-4 text-xs font-medium">
           <div className="flex items-center gap-2">
             <CommandMenuKbd>
               <CornerDownLeftIcon />
@@ -645,7 +657,7 @@ function CommandMenuKbd({ className, ...props }: React.ComponentProps<"kbd">) {
   return (
     <kbd
       className={cn(
-        "bg-background text-muted-foreground pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
+        "bg-background text-foreground/70 pointer-events-none flex h-5 items-center justify-center gap-1 rounded border px-1 font-sans text-[0.7rem] font-medium select-none [&_svg:not([class*='size-'])]:size-3",
         className
       )}
       {...props}
