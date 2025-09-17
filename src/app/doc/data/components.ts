@@ -1,3 +1,4 @@
+import { AnimatedOTPInputDemo } from "@/components/smoothui/examples/AnimatedOTPInputDemo"
 import AnimatedTagsDemo from "@/components/smoothui/examples/AnimatedTagsDemo"
 import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStackDemo"
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
@@ -1416,5 +1417,62 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "Layers",
+  },
+  {
+    id: 23,
+    componentTitle: "Animated OTP Input",
+    slug: "animated-otp-input",
+    type: "component",
+    isNew: true,
+    tags: ["form", "input", "otp", "verification", "animation", "smooth"],
+    href: "https://x.com/educalvolpz",
+    info: "Smooth animated OTP input component with staggered animations, scale effects, and enhanced visual feedback for better user experience",
+    componentUi: AnimatedOTPInputDemo,
+    download: "motion input-otp lucide-react",
+    cnFunction: true,
+    isUpdated: false,
+    collection: "form",
+    props: [
+      {
+        name: "maxLength",
+        type: "number",
+        description: "Maximum number of characters allowed in the OTP input.",
+        required: false,
+        default: 6,
+      },
+      {
+        name: "value",
+        type: "string",
+        description: "The current value of the OTP input.",
+        required: false,
+      },
+      {
+        name: "onChange",
+        type: "(value: string) => void",
+        description: "Callback fired when the OTP value changes.",
+        required: false,
+      },
+      {
+        name: "onComplete",
+        type: "(value: string) => void",
+        description:
+          "Callback fired when the OTP input is complete (all slots filled).",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Additional CSS classes for the container.",
+        required: false,
+      },
+      {
+        name: "containerClassName",
+        type: "string",
+        description: "Additional CSS classes for the input container.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "Shield",
   },
 ]
