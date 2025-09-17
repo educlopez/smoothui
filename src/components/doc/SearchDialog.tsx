@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import type { DialogProps } from "@radix-ui/react-dialog"
 import { CornerDownLeftIcon, SquareDashedIcon } from "lucide-react"
 
+import { isComponentNew } from "@/lib/componentUtils"
 import { cn } from "@/lib/utils"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -168,7 +169,7 @@ export function SearchDialog({ ...props }: DialogProps) {
                       <span className="font-medium">
                         {component.componentTitle}
                       </span>
-                      {component.isNew && (
+                      {isComponentNew(component) && (
                         <Badge
                           variant="secondary"
                           className="border-border border text-xs"
@@ -214,7 +215,7 @@ export function SearchDialog({ ...props }: DialogProps) {
                       <span className="font-medium">
                         {component.componentTitle}
                       </span>
-                      {component.isNew && (
+                      {isComponentNew(component) && (
                         <Badge
                           variant="secondary"
                           className="border-border border text-xs"
@@ -260,7 +261,7 @@ export function SearchDialog({ ...props }: DialogProps) {
                       <span className="font-medium">
                         {component.componentTitle}
                       </span>
-                      {component.isNew && (
+                      {isComponentNew(component) && (
                         <Badge
                           variant="secondary"
                           className="border-border border text-xs"
@@ -305,7 +306,7 @@ export function SearchDialog({ ...props }: DialogProps) {
                       <span className="font-medium">
                         {component.componentTitle}
                       </span>
-                      {component.isNew && (
+                      {isComponentNew(component) && (
                         <Badge
                           variant="secondary"
                           className="border-border border text-xs"

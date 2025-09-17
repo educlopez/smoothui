@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import Link from "next/link"
 import { ArrowRight, Bot, Sparkles } from "lucide-react"
 
+import { isComponentNew } from "@/lib/componentUtils"
 import { Button } from "@/components/button"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { Badge } from "@/components/ui/badge"
@@ -183,7 +184,7 @@ export default async function GroupPage({
                     {component.componentTitle}
                   </CardTitle>
                   <div className="mt-2 flex items-center gap-2">
-                    {component.isNew && (
+                    {isComponentNew(component) && (
                       <Badge
                         variant="secondary"
                         className="bg-amber-50 text-xs text-amber-600 dark:bg-amber-950"

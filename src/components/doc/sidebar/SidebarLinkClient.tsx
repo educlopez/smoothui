@@ -2,9 +2,9 @@
 
 import { useCallback, useMemo, useState } from "react"
 import Link from "next/link"
-import { BarChart3, Building2, HelpCircle, Users, Zap } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
+import { isComponentNew } from "@/lib/componentUtils"
 import { useScrollOpacity } from "@/components/ui/hooks/useScrollOpacity"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import {
@@ -164,7 +164,7 @@ export default function SidebarLinkClient() {
                 key={component.componentTitle}
                 name={component.componentTitle}
                 slug={`/doc/${group}/${component.slug}`}
-                isNew={component.isNew}
+                isNew={isComponentNew(component)}
                 isUpdated={component.isUpdated}
                 icon={component.icon}
               />

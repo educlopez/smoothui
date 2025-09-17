@@ -4,6 +4,7 @@ export interface ComponentsProps {
   slug?: string
   type?: "component" | "block"
   isNew?: boolean
+  createdAt?: string // ISO date string
   tags: string[]
   href: string
   info: string
@@ -20,7 +21,7 @@ export interface ComponentsProps {
     description: string
     required: boolean
     fields?: { name: string; type: string; description: string }[]
-    default?: any
+    default?: unknown
   }[]
   hasRefreshDemo?: boolean
   icon?: string
