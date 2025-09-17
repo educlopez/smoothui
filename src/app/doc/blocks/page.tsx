@@ -203,7 +203,7 @@ export default function BlocksPage() {
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`h-10 w-10 rounded-lg ${category.color} flex items-center justify-center`}
+                      className={`from-brand to-brand-secondary shadow-custom-brand flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-b text-white`}
                     >
                       {React.createElement(
                         iconMap[category.icon as keyof typeof iconMap],

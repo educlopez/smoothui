@@ -1,6 +1,6 @@
 "use client"
 
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 interface CategorySelectorProps {
   value: string
@@ -27,8 +27,29 @@ export function CategorySelector({
   className = "",
 }: CategorySelectorProps) {
   const router = useRouter()
+  const pathname = usePathname()
+
+  // Determine which category corresponds to the current pathname
+  const getCurrentCategoryFromPath = () => {
+    if (pathname.startsWith("/doc/blocks")) return "blocks"
+    if (
+      pathname.startsWith("/doc/components") ||
+      pathname.startsWith("/doc/basic") ||
+      pathname.startsWith("/doc/text") ||
+      pathname.startsWith("/doc/ai")
+    )
+      return "components"
+    return null
+  }
+
+  const currentCategoryFromPath = getCurrentCategoryFromPath()
 
   const handleCategorySelect = (categoryValue: string) => {
+    // Don't navigate if clicking on the current category
+    if (categoryValue === currentCategoryFromPath) {
+      return
+    }
+
     const category = categories.find((cat) => cat.value === categoryValue)
     if (category) {
       onValueChange(categoryValue)
@@ -52,7 +73,7 @@ export function CategorySelector({
       >
         {/* Animated background indicator */}
         <div
-          className="bg-primary absolute top-1 bottom-1 left-2 rounded-md border"
+          className="from-brand to-brand-secondary shadow-custom-brand absolute top-1 bottom-1 left-2 rounded-md bg-gradient-to-b"
           style={{
             width: "calc(50% - 8px)",
             transform: `translateX(${selectedIndex * 100}%)`,
@@ -62,6 +83,8 @@ export function CategorySelector({
 
         {categories.map((category) => {
           const isSelected = value === category.value
+          const isCurrentCategory = category.value === currentCategoryFromPath
+          const isDisabled = isCurrentCategory
 
           return (
             <button
@@ -69,10 +92,14 @@ export function CategorySelector({
               type="button"
               data-state={isSelected ? "checked" : "unchecked"}
               value={category.label}
-              className="hover:text-gray-1200 relative h-8 text-[13px] font-medium transition-colors"
+              disabled={isDisabled}
+              className={`relative h-8 text-[13px] font-medium transition-colors ${
+                isDisabled ? "cursor-not-allowed" : "hover:text-gray-1200"
+              }`}
               onClick={() => handleCategorySelect(category.value)}
               tabIndex={isSelected ? 0 : -1}
               aria-pressed={isSelected}
+              aria-disabled={isDisabled}
             >
               <span className="relative flex items-center justify-center gap-1.5 text-inherit">
                 {category.label}
