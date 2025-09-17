@@ -73,7 +73,7 @@ export function CategorySelector({
       >
         {/* Animated background indicator */}
         <div
-          className="from-brand to-brand-secondary shadow-custom-brand absolute top-1 bottom-1 left-2 rounded-md bg-gradient-to-b"
+          className="from-brand to-brand-secondary shadow-custom-brand absolute top-1 bottom-1 left-2 rounded-md bg-gradient-to-b text-white"
           style={{
             width: "calc(50% - 8px)",
             transform: `translateX(${selectedIndex * 100}%)`,
@@ -94,8 +94,8 @@ export function CategorySelector({
               value={category.label}
               disabled={isDisabled}
               className={`relative h-8 text-[13px] font-medium transition-colors ${
-                isDisabled ? "cursor-not-allowed" : "hover:text-gray-1200"
-              }`}
+                isDisabled ? "cursor-not-allowed" : "hover:text-foreground/70"
+              } ${isSelected ? "text-white" : "text-foreground"}`}
               onClick={() => handleCategorySelect(category.value)}
               tabIndex={isSelected ? 0 : -1}
               aria-pressed={isSelected}
