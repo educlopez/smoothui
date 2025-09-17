@@ -1,5 +1,7 @@
 "use client"
 
+import Image from "next/image"
+
 import { useOptimizedGif } from "@/hooks/useOptimizedGif"
 
 // Optimized GIF loading with multiple strategies
@@ -35,9 +37,11 @@ export default function Footer() {
           SM
         </span>
         <span className="mx-1 inline-block align-middle">
-          <img
+          <Image
             src={src}
             alt="SmoothUI animated logo"
+            width={80}
+            height={80}
             className={`h-[clamp(2.5rem,10vw,5rem)] w-[clamp(2.5rem,10vw,5rem)] rounded-full object-cover shadow-lg transition-opacity duration-300 ${
               shouldLoad && isVisible && isLoaded ? "opacity-100" : "opacity-90"
             }`}
@@ -46,8 +50,10 @@ export default function Footer() {
               verticalAlign: "middle",
               background: "#000",
             }}
-            loading="lazy"
-            decoding="async"
+            priority={false}
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCAABAAEDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAv/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
           />
         </span>
         <span

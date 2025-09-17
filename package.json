@@ -16,7 +16,8 @@
     "build:index": "ts-node src/scripts/build-registry-index.ts",
     "build:source": "ts-node src/scripts/build-registry-sources.ts",
     "build:registry": "pnpm run build:index && pnpm run build:source",
-    "build": "pnpm run build:registry && next build",
+    "optimize:assets": "node scripts/optimize-assets.js",
+    "build": "pnpm run build:registry && pnpm run optimize:assets && next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -64,6 +65,7 @@
     "postcss": "^8.5.1",
     "prettier": "^3.5.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "sharp": "^0.33.5",
     "shiki": "^3.6.0",
     "tailwindcss": "^4.0.3",
     "ts-node": "^10.9.2",

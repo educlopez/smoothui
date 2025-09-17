@@ -48,11 +48,22 @@ export function useOptimizedGif({
       const hasLimitedMemory =
         (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4
 
+      // Check if user is on mobile (more aggressive optimization)
+      const isMobile =
+        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+          navigator.userAgent
+        )
+
+      // Check if user has data saver enabled
+      const hasDataSaver = connection && connection.saveData
+
       setShouldLoad(
         enableMotion &&
           !prefersReducedMotion &&
           !isSlowConnection &&
-          !hasLimitedMemory
+          !hasLimitedMemory &&
+          !hasDataSaver &&
+          (!isMobile || connection?.effectiveType === "4g")
       )
     }
 
