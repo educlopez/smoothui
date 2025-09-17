@@ -88,7 +88,10 @@ export default function ComponentPageLayout({ children }: ComponentPageLayout) {
           } as React.CSSProperties
         }
       >
-        <AppSidebar variant="floating" className="z-40" />
+        <AppSidebar
+          variant="floating"
+          className="z-40 *:data-[sidebar=sidebar]:!shadow-none"
+        />
         <SidebarInset className="md:peer-data-[variant=inset]:shadow-none">
           <Header />
           <DocLayoutClient>{children}</DocLayoutClient>
