@@ -17,7 +17,7 @@
     "build:source": "ts-node src/scripts/build-registry-sources.ts",
     "build:registry": "pnpm run build:index && pnpm run build:source",
     "optimize:assets": "node scripts/optimize-assets.js",
-    "build": "pnpm run build:registry && pnpm run optimize:assets && next build",
+    "build": "pnpm run build:registry && next build",
     "start": "next start",
     "lint": "next lint"
   },

@@ -9,13 +9,6 @@ const publicDir = path.join(__dirname, "..", "public")
 // Asset optimization configuration
 const optimizations = [
   {
-    input: "smoothiegif.webp",
-    outputs: [
-      { format: "webp", quality: 80, suffix: "-optimized" },
-      { format: "avif", quality: 75, suffix: "-avif" },
-    ],
-  },
-  {
     input: "readme.png",
     outputs: [
       { format: "webp", quality: 85, suffix: "-optimized" },
@@ -82,7 +75,7 @@ async function main() {
   // Check if sharp is available
   try {
     require("sharp")
-  } catch (error) {
+  } catch {
     console.error("❌ Sharp is not installed. Run: npm install sharp")
     process.exit(1)
   }

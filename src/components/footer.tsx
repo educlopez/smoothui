@@ -5,7 +5,8 @@ import Image from "next/image"
 import { useOptimizedGif } from "@/hooks/useOptimizedGif"
 
 // Optimized GIF loading with multiple strategies
-const gifUrl = "/smoothiegif.webp"
+const gifUrl =
+  "https://res.cloudinary.com/dyzxnud9z/image/upload/v1758104267/smoothui/smoothiegif.webp"
 const placeholderUrl = "/smoothiegif-placeholder.svg" // Lightweight SVG placeholder
 
 export default function Footer() {
@@ -48,7 +49,7 @@ export default function Footer() {
             style={{
               display: "inline-block",
               verticalAlign: "middle",
-              background: "#000",
+              backgroundColor: "#000",
             }}
             priority={false}
             quality={85}

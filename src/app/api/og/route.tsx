@@ -50,7 +50,7 @@ export async function GET(request: Request) {
       <div tw="bg-[#171717] relative flex flex-col justify-between w-full h-full">
         <div
           style={{
-            backgroundImage: `url(${domain}/dynamic-og.png)`,
+            backgroundImage: `url(${domain}/dynamic-og-optimized.webp)`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}

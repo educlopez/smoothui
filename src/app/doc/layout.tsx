@@ -35,7 +35,7 @@ export const metadata: Metadata = {
       {
         width: 1200,
         height: 630,
-        url: "https://smoothui.dev/og.jpg",
+        url: "https://smoothui.dev/og-optimized.webp",
         alt: "Smoothui Cover",
       },
     ],
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
       {
         width: 1200,
         height: 630,
-        url: "https://smoothui.dev/og.jpg",
+        url: "https://smoothui.dev/og-optimized.webp",
         alt: "SmoothUI Cover",
       },
     ],
