@@ -32,7 +32,7 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    unoptimized: true,
+    unoptimized: false,
     remotePatterns: [
       { hostname: "res.cloudinary.com" },
       { hostname: "www.lummi.ai" },
