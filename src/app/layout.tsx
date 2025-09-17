@@ -30,22 +30,24 @@ export const metadata: Metadata = {
     template: "%s | SmoothUI",
   },
   description:
-    "Free React UI components built with TailwindCSS and Framer Motion. Customizable, responsive, dark mode-ready, and perfect for modern UIs.",
+    "Free React UI components built with TailwindCSS and Framer Motion. shadcn/ui compatible, customizable, responsive, dark mode-ready, and perfect for modern UIs.",
   keywords: [
     "react components",
     "tailwindcss ui",
     "motion animations",
     "framer motion",
     "shadcn/ui",
+    "shadcn ui components",
     "react ui library",
     "customizable components",
     "animated ui components",
     "dark mode components",
+    "shadcn alternative",
   ],
   openGraph: {
     title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     description:
-      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion.",
+      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion. shadcn/ui compatible components for modern web development.",
     url: "https://smoothui.dev",
     siteName: "SmoothUI",
     images: [
@@ -62,7 +64,7 @@ export const metadata: Metadata = {
   twitter: {
     title: "SmoothUI - React UI with TailwindCSS & Motion Animations",
     description:
-      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion.",
+      "Explore smooth animated UI components for React, powered by TailwindCSS and Framer Motion. shadcn/ui compatible components for modern web development.",
     card: "summary_large_image",
     images: [
       {

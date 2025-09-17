@@ -8,6 +8,7 @@ import { Button } from "@/components/button"
 import Divider from "@/components/landing/divider"
 import { MotionLogo } from "@/components/resources/logos/MotionLogo"
 import { ReactLogo } from "@/components/resources/logos/ReactLogo"
+import { ShadcnLogo } from "@/components/resources/logos/ShadcnLogo"
 import { TailwindLogo } from "@/components/resources/logos/TailwindLogo"
 import AnimatedInput from "@/components/smoothui/ui/AnimatedInput"
 import ButtonCopy from "@/components/smoothui/ui/ButtonCopy"
@@ -79,6 +80,10 @@ export function Hero() {
                     <span className="group flex items-center gap-1.5">
                       <MotionLogo className="text-smooth-700 group-hover:text-brand h-4" />
                       <span className="group-hover:text-brand">Motion</span>
+                    </span>
+                    <span className="group flex items-center gap-1.5">
+                      <ShadcnLogo className="text-smooth-700 group-hover:text-brand h-5" />
+                      <span className="group-hover:text-brand">shadcn/ui</span>
                     </span>
                   </div>
                 </div>

@@ -1,8 +1,8 @@
 import { Package } from "lucide-react"
 
 import Divider from "@/components/landing/divider"
-import Rule from "@/components/landing/rule"
 import { ReactLogo } from "@/components/resources/logos/ReactLogo"
+import { ShadcnLogo } from "@/components/resources/logos/ShadcnLogo"
 import { TailwindLogo } from "@/components/resources/logos/TailwindLogo"
 import { cn } from "@/components/smoothui/utils/cn"
 
@@ -25,16 +25,22 @@ const features = [
       "Built with Tailwind CSS v4, featuring the latest utility-first CSS framework with enhanced dark mode and modern design patterns.",
     icon: TailwindLogo,
   },
+  {
+    title: "shadcn/ui Compatible",
+    description:
+      "Fully compatible with shadcn/ui ecosystem. Easy to integrate with existing shadcn/ui projects and follows the same patterns.",
+    icon: ShadcnLogo,
+  },
 ]
 
 export function Features() {
   return (
-    <section className="bg-background transition relative px-8 py-24">
+    <section className="bg-background relative px-8 py-24 transition">
       <Divider />
       <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
         Why Choose Smooth<span className="text-brand">UI</span>?
       </h2>
-      <div className="mt-16 grid w-full gap-8 md:grid-cols-3">
+      <div className="mt-16 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => (
           <div
             key={feature.title}
