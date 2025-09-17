@@ -32,11 +32,7 @@ const nextConfig = {
 
   // Image optimization
   images: {
-    unoptimized: false, // Enable Next.js image optimization
-    formats: ["image/webp", "image/avif"], // Modern formats for better compression
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-    minimumCacheTTL: 31536000, // 1 year cache
+    unoptimized: true,
     remotePatterns: [
       { hostname: "res.cloudinary.com" },
       { hostname: "www.lummi.ai" },
@@ -88,17 +84,7 @@ const nextConfig = {
         ],
       },
       {
-        source:
-          "/(.*).(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, max-age=31536000, immutable",
-          },
-        ],
-      },
-      {
-        source: "/_next/image(.*)",
+        source: "/(.*).(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)",
         headers: [
           {
             key: "Cache-Control",
@@ -125,33 +111,17 @@ const nextConfig = {
     if (!dev && !isServer) {
       config.optimization.splitChunks = {
         chunks: "all",
-        maxInitialRequests: 25,
-        minSize: 20000,
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name: "vendors",
             chunks: "all",
-            priority: 10,
-          },
-          motion: {
-            test: /[\\/]node_modules[\\/](motion|framer-motion|popmotion)[\\/]/,
-            name: "motion",
-            chunks: "all",
-            priority: 20,
-          },
-          radix: {
-            test: /[\\/]node_modules[\\/]@radix-ui[\\/]/,
-            name: "radix",
-            chunks: "all",
-            priority: 15,
           },
           common: {
             name: "common",
             minChunks: 2,
             chunks: "all",
             enforce: true,
-            priority: 5,
           },
         },
       }
