@@ -21,7 +21,7 @@ export interface ComponentsProps {
     description: string
     required: boolean
     fields?: { name: string; type: string; description: string }[]
-    default?: unknown
+    default?: any
   }[]
   hasRefreshDemo?: boolean
   icon?: string
