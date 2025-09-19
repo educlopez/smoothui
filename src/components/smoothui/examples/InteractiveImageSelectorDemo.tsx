@@ -46,7 +46,6 @@ const InteractiveImageSelectorDemo = () => {
         setImages((imgs) => imgs.filter((img) => !deleted.includes(img.id)))
       }
       onShare={(selected) => alert(`Share images: ${selected.join(", ")}`)}
-      title="Demo Gallery"
       selectable={false}
     />
   )
