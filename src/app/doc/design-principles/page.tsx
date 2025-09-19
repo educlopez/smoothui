@@ -239,8 +239,8 @@ export default function DesignPrinciplesPage() {
             Design Principles
           </h1>
           <p className="text-foreground/70 text-sm leading-relaxed font-normal">
-            Learn about SmoothUI's design system, theming, and customization
-            options.
+            Learn about SmoothUI&apos;s design system, theming, and
+            customization options.
           </p>
         </div>
       </div>

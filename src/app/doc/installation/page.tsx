@@ -55,7 +55,7 @@ export default function InstallationPage() {
             🚀 No Configuration Required
           </h3>
           <p className="text-foreground/70 text-sm leading-relaxed">
-            Since SmoothUI is an official registry, you don't need to add
+            Since SmoothUI is an official registry, you don&apos;t need to add
             anything to your{" "}
             <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
               components.json
