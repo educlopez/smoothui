@@ -44,7 +44,7 @@ export function FAQ() {
   return (
     <section className="bg-background relative w-full px-8 py-24">
       <Divider />
-      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
+      <h2 className="font-title text-foreground text-center text-3xl font-semibold text-balance transition">
         Frequently Asked Questions
       </h2>
       <div className="mx-auto mt-16 max-w-3xl space-y-8">

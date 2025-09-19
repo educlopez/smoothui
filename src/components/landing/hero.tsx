@@ -41,12 +41,12 @@ export function Hero() {
               }}
             >
               {/* Main heading */}
-              <h1 className="text-foreground text-4xl font-bold text-balance md:text-5xl lg:text-6xl">
+              <h1 className="text-foreground text-4xl font-semibold text-balance md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
                 Super Smooth UI Components for Every Team
               </h1>
 
               {/* Description */}
-              <p className="text-foreground/70 max-w-lg text-lg">
+              <p className="text-foreground/70 text-balance sm:text-lg md:text-xl">
                 Highly customizable, production-ready UI blocks for building
                 beautiful websites and apps that look and feel the way you mean
                 it.
@@ -54,10 +54,10 @@ export function Hero() {
 
               {/* CTA buttons */}
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button variant="candy" size="lg" asChild>
+                <Button variant="candy" size="sm" asChild>
                   <Link href="/doc">Explore Docs</Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button variant="outline" size="sm" asChild>
                   <Link href="/doc/components/job-listing-component">
                     Explore components
                   </Link>
@@ -109,7 +109,7 @@ export function Hero() {
             >
               <div className="grid grid-cols-2 gap-4">
                 {/* SiriOrb Component */}
-                <div className="bg-primary col-span-2 flex justify-center rounded-lg border p-6">
+                <div className="frame-box relative col-span-2 flex justify-center rounded-lg p-6">
                   <SiriOrb
                     size="120px"
                     animationDuration={15}
@@ -121,7 +121,7 @@ export function Hero() {
                 </div>
 
                 {/* AnimatedInput Component */}
-                <div className="bg-primary rounded-lg border p-4">
+                <div className="frame-box relative rounded-lg p-4">
                   <AnimatedInput
                     label="Username"
                     icon={<User size={16} strokeWidth={1.5} />}
@@ -130,26 +130,26 @@ export function Hero() {
                 </div>
 
                 {/* ScrambleHover Component */}
-                <div className="bg-primary flex items-center justify-center rounded-lg border p-4">
+                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
                   <ScrambleHover className="text-sm font-medium">
                     Hover to Scramble
                   </ScrambleHover>
                 </div>
 
                 {/* ClipCornersButton Component */}
-                <div className="bg-primary flex items-center justify-center rounded-lg border p-4">
+                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
                   <ClipCornersButton className="px-4 py-2 text-xs">
                     Clip Corners
                   </ClipCornersButton>
                 </div>
 
                 {/* ButtonCopy Component */}
-                <div className="bg-primary flex items-center justify-center rounded-lg border p-4">
+                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
                   <ButtonCopy className="text-xs" />
                 </div>
 
                 {/* ExpandableCards Component */}
-                <div className="bg-primary col-span-2 rounded-lg border p-4">
+                <div className="frame-box relative col-span-2 rounded-lg p-4">
                   <ExpandableCards className="text-xs" />
                 </div>
               </div>

@@ -1,7 +1,8 @@
 "use client"
 
-import { useCallback, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { AnimatePresence, motion } from "motion/react"
 
 import { isComponentNew } from "@/lib/componentUtils"
@@ -32,9 +33,26 @@ const COMPONENT_DATA = {
 } as const
 
 export default function SidebarLinkClient() {
-  const [selectedCategory, setSelectedCategory] = useState("components")
+  const pathname = usePathname()
+  const [selectedCategory, setSelectedCategory] = useState("")
   const [previousCategory, setPreviousCategory] = useState<string | null>(null)
   const { ref: scrollRef, handleScroll } = useScrollOpacity(15)
+
+  // Update category when pathname changes
+  useEffect(() => {
+    let initialCategory = ""
+    if (pathname.startsWith("/doc/blocks")) {
+      initialCategory = "blocks"
+    } else if (
+      pathname.startsWith("/doc/components") ||
+      pathname.startsWith("/doc/basic") ||
+      pathname.startsWith("/doc/text") ||
+      pathname.startsWith("/doc/ai")
+    ) {
+      initialCategory = "components"
+    }
+    setSelectedCategory(initialCategory)
+  }, [pathname])
 
   const handleCategoryChange = (newCategory: string) => {
     setPreviousCategory(selectedCategory)
@@ -47,6 +65,9 @@ export default function SidebarLinkClient() {
     previousCategory: string | null
   ) => {
     if (!previousCategory) return "center"
+
+    // If showing both categories (empty selectedCategory), use center animation
+    if (currentCategory === "") return "center"
 
     // If going from components to blocks, animate from right
     if (previousCategory === "components" && currentCategory === "blocks") {
@@ -223,7 +244,7 @@ export default function SidebarLinkClient() {
           </SidebarMenuSub>
         </SidebarGroup>
         <AnimatePresence mode="wait">
-          {selectedCategory === "blocks" && (
+          {(selectedCategory === "blocks" || selectedCategory === "") && (
             <motion.div
               key="blocks-section"
               layout
@@ -315,7 +336,7 @@ export default function SidebarLinkClient() {
               </SidebarGroup>
             </motion.div>
           )}
-          {selectedCategory === "components" && (
+          {(selectedCategory === "components" || selectedCategory === "") && (
             <motion.div
               key="components-section"
               layout

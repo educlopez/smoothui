@@ -260,11 +260,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   return (
     <section
       ref={containerRef}
-      className={cn(
-        "relative mx-auto h-fit min-h-[200px] w-fit min-w-[300px]",
-        className
-      )}
+      className={cn("relative mx-auto h-fit w-fit min-w-[300px]", className)}
       style={{
+        minHeight: `${cardHeight + 100}px`, // Add some padding for the card stack effect
         perspective: `${perspective}px`,
         perspectiveOrigin: "center 60%",
         touchAction: "none",
@@ -285,9 +283,10 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
         return (
           <motion.div
             key={`scrollable-card-${item.id}`}
-            className="bg-background absolute top-1/2 left-1/2 h-max w-max max-w-[100vw] overflow-hidden rounded-2xl border shadow-lg"
+            className="bg-background absolute top-1/2 left-1/2 w-max max-w-[100vw] overflow-hidden rounded-2xl border shadow-lg"
             data-active={isActive}
             style={{
+              height: `${cardHeight}px`,
               zIndex: transform.zIndex,
               pointerEvents: isActive ? "auto" : "none",
               transformOrigin: "center center",
@@ -335,21 +334,19 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
             {/* Card Content */}
             <div
               className={cn(
-                "bg-background flex h-fit w-96 flex-col items-center rounded-xl transition-all duration-200",
+                "bg-background flex aspect-[16/10] w-full flex-col rounded-xl transition-all duration-200",
                 isHovered && "shadow-xl",
                 isScrolling && isActive && "ring-opacity-50 ring-brand ring-2"
               )}
+              style={{ height: `${cardHeight}px` }}
             >
               {/* Scroll indicator */}
               {isScrolling && isActive && (
-                <div className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-blue-200 opacity-75" />
+                <div className="bg-brand absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full opacity-75" />
               )}
 
-              {/* Video Container */}
-              <div
-                className="relative w-full overflow-hidden"
-                style={{ aspectRatio: "1.77778 / 1" }}
-              >
+              {/* Video Container - takes remaining space */}
+              <div className="relative w-full flex-1 overflow-hidden">
                 {/* Background blur image */}
                 <img
                   aria-hidden="true"
@@ -376,10 +373,10 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 />
               </div>
 
-              {/* Header */}
+              {/* User Info - always at bottom */}
               <a
                 className={cn(
-                  "text-decoration-none flex items-center gap-1 p-3 text-inherit transition-colors duration-200"
+                  "text-decoration-none bg-background/95 flex items-center justify-center gap-1 p-3 text-inherit backdrop-blur-sm transition-colors duration-200"
                 )}
                 href={item.href}
                 target="_blank"
@@ -431,9 +428,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 }
               }}
               className={cn(
-                "h-2 w-2 rounded-full transition-all duration-200 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:outline-none",
+                "focus:ring-brand h-2 w-2 rounded-full transition-all duration-200 focus:ring-1 focus:ring-offset-1 focus:outline-none",
                 i === currentIndex
-                  ? "scale-125 bg-blue-500"
+                  ? "bg-brand scale-125"
                   : "bg-gray-300 hover:bg-gray-400"
               )}
               whileHover={{ scale: 1.2 }}

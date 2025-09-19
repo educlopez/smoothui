@@ -9,27 +9,27 @@ import InteractiveImageSelector, {
 const demoImages: ImageData[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1605478185737-99ae313e940c?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758270763/smoothui/womanorange.webp",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758209962/smoothui/girl-nature.webp",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1612317248613-c1236be97f6f?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271088/smoothui/metrowoman.webp",
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1603118675111-239b194fb8d8?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271134/smoothui/designerworking.webp",
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1605478185737-99ae313e940c?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271305/smoothui/girlglass.webp",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271369/smoothui/manup.webp",
   },
 ]
 

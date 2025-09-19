@@ -122,3 +122,7 @@
   )::marker {
   color: var(--color-smooth-800);
 }
+
+.frame-box {
+  @apply bg-primary inset-ring-background border inset-ring-2 before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
+}

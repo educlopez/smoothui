@@ -1,12 +1,12 @@
 import { Dog, Map as MapIcon, User } from "lucide-react"
 
-import Phototab, { PhototabTab } from "@/components/smoothui/ui/Phototab"
+import Phototab, { type PhototabTab } from "@/components/smoothui/ui/Phototab"
 
 // Placeholder images (replace with your own if available)
 const Images = [
-  "https://images.unsplash.com/photo-1505937059382-aab581fd88c8?=webp&fit=crop&w=800&fit=max",
-  "https://images.unsplash.com/photo-1705054476413-4aed25209459?=webp&fit=crop&w=800&fit=max",
-  "https://images.unsplash.com/photo-1591282063405-1752516fd16e?=webp&fit=crop&w=800&fit=max",
+  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758209510/smoothui/girl-summer.webp",
+  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758209666/smoothui/dog-white.webp",
+  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758210029/smoothui/surf.webp",
 ]
 
 const tabs: PhototabTab[] = [
@@ -30,7 +30,7 @@ const tabs: PhototabTab[] = [
 export default function PhototabDemo() {
   return (
     <div className="mx-auto max-w-md">
-      <Phototab tabs={tabs} defaultTab="one" />
+      <Phototab tabs={tabs} defaultTab="one" height={300} />
     </div>
   )
 }

@@ -16,34 +16,33 @@ export interface InteractiveImageSelectorProps {
   onDelete?: (deleted: number[]) => void
   onShare?: (selected: number[]) => void
   className?: string
-  title?: string
   selectable?: boolean
 }
 
 const defaultImages: ImageData[] = [
   {
     id: 1,
-    src: "https://images.unsplash.com/photo-1605478185737-99ae313e940c?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758270763/smoothui/womanorange.webp",
   },
   {
     id: 2,
-    src: "https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758209962/smoothui/girl-nature.webp",
   },
   {
     id: 3,
-    src: "https://images.unsplash.com/photo-1612317248613-c1236be97f6f?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271088/smoothui/metrowoman.webp",
   },
   {
     id: 4,
-    src: "https://images.unsplash.com/photo-1603118675111-239b194fb8d8?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271134/smoothui/designerworking.webp",
   },
   {
     id: 5,
-    src: "https://images.unsplash.com/photo-1605478185737-99ae313e940c?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271305/smoothui/girlglass.webp",
   },
   {
     id: 6,
-    src: "https://images.unsplash.com/photo-1564951434112-64d74cc2a2d7?=jpg&fit=crop&w=300&q=80&fit=max",
+    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271369/smoothui/manup.webp",
   },
 ]
 
@@ -54,15 +53,15 @@ export default function InteractiveImageSelector({
   onDelete,
   onShare,
   className = "",
-  title = "Art Gallery",
   selectable = false,
 }: InteractiveImageSelectorProps) {
+  const [originalImages] = useState<ImageData[]>(images)
   const [internalImages, setInternalImages] = useState<ImageData[]>(images)
   const [internalSelected, setInternalSelected] = useState<number[]>([])
   const [isSelecting, setIsSelecting] = useState(selectable)
+  const [isResetting, setIsResetting] = useState(false)
 
   const selected = controlledSelected ?? internalSelected
-  const imageMap = new Map(internalImages.map((img) => [img.id, img]))
 
   const handleImageClick = useCallback(
     (id: number) => {
@@ -93,14 +92,20 @@ export default function InteractiveImageSelector({
   }, [selected, internalImages, onDelete, onChange])
 
   const handleReset = useCallback(() => {
-    setInternalImages(images)
-    if (onChange) {
-      onChange([])
-    } else {
-      setInternalSelected([])
-    }
-    setIsSelecting(false)
-  }, [images, onChange])
+    setIsResetting(true)
+
+    // Add a small delay to show the reset animation
+    setTimeout(() => {
+      setInternalImages(originalImages)
+      if (onChange) {
+        onChange([])
+      } else {
+        setInternalSelected([])
+      }
+      setIsSelecting(false)
+      setIsResetting(false)
+    }, 200)
+  }, [originalImages, onChange])
 
   const toggleSelecting = useCallback(() => {
     setIsSelecting((prev) => !prev)
@@ -121,46 +126,80 @@ export default function InteractiveImageSelector({
     <div
       className={`relative flex h-full w-full max-w-[500px] flex-col justify-between p-4 ${className}`}
     >
-      <div className="from-background/20 dark:from-background/50 pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b to-transparent"></div>
+      <div className="from-primary/80 dark:from-background/50 pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b to-transparent"></div>
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="bg-background/20 text-foreground cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl"
+          initial={{ rotate: 0 }}
+          animate={
+            isResetting ? { scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] } : {}
+          }
+          exit={{ rotate: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl transition-colors ${
+            isResetting
+              ? "bg-brand/30 text-white"
+              : "bg-background/20 text-foreground"
+          }`}
           onClick={handleReset}
+          disabled={isResetting}
           aria-label="Reset selection"
         >
-          Reset
+          {isResetting ? "Resetting..." : "Reset"}
         </motion.button>
-        <button
-          className="bg-background/20 text-foreground cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl"
+        <motion.button
+          type="button"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ rotate: 0 }}
+          animate={
+            isSelecting ? { scale: [1, 1.1, 1], rotate: [0, -5, 5, 0] } : {}
+          }
+          exit={{ rotate: 0 }}
+          transition={{ duration: 0.3 }}
+          className={`cursor-pointer rounded-full px-3 py-1 text-sm font-semibold bg-blend-luminosity backdrop-blur-xl ${
+            isSelecting
+              ? "bg-brand/30 text-white"
+              : "text-foreground bg-background/20"
+          }`}
           onClick={toggleSelecting}
           aria-label={isSelecting ? "Cancel selection" : "Select images"}
         >
           {isSelecting ? "Cancel" : "Select"}
-        </button>
+        </motion.button>
       </div>
-      <div className="absolute top-16 right-5 left-5 z-20 flex justify-between p-4">
-        <div className="flex items-center gap-2">
-          <span className="text-foreground text-2xl font-bold">{title}</span>
-        </div>
-      </div>
-      <motion.div className="grid grid-cols-3 gap-1 overflow-scroll" layout>
+
+      <motion.div
+        className="grid grid-cols-3 gap-1 overflow-scroll"
+        layout
+        animate={isResetting ? { scale: [1, 0.95, 1] } : {}}
+        transition={{ duration: 0.2 }}
+      >
         <AnimatePresence>
           {internalImages.map((img) => (
             <motion.div
               key={img.id}
               layout
               initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
+              animate={{
+                opacity: 1,
+                scale: isResetting ? [1, 0.9, 1] : 1,
+                rotate: isResetting ? [0, 2, -2, 0] : 0,
+              }}
               exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+                duration: isResetting ? 0.3 : undefined,
+              }}
               className="relative aspect-square cursor-pointer"
               onClick={() => handleImageClick(img.id)}
             >
               <img
                 src={img.src}
-                alt={`Image ${img.id}`}
+                alt={`Gallery item ${img.id}`}
                 className={`h-full w-full rounded-lg object-cover ${
                   selected.includes(img.id) && isSelecting ? "opacity-75" : ""
                 }`}
@@ -169,7 +208,7 @@ export default function InteractiveImageSelector({
                 loading="lazy"
               />
               {isSelecting && selected.includes(img.id) && (
-                <div className="absolute right-2 bottom-2 flex h-6 w-6 items-center justify-center rounded-full border border-white bg-blue-500 text-white">
+                <div className="bg-brand absolute right-2 bottom-2 flex h-6 w-6 items-center justify-center rounded-full border border-white text-white">
                   ✓
                 </div>
               )}
@@ -183,17 +222,19 @@ export default function InteractiveImageSelector({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
-            className="bg-background/20 /20 absolute right-0 bottom-0 left-0 z-10 flex items-center justify-between p-4 bg-blend-luminosity backdrop-blur-xl"
+            className="bg-background/20 absolute right-2 bottom-0 left-1/2 z-10 flex w-2/3 -translate-x-1/2 items-center justify-between rounded-full p-4 bg-blend-luminosity backdrop-blur-md"
           >
             <button
-              className="cursor-pointer text-blue-500"
+              type="button"
+              className="text-brand cursor-pointer"
               onClick={handleShare}
             >
               <Share2 size={24} />
             </button>
             <span className="text-foreground">{selected.length} selected</span>
             <button
-              className="cursor-pointer text-blue-500"
+              type="button"
+              className="text-brand cursor-pointer"
               onClick={handleDelete}
               disabled={selected.length === 0}
             >

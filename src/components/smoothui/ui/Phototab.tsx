@@ -21,6 +21,8 @@ export interface PhototabProps {
   tabs: PhototabTab[]
   /** Default selected tab name */
   defaultTab?: string
+  /** Height of the component in pixels */
+  height?: number
   /** Class name for root */
   className?: string
   /** Class name for tab list */
@@ -34,6 +36,7 @@ export interface PhototabProps {
 export default function Phototab({
   tabs,
   defaultTab,
+  height = 400,
   className = "",
   tabListClassName = "",
   tabTriggerClassName = "",
@@ -71,14 +74,15 @@ export default function Phototab({
 
   return (
     <Tabs.Root
-      className={`group relative h-100 w-100 overflow-hidden ${className}`}
+      className={`group relative aspect-square w-auto overflow-hidden ${className}`}
+      style={{ height: `${height}px` }}
       defaultValue={defaultTab || (tabs[0]?.name ?? "")}
       orientation="horizontal"
     >
       <Tabs.List
         ref={listRef}
         aria-label="Phototab Tabs"
-        className={`hover:text-foreground bg-primary/40 ring-border/70 absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full px-3 py-2 text-sm font-medium ring backdrop-blur-sm transition md:translate-y-20 md:group-hover:-translate-y-1/2 ${tabListClassName}`}
+        className={`hover:text-foreground bg-primary/40 ring-border/70 absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full px-3 py-2 text-sm font-medium ring backdrop-blur-sm transition md:translate-y-20 md:group-hover:translate-y-0 ${tabListClassName}`}
         style={{ pointerEvents: "auto" }}
       >
         <AnimatePresence>
@@ -103,7 +107,7 @@ export default function Phototab({
         {tabs.map((tab, index) => (
           <Tabs.Trigger
             aria-label={tab.name}
-            className={`data-[state='active']:bg-background relative z-10 rounded-full p-2 ${tabTriggerClassName}`}
+            className={`data-[state='active']:bg-background relative z-10 cursor-pointer rounded-full p-2 ${tabTriggerClassName}`}
             key={tab.name}
             ref={(el) => {
               triggersRef.current[index] = el
@@ -126,7 +130,7 @@ export default function Phototab({
             className={`bg-primary h-full w-full rounded-2xl object-cover ${imageClassName}`}
             src={tab.image}
             width={400}
-            height={400}
+            height={height}
             loading="lazy"
           />
         </Tabs.Content>

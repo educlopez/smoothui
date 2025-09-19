@@ -10,7 +10,7 @@ const SHOWCASE_COMPONENTS = [
   "Animated Tags",
   "Social Selector",
   "Power Off Slide",
-  "Expandable Cards",
+  "Scrollable Card Stack",
   "User Account Avatar",
   "Number Flow",
   "Phototab",
@@ -22,8 +22,8 @@ export function ComponentsSlideshow() {
   return (
     <section className="bg-background relative px-8 py-24 transition">
       <Divider />
-      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
-        Component Showcase
+      <h2 className="font-title text-foreground text-center text-3xl font-semibold text-balance transition">
+        Components Showcase
       </h2>
       <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
         {components

@@ -14,17 +14,17 @@ const buttonVariants = cva(
         destructive:
           "hover:from-destructive hover:to-destructive bg-gradient-to-b from-[#FD4B4E] text-shadow-sm to-destructive text-white shadow-[0px_1px_2px_rgba(0,0,0,0.4),0px_0px_0px_1px_#F61418,inset_0px_0.75px_0px_rgba(255,255,255,0.2)]",
         outline:
-          "from-primary to-background bg-gradient-to-b hover:from-background hover:text-foreground shadow-custom-btgray",
+          "bg-background ring-1 ring-foreground/10 shadow-sm shadow-black/15 border border-transparent hover:bg-primary dark:ring-foreground/15",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-background hover:text-foreground hover:shadow-custom",
         link: "text-primary underline-offset-4 hover:underline",
         candy:
-          "hover:from-brand-secondary hover:to-brand-secondary bg-gradient-to-b from-brand text-shadow-sm to-brand-secondary text-white shadow-custom-brand",
+          "ring-1 ring-(--ring-color) [--ring-color:color-mix(in_oklab,var(--color-foreground)15%,var(--color-brand))] text-shadow-sm shadow-md border-[0.5px] [&_svg]:drop-shadow-sm border-white/25 shadow-black/20 hover:from-brand-secondary hover:to-brand-secondary bg-gradient-to-b from-brand to-brand-secondary text-white",
       },
       size: {
         default: "h-10 px-4 py-2",
-        sm: "h-9 rounded-md px-3",
+        sm: "h-9 rounded-md px-4 py-2",
         lg: "h-11 rounded-md px-8",
         icon: "h-10 w-10",
       },

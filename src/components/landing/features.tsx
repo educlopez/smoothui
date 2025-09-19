@@ -37,7 +37,7 @@ export function Features() {
   return (
     <section className="bg-background relative px-8 py-24 transition">
       <Divider />
-      <h2 className="font-title text-foreground text-center text-3xl font-bold transition">
+      <h2 className="font-title text-foreground text-center text-3xl font-semibold text-balance transition">
         Why Choose Smooth<span className="text-brand">UI</span>?
       </h2>
       <div className="mt-16 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -45,15 +45,17 @@ export function Features() {
           <div
             key={feature.title}
             className={cn(
-              "hover:gradient-brand group bg-smooth-100 relative flex flex-col rounded-2xl p-6 backdrop-blur-lg transition-all",
-              "shadow-custom"
+              "group from-primary/30 hover:from-primary inset-ring-background relative flex flex-col rounded-2xl bg-transparent bg-linear-to-b from-65% to-transparent p-6 inset-ring-2 backdrop-blur-lg transition-all",
+              "border shadow-sm shadow-blue-800/10 hover:shadow-none"
             )}
           >
-            <feature.icon className="text-brand mb-4 h-8 w-8 transition group-hover:text-white" />
-            <h3 className="text-foreground mb-2 text-xl font-semibold transition group-hover:text-white">
+            <div className="border-brand inset-ring-background bg-primary mb-4 flex h-8 w-8 items-center justify-center rounded-full border-[0.5px] p-2 inset-ring">
+              <feature.icon className="text-brand transition" />
+            </div>
+            <h3 className="text-foreground mb-2 text-xl font-semibold transition">
               {feature.title}
             </h3>
-            <p className="text-primary-foreground transition group-hover:text-white">
+            <p className="text-primary-foreground transition">
               {feature.description}
             </p>
           </div>

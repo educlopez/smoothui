@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 
-import AppleInvites, { Event } from "@/components/smoothui/ui/AppleInvites"
+import AppleInvites from "@/components/smoothui/ui/AppleInvites"
+import type { Event } from "@/components/smoothui/ui/AppleInvites"
 
 const demoEvents: Event[] = [
   {
@@ -11,9 +12,9 @@ const demoEvents: Event[] = [
     subtitle: "Sat, June 14, 6:00 AM",
     location: "Central Park",
     image:
-      "https://images.unsplash.com/photo-1593164842264-854604db2260?=jpg&fit=crop&w=640&q=80&fit=max",
+      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265917/smoothui/yogaday.webp",
     badge: "Hosting",
-    participants: [{ avatar: "https://github.com/educlopez.png" }],
+    participants: [{ avatar: "https://github.com/haydenbleasel.png" }],
   },
   {
     id: 2,
@@ -21,7 +22,7 @@ const demoEvents: Event[] = [
     subtitle: "Sat, June 14, 3:00 PM",
     location: "Central Park",
     image:
-      "https://images.unsplash.com/photo-1524293568345-75d62c3664f7?=jpg&fit=crop&w=640&q=80&fit=max",
+      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265165/smoothui/park.webp",
     badge: "Going",
     participants: [{ avatar: "https://github.com/educlopez.png" }],
   },
@@ -31,9 +32,9 @@ const demoEvents: Event[] = [
     subtitle: "Sun, April 15, 9:00 AM",
     location: "Golf Park",
     image:
-      "https://images.unsplash.com/photo-1592919505780-303950717480?=jpg&fit=crop&w=640&q=80&fit=max",
+      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265999/smoothui/golf.webp",
     badge: "Going",
-    participants: [{ avatar: "https://github.com/educlopez.png" }],
+    participants: [{ avatar: "https://github.com/shadcn.png" }],
   },
   {
     id: 4,
@@ -41,9 +42,9 @@ const demoEvents: Event[] = [
     subtitle: "Fri, June 20, 8:00 PM",
     location: "Cine Town",
     image:
-      "https://images.unsplash.com/photo-1571947453052-1e72ce0d19b9?=jpg&fit=crop&w=640&q=80&fit=max",
+      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265903/smoothui/movie.webp",
     badge: "Interested",
-    participants: [{ avatar: "https://github.com/educlopez.png" }],
+    participants: [{ avatar: "https://github.com/rauchg.png" }],
   },
 ]
 

@@ -35,9 +35,7 @@ const nextConfig = {
     unoptimized: false,
     remotePatterns: [
       { hostname: "res.cloudinary.com" },
-      { hostname: "www.lummi.ai" },
       { hostname: "github.com" },
-      { hostname: "images.unsplash.com" },
     ],
   },
 

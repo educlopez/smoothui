@@ -42,7 +42,17 @@ export function CategorySelector({
     return null
   }
 
+  // Check if we're on a common page that doesn't belong to any category
+  const isCommonPage = () => {
+    return (
+      pathname === "/doc" ||
+      pathname === "/doc/changelog" ||
+      pathname === "/doc/mcp"
+    )
+  }
+
   const currentCategoryFromPath = getCurrentCategoryFromPath()
+  const isOnCommonPage = isCommonPage()
 
   const handleCategorySelect = (categoryValue: string) => {
     // Don't navigate if clicking on the current category
@@ -58,7 +68,10 @@ export function CategorySelector({
     }
   }
 
-  const selectedIndex = categories.findIndex((cat) => cat.value === value)
+  // If we're on a common page, don't show any selection
+  const selectedIndex = isOnCommonPage
+    ? -1
+    : categories.findIndex((cat) => cat.value === value)
 
   return (
     <div className={`relative my-2 px-1 md:my-0 ${className}`}>
@@ -72,17 +85,19 @@ export function CategorySelector({
         style={{ outline: "none" }}
       >
         {/* Animated background indicator */}
-        <div
-          className="from-brand to-brand-secondary shadow-custom-brand absolute top-1 bottom-1 left-2 rounded-md bg-gradient-to-b text-white"
-          style={{
-            width: "calc(50% - 8px)",
-            transform: `translateX(${selectedIndex * 100}%)`,
-            transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
-          }}
-        />
+        {selectedIndex >= 0 && (
+          <div
+            className="from-brand to-brand-secondary shadow-custom-brand absolute top-1 bottom-1 left-2 rounded-md bg-gradient-to-b text-white"
+            style={{
+              width: "calc(50% - 8px)",
+              transform: `translateX(${selectedIndex * 100}%)`,
+              transition: "transform 0.25s cubic-bezier(0.22, 1, 0.36, 1)",
+            }}
+          />
+        )}
 
         {categories.map((category) => {
-          const isSelected = value === category.value
+          const isSelected = !isOnCommonPage && value === category.value
           const isCurrentCategory = category.value === currentCategoryFromPath
           const isDisabled = isCurrentCategory
 
@@ -94,7 +109,9 @@ export function CategorySelector({
               value={category.label}
               disabled={isDisabled}
               className={`relative h-8 text-[13px] font-medium transition-colors ${
-                isDisabled ? "cursor-not-allowed" : "hover:text-foreground/70"
+                isDisabled
+                  ? "cursor-not-allowed"
+                  : "hover:text-foreground/70 cursor-pointer"
               } ${isSelected ? "text-white" : "text-foreground"}`}
               onClick={() => handleCategorySelect(category.value)}
               tabIndex={isSelected ? 0 : -1}

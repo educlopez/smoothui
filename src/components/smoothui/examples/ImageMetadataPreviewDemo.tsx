@@ -1,7 +1,5 @@
 "use client"
 
-import React from "react"
-
 import ImageMetadataPreview from "@/components/smoothui/ui/ImageMetadataPreview"
 
 const demoMetadata = {
@@ -12,17 +10,16 @@ const demoMetadata = {
 }
 
 const demoImage =
-  "https://images.unsplash.com/photo-1594063596316-aa5f41ceb8dc?=jpg&fit=crop&w=600&q=80&fit=max"
+  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_400,ar_1:1,c_fill,g_auto/v1758263954/smoothui/cat.webp"
 
 const ImageMetadataPreviewDemo = () => (
   <div className="flex h-full w-full items-center justify-center">
     <ImageMetadataPreview
       imageSrc={demoImage}
       alt="Scenario with orange black colors"
-      filename="screenshot 2024-06-12 at 20.00.22"
-      description="No description"
+      filename="cat.raw"
+      description="Cat image"
       metadata={demoMetadata}
-      onShare={() => alert("Share clicked!")}
     />
   </div>
 )
