@@ -220,7 +220,7 @@ export default function SidebarLinkClient() {
             <SidebarMenuSubItem key="1">
               <SidebarButtonClient
                 key="1"
-                name="Information"
+                name="Introduction"
                 slug="/doc"
                 icon="Book"
               />
@@ -228,17 +228,33 @@ export default function SidebarLinkClient() {
             <SidebarMenuSubItem key="2">
               <SidebarButtonClient
                 key="2"
-                name="Changelog"
-                slug="/doc/changelog"
-                icon="ListChecks"
+                name="Installation"
+                slug="/doc/installation"
+                icon="Download"
               />
             </SidebarMenuSubItem>
             <SidebarMenuSubItem key="3">
               <SidebarButtonClient
                 key="3"
+                name="Design Principles"
+                slug="/doc/design-principles"
+                icon="Palette"
+              />
+            </SidebarMenuSubItem>
+            <SidebarMenuSubItem key="4">
+              <SidebarButtonClient
+                key="4"
                 name="MCP"
                 slug="/doc/mcp"
                 icon="Bot"
+              />
+            </SidebarMenuSubItem>
+            <SidebarMenuSubItem key="5">
+              <SidebarButtonClient
+                key="5"
+                name="Changelog"
+                slug="/doc/changelog"
+                icon="ListChecks"
               />
             </SidebarMenuSubItem>
           </SidebarMenuSub>

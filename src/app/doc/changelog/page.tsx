@@ -40,12 +40,12 @@ export default function ChangelogPage() {
           <div key={index} className="relative m-0">
             <div className="flex flex-col gap-y-6 md:flex-row">
               <div className="flex-shrink-0 md:w-48">
-                <div className="pb-10 md:sticky md:top-8">
-                  <time className="text-muted-foreground mb-3 block text-sm font-medium">
+                <div className="pb-10 md:sticky md:top-16">
+                  <time className="text-foreground/70 mb-3 block font-mono text-sm font-medium">
                     {entry.date}
                   </time>
                   {entry.version && (
-                    <div className="text-foreground border-border relative z-10 inline-flex items-center justify-center rounded-lg border px-2 py-1 text-sm font-bold">
+                    <div className="text-foreground border-border relative z-10 inline-flex items-center justify-center rounded-lg border px-2 py-1 font-mono text-sm font-bold">
                       {entry.version}
                     </div>
                   )}
@@ -57,23 +57,11 @@ export default function ChangelogPage() {
                 </div>
                 <div className="space-y-6">
                   <div className="relative z-10 flex flex-col gap-2">
-                    <h2 className="text-2xl font-semibold tracking-tight text-balance">
+                    <h2 className="text-lg font-semibold tracking-tight text-balance">
                       {entry.title || `Release ${entry.version}`}
                     </h2>
-                    {entry.tags && (
-                      <div className="flex flex-wrap gap-2">
-                        {entry.tags.map((tag, idx) => (
-                          <span
-                            key={idx}
-                            className="bg-muted text-muted-foreground flex h-6 w-fit items-center justify-center rounded-full border px-2 text-xs font-medium"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                    )}
                   </div>
-                  <div className="prose dark:prose-invert prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance max-w-none text-sm">
+                  <div className="prose text-foreground/70 dark:prose-invert prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance max-w-none text-sm">
                     <ul>
                       {entry.changes.map((change, idx) => (
                         <li key={idx}>{change}</li>

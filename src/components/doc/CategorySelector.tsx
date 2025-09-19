@@ -46,6 +46,8 @@ export function CategorySelector({
   const isCommonPage = () => {
     return (
       pathname === "/doc" ||
+      pathname === "/doc/installation" ||
+      pathname === "/doc/design-principles" ||
       pathname === "/doc/changelog" ||
       pathname === "/doc/mcp"
     )
