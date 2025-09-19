@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/educlopez-smoothui-badge.png)](https://mseep.ai/app/educlopez-smoothui)
+
 # SmoothUI
 
 ![Screenshot of SmoothUI](/public/readme.png)
