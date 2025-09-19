@@ -171,7 +171,7 @@ export default async function GroupPage({
         {featuredComponents.map((component) => (
           <Card
             key={component.id}
-            className="group !shadow-none transition-all duration-200"
+            className="group !gap-0 !shadow-none transition-all duration-200"
           >
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
@@ -183,31 +183,29 @@ export default async function GroupPage({
                   >
                     {component.componentTitle}
                   </CardTitle>
-                  <div className="mt-2 flex items-center gap-2">
-                    {isComponentNew(component) && (
-                      <Badge
-                        variant="secondary"
-                        className="bg-amber-50 text-xs text-amber-600 dark:bg-amber-950"
-                      >
-                        {IconComponent ? (
-                          <IconComponent className="mr-1 h-3 w-3" />
-                        ) : (
-                          <Sparkles className="mr-1 h-3 w-3" />
+                  {isComponentNew(component) ||
+                    (component.isUpdated && (
+                      <div className="mt-2 flex items-center gap-2">
+                        {isComponentNew(component) && (
+                          <Badge
+                            variant="secondary"
+                            className="bg-amber-50 text-xs text-amber-600 dark:bg-amber-950"
+                          >
+                            {IconComponent ? (
+                              <IconComponent className="mr-1 h-3 w-3" />
+                            ) : (
+                              <Sparkles className="mr-1 h-3 w-3" />
+                            )}
+                            New
+                          </Badge>
                         )}
-                        New
-                      </Badge>
-                    )}
-                    {component.isUpdated && (
-                      <Badge variant="outline" className="text-xs">
-                        Updated
-                      </Badge>
-                    )}
-                    {component.tags?.slice(0, 2).map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
-                        {tag}
-                      </Badge>
+                        {component.isUpdated && (
+                          <Badge variant="outline" className="text-xs">
+                            Updated
+                          </Badge>
+                        )}
+                      </div>
                     ))}
-                  </div>
                 </div>
               </div>
             </CardHeader>
@@ -217,8 +215,8 @@ export default async function GroupPage({
               </CardDescription>
 
               {/* Component Demo */}
-              <div className="bg-primary relative mb-4 rounded-lg border p-4">
-                <div className="flex aspect-square min-h-52 items-center justify-center">
+              <div className="frame-box relative mb-4 rounded-lg p-4">
+                <div className="relative z-10 flex aspect-square min-h-52 items-center justify-center">
                   {component.componentUi &&
                     React.createElement(component.componentUi)}
                 </div>

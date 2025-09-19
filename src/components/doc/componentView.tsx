@@ -47,7 +47,9 @@ export function ComponentView({
           />
         )}
       </div>
-      <div key={reloadKey}>{children}</div>
+      <div className="z-10" key={reloadKey}>
+        {children}
+      </div>
     </div>
   )
 }
