@@ -478,7 +478,7 @@ export default async function ComponentPage({
           <>
             <Divider className="relative" />
             <h2
-              className="mb-8 text-xl font-semibold"
+              className="mb-8 text-lg font-semibold"
               data-table-content="Props"
               data-level="2"
             >
