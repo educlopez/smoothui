@@ -3,7 +3,7 @@
 import * as React from "react"
 import { useRouter } from "next/navigation"
 import type { DialogProps } from "@radix-ui/react-dialog"
-import { CornerDownLeftIcon, SquareDashedIcon } from "lucide-react"
+import { CornerDownLeftIcon, Search, SquareDashedIcon } from "lucide-react"
 
 import { isComponentNew } from "@/lib/componentUtils"
 import { cn } from "@/lib/utils"
@@ -98,11 +98,12 @@ export function SearchDialog({ ...props }: DialogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+      {/* Desktop Search Button */}
       <DialogTrigger asChild>
         <Button
           variant="secondary"
           className={cn(
-            "bg-primary hover:text-foreground text-foreground/70 relative h-8 w-full justify-start border pl-2.5 font-normal shadow-none sm:pr-12 md:w-40 lg:w-56 xl:w-64"
+            "bg-primary hover:text-foreground text-foreground/70 relative hidden h-8 w-full justify-start border pl-2.5 font-normal shadow-none sm:pr-12 md:flex md:w-40 lg:w-56 xl:w-64"
           )}
           onClick={() => setOpen(true)}
           {...props}
@@ -112,6 +113,17 @@ export function SearchDialog({ ...props }: DialogProps) {
             <CommandMenuKbd>⌘</CommandMenuKbd>
             <CommandMenuKbd className="aspect-square">K</CommandMenuKbd>
           </div>
+        </Button>
+      </DialogTrigger>
+
+      {/* Mobile Search Button */}
+      <DialogTrigger asChild>
+        <Button
+          variant="ghost"
+          className="md:hidden"
+          onClick={() => setOpen(true)}
+        >
+          <Search className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent
