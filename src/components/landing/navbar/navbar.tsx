@@ -25,7 +25,9 @@ import {
   BlocksMenuIllustration,
   MenuIllustration,
 } from "@/components/landing/navbar/MenuIllustration"
+import { MobileNavbar } from "@/components/landing/navbar/MobileNavbar"
 import Logo from "@/components/logo"
+import { useIsMobile } from "@/components/smoothui/hooks/use-mobile"
 
 // Preview components data
 const componentPreviews = {
@@ -67,6 +69,12 @@ const blockPreviews = {
 export default function Navbar({ className }: { className?: string }) {
   const [hoveredComponent, setHoveredComponent] = useState<string | null>(null)
   const [hoveredBlock, setHoveredBlock] = useState<string | null>(null)
+  const isMobile = useIsMobile()
+
+  // Show mobile navbar on mobile devices
+  if (isMobile) {
+    return <MobileNavbar className={className} />
+  }
 
   return (
     <NavigationMenu.Root className={cn("navbar-menu", className)}>
@@ -241,7 +249,7 @@ function EnhancedListItem({
         onMouseLeave={onLeave}
         {...props}
       >
-        <div className="enhanced-list-item-icon">{icon}</div>
+        <div className="enhanced-list-item-icon frame-box relative">{icon}</div>
         <div className="enhanced-list-item-content">
           <div className="enhanced-list-item-heading">{title}</div>
           <p className="enhanced-list-item-text">{children}</p>

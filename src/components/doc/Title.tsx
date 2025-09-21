@@ -34,19 +34,30 @@ export interface TitleProps
 
 const Title = React.forwardRef<HTMLHeadingElement, TitleProps>(
   ({ className, level = 2, tableContent, children, ...props }, ref) => {
-    const HeadingTag = `h${level}` as keyof JSX.IntrinsicElements
+    const commonProps = {
+      className: cn(titleVariants({ level, className })),
+      "data-table-content": tableContent,
+      "data-level": level,
+      ref,
+      ...props,
+    }
 
-    return (
-      <HeadingTag
-        className={cn(titleVariants({ level, className }))}
-        data-table-content={tableContent}
-        data-level={level}
-        ref={ref}
-        {...props}
-      >
-        {children}
-      </HeadingTag>
-    )
+    switch (level) {
+      case 1:
+        return <h1 {...commonProps}>{children}</h1>
+      case 2:
+        return <h2 {...commonProps}>{children}</h2>
+      case 3:
+        return <h3 {...commonProps}>{children}</h3>
+      case 4:
+        return <h4 {...commonProps}>{children}</h4>
+      case 5:
+        return <h5 {...commonProps}>{children}</h5>
+      case 6:
+        return <h6 {...commonProps}>{children}</h6>
+      default:
+        return <h2 {...commonProps}>{children}</h2>
+    }
   }
 )
 Title.displayName = "Title"

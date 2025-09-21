@@ -225,6 +225,39 @@
   }
 }
 
+/* Mobile Navbar Styles */
+.mobile-navbar {
+  @apply fixed top-3 left-1/2 z-100 w-full max-w-[calc(100vw-2rem)] -translate-x-1/2;
+}
+
+.mobile-navbar-header {
+  @apply flex items-center justify-between rounded-full px-4 py-2;
+}
+
+.mobile-navbar-menu {
+  @apply bg-background border-border absolute top-full right-0 left-0 mt-2 rounded-lg border p-4 shadow-lg;
+}
+
+.mobile-navbar-section {
+  @apply mb-6 last:mb-0;
+}
+
+.mobile-navbar-section-title {
+  @apply text-foreground/70 mb-3 flex items-center gap-2 text-sm font-medium;
+}
+
+.mobile-navbar-links {
+  @apply flex flex-col space-y-1;
+}
+
+.mobile-navbar-link {
+  @apply text-foreground hover:bg-primary flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors;
+}
+
+.mobile-navbar-footer {
+  @apply border-border/10 mt-4 border-t pt-4;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .enhanced-submenu {
