@@ -2,7 +2,10 @@ import type { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
+import { FeatureCard } from "@/components/doc/FeatureCard"
+import { InlineCode } from "@/components/doc/InlineCode"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
   title: "Installation",
@@ -31,7 +34,7 @@ export default function InstallationPage() {
           </p>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Official Registry Installation */}
       <div className="space-y-4">
         <h2
@@ -44,25 +47,13 @@ export default function InstallationPage() {
         <p className="text-foreground/70 text-sm leading-relaxed">
           SmoothUI is an official shadcn registry, so you can install components
           directly without any configuration. Just use the{" "}
-          <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
-            @smoothui
-          </code>{" "}
-          namespace.
+          <InlineCode>@smoothui</InlineCode> namespace.
         </p>
-
-        <div className="bg-primary/50 rounded-lg border p-4">
-          <h3 className="text-foreground mb-2 text-base font-semibold">
-            🚀 No Configuration Required
-          </h3>
-          <p className="text-foreground/70 text-sm leading-relaxed">
-            Since SmoothUI is an official registry, you don&apos;t need to add
-            anything to your{" "}
-            <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
-              components.json
-            </code>{" "}
-            file. Just install components directly!
-          </p>
-        </div>
+        <FeatureCard title="No Configuration Required" variant="info">
+          Since SmoothUI is an official registry, you don&apos;t need to add
+          anything to your <InlineCode>components.json</InlineCode> file. Just
+          install components directly!
+        </FeatureCard>
 
         <div className="space-y-6">
           <div className="space-y-4">
@@ -75,10 +66,7 @@ export default function InstallationPage() {
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Install SmoothUI components using the shadcn CLI with the{" "}
-              <code className="bg-primary rounded border px-1.5 py-0.5 text-sm">
-                @smoothui
-              </code>{" "}
-              namespace:
+              <InlineCode>@smoothui</InlineCode> namespace:
             </p>
             <CodeBlock
               code={`# Install a single component
@@ -123,7 +111,7 @@ export default function App() {
           </div>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Manual Installation */}
       <div className="space-y-4">
         <h2

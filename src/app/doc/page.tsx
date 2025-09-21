@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import Link from "next/link"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { FeatureCard } from "@/components/doc/FeatureCard"
+import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
   title: "Introduction",
@@ -28,7 +30,7 @@ export default function IntroductionPage() {
           </p>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* What is SmoothUI? */}
       <div className="space-y-4">
         <h2
@@ -49,7 +51,7 @@ export default function IntroductionPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              🎨 Beautiful Design
+              Beautiful Design
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Carefully crafted components with attention to detail and modern
@@ -59,7 +61,7 @@ export default function IntroductionPage() {
 
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              ⚡ Smooth Animations
+              Smooth Animations
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Powered by Framer Motion for fluid, performant animations that
@@ -69,7 +71,7 @@ export default function IntroductionPage() {
 
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              🛠️ Developer Friendly
+              Developer Friendly
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Built with TypeScript, fully customizable with Tailwind CSS, and
@@ -78,7 +80,7 @@ export default function IntroductionPage() {
           </div>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Key Features */}
       <div className="space-y-4">
         <h2
@@ -119,7 +121,7 @@ export default function IntroductionPage() {
           </li>
         </ul>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Navigation Cards */}
       <div className="space-y-4">
         <h2
@@ -157,7 +159,7 @@ export default function IntroductionPage() {
           </Link>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* FAQ */}
       <div className="space-y-4">
         <h2
@@ -210,7 +212,7 @@ export default function IntroductionPage() {
           </div>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Contributing */}
       <div className="space-y-4">
         <h2
@@ -226,21 +228,23 @@ export default function IntroductionPage() {
           help make SmoothUI better for everyone.
         </p>
 
-        <div className="bg-primary/50 rounded-lg border p-4">
-          <h3 className="text-foreground mb-2 text-lg font-semibold">
-            How to Contribute
-          </h3>
+        <FeatureCard title="How to Contribute" variant="info">
           <ul className="text-foreground/70 list-disc space-y-1 pl-6 text-sm leading-relaxed">
             <li>Fork the repository on GitHub</li>
             <li>Create a new branch for your feature or bug fix</li>
             <li>Make your changes and test them thoroughly</li>
             <li>Submit a pull request with a clear description</li>
           </ul>
-        </div>
+        </FeatureCard>
 
         <p className="text-foreground/70 text-sm leading-relaxed">
           Check out our{" "}
-          <Link href="/doc/contributing" className="text-brand hover:underline">
+          <Link
+            href="https://github.com/educlopez/smoothui/blob/main/CONTRIBUTING.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-brand hover:underline"
+          >
             contributing guide
           </Link>{" "}
           for more detailed information.

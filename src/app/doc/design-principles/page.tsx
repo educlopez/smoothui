@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
   title: "Design Principles",
@@ -244,7 +245,7 @@ export default function DesignPrinciplesPage() {
           </p>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Design Philosophy */}
       <div className="space-y-4">
         <h2
@@ -263,7 +264,7 @@ export default function DesignPrinciplesPage() {
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              🎨 Beautiful by Default
+              Beautiful by Default
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Components look great out of the box with carefully chosen colors,
@@ -273,7 +274,7 @@ export default function DesignPrinciplesPage() {
 
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              ♿ Accessible First
+              Accessible First
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Built with accessibility in mind, following WCAG guidelines and
@@ -283,7 +284,7 @@ export default function DesignPrinciplesPage() {
 
           <div className="bg-primary/50 rounded-lg border p-4">
             <h3 className="text-foreground mb-2 text-lg font-semibold">
-              ⚡ Performance Focused
+              Performance Focused
             </h3>
             <p className="text-foreground/70 text-sm leading-relaxed">
               Optimized for performance with minimal bundle size and efficient
@@ -292,7 +293,7 @@ export default function DesignPrinciplesPage() {
           </div>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Color System */}
       <div className="space-y-4">
         <h2
@@ -318,8 +319,8 @@ export default function DesignPrinciplesPage() {
           </h3>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="bg-primary/50 rounded-lg border p-4">
-              <div className="mb-2 flex items-center space-x-3">
-                <div className="bg-brand h-8 w-8 rounded-full"></div>
+              <div className="flex items-center space-x-3">
+                <div className="bg-brand inset-ring-background h-12 w-12 rounded-md border-[0.5px] inset-ring-2"></div>
                 <div>
                   <h4 className="text-foreground font-medium">Brand Primary</h4>
                   <p className="text-foreground/70 text-sm">
@@ -330,8 +331,8 @@ export default function DesignPrinciplesPage() {
             </div>
 
             <div className="bg-primary/50 rounded-lg border p-4">
-              <div className="mb-2 flex items-center space-x-3">
-                <div className="bg-brand-secondary h-8 w-8 rounded-full"></div>
+              <div className="flex items-center space-x-3">
+                <div className="bg-brand-secondary inset-ring-background h-12 w-12 rounded-md border-[0.5px] inset-ring-2"></div>
                 <div>
                   <h4 className="text-foreground font-medium">
                     Brand Secondary
@@ -359,57 +360,57 @@ export default function DesignPrinciplesPage() {
           </p>
           <div className="grid grid-cols-5 gap-2">
             <div className="text-center">
-              <div className="bg-smooth-50 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-50 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">50</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-100 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-100 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">100</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-200 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-200 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">200</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-300 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-300 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">300</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-400 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-400 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">400</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-500 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-500 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">500</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-600 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-600 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">600</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-700 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-700 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">700</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-800 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-800 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">800</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-900 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-900 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">900</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-950 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-950 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">950</p>
             </div>
             <div className="text-center">
-              <div className="bg-smooth-1000 h-12 w-full rounded border"></div>
+              <div className="bg-smooth-1000 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
               <p className="text-foreground/70 mt-1 text-xs">1000</p>
             </div>
           </div>
         </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Design System CSS */}
       <div className="space-y-4">
         <h2
@@ -427,7 +428,7 @@ export default function DesignPrinciplesPage() {
           <CodeBlock code={tailwindConfig} fileName="global.css" lang="css" />
         </CodeBlockWrapper>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       {/* Customization */}
       <div className="space-y-4">
         <h2
