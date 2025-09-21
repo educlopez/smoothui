@@ -1,10 +1,13 @@
 import type { Metadata } from "next"
 
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { FeatureCard } from "@/components/doc/FeatureCard"
 import { InlineCode } from "@/components/doc/InlineCode"
+import { List } from "@/components/doc/List"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
@@ -21,34 +24,26 @@ export default function InstallationPage() {
       <div className="space-y-4">
         <Breadcrumbs groupName="Get Started" currentPage="Installation" />
         <div className="space-y-3.5">
-          <h1
-            data-table-content="Installation"
-            data-level="1"
-            className="text-foreground text-3xl font-semibold -tracking-wide"
-          >
+          <Title level={1} tableContent="Installation">
             Installation
-          </h1>
-          <p className="text-foreground/70 text-sm leading-relaxed font-normal">
+          </Title>
+          <BodyText>
             Get started with SmoothUI by installing components using the shadcn
             CLI or manual installation methods.
-          </p>
+          </BodyText>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Official Registry Installation */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Installation (Official Registry)"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Installation (Official Registry)">
           Installation (Official Registry)
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI is an official shadcn registry, so you can install components
           directly without any configuration. Just use the{" "}
           <InlineCode>@smoothui</InlineCode> namespace.
-        </p>
+        </BodyText>
         <FeatureCard title="No Configuration Required" variant="info">
           Since SmoothUI is an official registry, you don&apos;t need to add
           anything to your <InlineCode>components.json</InlineCode> file. Just
@@ -57,17 +52,13 @@ export default function InstallationPage() {
 
         <div className="space-y-6">
           <div className="space-y-4">
-            <h3
-              data-table-content="Install Components"
-              data-level="3"
-              className="text-foreground text-base font-semibold"
-            >
+            <Title level={3} tableContent="Install Components">
               Install Components
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Install SmoothUI components using the shadcn CLI with the{" "}
               <InlineCode>@smoothui</InlineCode> namespace:
-            </p>
+            </BodyText>
             <CodeBlock
               code={`# Install a single component
 npx shadcn@latest add @smoothui/siri-orb
@@ -83,16 +74,12 @@ npx shadcn@latest add @smoothui/scrollable-card-stack`}
           </div>
 
           <div className="space-y-4">
-            <h3
-              data-table-content="Use Components"
-              data-level="3"
-              className="text-foreground text-base font-semibold"
-            >
+            <Title level={3} tableContent="Use Components">
               Use Components
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Import and use the installed components in your React application:
-            </p>
+            </BodyText>
             <CodeBlock
               code={`import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
 import { RichPopover } from "@/components/smoothui/ui/RichPopover"
@@ -114,17 +101,13 @@ export default function App() {
       <Divider orientation="horizontal" className="relative" />
       {/* Manual Installation */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Manual Installation"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Manual Installation">
           Manual Installation
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           If you prefer to install components manually, you will need to install
           the following dependencies:
-        </p>
+        </BodyText>
 
         <Tabs defaultValue="npm">
           <TabsList className="text-foreground/70 bg-primary border">
@@ -188,23 +171,19 @@ export default function App() {
         </Tabs>
 
         <div className="space-y-4">
-          <h3
-            data-table-content="Manual Component Installation"
-            data-level="3"
-            className="text-foreground text-base font-semibold"
-          >
+          <Title level={3} tableContent="Manual Component Installation">
             Manual Component Installation
-          </h3>
-          <p className="text-foreground/70 text-sm leading-relaxed">
+          </Title>
+          <BodyText>
             After installing the dependencies, you can manually copy component
             files from the SmoothUI repository:
-          </p>
-          <ol className="text-foreground/70 list-decimal space-y-2 pl-6 text-sm leading-relaxed">
+          </BodyText>
+          <List type="ordered">
             <li>Visit the component page on the SmoothUI website</li>
             <li>Copy the component code from the code block</li>
             <li>Create the component file in your project</li>
             <li>Import and use the component in your application</li>
-          </ol>
+          </List>
         </div>
       </div>
     </div>

@@ -1,8 +1,10 @@
 import type { Metadata } from "next"
 
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
@@ -232,91 +234,75 @@ export default function DesignPrinciplesPage() {
       <div className="space-y-4">
         <Breadcrumbs groupName="Get Started" currentPage="Design Principles" />
         <div className="space-y-3.5">
-          <h1
-            data-table-content="Design Principles"
-            data-level="1"
-            className="text-foreground text-3xl font-semibold -tracking-wide"
-          >
+          <Title level={1} tableContent="Design Principles">
             Design Principles
-          </h1>
-          <p className="text-foreground/70 text-sm leading-relaxed font-normal">
+          </Title>
+          <BodyText>
             Learn about SmoothUI&apos;s design system, theming, and
             customization options.
-          </p>
+          </BodyText>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Design Philosophy */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Design Philosophy"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Design Philosophy">
           Design Philosophy
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI is built on the principles of simplicity, accessibility, and
           performance. Each component is designed to be beautiful by default
           while remaining highly customizable.
-        </p>
+        </BodyText>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Beautiful by Default
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Components look great out of the box with carefully chosen colors,
               spacing, and typography.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Accessible First
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Built with accessibility in mind, following WCAG guidelines and
               best practices.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Performance Focused
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Optimized for performance with minimal bundle size and efficient
               animations.
-            </p>
+            </BodyText>
           </div>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Color System */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Color System"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Color System">
           Color System
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI uses a carefully crafted color system based on OKLCH color
           space for better color consistency and accessibility. The system
           includes both light and dark variants.
-        </p>
+        </BodyText>
 
         <div className="space-y-4">
-          <h3
-            data-table-content="Brand Colors"
-            data-level="3"
-            className="text-foreground text-base font-semibold"
-          >
+          <Title level={3} tableContent="Brand Colors">
             Brand Colors
-          </h3>
+          </Title>
           <div className="grid gap-4 md:grid-cols-2">
             <div className="bg-primary/50 rounded-lg border p-4">
               <div className="flex items-center space-x-3">
@@ -347,17 +333,13 @@ export default function DesignPrinciplesPage() {
         </div>
 
         <div className="space-y-4">
-          <h3
-            data-table-content="Neutral Colors"
-            data-level="3"
-            className="text-foreground text-base font-semibold"
-          >
+          <Title level={3} tableContent="Neutral Colors">
             Neutral Colors
-          </h3>
-          <p className="text-foreground/70 text-sm leading-relaxed">
+          </Title>
+          <BodyText>
             The neutral color palette provides a range of grays that work well
             in both light and dark modes.
-          </p>
+          </BodyText>
           <div className="grid grid-cols-5 gap-2">
             <div className="text-center">
               <div className="bg-smooth-50 inset-ring-background h-12 w-full rounded-md border-[0.5px] inset-ring-2"></div>
@@ -413,17 +395,13 @@ export default function DesignPrinciplesPage() {
       <Divider orientation="horizontal" className="relative" />
       {/* Design System CSS */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Design System CSS"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Design System CSS">
           Design System CSS
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           Add this CSS to your global styles to enable the full SmoothUI design
           system:
-        </p>
+        </BodyText>
         <CodeBlockWrapper expandButtonTitle="Expand CSS" className="my-6">
           <CodeBlock code={tailwindConfig} fileName="global.css" lang="css" />
         </CodeBlockWrapper>
@@ -431,47 +409,43 @@ export default function DesignPrinciplesPage() {
       <Divider orientation="horizontal" className="relative" />
       {/* Customization */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Customization"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Customization">
           Customization
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI components are highly customizable. Here are the main ways to
           customize them:
-        </p>
+        </BodyText>
 
         <div className="space-y-4">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               CSS Variables
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Override CSS variables to customize colors, spacing, and other
               design tokens globally.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Tailwind Classes
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Use Tailwind utility classes to customize individual components or
               create variants.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Component Props
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Many components accept props for customization like size, variant,
               and color options.
-            </p>
+            </BodyText>
           </div>
         </div>
       </div>

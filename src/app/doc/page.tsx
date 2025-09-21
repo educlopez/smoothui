@@ -1,8 +1,11 @@
 import type { Metadata } from "next"
 import Link from "next/link"
 
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { FeatureCard } from "@/components/doc/FeatureCard"
+import { List } from "@/components/doc/List"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
@@ -17,80 +20,68 @@ export default function IntroductionPage() {
       <div className="space-y-4">
         <Breadcrumbs groupName="Get Started" currentPage="Introduction" />
         <div className="space-y-3.5">
-          <h1
-            data-table-content="Introduction"
-            data-level="1"
-            className="text-foreground text-3xl font-semibold -tracking-wide"
-          >
+          <Title level={1} tableContent="Introduction">
             Introduction
-          </h1>
-          <p className="text-foreground/70 text-sm leading-relaxed font-normal">
+          </Title>
+          <BodyText>
             SmoothUI is a collection of beautifully designed components with
             smooth animations built with React, Tailwind CSS, and Framer Motion.
-          </p>
+          </BodyText>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* What is SmoothUI? */}
       <div className="space-y-4">
-        <h2
-          data-table-content="What is SmoothUI?"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="What is SmoothUI?">
           What is SmoothUI?
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI is a modern component library that brings together the best
           of React, Tailwind CSS, and Framer Motion to create beautiful,
           accessible, and performant user interfaces. Each component is
           carefully crafted with smooth animations and thoughtful design
           principles.
-        </p>
+        </BodyText>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Beautiful Design
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Carefully crafted components with attention to detail and modern
               design principles.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Smooth Animations
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Powered by Framer Motion for fluid, performant animations that
               enhance user experience.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Developer Friendly
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Built with TypeScript, fully customizable with Tailwind CSS, and
               easy to integrate.
-            </p>
+            </BodyText>
           </div>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Key Features */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Key Features"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Key Features">
           Key Features
-        </h2>
-        <ul className="text-foreground/70 [&_strong]:text-foreground list-disc space-y-2 pl-6 text-sm leading-relaxed">
+        </Title>
+        <List>
           <li>
             <strong>shadcn CLI Compatible</strong>: Install components using the
             familiar shadcn CLI
@@ -119,125 +110,119 @@ export default function IntroductionPage() {
             <strong>Performance Optimized</strong>: Built with performance in
             mind using modern React patterns
           </li>
-        </ul>
+        </List>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Navigation Cards */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Get Started"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Get Started">
           Get Started
-        </h2>
+        </Title>
         <div className="grid gap-4 md:grid-cols-2">
           <Link
             href="/doc/installation"
             className="group bg-primary hover:bg-primary/80 rounded-lg border p-6 transition-colors"
           >
-            <h3 className="group-hover:text-brand mb-2 font-semibold transition-colors">
+            <Title
+              level={3}
+              className="group-hover:text-brand mb-2 transition-colors"
+            >
               Installation Guide
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Learn how to install SmoothUI components using shadcn CLI or
               manual installation methods.
-            </p>
+            </BodyText>
           </Link>
 
           <Link
             href="/doc/components"
             className="group bg-primary hover:bg-primary/80 rounded-lg border p-6 transition-colors"
           >
-            <h3 className="group-hover:text-brand mb-2 font-semibold transition-colors">
+            <Title
+              level={3}
+              className="group-hover:text-brand mb-2 transition-colors"
+            >
               Browse All Components
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Explore all available components with live demos and
               documentation.
-            </p>
+            </BodyText>
           </Link>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* FAQ */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Frequently Asked Questions"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Frequently Asked Questions">
           Frequently Asked Questions
-        </h2>
+        </Title>
 
         <div className="space-y-4">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Is SmoothUI free to use?
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Yes! SmoothUI is completely free and open source. You can use it
               in personal and commercial projects.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Do I need to know Framer Motion to use SmoothUI?
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               No! All animations are built-in. You can use components without
               any Framer Motion knowledge.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Can I customize the components?
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Absolutely! All components are built with Tailwind CSS and can be
               customized using standard Tailwind classes.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Does SmoothUI work with Next.js?
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Yes! SmoothUI works with any React framework including Next.js,
               Vite, Create React App, and more.
-            </p>
+            </BodyText>
           </div>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       {/* Contributing */}
       <div className="space-y-4">
-        <h2
-          data-table-content="Contributing"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Contributing">
           Contributing
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           We welcome contributions to SmoothUI! Whether you want to add new
           components, improve existing ones, or fix bugs, your contributions
           help make SmoothUI better for everyone.
-        </p>
+        </BodyText>
 
         <FeatureCard title="How to Contribute" variant="info">
-          <ul className="text-foreground/70 list-disc space-y-1 pl-6 text-sm leading-relaxed">
+          <List spacing="tight">
             <li>Fork the repository on GitHub</li>
             <li>Create a new branch for your feature or bug fix</li>
             <li>Make your changes and test them thoroughly</li>
             <li>Submit a pull request with a clear description</li>
-          </ul>
+          </List>
         </FeatureCard>
 
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        <BodyText>
           Check out our{" "}
           <Link
             href="https://github.com/educlopez/smoothui/blob/main/CONTRIBUTING.md"
@@ -248,7 +233,7 @@ export default function IntroductionPage() {
             contributing guide
           </Link>{" "}
           for more detailed information.
-        </p>
+        </BodyText>
       </div>
     </div>
   )

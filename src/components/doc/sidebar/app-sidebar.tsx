@@ -4,6 +4,7 @@ import Link from "next/link"
 import SparkbitesIcon from "@/assets/images/sparkbites.png"
 
 import { Button } from "@/components/button"
+import { BgLines } from "@/components/landing/bg-lines"
 import Logo from "@/components/logo"
 import {
   Sidebar,
@@ -43,8 +44,9 @@ export async function AppSidebar({
         <Link
           href="https://sparkbites.dev/"
           target="_blank"
-          className="bg-background hover:bg-background flex items-center gap-2 rounded-md border p-2 text-xs transition-colors"
+          className="from-background frame-box via-background to-brand/10 relative flex items-center gap-2 rounded-md border bg-gradient-to-br p-2 text-xs transition-colors"
         >
+          <BgLines />
           <Image
             src={SparkbitesIcon.src}
             alt="Sparkbites"

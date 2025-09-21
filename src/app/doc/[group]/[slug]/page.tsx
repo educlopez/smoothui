@@ -6,6 +6,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
 import BadgeBeta from "@/components/doc/badgeBeta"
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
@@ -13,6 +14,7 @@ import ComponentPager from "@/components/doc/ComponentPager"
 import { ComponentView } from "@/components/doc/componentView"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 import { aiComponents } from "@/app/doc/data/aiComponents"
 import { basicComponents } from "@/app/doc/data/basicComponents"
@@ -152,342 +154,322 @@ export default async function ComponentPage({
   }
 
   return (
-    <section className="my-2 xl:mb-24">
-      <div className="space-y-10">
-        <div className="space-y-4">
-          <Breadcrumbs
-            backLink="/doc"
-            groupName={
-              group === "ai"
-                ? "AI Components"
-                : group.charAt(0).toUpperCase() + group.slice(1)
-            }
-            currentPage={component.componentTitle}
-          />
-          <h1
-            data-table-content="Introduction"
-            data-level="1"
-            className="text-foreground text-3xl font-bold -tracking-wide"
-          >
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <Breadcrumbs
+          backLink="/doc"
+          groupName={
+            group === "ai"
+              ? "AI Components"
+              : group.charAt(0).toUpperCase() + group.slice(1)
+          }
+          currentPage={component.componentTitle}
+        />
+        <div className="space-y-3.5">
+          <Title level={1} tableContent="Introduction">
             {component.componentTitle}
-          </h1>
-          <p className="text-primary-foreground text-sm">{component.info}</p>
+          </Title>
+          <BodyText>{component.info}</BodyText>
         </div>
-        <div className="relative space-y-6">
-          <ComponentView
-            hasRefreshDemo={component.hasRefreshDemo !== false}
-            openInV0Url={`https://smoothui.dev/r/${component.slug}-demo.json`}
-          >
-            {component.componentUi &&
-              React.createElement(component.componentUi)}
-          </ComponentView>
-          <h2
-            className="text-xl font-semibold"
-            data-table-content="Code"
-            data-level="2"
-          >
-            Code
-          </h2>
-          {component.slug && (
-            <Tabs defaultValue="cli" className="mb-6">
-              <TabsList className="text-primary-foreground bg-primary mb-2 border">
-                <TabsTrigger
-                  value="cli"
-                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                >
-                  CLI
-                </TabsTrigger>
-                <TabsTrigger
-                  value="manual"
-                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                >
-                  Manual
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="cli">
-                {(() => {
-                  const steps = []
-                  // Step 1: Install with shadcn
-                  steps.push(
-                    <div className="relative" key="cli-step-1">
-                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                        <span className="text-foreground font-semibold">1</span>
-                      </div>
-                      <div className="ml-[1.1rem] border-l">
-                        <div className="space-y-4 pt-1 pb-10 pl-8">
-                          <p className="font-medium">
-                            Install with shadcn <BadgeBeta />
-                          </p>
+      </div>
+      <Divider orientation="horizontal" className="relative" />
+      <div className="relative space-y-6">
+        <ComponentView
+          hasRefreshDemo={component.hasRefreshDemo !== false}
+          openInV0Url={`https://smoothui.dev/r/${component.slug}-demo.json`}
+        >
+          {component.componentUi && React.createElement(component.componentUi)}
+        </ComponentView>
+        <Title level={2} tableContent="Code">
+          Code
+        </Title>
+        {component.slug && (
+          <Tabs defaultValue="cli" className="mb-6">
+            <TabsList className="text-primary-foreground bg-primary mb-2 border">
+              <TabsTrigger
+                value="cli"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+              >
+                CLI
+              </TabsTrigger>
+              <TabsTrigger
+                value="manual"
+                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+              >
+                Manual
+              </TabsTrigger>
+            </TabsList>
+            <TabsContent value="cli">
+              {(() => {
+                const steps = []
+                // Step 1: Install with shadcn
+                steps.push(
+                  <div className="relative" key="cli-step-1">
+                    <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                      <span className="text-foreground font-semibold">1</span>
+                    </div>
+                    <div className="ml-[1.1rem] border-l">
+                      <div className="space-y-4 pt-1 pb-10 pl-8">
+                        <p className="font-medium">Install with shadcn</p>
 
-                          <CodeBlock
-                            code={`npx shadcn@latest add @smoothui/${component.slug}`}
-                            fileName="Terminal"
-                            lang="shell"
-                          />
-                          <p className="font-medium">Or install the demo</p>
-                          <CodeBlock
-                            code={`npx shadcn@latest add @smoothui/${component.slug}-demo`}
-                            fileName="Terminal"
-                            lang="shell"
-                          />
-                        </div>
+                        <CodeBlock
+                          code={`npx shadcn@latest add @smoothui/${component.slug}`}
+                          fileName="Terminal"
+                          lang="shell"
+                        />
+                        <p className="font-medium">Or install the demo</p>
+                        <CodeBlock
+                          code={`npx shadcn@latest add @smoothui/${component.slug}-demo`}
+                          fileName="Terminal"
+                          lang="shell"
+                        />
                       </div>
                     </div>
-                  )
-                  // Step 2: Add the CSS (if present)
-                  if (component.customCss) {
-                    steps.push(
-                      <div className="relative" key="cli-step-2">
-                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                          <span className="text-foreground font-semibold">
-                            2
-                          </span>
-                        </div>
-                        <div className="ml-[1.1rem] border-l">
-                          <div className="space-y-4 pt-1 pb-10 pl-8">
-                            <p className="font-medium">Add the CSS</p>
-                            <CodeBlockWrapper
-                              expandButtonTitle="Expand"
-                              className="my-6 overflow-hidden rounded-md"
-                            >
-                              <CodeBlock
-                                code={component.customCss}
-                                fileName="global.css"
-                                lang="css"
-                              />
-                            </CodeBlockWrapper>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                  // Remove border from last step
-                  if (steps.length > 0) {
-                    const last = steps.length - 1
-                    steps[last] = React.cloneElement(
-                      steps[last],
-                      {},
-                      steps[last].props.children[0],
-                      <div className="ml-[1.1rem]">
-                        {steps[last].props.children[1].props.children}
-                      </div>
-                    )
-                  }
-                  return <div className="mb-4 space-y-0">{steps}</div>
-                })()}
-              </TabsContent>
-              <TabsContent value="manual">
-                {(() => {
-                  const steps = []
-                  let stepNum = 1
-                  // Step 1: Install the packages
+                  </div>
+                )
+                // Step 2: Add the CSS (if present)
+                if (component.customCss) {
                   steps.push(
-                    <div className="relative" key="manual-step-1">
+                    <div className="relative" key="cli-step-2">
                       <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                        <span className="text-foreground font-semibold">
-                          {stepNum}
-                        </span>
+                        <span className="text-foreground font-semibold">2</span>
                       </div>
                       <div className="ml-[1.1rem] border-l">
                         <div className="space-y-4 pt-1 pb-10 pl-8">
-                          <p className="font-medium">Install the packages</p>
-
-                          {component.download && (
-                            <Tabs defaultValue="npm" className="mt-2">
-                              <TabsList className="text-primary-foreground bg-primary border">
-                                <TabsTrigger
-                                  value="npm"
-                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                                >
-                                  npm
-                                </TabsTrigger>
-                                <TabsTrigger
-                                  value="pnpm"
-                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                                >
-                                  pnpm
-                                </TabsTrigger>
-                                <TabsTrigger
-                                  value="yarn"
-                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                                >
-                                  yarn
-                                </TabsTrigger>
-                                <TabsTrigger
-                                  value="bun"
-                                  className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
-                                >
-                                  bun
-                                </TabsTrigger>
-                              </TabsList>
-                              <TabsContent value="npm">
-                                <CodeBlock
-                                  code={component.download}
-                                  fileName="Terminal"
-                                  installCommand="npm install"
-                                  lang="shell"
-                                />
-                              </TabsContent>
-                              <TabsContent value="pnpm">
-                                <CodeBlock
-                                  code={component.download}
-                                  fileName="Terminal"
-                                  installCommand="pnpm install"
-                                  lang="shell"
-                                />
-                              </TabsContent>
-                              <TabsContent value="yarn">
-                                <CodeBlock
-                                  code={component.download}
-                                  fileName="Terminal"
-                                  installCommand="yarn add"
-                                  lang="shell"
-                                />
-                              </TabsContent>
-                              <TabsContent value="bun">
-                                <CodeBlock
-                                  code={component.download}
-                                  fileName="Terminal"
-                                  installCommand="bun add"
-                                  lang="shell"
-                                />
-                              </TabsContent>
-                            </Tabs>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )
-                  stepNum++
-                  // Step 2: Component code
-                  steps.push(
-                    <div className="relative" key="manual-step-2">
-                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                        <span className="text-foreground font-semibold">
-                          {stepNum}
-                        </span>
-                      </div>
-                      <div className="ml-[1.1rem] border-l">
-                        <div className="space-y-4 pt-1 pb-10 pl-8">
-                          <p className="font-medium">
-                            Copy and paste the following code into your project
-                          </p>
-
+                          <p className="font-medium">Add the CSS</p>
                           <CodeBlockWrapper
                             expandButtonTitle="Expand"
-                            className="overflow-hidden rounded-md"
+                            className="my-6 overflow-hidden rounded-md"
                           >
                             <CodeBlock
-                              code={code}
-                              fileName={`${getFileName(component.componentTitle)}.tsx`}
+                              code={component.customCss}
+                              fileName="global.css"
+                              lang="css"
                             />
                           </CodeBlockWrapper>
                         </div>
                       </div>
                     </div>
                   )
-                  stepNum++
-                  // Step 3: utils/cn.ts (if present)
-                  if (component.cnFunction) {
-                    steps.push(
-                      <div className="relative" key="manual-step-3">
-                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                          <span className="text-foreground font-semibold">
-                            {stepNum}
-                          </span>
-                        </div>
-                        <div className="ml-[1.1rem] border-l">
-                          <div className="space-y-4 pt-1 pb-10 pl-8">
-                            <p className="font-medium">
-                              Create a file with the path{" "}
-                              <code>utils/cn.ts</code>
-                            </p>
+                }
+                // Remove border from last step
+                if (steps.length > 0) {
+                  const last = steps.length - 1
+                  steps[last] = React.cloneElement(
+                    steps[last],
+                    {},
+                    steps[last].props.children[0],
+                    <div className="ml-[1.1rem]">
+                      {steps[last].props.children[1].props.children}
+                    </div>
+                  )
+                }
+                return <div className="mb-4 space-y-0">{steps}</div>
+              })()}
+            </TabsContent>
+            <TabsContent value="manual">
+              {(() => {
+                const steps = []
+                let stepNum = 1
+                // Step 1: Install the packages
+                steps.push(
+                  <div className="relative" key="manual-step-1">
+                    <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                      <span className="text-foreground font-semibold">
+                        {stepNum}
+                      </span>
+                    </div>
+                    <div className="ml-[1.1rem] border-l">
+                      <div className="space-y-4 pt-1 pb-10 pl-8">
+                        <p className="font-medium">Install the packages</p>
 
-                            <CodeBlock
-                              code={cnCode}
-                              fileName="utils/cn.ts"
-                              lang="typescript"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )
-                    stepNum++
-                  }
-                  // Step: CSS block (if present)
-                  if (component.customCss) {
-                    steps.push(
-                      <div className="relative" key="manual-step-css">
-                        <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
-                          <span className="text-foreground font-semibold">
-                            {stepNum}
-                          </span>
-                        </div>
-                        <div className="ml-[1.1rem] border-l">
-                          <div className="space-y-4 pt-1 pb-10 pl-8">
-                            <p className="font-medium">Add the CSS</p>
-                            <CodeBlockWrapper
-                              expandButtonTitle="Expand"
-                              className="my-6 overflow-hidden rounded-md"
-                            >
+                        {component.download && (
+                          <Tabs defaultValue="npm" className="mt-2">
+                            <TabsList className="text-primary-foreground bg-primary border">
+                              <TabsTrigger
+                                value="npm"
+                                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                              >
+                                npm
+                              </TabsTrigger>
+                              <TabsTrigger
+                                value="pnpm"
+                                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                              >
+                                pnpm
+                              </TabsTrigger>
+                              <TabsTrigger
+                                value="yarn"
+                                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                              >
+                                yarn
+                              </TabsTrigger>
+                              <TabsTrigger
+                                value="bun"
+                                className="data-[state=active]:bg-brand-secondary data-[state=active]:shadow-custom-brand data-[state=active]:border-none data-[state=active]:text-white"
+                              >
+                                bun
+                              </TabsTrigger>
+                            </TabsList>
+                            <TabsContent value="npm">
                               <CodeBlock
-                                code={component.customCss}
-                                fileName="global.css"
-                                lang="css"
+                                code={component.download}
+                                fileName="Terminal"
+                                installCommand="npm install"
+                                lang="shell"
                               />
-                            </CodeBlockWrapper>
-                          </div>
+                            </TabsContent>
+                            <TabsContent value="pnpm">
+                              <CodeBlock
+                                code={component.download}
+                                fileName="Terminal"
+                                installCommand="pnpm install"
+                                lang="shell"
+                              />
+                            </TabsContent>
+                            <TabsContent value="yarn">
+                              <CodeBlock
+                                code={component.download}
+                                fileName="Terminal"
+                                installCommand="yarn add"
+                                lang="shell"
+                              />
+                            </TabsContent>
+                            <TabsContent value="bun">
+                              <CodeBlock
+                                code={component.download}
+                                fileName="Terminal"
+                                installCommand="bun add"
+                                lang="shell"
+                              />
+                            </TabsContent>
+                          </Tabs>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )
+                stepNum++
+                // Step 2: Component code
+                steps.push(
+                  <div className="relative" key="manual-step-2">
+                    <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                      <span className="text-foreground font-semibold">
+                        {stepNum}
+                      </span>
+                    </div>
+                    <div className="ml-[1.1rem] border-l">
+                      <div className="space-y-4 pt-1 pb-10 pl-8">
+                        <p className="font-medium">
+                          Copy and paste the following code into your project
+                        </p>
+
+                        <CodeBlockWrapper
+                          expandButtonTitle="Expand"
+                          className="overflow-hidden rounded-md"
+                        >
+                          <CodeBlock
+                            code={code}
+                            fileName={`${getFileName(component.componentTitle)}.tsx`}
+                          />
+                        </CodeBlockWrapper>
+                      </div>
+                    </div>
+                  </div>
+                )
+                stepNum++
+                // Step 3: utils/cn.ts (if present)
+                if (component.cnFunction) {
+                  steps.push(
+                    <div className="relative" key="manual-step-3">
+                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                        <span className="text-foreground font-semibold">
+                          {stepNum}
+                        </span>
+                      </div>
+                      <div className="ml-[1.1rem] border-l">
+                        <div className="space-y-4 pt-1 pb-10 pl-8">
+                          <p className="font-medium">
+                            Create a file with the path <code>utils/cn.ts</code>
+                          </p>
+
+                          <CodeBlock
+                            code={cnCode}
+                            fileName="utils/cn.ts"
+                            lang="typescript"
+                          />
                         </div>
                       </div>
-                    )
-                  }
-                  // Remove border from last step
-                  if (steps.length > 0) {
-                    const last = steps.length - 1
-                    steps[last] = React.cloneElement(
-                      steps[last],
-                      {},
-                      steps[last].props.children[0],
-                      <div className="ml-[1.1rem]">
-                        {steps[last].props.children[1].props.children}
+                    </div>
+                  )
+                  stepNum++
+                }
+                // Step: CSS block (if present)
+                if (component.customCss) {
+                  steps.push(
+                    <div className="relative" key="manual-step-css">
+                      <div className="bg-primary absolute flex h-9 w-9 items-center justify-center rounded-full border select-none">
+                        <span className="text-foreground font-semibold">
+                          {stepNum}
+                        </span>
                       </div>
-                    )
-                  }
-                  return <div className="mb-4 space-y-0">{steps}</div>
-                })()}
-              </TabsContent>
-            </Tabs>
-          )}
-          {/* Divider for separation */}
-          <Divider className="relative" />
-          <h2
-            className="text-xl font-semibold"
-            data-table-content="How to use"
-            data-level="2"
-          >
-            How to use
-          </h2>
-          <CodeBlockWrapper
-            expandButtonTitle="Expand"
-            className="my-6 overflow-hidden rounded-md"
-          >
-            <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
-          </CodeBlockWrapper>
-        </div>
-        {component.props && (
-          <>
-            <Divider className="relative" />
-            <h2
-              className="mb-8 text-lg font-semibold"
-              data-table-content="Props"
-              data-level="2"
-            >
-              Props
-            </h2>
-            <PropsTable props={component.props} />
-          </>
+                      <div className="ml-[1.1rem] border-l">
+                        <div className="space-y-4 pt-1 pb-10 pl-8">
+                          <p className="font-medium">Add the CSS</p>
+                          <CodeBlockWrapper
+                            expandButtonTitle="Expand"
+                            className="my-6 overflow-hidden rounded-md"
+                          >
+                            <CodeBlock
+                              code={component.customCss}
+                              fileName="global.css"
+                              lang="css"
+                            />
+                          </CodeBlockWrapper>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+                // Remove border from last step
+                if (steps.length > 0) {
+                  const last = steps.length - 1
+                  steps[last] = React.cloneElement(
+                    steps[last],
+                    {},
+                    steps[last].props.children[0],
+                    <div className="ml-[1.1rem]">
+                      {steps[last].props.children[1].props.children}
+                    </div>
+                  )
+                }
+                return <div className="mb-4 space-y-0">{steps}</div>
+              })()}
+            </TabsContent>
+          </Tabs>
         )}
+        {/* Divider for separation */}
+        <Divider className="relative" />
+        <Title level={2} tableContent="How to use">
+          How to use
+        </Title>
+        <CodeBlockWrapper
+          expandButtonTitle="Expand"
+          className="my-6 overflow-hidden rounded-md"
+        >
+          <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
+        </CodeBlockWrapper>
       </div>
+      {component.props && (
+        <>
+          <Divider className="relative" />
+          <Title level={2} tableContent="Props">
+            Props
+          </Title>
+          <PropsTable props={component.props} />
+        </>
+      )}
+
       {/* Pager navigation at the bottom */}
       <ComponentPager
         group={group}
@@ -500,6 +482,6 @@ export default async function ComponentPage({
             info,
           }))}
       />
-    </section>
+    </div>
   )
 }

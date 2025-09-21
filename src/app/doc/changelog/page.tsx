@@ -1,7 +1,8 @@
-import React from "react"
-import { Metadata } from "next"
+import type { Metadata } from "next"
 
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { List } from "@/components/doc/List"
+import { Title } from "@/components/doc/Title"
 import { changelogEntries } from "@/app/doc/data/changelog"
 
 export const metadata: Metadata = {
@@ -26,18 +27,14 @@ export default function ChangelogPage() {
       <div className="space-y-4">
         <Breadcrumbs groupName="Get Started" currentPage="Changelog" />
         <div className="space-y-3.5">
-          <h1
-            data-table-content="Changelog"
-            data-level="1"
-            className="text-foreground text-3xl font-bold -tracking-wide"
-          >
+          <Title level={1} tableContent="Changelog">
             Changelog
-          </h1>
+          </Title>
         </div>
       </div>
       <div className="space-y-4">
-        {changelogEntries.map((entry, index) => (
-          <div key={index} className="relative m-0">
+        {changelogEntries.map((entry) => (
+          <div key={entry.version || entry.date} className="relative m-0">
             <div className="flex flex-col gap-y-6 md:flex-row">
               <div className="flex-shrink-0 md:w-48">
                 <div className="pb-10 md:sticky md:top-16">
@@ -57,16 +54,16 @@ export default function ChangelogPage() {
                 </div>
                 <div className="space-y-6">
                   <div className="relative z-10 flex flex-col gap-2">
-                    <h2 className="text-lg font-semibold tracking-tight text-balance">
+                    <Title level={2}>
                       {entry.title || `Release ${entry.version}`}
-                    </h2>
+                    </Title>
                   </div>
                   <div className="prose text-foreground/70 dark:prose-invert prose-headings:scroll-mt-8 prose-headings:font-semibold prose-a:no-underline prose-headings:tracking-tight prose-headings:text-balance prose-p:tracking-tight prose-p:text-balance max-w-none text-sm">
-                    <ul>
-                      {entry.changes.map((change, idx) => (
-                        <li key={idx}>{change}</li>
+                    <List>
+                      {entry.changes.map((change) => (
+                        <li key={change}>{change}</li>
                       ))}
-                    </ul>
+                    </List>
                   </div>
                 </div>
               </div>

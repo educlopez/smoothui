@@ -1,9 +1,12 @@
 import React from "react"
 import type { Metadata } from "next"
 
+import { BodyText } from "@/components/doc/BodyText"
+import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import PropsTable from "@/components/doc/PropsTable"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 import { faqsBlocks } from "@/app/doc/data/block-faqs"
 import { footerBlocks } from "@/app/doc/data/block-footer"
@@ -147,86 +150,79 @@ export default async function BlocksGroupPage({
   }
 
   return (
-    <section className="my-2 xl:mb-24">
-      <div className="space-y-10">
-        <div className="space-y-4">
-          <h1
-            data-table-content="Introduction"
-            data-level="1"
-            className="text-foreground text-3xl font-bold -tracking-wide capitalize"
-          >
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <Breadcrumbs groupName="Blocks" currentPage="Hero" />
+        <div className="space-y-3.5">
+          <Title level={1} tableContent="Introduction" className="capitalize">
             {group.replace(/-/g, " ")}
-          </h1>
-          <p className="text-primary-foreground text-sm">
-            {groupDescriptionMap[group] || ""}
-          </p>
+          </Title>
+          <BodyText>{groupDescriptionMap[group] || ""}</BodyText>
         </div>
-        <Divider className="relative my-4" />
-        {blocksWithSource.map(
-          (
-            block: BlocksProps & {
-              source: string | null
-              styleSource: string | null
-            }
-          ) => {
-            // Generate slug from title (kebab-case)
-            const slug = block.title
-              .toLowerCase()
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/(^-|-$)/g, "")
-            return (
-              <section key={slug}>
-                <h2 className="mb-2 text-xl font-semibold">{block.title}</h2>
-                <p className="text-muted-foreground mb-4">
-                  {block.description}
-                </p>
-                <Tabs defaultValue="preview" className="mb-2">
-                  <TabsList>
-                    <TabsTrigger value="preview">Preview</TabsTrigger>
-                    <TabsTrigger value="code">Code</TabsTrigger>
-                    {block.styleSource && (
-                      <TabsTrigger value="style">Style</TabsTrigger>
-                    )}
-                  </TabsList>
-                  <TabsContent value="preview" className="py-4">
-                    <div className="overflow-hidden rounded-md border">
-                      {block.componentUi &&
-                        React.createElement(block.componentUi)}
-                    </div>
-                  </TabsContent>
-                  <TabsContent value="code" className="py-4">
+      </div>
+      <Divider className="relative my-4" />
+      {blocksWithSource.map(
+        (
+          block: BlocksProps & {
+            source: string | null
+            styleSource: string | null
+          }
+        ) => {
+          // Generate slug from title (kebab-case)
+          const slug = block.title
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, "-")
+            .replace(/(^-|-$)/g, "")
+          return (
+            <section key={slug}>
+              <Title level={2}>{block.title}</Title>
+              <BodyText className="mb-4">{block.description}</BodyText>
+              <Tabs defaultValue="preview" className="mb-2">
+                <TabsList>
+                  <TabsTrigger value="preview">Preview</TabsTrigger>
+                  <TabsTrigger value="code">Code</TabsTrigger>
+                  {block.styleSource && (
+                    <TabsTrigger value="style">Style</TabsTrigger>
+                  )}
+                </TabsList>
+                <TabsContent value="preview" className="py-4">
+                  <div className="overflow-hidden rounded-md border">
+                    {block.componentUi &&
+                      React.createElement(block.componentUi)}
+                  </div>
+                </TabsContent>
+                <TabsContent value="code" className="py-4">
+                  <div className="relative">
+                    <CodeBlock
+                      code={block.source || ""}
+                      fileName={block.title + ".tsx"}
+                      lang="tsx"
+                    />
+                  </div>
+                </TabsContent>
+                {block.styleSource && (
+                  <TabsContent value="style" className="py-4">
                     <div className="relative">
                       <CodeBlock
-                        code={block.source || ""}
-                        fileName={block.title + ".tsx"}
-                        lang="tsx"
+                        code={block.styleSource || ""}
+                        fileName={block.title + ".module.css"}
+                        lang="css"
                       />
                     </div>
                   </TabsContent>
-                  {block.styleSource && (
-                    <TabsContent value="style" className="py-4">
-                      <div className="relative">
-                        <CodeBlock
-                          code={block.styleSource || ""}
-                          fileName={block.title + ".module.css"}
-                          lang="css"
-                        />
-                      </div>
-                    </TabsContent>
-                  )}
-                </Tabs>
-                {block.props && (
-                  <>
-                    <Divider className="relative my-6" />
-                    <h3 className="mb-4 text-lg font-semibold">Props</h3>
-                    <PropsTable props={block.props} />
-                  </>
                 )}
-              </section>
-            )
-          }
-        )}
-      </div>
-    </section>
+              </Tabs>
+              {block.props && (
+                <>
+                  <Divider className="relative my-6" />
+                  <Title level={3}>Props</Title>
+                  <PropsTable props={block.props} />
+                </>
+              )}
+            </section>
+          )
+        }
+      )}
+    </div>
   )
 }

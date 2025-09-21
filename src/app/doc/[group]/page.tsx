@@ -5,15 +5,13 @@ import { ArrowRight, Bot, Sparkles } from "lucide-react"
 
 import { isComponentNew } from "@/lib/componentUtils"
 import { Button } from "@/components/button"
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { FeatureCard } from "@/components/doc/FeatureCard"
+import { Title } from "@/components/doc/Title"
+import Divider from "@/components/landing/divider"
 import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { aiComponents } from "@/app/doc/data/aiComponents"
 import { basicComponents } from "@/app/doc/data/basicComponents"
 import { components } from "@/app/doc/data/components"
@@ -131,10 +129,8 @@ export default async function GroupPage({
   if (!groupData) {
     return (
       <div className="container mx-auto max-w-4xl space-y-4 px-4 py-8">
-        <h1 className="text-4xl font-bold tracking-tight">Group Not Found</h1>
-        <p className="text-foreground/70 mt-4 text-lg">
-          The requested component group does not exist.
-        </p>
+        <Title level={1}>Group Not Found</Title>
+        <BodyText>The requested component group does not exist.</BodyText>
       </div>
     )
   }
@@ -146,27 +142,23 @@ export default async function GroupPage({
   )
 
   return (
-    <div className="container mx-auto max-w-4xl space-y-4 px-4 py-8">
-      <Breadcrumbs
-        category="Documentation"
-        groupName={groupData.title}
-        backLink="/doc"
-        currentPage="Overview"
-      />
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <Breadcrumbs
+          category="Documentation"
+          groupName={groupData.title}
+          backLink="/doc"
+          currentPage="Overview"
+        />
 
-      <div className="mb-8">
-        <h1
-          className="text-4xl font-bold tracking-tight"
-          data-table-content={groupData.title}
-          data-level="1"
-        >
-          {groupData.title}
-        </h1>
-        <p className="text-foreground/70 mt-4 text-lg">
-          {groupData.description}
-        </p>
+        <div className="space-y-3.5">
+          <Title level={1} tableContent={groupData.title}>
+            {groupData.title}
+          </Title>
+          <BodyText>{groupData.description}</BodyText>
+        </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       <div className="grid grid-cols-1 gap-6">
         {featuredComponents.map((component) => (
           <Card
@@ -176,13 +168,9 @@ export default async function GroupPage({
             <CardHeader className="pb-3">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <CardTitle
-                    className="group-hover:text-brand text-lg transition-colors"
-                    data-table-content={component.componentTitle}
-                    data-level="2"
-                  >
+                  <Title level={2} tableContent={component.componentTitle}>
                     {component.componentTitle}
-                  </CardTitle>
+                  </Title>
                   {isComponentNew(component) ||
                     (component.isUpdated && (
                       <div className="mt-2 flex items-center gap-2">
@@ -210,9 +198,9 @@ export default async function GroupPage({
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <CardDescription className="text-foreground/70 mb-4 line-clamp-2 text-sm">
+              <BodyText className="mb-4 line-clamp-2">
                 {component.info}
-              </CardDescription>
+              </BodyText>
 
               {/* Component Demo */}
               <div className="frame-box relative mb-4 rounded-lg p-4">
@@ -243,11 +231,10 @@ export default async function GroupPage({
         ))}
       </div>
 
-      <div className="bg-primary mt-12 rounded-lg border p-6">
-        <h3 className="mb-2 text-lg font-semibold">Looking for more?</h3>
-        <p className="text-foreground/70 mb-4">
+      <FeatureCard title="Looking for more?">
+        <BodyText className="mb-4">
           Explore our other component groups for more UI elements.
-        </p>
+        </BodyText>
         <div className="flex gap-4">
           {groupData.relatedGroups.map((relatedGroup) => (
             <Button key={relatedGroup.href} asChild variant="outline">
@@ -255,7 +242,7 @@ export default async function GroupPage({
             </Button>
           ))}
         </div>
-      </div>
+      </FeatureCard>
     </div>
   )
 }

@@ -1,9 +1,12 @@
 import type { Metadata } from "next"
 
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { InlineCode } from "@/components/doc/InlineCode"
+import { List } from "@/components/doc/List"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/doc/tabs"
+import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 
 export const metadata: Metadata = {
@@ -18,68 +21,56 @@ export default function MCPPage() {
       <div className="space-y-4">
         <Breadcrumbs groupName="Get Started" currentPage="MCP Server" />
         <div className="space-y-3.5">
-          <h1
-            data-table-content="MCP Server"
-            data-level="1"
-            className="text-foreground text-3xl font-bold -tracking-wide"
-          >
+          <Title level={1} tableContent="MCP Server">
             MCP Server
-          </h1>
-          <p className="text-foreground/70 text-sm leading-relaxed font-normal">
+          </Title>
+          <BodyText>
             MCP support for registry developers - Enable AI assistants to
             discover and use SmoothUI components.
-          </p>
+          </BodyText>
         </div>
       </div>
 
       <div className="space-y-4">
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        <BodyText>
           The <strong>shadcn MCP server</strong> works out of the box with any
           shadcn-compatible registry. You do not need to do anything special to
           enable MCP support for your SmoothUI registry.
-        </p>
+        </BodyText>
       </div>
       <Divider orientation="horizontal" className="relative" />
       <div className="space-y-4">
-        <h2
-          data-table-content="Prerequisites"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Prerequisites">
           Prerequisites
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           The MCP server works by requesting your registry index. Make sure you
           have a registry item file at the root of your registry named{" "}
           <InlineCode>registry</InlineCode>.
-        </p>
+        </BodyText>
 
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        <BodyText>
           For example, if your registry is hosted at{" "}
           <InlineCode>https://smoothui.dev/r/[name].json</InlineCode>, you
           should have a file at{" "}
           <InlineCode>https://smoothui.dev/r/registry.json</InlineCode>.
-        </p>
+        </BodyText>
 
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        <BodyText>
           This file must be a valid JSON file that conforms to the registry
           schema.
-        </p>
+        </BodyText>
       </div>
       <Divider orientation="horizontal" className="relative" />
       <div className="space-y-4">
-        <h2
-          data-table-content="Configuring MCP"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Configuring MCP">
           Configuring MCP
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           Ask your registry consumers to configure your registry in their{" "}
           <InlineCode>components.json</InlineCode> file and install the shadcn
           MCP server:
-        </p>
+        </BodyText>
 
         <Tabs defaultValue="claude">
           <TabsList className="text-foreground/70 bg-primary border">
@@ -105,10 +96,10 @@ export default function MCPPage() {
 
           <TabsContent value="claude" className="mt-4">
             <div className="space-y-4">
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Configure your registry</strong> in your{" "}
                 <InlineCode>components.json</InlineCode> file:
-              </p>
+              </BodyText>
               <CodeBlock
                 code={`{
   "registries": {
@@ -119,40 +110,40 @@ export default function MCPPage() {
                 lang="json"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Run the following command</strong> in your project:
-              </p>
+              </BodyText>
               <CodeBlock
                 code="npx shadcn@latest mcp init --client claude"
                 fileName="Terminal"
                 lang="shell"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Restart Claude Code</strong> and try the following
                 prompts:
-              </p>
-              <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+              </BodyText>
+              <List className="list-inside">
                 <li>Show me the components in the smoothui registry</li>
                 <li>
                   Create a landing page using items from the smoothui registry
                 </li>
                 <li>Install the SiriOrb component from smoothui</li>
-              </ul>
+              </List>
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Note:</strong> You can use <InlineCode>/mcp</InlineCode>{" "}
                 command in Claude Code to debug the MCP server.
-              </p>
+              </BodyText>
             </div>
           </TabsContent>
 
           <TabsContent value="cursor" className="mt-4">
             <div className="space-y-4">
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Configure your registry</strong> in your{" "}
                 <InlineCode>components.json</InlineCode> file:
-              </p>
+              </BodyText>
               <CodeBlock
                 code={`{
   "registries": {
@@ -163,36 +154,36 @@ export default function MCPPage() {
                 lang="json"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Run the following command</strong> in your project:
-              </p>
+              </BodyText>
               <CodeBlock
                 code="npx shadcn@latest mcp init --client cursor"
                 fileName="Terminal"
                 lang="shell"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 Open <strong>Cursor Settings</strong> and{" "}
                 <strong>Enable the MCP server</strong> for shadcn. Then try the
                 following prompts:
-              </p>
-              <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+              </BodyText>
+              <List className="list-inside">
                 <li>Show me the components in the smoothui registry</li>
                 <li>
                   Create a landing page using items from the smoothui registry
                 </li>
                 <li>Install the SiriOrb component from smoothui</li>
-              </ul>
+              </List>
             </div>
           </TabsContent>
 
           <TabsContent value="vscode" className="mt-4">
             <div className="space-y-4">
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Configure your registry</strong> in your{" "}
                 <InlineCode>components.json</InlineCode> file:
-              </p>
+              </BodyText>
               <CodeBlock
                 code={`{
   "registries": {
@@ -203,51 +194,47 @@ export default function MCPPage() {
                 lang="json"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 <strong>Run the following command</strong> in your project:
-              </p>
+              </BodyText>
               <CodeBlock
                 code="npx shadcn@latest mcp init --client vscode"
                 fileName="Terminal"
                 lang="shell"
               />
 
-              <p className="text-foreground/70 text-sm leading-relaxed">
+              <BodyText>
                 Open <InlineCode>.vscode/mcp.json</InlineCode> and click{" "}
                 <strong>Start</strong> next to the shadcn server. Then try the
                 following prompts with GitHub Copilot:
-              </p>
-              <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+              </BodyText>
+              <List className="list-inside">
                 <li>Show me the components in the smoothui registry</li>
                 <li>
                   Create a landing page using items from the smoothui registry
                 </li>
                 <li>Install the SiriOrb component from smoothui</li>
-              </ul>
+              </List>
             </div>
           </TabsContent>
         </Tabs>
       </div>
       <Divider orientation="horizontal" className="relative" />
       <div className="space-y-4">
-        <h2
-          data-table-content="Example Prompts"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Example Prompts">
           Example Prompts
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           Once MCP is configured, you can use these prompts with your AI
           assistant:
-        </p>
+        </BodyText>
 
         <div className="space-y-4">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Component Discovery
-            </h3>
-            <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+            </Title>
+            <List className="list-inside">
               <li>
                 &ldquo;Show me all available components in the smoothui
                 registry&rdquo;
@@ -259,28 +246,28 @@ export default function MCPPage() {
               <li>
                 &ldquo;List all interactive components from smoothui&rdquo;
               </li>
-            </ul>
+            </List>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Component Installation
-            </h3>
-            <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+            </Title>
+            <List className="list-inside">
               <li>&ldquo;Install the SiriOrb component from smoothui&rdquo;</li>
               <li>&ldquo;Add the RichPopover component to my project&rdquo;</li>
               <li>
                 &ldquo;Install multiple components: SiriOrb, AnimatedInput, and
                 ScrollableCardStack&rdquo;
               </li>
-            </ul>
+            </List>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Component Usage
-            </h3>
-            <ul className="text-foreground/70 list-inside list-disc space-y-2 text-sm leading-relaxed">
+            </Title>
+            <List className="list-inside">
               <li>
                 &ldquo;Create a landing page using the SiriOrb component&rdquo;
               </li>
@@ -289,76 +276,68 @@ export default function MCPPage() {
                 component&rdquo;
               </li>
               <li>&ldquo;Build a dashboard with smoothui components&rdquo;</li>
-            </ul>
+            </List>
           </div>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       <div className="space-y-4">
-        <h2
-          data-table-content="SmoothUI MCP Features"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="SmoothUI MCP Features">
           SmoothUI MCP Features
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           SmoothUI registry is fully MCP-compatible and includes:
-        </p>
+        </BodyText>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Component Discovery
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               AI assistants can discover all available SmoothUI components and
               their descriptions.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Automatic Installation
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Components are installed with all dependencies and utilities
               automatically included.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Smart Dependencies
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               Required packages like <InlineCode>clsx</InlineCode> and{" "}
               <InlineCode>tailwind-merge</InlineCode> are automatically detected
               and included.
-            </p>
+            </BodyText>
           </div>
 
           <div className="bg-primary/50 rounded-lg border p-4">
-            <h3 className="text-foreground mb-2 text-lg font-semibold">
+            <Title level={3} className="mb-2">
               Usage Examples
-            </h3>
-            <p className="text-foreground/70 text-sm leading-relaxed">
+            </Title>
+            <BodyText>
               AI assistants can provide usage examples and help integrate
               components into your projects.
-            </p>
+            </BodyText>
           </div>
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
       <div className="space-y-4">
-        <h2
-          data-table-content="Learn More"
-          data-level="2"
-          className="text-foreground text-lg font-semibold"
-        >
+        <Title level={2} tableContent="Learn More">
           Learn More
-        </h2>
-        <p className="text-foreground/70 text-sm leading-relaxed">
+        </Title>
+        <BodyText>
           You can read more about the MCP server in the{" "}
           <a
             href="https://ui.shadcn.com/docs/mcp"
@@ -369,7 +348,7 @@ export default function MCPPage() {
             shadcn MCP documentation
           </a>
           .
-        </p>
+        </BodyText>
       </div>
     </div>
   )

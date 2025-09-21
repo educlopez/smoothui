@@ -14,15 +14,13 @@ import {
 } from "lucide-react"
 
 import { Button } from "@/components/button"
+import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
+import { FeatureCard } from "@/components/doc/FeatureCard"
+import { Title } from "@/components/doc/Title"
+import Divider from "@/components/landing/divider"
 import { Badge } from "@/components/ui/badge"
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { faqsBlocks } from "@/app/doc/data/block-faqs"
 import { footerBlocks } from "@/app/doc/data/block-footer"
 import { heroBlocks } from "@/app/doc/data/block-hero"
@@ -169,41 +167,36 @@ export default function BlocksPage() {
   ]
 
   return (
-    <div className="container mx-auto max-w-4xl space-y-4 px-4 py-8">
-      <Breadcrumbs
-        category="Documentation"
-        groupName="Blocks"
-        backLink="/doc"
-        currentPage="Overview"
-      />
+    <div className="space-y-8">
+      <div className="space-y-4">
+        <Breadcrumbs
+          category="Documentation"
+          groupName="Blocks"
+          backLink="/doc"
+          currentPage="Overview"
+        />
 
-      <div className="mb-8">
-        <h1
-          className="text-4xl font-bold tracking-tight"
-          data-table-content="Blocks"
-          data-level="1"
-        >
-          Blocks
-        </h1>
-        <p className="text-foreground/70 mt-4 text-lg">
-          Pre-built page sections and layouts for faster development with
-          TailwindCSS and Framer Motion. Each block is designed to be easily
-          customizable and ready to use in your projects.
-        </p>
+        <div className="space-y-3.5">
+          <Title level={1} tableContent="Blocks">
+            Blocks
+          </Title>
+          <BodyText>
+            Pre-built page sections and layouts for faster development with
+            TailwindCSS and Framer Motion. Each block is designed to be easily
+            customizable and ready to use in your projects.
+          </BodyText>
+        </div>
       </div>
-
+      <Divider orientation="horizontal" className="relative" />
       <div className="grid grid-cols-1 gap-6">
         {blockCategories.map((category) => (
-          <Card
-            key={category.name}
-            className="group bg-primary !shadow-none transition-all duration-200"
-          >
+          <Card key={category.name} className="group bg-primary !shadow-none">
             <CardHeader>
               <div className="flex items-start justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-3">
                     <div
-                      className={`from-brand to-brand-secondary shadow-custom-brand flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-b text-white`}
+                      className={`from-brand frame-box to-brand-secondary relative flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-b text-white`}
                     >
                       {React.createElement(
                         iconMap[category.icon as keyof typeof iconMap],
@@ -213,13 +206,9 @@ export default function BlocksPage() {
                       )}
                     </div>
                     <div className="flex flex-row gap-2">
-                      <CardTitle
-                        className="group-hover:text-brand text-xl transition-colors"
-                        data-table-content={category.name}
-                        data-level="2"
-                      >
+                      <Title level={2} tableContent={category.name}>
                         {category.name}
-                      </CardTitle>
+                      </Title>
                       <div className="mt-1 flex items-center gap-2">
                         <Badge
                           variant="secondary"
@@ -234,9 +223,7 @@ export default function BlocksPage() {
               </div>
             </CardHeader>
             <CardContent className="pt-0">
-              <CardDescription className="text-foreground/70 mb-6 text-sm">
-                {category.description}
-              </CardDescription>
+              <BodyText className="mb-6">{category.description}</BodyText>
 
               <div className="flex items-center justify-between">
                 <div className="text-foreground text-xs">
@@ -259,12 +246,11 @@ export default function BlocksPage() {
         ))}
       </div>
 
-      <div className="bg-primary mt-12 rounded-lg border p-6">
-        <h3 className="mb-2 text-lg font-semibold">Looking for more?</h3>
-        <p className="text-foreground/70 mb-4">
+      <FeatureCard title="Looking for more?">
+        <BodyText className="mb-4">
           Explore our individual components for more UI elements and
           interactions.
-        </p>
+        </BodyText>
         <div className="flex gap-4">
           <Button asChild variant="outline">
             <Link href="/doc/components">Advanced Components</Link>
@@ -276,7 +262,7 @@ export default function BlocksPage() {
             <Link href="/doc/text">Text Components</Link>
           </Button>
         </div>
-      </div>
+      </FeatureCard>
     </div>
   )
 }

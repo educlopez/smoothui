@@ -175,10 +175,10 @@ export function FloatNav() {
                     <DropdownMenuItem key={opt.href} asChild>
                       <Link
                         href={opt.href}
-                        className="flex w-full cursor-pointer items-center justify-between"
+                        className="flex w-full cursor-pointer items-center justify-start"
                       >
-                        <span>{opt.label}</span>
                         {opt.icon}
+                        <span>{opt.label}</span>
                       </Link>
                     </DropdownMenuItem>
                   ))}

@@ -11,7 +11,7 @@ export function InlineCode({ children, className }: InlineCodeProps) {
   return (
     <code
       className={cn(
-        "frame-box relative rounded px-1.5 py-0.5 font-mono text-sm",
+        "frame-box relative rounded px-1.5 py-0.5 font-mono text-xs",
         className
       )}
     >
