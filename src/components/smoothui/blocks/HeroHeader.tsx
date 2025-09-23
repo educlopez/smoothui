@@ -19,10 +19,7 @@ export const HeroHeader = () => {
   return (
     <div className="relative">
       <header>
-        <nav
-          data-state={menuState && "active"}
-          className="absolute top-0 left-0 z-20 w-full transition-all duration-300"
-        >
+        <nav className="absolute top-0 left-0 z-20 w-full transition-all duration-300">
           <div className="mx-auto max-w-5xl px-6">
             <div className="relative flex flex-wrap items-center justify-between gap-6 py-6 transition-all duration-200 lg:gap-0">
               <div className="flex w-full justify-between gap-6 lg:w-auto">
@@ -40,8 +37,12 @@ export const HeroHeader = () => {
                   aria-label={menuState === true ? "Close Menu" : "Open Menu"}
                   className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
                 >
-                  <Menu className="m-auto size-6 duration-200 in-data-[state=active]:scale-0 in-data-[state=active]:rotate-180 in-data-[state=active]:opacity-0" />
-                  <X className="absolute inset-0 m-auto size-6 scale-0 -rotate-180 opacity-0 duration-200 in-data-[state=active]:scale-100 in-data-[state=active]:rotate-0 in-data-[state=active]:opacity-100" />
+                  <Menu
+                    className={`m-auto size-6 duration-200 ${menuState ? "scale-0 rotate-180 opacity-0" : "scale-100 rotate-0 opacity-100"}`}
+                  />
+                  <X
+                    className={`absolute inset-0 m-auto size-6 duration-200 ${menuState ? "scale-100 rotate-0 opacity-100" : "scale-0 -rotate-180 opacity-0"}`}
+                  />
                 </button>
 
                 <div className="m-auto hidden size-fit lg:block">
@@ -59,7 +60,9 @@ export const HeroHeader = () => {
                 </div>
               </div>
 
-              <div className="bg-background mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 in-data-[state=active]:block md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none lg:in-data-[state=active]:flex dark:shadow-none dark:lg:bg-transparent">
+              <div
+                className={`bg-background mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent ${menuState ? "block" : "hidden"}`}
+              >
                 <div className="lg:hidden">
                   <ul className="space-y-6 text-base">
                     {menuItems.map((item) => (
