@@ -4,6 +4,7 @@ import AppDownloadStackDemo from "@/components/smoothui/examples/AppDownloadStac
 import AppleInvitesDemo from "@/components/smoothui/examples/AppleInvitesDemo"
 import ButtonCopyDemo from "@/components/smoothui/examples/ButtonCopyDemo"
 import ClipCornersButtonDemo from "@/components/smoothui/examples/ClipCornersButtonDemo"
+import { ContributionGraphDemo } from "@/components/smoothui/examples/ContributionGraphDemo"
 import CursorFollowDemo from "@/components/smoothui/examples/CursorFollowDemo"
 import DotMorphButtonDemo from "@/components/smoothui/examples/DotMorphButtonDemo"
 import DynamicIslandDemo from "@/components/smoothui/examples/DynamicIslandDemo"
@@ -1590,5 +1591,68 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "DollarSign",
+  },
+  {
+    id: 25,
+    componentTitle: "Contribution Graph",
+    slug: "contribution-graph",
+    type: "component",
+    isNew: true,
+    createdAt: "2025-09-24T10:30:00.000Z",
+    tags: [
+      "data-display",
+      "chart",
+      "github",
+      "contributions",
+      "calendar",
+      "graph",
+      "activity",
+    ],
+    href: "https://x.com/educalvolpz",
+    info: "GitHub-style contribution graph component with proper date calculations and month colspan handling",
+    componentUi: ContributionGraphDemo,
+    download: "motion",
+    cnFunction: false,
+    isUpdated: false,
+    collection: "data-display",
+    props: [
+      {
+        name: "data",
+        type: "ContributionData[]",
+        default: "[]",
+        description: "Array of contribution data for each day",
+        required: false,
+      },
+      {
+        name: "year",
+        type: "number",
+        default: "new Date().getFullYear()",
+        description: "Year to display the contribution graph for",
+        required: false,
+      },
+      {
+        name: "className",
+        type: "string",
+        default: '""',
+        description: "Additional CSS classes to apply to the component",
+        required: false,
+      },
+      {
+        name: "showLegend",
+        type: "boolean",
+        default: "true",
+        description: "Whether to show the contribution level legend",
+        required: false,
+      },
+      {
+        name: "showTooltips",
+        type: "boolean",
+        default: "true",
+        description: "Whether to show tooltips on hover",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "Calendar",
   },
 ]
