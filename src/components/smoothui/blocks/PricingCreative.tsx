@@ -1,78 +1,229 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "motion/react"
 
+import PriceFlow from "@/components/smoothui/ui/PriceFlow"
+
 export function PricingCreative() {
+  const [isAnnual, setIsAnnual] = useState(true)
+
   return (
-    <section className="relative flex flex-col items-center py-24">
-      <div className="flex flex-col items-center justify-center gap-8 md:flex-row">
-        {/* Starter Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, rotate: -6 }}
-          animate={{ opacity: 1, y: 0, rotate: -6 }}
-          transition={{ type: "spring", duration: 0.5 }}
-          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 transition-transform hover:scale-105"
-        >
-          <div className="text-brand mb-2 text-lg font-bold">Starter</div>
-          <div className="text-foreground mb-4 text-3xl font-extrabold">
-            $5/mo
+    <section>
+      <div className="bg-muted/50 relative py-16 md:py-32">
+        <div className="mx-auto max-w-5xl px-6">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold text-balance md:text-4xl lg:text-5xl lg:tracking-tight">
+              Deploy faster with Vercel Pro
+            </h2>
+            <p className="text-foreground/70 mx-auto mt-4 max-w-xl text-lg text-balance">
+              Scale your applications with advanced deployment features and
+              priority support
+            </p>
+            <div className="my-12">
+              <div
+                data-period={isAnnual ? "annually" : "monthly"}
+                className="bg-background *:text-foreground relative mx-auto grid w-fit grid-cols-2 rounded-full border p-1 *:block *:h-8 *:w-24 *:rounded-full *:text-sm *:hover:opacity-75"
+              >
+                <div
+                  aria-hidden="true"
+                  className={`bg-brand ring-foreground/5 pointer-events-none absolute inset-1 w-1/2 rounded-full border border-transparent shadow ring-1 transition-transform duration-500 ease-in-out ${
+                    isAnnual ? "translate-x-full" : "translate-x-0"
+                  }`}
+                ></div>
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(false)}
+                  data-active={!isAnnual}
+                  className="relative duration-500 data-[active=true]:font-medium data-[active=true]:text-white"
+                >
+                  Monthly
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setIsAnnual(true)}
+                  data-active={isAnnual}
+                  className="relative duration-500 data-[active=true]:font-medium data-[active=true]:text-white"
+                >
+                  Annually
+                </button>
+              </div>
+            </div>
           </div>
-          <ul className="text-foreground/70 mb-6 space-y-1 text-sm">
-            <li>✔️ 1 Project</li>
-            <li>✔️ Email Support</li>
-          </ul>
-          <button className="bg-brand text-background hover:bg-brand-secondary hover:text-background w-full rounded py-2 font-semibold transition">
-            Start Now
-          </button>
-        </motion.div>
-        {/* Creative Pro Card (Floating) */}
-        <motion.div
-          initial={{ opacity: 0, y: 60, rotate: 0 }}
-          animate={{ opacity: 1, y: -20, rotate: 0 }}
-          transition={{ type: "spring", duration: 0.7 }}
-          className="gradient-brand text-background relative z-20 flex w-80 scale-110 flex-col items-center rounded-3xl px-10 py-14 transition-transform hover:scale-115"
-        >
-          <motion.div
-            animate={{ y: [10, 6, 10] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="bg-background text-brand border-brand-secondary absolute -top-6 left-1/2 -translate-x-1/2 rounded-full border-2 px-5 py-1 text-xs font-extrabold"
-          >
-            Best Deal
-          </motion.div>
-          <div className="mb-2 text-lg font-bold">Creative Pro</div>
-          <div className="mb-4 text-5xl font-black">$19/mo</div>
-          <ul className="mb-6 space-y-1 text-base">
-            <li>✔️ Unlimited Projects</li>
-            <li>✔️ Priority Support</li>
-            <li>✔️ Team Collaboration</li>
-            <li>✔️ Early Access</li>
-          </ul>
-          <button className="bg-background/90 text-brand hover:bg-background w-full rounded py-2 font-bold transition">
-            Go Pro
-          </button>
-        </motion.div>
-        {/* Enterprise Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40, rotate: 6 }}
-          animate={{ opacity: 1, y: 0, rotate: 6 }}
-          transition={{ type: "spring", duration: 0.6 }}
-          className="bg-background border-brand-secondary relative z-10 flex w-72 flex-col items-center rounded-2xl border-2 px-8 py-10 transition-transform hover:scale-105"
-        >
-          <div className="text-brand-secondary mb-2 text-lg font-bold">
-            Enterprise
+          <div className="container">
+            <div className="mx-auto max-w-5xl">
+              <div className="grid grid-cols-2 gap-6 *:p-8">
+                {/* Free Plan */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="group bg-background relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border p-8"
+                  data-animate-card
+                >
+                  <div className="card-content relative z-10 flex h-full flex-col">
+                    {/* Title */}
+                    <h3 className="text-foreground mb-4 text-2xl font-bold">
+                      Hobby
+                    </h3>
+
+                    {/* Price & Duration */}
+                    <div className="mb-6">
+                      <span className="text-foreground text-3xl font-semibold">
+                        <PriceFlow value={0} />€
+                      </span>
+                      <span className="text-foreground/70 mx-2">•</span>
+                      <span className="text-foreground/70">
+                        Perfect for personal projects
+                      </span>
+                    </div>
+
+                    {/* CTA Button */}
+                    <button
+                      type="button"
+                      className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring mb-6 inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Get Started
+                    </button>
+
+                    {/* Description */}
+                    <p className="text-foreground/70 mb-6 flex-grow text-sm leading-relaxed">
+                      Deploy your personal projects and experiment with the
+                      latest web technologies. Perfect for developers learning
+                      and building side projects.
+                    </p>
+
+                    {/* What's Included */}
+                    <div className="space-y-4">
+                      <h4 className="text-foreground/70 text-xs font-medium tracking-wider uppercase">
+                        What&apos;s included:
+                      </h4>
+                      <ul className="space-y-3">
+                        {[
+                          "100GB Bandwidth",
+                          "Unlimited Personal Projects",
+                          "Community Support",
+                          "Automatic HTTPS",
+                          "Global CDN",
+                          "Preview Deployments",
+                        ].map((item) => (
+                          <li
+                            className="text-foreground flex items-center gap-3 text-sm"
+                            key={item}
+                          >
+                            <div className="bg-foreground flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                              <svg
+                                className="text-background h-2 w-2"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  clipRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  fillRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+                {/* Pro Plan */}
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    duration: 0.3,
+                    ease: [0.22, 1, 0.36, 1],
+                    delay: 0.1,
+                  }}
+                  className="group bg-primary relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border p-8"
+                  data-animate-card
+                >
+                  {/* Gradient Accent */}
+                  <div className="gradient-accent absolute top-0 right-0 h-4 w-32 rounded-bl-2xl bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400" />
+
+                  <div className="card-content relative z-10 flex h-full flex-col">
+                    {/* Title */}
+                    <h3 className="text-foreground mb-4 text-2xl font-bold">
+                      Pro
+                    </h3>
+
+                    {/* Price & Duration */}
+                    <div className="mb-6">
+                      <span className="text-foreground text-3xl font-semibold">
+                        <PriceFlow value={isAnnual ? 12 : 25} />€
+                      </span>
+                      <span className="text-foreground/70 mx-2">•</span>
+                      <span className="text-foreground/70">Per month</span>
+                    </div>
+
+                    {/* CTA Button */}
+                    <button
+                      type="button"
+                      className="bg-foreground text-background hover:bg-foreground/90 focus-visible:ring-ring mb-6 inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors focus-visible:ring-1 focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50"
+                    >
+                      Get Started
+                    </button>
+
+                    {/* Description */}
+                    <p className="text-foreground/70 mb-6 flex-grow text-sm leading-relaxed">
+                      Advanced deployment features for production applications.
+                      Perfect for teams building and scaling professional web
+                      applications.
+                    </p>
+
+                    {/* What's Included */}
+                    <div className="space-y-4">
+                      <h4 className="text-foreground/70 text-xs font-medium tracking-wider uppercase">
+                        What&apos;s included:
+                      </h4>
+                      <ul className="space-y-3">
+                        {[
+                          "Everything in Hobby",
+                          "Unlimited Bandwidth",
+                          "Team Collaboration",
+                          "Priority Support",
+                          "Advanced Analytics",
+                          "Password Protection",
+                          "Custom Domains",
+                          "Edge Functions",
+                          "Cron Jobs",
+                          "Webhooks",
+                        ].map((item) => (
+                          <li
+                            className="text-foreground flex items-center gap-3 text-sm"
+                            key={item}
+                          >
+                            <div className="bg-foreground flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full">
+                              <svg
+                                className="text-background h-2 w-2"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                                aria-hidden="true"
+                              >
+                                <path
+                                  clipRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  fillRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </motion.div>
+              </div>
+            </div>
           </div>
-          <div className="text-foreground mb-4 text-3xl font-extrabold">
-            Custom
-          </div>
-          <ul className="text-foreground/70 mb-6 space-y-1 text-sm">
-            <li>✔️ Dedicated Manager</li>
-            <li>✔️ Custom Integrations</li>
-            <li>✔️ SLA & Support</li>
-          </ul>
-          <button className="bg-brand-secondary text-background hover:bg-brand w-full rounded py-2 font-semibold transition">
-            Contact Us
-          </button>
-        </motion.div>
+        </div>
       </div>
     </section>
   )

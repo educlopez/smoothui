@@ -14,6 +14,7 @@ import JobListingComponentDemo from "@/components/smoothui/examples/JobListingCo
 import MatrixCardDemo from "@/components/smoothui/examples/MatrixCardDemo"
 import NumberFlowDemo from "@/components/smoothui/examples/NumberFlowDemo"
 import PowerOffSlideDemo from "@/components/smoothui/examples/PowerOffSlideDemo"
+import PriceFlowDemo from "@/components/smoothui/examples/PriceFlowDemo"
 import RichPopoverDemo from "@/components/smoothui/examples/RichPopoverDemo"
 import ScrollableCardStackDemo from "@/components/smoothui/examples/ScrollableCardStackDemo"
 import SiriOrbDemo from "@/components/smoothui/examples/SiriOrbDemo"
@@ -1496,5 +1497,98 @@ export const components: ComponentsProps[] = [
     ],
     hasRefreshDemo: false,
     icon: "Shield",
+  },
+  {
+    id: 24,
+    componentTitle: "Price Flow",
+    slug: "price-flow",
+    type: "component",
+    isNew: true,
+    createdAt: "2025-09-24T10:00:00.000Z",
+    tags: ["display", "animation", "counter", "price", "numbers", "metrics"],
+    href: "https://x.com/educalvolpz",
+    info: "A smooth animated price display component that transitions individual digits with slide animations. Perfect for displaying prices, counters, and metrics with elegant digit-by-digit transitions.",
+    componentUi: PriceFlowDemo,
+    download: "clsx tailwind-merge",
+    cnFunction: true,
+    customCss: `@layer utilities {
+  .slide-in-up {
+    animation: slideInUp 0.3s forwards;
+  }
+
+  .slide-out-up {
+    animation: slideOutUp 0.3s forwards;
+  }
+
+  .slide-in-down {
+    animation: slideInDown 0.3s forwards;
+  }
+
+  .slide-out-down {
+    animation: slideOutDown 0.3s forwards;
+  }
+
+  @keyframes slideInUp {
+    from {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutUp {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      transform: translateY(-50px);
+      filter: blur(5px);
+    }
+    to {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes slideOutDown {
+    from {
+      transform: translateY(0px);
+      filter: blur(0px);
+    }
+    to {
+      transform: translateY(50px);
+      filter: blur(5px);
+    }
+  }
+}`,
+    isUpdated: false,
+    collection: "data-display",
+    props: [
+      {
+        name: "value",
+        type: "number",
+        description: "The numeric value to display and animate.",
+        required: true,
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Optional additional class names for the root container.",
+        required: false,
+      },
+    ],
+    hasRefreshDemo: false,
+    icon: "DollarSign",
   },
 ]

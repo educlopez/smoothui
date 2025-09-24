@@ -7,22 +7,23 @@ import type { BlocksProps } from "./typeBlock"
 export const pricingBlocks: BlocksProps[] = [
   {
     title: "Simple Pricing",
-    description: "A single plan pricing section with entry animation.",
+    description:
+      "A clean, single plan pricing section with smooth animations and gradient accents.",
     componentPath: "src/components/smoothui/blocks/PricingSimple.tsx",
     componentUi: PricingSimple,
   },
   {
-    title: "Modern Pricing",
+    title: "Two Pricings",
     description:
-      "A modern, glassmorphic pricing section with gradients and a featured plan.",
-    componentPath: "src/components/smoothui/blocks/PricingModern.tsx",
-    componentUi: PricingModern,
-  },
-  {
-    title: "Creative Pricing",
-    description:
-      "A playful, card-overlap pricing section with vibrant colors and floating animation.",
+      "A modern pricing section with two plans featuring glassmorphic design and vibrant gradients.",
     componentPath: "src/components/smoothui/blocks/PricingCreative.tsx",
     componentUi: PricingCreative,
+  },
+  {
+    title: "Three Pricings",
+    description:
+      "A comprehensive pricing section with three tiers, featuring a highlighted popular plan and enterprise options.",
+    componentPath: "src/components/smoothui/blocks/PricingModern.tsx",
+    componentUi: PricingModern,
   },
 ]

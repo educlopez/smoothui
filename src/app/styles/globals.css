@@ -126,3 +126,64 @@
 .frame-box {
   @apply bg-primary inset-ring-background border inset-ring-2 before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
 }
+
+/* Price Flow Animations */
+@keyframes slide-out-up {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-down {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.slide-out-up {
+  animation: slide-out-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-out-down {
+  animation: slide-out-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-in-up {
+  animation: slide-in-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-in-down {
+  animation: slide-in-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
