@@ -4,6 +4,7 @@ import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { CodeBlock } from "@/components/doc/codeBlock"
 import { CodeBlockWrapper } from "@/components/doc/codeBlocKWarapper"
+import { FeatureCardHover } from "@/components/doc/FeatureCardHover"
 import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
 
@@ -256,35 +257,22 @@ export default function DesignPrinciplesPage() {
         </BodyText>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Beautiful by Default
-            </Title>
-            <BodyText>
-              Components look great out of the box with carefully chosen colors,
-              spacing, and typography.
-            </BodyText>
-          </div>
+          <FeatureCardHover
+            title="Beautiful by Default"
+            description="Components look great out of the box with carefully chosen colors, spacing, and typography."
+            gradient="from-purple-400 via-pink-400 to-orange-400"
+          />
 
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Accessible First
-            </Title>
-            <BodyText>
-              Built with accessibility in mind, following WCAG guidelines and
-              best practices.
-            </BodyText>
-          </div>
-
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Performance Focused
-            </Title>
-            <BodyText>
-              Optimized for performance with minimal bundle size and efficient
-              animations.
-            </BodyText>
-          </div>
+          <FeatureCardHover
+            title="Accessible First"
+            description="Built with accessibility in mind, following WCAG guidelines and best practices."
+            gradient="from-blue-400 via-purple-400 to-pink-400"
+          />
+          <FeatureCardHover
+            title="Performance Focused"
+            description="Optimized for performance with minimal bundle size and efficient animations."
+            gradient="from-green-400 via-blue-400 to-purple-400"
+          />
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
