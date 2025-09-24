@@ -21,7 +21,7 @@ export function FeatureCardHover({
 
   return (
     <motion.div
-      className={`group r bg-primary inset-ring-background relative h-32 cursor-pointer overflow-hidden rounded-lg border bg-gradient-to-br inset-ring-2 ${gradient} p-4`}
+      className={`group r bg-primary inset-ring-background relative h-32 cursor-default overflow-hidden rounded-lg border bg-gradient-to-br inset-ring-2 ${gradient} p-4`}
       whileHover={{ scale: 1.02 }}
       transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
       style={{
