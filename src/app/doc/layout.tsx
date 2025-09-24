@@ -80,7 +80,7 @@ type ComponentPageLayout = {
 
 export default function ComponentPageLayout({ children }: ComponentPageLayout) {
   return (
-    <div className={`bg-background antialiased transition`}>
+    <div className={`bg-background antialiased`}>
       <SidebarProvider
         style={
           {
