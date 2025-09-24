@@ -43,7 +43,7 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
 
-  // Headers for better caching
+  // Headers for better caching - optimized for static content
   async headers() {
     return [
       {
@@ -63,26 +63,50 @@ const nextConfig = {
           },
         ],
       },
-      {
-        source: "/api/(.*)",
-        headers: [
-          {
-            key: "Cache-Control",
-            value: "public, s-maxage=300, stale-while-revalidate=600",
-          },
-        ],
-      },
+      // Static pages - cache for 1 year since they're generated at build time
       {
         source: "/doc/(.*)",
         headers: [
           {
             key: "Cache-Control",
-            value: "public, s-maxage=3600, stale-while-revalidate=7200",
+            value: "public, max-age=31536000, immutable",
           },
         ],
       },
+      // Home page and other static pages
       {
-        source: "/(.*).(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot)",
+        source: "/((?!api|_next|favicon.ico).*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // API routes - short cache for analytics
+      {
+        source: "/api/analytics",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=60, stale-while-revalidate=300",
+          },
+        ],
+      },
+      // OG image generation - longer cache since it's expensive
+      {
+        source: "/api/og",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, s-maxage=86400, stale-while-revalidate=604800",
+          },
+        ],
+      },
+      // Static assets - cache for 1 year
+      {
+        source:
+          "/(.*).(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2|ttf|eot|webp|avif)",
         headers: [
           {
             key: "Cache-Control",

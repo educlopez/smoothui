@@ -17,6 +17,7 @@
     "build:source": "ts-node src/scripts/build-registry-sources.ts",
     "build:registry": "pnpm run build:index && pnpm run build:source",
     "optimize:assets": "node scripts/optimize-assets.js",
+    "setup:optimization": "node scripts/setup-optimization.js",
     "build": "pnpm run build:registry && next build",
     "start": "next start",
     "lint": "next lint"
@@ -36,6 +37,7 @@
     "@radix-ui/react-slot": "^1.1.2",
     "@radix-ui/react-tabs": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.1.8",
+    "@upstash/redis": "^1.35.4",
     "@vercel/analytics": "^1.4.1",
     "@vercel/toolbar": "^0.1.30",
     "class-variance-authority": "^0.7.1",

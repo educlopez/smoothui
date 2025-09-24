@@ -6,6 +6,9 @@ import { AnimatePresence, motion } from "motion/react"
 
 type CopyCode = {
   code: string
+  pageId?: string
+  componentId?: string
+  onCopy?: () => void
 }
 interface Button {
   idle: ReactNode
@@ -19,22 +22,42 @@ const buttonCopy: Button = {
   success: <Check size={16} />,
 }
 
-export function CopyCode({ code }: CopyCode) {
+export function CopyCode({ code, pageId, componentId, onCopy }: CopyCode) {
   const [copied, setCopied] = useState(false)
   const [buttonState, setButtonState] = useState<keyof Button>("idle")
 
-  const handleClick = useCallback(() => {
-    navigator.clipboard.writeText(code)
-    setCopied(true)
-    setButtonState("loading")
-    setTimeout(() => {
-      setButtonState("success")
-    }, 500)
+  const handleClick = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setButtonState("loading")
 
-    setTimeout(() => {
+      // Track copy event
+      if (pageId) {
+        await fetch("/api/analytics", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: "copy", pageId, componentId }),
+        })
+      }
+
+      // Call custom onCopy handler
+      if (onCopy) {
+        onCopy()
+      }
+
+      setTimeout(() => {
+        setButtonState("success")
+      }, 500)
+
+      setTimeout(() => {
+        setButtonState("idle")
+      }, 3000)
+    } catch (error) {
+      console.error("Failed to copy code:", error)
       setButtonState("idle")
-    }, 3000)
-  }, [code])
+    }
+  }, [code, pageId, componentId, onCopy])
 
   return (
     <div className="z-10 flex justify-center">

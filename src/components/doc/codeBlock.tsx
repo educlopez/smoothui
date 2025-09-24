@@ -10,6 +10,8 @@ type CodeBlockProps = {
   lang?: string
   copyCode?: boolean
   installCommand?: string
+  pageId?: string
+  componentId?: string
 } & React.ComponentProps<"div">
 
 export function CodeBlock({
@@ -19,6 +21,8 @@ export function CodeBlock({
   lang,
   copyCode = true,
   installCommand,
+  pageId,
+  componentId,
 }: CodeBlockProps) {
   // Concatenate the install command with the code
   const combinedCode = installCommand ? `${installCommand} ${code}` : code
@@ -52,9 +56,13 @@ export function CodeBlock({
             )}
           </div>
           {fileName === "Terminal" ? (
-            <CopyCode code={combinedCode} />
+            <CopyCode
+              code={combinedCode}
+              pageId={pageId}
+              componentId={componentId}
+            />
           ) : (
-            <CopyCode code={code} />
+            <CopyCode code={code} pageId={pageId} componentId={componentId} />
           )}
         </div>
       )}

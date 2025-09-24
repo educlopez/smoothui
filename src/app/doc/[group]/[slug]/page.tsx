@@ -5,6 +5,7 @@ import React from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 
+import { AnalyticsDisplay } from "@/components/doc/AnalyticsDisplay"
 import BadgeBeta from "@/components/doc/badgeBeta"
 import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
@@ -170,6 +171,12 @@ export default async function ComponentPage({
             {component.componentTitle}
           </Title>
           <BodyText>{component.info}</BodyText>
+          <AnalyticsDisplay
+            pageId={`${group}/${slug}`}
+            componentId={component.slug}
+            showCopyCount={true}
+            showViews={true}
+          />
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
@@ -457,7 +464,13 @@ export default async function ComponentPage({
           expandButtonTitle="Expand"
           className="my-6 overflow-hidden rounded-md"
         >
-          <CodeBlock code={usageExample} fileName="Demo.tsx" lang="tsx" />
+          <CodeBlock
+            code={usageExample}
+            fileName="Demo.tsx"
+            lang="tsx"
+            pageId={`${group}/${slug}`}
+            componentId={component.slug}
+          />
         </CodeBlockWrapper>
       </div>
       {component.props && (
