@@ -4,6 +4,7 @@ import Link from "next/link"
 import { BodyText } from "@/components/doc/BodyText"
 import { Breadcrumbs } from "@/components/doc/breadcrumbs"
 import { FeatureCard } from "@/components/doc/FeatureCard"
+import { FeatureCardHover } from "@/components/doc/FeatureCardHover"
 import { List } from "@/components/doc/List"
 import { Title } from "@/components/doc/Title"
 import Divider from "@/components/landing/divider"
@@ -44,35 +45,21 @@ export default function IntroductionPage() {
         </BodyText>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Beautiful Design
-            </Title>
-            <BodyText>
-              Carefully crafted components with attention to detail and modern
-              design principles.
-            </BodyText>
-          </div>
-
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Smooth Animations
-            </Title>
-            <BodyText>
-              Powered by Framer Motion for fluid, performant animations that
-              enhance user experience.
-            </BodyText>
-          </div>
-
-          <div className="bg-primary/50 rounded-lg border p-4">
-            <Title level={3} className="mb-2">
-              Developer Friendly
-            </Title>
-            <BodyText>
-              Built with TypeScript, fully customizable with Tailwind CSS, and
-              easy to integrate.
-            </BodyText>
-          </div>
+          <FeatureCardHover
+            title="Beautiful Design"
+            description="Carefully crafted components with attention to detail and modern design principles."
+            gradient="from-purple-400 via-pink-400 to-orange-400"
+          />
+          <FeatureCardHover
+            title="Smooth Animations"
+            description="Powered by Motion for fluid, performant animations that enhance user experience."
+            gradient="from-blue-400 via-purple-400 to-pink-400"
+          />
+          <FeatureCardHover
+            title="Developer Friendly"
+            description="Built with TypeScript, fully customizable with Tailwind CSS, and easy to integrate."
+            gradient="from-green-400 via-blue-400 to-purple-400"
+          />
         </div>
       </div>
       <Divider orientation="horizontal" className="relative" />
