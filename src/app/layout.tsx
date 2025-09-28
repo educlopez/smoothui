@@ -5,10 +5,10 @@ import { smoothUISchema } from "@/app/utils/schema"
 
 import "./styles/globals.css"
 
+import Script from "next/script"
 import { VercelToolbar } from "@vercel/toolbar/next"
 import { ThemeProvider } from "next-themes"
 
-import { Analytics } from "@/components/analytics"
 import { FloatNav } from "@/components/floatnav/floatNav"
 
 const inter = Inter({
@@ -106,6 +106,13 @@ export default function RootLayout({ children }: ComponentPageLayout) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
         />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            data-website-id="065d3f91-4dc8-4b41-a95e-77369e47bd4e"
+            src="https://cloud.umami.is/script.js"
+            strategy="afterInteractive"
+          />
+        )}
       </head>
       <body
         className={`bg-background antialiased ${asap.variable} ${inter.className}`}
@@ -113,7 +120,6 @@ export default function RootLayout({ children }: ComponentPageLayout) {
         <ThemeProvider attribute="class">
           <FloatNav />
           {children}
-          <Analytics />
         </ThemeProvider>
         {shouldInjectToolbar && <VercelToolbar />}
       </body>
