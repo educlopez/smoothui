@@ -33,7 +33,7 @@ const getDefaultCards = (): Card[] => {
       author: {
         name: people[0]?.name || "Eduardo Calvo",
         role: people[0]?.role || "CEO & Founder",
-        image: getAvatarUrl(people[1]?.avatar || "", 96),
+        image: getAvatarUrl(people[0]?.avatar || "", 96),
       },
     },
     {
