@@ -37,10 +37,10 @@ export const peopleData: Person[] = [
     experience: "8+ years of experience",
     company: "SmoothUI",
     social: {
-      twitter: "https://twitter.com/educlopez",
+      twitter: "https://twitter.com/educalvolpz",
       linkedin: "https://linkedin.com/in/educlopez",
       github: "https://github.com/educlopez",
-      website: "https://educlopez.dev",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content:
@@ -56,9 +56,10 @@ export const peopleData: Person[] = [
     experience: "7+ years of experience",
     company: "Design Studio",
     social: {
-      twitter: "https://twitter.com/sarahchen",
-      linkedin: "https://linkedin.com/in/sarahchen",
-      website: "https://sarahchen.design",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content:
@@ -74,8 +75,10 @@ export const peopleData: Person[] = [
     experience: "10+ years of experience",
     company: "TechCorp",
     social: {
-      github: "https://github.com/marcusj",
-      linkedin: "https://linkedin.com/in/marcusjohnson",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content:
@@ -91,8 +94,10 @@ export const peopleData: Person[] = [
     experience: "6+ years of experience",
     company: "ProductCo",
     social: {
-      linkedin: "https://linkedin.com/in/emilyrodriguez",
-      twitter: "https://twitter.com/emilyrodriguez",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 4,
     content:
@@ -108,9 +113,10 @@ export const peopleData: Person[] = [
     experience: "12+ years of experience",
     company: "InnovateTech",
     social: {
-      github: "https://github.com/davidkim",
-      linkedin: "https://linkedin.com/in/davidkim",
-      twitter: "https://twitter.com/davidkim",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content:
@@ -126,9 +132,10 @@ export const peopleData: Person[] = [
     experience: "5+ years of experience",
     company: "ResearchLab",
     social: {
-      linkedin: "https://linkedin.com/in/lisawang",
-      twitter: "https://twitter.com/lisawang",
-      website: "https://lisawang.ux",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content:
@@ -144,8 +151,10 @@ export const peopleData: Person[] = [
     experience: "4+ years of experience",
     company: "WebStudio",
     social: {
-      github: "https://github.com/alexthompson",
-      linkedin: "https://linkedin.com/in/alexthompson",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
   },
   {
@@ -158,8 +167,10 @@ export const peopleData: Person[] = [
     experience: "6+ years of experience",
     company: "BackendPro",
     social: {
-      github: "https://github.com/mariagarcia",
-      linkedin: "https://linkedin.com/in/mariagarcia",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
   },
   {
@@ -172,8 +183,10 @@ export const peopleData: Person[] = [
     experience: "8+ years of experience",
     company: "CloudOps",
     social: {
-      github: "https://github.com/jameswilson",
-      linkedin: "https://linkedin.com/in/jameswilson",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
   },
   {
@@ -186,23 +199,27 @@ export const peopleData: Person[] = [
     experience: "7+ years of experience",
     company: "GrowthCo",
     social: {
-      twitter: "https://twitter.com/annalee",
-      linkedin: "https://linkedin.com/in/annalee",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
   },
 
   {
     name: "Kelly Myer",
-    role: "Creator of shadcn/ui",
+    role: "Creator of Sand/UI",
     bio: "Building beautiful and accessible UI components for React developers.",
     avatar:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818713/smoothui/avatar-9.jpg",
     location: "Remote",
     experience: "5+ years of experience",
-    company: "shadcn/ui",
+    company: "sand/ui",
     social: {
-      github: "https://github.com/shadcn",
-      twitter: "https://twitter.com/shadcn",
+      twitter: "https://twitter.com/educalvolpz",
+      linkedin: "https://linkedin.com/in/educlopez",
+      github: "https://github.com/educlopez",
+      website: "https://educalvolopez.com",
     },
     stars: 5,
     content: "SmoothUI is my go-to for fast, beautiful UIs.",
