@@ -41,7 +41,13 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8" className="fill-background">
+        <svg
+          width="8"
+          height="8"
+          className="fill-background"
+          aria-label="Top-left triangle"
+        >
+          <title>Top-left triangle</title>
           <polygon points="0,0 8,0 0,8" fill="currentColor" />
         </svg>
       </motion.div>
@@ -56,7 +62,13 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8" className="fill-background">
+        <svg
+          width="8"
+          height="8"
+          className="fill-background"
+          aria-label="Top-right triangle"
+        >
+          <title>Top-right triangle</title>
           <polygon points="8,0 8,8 0,0" fill="currentColor" />
         </svg>
       </motion.div>
@@ -71,7 +83,13 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8" className="fill-background">
+        <svg
+          width="8"
+          height="8"
+          className="fill-background"
+          aria-label="Bottom-left triangle"
+        >
+          <title>Bottom-left triangle</title>
           <polygon points="0,8 8,8 0,0" fill="currentColor" />
         </svg>
       </motion.div>
@@ -86,7 +104,13 @@ export function ClipCornersButton({
         }}
         transition={{ type: "spring", stiffness: 400, damping: 24 }}
       >
-        <svg width="8" height="8" className="fill-background">
+        <svg
+          width="8"
+          height="8"
+          className="fill-background"
+          aria-label="Bottom-right triangle"
+        >
+          <title>Bottom-right triangle</title>
           <polygon points="8,8 0,8 8,0" fill="currentColor" />
         </svg>
       </motion.div>

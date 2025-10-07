@@ -51,6 +51,7 @@ export default function BasicDropdown({
   return (
     <div ref={dropdownRef} className={`relative inline-block ${className}`}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="bg-background hover:bg-primary flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-left transition-colors"
       >

@@ -5,37 +5,9 @@ import { motion } from "motion/react"
 
 import { cn } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getAvatarUrl, getTestimonials } from "@/app/doc/data/peopleData"
 
-const testimonials = [
-  {
-    name: "Shadcn",
-    role: "Creator of shadcn/ui",
-    stars: 4,
-    avatar: "https://github.com/shadcn.png",
-    content: "SmoothUI is my go-to for fast, beautiful UIs.",
-  },
-  {
-    name: "Midudev",
-    role: "Dev & Educator",
-    stars: 5,
-    avatar: "https://github.com/midudev.png",
-    content: "Incredible DX. Animations feel native!",
-  },
-  {
-    name: "Rauch",
-    role: "Vercel CEO",
-    stars: 5,
-    avatar: "https://github.com/rauchg.png",
-    content: "The best UI kit for React I've used.",
-  },
-  {
-    name: "Pheralb",
-    role: "Open Source Dev",
-    stars: 5,
-    avatar: "https://github.com/pheralb.png",
-    content: "So smooth, so easy. Instantly impressive.",
-  },
-]
+const testimonials = getTestimonials(4)
 
 export function TestimonialsStars() {
   return (
@@ -103,7 +75,7 @@ export function TestimonialsStars() {
                       <Star
                         className={cn(
                           "size-4 transition-colors duration-200",
-                          i < testimonial.stars
+                          i < (testimonial.stars || 0)
                             ? "fill-accent stroke-accent"
                             : "fill-primary stroke-border"
                         )}
@@ -135,9 +107,9 @@ export function TestimonialsStars() {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <Avatar className="ring-foreground/10 size-6 border border-transparent ring-1 shadow">
+                  <Avatar className="ring-foreground/10 size-6 border border-transparent shadow ring-1">
                     <AvatarImage
-                      src={testimonial.avatar}
+                      src={getAvatarUrl(testimonial.avatar, 48)}
                       alt={testimonial.name}
                     />
                     <AvatarFallback>

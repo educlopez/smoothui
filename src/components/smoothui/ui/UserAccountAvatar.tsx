@@ -29,7 +29,8 @@ export interface UserAccountAvatarProps {
 const initialUserData: UserData = {
   name: "John Doe",
   email: "john@example.com",
-  avatar: "https://github.com/educlopez.png",
+  avatar:
+    "https://res.cloudinary.com/dyzxnud9z/image/upload/w_90,h_90,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg",
 }
 
 const mockOrders: Order[] = [

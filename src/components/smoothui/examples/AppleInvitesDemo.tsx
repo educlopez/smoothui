@@ -4,6 +4,7 @@ import { useState } from "react"
 
 import AppleInvites from "@/components/smoothui/ui/AppleInvites"
 import type { Event } from "@/components/smoothui/ui/AppleInvites"
+import { getAllPeople, getAvatarUrl } from "@/app/doc/data/peopleData"
 
 const demoEvents: Event[] = [
   {
@@ -14,7 +15,11 @@ const demoEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265917/smoothui/yogaday.webp",
     badge: "Hosting",
-    participants: [{ avatar: "https://github.com/haydenbleasel.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 2,
@@ -24,7 +29,11 @@ const demoEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265165/smoothui/park.webp",
     badge: "Going",
-    participants: [{ avatar: "https://github.com/educlopez.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 3,
@@ -34,7 +43,11 @@ const demoEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265999/smoothui/golf.webp",
     badge: "Going",
-    participants: [{ avatar: "https://github.com/shadcn.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 4,
@@ -44,7 +57,11 @@ const demoEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265903/smoothui/movie.webp",
     badge: "Interested",
-    participants: [{ avatar: "https://github.com/rauchg.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", 72),
+      },
+    ],
   },
 ]
 

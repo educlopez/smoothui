@@ -10,7 +10,8 @@ import UserAccountAvatar, {
 const demoUser: UserData = {
   name: "Jane Doe",
   email: "jane@example.com",
-  avatar: "https://github.com/educlopez.png",
+  avatar:
+    "https://res.cloudinary.com/dyzxnud9z/image/upload/w_96,h_96,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg",
 }
 
 const demoOrders: Order[] = [

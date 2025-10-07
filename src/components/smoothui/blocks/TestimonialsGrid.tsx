@@ -5,54 +5,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { getAvatarUrl, getTestimonials } from "@/app/doc/data/peopleData"
 
-const testimonials = [
-  {
-    name: "Shadcn",
-    role: "Creator of shadcn/ui",
-    avatar: "https://github.com/shadcn.png",
-    content: "SmoothUI is my go-to for fast, beautiful UIs.",
-  },
-  {
-    name: "Midudev",
-    role: "Dev & Educator",
-    avatar: "https://github.com/midudev.png",
-    content: "Incredible DX. Animations feel native!",
-  },
-  {
-    name: "Rauch",
-    role: "Vercel CEO",
-    avatar: "https://github.com/rauchg.png",
-    content: "The best UI kit for React I've used.",
-  },
-  {
-    name: "Pheralb",
-    role: "Open Source Dev",
-    avatar: "https://github.com/pheralb.png",
-    content: "So smooth, so easy. Instantly impressive.",
-  },
-  {
-    name: "Rauno",
-    role: "UI Designer",
-    avatar: "https://github.com/raunofreiberg.png",
-    content:
-      "SmoothUI's attention to detail is unmatched. Every component feels crafted with care.",
-  },
-  {
-    name: "Emil",
-    role: "Frontend Engineer",
-    avatar: "https://github.com/emilkowalski.png",
-    content:
-      "Building with SmoothUI feels like having a design system that just works perfectly.",
-  },
-  {
-    name: "Leerob",
-    role: "Cursor",
-    avatar: "https://github.com/emilkowalski",
-    content:
-      "SmoothUI has become essential for our team. The performance and aesthetics are outstanding.",
-  },
-]
+const testimonials = getTestimonials(7)
 
 export function TestimonialsGrid() {
   const [active, setActive] = useState(0)
@@ -164,7 +119,7 @@ export function TestimonialsGrid() {
                             transition={{ duration: 0.3 }}
                             className="text-foreground mb-6 text-lg"
                           >
-                            {testimonial.content
+                            {(testimonial.content || "")
                               .split(" ")
                               .map((word, wordIndex) => (
                                 <motion.span
@@ -197,9 +152,9 @@ export function TestimonialsGrid() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.3, delay: 0.2 }}
                           >
-                            <Avatar className="ring-foreground/10 size-8 border border-transparent ring-1 shadow">
+                            <Avatar className="ring-foreground/10 size-8 border border-transparent shadow ring-1">
                               <AvatarImage
-                                src={testimonial.avatar}
+                                src={getAvatarUrl(testimonial.avatar, 64)}
                                 alt={testimonial.name}
                               />
                               <AvatarFallback>

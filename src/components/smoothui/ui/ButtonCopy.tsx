@@ -55,6 +55,7 @@ export default function ButtonCopy({
   return (
     <div className="flex justify-center">
       <button
+        type="button"
         className={`bg-background relative w-auto cursor-pointer overflow-hidden rounded-full border p-3 disabled:opacity-50 ${className}`}
         disabled={buttonState !== "idle" || disabled}
         onClick={handleClick}

@@ -4,32 +4,14 @@ import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { AnimatePresence, motion } from "motion/react"
 
-const testimonials = [
-  {
-    quote: "SmoothUI is my go-to for fast, beautiful UIs.",
-    avatar: "https://github.com/shadcn.png",
-    name: "Shadcn",
-    role: "Creator of shadcn/ui",
-  },
-  {
-    quote: "Incredible DX. Animations feel native!",
-    avatar: "https://github.com/midudev.png",
-    name: "Midudev",
-    role: "Dev & Educator",
-  },
-  {
-    quote: "The best UI kit for React I've used.",
-    avatar: "https://github.com/rauchg.png",
-    name: "Rauch",
-    role: "Vercel CEO",
-  },
-  {
-    quote: "So smooth, so easy. Instantly impressive.",
-    avatar: "https://github.com/pheralb.png",
-    name: "Pheralb",
-    role: "Open Source Dev",
-  },
-]
+import { getAvatarUrl, getTestimonials } from "@/app/doc/data/peopleData"
+
+const testimonials = getTestimonials(4).map((testimonial) => ({
+  quote: testimonial.content || "",
+  avatar: testimonial.avatar,
+  name: testimonial.name,
+  role: testimonial.role,
+}))
 
 const DURATION = 5000 // ms
 const BAR_WIDTH = 50
@@ -46,7 +28,7 @@ export function TestimonialsSimple() {
     return () => {
       if (timeoutRef.current) clearTimeout(timeoutRef.current)
     }
-  }, [index])
+  }, [])
 
   return (
     <section className="bg-background relative flex flex-col items-center py-16">
@@ -76,7 +58,7 @@ export function TestimonialsSimple() {
               className="flex items-center gap-4"
             >
               <Image
-                src={testimonials[index].avatar}
+                src={getAvatarUrl(testimonials[index].avatar, 96)}
                 alt={testimonials[index].name + " avatar"}
                 width={48}
                 height={48}
@@ -96,11 +78,11 @@ export function TestimonialsSimple() {
         </div>
         {/* Progress Bar & Circles Indicator */}
         <div className="mx-auto mt-8 flex w-full max-w-lg justify-center gap-3">
-          {testimonials.map((_, i) => {
+          {testimonials.map((testimonial, i) => {
             const isActive = i === index
             return (
               <motion.span
-                key={i}
+                key={`testimonial-${testimonial.name}-${i}`}
                 layout
                 initial={false}
                 animate={{

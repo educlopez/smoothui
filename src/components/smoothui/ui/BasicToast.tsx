@@ -73,6 +73,7 @@ export default function BasicToast({
           <div className="flex-shrink-0">{toastIcons[type]}</div>
           <p className="flex-1 text-sm">{message}</p>
           <button
+            type="button"
             onClick={() => {
               setVisible(false)
               onClose?.()
@@ -101,24 +102,28 @@ export function ToastDemo() {
     <div className="flex flex-col gap-4 p-4">
       <div className="flex flex-wrap gap-2">
         <button
+          type="button"
           onClick={() => handleShowToast("success")}
           className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm text-white hover:bg-emerald-600"
         >
           Success Toast
         </button>
         <button
+          type="button"
           onClick={() => handleShowToast("error")}
           className="rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
         >
           Error Toast
         </button>
         <button
+          type="button"
           onClick={() => handleShowToast("warning")}
           className="rounded-md bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600"
         >
           Warning Toast
         </button>
         <button
+          type="button"
           onClick={() => handleShowToast("info")}
           className="rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600"
         >

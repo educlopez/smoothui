@@ -4,76 +4,22 @@ import { useRef } from "react"
 import Image from "next/image"
 import { motion, useInView } from "motion/react"
 
+import {
+  getAvatarUrl,
+  peopleData,
+  type Person,
+} from "@/app/doc/data/peopleData"
+
 interface TeamGridProps {
   title?: string
   description?: string
-  members?: Array<{
-    name: string
-    role: string
-    bio?: string
-    avatar: string
-    location?: string
-    social?: {
-      twitter?: string
-      linkedin?: string
-      github?: string
-    }
-  }>
+  members?: Person[]
 }
 
 export function TeamGrid({
   title = "Our team",
   description = "We're a dynamic group of individuals who are passionate about what we do and dedicated to delivering the best results for our clients.",
-  members = [
-    {
-      name: "Eduardo Calvo",
-      role: "CEO & Founder",
-      bio: "Passionate about building products that make a difference.",
-      avatar: "https://github.com/educlopez.png",
-      location: "Spain",
-      social: {
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com",
-      },
-    },
-    {
-      name: "Emil Kowalski",
-      role: "CTO",
-      bio: "Full-stack engineer with 10+ years of experience.",
-      avatar: "https://github.com/emilkowalski.png",
-      location: "Poland",
-      social: {
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com",
-      },
-    },
-    {
-      name: "Rauno Freiberg",
-      role: "Head of Design",
-      bio: "Creating beautiful and intuitive user experiences.",
-      avatar: "https://github.com/raunofreiberg.png",
-      location: "Estonia",
-      social: {
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com",
-      },
-    },
-    {
-      name: "Rauch",
-      role: "Lead Developer",
-      bio: "Building scalable solutions for modern applications.",
-      avatar: "https://github.com/rauchg.png",
-      location: "United States",
-      social: {
-        twitter: "https://twitter.com",
-        linkedin: "https://linkedin.com",
-        github: "https://github.com",
-      },
-    },
-  ],
+  members = peopleData.slice(0, 4),
 }: TeamGridProps) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true })
@@ -116,9 +62,9 @@ export function TeamGrid({
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                 >
-                  <Image
+                  <img
                     alt=""
-                    src={member.avatar}
+                    src={getAvatarUrl(member.avatar, 400)}
                     width={400}
                     height={400}
                     className="aspect-14/13 w-full rounded-2xl object-cover outline-1 -outline-offset-1 outline-black/5 transition-all duration-300 group-hover:outline-black/10 dark:outline-white/10 dark:group-hover:outline-white/20"

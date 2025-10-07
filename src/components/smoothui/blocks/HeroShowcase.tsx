@@ -8,6 +8,7 @@ import { Button } from "@/components/button"
 import { AnimatedGroup } from "@/components/landing/animated-group"
 import { AnimatedText } from "@/components/landing/animated-text"
 import { Avatar, AvatarImage } from "@/components/ui/avatar"
+import { getAllPeople, getAvatarUrl } from "@/app/doc/data/peopleData"
 
 import { HeroHeader } from "./HeroHeader"
 
@@ -50,28 +51,12 @@ export function HeroShowcase({
   reviews = {
     count: 200,
     rating: 5.0,
-    avatars: [
-      {
-        src: "https://github.com/educlopez.png",
-        alt: "Avatar 1",
-      },
-      {
-        src: "https://github.com/emilkowalski.png",
-        alt: "Avatar 2",
-      },
-      {
-        src: "https://github.com/raunofreiberg.png",
-        alt: "Avatar 3",
-      },
-      {
-        src: "https://github.com/shadcn.png",
-        alt: "Avatar 4",
-      },
-      {
-        src: "https://github.com/leerob.png",
-        alt: "Avatar 5",
-      },
-    ],
+    avatars: getAllPeople()
+      .slice(0, 5)
+      .map((person) => ({
+        src: getAvatarUrl(person.avatar, 90),
+        alt: `${person.name} avatar`,
+      })),
   },
 }: HeroShowcaseProps) {
   return (

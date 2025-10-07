@@ -55,6 +55,7 @@ export default function ImageMetadataPreview({
       <div className="relative flex w-full flex-col items-center gap-4">
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
+            type="button"
             aria-label="Share"
             className="bg-background rounded-full border p-3 transition"
             onClick={onShare}
@@ -63,6 +64,7 @@ export default function ImageMetadataPreview({
             <Share size={16} />
           </button>
           <button
+            type="button"
             disabled
             aria-label="Connect"
             className="bg-background cursor-not-allowed rounded-full border px-4 py-3 text-sm transition disabled:opacity-50"
@@ -101,7 +103,11 @@ export default function ImageMetadataPreview({
                     <p className="text-primary-foreground">{description}</p>
                   </div>
 
-                  <button className="cursor-pointer" aria-label="Close Icon">
+                  <button
+                    type="button"
+                    className="cursor-pointer"
+                    aria-label="Close Icon"
+                  >
                     <CircleX size={16} />
                   </button>
                 </div>

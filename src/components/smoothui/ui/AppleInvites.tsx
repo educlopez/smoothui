@@ -1,9 +1,12 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
+import Image from "next/image"
 import { Crown } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
 import { wrap } from "popmotion"
+
+import { getAllPeople, getAvatarUrl } from "@/app/doc/data/peopleData"
 
 export interface Participant {
   avatar: string
@@ -29,7 +32,11 @@ const defaultEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265917/smoothui/yogaday.webp",
     badge: "Hosting",
-    participants: [{ avatar: "https://github.com/haydenbleasel.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 2,
@@ -39,7 +46,11 @@ const defaultEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265165/smoothui/park.webp",
     badge: "Going",
-    participants: [{ avatar: "https://github.com/educlopez.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 3,
@@ -49,7 +60,11 @@ const defaultEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265999/smoothui/golf.webp",
     badge: "Going",
-    participants: [{ avatar: "https://github.com/shadcn.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", 72),
+      },
+    ],
   },
   {
     id: 4,
@@ -59,7 +74,11 @@ const defaultEvents: Event[] = [
     image:
       "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265903/smoothui/movie.webp",
     badge: "Interested",
-    participants: [{ avatar: "https://github.com/rauchg.png" }],
+    participants: [
+      {
+        avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", 72),
+      },
+    ],
   },
 ]
 
@@ -129,13 +148,18 @@ export default function AppleInvites({
   }
 
   const activeIndex = wrap(0, events.length, page)
+  const setPageRef = useRef(setPage)
+
+  useEffect(() => {
+    setPageRef.current = setPage
+  })
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setPage(page + 1, 1)
+      setPageRef.current(page + 1, 1)
     }, interval)
     return () => clearInterval(timer)
-  }, [page, interval, events.length])
+  }, [page, interval])
 
   const visibleEvents = [-1, 0, 1].map(
     (offset) => events[wrap(0, events.length, activeIndex + offset)]
@@ -166,9 +190,11 @@ export default function AppleInvites({
               {event.backgroundClassName ? (
                 <div className={`h-full w-full ${event.backgroundClassName}`} />
               ) : event.image ? (
-                <img
+                <Image
                   src={event.image}
                   alt={event.title || ""}
+                  width={400}
+                  height={400}
                   className="h-full w-full object-cover"
                 />
               ) : null}
@@ -184,10 +210,12 @@ export default function AppleInvites({
                 {/* Participant Avatars */}
                 <div className="mx-auto mb-2 flex items-center justify-center gap-2">
                   {event.participants?.map((participant, idx) => (
-                    <img
-                      key={idx}
+                    <Image
+                      key={`participant-${participant.avatar}-${idx}`}
                       src={participant.avatar}
                       alt={`Participant ${idx + 1}`}
+                      width={36}
+                      height={36}
                       className="w-6 rounded-full md:h-9 md:w-9"
                     />
                   ))}

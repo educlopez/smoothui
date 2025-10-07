@@ -74,7 +74,7 @@ export default function Footer() {
           Made by
         </span>
         <img
-          src="https://github.com/educlopez.png"
+          src="https://res.cloudinary.com/dyzxnud9z/image/upload/w_48,h_48,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg"
           alt="User Avatar of Eduardo Calvo"
           width={32}
           height={32}

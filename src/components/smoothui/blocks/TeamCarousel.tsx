@@ -1,86 +1,27 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import Image from "next/image"
 import { motion } from "motion/react"
+
+import {
+  getAvatarUrl,
+  peopleData,
+  type Person,
+} from "@/app/doc/data/peopleData"
 
 interface TeamCarouselProps {
   title?: string
   subtitle?: string
   description?: string
-  members?: Array<{
-    name: string
-    role: string
-    experience?: string
-    avatar: string
-  }>
+  members?: Person[]
 }
 
 export function TeamCarousel({
   title = "Tech Pioneers",
   subtitle = "building the future",
   description = "We bring together brilliant developers, engineers, and tech innovators to create groundbreaking digital solutions.",
-  members = [
-    {
-      name: "Eduardo Calvo",
-      role: "CEO & Founder",
-      experience: "8+ years of experience",
-      avatar: "https://github.com/educlopez.png",
-    },
-    {
-      name: "Emil Kowalski",
-      role: "CTO",
-      experience: "10+ years of experience",
-      avatar: "https://github.com/emilkowalski.png",
-    },
-    {
-      name: "Rauno Freiberg",
-      role: "Head of Design",
-      experience: "7+ years of experience",
-      avatar: "https://github.com/raunofreiberg.png",
-    },
-    {
-      name: "Lee Robinson",
-      role: "Product Manager",
-      experience: "6+ years of experience",
-      avatar: "https://github.com/leerob.png",
-    },
-    {
-      name: "Shadcn",
-      role: "Lead Developer",
-      experience: "5+ years of experience",
-      avatar: "https://github.com/shadcn.png",
-    },
-    {
-      name: "Guillermo Rauch",
-      role: "CEO at Vercel",
-      experience: "12+ years of experience",
-      avatar: "https://github.com/rauchg.png",
-    },
-    {
-      name: "Dan Abramov",
-      role: "React Core Team",
-      experience: "9+ years of experience",
-      avatar: "https://github.com/gaearon.png",
-    },
-    {
-      name: "Kent C. Dodds",
-      role: "Testing Expert",
-      experience: "11+ years of experience",
-      avatar: "https://github.com/kentcdodds.png",
-    },
-    {
-      name: "Ryan Florence",
-      role: "Remix Co-founder",
-      experience: "13+ years of experience",
-      avatar: "https://github.com/ryanflorence.png",
-    },
-    {
-      name: "Sebastian Markbåge",
-      role: "React Core Team",
-      experience: "10+ years of experience",
-      avatar: "https://github.com/sebmarkbage.png",
-    },
-  ],
+  members = peopleData,
 }: TeamCarouselProps) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
@@ -230,10 +171,11 @@ export function TeamCarousel({
                       viewport={{ once: true }}
                       className="border-border bg-background rounded-2xl border p-7 text-center"
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={member.avatar}
+                      <Image
+                        src={getAvatarUrl(member.avatar, 160)}
                         alt={member.name}
+                        width={80}
+                        height={80}
                         className="border-border mx-auto size-20 rounded-full border"
                       />
                       <div className="mt-6 flex flex-col justify-center">
