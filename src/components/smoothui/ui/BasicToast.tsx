@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { AlertCircle, CheckCircle, Info, X, XCircle } from "lucide-react"
 import { AnimatePresence, motion } from "motion/react"
+import { createPortal } from "react-dom"
 
 export type ToastType = "success" | "error" | "info" | "warning"
 
@@ -40,6 +41,11 @@ export default function BasicToast({
   className = "",
 }: ToastProps) {
   const [visible, setVisible] = useState(isVisible)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     setVisible(isVisible)
@@ -55,7 +61,9 @@ export default function BasicToast({
     }
   }, [visible, duration, onClose])
 
-  return (
+  if (!mounted) return null
+
+  const toastContent = (
     <AnimatePresence>
       {visible && (
         <motion.div
@@ -86,6 +94,8 @@ export default function BasicToast({
       )}
     </AnimatePresence>
   )
+
+  return createPortal(toastContent, document.body)
 }
 
 // Example of how to use this component:
