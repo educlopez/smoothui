@@ -12,7 +12,6 @@ import {
 import Image from "next/image";
 import { useState } from "react";
 import { toast } from "sonner";
-import Smoothui from "../public/logomark.svg";
 import shadcn from "../public/shadcn.svg";
 
 type InstallerProps = {
@@ -20,14 +19,14 @@ type InstallerProps = {
 };
 
 export const Installer = ({ packageName }: InstallerProps) => {
-  const [value, setValue] = useState("smoothui");
+  const [value, setValue] = useState("shadcn");
 
   const commands = {
-    smoothui: {
-      label: "SmoothUI CLI",
-      image: Smoothui,
-      code: `npx smoothui add ${packageName}`,
-    },
+    // smoothui: {
+    //   label: "SmoothUI CLI",
+    //   image: Smoothui,
+    //   code: `npx smoothui add ${packageName}`,
+    // },
     shadcn: {
       label: "shadcn CLI",
       image: shadcn,
