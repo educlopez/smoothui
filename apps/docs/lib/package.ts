@@ -1,9 +1,70 @@
-import { promises as fs, readdirSync } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
-import postcss from "postcss";
+import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
 import type { RegistryItem } from "shadcn/schema";
+
+const getAllPackagePaths = async (
+  baseDir: string,
+  currentPath = ""
+): Promise<string[]> => {
+  const fullPath = join(baseDir, currentPath);
+  const entries = await readdir(fullPath, { withFileTypes: true });
+
+  const packagePaths: string[] = [];
+
+  for (const entry of entries) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+
+    const entryPath = join(currentPath, entry.name);
+    const entryFullPath = join(baseDir, entryPath);
+
+    // Check if this directory has a package.json
+    try {
+      const packageJsonPath = join(entryFullPath, "package.json");
+      await stat(packageJsonPath);
+      packagePaths.push(entryPath);
+    } catch {
+      // No package.json, recurse into subdirectories
+      const subPackages = await getAllPackagePaths(baseDir, entryPath);
+      packagePaths.push(...subPackages);
+    }
+  }
+
+  return packagePaths;
+};
+
+export const getAllPackageNames = async (): Promise<string[]> => {
+  const packagesDir = join(process.cwd(), "..", "..", "packages");
+  const packageDirectories = await readdir(packagesDir, {
+    withFileTypes: true,
+  });
+
+  // Get top-level packages
+  const topLevelPackageNames = packageDirectories
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name)
+    .filter(
+      (name) => !["shadcn-ui", "typescript-config", "patterns"].includes(name)
+    );
+
+  // Get nested packages in smoothui
+  const smoothuiPath = join(packagesDir, "smoothui");
+  let smoothuiPackages: string[] = [];
+  try {
+    smoothuiPackages = await getAllPackagePaths(smoothuiPath);
+  } catch {
+    // smoothui directory might not exist
+  }
+
+  // Combine all package names
+  return [
+    ...topLevelPackageNames,
+    ...smoothuiPackages.map((path) => join("smoothui", path)),
+  ];
+};
 
 export const getPackage = async (packageName: string) => {
   const packageDir = join(process.cwd(), "..", "..", "packages", packageName);
@@ -34,7 +95,7 @@ export const getPackage = async (packageName: string) => {
       ].includes(dep)
   );
 
-  const packageFiles = readdirSync(packageDir, { withFileTypes: true });
+  const packageFiles = await readdir(packageDir, { withFileTypes: true });
   const tsxFiles = packageFiles.filter(
     (file) => file.isFile() && file.name.endsWith(".tsx")
   );
@@ -47,7 +108,7 @@ export const getPackage = async (packageName: string) => {
 
   for (const file of tsxFiles) {
     const filePath = join(packageDir, file.name);
-    const content = await fs.readFile(filePath, "utf-8");
+    const content = await readFile(filePath, "utf-8");
 
     files.push({
       type: "registry:ui",
@@ -74,7 +135,7 @@ export const getPackage = async (packageName: string) => {
   const css: RegistryItem["css"] = {};
 
   for (const file of cssFiles) {
-    const contents = await fs.readFile(join(packageDir, file.name), "utf-8");
+    const contents = await readFile(join(packageDir, file.name), "utf-8");
 
     // Process CSS with PostCSS to handle nested selectors
     const processed = await postcss([postcssNested]).process(contents, {
@@ -94,7 +155,7 @@ export const getPackage = async (packageName: string) => {
         if (
           rule.parent &&
           rule.parent.type === "atrule" &&
-          (rule.parent as any).name === "media"
+          (rule.parent as AtRule).name === "media"
         ) {
           return;
         }

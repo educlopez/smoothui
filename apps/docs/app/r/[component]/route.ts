@@ -1,8 +1,6 @@
-import { readdir } from "node:fs/promises";
-import { join } from "node:path";
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
-import { getPackage } from "../../../lib/package";
+import { getAllPackageNames, getPackage } from "../../../lib/package";
 
 type RegistryParams = {
   params: Promise<{ component: string }>;
@@ -39,13 +37,7 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
 };
 
 export const generateStaticParams = async () => {
-  const packagesDir = join(process.cwd(), "..", "..", "packages");
-  const packageDirectories = await readdir(packagesDir, {
-    withFileTypes: true,
-  });
+  const allPackageNames = await getAllPackageNames();
 
-  return packageDirectories
-    .map((dirent) => dirent.name)
-    .filter((name) => !filteredPackages.includes(name))
-    .map((name) => ({ component: name }));
+  return allPackageNames.map((name) => ({ component: name }));
 };

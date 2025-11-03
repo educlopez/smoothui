@@ -1,11 +1,6 @@
-import { readdir } from "node:fs/promises";
-import { join } from "node:path";
-
 import { type NextRequest, NextResponse } from "next/server";
 import type { Registry } from "shadcn/schema";
-import { getPackage } from "../../../lib/package";
-
-const filteredPackages = ["shadcn-ui", "typescript-config", "patterns"];
+import { getAllPackageNames, getPackage } from "../../../lib/package";
 
 export const GET = async (_: NextRequest) => {
   const response: Registry = {
@@ -14,19 +9,19 @@ export const GET = async (_: NextRequest) => {
     items: [],
   };
 
-  const packagesDir = join(process.cwd(), "..", "..", "packages");
-  const packageDirectories = await readdir(packagesDir, {
-    withFileTypes: true,
-  });
+  const allPackageNames = await getAllPackageNames();
 
-  const packageNames = packageDirectories
-    .filter((dirent) => dirent.isDirectory())
-    .map((dirent) => dirent.name)
-    .filter((name) => !filteredPackages.includes(name));
-
-  for (const name of packageNames) {
+  for (const name of allPackageNames) {
     try {
       const pkg = await getPackage(name);
+
+      // Skip packages without any files or CSS
+      if (
+        (!pkg.files || pkg.files.length === 0) &&
+        (!pkg.css || Object.keys(pkg.css).length === 0)
+      ) {
+        continue;
+      }
 
       response.items.push(pkg);
     } catch {
