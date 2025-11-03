@@ -41,8 +41,8 @@ export function Icon({ className }: { className?: string }) {
   );
 
   // Eye centers (from SVG, adjust as needed)
-  const leftEyeCenter = { x: 180, y: 445 };
-  const rightEyeCenter = { x: 310, y: 445 };
+  const leftEyeCenter = { x: 143, y: 301 }; // 118 + 50/2, 222 + 157/2
+  const rightEyeCenter = { x: 277, y: 301 }; // 252 + 50/2, 222 + 157/2
   const eyeRadius = 18; // How far the pupil can move
 
   // Mouse tracking
@@ -61,8 +61,8 @@ export function Icon({ className }: { className?: string }) {
     const svgRect = svgRef.current.getBoundingClientRect();
 
     function calc(x: number, y: number) {
-      const centerX = svgRect.left + x * (svgRect.width / 536);
-      const centerY = svgRect.top + y * (svgRect.height / 703);
+      const centerX = svgRect.left + x * (svgRect.width / 443);
+      const centerY = svgRect.top + y * (svgRect.height / 597);
       const dx = mouse.x - centerX;
       const dy = mouse.y - centerY;
       const angle = Math.atan2(dy, dx);
@@ -127,7 +127,7 @@ export function Icon({ className }: { className?: string }) {
       ]);
     };
     // Only trigger blink on click, not eye movement
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = () => {
       // Defeat logic
       const now = Date.now();
       if (now - lastClickTime < 2000) {
@@ -160,7 +160,6 @@ export function Icon({ className }: { className?: string }) {
   // Petting logic: detect 5 rapid left-right changes over SVG
   useEffect(() => {
     if (!svgRef.current) return;
-    let mounted = true;
     const handleMove = (e: MouseEvent) => {
       if (!svgRef.current || defeated) return;
       const svgRect = svgRef.current.getBoundingClientRect();
@@ -177,7 +176,7 @@ export function Icon({ className }: { className?: string }) {
       if (lastPetX !== null) {
         const dir = e.clientX > lastPetX ? 1 : -1;
         setPetDirections((prev) => {
-          if (prev.length === 0 || prev[prev.length - 1] !== dir) {
+          if (prev.length === 0 || prev.at(-1) !== dir) {
             const now = Date.now();
             const filtered = prev.filter((_, i) => now - prev[i] < 3000);
             if (filtered.length >= 2 && !petted) {
@@ -193,7 +192,6 @@ export function Icon({ className }: { className?: string }) {
     };
     window.addEventListener("mousemove", handleMove);
     return () => {
-      mounted = false;
       window.removeEventListener("mousemove", handleMove);
     };
   }, [petted, defeated, lastPetX]);
@@ -208,13 +206,53 @@ export function Icon({ className }: { className?: string }) {
     }
   }, [petted]);
 
+  // Render mouth based on state
+  const renderMouth = () => {
+    if (defeated) {
+      return (
+        <circle
+          className="fill-background"
+          cx={221.5}
+          cy={435}
+          fill="black"
+          r={20}
+        />
+      );
+    }
+    if (petted) {
+      return (
+        <motion.path
+          animate={{ pathLength: 1 }}
+          className="stroke-background"
+          d="M150 435 Q221.5 485 293 435"
+          fill="none"
+          initial={{ pathLength: 0 }}
+          stroke="black"
+          strokeWidth={20}
+          transition={{ duration: 0.5 }}
+        />
+      );
+    }
+    return (
+      <motion.path
+        className="fill-background"
+        d="M267.87 407C271.243 407.191 274.227 407.739 276.959 409.87C280.247 412.433 282.139 416.941 282.582 421.005C283.16 426.325 280.833 430.766 277.515 434.744C263.501 451.546 243.234 461.076 221.624 462.945C197.225 465.055 169.441 458.247 150.573 442.257C145.626 437.542 139.761 432.101 138.333 425.133C137.544 421.285 138.13 417.11 140.381 413.842C142.787 410.346 146.747 408.061 150.91 407.413C161.065 405.834 166.456 416.009 173.71 421.169C192.365 434.442 223.95 436.953 243.492 424.269C251.723 418.926 257.881 408.707 267.87 407Z"
+        fill="black"
+        style={{
+          x: mouthX,
+          y: mouthY,
+        }}
+      />
+    );
+  };
+
   return (
     // biome-ignore lint/a11y/noSvgWithoutTitle: "title icon logo"
     <motion.svg
       animate={petted && !defeated ? { y: [0, -18, 0, -8, 0] } : { y: 0 }}
       className={className}
       fill="none"
-      height="703"
+      height="597"
       ref={svgRef}
       style={{ display: "block" }}
       transition={
@@ -222,196 +260,164 @@ export function Icon({ className }: { className?: string }) {
           ? { duration: 0.7, times: [0, 0.2, 0.5, 0.7, 1], repeat: 2 }
           : {}
       }
-      viewBox="0 0 536 703"
-      width="536"
+      viewBox="0 0 443 597"
+      width="443"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_42_2)">
-        <path
-          className="fill-foreground"
-          d="M404.299 0.157369C410.697 -0.457631 417.235 0.809367 423.363 2.57737C441.208 7.72437 458.888 14.8434 476.319 21.2414C489.274 25.9954 505.634 30.6814 517.343 37.7704C523.177 41.3034 528.215 45.6554 531.504 51.7234C535.875 59.7874 536.695 68.9604 534.002 77.6924C528.706 94.8684 521.747 111.235 505.009 119.932C490.147 127.654 476.398 123.104 461.499 118.151C454.608 115.848 447.699 113.601 440.771 111.412C434.726 125.441 428.854 139.545 423.157 153.719C418.991 163.818 414.443 173.918 410.901 184.245C413.396 184.965 415.874 185.741 418.334 186.573C438.134 193.277 451.982 204.97 461.253 223.726C468.341 225.046 474.356 227.54 479.268 233.043C485.162 239.648 487.545 248.512 487.108 257.223C486.672 265.904 484.985 274.783 483.707 283.393C479.839 309.46 477.457 319.276 457.451 337.377C455.104 346.135 454.789 355.906 453.79 364.937C452.328 377.669 450.734 390.387 449.008 403.086L429.85 556.223C427.277 575.903 425.039 595.586 421.763 615.172C418.044 637.401 407.737 655.719 389.09 668.859C376.814 677.51 362.462 683.418 348.242 688.09C295.819 705.314 236.81 707.108 182.663 697.839C156.018 693.446 123.377 685.188 100.836 669.916C87.2072 660.831 76.7352 647.738 70.8672 632.446C67.2262 622.69 66.3562 611.998 64.8562 601.756L59.4852 564.661C52.3072 515.044 45.4962 465.373 39.0522 415.655L33.1102 365.405C32.0552 356.152 31.3982 346.645 29.6842 337.494C27.4512 335.419 25.2322 333.329 23.0272 331.226C7.59721 316.283 5.61521 299.182 2.70421 278.918C1.63521 271.48 0.0602112 263.743 0.00121123 256.237C-0.0697888 247.27 2.97922 237.448 9.51922 231.081C15.0302 225.715 21.7442 224.19 29.1812 224.277C41.5042 192.469 66.9762 169.776 99.5752 159.84C112.937 155.768 122.513 155.423 135.786 148.748C150.675 141.26 161.71 128.23 175.091 118.563C198.711 101.498 225.116 94.8814 253.937 99.7314C281.573 104.2 306.224 119.663 322.277 142.598C327.235 133.174 330.769 122.551 334.897 112.712L361.14 50.0344C365.346 39.8994 369.805 25.7924 376.209 17.1844C383.285 7.67336 392.611 1.91737 404.299 0.157369Z"
-          fill="inherit"
-        />
-        <path
-          className="fill-foreground"
-          d="M64.1924 352.826C70.9614 353.68 77.7834 355.844 84.5364 357.08C96.5664 359.281 108.933 360.737 121.091 362.061C172.316 367.23 223.819 369.111 275.284 367.691C324.922 366.48 373.844 363.235 422.5 352.756C422.024 358.739 420.946 364.775 420.135 370.73L415.495 404.998L402.587 505.505C399.249 532.258 396.547 559.09 393.09 585.826C391.585 597.467 390.664 609.925 387.802 621.295C386.625 624.215 385.215 626.862 383.311 629.368C364.222 654.493 317.365 662.706 287.577 666.831C272.248 669.065 256.773 670.141 241.283 670.052C206.7 669.585 142.956 660.611 115.151 639.336C108.978 634.612 103.258 628.784 100.866 621.219C98.6464 614.196 98.2154 605.998 97.2034 598.711L91.1134 555.008L64.1924 352.826Z"
-          fill="inherit"
-        />
-        {/* Mouth */}
-        {defeated ? (
-          <circle
-            className="fill-background"
-            cx={245}
-            cy={540}
-            fill="inherit"
-            r={28}
-            stroke="inherit"
-            strokeWidth={8}
-          />
-        ) : petted ? (
-          <motion.path
-            animate={{ pathLength: 1 }}
-            className="stroke-background"
-            d="M180 550 Q245 600 310 550"
-            fill="none"
-            initial={{ pathLength: 0 }}
-            stroke="inherit"
-            strokeWidth={28}
-            transition={{ duration: 0.5 }}
-          />
-        ) : (
-          <motion.path
-            className="fill-background"
-            d="M301.208 509.132C304.581 509.323 307.565 509.871 310.297 512.002C313.585 514.565 315.477 519.073 315.92 523.137C316.498 528.457 314.171 532.898 310.853 536.876C296.839 553.678 276.572 563.208 254.962 565.077C230.563 567.187 202.779 560.379 183.911 544.389C178.964 539.674 173.099 534.233 171.671 527.265C170.882 523.417 171.468 519.242 173.719 515.974C176.125 512.478 180.085 510.193 184.248 509.545C194.403 507.966 199.794 518.141 207.048 523.301C225.703 536.574 257.288 539.085 276.83 526.401C285.061 521.058 291.219 510.839 301.208 509.132Z"
-            fill="inherit"
-            style={{
-              x: mouthX,
-              y: mouthY,
-            }}
-          />
-        )}
-        {/* Left Eye (cartoon style, fixed blink origin) */}
-        {!(defeated || petted) && (
-          <motion.circle
-            animate={leftEyeControls}
-            className="fill-background"
-            cx={leftEyeCenter.x}
-            cy={leftEyeCenter.y}
-            fill="inherit"
-            r="28"
-            style={{
-              x: leftEyeX,
-              y: leftEyeY,
-              originX: leftEyeCenter.x,
-              originY: leftEyeCenter.y,
-            }}
-            transition={{ duration: 0.08 }}
-          />
-        )}
-        {/* Left Eye Happy Arc */}
-        {petted && !defeated && (
-          <motion.path
-            animate={{ pathLength: 1 }}
-            className="stroke-background"
-            d={`M${leftEyeCenter.x - 32} ${leftEyeCenter.y} Q${
-              leftEyeCenter.x
-            } ${leftEyeCenter.y + 32} ${leftEyeCenter.x + 32} ${
-              leftEyeCenter.y
-            }`}
-            fill="none"
-            initial={{ pathLength: 0 }}
-            stroke="inherit"
-            strokeWidth={28}
-            transition={{ duration: 0.4 }}
-          />
-        )}
-        {/* Right Eye (cartoon style, fixed blink origin) */}
-        {!(defeated || petted) && (
-          <motion.circle
-            animate={rightEyeControls}
-            className="fill-background"
-            cx={rightEyeCenter.x}
-            cy={rightEyeCenter.y}
-            fill="inherit"
-            r="28"
-            style={{
-              x: rightEyeX,
-              y: rightEyeY,
-              originX: rightEyeCenter.x,
-              originY: rightEyeCenter.y,
-            }}
-            transition={{ duration: 0.08 }}
-          />
-        )}
-        {/* Right Eye Happy Arc */}
-        {petted && !defeated && (
-          <motion.path
-            animate={{ pathLength: 1 }}
-            className="stroke-background"
-            d={`M${rightEyeCenter.x - 32} ${rightEyeCenter.y} Q${
-              rightEyeCenter.x
-            } ${rightEyeCenter.y + 32} ${rightEyeCenter.x + 32} ${
-              rightEyeCenter.y
-            }`}
-            fill="none"
-            initial={{ pathLength: 0 }}
-            stroke="inherit"
-            strokeWidth={28}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          />
-        )}
-        {/* Defeated Eyes (X) */}
-        {defeated && (
-          <g>
-            {/* Left Eye X */}
-            <motion.line
-              animate={{ pathLength: 1 }}
-              className="stroke-background"
-              initial={{ pathLength: 0 }}
-              stroke="inherit"
-              strokeWidth={18}
-              transition={{ duration: 0.2 }}
-              x1={leftEyeCenter.x - 32}
-              x2={leftEyeCenter.x + 32}
-              y1={leftEyeCenter.y - 32}
-              y2={leftEyeCenter.y + 32}
-            />
-            <motion.line
-              animate={{ pathLength: 1 }}
-              className="stroke-background"
-              initial={{ pathLength: 0 }}
-              stroke="inherit"
-              strokeWidth={18}
-              transition={{ duration: 0.2, delay: 0.1 }}
-              x1={leftEyeCenter.x + 32}
-              x2={leftEyeCenter.x - 32}
-              y1={leftEyeCenter.y - 32}
-              y2={leftEyeCenter.y + 32}
-            />
-            {/* Right Eye X */}
-            <motion.line
-              animate={{ pathLength: 1 }}
-              className="stroke-background"
-              initial={{ pathLength: 0 }}
-              stroke="inherit"
-              strokeWidth={18}
-              transition={{ duration: 0.2 }}
-              x1={rightEyeCenter.x - 32}
-              x2={rightEyeCenter.x + 32}
-              y1={rightEyeCenter.y - 32}
-              y2={rightEyeCenter.y + 32}
-            />
-            <motion.line
-              animate={{ pathLength: 1 }}
-              className="stroke-background"
-              initial={{ pathLength: 0 }}
-              stroke="inherit"
-              strokeWidth={18}
-              transition={{ duration: 0.2, delay: 0.1 }}
-              x1={rightEyeCenter.x + 32}
-              x2={rightEyeCenter.x - 32}
-              y1={rightEyeCenter.y - 32}
-              y2={rightEyeCenter.y + 32}
-            />
-          </g>
-        )}
-
-        <path
+      {/* Top pink shape */}
+      <path
+        className="fill-foreground"
+        d="M209.511 81.9998C100.987 81.9998 13.0107 169.976 13.0107 278.5H406.011C406.011 169.976 318.035 81.9998 209.511 81.9998Z"
+        fill="#FF64B1"
+      />
+      {/* Bottom pink shape */}
+      <path
+        className="fill-foreground"
+        d="M31.0107 279.07C37.7797 279.924 88.001 279.07 88.001 279.07L211.001 279.07C211.001 279.07 281.395 279.102 326.501 279.07C351.033 279.052 340.501 279 389.319 279C388.843 284.983 387.765 291.019 386.954 296.974L382.314 331.242L369.406 431.749C366.068 458.502 363.366 485.334 359.909 512.07C358.404 523.711 357.483 536.169 354.621 547.539C353.444 550.459 352.034 553.106 350.13 555.612C331.041 580.737 284.184 588.95 254.396 593.075C239.067 595.309 223.592 596.385 208.102 596.296C173.519 595.829 109.775 586.855 81.9698 565.58C75.7968 560.856 70.0768 555.028 67.6848 547.463C65.4648 540.44 65.0338 532.242 64.0218 524.955L57.9317 481.252L31.0107 279.07Z"
+        fill="#FF64B1"
+      />
+      {/* Mouth */}
+      {renderMouth()}
+      {/* Pink band/rect */}
+      <rect
+        className="fill-foreground"
+        fill="#FF64B1"
+        height="76"
+        rx="10"
+        width="420"
+        y="251"
+      />
+      {/* Pink horn/decorative element */}
+      <path
+        className="fill-foreground"
+        d="M335.493 11.8972C335.898 12.0719 336.283 12.2729 336.652 12.4924L433.04 54.1314C438.11 56.3216 440.444 62.2072 438.254 67.2772L430.322 85.6372C428.132 90.707 422.247 93.0417 417.177 90.8515L328.776 52.6628L290.686 140.835C288.496 145.905 282.61 148.24 277.54 146.049L259.18 138.118C254.11 135.928 251.776 130.042 253.966 124.972L303.987 9.18003C306.178 4.11004 312.063 1.77552 317.133 3.96573L335.493 11.8972Z"
+        fill="#FF64B1"
+      />
+      {/* Left Eye */}
+      {!(defeated || petted) && (
+        <motion.rect
+          animate={leftEyeControls}
           className="fill-background"
-          d="M231.559 131.695C239.765 130.96 248.367 132.266 256.208 134.712C288.137 144.672 297.145 171.777 322.489 190.569C343.249 205.963 363.832 209.487 388.419 214.014C396.65 215.53 405.078 217.043 412.783 220.421C421.586 224.281 424.535 228.643 427.979 237.395C378.308 252.268 310.496 254.053 258.517 254.392C198.181 255.731 119.461 253.42 61.3892 237.673C63.8222 230.295 67.4112 222.304 72.3122 216.249C80.9522 205.572 95.0912 197.139 108.156 193.246C115.44 191.076 123.015 189.921 130.323 187.787C138.192 185.482 145.809 182.389 153.058 178.555C159.801 174.966 166.358 170.939 172.234 166.042C194.026 147.881 199.803 134.946 231.559 131.695Z"
-          fill="inherit"
+          fill="black"
+          height="157"
+          rx="18"
+          style={{
+            x: leftEyeX,
+            y: leftEyeY,
+          }}
+          transformOrigin={`${leftEyeCenter.x}px ${leftEyeCenter.y}px`}
+          transition={{ duration: 0.08 }}
+          width="50"
+          x="118"
+          y="222"
         />
-        <path
-          className="fill-foreground"
-          d="M33.6614 262.739C38.4404 264.642 43.1214 266.793 48.0334 268.342C65.2924 273.786 85.2564 276.873 103.136 279.529C135.747 284.41 168.634 287.232 201.6 287.978C216.235 288.34 230.927 288.065 245.569 288.058C286.814 288.04 327.348 287.376 368.333 282.213C390.863 279.375 414.269 275.867 436.172 269.774C441.575 268.271 446.736 265.938 452.099 264.284C452.792 264.876 452.639 264.568 452.861 265.433C454.029 270.004 450.541 290.316 448.874 295.605C448.019 298.319 446.784 300.649 445.296 303.054C442.533 306.57 439.196 309.593 435.424 311.995C404.243 332.044 286.459 334.297 245.414 334.418C214.973 334.37 184.54 333.419 154.155 331.566C129.677 329.925 104.269 327.578 80.3134 322.18C66.5594 319.081 49.4624 314.486 41.5254 301.678C39.8494 298.975 38.6994 296.061 37.8774 292.996C36.3574 287.326 36.0984 281.242 35.1984 275.445C34.6844 272.136 33.3524 268.58 33.2804 265.247C33.2624 264.381 33.4664 263.574 33.6614 262.739Z"
-          fill="inherit"
+      )}
+      {/* Left Eye Happy Arc */}
+      {petted && !defeated && (
+        <motion.path
+          animate={{ pathLength: 1 }}
+          className="stroke-background"
+          d={`M${leftEyeCenter.x - 25} ${leftEyeCenter.y} Q${
+            leftEyeCenter.x
+          } ${leftEyeCenter.y + 25} ${leftEyeCenter.x + 25} ${leftEyeCenter.y}`}
+          fill="none"
+          initial={{ pathLength: 0 }}
+          stroke="black"
+          strokeWidth={20}
+          transition={{ duration: 0.4 }}
         />
-        <path
-          className="fill-foreground"
-          d="M412.275 34.1284C413.787 34.3724 415.274 34.7534 416.717 35.2654C433.429 41.0284 449.971 47.5334 466.553 53.6704C475.276 56.8984 485.819 59.8544 494.006 64.0824C496.29 65.2614 498.603 67.3664 499.663 69.7434C501.215 73.2234 499.635 77.0524 498.255 80.3364C496.331 84.9164 493.169 88.8594 488.05 89.7844C474.95 92.1544 433.953 67.5574 423.395 72.3154C421.465 73.1854 420.154 74.5254 419 76.2744C415.568 81.4764 413.503 88.1114 411.183 93.8834L400.572 120.121C396.229 131.797 391.253 143.314 386.602 154.876C383.642 162.236 381.038 170.458 377.206 177.388C367.759 175.631 357.06 173.394 348.653 168.579L384.877 79.4844L394.179 56.0674C396.164 51.0634 397.945 45.3594 400.93 40.8564C403.895 36.3824 407.216 35.0504 412.275 34.1284Z"
-          fill="inherit"
+      )}
+      {/* Right Eye */}
+      {!(defeated || petted) && (
+        <motion.rect
+          animate={rightEyeControls}
+          className="fill-background"
+          fill="black"
+          height="157"
+          rx="18"
+          style={{
+            x: rightEyeX,
+            y: rightEyeY,
+          }}
+          transformOrigin={`${rightEyeCenter.x}px ${rightEyeCenter.y}px`}
+          transition={{ duration: 0.08 }}
+          width="50"
+          x="252"
+          y="222"
         />
-      </g>
+      )}
+      {/* Right Eye Happy Arc */}
+      {petted && !defeated && (
+        <motion.path
+          animate={{ pathLength: 1 }}
+          className="stroke-background"
+          d={`M${rightEyeCenter.x - 25} ${rightEyeCenter.y} Q${
+            rightEyeCenter.x
+          } ${rightEyeCenter.y + 25} ${rightEyeCenter.x + 25} ${
+            rightEyeCenter.y
+          }`}
+          fill="none"
+          initial={{ pathLength: 0 }}
+          stroke="black"
+          strokeWidth={20}
+          transition={{ duration: 0.4, delay: 0.1 }}
+        />
+      )}
+      {/* Defeated Eyes (X) */}
+      {defeated && (
+        <g>
+          {/* Left Eye X */}
+          <motion.line
+            animate={{ pathLength: 1 }}
+            className="stroke-background"
+            initial={{ pathLength: 0 }}
+            stroke="black"
+            strokeWidth={14}
+            transition={{ duration: 0.2 }}
+            x1={leftEyeCenter.x - 25}
+            x2={leftEyeCenter.x + 25}
+            y1={leftEyeCenter.y - 78}
+            y2={leftEyeCenter.y + 78}
+          />
+          <motion.line
+            animate={{ pathLength: 1 }}
+            className="stroke-background"
+            initial={{ pathLength: 0 }}
+            stroke="black"
+            strokeWidth={14}
+            transition={{ duration: 0.2, delay: 0.1 }}
+            x1={leftEyeCenter.x + 25}
+            x2={leftEyeCenter.x - 25}
+            y1={leftEyeCenter.y - 78}
+            y2={leftEyeCenter.y + 78}
+          />
+          {/* Right Eye X */}
+          <motion.line
+            animate={{ pathLength: 1 }}
+            className="stroke-background"
+            initial={{ pathLength: 0 }}
+            stroke="black"
+            strokeWidth={14}
+            transition={{ duration: 0.2 }}
+            x1={rightEyeCenter.x - 25}
+            x2={rightEyeCenter.x + 25}
+            y1={rightEyeCenter.y - 78}
+            y2={rightEyeCenter.y + 78}
+          />
+          <motion.line
+            animate={{ pathLength: 1 }}
+            className="stroke-background"
+            initial={{ pathLength: 0 }}
+            stroke="black"
+            strokeWidth={14}
+            transition={{ duration: 0.2, delay: 0.1 }}
+            x1={rightEyeCenter.x + 25}
+            x2={rightEyeCenter.x - 25}
+            y1={rightEyeCenter.y - 78}
+            y2={rightEyeCenter.y + 78}
+          />
+        </g>
+      )}
     </motion.svg>
   );
 }
