@@ -1,0 +1,5 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "packages/smoothui/components/*"
+  - "packages/smoothui/blocks/*"

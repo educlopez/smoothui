@@ -27,13 +27,35 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
   - [Quick Start](#quick-start)
   - [Installation](#installation)
     - [Using shadcn CLI v3 (Recommended)](#using-shadcn-cli-v3-recommended)
+      - [Step 1: Configure the Registry](#step-1-configure-the-registry)
+      - [Step 2: Install Components](#step-2-install-components)
+      - [Step 3: Use Components](#step-3-use-components)
+      - [Available Commands](#available-commands)
     - [Manual Installation](#manual-installation)
   - [Usage](#usage)
+    - [Basic Usage](#basic-usage)
+    - [Advanced Usage](#advanced-usage)
   - [Available Components](#available-components)
-  - [Registry System](#registry-system)
+    - [UI Components](#ui-components)
+    - [Interactive Components](#interactive-components)
+    - [Layout Components](#layout-components)
+    - [Utility Components](#utility-components)
   - [MCP Support](#mcp-support)
+    - [🤖 AI Assistant Integration](#-ai-assistant-integration)
+    - [Quick MCP Setup](#quick-mcp-setup)
+  - [Registry System](#registry-system)
+    - [Automatic Dependencies](#automatic-dependencies)
+    - [Component Structure](#component-structure)
+    - [Registry Features](#registry-features)
   - [Troubleshooting](#troubleshooting)
+    - [Common Issues](#common-issues)
+      - [1. Authentication Error (401)](#1-authentication-error-401)
+      - [2. Registry Not Found](#2-registry-not-found)
+      - [3. Import Path Issues](#3-import-path-issues)
+      - [4. Missing Dependencies](#4-missing-dependencies)
+    - [Getting Help](#getting-help)
   - [Contributing](#contributing)
+    - [Development Setup](#development-setup)
   - [License](#license)
 
 ## Features
@@ -72,10 +94,10 @@ npx shadcn@latest add @smoothui/siri-orb
 3. **Use the component**:
 
 ```tsx
-import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
 
 export default function App() {
-  return <SiriOrb size="200px" />
+  return <SiriOrb size="200px" />;
 }
 ```
 
@@ -133,8 +155,8 @@ npx shadcn@latest add @smoothui/scrollable-card-stack
 Import and use the installed components:
 
 ```tsx
-import { RichPopover } from "@/components/smoothui/ui/RichPopover"
-import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { RichPopover } from "@/components/smoothui/ui/RichPopover";
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
 
 export default function App() {
   return (
@@ -142,7 +164,7 @@ export default function App() {
       <SiriOrb size="200px" />
       <RichPopover />
     </div>
-  )
+  );
 }
 ```
 
@@ -180,11 +202,11 @@ mkdir -p lib/utils
 
 ```tsx
 // lib/utils/cn.ts
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 ```
 
@@ -193,7 +215,7 @@ export function cn(...inputs: ClassValue[]) {
 ### Basic Usage
 
 ```tsx
-import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
 
 export default function App() {
   return (
@@ -209,15 +231,15 @@ export default function App() {
         animationDuration={20}
       />
     </div>
-  )
+  );
 }
 ```
 
 ### Advanced Usage
 
 ```tsx
-import { RichPopover } from "@/components/smoothui/ui/RichPopover"
-import { ScrollableCardStack } from "@/components/smoothui/ui/ScrollableCardStack"
+import { RichPopover } from "@/components/smoothui/ui/RichPopover";
+import { ScrollableCardStack } from "@/components/smoothui/ui/ScrollableCardStack";
 
 export default function Dashboard() {
   const cards = [
@@ -230,14 +252,14 @@ export default function Dashboard() {
       href: "https://twitter.com/johndoe",
     },
     // ... more cards
-  ]
+  ];
 
   return (
     <div className="space-y-8">
       <RichPopover />
       <ScrollableCardStack items={cards} />
     </div>
-  )
+  );
 }
 ```
 

@@ -1,0 +1,54 @@
+---
+title: Installation
+description: Learn how to install SmoothUI components using shadcn CLI or manual installation methods.
+icon: Download
+---
+
+
+## Installation (Official Registry)
+
+<BodyText>
+SmoothUI is an official shadcn registry, so you can install components directly without any configuration. Just use the `@smoothui{:js}` namespace.
+</BodyText>
+
+<FeatureCard title="No Configuration Required" variant="info">
+Since SmoothUI is an official registry, you don't need to add anything to your `components.json{:js}` file. Just install components directly!
+</FeatureCard>
+
+### Install Components
+
+<BodyText>
+Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` namespace:
+</BodyText>
+
+```bash
+# Install a single component
+npx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+npx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+### Use Components
+
+<BodyText>
+Import and use the installed components in your React application:
+</BodyText>
+
+```tsx
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { RichPopover } from "@/components/smoothui/ui/RichPopover"
+
+export default function App() {
+  return (
+    <div>
+      <SiriOrb size="200px" />
+      <RichPopover />
+    </div>
+  )
+}
+```
+
