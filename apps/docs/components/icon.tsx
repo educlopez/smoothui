@@ -304,8 +304,8 @@ export function Icon({ className }: { className?: string }) {
           style={{
             x: leftEyeX,
             y: leftEyeY,
+            transformOrigin: `${leftEyeCenter.x}px ${leftEyeCenter.y}px`,
           }}
-          transformOrigin={`${leftEyeCenter.x}px ${leftEyeCenter.y}px`}
           transition={{ duration: 0.08 }}
           width="50"
           x="118"
@@ -338,8 +338,8 @@ export function Icon({ className }: { className?: string }) {
           style={{
             x: rightEyeX,
             y: rightEyeY,
+            transformOrigin: `${rightEyeCenter.x}px ${rightEyeCenter.y}px`,
           }}
-          transformOrigin={`${rightEyeCenter.x}px ${rightEyeCenter.y}px`}
           transition={{ duration: 0.08 }}
           width="50"
           x="252"
