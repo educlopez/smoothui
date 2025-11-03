@@ -1,4 +1,6 @@
 // Export all UI blocks from their individual packages
+export { default as Faq1 } from "./faq-1";
+export { default as Faq2 } from "./faq-2";
 export { default as Footer1 } from "./footer-1";
 export { default as Footer2 } from "./footer-2";
 export { default as Header1 } from "./header-1";
