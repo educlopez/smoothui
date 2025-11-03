@@ -192,24 +192,29 @@
   animation: slide-in-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-h1,h2,h3,h4,h5,h6 {
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
   @apply font-semibold text-foreground tracking-tight;
 }
-h1{
+.prose h1{
   @apply -tracking-wide font-bold text-3xl;
 }
-h2{
+.prose h2{
   @apply font-semibold text-lg;
 }
-h3{
+.prose h3{
   @apply font-semibold text-base;
 }
-h4{
+.prose h4{
   @apply font-semibold text-sm;
 }
-h5{
+.prose h5{
   @apply font-semibold text-xs;
 }
-h6{
+.prose h6{
   @apply font-medium text-xs;
 }

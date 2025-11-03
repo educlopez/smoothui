@@ -4,6 +4,10 @@ import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
 import type { RegistryItem } from "shadcn/schema";
 
+// Regex patterns for detecting imports
+const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
+const RELATIVE_IMPORT_REGEX = /from\s+["']\.\.\/([a-z-]+)["']/g;
+
 const getAllPackagePaths = async (
   baseDir: string,
   currentPath = ""
@@ -136,18 +140,36 @@ export const getPackage = async (packageName: string) => {
     });
   }
 
-  const registryDependencies =
+  // Detect shadcn-ui dependencies from @/components/ui imports
+  const shadcnDependencies =
     files
       .map((f) => f.content)
       .join("\n")
-      .match(/@\/components\/ui\/([a-z-]+)/g)
+      .match(SHADCN_IMPORT_REGEX)
       ?.map((path) => path.split("/").pop())
       .filter((name): name is string => !!name) || [];
 
+  // Detect relative imports to other smoothui components/blocks
+  const allContent = files.map((f) => f.content).join("\n");
+  const relativeMatches = Array.from(
+    allContent.matchAll(RELATIVE_IMPORT_REGEX)
+  );
+  const relativeImports = relativeMatches
+    .map((match) => match[1])
+    .filter((name): name is string => !!name);
+
+  const registryDependencies = [...shadcnDependencies];
+
+  // Add smoothui dependencies from package.json
   for (const dep of smoothuiDependencies) {
     const pkg = dep.replace("@repo/", "");
 
     registryDependencies.push(`https://smoothui.dev/r/${pkg}.json`);
+  }
+
+  // Add relative imports as registry dependencies
+  for (const relativeImport of relativeImports) {
+    registryDependencies.push(`https://smoothui.dev/r/${relativeImport}.json`);
   }
 
   const css: RegistryItem["css"] = {};
