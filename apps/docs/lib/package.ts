@@ -66,10 +66,28 @@ export const getAllPackageNames = async (): Promise<string[]> => {
   ];
 };
 
+export const getAllPackageNameMapping = async (): Promise<
+  Map<string, string>
+> => {
+  const fullNames = await getAllPackageNames();
+  const mapping = new Map<string, string>();
+
+  for (const fullName of fullNames) {
+    const shortName = fullName.split("/").at(-1) || fullName;
+    mapping.set(shortName, fullName);
+  }
+
+  return mapping;
+};
+
 export const getPackage = async (packageName: string) => {
   const packageDir = join(process.cwd(), "..", "..", "packages", packageName);
   const packagePath = join(packageDir, "package.json");
   const packageJson = JSON.parse(await readFile(packagePath, "utf-8"));
+
+  // Extract the actual package name from the path (e.g., "ai-branch" from "smoothui/components/ai-branch")
+  const packageNameParts = packageName.split("/");
+  const actualPackageName = packageNameParts.at(-1) || packageName;
 
   const smoothuiDependencies = Object.keys(
     packageJson.dependencies || {}
@@ -207,9 +225,9 @@ export const getPackage = async (packageName: string) => {
 
   const response: RegistryItem = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: packageName,
+    name: actualPackageName,
     type,
-    title: packageName,
+    title: actualPackageName,
     description: packageJson.description,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
     dependencies,

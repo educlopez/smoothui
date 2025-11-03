@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
-import { getAllPackageNames, getPackage } from "../../../lib/package";
+import {
+  getAllPackageNameMapping,
+  getAllPackageNames,
+  getPackage,
+} from "../../../lib/package";
 
 type RegistryParams = {
   params: Promise<{ component: string }>;
@@ -18,14 +22,22 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
     );
   }
 
-  const packageName = component.replace(".json", "");
+  const shortName = component.replace(".json", "");
 
-  if (filteredPackages.includes(packageName)) {
+  if (filteredPackages.includes(shortName)) {
     notFound();
   }
 
   try {
-    const pkg = await getPackage(packageName);
+    // Get the mapping and find the full path for this short name
+    const mapping = await getAllPackageNameMapping();
+    const fullPackageName = mapping.get(shortName);
+
+    if (!fullPackageName) {
+      notFound();
+    }
+
+    const pkg = await getPackage(fullPackageName);
 
     return NextResponse.json(pkg);
   } catch (error) {
@@ -39,5 +51,8 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
 export const generateStaticParams = async () => {
   const allPackageNames = await getAllPackageNames();
 
-  return allPackageNames.map((name) => ({ component: name }));
+  // Return only the short names for the URL
+  return allPackageNames.map((name) => ({
+    component: name.split("/").at(-1) || name,
+  }));
 };
