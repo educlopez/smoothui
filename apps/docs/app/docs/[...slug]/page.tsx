@@ -16,6 +16,7 @@ import { FeatureCard } from "../../../components/feature-card";
 import { FeatureCardHover } from "../../../components/feature-card-hover";
 import { Installer } from "../../../components/installer";
 import Divider from "../../../components/landing/divider";
+import { LastModified } from "../../../components/last-modified";
 import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
 import { createMetadata } from "../../../lib/metadata";
@@ -33,6 +34,9 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   }
 
   const MDX = page.data.body;
+
+  // Access lastModified from page data (available when lastModifiedTime: 'git' is enabled)
+  const lastModified = (page.data as { lastModified?: number }).lastModified;
 
   const updatedToc: TableOfContents = [
     {
@@ -61,6 +65,9 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     >
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
+      {lastModified && (
+        <LastModified className="mt-2" lastModified={lastModified} />
+      )}
       <DocsBody>
         {page.data.installer && (
           <>
