@@ -1,16 +1,11 @@
 "use client";
 
-import {
-  Snippet,
-  SnippetCopyButton,
-  SnippetHeader,
-  SnippetTabsContent,
-  SnippetTabsList,
-  SnippetTabsTrigger,
-} from "@repo/smoothui/components/snippet";
-
+import { Button } from "@repo/shadcn-ui/components/ui/button";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
+import { useCopyButton } from "fumadocs-ui/utils/use-copy-button";
+import { Check, Copy } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
 import { toast } from "sonner";
 import shadcn from "../public/shadcn.svg";
 
@@ -19,55 +14,49 @@ type InstallerProps = {
 };
 
 export const Installer = ({ packageName }: InstallerProps) => {
-  const [value, setValue] = useState("shadcn");
-
-  const commands = {
-    // smoothui: {
-    //   label: "SmoothUI CLI",
-    //   image: Smoothui,
-    //   code: `npx smoothui add ${packageName}`,
-    // },
-    shadcn: {
-      label: "shadcn CLI",
-      image: shadcn,
-      code: `npx shadcn add @smoothui/${packageName}`,
-    },
-  };
+  const code = `npx shadcn add @smoothui/${packageName}`;
+  const [checked, onCopy] = useCopyButton(async () => {
+    await navigator.clipboard.writeText(code);
+    toast.success("Copied to clipboard");
+  });
 
   return (
-    <Snippet
-      className="not-prose shiki shiki-themes github-light github-dark"
-      onValueChange={setValue}
-      value={value}
-    >
-      <SnippetHeader>
-        <SnippetTabsList>
-          {Object.entries(commands).map(([key, command]) => (
-            <SnippetTabsTrigger className="basis-auto" key={key} value={key}>
-              <Image
-                alt=""
-                className="dark:invert"
-                height={14}
-                src={command.image}
-                width={14}
-              />
-              {command.label}
-            </SnippetTabsTrigger>
-          ))}
-        </SnippetTabsList>
-        <SnippetCopyButton
-          onCopy={() => {
-            toast.success("Copied to clipboard");
+    <div className="group not-prose shiki shiki-themes catppuccin-latte catppuccin-mocha w-full overflow-hidden rounded-md border">
+      <div className="flex flex-row items-center justify-between border-b bg-secondary p-1">
+        <div className="flex items-center gap-1.5 px-2">
+          <Image
+            alt="shadcn"
+            className="dark:invert"
+            height={14}
+            src={shadcn}
+            width={14}
+          />
+          <span className="text-sm">shadcn CLI</span>
+        </div>
+        <Button
+          className={cn(
+            "shrink-0 opacity-0 transition-opacity group-hover:opacity-100",
+            "h-8 w-8"
+          )}
+          onClick={onCopy}
+          size="icon"
+          variant="ghost"
+        >
+          {checked ? <Check size={14} /> : <Copy size={14} />}
+        </Button>
+      </div>
+      <div className="bg-background p-0 text-sm">
+        <DynamicCodeBlock
+          code={code}
+          lang="bash"
+          options={{
+            themes: {
+              light: "catppuccin-latte",
+              dark: "catppuccin-mocha",
+            },
           }}
-          onError={() => toast.error("Failed to copy to clipboard")}
-          value={commands[value as keyof typeof commands].code}
         />
-      </SnippetHeader>
-      {Object.entries(commands).map(([key, command]) => (
-        <SnippetTabsContent key={key} value={key}>
-          {command.code}
-        </SnippetTabsContent>
-      ))}
-    </Snippet>
+      </div>
+    </div>
   );
 };

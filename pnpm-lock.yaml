@@ -1910,6 +1910,9 @@ importers:
 
   packages/smoothui/components/snippet:
     dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.0)

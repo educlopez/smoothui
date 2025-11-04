@@ -1,20 +1,13 @@
 "use client";
 
-import {
-  type BundledLanguage,
-  CodeBlock,
-  CodeBlockBody,
-  CodeBlockContent,
-  CodeBlockCopyButton,
-  CodeBlockItem,
-} from "@repo/smoothui/components/code-block";
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
+import { Hand } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Hand } from "lucide-react";
 
 type PreviewSourceProps = {
   source: { name: string; source: string }[];
@@ -27,7 +20,7 @@ const parseCode = (code: string) =>
 
 export const PreviewSource = ({ source }: PreviewSourceProps) => (
   <Accordion collapsible defaultValue={source.at(0)?.name} type="single">
-    {source.map(({ name, source }) => (
+    {source.map(({ name, source: sourceCode }) => (
       <AccordionItem key={name} value={name}>
         <AccordionTrigger className="rounded-none bg-secondary px-4">
           <div className="flex items-center gap-2 text-sm">
@@ -39,30 +32,18 @@ export const PreviewSource = ({ source }: PreviewSourceProps) => (
           className="overflow-visible"
           style={{ overflow: "visible" }}
         >
-          <CodeBlock
-            className="overflow-visible rounded-none border-none"
-            data={[
-              {
-                language: "tsx",
-                filename: name,
-                code: parseCode(source),
-              },
-            ]}
-            defaultValue="tsx"
-          >
-            <div className="sticky top-0 z-1">
-              <CodeBlockCopyButton className="absolute top-1 right-1.5" />
-            </div>
-            <CodeBlockBody>
-              {(item) => (
-                <CodeBlockItem key={item.language} value={item.language}>
-                  <CodeBlockContent language={item.language as BundledLanguage}>
-                    {item.code}
-                  </CodeBlockContent>
-                </CodeBlockItem>
-              )}
-            </CodeBlockBody>
-          </CodeBlock>
+          <div className="relative">
+            <DynamicCodeBlock
+              code={parseCode(sourceCode)}
+              lang="tsx"
+              options={{
+                themes: {
+                  light: "catppuccin-latte",
+                  dark: "catppuccin-mocha",
+                },
+              }}
+            />
+          </div>
         </AccordionContent>
       </AccordionItem>
     ))}

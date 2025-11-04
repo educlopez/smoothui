@@ -20,7 +20,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import Logo from "../../logo";
 import { Button } from "../../smoothbutton";
-import { GithubStars } from "./girhub-stars";
+import { GithubStars } from "./github-stars";
 
 interface MobileNavbarProps {
   className?: string;

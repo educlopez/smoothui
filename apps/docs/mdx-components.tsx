@@ -1,9 +1,13 @@
 import { createGenerator } from "fumadocs-typescript";
 import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
+import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
+// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
 import * as FilesComponents from "fumadocs-ui/components/files";
+// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
+// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
 
@@ -21,6 +25,12 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Accordions,
     AutoTypeTable: (props) => (
       <AutoTypeTable {...props} generator={typeGenerator} />
+    ),
+    // HTML `ref` attribute conflicts with `forwardRef`
+    pre: ({ ref: _ref, ...props }) => (
+      <CodeBlock {...props}>
+        <Pre>{props.children}</Pre>
+      </CodeBlock>
     ),
     ...components,
   } satisfies MDXComponents;

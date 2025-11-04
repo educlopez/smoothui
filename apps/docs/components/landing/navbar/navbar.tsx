@@ -21,7 +21,7 @@ import { useIsMobile } from "@repo/shadcn-ui/hooks/use-mobile";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Logo from "../../logo";
-import { GithubStars } from "./girhub-stars";
+import { GithubStars } from "./github-stars";
 import { BlocksMenuIllustration, MenuIllustration } from "./menu-illustration";
 import { MobileNavbar } from "./mobile-navbar";
 
