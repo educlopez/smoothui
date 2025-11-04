@@ -46,7 +46,7 @@ export function ComponentsSlideshow() {
       </div>
       <div className="mx-auto mt-8 flex justify-center">
         <Button asChild variant="candy">
-          <Link href="/doc">View All Components</Link>
+          <Link href="/docs/components">View All Components</Link>
         </Button>
       </div>
     </section>

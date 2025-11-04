@@ -16,6 +16,17 @@ import { ShadcnLogo } from "../../components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "../../components/landing/logos/tailwind-logo";
 import { Button } from "../../components/smoothbutton";
 
+const EASE_OUT_QUAD_X1 = 0.25;
+const EASE_OUT_QUAD_Y1 = 0.46;
+const EASE_OUT_QUAD_X2 = 0.45;
+const EASE_OUT_QUAD_Y2 = 0.94;
+const EASE_OUT_QUAD = [
+  EASE_OUT_QUAD_X1,
+  EASE_OUT_QUAD_Y1,
+  EASE_OUT_QUAD_X2,
+  EASE_OUT_QUAD_Y2,
+] as const;
+
 export function Hero() {
   return (
     <section className="bg-background transition">
@@ -36,7 +47,7 @@ export function Hero() {
               }}
               transition={{
                 duration: 0.6,
-                ease: [0.25, 0.46, 0.45, 0.94], // ease-out-quad
+                ease: EASE_OUT_QUAD,
               }}
             >
               {/* Main heading */}
@@ -101,7 +112,7 @@ export function Hero() {
               transition={{
                 duration: 0.6,
                 delay: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94], // ease-out-quad
+                ease: EASE_OUT_QUAD,
               }}
             >
               <div className="grid grid-cols-2 gap-4">
@@ -128,7 +139,11 @@ export function Hero() {
 
                 {/* ScrambleHover Component */}
                 <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
-                  <ScrambleHover className="font-medium text-sm">
+                  <ScrambleHover
+                    className="z-10 font-medium text-sm"
+                    duration={1200}
+                    speed={50}
+                  >
                     Hover to Scramble
                   </ScrambleHover>
                 </div>
