@@ -10,7 +10,7 @@ export interface AccordionItem {
   content: React.ReactNode;
 }
 
-interface BasicAccordionProps {
+export interface BasicAccordionProps {
   items: AccordionItem[];
   allowMultiple?: boolean;
   className?: string;

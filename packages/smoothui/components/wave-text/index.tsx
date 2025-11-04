@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import type React from "react";
 
-interface WaveTextProps {
+export interface WaveTextProps {
   children: string;
   amplitude?: number;
   speed?: number;

@@ -1,7 +1,7 @@
 import type React from "react";
 import { useRef, useState } from "react";
 
-interface ScrambleHoverProps {
+export interface ScrambleHoverProps {
   children: string;
   duration?: number; // total animation duration in ms
   speed?: number; // interval between scrambles in ms

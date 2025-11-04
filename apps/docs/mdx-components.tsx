@@ -1,9 +1,15 @@
+import { createGenerator } from "fumadocs-typescript";
+import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import * as FilesComponents from "fumadocs-ui/components/files";
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
+
+// Create the TypeScript generator for AutoTypeTable
+export const typeGenerator: ReturnType<typeof createGenerator> =
+  createGenerator();
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -13,6 +19,9 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     ...FilesComponents,
     Accordion,
     Accordions,
+    AutoTypeTable: (props) => (
+      <AutoTypeTable {...props} generator={typeGenerator} />
+    ),
     ...components,
   } satisfies MDXComponents;
 }

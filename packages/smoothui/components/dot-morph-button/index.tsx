@@ -4,7 +4,7 @@ import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { motion } from "motion/react";
 import { useState } from "react";
 
-interface DotMorphButtonProps {
+export interface DotMorphButtonProps {
   label: string;
   className?: string;
   onClick?: () => void;

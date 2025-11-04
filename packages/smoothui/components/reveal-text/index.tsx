@@ -1,7 +1,7 @@
 import { motion, useInView } from "motion/react";
 import React from "react";
 
-interface RevealTextProps {
+export interface RevealTextProps {
   children: string;
   direction?: "up" | "down" | "left" | "right";
   delay?: number;

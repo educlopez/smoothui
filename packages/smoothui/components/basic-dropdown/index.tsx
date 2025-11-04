@@ -10,7 +10,7 @@ interface DropdownItem {
   icon?: React.ReactNode;
 }
 
-interface BasicDropdownProps {
+export interface BasicDropdownProps {
   label: string;
   items: DropdownItem[];
   onChange?: (item: DropdownItem) => void;

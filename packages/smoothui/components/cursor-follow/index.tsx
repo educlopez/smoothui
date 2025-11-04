@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useCursorPosition } from "./useCursorPosition";
 
-interface CursorFollowProps {
+export interface CursorFollowProps {
   children: React.ReactNode;
   className?: string;
 }

@@ -14,7 +14,7 @@ interface CardItem {
   href: string;
 }
 
-interface ScrollableCardStackProps {
+export interface ScrollableCardStackProps {
   items: CardItem[];
   cardHeight?: number;
   perspective?: number;

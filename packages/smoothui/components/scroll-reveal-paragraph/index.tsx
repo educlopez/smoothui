@@ -3,7 +3,7 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 
-interface ScrollRevealParagraphProps {
+export interface ScrollRevealParagraphProps {
   paragraph: string;
   className?: string;
 }

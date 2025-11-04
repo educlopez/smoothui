@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 
-interface SiriOrbProps {
+export interface SiriOrbProps {
   size?: string;
   className?: string;
   colors?: {

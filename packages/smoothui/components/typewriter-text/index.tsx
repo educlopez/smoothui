@@ -1,7 +1,7 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
-interface TypewriterTextProps {
+export interface TypewriterTextProps {
   children: string;
   speed?: number;
   loop?: boolean;

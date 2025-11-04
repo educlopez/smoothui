@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-interface BasicModalProps {
+export interface BasicModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
