@@ -197,7 +197,8 @@ export const Preview = async ({
     <div
       className={cn(
         "size-full overflow-hidden rounded-lg border bg-background",
-        type === "block" && "h-[48rem] prose-code:border-none prose-code:p-0",
+        type === "block" &&
+          "h-auto min-h-[32rem] prose-code:border-none prose-code:p-0",
         type === "component" && "not-prose h-[32rem]",
         className
       )}
@@ -235,8 +236,10 @@ export const Preview = async ({
         </TabsContent>
         <TabsContent
           className={cn(
-            "not-fumadocs-codeblock size-full",
-            type === "component" ? "overflow-hidden" : "overflow-auto"
+            "not-fumadocs-codeblock",
+            type === "component"
+              ? "size-full overflow-hidden"
+              : "h-auto overflow-auto"
           )}
           value="preview"
         >
