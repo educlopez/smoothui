@@ -17,6 +17,7 @@ import { FeatureCardHover } from "../../../components/feature-card-hover";
 import { Installer } from "../../../components/installer";
 import Divider from "../../../components/landing/divider";
 import { LastModified } from "../../../components/last-modified";
+import { LLMCopyButton, ViewOptions } from "../../../components/page-actions";
 import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
 import { createMetadata } from "../../../lib/metadata";
@@ -24,6 +25,11 @@ import { source } from "../../../lib/source";
 import { typeGenerator } from "../../../mdx-components";
 
 export const revalidate = false;
+
+// Wrapper component for AutoTypeTable with typeGenerator
+const AutoTypeTableWithGenerator = (
+  props: React.ComponentProps<typeof AutoTypeTable>
+) => <AutoTypeTable {...props} generator={typeGenerator} />;
 
 export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const params = await props.params;
@@ -64,10 +70,17 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       toc={updatedToc}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription>{page.data.description}</DocsDescription>
-      {lastModified && (
-        <LastModified className="mt-2" lastModified={lastModified} />
-      )}
+      <DocsDescription className="mb-2 text-foreground/70">
+        {page.data.description}
+      </DocsDescription>
+      <div className="flex flex-row items-center gap-2 border-b pt-2 pb-6">
+        <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
+        <ViewOptions
+          githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
+          markdownUrl={`${page.url}.mdx`}
+        />
+        {lastModified && <LastModified lastModified={lastModified} />}
+      </div>
       <DocsBody>
         {page.data.installer && (
           <>
@@ -90,9 +103,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 </CodeBlock>
               );
             },
-            AutoTypeTable: (props) => (
-              <AutoTypeTable {...props} generator={typeGenerator} />
-            ),
+            AutoTypeTable: AutoTypeTableWithGenerator,
             Installer,
             Preview,
             PoweredBy,

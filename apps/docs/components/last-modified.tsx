@@ -1,12 +1,12 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 
-export interface LastModifiedProps {
+export type LastModifiedProps = {
   /**
    * The last modified timestamp in milliseconds
    */
   lastModified: number;
   className?: string;
-}
+};
 
 export function LastModified({ lastModified, className }: LastModifiedProps) {
   const date = new Date(lastModified);
@@ -17,7 +17,7 @@ export function LastModified({ lastModified, className }: LastModifiedProps) {
   });
 
   return (
-    <p className={cn("text-muted-foreground text-sm", className)}>
+    <p className={cn("text-foreground/70 text-sm", className)}>
       Last updated: {formattedDate}
     </p>
   );
