@@ -1,4 +1,5 @@
 import type { TableOfContents } from "fumadocs-core/toc";
+import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
@@ -10,7 +11,6 @@ import {
 } from "fumadocs-ui/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { BodyText } from "../../../components/body-text";
 import { FeatureCard } from "../../../components/feature-card";
 import { FeatureCardHover } from "../../../components/feature-card-hover";
@@ -18,10 +18,9 @@ import { Installer } from "../../../components/installer";
 import Divider from "../../../components/landing/divider";
 import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
-import { typeGenerator } from "../../../mdx-components";
-
 import { createMetadata } from "../../../lib/metadata";
 import { source } from "../../../lib/source";
+import { typeGenerator } from "../../../mdx-components";
 
 export const revalidate = false;
 
