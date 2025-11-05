@@ -136,7 +136,7 @@ export const getPackage = async (packageName: string) => {
       type: "registry:ui",
       path: file.name,
       content,
-      target: `components/smoothui/${packageName}/${file.name}`,
+      target: `components/smoothui/${actualPackageName}/${file.name}`,
     });
   }
 
