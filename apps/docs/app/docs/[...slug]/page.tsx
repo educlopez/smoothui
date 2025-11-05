@@ -19,8 +19,10 @@ import { Installer } from "../../../components/installer";
 import Divider from "../../../components/landing/divider";
 import { LastModified } from "../../../components/last-modified";
 import { LLMCopyButton, ViewOptions } from "../../../components/page-actions";
+import { OpenInV0Button } from "../../../components/open-in-v0-button";
 import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
+import { domain } from "../../../lib/domain";
 import { createMetadata } from "../../../lib/metadata";
 import { source } from "../../../lib/source";
 import { typeGenerator } from "../../../mdx-components";
@@ -55,6 +57,13 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   ];
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
+  const isComponentOrBlock = page.data.info.path.startsWith("components") || page.data.info.path.startsWith("blocks");
+
+  // Get the component/block name from the last slug (skip index pages)
+  const componentName = isComponentOrBlock && page.slugs.length > 1
+    ? page.slugs[page.slugs.length - 1]
+    : null;
+  const registryUrl = componentName ? `${domain}/r/${componentName}.json` : null;
 
   return (
     <DocsPage
@@ -80,6 +89,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
           githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
           markdownUrl={`${page.url}.mdx`}
         />
+        {registryUrl && <OpenInV0Button url={registryUrl} />}
         {lastModified && <LastModified lastModified={lastModified} />}
       </div>
       <DocsBody>
