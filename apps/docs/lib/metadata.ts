@@ -1,22 +1,32 @@
 import type { Metadata } from "next/types";
 
 export function createMetadata(override: Metadata): Metadata {
+  const defaultOgImage = {
+    width: 1200,
+    height: 630,
+    url: "https://smoothui.dev/og-optimized.webp",
+    alt: "SmoothUI Cover",
+  };
+
   return {
     ...override,
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
       url: "https://smoothui.dev",
-      images: "/banner.png",
+      images: [defaultOgImage],
       siteName: "SmoothUI",
+      locale: "en_US",
+      type: "website",
       ...override.openGraph,
     },
     twitter: {
       card: "summary_large_image",
       creator: "@educalvolpz",
+      site: "@educalvolpz",
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      images: "/banner.png",
+      images: [defaultOgImage],
       ...override.twitter,
     },
     alternates: {
