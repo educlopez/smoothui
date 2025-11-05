@@ -12,6 +12,7 @@ import {
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BodyText } from "../../../components/body-text";
+import { ChangelogEntry } from "../../../components/changelog-entry";
 import { FeatureCard } from "../../../components/feature-card";
 import { FeatureCardHover } from "../../../components/feature-card-hover";
 import { Installer } from "../../../components/installer";
@@ -111,6 +112,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             FeatureCard,
             FeatureCardHover,
             Divider,
+            ChangelogEntry,
           }}
         />
       </DocsBody>
