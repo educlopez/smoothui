@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-export interface AnimatedProgressBarProps {
+export type AnimatedProgressBarProps = {
   value: number; // 0-100
   label?: string;
   color?: string;
@@ -10,7 +10,10 @@ export interface AnimatedProgressBarProps {
   /**
    * To replay the animation, change the React 'key' prop on this component from the parent.
    */
-}
+};
+
+const MIN_PROGRESS_VALUE = 0;
+const MAX_PROGRESS_VALUE = 100;
 
 const SPRING = {
   type: "spring",
@@ -36,9 +39,11 @@ export default function AnimatedProgressBar({
       )}
       <div className="relative h-3 w-full overflow-hidden rounded border bg-background">
         <motion.div
-          animate={{ width: `${Math.max(0, Math.min(100, value))}%` }}
+          animate={{
+            width: `${Math.max(MIN_PROGRESS_VALUE, Math.min(MAX_PROGRESS_VALUE, value))}%`,
+          }}
           className={`h-full rounded bg-background ${barClassName}`}
-          initial={{ width: 0 }}
+          initial={{ width: MIN_PROGRESS_VALUE }}
           style={{ backgroundColor: color }}
           transition={SPRING}
         />

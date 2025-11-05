@@ -2,18 +2,16 @@
 
 import BasicModal from "@repo/smoothui/components/basic-modal";
 import { useState } from "react";
+import { Button } from "../../docs/components/smoothbutton";
 
 const Example = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="space-y-4">
-      <button
-        className="rounded-lg bg-brand px-4 py-2 text-white transition-colors hover:bg-brand/90"
-        onClick={() => setIsOpen(true)}
-      >
+    <div>
+      <Button onClick={() => setIsOpen(true)} variant="candy">
         Open Modal
-      </button>
+      </Button>
 
       <BasicModal
         isOpen={isOpen}
@@ -22,23 +20,17 @@ const Example = () => {
         title="Example Modal"
       >
         <div className="space-y-4">
-          <p className="text-gray-600 dark:text-gray-300">
+          <p className="text-foreground/70">
             This is an example of the BasicModal component. You can customize
             the content here.
           </p>
           <div className="flex justify-end space-x-2">
-            <button
-              className="px-4 py-2 text-gray-600 transition-colors hover:text-gray-800"
-              onClick={() => setIsOpen(false)}
-            >
+            <Button onClick={() => setIsOpen(false)} variant="outline">
               Cancel
-            </button>
-            <button
-              className="rounded-lg bg-brand px-4 py-2 text-white transition-colors hover:bg-brand/90"
-              onClick={() => setIsOpen(false)}
-            >
+            </Button>
+            <Button onClick={() => setIsOpen(false)} variant="candy">
               Confirm
-            </button>
+            </Button>
           </div>
         </div>
       </BasicModal>

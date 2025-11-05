@@ -4,18 +4,21 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
-export interface AccordionItem {
+const CHEVRON_ROTATION_DEGREES = 180;
+const CHEVRON_ANIMATION_DURATION = 0.2;
+
+export type AccordionItem = {
   id: string | number;
   title: string;
   content: React.ReactNode;
-}
+};
 
-export interface BasicAccordionProps {
+export type BasicAccordionProps = {
   items: AccordionItem[];
   allowMultiple?: boolean;
   className?: string;
   defaultExpandedIds?: Array<string | number>;
-}
+};
 
 export default function BasicAccordion({
   items,
@@ -47,14 +50,15 @@ export default function BasicAccordion({
           <div className="overflow-hidden" key={item.id}>
             <button
               aria-expanded={isExpanded}
-              className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition-colors hover:bg-primary"
+              className="flex w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary"
               onClick={() => toggleItem(item.id)}
+              type="button"
             >
               <h3 className="font-medium">{item.title}</h3>
               <motion.div
-                animate={{ rotate: isExpanded ? 180 : 0 }}
-                className="flex-shrink-0"
-                transition={{ duration: 0.2 }}
+                animate={{ rotate: isExpanded ? CHEVRON_ROTATION_DEGREES : 0 }}
+                className="shrink-0"
+                transition={{ duration: CHEVRON_ANIMATION_DURATION }}
               >
                 <ChevronDown className="h-5 w-5" />
               </motion.div>
@@ -87,7 +91,9 @@ export default function BasicAccordion({
                   }}
                   initial={{ height: 0, opacity: 0 }}
                 >
-                  <div className="border-t px-4 py-3">{item.content}</div>
+                  <div className="border-t bg-background px-4 py-3">
+                    {item.content}
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

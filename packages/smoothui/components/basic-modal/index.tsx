@@ -5,13 +5,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-export interface BasicModalProps {
+export type BasicModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "full";
-}
+};
 
 const modalSizes = {
   sm: "max-w-sm",

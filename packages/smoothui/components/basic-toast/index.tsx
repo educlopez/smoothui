@@ -7,14 +7,14 @@ import { createPortal } from "react-dom";
 
 export type ToastType = "success" | "error" | "info" | "warning";
 
-export interface ToastProps {
+export type ToastProps = {
   message: string;
   type?: ToastType;
   duration?: number;
   onClose?: () => void;
   isVisible?: boolean;
   className?: string;
-}
+};
 
 const toastIcons = {
   success: <CheckCircle className="h-5 w-5 text-emerald-500" />,
@@ -61,7 +61,9 @@ export default function BasicToast({
     }
   }, [visible, duration, onClose]);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   const toastContent = (
     <AnimatePresence>

@@ -10,7 +10,7 @@ export const Installer = ({ packageName }: InstallerProps) => {
   const code = `npx shadcn add @smoothui/${packageName}`;
 
   return (
-    <div className="[&_figure]:rounded-md">
+    <div className="[&_figure]:rounded-md [&_figure]:shadow-none">
       <DynamicCodeBlock
         code={code}
         lang="bash"

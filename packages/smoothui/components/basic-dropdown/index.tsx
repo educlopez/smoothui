@@ -4,18 +4,20 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-interface DropdownItem {
+const ROTATION_ANGLE_OPEN = 180;
+
+export type DropdownItem = {
   id: string | number;
   label: string;
   icon?: React.ReactNode;
-}
+};
 
-export interface BasicDropdownProps {
+export type BasicDropdownProps = {
   label: string;
   items: DropdownItem[];
   onChange?: (item: DropdownItem) => void;
   className?: string;
-}
+};
 
 export default function BasicDropdown({
   label,
@@ -59,7 +61,7 @@ export default function BasicDropdown({
           {selectedItem ? selectedItem.label : label}
         </span>
         <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
+          animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}
           transition={{ duration: 0.2 }}
         >
           <ChevronDown className="h-4 w-4" />
@@ -80,12 +82,7 @@ export default function BasicDropdown({
             initial={{ opacity: 0, y: -10, scaleY: 0.8 }}
             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
           >
-            <ul
-              aria-labelledby="dropdown-button"
-              aria-orientation="vertical"
-              className="py-2"
-              role="menu"
-            >
+            <ul aria-labelledby="dropdown-button" className="py-2">
               {items.map((item) => (
                 <motion.li
                   animate={{ opacity: 1, x: 0 }}
@@ -104,6 +101,7 @@ export default function BasicDropdown({
                         : ""
                     }`}
                     onClick={() => handleItemSelect(item)}
+                    type="button"
                   >
                     {item.icon && <span className="mr-2">{item.icon}</span>}
                     {item.label}
@@ -125,6 +123,7 @@ export default function BasicDropdown({
                           stroke="currentColor"
                           viewBox="0 0 24 24"
                         >
+                          <title>Selected</title>
                           <path
                             d="M5 13l4 4L19 7"
                             strokeLinecap="round"

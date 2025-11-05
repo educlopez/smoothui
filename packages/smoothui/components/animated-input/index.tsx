@@ -1,22 +1,25 @@
 import { motion } from "motion/react";
 import { useRef, useState } from "react";
 
-const SPRING = {
-  type: "spring",
-  // Damping controls how quickly the spring comes to rest (higher = less oscillation)
-  damping: 10,
-  // Mass affects the weight of the spring (higher = slower, heavier motion)
-  mass: 0.75,
-  // Stiffness controls the tension of the spring (higher = snappier, lower = softer)
-  stiffness: 100,
-};
+const EASE_IN_OUT_CUBIC_X1 = 0.4;
+const EASE_IN_OUT_CUBIC_Y1 = 0;
+const EASE_IN_OUT_CUBIC_X2 = 0.2;
+const EASE_IN_OUT_CUBIC_Y2 = 1;
+const RADIX_BASE_36 = 36;
+const RANDOM_ID_START_INDEX = 2;
+const RANDOM_ID_LENGTH = 9;
 
 const LABEL_TRANSITION = {
   duration: 0.28,
-  ease: [0.4, 0, 0.2, 1], // standard material easing
+  ease: [
+    EASE_IN_OUT_CUBIC_X1,
+    EASE_IN_OUT_CUBIC_Y1,
+    EASE_IN_OUT_CUBIC_X2,
+    EASE_IN_OUT_CUBIC_Y2,
+  ], // standard material easing
 };
 
-export interface AnimatedInputProps {
+export type AnimatedInputProps = {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
@@ -27,7 +30,7 @@ export interface AnimatedInputProps {
   inputClassName?: string;
   labelClassName?: string;
   icon?: React.ReactNode;
-}
+};
 
 export default function AnimatedInput({
   value,
@@ -47,6 +50,7 @@ export default function AnimatedInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = !!val || isFocused;
+  const inputId = `animated-input-${Math.random().toString(RADIX_BASE_36).substring(RANDOM_ID_START_INDEX, RANDOM_ID_LENGTH)}`;
 
   return (
     <div className={`relative flex items-center ${className}`}>
@@ -56,9 +60,12 @@ export default function AnimatedInput({
       <input
         className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus:ring-1 focus:ring-primary ${icon ? "pl-10" : ""} ${inputClassName}`}
         disabled={disabled}
+        id={inputId}
         onBlur={() => setIsFocused(false)}
         onChange={(e) => {
-          if (!isControlled) setInternalValue(e.target.value);
+          if (!isControlled) {
+            setInternalValue(e.target.value);
+          }
           onChange?.(e.target.value);
         }}
         onFocus={() => setIsFocused(true)}
@@ -79,6 +86,7 @@ export default function AnimatedInput({
             : { y: 0, scale: 1, color: "#6b7280" }
         }
         className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
+        htmlFor={inputId}
         style={{
           zIndex: 2,
         }}
