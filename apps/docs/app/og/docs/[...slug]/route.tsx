@@ -1,6 +1,10 @@
+import { getPageImage, source } from "../../../../lib/source";
+import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
+import { domain } from "../../../../lib/domain";
 
-import { domain } from "../../../lib/domain";
+export const revalidate = false;
+export const runtime = "edge";
 
 // Cache fonts in memory to avoid reloading on every request
 const fontCache = new Map<string, ArrayBuffer>();
@@ -36,12 +40,21 @@ const loadGoogleFont = async (font: string, text: string, weights: string) => {
   throw new Error("failed to load font data");
 };
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const title = searchParams.get("title");
+type RouteParams = {
+  params: Promise<{ slug: string[] }>;
+};
+
+export async function GET(_req: Request, { params }: RouteParams) {
+  const { slug } = await params;
+  // Remove 'image.png' from the end of the slug array
+  const pageSlug = slug.slice(0, -1);
+  const page = source.getPage(pageSlug);
+
+  if (!page) notFound();
+
+  const title = page.data.title || "Component";
   const description =
-    searchParams.get("description") ||
-    "Beautiful React components with smooth animations";
+    page.data.description || "Beautiful React components with smooth animations";
 
   const text = `SMOOTHUI ${title} ${description}`;
 
@@ -80,7 +93,7 @@ export async function GET(request: Request) {
           width={37}
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_103_13)">
+          <g clipPath="url(#clip0_103_13)">
             <path
               d="M27.9087 0.0107449C28.3504 -0.0312465 28.8017 0.0552626 29.2247 0.17598C30.4565 0.527411 31.677 1.01349 32.8802 1.45034C33.7745 1.77493 34.9039 2.09489 35.7121 2.57891C36.1148 2.82014 36.4626 3.11729 36.6897 3.53161C36.9914 4.08221 37.048 4.70853 36.8621 5.30474C36.4965 6.4775 36.0161 7.59502 34.8607 8.18884C33.8348 8.71609 32.8857 8.40542 31.8572 8.06723C31.3815 7.90999 30.9046 7.75657 30.4264 7.6071C30.0091 8.56499 29.6037 9.52799 29.2105 10.4958C28.9229 11.1853 28.609 11.8749 28.3645 12.5801C28.5367 12.6292 28.7077 12.6822 28.8776 12.739C30.2443 13.1967 31.2003 13.9951 31.8402 15.2758C32.3295 15.3659 32.7447 15.5362 33.0838 15.9119C33.4907 16.3629 33.6552 16.9681 33.625 17.5629C33.5949 18.1556 33.4785 18.7619 33.3902 19.3498C33.1232 21.1296 32.9588 21.7998 31.5778 23.0357C31.4158 23.6337 31.394 24.3009 31.3251 24.9175C31.2242 25.7868 31.1141 26.6552 30.995 27.5223L29.6725 37.9783C29.4949 39.322 29.3404 40.6659 29.1143 42.0032C28.8575 43.521 28.146 44.7717 26.8588 45.6689C26.0114 46.2596 25.0207 46.663 24.0391 46.982C20.4204 48.158 16.347 48.2805 12.6092 47.6476C10.7699 47.3477 8.51671 46.7838 6.96071 45.7411C6.0199 45.1208 5.29702 44.2268 4.89196 43.1827C4.64062 42.5166 4.58056 41.7865 4.47702 41.0872L4.10626 38.5544C3.61076 35.1666 3.1406 31.7751 2.69577 28.3804L2.28559 24.9494C2.21277 24.3177 2.16741 23.6685 2.0491 23.0437C1.89495 22.902 1.74178 22.7593 1.58957 22.6157C0.524434 21.5954 0.387617 20.4278 0.186672 19.0442C0.112879 18.5364 0.00415637 18.0081 8.36111e-05 17.4956C-0.00481751 16.8833 0.205655 16.2127 0.65711 15.778C1.03753 15.4116 1.501 15.3075 2.01438 15.3134C2.86503 13.1416 4.62336 11.5921 6.87366 10.9137C7.79604 10.6357 8.45707 10.6121 9.3733 10.1564C10.4011 9.64509 11.1628 8.75542 12.0865 8.09536C13.717 6.93019 15.5397 6.47839 17.5292 6.80954C19.437 7.11468 21.1386 8.17047 22.2468 9.73645C22.589 9.09299 22.833 8.36766 23.1179 7.69587L24.9295 3.41629C25.2198 2.72428 25.5276 1.76107 25.9697 1.17333C26.4581 0.523928 27.1019 0.130916 27.9087 0.0107449Z"
               fill="#171717"
@@ -133,7 +146,7 @@ export async function GET(request: Request) {
         tw="flex flex-col bottom-0 left-0 right-0 relative z-10 p-12 text-[#171717]"
       >
         <h1 style={{ fontFamily: "Inter" }} tw="my-4 text-6xl font-bold ">
-          {title || "Component"}
+          {title}
         </h1>
         <p tw="text-xl m-0  w-[60%]">{description}</p>
       </div>
@@ -157,6 +170,9 @@ export async function GET(request: Request) {
   );
 }
 
-// Add caching headers and revalidation
-export const runtime = "edge";
-export const revalidate = 3600; // Cache for 1 hour
+export function generateStaticParams() {
+  return source.getPages().map((page) => ({
+    slug: getPageImage(page).segments,
+  }));
+}
+

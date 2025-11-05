@@ -24,7 +24,7 @@ import { PoweredBy } from "../../../components/powered-by";
 import { Preview } from "../../../components/preview";
 import { domain } from "../../../lib/domain";
 import { createMetadata } from "../../../lib/metadata";
-import { source } from "../../../lib/source";
+import { getPageImage, source } from "../../../lib/source";
 import { typeGenerator } from "../../../mdx-components";
 
 export const revalidate = false;
@@ -142,10 +142,10 @@ export async function generateMetadata(
     });
 
   const description =
-    page.data.description ?? "The library for building documentation sites";
+    page.data.description ?? "Beautiful React components with smooth animations";
 
   const image = {
-    url: ["/og", ...slug, "image.webp"].join("/"),
+    url: getPageImage(page).url,
     width: 1200,
     height: 630,
   };
