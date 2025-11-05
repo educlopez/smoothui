@@ -49,6 +49,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --color-input: var(--color-input)
 }
 
 :root {
@@ -72,6 +73,7 @@
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
   --radius: 0.625rem;
+  --color-input: var(--color-smooth-50);
 }
 
 .dark {
@@ -90,6 +92,7 @@
   --border: var(--color-smooth-300);
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
+  --color-input: var(--color-smooth-700);
 }
 
 /* Component NumberFlow */

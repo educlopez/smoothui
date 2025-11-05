@@ -9,7 +9,7 @@ type PreviewCodeProps = {
 };
 
 export const PreviewCode = ({ code, language }: PreviewCodeProps) => (
-  <div className="relative">
+  <div className="relative [&_figure]:rounded-none [&_figure]:border-none">
     <DynamicCodeBlock
       code={code}
       lang={language}
