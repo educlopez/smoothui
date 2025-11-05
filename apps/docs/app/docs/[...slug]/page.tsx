@@ -70,7 +70,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       toc={updatedToc}
     >
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-2 text-foreground/70">
+      <DocsDescription className="mb-2 text-foreground/70 text-md">
         {page.data.description}
       </DocsDescription>
       <div className="flex flex-row items-center gap-2 border-b pt-2 pb-6">

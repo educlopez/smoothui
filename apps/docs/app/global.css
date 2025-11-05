@@ -218,3 +218,12 @@
 .prose h6{
   @apply font-medium text-xs;
 }
+.prose p{
+  @apply text-base;
+}
+.prose strong{
+  @apply font-semibold;
+}
+.prose .peer{
+  @apply font-semibold;
+}

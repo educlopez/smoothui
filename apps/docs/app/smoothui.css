@@ -74,6 +74,7 @@
   --text-quaternary: var(--color-smooth-1000);
   --radius: 0.625rem;
   --color-input: var(--color-smooth-50);
+  --color-fd-card: var(--color-smooth-100);
 }
 
 .dark {
@@ -93,6 +94,7 @@
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
   --color-input: var(--color-smooth-700);
+  --color-fd-card: var(--color-smooth-100);
 }
 
 /* Component NumberFlow */
