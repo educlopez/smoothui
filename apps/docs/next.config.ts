@@ -31,9 +31,31 @@ const config: NextConfig = {
   // biome-ignore lint/suspicious/useAwait: "redirects is async"
   async redirects() {
     return [
+      // Specific redirects for renamed components (must come before generic patterns)
+      {
+        source: "/doc/components/animated-otp-input",
+        destination: "/docs/components/animated-o-t-p-input",
+        permanent: true,
+      },
+      {
+        source: "/doc/blocks/logo-cloud",
+        destination: "/docs/blocks/logo-clouds",
+        permanent: true,
+      },
+      {
+        source: "/doc/blocks/team",
+        destination: "/docs/blocks/team-sections",
+        permanent: true,
+      },
       {
         source: "/doc/basic/basic-accordion",
         destination: "/docs/components/accordion",
+        permanent: true,
+      },
+      // Redirect /doc to /docs
+      {
+        source: "/doc",
+        destination: "/docs",
         permanent: true,
       },
       // Redirecciones de categorías a /docs/components/
@@ -55,6 +77,12 @@ const config: NextConfig = {
       {
         source: "/doc/components/:component",
         destination: "/docs/components/:component",
+        permanent: true,
+      },
+      // Redirect /doc/blocks/:block to /docs/blocks/:block
+      {
+        source: "/doc/blocks/:block",
+        destination: "/docs/blocks/:block",
         permanent: true,
       },
       // Redirección genérica para cualquier otra ruta /doc/* -> /docs/*
