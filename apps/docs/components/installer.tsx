@@ -17,7 +17,7 @@ export const Installer = ({ packageName }: InstallerProps) => {
 
   return (
     <div className="[&_figure]:rounded-md [&_figure]:shadow-none">
-      <Tabs items={["pnpm", "npm", "yarn", "bun"]} defaultIndex={0}>
+      <Tabs defaultIndex={0} items={["pnpm", "npm", "yarn", "bun"]}>
         {Object.entries(commands).map(([key, code]) => (
           <Tab key={key} value={key}>
             <DynamicCodeBlock
