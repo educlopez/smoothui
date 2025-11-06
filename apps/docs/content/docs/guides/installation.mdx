@@ -21,6 +21,25 @@ Since SmoothUI is an official registry, you don't need to add anything to your `
 Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` namespace:
 </BodyText>
 
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```bash
+# Install a single component
+pnpm dlx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+pnpm dlx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+<Tab value="npm">
+
 ```bash
 # Install a single component
 npx shadcn@latest add @smoothui/siri-orb
@@ -31,6 +50,40 @@ npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
 # Install components with dependencies
 npx shadcn@latest add @smoothui/scrollable-card-stack
 ```
+
+</Tab>
+
+<Tab value="yarn">
+
+```bash
+# Install a single component
+yarn dlx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+yarn dlx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```bash
+# Install a single component
+bunx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+bunx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+bunx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+</Tabs>
 
 ### Use Components
 
