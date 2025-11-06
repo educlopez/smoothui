@@ -1,57 +1,41 @@
 ---
-title: Blocks
-description: Pre-built page sections and layouts ready to use in your projects
+title: UI Blocks
+description: Discover 20+ production-ready UI blocks including headers, footers, pricing tables, testimonials, FAQs, and more. Copy-paste React components with smooth animations, fully responsive and accessible.
 ---
 
-# Blocks
+## Basic Information About Blocks
 
-SmoothUI Blocks are complete, ready-to-use page sections that you can copy and customize. Unlike components, blocks are larger UI patterns that combine multiple elements to create full sections of a page.
+Copy the component code directly from any block page, or import from the package:
 
-## What are Blocks?
+```tsx
+import { Header1, Pricing1, Testimonials1 } from "@repo/smoothui/blocks";
 
-Blocks are pre-built sections like headers, footers, hero sections, feature grids, and more. Each block is a complete, production-ready example that you can:
+export default function LandingPage() {
+  return (
+    <>
+      <Header1 />
+      <Pricing1 />
+      <Testimonials1 />
+    </>
+  );
+}
+```
 
-- Copy directly into your project
-- Customize with your own content
-- Modify styles and animations
-- Combine with other blocks or components
+## Customization
 
-## Block Categories
+All blocks use Tailwind CSS and can be customized via:
+- Tailwind utility classes
+- CSS variables for theming
+- Component props for behavior
 
-### Header Blocks
-
-Navigation headers with various styles and mobile menu support:
-
-- **Header 1** - Modern header with mobile menu and smooth animations
-- **Header 2** - Premium header with gradient logo and hover effects
-
-### Hero Blocks
-
-Coming soon - eye-catching hero sections for landing pages.
-
-## Features
-
-- **Complete & Ready** - Each block is fully functional out of the box
-- **Responsive** - All blocks work perfectly on mobile, tablet, and desktop
-- **Customizable** - Easy to modify colors, spacing, and content
-- **Accessible** - Built with accessibility best practices
-- **Animated** - Smooth animations powered by Motion
-
-## Using Blocks
-
-Blocks are located in `packages/smoothui/blocks/`. Each block is a complete React component that you can:
-
-1. **Copy the code** directly into your project
-2. **Import and use** as a standalone component
-3. **Customize** to match your brand and needs
-
-## Getting Started
-
-Browse the blocks below to find what you need, then copy the code or customize it to fit your project.
+Replace placeholder content and adjust colors, spacing, and animations to match your brand.
 
 <Cards>
-  <Card title="Header Blocks" href="/docs/blocks/headers" />
-  <Card title="Components" href="/docs/components" />
-  <Card title="Installation" href="/docs/installation" />
+  <Card title="Browse All Blocks" href="/blocks" description="View all 20+ available blocks" />
+  <Card title="Header Blocks" href="/docs/blocks/headers" description="Navigation headers with mobile menus" />
+  <Card title="Pricing Blocks" href="/docs/blocks/pricing" description="Pricing tables for SaaS products" />
+  <Card title="Components" href="/docs/components" description="Individual UI components" />
+  <Card title="Installation Guide" href="/docs/installation" description="Get started with SmoothUI" />
+  <Card title="Documentation" href="/docs" description="Complete documentation and guides" />
 </Cards>
 

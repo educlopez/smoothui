@@ -1,64 +1,52 @@
 ---
-title: Components
-description: Beautiful, animated UI components built with React and Framer Motion
-icon: Album
+title: UI Components
+description: Browse 40+ production-ready React components with smooth animations. Buttons, inputs, modals, cards, and more. Built with TypeScript, Framer Motion, and Tailwind CSS. Fully accessible and customizable.
 ---
 
-# Components
+## Basic Information About Components
 
-SmoothUI provides a comprehensive collection of UI components that are both beautiful and functional. Each component is built with accessibility in mind and includes smooth animations powered by Framer Motion.
-
-## Component Categories
-
-### Basic UI Components
-
-Essential building blocks for any interface:
-
-- **Button** - Versatile button with multiple variants
-- **Card** - Flexible container for content
-- **Dialog** - Modal dialogs and overlays
-- **Accordion** - Collapsible content sections
-- **Avatar** - User profile images with fallbacks
-- **Badge** - Status indicators and tags
-
-### Animated Components
-
-Components with smooth, delightful animations:
-
-- **Wave Text** - Text with wave animation effects
-- **Animated Input** - Input fields with smooth focus animations
-- **Animated Progress Bar** - Progress indicators with animations
-- **Animated Tags** - Interactive tag collections
-- **AI Branch** - Animated AI-themed components
-
-## Features
-
-- **Accessible** - Built with accessibility best practices
-- **Customizable** - Easy to theme and modify
-- **Type-safe** - Full TypeScript support
-- **Performant** - Optimized animations and rendering
-- **Responsive** - Works on all screen sizes
-
-## Getting Started
-
-To use any component, simply install it using our CLI:
+Install components using the CLI:
 
 ```bash
-npx smoothui@latest add button
+npx smoothui@latest add animated-input
 ```
 
-Then import and use it in your code:
+Or install the package:
+
+```bash
+npm install @repo/smoothui
+```
+
+## Usage
 
 ```tsx
-import { Button } from "@/components/smoothui/button";
+import { AnimatedInput, NumberFlow, WaveText } from "@repo/smoothui/components";
 
 export function MyComponent() {
-  return <Button>Click me</Button>;
+  return (
+    <div>
+      <AnimatedInput label="Email" placeholder="Enter your email" />
+      <NumberFlow value={1234} />
+      <WaveText>Hello World</WaveText>
+    </div>
+  );
 }
 ```
 
+## Customization
+
+All components are customizable via:
+- Tailwind CSS utility classes
+- CSS variables for theming
+- Component props for behavior and styling
+
+Components are tree-shakeable, TypeScript-first, and accessible by default.
+
 <Cards>
-  <Card title="Browse Components" href="/components" />
-  <Card title="Installation Guide" href="/docs/setup" />
-  <Card title="Theming Guide" href="/docs/theming" />
+  <Card title="Browse All Components" href="/components" description="View all 40+ available components" />
+  <Card title="Form Components" href="/components?category=form" description="Inputs, selects, and form elements" />
+  <Card title="Animated Components" href="/components?category=animated" description="Components with smooth animations" />
+  <Card title="Installation Guide" href="/docs/installation" description="Get started with SmoothUI" />
+  <Card title="Theming Guide" href="/docs/theming" description="Customize colors and styles" />
+  <Card title="API Reference" href="/docs/api" description="Complete component API documentation" />
 </Cards>
