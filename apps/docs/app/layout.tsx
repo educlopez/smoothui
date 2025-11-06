@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { RootProvider } from "fumadocs-ui/provider/next";
+import type { Metadata } from "next";
 import Script from "next/script";
 import "./global.css";
 import { Inter } from "next/font/google";
@@ -86,14 +86,17 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html className={inter.className} lang="en" suppressHydrationWarning>
+      <head>
+        <meta content="SmoothUI" name="apple-mobile-web-app-title" />
+      </head>
       <body className="flex min-h-screen flex-col">
         <Script
-          id="smoothui-schema"
-          type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(smoothUISchema),
           }}
+          id="smoothui-schema"
           strategy="beforeInteractive"
+          type="application/ld+json"
         />
         <RootProvider>{children}</RootProvider>
       </body>
