@@ -1,11 +1,45 @@
 "use client";
 
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-import { cn } from "@/lib/utils";
+const TENS_PLACE = 10;
+const HUNDREDS_PLACE = 100;
 
-export interface NumberFlowProps {
+const animateDigit = (
+  prevElement: HTMLElement | null,
+  nextElement: HTMLElement | null,
+  isIncreasing: boolean
+) => {
+  if (!prevElement) {
+    return;
+  }
+  if (!nextElement) {
+    return;
+  }
+
+  if (isIncreasing) {
+    prevElement.classList.add("slide-out-up");
+    nextElement.classList.add("slide-in-up");
+  } else {
+    prevElement.classList.add("slide-out-down");
+    nextElement.classList.add("slide-in-down");
+  }
+
+  const handleAnimationEnd = () => {
+    prevElement.classList.remove("slide-out-up", "slide-out-down");
+    nextElement.classList.remove("slide-in-up", "slide-in-down");
+    prevElement.removeEventListener("animationend", handleAnimationEnd);
+  };
+
+  prevElement.addEventListener("animationend", handleAnimationEnd);
+};
+
+const getTensValue = (num: number) => Math.floor(num / TENS_PLACE);
+const getHundredsValue = (num: number) => Math.floor(num / HUNDREDS_PLACE);
+
+export type NumberFlowProps = {
   value?: number;
   onChange?: (value: number) => void;
   min?: number;
@@ -13,7 +47,7 @@ export interface NumberFlowProps {
   className?: string;
   digitClassName?: string;
   buttonClassName?: string;
-}
+};
 
 export default function NumberFlow({
   value: controlledValue,
@@ -37,8 +71,11 @@ export default function NumberFlow({
   const nextValueHunds = useRef<HTMLElement>(null);
 
   const setValue = (val: number) => {
-    if (onChange) onChange(val);
-    else setInternalValue(val);
+    if (onChange) {
+      onChange(val);
+    } else {
+      setInternalValue(val);
+    }
   };
 
   const add = () => {
@@ -56,73 +93,42 @@ export default function NumberFlow({
   };
 
   useEffect(() => {
-    const prev = prevValueRef.current;
-    const next = nextValueRef.current;
-    const prevTens = prevValueTens.current;
-    const nextTens = nextValueTens.current;
-    const prevHunds = prevValueHunds.current;
-    const nextHunds = nextValueHunds.current;
-
-    if (prev && next) {
-      if (value > prevValue) {
-        prev.classList.add("slide-out-up");
-        next.classList.add("slide-in-up");
-      } else {
-        prev.classList.add("slide-out-down");
-        next.classList.add("slide-in-down");
-      }
-
-      const handleAnimationEnd = () => {
-        prev.classList.remove("slide-out-up", "slide-out-down");
-        next.classList.remove("slide-in-up", "slide-in-down");
-        prev.removeEventListener("animationend", handleAnimationEnd);
-      };
-
-      prev.addEventListener("animationend", handleAnimationEnd);
+    if (prevValueRef.current && nextValueRef.current) {
+      animateDigit(
+        prevValueRef.current,
+        nextValueRef.current,
+        value > prevValue
+      );
     }
 
+    const currentTens = getTensValue(value);
+    const prevTens = getTensValue(prevValue);
+
     if (
-      prevTens &&
-      nextTens &&
-      Math.floor(value / 10) !== Math.floor(prevValue / 10)
+      prevValueTens.current &&
+      nextValueTens.current &&
+      currentTens !== prevTens
     ) {
-      if (Math.floor(value / 10) > Math.floor(prevValue / 10)) {
-        prevTens.classList.add("slide-out-up");
-        nextTens.classList.add("slide-in-up");
-      } else if (Math.floor(value / 10) < Math.floor(prevValue / 10)) {
-        prevTens.classList.add("slide-out-down");
-        nextTens.classList.add("slide-in-down");
-      }
-
-      const handleAnimationEndTens = () => {
-        prevTens.classList.remove("slide-out-up", "slide-out-down");
-        nextTens.classList.remove("slide-in-up", "slide-in-down");
-        prevTens.removeEventListener("animationend", handleAnimationEndTens);
-      };
-
-      prevTens.addEventListener("animationend", handleAnimationEndTens);
+      animateDigit(
+        prevValueTens.current,
+        nextValueTens.current,
+        currentTens > prevTens
+      );
     }
 
+    const currentHundreds = getHundredsValue(value);
+    const prevHundreds = getHundredsValue(prevValue);
+
     if (
-      prevHunds &&
-      nextHunds &&
-      Math.floor(value / 100) !== Math.floor(prevValue / 100)
+      prevValueHunds.current &&
+      nextValueHunds.current &&
+      currentHundreds !== prevHundreds
     ) {
-      if (Math.floor(value / 100) > Math.floor(prevValue / 100)) {
-        prevHunds.classList.add("slide-out-up");
-        nextHunds.classList.add("slide-in-up");
-      } else if (Math.floor(value / 100) < Math.floor(prevValue / 100)) {
-        prevHunds.classList.add("slide-out-down");
-        nextHunds.classList.add("slide-in-down");
-      }
-
-      const handleAnimationEndHunds = () => {
-        prevHunds.classList.remove("slide-out-up", "slide-out-down");
-        nextHunds.classList.remove("slide-in-up", "slide-in-down");
-        prevHunds.removeEventListener("animationend", handleAnimationEndHunds);
-      };
-
-      prevHunds.addEventListener("animationend", handleAnimationEndHunds);
+      animateDigit(
+        prevValueHunds.current,
+        nextValueHunds.current,
+        currentHundreds > prevHundreds
+      );
     }
   }, [value, prevValue]);
 
@@ -145,14 +151,14 @@ export default function NumberFlow({
               ref={prevValueHunds}
               style={{ transform: "translateY(-100%)" }}
             >
-              {Math.floor(prevValue / 100)}
+              {Math.floor(prevValue / HUNDREDS_PLACE)}
             </span>
             <span
               className="absolute inset-0 flex items-center justify-center font-semibold text-2xl text-foreground"
               ref={nextValueHunds}
               style={{ transform: "translateY(0%)" }}
             >
-              {Math.floor(value / 100)}
+              {Math.floor(value / HUNDREDS_PLACE)}
             </span>
           </div>
           <div
@@ -165,14 +171,14 @@ export default function NumberFlow({
               ref={prevValueTens}
               style={{ transform: "translateY(-100%)" }}
             >
-              {Math.floor(prevValue / 10) % 10}
+              {Math.floor(prevValue / TENS_PLACE) % TENS_PLACE}
             </span>
             <span
               className="absolute inset-0 flex items-center justify-center font-semibold text-2xl text-foreground"
               ref={nextValueTens}
               style={{ transform: "translateY(0%)" }}
             >
-              {Math.floor(value / 10) % 10}
+              {Math.floor(value / TENS_PLACE) % TENS_PLACE}
             </span>
           </div>
           <div
@@ -185,14 +191,14 @@ export default function NumberFlow({
               ref={prevValueRef}
               style={{ transform: "translateY(-100%)" }}
             >
-              {prevValue % 10}
+              {prevValue % TENS_PLACE}
             </span>
             <span
               className="absolute inset-0 flex items-center justify-center font-semibold text-2xl text-foreground"
               ref={nextValueRef}
               style={{ transform: "translateY(0%)" }}
             >
-              {value % 10}
+              {value % TENS_PLACE}
             </span>
           </div>
         </div>
@@ -206,6 +212,7 @@ export default function NumberFlow({
             )}
             disabled={value >= max}
             onClick={add}
+            type="button"
           >
             <Plus className="h-3 w-3" />
           </button>
@@ -217,6 +224,7 @@ export default function NumberFlow({
             )}
             disabled={value <= min}
             onClick={subtract}
+            type="button"
           >
             <Minus className="h-3 w-3" />
           </button>

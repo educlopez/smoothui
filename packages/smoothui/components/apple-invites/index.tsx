@@ -6,11 +6,13 @@ import { AnimatePresence, motion } from "motion/react";
 import { wrap } from "popmotion";
 import { useEffect, useRef, useState } from "react";
 
-export interface Participant {
-  avatar: string;
-}
+const AVATAR_SIZE = 72;
 
-export interface Event {
+export type Participant = {
+  avatar: string;
+};
+
+export type Event = {
   id: number;
   title?: string;
   subtitle?: string;
@@ -19,7 +21,7 @@ export interface Event {
   badge?: string;
   participants?: Participant[];
   backgroundClassName?: string;
-}
+};
 
 const defaultEvents: Event[] = [
   {
@@ -32,7 +34,7 @@ const defaultEvents: Event[] = [
     badge: "Hosting",
     participants: [
       {
-        avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", 72),
+        avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", AVATAR_SIZE),
       },
     ],
   },
@@ -46,7 +48,7 @@ const defaultEvents: Event[] = [
     badge: "Going",
     participants: [
       {
-        avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", 72),
+        avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", AVATAR_SIZE),
       },
     ],
   },
@@ -60,7 +62,7 @@ const defaultEvents: Event[] = [
     badge: "Going",
     participants: [
       {
-        avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", 72),
+        avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", AVATAR_SIZE),
       },
     ],
   },
@@ -74,7 +76,7 @@ const defaultEvents: Event[] = [
     badge: "Interested",
     participants: [
       {
-        avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", 72),
+        avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", AVATAR_SIZE),
       },
     ],
   },
@@ -112,7 +114,7 @@ const variants = {
   },
 };
 
-export interface AppleInvitesProps {
+export type AppleInvitesProps = {
   events?: Event[];
   interval?: number;
   className?: string;
@@ -121,7 +123,7 @@ export interface AppleInvitesProps {
   onChange?: (index: number) => void;
   cardWidth?: number | string;
   cardHeight?: number | string;
-}
+};
 
 export default function AppleInvites({
   events = defaultEvents,
@@ -138,8 +140,9 @@ export default function AppleInvites({
 
   const page = controlledIndex !== undefined ? controlledIndex : internalPage;
   const setPage = (val: number, dir: number) => {
-    if (onChange) onChange(val);
-    else {
+    if (onChange) {
+      onChange(val);
+    } else {
       setInternalPage(val);
       setDirection(dir);
     }
@@ -163,6 +166,35 @@ export default function AppleInvites({
     (offset) => events[wrap(0, events.length, activeIndex + offset)]
   );
 
+  const getVariant = (index: number) => {
+    if (index === 1) {
+      return "center";
+    }
+    if (index === 0) {
+      return "left";
+    }
+    return "right";
+  };
+
+  const renderBackground = (event: Event) => {
+    if (event.backgroundClassName) {
+      return <div className={`h-full w-full ${event.backgroundClassName}`} />;
+    }
+    if (event.image) {
+      return (
+        /* biome-ignore lint/performance/noImgElement: Using img for event image without Next.js Image optimizations */
+        <img
+          alt={event.title || ""}
+          className="h-full w-full object-cover"
+          height={400}
+          src={event.image}
+          width={400}
+        />
+      );
+    }
+    return null;
+  };
+
   return (
     <div
       className={`relative flex h-full w-full items-center justify-center ${className}`}
@@ -170,7 +202,7 @@ export default function AppleInvites({
       <AnimatePresence custom={direction} initial={false}>
         {visibleEvents.map((event, index) => (
           <motion.div
-            animate={index === 1 ? "center" : index === 0 ? "left" : "right"}
+            animate={getVariant(index)}
             className={`-translate-y-1/2 absolute top-1/2 left-1/2 origin-center ${cardClassName}`}
             custom={direction}
             exit="hidden"
@@ -185,17 +217,7 @@ export default function AppleInvites({
             variants={variants}
           >
             <div className="relative h-full w-full overflow-hidden rounded-3xl bg-primary">
-              {event.backgroundClassName ? (
-                <div className={`h-full w-full ${event.backgroundClassName}`} />
-              ) : event.image ? (
-                <img
-                  alt={event.title || ""}
-                  className="h-full w-full object-cover"
-                  height={400}
-                  src={event.image}
-                  width={400}
-                />
-              ) : null}
+              {renderBackground(event)}
               {/* Badge */}
               <div className="absolute top-4 left-4 z-3">
                 <span className="flex flex-row items-center gap-2 rounded-full bg-black/30 px-3 py-1 font-medium text-white text-xs backdrop-blur-xl md:text-sm">
@@ -208,6 +230,7 @@ export default function AppleInvites({
                 {/* Participant Avatars */}
                 <div className="mx-auto mb-2 flex items-center justify-center gap-2">
                   {event.participants?.map((participant, idx) => (
+                    /* biome-ignore lint/performance/noImgElement: Using img for participant avatar without Next.js Image optimizations */
                     <img
                       alt={`Participant ${idx + 1}`}
                       className="w-6 rounded-full md:h-9 md:w-9"

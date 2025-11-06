@@ -4,12 +4,12 @@ import { CircleX, Plus } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
-export interface AnimatedTagsProps {
+export type AnimatedTagsProps = {
   initialTags?: string[];
   selectedTags?: string[];
   onChange?: (selected: string[]) => void;
   className?: string;
-}
+};
 
 export default function AnimatedTags({
   initialTags = ["react", "tailwindcss", "javascript"],
@@ -18,7 +18,6 @@ export default function AnimatedTags({
   className = "",
 }: AnimatedTagsProps) {
   const [internalSelected, setInternalSelected] = useState<string[]>([]);
-  const [internalTags, setInternalTags] = useState<string[]>(initialTags);
 
   const selectedTag = controlledSelectedTags ?? internalSelected;
   const tags = initialTags.filter((tag) => !selectedTag.includes(tag));
@@ -72,7 +71,7 @@ export default function AnimatedTags({
       </div>
       <AnimatePresence>
         <div className="flex flex-wrap items-center gap-1">
-          {tags.map((tag, index) => (
+          {tags.map((tag) => (
             <motion.div
               animate={{
                 y: 0,
@@ -82,7 +81,7 @@ export default function AnimatedTags({
               className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md border bg-background px-2 py-1 text-primary-foreground"
               exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
               initial={{ y: -20, opacity: 0, filter: "blur(4px)" }}
-              key={index}
+              key={tag}
               layout
               onClick={() => handleTagClick(tag)}
               transition={{ duration: 0.3, bounce: 0, type: "spring" }}

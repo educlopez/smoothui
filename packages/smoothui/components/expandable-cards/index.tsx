@@ -5,7 +5,13 @@ import { Play } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-export interface Card {
+const AVATAR_SIZE = 96;
+const EASING_X1 = 0.4;
+const EASING_Y1 = 0.0;
+const EASING_X2 = 0.2;
+const EASING_Y2 = 1;
+
+export type Card = {
   id: number;
   title: string;
   image: string;
@@ -15,7 +21,7 @@ export interface Card {
     role: string;
     image: string;
   };
-}
+};
 
 const getDefaultCards = (): Card[] => {
   const people = getAllPeople();
@@ -31,7 +37,7 @@ const getDefaultCards = (): Card[] => {
       author: {
         name: people[0]?.name || "Eduardo Calvo",
         role: people[0]?.role || "CEO & Founder",
-        image: getAvatarUrl(people[0]?.avatar || "", 96),
+        image: getAvatarUrl(people[0]?.avatar || "", AVATAR_SIZE),
       },
     },
     {
@@ -44,7 +50,7 @@ const getDefaultCards = (): Card[] => {
       author: {
         name: people[1]?.name || "Sarah Chen",
         role: people[1]?.role || "Head of Design",
-        image: getAvatarUrl(people[1]?.avatar || "", 96),
+        image: getAvatarUrl(people[1]?.avatar || "", AVATAR_SIZE),
       },
     },
     {
@@ -57,7 +63,7 @@ const getDefaultCards = (): Card[] => {
       author: {
         name: people[2]?.name || "Marcus Johnson",
         role: people[2]?.role || "Lead Developer",
-        image: getAvatarUrl(people[2]?.avatar || "", 96),
+        image: getAvatarUrl(people[2]?.avatar || "", AVATAR_SIZE),
       },
     },
     {
@@ -70,21 +76,21 @@ const getDefaultCards = (): Card[] => {
       author: {
         name: people[3]?.name || "Emily Rodriguez",
         role: people[3]?.role || "Product Manager",
-        image: getAvatarUrl(people[3]?.avatar || "", 96),
+        image: getAvatarUrl(people[3]?.avatar || "", AVATAR_SIZE),
       },
     },
   ];
 };
 
-const smoothEasing = [0.4, 0.0, 0.2, 1];
+const smoothEasing = [EASING_X1, EASING_Y1, EASING_X2, EASING_Y2];
 
-export interface ExpandableCardsProps {
+export type ExpandableCardsProps = {
   cards?: Card[];
   selectedCard?: number | null;
   onSelect?: (id: number | null) => void;
   className?: string;
   cardClassName?: string;
-}
+};
 
 export default function ExpandableCards({
   cards = getDefaultCards(),
@@ -109,11 +115,17 @@ export default function ExpandableCards({
 
   const handleCardClick = (id: number) => {
     if (selectedCard === id) {
-      if (onSelect) onSelect(null);
-      else setInternalSelected(null);
+      if (onSelect) {
+        onSelect(null);
+      } else {
+        setInternalSelected(null);
+      }
     } else {
-      if (onSelect) onSelect(id);
-      else setInternalSelected(id);
+      if (onSelect) {
+        onSelect(id);
+      } else {
+        setInternalSelected(id);
+      }
       // Center the clicked card in view
       const cardElement = document.querySelector(`[data-card-id="${id}"]`);
       if (cardElement) {
@@ -143,7 +155,7 @@ export default function ExpandableCards({
             animate={{
               width: selectedCard === card.id ? "500px" : "200px",
             }}
-            className={`relative mr-4 h-[300px] flex-shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg ${cardClassName}`}
+            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg ${cardClassName}`}
             data-card-id={card.id}
             key={card.id}
             layout
@@ -157,6 +169,7 @@ export default function ExpandableCards({
             }}
           >
             <div className="relative h-full w-[200px]">
+              {/* biome-ignore lint/performance/noImgElement: Using img for card image without Next.js Image optimizations */}
               <img
                 alt={card.title}
                 className="h-full w-full object-cover"
@@ -205,6 +218,7 @@ export default function ExpandableCards({
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="h-12 w-12 overflow-hidden rounded-full border bg-primary">
+                          {/* biome-ignore lint/performance/noImgElement: Using img for author avatar without Next.js Image optimizations */}
                           <img
                             alt={card.author.name}
                             className="h-full w-full object-cover"

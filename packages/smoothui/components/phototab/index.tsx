@@ -1,22 +1,27 @@
 "use client";
 
-import * as Tabs from "@radix-ui/react-tabs";
+import {
+  Content as TabsContent,
+  List as TabsList,
+  Root as TabsRoot,
+  Trigger as TabsTrigger,
+} from "@radix-ui/react-tabs";
 import { AnimatePresence, motion } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
 
 /**
  * Tab definition for Phototab
  */
-export interface PhototabTab {
+export type PhototabTab = {
   /** Tab label */
   name: string;
   /** Tab icon (ReactNode) */
   icon: React.ReactNode;
   /** Tab image (string: URL or import) */
   image: string;
-}
+};
 
-export interface PhototabProps {
+export type PhototabProps = {
   /** Array of tabs to display */
   tabs: PhototabTab[];
   /** Default selected tab name */
@@ -31,7 +36,7 @@ export interface PhototabProps {
   tabTriggerClassName?: string;
   /** Class name for image */
   imageClassName?: string;
-}
+};
 
 export default function Phototab({
   tabs,
@@ -59,8 +64,11 @@ export default function Phototab({
       listRef.current
     ) {
       const trigger = triggersRef.current[hoveredIndex];
+      if (!trigger) {
+        return;
+      }
       const listRect = listRef.current.getBoundingClientRect();
-      const triggerRect = trigger!.getBoundingClientRect();
+      const triggerRect = trigger.getBoundingClientRect();
       setBgStyle({
         left: triggerRect.left - listRect.left,
         top: triggerRect.top - listRect.top,
@@ -73,13 +81,13 @@ export default function Phototab({
   }, [hoveredIndex]);
 
   return (
-    <Tabs.Root
+    <TabsRoot
       className={`group relative aspect-square w-auto overflow-hidden ${className}`}
       defaultValue={defaultTab || (tabs[0]?.name ?? "")}
       orientation="horizontal"
       style={{ height: `${height}px` }}
     >
-      <Tabs.List
+      <TabsList
         aria-label="Phototab Tabs"
         className={`-translate-y-10 absolute right-0 bottom-2 left-0 mx-auto flex w-40 flex-row items-center justify-between rounded-full bg-primary/40 px-3 py-2 font-medium text-sm ring ring-border/70 backdrop-blur-sm transition hover:text-foreground md:translate-y-20 md:group-hover:translate-y-0 ${tabListClassName}`}
         ref={listRef}
@@ -105,12 +113,16 @@ export default function Phototab({
           )}
         </AnimatePresence>
         {tabs.map((tab, index) => (
-          <Tabs.Trigger
+          <TabsTrigger
             aria-label={tab.name}
             className={`relative z-10 cursor-pointer rounded-full p-2 data-[state='active']:bg-background ${tabTriggerClassName}`}
             key={tab.name}
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
+            onMouseEnter={() => {
+              setHoveredIndex(index);
+            }}
+            onMouseLeave={() => {
+              setHoveredIndex(null);
+            }}
             ref={(el) => {
               triggersRef.current[index] = el;
             }}
@@ -120,11 +132,12 @@ export default function Phototab({
               {tab.icon}
               <span className="sr-only">{tab.name}</span>
             </span>
-          </Tabs.Trigger>
+          </TabsTrigger>
         ))}
-      </Tabs.List>
+      </TabsList>
       {tabs.map((tab) => (
-        <Tabs.Content className="h-full w-full" key={tab.name} value={tab.name}>
+        <TabsContent className="h-full w-full" key={tab.name} value={tab.name}>
+          {/* biome-ignore lint/performance/noImgElement: Using img for tab image without Next.js Image optimizations */}
           <img
             alt={tab.name}
             className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}
@@ -133,8 +146,8 @@ export default function Phototab({
             src={tab.image}
             width={400}
           />
-        </Tabs.Content>
+        </TabsContent>
       ))}
-    </Tabs.Root>
+    </TabsRoot>
   );
 }

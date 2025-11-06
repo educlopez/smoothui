@@ -1,12 +1,12 @@
 import type React from "react";
 import { useRef, useState } from "react";
 
-export interface ScrambleHoverProps {
+export type ScrambleHoverProps = {
   children: string;
   duration?: number; // total animation duration in ms
   speed?: number; // interval between scrambles in ms
   className?: string;
-}
+};
 
 const CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=<>?".split(
@@ -35,34 +35,54 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = () => {
-    let elapsed = 0;
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     intervalRef.current = setInterval(() => {
-      setDisplay((prev) => scrambleText(children));
-      elapsed += speed;
+      setDisplay(() => scrambleText(children));
     }, speed);
     timeoutRef.current = setTimeout(() => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
       setDisplay(children);
     }, duration);
   };
 
   const handleMouseLeave = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     setDisplay(children);
   };
 
   return (
-    <span
+    <button
       className={className}
+      onBlur={handleMouseLeave}
+      onFocus={handleMouseEnter}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      style={{ cursor: "pointer", display: "inline-block" }}
+      style={{
+        cursor: "pointer",
+        display: "inline-block",
+        background: "none",
+        border: "none",
+        padding: 0,
+        font: "inherit",
+        color: "inherit",
+        textAlign: "inherit",
+      }}
+      type="button"
     >
       {display}
-    </span>
+    </button>
   );
 };
 

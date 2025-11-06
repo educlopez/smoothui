@@ -4,11 +4,11 @@ import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { motion } from "motion/react";
 import { useState } from "react";
 
-export interface DotMorphButtonProps {
+export type DotMorphButtonProps = {
   label: string;
   className?: string;
   onClick?: () => void;
-}
+};
 
 export function DotMorphButton({
   label,

@@ -3,14 +3,16 @@
 import { motion } from "motion/react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
-export interface MatrixCardProps {
+const RESET_PROBABILITY = 0.975;
+
+export type MatrixCardProps = {
   title?: string;
   description?: string;
   fontSize?: number;
   chars?: string;
   className?: string;
   children?: ReactNode;
-}
+};
 
 export default function MatrixCard({
   title = "Matrix Effect Card",
@@ -26,12 +28,16 @@ export default function MatrixCard({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!(isHovered && canvasRef.current && containerRef.current)) return;
+    if (!(isHovered && canvasRef.current && containerRef.current)) {
+      return;
+    }
 
     const canvas = canvasRef.current;
     const container = containerRef.current;
     const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    if (!ctx) {
+      return;
+    }
 
     const resizeCanvas = () => {
       const rect = container.getBoundingClientRect();
@@ -56,7 +62,10 @@ export default function MatrixCard({
       for (let i = 0; i < drops.length; i++) {
         const text = chars[Math.floor(Math.random() * chars.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        if (
+          drops[i] * fontSize > canvas.height &&
+          Math.random() > RESET_PROBABILITY
+        ) {
           drops[i] = 0;
         }
         drops[i]++;
@@ -67,7 +76,9 @@ export default function MatrixCard({
     matrix();
 
     return () => {
-      if (requestRef.current) cancelAnimationFrame(requestRef.current);
+      if (requestRef.current) {
+        cancelAnimationFrame(requestRef.current);
+      }
       window.removeEventListener("resize", resizeCanvas);
     };
   }, [isHovered, fontSize, chars]);

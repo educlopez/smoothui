@@ -1,13 +1,16 @@
 import { motion, useInView } from "motion/react";
 import React from "react";
 
-export interface RevealTextProps {
+export type RevealTextProps = {
   children: string;
   direction?: "up" | "down" | "left" | "right";
   delay?: number;
   triggerOnView?: boolean;
   className?: string;
-}
+};
+
+const REVEAL_ANIMATION_DURATION_S = 0.6;
+const MILLISECONDS_TO_SECONDS = 1000;
 
 const directionVariants = {
   up: { y: 24, opacity: 0 },
@@ -34,7 +37,10 @@ const RevealText: React.FC<RevealTextProps> = ({
       initial={directionVariants[direction]}
       ref={ref}
       style={{ display: "inline-block" }}
-      transition={{ duration: 0.6, delay: delay / 1000 }}
+      transition={{
+        duration: REVEAL_ANIMATION_DURATION_S,
+        delay: delay / MILLISECONDS_TO_SECONDS,
+      }}
     >
       {children}
     </motion.span>

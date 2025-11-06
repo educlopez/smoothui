@@ -8,13 +8,21 @@ import SiriOrb from "../siri-orb";
 import { useClickOutside } from "./use-click-outside";
 
 const SPEED = 1;
+const SUCCESS_DURATION = 1500;
+const DOCK_HEIGHT = 44;
+const FEEDBACK_BORDER_RADIUS = 14;
+const DOCK_BORDER_RADIUS = 20;
+const SPRING_STIFFNESS = 550;
+const SPRING_DAMPING = 45;
+const SPRING_MASS = 0.7;
+const CLOSE_DELAY = 0.08;
 
-interface FooterContext {
+type FooterContext = {
   showFeedback: boolean;
   success: boolean;
   openFeedback: () => void;
   closeFeedback: () => void;
-}
+};
 
 const FooterContext = React.createContext({} as FooterContext);
 const useFooter = () => React.useContext(FooterContext);
@@ -43,7 +51,7 @@ export function MorphSurface() {
     setSuccess(true);
     setTimeout(() => {
       setSuccess(false);
-    }, 1500);
+    }, SUCCESS_DURATION);
   }, [closeFeedback]);
 
   useClickOutside(rootRef, closeFeedback);
@@ -69,8 +77,10 @@ export function MorphSurface() {
       <motion.div
         animate={{
           width: showFeedback ? FEEDBACK_WIDTH : "auto",
-          height: showFeedback ? FEEDBACK_HEIGHT : 44,
-          borderRadius: showFeedback ? 14 : 20,
+          height: showFeedback ? FEEDBACK_HEIGHT : DOCK_HEIGHT,
+          borderRadius: showFeedback
+            ? FEEDBACK_BORDER_RADIUS
+            : DOCK_BORDER_RADIUS,
         }}
         className={cx(
           "relative bottom-8 z-3 flex flex-col items-center overflow-hidden border bg-background max-sm:bottom-5"
@@ -80,10 +90,10 @@ export function MorphSurface() {
         ref={rootRef}
         transition={{
           type: "spring",
-          stiffness: 550 / SPEED,
-          damping: 45,
-          mass: 0.7,
-          delay: showFeedback ? 0 : 0.08,
+          stiffness: SPRING_STIFFNESS / SPEED,
+          damping: SPRING_DAMPING,
+          mass: SPRING_MASS,
+          delay: showFeedback ? 0 : CLOSE_DELAY,
         }}
       >
         <FooterContext.Provider value={context}>
@@ -130,7 +140,7 @@ function Dock() {
         </div>
 
         <Button
-          className="!py-0.5 flex h-fit flex-1 justify-end rounded-full px-2"
+          className="flex h-fit flex-1 justify-end rounded-full px-2 py-0.5!"
           onClick={openFeedback}
           type="button"
           variant="ghost"
@@ -155,7 +165,7 @@ function Feedback({
   const { closeFeedback, showFeedback } = useFooter();
   const submitRef = React.useRef<HTMLButtonElement>(null);
 
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     onSuccess();
   }
@@ -189,9 +199,9 @@ function Feedback({
             initial={{ opacity: 0 }}
             transition={{
               type: "spring",
-              stiffness: 550 / SPEED,
-              damping: 45,
-              mass: 0.7,
+              stiffness: SPRING_STIFFNESS / SPEED,
+              damping: SPRING_DAMPING,
+              mass: SPRING_MASS,
             }}
           >
             <div className="flex justify-between py-1">
@@ -240,12 +250,6 @@ function Feedback({
     </form>
   );
 }
-
-const LOGO_SPRING = {
-  type: "spring",
-  stiffness: 350 / SPEED,
-  damping: 35,
-} as const;
 
 function Kbd({
   children,

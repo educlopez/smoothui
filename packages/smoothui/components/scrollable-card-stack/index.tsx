@@ -1,26 +1,35 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { motion, useMotionValue } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-import { cn } from "@/lib/utils";
+const SCROLL_TIMEOUT_OFFSET = 100;
+const MIN_SCROLL_INTERVAL = 300;
+const SCROLL_THRESHOLD = 20;
+const TOUCH_SCROLL_THRESHOLD = 100;
+const SCALE_FACTOR = 0.08;
+const MIN_SCALE = 0.08;
+const MAX_SCALE = 2;
+const HOVER_SCALE_MULTIPLIER = 1.02;
+const CARD_PADDING = 100;
 
-interface CardItem {
+type CardItem = {
   id: string;
   name: string;
   handle: string;
   avatar: string;
   video: string;
   href: string;
-}
+};
 
-export interface ScrollableCardStackProps {
+export type ScrollableCardStackProps = {
   items: CardItem[];
   cardHeight?: number;
   perspective?: number;
   transitionDuration?: number;
   className?: string;
-}
+};
 
 const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   items,
@@ -37,19 +46,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   const scrollY = useMotionValue(0);
   const lastScrollTime = useRef(0);
 
-  // Improved spring config inspired by the reference code
-  const springConfig = {
-    damping: 20,
-    stiffness: 250,
-    mass: 0.5,
-  };
-
   // Calculate the total number of items
   const totalItems = items.length;
   const maxIndex = totalItems - 1;
-
-  // Spring-based scroll for smooth animations
-  const springScrollY = useSpring(scrollY, springConfig);
 
   // Constants for visual effects - matching reference code exactly
   const FRAME_OFFSET = -30;
@@ -66,13 +65,14 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   // Controlled scroll function to move exactly one card
   const scrollToCard = useCallback(
     (direction: 1 | -1) => {
-      if (isScrolling) return;
+      if (isScrolling) {
+        return;
+      }
 
       const now = Date.now();
       const timeSinceLastScroll = now - lastScrollTime.current;
-      const minScrollInterval = 300;
 
-      if (timeSinceLastScroll < minScrollInterval) {
+      if (timeSinceLastScroll < MIN_SCROLL_INTERVAL) {
         return;
       }
 
@@ -86,7 +86,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
 
         setTimeout(() => {
           setIsScrolling(false);
-        }, transitionDuration + 100);
+        }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
       }
     },
     [currentIndex, maxIndex, scrollY, isScrolling, transitionDuration, clamp]
@@ -95,10 +95,11 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   // Handle scroll events with improved responsiveness
   const handleScroll = useCallback(
     (deltaY: number) => {
-      if (isDragging || isScrolling) return;
+      if (isDragging || isScrolling) {
+        return;
+      }
 
-      const minScrollThreshold = 20;
-      if (Math.abs(deltaY) < minScrollThreshold) {
+      if (Math.abs(deltaY) < SCROLL_THRESHOLD) {
         return;
       }
 
@@ -120,37 +121,51 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   // Handle keyboard navigation - improved with reference code logic
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (isScrolling) return;
+      if (isScrolling) {
+        return;
+      }
 
       switch (e.key) {
         case "ArrowUp":
-        case "ArrowLeft":
+        case "ArrowLeft": {
           e.preventDefault();
           scrollToCard(-1);
           break;
+        }
         case "ArrowDown":
-        case "ArrowRight":
+        case "ArrowRight": {
           e.preventDefault();
           scrollToCard(1);
           break;
-        case "Home":
+        }
+        case "Home": {
           e.preventDefault();
           if (currentIndex !== 0) {
             setIsScrolling(true);
             setCurrentIndex(0);
             scrollY.set(0);
-            setTimeout(() => setIsScrolling(false), transitionDuration + 100);
+            setTimeout(() => {
+              setIsScrolling(false);
+            }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
           }
           break;
-        case "End":
+        }
+        case "End": {
           e.preventDefault();
           if (currentIndex !== maxIndex) {
             setIsScrolling(true);
             setCurrentIndex(maxIndex);
             scrollY.set(maxIndex * SNAP_DISTANCE);
-            setTimeout(() => setIsScrolling(false), transitionDuration + 100);
+            setTimeout(() => {
+              setIsScrolling(false);
+            }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
           }
           break;
+        }
+        default: {
+          // No action for other keys
+          break;
+        }
       }
     },
     [
@@ -182,13 +197,14 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
 
   const handleTouchMove = useCallback(
     (e: React.TouchEvent) => {
-      if (!isDragging || isScrolling) return;
+      if (!isDragging || isScrolling) {
+        return;
+      }
 
       const touchY = e.touches[0].clientY;
       const deltaY = touchStartY.current - touchY;
-      const scrollThreshold = 100;
 
-      if (Math.abs(deltaY) > scrollThreshold && !touchMoved.current) {
+      if (Math.abs(deltaY) > TOUCH_SCROLL_THRESHOLD && !touchMoved.current) {
         const scrollDirection = deltaY > 0 ? 1 : -1;
         scrollToCard(scrollDirection);
         touchMoved.current = true;
@@ -205,7 +221,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   // Set up event listeners
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    if (!container) {
+      return;
+    }
 
     container.addEventListener("wheel", handleWheel, { passive: false });
 
@@ -225,7 +243,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   const getCardTransform = useCallback(
     (index: number) => {
       const offsetIndex = index - currentIndex;
-      const absOffsetIndex = Math.abs(offsetIndex);
 
       // Apply blur effect for cards behind the current one - matching reference exactly
       const blur = currentIndex > index ? 2 : 0;
@@ -234,7 +251,10 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       const opacity = currentIndex > index ? 0 : 1;
 
       // Scale with improved calculation inspired by reference - using clamp function
-      const scale = clamp(1 - offsetIndex * 0.08, [0.08, 2]);
+      const scale = clamp(1 - offsetIndex * SCALE_FACTOR, [
+        MIN_SCALE,
+        MAX_SCALE,
+      ]);
 
       // Vertical offset with improved calculation - matching reference exactly
       const y = clamp(offsetIndex * FRAME_OFFSET, [
@@ -262,193 +282,205 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       aria-label="Scrollable card stack"
       aria-live="polite"
       className={cn("relative mx-auto h-fit w-fit min-w-[300px]", className)}
-      onKeyDown={handleKeyDown}
-      onTouchEnd={handleTouchEnd}
-      onTouchMove={handleTouchMove}
-      onTouchStart={handleTouchStart}
-      ref={containerRef}
-      style={{
-        minHeight: `${cardHeight + 100}px`, // Add some padding for the card stack effect
-        perspective: `${perspective}px`,
-        perspectiveOrigin: "center 60%",
-        touchAction: "none",
-      }}
     >
-      {items.map((item, i) => {
-        const transform = getCardTransform(i);
-        const isActive = i === currentIndex;
-        const isHovered = hoveredIndex === i;
-
-        return (
-          <motion.div
-            animate={{
-              y: `calc(-50% + ${transform.y}px)`,
-              scale: transform.scale,
-              x: "-50%",
-            }}
-            aria-hidden={!isActive}
-            className="absolute top-1/2 left-1/2 w-max max-w-[100vw] overflow-hidden rounded-2xl border bg-background shadow-lg"
-            data-active={isActive}
-            initial={false}
-            key={`scrollable-card-${item.id}`}
-            onBlur={() => setHoveredIndex(null)}
-            onFocus={() => isActive && setHoveredIndex(i)}
-            onMouseEnter={() => isActive && setHoveredIndex(i)}
-            onMouseLeave={() => setHoveredIndex(null)}
-            style={{
-              height: `${cardHeight}px`,
-              zIndex: transform.zIndex,
-              pointerEvents: isActive ? "auto" : "none",
-              transformOrigin: "center center",
-              willChange: "opacity, filter, transform",
-              filter: `blur(${transform.blur}px)`,
-              opacity: transform.opacity,
-              transitionProperty: "opacity, filter",
-              transitionDuration: "200ms",
-              transitionTimingFunction: "ease-in-out",
-              // Dynamic border width based on scale - from reference code
-              borderWidth: `${2 / transform.scale}px`,
-            }}
-            tabIndex={isActive ? 0 : -1}
-            transition={{
-              type: "spring",
-              stiffness: 250,
-              damping: 20,
-              mass: 0.5,
-            }}
-            whileHover={
-              isActive
-                ? {
-                    scale: transform.scale * 1.02,
-                    transition: {
-                      type: "spring",
-                      stiffness: 250,
-                      damping: 20,
-                      mass: 0.5,
-                    },
-                  }
-                : {}
-            }
-          >
-            {/* Card Content */}
-            <div
-              className={cn(
-                "flex aspect-[16/10] w-full flex-col rounded-xl bg-background transition-all duration-200",
-                isHovered && "shadow-xl",
-                isScrolling && isActive && "ring-2 ring-brand ring-opacity-50"
-              )}
-              style={{ height: `${cardHeight}px` }}
-            >
-              {/* Scroll indicator */}
-              {isScrolling && isActive && (
-                <div className="-top-1 -translate-x-1/2 absolute left-1/2 h-1 w-8 rounded-full bg-brand opacity-75" />
-              )}
-
-              {/* Video Container - takes remaining space */}
-              <div className="relative w-full flex-1 overflow-hidden">
-                {/* Background blur image */}
-                <img
-                  alt=""
-                  aria-hidden="true"
-                  className="absolute inset-0 h-full w-full object-cover text-transparent"
-                  decoding="async"
-                  src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+"
-                  style={{
-                    filter: "blur(32px)",
-                    scale: "1.2",
-                    zIndex: 1,
-                    pointerEvents: "none",
-                  }}
-                />
-                {/* Video */}
-                <video
-                  autoPlay
-                  className="absolute inset-0 h-full w-full object-cover"
-                  loop
-                  muted
-                  playsInline
-                  src={item.video}
-                  style={{ zIndex: 2 }}
-                />
-              </div>
-
-              {/* User Info - always at bottom */}
-              <a
-                aria-label={`View ${item.name}'s profile`}
-                className={cn(
-                  "flex items-center justify-center gap-1 bg-background/95 p-3 text-decoration-none text-inherit backdrop-blur-sm transition-colors duration-200"
-                )}
-                href={item.href}
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <img
-                  alt={`${item.name}'s avatar`}
-                  className="mr-1 h-5 w-5 overflow-hidden rounded-full"
-                  height={20}
-                  src={item.avatar}
-                  style={{
-                    boxShadow: "0 0 0 1px var(--border-secondary, #e0e0e0)",
-                  }}
-                  width={20}
-                />
-                <span className="font-medium text-foreground text-sm leading-none">
-                  {item.name}
-                </span>
-                <span className="font-normal text-foreground/70 text-sm">
-                  {item.handle}
-                </span>
-              </a>
-            </div>
-          </motion.div>
-        );
-      })}
-
-      {/* Navigation indicators */}
+      {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Interactive scrollable widget requires event handlers */}
       <div
-        aria-label="Card navigation"
-        className="-translate-x-1/2 absolute bottom-4 left-1/2 flex transform space-x-2"
-        role="tablist"
+        aria-label="Scrollable card container"
+        className="h-full w-full"
+        onKeyDown={handleKeyDown}
+        onTouchEnd={handleTouchEnd}
+        onTouchMove={handleTouchMove}
+        onTouchStart={handleTouchStart}
+        ref={containerRef}
+        role="application"
+        style={{
+          minHeight: `${cardHeight + CARD_PADDING}px`, // Add some padding for the card stack effect
+          perspective: `${perspective}px`,
+          perspectiveOrigin: "center 60%",
+          touchAction: "none",
+        }}
+        // biome-ignore lint/a11y/noNoninteractiveTabindex: Required for keyboard navigation
+        tabIndex={0}
       >
-        {Array.from({ length: items.length }, (_, i) => (
-          <motion.button
-            aria-label={`Go to card ${i + 1} of ${items.length}`}
-            aria-selected={i === currentIndex}
-            className={cn(
-              "h-2 w-2 rounded-full transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-brand focus:ring-offset-1",
-              i === currentIndex
-                ? "scale-125 bg-brand"
-                : "bg-gray-300 hover:bg-gray-400"
-            )}
-            key={`scrollable-indicator-${items[i]?.id || i}`}
-            onClick={() => {
-              if (i !== currentIndex && !isScrolling) {
-                setIsScrolling(true);
-                setCurrentIndex(i);
-                scrollY.set(i * SNAP_DISTANCE);
-                setTimeout(
-                  () => setIsScrolling(false),
-                  transitionDuration + 100
-                );
-              }
-            }}
-            role="tab"
-            transition={{
-              type: "spring",
-              stiffness: 250,
-              damping: 20,
-              mass: 0.5,
-            }}
-            type="button"
-            whileHover={{ scale: 1.2 }}
-            whileTap={{ scale: 0.9 }}
-          />
-        ))}
-      </div>
+        {items.map((item, i) => {
+          const transform = getCardTransform(i);
+          const isActive = i === currentIndex;
+          const isHovered = hoveredIndex === i;
 
-      {/* Instructions for screen readers */}
-      <div aria-live="polite" className="sr-only">
-        {`Card ${currentIndex + 1} of ${items.length} selected. Use arrow keys to navigate one card at a time, or click the dots below.`}
+          return (
+            <motion.div
+              animate={{
+                y: `calc(-50% + ${transform.y}px)`,
+                scale: transform.scale,
+                x: "-50%",
+              }}
+              aria-hidden={!isActive}
+              className="absolute top-1/2 left-1/2 w-max max-w-[100vw] overflow-hidden rounded-2xl border bg-background shadow-lg"
+              data-active={isActive}
+              initial={false}
+              key={`scrollable-card-${item.id}`}
+              onBlur={() => setHoveredIndex(null)}
+              onFocus={() => isActive && setHoveredIndex(i)}
+              onMouseEnter={() => isActive && setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
+              style={{
+                height: `${cardHeight}px`,
+                zIndex: transform.zIndex,
+                pointerEvents: isActive ? "auto" : "none",
+                transformOrigin: "center center",
+                willChange: "opacity, filter, transform",
+                filter: `blur(${transform.blur}px)`,
+                opacity: transform.opacity,
+                transitionProperty: "opacity, filter",
+                transitionDuration: "200ms",
+                transitionTimingFunction: "ease-in-out",
+                // Dynamic border width based on scale - from reference code
+                borderWidth: `${2 / transform.scale}px`,
+              }}
+              tabIndex={isActive ? 0 : -1}
+              transition={{
+                type: "spring",
+                stiffness: 250,
+                damping: 20,
+                mass: 0.5,
+              }}
+              whileHover={
+                isActive
+                  ? {
+                      scale: transform.scale * HOVER_SCALE_MULTIPLIER,
+                      transition: {
+                        type: "spring",
+                        stiffness: 250,
+                        damping: 20,
+                        mass: 0.5,
+                      },
+                    }
+                  : {}
+              }
+            >
+              {/* Card Content */}
+              <div
+                className={cn(
+                  "flex aspect-16/10 w-full flex-col rounded-xl bg-background transition-all duration-200",
+                  isHovered && "shadow-xl",
+                  isScrolling && isActive && "ring-2 ring-brand ring-opacity-50"
+                )}
+                style={{ height: `${cardHeight}px` }}
+              >
+                {/* Scroll indicator */}
+                {isScrolling && isActive && (
+                  <div className="-top-1 -translate-x-1/2 absolute left-1/2 h-1 w-8 rounded-full bg-brand opacity-75" />
+                )}
+
+                {/* Video Container - takes remaining space */}
+                <div className="relative w-full flex-1 overflow-hidden">
+                  {/* Background blur image */}
+                  {/* biome-ignore lint/performance/noImgElement: Using img for background blur effect */}
+                  <img
+                    alt=""
+                    aria-hidden="true"
+                    className="absolute inset-0 h-full w-full object-cover text-transparent"
+                    decoding="async"
+                    height={10}
+                    src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+"
+                    style={{
+                      filter: "blur(32px)",
+                      scale: "1.2",
+                      zIndex: 1,
+                      pointerEvents: "none",
+                    }}
+                    width={10}
+                  />
+                  {/* Video */}
+                  <video
+                    autoPlay
+                    className="absolute inset-0 h-full w-full object-cover"
+                    loop
+                    muted
+                    playsInline
+                    src={item.video}
+                    style={{ zIndex: 2 }}
+                  />
+                </div>
+
+                {/* User Info - always at bottom */}
+                <a
+                  aria-label={`View ${item.name}'s profile`}
+                  className={cn(
+                    "flex items-center justify-center gap-1 bg-background/95 p-3 text-decoration-none text-inherit backdrop-blur-sm transition-colors duration-200"
+                  )}
+                  href={item.href}
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  {/* biome-ignore lint/performance/noImgElement: Using img for user avatar without Next.js Image optimizations */}
+                  <img
+                    alt={`${item.name}'s avatar`}
+                    className="mr-1 h-5 w-5 overflow-hidden rounded-full"
+                    height={20}
+                    src={item.avatar}
+                    style={{
+                      boxShadow: "0 0 0 1px var(--border-secondary, #e0e0e0)",
+                    }}
+                    width={20}
+                  />
+                  <span className="font-medium text-foreground text-sm leading-none">
+                    {item.name}
+                  </span>
+                  <span className="font-normal text-foreground/70 text-sm">
+                    {item.handle}
+                  </span>
+                </a>
+              </div>
+            </motion.div>
+          );
+        })}
+
+        {/* Navigation indicators */}
+        <div
+          aria-label="Card navigation"
+          className="-translate-x-1/2 absolute bottom-4 left-1/2 flex transform space-x-2"
+          role="tablist"
+        >
+          {Array.from({ length: items.length }, (_, i) => (
+            <motion.button
+              aria-label={`Go to card ${i + 1} of ${items.length}`}
+              aria-selected={i === currentIndex}
+              className={cn(
+                "h-2 w-2 rounded-full transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-brand focus:ring-offset-1",
+                i === currentIndex
+                  ? "scale-125 bg-brand"
+                  : "bg-gray-300 hover:bg-gray-400"
+              )}
+              key={`scrollable-indicator-${items[i]?.id || i}`}
+              onClick={() => {
+                if (i !== currentIndex && !isScrolling) {
+                  setIsScrolling(true);
+                  setCurrentIndex(i);
+                  scrollY.set(i * SNAP_DISTANCE);
+                  setTimeout(() => {
+                    setIsScrolling(false);
+                  }, transitionDuration + SCROLL_TIMEOUT_OFFSET);
+                }
+              }}
+              role="tab"
+              transition={{
+                type: "spring",
+                stiffness: 250,
+                damping: 20,
+                mass: 0.5,
+              }}
+              type="button"
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+            />
+          ))}
+        </div>
+
+        {/* Instructions for screen readers */}
+        <div aria-live="polite" className="sr-only">
+          {`Card ${currentIndex + 1} of ${items.length} selected. Use arrow keys to navigate one card at a time, or click the dots below.`}
+        </div>
       </div>
     </section>
   );

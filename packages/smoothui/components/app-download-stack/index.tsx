@@ -4,13 +4,13 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useAnimation } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 
-export interface AppData {
+export type AppData = {
   id: number;
   name: string;
   icon: string;
-}
+};
 
-export interface AppDownloadStackProps {
+export type AppDownloadStackProps = {
   apps?: AppData[];
   title?: string;
   selectedApps?: number[];
@@ -19,7 +19,22 @@ export interface AppDownloadStackProps {
   isExpanded?: boolean;
   onExpandChange?: (expanded: boolean) => void;
   className?: string;
-}
+};
+
+const DOWNLOAD_DURATION_MS = 3000;
+const RESET_DELAY_MS = 1000;
+const ROTATION_MULTIPLIER = 8;
+const TRANSLATION_MULTIPLIER = 3;
+const BASE_Z_INDEX = 40;
+const Z_INDEX_STEP = 10;
+const HOVER_X_MULTIPLIER = 10;
+const HOVER_Y_MULTIPLIER = 10;
+const FLOAT_AMPLITUDE = 5;
+const FLOAT_DURATION = 2;
+const FLOAT_DELAY_MULTIPLIER = 0.2;
+const STAGGER_DELAY_MULTIPLIER = 0.1;
+const TRANSITION_DURATION = 0.3;
+const CHECKMARK_TRANSITION_DURATION = 0.3;
 
 const defaultApps: AppData[] = [
   {
@@ -65,8 +80,11 @@ export default function AppDownloadStack({
   const selected = controlledSelected ?? internalSelected;
 
   const setExpanded = (val: boolean) => {
-    if (onExpandChange) onExpandChange(val);
-    else setInternalExpanded(val);
+    if (onExpandChange) {
+      onExpandChange(val);
+    } else {
+      setInternalExpanded(val);
+    }
   };
 
   const toggleApp = useCallback(
@@ -74,15 +92,20 @@ export default function AppDownloadStack({
       const newSelected = selected.includes(id)
         ? selected.filter((appId) => appId !== id)
         : [...selected, id];
-      if (onChange) onChange(newSelected);
-      else setInternalSelected(newSelected);
+      if (onChange) {
+        onChange(newSelected);
+      } else {
+        setInternalSelected(newSelected);
+      }
     },
     [selected, onChange]
   );
 
   const handleDownload = useCallback(() => {
     setIsDownloading(true);
-    if (onDownload) onDownload(selected);
+    if (onDownload) {
+      onDownload(selected);
+    }
     shineControls.start({
       x: ["0%", "100%"],
       transition: {
@@ -95,37 +118,50 @@ export default function AppDownloadStack({
       shineControls.stop();
       setDownloadComplete(true);
       setTimeout(() => {
-        setExpanded(false);
-        if (onChange) onChange([]);
-        else setInternalSelected([]);
+        if (onExpandChange) {
+          onExpandChange(false);
+        } else {
+          setInternalExpanded(false);
+        }
+        if (onChange) {
+          onChange([]);
+        } else {
+          setInternalSelected([]);
+        }
         setIsDownloading(false);
         setDownloadComplete(false);
-      }, 1000);
-    }, 3000);
-  }, [shineControls, selected, onDownload, onChange]);
+      }, RESET_DELAY_MS);
+    }, DOWNLOAD_DURATION_MS);
+  }, [shineControls, selected, onDownload, onChange, onExpandChange]);
 
   const stackVariants = useMemo(
     () => ({
       initial: (i: number) => ({
-        rotate: i % 2 === 0 ? -8 * (i + 1) : 8 * (i + 1),
-        x: i % 2 === 0 ? -3 * (i + 1) : 3 * (i + 1),
+        rotate:
+          i % 2 === 0
+            ? -ROTATION_MULTIPLIER * (i + 1)
+            : ROTATION_MULTIPLIER * (i + 1),
+        x:
+          i % 2 === 0
+            ? -TRANSLATION_MULTIPLIER * (i + 1)
+            : TRANSLATION_MULTIPLIER * (i + 1),
         y: 0,
-        zIndex: 40 - i * 10,
+        zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
       }),
       hover: (i: number) => ({
         rotate: 0,
-        x: i * 10,
-        y: -i * 10,
-        zIndex: 40 - i * 10,
+        x: i * HOVER_X_MULTIPLIER,
+        y: -i * HOVER_Y_MULTIPLIER,
+        zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
       }),
       float: (i: number) => ({
-        y: [0, -5, 0],
+        y: [0, -FLOAT_AMPLITUDE, 0],
         transition: {
           y: {
             repeat: Number.POSITIVE_INFINITY,
-            duration: 2,
+            duration: FLOAT_DURATION,
             ease: "easeInOut",
-            delay: i * 0.2,
+            delay: i * FLOAT_DELAY_MULTIPLIER,
           },
         },
       }),
@@ -149,6 +185,7 @@ export default function AppDownloadStack({
               whileHover="hover"
             >
               {apps.map((app, index) => (
+                /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                 <motion.img
                   alt={`${app.name} Logo`}
                   animate={["initial", "float"]}
@@ -159,7 +196,7 @@ export default function AppDownloadStack({
                   key={app.id}
                   layoutId={`app-icon-${app.id}`}
                   src={app.icon}
-                  transition={{ duration: 0.3 }}
+                  transition={{ duration: TRANSITION_DURATION }}
                   variants={stackVariants}
                   whileHover="hover"
                   width={64}
@@ -180,6 +217,7 @@ export default function AppDownloadStack({
               <button
                 className="flex w-full cursor-pointer items-center justify-between px-0.5"
                 onClick={() => setExpanded(false)}
+                type="button"
               >
                 <p className="my-0 font-medium leading-0">{title}</p>
                 <div className="flex items-center gap-1">
@@ -196,7 +234,7 @@ export default function AppDownloadStack({
                     className="relative flex h-[80px] w-[80px]"
                     initial={{ opacity: 0, y: 20 }}
                     key={app.id}
-                    transition={{ delay: index * 0.1 }}
+                    transition={{ delay: index * STAGGER_DELAY_MULTIPLIER }}
                   >
                     <div
                       className={`pointer-events-none absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid ${
@@ -215,10 +253,13 @@ export default function AppDownloadStack({
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           strokeWidth="2"
-                          transition={{ duration: 0.3 }}
+                          transition={{
+                            duration: CHECKMARK_TRANSITION_DURATION,
+                          }}
                           viewBox="0 0 24 24"
                           xmlns="http://www.w3.org/2000/svg"
                         >
+                          <title>Checkmark</title>
                           <motion.path d="M5 13l4 4L19 7" />
                         </motion.svg>
                       )}
@@ -230,7 +271,9 @@ export default function AppDownloadStack({
                           : ""
                       }`}
                       onClick={() => toggleApp(app.id)}
+                      type="button"
                     >
+                      {/* biome-ignore lint/performance/noImgElement: Using img for app icon without Next.js Image optimizations */}
                       <img
                         alt={app.name}
                         className="rounded-lg"
@@ -249,6 +292,7 @@ export default function AppDownloadStack({
                 className="mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-50"
                 disabled={selected.length === 0}
                 onClick={handleDownload}
+                type="button"
               >
                 Download Selected
               </button>
@@ -271,6 +315,7 @@ export default function AppDownloadStack({
                   style={{ x: 0 }}
                 />
                 {apps.map((app, index) => (
+                  /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                   <motion.img
                     alt={`${app.name} Logo`}
                     animate={["initial", "float"]}
@@ -281,7 +326,7 @@ export default function AppDownloadStack({
                     key={app.id}
                     layoutId={`app-icon-${app.id}`}
                     src={app.icon}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: TRANSITION_DURATION }}
                     variants={stackVariants}
                     width={64}
                   />

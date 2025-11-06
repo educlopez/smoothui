@@ -1,11 +1,10 @@
 "use client";
 
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon, Copy, Pencil } from "lucide-react";
 import { motion } from "motion/react";
 import type { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-
-import { cn } from "@/lib/utils";
 
 type AIBranchContextType = {
   currentBranch: number;
@@ -229,23 +228,23 @@ export const AIBranchPage = ({ className }: AIBranchPageProps) => {
   );
 };
 
-// Updated interface for conversation branches
-export interface AIBranchData {
+// Updated type for conversation branches
+export type AIBranchData = {
   id: string;
   userMessage: string;
   aiResponse: string;
   timestamp: Date;
   isActive: boolean;
-}
+};
 
 // Export the type alias for backward compatibility
 export type AIBranch = AIBranchData;
 
-interface LegacyAiBranchProps {
+type LegacyAiBranchProps = {
   branches: AIBranchData[];
   onBranchSelect: (branchId: string) => void;
   className?: string;
-}
+};
 
 // Updated legacy component to show conversation branches
 export function LegacyAiBranch({
@@ -253,15 +252,11 @@ export function LegacyAiBranch({
   onBranchSelect,
   className,
 }: LegacyAiBranchProps) {
-  const [isExpanded, setIsExpanded] = useState(false);
   const [currentBranchIndex, setCurrentBranchIndex] = useState(() =>
     branches.findIndex((branch) => branch.isActive)
   );
 
   const activeBranch = branches[currentBranchIndex];
-  const inactiveBranches = branches.filter(
-    (_, index) => index !== currentBranchIndex
-  );
 
   const goToPrevious = () => {
     const newIndex =

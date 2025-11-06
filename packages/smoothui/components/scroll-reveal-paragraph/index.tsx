@@ -1,12 +1,19 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import {
+  type MotionValue,
+  motion,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import { useRef } from "react";
 
-export interface ScrollRevealParagraphProps {
+const KEY_PREFIX_LENGTH = 3;
+
+export type ScrollRevealParagraphProps = {
   paragraph: string;
   className?: string;
-}
+};
 
 export default function ScrollRevealParagraph({
   paragraph,
@@ -27,7 +34,7 @@ export default function ScrollRevealParagraph({
         const end = start + 1 / words.length;
         return (
           <Word
-            key={`word-${i}-${word.slice(0, 3)}`}
+            key={`word-${i}-${word.slice(0, KEY_PREFIX_LENGTH)}`}
             progress={scrollYProgress}
             range={[start, end]}
           >
@@ -39,11 +46,11 @@ export default function ScrollRevealParagraph({
   );
 }
 
-interface WordProps {
+type WordProps = {
   children: string;
-  progress: any;
+  progress: MotionValue<number>;
   range: [number, number];
-}
+};
 
 const Word = ({ children, progress, range }: WordProps) => {
   const opacity = useTransform(progress, range, [0, 1]);

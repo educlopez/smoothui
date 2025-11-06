@@ -1,12 +1,12 @@
 import { motion } from "motion/react";
 import type React from "react";
 
-export interface WaveTextProps {
+export type WaveTextProps = {
   children: string;
   amplitude?: number;
   speed?: number;
   className?: string;
-}
+};
 
 const WaveText: React.FC<WaveTextProps> = ({
   children,
@@ -18,7 +18,7 @@ const WaveText: React.FC<WaveTextProps> = ({
     {children.split("").map((char, i) => (
       <motion.span
         animate={{ y: [0, -amplitude, 0] }}
-        key={i}
+        key={`${i}-${char}`}
         style={{ display: "inline-block" }}
         transition={{
           repeat: Number.POSITIVE_INFINITY,

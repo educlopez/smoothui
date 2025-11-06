@@ -1,8 +1,35 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 
-export interface SiriOrbProps {
+const SIZE_THRESHOLD_SMALL = 50;
+const SIZE_THRESHOLD_TINY = 30;
+const SIZE_THRESHOLD_MEDIUM = 100;
+const BLUR_MULTIPLIER_SMALL = 0.008;
+const BLUR_MIN_SMALL = 1;
+const BLUR_MULTIPLIER_LARGE = 0.015;
+const BLUR_MIN_LARGE = 4;
+const CONTRAST_MULTIPLIER_SMALL = 0.004;
+const CONTRAST_MIN_SMALL = 1.2;
+const CONTRAST_MULTIPLIER_LARGE = 0.008;
+const CONTRAST_MIN_LARGE = 1.5;
+const DOT_SIZE_MULTIPLIER_SMALL = 0.004;
+const DOT_SIZE_MIN_SMALL = 0.05;
+const DOT_SIZE_MULTIPLIER_LARGE = 0.008;
+const DOT_SIZE_MIN_LARGE = 0.1;
+const SHADOW_MULTIPLIER_SMALL = 0.004;
+const SHADOW_MIN_SMALL = 0.5;
+const SHADOW_MULTIPLIER_LARGE = 0.008;
+const SHADOW_MIN_LARGE = 2;
+const MASK_RADIUS_TINY = "0%";
+const MASK_RADIUS_SMALL = "5%";
+const MASK_RADIUS_MEDIUM = "15%";
+const MASK_RADIUS_LARGE = "25%";
+const CONTRAST_TINY = 1.1;
+const CONTRAST_MULTIPLIER_FINAL = 1.2;
+const CONTRAST_MIN_FINAL = 1.3;
+
+export type SiriOrbProps = {
   size?: string;
   className?: string;
   colors?: {
@@ -12,7 +39,7 @@ export interface SiriOrbProps {
     c3?: string;
   };
   animationDuration?: number;
-}
+};
 
 const SiriOrb: React.FC<SiriOrbProps> = ({
   size = "192px",
@@ -34,42 +61,56 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
 
   // Responsive calculations based on size
   const blurAmount =
-    sizeValue < 50
-      ? Math.max(sizeValue * 0.008, 1) // Reduced blur for small sizes
-      : Math.max(sizeValue * 0.015, 4);
+    sizeValue < SIZE_THRESHOLD_SMALL
+      ? Math.max(sizeValue * BLUR_MULTIPLIER_SMALL, BLUR_MIN_SMALL) // Reduced blur for small sizes
+      : Math.max(sizeValue * BLUR_MULTIPLIER_LARGE, BLUR_MIN_LARGE);
 
   const contrastAmount =
-    sizeValue < 50
-      ? Math.max(sizeValue * 0.004, 1.2) // Reduced contrast for small sizes
-      : Math.max(sizeValue * 0.008, 1.5);
+    sizeValue < SIZE_THRESHOLD_SMALL
+      ? Math.max(sizeValue * CONTRAST_MULTIPLIER_SMALL, CONTRAST_MIN_SMALL) // Reduced contrast for small sizes
+      : Math.max(sizeValue * CONTRAST_MULTIPLIER_LARGE, CONTRAST_MIN_LARGE);
 
   const dotSize =
-    sizeValue < 50
-      ? Math.max(sizeValue * 0.004, 0.05) // Smaller dots for small sizes
-      : Math.max(sizeValue * 0.008, 0.1);
+    sizeValue < SIZE_THRESHOLD_SMALL
+      ? Math.max(sizeValue * DOT_SIZE_MULTIPLIER_SMALL, DOT_SIZE_MIN_SMALL) // Smaller dots for small sizes
+      : Math.max(sizeValue * DOT_SIZE_MULTIPLIER_LARGE, DOT_SIZE_MIN_LARGE);
 
   const shadowSpread =
-    sizeValue < 50
-      ? Math.max(sizeValue * 0.004, 0.5) // Reduced shadow for small sizes
-      : Math.max(sizeValue * 0.008, 2);
+    sizeValue < SIZE_THRESHOLD_SMALL
+      ? Math.max(sizeValue * SHADOW_MULTIPLIER_SMALL, SHADOW_MIN_SMALL) // Reduced shadow for small sizes
+      : Math.max(sizeValue * SHADOW_MULTIPLIER_LARGE, SHADOW_MIN_LARGE);
 
   // Adjust mask radius based on size to reduce black center in small sizes
-  const maskRadius =
-    sizeValue < 30
-      ? "0%"
-      : sizeValue < 50
-        ? "5%"
-        : sizeValue < 100
-          ? "15%"
-          : "25%";
+  const getMaskRadius = (value: number) => {
+    if (value < SIZE_THRESHOLD_TINY) {
+      return MASK_RADIUS_TINY;
+    }
+    if (value < SIZE_THRESHOLD_SMALL) {
+      return MASK_RADIUS_SMALL;
+    }
+    if (value < SIZE_THRESHOLD_MEDIUM) {
+      return MASK_RADIUS_MEDIUM;
+    }
+    return MASK_RADIUS_LARGE;
+  };
+
+  const maskRadius = getMaskRadius(sizeValue);
 
   // Use more subtle contrast for very small sizes
-  const finalContrast =
-    sizeValue < 30
-      ? 1.1 // Very subtle contrast for tiny sizes
-      : sizeValue < 50
-        ? Math.max(contrastAmount * 1.2, 1.3) // Reduced contrast for small sizes
-        : contrastAmount;
+  const getFinalContrast = (value: number) => {
+    if (value < SIZE_THRESHOLD_TINY) {
+      return CONTRAST_TINY; // Very subtle contrast for tiny sizes
+    }
+    if (value < SIZE_THRESHOLD_SMALL) {
+      return Math.max(
+        contrastAmount * CONTRAST_MULTIPLIER_FINAL,
+        CONTRAST_MIN_FINAL
+      ); // Reduced contrast for small sizes
+    }
+    return contrastAmount;
+  };
+
+  const finalContrast = getFinalContrast(sizeValue);
 
   return (
     <div

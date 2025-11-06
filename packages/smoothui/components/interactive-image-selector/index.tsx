@@ -4,12 +4,36 @@ import { Share2, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useState } from "react";
 
-export interface ImageData {
+const RESET_DELAY = 200;
+const RESET_SCALE_START = 1;
+const RESET_SCALE_PEAK = 1.1;
+const RESET_SCALE_END = 1;
+const RESET_ROTATE_START = 0;
+const RESET_ROTATE_POSITIVE = 5;
+const RESET_ROTATE_NEGATIVE = -5;
+const SELECT_SCALE_START = 1;
+const SELECT_SCALE_PEAK = 1.1;
+const SELECT_SCALE_END = 1;
+const SELECT_ROTATE_START = 0;
+const SELECT_ROTATE_NEGATIVE = -5;
+const SELECT_ROTATE_POSITIVE = 5;
+const CONTAINER_SCALE_START = 1;
+const CONTAINER_SCALE_MIN = 0.95;
+const CONTAINER_SCALE_END = 1;
+const ITEM_SCALE_START = 1;
+const ITEM_SCALE_MIN = 0.9;
+const ITEM_SCALE_END = 1;
+const ITEM_ROTATE_START = 0;
+const ITEM_ROTATE_POSITIVE = 2;
+const ITEM_ROTATE_NEGATIVE = -2;
+const RESET_ANIMATION_DURATION = 0.3;
+
+export type ImageData = {
   id: number;
   src: string;
-}
+};
 
-export interface InteractiveImageSelectorProps {
+export type InteractiveImageSelectorProps = {
   images?: ImageData[];
   selectedImages?: number[];
   onChange?: (selected: number[]) => void;
@@ -17,7 +41,7 @@ export interface InteractiveImageSelectorProps {
   onShare?: (selected: number[]) => void;
   className?: string;
   selectable?: boolean;
-}
+};
 
 const defaultImages: ImageData[] = [
   {
@@ -65,7 +89,9 @@ export default function InteractiveImageSelector({
 
   const handleImageClick = useCallback(
     (id: number) => {
-      if (!isSelecting) return;
+      if (!isSelecting) {
+        return;
+      }
       const newSelected = selected.includes(id)
         ? selected.filter((imgId) => imgId !== id)
         : [...selected, id];
@@ -106,7 +132,7 @@ export default function InteractiveImageSelector({
       }
       setIsSelecting(false);
       setIsResetting(false);
-    }, 200);
+    }, RESET_DELAY);
   }, [originalImages, onChange]);
 
   const toggleSelecting = useCallback(() => {
@@ -121,7 +147,9 @@ export default function InteractiveImageSelector({
   }, [isSelecting, onChange]);
 
   const handleShare = useCallback(() => {
-    if (onShare) onShare(selected);
+    if (onShare) {
+      onShare(selected);
+    }
   }, [onShare, selected]);
 
   return (
@@ -132,7 +160,17 @@ export default function InteractiveImageSelector({
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
           animate={
-            isResetting ? { scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] } : {}
+            isResetting
+              ? {
+                  scale: [RESET_SCALE_START, RESET_SCALE_PEAK, RESET_SCALE_END],
+                  rotate: [
+                    RESET_ROTATE_START,
+                    RESET_ROTATE_POSITIVE,
+                    RESET_ROTATE_NEGATIVE,
+                    RESET_ROTATE_START,
+                  ],
+                }
+              : {}
           }
           aria-label="Reset selection"
           className={`cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl transition-colors ${
@@ -152,7 +190,21 @@ export default function InteractiveImageSelector({
         </motion.button>
         <motion.button
           animate={
-            isSelecting ? { scale: [1, 1.1, 1], rotate: [0, -5, 5, 0] } : {}
+            isSelecting
+              ? {
+                  scale: [
+                    SELECT_SCALE_START,
+                    SELECT_SCALE_PEAK,
+                    SELECT_SCALE_END,
+                  ],
+                  rotate: [
+                    SELECT_ROTATE_START,
+                    SELECT_ROTATE_NEGATIVE,
+                    SELECT_ROTATE_POSITIVE,
+                    SELECT_ROTATE_START,
+                  ],
+                }
+              : {}
           }
           aria-label={isSelecting ? "Cancel selection" : "Select images"}
           className={`cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl ${
@@ -173,7 +225,17 @@ export default function InteractiveImageSelector({
       </div>
 
       <motion.div
-        animate={isResetting ? { scale: [1, 0.95, 1] } : {}}
+        animate={
+          isResetting
+            ? {
+                scale: [
+                  CONTAINER_SCALE_START,
+                  CONTAINER_SCALE_MIN,
+                  CONTAINER_SCALE_END,
+                ],
+              }
+            : {}
+        }
         className="grid grid-cols-3 gap-1 overflow-scroll"
         layout
         transition={{ duration: 0.2 }}
@@ -183,8 +245,17 @@ export default function InteractiveImageSelector({
             <motion.div
               animate={{
                 opacity: 1,
-                scale: isResetting ? [1, 0.9, 1] : 1,
-                rotate: isResetting ? [0, 2, -2, 0] : 0,
+                scale: isResetting
+                  ? [ITEM_SCALE_START, ITEM_SCALE_MIN, ITEM_SCALE_END]
+                  : 1,
+                rotate: isResetting
+                  ? [
+                      ITEM_ROTATE_START,
+                      ITEM_ROTATE_POSITIVE,
+                      ITEM_ROTATE_NEGATIVE,
+                      ITEM_ROTATE_START,
+                    ]
+                  : 0,
               }}
               className="relative aspect-square cursor-pointer"
               exit={{ opacity: 0, scale: 0.8 }}
@@ -196,9 +267,10 @@ export default function InteractiveImageSelector({
                 type: "spring",
                 stiffness: 300,
                 damping: 25,
-                duration: isResetting ? 0.3 : undefined,
+                duration: isResetting ? RESET_ANIMATION_DURATION : undefined,
               }}
             >
+              {/* biome-ignore lint/performance/noImgElement: Using img for gallery images without Next.js Image optimizations */}
               <img
                 alt={`Gallery item ${img.id}`}
                 className={`h-full w-full rounded-lg object-cover ${

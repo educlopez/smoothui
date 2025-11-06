@@ -6,17 +6,20 @@ import {
   useAnimation,
   useAnimationFrame,
   useMotionValue,
-  useTransform,
 } from "motion/react";
 import { type RefObject, useRef, useState } from "react";
 
-export interface PowerOffSlideProps {
+const SLIDE_THRESHOLD = 160;
+const SLIDE_MAX_DISTANCE = 168;
+const PERCENTAGE_MULTIPLIER = 100;
+
+export type PowerOffSlideProps = {
   onPowerOff?: () => void;
   label?: string;
   className?: string;
   duration?: number;
   disabled?: boolean;
-}
+};
 
 export default function PowerOffSlide({
   onPowerOff,
@@ -31,25 +34,28 @@ export default function PowerOffSlide({
   const constraintsRef = useRef(null);
   const textRef: RefObject<HTMLDivElement | null> = useRef(null);
 
-  const xInput = [0, 164];
-  const opacityOutput = [0, 1];
-  const opacity = useTransform(x, xInput, opacityOutput);
-
   useAnimationFrame((t) => {
     const animDuration = duration;
     const progress = (t % animDuration) / animDuration;
     if (textRef.current) {
-      textRef.current.style.setProperty("--x", `${(1 - progress) * 100}%`);
+      textRef.current.style.setProperty(
+        "--x",
+        `${(1 - progress) * PERCENTAGE_MULTIPLIER}%`
+      );
     }
   });
 
   const handleDragEnd = async () => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
     const dragDistance = x.get();
-    if (dragDistance > 160) {
-      await controls.start({ x: 168 });
+    if (dragDistance > SLIDE_THRESHOLD) {
+      await controls.start({ x: SLIDE_MAX_DISTANCE });
       setIsPoweringOff(true);
-      if (onPowerOff) onPowerOff();
+      if (onPowerOff) {
+        onPowerOff();
+      }
       setTimeout(() => {
         setIsPoweringOff(false);
         controls.start({ x: 0 });
@@ -82,7 +88,7 @@ export default function PowerOffSlide({
               aria-disabled={disabled}
               className={`absolute top-1 left-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-background shadow-md ${disabled ? "cursor-not-allowed opacity-50" : "cursor-grab active:cursor-grabbing"}`}
               drag={disabled ? false : "x"}
-              dragConstraints={{ left: 0, right: 168 }}
+              dragConstraints={{ left: 0, right: SLIDE_MAX_DISTANCE }}
               dragElastic={0}
               dragMomentum={false}
               onDragEnd={handleDragEnd}

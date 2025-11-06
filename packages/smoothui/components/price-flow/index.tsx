@@ -1,13 +1,40 @@
 "use client";
 
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { useEffect, useRef, useState } from "react";
 
-import { cn } from "@/lib/utils";
+const STAGGER_DELAY = 50;
 
-export interface PriceFlowProps {
+export type PriceFlowProps = {
   value: number;
   className?: string;
-}
+};
+
+const animateDigit = (
+  prevElement: HTMLElement | null,
+  nextElement: HTMLElement | null,
+  isIncreasing: boolean
+) => {
+  if (prevElement === null || nextElement === null) {
+    return;
+  }
+
+  if (isIncreasing) {
+    prevElement.classList.add("slide-out-up");
+    nextElement.classList.add("slide-in-up");
+  } else {
+    prevElement.classList.add("slide-out-down");
+    nextElement.classList.add("slide-in-down");
+  }
+
+  const handleAnimationEnd = () => {
+    prevElement.classList.remove("slide-out-up", "slide-out-down");
+    nextElement.classList.remove("slide-in-up", "slide-in-down");
+    prevElement.removeEventListener("animationend", handleAnimationEnd);
+  };
+
+  prevElement.addEventListener("animationend", handleAnimationEnd);
+};
 
 export default function PriceFlow({ value, className = "" }: PriceFlowProps) {
   const [prevValue, setPrevValue] = useState(value);
@@ -19,74 +46,36 @@ export default function PriceFlow({ value, className = "" }: PriceFlowProps) {
   const nextOnesRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    if (value !== prevValue) {
-      const prevTens = prevTensRef.current;
-      const nextTens = nextTensRef.current;
-      const prevOnes = prevOnesRef.current;
-      const nextOnes = nextOnesRef.current;
-
-      // Animate tens digit if it changed
-      if (
-        prevTens &&
-        nextTens &&
-        Math.floor(value / 10) !== Math.floor(prevValue / 10)
-      ) {
-        const tensChanged =
-          Math.floor(value / 10) !== Math.floor(prevValue / 10);
-
-        if (tensChanged) {
-          if (Math.floor(value / 10) > Math.floor(prevValue / 10)) {
-            prevTens.classList.add("slide-out-up");
-            nextTens.classList.add("slide-in-up");
-          } else {
-            prevTens.classList.add("slide-out-down");
-            nextTens.classList.add("slide-in-down");
-          }
-
-          const handleTensAnimationEnd = () => {
-            prevTens.classList.remove("slide-out-up", "slide-out-down");
-            nextTens.classList.remove("slide-in-up", "slide-in-down");
-            prevTens.removeEventListener(
-              "animationend",
-              handleTensAnimationEnd
-            );
-          };
-
-          prevTens.addEventListener("animationend", handleTensAnimationEnd);
-        }
-      }
-
-      // Animate ones digit if it changed
-      if (prevOnes && nextOnes && value % 10 !== prevValue % 10) {
-        const onesChanged = value % 10 !== prevValue % 10;
-
-        if (onesChanged) {
-          // Add a small delay for the ones digit to create staggered effect
-          setTimeout(() => {
-            if (value % 10 > prevValue % 10) {
-              prevOnes.classList.add("slide-out-up");
-              nextOnes.classList.add("slide-in-up");
-            } else {
-              prevOnes.classList.add("slide-out-down");
-              nextOnes.classList.add("slide-in-down");
-            }
-
-            const handleOnesAnimationEnd = () => {
-              prevOnes.classList.remove("slide-out-up", "slide-out-down");
-              nextOnes.classList.remove("slide-in-up", "slide-in-down");
-              prevOnes.removeEventListener(
-                "animationend",
-                handleOnesAnimationEnd
-              );
-            };
-
-            prevOnes.addEventListener("animationend", handleOnesAnimationEnd);
-          }, 50); // 50ms delay for staggered effect
-        }
-      }
-
-      setPrevValue(value);
+    if (value === prevValue) {
+      return;
     }
+
+    const prevTens = prevTensRef.current;
+    const nextTens = nextTensRef.current;
+    const prevOnes = prevOnesRef.current;
+    const nextOnes = nextOnesRef.current;
+
+    const prevTensValue = Math.floor(prevValue / 10);
+    const currentTensValue = Math.floor(value / 10);
+    const tensChanged = currentTensValue !== prevTensValue;
+
+    if (tensChanged && prevTens && nextTens) {
+      const isTensIncreasing = currentTensValue > prevTensValue;
+      animateDigit(prevTens, nextTens, isTensIncreasing);
+    }
+
+    const prevOnesValue = prevValue % 10;
+    const currentOnesValue = value % 10;
+    const onesChanged = currentOnesValue !== prevOnesValue;
+
+    if (onesChanged && prevOnes && nextOnes) {
+      const isOnesIncreasing = currentOnesValue > prevOnesValue;
+      setTimeout(() => {
+        animateDigit(prevOnes, nextOnes, isOnesIncreasing);
+      }, STAGGER_DELAY);
+    }
+
+    setPrevValue(value);
   }, [value, prevValue]);
 
   const formatValue = (val: number) => val.toString().padStart(2, "0");

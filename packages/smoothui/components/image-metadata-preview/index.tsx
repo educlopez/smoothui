@@ -5,21 +5,21 @@ import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import useMeasure from "react-use-measure";
 
-export interface ImageMetadata {
+export type ImageMetadata = {
   created: string;
   updated: string;
   by: string;
   source: string;
-}
+};
 
-export interface ImageMetadataPreviewProps {
+export type ImageMetadataPreviewProps = {
   imageSrc: string;
   alt?: string;
   filename?: string;
   description?: string;
   metadata: ImageMetadata;
   onShare?: () => void;
-}
+};
 
 export default function ImageMetadataPreview({
   imageSrc,
@@ -30,16 +30,13 @@ export default function ImageMetadataPreview({
   onShare,
 }: ImageMetadataPreviewProps) {
   const [openInfo, setopenInfo] = useState(false);
-  const [height, setHeight] = useState("42px");
   const [elementRef, bounds] = useMeasure();
 
   const handleClickOpen = () => {
-    setHeight(bounds.height.toString());
     setopenInfo((b) => !b);
   };
 
   const handleClickClose = () => {
-    setHeight("42px");
     setopenInfo((b) => !b);
   };
 
@@ -49,6 +46,7 @@ export default function ImageMetadataPreview({
         animate={{ y: -bounds.height }}
         className="pointer-events-none overflow-hidden rounded-xl"
       >
+        {/* biome-ignore lint/performance/noImgElement: Using img for image preview without Next.js Image optimizations */}
         <img alt={alt} height={437} src={imageSrc} width={300} />
       </motion.div>
 

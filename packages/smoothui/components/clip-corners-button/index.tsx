@@ -4,11 +4,11 @@ import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { motion } from "motion/react";
 import { useState } from "react";
 
-export interface ClipCornersButtonProps {
+export type ClipCornersButtonProps = {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
-}
+};
 
 export function ClipCornersButton({
   children,

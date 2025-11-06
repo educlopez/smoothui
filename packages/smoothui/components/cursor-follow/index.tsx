@@ -6,12 +6,15 @@ import { useEffect, useRef, useState } from "react";
 
 import { useCursorPosition } from "./useCursorPosition";
 
-export interface CursorFollowProps {
+export type CursorFollowProps = {
   children: React.ReactNode;
   className?: string;
-}
+};
 
 const CIRCLE_SIZE = 16;
+const MIN_BUBBLE_WIDTH = 40;
+const BUBBLE_HEIGHT = 40;
+const TEXT_PADDING = 32;
 
 const CursorFollow: React.FC<CursorFollowProps> = ({
   children,
@@ -30,8 +33,10 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
   const springY = useSpring(y, { stiffness: 350, damping: 40 });
 
   // Calculate bubble width and height
-  const bubbleWidth = cursorText ? Math.max(textWidth + 32, 40) : CIRCLE_SIZE;
-  const bubbleHeight = cursorText ? 40 : CIRCLE_SIZE;
+  const bubbleWidth = cursorText
+    ? Math.max(textWidth + TEXT_PADDING, MIN_BUBBLE_WIDTH)
+    : CIRCLE_SIZE;
+  const bubbleHeight = cursorText ? BUBBLE_HEIGHT : CIRCLE_SIZE;
 
   // Update target position on mouse move
   useEffect(() => {
@@ -64,13 +69,30 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
     setCursorText(null);
     setPendingText(null);
   };
+  const handleFocus = (e: React.FocusEvent) => {
+    const target = e.target as HTMLElement;
+    const text = target.getAttribute("data-cursor-text");
+    if (text) {
+      setPendingText(text);
+    }
+  };
+  const handleBlur = () => {
+    setCursorText(null);
+    setPendingText(null);
+  };
 
   return (
+    // biome-ignore lint/a11y/noNoninteractiveElementInteractions: Interactive cursor tracking widget requires mouse events
     <div
       className={`relative h-full w-full ${className}`}
+      onBlur={handleBlur}
+      onFocus={handleFocus}
       onMouseOut={handleMouseOut}
       onMouseOver={handleMouseOver}
+      role="application"
       style={{ minHeight: 300, cursor: "none" }}
+      // biome-ignore lint/a11y/noNoninteractiveTabindex: Interactive cursor tracking widget requires focus
+      tabIndex={0}
     >
       {children}
       <motion.div

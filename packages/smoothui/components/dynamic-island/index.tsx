@@ -15,16 +15,6 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import { type ReactNode, useMemo, useState } from "react";
 
-// Animation variants
-const ANIMATION_VARIANTS = {
-  "ring-idle": { scale: 0.9, scaleX: 0.9, bounce: 0.5 },
-  "timer-ring": { scale: 0.7, y: -7.5, bounce: 0.35 },
-  "ring-timer": { scale: 1.4, y: 7.5, bounce: 0.35 },
-  "timer-idle": { scale: 0.7, y: -7.5, bounce: 0.3 },
-  "idle-timer": { scale: 1.2, y: 5, bounce: 0.3 },
-  "idle-ring": { scale: 1.1, y: 3, bounce: 0.5 },
-} as const;
-
 const BOUNCE_VARIANTS = {
   idle: 0.5,
   "ring-idle": 0.5,
@@ -35,25 +25,8 @@ const BOUNCE_VARIANTS = {
   "idle-ring": 0.5,
 } as const;
 
-const variants = {
-  exit: (transition: any, custom: any) => {
-    // custom is the animation variant, e.g., ANIMATION_VARIANTS[variantKey]
-    // We'll pass the target view as custom.nextView
-    if (custom && custom.nextView === "idle") {
-      return {
-        opacity: [1, 0],
-        scale: 0.7,
-        filter: "blur(5px)",
-        transition: { duration: 0.18, ease: "ease-in" },
-      };
-    }
-    return {
-      ...transition,
-      opacity: [1, 0],
-      filter: "blur(5px)",
-    };
-  },
-};
+const DEFAULT_BOUNCE = 0.5;
+const TIMER_INTERVAL_MS = 1000;
 
 // Idle Component with Weather
 const DefaultIdle = () => {
@@ -120,7 +93,7 @@ const DefaultTimer = () => {
   useMemo(() => {
     const timer = setInterval(() => {
       setTime((t) => (t > 0 ? t - 1 : 0));
-    }, 1000);
+    }, TIMER_INTERVAL_MS);
     return () => clearInterval(timer);
   }, []);
 
@@ -179,12 +152,14 @@ const MusicPlayer = () => {
       <button
         className="rounded-full p-1 hover:bg-white/30"
         onClick={() => setPlaying(false)}
+        type="button"
       >
         <SkipBack className="h-4 w-4 text-white" />
       </button>
       <button
         className="rounded-full p-1 hover:bg-white/30"
         onClick={() => setPlaying((p) => !p)}
+        type="button"
       >
         {playing ? (
           <Pause className="h-4 w-4 text-white" />
@@ -195,6 +170,7 @@ const MusicPlayer = () => {
       <button
         className="rounded-full p-1 hover:bg-white/30"
         onClick={() => setPlaying(true)}
+        type="button"
       >
         <SkipForward className="h-4 w-4 text-white" />
       </button>
@@ -204,14 +180,14 @@ const MusicPlayer = () => {
 
 type View = "idle" | "ring" | "timer" | "notification" | "music";
 
-export interface DynamicIslandProps {
+export type DynamicIslandProps = {
   view?: View;
   onViewChange?: (view: View) => void;
   idleContent?: ReactNode;
   ringContent?: ReactNode;
   timerContent?: ReactNode;
   className?: string;
-}
+};
 
 export default function DynamicIsland({
   view: controlledView,
@@ -242,10 +218,15 @@ export default function DynamicIsland({
   }, [view, idleContent, ringContent, timerContent]);
 
   const handleViewChange = (newView: View) => {
-    if (view === newView) return;
+    if (view === newView) {
+      return;
+    }
     setVariantKey(`${view}-${newView}`);
-    if (onViewChange) onViewChange(newView);
-    else setInternalView(newView);
+    if (onViewChange) {
+      onViewChange(newView);
+    } else {
+      setInternalView(newView);
+    }
   };
 
   return (
@@ -259,7 +240,7 @@ export default function DynamicIsland({
             type: "spring",
             bounce:
               BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
-              0.5,
+              DEFAULT_BOUNCE,
           }}
         >
           <motion.div
@@ -283,7 +264,7 @@ export default function DynamicIsland({
               type: "spring",
               bounce:
                 BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
-                0.5,
+                DEFAULT_BOUNCE,
             }}
           >
             {content}

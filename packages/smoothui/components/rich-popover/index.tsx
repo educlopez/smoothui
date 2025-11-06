@@ -1,12 +1,18 @@
 "use client";
 
-import * as Popover from "@radix-ui/react-popover";
+import {
+  Arrow as PopoverArrow,
+  Content as PopoverContent,
+  Portal as PopoverPortal,
+  Root as PopoverRoot,
+  Trigger as PopoverTrigger,
+} from "@radix-ui/react-popover";
 import { Clock, ExternalLink, Play } from "lucide-react";
 import { motion } from "motion/react";
 
 import type * as React from "react";
 
-export interface RichTooltipProps {
+export type RichTooltipProps = {
   trigger: React.ReactNode;
   title: string;
   description?: string;
@@ -19,7 +25,7 @@ export interface RichTooltipProps {
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
-}
+};
 
 export function YouTubeIcon({
   className = "h-4 w-4 fill-red-600",
@@ -97,10 +103,10 @@ export default function RichTooltip({
   ) : null;
 
   return (
-    <Popover.Root>
-      <Popover.Trigger asChild>{trigger}</Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Content
+    <PopoverRoot>
+      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+      <PopoverPortal>
+        <PopoverContent
           align={align}
           asChild
           className={`z-50 ${className}`}
@@ -139,10 +145,10 @@ export default function RichTooltip({
             )}
 
             {/* Tail */}
-            <Popover.Arrow className="fill-black" />
+            <PopoverArrow className="fill-black" />
           </motion.div>
-        </Popover.Content>
-      </Popover.Portal>
-    </Popover.Root>
+        </PopoverContent>
+      </PopoverPortal>
+    </PopoverRoot>
   );
 }

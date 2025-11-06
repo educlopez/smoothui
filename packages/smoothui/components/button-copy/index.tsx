@@ -4,7 +4,7 @@ import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { type ReactNode, useCallback, useState } from "react";
 
-export interface ButtonCopyProps {
+export type ButtonCopyProps = {
   onCopy?: () => Promise<void> | void;
   idleIcon?: ReactNode;
   loadingIcon?: ReactNode;
@@ -13,7 +13,7 @@ export interface ButtonCopyProps {
   duration?: number;
   loadingDuration?: number;
   disabled?: boolean;
-}
+};
 
 const defaultIcons = {
   idle: <Copy size={16} />,
@@ -37,7 +37,9 @@ export default function ButtonCopy({
 
   const handleClick = useCallback(async () => {
     setButtonState("loading");
-    if (onCopy) await onCopy();
+    if (onCopy) {
+      await onCopy();
+    }
     setTimeout(() => {
       setButtonState("success");
     }, loadingDuration);

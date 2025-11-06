@@ -1,12 +1,14 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
-export interface TypewriterTextProps {
+export type TypewriterTextProps = {
   children: string;
   speed?: number;
   loop?: boolean;
   className?: string;
-}
+};
+
+const LOOP_RESTART_DELAY_MS = 1000;
 
 const TypewriterText: React.FC<TypewriterTextProps> = ({
   children,
@@ -31,12 +33,14 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
           setDisplayed("");
           index.current = 0;
           type();
-        }, 1000);
+        }, LOOP_RESTART_DELAY_MS);
       }
     }
     type();
     return () => {
-      if (timeout.current) clearTimeout(timeout.current);
+      if (timeout.current) {
+        clearTimeout(timeout.current);
+      }
     };
   }, [children, speed, loop]);
 

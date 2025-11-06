@@ -1,30 +1,35 @@
 "use client";
 
-import * as Popover from "@radix-ui/react-popover";
+import {
+  Content as PopoverContent,
+  Portal as PopoverPortal,
+  Root as PopoverRoot,
+  Trigger as PopoverTrigger,
+} from "@radix-ui/react-popover";
 import { Eye, Package, User } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 
-export interface UserData {
+export type UserData = {
   name: string;
   email: string;
   avatar: string;
-}
+};
 
-export interface Order {
+export type Order = {
   id: string;
   date: string;
   status: "processing" | "shipped" | "delivered";
   progress: number;
-}
+};
 
-export interface UserAccountAvatarProps {
+export type UserAccountAvatarProps = {
   user?: UserData;
   orders?: Order[];
   onProfileSave?: (user: UserData) => void;
   onOrderView?: (orderId: string) => void;
   className?: string;
-}
+};
 
 const initialUserData: UserData = {
   name: "John Doe",
@@ -61,7 +66,9 @@ export default function UserAccountAvatar({
       email: formData.get("email") as string,
     };
     setUserData(updatedUser);
-    if (onProfileSave) onProfileSave(updatedUser);
+    if (onProfileSave) {
+      onProfileSave(updatedUser);
+    }
     setActiveSection(null);
   };
 
@@ -103,6 +110,16 @@ export default function UserAccountAvatar({
     </form>
   );
 
+  const getStatusColor = (status: Order["status"]) => {
+    if (status === "processing") {
+      return "bg-blue-500";
+    }
+    if (status === "shipped") {
+      return "bg-yellow-500";
+    }
+    return "bg-green-500";
+  };
+
   const renderLastOrders = () => (
     <div className="flex flex-col gap-2 p-2">
       {orders.map((order) => (
@@ -122,13 +139,7 @@ export default function UserAccountAvatar({
               </div>
               <div className="mt-1 h-1 w-full rounded-sm bg-gray-200">
                 <div
-                  className={`h-full rounded ${
-                    order.status === "processing"
-                      ? "bg-blue-500"
-                      : order.status === "shipped"
-                        ? "bg-yellow-500"
-                        : "bg-green-500"
-                  }`}
+                  className={`h-full rounded ${getStatusColor(order.status)}`}
                   style={{ width: `${order.progress}%` }}
                 />
               </div>
@@ -136,7 +147,10 @@ export default function UserAccountAvatar({
             <button
               aria-label="View Order"
               className="rounded-sm border bg-background p-1"
-              onClick={() => onOrderView && onOrderView(order.id)}
+              onClick={() => {
+                onOrderView?.(order.id);
+              }}
+              type="button"
             >
               <Eye size={14} />
             </button>
@@ -147,11 +161,13 @@ export default function UserAccountAvatar({
   );
 
   return (
-    <Popover.Root>
-      <Popover.Trigger asChild>
+    <PopoverRoot>
+      <PopoverTrigger asChild>
         <button
           className={`flex cursor-pointer items-center gap-2 rounded-full border bg-background ${className}`}
+          type="button"
         >
+          {/* biome-ignore lint/performance/noImgElement: Using img for user avatar without Next.js Image optimizations */}
           <img
             alt="User Avatar"
             className="rounded-full"
@@ -160,9 +176,9 @@ export default function UserAccountAvatar({
             width={48}
           />
         </button>
-      </Popover.Trigger>
-      <Popover.Portal>
-        <Popover.Content
+      </PopoverTrigger>
+      <PopoverPortal>
+        <PopoverContent
           className="w-48 overflow-hidden rounded-lg border bg-background text-sm shadow-lg"
           sideOffset={5}
         >
@@ -172,13 +188,22 @@ export default function UserAccountAvatar({
             transition={{ type: "spring", duration: 0.3, bounce: 0 }}
           >
             <div className="flex flex-col">
-              <div
+              <button
                 className="cursor-pointer p-2 hover:bg-smooth-200"
-                onClick={() => handleSectionClick("profile")}
+                onClick={() => {
+                  handleSectionClick("profile");
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSectionClick("profile");
+                  }
+                }}
+                type="button"
               >
                 <User className="mr-2 inline" size={16} />
                 Edit Profile
-              </div>
+              </button>
               <AnimatePresence initial={false}>
                 {activeSection === "profile" && (
                   <motion.div
@@ -195,13 +220,22 @@ export default function UserAccountAvatar({
                   </motion.div>
                 )}
               </AnimatePresence>
-              <div
+              <button
                 className="cursor-pointer p-2 hover:bg-smooth-200"
-                onClick={() => handleSectionClick("orders")}
+                onClick={() => {
+                  handleSectionClick("orders");
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSectionClick("orders");
+                  }
+                }}
+                type="button"
               >
                 <Package className="mr-2 inline" size={16} />
                 Last Orders
-              </div>
+              </button>
               <AnimatePresence initial={false}>
                 {activeSection === "orders" && (
                   <motion.div
@@ -220,8 +254,8 @@ export default function UserAccountAvatar({
               </AnimatePresence>
             </div>
           </motion.div>
-        </Popover.Content>
-      </Popover.Portal>
-    </Popover.Root>
+        </PopoverContent>
+      </PopoverPortal>
+    </PopoverRoot>
   );
 }
