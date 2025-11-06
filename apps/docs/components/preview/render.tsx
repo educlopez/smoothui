@@ -5,7 +5,7 @@ type PreviewRenderProps = {
 };
 
 export const PreviewRender = ({ children }: PreviewRenderProps) => (
-  <div className="frame-box relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden border-none p-8 [--primary-foreground:oklch(0.985_0_0)] [--primary:oklch(0.205_0_0)] dark:[--primary-foreground:oklch(0.205_0_0)] dark:[--primary:oklch(0.985_0_0)] [&_>_div]:z-20">
+  <div className="not-prose frame-box relative flex size-full flex-col items-center justify-center gap-4 overflow-hidden border-none p-8 [--primary-foreground:oklch(0.985_0_0)] [--primary:oklch(0.205_0_0)] dark:[--primary-foreground:oklch(0.205_0_0)] dark:[--primary:oklch(0.985_0_0)] [&_>_div]:z-20">
     {children}
   </div>
 );

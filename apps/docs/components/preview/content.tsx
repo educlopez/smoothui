@@ -18,7 +18,7 @@ export const PreviewContent = ({ children, type }: PreviewContentProps) => (
   >
     <ResizablePanel
       className={cn(
-        "peer not-fumadocs-codeblock",
+        "not-prose peer not-fumadocs-codeblock",
         type === "component"
           ? "overflow-hidden! size-full"
           : "overflow-auto! h-auto w-full"

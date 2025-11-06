@@ -200,30 +200,64 @@
 .prose h6 {
   @apply font-semibold text-foreground tracking-tight;
 }
-.prose h1{
+.prose h1 {
   @apply -tracking-wide font-bold text-3xl;
 }
-.prose h2{
+.prose h2 {
   @apply font-semibold text-lg;
 }
-.prose h3{
+.prose h3 {
   @apply font-semibold text-base;
 }
-.prose h4{
+.prose h4 {
   @apply font-semibold text-sm;
 }
-.prose h5{
+.prose h5 {
   @apply font-semibold text-xs;
 }
-.prose h6{
+.prose h6 {
   @apply font-medium text-xs;
 }
-.prose p{
+.prose p {
   @apply text-base;
 }
-.prose strong{
+.prose strong {
   @apply font-semibold;
 }
-.prose .peer{
+.prose .peer {
   @apply font-semibold;
+}
+
+/* Exclude prose styles from not-prose containers */
+.not-prose h1,
+.not-prose h2,
+.not-prose h3,
+.not-prose h4,
+.not-prose h5,
+.not-prose h6,
+.not-prose p,
+.not-prose strong,
+.not-prose .peer {
+  @apply font-normal tracking-normal;
+}
+.not-prose h1 {
+  @apply text-base font-normal;
+}
+.not-prose h2 {
+  @apply text-base font-normal;
+}
+.not-prose h3 {
+  @apply text-base font-normal;
+}
+.not-prose h4 {
+  @apply text-base font-normal;
+}
+.not-prose h5 {
+  @apply text-base font-normal;
+}
+.not-prose h6 {
+  @apply text-base font-normal;
+}
+.not-prose p {
+  @apply text-base font-normal;
 }
