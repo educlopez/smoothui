@@ -11,7 +11,7 @@
 
 @theme inline {
   --font-body: var(--font-inter);
-  --font-title: var(--font-asap);
+  --font-title: var(--font-poppins);
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme);
   --shiki--dark: var(--shiki-theme);

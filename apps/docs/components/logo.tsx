@@ -15,7 +15,7 @@ export default function Logo({
       <Icon className={cn("h-6 w-auto cursor-grabbing", classNameIcon)} />
       <span
         className={cn(
-          "select-none text-center font-bold font-title text-foreground text-lg uppercase transition",
+          "mt-0.5 select-none text-center font-medium font-title text-foreground text-xl transition",
           className
         )}
       >

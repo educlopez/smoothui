@@ -3,11 +3,13 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import "./global.css";
 import { Inter } from "next/font/google";
+import { poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -85,7 +87,11 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
-    <html className={inter.className} lang="en" suppressHydrationWarning>
+    <html
+      className={`${inter.className} ${inter.variable} ${poppins.variable}`}
+      lang="en"
+      suppressHydrationWarning
+    >
       <head>
         <meta content="SmoothUI" name="apple-mobile-web-app-title" />
       </head>
