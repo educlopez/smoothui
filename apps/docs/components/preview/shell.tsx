@@ -100,7 +100,7 @@ export const PreviewShell = ({
           {type === "block" && (
             <div className="flex items-center justify-end gap-1 sm:gap-1.5">
               <ToggleGroup
-                className="flex gap-0.5 rounded-md border bg-background p-1 shadow-sm"
+                className="hidden gap-0.5 rounded-md border bg-background p-1 sm:flex"
                 onValueChange={(value) => {
                   if (!value) {
                     return;
