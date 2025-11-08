@@ -3,7 +3,7 @@ export const smoothUISchema = {
   "@type": "Organization",
   name: "SmoothUI",
   url: "https://smoothui.dev",
-  logo: "https://smoothui.dev/logomark.svg",
+  logo: "https://smoothui.dev/logo-smoothui.svg",
   description:
     "Free React UI components built with TailwindCSS and Framer Motion. shadcn/ui compatible, customizable, responsive, dark mode-ready, and perfect for modern UIs.",
   founder: {
@@ -26,4 +26,3 @@ export const smoothUISchema = {
     "shadcn alternative",
   ],
 };
-

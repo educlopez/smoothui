@@ -1,9 +1,9 @@
 "use client";
 
 import { Button } from "@repo/shadcn-ui/components/ui/button";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-
 import { useState } from "react";
 
 const menuItems = [
@@ -42,11 +42,19 @@ export const HeroHeader = () => {
             <div className="relative flex flex-wrap items-center justify-between gap-6 py-6 transition-all duration-200 lg:gap-0">
               <div className="flex w-full justify-between gap-6 lg:w-auto">
                 <a
-                  aria-label="home"
-                  className="flex items-center space-x-2"
+                  aria-label="SmoothUI home"
+                  className="flex items-center gap-2"
                   href="/"
                 >
-                  Logo
+                  <span className="sr-only">SmoothUI</span>
+                  {/* biome-ignore lint/performance/noImgElement: Rendering static brand asset from public folder */}
+                  <img
+                    alt="SmoothUI logo"
+                    className={cn("h-6 w-auto", "dark:filter", "dark:invert")}
+                    height={28}
+                    src="/logo-smoothui.svg"
+                    width={140}
+                  />
                 </a>
 
                 <button
