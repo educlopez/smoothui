@@ -1,17 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@repo/shadcn-ui/components/ui/tabs";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import { BoxIcon, CodeIcon, EyeIcon } from "lucide-react";
-import { PreviewCode } from "./code";
-import { PreviewContent } from "./content";
+
 import { PreviewRender } from "./render";
-import { PreviewSource } from "./source";
+import { PreviewShell } from "./shell";
 
 type PreviewProps = {
   path: string;
@@ -194,66 +185,18 @@ export const Preview = async ({
   }
 
   return (
-    <div
-      className={cn(
-        "not-prose size-full overflow-hidden rounded-lg border bg-background",
-        type === "block" &&
-          "h-auto min-h-[32rem] prose-code:border-none prose-code:p-0",
-        type === "component" && "h-[32rem]",
-        className
-      )}
+    <PreviewShell
+      blockPath={type === "block" ? path : undefined}
+      className={className}
+      parsedCode={parsedCode}
+      sourceComponents={sourceComponents}
+      type={type}
     >
-      <Tabs className="size-full gap-0" defaultValue="preview">
-        <TabsList className="w-full rounded-none border-b">
-          {sourceComponents.length > 0 && (
-            <TabsTrigger value="source">
-              <BoxIcon className="text-muted-foreground" size={16} />
-              Source
-            </TabsTrigger>
-          )}
-          <TabsTrigger value="code">
-            <CodeIcon className="text-muted-foreground" size={16} />
-            Code
-          </TabsTrigger>
-          <TabsTrigger value="preview">
-            <EyeIcon className="text-muted-foreground" size={16} />
-            Preview
-          </TabsTrigger>
-        </TabsList>
-        {sourceComponents.length > 0 && (
-          <TabsContent
-            className="not-prose size-full overflow-y-auto bg-background"
-            value="source"
-          >
-            <PreviewSource source={sourceComponents} />
-          </TabsContent>
-        )}
-        <TabsContent
-          className="size-full overflow-y-auto bg-background"
-          value="code"
-        >
-          <PreviewCode code={parsedCode} filename="index.tsx" language="tsx" />
-        </TabsContent>
-        <TabsContent
-          className={cn(
-            "not-prose not-fumadocs-codeblock",
-            type === "component"
-              ? "size-full overflow-hidden"
-              : "h-auto overflow-auto"
-          )}
-          value="preview"
-        >
-          <PreviewContent type={type}>
-            {type === "block" ? (
-              <Component />
-            ) : (
-              <PreviewRender>
-                <Component />
-              </PreviewRender>
-            )}
-          </PreviewContent>
-        </TabsContent>
-      </Tabs>
-    </div>
+      {type === "component" ? (
+        <PreviewRender>
+          <Component />
+        </PreviewRender>
+      ) : null}
+    </PreviewShell>
   );
 };
