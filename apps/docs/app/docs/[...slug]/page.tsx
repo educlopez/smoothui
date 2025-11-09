@@ -11,21 +11,21 @@ import {
 } from "fumadocs-ui/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BodyText } from "../../../components/body-text";
-import { ChangelogEntry } from "../../../components/changelog-entry";
-import { FeatureCard } from "../../../components/feature-card";
-import { FeatureCardHover } from "../../../components/feature-card-hover";
-import { Installer } from "../../../components/installer";
-import Divider from "../../../components/landing/divider";
-import { LastModified } from "../../../components/last-modified";
-import { LLMCopyButton, ViewOptions } from "../../../components/page-actions";
-import { OpenInV0Button } from "../../../components/open-in-v0-button";
-import { PoweredBy } from "../../../components/powered-by";
-import { Preview } from "../../../components/preview";
-import { domain } from "../../../lib/domain";
-import { createMetadata } from "../../../lib/metadata";
-import { getPageImage, source } from "../../../lib/source";
-import { typeGenerator } from "../../../mdx-components";
+import { BodyText } from "@docs/components/body-text";
+import { ChangelogEntry } from "@docs/components/changelog-entry";
+import { FeatureCard } from "@docs/components/feature-card";
+import { FeatureCardHover } from "@docs/components/feature-card-hover";
+import { Installer } from "@docs/components/installer";
+import Divider from "@docs/components/landing/divider";
+import { LastModified } from "@docs/components/last-modified";
+import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
+import { OpenInV0Button } from "@docs/components/open-in-v0-button";
+import { PoweredBy } from "@docs/components/powered-by";
+import { Preview } from "@docs/components/preview";
+import { domain } from "@docs/lib/domain";
+import { createMetadata } from "@docs/lib/metadata";
+import { getPageImage, source } from "@docs/lib/source";
+import { typeGenerator } from "@docs/mdx-components";
 
 export const revalidate = false;
 

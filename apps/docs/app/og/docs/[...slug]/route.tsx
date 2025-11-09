@@ -1,7 +1,7 @@
 import type { InferPageType } from "fumadocs-core/source";
 import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
-import { getPageImage, source } from "../../../../lib/source";
+import { getPageImage, source } from "@docs/lib/source";
 import { getImageResponseOptions, generate as MetadataImage } from "./generate";
 
 export const revalidate = false;

@@ -18,8 +18,8 @@ import Link from "next/link";
 import { useState } from "react";
 
 import { cn } from "@/lib/utils";
-import Logo from "../../logo";
-import { Button } from "../../smoothbutton";
+import Logo from "@docs/components/logo";
+import { Button } from "@docs/components/smoothbutton";
 import { GithubStars } from "./github-stars";
 
 interface MobileNavbarProps {

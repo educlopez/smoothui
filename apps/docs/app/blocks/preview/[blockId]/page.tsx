@@ -1,9 +1,8 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
+import { ColorSync } from "@docs/components/color-sync";
+import { BlockHeightSync } from "@docs/components/preview/block-height-sync";
 import { notFound } from "next/navigation";
-
-import { ColorSync } from "../../../../components/color-sync";
-import { BlockHeightSync } from "../../../../components/preview/block-height-sync";
 
 const TSX_EXTENSION_REGEX = /\.tsx$/;
 
@@ -17,9 +16,9 @@ export default async function BlockPreviewPage({ params }: PageProps) {
   const { blockId } = await params;
 
   try {
-    const BlockExample = await import(
-      `../../../../examples/${blockId}.tsx`
-    ).then((mod) => mod.default);
+    const BlockExample = await import(`@docs/examples/${blockId}.tsx`).then(
+      (mod) => mod.default
+    );
 
     return (
       <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">

@@ -4,7 +4,7 @@ import {
   getAllPackageNameMapping,
   getAllPackageNames,
   getPackage,
-} from "../../../lib/package";
+} from "@docs/lib/package";
 
 type RegistryParams = {
   params: Promise<{ component: string }>;

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-import { Button } from "../components/smoothbutton";
+import { Button } from "@docs/components/smoothbutton";
 
 export function OpenInV0Button({
   url,

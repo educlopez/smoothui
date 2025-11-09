@@ -1,8 +1,8 @@
 "use client";
 
+import { Button } from "@docs/components/smoothbutton";
 import BasicModal from "@repo/smoothui/components/basic-modal";
 import { useState } from "react";
-import { Button } from "../../docs/components/smoothbutton";
 
 const Example = () => {
   const [isOpen, setIsOpen] = useState(false);

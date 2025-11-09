@@ -7,7 +7,7 @@ import {
   AccordionTrigger,
 } from "@repo/shadcn-ui/components/ui/accordion";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import Divider from "../../components/landing/divider";
+import Divider from "@docs/components/landing/divider";
 
 const faqs = [
   {

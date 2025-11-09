@@ -3,6 +3,13 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@docs/*": ["./*"],
+      "@docs/app/*": ["app/*"],
+      "@docs/components/*": ["components/*"],
+      "@docs/content/*": ["content/*"],
+      "@docs/examples/*": ["examples/*"],
+      "@docs/hooks/*": ["hooks/*"],
+      "@docs/lib/*": ["lib/*"],
       "@/*": ["./*"],
       "@repo/*": ["../../packages/*"],
       "@/components/*": ["../../packages/shadcn-ui/components/*"],

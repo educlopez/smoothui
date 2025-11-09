@@ -1,9 +1,9 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Package } from "lucide-react";
-import Divider from "../../components/landing/divider";
-import { ReactLogo } from "../../components/landing/logos/react-logo";
-import { ShadcnLogo } from "../../components/landing/logos/shadcn-logo";
-import { TailwindLogo } from "../../components/landing/logos/tailwind-logo";
+import Divider from "@docs/components/landing/divider";
+import { ReactLogo } from "@docs/components/landing/logos/react-logo";
+import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
+import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 
 const features = [
   {

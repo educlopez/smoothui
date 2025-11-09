@@ -1,16 +1,15 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
-import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef, useState } from "react";
-
 import {
   applyColorPalette,
   COLOR_STORAGE_KEY,
   persistColorPalette,
   resetColorPalette,
-} from "../app/lib/color-palette";
+} from "@docs/app/lib/color-palette";
+import { Button } from "@repo/shadcn-ui/components/ui/button";
+import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 
 const CLOSE_DELAY = 200;
 const SAVE_MESSAGE_DURATION = 1200;

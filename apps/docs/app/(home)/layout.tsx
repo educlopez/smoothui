@@ -1,8 +1,8 @@
-import { BlurMagic } from "../../components/blurmagic/blurmagic";
-import { FloatNav } from "../../components/float-nav";
-import { BgLines } from "../../components/landing/bg-lines";
-import Divider from "../../components/landing/divider";
-import Navbar from "../../components/landing/navbar/navbar";
+import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
+import { FloatNav } from "@docs/components/float-nav";
+import { BgLines } from "@docs/components/landing/bg-lines";
+import Divider from "@docs/components/landing/divider";
+import Navbar from "@docs/components/landing/navbar/navbar";
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (

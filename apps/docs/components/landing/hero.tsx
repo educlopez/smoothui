@@ -9,12 +9,12 @@ import SiriOrb from "@repo/smoothui/components/siri-orb";
 import { User } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import Divider from "../../components/landing/divider";
-import { MotionLogo } from "../../components/landing/logos/motion-logo";
-import { ReactLogo } from "../../components/landing/logos/react-logo";
-import { ShadcnLogo } from "../../components/landing/logos/shadcn-logo";
-import { TailwindLogo } from "../../components/landing/logos/tailwind-logo";
-import { Button } from "../../components/smoothbutton";
+import Divider from "@docs/components/landing/divider";
+import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
+import { ReactLogo } from "@docs/components/landing/logos/react-logo";
+import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
+import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { Button } from "@docs/components/smoothbutton";
 
 const EASE_OUT_QUAD_X1 = 0.25;
 const EASE_OUT_QUAD_Y1 = 0.46;
