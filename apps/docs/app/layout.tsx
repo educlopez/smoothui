@@ -104,6 +104,13 @@ export default function Layout({ children }: LayoutProps<"/">) {
           strategy="beforeInteractive"
           type="application/ld+json"
         />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            data-website-id="065d3f91-4dc8-4b41-a95e-77369e47bd4e"
+            src="https://cloud.umami.is/script.js"
+            strategy="afterInteractive"
+          />
+        )}
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
