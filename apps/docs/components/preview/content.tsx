@@ -7,7 +7,7 @@ import {
 } from "@repo/shadcn-ui/components/ui/resizable";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import type { ElementRef, ReactNode } from "react";
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type PreviewContentProps = {
   children: ReactNode;
@@ -28,7 +28,47 @@ const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
 const COMPONENT_PANEL_MIN_SIZE = 40;
 const BLOCK_PANEL_MIN_SIZE = 30;
 const IFRAME_MIN_HEIGHT_REM = 32;
-const IFRAME_HEIGHT_PX = 920;
+const REM_IN_PX = 16;
+const BLOCK_PREVIEW_MIN_HEIGHT_PX = BLOCK_PREVIEW_MIN_HEIGHT_REM * REM_IN_PX;
+const HEIGHT_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT";
+const HEIGHT_REQUEST_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT_REQUEST";
+
+type HeightMessage = {
+  type?: unknown;
+  blockId?: unknown;
+  height?: unknown;
+};
+
+function extractHeightFromMessage(
+  data: unknown,
+  currentBlockId?: string
+): number | null {
+  if (!data || typeof data !== "object" || data === null) {
+    return null;
+  }
+
+  const payload = data as HeightMessage;
+
+  if (payload.type !== HEIGHT_MESSAGE_TYPE) {
+    return null;
+  }
+
+  if (
+    currentBlockId &&
+    typeof payload.blockId === "string" &&
+    payload.blockId !== currentBlockId
+  ) {
+    return null;
+  }
+
+  const height = Number(payload.height);
+
+  if (!Number.isFinite(height) || height <= 0) {
+    return null;
+  }
+
+  return height;
+}
 
 export const PreviewContent = ({
   children,
@@ -37,6 +77,20 @@ export const PreviewContent = ({
   size = "desktop",
 }: PreviewContentProps) => {
   const resizablePanelRef = useRef<ElementRef<typeof ResizablePanel>>(null);
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const blockIdRef = useRef<string | undefined>(blockPath);
+  const [blockHeight, setBlockHeight] = useState<number>(
+    BLOCK_PREVIEW_MIN_HEIGHT_PX
+  );
+
+  useEffect(() => {
+    if (type !== "block") {
+      return;
+    }
+
+    setBlockHeight(BLOCK_PREVIEW_MIN_HEIGHT_PX);
+    blockIdRef.current = blockPath ?? undefined;
+  }, [blockPath, type]);
 
   useEffect(() => {
     if (type !== "block") {
@@ -47,7 +101,43 @@ export const PreviewContent = ({
     if (resizablePanelRef.current) {
       resizablePanelRef.current.resize(percentage);
     }
+
+    if (iframeRef.current?.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        {
+          type: HEIGHT_REQUEST_MESSAGE_TYPE,
+          blockId: blockIdRef.current,
+        },
+        "*"
+      );
+    }
   }, [size, type]);
+
+  useEffect(() => {
+    if (type !== "block") {
+      return;
+    }
+
+    const handleMessage = (event: MessageEvent) => {
+      const height = extractHeightFromMessage(event.data, blockIdRef.current);
+
+      if (height === null) {
+        return;
+      }
+
+      const nextHeight = Math.max(height, BLOCK_PREVIEW_MIN_HEIGHT_PX);
+
+      setBlockHeight((previousHeight) =>
+        Math.abs(previousHeight - nextHeight) < 1 ? previousHeight : nextHeight
+      );
+    };
+
+    window.addEventListener("message", handleMessage);
+
+    return () => {
+      window.removeEventListener("message", handleMessage);
+    };
+  }, [type]);
 
   const iframeSrc = useMemo(() => {
     if (type !== "block" || !blockPath) {
@@ -100,14 +190,18 @@ export const PreviewContent = ({
         >
           {type === "block" && iframeSrc ? (
             <iframe
-              className="h-full w-full"
-              height={IFRAME_HEIGHT_PX}
+              className="w-full"
               loading="lazy"
+              ref={iframeRef}
               src={iframeSrc}
               style={{
                 backgroundColor: "hsl(var(--background))",
                 border: 0,
                 minHeight: `${IFRAME_MIN_HEIGHT_REM}rem`,
+                height: `${Math.max(
+                  blockHeight,
+                  BLOCK_PREVIEW_MIN_HEIGHT_PX
+                )}px`,
               }}
               title={`${blockPath ?? "block"} preview`}
             />

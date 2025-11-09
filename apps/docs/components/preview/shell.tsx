@@ -79,7 +79,13 @@ export const PreviewShell = ({
         className
       )}
     >
-      <Tabs className="flex h-full flex-col gap-0" defaultValue="preview">
+      <Tabs
+        className={cn(
+          "flex flex-col gap-0",
+          type === "component" ? "h-full" : "h-auto"
+        )}
+        defaultValue="preview"
+      >
         <div className="flex flex-col gap-2 border-b bg-muted/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
           <TabsList className="flex h-9 items-center gap-1 rounded-md bg-transparent p-0 shadow-none">
             <TabsTrigger value="preview">
@@ -148,10 +154,10 @@ export const PreviewShell = ({
         </div>
         <TabsContent
           className={cn(
-            "flex-1 overflow-y-auto bg-background",
-            type === "component"
-              ? "size-full overflow-hidden"
-              : "h-auto overflow-auto"
+            "bg-background",
+            type === "component" ? "flex-1" : "flex-none",
+            type === "component" ? "size-full" : "h-auto",
+            type === "component" ? "overflow-hidden" : "overflow-visible"
           )}
           value="preview"
         >

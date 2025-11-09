@@ -3,6 +3,9 @@ import { join } from "node:path";
 import { notFound } from "next/navigation";
 
 import { ColorSync } from "../../../../components/color-sync";
+import { BlockHeightSync } from "../../../../components/preview/block-height-sync";
+
+const TSX_EXTENSION_REGEX = /\.tsx$/;
 
 type PageProps = {
   params: Promise<{
@@ -21,10 +24,11 @@ export default async function BlockPreviewPage({ params }: PageProps) {
     return (
       <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">
         <ColorSync />
+        <BlockHeightSync blockId={blockId} />
         <BlockExample />
       </div>
     );
-  } catch (error) {
+  } catch {
     notFound();
   }
 }
@@ -37,7 +41,7 @@ export async function generateStaticParams() {
     return files
       .filter((file) => file.endsWith(".tsx"))
       .map((file) => ({
-        blockId: file.replace(/\.tsx$/, ""),
+        blockId: file.replace(TSX_EXTENSION_REGEX, ""),
       }));
   } catch {
     return [];
