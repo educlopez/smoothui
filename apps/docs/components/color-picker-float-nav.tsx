@@ -5,83 +5,15 @@ import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const OKLCH_REGEX = /oklch\(([^)]+)\)/;
-const MAX_LIGHTNESS = 1.0;
-const LIGHT_ADJUSTMENT = 0.1;
-const LIGHTER_ADJUSTMENT = 0.2;
-const CHROMA_LIGHT_ADJUSTMENT = 0.05;
-const CHROMA_LIGHTER_ADJUSTMENT = 0.1;
-const OPACITY_LIGHT = 0.7;
-const OPACITY_LIGHTER = 0.5;
+import {
+  applyColorPalette,
+  COLOR_STORAGE_KEY,
+  persistColorPalette,
+  resetColorPalette,
+} from "../app/lib/color-palette";
+
 const CLOSE_DELAY = 200;
 const SAVE_MESSAGE_DURATION = 1200;
-
-// Helper to update shadow when secondary color changes
-function updateShadowCustomCandy(candySecondary: string) {
-  document.body.style.setProperty(
-    "--shadow-custom-brand",
-    `0px 1px 2px #0006, 0px 0px 0px 1px ${candySecondary}, inset 0px .75px 0px #fff3`
-  );
-}
-
-// Helper to generate light and lighter variations of a color
-function generateColorVariations(baseColor: string) {
-  if (baseColor.startsWith("oklch")) {
-    const lightColor = baseColor.replace(OKLCH_REGEX, (_match, values) => {
-      const parts = values.split(" ");
-      const lightness = Math.min(
-        Number.parseFloat(parts[0]) + LIGHT_ADJUSTMENT,
-        MAX_LIGHTNESS
-      );
-      const chroma = Math.max(
-        Number.parseFloat(parts[1]) - CHROMA_LIGHT_ADJUSTMENT,
-        0
-      );
-      const hue = parts[2];
-      return `oklch(${lightness} ${chroma} ${hue})`;
-    });
-
-    const lighterColor = baseColor.replace(OKLCH_REGEX, (_match, values) => {
-      const parts = values.split(" ");
-      const lightness = Math.min(
-        Number.parseFloat(parts[0]) + LIGHTER_ADJUSTMENT,
-        MAX_LIGHTNESS
-      );
-      const chroma = Math.max(
-        Number.parseFloat(parts[1]) - CHROMA_LIGHTER_ADJUSTMENT,
-        0
-      );
-      const hue = parts[2];
-      return `oklch(${lightness} ${chroma} ${hue})`;
-    });
-
-    return { lightColor, lighterColor };
-  }
-
-  // Fallback to opacity-based approach
-  const lightColor = baseColor
-    .replace(")", ` / ${OPACITY_LIGHT})`)
-    .replace("oklch", "oklch");
-  const lighterColor = baseColor
-    .replace(")", ` / ${OPACITY_LIGHTER})`)
-    .replace("oklch", "oklch");
-
-  return { lightColor, lighterColor };
-}
-
-function generateColorPalette(primaryColor: string, secondaryColor: string) {
-  const primaryVariations = generateColorVariations(primaryColor);
-  const secondaryVariations = generateColorVariations(secondaryColor);
-
-  return {
-    primary: primaryColor,
-    primaryLight: primaryVariations.lightColor,
-    primaryLighter: primaryVariations.lighterColor,
-    secondary: secondaryColor,
-    secondaryLight: secondaryVariations.lightColor,
-    secondaryLighter: secondaryVariations.lighterColor,
-  };
-}
 
 const PALETTES = [
   {
@@ -125,38 +57,13 @@ export function ColorPickerFloatNav() {
   const [saved, setSaved] = useState(false);
 
   useEffect(() => {
-    const savedColors = localStorage.getItem("smoothui-colors");
+    const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
     if (savedColors) {
       try {
         const parsed = JSON.parse(savedColors);
         setCandy(parsed.candy);
         setCandySecondary(parsed.candySecondary);
-        document.body.style.setProperty("--color-brand", parsed.candy);
-        document.body.style.setProperty(
-          "--color-brand-secondary",
-          parsed.candySecondary
-        );
-
-        const palette = generateColorPalette(
-          parsed.candy,
-          parsed.candySecondary
-        );
-        document.body.style.setProperty("--color-brand", palette.primary);
-        document.body.style.setProperty("--color-fd-primary", palette.primary);
-        document.body.style.setProperty(
-          "--color-brand-light",
-          palette.primaryLight
-        );
-        document.body.style.setProperty(
-          "--color-brand-lighter",
-          palette.primaryLighter
-        );
-        document.body.style.setProperty(
-          "--color-brand-secondary",
-          palette.secondary
-        );
-
-        updateShadowCustomCandy(parsed.candySecondary);
+        applyColorPalette(parsed.candy, parsed.candySecondary);
         return;
       } catch {
         // Ignore
@@ -171,7 +78,9 @@ export function ColorPickerFloatNav() {
       .trim();
     setCandy(c);
     setCandySecondary(cs);
-    updateShadowCustomCandy(cs);
+    if (c && cs) {
+      applyColorPalette(c, cs);
+    }
   }, []);
 
   useEffect(() => {
@@ -211,14 +120,8 @@ export function ColorPickerFloatNav() {
   }, [open]);
 
   function handleReset() {
-    document.body.style.removeProperty("--color-brand");
-    document.body.style.removeProperty("--color-fd-primary");
-    document.body.style.removeProperty("--color-brand-secondary");
-    document.body.style.removeProperty("--color-brand-light");
-    document.body.style.removeProperty("--color-brand-lighter");
-    document.body.style.removeProperty("--shadow-custom-brand");
-
-    localStorage.removeItem("smoothui-colors");
+    resetColorPalette();
+    localStorage.removeItem(COLOR_STORAGE_KEY);
 
     const c = getComputedStyle(document.body)
       .getPropertyValue("--color-brand")
@@ -232,10 +135,7 @@ export function ColorPickerFloatNav() {
   }
 
   function handleSave() {
-    localStorage.setItem(
-      "smoothui-colors",
-      JSON.stringify({ candy, candySecondary })
-    );
+    persistColorPalette(candy, candySecondary);
     setSaved(true);
     setTimeout(() => setSaved(false), SAVE_MESSAGE_DURATION);
   }
@@ -285,41 +185,8 @@ export function ColorPickerFloatNav() {
                   onClick={() => {
                     setCandy(palette.candy);
                     setCandySecondary(palette.candySecondary);
-                    document.body.style.setProperty(
-                      "--color-brand",
-                      palette.candy
-                    );
-                    document.body.style.setProperty(
-                      "--color-brand-secondary",
-                      palette.candySecondary
-                    );
-
-                    const colorPalette = generateColorPalette(
-                      palette.candy,
-                      palette.candySecondary
-                    );
-                    document.body.style.setProperty(
-                      "--color-brand",
-                      colorPalette.primary
-                    );
-                    document.body.style.setProperty(
-                      "--color-fd-primary",
-                      colorPalette.primary
-                    );
-                    document.body.style.setProperty(
-                      "--color-brand-light",
-                      colorPalette.primaryLight
-                    );
-                    document.body.style.setProperty(
-                      "--color-brand-lighter",
-                      colorPalette.primaryLighter
-                    );
-                    document.body.style.setProperty(
-                      "--color-brand-secondary",
-                      colorPalette.secondary
-                    );
-
-                    updateShadowCustomCandy(palette.candySecondary);
+                    applyColorPalette(palette.candy, palette.candySecondary);
+                    persistColorPalette(palette.candy, palette.candySecondary);
                   }}
                   style={{
                     background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,

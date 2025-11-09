@@ -2,6 +2,8 @@ import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { notFound } from "next/navigation";
 
+import { ColorSync } from "../../../../components/color-sync";
+
 type PageProps = {
   params: Promise<{
     blockId: string;
@@ -18,6 +20,7 @@ export default async function BlockPreviewPage({ params }: PageProps) {
 
     return (
       <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">
+        <ColorSync />
         <BlockExample />
       </div>
     );
@@ -40,4 +43,3 @@ export async function generateStaticParams() {
     return [];
   }
 }
-
