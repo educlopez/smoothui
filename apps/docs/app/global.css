@@ -188,30 +188,34 @@
   animation: slide-in-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
+.prose
+  :where(h1, h2, h3, h4, h5, h6):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
   @apply font-semibold text-foreground tracking-tight;
 }
-.prose h1 {
+.prose
+  :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply -tracking-wide font-bold text-3xl;
 }
-.prose h2 {
+.prose
+  :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-lg;
 }
-.prose h3 {
+.prose
+  :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-base;
 }
-.prose h4 {
+.prose
+  :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-sm;
 }
-.prose h5 {
+.prose
+  :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-xs;
 }
-.prose h6 {
+.prose
+  :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-medium text-xs;
 }
 .prose p {
