@@ -218,13 +218,16 @@
   :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-medium text-xs;
 }
-.prose p {
+.prose
+  :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply text-base;
 }
-.prose strong {
+.prose
+  :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold;
 }
-.prose .peer {
+.prose
+  :where(.peer):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold;
 }
 
