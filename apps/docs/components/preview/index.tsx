@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { join } from "node:path";
+import { dirname, extname, join, relative, resolve } from "node:path";
 
 import { PreviewRender } from "./render";
 import { PreviewShell } from "./shell";
@@ -107,16 +107,143 @@ const readOptionalFile = async (filePath: string) => {
   }
 };
 
+const RELATIVE_IMPORT_REGEX =
+  /import\s+(?:type\s+)?(?:[\w*\s{},$]+from\s+)?["'](\.[^"']+)["']/g;
+
+const RELATIVE_SOURCE_EXTENSIONS = [".tsx", ".ts", ".jsx", ".js"];
+const SOURCE_EXTENSION_REGEX = /\.(tsx|ts|jsx|js)$/;
+
 const readFirstExisting = async (filePaths: string[]) => {
   for (const filePath of filePaths) {
     const source = await readOptionalFile(filePath);
 
     if (source) {
-      return source;
+      return { source, path: filePath };
     }
   }
 
   return null;
+};
+
+const stripQueryFromImport = (importPath: string) =>
+  importPath.split("?", 1)[0];
+
+const removeExtension = (filePath: string) =>
+  filePath.replace(SOURCE_EXTENSION_REGEX, "");
+
+const resolveRelativeImportPath = async (
+  baseDir: string,
+  importSpecifier: string
+) => {
+  const sanitizedSpecifier = stripQueryFromImport(importSpecifier);
+  const specifierExtension = extname(sanitizedSpecifier);
+
+  if (
+    specifierExtension &&
+    !RELATIVE_SOURCE_EXTENSIONS.includes(specifierExtension)
+  ) {
+    return null;
+  }
+
+  const hasExtension =
+    specifierExtension !== "" &&
+    RELATIVE_SOURCE_EXTENSIONS.includes(specifierExtension);
+
+  const candidates: string[] = [];
+
+  if (hasExtension) {
+    candidates.push(resolve(baseDir, sanitizedSpecifier));
+  } else {
+    for (const extension of RELATIVE_SOURCE_EXTENSIONS) {
+      candidates.push(resolve(baseDir, `${sanitizedSpecifier}${extension}`));
+    }
+
+    for (const extension of RELATIVE_SOURCE_EXTENSIONS) {
+      candidates.push(
+        resolve(baseDir, join(sanitizedSpecifier, `index${extension}`))
+      );
+    }
+  }
+
+  for (const candidate of candidates) {
+    const source = await readOptionalFile(candidate);
+
+    if (source) {
+      return { filePath: candidate, source };
+    }
+  }
+
+  return null;
+};
+
+const collectRelativeSources = async ({
+  baseDir,
+  filePath,
+  rootName,
+  source,
+  addSourceComponent,
+  processedFilePaths,
+}: {
+  baseDir: string;
+  filePath: string;
+  rootName: string;
+  source: string;
+  addSourceComponent: (
+    name: string,
+    source: string,
+    options?: { prepend?: boolean }
+  ) => void;
+  processedFilePaths: Set<string>;
+}) => {
+  const importMatches = new Set<string>();
+  RELATIVE_IMPORT_REGEX.lastIndex = 0;
+  let match = RELATIVE_IMPORT_REGEX.exec(source);
+
+  while (match) {
+    const specifier = match[1];
+    importMatches.add(specifier);
+    match = RELATIVE_IMPORT_REGEX.exec(source);
+  }
+
+  for (const importSpecifier of importMatches) {
+    const resolved = await resolveRelativeImportPath(
+      dirname(filePath),
+      importSpecifier
+    );
+
+    if (!resolved) {
+      continue;
+    }
+
+    const { filePath: resolvedPath, source: resolvedSource } = resolved;
+
+    if (processedFilePaths.has(resolvedPath)) {
+      continue;
+    }
+
+    const relativePath = relative(baseDir, resolvedPath);
+
+    if (relativePath.startsWith("..")) {
+      continue;
+    }
+
+    processedFilePaths.add(resolvedPath);
+
+    const displayName = `${rootName}/${removeExtension(
+      relativePath.replace(/\\/g, "/")
+    )}`;
+
+    addSourceComponent(displayName, resolvedSource);
+
+    await collectRelativeSources({
+      baseDir,
+      filePath: resolvedPath,
+      rootName,
+      source: resolvedSource,
+      addSourceComponent,
+      processedFilePaths,
+    });
+  }
 };
 
 const gatherSourceComponents = async ({
@@ -126,6 +253,7 @@ const gatherSourceComponents = async ({
   path,
 }: GatherSourceArgs) => {
   const sourceComponents: SourceComponent[] = [];
+  const processedFilePaths = new Set<string>();
   const addSourceComponent = (
     name: string,
     source: string,
@@ -158,13 +286,23 @@ const gatherSourceComponents = async ({
       "components",
       component
     );
-    const source = await readFirstExisting([
+    const resolvedSource = await readFirstExisting([
       `${basePath}.tsx`,
       join(basePath, "index.tsx"),
     ]);
 
-    if (source) {
+    if (resolvedSource) {
+      const { source, path: sourcePath } = resolvedSource;
+      processedFilePaths.add(sourcePath);
       addSourceComponent(component, source);
+      await collectRelativeSources({
+        baseDir: dirname(sourcePath),
+        filePath: sourcePath,
+        rootName: component,
+        source,
+        addSourceComponent,
+        processedFilePaths,
+      });
     }
   }
 
@@ -198,39 +336,55 @@ const gatherSourceComponents = async ({
     const fileName = component.includes("/")
       ? `${component}.tsx`
       : `${component}/index.tsx`;
-    const source = await readOptionalFile(
-      join(
-        process.cwd(),
-        "..",
-        "..",
-        "packages",
-        "smoothui",
-        "components",
-        fileName
-      )
+    const componentPath = join(
+      process.cwd(),
+      "..",
+      "..",
+      "packages",
+      "smoothui",
+      "components",
+      fileName
     );
+    const source = await readOptionalFile(componentPath);
 
     if (source) {
+      processedFilePaths.add(componentPath);
       addSourceComponent(component, source);
+      await collectRelativeSources({
+        baseDir: dirname(componentPath),
+        filePath: componentPath,
+        rootName: component,
+        source,
+        addSourceComponent,
+        processedFilePaths,
+      });
     }
   }
 
   if (type === "block" && !sourceComponents.some((s) => s.name === path)) {
-    const blockSource = await readOptionalFile(
-      join(
-        process.cwd(),
-        "..",
-        "..",
-        "packages",
-        "smoothui",
-        "blocks",
-        path,
-        "index.tsx"
-      )
+    const blockFilePath = join(
+      process.cwd(),
+      "..",
+      "..",
+      "packages",
+      "smoothui",
+      "blocks",
+      path,
+      "index.tsx"
     );
+    const blockSource = await readOptionalFile(blockFilePath);
 
     if (blockSource) {
+      processedFilePaths.add(blockFilePath);
       addSourceComponent(path, blockSource, { prepend: true });
+      await collectRelativeSources({
+        baseDir: dirname(blockFilePath),
+        filePath: blockFilePath,
+        rootName: path,
+        source: blockSource,
+        addSourceComponent,
+        processedFilePaths,
+      });
       await addSharedComponents(blockSource, sourceComponents);
     }
   }
