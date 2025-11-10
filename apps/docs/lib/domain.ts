@@ -1,6 +1,6 @@
 function getDomain(): string {
   if (process.env.NEXT_PUBLIC_VERCEL_ENV === "production") {
-    return "https://smoothui-monorepo.vercel.app";
+    return "https://smoothui.dev";
   }
   if (process.env.VERCEL_BRANCH_URL) {
     return `https://${process.env.VERCEL_BRANCH_URL}`;

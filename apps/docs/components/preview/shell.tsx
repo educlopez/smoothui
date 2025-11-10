@@ -92,14 +92,14 @@ export const PreviewShell = ({
               <EyeIcon className="text-muted-foreground" size={16} />
               Preview
             </TabsTrigger>
-            <TabsTrigger value="code">
-              <CodeIcon className="text-muted-foreground" size={16} />
-              Code
+            <TabsTrigger value="example">
+              <BoxIcon className="text-muted-foreground" size={16} />
+              Example
             </TabsTrigger>
             {sourceComponents.length > 0 && (
-              <TabsTrigger value="source">
-                <BoxIcon className="text-muted-foreground" size={16} />
-                Source
+              <TabsTrigger value="code">
+                <CodeIcon className="text-muted-foreground" size={16} />
+                Code
               </TabsTrigger>
             )}
           </TabsList>
@@ -167,14 +167,14 @@ export const PreviewShell = ({
         </TabsContent>
         <TabsContent
           className="flex-1 overflow-y-auto bg-background"
-          value="code"
+          value="example"
         >
           <PreviewCode code={parsedCode} filename="index.tsx" language="tsx" />
         </TabsContent>
         {sourceComponents.length > 0 && (
           <TabsContent
             className="flex-1 overflow-y-auto bg-background"
-            value="source"
+            value="code"
           >
             <PreviewSource source={sourceComponents} />
           </TabsContent>
