@@ -1,0 +1,107 @@
+---
+title: Installation
+description: Learn how to install SmoothUI components using shadcn CLI or manual installation methods.
+icon: Download
+---
+
+
+## Installation (Official Registry)
+
+<BodyText>
+SmoothUI is an official shadcn registry, so you can install components directly without any configuration. Just use the `@smoothui{:js}` namespace.
+</BodyText>
+
+<FeatureCard title="No Configuration Required" variant="info">
+Since SmoothUI is an official registry, you don't need to add anything to your `components.json{:js}` file. Just install components directly!
+</FeatureCard>
+
+### Install Components
+
+<BodyText>
+Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` namespace:
+</BodyText>
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```bash
+# Install a single component
+pnpm dlx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+pnpm dlx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```bash
+# Install a single component
+npx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+npx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```bash
+# Install a single component
+yarn dlx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+yarn dlx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```bash
+# Install a single component
+bunx shadcn@latest add @smoothui/siri-orb
+
+# Install multiple components
+bunx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+
+# Install components with dependencies
+bunx shadcn@latest add @smoothui/scrollable-card-stack
+```
+
+</Tab>
+
+</Tabs>
+
+### Use Components
+
+<BodyText>
+Import and use the installed components in your React application:
+</BodyText>
+
+```tsx
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb"
+import { RichPopover } from "@/components/smoothui/ui/RichPopover"
+
+export default function App() {
+  return (
+    <div>
+      <SiriOrb size="200px" />
+      <RichPopover />
+    </div>
+  )
+}
+```
+

@@ -1,0 +1,41 @@
+---
+title: UI Blocks
+description: Discover 20+ production-ready UI blocks including headers, footers, pricing tables, testimonials, FAQs, and more. Copy-paste React components with smooth animations, fully responsive and accessible.
+---
+
+## Basic Information About Blocks
+
+Copy the component code directly from any block page, or import from the package:
+
+```tsx
+import { Header1, Pricing1, Testimonials1 } from "@repo/smoothui/blocks";
+
+export default function LandingPage() {
+  return (
+    <>
+      <Header1 />
+      <Pricing1 />
+      <Testimonials1 />
+    </>
+  );
+}
+```
+
+## Customization
+
+All blocks use Tailwind CSS and can be customized via:
+- Tailwind utility classes
+- CSS variables for theming
+- Component props for behavior
+
+Replace placeholder content and adjust colors, spacing, and animations to match your brand.
+
+<Cards>
+  <Card title="Browse All Blocks" href="/blocks" description="View all 20+ available blocks" />
+  <Card title="Header Blocks" href="/docs/blocks/headers" description="Navigation headers with mobile menus" />
+  <Card title="Pricing Blocks" href="/docs/blocks/pricing" description="Pricing tables for SaaS products" />
+  <Card title="Components" href="/docs/components" description="Individual UI components" />
+  <Card title="Installation Guide" href="/docs/installation" description="Get started with SmoothUI" />
+  <Card title="Documentation" href="/docs" description="Complete documentation and guides" />
+</Cards>
+

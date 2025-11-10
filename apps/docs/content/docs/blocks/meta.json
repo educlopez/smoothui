@@ -1,0 +1,19 @@
+{
+  "title": "Blocks",
+  "description": "Pre-built page sections and layouts ready to use in your projects",
+  "icon": "Zap",
+  "root": true,
+  "pages": [
+    "---Guide---",
+    "index",
+    "---Blocks---",
+    "faqs",
+    "footer",
+    "hero",
+    "logo-clouds",
+    "pricing",
+    "stats",
+    "team-sections",
+    "testimonial"
+  ]
+}

@@ -1,0 +1,78 @@
+---
+title: UI Components
+description: Browse 40+ production-ready React components with smooth animations. Buttons, inputs, modals, cards, and more. Built with TypeScript, Framer Motion, and Tailwind CSS. Fully accessible and customizable.
+---
+
+## Basic Information About Components
+
+Install components using the CLI:
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```bash
+pnpm dlx smoothui@latest add animated-input
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```bash
+npx smoothui@latest add animated-input
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```bash
+yarn dlx smoothui@latest add animated-input
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```bash
+bunx smoothui@latest add animated-input
+```
+
+</Tab>
+
+</Tabs>
+
+## Usage
+
+```tsx
+import { AnimatedInput, NumberFlow, WaveText } from "@repo/smoothui/components";
+
+export function MyComponent() {
+  return (
+    <div>
+      <AnimatedInput label="Email" placeholder="Enter your email" />
+      <NumberFlow value={1234} />
+      <WaveText>Hello World</WaveText>
+    </div>
+  );
+}
+```
+
+## Customization
+
+All components are customizable via:
+- Tailwind CSS utility classes
+- CSS variables for theming
+- Component props for behavior and styling
+
+Components are tree-shakeable, TypeScript-first, and accessible by default.
+
+<Cards>
+  <Card title="Browse All Components" href="/components" description="View all 40+ available components" />
+  <Card title="Form Components" href="/components?category=form" description="Inputs, selects, and form elements" />
+  <Card title="Animated Components" href="/components?category=animated" description="Components with smooth animations" />
+  <Card title="Installation Guide" href="/docs/installation" description="Get started with SmoothUI" />
+  <Card title="Theming Guide" href="/docs/theming" description="Customize colors and styles" />
+  <Card title="API Reference" href="/docs/api" description="Complete component API documentation" />
+</Cards>

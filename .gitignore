@@ -1,8 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
+node_modules
+.pnp
 .pnp.js
 .yarn/install-state.gz
 
@@ -10,11 +10,12 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
-/build
+build
+dist
 
 # misc
 .DS_Store
@@ -31,25 +32,18 @@ yarn-error.log*
 # vercel
 .vercel
 
+# Turbo
+.turbo
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
 
 #cursorrules
 .cursorrules
+.cursor/
 
-# generated files
-/.component-sources
-src/components/smoothui/index.ts
-/public/r
-/public/r-demo
-/public/r-install
-/public/index.json
-
-#cursorrules
-/.cursor/
-
+# others
 notes.md
 .playwright-mcp
-
 AGENT.md

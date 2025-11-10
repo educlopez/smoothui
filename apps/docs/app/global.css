@@ -1,0 +1,258 @@
+@import "tailwindcss";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+
+@source '../node_modules/fumadocs-ui/dist/**/*.js';
+@source '../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}';
+@source '../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}';
+@source '../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}';
+@source '../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}';
+@import "./smoothui.css";
+
+@theme inline {
+  --font-body: var(--font-inter);
+  --font-title: var(--font-poppins);
+  --shiki-theme: var(--shiki--light);
+  --shiki--light: var(--shiki-theme);
+  --shiki--dark: var(--shiki-theme);
+  --shadow-custom: var(--shadow-custom);
+  --shadow-custom-brand: var(--shadow-custom-brand);
+}
+
+:root {
+  --color-bt-gray: var(--bt-gray);
+  --color-contrast-higher: #fff;
+  --color-contrast-highest: #fff;
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --bt-gray: #e5e7eb;
+  --shadow-custom-brand: 0px 1px 2px rgba(0, 0, 0, 0.4),
+    0px 0px 0px 1px var(--color-brand-secondary),
+    inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
+  --shadow-custom: 0px 0px 0px 1px rgba(0, 0, 0, 0.08),
+    0px 1px 2px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --lines-page: url("/lines-b.png");
+  --color-fd-primary: var(--color-brand);
+  --color-fd-secondary: var(--color-smooth-50);
+}
+
+.dark {
+  --bt-gray: black;
+  --shadow-custom: 0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
+    0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
+    0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+  --lines-page: url("/lines-w.png");
+}
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  .dark {
+    --shiki-theme: var(--shiki--dark);
+    --shiki--light: var(--shiki-theme);
+    --shiki--dark: var(--shiki-theme);
+  }
+  [data-theme="dark"] {
+    --shiki-theme: var(--shiki--dark);
+  }
+  [data-theme="light"] {
+    --shiki-theme: var(--shiki--light);
+  }
+}
+
+::selection {
+  @apply bg-brand-secondary/20 text-brand;
+}
+
+.shiki {
+  box-shadow: none;
+}
+
+.gradient-brand {
+  @apply from-brand-secondary to-brand bg-gradient-to-bl;
+}
+.hover\:gradient-brand:hover {
+  @apply from-brand-secondary to-brand bg-gradient-to-bl;
+}
+
+.shadow-custom-btgray {
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4),
+    0px 0px 0px 1px var(--color-bt-gray),
+    inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
+}
+
+.bg-lines-page {
+  background-image: var(--lines-page);
+  background-repeat: repeat;
+}
+
+[data-slot="dropdown-menu-item"] {
+  @apply focus:bg-primary focus:border-border text-foreground border border-transparent;
+}
+
+.float-trigger {
+  @apply text-foreground flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-medium outline-0;
+}
+
+.float-trigger:hover {
+  @apply bg-primary border-border border;
+}
+
+.prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+  padding-inline-start: 1rem;
+  list-style-type: disc;
+}
+.prose
+  :where(ul > li):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  )::marker {
+  color: var(--color-smooth-800);
+}
+
+.frame-box {
+  @apply bg-primary inset-ring-background border inset-ring-2 before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
+}
+
+/* Price Flow Animations */
+@keyframes slide-out-up {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out-down {
+  0% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-down {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.slide-out-up {
+  animation: slide-out-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-out-down {
+  animation: slide-out-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-in-up {
+  animation: slide-in-up 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.slide-in-down {
+  animation: slide-in-down 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.prose
+  :where(h1, h2, h3, h4, h5, h6):not(
+    :where([class~="not-prose"], [class~="not-prose"] *)
+  ) {
+  @apply font-semibold text-foreground tracking-tight;
+}
+.prose
+  :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply -tracking-wide font-bold text-3xl;
+}
+.prose
+  :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply font-semibold text-lg;
+}
+.prose
+  :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply font-semibold text-base;
+}
+.prose
+  :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply font-semibold text-sm;
+}
+.prose
+  :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply font-semibold text-xs;
+}
+.prose
+  :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  @apply font-medium text-xs;
+}
+.prose p {
+  @apply text-base;
+}
+.prose strong {
+  @apply font-semibold;
+}
+.prose .peer {
+  @apply font-semibold;
+}
+
+
+
+/* Accordion Animations */
+@keyframes accordion-down {
+  from {
+    height: 0;
+  }
+  to {
+    height: var(--radix-accordion-content-height);
+  }
+}
+
+@keyframes accordion-up {
+  from {
+    height: var(--radix-accordion-content-height);
+  }
+  to {
+    height: 0;
+  }
+}
+
+.animate-accordion-down {
+  animation: accordion-down 0.2s ease-out;
+}
+
+.animate-accordion-up {
+  animation: accordion-up 0.2s ease-out;
+}

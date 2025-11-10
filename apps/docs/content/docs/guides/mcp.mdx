@@ -1,0 +1,338 @@
+---
+title: MCP Server
+description: MCP support for SmoothUI registry - Enable AI assistants to discover and use SmoothUI components.
+icon: Bot
+---
+
+# MCP Server
+
+<BodyText>
+MCP support for registry developers - Enable AI assistants to discover and use SmoothUI components.
+</BodyText>
+
+<BodyText>
+The **shadcn MCP server** works out of the box with any shadcn-compatible registry. You do not need to do anything special to enable MCP support for your SmoothUI registry.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+The MCP server works by requesting your registry index. Make sure you have a registry item file at the root of your registry named `registry.json{:js}`.
+</BodyText>
+
+<BodyText>
+For example, if your registry is hosted at `https://smoothui.dev/r/[name].json{:js}`, you should have a file at `https://smoothui.dev/r/registry.json{:js}`.
+</BodyText>
+
+<BodyText>
+This file must be a valid JSON file that conforms to the registry schema.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Configuring MCP
+
+<BodyText>
+Ask your registry consumers to configure your registry in their `components.json{:js}` file and install the shadcn MCP server:
+</BodyText>
+
+<Tabs items={['Claude Code', 'Cursor', 'VS Code']} defaultIndex={0}>
+
+<Tab value="Claude Code">
+
+<div className="space-y-4">
+
+<BodyText>
+**Configure your registry** in your `components.json{:js}` file:
+</BodyText>
+
+```json title="components.json"
+{
+  "registries": {
+    // [!code highlight]
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+<BodyText>
+**Run the following command** in your project:
+</BodyText>
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```shell title="Terminal"
+pnpm dlx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```shell title="Terminal"
+yarn dlx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```shell title="Terminal"
+bunx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+
+</Tabs>
+
+<BodyText>
+**Restart Claude Code** and try the following prompts:
+</BodyText>
+
+- Show me the components in the smoothui registry
+- Create a landing page using items from the smoothui registry
+- Install the SiriOrb component from smoothui
+
+<BodyText>
+**Note:** You can use `/mcp{:js}` command in Claude Code to debug the MCP server.
+</BodyText>
+
+</div>
+
+</Tab>
+
+<Tab value="Cursor">
+
+<div className="space-y-4">
+
+<BodyText>
+**Configure your registry** in your `components.json{:js}` file:
+</BodyText>
+
+```json title="components.json"
+{
+  "registries": {
+    // [!code highlight]
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+<BodyText>
+**Run the following command** in your project:
+</BodyText>
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```shell title="Terminal"
+pnpm dlx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```shell title="Terminal"
+yarn dlx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```shell title="Terminal"
+bunx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+
+</Tabs>
+
+<BodyText>
+Open **Cursor Settings** and **Enable the MCP server** for shadcn. Then try the following prompts:
+</BodyText>
+
+- Show me the components in the smoothui registry
+- Create a landing page using items from the smoothui registry
+- Install the SiriOrb component from smoothui
+
+</div>
+
+</Tab>
+
+<Tab value="VS Code">
+
+<div className="space-y-4">
+
+<BodyText>
+**Configure your registry** in your `components.json{:js}` file:
+</BodyText>
+
+```json title="components.json"
+{
+  "registries": {
+    // [!code highlight]
+    "@smoothui": "https://smoothui.dev/r/{name}.json"
+  }
+}
+```
+
+<BodyText>
+**Run the following command** in your project:
+</BodyText>
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```shell title="Terminal"
+pnpm dlx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```shell title="Terminal"
+yarn dlx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```shell title="Terminal"
+bunx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+
+</Tabs>
+
+<BodyText>
+Open `.vscode/mcp.json{:js}` and click **Start** next to the shadcn server. Then try the following prompts with GitHub Copilot:
+</BodyText>
+
+- Show me the components in the smoothui registry
+- Create a landing page using items from the smoothui registry
+- Install the SiriOrb component from smoothui
+
+</div>
+
+</Tab>
+
+</Tabs>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Example Prompts
+
+<BodyText>
+Once MCP is configured, you can use these prompts with your AI assistant:
+</BodyText>
+
+<div className="space-y-4">
+
+<div className="bg-primary/50 rounded-lg border p-4">
+  <h3 className="mb-2 font-semibold">Component Discovery</h3>
+  <ul className="list-inside space-y-1">
+    <li>&ldquo;Show me all available components in the smoothui registry&rdquo;</li>
+    <li>&ldquo;What animation components are available in smoothui?&rdquo;</li>
+    <li>&ldquo;List all interactive components from smoothui&rdquo;</li>
+  </ul>
+</div>
+
+<div className="bg-primary/50 rounded-lg border p-4">
+  <h3 className="mb-2 font-semibold">Component Installation</h3>
+  <ul className="list-inside space-y-1">
+    <li>&ldquo;Install the SiriOrb component from smoothui&rdquo;</li>
+    <li>&ldquo;Add the RichPopover component to my project&rdquo;</li>
+    <li>&ldquo;Install multiple components: SiriOrb, AnimatedInput, and ScrollableCardStack&rdquo;</li>
+  </ul>
+</div>
+
+<div className="bg-primary/50 rounded-lg border p-4">
+  <h3 className="mb-2 font-semibold">Component Usage</h3>
+  <ul className="list-inside space-y-1">
+    <li>&ldquo;Create a landing page using the SiriOrb component&rdquo;</li>
+    <li>&ldquo;Show me how to use the ScrollableCardStack component&rdquo;</li>
+    <li>&ldquo;Build a dashboard with smoothui components&rdquo;</li>
+  </ul>
+</div>
+
+</div>
+
+<Divider orientation="horizontal" className="relative" />
+
+## SmoothUI MCP Features
+
+<BodyText>
+SmoothUI registry is fully MCP-compatible and includes:
+</BodyText>
+
+<Cards className="md:grid-cols-2">
+
+<Card title="Component Discovery">
+  AI assistants can discover all available SmoothUI components and their descriptions.
+</Card>
+
+<Card title="Automatic Installation">
+  Components are installed with all dependencies and utilities automatically included.
+</Card>
+
+<Card title="Smart Dependencies">
+  Required packages like `clsx{:js}` and `tailwind-merge{:js}` are automatically detected and included.
+</Card>
+
+<Card title="Usage Examples">
+  AI assistants can provide usage examples and help integrate components into your projects.
+</Card>
+
+</Cards>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Learn More
+
+<BodyText>
+You can read more about the MCP server in the{" "}
+<a
+  href="https://ui.shadcn.com/docs/mcp"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="text-brand hover:underline"
+>
+  shadcn MCP documentation
+</a>
+
+</BodyText>
