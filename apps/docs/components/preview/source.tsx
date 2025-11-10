@@ -32,7 +32,7 @@ export const PreviewSource = ({ source }: PreviewSourceProps) => (
           className="overflow-visible"
           style={{ overflow: "visible" }}
         >
-          <div className="relative">
+          <div className="relative [&_figure]:rounded-none [&_figure]:border-none">
             <DynamicCodeBlock
               code={parseCode(sourceCode)}
               lang="tsx"
