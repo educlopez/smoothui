@@ -2,7 +2,8 @@
 
 import { X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
 export type BasicModalProps = {
@@ -33,6 +34,11 @@ export default function BasicModal({
     null
   ) as React.RefObject<HTMLDivElement>;
   useOnClickOutside(modalRef, () => onClose());
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close on Escape key press
   useEffect(() => {
@@ -49,14 +55,14 @@ export default function BasicModal({
   // Note: Body scroll locking is handled by the overlay and modal positioning
   // No need to manually set body overflow as it can conflict with other components
 
-  return (
+  const modalContent = (
     <AnimatePresence>
       {isOpen && (
         <>
           {/* Backdrop */}
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-40 bg-background/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[80] bg-background/70 backdrop-blur-sm"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
             onClick={(e) => {
@@ -71,7 +77,7 @@ export default function BasicModal({
           {/* Modal */}
           <motion.div
             animate={{ opacity: 1 }}
-            className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto px-4 py-6 sm:p-0"
+            className="fixed inset-0 z-[90] flex items-center justify-center overflow-y-auto px-4 py-6 sm:p-0"
             exit={{ opacity: 0 }}
             initial={{ opacity: 0 }}
           >
@@ -112,4 +118,10 @@ export default function BasicModal({
       )}
     </AnimatePresence>
   );
+
+  if (!mounted) {
+    return null;
+  }
+
+  return createPortal(modalContent, document.body);
 }

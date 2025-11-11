@@ -1,3 +1,18 @@
+import { BodyText } from "@docs/components/body-text";
+import { ChangelogEntry } from "@docs/components/changelog-entry";
+import { FeatureCard } from "@docs/components/feature-card";
+import { FeatureCardHover } from "@docs/components/feature-card-hover";
+import { Installer } from "@docs/components/installer";
+import Divider from "@docs/components/landing/divider";
+import { LastModified } from "@docs/components/last-modified";
+import { OpenInV0Button } from "@docs/components/open-in-v0-button";
+import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
+import { PoweredBy } from "@docs/components/powered-by";
+import { Preview } from "@docs/components/preview";
+import { domain } from "@docs/lib/domain";
+import { createMetadata } from "@docs/lib/metadata";
+import { getPageImage, source } from "@docs/lib/source";
+import { typeGenerator } from "@docs/mdx-components";
 import type { TableOfContents } from "fumadocs-core/toc";
 import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
@@ -11,21 +26,6 @@ import {
 } from "fumadocs-ui/page";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { BodyText } from "@docs/components/body-text";
-import { ChangelogEntry } from "@docs/components/changelog-entry";
-import { FeatureCard } from "@docs/components/feature-card";
-import { FeatureCardHover } from "@docs/components/feature-card-hover";
-import { Installer } from "@docs/components/installer";
-import Divider from "@docs/components/landing/divider";
-import { LastModified } from "@docs/components/last-modified";
-import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
-import { OpenInV0Button } from "@docs/components/open-in-v0-button";
-import { PoweredBy } from "@docs/components/powered-by";
-import { Preview } from "@docs/components/preview";
-import { domain } from "@docs/lib/domain";
-import { createMetadata } from "@docs/lib/metadata";
-import { getPageImage, source } from "@docs/lib/source";
-import { typeGenerator } from "@docs/mdx-components";
 
 export const revalidate = false;
 
@@ -57,13 +57,18 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   ];
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
-  const isComponentOrBlock = page.data.info.path.startsWith("components") || page.data.info.path.startsWith("blocks");
+  const isComponentOrBlock =
+    page.data.info.path.startsWith("components") ||
+    page.data.info.path.startsWith("blocks");
 
   // Get the component/block name from the last slug (skip index pages)
-  const componentName = isComponentOrBlock && page.slugs.length > 1
-    ? page.slugs[page.slugs.length - 1]
+  const componentName =
+    isComponentOrBlock && page.slugs.length > 1
+      ? (page.slugs.at(-1) ?? null)
+      : null;
+  const registryUrl = componentName
+    ? `${domain}/r/${componentName}.json`
     : null;
-  const registryUrl = componentName ? `${domain}/r/${componentName}.json` : null;
 
   return (
     <DocsPage
@@ -83,14 +88,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       <DocsDescription className="mb-2 text-foreground/70 text-md">
         {page.data.description}
       </DocsDescription>
-      <div className="flex flex-row items-center gap-2 border-b pt-2 pb-6">
+      <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
         <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
         <ViewOptions
           githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
           markdownUrl={`${page.url}.mdx`}
         />
         {registryUrl && <OpenInV0Button url={registryUrl} />}
-        {lastModified && <LastModified lastModified={lastModified} />}
+        {lastModified && (
+          <LastModified
+            className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"
+            lastModified={lastModified}
+          />
+        )}
       </div>
       <DocsBody>
         {page.data.installer && (
@@ -142,7 +152,8 @@ export async function generateMetadata(
     });
 
   const description =
-    page.data.description ?? "Beautiful React components with smooth animations";
+    page.data.description ??
+    "Beautiful React components with smooth animations";
 
   const image = {
     url: getPageImage(page).url,
