@@ -14,7 +14,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <a
           className="group my-10 flex items-center gap-2 rounded-sm px-3 py-2 hover:bg-primary hover:shadow-custom hover:backdrop-blur-xs"
-          href="https://x.com/educalvolopez"
+          href="https://x.com/educalvolpz"
           rel="noopener noreferrer"
           target="_blank"
         >
