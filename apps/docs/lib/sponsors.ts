@@ -42,8 +42,8 @@ const sponsorsList: Sponsor[] = [
 export const SPONSOR_ROTATION_INTERVAL = 5000;
 
 // Get sponsors in the correct order:
-// 1. Velocity (top tier) sponsors first
-// 2. Supporter tier sponsors second
+// 1. Velocity (top tier) sponsors first (exclude own projects)
+// 2. Supporter tier sponsors second (exclude own projects)
 // 3. Own projects last
 // Only returns enabled sponsors (enabled is true by default if not specified)
 export const getAllSponsors = (): Sponsor[] => {
@@ -57,24 +57,44 @@ export const getAllSponsors = (): Sponsor[] => {
     (sponsor) => sponsor.tier === "supporter"
   );
   const ownProjects = enabledSponsors.filter(
-    (sponsor) => sponsor.isOwnProject || sponsor.tier === "own"
+    (sponsor) => sponsor.tier === "own"
   );
   return [...velocity, ...supporter, ...ownProjects];
 };
 
-// Get only external sponsors (exclude own projects)
-export const getExternalSponsors = (): Sponsor[] =>
-  getAllSponsors().filter(
-    (sponsor) => !sponsor.isOwnProject && sponsor.tier !== "own"
+// Get external sponsors for home page (Velocity + Supporter tiers, exclude only tier "own")
+export const getExternalSponsors = (): Sponsor[] => {
+  const enabledSponsors = sponsorsList.filter(
+    (sponsor) => sponsor.enabled !== false
   );
+  return enabledSponsors.filter(
+    (sponsor) => sponsor.tier === "velocity" || sponsor.tier === "supporter"
+  );
+};
 
 // Get velocity (top tier) sponsors
-export const getVelocitySponsors = (): Sponsor[] =>
-  getAllSponsors().filter((sponsor) => sponsor.tier === "velocity");
+export const getVelocitySponsors = (): Sponsor[] => {
+  const enabledSponsors = sponsorsList.filter(
+    (sponsor) => sponsor.enabled !== false
+  );
+  return enabledSponsors.filter((sponsor) => sponsor.tier === "velocity");
+};
 
 // Get supporter tier sponsors
-export const getSupporterSponsors = (): Sponsor[] =>
-  getAllSponsors().filter((sponsor) => sponsor.tier === "supporter");
+export const getSupporterSponsors = (): Sponsor[] => {
+  const enabledSponsors = sponsorsList.filter(
+    (sponsor) => sponsor.enabled !== false
+  );
+  return enabledSponsors.filter((sponsor) => sponsor.tier === "supporter");
+};
+
+// Get own projects (only tier === "own")
+export const getOwnProjects = (): Sponsor[] => {
+  const enabledSponsors = sponsorsList.filter(
+    (sponsor) => sponsor.enabled !== false
+  );
+  return enabledSponsors.filter((sponsor) => sponsor.tier === "own");
+};
 
 // Get sponsors for sidebar (Velocity + Own projects, excluding Supporter)
 export const getSidebarSponsors = (): Sponsor[] => {
@@ -84,9 +104,7 @@ export const getSidebarSponsors = (): Sponsor[] => {
   const velocity = enabledSponsors.filter(
     (sponsor) => sponsor.tier === "velocity"
   );
-  const ownProjects = enabledSponsors.filter(
-    (sponsor) => sponsor.isOwnProject || sponsor.tier === "own"
-  );
+  const ownProjects = getOwnProjects();
   return [...velocity, ...ownProjects];
 };
 

@@ -3,8 +3,8 @@
 import { SponsorCard } from "@docs/components/sponsor-card";
 import { SponsorsEmptyState } from "@docs/components/sponsors-empty-state";
 import {
-  getAllSponsors,
   getExternalSponsors,
+  getOwnProjects,
   getSupporterSponsors,
   getVelocitySponsors,
 } from "@docs/lib/sponsors";
@@ -13,10 +13,7 @@ export function SponsorsPageContent() {
   const velocitySponsors = getVelocitySponsors();
   const supporterSponsors = getSupporterSponsors();
   const externalSponsors = getExternalSponsors();
-  const allSponsors = getAllSponsors();
-  const ownProjects = allSponsors.filter(
-    (sponsor) => sponsor.isOwnProject || sponsor.tier === "own"
-  );
+  const ownProjects = getOwnProjects();
 
   return (
     <>
