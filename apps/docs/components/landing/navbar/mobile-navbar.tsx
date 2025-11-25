@@ -1,11 +1,13 @@
 "use client";
 
+import Logo from "@docs/components/logo";
+import { Button } from "@docs/components/smoothbutton";
 import {
   Book,
+  Heart,
   Layers3,
   LayoutDashboard,
   Menu,
-  MessageCircle,
   PackagePlus,
   Sparkles,
   Type,
@@ -16,10 +18,7 @@ import {
 import { AnimatePresence, motion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
-
 import { cn } from "@/lib/utils";
-import Logo from "@docs/components/logo";
-import { Button } from "@docs/components/smoothbutton";
 import { GithubStars } from "./github-stars";
 
 interface MobileNavbarProps {
@@ -135,14 +134,9 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 <Book size={16} />
                 Docs
               </Link>
-              <Link
-                className="mobile-navbar-link"
-                href="https://github.com/educlopez/smoothui/issues"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <MessageCircle size={16} />
-                Feedback
+              <Link className="mobile-navbar-link" href="/docs/guides/sponsors">
+                <Heart size={16} />
+                Sponsors
               </Link>
             </motion.div>
 

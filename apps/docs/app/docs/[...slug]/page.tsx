@@ -9,6 +9,7 @@ import { OpenInV0Button } from "@docs/components/open-in-v0-button";
 import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { Preview } from "@docs/components/preview";
+import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
 import { createMetadata } from "@docs/lib/metadata";
 import { getPageImage, source } from "@docs/lib/source";
@@ -133,6 +134,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             FeatureCardHover,
             Divider,
             ChangelogEntry,
+            SponsorsPageContent,
           }}
         />
       </DocsBody>

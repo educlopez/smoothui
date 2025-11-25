@@ -3,9 +3,9 @@
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
   Book,
+  Heart,
   Layers3,
   LayoutDashboard,
-  MessageCircle,
   PackagePlus,
   Sparkles,
   Type,
@@ -17,10 +17,10 @@ import { useState } from "react";
 
 import "./navbar.css";
 
+import Logo from "@docs/components/logo";
 import { useIsMobile } from "@repo/shadcn-ui/hooks/use-mobile";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import Logo from "@docs/components/logo";
 import { GithubStars } from "./github-stars";
 import { BlocksMenuIllustration, MenuIllustration } from "./menu-illustration";
 import { MobileNavbar } from "./mobile-navbar";
@@ -198,13 +198,8 @@ export default function Navbar({ className }: { className?: string }) {
           </NavigationMenu.Link>
         </NavigationMenu.Item>
         <NavigationMenu.Item>
-          <NavigationMenu.Link
-            className="trigger"
-            href="https://github.com/educlopez/smoothui/issues"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <MessageCircle size={16} /> Feedback
+          <NavigationMenu.Link className="trigger" href="/docs/guides/sponsors">
+            <Heart size={16} /> Sponsors
           </NavigationMenu.Link>
         </NavigationMenu.Item>
       </NavigationMenu.List>
