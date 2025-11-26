@@ -1,6 +1,6 @@
 # SmoothUI
 
-![Screenshot of SmoothUI](/public/readme.png)
+![Screenshot of SmoothUI](/apps/docs/public/readme.png)
 
 <div align="center">
 
