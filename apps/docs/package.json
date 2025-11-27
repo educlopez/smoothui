@@ -11,8 +11,12 @@
     "@next/bundle-analyzer": "^16.0.1",
     "@orama/core": "^1.2.13",
     "@orama/orama": "^3.1.16",
+    "@radix-ui/react-navigation-menu": "^1.2.13",
+    "@radix-ui/react-slot": "^1.1.2",
     "@repo/shadcn-ui": "workspace:*",
     "@smoothui/data": "workspace:*",
+    "@wandry/analytics-sdk": "^1.16.0",
+    "class-variance-authority": "^0.7.1",
     "fumadocs-core": "^16.0.4",
     "fumadocs-docgen": "^3.0.3",
     "fumadocs-mdx": "^13.0.2",
@@ -41,10 +45,7 @@
     "shiki": "3.14.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
-    "twoslash": "^0.3.4",
-    "class-variance-authority": "^0.7.1",
-    "@radix-ui/react-slot": "^1.1.2",
-    "@radix-ui/react-navigation-menu": "^1.2.13"
+    "twoslash": "^0.3.4"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
