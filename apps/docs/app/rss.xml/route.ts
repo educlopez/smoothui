@@ -9,8 +9,9 @@ export async function GET(request: NextRequest) {
   const rssXml = await generateRegistryRssFeed({
     baseUrl,
     rss: {
-      title: "@smoothui",
-      description: "Subscribe to @smoothui updates",
+      title: "SmoothUI",
+      description:
+        "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
       link: "https://smoothui.dev",
       pubDateStrategy: "githubLastEdit",
     },
