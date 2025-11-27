@@ -145,7 +145,6 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
           overflow: hidden;
           border-radius: 50%;
           position: relative;
-          transform: scale(1.1);
         }
 
         .siri-orb::before,
