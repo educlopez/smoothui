@@ -41,6 +41,11 @@
   },
   "packageManager": "pnpm@10.20.0",
   "type": "module",
+  "pnpm": {
+    "overrides": {
+      "glob": ">=10.5.0"
+    }
+  },
   "dependencies": {
     "@smoothui/data": "workspace:*",
     "tsup": "^8.5.0",
