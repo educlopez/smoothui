@@ -1,8 +1,6 @@
 import { generateRegistryRssFeed } from "@wandry/analytics-sdk";
 import type { NextRequest } from "next/server";
 
-export const revalidate = 3600;
-
 // Map individual block names to their category pages
 const blockCategoryMap: Record<string, string> = {
   "faq-1": "faqs",
@@ -117,6 +115,9 @@ export async function GET(request: NextRequest) {
         "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
       link: "https://smoothui.dev",
       pubDateStrategy: "githubLastEdit",
+    },
+    registry: {
+      path: "r/registry.json",
     },
     github: {
       owner: "educlopez",
