@@ -43,7 +43,10 @@
   "type": "module",
   "pnpm": {
     "overrides": {
-      "glob": ">=10.5.0"
+      "glob": ">=10.5.0",
+      "@types/react": "^19.2.7",
+      "@types/react-dom": "^19.2.3",
+      "csstype": "^3.2.3"
     }
   },
   "dependencies": {
