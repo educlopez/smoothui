@@ -3,32 +3,33 @@
 import InteractiveImageSelector, {
   type ImageData,
 } from "@repo/smoothui/components/interactive-image-selector";
+import { getImageKitUrl } from "@smoothui/data";
 import { useState } from "react";
 
 const demoImages: ImageData[] = [
   {
     id: 1,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758270763/smoothui/womanorange.webp",
+    src: getImageKitUrl("/images/womanorange.webp"),
   },
   {
     id: 2,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758209962/smoothui/girl-nature.webp",
+    src: getImageKitUrl("/images/girl-nature.webp"),
   },
   {
     id: 3,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271088/smoothui/metrowoman.webp",
+    src: getImageKitUrl("/images/metrowoman.webp"),
   },
   {
     id: 4,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271134/smoothui/designerworking.webp",
+    src: getImageKitUrl("/images/designerworking.webp"),
   },
   {
     id: 5,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271305/smoothui/girlglass.webp",
+    src: getImageKitUrl("/images/girlglass.webp"),
   },
   {
     id: 6,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_300,ar_1:1,c_fill,g_auto/v1758271369/smoothui/manup.webp",
+    src: getImageKitUrl("/images/manup.webp"),
   },
 ];
 

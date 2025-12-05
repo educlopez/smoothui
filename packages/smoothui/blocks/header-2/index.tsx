@@ -1,5 +1,6 @@
 "use client";
 
+import { getImageKitUrl } from "@smoothui/data";
 import { motion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
 
@@ -31,7 +32,7 @@ export function HeroProduct({
     text: "Watch Video",
     url: "#link",
   },
-  imageSrc = "https://res.cloudinary.com/dyzxnud9z/image/upload/v1757947683/smoothui/hero-smoothui.png",
+  imageSrc = getImageKitUrl("/images/hero-smoothui.png"),
   imageAlt = "SmoothUI desktop application interface",
 }: HeroProductProps) {
   return (

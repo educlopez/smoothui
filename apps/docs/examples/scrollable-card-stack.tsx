@@ -1,7 +1,7 @@
 "use client";
 
 import ScrollableCardStack from "@repo/smoothui/components/scrollable-card-stack";
-import { getAllPeople, getAvatarUrl } from "@smoothui/data";
+import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 
 export default function ScrollableCardStackDemo() {
   const people = getAllPeople();
@@ -11,10 +11,8 @@ export default function ScrollableCardStackDemo() {
       id: "siriorb",
       name: people[0]?.name || "Edu Calvo",
       handle: "@educalvolpz",
-      avatar:
-        "https://res.cloudinary.com/dyzxnud9z/image/upload/w_40,h_40,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg", // Keep educlopez as requested
-      video:
-        "https://res.cloudinary.com/dyzxnud9z/video/upload/smoothui/siriorb.mp4",
+      avatar: getImageKitUrl("/images/educalvolpz.jpg"), // Keep educlopez as requested
+      video: getImageKitUrl("/images/siriorb.mp4"),
       href: "https://x.com/educalvolpz",
     },
     {
@@ -24,8 +22,7 @@ export default function ScrollableCardStackDemo() {
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
       avatar: getAvatarUrl(people[1]?.avatar || "", 40),
-      video:
-        "https://res.cloudinary.com/dyzxnud9z/video/upload/smoothui/richpopover.mp4",
+      video: getImageKitUrl("/images/richpopover.mp4"),
       href: `https://x.com/${
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
@@ -37,8 +34,7 @@ export default function ScrollableCardStackDemo() {
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
       avatar: getAvatarUrl(people[2]?.avatar || "", 40),
-      video:
-        "https://res.cloudinary.com/dyzxnud9z/video/upload/smoothui/sparkbites.mp4",
+      video: getImageKitUrl("/images/sparkbites.mp4"),
       href: `https://x.com/${
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
@@ -50,8 +46,7 @@ export default function ScrollableCardStackDemo() {
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
       avatar: getAvatarUrl(people[3]?.avatar || "", 40),
-      video:
-        "https://res.cloudinary.com/dyzxnud9z/video/upload/smoothui/svgl.mp4",
+      video: getImageKitUrl("/images/svgl.mp4"),
       href: `https://x.com/${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,

@@ -1,6 +1,6 @@
 "use client";
 
-import { getAllPeople, getAvatarUrl } from "@smoothui/data";
+import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { Crown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { wrap } from "popmotion";
@@ -29,8 +29,7 @@ const defaultEvents: Event[] = [
     title: "Yoga",
     subtitle: "Sat, June 14, 6:00 AM",
     location: "Central Park",
-    image:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265917/smoothui/yogaday.webp",
+    image: getImageKitUrl("/images/yogaday.webp"),
     badge: "Hosting",
     participants: [
       {
@@ -43,8 +42,7 @@ const defaultEvents: Event[] = [
     title: "Tyler Turns 3!",
     subtitle: "Sat, June 14, 3:00 PM",
     location: "Central Park",
-    image:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265165/smoothui/park.webp",
+    image: getImageKitUrl("/images/park.webp"),
     badge: "Going",
     participants: [
       {
@@ -57,8 +55,7 @@ const defaultEvents: Event[] = [
     title: "Golf party",
     subtitle: "Sun, April 15, 9:00 AM",
     location: "Golf Park",
-    image:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265999/smoothui/golf.webp",
+    image: getImageKitUrl("/images/golf.webp"),
     badge: "Going",
     participants: [
       {
@@ -71,8 +68,7 @@ const defaultEvents: Event[] = [
     title: "Movie Night",
     subtitle: "Fri, June 20, 8:00 PM",
     location: "Cine Town",
-    image:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/w_640,ar_1:1,c_fill,g_auto/v1758265903/smoothui/movie.webp",
+    image: getImageKitUrl("/images/movie.webp"),
     badge: "Interested",
     participants: [
       {

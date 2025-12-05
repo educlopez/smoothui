@@ -31,8 +31,7 @@ export const peopleData: Person[] = [
     name: "Eduardo Calvo",
     role: "CEO & Founder",
     bio: "Passionate about building products that make a difference. Leading the vision for innovative user experiences.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818651/smoothui/educalvolpz.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/educalvolpz.jpg",
     location: "Spain",
     experience: "8+ years of experience",
     company: "SmoothUI",
@@ -50,8 +49,7 @@ export const peopleData: Person[] = [
     name: "Drew Cano",
     role: "Head of Design",
     bio: "Creating beautiful and intuitive user experiences that users love. Passionate about design systems and accessibility.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818733/smoothui/avatar.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar.jpg",
     location: "San Francisco, CA",
     experience: "7+ years of experience",
     company: "Design Studio",
@@ -69,8 +67,7 @@ export const peopleData: Person[] = [
     name: "Marcus Johnson",
     role: "Lead Developer",
     bio: "Building scalable solutions for modern applications. Expert in React, TypeScript, and cloud architecture.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818743/smoothui/avatar-1.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-1.jpg",
     location: "Austin, TX",
     experience: "10+ years of experience",
     company: "TechCorp",
@@ -88,8 +85,7 @@ export const peopleData: Person[] = [
     name: "Emily Rodriguez",
     role: "Product Manager",
     bio: "Driving product strategy and user research to create products that truly solve user problems.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818702/smoothui/avatar-2.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-2.jpg",
     location: "New York, NY",
     experience: "6+ years of experience",
     company: "ProductCo",
@@ -107,8 +103,7 @@ export const peopleData: Person[] = [
     name: "Mollie Hall",
     role: "CTO",
     bio: "Full-stack engineer with expertise in distributed systems and team leadership. Building the future of technology.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818713/smoothui/avatar-3.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-3.jpg",
     location: "Seattle, WA",
     experience: "12+ years of experience",
     company: "InnovateTech",
@@ -126,8 +121,7 @@ export const peopleData: Person[] = [
     name: "Alec Whitten",
     role: "UX Researcher",
     bio: "Understanding user behavior and needs to inform design decisions. Passionate about creating inclusive experiences.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818723/smoothui/avatar-4.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-4.jpg",
     location: "Toronto, Canada",
     experience: "5+ years of experience",
     company: "ResearchLab",
@@ -145,8 +139,7 @@ export const peopleData: Person[] = [
     name: "Alisa Hester",
     role: "Frontend Engineer",
     bio: "Specializing in React, animations, and performance optimization. Creating smooth user experiences.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818733/smoothui/avatar-5.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-5.jpg",
     location: "London, UK",
     experience: "4+ years of experience",
     company: "WebStudio",
@@ -161,8 +154,7 @@ export const peopleData: Person[] = [
     name: "Johnny Bell",
     role: "Backend Engineer",
     bio: "Building robust APIs and microservices. Expert in Node.js, Python, and cloud infrastructure.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818743/smoothui/avatar-6.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-6.jpg",
     location: "Barcelona, Spain",
     experience: "6+ years of experience",
     company: "BackendPro",
@@ -177,8 +169,7 @@ export const peopleData: Person[] = [
     name: "Mia Ward",
     role: "DevOps Engineer",
     bio: "Automating deployments and ensuring system reliability. Passionate about infrastructure as code.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818702/smoothui/avatar-7.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-7.jpg",
     location: "Berlin, Germany",
     experience: "8+ years of experience",
     company: "CloudOps",
@@ -193,8 +184,7 @@ export const peopleData: Person[] = [
     name: "Josh Knight",
     role: "Marketing Director",
     bio: "Driving growth through strategic marketing and community building. Expert in developer relations.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818713/smoothui/avatar-8.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-8.jpg",
     location: "Singapore",
     experience: "7+ years of experience",
     company: "GrowthCo",
@@ -210,8 +200,7 @@ export const peopleData: Person[] = [
     name: "Kelly Myer",
     role: "Creator of Sand/UI",
     bio: "Building beautiful and accessible UI components for React developers.",
-    avatar:
-      "https://res.cloudinary.com/dyzxnud9z/image/upload/v1759818713/smoothui/avatar-9.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/smoothui/avatar-9.jpg",
     location: "Remote",
     experience: "5+ years of experience",
     company: "sand/ui",
@@ -231,51 +220,39 @@ export const testimonialsData: Person[] = peopleData.filter(
   (person) => person.stars && person.content
 );
 
-// Utility function to get Cloudinary URL with size parameters
-export function getCloudinaryUrl(
-  baseUrl: string,
-  width = 400,
-  height = 400,
-  options: {
-    crop?: string;
-    gravity?: string;
-    quality?: string;
-    format?: string;
-  } = {}
-): string {
-  const {
-    crop = "fill",
-    gravity = "auto",
-    quality = "auto",
-    format = "auto",
-  } = options;
+/**
+ * Get ImageKit URL for an image
+ * Converts local image paths (/images/...) to ImageKit URLs
+ * @param imagePath - Local image path (e.g., "https://ik.imagekit.io/16u211libb/smoothui/avatar.jpg") or already full URL
+ * @returns Full ImageKit URL
+ */
+export function getImageKitUrl(imagePath: string): string {
+  // If it's already a full URL, return as-is
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath;
+  }
 
-  // Extract the base URL without transformations
-  const urlParts = baseUrl.split("/upload/");
-  if (urlParts.length !== 2) return baseUrl;
+  // Get ImageKit endpoint from environment variable
+  const endpoint =
+    process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
+    process.env.IMAGEKIT_URL_ENDPOINT ||
+    "https://ik.imagekit.io/16u211libb";
 
-  const base = urlParts[0] + "/upload";
-  const path = urlParts[1];
+  // Remove leading slash if present
+  const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
 
-  // Build transformation parameters
-  const transformations = [
-    `w_${width}`,
-    `h_${height}`,
-    `c_${crop}`,
-    `g_${gravity}`,
-    `q_${quality}`,
-    `f_${format}`,
-  ].join(",");
+  // If it starts with "images/", replace with "smoothui/"
+  const imageKitPath = cleanPath.startsWith("images/")
+    ? `smoothui/${cleanPath.replace("images/", "")}`
+    : `smoothui/${cleanPath}`;
 
-  return `${base}/${transformations}/${path}`;
+  return `${endpoint}/${imageKitPath}`;
 }
 
-// Helper function to get avatar with specific size
-export function getAvatarUrl(avatar: string, size = 40): string {
-  if (avatar.includes("cloudinary.com")) {
-    return getCloudinaryUrl(avatar, size, size);
-  }
-  return avatar;
+// Helper function to get avatar URL
+// Now uses ImageKit for image hosting
+export function getAvatarUrl(avatar: string, _size = 40): string {
+  return getImageKitUrl(avatar);
 }
 
 // Helper function to get team member data (people without testimonials or all people)

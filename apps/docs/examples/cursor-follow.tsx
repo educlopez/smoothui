@@ -1,16 +1,17 @@
 "use client";
 
 import CursorFollow from "@repo/smoothui/components/cursor-follow";
+import { getImageKitUrl } from "@smoothui/data";
 
 const images = [
   {
     id: 1,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_600,ar_1:1,c_fill,g_auto/v1758266441/smoothui/personchair.webp",
+    src: getImageKitUrl("/images/personchair.webp"),
     label: "Portrait of a person sitting in a chair",
   },
   {
     id: 2,
-    src: "https://res.cloudinary.com/dyzxnud9z/image/upload/w_600,ar_1:1,c_fill,g_auto/v1758266959/smoothui/youngman.webp",
+    src: getImageKitUrl("/images/youngman.webp"),
     label: "A young man with curly hair",
   },
 ];

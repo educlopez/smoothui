@@ -1,5 +1,6 @@
 "use client";
 
+import { getImageKitUrl } from "@smoothui/data";
 import {
   Content as PopoverContent,
   Portal as PopoverPortal,
@@ -34,8 +35,7 @@ export type UserAccountAvatarProps = {
 const initialUserData: UserData = {
   name: "John Doe",
   email: "john@example.com",
-  avatar:
-    "https://res.cloudinary.com/dyzxnud9z/image/upload/w_90,h_90,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg",
+  avatar: getImageKitUrl("/images/educalvolpz.jpg"),
 };
 
 const mockOrders: Order[] = [

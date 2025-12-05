@@ -1,5 +1,6 @@
 "use client";
 
+import { getImageKitUrl } from "@smoothui/data";
 import Image from "next/image";
 
 export default function Footer() {
@@ -26,7 +27,7 @@ export default function Footer() {
             className="h-7 w-7 shrink-0 rounded-md"
             height={32}
             loading="lazy"
-            src="https://res.cloudinary.com/dyzxnud9z/image/upload/w_48,h_48,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg"
+            src={getImageKitUrl("/images/educalvolpz.jpg")}
             width={32}
           />
           <span className="whitespace-nowrap font-medium text-foreground text-sm">

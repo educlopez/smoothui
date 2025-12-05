@@ -1,11 +1,12 @@
 import Phototab, { type PhototabTab } from "@repo/smoothui/components/phototab";
+import { getImageKitUrl } from "@smoothui/data";
 import { Dog, Map as MapIcon, User } from "lucide-react";
 
 // Placeholder images (replace with your own if available)
 const Images = [
-  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758209510/smoothui/girl-summer.webp",
-  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758209666/smoothui/dog-white.webp",
-  "https://res.cloudinary.com/dyzxnud9z/image/upload/w_500,ar_1:1,c_fill,g_auto/v1758210029/smoothui/surf.webp",
+  getImageKitUrl("/images/girl-summer.webp"),
+  getImageKitUrl("/images/dog-white.webp"),
+  getImageKitUrl("/images/surf.webp"),
 ];
 
 const tabs: PhototabTab[] = [

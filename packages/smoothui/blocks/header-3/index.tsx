@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, AvatarImage } from "@repo/shadcn-ui/components/ui/avatar";
-import { getAllPeople, getAvatarUrl } from "@smoothui/data";
+import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { ArrowDownRight, Star } from "lucide-react";
 import { motion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
@@ -145,7 +145,7 @@ export function HeroShowcase({
                 alt="app screen"
                 className="h-full w-full rounded-md object-cover"
                 height={1842}
-                src="https://res.cloudinary.com/dyzxnud9z/image/upload/v1757401349/smoothui/hero-example_xertaz.png"
+                src={getImageKitUrl("/images/hero-example_xertaz.png")}
                 width={2880}
               />
             </div>

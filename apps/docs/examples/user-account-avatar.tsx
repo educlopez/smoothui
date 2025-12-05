@@ -4,13 +4,13 @@ import UserAccountAvatar, {
   type Order,
   type UserData,
 } from "@repo/smoothui/components/user-account-avatar";
+import { getImageKitUrl } from "@smoothui/data";
 import { useState } from "react";
 
 const demoUser: UserData = {
   name: "Jane Doe",
   email: "jane@example.com",
-  avatar:
-    "https://res.cloudinary.com/dyzxnud9z/image/upload/w_96,h_96,c_fill,g_auto/v1759818651/smoothui/educalvolpz.jpg",
+  avatar: getImageKitUrl("/images/educalvolpz.jpg"),
 };
 
 const demoOrders: Order[] = [
