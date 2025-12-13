@@ -261,6 +261,7 @@ export default function GitHubStarsAnimation({
             duration: 0.3,
             ease: EASE_OUT_CUBIC,
           }}
+          className="tabular-nums"
         >
           {displayCount.toLocaleString()}
         </motion.span>
