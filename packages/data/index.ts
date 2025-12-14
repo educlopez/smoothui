@@ -224,12 +224,21 @@ export const testimonialsData: Person[] = peopleData.filter(
  * Get ImageKit URL for an image
  * Converts local image paths (/images/...) to ImageKit URLs
  * @param imagePath - Local image path (e.g., "https://ik.imagekit.io/16u211libb/smoothui/avatar.jpg") or already full URL
- * @returns Full ImageKit URL
+ * @param transformations - Optional ImageKit transformation parameters (e.g., "w-800,h-600,q-80")
+ * @returns Full ImageKit URL with optional transformations
  */
-export function getImageKitUrl(imagePath: string): string {
-  // If it's already a full URL, return as-is
+export function getImageKitUrl(
+  imagePath: string,
+  transformations?: string
+): string {
+  // If it's already a full URL, add transformations if provided
   if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-    return imagePath;
+    if (!transformations) {
+      return imagePath;
+    }
+    // Check if URL already has query parameters
+    const separator = imagePath.includes("?") ? "&" : "?";
+    return `${imagePath}${separator}tr=${transformations}`;
   }
 
   // Get ImageKit endpoint from environment variable
@@ -246,7 +255,14 @@ export function getImageKitUrl(imagePath: string): string {
     ? `smoothui/${cleanPath.replace("images/", "")}`
     : `smoothui/${cleanPath}`;
 
-  return `${endpoint}/${imageKitPath}`;
+  const baseUrl = `${endpoint}/${imageKitPath}`;
+
+  // Add transformations if provided
+  if (transformations) {
+    return `${baseUrl}?tr=${transformations}`;
+  }
+
+  return baseUrl;
 }
 
 // Helper function to get avatar URL

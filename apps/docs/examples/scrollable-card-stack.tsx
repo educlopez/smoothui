@@ -12,7 +12,10 @@ export default function ScrollableCardStackDemo() {
       name: people[0]?.name || "Edu Calvo",
       handle: "@educalvolpz",
       avatar: getImageKitUrl("/images/educalvolpz.jpg"), // Keep educlopez as requested
-      video: getImageKitUrl("/images/siriorb.mp4"),
+      image: getImageKitUrl(
+        "https://ik.imagekit.io/16u211libb/smoothui/surf.webp?updatedAt=1764932280262",
+        "w-600,q-80"
+      ),
       href: "https://x.com/educalvolpz",
     },
     {
@@ -22,7 +25,10 @@ export default function ScrollableCardStackDemo() {
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
       avatar: getAvatarUrl(people[1]?.avatar || "", 40),
-      video: getImageKitUrl("/images/richpopover.mp4"),
+      image: getImageKitUrl(
+        "https://ik.imagekit.io/16u211libb/smoothui/girl-nature.webp?updatedAt=1764932272804",
+        "w-600,q-80"
+      ),
       href: `https://x.com/${
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
@@ -34,7 +40,10 @@ export default function ScrollableCardStackDemo() {
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
       avatar: getAvatarUrl(people[2]?.avatar || "", 40),
-      video: getImageKitUrl("/images/sparkbites.mp4"),
+      image: getImageKitUrl(
+        "https://ik.imagekit.io/16u211libb/smoothui/dreams.webp?updatedAt=1764932263863",
+        "w-600,q-80"
+      ),
       href: `https://x.com/${
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
@@ -46,7 +55,10 @@ export default function ScrollableCardStackDemo() {
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
       avatar: getAvatarUrl(people[3]?.avatar || "", 40),
-      video: getImageKitUrl("/images/svgl.mp4"),
+      image: getImageKitUrl(
+        "https://ik.imagekit.io/16u211libb/smoothui/galleryart.webp?updatedAt=1764932265858",
+        "w-600,q-80"
+      ),
       href: `https://x.com/${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,

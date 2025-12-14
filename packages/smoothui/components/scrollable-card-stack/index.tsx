@@ -19,7 +19,7 @@ type CardItem = {
   name: string;
   handle: string;
   avatar: string;
-  video: string;
+  image: string;
   href: string;
 };
 
@@ -372,7 +372,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   <div className="-top-1 -translate-x-1/2 absolute left-1/2 h-1 w-8 rounded-full bg-brand opacity-75" />
                 )}
 
-                {/* Video Container - takes remaining space */}
+                {/* Image Container - takes remaining space */}
                 <div className="relative w-full flex-1 overflow-hidden">
                   {/* Background blur image */}
                   {/* biome-ignore lint/performance/noImgElement: Using img for background blur effect */}
@@ -391,15 +391,22 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     }}
                     width={10}
                   />
-                  {/* Video */}
-                  <video
-                    autoPlay
+                  {/* Image */}
+                  {/* biome-ignore lint/performance/noImgElement: Using img for card content without Next.js Image optimizations */}
+                  <img
+                    alt={`${item.name}'s card`}
                     className="absolute inset-0 h-full w-full object-cover"
-                    loop
-                    muted
-                    playsInline
-                    src={item.video}
-                    style={{ zIndex: 2 }}
+                    decoding="async"
+                    draggable={false}
+                    height={cardHeight}
+                    src={item.image}
+                    style={{
+                      zIndex: 2,
+                      pointerEvents: "none",
+                      userSelect: "none",
+                      WebkitUserDrag: "none",
+                    }}
+                    width={400}
                   />
                 </div>
 
