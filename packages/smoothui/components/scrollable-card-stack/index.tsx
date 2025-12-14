@@ -404,7 +404,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                       zIndex: 2,
                       pointerEvents: "none",
                       userSelect: "none",
-                      WebkitUserDrag: "none",
                     }}
                     width={400}
                   />
