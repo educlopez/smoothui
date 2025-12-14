@@ -145,7 +145,11 @@ export function HeroShowcase({
                 alt="app screen"
                 className="h-full w-full rounded-md object-cover"
                 height={1842}
-                src={getImageKitUrl("/images/hero-example_xertaz.png")}
+                src={getImageKitUrl("/images/hero-example_xertaz.png", {
+                  width: 1200,
+                  quality: 85,
+                  format: "auto",
+                })}
                 width={2880}
               />
             </div>

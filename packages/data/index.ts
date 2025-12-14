@@ -220,44 +220,71 @@ export const testimonialsData: Person[] = peopleData.filter(
   (person) => person.stars && person.content
 );
 
+type ImageKitOptions = {
+  width?: number;
+  height?: number;
+  quality?: number;
+  format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
+  transformations?: string;
+};
+
 /**
- * Get ImageKit URL for an image
- * Converts local image paths (/images/...) to ImageKit URLs
- * @param imagePath - Local image path (e.g., "https://ik.imagekit.io/16u211libb/smoothui/avatar.jpg") or already full URL
- * @param transformations - Optional ImageKit transformation parameters (e.g., "w-800,h-600,q-80")
- * @returns Full ImageKit URL with optional transformations
+ * Build transformation string from options
  */
-export function getImageKitUrl(
-  imagePath: string,
-  transformations?: string
-): string {
-  // If it's already a full URL, add transformations if provided
-  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
-    if (!transformations) {
-      return imagePath;
-    }
-    // Check if URL already has query parameters
-    const separator = imagePath.includes("?") ? "&" : "?";
-    return `${imagePath}${separator}tr=${transformations}`;
+function buildTransformations(options?: ImageKitOptions): string {
+  if (options?.transformations) {
+    return options.transformations;
   }
 
-  // Get ImageKit endpoint from environment variable
+  const parts: string[] = [];
+
+  if (options?.width) {
+    parts.push(`w-${options.width}`);
+  }
+  if (options?.height) {
+    parts.push(`h-${options.height}`);
+  }
+
+  const quality = options?.quality ?? 80;
+  parts.push(`q-${quality}`);
+
+  const format = options?.format ?? "auto";
+  parts.push(`f-${format}`);
+
+  return parts.join(",");
+}
+
+/**
+ * Process full URL and add transformations
+ */
+function processFullUrl(imagePath: string, transformations: string): string {
+  const url = new URL(imagePath);
+  url.searchParams.delete("updatedAt");
+  const baseUrl = url.origin + url.pathname;
+
+  if (!transformations) {
+    return baseUrl;
+  }
+  return `${baseUrl}?tr=${transformations}`;
+}
+
+/**
+ * Build local path URL
+ */
+function buildLocalPathUrl(imagePath: string, transformations: string): string {
   const endpoint =
     process.env.NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT ||
     process.env.IMAGEKIT_URL_ENDPOINT ||
     "https://ik.imagekit.io/16u211libb";
 
-  // Remove leading slash if present
   const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
 
-  // If it starts with "images/", replace with "smoothui/"
   const imageKitPath = cleanPath.startsWith("images/")
     ? `smoothui/${cleanPath.replace("images/", "")}`
     : `smoothui/${cleanPath}`;
 
   const baseUrl = `${endpoint}/${imageKitPath}`;
 
-  // Add transformations if provided
   if (transformations) {
     return `${baseUrl}?tr=${transformations}`;
   }
@@ -265,10 +292,46 @@ export function getImageKitUrl(
   return baseUrl;
 }
 
-// Helper function to get avatar URL
-// Now uses ImageKit for image hosting
-export function getAvatarUrl(avatar: string, _size = 40): string {
-  return getImageKitUrl(avatar);
+/**
+ * Get ImageKit URL for an image with optimized transformations
+ * Converts local image paths (/images/...) to ImageKit URLs with bandwidth optimization
+ * @param imagePath - Local image path (e.g., "/images/avatar.jpg") or already full URL
+ * @param options - Optional transformation options
+ * @param options.width - Image width in pixels
+ * @param options.height - Image height in pixels
+ * @param options.quality - Image quality (1-100, default: 80)
+ * @param options.format - Image format (auto, webp, jpg, png, etc.)
+ * @param options.transformations - Raw transformation string (overrides other options)
+ * @returns Full ImageKit URL with optimized transformations
+ */
+export function getImageKitUrl(
+  imagePath: string,
+  options?: ImageKitOptions
+): string {
+  const transformations = buildTransformations(options);
+
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return processFullUrl(imagePath, transformations);
+  }
+
+  return buildLocalPathUrl(imagePath, transformations);
+}
+
+/**
+ * Helper function to get avatar URL with optimized size and quality
+ * @param avatar - Avatar image path or URL
+ * @param size - Avatar size in pixels (default: 40, will be doubled for retina)
+ * @returns Optimized ImageKit URL for avatar
+ */
+export function getAvatarUrl(avatar: string, size = 40): string {
+  // Double the size for retina displays, use higher quality for avatars
+  const retinaSize = size * 2;
+  return getImageKitUrl(avatar, {
+    width: retinaSize,
+    height: retinaSize,
+    quality: 85, // Higher quality for faces
+    format: "auto",
+  });
 }
 
 // Helper function to get team member data (people without testimonials or all people)

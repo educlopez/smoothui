@@ -6,12 +6,20 @@ import { getImageKitUrl } from "@smoothui/data";
 const images = [
   {
     id: 1,
-    src: getImageKitUrl("/images/personchair.webp"),
+    src: getImageKitUrl("/images/personchair.webp", {
+      width: 384,
+      quality: 80,
+      format: "auto",
+    }),
     label: "Portrait of a person sitting in a chair",
   },
   {
     id: 2,
-    src: getImageKitUrl("/images/youngman.webp"),
+    src: getImageKitUrl("/images/youngman.webp", {
+      width: 384,
+      quality: 80,
+      format: "auto",
+    }),
     label: "A young man with curly hair",
   },
 ];

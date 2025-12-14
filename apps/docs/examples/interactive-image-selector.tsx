@@ -9,27 +9,57 @@ import { useState } from "react";
 const demoImages: ImageData[] = [
   {
     id: 1,
-    src: getImageKitUrl("/images/womanorange.webp"),
+    src: getImageKitUrl("/images/womanorange.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
   {
     id: 2,
-    src: getImageKitUrl("/images/girl-nature.webp"),
+    src: getImageKitUrl("/images/girl-nature.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
   {
     id: 3,
-    src: getImageKitUrl("/images/metrowoman.webp"),
+    src: getImageKitUrl("/images/metrowoman.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
   {
     id: 4,
-    src: getImageKitUrl("/images/designerworking.webp"),
+    src: getImageKitUrl("/images/designerworking.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
   {
     id: 5,
-    src: getImageKitUrl("/images/girlglass.webp"),
+    src: getImageKitUrl("/images/girlglass.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
   {
     id: 6,
-    src: getImageKitUrl("/images/manup.webp"),
+    src: getImageKitUrl("/images/manup.webp", {
+      width: 400,
+      height: 400,
+      quality: 80,
+      format: "auto",
+    }),
   },
 ];
 

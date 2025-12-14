@@ -14,7 +14,11 @@ const ExpandableCardsDemo = () => {
     {
       id: 1,
       title: "Summer Opening",
-      image: getImageKitUrl("/images/summer-opening.webp"),
+      image: getImageKitUrl("/images/summer-opening.webp", {
+        width: 600,
+        quality: 80,
+        format: "auto",
+      }),
       content:
         "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
       author: {
@@ -26,7 +30,11 @@ const ExpandableCardsDemo = () => {
     {
       id: 2,
       title: "Fashion",
-      image: getImageKitUrl("/images/fashion.webp"),
+      image: getImageKitUrl("/images/fashion.webp", {
+        width: 600,
+        quality: 80,
+        format: "auto",
+      }),
       content:
         "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
       author: {
@@ -38,7 +46,11 @@ const ExpandableCardsDemo = () => {
     {
       id: 3,
       title: "Gallery Art",
-      image: getImageKitUrl("/images/galleryart.webp"),
+      image: getImageKitUrl("/images/galleryart.webp", {
+        width: 600,
+        quality: 80,
+        format: "auto",
+      }),
       content:
         "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
       author: {
@@ -50,7 +62,11 @@ const ExpandableCardsDemo = () => {
     {
       id: 4,
       title: "Dreams",
-      image: getImageKitUrl("/images/dreams.webp"),
+      image: getImageKitUrl("/images/dreams.webp", {
+        width: 600,
+        quality: 80,
+        format: "auto",
+      }),
       content:
         "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
       author: {

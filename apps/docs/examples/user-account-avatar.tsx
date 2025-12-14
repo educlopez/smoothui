@@ -10,7 +10,12 @@ import { useState } from "react";
 const demoUser: UserData = {
   name: "Jane Doe",
   email: "jane@example.com",
-  avatar: getImageKitUrl("/images/educalvolpz.jpg"),
+  avatar: getImageKitUrl("/images/educalvolpz.jpg", {
+    width: 96,
+    height: 96,
+    quality: 85,
+    format: "auto",
+  }),
 };
 
 const demoOrders: Order[] = [

@@ -11,10 +11,19 @@ export default function ScrollableCardStackDemo() {
       id: "siriorb",
       name: people[0]?.name || "Edu Calvo",
       handle: "@educalvolpz",
-      avatar: getImageKitUrl("/images/educalvolpz.jpg"), // Keep educlopez as requested
+      avatar: getImageKitUrl("/images/educalvolpz.jpg", {
+        width: 80,
+        height: 80,
+        quality: 85,
+        format: "auto",
+      }), // Keep educlopez as requested
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/surf.webp?updatedAt=1764932280262",
-        "w-600,q-80"
+        {
+          width: 600,
+          quality: 80,
+          format: "auto",
+        }
       ),
       href: "https://x.com/educalvolpz",
     },
@@ -27,7 +36,11 @@ export default function ScrollableCardStackDemo() {
       avatar: getAvatarUrl(people[1]?.avatar || "", 40),
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/girl-nature.webp?updatedAt=1764932272804",
-        "w-600,q-80"
+        {
+          width: 600,
+          quality: 80,
+          format: "auto",
+        }
       ),
       href: `https://x.com/${
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
@@ -42,7 +55,11 @@ export default function ScrollableCardStackDemo() {
       avatar: getAvatarUrl(people[2]?.avatar || "", 40),
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/dreams.webp?updatedAt=1764932263863",
-        "w-600,q-80"
+        {
+          width: 600,
+          quality: 80,
+          format: "auto",
+        }
       ),
       href: `https://x.com/${
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
@@ -57,7 +74,11 @@ export default function ScrollableCardStackDemo() {
       avatar: getAvatarUrl(people[3]?.avatar || "", 40),
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/galleryart.webp?updatedAt=1764932265858",
-        "w-600,q-80"
+        {
+          width: 600,
+          quality: 80,
+          format: "auto",
+        }
       ),
       href: `https://x.com/${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"

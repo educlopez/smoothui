@@ -1,6 +1,7 @@
 "use client";
 
 import FigmaComment from "@repo/smoothui/components/figma-comment";
+import { getImageKitUrl } from "@smoothui/data";
 
 export default function FigmaCommentDemo() {
   return (
@@ -8,7 +9,15 @@ export default function FigmaCommentDemo() {
       <FigmaComment
         authorName="Edu Calvo"
         avatarAlt="Edu's avatar"
-        avatarUrl="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631"
+        avatarUrl={getImageKitUrl(
+          "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
+          {
+            width: 48,
+            height: 48,
+            quality: 85,
+            format: "auto",
+          }
+        )}
         message="What happens if we adjust this to handle a light and dark mode? I'm not sure if we're ready to handle..."
         timestamp="Just now"
         width={200}

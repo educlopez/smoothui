@@ -1,6 +1,5 @@
 "use client";
 
-import { getImageKitUrl } from "@smoothui/data";
 import { Share2, Trash2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useCallback, useState } from "react";
@@ -35,7 +34,7 @@ export type ImageData = {
 };
 
 export type InteractiveImageSelectorProps = {
-  images?: ImageData[];
+  images: ImageData[];
   selectedImages?: number[];
   onChange?: (selected: number[]) => void;
   onDelete?: (deleted: number[]) => void;
@@ -44,35 +43,8 @@ export type InteractiveImageSelectorProps = {
   selectable?: boolean;
 };
 
-const defaultImages: ImageData[] = [
-  {
-    id: 1,
-    src: getImageKitUrl("/images/womanorange.webp"),
-  },
-  {
-    id: 2,
-    src: getImageKitUrl("/images/girl-nature.webp"),
-  },
-  {
-    id: 3,
-    src: getImageKitUrl("/images/metrowoman.webp"),
-  },
-  {
-    id: 4,
-    src: getImageKitUrl("/images/designerworking.webp"),
-  },
-  {
-    id: 5,
-    src: getImageKitUrl("/images/girlglass.webp"),
-  },
-  {
-    id: 6,
-    src: getImageKitUrl("/images/manup.webp"),
-  },
-];
-
 export default function InteractiveImageSelector({
-  images = defaultImages,
+  images,
   selectedImages: controlledSelected,
   onChange,
   onDelete,

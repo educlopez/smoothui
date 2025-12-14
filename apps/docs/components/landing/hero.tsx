@@ -1,20 +1,22 @@
 "use client";
 
-import AnimatedInput from "@repo/smoothui/components/animated-input";
-import ButtonCopy from "@repo/smoothui/components/button-copy";
-import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
-import ExpandableCards from "@repo/smoothui/components/expandable-cards";
-import ScrambleHover from "@repo/smoothui/components/scramble-hover";
-import SiriOrb from "@repo/smoothui/components/siri-orb";
-import { User } from "lucide-react";
-import { motion } from "motion/react";
-import Link from "next/link";
 import Divider from "@docs/components/landing/divider";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { Button } from "@docs/components/smoothbutton";
+import AnimatedInput from "@repo/smoothui/components/animated-input";
+import ButtonCopy from "@repo/smoothui/components/button-copy";
+import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
+import ExpandableCards, {
+  type Card,
+} from "@repo/smoothui/components/expandable-cards";
+import ScrambleHover from "@repo/smoothui/components/scramble-hover";
+import SiriOrb from "@repo/smoothui/components/siri-orb";
+import { User } from "lucide-react";
+import { motion } from "motion/react";
+import Link from "next/link";
 
 const EASE_OUT_QUAD_X1 = 0.25;
 const EASE_OUT_QUAD_Y1 = 0.46;
@@ -26,6 +28,21 @@ const EASE_OUT_QUAD = [
   EASE_OUT_QUAD_X2,
   EASE_OUT_QUAD_Y2,
 ] as const;
+
+const heroCards: Card[] = [
+  {
+    id: 1,
+    title: "Component",
+    content: "Beautiful UI components ready to use",
+    image: "",
+  },
+  {
+    id: 2,
+    title: "Animation",
+    content: "Smooth animations out of the box",
+    image: "",
+  },
+];
 
 export function Hero() {
   return (
@@ -162,7 +179,7 @@ export function Hero() {
 
                 {/* ExpandableCards Component */}
                 <div className="frame-box relative col-span-2 rounded-lg p-4">
-                  <ExpandableCards className="text-xs" />
+                  <ExpandableCards cards={heroCards} className="text-xs" />
                 </div>
               </div>
             </motion.div>

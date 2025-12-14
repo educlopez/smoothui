@@ -1,6 +1,5 @@
 "use client";
 
-import { getImageKitUrl } from "@smoothui/data";
 import {
   Content as PopoverContent,
   Portal as PopoverPortal,
@@ -25,17 +24,11 @@ export type Order = {
 };
 
 export type UserAccountAvatarProps = {
-  user?: UserData;
+  user: UserData;
   orders?: Order[];
   onProfileSave?: (user: UserData) => void;
   onOrderView?: (orderId: string) => void;
   className?: string;
-};
-
-const initialUserData: UserData = {
-  name: "John Doe",
-  email: "john@example.com",
-  avatar: getImageKitUrl("/images/educalvolpz.jpg"),
 };
 
 const mockOrders: Order[] = [
@@ -44,7 +37,7 @@ const mockOrders: Order[] = [
 ];
 
 export default function UserAccountAvatar({
-  user = initialUserData,
+  user,
   orders = mockOrders,
   onProfileSave,
   onOrderView,

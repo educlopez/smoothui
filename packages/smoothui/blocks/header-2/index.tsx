@@ -32,7 +32,11 @@ export function HeroProduct({
     text: "Watch Video",
     url: "#link",
   },
-  imageSrc = getImageKitUrl("/images/hero-smoothui.png"),
+  imageSrc = getImageKitUrl("/images/hero-smoothui.png", {
+    width: 1200,
+    quality: 85,
+    format: "auto",
+  }),
   imageAlt = "SmoothUI desktop application interface",
 }: HeroProductProps) {
   return (

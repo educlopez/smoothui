@@ -27,7 +27,12 @@ export default function Footer() {
             className="h-7 w-7 shrink-0 rounded-md"
             height={32}
             loading="lazy"
-            src={getImageKitUrl("/images/educalvolpz.jpg")}
+            src={getImageKitUrl("/images/educalvolpz.jpg", {
+              width: 64,
+              height: 64,
+              quality: 85,
+              format: "auto",
+            })}
             width={32}
           />
           <span className="whitespace-nowrap font-medium text-foreground text-sm">

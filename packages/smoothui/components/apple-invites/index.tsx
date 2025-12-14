@@ -1,12 +1,9 @@
 "use client";
 
-import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { Crown } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { wrap } from "popmotion";
 import { useEffect, useRef, useState } from "react";
-
-const AVATAR_SIZE = 72;
 
 export type Participant = {
   avatar: string;
@@ -22,61 +19,6 @@ export type Event = {
   participants?: Participant[];
   backgroundClassName?: string;
 };
-
-const defaultEvents: Event[] = [
-  {
-    id: 1,
-    title: "Yoga",
-    subtitle: "Sat, June 14, 6:00 AM",
-    location: "Central Park",
-    image: getImageKitUrl("/images/yogaday.webp"),
-    badge: "Hosting",
-    participants: [
-      {
-        avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", AVATAR_SIZE),
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: "Tyler Turns 3!",
-    subtitle: "Sat, June 14, 3:00 PM",
-    location: "Central Park",
-    image: getImageKitUrl("/images/park.webp"),
-    badge: "Going",
-    participants: [
-      {
-        avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", AVATAR_SIZE),
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: "Golf party",
-    subtitle: "Sun, April 15, 9:00 AM",
-    location: "Golf Park",
-    image: getImageKitUrl("/images/golf.webp"),
-    badge: "Going",
-    participants: [
-      {
-        avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", AVATAR_SIZE),
-      },
-    ],
-  },
-  {
-    id: 4,
-    title: "Movie Night",
-    subtitle: "Fri, June 20, 8:00 PM",
-    location: "Cine Town",
-    image: getImageKitUrl("/images/movie.webp"),
-    badge: "Interested",
-    participants: [
-      {
-        avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", AVATAR_SIZE),
-      },
-    ],
-  },
-];
 
 const variants = {
   center: {
@@ -111,7 +53,7 @@ const variants = {
 };
 
 export type AppleInvitesProps = {
-  events?: Event[];
+  events: Event[];
   interval?: number;
   className?: string;
   cardClassName?: string;
@@ -122,7 +64,7 @@ export type AppleInvitesProps = {
 };
 
 export default function AppleInvites({
-  events = defaultEvents,
+  events,
   interval = 3000,
   className = "",
   cardClassName = "",
