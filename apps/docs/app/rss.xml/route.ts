@@ -33,6 +33,8 @@ const githubDateCache = new Map<string, Date>();
 // Regex patterns (defined at top level for performance)
 // Match both /docs/components/ and /components/ (with or without /docs/)
 const componentUrlRegex = /\/docs\/components\/([^/]+)|\/components\/([^/]+)/;
+// Match /docs/blocks/ and /blocks/ (with or without /docs/)
+const blockUrlRegex = /\/docs\/blocks\/([^/]+)|\/blocks\/([^/]+)/;
 const linkGuidRegex = /<(?:link|guid)>([^<]+)<\/(?:link|guid)>/;
 const itemRegex = /<item>([\s\S]*?)<\/item>/g;
 const pubDateRegex = /<pubDate>[^<]*<\/pubDate>/;
@@ -121,6 +123,23 @@ function extractComponentName(url: string): string | null {
 }
 
 /**
+ * Extract block name from RSS item URL
+ */
+function extractBlockName(url: string): string | null {
+  // Match /docs/blocks/block-name or /blocks/block-name
+  const blockMatch = url.match(blockUrlRegex);
+  if (blockMatch) {
+    // The regex has two capture groups, one will be undefined
+    const name = blockMatch[1] || blockMatch[2];
+    if (name) {
+      return name;
+    }
+  }
+
+  return null;
+}
+
+/**
  * Get GitHub last edit date for a component
  */
 function getItemLastEditDate(
@@ -130,6 +149,55 @@ function getItemLastEditDate(
   token?: string
 ): Promise<Date | null> {
   const githubPath = `packages/smoothui/components/${componentName}/index.tsx`;
+  return getGitHubLastEditDate(owner, repo, githubPath, token);
+}
+
+/**
+ * Get GitHub last edit date for a block
+ * If blockName is a category, finds the most recently edited block in that category
+ */
+async function getBlockLastEditDate(
+  blockName: string,
+  owner: string,
+  repo: string,
+  token?: string
+): Promise<Date | null> {
+  // Check if blockName is a category (e.g., "faqs", "hero") or individual block (e.g., "faq-1")
+  const isCategory = !Object.keys(blockCategoryMap).includes(blockName);
+
+  if (isCategory) {
+    // Find all blocks in this category
+    const blocksInCategory = Object.entries(blockCategoryMap)
+      .filter(([, category]) => category === blockName)
+      .map(([block]) => block);
+
+    if (blocksInCategory.length === 0) {
+      return null;
+    }
+
+    // Get dates for all blocks in the category and return the most recent
+    const datePromises = blocksInCategory.map((block) =>
+      getGitHubLastEditDate(
+        owner,
+        repo,
+        `packages/smoothui/blocks/${block}/index.tsx`,
+        token
+      )
+    );
+
+    const dates = await Promise.all(datePromises);
+    const validDates = dates.filter((date): date is Date => date !== null);
+
+    if (validDates.length === 0) {
+      return null;
+    }
+
+    // Return the most recent date
+    return new Date(Math.max(...validDates.map((d) => d.getTime())));
+  }
+
+  // It's an individual block, get its date directly
+  const githubPath = `packages/smoothui/blocks/${blockName}/index.tsx`;
   return getGitHubLastEditDate(owner, repo, githubPath, token);
 }
 
@@ -146,16 +214,38 @@ function normalizeUrl(url: string): string {
 }
 
 /**
- * Extract component name from RSS item content
+ * Extract component or block name from RSS item content
+ * Returns an object with type and name
  */
-function extractComponentNameFromItem(content: string): string | null {
+function extractItemNameFromItem(content: string): {
+  type: "component" | "block";
+  name: string;
+} | null {
   const linkMatch = content.match(linkGuidRegex);
   if (!linkMatch) {
     return null;
   }
 
   const url = normalizeUrl(linkMatch[1]);
-  return extractComponentName(url);
+
+  // Try block first (since blocks might be incorrectly categorized as components)
+  const blockName = extractBlockName(url);
+  if (blockName) {
+    return { type: "block", name: blockName };
+  }
+
+  // Check if it's a component URL that actually points to a block
+  // (blocks might be incorrectly categorized as components in the RSS feed)
+  const componentName = extractComponentName(url);
+  if (componentName) {
+    // Check if this component name is actually a block name
+    if (Object.keys(blockCategoryMap).includes(componentName)) {
+      return { type: "block", name: componentName };
+    }
+    return { type: "component", name: componentName };
+  }
+
+  return null;
 }
 
 /**
@@ -212,18 +302,16 @@ async function fixPubDates(
 
   // Process each item to get the correct pubDate
   const pubDatePromises = items.map(async (item) => {
-    const componentName = extractComponentNameFromItem(item.content);
+    const itemInfo = extractItemNameFromItem(item.content);
 
-    if (!componentName) {
+    if (!itemInfo) {
       return { item, pubDate: null };
     }
 
-    const lastEditDate = await getItemLastEditDate(
-      componentName,
-      owner,
-      repo,
-      token
-    );
+    const lastEditDate =
+      itemInfo.type === "block"
+        ? await getBlockLastEditDate(itemInfo.name, owner, repo, token)
+        : await getItemLastEditDate(itemInfo.name, owner, repo, token);
 
     return { item, pubDate: lastEditDate };
   });
@@ -314,11 +402,8 @@ function removeExcludedItems(rssXml: string): string {
     cleanedXml = cleanedXml.replace(excludedItemRegex, "");
   }
 
-  // Remove ALL block items from RSS feed
-  // Match <item>...</item> that contains /blocks/ or /docs/blocks/ in link or guid
-  const blockItemRegex =
-    /<item>[\s\S]*?<(?:link|guid)>[^<]*(?:\/docs)?\/blocks\/[^<]*<\/(?:link|guid)>[\s\S]*?<\/item>/g;
-  cleanedXml = cleanedXml.replace(blockItemRegex, "");
+  // Note: We now KEEP block items in the RSS feed
+  // They are properly mapped to category pages via fixRssUrls
 
   // Clean up any double newlines that might result from removal
   cleanedXml = cleanedXml.replace(/\n\s*\n\s*\n/g, "\n\n");
