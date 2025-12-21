@@ -1,6 +1,6 @@
 {
-  "name": "@repo/github-stars-animation",
-  "description": "A GitHubStarsAnimation component for SmoothUI.",
+  "name": "@repo/reviews-carousel",
+  "description": "A ReviewsCarousel component for SmoothUI.",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -17,7 +17,3 @@
     "typescript": "^5.9.3"
   }
 }
-
-
-
-

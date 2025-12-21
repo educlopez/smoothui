@@ -30,6 +30,7 @@ export { default as Phototab } from "./phototab";
 export { default as PowerOffSlide } from "./power-off-slide";
 export { default as PriceFlow } from "./price-flow";
 export { default as RevealText } from "./reveal-text";
+export { default as ReviewsCarousel } from "./reviews-carousel";
 export { default as RichPopover } from "./rich-popover";
 export { default as ScrambleHover } from "./scramble-hover";
 export { default as ScrollRevealParagraph } from "./scroll-reveal-paragraph";
