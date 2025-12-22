@@ -83,8 +83,17 @@ const demoEvents: Event[] = [
 ];
 
 const Example = () => (
-  <div className="flex min-h-[600px] items-center justify-center">
-    <AppleInvites events={demoEvents} />
+  <div className="flex min-h-[500px] items-center justify-center">
+    <AppleInvites
+      cardWidth={{
+        base: 100,
+        sm: 140,
+        md: 180,
+        lg: 220,
+        xl: 260,
+      }}
+      events={demoEvents}
+    />
   </div>
 );
 
