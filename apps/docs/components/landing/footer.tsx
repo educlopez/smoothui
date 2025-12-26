@@ -27,7 +27,7 @@ export default function Footer() {
             className="h-7 w-7 shrink-0 rounded-md"
             height={32}
             loading="lazy"
-            src={getImageKitUrl("/images/educalvolpz.jpg", {
+            src={getImageKitUrl("https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631", {
               width: 64,
               height: 64,
               quality: 85,

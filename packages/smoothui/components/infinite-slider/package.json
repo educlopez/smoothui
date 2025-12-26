@@ -1,6 +1,6 @@
 {
-  "name": "@repo/github-stars-animation",
-  "description": "A GitHubStarsAnimation component for SmoothUI.",
+  "name": "@repo/infinite-slider",
+  "description": "A InfiniteSlider component for SmoothUI.",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^11.15.0",
-    "lucide-react": "^0.555.0"
+    "react-use-measure": "^2.1.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -17,14 +17,4 @@
     "typescript": "^5.9.3"
   }
 }
-
-
-
-
-
-
-
-
-
-
 

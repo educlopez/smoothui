@@ -10,7 +10,7 @@ import { useState } from "react";
 const demoUser: UserData = {
   name: "Jane Doe",
   email: "jane@example.com",
-  avatar: getImageKitUrl("/images/educalvolpz.jpg", {
+  avatar: getImageKitUrl("https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631", {
     width: 96,
     height: 96,
     quality: 85,

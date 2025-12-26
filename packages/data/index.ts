@@ -31,7 +31,7 @@ export const peopleData: Person[] = [
     name: "Eduardo Calvo",
     role: "CEO & Founder",
     bio: "Passionate about building products that make a difference. Leading the vision for innovative user experiences.",
-    avatar: "https://ik.imagekit.io/16u211libb/smoothui/educalvolpz.jpg",
+    avatar: "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
     location: "Spain",
     experience: "8+ years of experience",
     company: "SmoothUI",

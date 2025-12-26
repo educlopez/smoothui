@@ -22,6 +22,7 @@ export { default as FigmaComment } from "./figma-comment";
 export { default as FluidMorph } from "./fluid-morph";
 export { default as GitHubStarsAnimation } from "./github-stars-animation";
 export { default as ImageMetadataPreview } from "./image-metadata-preview";
+export { default as InfiniteSlider } from "./infinite-slider";
 export { default as InteractiveImageSelector } from "./interactive-image-selector";
 export { default as JobListingComponent } from "./job-listing-component";
 export { default as MatrixCard } from "./matrix-card";

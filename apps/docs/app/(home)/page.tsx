@@ -1,3 +1,4 @@
+import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
@@ -11,6 +12,7 @@ export default function Home() {
       <Hero />
       <Features />
       <ComponentsSlideshow />
+      <BlockCategories />
       <FAQ />
       <Sponsors />
       <Footer />

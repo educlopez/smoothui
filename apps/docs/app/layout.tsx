@@ -2,15 +2,8 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./global.css";
-import { Inter } from "next/font/google";
-import { poppins } from "./fonts";
+import { inter, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
-
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoothui.dev"),
