@@ -6,6 +6,7 @@ import {
   type CSSProperties,
   type ReactElement,
   type ReactNode,
+  type Ref,
   cloneElement,
   useEffect,
   useRef,
@@ -170,8 +171,9 @@ export default function GlowHover({
   ): ReactElement => {
     if (!isOverlay) return element;
 
-    const existingStyle = (element.props.style as CSSProperties) || {};
-    const existingClassName = element.props.className || "";
+    const props = element.props as { style?: CSSProperties; className?: string };
+    const existingStyle = props.style || {};
+    const existingClassName = props.className || "";
 
     let glowStyles: CSSProperties;
 
@@ -201,11 +203,14 @@ export default function GlowHover({
       ...glowStyles,
     };
 
-    return cloneElement(element, {
-      ...element.props,
-      style: mergedStyle,
-      className: cn(existingClassName, "glow-overlay-item"),
-    });
+    return cloneElement(
+      element,
+      {
+        ...props,
+        style: mergedStyle,
+        className: cn(existingClassName, "glow-overlay-item"),
+      } as any
+    );
   };
 
   return (
@@ -217,19 +222,23 @@ export default function GlowHover({
       {/* Original Items */}
       <div className="contents">
         {items.map((item, index) => {
-          return cloneElement(item.element, {
-            key: item.id,
-            ref: (el: HTMLElement | null) => {
-              itemRefs.current[index] = el;
-              // Preserve existing ref if any
-              const existingRef = item.element.ref;
-              if (typeof existingRef === "function") {
-                existingRef(el);
-              } else if (existingRef && typeof existingRef === "object") {
-                (existingRef as { current: HTMLElement | null }).current = el;
-              }
-            },
-          });
+          return cloneElement(
+            item.element,
+            {
+              key: item.id,
+              ref: (el: HTMLElement | null) => {
+                itemRefs.current[index] = el;
+                // Preserve existing ref if any
+                const elementProps = item.element.props as { ref?: Ref<HTMLElement> };
+                const existingRef = elementProps?.ref;
+                if (typeof existingRef === "function") {
+                  existingRef(el);
+                } else if (existingRef && typeof existingRef === "object") {
+                  (existingRef as { current: HTMLElement | null }).current = el;
+                }
+              },
+            } as any
+          );
         })}
       </div>
 
@@ -250,12 +259,15 @@ export default function GlowHover({
         >
           {items.map((item, index) => {
             const glowElement = applyGlowStyles(item.element, item.theme, true);
-            return cloneElement(glowElement, {
-              key: item.id,
-              ref: (el: HTMLElement | null) => {
-                overlayItemRefs.current[index] = el;
-              },
-            });
+            return cloneElement(
+              glowElement,
+              {
+                key: item.id,
+                ref: (el: HTMLElement | null) => {
+                  overlayItemRefs.current[index] = el;
+                },
+              } as any
+            );
           })}
         </div>
       )}
