@@ -1,6 +1,6 @@
 ---
 title: Wave Text
-description: An animated text component that creates a wave effect across characters.
+description: An animated text component that creates a smooth wave effect across characters.
 icon: Type
 dependencies:
   - motion.dev
@@ -9,12 +9,12 @@ installer: wave-text
 
 ## Features
 
-- Smooth wave animation across text
-- Customizable wave parameters
-- Multiple animation styles
-- Built with Framer Motion
-- Responsive text sizing
-- Performance optimized
+- Smooth continuous wave animation across text
+- Customizable amplitude, duration, and stagger delay
+- Natural bounce effect with custom easing
+- GPU-accelerated for optimal performance
+- Lightweight and easy to use
+- Built with Motion
 
 ## Props
 
@@ -22,3 +22,35 @@ installer: wave-text
   path="../../packages/smoothui/components/wave-text/index.tsx"
   name="WaveTextProps"
 />
+
+## Usage
+
+```tsx
+import WaveText from "@repo/smoothui/components/wave-text";
+
+// Basic usage
+<WaveText>Hello World</WaveText>
+
+// Customized wave
+<WaveText amplitude={12} duration={1.0} staggerDelay={0.04}>
+  SmoothUI Components
+</WaveText>
+```
+
+## Examples
+
+### Large Bold Text
+```tsx
+<div className="font-bold text-3xl">
+  <WaveText amplitude={12} duration={1.0} staggerDelay={0.04}>
+    SmoothUI Components
+  </WaveText>
+</div>
+```
+
+### Subtle Wave
+```tsx
+<WaveText amplitude={6} duration={1.4} staggerDelay={0.06}>
+  Smooth wave animations for your text!
+</WaveText>
+```

@@ -9,20 +9,20 @@ const Example = () => (
 
       <div className="space-y-6">
         <div className="font-bold text-3xl">
-          <WaveText amplitude={12} speed={0.2}>
+          <WaveText amplitude={12} duration={1.0} staggerDelay={0.04}>
             SmoothUI Components
           </WaveText>
         </div>
 
         <div className="text-xl">
-          <WaveText amplitude={8} speed={0.3}>
+          <WaveText amplitude={8} duration={1.2} staggerDelay={0.05}>
             Beautiful animations made easy
           </WaveText>
         </div>
 
         <div className="text-gray-600 text-lg dark:text-gray-300">
-          <WaveText amplitude={6} speed={0.4}>
-            Hover over the text to see the wave effect!
+          <WaveText amplitude={6} duration={1.4} staggerDelay={0.06}>
+            Smooth wave animations for your text!
           </WaveText>
         </div>
       </div>
