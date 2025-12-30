@@ -9,6 +9,7 @@ export { default as AppDownloadStack } from "./app-download-stack";
 export { default as AppleInvites } from "./apple-invites";
 export { default as BasicAccordion } from "./basic-accordion";
 export { default as BasicDropdown } from "./basic-dropdown";
+export { default as SearchableDropdown } from "./searchable-dropdown";
 export { default as BasicModal } from "./basic-modal";
 export { default as BasicToast } from "./basic-toast";
 export { default as ButtonCopy } from "./button-copy";

@@ -1,0 +1,38 @@
+---
+title: Searchable Dropdown
+description: A dropdown menu with search/filter functionality and smooth animations.
+icon: Search
+dependencies:
+  - lucide.dev
+  - motion.dev
+installer: searchable-dropdown
+---
+
+## Features
+
+- Real-time search filtering with smooth transitions
+- Support for item descriptions and icons
+- Keyboard navigation (Escape to close)
+- Animated clear button for search input
+- Staggered animation for filtered results
+- Empty state message when no results found
+- Click outside to close
+- Fully accessible and customizable
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/searchable-dropdown/index.tsx"
+  name="SearchableDropdownProps"
+/>
+
+## Item Props
+
+Each item in the dropdown can have the following properties:
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `id` | `string \| number` | Unique identifier for the item |
+| `label` | `string` | Display text for the item |
+| `icon` | `React.ReactNode` | Optional icon to display before the label |
+| `description` | `string` | Optional description text below the label |

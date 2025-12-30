@@ -1995,6 +1995,37 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/components/searchable-dropdown:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      lucide-react:
+        specifier: ^0.545.0
+        version: 0.545.0(react@19.2.1)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/components/siri-orb:
     dependencies:
       '@repo/shadcn-ui':
@@ -11259,6 +11290,10 @@ snapshots:
   lucide-react@0.545.0(react@19.2.0):
     dependencies:
       react: 19.2.0
+
+  lucide-react@0.545.0(react@19.2.1):
+    dependencies:
+      react: 19.2.1
 
   lucide-react@0.548.0(react@19.2.0):
     dependencies:
