@@ -40,7 +40,7 @@ const blockCategories = [
   {
     title: "Hero",
     href: "/docs/blocks/hero",
-    blockCount: 3,
+    blockCount: 4,
     preview: HeroPreview,
   },
   {

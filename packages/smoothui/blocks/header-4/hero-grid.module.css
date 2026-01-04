@@ -1,0 +1,150 @@
+/* @reference "../../../../app/styles/smoothui.css"; */
+
+/**
+ * Interactive 3D Grid Styles
+ *
+ * Inspired by rauno.me 2024 website's interactive grid design.
+ * Creates a 3D-perspective grid with customizable hover colors.
+ */
+
+.gridContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 2000px;
+  perspective-origin: center center;
+  /* Customizable hover colors - defaults to brand color */
+  --hero-grid-hover-color-1: var(--color-brand);
+  --hero-grid-hover-color-2: var(--color-brand);
+  --hero-grid-hover-color-3: var(--color-brand);
+  --hero-grid-hover-color-4: var(--color-brand);
+}
+
+.mainGrid {
+  width: 140rem;
+  aspect-ratio: 1;
+  display: grid;
+  grid-template-rows: repeat(40, 1fr);
+  grid-template-columns: repeat(40, 1fr);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotateX(50deg) rotateY(-5deg) rotateZ(20deg) scale(1.25);
+}
+
+.mainGrid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(
+    circle,
+    transparent 25%,
+    rgb(255 255 255) 80%
+  );
+}
+
+.dark .mainGrid::after {
+  background: radial-gradient(
+    circle,
+    transparent 25%,
+    rgb(0 0 0) 80%
+  );
+}
+
+.tile {
+  border: 0.5px solid rgb(0 0 0 / 12%);
+  transition: background-color 1500ms;
+}
+
+.dark .tile {
+  border: 0.5px solid rgb(255 255 255 / 25%);
+}
+
+.tile:hover {
+  transition-duration: 0ms;
+}
+
+.tile:nth-child(4n):hover {
+  background-color: var(--hero-grid-hover-color-1);
+}
+
+.tile:nth-child(4n + 1):hover {
+  background-color: var(--hero-grid-hover-color-2);
+}
+
+.tile:nth-child(4n + 2):hover {
+  background-color: var(--hero-grid-hover-color-3);
+}
+
+.tile:nth-child(4n + 3):hover {
+  background-color: var(--hero-grid-hover-color-4);
+}
+
+.tile:nth-child(7n):hover {
+  background-color: var(--hero-grid-hover-color-2);
+}
+
+.tile:nth-child(7n + 3):hover {
+  background-color: var(--hero-grid-hover-color-3);
+}
+
+.tile:nth-child(7n + 5):hover {
+  background-color: var(--hero-grid-hover-color-4);
+}
+
+.tile:nth-child(7n + 6):hover {
+  background-color: var(--hero-grid-hover-color-1);
+}
+
+.tile:nth-child(11n + 1):hover {
+  background-color: var(--hero-grid-hover-color-1);
+}
+
+.tile:nth-child(11n + 4):hover {
+  background-color: var(--hero-grid-hover-color-2);
+}
+
+.tile:nth-child(11n + 7):hover {
+  background-color: var(--hero-grid-hover-color-3);
+}
+
+.tile:nth-child(11n + 10):hover {
+  background-color: var(--hero-grid-hover-color-4);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mainGrid {
+    transform: translate(-50%, -50%) rotateZ(20deg);
+  }
+
+  .tile {
+    transition: none;
+  }
+}
+
+/* Reduce overlay size of hero text/button containers */
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+  width: auto;
+}

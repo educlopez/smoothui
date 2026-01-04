@@ -10,6 +10,7 @@ const blockCategoryMap: Record<string, string> = {
   "header-1": "hero",
   "header-2": "hero",
   "header-3": "hero",
+  "header-4": "hero",
   "logo-cloud-1": "logo-clouds",
   "logo-cloud-2": "logo-clouds",
   "pricing-1": "pricing",
