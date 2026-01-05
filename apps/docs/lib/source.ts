@@ -2,7 +2,7 @@ import { type InferPageType, loader } from "fumadocs-core/source";
 import { lucideIconsPlugin } from "fumadocs-core/source/lucide-icons";
 import { docs } from "@/.source";
 import { siteConfig } from "./config";
-import { isRecentlyModified } from "./recent-modified";
+import { getModificationLabel, isRecentlyModified } from "./recent-modified";
 
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
@@ -65,7 +65,8 @@ export function getRecentlyModifiedPagesWithLabels(): Record<string, string> {
 
   for (const page of source.getPages()) {
     if (isPageRecentlyModified(page)) {
-      const lastModified = (page.data as { lastModified?: number }).lastModified;
+      const lastModified = (page.data as { lastModified?: number })
+        .lastModified;
       if (lastModified) {
         const label = getModificationLabel(lastModified);
         recentPagesMap[page.url] = label;
@@ -76,24 +77,4 @@ export function getRecentlyModifiedPagesWithLabels(): Record<string, string> {
   }
 
   return recentPagesMap;
-}
-
-function getModificationLabel(lastModified: number): string {
-  const now = Date.now();
-  const diffInHours = (now - lastModified) / (1000 * 60 * 60);
-  const diffInDays = diffInHours / 24;
-
-  if (diffInHours < 24) {
-    return "Updated today";
-  }
-  if (diffInDays < 7) {
-    const days = Math.floor(diffInDays);
-    return `Updated ${days} day${days !== 1 ? "s" : ""} ago`;
-  }
-  if (diffInDays < 30) {
-    const weeks = Math.floor(diffInDays / 7);
-    return `Updated ${weeks} week${weeks !== 1 ? "s" : ""} ago`;
-  }
-
-  return "Recently updated";
 }

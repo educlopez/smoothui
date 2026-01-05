@@ -14,7 +14,9 @@ export function SidebarEnhancer({ recentPagesMap }: SidebarEnhancerProps) {
   useEffect(() => {
     const addIndicators = () => {
       // Try multiple selectors to find sidebar links
-      let sidebarLinks = document.querySelectorAll('[data-sidebar] a[href^="/docs"]');
+      let sidebarLinks = document.querySelectorAll(
+        '[data-sidebar] a[href^="/docs"]'
+      );
 
       // Fallback selectors if the first one doesn't work
       if (sidebarLinks.length === 0) {
@@ -25,15 +27,15 @@ export function SidebarEnhancer({ recentPagesMap }: SidebarEnhancerProps) {
         sidebarLinks = document.querySelectorAll('nav a[href^="/docs"]');
       }
 
-      sidebarLinks.forEach((link) => {
+      for (const link of sidebarLinks) {
         const href = link.getAttribute("href");
 
-        if (!href) return;
+        if (!href) continue;
 
         // Check if this URL is in our recent pages object
         if (href in recentPagesMap) {
           // Check if indicator already exists
-          if (link.querySelector('[data-recent-indicator]')) return;
+          if (link.querySelector("[data-recent-indicator]")) continue;
 
           // Get modification label
           const modificationLabel = recentPagesMap[href] || "Recently updated";
@@ -54,7 +56,7 @@ export function SidebarEnhancer({ recentPagesMap }: SidebarEnhancerProps) {
           // Append to link
           link.appendChild(indicatorWrapper);
         }
-      });
+      }
     };
 
     // Initial add with a small delay to ensure DOM is ready
@@ -67,9 +69,10 @@ export function SidebarEnhancer({ recentPagesMap }: SidebarEnhancerProps) {
       addIndicators();
     });
 
-    const sidebar = document.querySelector('[data-sidebar]') ||
-                   document.querySelector('aside') ||
-                   document.querySelector('nav');
+    const sidebar =
+      document.querySelector("[data-sidebar]") ||
+      document.querySelector("aside") ||
+      document.querySelector("nav");
 
     if (sidebar) {
       observer.observe(sidebar, {
