@@ -94,30 +94,54 @@ export const Contributor = ({
             {otherContributors.map((contributor, index) => (
               <Tooltip key={`${contributor.email}-${index}`}>
                 <TooltipTrigger asChild>
-                  <a
-                    className="relative h-6 w-6 overflow-hidden rounded-full border border-border transition-transform hover:z-10 hover:scale-110"
-                    href={contributor.url}
-                    rel="noopener"
-                    style={{
-                      marginLeft: index > 0 ? "-4px" : "0",
-                      zIndex: otherContributors.length - index,
-                    }}
-                    target="_blank"
-                  >
-                    {contributor.avatar ? (
-                      <Image
-                        alt={`${contributor.name}'s avatar`}
-                        className="object-cover"
-                        height={24}
-                        src={contributor.avatar}
-                        width={24}
-                      />
-                    ) : (
-                      <div className="flex h-full w-full items-center justify-center bg-muted">
-                        <UserIcon className="h-3 w-3 text-muted-foreground" />
-                      </div>
-                    )}
-                  </a>
+                  {contributor.url ? (
+                    <a
+                      className="relative h-6 w-6 overflow-hidden rounded-full border border-border transition-transform hover:z-10 hover:scale-110"
+                      href={contributor.url}
+                      rel="noopener"
+                      style={{
+                        marginLeft: index > 0 ? "-4px" : "0",
+                        zIndex: otherContributors.length - index,
+                      }}
+                      target="_blank"
+                    >
+                      {contributor.avatar ? (
+                        <Image
+                          alt={`${contributor.name}'s avatar`}
+                          className="object-cover"
+                          height={24}
+                          src={contributor.avatar}
+                          width={24}
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-muted">
+                          <UserIcon className="h-3 w-3 text-muted-foreground" />
+                        </div>
+                      )}
+                    </a>
+                  ) : (
+                    <div
+                      className="relative h-6 w-6 overflow-hidden rounded-full border border-border transition-transform hover:z-10 hover:scale-110"
+                      style={{
+                        marginLeft: index > 0 ? "-4px" : "0",
+                        zIndex: otherContributors.length - index,
+                      }}
+                    >
+                      {contributor.avatar ? (
+                        <Image
+                          alt={`${contributor.name}'s avatar`}
+                          className="object-cover"
+                          height={24}
+                          src={contributor.avatar}
+                          width={24}
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-muted">
+                          <UserIcon className="h-3 w-3 text-muted-foreground" />
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </TooltipTrigger>
                 <TooltipContent>
                   <p>{contributor.name}</p>
