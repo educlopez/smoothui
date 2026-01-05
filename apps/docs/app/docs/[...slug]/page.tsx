@@ -9,6 +9,7 @@ import { OpenInV0Button } from "@docs/components/open-in-v0-button";
 import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { Preview } from "@docs/components/preview";
+import { Reference } from "@docs/components/reference";
 import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
 import { createMetadata } from "@docs/lib/metadata";
@@ -71,6 +72,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     ? `${domain}/r/${componentName}.json`
     : null;
 
+  const dependencies = page.data.dependencies;
+  const references = page.data.references;
+  const hasDependencies =
+    Array.isArray(dependencies) && dependencies.length > 0;
+  const hasReferences = Array.isArray(references) && references.length > 0;
+  const footerContent =
+    hasDependencies || hasReferences ? (
+      <>
+        {hasDependencies && <PoweredBy packages={dependencies} />}
+        {hasReferences && <Reference sources={references} />}
+      </>
+    ) : undefined;
+
   return (
     <DocsPage
       container={{
@@ -79,9 +93,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       full={page.data.full ?? page.slugs.includes("blocks")}
       tableOfContent={{
         style: "clerk",
-        footer: page.data.dependencies && (
-          <PoweredBy packages={page.data.dependencies} />
-        ),
+        footer: footerContent,
       }}
       toc={updatedToc}
     >
@@ -129,6 +141,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             Installer,
             Preview,
             PoweredBy,
+            Reference,
             BodyText,
             FeatureCard,
             FeatureCardHover,

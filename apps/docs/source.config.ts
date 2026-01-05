@@ -22,6 +22,7 @@ export const docs = defineDocs({
   docs: {
     schema: frontmatterSchema.extend({
       dependencies: z.array(z.string()).optional(),
+      references: z.array(z.string()).optional(),
       installer: z.string().optional(),
     }),
     postprocess: {
