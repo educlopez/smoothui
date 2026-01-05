@@ -24,6 +24,13 @@ export const docs = defineDocs({
       dependencies: z.array(z.string()).optional(),
       references: z.array(z.string()).optional(),
       installer: z.string().optional(),
+      contributor: z
+        .object({
+          name: z.string(),
+          url: z.string().optional(),
+          avatar: z.string().optional(),
+        })
+        .optional(),
     }),
     postprocess: {
       includeProcessedMarkdown: true,

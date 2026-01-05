@@ -1,5 +1,6 @@
 import { BodyText } from "@docs/components/body-text";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
+import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import { Installer } from "@docs/components/installer";
@@ -12,6 +13,10 @@ import { Preview } from "@docs/components/preview";
 import { Reference } from "@docs/components/reference";
 import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
+import {
+  type ContributorInfo,
+  getComponentContributors,
+} from "@docs/lib/git-contributor";
 import { createMetadata } from "@docs/lib/metadata";
 import { getPageImage, source } from "@docs/lib/source";
 import { typeGenerator } from "@docs/mdx-components";
@@ -74,12 +79,49 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const dependencies = page.data.dependencies;
   const references = page.data.references;
+  const contributorFromFrontmatter = page.data.contributor;
+
+  // Get all contributors from GitHub API (automatic, similar to lastModified)
+  let allContributors: ContributorInfo[] = [];
+  let creator: { name: string; url?: string; avatar?: string } | null = null;
+
+  if (componentName) {
+    allContributors = await getComponentContributors(type, componentName);
+
+    // Get creator (first contributor or from frontmatter)
+    if (contributorFromFrontmatter) {
+      creator = {
+        name: contributorFromFrontmatter.name,
+        url: contributorFromFrontmatter.url,
+        avatar: contributorFromFrontmatter.avatar,
+      };
+    } else if (allContributors.length > 0) {
+      const firstContributor = allContributors[0];
+      creator = {
+        name: firstContributor.name,
+        url: firstContributor.url,
+        avatar: firstContributor.avatar,
+      };
+    }
+  } else if (contributorFromFrontmatter) {
+    creator = {
+      name: contributorFromFrontmatter.name,
+      url: contributorFromFrontmatter.url,
+      avatar: contributorFromFrontmatter.avatar,
+    };
+  }
+
   const hasDependencies =
     Array.isArray(dependencies) && dependencies.length > 0;
   const hasReferences = Array.isArray(references) && references.length > 0;
+  const hasContributor = creator !== null;
+
   const footerContent =
-    hasDependencies || hasReferences ? (
+    hasDependencies || hasReferences || hasContributor ? (
       <>
+        {hasContributor && creator && (
+          <Contributor contributors={allContributors} creator={creator} />
+        )}
         {hasDependencies && <PoweredBy packages={dependencies} />}
         {hasReferences && <Reference sources={references} />}
       </>
@@ -142,6 +184,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             Preview,
             PoweredBy,
             Reference,
+            Contributor,
             BodyText,
             FeatureCard,
             FeatureCardHover,

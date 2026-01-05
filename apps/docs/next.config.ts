@@ -26,6 +26,10 @@ const config: NextConfig = {
         protocol: "https",
         hostname: "ik.imagekit.io",
       },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
+      },
     ],
   },
   // biome-ignore lint/suspicious/useAwait: "redirects is async"
