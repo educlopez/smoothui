@@ -1,0 +1,143 @@
+---
+title: Switchboard Card
+description: A feature card component with an animated light grid illustration that can display patterns or random lights.
+icon: Zap
+dependencies: []
+installer: switchboard-card
+published: 2026-01-05
+---
+
+## Features
+
+- Animated light grid with configurable dimensions
+- Three light states: off, medium, high (all use brand color)
+- Word pattern support - automatically generates patterns for short words (e.g., "NEXT", "REACT", "VUE")
+- Custom pattern support via array of light indices
+- Random light generation for dynamic effects
+- Next.js-style variant with dark gradient background
+- Smooth transitions and animations
+- Fully customizable grid layout
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/switchboard-card/index.tsx"
+  name="SwitchboardCardProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/switchboard-card/index.tsx"
+  name="LightState"
+/>
+
+## Usage
+
+### Basic Usage
+
+```tsx
+import SwitchboardCard from "@repo/smoothui/components/switchboard-card";
+
+<SwitchboardCard
+  title="Next.js 16"
+  subtitle="The power of full-stack to the frontend."
+  variant="next"
+/>
+```
+
+### With Grid Pattern (Simplest)
+
+The easiest way to customize is to pass a grid pattern directly. You can use either:
+- A 2D array `[rows][columns]` where each cell is `0` (off) or `1` (high)
+- A flat array of length `columns * rows` where each element is `0` (off) or `1` (high)
+
+```tsx
+// Using 2D array [5 rows][18 columns]
+const nextPattern = [
+  [1,1,0,0,0,0,0,1,1,1,0,0,0,1,1,1,1,1], // Row 0
+  [1,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0], // Row 1
+  [1,0,0,1,0,0,0,1,1,1,0,0,0,0,0,0,1,0], // Row 2
+  [1,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0], // Row 3
+  [1,1,1,1,1,0,0,1,1,1,0,0,0,1,1,1,1,1], // Row 4
+];
+
+<SwitchboardCard
+  title="Custom Pattern"
+  subtitle="Define your own pattern."
+  gridPattern={nextPattern}
+  columns={18}
+  rows={5}
+/>
+
+// Or using flat array
+const flatPattern = Array(90).fill(0).map((_, i) => {
+  // Your logic to determine which lights should be on
+  return i % 10 === 0 ? 1 : 0;
+});
+
+<SwitchboardCard
+  title="Custom Pattern"
+  subtitle="Using flat array."
+  gridPattern={flatPattern}
+  columns={18}
+  rows={5}
+/>
+```
+
+### With Word Pattern
+
+The easiest way to display a word is to use the `word` prop. The component will automatically generate the pattern:
+
+```tsx
+<SwitchboardCard
+  title="Next.js 16"
+  subtitle="The power of full-stack to the frontend."
+  word="NEXT"
+  columns={18}
+  rows={5}
+/>
+```
+
+Supported letters: N, E, X, T, R, A, C, V, U (more can be added)
+
+### With Custom Pattern
+
+For full control, you can define custom light patterns by passing an array of light indices:
+
+```tsx
+const customPattern = [15, 19, 26, 29, 34, 55, 60, 70, 74, 83];
+
+<SwitchboardCard
+  title="Custom Pattern"
+  subtitle="Display a custom light pattern."
+  pattern={customPattern}
+  columns={18}
+  rows={5}
+/>
+```
+
+### Random Lights
+
+For a dynamic effect, use `randomLights`:
+
+```tsx
+<SwitchboardCard
+  title="React 19"
+  subtitle="Latest features and improvements."
+  randomLights
+  columns={18}
+  rows={5}
+/>
+```
+
+### Interactive Card
+
+Make the card clickable with `href` or `onButtonClick`:
+
+```tsx
+<SwitchboardCard
+  title="Documentation"
+  subtitle="Read the full documentation."
+  href="/docs"
+  variant="next"
+/>
+```

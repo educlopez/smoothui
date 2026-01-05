@@ -39,6 +39,7 @@ export { default as ScrollRevealParagraph } from "./scroll-reveal-paragraph";
 export { default as ScrollableCardStack } from "./scrollable-card-stack";
 export { default as SiriOrb } from "./siri-orb";
 export { default as SocialSelector } from "./social-selector";
+export { default as SwitchboardCard } from "./switchboard-card";
 export { default as TypewriterText } from "./typewriter-text";
 export { default as UserAccountAvatar } from "./user-account-avatar";
 export { default as WaveText } from "./wave-text";
