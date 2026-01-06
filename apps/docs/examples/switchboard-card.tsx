@@ -14,27 +14,33 @@ const nextPattern = [
 
 export default function SwitchboardCardDemo() {
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8">
-      <div className="grid gap-8 md:grid-cols-2">
+    <div className="mx-auto w-full max-w-5xl px-2 py-4 md:px-4 md:py-8">
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-2 md:gap-8">
         {/* Random lights - animates but never stays permanently high */}
-        <SwitchboardCard
-          columns={18}
-          randomLights
-          rows={5}
-          subtitle="Dynamic animated lights that cycle through states."
-          title="Random Lights"
-          variant="default"
-        />
+        <div className="hidden md:block">
+          <SwitchboardCard
+            columns={18}
+            randomLights
+            rows={5}
+            subtitle="Dynamic animated lights that cycle through states."
+            title="Random Lights"
+            variant="default"
+          />
+        </div>
 
         {/* NEXT pattern using gridPattern */}
-        <SwitchboardCard
-          columns={18}
-          gridPattern={nextPattern}
-          rows={5}
-          subtitle="The power of full-stack to the frontend."
-          title="Next.js"
-          variant="default"
-        />
+        <div className="col-span-2 flex justify-center md:col-span-1">
+          <div className="origin-center scale-[0.6] md:scale-100">
+            <SwitchboardCard
+              columns={18}
+              gridPattern={nextPattern}
+              rows={5}
+              subtitle="The power of full-stack to the frontend."
+              title="Next.js"
+              variant="default"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
