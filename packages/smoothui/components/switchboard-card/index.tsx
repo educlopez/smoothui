@@ -115,7 +115,6 @@ export default function SwitchboardCard({
   useEffect(() => {
     // Word/pattern mode: no animation, lights stay high
     if (!isRandomLightsMode) return;
-    if (basePattern.length === 0) return;
 
     const interval = setInterval(() => {
       setLightStates((prev) => {

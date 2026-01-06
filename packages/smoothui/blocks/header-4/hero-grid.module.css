@@ -48,12 +48,12 @@
   );
 }
 
-.dark .mainGrid::after {
+:global(.dark) .mainGrid::after {
   background: radial-gradient(
     circle,
     transparent 25%,
-    rgb(0 0 0) 80%
-  );
+    rgb(0 0 0 / 90%) 80%
+  ) !important;
 }
 
 .tile {
@@ -61,8 +61,8 @@
   transition: background-color 1500ms;
 }
 
-.dark .tile {
-  border: 0.5px solid rgb(255 255 255 / 25%);
+:global(.dark) .tile {
+  border: 0.5px solid rgb(255 255 255 / 5%);
 }
 
 .tile:hover {
