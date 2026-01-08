@@ -14,15 +14,22 @@ import { ChangelogEntry } from "./components/changelog-entry";
 
 // Create the TypeScript generator for AutoTypeTable
 // In production (Vercel), tsconfig.json might not be available at runtime,
-// so we wrap in try-catch to gracefully fallback
+// so we wrap in try-catch to gracefully fallback with a stub generator
 let typeGenerator: ReturnType<typeof createGenerator>;
 
 try {
   typeGenerator = createGenerator();
 } catch {
-  // If creation fails (e.g., tsconfig.json not found), create with minimal config
-  // This ensures the app doesn't crash in production
-  typeGenerator = createGenerator();
+  // If creation fails (e.g., tsconfig.json not found in Vercel),
+  // create a minimal stub generator that implements the same interface
+  // This allows the app to continue without TypeScript type generation features
+
+  // Create a stub generator that matches the expected interface
+  // The stub provides no-op implementations that return empty results
+  typeGenerator = {
+    generateDocumentation: () => [],
+    generateTypeTable: async () => [],
+  } as ReturnType<typeof createGenerator>;
 }
 
 export { typeGenerator };
