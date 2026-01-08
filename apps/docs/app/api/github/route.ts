@@ -39,8 +39,31 @@ export async function GET(request: Request) {
     );
 
     if (!response.ok) {
+      // Try to get error details from response
+      let errorMessage = "Failed to fetch GitHub data";
+      try {
+        const errorData = (await response.json()) as { message?: string };
+        errorMessage = errorData.message ?? errorMessage;
+      } catch {
+        // If parsing fails, use default message
+      }
+
+      // Log error for debugging (only in development or when needed)
+      console.error(
+        `GitHub API error: ${response.status} ${response.statusText}`,
+        {
+          owner,
+          repo,
+          hasToken: Boolean(token),
+          errorMessage,
+        }
+      );
+
       return NextResponse.json(
-        { error: "Failed to fetch GitHub data" },
+        {
+          error: errorMessage,
+          status: response.status,
+        },
         { status: response.status }
       );
     }
@@ -54,8 +77,13 @@ export async function GET(request: Request) {
       url: data.html_url,
     });
   } catch (error) {
+    // Log unexpected errors
+    console.error("Unexpected error fetching GitHub data:", error);
     return NextResponse.json(
-      { error: "Failed to fetch GitHub data" },
+      {
+        error: "Failed to fetch GitHub data",
+        details: error instanceof Error ? error.message : "Unknown error",
+      },
       { status: 500 }
     );
   }

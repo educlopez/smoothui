@@ -62,7 +62,10 @@ export default defineConfig({
       transformers: [
         ...(rehypeCodeDefaultOptions.transformers ?? []),
         transformerTwoslash({
-          typesCache: createFileSystemTypesCache(),
+          typesCache:
+            process.env.NODE_ENV === "production"
+              ? undefined // Disable filesystem cache in production (Vercel)
+              : createFileSystemTypesCache(),
         }),
         {
           name: "@shikijs/transformers:remove-notation-escape",

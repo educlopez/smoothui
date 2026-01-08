@@ -13,8 +13,19 @@ import type { MDXComponents } from "mdx/types";
 import { ChangelogEntry } from "./components/changelog-entry";
 
 // Create the TypeScript generator for AutoTypeTable
-export const typeGenerator: ReturnType<typeof createGenerator> =
-  createGenerator();
+// In production (Vercel), tsconfig.json might not be available at runtime,
+// so we wrap in try-catch to gracefully fallback
+let typeGenerator: ReturnType<typeof createGenerator>;
+
+try {
+  typeGenerator = createGenerator();
+} catch {
+  // If creation fails (e.g., tsconfig.json not found), create with minimal config
+  // This ensures the app doesn't crash in production
+  typeGenerator = createGenerator();
+}
+
+export { typeGenerator };
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
