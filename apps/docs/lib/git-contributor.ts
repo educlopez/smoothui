@@ -135,14 +135,23 @@ async function fetchCommitsPage(
 ): Promise<{ commits: CommitItem[]; hasMore: boolean }> {
   const { owner, repo, filePath, page, perPage, headers } = options;
   const apiUrl = `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(filePath)}&per_page=${perPage}&page=${page}`;
-  const response = await fetch(apiUrl, {
-    headers,
-    next: { revalidate: 3600 }, // Cache for 1 hour
-  });
 
-  if (!response.ok) {
-    return { commits: [], hasMore: false };
-  }
+  try {
+    const response = await fetch(apiUrl, {
+      headers,
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    });
+
+    if (!response.ok) {
+      // Log error for debugging (but don't throw to avoid breaking the page)
+      if (response.status === 403 || response.status === 429) {
+        // Rate limit or forbidden - these are important to log
+        console.error(
+          `GitHub API rate limit/forbidden: ${response.status} for ${filePath} page ${page}`
+        );
+      }
+      return { commits: [], hasMore: false };
+    }
 
   const commits = (await response.json()) as unknown;
 
@@ -161,11 +170,19 @@ async function fetchCommitsPage(
 
   // Check if there are more pages
   const hasMoreByCount = commits.length >= perPage;
-  const linkHeader = response.headers.get("Link");
-  const links = parseLinkHeader(linkHeader);
-  const hasMoreByLink = Boolean(links.next);
+    const linkHeader = response.headers.get("Link");
+    const links = parseLinkHeader(linkHeader);
+    const hasMoreByLink = Boolean(links.next);
 
-  return { commits: validCommits, hasMore: hasMoreByCount && hasMoreByLink };
+    return { commits: validCommits, hasMore: hasMoreByCount && hasMoreByLink };
+  } catch (error) {
+    // Log unexpected errors
+    console.error(
+      `Unexpected error fetching GitHub commits for ${filePath} page ${page}:`,
+      error
+    );
+    return { commits: [], hasMore: false };
+  }
 }
 
 /**
@@ -273,7 +290,12 @@ async function getGitHubContributors(
     // Cache the result
     contributorsCache.set(cacheKey, contributors);
     return contributors;
-  } catch {
+  } catch (error) {
+    // Log unexpected errors
+    console.error(
+      `Unexpected error getting GitHub contributors for ${filePath}:`,
+      error
+    );
     return [];
   }
 }
