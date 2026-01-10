@@ -82,11 +82,22 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const contributorFromFrontmatter = page.data.contributor;
 
   // Get all contributors from GitHub API (automatic, similar to lastModified)
+  // During build, we might hit rate limits, so we gracefully handle failures
   let allContributors: ContributorInfo[] = [];
   let creator: { name: string; url?: string; avatar?: string } | null = null;
 
   if (componentName) {
-    allContributors = await getComponentContributors(type, componentName);
+    try {
+      allContributors = await getComponentContributors(type, componentName);
+    } catch (error) {
+      // Log error but don't fail the page generation
+      // This allows the page to build successfully even if GitHub API is unavailable
+      console.error(
+        `Failed to fetch contributors for ${type}/${componentName}:`,
+        error instanceof Error ? error.message : String(error)
+      );
+      allContributors = [];
+    }
 
     // Get creator (first contributor or from frontmatter)
     if (contributorFromFrontmatter) {

@@ -143,11 +143,35 @@ async function fetchCommitsPage(
     });
 
     if (!response.ok) {
+      // Try to get error details from response
+      let errorMessage = `HTTP ${response.status}`;
+      let rateLimitInfo = "";
+
+      try {
+        const errorData = (await response.json()) as {
+          message?: string;
+          documentation_url?: string;
+        };
+        errorMessage = errorData.message ?? errorMessage;
+      } catch {
+        // If parsing fails, try to get rate limit info from headers
+        const remaining = response.headers.get("x-ratelimit-remaining");
+        const reset = response.headers.get("x-ratelimit-reset");
+        if (remaining !== null || reset !== null) {
+          rateLimitInfo = ` Rate limit remaining: ${remaining}, Reset at: ${reset}`;
+        }
+      }
+
       // Log error for debugging (but don't throw to avoid breaking the page)
       if (response.status === 403 || response.status === 429) {
         // Rate limit or forbidden - these are important to log
         console.error(
-          `GitHub API rate limit/forbidden: ${response.status} for ${filePath} page ${page}`
+          `GitHub API rate limit/forbidden: ${response.status} for ${filePath} page ${page}. ${errorMessage}${rateLimitInfo}`
+        );
+      } else if (response.status !== 404) {
+        // Log other errors (but not 404, which is expected for files that don't exist)
+        console.error(
+          `GitHub API error: ${response.status} for ${filePath} page ${page}. ${errorMessage}${rateLimitInfo}`
         );
       }
       return { commits: [], hasMore: false };
@@ -257,12 +281,15 @@ async function getGitHubContributors(
     }
 
     // Fetch all commits with pagination
+    // Limit to first 5 pages during build to avoid rate limiting
+    // This still gives us up to 500 commits per file, which is usually enough
+    const maxPages = process.env.NODE_ENV === "production" ? 5 : 10;
     const allCommits: CommitItem[] = [];
     let page = 1;
     const perPage = 100;
     let hasMorePages = true;
 
-    while (hasMorePages) {
+    while (hasMorePages && page <= maxPages) {
       const { commits, hasMore } = await fetchCommitsPage({
         owner,
         repo,
@@ -274,7 +301,7 @@ async function getGitHubContributors(
 
       allCommits.push(...commits);
 
-      if (hasMore) {
+      if (hasMore && page < maxPages) {
         page++;
       } else {
         hasMorePages = false;
