@@ -1,0 +1,219 @@
+---
+title: Tweet Card
+description: A beautiful, customizable tweet card component for displaying Twitter/X posts with full-width images and hover interactions.
+icon: MessageSquare
+dependencies:
+  - react-tweet
+installer: tweet-card
+---
+
+## Features
+
+- Beautiful tweet card design with full-width images
+- Hover-activated external link button positioned at bottom-right
+- Support for tweets with images, videos, and text
+- Server-side and client-side rendering options
+- Loading and error states included
+- Fully customizable styling
+- Configurable user info position (top or bottom)
+- Customizable avatar rounded style
+- Accessible with proper ARIA labels
+- Consistent 24px padding on all sides
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/tweet-card/client.tsx"
+  name="ClientTweetCardProps"
+/>
+
+## Usage
+
+### Client-Side (Recommended)
+
+Use `ClientTweetCard` for client-side rendering:
+
+```tsx
+import { ClientTweetCard, TweetSkeleton } from "@repo/smoothui/components";
+
+export function MyComponent() {
+  return (
+    <ClientTweetCard
+      id="1944804313156419771"
+      fallback={<TweetSkeleton />}
+    />
+  );
+}
+```
+
+### Server-Side
+
+Use `TweetCard` for server-side rendering:
+
+```tsx
+import { TweetCard } from "@repo/smoothui/components";
+
+export default async function MyPage() {
+  return (
+    <TweetCard id="1944804313156419771" />
+  );
+}
+```
+
+## Configuration Options
+
+### User Info Position
+
+Control where the user information (avatar and name) appears in the card:
+
+```tsx
+// User info at bottom (default)
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="bottom"
+  fallback={<TweetSkeleton />}
+/>
+
+// User info at top
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="top"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+### Avatar Rounded Style
+
+Customize the avatar's border radius:
+
+```tsx
+// Rounded corners (default)
+<ClientTweetCard
+  id="1944804313156419771"
+  avatarRounded="rounded"
+  fallback={<TweetSkeleton />}
+/>
+
+// Fully rounded (circle)
+<ClientTweetCard
+  id="1944804313156419771"
+  avatarRounded="rounded-full"
+  fallback={<TweetSkeleton />}
+/>
+
+// Large rounded corners
+<ClientTweetCard
+  id="1944804313156419771"
+  avatarRounded="rounded-lg"
+  fallback={<TweetSkeleton />}
+/>
+
+// Medium rounded corners
+<ClientTweetCard
+  id="1944804313156419771"
+  avatarRounded="rounded-md"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+### Combined Configuration
+
+Use both props together for different layouts:
+
+```tsx
+// Top position with circular avatar
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="top"
+  avatarRounded="rounded-full"
+  fallback={<TweetSkeleton />}
+/>
+
+// Bottom position with large rounded corners
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="bottom"
+  avatarRounded="rounded-lg"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+## Examples
+
+### Default Configuration
+
+Default layout with user info at bottom and rounded avatar:
+
+```tsx
+<ClientTweetCard
+  id="1944804313156419771"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+### User Info at Top
+
+Display user information at the top of the card:
+
+```tsx
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="top"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+### Circular Avatar
+
+Use a fully rounded (circular) avatar:
+
+```tsx
+<ClientTweetCard
+  id="1944804313156419771"
+  avatarRounded="rounded-full"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+### Top Position with Circular Avatar
+
+Combine top position with circular avatar:
+
+```tsx
+<ClientTweetCard
+  id="1944804313156419771"
+  userInfoPosition="top"
+  avatarRounded="rounded-full"
+  fallback={<TweetSkeleton />}
+/>
+```
+
+## Grid Layout
+
+Display multiple tweets in a grid with different configurations:
+
+```tsx
+import { ClientTweetCard, TweetSkeleton } from "@repo/smoothui/components";
+
+export function TweetGrid() {
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <ClientTweetCard
+        id="1944804313156419771"
+        fallback={<TweetSkeleton />}
+      />
+      <ClientTweetCard
+        id="2010439383795810775"
+        userInfoPosition="top"
+        avatarRounded="rounded-full"
+        fallback={<TweetSkeleton />}
+      />
+      <ClientTweetCard
+        id="1785225558818771172"
+        avatarRounded="rounded-lg"
+        fallback={<TweetSkeleton />}
+      />
+    </div>
+  );
+}
+```

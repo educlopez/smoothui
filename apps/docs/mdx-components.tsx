@@ -13,23 +13,36 @@ import type { MDXComponents } from "mdx/types";
 import { ChangelogEntry } from "./components/changelog-entry";
 
 // Create the TypeScript generator for AutoTypeTable
-// In production (Vercel), tsconfig.json might not be available at runtime,
-// so we wrap in try-catch to gracefully fallback with a stub generator
+// In production runtime (Vercel), tsconfig.json is not available,
+// so we use a stub generator to avoid runtime errors
+
+// Stub generator that matches the expected interface
+const stubGenerator = {
+  generateDocumentation: () => [],
+  generateTypeTable: async () => [],
+} as ReturnType<typeof createGenerator>;
+
+// In Vercel runtime, tsconfig.json is not accessible, so always use stub
+// In development/build, we can try to create the real generator
+// Check for Vercel environment or if we're in production runtime
+const isVercelRuntime =
+  process.env.VERCEL === "1" ||
+  (process.env.NODE_ENV === "production" &&
+    typeof process.env.VERCEL_ENV !== "undefined");
+
 let typeGenerator: ReturnType<typeof createGenerator>;
 
-try {
-  typeGenerator = createGenerator();
-} catch {
-  // If creation fails (e.g., tsconfig.json not found in Vercel),
-  // create a minimal stub generator that implements the same interface
-  // This allows the app to continue without TypeScript type generation features
-
-  // Create a stub generator that matches the expected interface
-  // The stub provides no-op implementations that return empty results
-  typeGenerator = {
-    generateDocumentation: () => [],
-    generateTypeTable: async () => [],
-  } as ReturnType<typeof createGenerator>;
+if (isVercelRuntime) {
+  // In Vercel runtime, use stub generator directly to avoid tsconfig.json errors
+  typeGenerator = stubGenerator;
+} else {
+  // In development/build, try to create the real generator
+  try {
+    typeGenerator = createGenerator();
+  } catch {
+    // If creation fails, fallback to stub generator
+    typeGenerator = stubGenerator;
+  }
 }
 
 export { typeGenerator };
