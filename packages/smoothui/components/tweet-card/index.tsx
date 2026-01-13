@@ -150,25 +150,34 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
 );
 
 export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
-  if (!(tweet.video || tweet.photos)) return null;
+  const hasVideo =
+    tweet.video &&
+    Array.isArray(tweet.video.variants) &&
+    tweet.video.variants.length > 0;
+  const hasPhotos = tweet.photos && tweet.photos.length > 0;
+  const hasCardThumbnail =
+    // @ts-expect-error package doesn't have type definitions
+    tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url;
+
+  if (!(hasVideo || hasPhotos || hasCardThumbnail)) return null;
+
   return (
     <div className="flex w-full flex-col gap-2">
-      {tweet.video &&
-        Array.isArray(tweet.video.variants) &&
-        tweet.video.variants.length > 0 && (
-          <video
-            autoPlay
-            className="w-full rounded-xl border shadow-sm"
-            loop
-            muted
-            playsInline
-            poster={tweet.video.poster}
-          >
-            <source src={tweet.video.variants[0].src} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        )}
-      {tweet.photos &&
+      {hasVideo && tweet.video && (
+        <video
+          autoPlay
+          className="w-full rounded-xl border shadow-sm"
+          loop
+          muted
+          playsInline
+          poster={tweet.video.poster}
+        >
+          <source src={tweet.video.variants[0].src} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      )}
+      {hasPhotos &&
+        tweet.photos &&
         (() => {
           const photos = tweet.photos;
           return (
@@ -220,18 +229,16 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
             </div>
           );
         })()}
-      {!(tweet.video || tweet.photos) &&
-        // @ts-expect-error package doesn't have type definitions
-        tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url && (
-          <img
-            alt={tweet.text}
-            className="w-full rounded-xl border object-cover shadow-sm"
-            src={
-              // @ts-expect-error package doesn't have type definitions
-              tweet.card.binding_values.thumbnail_image_large.image_value.url
-            }
-          />
-        )}
+      {!(hasVideo || hasPhotos) && hasCardThumbnail && (
+        <img
+          alt={tweet.text}
+          className="w-full rounded-xl border object-cover shadow-sm"
+          src={
+            // @ts-expect-error package doesn't have type definitions
+            tweet.card.binding_values.thumbnail_image_large.image_value.url
+          }
+        />
+      )}
     </div>
   );
 };
