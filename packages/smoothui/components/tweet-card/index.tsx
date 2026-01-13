@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import DOMPurify from "isomorphic-dompurify";
 import { Suspense } from "react";
 import { type EnrichedTweet, enrichTweet, type TweetProps } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";
@@ -136,7 +137,9 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
             return (
               <span
                 className="text-foreground"
-                dangerouslySetInnerHTML={{ __html: entity.text }}
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(entity.text),
+                }}
                 key={idx}
               />
             );
@@ -150,19 +153,21 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
   if (!(tweet.video || tweet.photos)) return null;
   return (
     <div className="flex w-full flex-col gap-2">
-      {tweet.video && (
-        <video
-          autoPlay
-          className="w-full rounded-xl border shadow-sm"
-          loop
-          muted
-          playsInline
-          poster={tweet.video.poster}
-        >
-          <source src={tweet.video.variants[0].src} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      )}
+      {tweet.video &&
+        Array.isArray(tweet.video.variants) &&
+        tweet.video.variants.length > 0 && (
+          <video
+            autoPlay
+            className="w-full rounded-xl border shadow-sm"
+            loop
+            muted
+            playsInline
+            poster={tweet.video.poster}
+          >
+            <source src={tweet.video.variants[0].src} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        )}
       {tweet.photos &&
         (() => {
           const photos = tweet.photos;

@@ -38,10 +38,6 @@ const config: NextConfig = {
         protocol: "https",
         hostname: "abs.twimg.com",
       },
-      {
-        protocol: "https",
-        hostname: "**",
-      },
     ],
   },
   // biome-ignore lint/suspicious/useAwait: "redirects is async"

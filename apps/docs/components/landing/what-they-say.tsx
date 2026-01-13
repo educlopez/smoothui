@@ -34,25 +34,20 @@ const testimonials: TestimonialMedia[] = [
   {
     id: "4",
     type: "twitter",
-    url: "https://x.com/jonny555333/status/1986229525651595382",
+    url: "https://x.com/dew_yashtwt/status/1986010168065466568",
   },
   {
     id: "5",
     type: "twitter",
-    url: "https://x.com/dew_yashtwt/status/1986010168065466568",
+    url: "https://x.com/Potato___Dragon/status/1980544421121970512",
   },
   {
     id: "6",
     type: "twitter",
-    url: "https://x.com/Potato___Dragon/status/1980544421121970512",
-  },
-  {
-    id: "7",
-    type: "twitter",
     url: "https://x.com/openhunts/status/1980911462030950489",
   },
   {
-    id: "8",
+    id: "7",
     type: "twitter",
     url: "https://x.com/jaykosai/status/1919079453017231481",
   },
@@ -68,41 +63,89 @@ export function WhatTheySay() {
   const [showContent, setShowContent] = useState(false);
   const tweetsContainerRef = useRef<HTMLDivElement>(null);
   const startTimeRef = useRef(Date.now());
+  const timeoutRefsRef = useRef<Set<NodeJS.Timeout>>(new Set());
+  const isMountedRef = useRef(true);
+  const isLoadingRef = useRef(true);
+
+  // Keep ref in sync with state
+  useEffect(() => {
+    isLoadingRef.current = isLoading;
+  }, [isLoading]);
 
   useEffect(() => {
+    isMountedRef.current = true;
+    isLoadingRef.current = true;
+
+    // Helper to track and create timeouts
+    const createTrackedTimeout = (
+      callback: () => void,
+      delay: number
+    ): NodeJS.Timeout => {
+      const timeoutId = setTimeout(() => {
+        timeoutRefsRef.current.delete(timeoutId);
+        if (isMountedRef.current) {
+          callback();
+        }
+      }, delay);
+      timeoutRefsRef.current.add(timeoutId);
+      return timeoutId;
+    };
+
+    // Helper to check if loading should stop
+    const shouldStopLoading = (): boolean => {
+      const container = tweetsContainerRef.current;
+      if (!container) {
+        return false;
+      }
+      const actualTweets = container.querySelectorAll("[data-tweet]");
+      const hasLoadedTweets = actualTweets.length >= MIN_LOADED_TWEETS_COUNT;
+      const elapsed = Date.now() - startTimeRef.current;
+      return hasLoadedTweets || elapsed >= MIN_LOADING_DURATION_MS;
+    };
+
+    // Helper to show content after delay
+    const showContentAfterDelay = () => {
+      createTrackedTimeout(() => {
+        if (isMountedRef.current) {
+          setShowContent(true);
+        }
+      }, CONTENT_FADE_DELAY_MS);
+    };
+
+    // Function to check if tweets are loaded
+    const checkTweetsLoaded = () => {
+      if (!tweetsContainerRef.current) {
+        return;
+      }
+      if (!isMountedRef.current) {
+        return;
+      }
+      if (!isLoadingRef.current) {
+        return;
+      }
+
+      if (shouldStopLoading()) {
+        isLoadingRef.current = false;
+        setIsLoading(false);
+        showContentAfterDelay();
+        return;
+      }
+
+      createTrackedTimeout(checkTweetsLoaded, TWEET_LOAD_CHECK_INTERVAL_MS);
+    };
+
     // Start checking for loaded tweets after minimum duration
-    const minTimer = setTimeout(() => {
-      const checkTweetsLoaded = () => {
-        if (!tweetsContainerRef.current) {
-          return;
-        }
+    createTrackedTimeout(checkTweetsLoaded, MIN_LOADING_DURATION_MS);
 
-        // Count tweets that are loaded (have data-tweet attribute)
-        const actualTweets =
-          tweetsContainerRef.current.querySelectorAll("[data-tweet]");
-
-        // If we have at least MIN_LOADED_TWEETS_COUNT tweets loaded, or min time elapsed
-        const hasLoadedTweets = actualTweets.length >= MIN_LOADED_TWEETS_COUNT;
-        const elapsed = Date.now() - startTimeRef.current;
-        const minTimeElapsed = elapsed >= MIN_LOADING_DURATION_MS;
-
-        if ((hasLoadedTweets || minTimeElapsed) && isLoading) {
-          setIsLoading(false);
-          // Small delay before showing content for smooth transition
-          setTimeout(() => {
-            setShowContent(true);
-          }, CONTENT_FADE_DELAY_MS);
-        } else if (isLoading) {
-          // Continue checking
-          setTimeout(checkTweetsLoaded, TWEET_LOAD_CHECK_INTERVAL_MS);
-        }
-      };
-
-      checkTweetsLoaded();
-    }, MIN_LOADING_DURATION_MS);
-
-    return () => clearTimeout(minTimer);
-  }, [isLoading]);
+    return () => {
+      isMountedRef.current = false;
+      // Clear all tracked timeouts
+      for (const timeoutId of timeoutRefsRef.current) {
+        clearTimeout(timeoutId);
+      }
+      timeoutRefsRef.current.clear();
+    };
+  }, []);
 
   if (testimonials.length === 0) {
     return null;
