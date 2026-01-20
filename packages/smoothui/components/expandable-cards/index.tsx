@@ -92,14 +92,24 @@ export default function ExpandableCards({
             animate={{
               width: selectedCard === card.id ? "500px" : "200px",
             }}
-            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg ${cardClassName}`}
+            aria-label={`${card.title} card${selectedCard === card.id ? ", expanded" : ""}`}
+            aria-selected={selectedCard === card.id}
+            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${cardClassName}`}
             data-card-id={card.id}
             key={card.id}
             layout
             onClick={() => handleCardClick(card.id)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                handleCardClick(card.id);
+              }
+            }}
+            role="button"
             style={{
               scrollSnapAlign: "start",
             }}
+            tabIndex={0}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
@@ -123,8 +133,12 @@ export default function ExpandableCards({
                 <h2 className="font-bold text-2xl">{card.title}</h2>
                 <div className="flex items-center gap-2">
                   <button
-                    aria-label="Play video"
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 ease hover:scale-110"
+                    aria-label={`Play video: ${card.title}`}
+                    className="flex h-12 w-12 items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 ease hover:scale-110 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px]"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Handle play action
+                    }}
                     type="button"
                   >
                     <Play className="h-6 w-6 text-white" />

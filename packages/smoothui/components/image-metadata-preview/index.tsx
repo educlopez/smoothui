@@ -2,7 +2,7 @@
 
 import { ChevronUp, CircleX, Share } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
 export type ImageMetadata = {
@@ -30,8 +30,21 @@ export default function ImageMetadataPreview({
   onShare,
 }: ImageMetadataPreviewProps) {
   const [openInfo, setopenInfo] = useState(false);
+  const [isHoverDevice, setIsHoverDevice] = useState(false);
   const [elementRef, bounds] = useMeasure();
   const shouldReduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setIsHoverDevice(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsHoverDevice(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   const handleClickOpen = () => {
     setopenInfo((b) => !b);
@@ -56,16 +69,18 @@ export default function ImageMetadataPreview({
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
             aria-label="Share"
-            className="rounded-full border bg-background p-3 transition"
+            className={`rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+              isHoverDevice ? "hover:bg-muted" : ""
+            }`}
             disabled={!onShare}
             onClick={onShare}
             type="button"
           >
-            <Share size={16} />
+            <Share size={16} aria-hidden="true" />
           </button>
           <button
             aria-label="Connect"
-            className="cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition disabled:opacity-50"
+            className="cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
             disabled
             type="button"
           >
@@ -80,13 +95,15 @@ export default function ImageMetadataPreview({
                     : { opacity: 1, filter: "blur(0px)" }
                 }
                 aria-label="Open Metadata Preview"
-                className="cursor-pointer border bg-background p-3 shadow-xs transition"
+                className={`border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+                  isHoverDevice ? "hover:bg-muted" : ""
+                }`}
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, filter: "blur(4px)" }}
                 onClick={handleClickOpen}
                 style={{ borderRadius: 100 }}
                 transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
               >
-                <ChevronUp size={16} />
+                <ChevronUp size={16} aria-hidden="true" />
               </motion.button>
             )}
           </AnimatePresence>
@@ -117,11 +134,17 @@ export default function ImageMetadataPreview({
                   </div>
 
                   <button
-                    aria-label="Close Icon"
-                    className="cursor-pointer"
+                    aria-label="Close metadata preview"
+                    className={`flex items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+                      isHoverDevice ? "hover:bg-muted" : ""
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleClickClose();
+                    }}
                     type="button"
                   >
-                    <CircleX size={16} />
+                    <CircleX size={16} aria-hidden="true" />
                   </button>
                 </div>
                 <table className="flex w-full flex-col items-center gap-4 text-foreground">

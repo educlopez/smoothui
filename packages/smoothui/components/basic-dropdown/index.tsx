@@ -29,6 +29,7 @@ export default function BasicDropdown({
 }: BasicDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<DropdownItem | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
@@ -91,6 +92,7 @@ export default function BasicDropdown({
         !portalRef.current.contains(target)
       ) {
         setIsOpen(false);
+        setFocusedIndex(-1);
       }
     };
 
@@ -101,6 +103,55 @@ export default function BasicDropdown({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen]);
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!isOpen) {
+        // Open dropdown on Enter or Space when button is focused
+        if (
+          (event.key === "Enter" || event.key === " ") &&
+          document.activeElement === buttonRef.current
+        ) {
+          event.preventDefault();
+          handleToggle();
+        }
+        return;
+      }
+
+      if (event.key === "Escape") {
+        setIsOpen(false);
+        setFocusedIndex(-1);
+        buttonRef.current?.focus();
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedIndex((prev) => (prev < items.length - 1 ? prev + 1 : 0));
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setFocusedIndex((prev) => (prev > 0 ? prev - 1 : items.length - 1));
+      } else if (event.key === "Enter" && focusedIndex >= 0) {
+        event.preventDefault();
+        const item = items[focusedIndex];
+        if (item) {
+          handleItemSelect(item);
+        }
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        setFocusedIndex(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        setFocusedIndex(items.length - 1);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, items, focusedIndex]);
+
+  // Reset focused index when items change
+  useEffect(() => {
+    setFocusedIndex(-1);
+  }, [items.length]);
 
   const dropdownContent = (
     <AnimatePresence>
@@ -139,8 +190,13 @@ export default function BasicDropdown({
                 : { type: "spring", bounce: 0.1, duration: 0.25 }
             }
           >
-            <ul aria-labelledby="dropdown-button" className="py-2">
-              {items.map((item) => (
+            <ul
+              id="dropdown-items"
+              role="listbox"
+              aria-label="Dropdown options"
+              className="py-2"
+            >
+              {items.map((item, index) => (
                 <motion.li
                   animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
                   className="block"
@@ -151,7 +207,8 @@ export default function BasicDropdown({
                   }
                   initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
                   key={item.id}
-                  role="menuitem"
+                  role="option"
+                  aria-selected={selectedItem?.id === item.id || index === focusedIndex}
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
@@ -160,12 +217,14 @@ export default function BasicDropdown({
                   whileHover={shouldReduceMotion ? {} : { x: 5 }}
                 >
                   <button
-                    className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted ${
+                    aria-label={item.label}
+                    className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] ${
                       selectedItem?.id === item.id
                         ? "font-medium text-brand"
                         : ""
-                    }`}
+                    } ${index === focusedIndex ? "bg-muted" : ""}`}
                     onClick={() => handleItemSelect(item)}
+                    onMouseEnter={() => setFocusedIndex(index)}
                     type="button"
                   >
                     {item.icon && <span className="mr-2">{item.icon}</span>}
@@ -217,7 +276,11 @@ export default function BasicDropdown({
     <>
       <div className={`relative inline-block ${className}`} ref={dropdownRef}>
         <button
-          className="flex w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary"
+          id="dropdown-button"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-label={selectedItem ? `${label}: ${selectedItem.label}` : label}
+          className="flex w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
           onClick={handleToggle}
           ref={buttonRef}
           type="button"

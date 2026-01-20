@@ -50,8 +50,10 @@ export default function BasicAccordion({
         return (
           <div className="overflow-hidden" key={item.id}>
             <button
+              aria-controls={`accordion-content-${item.id}`}
               aria-expanded={isExpanded}
-              className="flex w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary"
+              className="flex w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
+              id={`accordion-header-${item.id}`}
               onClick={() => toggleItem(item.id)}
               type="button"
             >
@@ -87,6 +89,7 @@ export default function BasicAccordion({
                         },
                       }
                 }
+                aria-labelledby={`accordion-header-${item.id}`}
                 className="overflow-hidden"
                 exit={
                   shouldReduceMotion
@@ -100,7 +103,9 @@ export default function BasicAccordion({
                         },
                       }
                 }
+                id={`accordion-content-${item.id}`}
                 initial={shouldReduceMotion ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+                role="region"
               >
                   <div className="border-t bg-background px-4 py-3">
                     {item.content}
