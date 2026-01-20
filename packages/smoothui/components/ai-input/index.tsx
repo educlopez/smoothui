@@ -130,15 +130,23 @@ function Dock() {
                 exit={shouldReduceMotion ? {} : { opacity: 0 }}
                 initial={shouldReduceMotion ? {} : { opacity: 0 }}
                 key="placeholder"
-                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+                }
               />
             ) : (
               <motion.div
                 animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-                exit={shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : { opacity: 0 }
+                }
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 key="siri-orb"
-                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+                }
               >
                 <SiriOrb
                   colors={{
@@ -208,7 +216,11 @@ function Feedback({
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="flex h-full flex-col p-1"
-            exit={shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0 }
+            }
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             transition={
               shouldReduceMotion
@@ -252,9 +264,15 @@ function Feedback({
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="absolute top-2 left-3"
-            exit={shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0 }
+            }
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
+            transition={
+              shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+            }
           >
             <SiriOrb
               colors={{
