@@ -271,6 +271,7 @@ export function LegacyAiBranch({
   onBranchSelect,
   className,
 }: LegacyAiBranchProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [currentBranchIndex, setCurrentBranchIndex] = useState(() =>
     branches.findIndex((branch) => branch.isActive)
   );
