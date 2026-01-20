@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useMotionValue } from "motion/react";
+import { motion, useMotionValue, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const SCROLL_TIMEOUT_OFFSET = 100;
@@ -45,6 +45,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollY = useMotionValue(0);
   const lastScrollTime = useRef(0);
+  const shouldReduceMotion = useReducedMotion();
 
   // Calculate the total number of items
   const totalItems = items.length;
@@ -245,22 +246,23 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       const offsetIndex = index - currentIndex;
 
       // Apply blur effect for cards behind the current one - matching reference exactly
-      const blur = currentIndex > index ? 2 : 0;
+      const blur = shouldReduceMotion ? 0 : currentIndex > index ? 2 : 0;
 
       // Opacity based on distance - improved logic from reference
       const opacity = currentIndex > index ? 0 : 1;
 
       // Scale with improved calculation inspired by reference - using clamp function
-      const scale = clamp(1 - offsetIndex * SCALE_FACTOR, [
-        MIN_SCALE,
-        MAX_SCALE,
-      ]);
+      const scale = shouldReduceMotion
+        ? 1
+        : clamp(1 - offsetIndex * SCALE_FACTOR, [MIN_SCALE, MAX_SCALE]);
 
       // Vertical offset with improved calculation - matching reference exactly
-      const y = clamp(offsetIndex * FRAME_OFFSET, [
-        FRAME_OFFSET * FRAMES_VISIBLE_LENGTH,
-        Number.POSITIVE_INFINITY,
-      ]);
+      const y = shouldReduceMotion
+        ? 0
+        : clamp(offsetIndex * FRAME_OFFSET, [
+            FRAME_OFFSET * FRAMES_VISIBLE_LENGTH,
+            Number.POSITIVE_INFINITY,
+          ]);
 
       // Z-index for proper layering - matching reference pattern
       const zIndex = items.length - index;
@@ -273,7 +275,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
         zIndex,
       };
     },
-    [currentIndex, items.length, clamp]
+    [currentIndex, items.length, clamp, shouldReduceMotion]
   );
 
   return (
@@ -309,11 +311,15 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
 
           return (
             <motion.div
-              animate={{
-                y: `calc(-50% + ${transform.y}px)`,
-                scale: transform.scale,
-                x: "-50%",
-              }}
+              animate={
+                shouldReduceMotion
+                  ? { x: "-50%" }
+                  : {
+                      y: `calc(-50% + ${transform.y}px)`,
+                      scale: transform.scale,
+                      x: "-50%",
+                    }
+              }
               aria-hidden={!isActive}
               className="absolute top-1/2 left-1/2 w-max max-w-[100vw] overflow-hidden rounded-2xl border bg-background shadow-lg"
               data-active={isActive}
@@ -328,34 +334,40 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 zIndex: transform.zIndex,
                 pointerEvents: isActive ? "auto" : "none",
                 transformOrigin: "center center",
-                willChange: "opacity, filter, transform",
+                willChange: shouldReduceMotion ? undefined : "opacity, filter, transform",
                 filter: `blur(${transform.blur}px)`,
                 opacity: transform.opacity,
-                transitionProperty: "opacity, filter",
-                transitionDuration: "200ms",
-                transitionTimingFunction: "ease-in-out",
+                transitionProperty: shouldReduceMotion ? "none" : "opacity, filter",
+                transitionDuration: shouldReduceMotion ? "0ms" : "200ms",
+                transitionTimingFunction: "cubic-bezier(0.645, 0.045, 0.355, 1)",
                 // Dynamic border width based on scale - from reference code
                 borderWidth: `${2 / transform.scale}px`,
               }}
               tabIndex={isActive ? 0 : -1}
-              transition={{
-                type: "spring",
-                stiffness: 250,
-                damping: 20,
-                mass: 0.5,
-              }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      type: "spring",
+                      stiffness: 250,
+                      damping: 20,
+                      mass: 0.5,
+                      duration: 0.25,
+                    }
+              }
               whileHover={
-                isActive
-                  ? {
+                shouldReduceMotion || !isActive
+                  ? {}
+                  : {
                       scale: transform.scale * HOVER_SCALE_MULTIPLIER,
                       transition: {
                         type: "spring",
                         stiffness: 250,
                         damping: 20,
                         mass: 0.5,
+                        duration: 0.25,
                       },
                     }
-                  : {}
               }
             >
               {/* Card Content */}

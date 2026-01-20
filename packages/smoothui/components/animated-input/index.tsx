@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useRef, useState } from "react";
 
 const EASE_IN_OUT_CUBIC_X1 = 0.4;
@@ -50,15 +50,22 @@ export default function AnimatedInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = !!val || isFocused;
+  const shouldReduceMotion = useReducedMotion();
   const inputId = `animated-input-${Math.random().toString(RADIX_BASE_36).substring(RANDOM_ID_START_INDEX, RANDOM_ID_LENGTH)}`;
 
   return (
     <div className={`relative flex items-center ${className}`}>
       {icon && (
-        <span className="-translate-y-1/2 absolute top-1/2 left-3">{icon}</span>
+        <span
+          aria-hidden="true"
+          className="-translate-y-1/2 absolute top-1/2 left-3"
+        >
+          {icon}
+        </span>
       )}
       <input
-        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus:ring-1 focus:ring-primary ${icon ? "pl-10" : ""} ${inputClassName}`}
+        aria-label={label}
+        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}
         disabled={disabled}
         id={inputId}
         onBlur={() => setIsFocused(false)}
@@ -76,21 +83,35 @@ export default function AnimatedInput({
       />
       <motion.label
         animate={
-          isFloating
-            ? {
-                y: -24,
-                scale: 0.85,
-                color: "var(--color-brand)",
-                borderColor: "var(--color-brand)",
-              }
-            : { y: 0, scale: 1, color: "#6b7280" }
+          shouldReduceMotion
+            ? {}
+            : isFloating
+              ? {
+                  y: -24,
+                  scale: 0.85,
+                  color: "var(--color-brand)",
+                  borderColor: "var(--color-brand)",
+                }
+              : { y: 0, scale: 1, color: "#6b7280" }
         }
         className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
         htmlFor={inputId}
         style={{
           zIndex: 2,
+          ...(shouldReduceMotion && isFloating
+            ? {
+                transform: "translateY(-24px) scale(0.85)",
+                color: "var(--color-brand)",
+                borderColor: "var(--color-brand)",
+              }
+            : shouldReduceMotion
+              ? {
+                  transform: "translateY(0) scale(1)",
+                  color: "#6b7280",
+                }
+              : {}),
         }}
-        transition={LABEL_TRANSITION}
+        transition={shouldReduceMotion ? { duration: 0 } : LABEL_TRANSITION}
       >
         {label}
       </motion.label>

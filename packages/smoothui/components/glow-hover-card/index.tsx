@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import {
   type CSSProperties,
   type ReactElement,
@@ -52,23 +52,11 @@ export default function GlowHover({
     y: number;
     opacity: number;
   }>({ x: 0, y: 0, opacity: 0 });
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setPrefersReducedMotion(mediaQuery.matches);
-
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-
-    mediaQuery.addEventListener("change", handleChange);
-    return () => mediaQuery.removeEventListener("change", handleChange);
-  }, []);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || prefersReducedMotion) return;
+    if (!container || shouldReduceMotion) return;
 
     const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
@@ -94,11 +82,11 @@ export default function GlowHover({
       container.removeEventListener("pointermove", handlePointerMove);
       container.removeEventListener("pointerleave", handlePointerLeave);
     };
-  }, [prefersReducedMotion]);
+  }, [shouldReduceMotion]);
 
   // Sync overlay card sizes and positions with original cards
   useEffect(() => {
-    if (prefersReducedMotion || !overlayRef.current || !containerRef.current) return;
+    if (shouldReduceMotion || !overlayRef.current || !containerRef.current) return;
 
     const syncCards = () => {
       const container = containerRef.current;
@@ -161,7 +149,7 @@ export default function GlowHover({
       window.removeEventListener("scroll", syncCards);
       window.removeEventListener("resize", syncCards);
     };
-  }, [items, prefersReducedMotion]);
+  }, [items, shouldReduceMotion]);
 
   // Apply glow effect styles to an element
   const applyGlowStyles = (
@@ -217,7 +205,7 @@ export default function GlowHover({
     <div
       ref={containerRef}
       className={cn("relative", className)}
-      style={prefersReducedMotion ? undefined : { willChange: "contents" }}
+      style={shouldReduceMotion ? undefined : { willChange: "contents" }}
     >
       {/* Original Items */}
       <div className="contents">
@@ -243,7 +231,7 @@ export default function GlowHover({
       </div>
 
       {/* Overlay with Glow Effect */}
-      {!prefersReducedMotion && (
+      {!shouldReduceMotion && (
         <div
           ref={overlayRef}
           className="absolute inset-0 pointer-events-none select-none"
@@ -252,7 +240,7 @@ export default function GlowHover({
             maskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
             WebkitMaskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
             transition:
-              "opacity 400ms ease, mask-image 400ms ease, -webkit-mask-image 400ms ease",
+              "opacity 200ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
             willChange: "mask-image, opacity",
           }}
           aria-hidden="true"

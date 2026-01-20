@@ -1,4 +1,4 @@
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import React from "react";
 
 export type RevealTextProps = {
@@ -9,7 +9,7 @@ export type RevealTextProps = {
   className?: string;
 };
 
-const REVEAL_ANIMATION_DURATION_S = 0.6;
+const REVEAL_ANIMATION_DURATION_S = 0.25;
 const MILLISECONDS_TO_SECONDS = 1000;
 
 const directionVariants = {
@@ -28,19 +28,28 @@ const RevealText: React.FC<RevealTextProps> = ({
 }) => {
   const ref = React.useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true });
-  const animate = !triggerOnView || inView;
+  const shouldReduceMotion = useReducedMotion();
+  const animate = (!triggerOnView || inView) && !shouldReduceMotion;
 
   return (
     <motion.span
-      animate={animate ? { x: 0, y: 0, opacity: 1 } : undefined}
+      animate={
+        shouldReduceMotion || !animate
+          ? { opacity: 1 }
+          : { x: 0, y: 0, opacity: 1 }
+      }
       className={className}
-      initial={directionVariants[direction]}
+      initial={shouldReduceMotion ? { opacity: 1 } : directionVariants[direction]}
       ref={ref}
       style={{ display: "inline-block" }}
-      transition={{
-        duration: REVEAL_ANIMATION_DURATION_S,
-        delay: delay / MILLISECONDS_TO_SECONDS,
-      }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: REVEAL_ANIMATION_DURATION_S,
+              delay: delay / MILLISECONDS_TO_SECONDS,
+            }
+      }
     >
       {children}
     </motion.span>

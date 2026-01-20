@@ -60,6 +60,7 @@ function ReviewCard({
           stiffness: 250,
           damping: 20,
           mass: 0.5,
+          duration: 0.25,
         },
       }}
       className={cn(
@@ -72,7 +73,7 @@ function ReviewCard({
         filter: `blur(${blur}px)`,
         opacity,
         transitionProperty: "opacity, filter",
-        transitionDuration: "300ms",
+        transitionDuration: shouldReduceMotion ? "0ms" : "250ms",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: totalCards - index,
         pointerEvents: isActive ? "auto" : "none",
@@ -157,11 +158,24 @@ export default function ReviewsCarousel({
   autoPlay = false,
   autoPlayInterval = 5000,
 }: ReviewsCarouselProps) {
-  // Filter out excluded reviews
-  const filteredReviews = useMemo(
-    () => reviews.filter((review) => !excludeIds.includes(review.id)),
-    [reviews, excludeIds]
-  );
+  // Filter out excluded reviews - use Set for O(1) lookups
+  const filteredReviews = useMemo(() => {
+    if (excludeIds.length === 0) return reviews;
+    
+    const excludeSet = new Set(excludeIds);
+    const reviewsLength = reviews.length;
+    const results: typeof reviews = [];
+    
+    // Use for loop for better performance
+    for (let i = 0; i < reviewsLength; i++) {
+      const review = reviews[i];
+      if (!excludeSet.has(review.id)) {
+        results.push(review);
+      }
+    }
+    
+    return results;
+  }, [reviews, excludeIds]);
 
   const maxIndex = filteredReviews.length - 1;
   const [activeIndex, setActiveIndex] = useState(0);

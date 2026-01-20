@@ -3,7 +3,7 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { OTPInput, OTPInputContext } from "input-otp";
 import { MinusIcon } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useContext, useEffect, useState } from "react";
 
 // Animation constants
@@ -36,6 +36,8 @@ export type AnimatedInputOTPProps = {
   onComplete?: (value: string) => void;
   maxLength?: number;
   className?: string;
+  "aria-label"?: string;
+  "aria-describedby"?: string;
 };
 
 function AnimatedInputOTP({
@@ -56,6 +58,8 @@ function AnimatedInputOTP({
 
   return (
     <OTPInput
+      aria-label={props["aria-label"] || "One-time password input"}
+      aria-describedby={props["aria-describedby"]}
       className={cn("disabled:cursor-not-allowed", className)}
       containerClassName={cn(
         "flex items-center gap-2 has-disabled:opacity-50",
@@ -82,16 +86,21 @@ function AnimatedInputOTPGroup({
   className,
   children,
 }: AnimatedInputOTPGroupProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <motion.div
-      animate={{ opacity: 1, y: 0 }}
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       className={cn("flex items-center", className)}
       data-slot="input-otp-group"
-      initial={{ opacity: 0, y: INITIAL_Y }}
-      transition={{
-        duration: ANIMATION_DURATION_LONG,
-        ease: EASE_OUT_QUINT,
-      }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: INITIAL_Y }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: ANIMATION_DURATION_LONG,
+              ease: EASE_OUT_QUINT,
+            }
+      }
     >
       {children}
     </motion.div>
@@ -107,6 +116,7 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
   const inputOTPContext = useContext(OTPInputContext);
   const { char, hasFakeCaret, isActive } = inputOTPContext?.slots[index] ?? {};
   const [isFilled, setIsFilled] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     if (char && !isFilled) {
@@ -118,61 +128,97 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
 
   return (
     <motion.div
-      animate={{
-        opacity: 1,
-        y: 0,
-        scale: isFilled ? SCALE_FILLED : 1,
-      }}
+      animate={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : {
+              opacity: 1,
+              y: 0,
+              scale: isFilled ? SCALE_FILLED : 1,
+            }
+      }
       className={cn(
         "relative flex h-9 w-9 items-center justify-center border-input border-y border-r text-sm shadow-xs outline-none transition-all first:rounded-l-md first:border-l last:rounded-r-md aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-[3px] data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40",
         className
       )}
       data-active={isActive}
       data-slot="input-otp-slot"
-      initial={{ opacity: 0, scale: INITIAL_SCALE, y: INITIAL_Y }}
-      transition={{
-        duration: ANIMATION_DURATION_STANDARD,
-        delay: index * STAGGER_DELAY,
-        ease: EASE_OUT_QUINT,
-        scale: {
-          duration: ANIMATION_DURATION_MEDIUM,
-          ease: EASE_OUT_QUINT,
-        },
-      }}
-      whileHover={{
-        scale: SCALE_HOVER,
-        transition: {
-          duration: ANIMATION_DURATION_MEDIUM,
-          ease: EASE_OUT_QUINT,
-        },
-      }}
-      whileTap={{
-        scale: SCALE_TAP,
-        transition: {
-          duration: ANIMATION_DURATION_SHORT,
-          ease: EASE_OUT_QUINT,
-        },
-      }}
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, scale: INITIAL_SCALE, y: INITIAL_Y }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: ANIMATION_DURATION_STANDARD,
+              delay: index * STAGGER_DELAY,
+              ease: EASE_OUT_QUINT,
+              scale: {
+                duration: ANIMATION_DURATION_MEDIUM,
+                ease: EASE_OUT_QUINT,
+              },
+            }
+      }
+      whileHover={
+        shouldReduceMotion
+          ? {}
+          : {
+              scale: SCALE_HOVER,
+              transition: {
+                duration: ANIMATION_DURATION_MEDIUM,
+                ease: EASE_OUT_QUINT,
+              },
+            }
+      }
+      whileTap={
+        shouldReduceMotion
+          ? {}
+          : {
+              scale: SCALE_TAP,
+              transition: {
+                duration: ANIMATION_DURATION_SHORT,
+                ease: EASE_OUT_QUINT,
+              },
+            }
+      }
     >
       <AnimatePresence mode="wait">
         {char && (
           <motion.span
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 1, scale: 1, rotateY: 0 }
+            }
             className="font-medium"
-            exit={{ opacity: 0, scale: 0.5, rotateY: 90 }}
-            initial={{ opacity: 0, scale: 0.5, rotateY: -90 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, scale: 0.5, rotateY: 90 }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.5, rotateY: -90 }
+            }
             key={char}
-            transition={{
-              duration: ANIMATION_DURATION_STANDARD,
-              ease: EASE_OUT_QUINT,
-            }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : {
+                    duration: ANIMATION_DURATION_STANDARD,
+                    ease: EASE_OUT_QUINT,
+                  }
+            }
           >
             {char}
           </motion.span>
         )}
       </AnimatePresence>
 
-      {hasFakeCaret && (
+      {hasFakeCaret && !shouldReduceMotion && (
         <motion.div
           animate={{ opacity: 1 }}
           className="pointer-events-none absolute inset-0 flex items-center justify-center"
@@ -186,7 +232,7 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
             transition={{
               duration: 1,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
+              ease: [0.645, 0.045, 0.355, 1],
             }}
           />
         </motion.div>
@@ -196,16 +242,21 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
 }
 
 function AnimatedInputOTPSeparator() {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <motion.div
-      animate={{ opacity: 1, scale: 1 }}
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
       data-slot="input-otp-separator"
-      initial={{ opacity: 0, scale: INITIAL_SCALE }}
-      transition={{
-        duration: ANIMATION_DURATION_LONG,
-        delay: SEPARATOR_DELAY,
-        ease: EASE_OUT_QUINT,
-      }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: INITIAL_SCALE }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: ANIMATION_DURATION_LONG,
+              delay: SEPARATOR_DELAY,
+              ease: EASE_OUT_QUINT,
+            }
+      }
     >
       <MinusIcon className="h-4 w-4 text-muted-foreground" />
     </motion.div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { CircleX, Plus } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 export type AnimatedTagsProps = {
@@ -18,6 +18,7 @@ export default function AnimatedTags({
   className = "",
 }: AnimatedTagsProps) {
   const [internalSelected, setInternalSelected] = useState<string[]>([]);
+  const shouldReduceMotion = useReducedMotion();
 
   const selectedTag = controlledSelectedTags ?? internalSelected;
   const tags = initialTags.filter((tag) => !selectedTag.includes(tag));
@@ -46,22 +47,36 @@ export default function AnimatedTags({
           <div className="flex min-h-12 w-full flex-wrap items-center gap-1 rounded-xl border bg-background p-2">
             {selectedTag?.map((tag) => (
               <motion.div
-                animate={{
-                  y: 0,
-                  opacity: 1,
-                  filter: "blur(0px)",
-                }}
+                animate={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : {
+                        y: 0,
+                        opacity: 1,
+                        filter: "blur(0px)",
+                      }
+                }
                 className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md border bg-primary px-2 py-1 text-primary-foreground group-hover:bg-primary group-hover:text-foreground"
-                exit={{ y: 20, opacity: 0, filter: "blur(4px)" }}
-                initial={{ y: 20, opacity: 0, filter: "blur(4px)" }}
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : { y: 20, opacity: 0, filter: "blur(4px)" }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { y: 20, opacity: 0, filter: "blur(4px)" }
+                }
                 key={tag}
                 layout
                 onClick={() => handleDeleteTag(tag)}
-                transition={{ duration: 0.3, bounce: 0, type: "spring" }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.25, bounce: 0, type: "spring" }
+                }
               >
                 {tag}{" "}
                 <CircleX
-                  className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out"
+                  className="flex items-center justify-center rounded-full transition-all duration-200 ease"
                   size={16}
                 />
               </motion.div>
@@ -73,22 +88,38 @@ export default function AnimatedTags({
         <div className="flex flex-wrap items-center gap-1">
           {tags.map((tag) => (
             <motion.div
-              animate={{
-                y: 0,
-                opacity: 1,
-                filter: "blur(0px)",
-              }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : {
+                      y: 0,
+                      opacity: 1,
+                      filter: "blur(0px)",
+                    }
+              }
               className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md border bg-background px-2 py-1 text-primary-foreground"
-              exit={{ y: -20, opacity: 0, filter: "blur(4px)" }}
-              initial={{ y: -20, opacity: 0, filter: "blur(4px)" }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { y: -20, opacity: 0, filter: "blur(4px)" }
+              }
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { y: -20, opacity: 0, filter: "blur(4px)" }
+              }
               key={tag}
               layout
               onClick={() => handleTagClick(tag)}
-              transition={{ duration: 0.3, bounce: 0, type: "spring" }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.25, bounce: 0, type: "spring" }
+              }
             >
               {tag}{" "}
               <Plus
-                className="flex items-center justify-center rounded-full transition-all duration-300 ease-in-out hover:bg-primary group-hover:text-foreground"
+                className="flex items-center justify-center rounded-full transition-all duration-200 ease @media (hover: hover) and (pointer: fine):hover:bg-primary group-hover:text-foreground"
                 size={16}
               />
             </motion.div>

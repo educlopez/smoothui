@@ -1,7 +1,7 @@
 "use client";
 
 import { X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
@@ -33,18 +33,63 @@ export default function BasicModal({
   const modalRef = useRef<HTMLDivElement>(
     null
   ) as React.RefObject<HTMLDivElement>;
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousActiveElementRef = useRef<HTMLElement | null>(null);
   useOnClickOutside(modalRef, () => onClose());
   const [mounted, setMounted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  
+  const titleId = title ? `modal-title-${Math.random().toString(36).substring(2, 9)}` : undefined;
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Close on Escape key press
+  // Focus management: Save previous focus and restore on close
   useEffect(() => {
+    if (isOpen) {
+      previousActiveElementRef.current = document.activeElement as HTMLElement;
+      // Focus the close button or first focusable element when modal opens
+      setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 100);
+    } else if (previousActiveElementRef.current) {
+      // Restore focus when modal closes
+      previousActiveElementRef.current.focus();
+    }
+  }, [isOpen]);
+
+  // Close on Escape key press and focus trap
+  useEffect(() => {
+    if (!isOpen) return;
+
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
+      if (e.key === "Escape") {
         onClose();
+        return;
+      }
+
+      // Focus trap: keep focus within modal
+      if (e.key === "Tab" && modalRef.current) {
+        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+
+        if (e.shiftKey) {
+          // Shift + Tab
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          // Tab
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
       }
     };
 
@@ -64,14 +109,14 @@ export default function BasicModal({
             animate={{ opacity: 1 }}
             className="fixed inset-0 z-[80] bg-background/70 backdrop-blur-sm"
             exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             onClick={(e) => {
               if (e.target === overlayRef.current) {
                 onClose();
               }
             }}
             ref={overlayRef}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           />
 
           {/* Modal */}
@@ -79,34 +124,54 @@ export default function BasicModal({
             animate={{ opacity: 1 }}
             className="fixed inset-0 z-[90] flex items-center justify-center overflow-y-auto px-4 py-6 sm:p-0"
             exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           >
             <motion.div
-              animate={{ scale: 1, y: 0, opacity: 1 }}
+              animate={shouldReduceMotion ? {} : { scale: 1, y: 0, opacity: 1 }}
+              aria-labelledby={titleId}
+              aria-modal="true"
               className={`${modalSizes[size]} relative mx-auto w-full rounded-xl border bg-primary p-4 shadow-xl sm:p-6`}
-              exit={{
-                scale: 0.95,
-                y: 10,
-                opacity: 0,
-                transition: { duration: 0.15 },
-              }}
-              initial={{ scale: 0.9, y: 20, opacity: 0 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : {
+                      scale: 0.95,
+                      y: 10,
+                      opacity: 0,
+                      transition: { duration: 0.15 },
+                    }
+              }
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { scale: 0.95, y: 10, opacity: 0 }
+              }
               ref={modalRef}
-              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              role="dialog"
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring", damping: 25, stiffness: 300, duration: 0.25 }
+              }
             >
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
                 {title && (
-                  <h3 className="font-medium text-xl leading-6">{title}</h3>
+                  <h3 className="font-medium text-xl leading-6" id={titleId}>
+                    {title}
+                  </h3>
                 )}
                 <motion.button
-                  className="ml-auto rounded-full p-1.5 transition-colors hover:bg-secondary"
+                  aria-label="Close modal"
+                  className="ml-auto rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px]"
                   onClick={onClose}
-                  transition={{ duration: 0.2 }}
-                  whileHover={{ rotate: 90 }}
+                  ref={closeButtonRef}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
+                  type="button"
+                  whileHover={shouldReduceMotion ? {} : { rotate: 90 }}
                 >
-                  <X className="h-5 w-5" />
-                  <span className="sr-only">Close</span>
+                  <X className="h-5 w-5" aria-hidden="true" />
                 </motion.button>
               </div>
 

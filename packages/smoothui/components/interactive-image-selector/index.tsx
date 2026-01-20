@@ -1,7 +1,7 @@
 "use client";
 
 import { Share2, Trash2 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useState } from "react";
 
 const RESET_DELAY = 200;
@@ -57,6 +57,7 @@ export default function InteractiveImageSelector({
   const [internalSelected, setInternalSelected] = useState<number[]>([]);
   const [isSelecting, setIsSelecting] = useState(selectable);
   const [isResetting, setIsResetting] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const selected = controlledSelected ?? internalSelected;
 
@@ -133,8 +134,9 @@ export default function InteractiveImageSelector({
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
         <motion.button
           animate={
-            isResetting
-              ? {
+            shouldReduceMotion || !isResetting
+              ? {}
+              : {
                   scale: [RESET_SCALE_START, RESET_SCALE_PEAK, RESET_SCALE_END],
                   rotate: [
                     RESET_ROTATE_START,
@@ -143,7 +145,6 @@ export default function InteractiveImageSelector({
                     RESET_ROTATE_START,
                   ],
                 }
-              : {}
           }
           aria-label="Reset selection"
           className={`cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl transition-colors ${
@@ -152,12 +153,12 @@ export default function InteractiveImageSelector({
               : "bg-background/20 text-foreground"
           }`}
           disabled={isResetting}
-          exit={{ rotate: 0 }}
-          initial={{ rotate: 0 }}
+          exit={shouldReduceMotion ? {} : { rotate: 0 }}
+          initial={shouldReduceMotion ? {} : { rotate: 0 }}
           onClick={handleReset}
-          transition={{ duration: 0.3 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
+          whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+          whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
         >
           {isResetting ? "Resetting..." : "Reset"}
         </motion.button>
@@ -199,19 +200,19 @@ export default function InteractiveImageSelector({
 
       <motion.div
         animate={
-          isResetting
-            ? {
+          shouldReduceMotion || !isResetting
+            ? {}
+            : {
                 scale: [
                   CONTAINER_SCALE_START,
                   CONTAINER_SCALE_MIN,
                   CONTAINER_SCALE_END,
                 ],
               }
-            : {}
         }
         className="grid grid-cols-3 gap-1 overflow-scroll"
-        layout
-        transition={{ duration: 0.2 }}
+        layout={!shouldReduceMotion}
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
       >
         <AnimatePresence>
           {internalImages.map((img) => (
@@ -266,10 +267,15 @@ export default function InteractiveImageSelector({
       <AnimatePresence>
         {isSelecting && (
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className="-translate-x-1/2 absolute right-2 bottom-0 left-1/2 z-10 flex w-2/3 items-center justify-between rounded-full bg-background/20 p-4 bg-blend-luminosity backdrop-blur-md"
-            exit={{ opacity: 0, y: 20 }}
-            initial={{ opacity: 0, y: 20 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, y: 20 }
+            }
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
           >
             <button
               className="cursor-pointer text-brand"

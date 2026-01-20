@@ -1,9 +1,9 @@
 "use client";
 
 import { Crown } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { wrap } from "popmotion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export type ResponsiveSize = {
   base?: number | string;
@@ -164,37 +164,6 @@ export type Event = {
   backgroundClassName?: string;
 };
 
-const variants = {
-  center: {
-    x: "-50%",
-    rotate: 0,
-    scale: 1,
-    opacity: 1,
-    zIndex: 3,
-    transition: { type: "spring", stiffness: 300, damping: 30 },
-  },
-  left: {
-    x: "-130%",
-    rotate: -12,
-    scale: 0.9,
-    opacity: 0.8,
-    zIndex: 2,
-    transition: { type: "spring", stiffness: 300, damping: 30 },
-  },
-  right: {
-    x: "30%",
-    rotate: 12,
-    scale: 0.9,
-    opacity: 0.8,
-    zIndex: 2,
-    transition: { type: "spring", stiffness: 300, damping: 30 },
-  },
-  hidden: {
-    opacity: 0,
-    zIndex: 1,
-    transition: { duration: 0.3 },
-  },
-};
 
 export type AppleInvitesProps = {
   events: Event[];
@@ -219,9 +188,51 @@ export default function AppleInvites({
   cardHeight,
   aspectRatio = DEFAULT_ASPECT_RATIO,
 }: AppleInvitesProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [internalPage, setInternalPage] = useState(0);
   const [direction, setDirection] = useState(0);
   const responsiveWidth = useResponsiveSize(cardWidth, DEFAULT_CARD_WIDTH);
+
+  const variants = useMemo(
+    () => ({
+      center: {
+        x: "-50%",
+        rotate: 0,
+        scale: 1,
+        opacity: 1,
+        zIndex: 3,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+      },
+      left: {
+        x: "-130%",
+        rotate: -12,
+        scale: 0.9,
+        opacity: 0.8,
+        zIndex: 2,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+      },
+      right: {
+        x: "30%",
+        rotate: 12,
+        scale: 0.9,
+        opacity: 0.8,
+        zIndex: 2,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+      },
+      hidden: {
+        opacity: 0,
+        zIndex: 1,
+        transition: shouldReduceMotion ? { duration: 0 } : { duration: 0.3 },
+      },
+    }),
+    [shouldReduceMotion]
+  );
   const explicitHeight = useResponsiveSize(
     cardHeight,
     calculateHeightFromWidth(responsiveWidth, aspectRatio)

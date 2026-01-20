@@ -12,7 +12,7 @@ import {
   Thermometer,
   Timer as TimerIcon,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useMemo, useState } from "react";
 
 const BOUNCE_VARIANTS = {
@@ -199,6 +199,7 @@ export default function DynamicIsland({
 }: DynamicIslandProps) {
   const [internalView, setInternalView] = useState<View>("idle");
   const [variantKey, setVariantKey] = useState<string>("idle");
+  const shouldReduceMotion = useReducedMotion();
 
   const view = controlledView ?? internalView;
 
@@ -236,22 +237,31 @@ export default function DynamicIsland({
           className="mx-auto w-fit min-w-[100px] overflow-hidden rounded-full bg-black"
           layout
           style={{ borderRadius: 32 }}
-          transition={{
-            type: "spring",
-            bounce:
-              BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
-              DEFAULT_BOUNCE,
-          }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : {
+                  type: "spring",
+                  bounce:
+                    BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
+                    DEFAULT_BOUNCE,
+                  duration: 0.25,
+                }
+          }
         >
           <motion.div
-            animate={{
-              scale: 1,
-              opacity: 1,
-              filter: "blur(0px)",
-              originX: 0.5,
-              originY: 0.5,
-              transition: { delay: 0.05 },
-            }}
+            animate={
+              shouldReduceMotion
+                ? { scale: 1, opacity: 1 }
+                : {
+                    scale: 1,
+                    opacity: 1,
+                    filter: "blur(0px)",
+                    originX: 0.5,
+                    originY: 0.5,
+                    transition: { delay: 0.05 },
+                  }
+            }
             initial={{
               scale: 0.9,
               opacity: 0,

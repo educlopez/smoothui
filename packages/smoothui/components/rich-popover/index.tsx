@@ -8,7 +8,7 @@ import {
   Trigger as PopoverTrigger,
 } from "@radix-ui/react-popover";
 import { Clock, ExternalLink, Play } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 import type * as React from "react";
 
@@ -62,6 +62,7 @@ export default function RichTooltip({
   side = "top",
   align = "center",
 }: RichTooltipProps) {
+  const shouldReduceMotion = useReducedMotion();
   const Title = (
     <div className="flex items-center gap-2 font-medium text-sm">
       {icon ?? <YouTubeIcon />}
@@ -114,16 +115,32 @@ export default function RichTooltip({
           sideOffset={8}
         >
           <motion.div
-            animate={{ opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }
+            }
             className="relative rounded-2xl border border-white/10 bg-black px-4 py-3 text-white shadow-xl"
-            exit={{ opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }}
-            initial={{ opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }}
-            transition={{
-              type: "spring",
-              stiffness: 500,
-              damping: 30,
-              duration: 0.2,
-            }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }
+            }
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : {
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 30,
+                    duration: 0.2,
+                  }
+            }
           >
             {Title}
             {description && (

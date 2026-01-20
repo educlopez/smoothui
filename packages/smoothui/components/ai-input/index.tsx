@@ -2,7 +2,7 @@
 
 import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { cx } from "class-variance-authority";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import React from "react";
 import SiriOrb from "../siri-orb";
 import { useClickOutside } from "./use-click-outside";
@@ -33,6 +33,7 @@ export function MorphSurface() {
   const feedbackRef = React.useRef<HTMLTextAreaElement | null>(null);
   const [showFeedback, setShowFeedback] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const closeFeedback = React.useCallback(() => {
     setShowFeedback(false);
@@ -75,26 +76,35 @@ export function MorphSurface() {
       }}
     >
       <motion.div
-        animate={{
-          width: showFeedback ? FEEDBACK_WIDTH : "auto",
-          height: showFeedback ? FEEDBACK_HEIGHT : DOCK_HEIGHT,
-          borderRadius: showFeedback
-            ? FEEDBACK_BORDER_RADIUS
-            : DOCK_BORDER_RADIUS,
-        }}
+        animate={
+          shouldReduceMotion
+            ? {}
+            : {
+                width: showFeedback ? FEEDBACK_WIDTH : "auto",
+                height: showFeedback ? FEEDBACK_HEIGHT : DOCK_HEIGHT,
+                borderRadius: showFeedback
+                  ? FEEDBACK_BORDER_RADIUS
+                  : DOCK_BORDER_RADIUS,
+              }
+        }
         className={cx(
           "relative bottom-8 z-3 flex flex-col items-center overflow-hidden border bg-background max-sm:bottom-5"
         )}
         data-footer
         initial={false}
         ref={rootRef}
-        transition={{
-          type: "spring",
-          stiffness: SPRING_STIFFNESS / SPEED,
-          damping: SPRING_DAMPING,
-          mass: SPRING_MASS,
-          delay: showFeedback ? 0 : CLOSE_DELAY,
-        }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                type: "spring",
+                stiffness: SPRING_STIFFNESS / SPEED,
+                damping: SPRING_DAMPING,
+                mass: SPRING_MASS,
+                delay: showFeedback ? 0 : CLOSE_DELAY,
+                duration: 0.25,
+              }
+        }
       >
         <FooterContext.Provider value={context}>
           <Dock />
@@ -107,6 +117,7 @@ export function MorphSurface() {
 
 function Dock() {
   const { showFeedback, openFeedback } = useFooter();
+  const shouldReduceMotion = useReducedMotion();
   return (
     <footer className="mt-auto flex h-[44px] select-none items-center justify-center whitespace-nowrap">
       <div className="flex items-center justify-center gap-2 px-3 max-sm:h-10 max-sm:px-2">
@@ -114,19 +125,28 @@ function Dock() {
           <AnimatePresence mode="wait">
             {showFeedback ? (
               <motion.div
-                animate={{ opacity: 0 }}
+                animate={shouldReduceMotion ? {} : { opacity: 0 }}
                 className="h-5 w-5"
-                exit={{ opacity: 0 }}
-                initial={{ opacity: 0 }}
+                exit={shouldReduceMotion ? {} : { opacity: 0 }}
+                initial={shouldReduceMotion ? {} : { opacity: 0 }}
                 key="placeholder"
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+                }
               />
             ) : (
               <motion.div
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                initial={{ opacity: 0 }}
+                animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : { opacity: 0 }
+                }
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 key="siri-orb"
-                transition={{ duration: 0.2 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+                }
               >
                 <SiriOrb
                   colors={{
@@ -163,6 +183,7 @@ function Feedback({
   onSuccess: () => void;
 }) {
   const { closeFeedback, showFeedback } = useFooter();
+  const shouldReduceMotion = useReducedMotion();
   const submitRef = React.useRef<HTMLButtonElement>(null);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -193,16 +214,25 @@ function Feedback({
       <AnimatePresence>
         {showFeedback && (
           <motion.div
-            animate={{ opacity: 1 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="flex h-full flex-col p-1"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-            transition={{
-              type: "spring",
-              stiffness: SPRING_STIFFNESS / SPEED,
-              damping: SPRING_DAMPING,
-              mass: SPRING_MASS,
-            }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0 }
+            }
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : {
+                    type: "spring",
+                    stiffness: SPRING_STIFFNESS / SPEED,
+                    damping: SPRING_DAMPING,
+                    mass: SPRING_MASS,
+                    duration: 0.25,
+                  }
+            }
           >
             <div className="flex justify-between py-1">
               <p className="z-2 ml-[38px] flex select-none items-center gap-[6px] text-foreground">
@@ -232,11 +262,17 @@ function Feedback({
       <AnimatePresence>
         {showFeedback && (
           <motion.div
-            animate={{ opacity: 1 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="absolute top-2 left-3"
-            exit={{ opacity: 0 }}
-            initial={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0 }
+            }
+            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+            transition={
+              shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+            }
           >
             <SiriOrb
               colors={{

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { useMemo, useState } from "react";
 
@@ -189,6 +189,7 @@ export function ContributionGraph({
 }: ContributionGraphProps) {
   const [hoveredDay, setHoveredDay] = useState<ContributionData | null>(null);
   const [tooltipPosition, setTooltipPosition] = useState({ x: 0, y: 0 });
+  const shouldReduceMotion = useReducedMotion();
 
   // Generate all days for the year
   const yearData = useMemo(() => {
@@ -340,14 +341,19 @@ export function ContributionGraph({
       {/* Tooltip */}
       {showTooltips && hoveredDay && (
         <motion.div
-          animate={{ opacity: 1, scale: 1 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
           className="pointer-events-none fixed z-50 rounded-lg border bg-primary px-3 py-2 text-foreground text-sm shadow-lg"
-          exit={{ opacity: 0, scale: 0.8 }}
-          initial={{ opacity: 0, scale: 0.8 }}
+          exit={
+            shouldReduceMotion
+              ? { opacity: 0, transition: { duration: 0 } }
+              : { opacity: 0, scale: 0.8 }
+          }
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
           style={{
             left: tooltipPosition.x + TOOLTIP_OFFSET_X,
             top: tooltipPosition.y - TOOLTIP_OFFSET_Y,
           }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
         >
           <div className="font-semibold">
             {getContributionText(hoveredDay.count)}

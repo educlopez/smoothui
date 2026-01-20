@@ -1,12 +1,27 @@
+import { cache } from "react";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
 import type { RegistryItem } from "shadcn/schema";
 
-// Regex patterns for detecting imports
+// Regex patterns for detecting imports (hoisted for performance)
 const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
 const RELATIVE_IMPORT_REGEX = /from\s+["']\.\.\/([a-z-]+)["']/g;
+
+// Cache filtered package names for repeated lookups
+const FILTERED_PACKAGES = new Set(["shadcn-ui", "typescript-config", "patterns"]);
+const FILTERED_DEPS = new Set([
+  "react",
+  "react-dom",
+  "@repo/shadcn-ui",
+]);
+const FILTERED_DEV_DEPS = new Set([
+  "@repo/typescript-config",
+  "@types/react",
+  "@types/react-dom",
+  "typescript",
+]);
 
 const getAllPackagePaths = async (
   baseDir: string,
@@ -50,9 +65,7 @@ export const getAllPackageNames = async (): Promise<string[]> => {
   const topLevelPackageNames = packageDirectories
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name)
-    .filter(
-      (name) => !["shadcn-ui", "typescript-config", "patterns"].includes(name)
-    );
+    .filter((name) => !FILTERED_PACKAGES.has(name));
 
   // Get nested packages in smoothui
   const smoothuiPath = join(packagesDir, "smoothui");
@@ -70,7 +83,8 @@ export const getAllPackageNames = async (): Promise<string[]> => {
   ];
 };
 
-export const getAllPackageNameMapping = async (): Promise<
+// Use React.cache() for per-request deduplication
+export const getAllPackageNameMapping = cache(async (): Promise<
   Map<string, string>
 > => {
   const fullNames = await getAllPackageNames();
@@ -82,9 +96,10 @@ export const getAllPackageNameMapping = async (): Promise<
   }
 
   return mapping;
-};
+});
 
-export const getPackage = async (packageName: string) => {
+// Use React.cache() for per-request deduplication
+export const getPackage = cache(async (packageName: string) => {
   const packageDir = join(process.cwd(), "..", "..", "packages", packageName);
   const packagePath = join(packageDir, "package.json");
   const packageJson = JSON.parse(await readFile(packagePath, "utf-8"));
@@ -93,28 +108,20 @@ export const getPackage = async (packageName: string) => {
   const packageNameParts = packageName.split("/");
   const actualPackageName = packageNameParts.at(-1) || packageName;
 
-  const smoothuiDependencies = Object.keys(
-    packageJson.dependencies || {}
-  ).filter((dep) => dep.startsWith("@repo") && dep !== "@repo/shadcn-ui");
+  // Use Set for O(1) lookups instead of array includes
+  const deps = packageJson.dependencies || {};
+  const smoothuiDependencies = Object.keys(deps).filter(
+    (dep) => dep.startsWith("@repo") && dep !== "@repo/shadcn-ui"
+  );
+  const smoothuiDepsSet = new Set(smoothuiDependencies);
 
-  const dependencies = Object.keys(packageJson.dependencies || {}).filter(
-    (dep) =>
-      ![
-        "react",
-        "react-dom",
-        "@repo/shadcn-ui",
-        ...smoothuiDependencies,
-      ].includes(dep)
+  const dependencies = Object.keys(deps).filter(
+    (dep) => !FILTERED_DEPS.has(dep) && !smoothuiDepsSet.has(dep)
   );
 
-  const devDependencies = Object.keys(packageJson.devDependencies || {}).filter(
-    (dep) =>
-      ![
-        "@repo/typescript-config",
-        "@types/react",
-        "@types/react-dom",
-        "typescript",
-      ].includes(dep)
+  const devDeps = packageJson.devDependencies || {};
+  const devDependencies = Object.keys(devDeps).filter(
+    (dep) => !FILTERED_DEV_DEPS.has(dep)
   );
 
   const packageFiles = await readdir(packageDir, { withFileTypes: true });
@@ -260,4 +267,4 @@ export const getPackage = async (packageName: string) => {
   };
 
   return response;
-};
+});

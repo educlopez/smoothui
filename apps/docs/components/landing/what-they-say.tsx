@@ -113,14 +113,10 @@ export function WhatTheySay() {
     };
 
     // Function to check if tweets are loaded
+    // Early exit optimization: combine conditions for better performance
     const checkTweetsLoaded = () => {
-      if (!tweetsContainerRef.current) {
-        return;
-      }
-      if (!isMountedRef.current) {
-        return;
-      }
-      if (!isLoadingRef.current) {
+      const container = tweetsContainerRef.current;
+      if (!container || !isMountedRef.current || !isLoadingRef.current) {
         return;
       }
 

@@ -6,6 +6,7 @@ import {
   useAnimation,
   useAnimationFrame,
   useMotionValue,
+  useReducedMotion,
 } from "motion/react";
 import { type RefObject, useRef, useState } from "react";
 
@@ -33,8 +34,10 @@ export default function PowerOffSlide({
   const controls = useAnimation();
   const constraintsRef = useRef(null);
   const textRef: RefObject<HTMLDivElement | null> = useRef(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useAnimationFrame((t) => {
+    if (shouldReduceMotion) return;
     const animDuration = duration;
     const progress = (t % animDuration) / animDuration;
     if (textRef.current) {
@@ -87,13 +90,14 @@ export default function PowerOffSlide({
               animate={controls}
               aria-disabled={disabled}
               className={`absolute top-1 left-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-background shadow-md ${disabled ? "cursor-not-allowed opacity-50" : "cursor-grab active:cursor-grabbing"}`}
-              drag={disabled ? false : "x"}
+              drag={disabled || shouldReduceMotion ? false : "x"}
               dragConstraints={{ left: 0, right: SLIDE_MAX_DISTANCE }}
               dragElastic={0}
               dragMomentum={false}
               onDragEnd={handleDragEnd}
               style={{ x }}
               tabIndex={disabled ? -1 : 0}
+              transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", duration: 0.25 }}
             >
               <Power className="text-red-600" size={32} />
             </motion.div>
