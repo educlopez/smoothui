@@ -94,35 +94,34 @@ export default function GitHubStarsAnimation({
           Accept: "application/vnd.github.v3+json",
         };
 
-        // Fetch repo info for star count
-        try {
-          const repoResponse = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}`,
-            { headers }
-          );
-
-          if (repoResponse.ok) {
-            const repoData = await repoResponse.json();
-            setStarCount(repoData.stargazers_count || 0);
-          }
-        } catch {
-          // Silently fail for star count
-        }
-
-        // Fetch stargazers
-        try {
-          const stargazersResponse = await fetch(
+        // Parallelize independent fetches to eliminate waterfall
+        const [repoResponse, stargazersResponse] = await Promise.all([
+          fetch(`https://api.github.com/repos/${owner}/${repo}`, { headers }),
+          fetch(
             `https://api.github.com/repos/${owner}/${repo}/stargazers?per_page=${maxAvatars}`,
             { headers }
-          );
+          ),
+        ]);
 
-          if (stargazersResponse.ok) {
+        // Process repo info for star count
+        if (repoResponse.ok) {
+          try {
+            const repoData = await repoResponse.json();
+            setStarCount(repoData.stargazers_count || 0);
+          } catch {
+            // Silently fail for star count
+          }
+        }
+
+        // Process stargazers
+        if (stargazersResponse.ok) {
+          try {
             const stargazersData =
               (await stargazersResponse.json()) as Stargazer[];
             setStargazers(stargazersData.slice(0, maxAvatars));
+          } catch {
+            // Silently fail for stargazers
           }
-        } catch {
-          // Silently fail for stargazers
         }
       } catch {
         setError(true);

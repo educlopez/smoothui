@@ -42,13 +42,26 @@ export default function SearchableDropdown({
   const shouldReduceMotion = useReducedMotion();
 
   const filteredItems = useMemo(() => {
-    if (!searchQuery.trim()) return items;
-    const query = searchQuery.toLowerCase();
-    return items.filter(
-      (item) =>
-        item.label.toLowerCase().includes(query) ||
-        item.description?.toLowerCase().includes(query)
-    );
+    const trimmedQuery = searchQuery.trim();
+    if (!trimmedQuery) return items;
+    
+    // Cache lowercase query to avoid repeated calls
+    const query = trimmedQuery.toLowerCase();
+    const itemsLength = items.length;
+    const results: typeof items = [];
+    
+    // Early exit optimization: use for loop instead of filter for better performance
+    for (let i = 0; i < itemsLength; i++) {
+      const item = items[i];
+      const label = item.label.toLowerCase();
+      const description = item.description?.toLowerCase();
+      
+      if (label.includes(query) || (description && description.includes(query))) {
+        results.push(item);
+      }
+    }
+    
+    return results;
   }, [items, searchQuery]);
 
   const handleItemSelect = (item: SearchableDropdownItem) => {

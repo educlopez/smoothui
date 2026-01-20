@@ -158,11 +158,24 @@ export default function ReviewsCarousel({
   autoPlay = false,
   autoPlayInterval = 5000,
 }: ReviewsCarouselProps) {
-  // Filter out excluded reviews
-  const filteredReviews = useMemo(
-    () => reviews.filter((review) => !excludeIds.includes(review.id)),
-    [reviews, excludeIds]
-  );
+  // Filter out excluded reviews - use Set for O(1) lookups
+  const filteredReviews = useMemo(() => {
+    if (excludeIds.length === 0) return reviews;
+    
+    const excludeSet = new Set(excludeIds);
+    const reviewsLength = reviews.length;
+    const results: typeof reviews = [];
+    
+    // Use for loop for better performance
+    for (let i = 0; i < reviewsLength; i++) {
+      const review = reviews[i];
+      if (!excludeSet.has(review.id)) {
+        results.push(review);
+      }
+    }
+    
+    return results;
+  }, [reviews, excludeIds]);
 
   const maxIndex = filteredReviews.length - 1;
   const [activeIndex, setActiveIndex] = useState(0);

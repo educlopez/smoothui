@@ -1,3 +1,5 @@
+import { cache } from "react";
+
 export type ContributorInfo = {
   name: string;
   email: string;
@@ -333,18 +335,18 @@ async function getGitHubContributors(
  * @param name - Name of the component/block
  * @returns Array of contributor info, with the first one being the creator
  */
-export function getComponentContributors(
-  type: "component" | "block",
-  name: string
-): Promise<ContributorInfo[]> {
-  const owner = "educlopez";
-  const repo = "smoothui";
-  const token = process.env.GITHUB_TOKEN;
+// Use React.cache() for per-request deduplication
+export const getComponentContributors = cache(
+  async (type: "component" | "block", name: string): Promise<ContributorInfo[]> => {
+    const owner = "educlopez";
+    const repo = "smoothui";
+    const token = process.env.GITHUB_TOKEN;
 
-  const filePath =
-    type === "component"
-      ? `packages/smoothui/components/${name}/index.tsx`
-      : `packages/smoothui/blocks/${name}/index.tsx`;
+    const filePath =
+      type === "component"
+        ? `packages/smoothui/components/${name}/index.tsx`
+        : `packages/smoothui/blocks/${name}/index.tsx`;
 
-  return getGitHubContributors(owner, repo, filePath, token);
-}
+    return getGitHubContributors(owner, repo, filePath, token);
+  }
+);
