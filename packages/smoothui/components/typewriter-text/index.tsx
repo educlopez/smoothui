@@ -1,6 +1,24 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
+function useReducedMotion() {
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setShouldReduceMotion(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setShouldReduceMotion(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+
+  return shouldReduceMotion;
+}
+
 export type TypewriterTextProps = {
   children: string;
   speed?: number;
@@ -19,8 +37,15 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
   const [displayed, setDisplayed] = useState("");
   const index = useRef(0);
   const timeout = useRef<NodeJS.Timeout | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      // Show full text immediately when reduced motion is enabled
+      setDisplayed(children);
+      return;
+    }
+
     setDisplayed("");
     index.current = 0;
     function type() {
@@ -42,7 +67,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
         clearTimeout(timeout.current);
       }
     };
-  }, [children, speed, loop]);
+  }, [children, speed, loop, shouldReduceMotion]);
 
   return <span className={className}>{displayed}</span>;
 };

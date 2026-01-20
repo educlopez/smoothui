@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Copy, LoaderCircle } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useState } from "react";
 
 export type ButtonCopyProps = {
@@ -34,6 +34,7 @@ export default function ButtonCopy({
   const [buttonState, setButtonState] = useState<
     "idle" | "loading" | "success"
   >("idle");
+  const shouldReduceMotion = useReducedMotion();
 
   const handleClick = useCallback(async () => {
     setButtonState("loading");
@@ -65,12 +66,28 @@ export default function ButtonCopy({
       >
         <AnimatePresence initial={false} mode="popLayout">
           <motion.span
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, y: 0, filter: "blur(0px)" }
+            }
             className="flex w-full items-center justify-center"
-            exit={{ opacity: 0, y: 25, filter: "blur(10px)" }}
-            initial={{ opacity: 0, y: -25, filter: "blur(10px)" }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, y: 25, filter: "blur(10px)" }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 0, y: -25, filter: "blur(10px)" }
+            }
             key={buttonState}
-            transition={{ type: "spring", duration: 0.3, bounce: 0 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", duration: 0.25, bounce: 0 }
+            }
           >
             {icons[buttonState]}
           </motion.span>

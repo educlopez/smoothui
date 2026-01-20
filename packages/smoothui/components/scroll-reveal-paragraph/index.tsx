@@ -3,6 +3,7 @@
 import {
   type MotionValue,
   motion,
+  useReducedMotion,
   useScroll,
   useTransform,
 } from "motion/react";
@@ -53,11 +54,18 @@ type WordProps = {
 };
 
 const Word = ({ children, progress, range }: WordProps) => {
-  const opacity = useTransform(progress, range, [0, 1]);
+  const shouldReduceMotion = useReducedMotion();
+  const opacity = useTransform(
+    progress,
+    range,
+    shouldReduceMotion ? [1, 1] : [0, 1]
+  );
 
   return (
     <span className="relative mr-2 inline-block">
-      <span className="text-foreground/10">{children}</span>
+      {shouldReduceMotion ? null : (
+        <span className="text-foreground/10">{children}</span>
+      )}
       <motion.span
         className="absolute inset-0 text-foreground"
         style={{ opacity }}

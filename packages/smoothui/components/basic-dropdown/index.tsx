@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -33,6 +33,7 @@ export default function BasicDropdown({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const shouldReduceMotion = useReducedMotion();
 
   const handleItemSelect = (item: DropdownItem) => {
     setSelectedItem(item);
@@ -106,33 +107,57 @@ export default function BasicDropdown({
       {isOpen && (
         <div ref={portalRef}>
           <motion.div
-            animate={{ opacity: 1, y: 0, scaleY: 1 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, y: 0, scaleY: 1 }
+            }
             className="fixed z-50 origin-top rounded-lg border bg-background shadow-lg"
-            exit={{
-              opacity: 0,
-              y: -10,
-              scaleY: 0.8,
-              transition: { duration: 0.2 },
-            }}
-            initial={{ opacity: 0, y: -10, scaleY: 0.8 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : {
+                    opacity: 0,
+                    y: -10,
+                    scaleY: 0.8,
+                    transition: { duration: 0.15 },
+                  }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 0, y: -10, scaleY: 0.8 }
+            }
             style={{
               top: `${position.top}px`,
               left: `${position.left}px`,
               width: `${position.width}px`,
             }}
-            transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", bounce: 0.1, duration: 0.25 }
+            }
           >
             <ul aria-labelledby="dropdown-button" className="py-2">
               {items.map((item) => (
                 <motion.li
-                  animate={{ opacity: 1, x: 0 }}
+                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
                   className="block"
-                  exit={{ opacity: 0, x: -10 }}
-                  initial={{ opacity: 0, x: -10 }}
+                  exit={
+                    shouldReduceMotion
+                      ? { opacity: 0, transition: { duration: 0 } }
+                      : { opacity: 0, x: -10 }
+                  }
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
                   key={item.id}
                   role="menuitem"
-                  transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                  whileHover={{ x: 5 }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", stiffness: 300, damping: 30, duration: 0.2 }
+                  }
+                  whileHover={shouldReduceMotion ? {} : { x: 5 }}
                 >
                   <button
                     className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted ${
@@ -148,14 +173,19 @@ export default function BasicDropdown({
 
                     {selectedItem?.id === item.id && (
                       <motion.span
-                        animate={{ scale: 1 }}
+                        animate={shouldReduceMotion ? {} : { scale: 1 }}
                         className="ml-auto"
-                        initial={{ scale: 0 }}
-                        transition={{
-                          type: "spring",
-                          stiffness: 300,
-                          damping: 20,
-                        }}
+                        initial={shouldReduceMotion ? {} : { scale: 0 }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                type: "spring",
+                                stiffness: 300,
+                                damping: 20,
+                                duration: 0.2,
+                              }
+                        }
                       >
                         <svg
                           className="h-4 w-4 text-brand"
@@ -197,7 +227,7 @@ export default function BasicDropdown({
           </span>
           <motion.div
             animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           >
             <ChevronDown className="h-4 w-4" />
           </motion.div>

@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useRef, useState } from "react";
 
 const EASE_IN_OUT_CUBIC_X1 = 0.4;
@@ -50,6 +50,7 @@ export default function AnimatedInput({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = !!val || isFocused;
+  const shouldReduceMotion = useReducedMotion();
   const inputId = `animated-input-${Math.random().toString(RADIX_BASE_36).substring(RANDOM_ID_START_INDEX, RANDOM_ID_LENGTH)}`;
 
   return (
@@ -76,21 +77,35 @@ export default function AnimatedInput({
       />
       <motion.label
         animate={
-          isFloating
-            ? {
-                y: -24,
-                scale: 0.85,
-                color: "var(--color-brand)",
-                borderColor: "var(--color-brand)",
-              }
-            : { y: 0, scale: 1, color: "#6b7280" }
+          shouldReduceMotion
+            ? {}
+            : isFloating
+              ? {
+                  y: -24,
+                  scale: 0.85,
+                  color: "var(--color-brand)",
+                  borderColor: "var(--color-brand)",
+                }
+              : { y: 0, scale: 1, color: "#6b7280" }
         }
         className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
         htmlFor={inputId}
         style={{
           zIndex: 2,
+          ...(shouldReduceMotion && isFloating
+            ? {
+                transform: "translateY(-24px) scale(0.85)",
+                color: "var(--color-brand)",
+                borderColor: "var(--color-brand)",
+              }
+            : shouldReduceMotion
+              ? {
+                  transform: "translateY(0) scale(1)",
+                  color: "#6b7280",
+                }
+              : {}),
         }}
-        transition={LABEL_TRANSITION}
+        transition={shouldReduceMotion ? { duration: 0 } : LABEL_TRANSITION}
       >
         {label}
       </motion.label>

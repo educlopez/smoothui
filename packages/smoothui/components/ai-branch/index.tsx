@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { ChevronLeftIcon, ChevronRightIcon, Copy, Pencil } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
@@ -81,6 +81,7 @@ export type AIBranchMessagesProps = {
 
 export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
   const { currentBranch, setBranches, branches } = useAIBranch();
+  const shouldReduceMotion = useReducedMotion();
   const childrenArray = useMemo(
     () => (Array.isArray(children) ? children : [children]),
     [children]
@@ -95,23 +96,31 @@ export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
 
   return childrenArray.map((branch, index) => (
     <motion.div
-      animate={{
-        opacity: index === currentBranch ? 1 : 0,
-        y: index === currentBranch ? 0 : 10,
-        display: index === currentBranch ? "block" : "none",
-      }}
+      animate={
+        shouldReduceMotion
+          ? { opacity: index === currentBranch ? 1 : 0 }
+          : {
+              opacity: index === currentBranch ? 1 : 0,
+              y: index === currentBranch ? 0 : 10,
+              display: index === currentBranch ? "block" : "none",
+            }
+      }
       className={cn(
         "grid gap-2 [&>div]:pb-0",
         index === currentBranch ? "block" : "hidden"
       )}
-      initial={{ opacity: 0, y: 10 }}
+      initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
       key={`branch-${index}-${currentBranch}`}
-      transition={{
-        duration: 0.3,
-        type: "spring",
-        stiffness: 300,
-        damping: 30,
-      }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              duration: 0.25,
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+            }
+      }
     >
       {branch}
     </motion.div>
@@ -156,6 +165,7 @@ export const AIBranchPrevious = ({
   children,
 }: AIBranchPreviousProps) => {
   const { goToPrevious, totalBranches } = useAIBranch();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.button
@@ -169,10 +179,14 @@ export const AIBranchPrevious = ({
       )}
       disabled={totalBranches <= 1}
       onClick={goToPrevious}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+      }
       type="button"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
     >
       {children ?? <ChevronLeftIcon size={14} />}
     </motion.button>
@@ -186,6 +200,7 @@ export type AIBranchNextProps = {
 
 export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
   const { goToNext, totalBranches } = useAIBranch();
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <motion.button
@@ -199,10 +214,14 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
       )}
       disabled={totalBranches <= 1}
       onClick={goToNext}
-      transition={{ type: "spring", stiffness: 400, damping: 25 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+      }
       type="button"
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+      whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
     >
       {children ?? <ChevronRightIcon size={14} />}
     </motion.button>
@@ -304,10 +323,14 @@ export function LegacyAiBranch({
                       "hover:bg-accent hover:text-white",
                       "flex items-center justify-center"
                     )}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <Copy className="h-3 w-3" />
                   </motion.button>
@@ -319,10 +342,14 @@ export function LegacyAiBranch({
                       "hover:bg-accent hover:text-white",
                       "flex items-center justify-center"
                     )}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <Pencil className="h-3 w-3" />
                   </motion.button>
@@ -337,10 +364,14 @@ export function LegacyAiBranch({
                     )}
                     disabled={branches.length <= 1}
                     onClick={goToPrevious}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <ChevronLeftIcon size={12} />
                   </motion.button>
@@ -359,10 +390,14 @@ export function LegacyAiBranch({
                     )}
                     disabled={branches.length <= 1}
                     onClick={goToNext}
-                    transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <ChevronRightIcon size={12} />
                   </motion.button>

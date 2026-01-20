@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 type XIconProps = React.SVGProps<SVGSVGElement> & {
@@ -103,6 +103,7 @@ export default function SocialSelector({
   const [internalSelected, setInternalSelected] = useState<Platform>(
     platforms[0]
   );
+  const shouldReduceMotion = useReducedMotion();
   const selectedPlatform = controlledSelected ?? internalSelected;
 
   return (
@@ -133,19 +134,28 @@ export default function SocialSelector({
               </button>
             ))}
             <motion.div
-              animate={{
-                x:
-                  platforms.findIndex((p) => p.name === selectedPlatform.name) *
-                  (ICON_SIZE + ICON_GAP),
-              }}
+              animate={
+                shouldReduceMotion
+                  ? {}
+                  : {
+                      x:
+                        platforms.findIndex((p) => p.name === selectedPlatform.name) *
+                        (ICON_SIZE + ICON_GAP),
+                    }
+              }
               className="absolute inset-0 z-0 h-9 w-9 rounded-full border bg-background"
               initial={false}
-              layoutId="background"
-              transition={{
-                type: "spring",
-                stiffness: 500,
-                damping: 30,
-              }}
+              layoutId={shouldReduceMotion ? undefined : "background"}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30,
+                      duration: 0.25,
+                    }
+              }
             />
           </div>
         </div>
@@ -153,14 +163,28 @@ export default function SocialSelector({
           Updates on{" "}
           <span className="font-medium text-foreground">
             <motion.a
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              exit={{ opacity: 0, y: -10, filter: "blur(5px)" }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, y: 0, filter: "blur(0px)" }
+              }
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, y: -10, filter: "blur(5px)" }
+              }
               href={selectedPlatform.url}
-              initial={{ opacity: 0, y: 10, filter: "blur(5px)" }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, y: 10, filter: "blur(5px)" }
+              }
               key={selectedPlatform.domain}
               rel="noopener noreferrer"
               target="_blank"
-              transition={{ duration: 0.3 }}
+              transition={
+                shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }
+              }
             >
               {selectedPlatform.domain}
             </motion.a>

@@ -1,7 +1,7 @@
 "use client";
 
 import { AlertCircle, CheckCircle, Info, X, XCircle } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
@@ -42,6 +42,7 @@ export default function BasicToast({
 }: ToastProps) {
   const [visible, setVisible] = useState(isVisible);
   const [mounted, setMounted] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     setMounted(true);
@@ -69,16 +70,32 @@ export default function BasicToast({
     <AnimatePresence>
       {visible && (
         <motion.div
-          animate={{ opacity: 1, x: 0, scale: 1 }}
+          animate={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { opacity: 1, x: 0, scale: 1 }
+          }
           className={`fixed top-4 right-4 z-50 flex w-80 items-center gap-3 rounded-lg border p-4 shadow-lg ${toastClasses[type]} ${className}`}
-          exit={{
-            opacity: 0,
-            x: 50,
-            scale: 0.8,
-            transition: { duration: 0.15 },
-          }}
-          initial={{ opacity: 0, x: 50, scale: 0.8 }}
-          transition={{ type: "spring", bounce: 0.25 }}
+          exit={
+            shouldReduceMotion
+              ? { opacity: 0, transition: { duration: 0 } }
+              : {
+                  opacity: 0,
+                  x: 50,
+                  scale: 0.8,
+                  transition: { duration: 0.15 },
+                }
+          }
+          initial={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { opacity: 0, x: 50, scale: 0.8 }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { type: "spring", bounce: 0.1, duration: 0.25 }
+          }
         >
           <div className="flex-shrink-0">{toastIcons[type]}</div>
           <p className="flex-1 text-sm">{message}</p>

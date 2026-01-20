@@ -1,8 +1,8 @@
 "use client";
 
 import { Button } from "@repo/shadcn-ui/components/ui/button";
-import { motion } from "motion/react";
-import { useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { useEffect, useState } from "react";
 
 export type ClipCornersButtonProps = {
   children: React.ReactNode;
@@ -16,29 +16,53 @@ export function ClipCornersButton({
   onClick,
 }: ClipCornersButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
+  const [isHoverDevice, setIsHoverDevice] = useState(false);
 
   // Distance triangles move on hover
   const move = -4;
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setIsHoverDevice(mediaQuery.matches);
+
+    const handleChange = (e: MediaQueryListEvent) => {
+      setIsHoverDevice(e.matches);
+    };
+
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
 
   return (
     <Button
       className={`relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90 ${className}`}
       onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={() => {
+        if (isHoverDevice) setIsHovered(true);
+      }}
       onMouseLeave={() => setIsHovered(false)}
       style={{ borderRadius: 8 }}
       type="button"
     >
       {/* Top-left triangle */}
       <motion.div
-        animate={{
-          x: isHovered ? -move : 0,
-          y: isHovered ? -move : 0,
-        }}
+        animate={
+          shouldReduceMotion || !isHoverDevice
+            ? {}
+            : {
+                x: isHovered ? -move : 0,
+                y: isHovered ? -move : 0,
+              }
+        }
         className="absolute top-1.5 left-1.5"
         initial={false}
         style={{ width: 8, height: 8 }}
-        transition={{ type: "spring", stiffness: 400, damping: 24 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+        }
       >
         <svg
           aria-label="Top-left triangle"
@@ -52,14 +76,22 @@ export function ClipCornersButton({
       </motion.div>
       {/* Top-right triangle */}
       <motion.div
-        animate={{
-          x: isHovered ? move : 0,
-          y: isHovered ? -move : 0,
-        }}
+        animate={
+          shouldReduceMotion || !isHoverDevice
+            ? {}
+            : {
+                x: isHovered ? move : 0,
+                y: isHovered ? -move : 0,
+              }
+        }
         className="absolute top-1.5 right-1.5"
         initial={false}
         style={{ width: 8, height: 8 }}
-        transition={{ type: "spring", stiffness: 400, damping: 24 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+        }
       >
         <svg
           aria-label="Top-right triangle"
@@ -73,14 +105,22 @@ export function ClipCornersButton({
       </motion.div>
       {/* Bottom-left triangle */}
       <motion.div
-        animate={{
-          x: isHovered ? -move : 0,
-          y: isHovered ? move : 0,
-        }}
+        animate={
+          shouldReduceMotion || !isHoverDevice
+            ? {}
+            : {
+                x: isHovered ? -move : 0,
+                y: isHovered ? move : 0,
+              }
+        }
         className="absolute bottom-1.5 left-1.5"
         initial={false}
         style={{ width: 8, height: 8 }}
-        transition={{ type: "spring", stiffness: 400, damping: 24 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+        }
       >
         <svg
           aria-label="Bottom-left triangle"
@@ -94,14 +134,22 @@ export function ClipCornersButton({
       </motion.div>
       {/* Bottom-right triangle */}
       <motion.div
-        animate={{
-          x: isHovered ? move : 0,
-          y: isHovered ? move : 0,
-        }}
+        animate={
+          shouldReduceMotion || !isHoverDevice
+            ? {}
+            : {
+                x: isHovered ? move : 0,
+                y: isHovered ? move : 0,
+              }
+        }
         className="absolute right-1.5 bottom-1.5"
         initial={false}
         style={{ width: 8, height: 8 }}
-        transition={{ type: "spring", stiffness: 400, damping: 24 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+        }
       >
         <svg
           aria-label="Bottom-right triangle"

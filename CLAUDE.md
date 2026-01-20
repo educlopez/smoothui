@@ -97,18 +97,91 @@ Each component in `packages/smoothui/components/[component-name]/`:
 
 ### Animation Guidelines (Critical)
 
-Follow strict animation rules defined in `.cursor/rules/animations.mdc`:
+Follow strict animation rules defined in `.cursor/rules/animations.mdc` and see `ANIMATION_IMPROVEMENTS.md` for detailed improvements:
 
 1. **Performance**: Only animate `transform` and `opacity` when possible
-2. **Duration**: Keep animations fast (0.2-0.3s typically, max 1s)
+2. **Duration**: Keep animations fast (0.2-0.3s typically, max 0.4s for complex, max 1s for decorative)
 3. **Easing**:
-   - Use `ease-out` for entering elements (e.g., `cubic-bezier(.23, 1, .32, 1)`)
-   - Use `ease-in-out` for moving elements
+   - Use `ease-out` for entering elements: `cubic-bezier(.23, 1, .32, 1)`
+   - Use `ease-in-out` for moving elements: `cubic-bezier(0.645, 0.045, 0.355, 1)`
+   - Use `ease` for hover/color transitions: `ease` (built-in CSS)
+   - **NEVER** use string easing like `"easeInOut"` - use proper `cubic-bezier` values
    - Avoid `ease-in` as it feels slow
-4. **Accessibility**: Always respect `prefers-reduced-motion`
-5. **Spring Animations**: Default to spring animations with Motion, avoid bouncy springs except for drag gestures
+4. **Accessibility**: 
+   - **MUST** import and use `useReducedMotion` from `motion/react`
+   - **MUST** check `shouldReduceMotion` before applying animations
+   - **MUST** disable animations instantly when `shouldReduceMotion` is true
+   - See pattern below for implementation
+5. **Spring Animations**: 
+   - Default to spring animations with Motion
+   - Use bounce ≤ 0.1 for UI elements (only 0.2-0.3 for playful/drag interactions)
+   - Always include explicit `duration: 0.25` for consistency
 6. **Hardware Acceleration**: Use `transform` property, not `x`/`y` when using Motion
 7. **Origin-Aware**: Set `transform-origin` based on trigger position
+8. **Touch Devices**: For hover-based animations, detect hover-capable devices:
+   ```tsx
+   const [isHoverDevice, setIsHoverDevice] = useState(false);
+   useEffect(() => {
+     const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+     setIsHoverDevice(mediaQuery.matches);
+     // ... handle change events
+   }, []);
+   ```
+
+#### Required Animation Pattern
+
+**Every animated component MUST follow this pattern:**
+
+```tsx
+import { motion, useReducedMotion } from "motion/react";
+
+function MyComponent() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      animate={
+        shouldReduceMotion
+          ? { opacity: 1 } // Minimal or no animation
+          : { opacity: 1, scale: 1, y: 0 } // Full animation
+      }
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, scale: 0.95, y: 10 }
+      }
+      exit={
+        shouldReduceMotion
+          ? { opacity: 0, transition: { duration: 0 } }
+          : { opacity: 0, scale: 0.95, y: 10 }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 } // Instant
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {/* content */}
+    </motion.div>
+  );
+}
+```
+
+#### Animation Checklist for New Components
+
+When adding animations, ensure:
+
+- [ ] Import `useReducedMotion` from `motion/react`
+- [ ] Check `shouldReduceMotion` before applying animations
+- [ ] Use durations between 0.2-0.25s (max 0.3s for standard UI, 0.4s for complex)
+- [ ] Use proper `cubic-bezier` values, never string easing like `"easeInOut"`
+- [ ] Add hover device detection for hover-based animations
+- [ ] Keep bounce values ≤ 0.1 for UI animations
+- [ ] Only animate `transform` and `opacity`
+- [ ] Test with `prefers-reduced-motion` enabled
+- [ ] Add explicit spring duration (e.g., `duration: 0.25`)
+
+See `ANIMATION_IMPROVEMENTS.md` for complete examples and all improved components.
 
 ### Accessibility Requirements
 
@@ -207,8 +280,16 @@ The build process includes test running - builds depend on passing tests (see `t
 
 1. **Never commit sensitive data** - No API keys, tokens, or credentials
 2. **Respect animation guidelines** - Performance and accessibility are critical
+   - See `ANIMATION_IMPROVEMENTS.md` for complete animation standards
+   - All new animated components MUST include `useReducedMotion` support
 3. **Follow Ultracite rules** - Accessibility and code quality standards
 4. **Use workspace references** - Always use `workspace:*` for internal packages
 5. **Keep components self-contained** - Each component should have minimal dependencies
 6. **Export all types** - Required for automatic documentation generation
 7. **Test in docs site** - Verify components work in the dev environment before committing
+8. **Animation improvements** - When improving existing components:
+   - Add `useReducedMotion` support if missing
+   - Optimize durations to 0.2-0.25s range
+   - Replace string easing with `cubic-bezier` values
+   - Add hover device detection for hover animations
+   - Update `ANIMATION_IMPROVEMENTS.md` with changes

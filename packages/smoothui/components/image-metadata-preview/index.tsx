@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronUp, CircleX, Share } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import useMeasure from "react-use-measure";
 
@@ -31,6 +31,7 @@ export default function ImageMetadataPreview({
 }: ImageMetadataPreviewProps) {
   const [openInfo, setopenInfo] = useState(false);
   const [elementRef, bounds] = useMeasure();
+  const shouldReduceMotion = useReducedMotion();
 
   const handleClickOpen = () => {
     setopenInfo((b) => !b);
@@ -43,8 +44,9 @@ export default function ImageMetadataPreview({
   return (
     <div className="absolute bottom-10 flex flex-col items-center justify-center gap-4">
       <motion.div
-        animate={{ y: -bounds.height }}
+        animate={shouldReduceMotion ? {} : { y: -bounds.height }}
         className="pointer-events-none overflow-hidden rounded-xl"
+        transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
       >
         {/* biome-ignore lint/performance/noImgElement: Using img for image preview without Next.js Image optimizations */}
         <img alt={alt} height={437} src={imageSrc} width={300} />
@@ -72,12 +74,17 @@ export default function ImageMetadataPreview({
           <AnimatePresence>
             {openInfo ? null : (
               <motion.button
-                animate={{ opacity: 1, filter: "blur(0px)" }}
+                animate={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: 1, filter: "blur(0px)" }
+                }
                 aria-label="Open Metadata Preview"
                 className="cursor-pointer border bg-background p-3 shadow-xs transition"
-                initial={{ opacity: 0, filter: "blur(4px)" }}
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, filter: "blur(4px)" }}
                 onClick={handleClickOpen}
                 style={{ borderRadius: 100 }}
+                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
               >
                 <ChevronUp size={16} />
               </motion.button>
@@ -87,12 +94,20 @@ export default function ImageMetadataPreview({
         <AnimatePresence>
           {openInfo ? (
             <motion.div
-              animate={{ opacity: 1, filter: "blur(0px)" }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, filter: "blur(0px)" }
+              }
               className="absolute bottom-0 w-full cursor-pointer gap-4 border bg-background p-5 shadow-xs"
-              initial={{ opacity: 0, filter: "blur(4px)" }}
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, filter: "blur(4px)" }}
               onClick={handleClickClose}
               style={{ borderRadius: 20 }}
-              transition={{ type: "spring", duration: 0.4, bounce: 0 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring", duration: 0.25, bounce: 0 }
+              }
             >
               <div className="flex flex-col items-start" ref={elementRef}>
                 <div className="flex w-full flex-row items-start justify-between gap-4">

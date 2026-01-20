@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Star } from "lucide-react";
-import { motion, useSpring } from "motion/react";
+import { motion, useReducedMotion, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
 
 const TRANSITION_DURATION = 0.3;
@@ -49,6 +49,7 @@ export default function GitHubStarsAnimation({
   const [displayCount, setDisplayCount] = useState(0);
   const [isLoading, setIsLoading] = useState(!providedStargazers);
   const [error, setError] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   const countSpring = useSpring(0, {
     stiffness: 100,
@@ -142,7 +143,11 @@ export default function GitHubStarsAnimation({
 
   // Animate countdown
   useEffect(() => {
-    if (starCount === 0) {
+    if (starCount === 0 || shouldReduceMotion) {
+      if (shouldReduceMotion) {
+        setDisplayCount(starCount);
+        countSpring.set(starCount);
+      }
       return;
     }
 
@@ -170,7 +175,7 @@ export default function GitHubStarsAnimation({
     };
 
     animate();
-  }, [starCount, countSpring]);
+  }, [starCount, countSpring, shouldReduceMotion]);
 
   if (isLoading) {
     return (
@@ -196,34 +201,46 @@ export default function GitHubStarsAnimation({
         <div className="relative flex items-center">
           {visibleAvatars.map((stargazer, index) => (
             <motion.a
-              animate={{
-                opacity: 1,
-                scale: 1,
-                x: 0,
-              }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : {
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                    }
+              }
               aria-label={`${stargazer.login}'s GitHub profile`}
               className={cn(
                 "relative z-10 h-10 w-10 overflow-hidden rounded-full border-2 border-background bg-background transition-transform hover:z-20 hover:scale-110",
                 avatarClassName
               )}
               href={stargazer.html_url}
-              initial={{
-                opacity: 0,
-                scale: 0.8,
-                x: -20,
-              }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : {
+                      opacity: 0,
+                      scale: 0.8,
+                      x: -20,
+                    }
+              }
               key={stargazer.login}
               rel="noopener noreferrer"
               style={{
                 marginLeft: index > 0 ? "-8px" : "0",
               }}
               target="_blank"
-              transition={{
-                duration: TRANSITION_DURATION,
-                delay: index * STAGGER_DELAY,
-                ease: EASE_OUT_CUBIC,
-              }}
-              whileHover={{ scale: 1.1, zIndex: 20 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      duration: TRANSITION_DURATION,
+                      delay: index * STAGGER_DELAY,
+                      ease: EASE_OUT_CUBIC,
+                    }
+              }
+              whileHover={shouldReduceMotion ? {} : { scale: 1.1, zIndex: 20 }}
             >
               {/* biome-ignore lint/performance/noImgElement: Using img for user avatars without Next.js Image optimizations */}
               <img
@@ -238,29 +255,29 @@ export default function GitHubStarsAnimation({
 
       {/* Star count */}
       <motion.div
-        animate={{
-          opacity: 1,
-          scale: 1,
-        }}
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
         className={cn("flex items-center gap-1.5 font-medium", countClassName)}
-        initial={{
-          opacity: 0,
-          scale: 0.9,
-        }}
-        transition={{
-          duration: TRANSITION_DURATION,
-          ease: EASE_OUT_CUBIC,
-        }}
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                duration: TRANSITION_DURATION,
+                ease: EASE_OUT_CUBIC,
+              }
+        }
       >
         <Star className="h-4 w-4 fill-current" />
         <motion.span
-          animate={{
-            scale: [1, 1.1, 1],
-          }}
-          transition={{
-            duration: 0.3,
-            ease: EASE_OUT_CUBIC,
-          }}
+          animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.1, 1] }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : {
+                  duration: 0.3,
+                  ease: EASE_OUT_CUBIC,
+                }
+          }
           className="tabular-nums"
         >
           {displayCount.toLocaleString()}
@@ -270,17 +287,6 @@ export default function GitHubStarsAnimation({
         </span>
       </motion.div>
 
-      {/* Reduced motion fallback */}
-      <style>
-        {`
-          @media (prefers-reduced-motion: reduce) {
-            * {
-              animation: none !important;
-              transition: opacity 0.2s ease !important;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }

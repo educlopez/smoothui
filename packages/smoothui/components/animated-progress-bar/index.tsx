@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 export type AnimatedProgressBarProps = {
   value: number; // 0-100
@@ -20,6 +20,7 @@ const SPRING = {
   damping: 10,
   mass: 0.75,
   stiffness: 100,
+  duration: 0.25,
 };
 
 export default function AnimatedProgressBar({
@@ -30,6 +31,8 @@ export default function AnimatedProgressBar({
   barClassName = "",
   labelClassName = "",
 }: AnimatedProgressBarProps) {
+  const shouldReduceMotion = useReducedMotion();
+  
   return (
     <div className={`w-full ${className}`}>
       {label && (
@@ -45,7 +48,7 @@ export default function AnimatedProgressBar({
           className={`h-full rounded bg-background ${barClassName}`}
           initial={{ width: MIN_PROGRESS_VALUE }}
           style={{ backgroundColor: color }}
-          transition={SPRING}
+          transition={shouldReduceMotion ? { duration: 0 } : SPRING}
         />
       </div>
     </div>

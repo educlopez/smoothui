@@ -43,6 +43,12 @@ const config: NextConfig = {
   // biome-ignore lint/suspicious/useAwait: "redirects is async"
   async redirects() {
     return [
+      // Redirect removed matrix-card component to home page
+      {
+        source: "/docs/components/matrix-card",
+        destination: "/",
+        permanent: true,
+      },
       // Specific redirects for renamed components (must come before generic patterns)
       {
         source: "/doc/components/animated-otp-input",

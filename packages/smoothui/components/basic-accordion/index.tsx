@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const CHEVRON_ROTATION_DEGREES = 180;
@@ -28,6 +28,7 @@ export default function BasicAccordion({
 }: BasicAccordionProps) {
   const [expandedItems, setExpandedItems] =
     useState<Array<string | number>>(defaultExpandedIds);
+  const shouldReduceMotion = useReducedMotion();
 
   const toggleItem = (id: string | number) => {
     if (expandedItems.includes(id)) {
@@ -58,7 +59,9 @@ export default function BasicAccordion({
               <motion.div
                 animate={{ rotate: isExpanded ? CHEVRON_ROTATION_DEGREES : 0 }}
                 className="shrink-0"
-                transition={{ duration: CHEVRON_ANIMATION_DURATION }}
+                transition={{
+                  duration: shouldReduceMotion ? 0 : CHEVRON_ANIMATION_DURATION,
+                }}
               >
                 <ChevronDown className="h-5 w-5" />
               </motion.div>
@@ -66,31 +69,39 @@ export default function BasicAccordion({
 
             <AnimatePresence initial={false}>
               {isExpanded && (
-                <motion.div
-                  animate={{
-                    height: "auto",
-                    opacity: 1,
-                    transition: {
-                      height: {
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 40,
-                        duration: 0.3,
-                      },
-                      opacity: { duration: 0.25 },
-                    },
-                  }}
-                  className="overflow-hidden"
-                  exit={{
-                    height: 0,
-                    opacity: 0,
-                    transition: {
-                      height: { duration: 0.25 },
-                      opacity: { duration: 0.15 },
-                    },
-                  }}
-                  initial={{ height: 0, opacity: 0 }}
-                >
+              <motion.div
+                animate={
+                  shouldReduceMotion
+                    ? { height: "auto", opacity: 1 }
+                    : {
+                        height: "auto",
+                        opacity: 1,
+                        transition: {
+                          height: {
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 40,
+                            duration: 0.25,
+                          },
+                          opacity: { duration: 0.2 },
+                        },
+                      }
+                }
+                className="overflow-hidden"
+                exit={
+                  shouldReduceMotion
+                    ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                    : {
+                        height: 0,
+                        opacity: 0,
+                        transition: {
+                          height: { duration: 0.2 },
+                          opacity: { duration: 0.15 },
+                        },
+                      }
+                }
+                initial={shouldReduceMotion ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
+              >
                   <div className="border-t bg-background px-4 py-3">
                     {item.content}
                   </div>

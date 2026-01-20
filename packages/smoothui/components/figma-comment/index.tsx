@@ -7,7 +7,7 @@ import {
 } from "@repo/shadcn-ui/components/ui/avatar";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { getImageKitUrl } from "@smoothui/data";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "./use-click-outside";
 
@@ -67,6 +67,7 @@ export default function FigmaComment({
   const contentRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [contentHeight, setContentHeight] = useState(CLOSED_SIZE);
+  const shouldReduceMotion = useReducedMotion();
 
   // Close comment when clicking outside
   useClickOutside(containerRef, () => {
@@ -110,33 +111,67 @@ export default function FigmaComment({
   return (
     <div className={cn("relative", className)}>
       <motion.div
-        animate={{
-          width: isOpen ? width : CLOSED_SIZE,
-          height: isOpen ? contentHeight : CLOSED_SIZE,
-        }}
+        animate={
+          shouldReduceMotion
+            ? {}
+            : {
+                width: isOpen ? width : CLOSED_SIZE,
+                height: isOpen ? contentHeight : CLOSED_SIZE,
+              }
+        }
         className="absolute bottom-0 left-0 cursor-pointer overflow-hidden rounded-2xl rounded-bl-none bg-background shadow-[0px_0px_0.5px_0px_rgba(0,0,0,0.18),0px_3px_8px_0px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.1)]"
         onClick={handleToggle}
         ref={containerRef}
-        transition={{
-          type: "spring",
-          stiffness: 550,
-          damping: 45,
-          mass: 0.7,
-          delay: isOpen ? 0 : CONTAINER_CLOSE_DELAY,
-        }}
+        style={
+          shouldReduceMotion
+            ? {
+                width: isOpen ? width : CLOSED_SIZE,
+                height: isOpen ? contentHeight : CLOSED_SIZE,
+              }
+            : undefined
+        }
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : {
+                type: "spring",
+                stiffness: 550,
+                damping: 45,
+                mass: 0.7,
+                delay: isOpen ? 0 : CONTAINER_CLOSE_DELAY,
+                duration: 0.25,
+              }
+        }
       >
         {/* Avatar - animates position */}
         <motion.div
-          animate={{
-            left: isOpen ? AVATAR_OPEN_LEFT : AVATAR_CLOSED_LEFT,
-            top: isOpen ? AVATAR_OPEN_TOP : AVATAR_CLOSED_TOP,
-          }}
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  left: isOpen ? AVATAR_OPEN_LEFT : AVATAR_CLOSED_LEFT,
+                  top: isOpen ? AVATAR_OPEN_TOP : AVATAR_CLOSED_TOP,
+                }
+          }
           className="absolute z-10"
-          transition={{
-            type: "spring",
-            stiffness: 300,
-            damping: 25,
-          }}
+          style={
+            shouldReduceMotion
+              ? {
+                  left: isOpen ? AVATAR_OPEN_LEFT : AVATAR_CLOSED_LEFT,
+                  top: isOpen ? AVATAR_OPEN_TOP : AVATAR_CLOSED_TOP,
+                }
+              : undefined
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 25,
+                  duration: 0.25,
+                }
+          }
         >
           <Avatar className="h-6 w-6">
             <AvatarImage alt={avatarAlt} src={avatarUrl} />
@@ -176,34 +211,50 @@ export default function FigmaComment({
         <AnimatePresence>
           {isOpen && (
             <motion.div
-              animate={{
-                opacity: 1,
-                filter: "blur(0px)",
-              }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : {
+                      opacity: 1,
+                      filter: "blur(0px)",
+                    }
+              }
               className="absolute inset-0 flex flex-col items-start gap-0.5 py-3 pr-4 pl-11"
-              exit={{
-                opacity: 0,
-                filter: `blur(${String(EXIT_BLUR_PX)}px)`,
-              }}
-              initial={{
-                opacity: 0,
-                filter: `blur(${String(INITIAL_BLUR_PX)}px)`,
-              }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : {
+                      opacity: 0,
+                      filter: `blur(${String(EXIT_BLUR_PX)}px)`,
+                    }
+              }
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 0 }
+                  : {
+                      opacity: 0,
+                      filter: `blur(${String(INITIAL_BLUR_PX)}px)`,
+                    }
+              }
               style={{
                 width: `${width}px`,
               }}
-              transition={(isExiting: boolean) => ({
-                opacity: {
-                  duration: BLUR_DURATION,
-                  ease: BLUR_EASE,
-                  delay: isExiting ? 0 : CONTENT_DELAY,
-                },
-                filter: {
-                  duration: BLUR_DURATION,
-                  ease: BLUR_EASE,
-                  delay: isExiting ? 0 : CONTENT_DELAY,
-                },
-              })}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : (isExiting: boolean) => ({
+                      opacity: {
+                        duration: 0.25,
+                        ease: BLUR_EASE,
+                        delay: isExiting ? 0 : CONTENT_DELAY,
+                      },
+                      filter: {
+                        duration: 0.25,
+                        ease: BLUR_EASE,
+                        delay: isExiting ? 0 : CONTENT_DELAY,
+                      },
+                    })
+              }
             >
               {/* Attribution */}
               <div className="flex items-start gap-0.5">
@@ -223,17 +274,6 @@ export default function FigmaComment({
         </AnimatePresence>
       </motion.div>
 
-      {/* Reduced motion fallback */}
-      <style>
-        {`
-          @media (prefers-reduced-motion: reduce) {
-            * {
-              animation: none !important;
-              transition: opacity 0.2s ease !important;
-            }
-          }
-        `}
-      </style>
     </div>
   );
 }

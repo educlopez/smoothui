@@ -6,7 +6,7 @@ import {
   Root as TabsRoot,
   Trigger as TabsTrigger,
 } from "@radix-ui/react-tabs";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
 
 /**
@@ -56,6 +56,7 @@ export default function Phototab({
   } | null>(null);
   const triggersRef = useRef<(HTMLButtonElement | null)[]>([]);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   useLayoutEffect(() => {
     if (
@@ -108,7 +109,11 @@ export default function Phototab({
               initial={{ opacity: 0 }}
               layoutId="hoverBackground"
               style={{ position: "absolute" }}
-              transition={{ type: "spring", stiffness: 400, damping: 40 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring", stiffness: 400, damping: 40, duration: 0.25 }
+              }
             />
           )}
         </AnimatePresence>

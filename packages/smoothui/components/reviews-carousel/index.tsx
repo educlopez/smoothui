@@ -60,6 +60,7 @@ function ReviewCard({
           stiffness: 250,
           damping: 20,
           mass: 0.5,
+          duration: 0.25,
         },
       }}
       className={cn(
@@ -72,7 +73,7 @@ function ReviewCard({
         filter: `blur(${blur}px)`,
         opacity,
         transitionProperty: "opacity, filter",
-        transitionDuration: "300ms",
+        transitionDuration: shouldReduceMotion ? "0ms" : "250ms",
         transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
         zIndex: totalCards - index,
         pointerEvents: isActive ? "auto" : "none",

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { animate, motion, useMotionValue } from "motion/react";
+import { animate, motion, useMotionValue, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
@@ -29,8 +29,14 @@ export default function InfiniteSlider({
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [key, setKey] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
+    if (shouldReduceMotion) {
+      translation.set(0);
+      return;
+    }
+    
     let controls:
       | {
           stop: () => void;
@@ -80,6 +86,7 @@ export default function InfiniteSlider({
     isTransitioning,
     direction,
     reverse,
+    shouldReduceMotion,
   ]);
 
   const hoverProps = speedOnHover

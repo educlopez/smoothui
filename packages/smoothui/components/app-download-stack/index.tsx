@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useAnimation } from "motion/react";
+import { AnimatePresence, motion, useAnimation, useReducedMotion } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 
 export type AppData = {
@@ -74,6 +74,7 @@ export default function AppDownloadStack({
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadComplete, setDownloadComplete] = useState(false);
   const shineControls = useAnimation();
+  const shouldReduceMotion = useReducedMotion();
 
   const isExpanded =
     controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
@@ -106,14 +107,16 @@ export default function AppDownloadStack({
     if (onDownload) {
       onDownload(selected);
     }
-    shineControls.start({
-      x: ["0%", "100%"],
-      transition: {
-        duration: 1,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: "linear",
-      },
-    });
+    if (!shouldReduceMotion) {
+      shineControls.start({
+        x: ["0%", "100%"],
+        transition: {
+          duration: 1,
+          repeat: Number.POSITIVE_INFINITY,
+          ease: "linear",
+        },
+      });
+    }
     setTimeout(() => {
       shineControls.stop();
       setDownloadComplete(true);
@@ -136,69 +139,95 @@ export default function AppDownloadStack({
 
   const stackVariants = useMemo(
     () => ({
-      initial: (i: number) => ({
-        rotate:
-          i % 2 === 0
-            ? -ROTATION_MULTIPLIER * (i + 1)
-            : ROTATION_MULTIPLIER * (i + 1),
-        x:
-          i % 2 === 0
-            ? -TRANSLATION_MULTIPLIER * (i + 1)
-            : TRANSLATION_MULTIPLIER * (i + 1),
-        y: 0,
-        zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
-      }),
-      hover: (i: number) => ({
-        rotate: 0,
-        x: i * HOVER_X_MULTIPLIER,
-        y: -i * HOVER_Y_MULTIPLIER,
-        zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
-      }),
-      float: (i: number) => ({
-        y: [0, -FLOAT_AMPLITUDE, 0],
-        transition: {
-          y: {
-            repeat: Number.POSITIVE_INFINITY,
-            duration: FLOAT_DURATION,
-            ease: "easeInOut",
-            delay: i * FLOAT_DELAY_MULTIPLIER,
-          },
-        },
-      }),
+      initial: (i: number) =>
+        shouldReduceMotion
+          ? {
+              rotate: 0,
+              x: 0,
+              y: 0,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            }
+          : {
+              rotate:
+                i % 2 === 0
+                  ? -ROTATION_MULTIPLIER * (i + 1)
+                  : ROTATION_MULTIPLIER * (i + 1),
+              x:
+                i % 2 === 0
+                  ? -TRANSLATION_MULTIPLIER * (i + 1)
+                  : TRANSLATION_MULTIPLIER * (i + 1),
+              y: 0,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            },
+      hover: (i: number) =>
+        shouldReduceMotion
+          ? {
+              rotate: 0,
+              x: 0,
+              y: 0,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            }
+          : {
+              rotate: 0,
+              x: i * HOVER_X_MULTIPLIER,
+              y: -i * HOVER_Y_MULTIPLIER,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            },
+      float: (i: number) =>
+        shouldReduceMotion
+          ? { y: 0 }
+          : {
+              y: [0, -FLOAT_AMPLITUDE, 0],
+              transition: {
+                y: {
+                  repeat: Number.POSITIVE_INFINITY,
+                  duration: FLOAT_DURATION,
+                  ease: [0.645, 0.045, 0.355, 1],
+                  delay: i * FLOAT_DELAY_MULTIPLIER,
+                },
+              },
+            },
     }),
-    []
+    [shouldReduceMotion]
   );
 
   return (
     <div
       className={`flex h-auto flex-col items-center justify-center ${className}`}
     >
-      <motion.div className="flex flex-col items-center justify-center" layout>
+      <motion.div
+        className="flex flex-col items-center justify-center"
+        layout={!shouldReduceMotion}
+      >
         <AnimatePresence mode="wait">
           {!(isExpanded || isDownloading) && (
             <motion.button
               aria-label="Expand app selection"
               className="group relative isolate flex h-16 w-16 cursor-pointer items-center justify-center"
               key="initial-stack"
-              layout
+              layout={!shouldReduceMotion}
               onClick={() => setExpanded(true)}
-              whileHover="hover"
+              whileHover={shouldReduceMotion ? {} : "hover"}
             >
               {apps.map((app, index) => (
                 /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                 <motion.img
                   alt={`${app.name} Logo`}
-                  animate={["initial", "float"]}
+                  animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
                   className="absolute inset-0 rounded-xl border-none"
                   custom={index}
                   height={64}
                   initial="initial"
                   key={app.id}
-                  layoutId={`app-icon-${app.id}`}
+                  layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
                   src={app.icon}
-                  transition={{ duration: TRANSITION_DURATION }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { duration: TRANSITION_DURATION }
+                  }
                   variants={stackVariants}
-                  whileHover="hover"
+                  whileHover={shouldReduceMotion ? {} : "hover"}
                   width={64}
                 />
               ))}
@@ -207,12 +236,20 @@ export default function AppDownloadStack({
 
           {isExpanded && !isDownloading && (
             <motion.div
-              animate={{ opacity: 1, scale: 1 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+              }
               className="flex flex-col items-center gap-2"
-              exit={{ opacity: 0, scale: 0.8 }}
-              initial={{ opacity: 0, scale: 0.8 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, scale: 0.8 }
+              }
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+              }
               key="app-selector"
-              layout
+              layout={!shouldReduceMotion}
             >
               <button
                 className="flex w-full cursor-pointer items-center justify-between px-0.5"
@@ -230,11 +267,15 @@ export default function AppDownloadStack({
               <motion.ul className="grid grid-cols-2 gap-3">
                 {apps.map((app, index) => (
                   <motion.li
-                    animate={{ opacity: 1, y: 0 }}
+                    animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
                     className="relative flex h-[80px] w-[80px]"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
                     key={app.id}
-                    transition={{ delay: index * STAGGER_DELAY_MULTIPLIER }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { delay: index * STAGGER_DELAY_MULTIPLIER, duration: 0.25 }
+                    }
                   >
                     <div
                       className={`pointer-events-none absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid ${
@@ -301,12 +342,20 @@ export default function AppDownloadStack({
 
           {isDownloading && (
             <motion.div
-              animate={{ opacity: 1, scale: 1 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+              }
               className="flex flex-col items-center gap-4"
-              exit={{ opacity: 0, scale: 0.8 }}
-              initial={{ opacity: 0, scale: 0.8 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, scale: 0.8 }
+              }
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+              }
               key="downloading"
-              layout
+              layout={!shouldReduceMotion}
             >
               <div className="relative flex h-16 w-16 items-center justify-center">
                 <motion.div
@@ -318,15 +367,19 @@ export default function AppDownloadStack({
                   /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                   <motion.img
                     alt={`${app.name} Logo`}
-                    animate={["initial", "float"]}
+                    animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
                     className="absolute inset-0 rounded-xl border-none"
                     custom={index}
                     height={64}
                     initial="initial"
                     key={app.id}
-                    layoutId={`app-icon-${app.id}`}
+                    layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
                     src={app.icon}
-                    transition={{ duration: TRANSITION_DURATION }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: TRANSITION_DURATION }
+                    }
                     variants={stackVariants}
                     width={64}
                   />

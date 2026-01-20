@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useMotionValue, useSpring } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
@@ -25,6 +25,7 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
   const [pendingText, setPendingText] = useState<string | null>(null);
   const [textWidth, setTextWidth] = useState<number>(0);
   const measureRef = useRef<HTMLSpanElement>(null);
+  const shouldReduceMotion = useReducedMotion();
 
   // Motion values for smooth follow
   const x = useMotionValue(0);
@@ -96,14 +97,21 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
     >
       {children}
       <motion.div
-        animate={{
-          opacity: 1,
-          scale: 1,
-          transition: { duration: 0.32, ease: "easeInOut" },
-        }}
+        animate={
+          shouldReduceMotion
+            ? { opacity: 1, scale: 1 }
+            : {
+                opacity: 1,
+                scale: 1,
+                transition: {
+                  duration: 0.25,
+                  ease: [0.645, 0.045, 0.355, 1],
+                },
+              }
+        }
         className="pointer-events-none fixed z-50"
-        exit={{ opacity: 0, scale: 0.7 }}
-        initial={{ opacity: 0, scale: 0.7 }}
+        exit={shouldReduceMotion ? {} : { opacity: 0, scale: 0.7 }}
+        initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
         style={{ left: 0, top: 0, x: springX, y: springY }}
       >
         <motion.div
@@ -144,7 +152,11 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
             zIndex: 1,
             boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
           }}
-          transition={{ duration: 0.32, ease: "easeInOut" }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.25, ease: [0.645, 0.045, 0.355, 1] }
+          }
         >
           {cursorText && (
             <motion.span
@@ -157,7 +169,11 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
                 textAlign: "center",
                 color: "#fff",
               }}
-              transition={{ duration: 0.28, delay: 0.1, ease: "easeInOut" }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.2, delay: 0.05, ease: [0.645, 0.045, 0.355, 1] }
+              }
             >
               {cursorText}
             </motion.span>

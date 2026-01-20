@@ -1,5 +1,5 @@
 import type React from "react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type ScrambleHoverProps = {
   children: string;
@@ -31,10 +31,36 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   className = "",
 }) => {
   const [display, setDisplay] = useState(children);
+  const [shouldReduceMotion, setShouldReduceMotion] = useState(false);
+  const [isHoverDevice, setIsHoverDevice] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
+  useEffect(() => {
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    
+    setShouldReduceMotion(motionQuery.matches);
+    setIsHoverDevice(hoverQuery.matches);
+
+    const handleMotionChange = (e: MediaQueryListEvent) => {
+      setShouldReduceMotion(e.matches);
+    };
+    const handleHoverChange = (e: MediaQueryListEvent) => {
+      setIsHoverDevice(e.matches);
+    };
+
+    motionQuery.addEventListener("change", handleMotionChange);
+    hoverQuery.addEventListener("change", handleHoverChange);
+    
+    return () => {
+      motionQuery.removeEventListener("change", handleMotionChange);
+      hoverQuery.removeEventListener("change", handleHoverChange);
+    };
+  }, []);
+
   const handleMouseEnter = () => {
+    if (shouldReduceMotion || !isHoverDevice) return;
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }
@@ -66,8 +92,8 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
     <button
       className={className}
       onBlur={handleMouseLeave}
-      onFocus={handleMouseEnter}
-      onMouseEnter={handleMouseEnter}
+      onFocus={isHoverDevice ? handleMouseEnter : undefined}
+      onMouseEnter={isHoverDevice ? handleMouseEnter : undefined}
       onMouseLeave={handleMouseLeave}
       style={{
         cursor: "pointer",
