@@ -141,20 +141,61 @@ export default function SearchableDropdown({
     };
   }, [isOpen]);
 
-  // Keyboard navigation
+  // Keyboard navigation with arrow keys, enter, and escape
+  const [focusedIndex, setFocusedIndex] = useState(-1);
+  
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isOpen) return;
+      if (!isOpen) {
+        // Open dropdown on Enter or Space when button is focused
+        if (
+          (event.key === "Enter" || event.key === " ") &&
+          document.activeElement === buttonRef.current
+        ) {
+          event.preventDefault();
+          handleToggle();
+        }
+        return;
+      }
 
       if (event.key === "Escape") {
         setIsOpen(false);
         setSearchQuery("");
+        setFocusedIndex(-1);
+        buttonRef.current?.focus();
+      } else if (event.key === "ArrowDown") {
+        event.preventDefault();
+        setFocusedIndex((prev) =>
+          prev < filteredItems.length - 1 ? prev + 1 : 0
+        );
+      } else if (event.key === "ArrowUp") {
+        event.preventDefault();
+        setFocusedIndex((prev) =>
+          prev > 0 ? prev - 1 : filteredItems.length - 1
+        );
+      } else if (event.key === "Enter" && focusedIndex >= 0) {
+        event.preventDefault();
+        const item = filteredItems[focusedIndex];
+        if (item) {
+          handleItemSelect(item);
+        }
+      } else if (event.key === "Home") {
+        event.preventDefault();
+        setFocusedIndex(0);
+      } else if (event.key === "End") {
+        event.preventDefault();
+        setFocusedIndex(filteredItems.length - 1);
       }
     };
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen]);
+  }, [isOpen, filteredItems, focusedIndex]);
+
+  // Reset focused index when items change
+  useEffect(() => {
+    setFocusedIndex(-1);
+  }, [filteredItems.length, searchQuery]);
 
   const dropdownContent = (
     <AnimatePresence>
@@ -222,15 +263,23 @@ export default function SearchableDropdown({
                 ref={inputRef}
                 type="text"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setFocusedIndex(-1);
+                }}
                 placeholder={placeholder}
-                className="w-full rounded-md border bg-transparent py-2 pl-9 pr-8 text-sm outline-none transition-colors focus:border-brand"
+                aria-label="Search dropdown items"
+                aria-autocomplete="list"
+                aria-controls="dropdown-items"
+                aria-expanded={isOpen}
+                className="w-full rounded-md border bg-transparent py-2 pl-9 pr-8 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               />
               <AnimatePresence>
                 {searchQuery && (
                   <motion.button
                     animate={{ opacity: 1 }}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    aria-label="Clear search"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px]"
                     exit={{ opacity: 0 }}
                     initial={{ opacity: 0 }}
                     onClick={handleClearSearch}
@@ -241,7 +290,7 @@ export default function SearchableDropdown({
                       damping: 25,
                     }}
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-4 w-4" aria-hidden="true" />
                   </motion.button>
                 )}
               </AnimatePresence>
@@ -250,7 +299,9 @@ export default function SearchableDropdown({
 
           {/* Items List */}
           <ul
-            aria-labelledby="dropdown-button"
+            id="dropdown-items"
+            role="listbox"
+            aria-label="Dropdown options"
             className="max-h-60 overflow-y-auto py-2"
           >
             <AnimatePresence mode="popLayout">
@@ -275,7 +326,8 @@ export default function SearchableDropdown({
                     }
                     key={item.id}
                     layout
-                    role="menuitem"
+                    role="option"
+                    aria-selected={selectedItem?.id === item.id || index === focusedIndex}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
@@ -290,13 +342,15 @@ export default function SearchableDropdown({
                     }
                   >
                     <button
-                      className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted ${
+                      className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] ${
                         selectedItem?.id === item.id
                           ? "font-medium text-brand"
                           : ""
-                      }`}
+                      } ${index === focusedIndex ? "bg-muted" : ""}`}
                       onClick={() => handleItemSelect(item)}
                       type="button"
+                      aria-label={`${item.label}${item.description ? `, ${item.description}` : ""}`}
+                      onMouseEnter={() => setFocusedIndex(index)}
                     >
                       {item.icon && (
                         <span className="mr-3 shrink-0">{item.icon}</span>
@@ -378,7 +432,11 @@ export default function SearchableDropdown({
       <div className={`relative inline-block ${className}`} ref={dropdownRef}>
         <button
           ref={buttonRef}
-          className="flex w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary"
+          id="dropdown-button"
+          aria-haspopup="listbox"
+          aria-expanded={isOpen}
+          aria-label={selectedItem ? `${label}: ${selectedItem.label}` : label}
+          className="flex w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
           onClick={handleToggle}
           type="button"
         >

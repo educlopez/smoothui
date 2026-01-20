@@ -56,10 +56,16 @@ export default function AnimatedInput({
   return (
     <div className={`relative flex items-center ${className}`}>
       {icon && (
-        <span className="-translate-y-1/2 absolute top-1/2 left-3">{icon}</span>
+        <span
+          aria-hidden="true"
+          className="-translate-y-1/2 absolute top-1/2 left-3"
+        >
+          {icon}
+        </span>
       )}
       <input
-        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus:ring-1 focus:ring-primary ${icon ? "pl-10" : ""} ${inputClassName}`}
+        aria-label={label}
+        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}
         disabled={disabled}
         id={inputId}
         onBlur={() => setIsFocused(false)}

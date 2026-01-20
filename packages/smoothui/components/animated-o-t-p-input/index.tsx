@@ -36,6 +36,8 @@ export type AnimatedInputOTPProps = {
   onComplete?: (value: string) => void;
   maxLength?: number;
   className?: string;
+  "aria-label"?: string;
+  "aria-describedby"?: string;
 };
 
 function AnimatedInputOTP({
@@ -56,6 +58,8 @@ function AnimatedInputOTP({
 
   return (
     <OTPInput
+      aria-label={props["aria-label"] || "One-time password input"}
+      aria-describedby={props["aria-describedby"]}
       className={cn("disabled:cursor-not-allowed", className)}
       containerClassName={cn(
         "flex items-center gap-2 has-disabled:opacity-50",
