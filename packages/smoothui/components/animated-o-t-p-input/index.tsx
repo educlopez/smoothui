@@ -58,8 +58,8 @@ function AnimatedInputOTP({
 
   return (
     <OTPInput
-      aria-label={props["aria-label"] || "One-time password input"}
       aria-describedby={props["aria-describedby"]}
+      aria-label={props["aria-label"] || "One-time password input"}
       className={cn("disabled:cursor-not-allowed", className)}
       containerClassName={cn(
         "flex items-center gap-2 has-disabled:opacity-50",
@@ -92,7 +92,9 @@ function AnimatedInputOTPGroup({
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       className={cn("flex items-center", className)}
       data-slot="input-otp-group"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: INITIAL_Y }}
+      initial={
+        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: INITIAL_Y }
+      }
       transition={
         shouldReduceMotion
           ? { duration: 0 }
@@ -247,7 +249,11 @@ function AnimatedInputOTPSeparator() {
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
       data-slot="input-otp-separator"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: INITIAL_SCALE }}
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, scale: INITIAL_SCALE }
+      }
       transition={
         shouldReduceMotion
           ? { duration: 0 }

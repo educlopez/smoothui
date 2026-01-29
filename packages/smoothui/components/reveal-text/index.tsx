@@ -39,7 +39,9 @@ const RevealText: React.FC<RevealTextProps> = ({
           : { x: 0, y: 0, opacity: 1 }
       }
       className={className}
-      initial={shouldReduceMotion ? { opacity: 1 } : directionVariants[direction]}
+      initial={
+        shouldReduceMotion ? { opacity: 1 } : directionVariants[direction]
+      }
       ref={ref}
       style={{ display: "inline-block" }}
       transition={

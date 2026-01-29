@@ -70,13 +70,13 @@ export default function UserAccountAvatar({
     <form className="flex flex-col gap-3 p-4" onSubmit={handleProfileSave}>
       <div className="flex flex-col gap-1.5">
         <label
-          className="text-xs font-medium text-muted-foreground"
+          className="font-medium text-muted-foreground text-xs"
           htmlFor="name"
         >
           Name
         </label>
         <input
-          className="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+          className="rounded-md border border-border bg-background px-3 py-2 text-foreground text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
           defaultValue={userData.name}
           id="name"
           name="name"
@@ -86,13 +86,13 @@ export default function UserAccountAvatar({
       </div>
       <div className="flex flex-col gap-1.5">
         <label
-          className="text-xs font-medium text-muted-foreground"
+          className="font-medium text-muted-foreground text-xs"
           htmlFor="email"
         >
           Email
         </label>
         <input
-          className="rounded-md border border-border bg-background px-3 py-2 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+          className="rounded-md border border-border bg-background px-3 py-2 text-foreground text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
           defaultValue={userData.email}
           id="email"
           name="email"
@@ -102,7 +102,7 @@ export default function UserAccountAvatar({
       </div>
 
       <button
-        className="mt-2 cursor-pointer rounded-md bg-brand px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:bg-brand/90 hover:shadow-md active:scale-[0.98] active:bg-brand"
+        className="mt-2 cursor-pointer rounded-md bg-brand px-4 py-2.5 font-semibold text-sm text-white shadow-sm transition-all hover:bg-brand/90 hover:shadow-md active:scale-[0.98] active:bg-brand"
         type="submit"
       >
         Save Changes
@@ -129,12 +129,12 @@ export default function UserAccountAvatar({
         >
           <div className="flex items-center justify-between">
             <div className="font-semibold text-sm">{order.id}</div>
-            <div className="text-xs text-muted-foreground">{order.date}</div>
+            <div className="text-muted-foreground text-xs">{order.date}</div>
           </div>
           <div className="flex items-center gap-3">
             <div className="flex-1 space-y-2">
               <div className="flex items-center justify-between text-xs">
-                <span className="capitalize font-medium text-foreground">
+                <span className="font-medium text-foreground capitalize">
                   {order.status}
                 </span>
                 <span className="text-muted-foreground">{order.progress}%</span>
@@ -142,23 +142,26 @@ export default function UserAccountAvatar({
               <div className="h-1.5 w-full overflow-hidden rounded-full bg-muted">
                 <motion.div
                   animate={
-                    shouldReduceMotion
-                      ? {}
-                      : { width: `${order.progress}%` }
+                    shouldReduceMotion ? {} : { width: `${order.progress}%` }
                   }
                   className={`h-full rounded-full ${getStatusColor(order.status)}`}
                   initial={shouldReduceMotion ? {} : { width: 0 }}
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring", stiffness: 300, damping: 30, duration: 0.4 }
+                      : {
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                          duration: 0.4,
+                        }
                   }
                 />
               </div>
             </div>
             <button
               aria-label="View Order"
-              className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-border bg-background p-2 transition-colors hover:bg-muted hover:border-primary"
+              className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-border bg-background p-2 transition-colors hover:border-primary hover:bg-muted"
               onClick={() => {
                 onOrderView?.(order.id);
               }}
@@ -192,9 +195,9 @@ export default function UserAccountAvatar({
       <PopoverPortal>
         <PopoverContent
           className="z-50 w-64 overflow-hidden rounded-xl border bg-background shadow-xl"
+          onOpenAutoFocus={(e) => e.preventDefault()}
           sideOffset={8}
           style={{ pointerEvents: "auto" }}
-          onOpenAutoFocus={(e) => e.preventDefault()}
         >
           <motion.div
             animate={shouldReduceMotion ? {} : { height: "auto" }}
@@ -206,9 +209,12 @@ export default function UserAccountAvatar({
                 : { type: "spring", duration: 0.25, bounce: 0 }
             }
           >
-            <div className="flex flex-col divide-y divide-border" style={{ pointerEvents: "auto" }}>
+            <div
+              className="flex flex-col divide-y divide-border"
+              style={{ pointerEvents: "auto" }}
+            >
               <button
-                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 font-medium text-sm transition-colors ${
                   activeSection === "profile"
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground hover:bg-muted"
@@ -260,7 +266,7 @@ export default function UserAccountAvatar({
                 )}
               </AnimatePresence>
               <button
-                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 font-medium text-sm transition-colors ${
                   activeSection === "orders"
                     ? "bg-primary text-primary-foreground"
                     : "text-foreground hover:bg-muted"

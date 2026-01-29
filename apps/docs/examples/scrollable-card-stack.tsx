@@ -11,12 +11,15 @@ export default function ScrollableCardStackDemo() {
       id: "siriorb",
       name: people[0]?.name || "Edu Calvo",
       handle: "@educalvolpz",
-      avatar: getImageKitUrl("https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631", {
-        width: 80,
-        height: 80,
-        quality: 85,
-        format: "auto",
-      }), // Keep educlopez as requested
+      avatar: getImageKitUrl(
+        "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
+        {
+          width: 80,
+          height: 80,
+          quality: 85,
+          format: "auto",
+        }
+      ), // Keep educlopez as requested
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/surf.webp?updatedAt=1764932280262",
         {

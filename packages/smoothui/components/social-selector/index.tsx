@@ -139,7 +139,9 @@ export default function SocialSelector({
                   ? {}
                   : {
                       x:
-                        platforms.findIndex((p) => p.name === selectedPlatform.name) *
+                        platforms.findIndex(
+                          (p) => p.name === selectedPlatform.name
+                        ) *
                         (ICON_SIZE + ICON_GAP),
                     }
               }

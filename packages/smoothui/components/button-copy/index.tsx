@@ -58,9 +58,15 @@ export default function ButtonCopy({
   return (
     <div className="flex justify-center">
       <button
-        aria-label={buttonState === "loading" ? "Copying..." : buttonState === "success" ? "Copied" : "Copy"}
+        aria-label={
+          buttonState === "loading"
+            ? "Copying..."
+            : buttonState === "success"
+              ? "Copied"
+              : "Copy"
+        }
         aria-live="polite"
-        className={`relative w-auto cursor-pointer overflow-hidden rounded-full border bg-background p-3 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${className}`}
+        className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
         disabled={buttonState !== "idle" || disabled}
         onClick={handleClick}
         type="button"

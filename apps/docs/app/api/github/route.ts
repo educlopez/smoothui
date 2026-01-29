@@ -1,5 +1,5 @@
-import { cache } from "react";
 import { NextResponse } from "next/server";
+import { cache } from "react";
 
 interface GitHubRepoResponse {
   stargazers_count: number;
@@ -60,7 +60,7 @@ export async function GET(request: Request) {
   const owner = searchParams.get("owner");
   const repo = searchParams.get("repo");
 
-  if (!owner || !repo) {
+  if (!(owner && repo)) {
     return NextResponse.json(
       { error: "owner and repo are required" },
       { status: 400 }
@@ -88,4 +88,3 @@ export async function GET(request: Request) {
     );
   }
 }
-

@@ -116,7 +116,7 @@ export function WhatTheySay() {
     // Early exit optimization: combine conditions for better performance
     const checkTweetsLoaded = () => {
       const container = tweetsContainerRef.current;
-      if (!container || !isMountedRef.current || !isLoadingRef.current) {
+      if (!(container && isMountedRef.current && isLoadingRef.current)) {
         return;
       }
 

@@ -334,12 +334,17 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 zIndex: transform.zIndex,
                 pointerEvents: isActive ? "auto" : "none",
                 transformOrigin: "center center",
-                willChange: shouldReduceMotion ? undefined : "opacity, filter, transform",
+                willChange: shouldReduceMotion
+                  ? undefined
+                  : "opacity, filter, transform",
                 filter: `blur(${transform.blur}px)`,
                 opacity: transform.opacity,
-                transitionProperty: shouldReduceMotion ? "none" : "opacity, filter",
+                transitionProperty: shouldReduceMotion
+                  ? "none"
+                  : "opacity, filter",
                 transitionDuration: shouldReduceMotion ? "0ms" : "200ms",
-                transitionTimingFunction: "cubic-bezier(0.645, 0.045, 0.355, 1)",
+                transitionTimingFunction:
+                  "cubic-bezier(0.645, 0.045, 0.355, 1)",
                 // Dynamic border width based on scale - from reference code
                 borderWidth: `${2 / transform.scale}px`,
               }}
@@ -381,7 +386,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               >
                 {/* Scroll indicator */}
                 {isScrolling && isActive && (
-                  <div className="-top-1 -translate-x-1/2 absolute left-1/2 h-1 w-8 rounded-full bg-brand opacity-75" />
+                  <div className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-brand opacity-75" />
                 )}
 
                 {/* Image Container - takes remaining space */}
@@ -457,7 +462,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
         {/* Navigation indicators */}
         <div
           aria-label="Card navigation"
-          className="-translate-x-1/2 absolute bottom-4 left-1/2 flex transform space-x-2"
+          className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2"
           role="tablist"
         >
           {Array.from({ length: items.length }, (_, i) => (

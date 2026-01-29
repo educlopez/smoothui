@@ -85,7 +85,7 @@ export function HeroShowcase({
                 className="mb-12 flex w-fit flex-col items-center gap-4 sm:flex-row"
                 preset="slide"
               >
-                <span className="-space-x-4 inline-flex items-center">
+                <span className="inline-flex items-center -space-x-4">
                   {reviews.avatars.map((avatar, index) => (
                     <motion.div
                       key={`${avatar.src}-${index}`}

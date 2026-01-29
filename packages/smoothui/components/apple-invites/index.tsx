@@ -164,7 +164,6 @@ export type Event = {
   backgroundClassName?: string;
 };
 
-
 export type AppleInvitesProps = {
   events: Event[];
   interval?: number;
@@ -388,7 +387,7 @@ export default function AppleInvites({
         {visibleEvents.map((event, index) => (
           <motion.div
             animate={getVariant(index)}
-            className={`-translate-y-1/2 absolute top-1/2 left-1/2 origin-center ${cardClassName}`}
+            className={`absolute top-1/2 left-1/2 origin-center -translate-y-1/2 ${cardClassName}`}
             custom={direction}
             exit="hidden"
             initial="hidden"

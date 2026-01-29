@@ -97,5 +97,3 @@ export function BlockHeightSync({ blockId }: BlockHeightSyncProps) {
 
   return null;
 }
-
-

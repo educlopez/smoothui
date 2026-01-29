@@ -110,7 +110,10 @@ export function applyColorPalette(
   body.style.setProperty("--color-brand-light", palette.primaryLight);
   body.style.setProperty("--color-brand-lighter", palette.primaryLighter);
   body.style.setProperty("--color-brand-secondary", palette.secondary);
-  body.style.setProperty("--color-brand-secondary-light", palette.secondaryLight);
+  body.style.setProperty(
+    "--color-brand-secondary-light",
+    palette.secondaryLight
+  );
   body.style.setProperty(
     "--color-brand-secondary-lighter",
     palette.secondaryLighter
@@ -162,5 +165,3 @@ export function persistColorPalette(
     JSON.stringify({ candy: primaryColor, candySecondary: secondaryColor })
   );
 }
-
-

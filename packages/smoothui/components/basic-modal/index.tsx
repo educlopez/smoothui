@@ -38,8 +38,10 @@ export default function BasicModal({
   useOnClickOutside(modalRef, () => onClose());
   const [mounted, setMounted] = useState(false);
   const shouldReduceMotion = useReducedMotion();
-  
-  const titleId = title ? `modal-title-${Math.random().toString(36).substring(2, 9)}` : undefined;
+
+  const titleId = title
+    ? `modal-title-${Math.random().toString(36).substring(2, 9)}`
+    : undefined;
 
   useEffect(() => {
     setMounted(true);
@@ -71,9 +73,10 @@ export default function BasicModal({
 
       // Focus trap: keep focus within modal
       if (e.key === "Tab" && modalRef.current) {
-        const focusableElements = modalRef.current.querySelectorAll<HTMLElement>(
-          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-        );
+        const focusableElements =
+          modalRef.current.querySelectorAll<HTMLElement>(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
         const firstElement = focusableElements[0];
         const lastElement = focusableElements[focusableElements.length - 1];
 
@@ -152,7 +155,12 @@ export default function BasicModal({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", damping: 25, stiffness: 300, duration: 0.25 }
+                  : {
+                      type: "spring",
+                      damping: 25,
+                      stiffness: 300,
+                      duration: 0.25,
+                    }
               }
             >
               {/* Header */}
@@ -164,14 +172,14 @@ export default function BasicModal({
                 )}
                 <motion.button
                   aria-label="Close modal"
-                  className="ml-auto rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px]"
+                  className="ml-auto min-h-[44px] min-w-[44px] rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                   onClick={onClose}
                   ref={closeButtonRef}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
                   type="button"
                   whileHover={shouldReduceMotion ? {} : { rotate: 90 }}
                 >
-                  <X className="h-5 w-5" aria-hidden="true" />
+                  <X aria-hidden="true" className="h-5 w-5" />
                 </motion.button>
               </div>
 

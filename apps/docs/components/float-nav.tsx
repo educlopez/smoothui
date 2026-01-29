@@ -45,7 +45,7 @@ export function FloatNav() {
   return (
     <nav
       aria-label="Floating Navigation"
-      className="-translate-x-1/2 fixed bottom-5 left-1/2 z-50 flex w-fit flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
+      className="fixed bottom-5 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
     >
       <div className="flex items-center">
         <ThemeSwitch />

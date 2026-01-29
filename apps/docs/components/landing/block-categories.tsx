@@ -275,7 +275,7 @@ function PricingPreview() {
           variants={cardVariants}
         >
           <motion.span
-            className="-top-1.5 -translate-x-1/2 absolute left-1/2 flex h-3 w-fit items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
+            className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
             transition={{
               duration: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
@@ -384,11 +384,11 @@ function TestimonialPreview() {
     >
       <div className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border bg-background p-4">
         {/* Left Arrow */}
-        <div className="-translate-y-1/2 absolute top-1/2 left-1">
+        <div className="absolute top-1/2 left-1 -translate-y-1/2">
           <ChevronLeft className="h-3 w-3 text-foreground/30" />
         </div>
         {/* Right Arrow */}
-        <div className="-translate-y-1/2 absolute top-1/2 right-1">
+        <div className="absolute top-1/2 right-1 -translate-y-1/2">
           <ChevronRight className="h-3 w-3 text-foreground/30" />
         </div>
         <AnimatePresence custom={1} mode="wait">
@@ -881,7 +881,7 @@ export function BlockCategories() {
         </motion.div>
 
         {/* Grid Container with overflow */}
-        <div className="-mx-3 relative mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
+        <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
               <motion.div
@@ -926,7 +926,7 @@ export function BlockCategories() {
           {/* Bottom Button Overlay */}
           <Button
             asChild
-            className="-translate-x-1/2 absolute bottom-6 left-1/2 z-20 md:bottom-24"
+            className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 md:bottom-24"
             size="lg"
             variant="candy"
           >

@@ -168,9 +168,7 @@ export function FaqCategorized({
 
         <AnimatePresence mode="wait">
           <motion.div
-            animate={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-            }
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
@@ -189,9 +187,7 @@ export function FaqCategorized({
                 return (
                   <motion.div
                     animate={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 1, y: 0 }
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                     }
                     className="overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
                     initial={

@@ -136,4 +136,3 @@ function AnimatedGroup({
 }
 
 export { AnimatedGroup };
-

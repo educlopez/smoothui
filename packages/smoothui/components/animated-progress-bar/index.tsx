@@ -32,7 +32,7 @@ export default function AnimatedProgressBar({
   labelClassName = "",
 }: AnimatedProgressBarProps) {
   const shouldReduceMotion = useReducedMotion();
-  
+
   return (
     <div className={`w-full ${className}`}>
       {label && (

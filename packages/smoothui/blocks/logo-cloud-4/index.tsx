@@ -98,7 +98,7 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
         {isHovered && (
           <motion.div
             animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
-            className="-top-2 pointer-events-none absolute left-1/2 z-10 whitespace-nowrap rounded-md bg-foreground px-3 py-1.5 font-medium text-background text-sm shadow-lg"
+            className="pointer-events-none absolute -top-2 left-1/2 z-10 whitespace-nowrap rounded-md bg-foreground px-3 py-1.5 font-medium text-background text-sm shadow-lg"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
@@ -121,7 +121,7 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
           >
             {logo.name}
             {/* Tooltip arrow */}
-            <div className="-bottom-1 -translate-x-1/2 absolute left-1/2 h-2 w-2 rotate-45 bg-foreground" />
+            <div className="absolute -bottom-1 left-1/2 h-2 w-2 -translate-x-1/2 rotate-45 bg-foreground" />
           </motion.div>
         )}
       </AnimatePresence>

@@ -273,7 +273,6 @@ export default function FigmaComment({
           )}
         </AnimatePresence>
       </motion.div>
-
     </div>
   );
 }

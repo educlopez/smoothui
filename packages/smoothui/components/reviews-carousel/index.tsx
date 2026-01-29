@@ -64,7 +64,7 @@ function ReviewCard({
         },
       }}
       className={cn(
-        "-translate-x-1/2 -translate-y-1/2 absolute left-1/2 w-[calc(100%-2rem)] max-w-[600px] rounded-2xl border border-foreground/10 bg-background/80 p-4 shadow-lg backdrop-blur-md sm:p-6"
+        "absolute left-1/2 w-[calc(100%-2rem)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-foreground/10 bg-background/80 p-4 shadow-lg backdrop-blur-md sm:p-6"
       )}
       initial={false}
       style={{
@@ -81,7 +81,7 @@ function ReviewCard({
       }}
     >
       <blockquote className="relative">
-        <div className="-left-2 -top-1 absolute text-4xl text-foreground/10 leading-none dark:text-foreground/5">
+        <div className="absolute -top-1 -left-2 text-4xl text-foreground/10 leading-none dark:text-foreground/5">
           "
         </div>
         <p className="relative text-foreground/80 text-sm leading-relaxed">
@@ -161,11 +161,11 @@ export default function ReviewsCarousel({
   // Filter out excluded reviews - use Set for O(1) lookups
   const filteredReviews = useMemo(() => {
     if (excludeIds.length === 0) return reviews;
-    
+
     const excludeSet = new Set(excludeIds);
     const reviewsLength = reviews.length;
     const results: typeof reviews = [];
-    
+
     // Use for loop for better performance
     for (let i = 0; i < reviewsLength; i++) {
       const review = reviews[i];
@@ -173,7 +173,7 @@ export default function ReviewsCarousel({
         results.push(review);
       }
     }
-    
+
     return results;
   }, [reviews, excludeIds]);
 
@@ -258,7 +258,7 @@ export default function ReviewsCarousel({
 
       {/* Navigation buttons */}
       {(showNavigation || showIndicators) && (
-        <div className="-translate-x-1/2 absolute bottom-4 left-1/2 z-50 flex items-center gap-2">
+        <div className="absolute bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2">
           {showNavigation && (
             <NavigationButton
               direction="prev"

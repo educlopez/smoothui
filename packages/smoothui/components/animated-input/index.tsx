@@ -58,7 +58,7 @@ export default function AnimatedInput({
       {icon && (
         <span
           aria-hidden="true"
-          className="-translate-y-1/2 absolute top-1/2 left-3"
+          className="absolute top-1/2 left-3 -translate-y-1/2"
         >
           {icon}
         </span>
@@ -94,7 +94,7 @@ export default function AnimatedInput({
                 }
               : { y: 0, scale: 1, color: "#6b7280" }
         }
-        className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
+        className={`pointer-events-none absolute top-1/2 left-3 origin-left -translate-y-1/2 rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
         htmlFor={inputId}
         style={{
           zIndex: 2,

@@ -1,12 +1,8 @@
 "use client";
 
-import { TweetProps, useTweet } from "react-tweet";
+import { type TweetProps, useTweet } from "react-tweet";
 
-import {
-  SmoothTweet,
-  TweetNotFound,
-  TweetSkeleton,
-} from "./index";
+import { SmoothTweet, TweetNotFound, TweetSkeleton } from "./index";
 
 export type ClientTweetCardProps = TweetProps & {
   className?: string;

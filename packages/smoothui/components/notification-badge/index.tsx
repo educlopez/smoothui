@@ -154,7 +154,9 @@ const NotificationBadge = ({
               ? { opacity: 0, transition: { duration: 0 } }
               : { opacity: 0, scale: 0.5, transition: { duration: 0.15 } }
           }
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.5 }}
+          initial={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.5 }
+          }
           key={variant === "count" ? "count-badge" : "badge"}
           transition={
             shouldReduceMotion
@@ -169,7 +171,7 @@ const NotificationBadge = ({
             <span
               aria-hidden="true"
               className={cn(
-                "absolute inset-0 rounded-full animate-ping",
+                "absolute inset-0 animate-ping rounded-full",
                 getBackgroundColor(),
                 "opacity-75"
               )}

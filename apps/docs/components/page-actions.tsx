@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@docs/lib/cn";
 import { cva } from "class-variance-authority";
 import {
   Popover,
@@ -14,7 +15,6 @@ import {
   MessageCircleIcon,
 } from "lucide-react";
 import { useMemo, useState } from "react";
-import { cn } from "@docs/lib/cn";
 import { Button, buttonVariants } from "./smoothbutton";
 
 const cache = new Map<string, string>();

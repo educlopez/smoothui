@@ -1,8 +1,8 @@
-import { cache } from "react";
 import { readdir, readFile, stat } from "node:fs/promises";
 import { join } from "node:path";
 import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
+import { cache } from "react";
 import type { RegistryItem } from "shadcn/schema";
 
 // Regex patterns for detecting imports (hoisted for performance)
@@ -10,12 +10,12 @@ const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
 const RELATIVE_IMPORT_REGEX = /from\s+["']\.\.\/([a-z-]+)["']/g;
 
 // Cache filtered package names for repeated lookups
-const FILTERED_PACKAGES = new Set(["shadcn-ui", "typescript-config", "patterns"]);
-const FILTERED_DEPS = new Set([
-  "react",
-  "react-dom",
-  "@repo/shadcn-ui",
+const FILTERED_PACKAGES = new Set([
+  "shadcn-ui",
+  "typescript-config",
+  "patterns",
 ]);
+const FILTERED_DEPS = new Set(["react", "react-dom", "@repo/shadcn-ui"]);
 const FILTERED_DEV_DEPS = new Set([
   "@repo/typescript-config",
   "@types/react",
@@ -84,19 +84,19 @@ export const getAllPackageNames = async (): Promise<string[]> => {
 };
 
 // Use React.cache() for per-request deduplication
-export const getAllPackageNameMapping = cache(async (): Promise<
-  Map<string, string>
-> => {
-  const fullNames = await getAllPackageNames();
-  const mapping = new Map<string, string>();
+export const getAllPackageNameMapping = cache(
+  async (): Promise<Map<string, string>> => {
+    const fullNames = await getAllPackageNames();
+    const mapping = new Map<string, string>();
 
-  for (const fullName of fullNames) {
-    const shortName = fullName.split("/").at(-1) || fullName;
-    mapping.set(shortName, fullName);
+    for (const fullName of fullNames) {
+      const shortName = fullName.split("/").at(-1) || fullName;
+      mapping.set(shortName, fullName);
+    }
+
+    return mapping;
   }
-
-  return mapping;
-});
+);
 
 // Use React.cache() for per-request deduplication
 export const getPackage = cache(async (packageName: string) => {
@@ -116,7 +116,7 @@ export const getPackage = cache(async (packageName: string) => {
   const smoothuiDepsSet = new Set(smoothuiDependencies);
 
   const dependencies = Object.keys(deps).filter(
-    (dep) => !FILTERED_DEPS.has(dep) && !smoothuiDepsSet.has(dep)
+    (dep) => !(FILTERED_DEPS.has(dep) || smoothuiDepsSet.has(dep))
   );
 
   const devDeps = packageJson.devDependencies || {};

@@ -142,7 +142,11 @@ export default function JobListingComponent({
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="pointer-events-none absolute inset-0 z-10 bg-smooth-1000/10 bg-blend-luminosity backdrop-blur-xl"
-            exit={shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0 }
+            }
             initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
             transition={
               shouldReduceMotion
@@ -157,7 +161,11 @@ export default function JobListingComponent({
           <div className="group absolute inset-0 z-10 grid place-items-center">
             <motion.div
               className="flex h-fit w-[90%] max-w-2xl cursor-pointer select-none flex-col items-start gap-4 overflow-hidden border bg-background p-4 shadow-xs"
-              layoutId={shouldReduceMotion ? undefined : `workItem-${activeItem.company}`}
+              layoutId={
+                shouldReduceMotion
+                  ? undefined
+                  : `workItem-${activeItem.company}`
+              }
               ref={ref}
               style={{
                 borderRadius: 12,
@@ -166,12 +174,24 @@ export default function JobListingComponent({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", duration: 0.25, bounce: 0.1, layout: { duration: 0.25, ease: [0.645, 0.045, 0.355, 1] } }
+                  : {
+                      type: "spring",
+                      duration: 0.25,
+                      bounce: 0.1,
+                      layout: {
+                        duration: 0.25,
+                        ease: [0.645, 0.045, 0.355, 1],
+                      },
+                    }
               }
             >
               <div className="relative flex w-full items-center gap-4">
                 <motion.div
-                  layoutId={shouldReduceMotion ? undefined : `workItemLogo-${activeItem.company}`}
+                  layoutId={
+                    shouldReduceMotion
+                      ? undefined
+                      : `workItemLogo-${activeItem.company}`
+                  }
                   style={{
                     willChange: shouldReduceMotion ? "auto" : "transform",
                     flexShrink: 0,
@@ -180,7 +200,7 @@ export default function JobListingComponent({
                   {activeItem.logo}
                 </motion.div>
                 <div className="flex min-w-0 grow items-center justify-between">
-                    <div className="flex min-w-0 flex-col gap-0.5">
+                  <div className="flex min-w-0 flex-col gap-0.5">
                     <div className="flex w-full flex-row justify-between gap-0.5">
                       <div className="font-medium text-foreground text-sm">
                         {activeItem.company}
@@ -201,14 +221,22 @@ export default function JobListingComponent({
                 </div>
               </div>
               <motion.p
-                className="text-primary-foreground text-sm"
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-                exit={shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0 }}
+                className="text-primary-foreground text-sm"
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : { opacity: 0 }
+                }
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.2, ease: [0.215, 0.61, 0.355, 1], delay: 0.05 }
+                    : {
+                        duration: 0.2,
+                        ease: [0.215, 0.61, 0.355, 1],
+                        delay: 0.05,
+                      }
                 }
               >
                 {activeItem.job_description}
@@ -223,7 +251,9 @@ export default function JobListingComponent({
             <motion.div
               className="group relative flex w-full cursor-pointer select-none flex-row items-center gap-4 overflow-hidden border bg-background p-2 shadow-xs md:p-4"
               key={role.company}
-              layoutId={shouldReduceMotion ? undefined : `workItem-${role.company}`}
+              layoutId={
+                shouldReduceMotion ? undefined : `workItem-${role.company}`
+              }
               onClick={() => {
                 setActiveItem(role);
                 if (onJobClick) {
@@ -237,12 +267,24 @@ export default function JobListingComponent({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", duration: 0.25, bounce: 0.1, layout: { duration: 0.25, ease: [0.645, 0.045, 0.355, 1] } }
+                  : {
+                      type: "spring",
+                      duration: 0.25,
+                      bounce: 0.1,
+                      layout: {
+                        duration: 0.25,
+                        ease: [0.645, 0.045, 0.355, 1],
+                      },
+                    }
               }
               whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
             >
               <motion.div
-                layoutId={shouldReduceMotion ? undefined : `workItemLogo-${role.company}`}
+                layoutId={
+                  shouldReduceMotion
+                    ? undefined
+                    : `workItemLogo-${role.company}`
+                }
                 style={{
                   willChange: shouldReduceMotion ? "auto" : "transform",
                   flexShrink: 0,

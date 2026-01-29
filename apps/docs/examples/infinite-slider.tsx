@@ -35,7 +35,7 @@ const InfiniteSliderDemo = () => {
 
       {/* Reverse direction */}
       <div className="w-full max-w-md">
-        <InfiniteSlider gap={16} speed={50} reverse>
+        <InfiniteSlider gap={16} reverse speed={50}>
           {Array.from({ length: 5 }, (_, i) => (
             <div
               className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground"
@@ -51,4 +51,3 @@ const InfiniteSliderDemo = () => {
 };
 
 export default InfiniteSliderDemo;
-

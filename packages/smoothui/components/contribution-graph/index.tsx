@@ -292,7 +292,7 @@ export function ContributionGraph({
                 {/* Day Labels */}
                 <td className="relative w-7 min-w-7 text-foreground">
                   {dayIndex % 2 === 0 && (
-                    <span className="-bottom-0.5 absolute left-0 text-xs">
+                    <span className="absolute -bottom-0.5 left-0 text-xs">
                       {DAYS[dayIndex]}
                     </span>
                   )}
@@ -341,14 +341,18 @@ export function ContributionGraph({
       {/* Tooltip */}
       {showTooltips && hoveredDay && (
         <motion.div
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+          animate={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+          }
           className="pointer-events-none fixed z-50 rounded-lg border bg-primary px-3 py-2 text-foreground text-sm shadow-lg"
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
               : { opacity: 0, scale: 0.8 }
           }
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+          initial={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+          }
           style={{
             left: tooltipPosition.x + TOOLTIP_OFFSET_X,
             top: tooltipPosition.y - TOOLTIP_OFFSET_Y,

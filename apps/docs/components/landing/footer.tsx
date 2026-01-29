@@ -27,12 +27,15 @@ export default function Footer() {
             className="h-7 w-7 shrink-0 rounded-md"
             height={32}
             loading="lazy"
-            src={getImageKitUrl("https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631", {
-              width: 64,
-              height: 64,
-              quality: 85,
-              format: "auto",
-            })}
+            src={getImageKitUrl(
+              "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
+              {
+                width: 64,
+                height: 64,
+                quality: 85,
+                format: "auto",
+              }
+            )}
             width={32}
           />
           <span className="whitespace-nowrap font-medium text-foreground text-sm">

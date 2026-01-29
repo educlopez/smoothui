@@ -71,9 +71,7 @@ export default function BasicToast({
       {visible && (
         <motion.div
           animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, x: 0, scale: 1 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1 }
           }
           className={`fixed top-4 right-4 z-50 flex w-80 items-center gap-3 rounded-lg border p-4 shadow-lg ${toastClasses[type]} ${className}`}
           exit={

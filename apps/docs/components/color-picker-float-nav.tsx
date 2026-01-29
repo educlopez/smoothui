@@ -162,7 +162,7 @@ export function ColorPickerFloatNav() {
           <motion.div
             animate={{ opacity: 1, scale: 1, y: 0 }}
             aria-modal="true"
-            className="-translate-x-1/2 absolute bottom-12 left-1/2 z-50 flex min-w-[220px] flex-col items-center rounded-xl border bg-background p-2 shadow-2xl"
+            className="absolute bottom-12 left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col items-center rounded-xl border bg-background p-2 shadow-2xl"
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             role="dialog"

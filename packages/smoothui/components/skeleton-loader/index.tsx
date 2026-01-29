@@ -153,12 +153,15 @@ const SkeletonLoader = ({
 }: SkeletonLoaderProps) => {
   const prefersReducedMotion = useReducedMotion();
 
-  const variantClass = prefersReducedMotion ? "skeleton-static" : `skeleton-${variant}`;
+  const variantClass = prefersReducedMotion
+    ? "skeleton-static"
+    : `skeleton-${variant}`;
 
   const style: React.CSSProperties = {
     width: typeof width === "number" ? `${width}px` : width,
     height: typeof height === "number" ? `${height}px` : height,
-    borderRadius: typeof borderRadius === "number" ? `${borderRadius}px` : borderRadius,
+    borderRadius:
+      typeof borderRadius === "number" ? `${borderRadius}px` : borderRadius,
   };
 
   return (
@@ -181,7 +184,9 @@ export const SkeletonText = ({
   variant = "shimmer",
 }: SkeletonTextProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const variantClass = prefersReducedMotion ? "skeleton-static" : `skeleton-${variant}`;
+  const variantClass = prefersReducedMotion
+    ? "skeleton-static"
+    : `skeleton-${variant}`;
 
   return (
     <>
@@ -213,7 +218,9 @@ export const SkeletonAvatar = ({
   variant = "shimmer",
 }: SkeletonAvatarProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const variantClass = prefersReducedMotion ? "skeleton-static" : `skeleton-${variant}`;
+  const variantClass = prefersReducedMotion
+    ? "skeleton-static"
+    : `skeleton-${variant}`;
   const sizeValue = AVATAR_SIZES[size];
 
   return (
@@ -241,7 +248,9 @@ export const SkeletonCard = ({
   variant = "shimmer",
 }: SkeletonCardProps) => {
   const prefersReducedMotion = useReducedMotion();
-  const variantClass = prefersReducedMotion ? "skeleton-static" : `skeleton-${variant}`;
+  const variantClass = prefersReducedMotion
+    ? "skeleton-static"
+    : `skeleton-${variant}`;
 
   return (
     <>

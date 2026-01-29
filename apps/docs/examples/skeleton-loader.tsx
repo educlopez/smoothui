@@ -10,7 +10,9 @@ export default function SkeletonLoaderDemo() {
   return (
     <div className="flex w-full flex-col gap-8">
       <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">Animation Variants</h3>
+        <h3 className="font-medium text-foreground text-sm">
+          Animation Variants
+        </h3>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="space-y-2">
             <p className="text-muted-foreground text-xs">Shimmer</p>
@@ -50,7 +52,9 @@ export default function SkeletonLoaderDemo() {
             <SkeletonText />
           </div>
           <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">5 lines, custom last line</p>
+            <p className="text-muted-foreground text-xs">
+              5 lines, custom last line
+            </p>
             <SkeletonText lastLineWidth="40%" lines={5} />
           </div>
         </div>
@@ -82,14 +86,18 @@ export default function SkeletonLoaderDemo() {
             <SkeletonCard />
           </div>
           <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">No image, pulse variant</p>
+            <p className="text-muted-foreground text-xs">
+              No image, pulse variant
+            </p>
             <SkeletonCard showImage={false} variant="pulse" />
           </div>
         </div>
       </div>
 
       <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">Custom Composition</h3>
+        <h3 className="font-medium text-foreground text-sm">
+          Custom Composition
+        </h3>
         <div className="flex items-center gap-4 rounded-lg border p-4">
           <SkeletonAvatar size="lg" variant="wave" />
           <div className="flex-1">

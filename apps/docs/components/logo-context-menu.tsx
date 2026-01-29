@@ -107,7 +107,7 @@ function LogoContextMenuPopup() {
     };
   }, [isOpen, closeMenu]);
 
-  if (!mounted || !context) return null;
+  if (!(mounted && context)) return null;
 
   const handleMenuClick = (e: React.MouseEvent) => {
     e.preventDefault();

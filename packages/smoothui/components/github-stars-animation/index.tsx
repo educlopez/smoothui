@@ -256,7 +256,9 @@ export default function GitHubStarsAnimation({
       <motion.div
         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
         className={cn("flex items-center gap-1.5 font-medium", countClassName)}
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
+        initial={
+          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }
+        }
         transition={
           shouldReduceMotion
             ? { duration: 0 }
@@ -269,6 +271,7 @@ export default function GitHubStarsAnimation({
         <Star className="h-4 w-4 fill-current" />
         <motion.span
           animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.1, 1] }}
+          className="tabular-nums"
           transition={
             shouldReduceMotion
               ? { duration: 0 }
@@ -277,7 +280,6 @@ export default function GitHubStarsAnimation({
                   ease: EASE_OUT_CUBIC,
                 }
           }
-          className="tabular-nums"
         >
           {displayCount.toLocaleString()}
         </motion.span>
@@ -285,20 +287,6 @@ export default function GitHubStarsAnimation({
           {displayCount === 1 ? "star" : "stars"}
         </span>
       </motion.div>
-
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

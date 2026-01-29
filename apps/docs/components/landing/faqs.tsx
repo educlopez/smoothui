@@ -1,5 +1,6 @@
 "use client";
 
+import Divider from "@docs/components/landing/divider";
 import {
   Accordion,
   AccordionContent,
@@ -7,7 +8,6 @@ import {
   AccordionTrigger,
 } from "@repo/shadcn-ui/components/ui/accordion";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import Divider from "@docs/components/landing/divider";
 
 const faqs = [
   {

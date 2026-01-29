@@ -39,7 +39,7 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    
+
     setShouldReduceMotion(motionQuery.matches);
     setIsHoverDevice(hoverQuery.matches);
 
@@ -52,7 +52,7 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
 
     motionQuery.addEventListener("change", handleMotionChange);
     hoverQuery.addEventListener("change", handleHoverChange);
-    
+
     return () => {
       motionQuery.removeEventListener("change", handleMotionChange);
       hoverQuery.removeEventListener("change", handleHoverChange);

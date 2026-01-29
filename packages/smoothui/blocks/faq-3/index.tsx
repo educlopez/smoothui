@@ -87,17 +87,9 @@ export function FaqSearchable({
     <section className="py-20">
       <div className="mx-auto max-w-4xl px-6">
         <motion.div
-          animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, y: 0 }
-          }
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="mb-12 text-center"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, y: 20 }
-          }
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           transition={springTransition}
         >
           <h2 className="mb-4 font-bold text-3xl text-foreground lg:text-4xl">
@@ -109,26 +101,18 @@ export function FaqSearchable({
         </motion.div>
 
         <motion.div
-          animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, y: 0 }
-          }
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="relative mb-8"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, y: 20 }
-          }
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
           transition={{
             ...springTransition,
             delay: shouldReduceMotion ? 0 : 0.1,
           }}
         >
-          <Search className="-translate-y-1/2 absolute top-1/2 left-4 h-5 w-5 text-foreground/40" />
+          <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-foreground/40" />
           <input
             aria-label="Search frequently asked questions"
-            className="w-full rounded-xl border border-border bg-background py-4 pr-4 pl-12 text-foreground placeholder:text-foreground/40 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20 transition-colors"
+            className="w-full rounded-xl border border-border bg-background py-4 pr-4 pl-12 text-foreground transition-colors placeholder:text-foreground/40 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
             onChange={(e) => {
               setSearchQuery(e.target.value);
               setOpenIndex(null);
@@ -144,9 +128,7 @@ export function FaqSearchable({
             {filteredFaqs.length === 0 ? (
               <motion.div
                 animate={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1, scale: 1 }
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }
                 className="rounded-xl border border-border bg-background/50 py-12 text-center"
                 exit={
@@ -228,7 +210,11 @@ export function FaqSearchable({
                           className="overflow-hidden"
                           exit={
                             shouldReduceMotion
-                              ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                              ? {
+                                  height: 0,
+                                  opacity: 0,
+                                  transition: { duration: 0 },
+                                }
                               : { height: 0, opacity: 0 }
                           }
                           initial={

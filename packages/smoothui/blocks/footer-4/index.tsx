@@ -44,7 +44,7 @@ const defaultSocialLinks = [
 ];
 
 export const FooterMinimal = ({
-  logo = <span className="font-bold text-xl text-foreground">SmoothUI</span>,
+  logo = <span className="font-bold text-foreground text-xl">SmoothUI</span>,
   links = defaultLinks,
   socialLinks = defaultSocialLinks,
   copyright = "© 2024 SmoothUI",
@@ -101,9 +101,9 @@ export const FooterMinimal = ({
           <nav className="flex items-center gap-6">
             {links.map((link) => (
               <a
-                key={link.label}
-                className="relative text-foreground/70 text-sm transition-colors hover:text-foreground after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-200 hover:after:w-full"
+                className="relative text-foreground/70 text-sm transition-colors after:absolute after:-bottom-0.5 after:left-0 after:h-px after:w-0 after:bg-foreground after:transition-all after:duration-200 hover:text-foreground hover:after:w-full"
                 href={link.href}
+                key={link.label}
               >
                 {link.label}
               </a>

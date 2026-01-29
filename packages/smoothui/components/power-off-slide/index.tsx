@@ -97,7 +97,11 @@ export default function PowerOffSlide({
               onDragEnd={handleDragEnd}
               style={{ x }}
               tabIndex={disabled ? -1 : 0}
-              transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", duration: 0.25 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring", duration: 0.25 }
+              }
             >
               <Power className="text-red-600" size={32} />
             </motion.div>

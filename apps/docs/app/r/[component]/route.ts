@@ -1,10 +1,10 @@
-import { notFound } from "next/navigation";
-import { type NextRequest, NextResponse } from "next/server";
 import {
   getAllPackageNameMapping,
   getAllPackageNames,
   getPackage,
 } from "@docs/lib/package";
+import { notFound } from "next/navigation";
+import { type NextRequest, NextResponse } from "next/server";
 
 type RegistryParams = {
   params: Promise<{ component: string }>;

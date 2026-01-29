@@ -62,7 +62,7 @@ export function TeamGrid({
                   {/* biome-ignore lint/performance/noImgElement: Using img for team avatars without Next.js Image optimizations */}
                   <img
                     alt=""
-                    className="-outline-offset-1 aspect-14/13 w-full rounded-2xl object-cover outline-1 outline-black/5 transition-all duration-300 group-hover:outline-black/10 dark:outline-white/10 dark:group-hover:outline-white/20"
+                    className="aspect-14/13 w-full rounded-2xl object-cover outline-1 outline-black/5 -outline-offset-1 transition-all duration-300 group-hover:outline-black/10 dark:outline-white/10 dark:group-hover:outline-white/20"
                     height={AVATAR_SIZE}
                     src={getAvatarUrl(member.avatar, AVATAR_SIZE)}
                     width={AVATAR_SIZE}

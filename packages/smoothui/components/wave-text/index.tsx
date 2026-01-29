@@ -17,13 +17,15 @@ const WaveText: React.FC<WaveTextProps> = ({
   className = "",
 }) => {
   const shouldReduceMotion = useReducedMotion();
-  
+
   return (
     <span className={className} style={{ display: "inline-block" }}>
       {children.split("").map((char, i) => (
         <motion.span
           animate={
-            shouldReduceMotion ? { y: 0 } : { y: [0, -amplitude, 0, amplitude * 0.5, 0] }
+            shouldReduceMotion
+              ? { y: 0 }
+              : { y: [0, -amplitude, 0, amplitude * 0.5, 0] }
           }
           key={`${i}-${char}`}
           style={{

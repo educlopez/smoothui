@@ -97,7 +97,7 @@ export default function NotFound() {
         <BlurMagic
           background="var(--color-background)"
           blur="4px"
-          className="-translate-x-1/2! left-1/2! z-20 h-[120px]! w-full! max-w-[inherit]!"
+          className="left-1/2! z-20 h-[120px]! w-full! max-w-[inherit]! -translate-x-1/2!"
           side="top"
           stop="50%"
         />
@@ -148,7 +148,7 @@ export default function NotFound() {
         </section>
         <BlurMagic
           background="var(--color-background)"
-          className="-translate-x-1/2! left-1/2! z-20 h-[120px]! w-full! max-w-[inherit]!"
+          className="left-1/2! z-20 h-[120px]! w-full! max-w-[inherit]! -translate-x-1/2!"
           side="bottom"
         />
         <FloatNav />

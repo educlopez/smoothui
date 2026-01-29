@@ -3,22 +3,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@repo/*": [
-        "../*"
-      ],
-      "@/components/*": [
-        "../shadcn-ui/components/*"
-      ],
-      "@/lib/*": [
-        "../shadcn-ui/lib/*"
-      ]
+      "@repo/*": ["../*"],
+      "@/components/*": ["../shadcn-ui/components/*"],
+      "@/lib/*": ["../shadcn-ui/lib/*"]
     }
   },
-  "include": [
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

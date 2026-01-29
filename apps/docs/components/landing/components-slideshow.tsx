@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Divider from "@docs/components/landing/divider";
 import Frame from "@docs/components/landing/frame";
 import { Button } from "@docs/components/smoothbutton";
@@ -12,6 +11,7 @@ import PowerOffSlide from "@docs/examples/power-off-slide";
 import ScrollableCardStack from "@docs/examples/scrollable-card-stack";
 import SocialSelector from "@docs/examples/social-selector";
 import UserAccountAvatar from "@docs/examples/user-account-avatar";
+import Link from "next/link";
 
 const SHOWCASE_COMPONENTS = [
   { id: "animatedTags", component: AnimatedTags },

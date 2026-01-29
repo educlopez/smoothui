@@ -69,18 +69,18 @@ export default function ImageMetadataPreview({
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
             aria-label="Share"
-            className={`rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+            className={`min-h-[44px] min-w-[44px] rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
               isHoverDevice ? "hover:bg-muted" : ""
             }`}
             disabled={!onShare}
             onClick={onShare}
             type="button"
           >
-            <Share size={16} aria-hidden="true" />
+            <Share aria-hidden="true" size={16} />
           </button>
           <button
             aria-label="Connect"
-            className="cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
+            className="min-h-[44px] cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50"
             disabled
             type="button"
           >
@@ -95,15 +95,21 @@ export default function ImageMetadataPreview({
                     : { opacity: 1, filter: "blur(0px)" }
                 }
                 aria-label="Open Metadata Preview"
-                className={`border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+                className={`min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                   isHoverDevice ? "hover:bg-muted" : ""
                 }`}
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, filter: "blur(4px)" }}
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: 0, filter: "blur(4px)" }
+                }
                 onClick={handleClickOpen}
                 style={{ borderRadius: 100 }}
-                transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : { duration: 0.2 }
+                }
               >
-                <ChevronUp size={16} aria-hidden="true" />
+                <ChevronUp aria-hidden="true" size={16} />
               </motion.button>
             )}
           </AnimatePresence>
@@ -117,7 +123,11 @@ export default function ImageMetadataPreview({
                   : { opacity: 1, filter: "blur(0px)" }
               }
               className="absolute bottom-0 w-full cursor-pointer gap-4 border bg-background p-5 shadow-xs"
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, filter: "blur(4px)" }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, filter: "blur(4px)" }
+              }
               onClick={handleClickClose}
               style={{ borderRadius: 20 }}
               transition={
@@ -135,7 +145,7 @@ export default function ImageMetadataPreview({
 
                   <button
                     aria-label="Close metadata preview"
-                    className={`flex items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${
+                    className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                       isHoverDevice ? "hover:bg-muted" : ""
                     }`}
                     onClick={(e) => {
@@ -144,7 +154,7 @@ export default function ImageMetadataPreview({
                     }}
                     type="button"
                   >
-                    <CircleX size={16} aria-hidden="true" />
+                    <CircleX aria-hidden="true" size={16} />
                   </button>
                 </div>
                 <table className="flex w-full flex-col items-center gap-4 text-foreground">

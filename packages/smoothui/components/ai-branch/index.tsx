@@ -327,7 +327,12 @@ export function LegacyAiBranch({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                        : {
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            duration: 0.2,
+                          }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -346,7 +351,12 @@ export function LegacyAiBranch({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                        : {
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            duration: 0.2,
+                          }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -368,7 +378,12 @@ export function LegacyAiBranch({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                        : {
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            duration: 0.2,
+                          }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -394,7 +409,12 @@ export function LegacyAiBranch({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+                        : {
+                            type: "spring",
+                            stiffness: 400,
+                            damping: 25,
+                            duration: 0.2,
+                          }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}

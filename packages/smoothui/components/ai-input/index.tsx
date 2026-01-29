@@ -239,7 +239,7 @@ function Feedback({
                 AI Input
               </p>
               <button
-                className="-translate-y-[3px] right-4 mt-1 flex cursor-pointer select-none items-center justify-center gap-1 rounded-[12px] bg-transparent pr-1 text-center text-foreground"
+                className="right-4 mt-1 flex -translate-y-[3px] cursor-pointer select-none items-center justify-center gap-1 rounded-[12px] bg-transparent pr-1 text-center text-foreground"
                 ref={submitRef}
                 type="submit"
               >

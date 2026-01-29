@@ -1,7 +1,12 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useAnimation, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useReducedMotion,
+} from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 
 export type AppData = {
@@ -213,13 +218,17 @@ export default function AppDownloadStack({
                 /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                 <motion.img
                   alt={`${app.name} Logo`}
-                  animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
+                  animate={
+                    shouldReduceMotion ? "initial" : ["initial", "float"]
+                  }
                   className="absolute inset-0 rounded-xl border-none"
                   custom={index}
                   height={64}
                   initial="initial"
                   key={app.id}
-                  layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
+                  layoutId={
+                    shouldReduceMotion ? undefined : `app-icon-${app.id}`
+                  }
                   src={app.icon}
                   transition={
                     shouldReduceMotion
@@ -267,14 +276,23 @@ export default function AppDownloadStack({
               <motion.ul className="grid grid-cols-2 gap-3">
                 {apps.map((app, index) => (
                   <motion.li
-                    animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    animate={
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                    }
                     className="relative flex h-[80px] w-[80px]"
-                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, y: 20 }
+                    }
                     key={app.id}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { delay: index * STAGGER_DELAY_MULTIPLIER, duration: 0.25 }
+                        : {
+                            delay: index * STAGGER_DELAY_MULTIPLIER,
+                            duration: 0.25,
+                          }
                     }
                   >
                     <div
@@ -367,13 +385,17 @@ export default function AppDownloadStack({
                   /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                   <motion.img
                     alt={`${app.name} Logo`}
-                    animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
+                    animate={
+                      shouldReduceMotion ? "initial" : ["initial", "float"]
+                    }
                     className="absolute inset-0 rounded-xl border-none"
                     custom={index}
                     height={64}
                     initial="initial"
                     key={app.id}
-                    layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
+                    layoutId={
+                      shouldReduceMotion ? undefined : `app-icon-${app.id}`
+                    }
                     src={app.icon}
                     transition={
                       shouldReduceMotion

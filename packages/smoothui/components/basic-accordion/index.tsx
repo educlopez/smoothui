@@ -52,7 +52,7 @@ export default function BasicAccordion({
             <button
               aria-controls={`accordion-content-${item.id}`}
               aria-expanded={isExpanded}
-              className="flex w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
+              className="flex min-h-[44px] w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
               id={`accordion-header-${item.id}`}
               onClick={() => toggleItem(item.id)}
               type="button"
@@ -71,42 +71,46 @@ export default function BasicAccordion({
 
             <AnimatePresence initial={false}>
               {isExpanded && (
-              <motion.div
-                animate={
-                  shouldReduceMotion
-                    ? { height: "auto", opacity: 1 }
-                    : {
-                        height: "auto",
-                        opacity: 1,
-                        transition: {
-                          height: {
-                            type: "spring",
-                            stiffness: 500,
-                            damping: 40,
-                            duration: 0.25,
+                <motion.div
+                  animate={
+                    shouldReduceMotion
+                      ? { height: "auto", opacity: 1 }
+                      : {
+                          height: "auto",
+                          opacity: 1,
+                          transition: {
+                            height: {
+                              type: "spring",
+                              stiffness: 500,
+                              damping: 40,
+                              duration: 0.25,
+                            },
+                            opacity: { duration: 0.2 },
                           },
-                          opacity: { duration: 0.2 },
-                        },
-                      }
-                }
-                aria-labelledby={`accordion-header-${item.id}`}
-                className="overflow-hidden"
-                exit={
-                  shouldReduceMotion
-                    ? { height: 0, opacity: 0, transition: { duration: 0 } }
-                    : {
-                        height: 0,
-                        opacity: 0,
-                        transition: {
-                          height: { duration: 0.2 },
-                          opacity: { duration: 0.15 },
-                        },
-                      }
-                }
-                id={`accordion-content-${item.id}`}
-                initial={shouldReduceMotion ? { height: "auto", opacity: 1 } : { height: 0, opacity: 0 }}
-                role="region"
-              >
+                        }
+                  }
+                  aria-labelledby={`accordion-header-${item.id}`}
+                  className="overflow-hidden"
+                  exit={
+                    shouldReduceMotion
+                      ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                      : {
+                          height: 0,
+                          opacity: 0,
+                          transition: {
+                            height: { duration: 0.2 },
+                            opacity: { duration: 0.15 },
+                          },
+                        }
+                  }
+                  id={`accordion-content-${item.id}`}
+                  initial={
+                    shouldReduceMotion
+                      ? { height: "auto", opacity: 1 }
+                      : { height: 0, opacity: 0 }
+                  }
+                  role="region"
+                >
                   <div className="border-t bg-background px-4 py-3">
                     {item.content}
                   </div>

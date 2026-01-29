@@ -63,7 +63,9 @@ export default function AnimatedTags({
                     : { y: 20, opacity: 0, filter: "blur(4px)" }
                 }
                 initial={
-                  shouldReduceMotion ? { opacity: 1 } : { y: 20, opacity: 0, filter: "blur(4px)" }
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : { y: 20, opacity: 0, filter: "blur(4px)" }
                 }
                 key={tag}
                 layout
@@ -76,7 +78,7 @@ export default function AnimatedTags({
               >
                 {tag}{" "}
                 <CircleX
-                  className="flex items-center justify-center rounded-full transition-all duration-200 ease"
+                  className="ease flex items-center justify-center rounded-full transition-all duration-200"
                   size={16}
                 />
               </motion.div>
@@ -119,7 +121,7 @@ export default function AnimatedTags({
             >
               {tag}{" "}
               <Plus
-                className="flex items-center justify-center rounded-full transition-all duration-200 ease @media (hover: hover) and (pointer: fine):hover:bg-primary group-hover:text-foreground"
+                className="ease @media (hover: hover) and (pointer: flex items-center justify-center rounded-full transition-all duration-200 fine):hover:bg-primary group-hover:text-foreground"
                 size={16}
               />
             </motion.div>

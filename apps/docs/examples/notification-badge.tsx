@@ -160,7 +160,9 @@ export default function NotificationBadgeDemo() {
 
       {/* Positions */}
       <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">Position Options</h3>
+        <h3 className="font-medium text-foreground text-sm">
+          Position Options
+        </h3>
         <div className="flex items-center gap-6">
           <div className="flex flex-col items-center gap-2">
             <NotificationBadge count={1} position="top-right" variant="count">
@@ -179,7 +181,11 @@ export default function NotificationBadgeDemo() {
             <span className="text-muted-foreground text-xs">Top Left</span>
           </div>
           <div className="flex flex-col items-center gap-2">
-            <NotificationBadge count={3} position="bottom-right" variant="count">
+            <NotificationBadge
+              count={3}
+              position="bottom-right"
+              variant="count"
+            >
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-muted">
                 <Bell className="h-5 w-5" />
               </div>
