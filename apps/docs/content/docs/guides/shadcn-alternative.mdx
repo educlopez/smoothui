@@ -1,0 +1,144 @@
+---
+title: SmoothUI vs shadcn/ui - The Animated Alternative
+description: Looking for a shadcn/ui alternative with animations? SmoothUI adds smooth Motion animations to the shadcn ecosystem. Compare features and see why developers choose SmoothUI for animated React components.
+icon: Sparkles
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## The Best of Both Worlds
+
+SmoothUI isn't a replacement for shadcn/ui - it's the perfect companion. While shadcn/ui excels at providing solid, accessible base components, SmoothUI extends the ecosystem with **animated, interactive components** that bring your interfaces to life.
+
+<div className="grid gap-4 md:grid-cols-2">
+
+<FeatureCardHover
+  title="shadcn/ui"
+  description="Excellent for forms, dialogs, dropdowns, and foundational UI primitives. Static, accessible, and battle-tested."
+  gradient="from-zinc-400 via-zinc-500 to-zinc-600"
+/>
+
+<FeatureCardHover
+  title="SmoothUI"
+  description="Perfect for animated cards, smooth transitions, interactive buttons, and motion effects that delight users."
+  gradient="from-purple-400 via-pink-400 to-orange-400"
+/>
+
+</div>
+
+## Why Choose SmoothUI?
+
+### Smooth Motion Animations
+
+Every SmoothUI component is built with **Motion (Framer Motion)** animations that feel natural and polished. No more wrestling with CSS keyframes or animation libraries - animations are built-in and optimized for performance.
+
+```tsx
+// Just import and use - animations included
+import { ExpandableCards } from "@/components/ui/expandable-cards"
+
+<ExpandableCards items={cards} />
+```
+
+### Same Workflow, Added Motion
+
+If you're familiar with shadcn/ui, you'll feel right at home. SmoothUI uses the **same CLI installation pattern**:
+
+```bash
+npx shadcn@latest add https://smoothui.dev/r/expandable-cards.json
+```
+
+Components are copied into your project, giving you full ownership and customization control.
+
+### Built for Modern React
+
+SmoothUI components follow React best practices:
+
+- **Server Components compatible** - Works with Next.js App Router
+- **TypeScript first** - Full type definitions included
+- **Tailwind CSS v4** - Uses the latest Tailwind features
+- **Accessibility** - Respects `prefers-reduced-motion`
+
+## Feature Comparison
+
+| Feature | shadcn/ui | SmoothUI |
+|---------|-----------|----------|
+| Static Components | Excellent | Good |
+| Animated Components | Limited | Excellent |
+| Motion Animations | Manual setup | Built-in |
+| Installation | shadcn CLI | shadcn CLI |
+| Customization | Full control | Full control |
+| TypeScript | Yes | Yes |
+| Tailwind CSS | v3/v4 | v4 |
+| Dark Mode | Yes | Yes |
+| Accessibility | Excellent | Good |
+| Component Count | 40+ | 50+ |
+
+## When to Use Each
+
+### Use shadcn/ui for:
+- Form inputs, selects, and form validation
+- Modal dialogs and alert dialogs
+- Navigation menus and dropdowns
+- Data tables and pagination
+- Basic buttons and badges
+
+### Use SmoothUI for:
+- Animated card layouts and expandable cards
+- Smooth hover effects and micro-interactions
+- Dynamic content transitions
+- Interactive showcases and galleries
+- Animated text effects (typewriter, wave, scramble)
+- Loading states with motion
+
+## Working Together
+
+The best approach is using both libraries together. Here's a typical setup:
+
+```tsx
+// shadcn/ui for the form structure
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Dialog, DialogContent } from "@/components/ui/dialog"
+
+// SmoothUI for animated elements
+import { AnimatedInput } from "@/components/ui/animated-input"
+import { ScrambleHover } from "@/components/ui/scramble-hover"
+import { ExpandableCards } from "@/components/ui/expandable-cards"
+```
+
+Both libraries use the same folder structure (`components/ui/`) and Tailwind CSS foundation, making them seamlessly compatible.
+
+## Get Started
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Guide"
+>
+  Set up SmoothUI in your project alongside shadcn/ui.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore 50+ animated components ready to use.
+</Card>
+</Cards>
+
+## Frequently Asked Questions
+
+<Accordions>
+<Accordion id="replace-shadcn" title="Do I need to replace shadcn/ui with SmoothUI?">
+  No! SmoothUI is designed to complement shadcn/ui, not replace it. Use shadcn/ui for forms and foundational UI, and add SmoothUI components when you need animations and interactivity.
+</Accordion>
+<Accordion id="same-project" title="Can I use both in the same project?">
+  Absolutely! Both libraries use the same installation pattern and folder structure. They work together seamlessly in the same project.
+</Accordion>
+<Accordion id="learning-curve" title="Is there a learning curve if I know shadcn/ui?">
+  Minimal. If you're familiar with shadcn/ui, you already know the workflow. SmoothUI components follow the same patterns - just with added animations.
+</Accordion>
+<Accordion id="performance" title="Do animations affect performance?">
+  SmoothUI animations are built with Motion and optimized for performance. They use GPU-accelerated transforms and respect the user's reduced motion preferences for accessibility.
+</Accordion>
+</Accordions>

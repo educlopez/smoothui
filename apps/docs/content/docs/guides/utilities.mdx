@@ -1,0 +1,310 @@
+---
+title: Utility Functions
+description: SmoothUI utility functions for React and Tailwind CSS. The cn() utility for merging class names with clsx and tailwind-merge for conflict-free styling.
+icon: Wrench
+---
+
+## Overview
+
+SmoothUI provides utility functions that simplify common patterns in React development. These utilities are used throughout the component library and are available for your own components.
+
+---
+
+## cn() - Class Name Utility
+
+The `cn()` function merges class names intelligently, combining the power of [clsx](https://github.com/lukeed/clsx) for conditional classes and [tailwind-merge](https://github.com/dcastil/tailwind-merge) for resolving Tailwind CSS conflicts.
+
+### Installation
+
+The `cn()` utility is included with any SmoothUI component installation. You can also install it directly:
+
+```bash
+pnpm add clsx tailwind-merge
+```
+
+Then create the utility:
+
+```tsx
+// lib/utils.ts
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+### Usage
+
+```tsx
+import { cn } from "@/lib/utils";
+
+function Button({ className, variant, ...props }) {
+  return (
+    <button
+      className={cn(
+        // Base styles
+        "px-4 py-2 rounded-md font-medium",
+        // Variant styles
+        variant === "primary" && "bg-blue-500 text-white",
+        variant === "secondary" && "bg-gray-200 text-gray-900",
+        // Consumer overrides (always wins)
+        className
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+### Why cn()?
+
+#### Problem: Tailwind Class Conflicts
+
+Without `cn()`, Tailwind classes can conflict unpredictably:
+
+```tsx
+// Without cn() - which padding wins? Unpredictable!
+<div className={`p-4 ${className}`} />
+// If className="p-2", result is "p-4 p-2" - browser uses last one (p-2)
+// But this isn't guaranteed and varies by property
+```
+
+#### Solution: Smart Merging
+
+`cn()` intelligently resolves conflicts:
+
+```tsx
+// With cn() - consumer override always wins
+<div className={cn("p-4", className)} />
+// If className="p-2", result is "p-2" - clean, predictable
+```
+
+### Features
+
+#### Conditional Classes
+
+```tsx
+cn(
+  "base-class",
+  isActive && "active-class",        // Boolean condition
+  !isDisabled && "enabled-class",    // Negated condition
+  error ? "error-class" : "success"  // Ternary
+)
+```
+
+#### Object Syntax
+
+```tsx
+cn({
+  "bg-blue-500": variant === "primary",
+  "bg-gray-500": variant === "secondary",
+  "opacity-50 cursor-not-allowed": isDisabled,
+})
+```
+
+#### Array Syntax
+
+```tsx
+cn([
+  "base-styles",
+  conditionalStyles,
+  [nestedArray, "also-works"]
+])
+```
+
+#### Tailwind Conflict Resolution
+
+```tsx
+// Input
+cn("px-4 py-2", "px-6")
+// Output: "py-2 px-6" (px-6 wins, py-2 preserved)
+
+// Input
+cn("text-red-500", "text-blue-500")
+// Output: "text-blue-500" (last color wins)
+
+// Input
+cn("hover:bg-red-500", "hover:bg-blue-500")
+// Output: "hover:bg-blue-500" (handles modifiers correctly)
+```
+
+### Common Patterns
+
+#### Component Variants
+
+```tsx
+const buttonVariants = {
+  primary: "bg-blue-500 text-white hover:bg-blue-600",
+  secondary: "bg-gray-200 text-gray-900 hover:bg-gray-300",
+  ghost: "bg-transparent hover:bg-gray-100",
+};
+
+const buttonSizes = {
+  sm: "px-3 py-1.5 text-sm",
+  md: "px-4 py-2 text-base",
+  lg: "px-6 py-3 text-lg",
+};
+
+function Button({ variant = "primary", size = "md", className, ...props }) {
+  return (
+    <button
+      className={cn(
+        "rounded-md font-medium transition-colors",
+        buttonVariants[variant],
+        buttonSizes[size],
+        className
+      )}
+      {...props}
+    />
+  );
+}
+```
+
+#### Forwarding className
+
+Always accept and forward `className` as the last argument to `cn()`:
+
+```tsx
+// Correct: className last, can override anything
+function Card({ className, ...props }) {
+  return (
+    <div
+      className={cn(
+        "rounded-lg border p-4 shadow-sm",
+        className  // Consumer can override any default
+      )}
+      {...props}
+    />
+  );
+}
+
+// Usage
+<Card className="p-8 shadow-lg" />
+// Result: p-8 and shadow-lg override defaults
+```
+
+#### With cva (Class Variance Authority)
+
+`cn()` pairs well with [cva](https://cva.style/docs) for complex variant systems:
+
+```tsx
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center rounded-md font-medium",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        outline: "border border-input bg-background hover:bg-accent",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 px-3",
+        lg: "h-11 px-8",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
+
+interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {}
+
+function Button({ className, variant, size, ...props }: ButtonProps) {
+  return (
+    <button
+      className={cn(buttonVariants({ variant, size }), className)}
+      {...props}
+    />
+  );
+}
+```
+
+### TypeScript
+
+The `cn()` function is fully typed:
+
+```tsx
+import { type ClassValue, clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+// ClassValue accepts:
+// - string
+// - number
+// - boolean | null | undefined (falsy values ignored)
+// - ClassValue[] (arrays)
+// - { [key: string]: boolean } (objects)
+```
+
+---
+
+## Best Practices
+
+### Always Use cn() for Component Styling
+
+```tsx
+// Good: Allows overrides, resolves conflicts
+className={cn("base-styles", className)}
+
+// Avoid: No conflict resolution
+className={`base-styles ${className}`}
+```
+
+### Keep Base Styles First
+
+```tsx
+cn(
+  "base-styles",      // 1. Foundational styles
+  "variant-styles",   // 2. Variant-specific
+  "state-styles",     // 3. State-based (hover, active)
+  className           // 4. Consumer overrides (last!)
+)
+```
+
+### Use Semantic Groups
+
+```tsx
+cn(
+  // Layout
+  "flex items-center gap-2",
+  // Sizing
+  "h-10 px-4",
+  // Typography
+  "text-sm font-medium",
+  // Colors
+  "bg-blue-500 text-white",
+  // Interactions
+  "hover:bg-blue-600 focus:ring-2",
+  // Overrides
+  className
+)
+```
+
+---
+
+## Related
+
+<Cards>
+<Card href="/docs/guides/hooks" title="React Hooks">
+  Explore SmoothUI hooks like useIsMobile.
+</Card>
+
+<Card href="https://github.com/dcastil/tailwind-merge" title="tailwind-merge">
+  Learn more about Tailwind class conflict resolution.
+</Card>
+
+<Card href="https://github.com/lukeed/clsx" title="clsx">
+  Learn more about conditional class name construction.
+</Card>
+</Cards>

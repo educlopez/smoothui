@@ -52,7 +52,7 @@ export function Hero() {
             >
               {/* Main heading */}
               <h1 className="text-balance font-semibold text-4xl text-foreground md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
-                Super Smooth UI Components for Every Team
+                Animated React Components for shadcn/ui
               </h1>
 
               {/* Description */}

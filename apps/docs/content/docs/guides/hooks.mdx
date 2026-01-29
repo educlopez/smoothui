@@ -1,0 +1,228 @@
+---
+title: React Hooks
+description: SmoothUI React hooks for responsive design and device detection. useIsMobile hook for mobile breakpoint detection with SSR support and real-time updates.
+icon: Code
+---
+
+## Overview
+
+SmoothUI provides utility hooks that help you build responsive, device-aware components. These hooks are designed for performance and work seamlessly with Server-Side Rendering (SSR).
+
+---
+
+## useIsMobile
+
+Detects whether the current viewport is mobile-sized. Returns a boolean that updates in real-time as the viewport changes.
+
+### Installation
+
+```bash
+npx shadcn@latest add https://smoothui.dev/r/use-mobile.json
+```
+
+Or copy the hook directly:
+
+```tsx
+import * as React from "react";
+
+const MOBILE_BREAKPOINT = 768;
+
+export function useIsMobile() {
+  const [isMobile, setIsMobile] = React.useState<boolean | undefined>(
+    undefined
+  );
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`);
+    const onChange = () => {
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    };
+    mql.addEventListener("change", onChange);
+    setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  return !!isMobile;
+}
+```
+
+### Usage
+
+```tsx
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function ResponsiveComponent() {
+  const isMobile = useIsMobile();
+
+  return (
+    <div>
+      {isMobile ? (
+        <MobileNavigation />
+      ) : (
+        <DesktopNavigation />
+      )}
+    </div>
+  );
+}
+```
+
+### Parameters
+
+This hook takes no parameters. The mobile breakpoint is set to **768px** by default.
+
+### Returns
+
+| Value | Type | Description |
+|-------|------|-------------|
+| `isMobile` | `boolean` | `true` if viewport width is less than 768px |
+
+### Features
+
+- **SSR Safe**: Returns `false` during server-side rendering (no hydration mismatch)
+- **Real-time Updates**: Responds to viewport changes via `matchMedia` listener
+- **Performance Optimized**: Uses `matchMedia` instead of resize events for better performance
+- **Memory Safe**: Properly cleans up event listeners on unmount
+
+### Common Use Cases
+
+#### Conditional Rendering
+
+```tsx
+function Header() {
+  const isMobile = useIsMobile();
+
+  return (
+    <header>
+      <Logo />
+      {isMobile ? <HamburgerMenu /> : <NavigationLinks />}
+    </header>
+  );
+}
+```
+
+#### Responsive Animations
+
+```tsx
+import { motion } from "motion/react";
+import { useIsMobile } from "@/hooks/use-mobile";
+
+function AnimatedCard() {
+  const isMobile = useIsMobile();
+
+  return (
+    <motion.div
+      whileHover={isMobile ? {} : { scale: 1.02 }}
+      // Disable hover animations on touch devices
+    >
+      Card content
+    </motion.div>
+  );
+}
+```
+
+#### Responsive Grid
+
+```tsx
+function ProductGrid({ products }) {
+  const isMobile = useIsMobile();
+  const columns = isMobile ? 1 : 3;
+
+  return (
+    <div style={{
+      display: "grid",
+      gridTemplateColumns: `repeat(${columns}, 1fr)`
+    }}>
+      {products.map(product => (
+        <ProductCard key={product.id} product={product} />
+      ))}
+    </div>
+  );
+}
+```
+
+### SSR Considerations
+
+The hook returns `false` on the initial server render, then updates on the client. If you need to avoid layout shift, consider:
+
+```tsx
+function ResponsiveLayout() {
+  const isMobile = useIsMobile();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Show a loading state or neutral layout until mounted
+  if (!mounted) {
+    return <LayoutSkeleton />;
+  }
+
+  return isMobile ? <MobileLayout /> : <DesktopLayout />;
+}
+```
+
+### Customizing the Breakpoint
+
+If you need a different breakpoint, create a modified version:
+
+```tsx
+const TABLET_BREAKPOINT = 1024;
+
+export function useIsTablet() {
+  const [isTablet, setIsTablet] = React.useState<boolean | undefined>(
+    undefined
+  );
+
+  React.useEffect(() => {
+    const mql = window.matchMedia(`(max-width: ${TABLET_BREAKPOINT - 1}px)`);
+    const onChange = () => {
+      setIsTablet(window.innerWidth < TABLET_BREAKPOINT);
+    };
+    mql.addEventListener("change", onChange);
+    setIsTablet(window.innerWidth < TABLET_BREAKPOINT);
+    return () => mql.removeEventListener("change", onChange);
+  }, []);
+
+  return !!isTablet;
+}
+```
+
+---
+
+## Best Practices
+
+### Prefer CSS for Simple Responsive Layouts
+
+For simple responsive styling, CSS media queries are more performant than JavaScript:
+
+```tsx
+// Prefer CSS when possible
+<div className="grid grid-cols-1 md:grid-cols-3">
+
+// Use hooks for complex logic or conditional rendering
+const isMobile = useIsMobile();
+if (isMobile) return <MobileOnlyFeature />;
+```
+
+### Avoid Excessive Re-renders
+
+The hook only triggers re-renders when crossing the breakpoint threshold, not on every resize event.
+
+### Test Across Devices
+
+Always test responsive behavior on actual devices, not just browser dev tools resizing.
+
+---
+
+## Related
+
+<Cards>
+<Card href="/docs/guides/utilities" title="Utilities">
+  Explore utility functions like cn() for class merging.
+</Card>
+
+<Card href="/docs/guides/animation-best-practices" title="Animation Best Practices">
+  Learn how to create performant, accessible animations.
+</Card>
+</Cards>

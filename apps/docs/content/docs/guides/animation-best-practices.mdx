@@ -1,0 +1,518 @@
+---
+title: Animation Best Practices
+description: Master React animations with this comprehensive guide. Learn Motion (Framer Motion) essentials, performance optimization, accessibility guidelines, and common animation patterns for smooth 60fps UIs.
+icon: Sparkles
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Why Animation Matters
+
+Animation isn't just decoration—it's a fundamental part of user experience. Well-crafted animations:
+
+- **Guide attention** to important elements and changes
+- **Provide feedback** that actions were registered
+- **Create continuity** between UI states
+- **Reduce cognitive load** by showing relationships between elements
+- **Delight users** with polished, professional interactions
+
+Studies show that appropriate animation can increase user engagement by up to 400% and significantly improve perceived performance, even when actual load times remain the same.
+
+<FeatureCard title="The SmoothUI Philosophy" variant="info">
+Every SmoothUI component follows these principles. Animations are fast (200-300ms), purposeful, and always respect user preferences for reduced motion.
+</FeatureCard>
+
+---
+
+## Core Animation Principles
+
+### Duration & Timing
+
+The most common mistake is making animations too slow. Users perceive interfaces as sluggish when animations exceed 300-400ms.
+
+| Animation Type | Recommended Duration |
+|----------------|---------------------|
+| Micro-interactions (hover, focus) | 100-200ms |
+| Standard transitions (show/hide) | 200-300ms |
+| Complex animations (page transitions) | 300-400ms |
+| Decorative/ambient | Up to 1000ms |
+
+```tsx
+// Good: Fast, snappy interaction
+transition={{ duration: 0.2 }}
+
+// Bad: Feels sluggish
+transition={{ duration: 0.8 }}
+```
+
+### Easing Functions
+
+Easing determines how an animation accelerates and decelerates. The right easing makes motion feel natural.
+
+| Easing | Use Case | CSS/Motion Value |
+|--------|----------|------------------|
+| **ease-out** | Elements entering | `cubic-bezier(0.23, 1, 0.32, 1)` |
+| **ease-in-out** | Elements moving | `cubic-bezier(0.645, 0.045, 0.355, 1)` |
+| **ease** | Hover/color changes | `ease` (built-in) |
+| **spring** | Natural, bouncy motion | `type: "spring"` |
+
+```tsx
+// Natural spring animation (recommended for most cases)
+transition={{
+  type: "spring",
+  duration: 0.25,
+  bounce: 0.1  // Keep low for UI (0.1-0.2)
+}}
+
+// Cubic bezier for precise control
+transition={{
+  duration: 0.2,
+  ease: [0.23, 1, 0.32, 1]  // ease-out
+}}
+```
+
+<FeatureCard title="Avoid ease-in" variant="warning">
+Never use `ease-in` for UI animations—it starts slow and feels unresponsive. Users expect immediate feedback when they interact.
+</FeatureCard>
+
+### Transform vs Layout Properties
+
+This is critical for performance. Only animate **transform** and **opacity**—these are GPU-accelerated and don't trigger layout recalculations.
+
+```tsx
+// GOOD: GPU-accelerated, smooth 60fps
+animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+
+// BAD: Triggers layout, causes jank
+animate={{ width: 200, height: 100, marginLeft: 20 }}
+```
+
+| Property | Performance | Use Instead |
+|----------|-------------|-------------|
+| `width`, `height` | Poor | `scale` or `scaleX`/`scaleY` |
+| `top`, `left`, `right`, `bottom` | Poor | `x`, `y` (transform) |
+| `margin`, `padding` | Poor | `x`, `y` with fixed dimensions |
+| `opacity` | Excellent | Use freely |
+| `transform` | Excellent | Use freely |
+
+---
+
+## Motion Library Essentials
+
+SmoothUI uses [Motion](https://motion.dev) (formerly Framer Motion) for animations. Here are the key concepts.
+
+### Spring Physics
+
+Spring animations feel more natural than duration-based animations because they simulate real-world physics.
+
+```tsx
+import { motion } from "motion/react";
+
+<motion.div
+  animate={{ scale: 1 }}
+  initial={{ scale: 0.9 }}
+  transition={{
+    type: "spring",
+    stiffness: 300,  // Higher = snappier
+    damping: 20,     // Higher = less bouncy
+    mass: 1          // Higher = more momentum
+  }}
+/>
+```
+
+**Simplified spring syntax** (recommended):
+
+```tsx
+transition={{
+  type: "spring",
+  duration: 0.25,  // Approximate duration
+  bounce: 0.1      // 0 = no bounce, 1 = very bouncy
+}}
+```
+
+### Variants
+
+Variants let you define animation states and orchestrate complex animations:
+
+```tsx
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1  // Animate children sequentially
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
+
+<motion.ul variants={containerVariants} initial="hidden" animate="visible">
+  {items.map(item => (
+    <motion.li key={item.id} variants={itemVariants}>
+      {item.name}
+    </motion.li>
+  ))}
+</motion.ul>
+```
+
+### Layout Animations
+
+Motion's `layout` prop automatically animates layout changes:
+
+```tsx
+// Automatically animates position/size changes
+<motion.div layout>
+  {isExpanded ? <ExpandedContent /> : <CollapsedContent />}
+</motion.div>
+
+// Smooth shared element transitions
+<motion.div layoutId="shared-element">
+  {/* This element animates between positions */}
+</motion.div>
+```
+
+### AnimatePresence
+
+For enter/exit animations, wrap components in `AnimatePresence`:
+
+```tsx
+import { AnimatePresence, motion } from "motion/react";
+
+<AnimatePresence>
+  {isVisible && (
+    <motion.div
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+    >
+      Content that animates in and out
+    </motion.div>
+  )}
+</AnimatePresence>
+```
+
+---
+
+## Performance Optimization
+
+### GPU-Accelerated Properties
+
+Always prefer these properties for smooth 60fps animations:
+
+```tsx
+// These run on the GPU (compositor thread)
+transform: translateX(), translateY(), scale(), rotate()
+opacity
+
+// These trigger layout/paint (main thread) - AVOID
+width, height, top, left, margin, padding, border
+```
+
+### Avoiding Layout Thrash
+
+Layout thrash occurs when you read and write to the DOM in quick succession:
+
+```tsx
+// BAD: Forces synchronous layout
+elements.forEach(el => {
+  const height = el.offsetHeight;  // READ
+  el.style.height = height + 10;   // WRITE
+});
+
+// GOOD: Batch reads, then writes
+const heights = elements.map(el => el.offsetHeight);  // All READs
+elements.forEach((el, i) => {
+  el.style.height = heights[i] + 10;  // All WRITEs
+});
+```
+
+### will-change Hint
+
+Use sparingly to hint browser optimization:
+
+```css
+.animated-element {
+  will-change: transform, opacity;
+}
+```
+
+<FeatureCard title="Don't Overuse will-change" variant="warning">
+Only apply `will-change` to elements that will actually animate. Overuse consumes memory and can hurt performance.
+</FeatureCard>
+
+### When to Use CSS vs JavaScript Animations
+
+| Use CSS | Use JavaScript (Motion) |
+|---------|------------------------|
+| Simple hover effects | Complex choreographed animations |
+| State transitions | Physics-based motion |
+| Keyframe animations | Gesture-driven animations |
+| Performance-critical loops | Dynamic, data-driven animations |
+
+---
+
+## Accessibility Guidelines
+
+### Respecting Reduced Motion
+
+Always check `prefers-reduced-motion`. Users enable this for medical reasons (vestibular disorders, motion sickness) or personal preference.
+
+```tsx
+import { useReducedMotion } from "motion/react";
+
+function AnimatedComponent() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      animate={
+        shouldReduceMotion
+          ? { opacity: 1 }  // Minimal animation
+          : { opacity: 1, y: 0, scale: 1 }  // Full animation
+      }
+      initial={
+        shouldReduceMotion
+          ? { opacity: 0 }
+          : { opacity: 0, y: 20, scale: 0.95 }
+      }
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }  // Instant
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    />
+  );
+}
+```
+
+<FeatureCard title="SmoothUI Accessibility" variant="info">
+Every SmoothUI component includes `useReducedMotion` support. Animations are automatically disabled or minimized for users who prefer reduced motion.
+</FeatureCard>
+
+### Motion Sensitivity Guidelines
+
+Even for users without reduced motion enabled:
+
+- **Avoid large-scale motion** (full-screen transitions, parallax)
+- **Limit simultaneous animations** (no more than 2-3 elements animating at once)
+- **Keep animations brief** (under 300ms for most interactions)
+- **Avoid infinite loops** (or provide controls to pause)
+
+### Focus Management
+
+When animating elements that affect focus:
+
+```tsx
+// Ensure focus moves appropriately after animation
+<motion.dialog
+  onAnimationComplete={() => {
+    if (isOpen) {
+      firstFocusableElement.current?.focus();
+    }
+  }}
+>
+```
+
+---
+
+## Common Patterns
+
+### Enter/Exit Animations
+
+```tsx
+// Fade + slide up (most common)
+const fadeSlideUp = {
+  initial: { opacity: 0, y: 10 },
+  animate: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
+  transition: { duration: 0.2 }
+};
+
+// Scale + fade (for modals, popovers)
+const scaleFade = {
+  initial: { opacity: 0, scale: 0.95 },
+  animate: { opacity: 1, scale: 1 },
+  exit: { opacity: 0, scale: 0.95 },
+  transition: { type: "spring", duration: 0.25, bounce: 0.1 }
+};
+```
+
+### Hover Effects
+
+```tsx
+<motion.button
+  whileHover={{ scale: 1.02 }}
+  whileTap={{ scale: 0.98 }}
+  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+>
+  Click me
+</motion.button>
+```
+
+### Staggered Lists
+
+```tsx
+<motion.ul
+  initial="hidden"
+  animate="visible"
+  variants={{
+    visible: { transition: { staggerChildren: 0.05 } }
+  }}
+>
+  {items.map(item => (
+    <motion.li
+      key={item.id}
+      variants={{
+        hidden: { opacity: 0, x: -20 },
+        visible: { opacity: 1, x: 0 }
+      }}
+    >
+      {item.name}
+    </motion.li>
+  ))}
+</motion.ul>
+```
+
+### Scroll-Triggered Animations
+
+```tsx
+import { useInView, motion } from "motion/react";
+
+function ScrollReveal({ children }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  return (
+    <motion.div
+      ref={ref}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.5 }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+```
+
+---
+
+## Anti-Patterns to Avoid
+
+### 1. Overanimating
+
+Not everything needs to animate. Too much motion is distracting and exhausting.
+
+```tsx
+// BAD: Everything bounces and wiggles
+<motion.div animate={{ rotate: [0, 5, -5, 0] }} />
+<motion.span animate={{ scale: [1, 1.1, 1] }} />
+<motion.p animate={{ opacity: [1, 0.8, 1] }} />
+
+// GOOD: Purposeful, minimal animation
+<motion.button whileHover={{ scale: 1.02 }} />
+```
+
+### 2. Slow Animations
+
+Animations over 300ms feel sluggish. Users shouldn't wait for your UI.
+
+```tsx
+// BAD: Too slow
+transition={{ duration: 0.8 }}
+
+// GOOD: Snappy
+transition={{ duration: 0.2 }}
+```
+
+### 3. Competing Animations
+
+Multiple elements animating simultaneously creates visual chaos.
+
+```tsx
+// BAD: Everything animates at once
+{items.map(item => (
+  <motion.div animate={{ scale: 1.1 }} />
+))}
+
+// GOOD: Stagger or animate one at a time
+variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+```
+
+### 4. Animation Without Purpose
+
+Every animation should serve a function: feedback, guidance, or continuity.
+
+```tsx
+// BAD: Spinning logo for no reason
+<motion.img animate={{ rotate: 360 }} transition={{ repeat: Infinity }} />
+
+// GOOD: Spinner indicates loading state
+{isLoading && <motion.div animate={{ rotate: 360 }} />}
+```
+
+### 5. Ignoring Reduced Motion
+
+Always implement reduced motion support. It's an accessibility requirement.
+
+```tsx
+// BAD: No reduced motion check
+animate={{ x: 100, rotate: 360 }}
+
+// GOOD: Respects user preference
+animate={shouldReduceMotion ? { opacity: 1 } : { x: 100, rotate: 360 }}
+```
+
+---
+
+## Quick Reference
+
+### Recommended Defaults
+
+```tsx
+// Standard UI animation
+transition={{
+  type: "spring",
+  duration: 0.25,
+  bounce: 0.1
+}}
+
+// Hover/tap feedback
+transition={{
+  type: "spring",
+  stiffness: 400,
+  damping: 17
+}}
+
+// Enter/exit
+transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+```
+
+### Checklist for New Animations
+
+- [ ] Duration under 300ms for interactions
+- [ ] Only animating transform/opacity
+- [ ] `useReducedMotion` implemented
+- [ ] Purposeful (not decorative)
+- [ ] Tested on low-end devices
+
+---
+
+## Further Reading
+
+<Cards>
+<Card href="/docs/guides/animated-components" title="Animated Components">
+  Browse all 50+ animated components in SmoothUI.
+</Card>
+
+<Card href="/docs/guides/design-principles" title="Design Principles">
+  Learn about SmoothUI's design philosophy and patterns.
+</Card>
+
+<Card href="https://motion.dev/docs" title="Motion Documentation">
+  Official Motion (Framer Motion) documentation.
+</Card>
+</Cards>
