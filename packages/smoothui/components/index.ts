@@ -15,6 +15,7 @@ export { default as BasicModal } from "./basic-modal";
 export { default as BasicToast } from "./basic-toast";
 export { default as ButtonCopy } from "./button-copy";
 export { default as ClipCornersButton } from "./clip-corners-button";
+export { default as ComparisonSlider } from "./comparison-slider";
 export { default as ContributionGraph } from "./contribution-graph";
 export { default as CursorFollow } from "./cursor-follow";
 export { default as DotMorphButton } from "./dot-morph-button";
