@@ -6,6 +6,7 @@ export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
 export { default as AnimatedProgressBar } from "./animated-progress-bar";
 export { default as AnimatedTabs } from "./animated-tabs";
 export { default as AnimatedTags } from "./animated-tags";
+export { default as AnimatedToggle } from "./animated-toggle";
 export { default as AppDownloadStack } from "./app-download-stack";
 export { default as AppleInvites } from "./apple-invites";
 export { default as BasicAccordion } from "./basic-accordion";
