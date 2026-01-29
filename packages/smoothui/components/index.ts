@@ -26,6 +26,7 @@ export { default as ImageMetadataPreview } from "./image-metadata-preview";
 export { default as InfiniteSlider } from "./infinite-slider";
 export { default as InteractiveImageSelector } from "./interactive-image-selector";
 export { default as JobListingComponent } from "./job-listing-component";
+export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
 export { default as Phototab } from "./phototab";
 export { default as PowerOffSlide } from "./power-off-slide";
