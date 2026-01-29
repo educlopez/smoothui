@@ -1,17 +1,25 @@
 import Divider from "@docs/components/landing/divider";
 import Frame from "@docs/components/landing/frame";
 import { Button } from "@docs/components/smoothbutton";
-// Use example wrappers so each component has sensible demo props
-import AnimatedTags from "@docs/examples/animated-tags";
-import DynamicIsland from "@docs/examples/dynamic-island";
-import ImageMetadataPreview from "@docs/examples/image-metadata-preview";
-import NumberFlow from "@docs/examples/number-flow";
-import Phototab from "@docs/examples/phototab";
-import PowerOffSlide from "@docs/examples/power-off-slide";
-import ScrollableCardStack from "@docs/examples/scrollable-card-stack";
-import SocialSelector from "@docs/examples/social-selector";
-import UserAccountAvatar from "@docs/examples/user-account-avatar";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+// Lazy-load example components to reduce initial bundle size
+const AnimatedTags = dynamic(() => import("@docs/examples/animated-tags"));
+const DynamicIsland = dynamic(() => import("@docs/examples/dynamic-island"));
+const ImageMetadataPreview = dynamic(
+  () => import("@docs/examples/image-metadata-preview")
+);
+const NumberFlow = dynamic(() => import("@docs/examples/number-flow"));
+const Phototab = dynamic(() => import("@docs/examples/phototab"));
+const PowerOffSlide = dynamic(() => import("@docs/examples/power-off-slide"));
+const ScrollableCardStack = dynamic(
+  () => import("@docs/examples/scrollable-card-stack")
+);
+const SocialSelector = dynamic(() => import("@docs/examples/social-selector"));
+const UserAccountAvatar = dynamic(
+  () => import("@docs/examples/user-account-avatar")
+);
 
 const SHOWCASE_COMPONENTS = [
   { id: "animatedTags", component: AnimatedTags },

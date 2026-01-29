@@ -30,7 +30,7 @@ import {
   Link as LinkIcon,
   Twitter,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -847,24 +847,21 @@ function TeamPreview() {
 }
 
 export function BlockCategories() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <div className="mx-auto max-w-7xl">
         <motion.div
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="flex flex-col items-start md:items-center"
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          transition={{
-            duration: 0.6,
-            ease: EASE_OUT_QUAD,
-          }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.35, ease: EASE_OUT_QUAD }
+          }
         >
           {/* Heading */}
           <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition md:max-w-xl xl:max-w-2xl">
@@ -885,20 +882,18 @@ export function BlockCategories() {
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
               <motion.div
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
                 key={category.title}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.05,
-                  ease: EASE_OUT_QUAD,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.3, delay: index * 0.05, ease: EASE_OUT_QUAD }
+                }
               >
                 <Link
                   className="relative block text-center"
