@@ -341,6 +341,68 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/blocks/faq-3:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      lucide-react:
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.2.1)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/blocks/faq-4:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      lucide-react:
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.2.1)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/blocks/footer-1:
     dependencies:
       '@repo/shadcn-ui':
@@ -383,6 +445,68 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/blocks/footer-3:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      lucide-react:
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.2.1)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/blocks/footer-4:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      lucide-react:
+        specifier: ^0.548.0
+        version: 0.548.0(react@19.2.1)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -560,6 +684,59 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/blocks/logo-cloud-3:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/blocks/logo-cloud-4:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -977,6 +1154,34 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/components/animated-checkbox:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/components/animated-input:
     dependencies:
       '@repo/shadcn-ui':
@@ -1067,6 +1272,34 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/components/animated-tabs:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/components/animated-tags:
     dependencies:
       '@repo/shadcn-ui':
@@ -1084,6 +1317,34 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/animated-toggle:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -1338,6 +1599,34 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/comparison-slider:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -1712,6 +2001,65 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/components/magnetic-button:
+    dependencies:
+      '@radix-ui/react-slot':
+        specifier: ^1.1.2
+        version: 1.2.4(@types/react@19.2.7)(react@19.2.1)
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/notification-badge:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/components/number-flow:
     dependencies:
       '@repo/shadcn-ui':
@@ -2043,6 +2391,31 @@ importers:
       react-dom:
         specifier: ^19.2.0
         version: 19.2.0(react@19.2.0)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.7
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.7)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/skeleton-loader:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      react:
+        specifier: ^19.2.0
+        version: 19.2.1
+      react-dom:
+        specifier: ^19.2.0
+        version: 19.2.1(react@19.2.1)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*

@@ -1,7 +1,6 @@
 // Export all UI components from their individual packages
 export { default as AiBranch } from "./ai-branch";
 export { default as AiInput } from "./ai-input";
-export { default as AnimatedCheckbox } from "./animated-checkbox";
 export { default as AnimatedInput } from "./animated-input";
 export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
 export { default as AnimatedProgressBar } from "./animated-progress-bar";
@@ -16,7 +15,6 @@ export { default as BasicModal } from "./basic-modal";
 export { default as BasicToast } from "./basic-toast";
 export { default as ButtonCopy } from "./button-copy";
 export { default as ClipCornersButton } from "./clip-corners-button";
-export { default as ComparisonSlider } from "./comparison-slider";
 export { default as ContributionGraph } from "./contribution-graph";
 export { default as CursorFollow } from "./cursor-follow";
 export { default as DotMorphButton } from "./dot-morph-button";
