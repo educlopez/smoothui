@@ -37,6 +37,12 @@ export { default as ScrambleHover } from "./scramble-hover";
 export { default as ScrollRevealParagraph } from "./scroll-reveal-paragraph";
 export { default as ScrollableCardStack } from "./scrollable-card-stack";
 export { default as SearchableDropdown } from "./searchable-dropdown";
+export {
+  default as SkeletonLoader,
+  SkeletonAvatar,
+  SkeletonCard,
+  SkeletonText,
+} from "./skeleton-loader";
 export { default as SiriOrb } from "./siri-orb";
 export { default as SocialSelector } from "./social-selector";
 export { default as SwitchboardCard } from "./switchboard-card";
