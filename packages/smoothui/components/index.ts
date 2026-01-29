@@ -1,6 +1,7 @@
 // Export all UI components from their individual packages
 export { default as AiBranch } from "./ai-branch";
 export { default as AiInput } from "./ai-input";
+export { default as AnimatedCheckbox } from "./animated-checkbox";
 export { default as AnimatedInput } from "./animated-input";
 export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
 export { default as AnimatedProgressBar } from "./animated-progress-bar";

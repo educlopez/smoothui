@@ -8,6 +8,7 @@
     "index",
     "---Basic UI ---",
     "accordion",
+    "animated-checkbox",
     "animated-input",
     "animated-progress-bar",
     "animated-tabs",
