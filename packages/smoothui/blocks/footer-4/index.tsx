@@ -8,7 +8,7 @@ const ANIMATION_DURATION = 0.25;
 const HOVER_SCALE = 1.08;
 const TAP_SCALE = 0.95;
 
-export type FooterMinimalProps = {
+export interface FooterMinimalProps {
   logo?: ReactNode;
   links?: Array<{ label: string; href: string }>;
   socialLinks?: Array<{
@@ -17,7 +17,7 @@ export type FooterMinimalProps = {
     label: string;
   }>;
   copyright?: string;
-};
+}
 
 const defaultLinks = [
   { label: "Privacy", href: "#privacy" },

@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function AnimatedProgressBarDemo() {
   const [value, setValue] = useState(40);
-  const [refreshKey, setRefreshKey] = useState(0);
+  const [refreshKey, _setRefreshKey] = useState(0);
   return (
     <div className="relative max-w-xs space-y-6">
       <AnimatedProgressBar
@@ -23,6 +23,7 @@ export default function AnimatedProgressBarDemo() {
         <button
           className="rounded border bg-background px-4 py-2 text-foreground"
           onClick={() => setValue((v) => (v >= 100 ? 0 : v + 10))}
+          type="button"
         >
           Increase
         </button>

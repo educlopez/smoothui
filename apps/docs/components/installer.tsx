@@ -3,9 +3,9 @@
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 
-type InstallerProps = {
+interface InstallerProps {
   packageName: string;
-};
+}
 
 export const Installer = ({ packageName }: InstallerProps) => {
   const commands = {

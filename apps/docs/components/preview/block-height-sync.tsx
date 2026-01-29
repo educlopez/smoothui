@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 
-type BlockHeightSyncProps = {
+interface BlockHeightSyncProps {
   blockId: string;
-};
+}
 
 const MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT";
 const REQUEST_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT_REQUEST";

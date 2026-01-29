@@ -4,7 +4,7 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useId, useState } from "react";
 
-export type AnimatedTabsProps = {
+export interface AnimatedTabsProps {
   tabs: { id: string; label: string; icon?: ReactNode }[];
   activeTab?: string;
   defaultTab?: string;
@@ -12,7 +12,7 @@ export type AnimatedTabsProps = {
   variant?: "underline" | "pill" | "segment";
   layoutId?: string;
   className?: string;
-};
+}
 
 const SPRING = {
   type: "spring" as const,
@@ -117,8 +117,10 @@ export default function AnimatedTabs({
     cn(
       "absolute",
       variant === "underline" && "right-0 -bottom-px left-0 h-0.5 bg-brand",
-      variant === "pill" && "inset-0 rounded-full bg-background shadow-sm border border-border",
-      variant === "segment" && "inset-0 rounded-md bg-background shadow-sm border border-border"
+      variant === "pill" &&
+        "inset-0 rounded-full border border-border bg-background shadow-sm",
+      variant === "segment" &&
+        "inset-0 rounded-md border border-border bg-background shadow-sm"
     );
 
   return (

@@ -21,7 +21,9 @@ export const ClientTweetCard = ({
 }: ClientTweetCardProps) => {
   const { data, error, isLoading } = useTweet(id, apiUrl, fetchOptions);
 
-  if (isLoading) return fallback;
+  if (isLoading) {
+    return fallback;
+  }
   if (error || !data) {
     const NotFound = components?.TweetNotFound || TweetNotFound;
     return <NotFound error={onError ? onError(error) : error} />;

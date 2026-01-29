@@ -19,7 +19,7 @@ const LABEL_TRANSITION = {
   ], // standard material easing
 };
 
-export type AnimatedInputProps = {
+export interface AnimatedInputProps {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
@@ -30,7 +30,7 @@ export type AnimatedInputProps = {
   inputClassName?: string;
   labelClassName?: string;
   icon?: React.ReactNode;
-};
+}
 
 export default function AnimatedInput({
   value,

@@ -7,7 +7,7 @@
  * - Testimonial components: name, role, avatar, stars, content
  * - Mixed components: any combination of fields
  */
-export type Person = {
+export interface Person {
   name: string;
   role: string;
   bio?: string;
@@ -24,7 +24,7 @@ export type Person = {
   // Testimonial specific fields
   stars?: number;
   content?: string;
-};
+}
 
 export const peopleData: Person[] = [
   {
@@ -221,13 +221,13 @@ export const testimonialsData: Person[] = peopleData.filter(
   (person) => person.stars && person.content
 );
 
-type ImageKitOptions = {
+interface ImageKitOptions {
   width?: number;
   height?: number;
   quality?: number;
   format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
   transformations?: string;
-};
+}
 
 /**
  * Build transformation string from options

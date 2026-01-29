@@ -12,7 +12,7 @@ import { motion, useReducedMotion } from "motion/react";
 
 import type * as React from "react";
 
-export type RichTooltipProps = {
+export interface RichTooltipProps {
   trigger: React.ReactNode;
   title: string;
   description?: string;
@@ -25,7 +25,7 @@ export type RichTooltipProps = {
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
-};
+}
 
 export function YouTubeIcon({
   className = "h-4 w-4 fill-red-600",

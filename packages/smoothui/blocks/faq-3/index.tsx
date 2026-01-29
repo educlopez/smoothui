@@ -4,7 +4,7 @@ import { ChevronDown, Search } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 
-export type FaqSearchableProps = {
+export interface FaqSearchableProps {
   title?: string;
   description?: string;
   searchPlaceholder?: string;
@@ -13,7 +13,7 @@ export type FaqSearchableProps = {
     question: string;
     answer: string;
   }>;
-};
+}
 
 const defaultFaqs = [
   {

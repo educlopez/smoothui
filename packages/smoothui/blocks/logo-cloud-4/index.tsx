@@ -14,7 +14,7 @@ import {
   Strava,
 } from "../shared";
 
-export type LogoGridProps = {
+export interface LogoGridProps {
   title?: string;
   description?: string;
   logos?: Array<{
@@ -23,7 +23,7 @@ export type LogoGridProps = {
     href?: string;
   }>;
   columns?: 3 | 4 | 5 | 6;
-};
+}
 
 const DEFAULT_LOGOS = [
   { name: "Canpoy", logo: <Canpoy /> },
@@ -47,7 +47,7 @@ const COLUMN_CLASSES = {
 const HOVER_LIFT_OFFSET = -4;
 const INACTIVE_OPACITY = 0.6;
 
-type LogoItemProps = {
+interface LogoItemProps {
   logo: {
     name: string;
     logo: React.ReactNode;
@@ -55,7 +55,7 @@ type LogoItemProps = {
   };
   isHoverDevice: boolean;
   shouldReduceMotion: boolean | null;
-};
+}
 
 function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
   const [isHovered, setIsHovered] = useState(false);

@@ -28,12 +28,12 @@ const ITEM_ROTATE_POSITIVE = 2;
 const ITEM_ROTATE_NEGATIVE = -2;
 const RESET_ANIMATION_DURATION = 0.3;
 
-export type ImageData = {
+export interface ImageData {
   id: number;
   src: string;
-};
+}
 
-export type InteractiveImageSelectorProps = {
+export interface InteractiveImageSelectorProps {
   images: ImageData[];
   selectedImages?: number[];
   onChange?: (selected: number[]) => void;
@@ -41,7 +41,7 @@ export type InteractiveImageSelectorProps = {
   onShare?: (selected: number[]) => void;
   className?: string;
   selectable?: boolean;
-};
+}
 
 export default function InteractiveImageSelector({
   images,

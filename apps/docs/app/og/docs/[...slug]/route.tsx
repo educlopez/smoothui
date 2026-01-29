@@ -6,9 +6,9 @@ import { getImageResponseOptions, generate as MetadataImage } from "./generate";
 
 export const revalidate = false;
 
-type RouteParams = {
+interface RouteParams {
   params: Promise<{ slug: string[] }>;
-};
+}
 
 export async function GET(_req: Request, { params }: RouteParams) {
   const { slug } = await params;

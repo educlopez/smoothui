@@ -413,7 +413,7 @@ function TestimonialPreview() {
           </motion.div>
         </AnimatePresence>
         <div className="flex gap-0.5">
-          {[...Array(5)].map((_, i) => (
+          {[...new Array(5)].map((_, i) => (
             <motion.div
               className="h-1.5 w-1.5 rounded-full bg-brand/40"
               key={i}
@@ -598,7 +598,7 @@ function FooterPreview() {
         <div className="flex items-center gap-2">
           <div className="h-2.5 w-2.5 rounded bg-brand/30" />
           <div className="flex gap-3">
-            {[...Array(3)].map((_, i) => (
+            {[...new Array(3)].map((_, i) => (
               <motion.div
                 className="h-1.5 w-12 rounded-full bg-foreground/20"
                 key={i}
@@ -892,7 +892,11 @@ export function BlockCategories() {
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.3, delay: index * 0.05, ease: EASE_OUT_QUAD }
+                    : {
+                        duration: 0.3,
+                        delay: index * 0.05,
+                        ease: EASE_OUT_QUAD,
+                      }
                 }
               >
                 <Link

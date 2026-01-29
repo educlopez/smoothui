@@ -17,7 +17,11 @@ function LogoContent({
   const { openMenu } = useLogoContextMenu();
 
   return (
-    <div className="flex items-center gap-2" onContextMenu={openMenu}>
+    <button
+      className="flex cursor-pointer items-center gap-2 border-none bg-transparent"
+      onContextMenu={openMenu}
+      type="button"
+    >
       <Icon className={cn("h-6 w-auto cursor-grabbing", classNameIcon)} />
       <span
         className={cn(
@@ -27,7 +31,7 @@ function LogoContent({
       >
         Smooth<span className="text-brand">UI</span>
       </span>
-    </div>
+    </button>
   );
 }
 

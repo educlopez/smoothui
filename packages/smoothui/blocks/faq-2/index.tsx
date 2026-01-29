@@ -13,14 +13,14 @@ const ROTATION_CLOSED = 0;
 const CONTENT_DELAY = 0.1;
 const INITIAL_CONTENT_Y = -10;
 
-type FaqsAccordionProps = {
+interface FaqsAccordionProps {
   title?: string;
   description?: string;
   faqs?: Array<{
     question: string;
     answer: string;
   }>;
-};
+}
 
 export function FaqsAccordion({
   title = "Frequently Asked Questions",

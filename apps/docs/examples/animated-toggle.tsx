@@ -46,19 +46,19 @@ export default function AnimatedToggleDemo() {
     <div className="flex items-center gap-8">
       <AnimatedToggle
         checked={checked}
+        label="Toggle"
         onChange={setChecked}
         size="lg"
         variant="default"
-        label="Toggle"
       />
 
       <AnimatedToggle
         checked={checked}
-        onChange={setChecked}
         icons={{ on: <SunIcon />, off: <MoonIcon /> }}
+        label="Theme toggle"
+        onChange={setChecked}
         size="lg"
         variant="icon"
-        label="Theme toggle"
       />
     </div>
   );

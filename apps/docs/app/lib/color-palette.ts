@@ -9,19 +9,19 @@ const OPACITY_LIGHTER = 0.5;
 
 export const COLOR_STORAGE_KEY = "smoothui-colors";
 
-type ColorVariations = {
+interface ColorVariations {
   lightColor: string;
   lighterColor: string;
-};
+}
 
-type ColorPalette = {
+interface ColorPalette {
   primary: string;
   primaryLight: string;
   primaryLighter: string;
   secondary: string;
   secondaryLight: string;
   secondaryLighter: string;
-};
+}
 
 function updateShadowCustomCandy(candySecondary: string) {
   if (typeof document === "undefined") {

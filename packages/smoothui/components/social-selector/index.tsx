@@ -54,12 +54,12 @@ export const BskyIcon: React.FC<BskyIconProps> = ({ className, ...props }) => (
   </svg>
 );
 
-export type Platform = {
+export interface Platform {
   name: string;
   domain: string;
   icon: React.ReactNode;
   url: string;
-};
+}
 
 const ICON_SIZE = 36;
 const ICON_GAP = 16;
@@ -85,13 +85,13 @@ const defaultPlatforms: Platform[] = [
   },
 ];
 
-export type SocialSelectorProps = {
+export interface SocialSelectorProps {
   platforms?: Platform[];
   handle?: string;
   selectedPlatform?: Platform;
   onChange?: (platform: Platform) => void;
   className?: string;
-};
+}
 
 export default function SocialSelector({
   platforms = defaultPlatforms,

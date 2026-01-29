@@ -7,18 +7,18 @@ import { useState } from "react";
 const CHEVRON_ROTATION_DEGREES = 180;
 const CHEVRON_ANIMATION_DURATION = 0.2;
 
-export type AccordionItem = {
+export interface AccordionItem {
   id: string | number;
   title: string;
   content: React.ReactNode;
-};
+}
 
-export type BasicAccordionProps = {
+export interface BasicAccordionProps {
   items: AccordionItem[];
   allowMultiple?: boolean;
   className?: string;
   defaultExpandedIds?: Array<string | number>;
-};
+}
 
 export default function BasicAccordion({
   items,

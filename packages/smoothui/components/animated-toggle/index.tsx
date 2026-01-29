@@ -9,7 +9,7 @@ import {
   useState,
 } from "react";
 
-export type AnimatedToggleProps = {
+export interface AnimatedToggleProps {
   /** Controlled checked state */
   checked?: boolean;
   /** Default checked state for uncontrolled mode */
@@ -28,7 +28,7 @@ export type AnimatedToggleProps = {
   label?: string;
   /** Additional CSS classes */
   className?: string;
-};
+}
 
 const SPRING = {
   type: "spring" as const,
@@ -76,7 +76,9 @@ const AnimatedToggle = ({
   const checked = isControlled ? controlledChecked : internalChecked;
 
   const handleToggle = useCallback(() => {
-    if (disabled) return;
+    if (disabled) {
+      return;
+    }
 
     const newValue = !checked;
     if (!isControlled) {

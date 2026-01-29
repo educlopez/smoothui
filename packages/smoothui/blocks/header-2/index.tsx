@@ -4,7 +4,7 @@ import { getImageKitUrl } from "@smoothui/data";
 import { motion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
 
-type HeroProductProps = {
+interface HeroProductProps {
   badgeText?: string;
   heading?: string;
   description?: string;
@@ -18,7 +18,7 @@ type HeroProductProps = {
   };
   imageSrc?: string;
   imageAlt?: string;
-};
+}
 
 export function HeroProduct({
   badgeText = "New animation library",
@@ -67,7 +67,7 @@ export function HeroProduct({
                 >
                   <a
                     className="mx-auto flex w-fit items-center justify-center gap-2 rounded-md py-0.5 pr-3 pl-1 transition-colors duration-200 ease-out hover:bg-foreground/5"
-                    href="#"
+                    href="/"
                   >
                     <svg
                       aria-hidden="true"

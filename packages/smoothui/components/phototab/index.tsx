@@ -12,16 +12,16 @@ import { useLayoutEffect, useRef, useState } from "react";
 /**
  * Tab definition for Phototab
  */
-export type PhototabTab = {
+export interface PhototabTab {
   /** Tab label */
   name: string;
   /** Tab icon (ReactNode) */
   icon: React.ReactNode;
   /** Tab image (string: URL or import) */
   image: string;
-};
+}
 
-export type PhototabProps = {
+export interface PhototabProps {
   /** Array of tabs to display */
   tabs: PhototabTab[];
   /** Default selected tab name */
@@ -36,7 +36,7 @@ export type PhototabProps = {
   tabTriggerClassName?: string;
   /** Class name for image */
   imageClassName?: string;
-};
+}
 
 export default function Phototab({
   tabs,

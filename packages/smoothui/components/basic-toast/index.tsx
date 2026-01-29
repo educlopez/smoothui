@@ -7,14 +7,14 @@ import { createPortal } from "react-dom";
 
 export type ToastType = "success" | "error" | "info" | "warning";
 
-export type ToastProps = {
+export interface ToastProps {
   message: string;
   type?: ToastType;
   duration?: number;
   onClose?: () => void;
   isVisible?: boolean;
   className?: string;
-};
+}
 
 const toastIcons = {
   success: <CheckCircle className="h-5 w-5 text-emerald-500" />,

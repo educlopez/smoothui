@@ -6,9 +6,9 @@ import {
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
-type RegistryParams = {
+interface RegistryParams {
   params: Promise<{ component: string }>;
-};
+}
 
 const filteredPackages = ["shadcn-ui", "typescript-config", "patterns"];
 

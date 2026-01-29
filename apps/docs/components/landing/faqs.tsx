@@ -70,6 +70,7 @@ export function FAQ() {
   return (
     <section className="relative w-full bg-background px-8 py-24">
       <Script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data requires innerHTML
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqSchema),
         }}

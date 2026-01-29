@@ -11,7 +11,7 @@ const TAP_SCALE = 0.95;
 const DELAY_NEWSLETTER = 6;
 const DELAY_BOTTOM = 7;
 
-export type FooterMegaProps = {
+export interface FooterMegaProps {
   logo?: ReactNode;
   description?: string;
   columns?: Array<{
@@ -30,7 +30,7 @@ export type FooterMegaProps = {
     label: string;
   }>;
   copyright?: string;
-};
+}
 
 const defaultColumns = [
   {

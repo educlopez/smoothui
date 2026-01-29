@@ -2,14 +2,14 @@ import { getSponsorSVGComponent } from "@docs/lib/sponsor-svgs";
 import type { Sponsor } from "@docs/lib/sponsors";
 import Image from "next/image";
 
-type SponsorLogoProps = {
+interface SponsorLogoProps {
   sponsor: Sponsor;
   className?: string;
   width?: number;
   height?: number;
   style?: React.CSSProperties;
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
-};
+}
 
 export function SponsorLogo({
   sponsor,

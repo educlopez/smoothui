@@ -11,10 +11,10 @@ import { useRef } from "react";
 
 const KEY_PREFIX_LENGTH = 3;
 
-export type ScrollRevealParagraphProps = {
+export interface ScrollRevealParagraphProps {
   paragraph: string;
   className?: string;
-};
+}
 
 export default function ScrollRevealParagraph({
   paragraph,
@@ -47,11 +47,11 @@ export default function ScrollRevealParagraph({
   );
 }
 
-type WordProps = {
+interface WordProps {
   children: string;
   progress: MotionValue<number>;
   range: [number, number];
-};
+}
 
 const Word = ({ children, progress, range }: WordProps) => {
   const shouldReduceMotion = useReducedMotion();

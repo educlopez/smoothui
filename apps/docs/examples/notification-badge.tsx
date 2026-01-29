@@ -1,7 +1,7 @@
 "use client";
 
-import NotificationBadge from "@repo/smoothui/components/notification-badge";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
+import NotificationBadge from "@repo/smoothui/components/notification-badge";
 import { Bell } from "lucide-react";
 import { useState } from "react";
 
@@ -18,16 +18,16 @@ export default function NotificationBadgeDemo() {
 
       <div className="flex gap-2">
         <Button
-          variant="outline"
-          size="icon"
           onClick={() => setCount((c) => Math.max(0, c - 1))}
+          size="icon"
+          variant="outline"
         >
           −
         </Button>
         <Button
-          variant="outline"
-          size="icon"
           onClick={() => setCount((c) => c + 1)}
+          size="icon"
+          variant="outline"
         >
           +
         </Button>

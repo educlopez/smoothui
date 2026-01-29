@@ -6,14 +6,14 @@ import { motion, useReducedMotion } from "motion/react";
 import type { HTMLAttributes, ReactElement, ReactNode } from "react";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
-type AIBranchContextType = {
+interface AIBranchContextType {
   currentBranch: number;
   totalBranches: number;
   goToPrevious: () => void;
   goToNext: () => void;
   branches: ReactElement[];
   setBranches: (branches: ReactElement[]) => void;
-};
+}
 
 const AIBranchContext = createContext<AIBranchContextType | null>(null);
 
@@ -75,9 +75,9 @@ export const AIBranch = ({
   );
 };
 
-export type AIBranchMessagesProps = {
+export interface AIBranchMessagesProps {
   children: ReactElement | ReactElement[];
-};
+}
 
 export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
   const { currentBranch, setBranches, branches } = useAIBranch();
@@ -155,10 +155,10 @@ export const AIBranchSelector = ({
   );
 };
 
-export type AIBranchPreviousProps = {
+export interface AIBranchPreviousProps {
   className?: string;
   children?: ReactNode;
-};
+}
 
 export const AIBranchPrevious = ({
   className,
@@ -193,10 +193,10 @@ export const AIBranchPrevious = ({
   );
 };
 
-export type AIBranchNextProps = {
+export interface AIBranchNextProps {
   className?: string;
   children?: ReactNode;
-};
+}
 
 export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
   const { goToNext, totalBranches } = useAIBranch();
@@ -228,9 +228,9 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
   );
 };
 
-export type AIBranchPageProps = {
+export interface AIBranchPageProps {
   className?: string;
-};
+}
 
 export const AIBranchPage = ({ className }: AIBranchPageProps) => {
   const { currentBranch, totalBranches } = useAIBranch();
@@ -248,22 +248,22 @@ export const AIBranchPage = ({ className }: AIBranchPageProps) => {
 };
 
 // Updated type for conversation branches
-export type AIBranchData = {
+export interface AIBranchData {
   id: string;
   userMessage: string;
   aiResponse: string;
   timestamp: Date;
   isActive: boolean;
-};
+}
 
 // Export the type alias for backward compatibility
 export type AIBranch = AIBranchData;
 
-type LegacyAiBranchProps = {
+interface LegacyAiBranchProps {
   branches: AIBranchData[];
   onBranchSelect: (branchId: string) => void;
   className?: string;
-};
+}
 
 // Updated legacy component to show conversation branches
 export function LegacyAiBranch({

@@ -30,12 +30,16 @@ export function SidebarEnhancer({ recentPagesMap }: SidebarEnhancerProps) {
       for (const link of sidebarLinks) {
         const href = link.getAttribute("href");
 
-        if (!href) continue;
+        if (!href) {
+          continue;
+        }
 
         // Check if this URL is in our recent pages object
         if (href in recentPagesMap) {
           // Check if indicator already exists
-          if (link.querySelector("[data-recent-indicator]")) continue;
+          if (link.querySelector("[data-recent-indicator]")) {
+            continue;
+          }
 
           // Get modification label
           const modificationLabel = recentPagesMap[href] || "Recently updated";

@@ -6,11 +6,11 @@ import Divider from "./divider";
 import { LoadingDots } from "./loading-dots";
 import { MediaPlayer } from "./media-player";
 
-export type TestimonialMedia = {
+export interface TestimonialMedia {
   id: string;
   type: "twitter";
   url: string;
-};
+}
 
 const testimonials: TestimonialMedia[] = [
   // Add your testimonials here

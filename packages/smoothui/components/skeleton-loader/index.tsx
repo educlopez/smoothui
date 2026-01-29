@@ -3,20 +3,16 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import type { ReactNode } from "react";
 
-export type SkeletonProps = {
+export interface SkeletonProps {
   /** When true, shows skeleton effect. When false, shows children */
   loading?: boolean;
   /** Content to wrap - skeleton will match its dimensions */
   children?: ReactNode;
   /** Additional classes */
   className?: string;
-};
+}
 
-const Skeleton = ({
-  loading = true,
-  children,
-  className,
-}: SkeletonProps) => {
+const Skeleton = ({ loading = true, children, className }: SkeletonProps) => {
   // If not loading and has children, just render children
   if (!loading && children) {
     return <>{children}</>;
@@ -34,8 +30,8 @@ const Skeleton = ({
         <div className="invisible">{children}</div>
         {/* Skeleton overlay that matches children's dimensions */}
         <div
-          className="absolute inset-0 animate-pulse rounded-[inherit] bg-muted-foreground/20"
           aria-hidden="true"
+          className="absolute inset-0 animate-pulse rounded-[inherit] bg-muted-foreground/20"
         />
       </div>
     );

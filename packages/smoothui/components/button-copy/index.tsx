@@ -4,7 +4,7 @@ import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useState } from "react";
 
-export type ButtonCopyProps = {
+export interface ButtonCopyProps {
   onCopy?: () => Promise<void> | void;
   idleIcon?: ReactNode;
   loadingIcon?: ReactNode;
@@ -13,7 +13,7 @@ export type ButtonCopyProps = {
   duration?: number;
   loadingDuration?: number;
   disabled?: boolean;
-};
+}
 
 const defaultIcons = {
   idle: <Copy size={16} />,

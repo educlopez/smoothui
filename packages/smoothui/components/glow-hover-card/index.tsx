@@ -12,24 +12,24 @@ import {
   useState,
 } from "react";
 
-export type GlowHoverTheme = {
+export interface GlowHoverTheme {
   hue: number;
   saturation: number;
   lightness: number;
-};
+}
 
-export type GlowHoverItem = {
+export interface GlowHoverItem {
   id: string;
   element: ReactElement;
   theme?: GlowHoverTheme;
-};
+}
 
-export type GlowHoverProps = {
+export interface GlowHoverProps {
   items: GlowHoverItem[];
   className?: string;
   maskSize?: number;
   glowIntensity?: number;
-};
+}
 
 // Legacy types for backward compatibility
 export type GlowHoverCardTheme = GlowHoverTheme;
@@ -55,7 +55,9 @@ export default function GlowHover({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || shouldReduceMotion) return;
+    if (!container || shouldReduceMotion) {
+      return;
+    }
 
     const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
@@ -85,17 +87,22 @@ export default function GlowHover({
 
   // Sync overlay card sizes and positions with original cards
   useEffect(() => {
-    if (shouldReduceMotion || !overlayRef.current || !containerRef.current)
+    if (shouldReduceMotion || !overlayRef.current || !containerRef.current) {
       return;
+    }
 
     const syncCards = () => {
       const container = containerRef.current;
       const overlay = overlayRef.current;
-      if (!(container && overlay)) return;
+      if (!(container && overlay)) {
+        return;
+      }
 
       itemRefs.current.forEach((itemEl, index) => {
         const overlayItemEl = overlayItemRefs.current[index];
-        if (!(itemEl && overlayItemEl)) return;
+        if (!(itemEl && overlayItemEl)) {
+          return;
+        }
 
         const itemRect = itemEl.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
@@ -116,8 +123,10 @@ export default function GlowHover({
     const mutationObserver = new MutationObserver(syncCards);
 
     // Sync on resize
-    itemRefs.current.forEach((itemEl) => {
-      if (!itemEl) return;
+    for (const itemEl of itemRefs.current) {
+      if (!itemEl) {
+        continue;
+      }
 
       const observer = new ResizeObserver(() => {
         syncCards();
@@ -125,7 +134,7 @@ export default function GlowHover({
 
       observer.observe(itemEl);
       observers.push(observer);
-    });
+    }
 
     // Sync on DOM mutations
     if (containerRef.current) {
@@ -144,12 +153,14 @@ export default function GlowHover({
     window.addEventListener("resize", syncCards);
 
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      for (const observer of observers) {
+        observer.disconnect();
+      }
       mutationObserver.disconnect();
       window.removeEventListener("scroll", syncCards);
       window.removeEventListener("resize", syncCards);
     };
-  }, [items, shouldReduceMotion]);
+  }, [shouldReduceMotion]);
 
   // Apply glow effect styles to an element
   const applyGlowStyles = (
@@ -157,7 +168,9 @@ export default function GlowHover({
     theme?: GlowHoverTheme,
     isOverlay = false
   ): ReactElement => {
-    if (!isOverlay) return element;
+    if (!isOverlay) {
+      return element;
+    }
 
     const props = element.props as {
       style?: CSSProperties;
@@ -198,6 +211,7 @@ export default function GlowHover({
       ...props,
       style: mergedStyle,
       className: cn(existingClassName, "glow-overlay-item"),
+      // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
     } as any);
   };
 
@@ -209,8 +223,8 @@ export default function GlowHover({
     >
       {/* Original Items */}
       <div className="contents">
-        {items.map((item, index) => {
-          return cloneElement(item.element, {
+        {items.map((item, index) =>
+          cloneElement(item.element, {
             key: item.id,
             ref: (el: HTMLElement | null) => {
               itemRefs.current[index] = el;
@@ -225,8 +239,9 @@ export default function GlowHover({
                 (existingRef as { current: HTMLElement | null }).current = el;
               }
             },
-          } as any);
-        })}
+            // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
+          } as any)
+        )}
       </div>
 
       {/* Overlay with Glow Effect */}
@@ -251,6 +266,7 @@ export default function GlowHover({
               ref: (el: HTMLElement | null) => {
                 overlayItemRefs.current[index] = el;
               },
+              // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
             } as any);
           })}
         </div>

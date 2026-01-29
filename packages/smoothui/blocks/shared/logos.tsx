@@ -147,7 +147,7 @@ function Casetext() {
   );
 }
 
-function Classdojo() {
+function _Classdojo() {
   return (
     <svg
       fill="none"
@@ -450,7 +450,7 @@ function Faire() {
   );
 }
 
-function Gainsight() {
+function _Gainsight() {
   return (
     <svg
       fill="none"
@@ -549,7 +549,7 @@ function Gainsight() {
   );
 }
 
-function Handshake() {
+function _Handshake() {
   return (
     <svg
       fill="none"

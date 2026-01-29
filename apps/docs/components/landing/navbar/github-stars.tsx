@@ -5,19 +5,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
-type GithubInfoProps = {
+interface GithubInfoProps {
   owner?: string;
   repo?: string;
   className?: string;
   showForks?: boolean;
-};
+}
 
-type GitHubData = {
+interface GitHubData {
   stars: number;
   forks: number;
   name: string;
   url: string;
-};
+}
 
 export function GithubStars({
   owner = "educlopez",

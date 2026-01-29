@@ -1,12 +1,12 @@
 import { cache } from "react";
 
-export type ContributorInfo = {
+export interface ContributorInfo {
   name: string;
   email: string;
   url?: string;
   username?: string;
   avatar?: string;
-};
+}
 
 // Cache for contributors (key: owner/repo/filePath, value: contributors)
 const contributorsCache = new Map<string, ContributorInfo[]>();
@@ -113,21 +113,21 @@ function parseLinkHeader(linkHeader: string | null): {
   return links;
 }
 
-type CommitItem = {
+interface CommitItem {
   author: { login: string; avatar_url: string; html_url: string } | null;
   commit: {
     author: { name: string; email: string } | null;
   };
-};
+}
 
-type FetchCommitsPageOptions = {
+interface FetchCommitsPageOptions {
   owner: string;
   repo: string;
   filePath: string;
   page: number;
   perPage: number;
   headers: HeadersInit;
-};
+}
 
 /**
  * Fetch a single page of commits from GitHub API
@@ -350,6 +350,6 @@ export const getComponentContributors = cache(
         ? `packages/smoothui/components/${name}/index.tsx`
         : `packages/smoothui/blocks/${name}/index.tsx`;
 
-    return getGitHubContributors(owner, repo, filePath, token);
+    return await getGitHubContributors(owner, repo, filePath, token);
   }
 );

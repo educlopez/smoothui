@@ -38,8 +38,6 @@
 .cell:nth-child(1) {
   border-right: 1px solid var(--color-smooth-200);
 }
-.cell:nth-child(2) {
-}
 .cell:nth-child(3) {
   border-top: 1px solid var(--color-smooth-200);
   border-right: 1px solid var(--color-smooth-200);

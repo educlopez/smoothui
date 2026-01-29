@@ -180,14 +180,14 @@ const MusicPlayer = () => {
 
 type View = "idle" | "ring" | "timer" | "notification" | "music";
 
-export type DynamicIslandProps = {
+export interface DynamicIslandProps {
   view?: View;
   onViewChange?: (view: View) => void;
   idleContent?: ReactNode;
   ringContent?: ReactNode;
   timerContent?: ReactNode;
   className?: string;
-};
+}
 
 export default function DynamicIsland({
   view: controlledView,

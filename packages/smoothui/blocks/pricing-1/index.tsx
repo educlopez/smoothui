@@ -4,10 +4,10 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-type PriceFlowProps = {
+interface PriceFlowProps {
   value: number;
   className?: string;
-};
+}
 
 function PriceFlow({ value, className = "" }: PriceFlowProps) {
   const [prevValue, setPrevValue] = useState(value);

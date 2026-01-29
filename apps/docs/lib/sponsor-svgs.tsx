@@ -33,12 +33,12 @@
  * ```
  */
 
-type SVGLogoProps = {
+interface SVGLogoProps {
   className?: string;
   width?: number;
   height?: number;
   style?: React.CSSProperties;
-};
+}
 
 function ShadcnblocksLogo({
   className = "",

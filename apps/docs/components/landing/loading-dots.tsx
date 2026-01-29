@@ -33,7 +33,9 @@ export function LoadingDots({
   const [messageIndex, setMessageIndex] = useState(0);
 
   useEffect(() => {
-    if (!showText) return;
+    if (!showText) {
+      return;
+    }
 
     const interval = setInterval(() => {
       setMessageIndex((prev) => (prev + 1) % funnyMessages.length);

@@ -6,10 +6,10 @@ import { useEffect, useRef, useState } from "react";
 
 const CARD_ANIMATION_DELAY = 0.1;
 
-type PriceFlowProps = {
+interface PriceFlowProps {
   value: number;
   className?: string;
-};
+}
 
 function PriceFlow({ value, className = "" }: PriceFlowProps) {
   const [prevValue, setPrevValue] = useState(value);

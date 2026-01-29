@@ -12,8 +12,7 @@ interface RecentIndicatorProps {
  */
 export function RecentIndicator({ className, tooltip }: RecentIndicatorProps) {
   return (
-    <span
-      aria-label={tooltip}
+    <output
       className={cn("relative ml-auto flex h-2 w-2", className)}
       title={tooltip}
     >
@@ -21,6 +20,6 @@ export function RecentIndicator({ className, tooltip }: RecentIndicatorProps) {
       <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-light opacity-75 duration-1000" />
       {/* Solid dot */}
       <span className="relative inline-flex h-2 w-2 rounded-full bg-brand" />
-    </span>
+    </output>
   );
 }

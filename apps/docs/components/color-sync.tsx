@@ -8,10 +8,10 @@ import {
   resetColorPalette,
 } from "@/app/lib/color-palette";
 
-type StoredPalette = {
+interface StoredPalette {
   candy?: string;
   candySecondary?: string;
-};
+}
 
 function applyFromStorageValue(value: string | null) {
   if (!value) {

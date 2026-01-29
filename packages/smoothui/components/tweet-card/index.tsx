@@ -32,7 +32,9 @@ const ExternalLink = ({ className, ...props }: IconProps) => (
 );
 
 export const truncate = (str: string | null, length: number) => {
-  if (!str || str.length <= length) return str;
+  if (!str || str.length <= length) {
+    return str;
+  }
   return `${str.slice(0, length - 3)}...`;
 };
 
@@ -137,12 +139,15 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
             return (
               <span
                 className="text-foreground"
+                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized with DOMPurify
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(entity.text),
                 }}
                 key={idx}
               />
             );
+          default:
+            return null;
         }
       })}
     </p>
@@ -159,7 +164,9 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
     // @ts-expect-error package doesn't have type definitions
     tweet?.card?.binding_values?.thumbnail_image_large?.image_value.url;
 
-  if (!(hasVideo || hasPhotos || hasCardThumbnail)) return null;
+  if (!(hasVideo || hasPhotos || hasCardThumbnail)) {
+    return null;
+  }
 
   return (
     <div className="flex w-full flex-col gap-2">
@@ -189,7 +196,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                   height={photos[0].height}
                   key={photos[0].url}
                   src={photos[0].url}
-                  title={"Photo by " + tweet.user.name}
+                  title={`Photo by ${tweet.user.name}`}
                   width={photos[0].width}
                 />
               )}
@@ -202,7 +209,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                       height={photo.height}
                       key={photo.url}
                       src={photo.url}
-                      title={"Photo by " + tweet.user.name}
+                      title={`Photo by ${tweet.user.name}`}
                       width={photo.width}
                     />
                   ))}
@@ -220,7 +227,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                       height={photo.height}
                       key={photo.url}
                       src={photo.url}
-                      title={"Photo by " + tweet.user.name}
+                      title={`Photo by ${tweet.user.name}`}
                       width={photo.width}
                     />
                   ))}

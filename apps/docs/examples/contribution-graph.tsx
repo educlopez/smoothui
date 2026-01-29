@@ -32,9 +32,9 @@ const generateSampleData = (year: number): ContributionData[] => {
 };
 
 export function ContributionGraphDemo() {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [showLegend, setShowLegend] = useState(true);
-  const [showTooltips, setShowTooltips] = useState(true);
+  const [year, _setYear] = useState(new Date().getFullYear());
+  const [showLegend, _setShowLegend] = useState(true);
+  const [showTooltips, _setShowTooltips] = useState(true);
 
   const sampleData = useMemo(() => generateSampleData(year), [year]);
 

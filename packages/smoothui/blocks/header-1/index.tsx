@@ -54,7 +54,11 @@ function SubGrid() {
   // Cleanup on unmount
   useEffect(
     () => () => {
-      leaveTimeouts.current.forEach((t) => t && clearTimeout(t));
+      for (const t of leaveTimeouts.current) {
+        if (t) {
+          clearTimeout(t);
+        }
+      }
     },
     []
   );

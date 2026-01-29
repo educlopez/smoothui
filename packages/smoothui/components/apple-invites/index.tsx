@@ -5,14 +5,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { wrap } from "popmotion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-export type ResponsiveSize = {
+export interface ResponsiveSize {
   base?: number | string;
   sm?: number | string;
   md?: number | string;
   lg?: number | string;
   xl?: number | string;
   "2xl"?: number | string;
-};
+}
 
 const breakpoints = {
   sm: 640,
@@ -149,11 +149,11 @@ function calculateHeightFromWidth(width: string, aspectRatio: number): string {
   return `${heightNum}px`;
 }
 
-export type Participant = {
+export interface Participant {
   avatar: string;
-};
+}
 
-export type Event = {
+export interface Event {
   id: number;
   title?: string;
   subtitle?: string;
@@ -162,9 +162,9 @@ export type Event = {
   badge?: string;
   participants?: Participant[];
   backgroundClassName?: string;
-};
+}
 
-export type AppleInvitesProps = {
+export interface AppleInvitesProps {
   events: Event[];
   interval?: number;
   className?: string;
@@ -174,7 +174,7 @@ export type AppleInvitesProps = {
   cardWidth?: number | string | ResponsiveSize;
   cardHeight?: number | string | ResponsiveSize;
   aspectRatio?: number;
-};
+}
 
 export default function AppleInvites({
   events,

@@ -12,12 +12,12 @@ const TRANSITION_TIMEOUT = 1500;
 const AVATAR_SIZE = 160;
 const STAGGER_DELAY = 0.1;
 
-type TeamCarouselProps = {
+interface TeamCarouselProps {
   title?: string;
   subtitle?: string;
   description?: string;
   members?: Person[];
-};
+}
 
 export function TeamCarousel({
   title = "Tech Pioneers",

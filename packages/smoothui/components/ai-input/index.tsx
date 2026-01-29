@@ -17,12 +17,12 @@ const SPRING_DAMPING = 45;
 const SPRING_MASS = 0.7;
 const CLOSE_DELAY = 0.08;
 
-type FooterContext = {
+interface FooterContext {
   showFeedback: boolean;
   success: boolean;
   openFeedback: () => void;
   closeFeedback: () => void;
-};
+}
 
 const FooterContext = React.createContext({} as FooterContext);
 const useFooter = () => React.useContext(FooterContext);

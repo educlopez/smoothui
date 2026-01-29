@@ -4,19 +4,19 @@ import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { useMemo, useState } from "react";
 
-export type ContributionData = {
+export interface ContributionData {
   date: string;
   count: number;
   level: number;
-};
+}
 
-export type ContributionGraphProps = {
+export interface ContributionGraphProps {
   data?: ContributionData[];
   year?: number;
   className?: string;
   showLegend?: boolean;
   showTooltips?: boolean;
-};
+}
 
 const WEEKS_IN_YEAR = 53;
 const DAYS_IN_WEEK = 7;
@@ -94,13 +94,13 @@ const createDayData = (
 };
 
 // Helper function to check if month should be shown
-type MonthHeaderCheck = {
+interface MonthHeaderCheck {
   currentYear: number;
   targetYear: number;
   currentMonth: number;
   startDateDay: number;
   weekCount: number;
-};
+}
 const shouldShowMonthHeader = ({
   currentYear,
   targetYear,
@@ -299,7 +299,6 @@ export function ContributionGraph({
                 </td>
 
                 {/* Day Cells */}
-                {/* biome-ignore lint/nursery/noShadow: False positive - w is a different variable from dayIndex */}
                 {Array.from({ length: WEEKS_IN_YEAR }, (_, w) => {
                   const dayData = yearData[w * DAYS_IN_WEEK + dayIndex];
                   const cellKey = `${dayData?.date ?? "empty"}-${w}-${dayIndex}`;

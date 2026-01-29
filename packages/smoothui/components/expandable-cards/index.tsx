@@ -4,11 +4,11 @@ import { Play } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const AVATAR_SIZE = 96;
+const _AVATAR_SIZE = 96;
 // ease-out-quint for entering/exiting elements
 const EASE_OUT_QUINT = [0.23, 1, 0.32, 1] as const;
 
-export type Card = {
+export interface Card {
   id: number;
   title: string;
   image: string;
@@ -18,15 +18,15 @@ export type Card = {
     role: string;
     image: string;
   };
-};
+}
 
-export type ExpandableCardsProps = {
+export interface ExpandableCardsProps {
   cards: Card[];
   selectedCard?: number | null;
   onSelect?: (id: number | null) => void;
   className?: string;
   cardClassName?: string;
-};
+}
 
 export default function ExpandableCards({
   cards,

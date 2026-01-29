@@ -14,13 +14,13 @@ const SLIDE_THRESHOLD = 160;
 const SLIDE_MAX_DISTANCE = 168;
 const PERCENTAGE_MULTIPLIER = 100;
 
-export type PowerOffSlideProps = {
+export interface PowerOffSlideProps {
   onPowerOff?: () => void;
   label?: string;
   className?: string;
   duration?: number;
   disabled?: boolean;
-};
+}
 
 export default function PowerOffSlide({
   onPowerOff,
@@ -37,7 +37,9 @@ export default function PowerOffSlide({
   const shouldReduceMotion = useReducedMotion();
 
   useAnimationFrame((t) => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion) {
+      return;
+    }
     const animDuration = duration;
     const progress = (t % animDuration) / animDuration;
     if (textRef.current) {

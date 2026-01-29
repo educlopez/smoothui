@@ -6,13 +6,13 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
-export type BasicModalProps = {
+export interface BasicModalProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
   children: React.ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "full";
-};
+}
 
 const modalSizes = {
   sm: "max-w-sm",
@@ -63,7 +63,9 @@ export default function BasicModal({
 
   // Close on Escape key press and focus trap
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -78,7 +80,7 @@ export default function BasicModal({
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           );
         const firstElement = focusableElements[0];
-        const lastElement = focusableElements[focusableElements.length - 1];
+        const lastElement = focusableElements.at(-1);
 
         if (e.shiftKey) {
           // Shift + Tab
@@ -86,12 +88,10 @@ export default function BasicModal({
             e.preventDefault();
             lastElement?.focus();
           }
-        } else {
+        } else if (document.activeElement === lastElement) {
           // Tab
-          if (document.activeElement === lastElement) {
-            e.preventDefault();
-            firstElement?.focus();
-          }
+          e.preventDefault();
+          firstElement?.focus();
         }
       }
     };

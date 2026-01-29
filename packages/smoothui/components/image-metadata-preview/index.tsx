@@ -5,21 +5,21 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
-export type ImageMetadata = {
+export interface ImageMetadata {
   created: string;
   updated: string;
   by: string;
   source: string;
-};
+}
 
-export type ImageMetadataPreviewProps = {
+export interface ImageMetadataPreviewProps {
   imageSrc: string;
   alt?: string;
   filename?: string;
   description?: string;
   metadata: ImageMetadata;
   onShare?: () => void;
-};
+}
 
 export default function ImageMetadataPreview({
   imageSrc,

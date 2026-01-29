@@ -8,11 +8,11 @@ const DEFAULT_MEMBER_COUNT = 4;
 const AVATAR_SIZE = 400;
 const STAGGER_DELAY = 0.1;
 
-type TeamGridProps = {
+interface TeamGridProps {
   title?: string;
   description?: string;
   members?: Person[];
-};
+}
 
 export function TeamGrid({
   title = "Our team",

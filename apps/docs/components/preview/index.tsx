@@ -4,11 +4,11 @@ import { dirname, extname, join, relative, resolve } from "node:path";
 import { PreviewRender } from "./render";
 import { PreviewShell } from "./shell";
 
-type PreviewProps = {
+interface PreviewProps {
   path: string;
   className?: string;
   type?: "component" | "block";
-};
+}
 
 const SHARED_IMPORT_REGEX =
   /import\s+\{([^}]+)\}\s+from\s+["']\.\.\/shared["']/;
@@ -74,14 +74,17 @@ async function addSharedComponents(
   }
 }
 
-type SourceComponent = { name: string; source: string };
+interface SourceComponent {
+  name: string;
+  source: string;
+}
 
-type GatherSourceArgs = {
+interface GatherSourceArgs {
   code: string;
   parsedCode: string;
   type: "component" | "block";
   path: string;
-};
+}
 
 const stripExtension = (value: string) =>
   value.replace(FILE_EXTENSION_REGEX, "");

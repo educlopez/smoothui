@@ -5,10 +5,10 @@ import type { Sponsor, SponsorTier } from "@docs/lib/sponsors";
 import { Zap } from "lucide-react";
 import Link from "next/link";
 
-type SponsorCardProps = {
+interface SponsorCardProps {
   sponsor: Sponsor;
   tier?: SponsorTier;
-};
+}
 
 export function SponsorCard({ sponsor, tier }: SponsorCardProps) {
   const isVelocity = tier === "velocity" || sponsor.tier === "velocity";

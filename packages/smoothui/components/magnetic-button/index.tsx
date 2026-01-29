@@ -89,7 +89,9 @@ const MagneticButton = ({
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
-      if (isEffectDisabled || !buttonRef.current) return;
+      if (isEffectDisabled || !buttonRef.current) {
+        return;
+      }
 
       const rect = buttonRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
@@ -121,11 +123,13 @@ const MagneticButton = ({
   const Comp = asChild ? Slot : "button";
 
   return (
+    // biome-ignore lint/a11y/noStaticElementInteractions: Mouse events are for visual effect, not interaction
     <div
       className="inline-block"
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
       ref={wrapperRef}
+      role="presentation"
       style={{
         padding: `${radius / 2}px`,
         margin: `-${radius / 2}px`,

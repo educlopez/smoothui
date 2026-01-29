@@ -11,13 +11,13 @@ const COUNTDOWN_DURATION = 2000;
 const AVATAR_COUNT = 5;
 const STAGGER_DELAY = 0.05;
 
-export type Stargazer = {
+export interface Stargazer {
   login: string;
   avatar_url: string;
   html_url: string;
-};
+}
 
-export type GitHubStarsAnimationProps = {
+export interface GitHubStarsAnimationProps {
   owner?: string;
   repo?: string;
   stargazers?: Stargazer[];
@@ -28,7 +28,7 @@ export type GitHubStarsAnimationProps = {
   countClassName?: string;
   showAvatars?: boolean;
   maxAvatars?: number;
-};
+}
 
 export default function GitHubStarsAnimation({
   owner = "educlopez",

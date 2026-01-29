@@ -7,21 +7,21 @@ import { createPortal } from "react-dom";
 
 const ROTATION_ANGLE_OPEN = 180;
 
-export type SearchableDropdownItem = {
+export interface SearchableDropdownItem {
   id: string | number;
   label: string;
   icon?: React.ReactNode;
   description?: string;
-};
+}
 
-export type SearchableDropdownProps = {
+export interface SearchableDropdownProps {
   label: string;
   items: SearchableDropdownItem[];
   onChange?: (item: SearchableDropdownItem) => void;
   placeholder?: string;
   emptyMessage?: string;
   className?: string;
-};
+}
 
 export default function SearchableDropdown({
   label,
@@ -44,7 +44,9 @@ export default function SearchableDropdown({
 
   const filteredItems = useMemo(() => {
     const trimmedQuery = searchQuery.trim();
-    if (!trimmedQuery) return items;
+    if (!trimmedQuery) {
+      return items;
+    }
 
     // Cache lowercase query to avoid repeated calls
     const query = trimmedQuery.toLowerCase();
@@ -57,10 +59,7 @@ export default function SearchableDropdown({
       const label = item.label.toLowerCase();
       const description = item.description?.toLowerCase();
 
-      if (
-        label.includes(query) ||
-        (description && description.includes(query))
-      ) {
+      if (label.includes(query) || description?.includes(query)) {
         results.push(item);
       }
     }
@@ -99,7 +98,9 @@ export default function SearchableDropdown({
 
   // Update position on scroll/resize when open
   useEffect(() => {
-    if (!(isOpen && buttonRef.current)) return;
+    if (!(isOpen && buttonRef.current)) {
+      return;
+    }
 
     const updatePosition = () => {
       if (buttonRef.current) {
@@ -194,12 +195,13 @@ export default function SearchableDropdown({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, filteredItems, focusedIndex]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Handlers are stable via closure
+  }, [isOpen, filteredItems, focusedIndex, handleItemSelect, handleToggle]);
 
   // Reset focused index when items change
   useEffect(() => {
     setFocusedIndex(-1);
-  }, [filteredItems.length, searchQuery]);
+  }, []);
 
   const dropdownContent = (
     <AnimatePresence>
@@ -279,6 +281,7 @@ export default function SearchableDropdown({
                   }}
                   placeholder={placeholder}
                   ref={inputRef}
+                  role="combobox"
                   type="text"
                   value={searchQuery}
                 />
@@ -310,7 +313,6 @@ export default function SearchableDropdown({
               aria-label="Dropdown options"
               className="max-h-60 overflow-y-auto py-2"
               id="dropdown-items"
-              role="listbox"
             >
               <AnimatePresence mode="popLayout">
                 {filteredItems.length > 0 ? (

@@ -10,26 +10,26 @@ import { Eye, Package, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
-export type UserData = {
+export interface UserData {
   name: string;
   email: string;
   avatar: string;
-};
+}
 
-export type Order = {
+export interface Order {
   id: string;
   date: string;
   status: "processing" | "shipped" | "delivered";
   progress: number;
-};
+}
 
-export type UserAccountAvatarProps = {
+export interface UserAccountAvatarProps {
   user: UserData;
   orders?: Order[];
   onProfileSave?: (user: UserData) => void;
   onOrderView?: (orderId: string) => void;
   className?: string;
-};
+}
 
 const mockOrders: Order[] = [
   { id: "ORD001", date: "2023-03-15", status: "delivered", progress: 100 },

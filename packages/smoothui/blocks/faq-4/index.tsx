@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
-export type FaqCategorizedProps = {
+export interface FaqCategorizedProps {
   title?: string;
   description?: string;
   categories?: Array<{
@@ -14,7 +14,7 @@ export type FaqCategorizedProps = {
       answer: string;
     }>;
   }>;
-};
+}
 
 const defaultCategories = [
   {

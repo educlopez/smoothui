@@ -80,11 +80,13 @@ function LogoContextMenuPopup() {
 
   const isOpen = context?.isOpen ?? false;
   const position = context?.position ?? { x: 0, y: 0 };
-  const closeMenu = context?.closeMenu ?? (() => {});
+  const closeMenu = context?.closeMenu ?? (() => undefined);
 
   // Close menu when clicking outside
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleClickOutside = (e: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
@@ -107,7 +109,9 @@ function LogoContextMenuPopup() {
     };
   }, [isOpen, closeMenu]);
 
-  if (!(mounted && context)) return null;
+  if (!(mounted && context)) {
+    return null;
+  }
 
   const handleMenuClick = (e: React.MouseEvent) => {
     e.preventDefault();

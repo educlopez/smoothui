@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
-export type NotificationBadgeProps = {
+export interface NotificationBadgeProps {
   variant?: "dot" | "count" | "status";
   count?: number;
   max?: number;
@@ -15,7 +15,7 @@ export type NotificationBadgeProps = {
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
   children?: ReactNode;
   className?: string;
-};
+}
 
 const statusColors = {
   online: "bg-emerald-500",
@@ -54,14 +54,14 @@ const AnimatedCount = ({
 
   return (
     <span className="relative overflow-hidden font-medium leading-none">
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence initial={false} mode="popLayout">
         <motion.span
-          key={value}
-          initial={{ y: direction * 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: direction * -12, opacity: 0 }}
-          transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
           className="inline-block"
+          exit={{ y: direction * -12, opacity: 0 }}
+          initial={{ y: direction * 12, opacity: 0 }}
+          key={value}
+          transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
         >
           {displayValue}
         </motion.span>
@@ -93,16 +93,26 @@ const NotificationBadge = ({
   }, [variant, count, showZero]);
 
   const getBadgeClasses = () => {
-    if (variant === "dot") return "h-2.5 w-2.5";
-    if (variant === "status") return "h-3 w-3";
+    if (variant === "dot") {
+      return "h-2.5 w-2.5";
+    }
+    if (variant === "status") {
+      return "h-3 w-3";
+    }
     const displayValue = count > max ? `${max}+` : count.toString();
-    if (displayValue.length === 1) return "h-5 w-5 text-xs";
-    if (displayValue.length === 2) return "h-5 min-w-5 px-1 text-xs";
+    if (displayValue.length === 1) {
+      return "h-5 w-5 text-xs";
+    }
+    if (displayValue.length === 2) {
+      return "h-5 min-w-5 px-1 text-xs";
+    }
     return "h-5 min-w-6 px-1 text-xs";
   };
 
   const getBackgroundColor = () => {
-    if (variant === "status") return statusColors[status];
+    if (variant === "status") {
+      return statusColors[status];
+    }
     return "bg-brand";
   };
 
@@ -110,18 +120,7 @@ const NotificationBadge = ({
     <AnimatePresence mode="wait">
       {isVisible && (
         <motion.span
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={
-            shouldReduceMotion
-              ? { opacity: 0, transition: { duration: 0 } }
-              : { opacity: 0, scale: 0, transition: { duration: 0.15 } }
-          }
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { type: "spring", duration: 0.25, bounce: 0.2 }
-          }
           className={cn(
             "absolute flex items-center justify-center rounded-full text-white",
             getBackgroundColor(),
@@ -130,12 +129,25 @@ const NotificationBadge = ({
             variant === "status" && "ring-2 ring-white dark:ring-gray-900",
             className
           )}
+          exit={
+            shouldReduceMotion
+              ? { opacity: 0, transition: { duration: 0 } }
+              : { opacity: 0, scale: 0, transition: { duration: 0.15 } }
+          }
+          initial={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0 }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { type: "spring", duration: 0.25, bounce: 0.2 }
+          }
         >
           {variant === "count" && (
             <AnimatedCount
-              value={count}
               max={max}
               shouldReduceMotion={shouldReduceMotion}
+              value={count}
             />
           )}
 

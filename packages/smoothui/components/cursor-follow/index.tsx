@@ -9,12 +9,12 @@ import {
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { useCursorPosition } from "./useCursorPosition";
+import { useCursorPosition } from "./use-cursor-position";
 
-export type CursorFollowProps = {
+export interface CursorFollowProps {
   children: React.ReactNode;
   className?: string;
-};
+}
 
 const CIRCLE_SIZE = 16;
 const MIN_BUBBLE_WIDTH = 40;

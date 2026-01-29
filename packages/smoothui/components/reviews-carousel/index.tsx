@@ -12,19 +12,19 @@ function clamp(val: number, [min, max]: [number, number]): number {
   return Math.min(Math.max(val, min), max);
 }
 
-export type Review = {
+export interface Review {
   id: string | number;
   body: string;
   author: string;
   title: string;
-};
+}
 
-type ReviewCardProps = {
+interface ReviewCardProps {
   review: Review;
   index: number;
   activeIndex: number;
   totalCards: number;
-};
+}
 
 function ReviewCard({
   review,
@@ -100,11 +100,11 @@ function ReviewCard({
   );
 }
 
-type NavigationButtonProps = {
+interface NavigationButtonProps {
   direction: "prev" | "next";
   onClick: () => void;
   disabled: boolean;
-};
+}
 
 function NavigationButton({
   direction,
@@ -137,7 +137,7 @@ function NavigationButton({
   );
 }
 
-export type ReviewsCarouselProps = {
+export interface ReviewsCarouselProps {
   reviews: Review[];
   className?: string;
   height?: string;
@@ -146,7 +146,7 @@ export type ReviewsCarouselProps = {
   showNavigation?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
-};
+}
 
 export default function ReviewsCarousel({
   reviews,
@@ -160,7 +160,9 @@ export default function ReviewsCarousel({
 }: ReviewsCarouselProps) {
   // Filter out excluded reviews - use Set for O(1) lookups
   const filteredReviews = useMemo(() => {
-    if (excludeIds.length === 0) return reviews;
+    if (excludeIds.length === 0) {
+      return reviews;
+    }
 
     const excludeSet = new Set(excludeIds);
     const reviewsLength = reviews.length;

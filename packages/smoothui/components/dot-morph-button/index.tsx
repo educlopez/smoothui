@@ -4,11 +4,11 @@ import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
-export type DotMorphButtonProps = {
+export interface DotMorphButtonProps {
   label: string;
   className?: string;
   onClick?: () => void;
-};
+}
 
 export function DotMorphButton({
   label,
@@ -36,7 +36,9 @@ export function DotMorphButton({
       className={`flex items-center gap-3 rounded-full border bg-background ${className}`}
       onClick={onClick}
       onMouseEnter={() => {
-        if (isHoverDevice) setIsHovered(true);
+        if (isHoverDevice) {
+          setIsHovered(true);
+        }
       }}
       onMouseLeave={() => setIsHovered(false)}
       type="button"

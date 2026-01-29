@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
-export type InfiniteSliderProps = {
+export interface InfiniteSliderProps {
   children: React.ReactNode;
   gap?: number;
   speed?: number;
@@ -18,7 +18,7 @@ export type InfiniteSliderProps = {
   direction?: "horizontal" | "vertical";
   reverse?: boolean;
   className?: string;
-};
+}
 
 export default function InfiniteSlider({
   children,
@@ -33,7 +33,7 @@ export default function InfiniteSlider({
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [key, setKey] = useState(0);
+  const [_key, setKey] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -82,7 +82,6 @@ export default function InfiniteSlider({
 
     return controls?.stop;
   }, [
-    key,
     translation,
     currentSpeed,
     width,

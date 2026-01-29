@@ -12,7 +12,9 @@ export function isRecentlyModified(
   lastModified: number | undefined,
   daysThreshold = 7
 ): boolean {
-  if (!lastModified) return false;
+  if (!lastModified) {
+    return false;
+  }
 
   const now = Date.now();
   const diffInDays = (now - lastModified) / (1000 * 60 * 60 * 24);

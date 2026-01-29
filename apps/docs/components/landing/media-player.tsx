@@ -8,10 +8,12 @@ interface MediaPlayerProps {
   media: TestimonialMedia;
 }
 
+// Regex for extracting tweet ID - defined at top level for performance
+const TWITTER_URL_REGEX = /(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)/;
+
 // Extract Twitter/X tweet ID from URL
 function getTwitterId(url: string): string | null {
-  // Match both twitter.com and x.com URLs
-  const match = url.match(/(?:twitter\.com|x\.com)\/\w+\/status\/(\d+)/);
+  const match = url.match(TWITTER_URL_REGEX);
   return match ? match[1] : null;
 }
 

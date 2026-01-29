@@ -117,7 +117,7 @@ export default function Navbar({ className }: { className?: string }) {
                   </EnhancedListItem>
                 </div>
                 <Link
-                  className="mt-4 flex items-center gap-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
                   href="/docs/components"
                 >
                   Explore all components
@@ -181,7 +181,7 @@ export default function Navbar({ className }: { className?: string }) {
                   </EnhancedListItem>
                 </div>
                 <Link
-                  className="mt-4 flex items-center gap-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
                   href="/docs/blocks"
                 >
                   Explore all blocks

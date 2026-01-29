@@ -189,14 +189,15 @@ export function ColorPickerFloatNav() {
             <div className="mb-2 flex flex-row gap-3">
               {PALETTES.map((palette) => (
                 <motion.button
-                  animate={
-                    palette.candy === candy &&
-                    palette.candySecondary === candySecondary
-                      ? shouldReduceMotion
-                        ? {}
-                        : { scale: 1.12 }
-                      : { scale: 1 }
-                  }
+                  animate={(() => {
+                    const isSelected =
+                      palette.candy === candy &&
+                      palette.candySecondary === candySecondary;
+                    if (!isSelected) {
+                      return { scale: 1 };
+                    }
+                    return shouldReduceMotion ? {} : { scale: 1.12 };
+                  })()}
                   aria-label={`Select ${palette.name} palette`}
                   className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "cursor-not-allowed border shadow-custom-brand" : "cursor-pointer border border-transparent"}`}
                   key={palette.name}

@@ -9,13 +9,13 @@ import {
 } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 
-export type AppData = {
+export interface AppData {
   id: number;
   name: string;
   icon: string;
-};
+}
 
-export type AppDownloadStackProps = {
+export interface AppDownloadStackProps {
   apps?: AppData[];
   title?: string;
   selectedApps?: number[];
@@ -24,7 +24,7 @@ export type AppDownloadStackProps = {
   isExpanded?: boolean;
   onExpandChange?: (expanded: boolean) => void;
   className?: string;
-};
+}
 
 const DOWNLOAD_DURATION_MS = 3000;
 const RESET_DELAY_MS = 1000;
@@ -140,7 +140,14 @@ export default function AppDownloadStack({
         setDownloadComplete(false);
       }, RESET_DELAY_MS);
     }, DOWNLOAD_DURATION_MS);
-  }, [shineControls, selected, onDownload, onChange, onExpandChange]);
+  }, [
+    shineControls,
+    selected,
+    onDownload,
+    onChange,
+    onExpandChange,
+    shouldReduceMotion,
+  ]);
 
   const stackVariants = useMemo(
     () => ({

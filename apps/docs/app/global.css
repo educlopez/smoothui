@@ -1,13 +1,13 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
+@import "./smoothui.css";
 
 @source "../node_modules/fumadocs-ui/dist/**/*.js";
 @source "../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}";
 @source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
-@import "./smoothui.css";
 
 @theme inline {
   --font-body: var(--font-inter);

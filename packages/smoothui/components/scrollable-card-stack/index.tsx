@@ -14,22 +14,22 @@ const MAX_SCALE = 2;
 const HOVER_SCALE_MULTIPLIER = 1.02;
 const CARD_PADDING = 100;
 
-type CardItem = {
+interface CardItem {
   id: string;
   name: string;
   handle: string;
   avatar: string;
   image: string;
   href: string;
-};
+}
 
-export type ScrollableCardStackProps = {
+export interface ScrollableCardStackProps {
   items: CardItem[];
   cardHeight?: number;
   perspective?: number;
   transitionDuration?: number;
   className?: string;
-};
+}
 
 const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   items,

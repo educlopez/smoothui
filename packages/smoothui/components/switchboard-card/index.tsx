@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 export type LightState = "off" | "medium" | "high";
 
-export type SwitchboardCardProps = {
+export interface SwitchboardCardProps {
   title: string;
   subtitle: string;
   columns?: number;
@@ -18,7 +18,7 @@ export type SwitchboardCardProps = {
   showButton?: boolean;
   href?: string;
   onButtonClick?: () => void;
-};
+}
 
 function generateRandomPattern(
   totalLights: number,
@@ -49,7 +49,7 @@ export default function SwitchboardCard({
   transitionDuration = 200,
   className,
   variant = "default",
-  showButton = true,
+  showButton: _showButton = true,
   href,
   onButtonClick,
 }: SwitchboardCardProps) {
@@ -114,7 +114,9 @@ export default function SwitchboardCard({
   // Animate lights - only for random lights mode (word/pattern stays high)
   useEffect(() => {
     // Word/pattern mode: no animation, lights stay high
-    if (!isRandomLightsMode) return;
+    if (!isRandomLightsMode) {
+      return;
+    }
 
     const interval = setInterval(() => {
       setLightStates((prev) => {

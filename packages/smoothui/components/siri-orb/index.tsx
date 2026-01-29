@@ -29,7 +29,7 @@ const CONTRAST_TINY = 1.1;
 const CONTRAST_MULTIPLIER_FINAL = 1.2;
 const CONTRAST_MIN_FINAL = 1.3;
 
-export type SiriOrbProps = {
+export interface SiriOrbProps {
   size?: string;
   className?: string;
   colors?: {
@@ -39,7 +39,7 @@ export type SiriOrbProps = {
     c3?: string;
   };
   animationDuration?: number;
-};
+}
 
 const SiriOrb: React.FC<SiriOrbProps> = ({
   size = "192px",

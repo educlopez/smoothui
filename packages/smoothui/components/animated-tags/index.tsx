@@ -4,12 +4,12 @@ import { CircleX, Plus } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
-export type AnimatedTagsProps = {
+export interface AnimatedTagsProps {
   initialTags?: string[];
   selectedTags?: string[];
   onChange?: (selected: string[]) => void;
   className?: string;
-};
+}
 
 export default function AnimatedTags({
   initialTags = ["react", "tailwindcss", "javascript"],

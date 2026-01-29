@@ -1,6 +1,6 @@
 export type SponsorTier = "supporter" | "velocity" | "own";
 
-export type Sponsor = {
+export interface Sponsor {
   name: string;
   url: string;
   logo: string;
@@ -8,7 +8,7 @@ export type Sponsor = {
   isOwnProject?: boolean;
   enabled?: boolean; // Set to false to temporarily disable a sponsor
   tier?: SponsorTier; // "supporter" (GitHub $20), "velocity" (top tier), or "own" (your projects)
-};
+}
 
 // Define sponsors - order doesn't matter here, we'll sort them properly
 // Set enabled: false to disable a sponsor (useful for testing empty states)

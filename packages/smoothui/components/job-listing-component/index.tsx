@@ -5,7 +5,7 @@ import type { SVGProps } from "react";
 import { useEffect, useRef, useState } from "react";
 import { useOnClickOutside } from "usehooks-ts";
 
-export type Job = {
+export interface Job {
   company: string;
   title: string;
   logo: React.ReactNode;
@@ -14,13 +14,13 @@ export type Job = {
   location: string;
   remote: string;
   job_time: string;
-};
+}
 
-export type JobListingComponentProps = {
+export interface JobListingComponentProps {
   jobs: Job[];
   className?: string;
   onJobClick?: (job: Job) => void;
-};
+}
 
 export const Resend = (props: SVGProps<SVGSVGElement>) => (
   <svg

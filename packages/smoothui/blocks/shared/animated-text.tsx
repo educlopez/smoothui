@@ -3,12 +3,12 @@
 import { motion } from "motion/react";
 import type { ElementType, ReactNode } from "react";
 
-type AnimatedTextProps = {
+interface AnimatedTextProps {
   as?: ElementType;
   children: ReactNode;
   className?: string;
   delay?: number;
-};
+}
 
 export function AnimatedText({
   as: Tag = "span",

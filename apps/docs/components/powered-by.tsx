@@ -1,9 +1,9 @@
 import { LibraryIcon } from "lucide-react";
 import Image from "next/image";
 
-type PoweredByProps = {
+interface PoweredByProps {
   packages: string[];
-};
+}
 
 const getHostname = (url: string) => {
   if (url.startsWith("/")) {

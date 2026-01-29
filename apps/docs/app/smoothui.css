@@ -163,7 +163,6 @@
 /* Component PowerOffSlide */
 @layer utilities {
   .loading-shimmer {
-    text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
     animation-delay: 0.5s;
     animation-duration: 3s;

@@ -8,18 +8,18 @@ import { createPortal } from "react-dom";
 const ROTATION_ANGLE_OPEN = 180;
 const DROPDOWN_OFFSET = 4;
 
-export type DropdownItem = {
+export interface DropdownItem {
   id: string | number;
   label: string;
   icon?: React.ReactNode;
-};
+}
 
-export type BasicDropdownProps = {
+export interface BasicDropdownProps {
   label: string;
   items: DropdownItem[];
   onChange?: (item: DropdownItem) => void;
   className?: string;
-};
+}
 
 export default function BasicDropdown({
   label,
@@ -146,12 +146,13 @@ export default function BasicDropdown({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, items, focusedIndex]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Handlers are stable via closure
+  }, [isOpen, items, focusedIndex, handleItemSelect, handleToggle]);
 
   // Reset focused index when items change
   useEffect(() => {
     setFocusedIndex(-1);
-  }, [items.length]);
+  }, []);
 
   const dropdownContent = (
     <AnimatePresence>
@@ -194,7 +195,6 @@ export default function BasicDropdown({
               aria-label="Dropdown options"
               className="py-2"
               id="dropdown-items"
-              role="listbox"
             >
               {items.map((item, index) => (
                 <motion.li

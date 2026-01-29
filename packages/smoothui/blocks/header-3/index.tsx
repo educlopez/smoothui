@@ -6,7 +6,7 @@ import { ArrowDownRight, Star } from "lucide-react";
 import { motion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
 
-type HeroShowcaseProps = {
+interface HeroShowcaseProps {
   heading?: string;
   description?: string;
   buttons?: {
@@ -27,7 +27,7 @@ type HeroShowcaseProps = {
     }[];
     rating?: number;
   };
-};
+}
 
 export function HeroShowcase({
   heading = "Build beautiful UIs, effortlessly.",

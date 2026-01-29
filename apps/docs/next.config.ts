@@ -40,8 +40,7 @@ const config: NextConfig = {
       },
     ],
   },
-  // biome-ignore lint/suspicious/useAwait: "redirects is async"
-  async redirects() {
+  redirects() {
     return [
       // Redirect removed matrix-card component to home page
       {
@@ -147,8 +146,7 @@ const config: NextConfig = {
       },
     ];
   },
-  // biome-ignore lint/suspicious/useAwait: "rewrites is async"
-  async rewrites() {
+  rewrites() {
     return [
       {
         source: "/docs/:path*.mdx",
@@ -156,8 +154,7 @@ const config: NextConfig = {
       },
     ];
   },
-  // biome-ignore lint/suspicious/useAwait: "headers is async"
-  async headers() {
+  headers() {
     return [
       {
         source: "/r/(.*)",

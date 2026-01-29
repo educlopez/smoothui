@@ -12,7 +12,7 @@ import {
   Strava,
 } from "../shared";
 
-export type LogoMarqueeProps = {
+export interface LogoMarqueeProps {
   title?: string;
   description?: string;
   logos?: Array<{
@@ -22,7 +22,7 @@ export type LogoMarqueeProps = {
   speed?: "slow" | "normal" | "fast";
   direction?: "left" | "right";
   pauseOnHover?: boolean;
-};
+}
 
 const DEFAULT_LOGOS = [
   { name: "Canpoy", logo: <Canpoy /> },
