@@ -116,7 +116,7 @@ const AnimatedToggle = ({
       className={cn(
         "relative inline-flex shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        checked ? "bg-primary" : "bg-muted",
+        checked ? "bg-brand" : "bg-muted-foreground/30",
         disabled && "cursor-not-allowed opacity-50",
         sizeConfig.track,
         className
@@ -139,7 +139,7 @@ const AnimatedToggle = ({
               }
         }
         className={cn(
-          "pointer-events-none flex items-center justify-center bg-background shadow-sm",
+          "pointer-events-none flex items-center justify-center rounded-full border border-border bg-background shadow-sm",
           sizeConfig.thumb
         )}
         initial={false}

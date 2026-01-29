@@ -39,156 +39,27 @@ const MoonIcon = () => (
   </svg>
 );
 
-const CheckIcon = () => (
-  <svg
-    className="size-full"
-    fill="none"
-    stroke="currentColor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="3"
-    viewBox="0 0 24 24"
-  >
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-
-const XIcon = () => (
-  <svg
-    className="size-full"
-    fill="none"
-    stroke="currentColor"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    strokeWidth="3"
-    viewBox="0 0 24 24"
-  >
-    <line x1="18" x2="6" y1="6" y2="18" />
-    <line x1="6" x2="18" y1="6" y2="18" />
-  </svg>
-);
-
 export default function AnimatedToggleDemo() {
-  const [defaultChecked, setDefaultChecked] = useState(false);
-  const [morphChecked, setMorphChecked] = useState(false);
-  const [iconChecked, setIconChecked] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   return (
-    <div className="flex flex-col gap-8">
-      <div className="space-y-3">
-        <p className="text-muted-foreground text-sm">Default variant</p>
-        <div className="flex items-center gap-6">
-          <AnimatedToggle
-            checked={defaultChecked}
-            label="Default toggle small"
-            onChange={setDefaultChecked}
-            size="sm"
-            variant="default"
-          />
-          <AnimatedToggle
-            checked={defaultChecked}
-            label="Default toggle medium"
-            onChange={setDefaultChecked}
-            size="md"
-            variant="default"
-          />
-          <AnimatedToggle
-            checked={defaultChecked}
-            label="Default toggle large"
-            onChange={setDefaultChecked}
-            size="lg"
-            variant="default"
-          />
-        </div>
-      </div>
+    <div className="flex items-center gap-8">
+      <AnimatedToggle
+        checked={checked}
+        onChange={setChecked}
+        size="lg"
+        variant="default"
+        label="Toggle"
+      />
 
-      <div className="space-y-3">
-        <p className="text-muted-foreground text-sm">Morph variant</p>
-        <div className="flex items-center gap-6">
-          <AnimatedToggle
-            checked={morphChecked}
-            label="Morph toggle small"
-            onChange={setMorphChecked}
-            size="sm"
-            variant="morph"
-          />
-          <AnimatedToggle
-            checked={morphChecked}
-            label="Morph toggle medium"
-            onChange={setMorphChecked}
-            size="md"
-            variant="morph"
-          />
-          <AnimatedToggle
-            checked={morphChecked}
-            label="Morph toggle large"
-            onChange={setMorphChecked}
-            size="lg"
-            variant="morph"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <p className="text-muted-foreground text-sm">Icon variant</p>
-        <div className="flex items-center gap-6">
-          <AnimatedToggle
-            checked={iconChecked}
-            icons={{ on: <SunIcon />, off: <MoonIcon /> }}
-            label="Theme toggle small"
-            onChange={setIconChecked}
-            size="sm"
-            variant="icon"
-          />
-          <AnimatedToggle
-            checked={iconChecked}
-            icons={{ on: <SunIcon />, off: <MoonIcon /> }}
-            label="Theme toggle medium"
-            onChange={setIconChecked}
-            size="md"
-            variant="icon"
-          />
-          <AnimatedToggle
-            checked={iconChecked}
-            icons={{ on: <SunIcon />, off: <MoonIcon /> }}
-            label="Theme toggle large"
-            onChange={setIconChecked}
-            size="lg"
-            variant="icon"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <p className="text-muted-foreground text-sm">With check/x icons</p>
-        <div className="flex items-center gap-6">
-          <AnimatedToggle
-            icons={{ on: <CheckIcon />, off: <XIcon /> }}
-            label="Confirmation toggle"
-            size="md"
-            variant="icon"
-          />
-        </div>
-      </div>
-
-      <div className="space-y-3">
-        <p className="text-muted-foreground text-sm">Disabled state</p>
-        <div className="flex items-center gap-6">
-          <AnimatedToggle
-            disabled
-            label="Disabled toggle off"
-            size="md"
-            variant="default"
-          />
-          <AnimatedToggle
-            defaultChecked
-            disabled
-            label="Disabled toggle on"
-            size="md"
-            variant="default"
-          />
-        </div>
-      </div>
+      <AnimatedToggle
+        checked={checked}
+        onChange={setChecked}
+        icons={{ on: <SunIcon />, off: <MoonIcon /> }}
+        size="lg"
+        variant="icon"
+        label="Theme toggle"
+      />
     </div>
   );
 }

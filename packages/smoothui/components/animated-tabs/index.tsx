@@ -116,9 +116,9 @@ export default function AnimatedTabs({
   const getIndicatorStyles = () =>
     cn(
       "absolute",
-      variant === "underline" && "right-0 bottom-0 left-0 h-0.5 bg-primary",
-      variant === "pill" && "inset-0 rounded-full bg-background shadow-sm",
-      variant === "segment" && "inset-0 rounded-md bg-background shadow-sm"
+      variant === "underline" && "right-0 -bottom-px left-0 h-0.5 bg-brand",
+      variant === "pill" && "inset-0 rounded-full bg-background shadow-sm border border-border",
+      variant === "segment" && "inset-0 rounded-md bg-background shadow-sm border border-border"
     );
 
   return (

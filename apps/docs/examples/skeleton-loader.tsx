@@ -1,110 +1,52 @@
 "use client";
 
-import SkeletonLoader, {
-  SkeletonAvatar,
-  SkeletonCard,
-  SkeletonText,
-} from "@repo/smoothui/components/skeleton-loader";
+import Skeleton from "@repo/smoothui/components/skeleton-loader";
+import { Button } from "@repo/shadcn-ui/components/ui/button";
+import { useState } from "react";
 
 export default function SkeletonLoaderDemo() {
+  const [loading, setLoading] = useState(true);
+
   return (
-    <div className="flex w-full flex-col gap-8">
-      <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">
-          Animation Variants
-        </h3>
-        <div className="grid gap-4 sm:grid-cols-3">
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">Shimmer</p>
-            <SkeletonLoader
-              borderRadius={8}
-              className="w-full"
-              height={80}
-              variant="shimmer"
-            />
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">Pulse</p>
-            <SkeletonLoader
-              borderRadius={8}
-              className="w-full"
-              height={80}
-              variant="pulse"
-            />
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">Wave</p>
-            <SkeletonLoader
-              borderRadius={8}
-              className="w-full"
-              height={80}
-              variant="wave"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">SkeletonText</h3>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">3 lines (default)</p>
-            <SkeletonText />
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">
-              5 lines, custom last line
+    <div className="flex flex-col items-center gap-6">
+      <Skeleton loading={loading} className="rounded-xl">
+        <div className="w-[320px] overflow-hidden rounded-xl border bg-card">
+          <img
+            src="https://ik.imagekit.io/16u211libb/smoothui/surf.webp?tr=w-320,h-160"
+            alt="Surf"
+            className="h-40 w-full object-cover"
+          />
+          <div className="p-4">
+            <div className="flex items-center gap-3">
+              <img
+                src="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?tr=w-48,h-48"
+                alt="Avatar"
+                className="size-12 rounded-full"
+              />
+              <div>
+                <p className="font-semibold">Edu Calvo</p>
+                <p className="text-muted-foreground text-sm">@educalvolpz</p>
+              </div>
+            </div>
+            <p className="mt-3 text-muted-foreground text-sm">
+              Exploring the mountains and capturing moments. Nature photographer
+              based in Colorado.
             </p>
-            <SkeletonText lastLineWidth="40%" lines={5} />
+            <div className="mt-4 flex gap-2">
+              <Button size="sm" className="flex-1">
+                Follow
+              </Button>
+              <Button size="sm" variant="outline" className="flex-1">
+                Message
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
+      </Skeleton>
 
-      <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">SkeletonAvatar</h3>
-        <div className="flex items-center gap-4">
-          <div className="space-y-2 text-center">
-            <SkeletonAvatar size="sm" />
-            <p className="text-muted-foreground text-xs">Small</p>
-          </div>
-          <div className="space-y-2 text-center">
-            <SkeletonAvatar size="md" />
-            <p className="text-muted-foreground text-xs">Medium</p>
-          </div>
-          <div className="space-y-2 text-center">
-            <SkeletonAvatar size="lg" />
-            <p className="text-muted-foreground text-xs">Large</p>
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">SkeletonCard</h3>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">Full card</p>
-            <SkeletonCard />
-          </div>
-          <div className="space-y-2">
-            <p className="text-muted-foreground text-xs">
-              No image, pulse variant
-            </p>
-            <SkeletonCard showImage={false} variant="pulse" />
-          </div>
-        </div>
-      </div>
-
-      <div className="space-y-4">
-        <h3 className="font-medium text-foreground text-sm">
-          Custom Composition
-        </h3>
-        <div className="flex items-center gap-4 rounded-lg border p-4">
-          <SkeletonAvatar size="lg" variant="wave" />
-          <div className="flex-1">
-            <SkeletonText lastLineWidth="50%" lines={2} variant="wave" />
-          </div>
-        </div>
-      </div>
+      <Button variant="outline" onClick={() => setLoading(!loading)}>
+        {loading ? "Show content" : "Show skeleton"}
+      </Button>
     </div>
   );
 }

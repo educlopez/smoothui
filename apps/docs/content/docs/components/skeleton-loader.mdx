@@ -1,6 +1,6 @@
 ---
-title: Skeleton Loader
-description: Animated skeleton loading placeholders with shimmer, pulse, and wave variants.
+title: Skeleton
+description: Auto-adaptive skeleton that matches your UI's exact dimensions.
 icon: Loader
 dependencies: []
 installer: skeleton-loader
@@ -8,39 +8,41 @@ installer: skeleton-loader
 
 ## Features
 
-- Three animation variants: shimmer, pulse, and wave
-- CSS-based animations for optimal performance
-- Composable presets: SkeletonText, SkeletonAvatar, SkeletonCard
-- Customizable dimensions and border radius
-- Respects reduced motion preferences
-- Accessible with proper ARIA attributes
+- **Auto-adaptive**: Wrap any component and skeleton matches its exact shape
+- Uses Tailwind's `animate-pulse` for smooth animation
+- Toggle between loading/loaded states with `loading` prop
+- Works with any component structure
+- Accessible with ARIA attributes
 
 ## Props
 
-### SkeletonLoader
-
 <AutoTypeTable
   path="../../packages/smoothui/components/skeleton-loader/index.tsx"
-  name="SkeletonLoaderProps"
+  name="SkeletonProps"
 />
 
-### SkeletonText
+## Usage
 
-<AutoTypeTable
-  path="../../packages/smoothui/components/skeleton-loader/index.tsx"
-  name="SkeletonTextProps"
-/>
+### Wrap your UI
 
-### SkeletonAvatar
+Simply wrap your component - the skeleton will match its exact dimensions:
 
-<AutoTypeTable
-  path="../../packages/smoothui/components/skeleton-loader/index.tsx"
-  name="SkeletonAvatarProps"
-/>
+```tsx
+<Skeleton loading={isLoading}>
+  <UserCard user={user} />
+</Skeleton>
+```
 
-### SkeletonCard
+### Basic blocks
 
-<AutoTypeTable
-  path="../../packages/smoothui/components/skeleton-loader/index.tsx"
-  name="SkeletonCardProps"
-/>
+Use without children for simple skeleton shapes:
+
+```tsx
+<div className="flex items-center gap-4">
+  <Skeleton className="size-12 rounded-full" />
+  <div className="space-y-2">
+    <Skeleton className="h-4 w-[200px]" />
+    <Skeleton className="h-4 w-[160px]" />
+  </div>
+</div>
+```
