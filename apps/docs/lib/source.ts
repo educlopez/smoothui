@@ -59,11 +59,17 @@ export function getRecentlyModifiedPages(): Set<string> {
 /**
  * Get recently modified pages with their modification labels
  * Returns a plain object (not Map) for proper serialization to client components
+ * Only includes components and blocks pages (excludes guides)
  */
 export function getRecentlyModifiedPagesWithLabels(): Record<string, string> {
   const recentPagesMap: Record<string, string> = {};
 
   for (const page of source.getPages()) {
+    // Only show "new" indicator for components and blocks, not guides
+    if (page.url.startsWith("/docs/guides")) {
+      continue;
+    }
+
     if (isPageRecentlyModified(page)) {
       const lastModified = (page.data as { lastModified?: number })
         .lastModified;

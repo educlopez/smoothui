@@ -2,6 +2,7 @@
 
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
+  ArrowRight,
   Book,
   Heart,
   Layers3,
@@ -115,6 +116,13 @@ export default function Navbar({ className }: { className?: string }) {
                     Buttons, cards, forms, and more.
                   </EnhancedListItem>
                 </div>
+                <Link
+                  className="mt-4 flex items-center gap-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                  href="/docs/components"
+                >
+                  Explore all components
+                  <ArrowRight size={14} />
+                </Link>
               </div>
 
               <div className="submenu-preview">
@@ -172,6 +180,13 @@ export default function Navbar({ className }: { className?: string }) {
                     Stylish testimonial sections to build trust.
                   </EnhancedListItem>
                 </div>
+                <Link
+                  className="mt-4 flex items-center gap-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
+                  href="/docs/blocks"
+                >
+                  Explore all blocks
+                  <ArrowRight size={14} />
+                </Link>
               </div>
 
               <div className="submenu-preview">
