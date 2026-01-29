@@ -2,9 +2,39 @@
 
 import { Slot } from "@radix-ui/react-slot";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useReducedMotion, useSpring } from "motion/react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+const magneticButtonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md font-medium text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-destructive-foreground hover:bg-destructive/90",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost: "hover:bg-accent hover:text-accent-foreground",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  }
+);
 
 export type MagneticButtonProps = {
   children: ReactNode;
@@ -14,7 +44,8 @@ export type MagneticButtonProps = {
   disabled?: boolean;
   asChild?: boolean;
   className?: string;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof magneticButtonVariants>;
 
 const MagneticButton = ({
   children,
@@ -23,6 +54,8 @@ const MagneticButton = ({
   springConfig = { duration: 0.4, bounce: 0.1 },
   disabled = false,
   asChild = false,
+  variant,
+  size,
   className,
   ...props
 }: MagneticButtonProps) => {
@@ -52,8 +85,7 @@ const MagneticButton = ({
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  const isEffectDisabled =
-    disabled || shouldReduceMotion || !isHoverDevice;
+  const isEffectDisabled = disabled || shouldReduceMotion || !isHoverDevice;
 
   const handleMouseMove = useCallback(
     (event: React.MouseEvent<HTMLDivElement>) => {
@@ -90,10 +122,10 @@ const MagneticButton = ({
 
   return (
     <div
-      ref={wrapperRef}
       className="inline-block"
       onMouseLeave={handleMouseLeave}
       onMouseMove={handleMouseMove}
+      ref={wrapperRef}
       style={{
         padding: `${radius / 2}px`,
         margin: `-${radius / 2}px`,
@@ -101,16 +133,9 @@ const MagneticButton = ({
     >
       <motion.div style={{ x, y }}>
         <Comp
-          ref={buttonRef}
-          className={cn(
-            "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium",
-            "ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-            "disabled:pointer-events-none disabled:opacity-50",
-            "bg-primary text-primary-foreground hover:bg-primary/90",
-            "h-10 px-4 py-2",
-            className
-          )}
+          className={cn(magneticButtonVariants({ variant, size, className }))}
           disabled={disabled}
+          ref={buttonRef}
           type="button"
           {...props}
         >
