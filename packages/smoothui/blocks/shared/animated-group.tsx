@@ -127,7 +127,11 @@ function AnimatedGroup({
       variants={containerVariants}
     >
       {React.Children.map(children, (child, index) => (
-        <MotionChild key={index} variants={itemVariants}>
+        <MotionChild
+          // biome-ignore lint/suspicious/noArrayIndexKey: React.Children order is stable
+          key={index}
+          variants={itemVariants}
+        >
           {child}
         </MotionChild>
       ))}

@@ -182,7 +182,6 @@ export default function UserAccountAvatar({
           className={`flex cursor-pointer items-center gap-2 rounded-full border bg-background ${className}`}
           type="button"
         >
-          {/* biome-ignore lint/performance/noImgElement: Using img for user avatar without Next.js Image optimizations */}
           <img
             alt="User Avatar"
             className="rounded-full"

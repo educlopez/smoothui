@@ -244,7 +244,6 @@ export default function InteractiveImageSelector({
                 duration: isResetting ? RESET_ANIMATION_DURATION : undefined,
               }}
             >
-              {/* biome-ignore lint/performance/noImgElement: Using img for gallery images without Next.js Image optimizations */}
               <img
                 alt={`Gallery item ${img.id}`}
                 className={`h-full w-full rounded-lg object-cover ${

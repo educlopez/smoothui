@@ -147,7 +147,6 @@ export default function Phototab({
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent className="h-full w-full" key={tab.name} value={tab.name}>
-          {/* biome-ignore lint/performance/noImgElement: Using img for tab image without Next.js Image optimizations */}
           <img
             alt={tab.name}
             className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}

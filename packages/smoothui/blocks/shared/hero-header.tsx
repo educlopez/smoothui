@@ -47,7 +47,6 @@ export const HeroHeader = () => {
                   href="/"
                 >
                   <span className="sr-only">SmoothUI</span>
-                  {/* biome-ignore lint/performance/noImgElement: Rendering static brand asset from public folder */}
                   <img
                     alt="SmoothUI logo"
                     className={cn("h-6 w-auto", "dark:filter", "dark:invert")}

@@ -366,7 +366,6 @@ export default function AppleInvites({
     }
     if (event.image) {
       return (
-        /* biome-ignore lint/performance/noImgElement: Using img for event image without Next.js Image optimizations */
         <img
           alt={event.title || ""}
           className="h-full w-full object-cover"
@@ -437,7 +436,6 @@ export default function AppleInvites({
                   }}
                 >
                   {event.participants?.map((participant, idx) => (
-                    /* biome-ignore lint/performance/noImgElement: Using img for participant avatar without Next.js Image optimizations */
                     <img
                       alt={`Participant ${idx + 1}`}
                       className="rounded-full"

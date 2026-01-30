@@ -11,7 +11,7 @@ const InfiniteSliderDemo = () => {
           {Array.from({ length: 5 }, (_, i) => (
             <div
               className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground"
-              key={i}
+              key={`basic-${i + 1}`}
             >
               {i + 1}
             </div>
@@ -25,7 +25,7 @@ const InfiniteSliderDemo = () => {
           {Array.from({ length: 5 }, (_, i) => (
             <div
               className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-brand text-white"
-              key={i}
+              key={`hover-${i + 1}`}
             >
               {i + 1}
             </div>
@@ -39,7 +39,7 @@ const InfiniteSliderDemo = () => {
           {Array.from({ length: 5 }, (_, i) => (
             <div
               className="flex h-20 w-20 shrink-0 items-center justify-center rounded-lg bg-muted text-foreground"
-              key={i}
+              key={`reverse-${i + 1}`}
             >
               {i + 1}
             </div>

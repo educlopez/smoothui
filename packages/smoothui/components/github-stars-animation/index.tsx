@@ -241,7 +241,6 @@ export default function GitHubStarsAnimation({
               }
               whileHover={shouldReduceMotion ? {} : { scale: 1.1, zIndex: 20 }}
             >
-              {/* biome-ignore lint/performance/noImgElement: Using img for user avatars without Next.js Image optimizations */}
               <img
                 alt={`${stargazer.login}'s avatar`}
                 className="h-full w-full object-cover"

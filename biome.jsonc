@@ -58,5 +58,21 @@
         "noNestedTernary": "warn"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      // Component library uses <img> for portability across frameworks
+      "includes": ["packages/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          },
+          "correctness": {
+            "useImageSize": "off"
+          }
+        }
+      }
+    }
+  ]
 }

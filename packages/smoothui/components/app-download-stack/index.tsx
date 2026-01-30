@@ -222,7 +222,6 @@ export default function AppDownloadStack({
               whileHover={shouldReduceMotion ? {} : "hover"}
             >
               {apps.map((app, index) => (
-                /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                 <motion.img
                   alt={`${app.name} Logo`}
                   animate={
@@ -339,7 +338,6 @@ export default function AppDownloadStack({
                       onClick={() => toggleApp(app.id)}
                       type="button"
                     >
-                      {/* biome-ignore lint/performance/noImgElement: Using img for app icon without Next.js Image optimizations */}
                       <img
                         alt={app.name}
                         className="rounded-lg"
@@ -389,7 +387,6 @@ export default function AppDownloadStack({
                   style={{ x: 0 }}
                 />
                 {apps.map((app, index) => (
-                  /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                   <motion.img
                     alt={`${app.name} Logo`}
                     animate={

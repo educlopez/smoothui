@@ -3,6 +3,7 @@ import React from "react";
 function Canpoy() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -58,6 +59,7 @@ function Canva() {
   const id1 = React.useId();
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -92,6 +94,7 @@ function Canva() {
 function Casetext() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -150,6 +153,7 @@ function Casetext() {
 function _Classdojo() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -337,6 +341,7 @@ function _Classdojo() {
 function Clearbit() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -369,6 +374,7 @@ function Clearbit() {
 function Descript() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -391,6 +397,7 @@ function Descript() {
 function Duolingo() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -421,6 +428,7 @@ function Duolingo() {
 function Faire() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -453,6 +461,7 @@ function Faire() {
 function _Gainsight() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -552,6 +561,7 @@ function _Gainsight() {
 function _Handshake() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -614,6 +624,7 @@ function _Handshake() {
 function IDEO() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -632,6 +643,7 @@ function IDEO() {
 function KhanAcademy() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -696,6 +708,7 @@ function KhanAcademy() {
 function Quizlet() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -728,6 +741,7 @@ function Quizlet() {
 function Ramp() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"
@@ -766,6 +780,7 @@ function Ramp() {
 function Strava() {
   return (
     <svg
+      aria-hidden="true"
       fill="none"
       height="136"
       preserveAspectRatio="xMidYMid meet"

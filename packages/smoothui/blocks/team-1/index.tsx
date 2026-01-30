@@ -59,7 +59,6 @@ export function TeamGrid({
                   transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   whileHover={{ scale: 1.05 }}
                 >
-                  {/* biome-ignore lint/performance/noImgElement: Using img for team avatars without Next.js Image optimizations */}
                   <img
                     alt=""
                     className="aspect-14/13 w-full rounded-2xl object-cover outline-1 outline-black/5 -outline-offset-1 transition-all duration-300 group-hover:outline-black/10 dark:outline-white/10 dark:group-hover:outline-white/20"

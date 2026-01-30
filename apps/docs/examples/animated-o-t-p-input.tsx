@@ -11,12 +11,12 @@ import {
 import { AnimatedOTPInput } from "@repo/smoothui/components/animated-o-t-p-input";
 import { CheckCircle, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
-import * as React from "react";
+import { useState } from "react";
 
 export function AnimatedOTPInputDemo() {
-  const [value, setValue] = React.useState("");
-  const [isComplete, setIsComplete] = React.useState(false);
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [value, setValue] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleComplete = (otp: string) => {
     setValue(otp);

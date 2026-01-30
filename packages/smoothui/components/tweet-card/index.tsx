@@ -13,6 +13,7 @@ interface IconProps {
 
 const ExternalLink = ({ className, ...props }: IconProps) => (
   <svg
+    aria-hidden="true"
     className={className}
     fill="none"
     height="16"
@@ -128,7 +129,7 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
               <a
                 className="ease text-foreground transition-colors duration-200 hover:text-foreground/80"
                 href={entity.href}
-                key={idx}
+                key={`${entity.type}-${idx}-${entity.text.slice(0, 10)}`}
                 rel="noopener noreferrer"
                 target="_blank"
               >
@@ -143,7 +144,8 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
                 dangerouslySetInnerHTML={{
                   __html: DOMPurify.sanitize(entity.text),
                 }}
-                key={idx}
+                // biome-ignore lint/suspicious/noArrayIndexKey: Text entities from tweet API have no unique IDs
+                key={`text-${idx}`}
               />
             );
           default:

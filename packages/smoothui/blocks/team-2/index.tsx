@@ -186,7 +186,6 @@ export function TeamCarousel({
                       viewport={{ once: true }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                      {/* biome-ignore lint/performance/noImgElement: Using img for team avatars without Next.js Image optimizations */}
                       <img
                         alt={member.name}
                         className="mx-auto size-20 rounded-full border border-border"

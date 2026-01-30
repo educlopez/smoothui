@@ -120,7 +120,6 @@ export default function ExpandableCards({
             }
           >
             <div className="relative h-full w-[200px]">
-              {/* biome-ignore lint/performance/noImgElement: Using img for card image without Next.js Image optimizations */}
               <img
                 alt={card.title}
                 className="h-full w-full object-cover"
@@ -205,7 +204,6 @@ export default function ExpandableCards({
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="h-12 w-12 overflow-hidden rounded-full border bg-primary">
-                          {/* biome-ignore lint/performance/noImgElement: Using img for author avatar without Next.js Image optimizations */}
                           <img
                             alt={card.author.name}
                             className="h-full w-full object-cover"

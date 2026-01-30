@@ -31,6 +31,7 @@ import {
   Twitter,
 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -164,15 +165,17 @@ function HeroPreview() {
         }}
         variants={abstractVariants}
       >
-        <img
+        <Image
           alt="Hero illustration"
           className="h-full w-full object-cover opacity-60"
+          height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
             width: 160,
             height: 160,
             quality: 75,
             format: "auto",
           })}
+          width={160}
         />
       </motion.div>
     </motion.div>
@@ -254,7 +257,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[0].slice(0, 2).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`free-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-12 rounded-full bg-foreground/10" />
               </li>
@@ -298,7 +305,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[1].slice(0, 3).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`pro-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-10 rounded-full bg-foreground/10" />
               </li>
@@ -332,7 +343,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[2].slice(0, 2).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`startup-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-12 rounded-full bg-foreground/10" />
               </li>
@@ -405,10 +420,12 @@ function TestimonialPreview() {
             }}
             variants={slideVariants}
           >
-            <img
+            <Image
               alt={currentPerson?.name || "Avatar"}
               className="h-full w-full object-cover"
+              height={32}
               src={currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""}
+              width={32}
             />
           </motion.div>
         </AnimatePresence>
@@ -416,7 +433,8 @@ function TestimonialPreview() {
           {[...new Array(5)].map((_, i) => (
             <motion.div
               className="h-1.5 w-1.5 rounded-full bg-brand/40"
-              key={i}
+              // biome-ignore lint/suspicious/noArrayIndexKey: Static star rating that never reorders
+              key={`star-${i}`}
               transition={{
                 duration: 0.2,
                 delay: i * 0.03,
@@ -601,7 +619,8 @@ function FooterPreview() {
             {[...new Array(3)].map((_, i) => (
               <motion.div
                 className="h-1.5 w-12 rounded-full bg-foreground/20"
-                key={i}
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static footer links that never reorder
+                key={`footer-link-${i}`}
                 transition={{
                   duration: 0.2,
                   delay: i * 0.03,
@@ -629,7 +648,7 @@ function FooterPreview() {
             {[Twitter, Github, LinkIcon].map((Icon, i) => (
               <motion.div
                 className="relative flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground/10"
-                key={i}
+                key={Icon.displayName}
                 transition={{
                   duration: 0.2,
                   delay: i * 0.03,
@@ -718,11 +737,11 @@ function LogoCloudPreview() {
         </div>
 
         <InfiniteSlider gap={10} speed={15} speedOnHover={0}>
-          {logos.map((LogoComponent, i) => (
+          {logos.map((LogoComponent) => (
             <motion.div
               className="relative flex shrink-0 flex-col items-center gap-1"
               initial="rest"
-              key={`logo-${i}`}
+              key={LogoComponent.name}
               transition={{
                 duration: 0.2,
                 ease: [0.25, 0.46, 0.45, 0.94],
@@ -772,7 +791,8 @@ function StatsPreview() {
         {[stat1, stat2, stat3].map((stat, i) => (
           <motion.div
             className="flex flex-col items-center gap-1.5 space-y-1 text-center"
-            key={i}
+            // biome-ignore lint/suspicious/noArrayIndexKey: Static stats array that never reorders
+            key={`stat-${i}`}
             transition={{
               duration: 0.2,
               delay: i * 0.03,
@@ -832,10 +852,12 @@ function TeamPreview() {
             }}
             variants={avatarVariants}
           >
-            <img
+            <Image
               alt={person.name}
               className="h-full w-full object-cover"
+              height={36}
               src={getAvatarUrl(person.avatar, 36)}
+              width={36}
             />
           </motion.div>
           <div className="h-1.5 w-10 rounded-full bg-foreground/15" />
@@ -934,6 +956,7 @@ export function BlockCategories() {
                 <span>Browse All Blocks</span>
               </span>
               <svg
+                aria-hidden="true"
                 className="-mx-1.5 size-5 shrink-0 text-white/72"
                 fill="none"
                 viewBox="0 0 20 20"

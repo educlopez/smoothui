@@ -47,13 +47,16 @@ export function LoadingDots({
   return (
     <div className="flex flex-col items-center gap-4">
       <svg
+        aria-labelledby="loading-dots-title"
         className={cn("text-brand", className)}
         fill="none"
         height={size}
+        role="img"
         viewBox="0 0 24 24"
         width={size}
         xmlns="http://www.w3.org/2000/svg"
       >
+        <title id="loading-dots-title">Loading</title>
         <style>
           {`
           @keyframes dot-wave {

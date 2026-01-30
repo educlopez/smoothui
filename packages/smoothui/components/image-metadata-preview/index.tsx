@@ -61,7 +61,6 @@ export default function ImageMetadataPreview({
         className="pointer-events-none overflow-hidden rounded-xl"
         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
       >
-        {/* biome-ignore lint/performance/noImgElement: Using img for image preview without Next.js Image optimizations */}
         <img alt={alt} height={437} src={imageSrc} width={300} />
       </motion.div>
 

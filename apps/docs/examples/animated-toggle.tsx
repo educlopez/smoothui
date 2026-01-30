@@ -5,6 +5,7 @@ import { useState } from "react";
 
 const SunIcon = () => (
   <svg
+    aria-hidden="true"
     className="size-full"
     fill="none"
     stroke="currentColor"
@@ -27,6 +28,7 @@ const SunIcon = () => (
 
 const MoonIcon = () => (
   <svg
+    aria-hidden="true"
     className="size-full"
     fill="none"
     stroke="currentColor"

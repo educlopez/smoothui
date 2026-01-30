@@ -55,16 +55,16 @@ export default function ButtonCopy({
     success: successIcon,
   };
 
+  const ariaLabels = {
+    idle: "Copy",
+    loading: "Copying...",
+    success: "Copied",
+  };
+
   return (
     <div className="flex justify-center">
       <button
-        aria-label={
-          buttonState === "loading"
-            ? "Copying..."
-            : buttonState === "success"
-              ? "Copied"
-              : "Copy"
-        }
+        aria-label={ariaLabels[buttonState]}
         aria-live="polite"
         className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
         disabled={buttonState !== "idle" || disabled}

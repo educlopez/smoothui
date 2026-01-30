@@ -246,7 +246,8 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       const offsetIndex = index - currentIndex;
 
       // Apply blur effect for cards behind the current one - matching reference exactly
-      const blur = shouldReduceMotion ? 0 : currentIndex > index ? 2 : 0;
+      const isBehindCurrent = currentIndex > index;
+      const blur = !shouldReduceMotion && isBehindCurrent ? 2 : 0;
 
       // Opacity based on distance - improved logic from reference
       const opacity = currentIndex > index ? 0 : 1;
@@ -392,7 +393,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 {/* Image Container - takes remaining space */}
                 <div className="relative w-full flex-1 overflow-hidden">
                   {/* Background blur image */}
-                  {/* biome-ignore lint/performance/noImgElement: Using img for background blur effect */}
                   <img
                     alt=""
                     aria-hidden="true"
@@ -409,7 +409,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     width={10}
                   />
                   {/* Image */}
-                  {/* biome-ignore lint/performance/noImgElement: Using img for card content without Next.js Image optimizations */}
                   <img
                     alt={`${item.name}'s card`}
                     className="absolute inset-0 h-full w-full object-cover"
@@ -436,7 +435,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {/* biome-ignore lint/performance/noImgElement: Using img for user avatar without Next.js Image optimizations */}
                   <img
                     alt={`${item.name}'s avatar`}
                     className="mr-1 h-5 w-5 overflow-hidden rounded-full"
