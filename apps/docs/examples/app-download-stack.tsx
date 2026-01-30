@@ -3,7 +3,7 @@
 import AppDownloadStack, {
   type AppData,
 } from "@repo/smoothui/components/app-download-stack";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // TODO: No funciona
 const demoApps: AppData[] = [
@@ -32,17 +32,34 @@ const demoApps: AppData[] = [
 const AppDownloadStackDemo = () => {
   const [selected, setSelected] = useState<number[]>([]);
   const [expanded, setExpanded] = useState(false);
+  const [notification, setNotification] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   return (
-    <AppDownloadStack
-      apps={demoApps}
-      isExpanded={expanded}
-      onChange={setSelected}
-      onDownload={(selected) => alert(`Download apps: ${selected.join(", ")}`)}
-      onExpandChange={setExpanded}
-      selectedApps={selected}
-      title="Starter Mac"
-    />
+    <>
+      {notification && (
+        <div className="absolute top-4 right-4 z-50 rounded-lg border bg-background px-4 py-2 text-sm shadow-lg">
+          {notification}
+        </div>
+      )}
+      <AppDownloadStack
+        apps={demoApps}
+        isExpanded={expanded}
+        onChange={setSelected}
+        onDownload={(selectedApps) =>
+          setNotification(`Download apps: ${selectedApps.join(", ")}`)
+        }
+        onExpandChange={setExpanded}
+        selectedApps={selected}
+        title="Starter Mac"
+      />
+    </>
   );
 };
 

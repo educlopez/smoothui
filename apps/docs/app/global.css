@@ -1,13 +1,13 @@
 @import "tailwindcss";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
-
-@source '../node_modules/fumadocs-ui/dist/**/*.js';
-@source '../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}';
-@source '../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}';
-@source '../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}';
-@source '../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}';
 @import "./smoothui.css";
+
+@source "../node_modules/fumadocs-ui/dist/**/*.js";
+@source "../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}";
+@source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
 
 @theme inline {
   --font-body: var(--font-inter);
@@ -26,10 +26,12 @@
   --tw-ring-offset-shadow: 0 0 #0000;
   --tw-ring-shadow: 0 0 #0000;
   --bt-gray: #e5e7eb;
-  --shadow-custom-brand: 0px 1px 2px rgba(0, 0, 0, 0.4),
+  --shadow-custom-brand:
+    0px 1px 2px rgba(0, 0, 0, 0.4),
     0px 0px 0px 1px var(--color-brand-secondary),
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
-  --shadow-custom: 0px 0px 0px 1px rgba(0, 0, 0, 0.08),
+  --shadow-custom:
+    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
     0px 1px 2px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand);
@@ -38,7 +40,8 @@
 
 .dark {
   --bt-gray: black;
-  --shadow-custom: 0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
+  --shadow-custom:
+    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
     0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
     0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
   --lines-page: url("/lines-w.png");
@@ -88,7 +91,8 @@
 }
 
 .shadow-custom-btgray {
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.4),
+  box-shadow:
+    0px 1px 2px rgba(0, 0, 0, 0.4),
     0px 0px 0px 1px var(--color-bt-gray),
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
 }
@@ -194,44 +198,34 @@
   ) {
   @apply font-semibold text-foreground tracking-tight;
 }
-.prose
-  :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply -tracking-wide font-bold text-3xl;
 }
-.prose
-  :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-lg;
 }
-.prose
-  :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-base;
 }
-.prose
-  :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-sm;
 }
-.prose
-  :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-xs;
 }
-.prose
-  :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-medium text-xs;
 }
-.prose
-  :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply text-base;
 }
 .prose
   :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold;
 }
-.prose
-  :where(.peer):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+.prose :where(.peer):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold;
 }
-
-
 
 /* Accordion Animations */
 @keyframes accordion-down {

@@ -2,12 +2,12 @@ import { createGenerator } from "fumadocs-typescript";
 import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
-// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
+// biome-ignore lint/performance/noNamespaceImport: namespace import needed for spreading
 import * as FilesComponents from "fumadocs-ui/components/files";
-// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
+// biome-ignore lint/performance/noNamespaceImport: namespace import needed for spreading
 import * as TabsComponents from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
-// biome-ignore lint/correctness/noUnusedImports: namespace import needed for spreading
+// biome-ignore lint/performance/noNamespaceImport: namespace import needed for spreading
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
 import { ChangelogEntry } from "./components/changelog-entry";

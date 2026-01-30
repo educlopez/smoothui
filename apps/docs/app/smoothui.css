@@ -49,7 +49,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-input: var(--color-input)
+  --color-input: var(--color-input);
 }
 
 :root {
@@ -163,7 +163,6 @@
 /* Component PowerOffSlide */
 @layer utilities {
   .loading-shimmer {
-    text-fill-color: transparent;
     -webkit-text-fill-color: transparent;
     animation-delay: 0.5s;
     animation-duration: 3s;
@@ -178,7 +177,15 @@
         color-stop(0.5, var(--text-primary)),
         to(var(--text-quaternary))
       );
-    background: var(--text-quaternary) -webkit-gradient(linear, 100% 0, 0 0, from(var(--text-quaternary)), color-stop(0.5, var(--text-primary)), to(var(--text-quaternary)));
+    background: var(--text-quaternary)
+      -webkit-gradient(
+        linear,
+        100% 0,
+        0 0,
+        from(var(--text-quaternary)),
+        color-stop(0.5, var(--text-primary)),
+        to(var(--text-quaternary))
+      );
     background-clip: text;
     -webkit-background-clip: text;
     background-repeat: no-repeat;

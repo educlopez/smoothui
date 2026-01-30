@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useEffect, type RefObject } from "react"
+import { type RefObject, useEffect } from "react";
 
 type EventType =
   | "mousedown"
@@ -8,7 +8,7 @@ type EventType =
   | "touchstart"
   | "touchend"
   | "focusin"
-  | "focusout"
+  | "focusout";
 
 export function useClickOutside<T extends HTMLElement = HTMLElement>(
   ref: RefObject<T | null> | RefObject<T | null>[],
@@ -17,28 +17,28 @@ export function useClickOutside<T extends HTMLElement = HTMLElement>(
 ): void {
   useEffect(() => {
     function callback(event: Event) {
-      const target = event.target as Node
+      const target = event.target as Node;
 
       // Do nothing if the target is not connected element with document
-      if (!target || !target.isConnected) {
-        return
+      if (!target?.isConnected) {
+        return;
       }
 
       const isOutside = Array.isArray(ref)
         ? ref
             .filter((r) => Boolean(r.current))
             .every((r) => r.current && !r.current.contains(target))
-        : ref.current && !ref.current.contains(target)
+        : ref.current && !ref.current.contains(target);
 
       if (isOutside) {
-        handler(event)
+        handler(event);
       }
     }
 
-    window.addEventListener(eventType, callback)
+    window.addEventListener(eventType, callback);
 
     return () => {
-      window.removeEventListener(eventType, callback)
-    }
-  }, [])
+      window.removeEventListener(eventType, callback);
+    };
+  }, [eventType, handler, ref]);
 }

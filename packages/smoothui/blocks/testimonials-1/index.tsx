@@ -63,7 +63,6 @@ export function TestimonialsSimple() {
               key={index}
               transition={{ type: "spring", duration: 0.5 }}
             >
-              {/* biome-ignore lint/performance/noImgElement: Using img for circular avatars without Next.js Image optimizations */}
               <img
                 alt={`${testimonials[index].name} avatar`}
                 className="h-12 w-12 rounded-full border bg-foreground/10 object-cover"

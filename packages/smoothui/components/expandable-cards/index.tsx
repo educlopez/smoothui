@@ -4,11 +4,11 @@ import { Play } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const AVATAR_SIZE = 96;
+const _AVATAR_SIZE = 96;
 // ease-out-quint for entering/exiting elements
 const EASE_OUT_QUINT = [0.23, 1, 0.32, 1] as const;
 
-export type Card = {
+export interface Card {
   id: number;
   title: string;
   image: string;
@@ -18,15 +18,15 @@ export type Card = {
     role: string;
     image: string;
   };
-};
+}
 
-export type ExpandableCardsProps = {
+export interface ExpandableCardsProps {
   cards: Card[];
   selectedCard?: number | null;
   onSelect?: (id: number | null) => void;
   className?: string;
   cardClassName?: string;
-};
+}
 
 export default function ExpandableCards({
   cards,
@@ -120,7 +120,6 @@ export default function ExpandableCards({
             }
           >
             <div className="relative h-full w-[200px]">
-              {/* biome-ignore lint/performance/noImgElement: Using img for card image without Next.js Image optimizations */}
               <img
                 alt={card.title}
                 className="h-full w-full object-cover"
@@ -134,7 +133,7 @@ export default function ExpandableCards({
                 <div className="flex items-center gap-2">
                   <button
                     aria-label={`Play video: ${card.title}`}
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 ease hover:scale-110 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px]"
+                    className="ease flex h-12 min-h-[44px] w-12 min-w-[44px] items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 hover:scale-110 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                     onClick={(e) => {
                       e.stopPropagation();
                       // Handle play action
@@ -205,7 +204,6 @@ export default function ExpandableCards({
                     {card.author && (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="h-12 w-12 overflow-hidden rounded-full border bg-primary">
-                          {/* biome-ignore lint/performance/noImgElement: Using img for author avatar without Next.js Image optimizations */}
                           <img
                             alt={card.author.name}
                             className="h-full w-full object-cover"

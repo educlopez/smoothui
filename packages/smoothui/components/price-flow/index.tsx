@@ -5,10 +5,10 @@ import { useEffect, useRef, useState } from "react";
 
 const STAGGER_DELAY = 50;
 
-export type PriceFlowProps = {
+export interface PriceFlowProps {
   value: number;
   className?: string;
-};
+}
 
 const animateDigit = (
   prevElement: HTMLElement | null,

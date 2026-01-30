@@ -1,10 +1,14 @@
 "use client";
 
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@repo/shadcn-ui/components/ui/avatar";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { getAvatarUrl, getTestimonials } from "@smoothui/data";
 import { Star } from "lucide-react";
 import { motion } from "motion/react";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/shadcn-ui/components/ui/avatar";
-import { getAvatarUrl, getTestimonials } from "@smoothui/data";
 
 const testimonials = getTestimonials(4);
 
@@ -14,31 +18,32 @@ export function TestimonialsStars() {
       <div className="py-24">
         <div className="container mx-auto w-full max-w-5xl px-6">
           <motion.div
+            animate={{ opacity: 1, y: 0 }}
             className="mb-12"
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <h2 className="text-foreground text-4xl font-semibold">
+            <h2 className="font-semibold text-4xl text-foreground">
               Developer Reviews
             </h2>
-            <p className="text-muted-foreground my-4 text-lg text-balance">
+            <p className="my-4 text-balance text-lg text-muted-foreground">
               See what the community is saying about SmoothUI. Real feedback
               from developers building amazing user experiences.
             </p>
           </motion.div>
 
           <motion.div
-            className="3xl:grid-cols-3 3xl:gap-12 grid gap-6 lg:grid-cols-2"
-            initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
+            className="grid 3xl:grid-cols-3 3xl:gap-12 gap-6 lg:grid-cols-2"
+            initial={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
           >
             {testimonials.map((testimonial, index) => (
               <motion.div
-                key={testimonial.name}
-                initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
+                className="group rounded-2xl border border-transparent px-4 py-3 duration-200 hover:border-border hover:bg-background/50"
+                initial={{ opacity: 0, y: 30 }}
+                key={testimonial.name}
                 transition={{
                   duration: 0.5,
                   ease: [0.22, 1, 0.36, 1],
@@ -48,12 +53,11 @@ export function TestimonialsStars() {
                   y: -4,
                   transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
                 }}
-                className="group hover:bg-background/50 hover:border-border rounded-2xl border border-transparent px-4 py-3 duration-200"
               >
                 <motion.div
+                  animate={{ opacity: 1, scale: 1 }}
                   className="flex gap-1"
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
                   transition={{
                     duration: 0.4,
                     delay: index * 0.15 + 0.2,
@@ -62,9 +66,9 @@ export function TestimonialsStars() {
                 >
                   {Array.from({ length: 5 }).map((_, i) => (
                     <motion.div
-                      key={`${testimonial.name}-star-${i}`}
-                      initial={{ opacity: 0, scale: 0 }}
                       animate={{ opacity: 1, scale: 1 }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      key={`${testimonial.name}-star-${i}`}
                       transition={{
                         duration: 0.3,
                         delay: index * 0.15 + 0.2 + i * 0.05,
@@ -84,9 +88,9 @@ export function TestimonialsStars() {
                 </motion.div>
 
                 <motion.p
-                  className="text-foreground my-4"
-                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
+                  className="my-4 text-foreground"
+                  initial={{ opacity: 0, y: 10 }}
                   transition={{
                     duration: 0.4,
                     delay: index * 0.15 + 0.4,
@@ -97,31 +101,31 @@ export function TestimonialsStars() {
                 </motion.p>
 
                 <motion.div
+                  animate={{ opacity: 1, x: 0 }}
                   className="flex items-center gap-2"
                   initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
                   transition={{
                     duration: 0.3,
                     delay: index * 0.15 + 0.5,
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <Avatar className="ring-foreground/10 size-6 border border-transparent shadow ring-1">
+                  <Avatar className="size-6 border border-transparent shadow ring-1 ring-foreground/10">
                     <AvatarImage
-                      src={getAvatarUrl(testimonial.avatar, 48)}
                       alt={testimonial.name}
+                      src={getAvatarUrl(testimonial.avatar, 48)}
                     />
                     <AvatarFallback>
                       {testimonial.name.charAt(0)}
                     </AvatarFallback>
                   </Avatar>
-                  <div className="text-foreground text-sm font-medium">
+                  <div className="font-medium text-foreground text-sm">
                     {testimonial.name}
                   </div>
                   <span
                     aria-hidden="true"
-                    className="bg-foreground/25 size-1 rounded-full"
-                  ></span>
+                    className="size-1 rounded-full bg-foreground/25"
+                  />
                   <span className="text-muted-foreground text-sm">
                     {testimonial.role}
                   </span>
@@ -136,4 +140,3 @@ export function TestimonialsStars() {
 }
 
 export default TestimonialsStars;
-

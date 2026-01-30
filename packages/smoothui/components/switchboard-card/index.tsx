@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 
 export type LightState = "off" | "medium" | "high";
 
-export type SwitchboardCardProps = {
+export interface SwitchboardCardProps {
   title: string;
   subtitle: string;
   columns?: number;
@@ -18,7 +18,7 @@ export type SwitchboardCardProps = {
   showButton?: boolean;
   href?: string;
   onButtonClick?: () => void;
-};
+}
 
 function generateRandomPattern(
   totalLights: number,
@@ -39,6 +39,42 @@ function generateRandomPattern(
   return pattern.sort((a, b) => a - b);
 }
 
+function parse2DGridPattern(
+  grid2D: number[][],
+  rows: number,
+  columns: number,
+  totalLights: number
+): number[] {
+  const pattern: number[] = [];
+  for (let row = 0; row < Math.min(grid2D.length, rows); row++) {
+    const rowData = grid2D[row];
+    if (Array.isArray(rowData)) {
+      for (let col = 0; col < Math.min(rowData.length, columns); col++) {
+        if (rowData[col] === 1) {
+          const index = col + row * columns;
+          if (index >= 0 && index < totalLights) {
+            pattern.push(index);
+          }
+        }
+      }
+    }
+  }
+  return pattern;
+}
+
+function parseFlatGridPattern(
+  flatPattern: number[],
+  totalLights: number
+): number[] {
+  const pattern: number[] = [];
+  for (let i = 0; i < Math.min(flatPattern.length, totalLights); i++) {
+    if (flatPattern[i] === 1) {
+      pattern.push(i);
+    }
+  }
+  return pattern;
+}
+
 export default function SwitchboardCard({
   title,
   subtitle,
@@ -49,7 +85,7 @@ export default function SwitchboardCard({
   transitionDuration = 200,
   className,
   variant = "default",
-  showButton = true,
+  showButton: _showButton = true,
   href,
   onButtonClick,
 }: SwitchboardCardProps) {
@@ -60,33 +96,19 @@ export default function SwitchboardCard({
   // Priority: gridPattern > randomLights
   const basePattern = useMemo<number[]>(() => {
     if (gridPattern) {
-      const pattern: number[] = [];
       // Handle 2D array [rows][columns]
-      if (Array.isArray(gridPattern[0]) && typeof gridPattern[0] !== "number") {
-        const grid2D = gridPattern as number[][];
-        for (let row = 0; row < Math.min(grid2D.length, rows); row++) {
-          const rowData = grid2D[row];
-          if (Array.isArray(rowData)) {
-            for (let col = 0; col < Math.min(rowData.length, columns); col++) {
-              if (rowData[col] === 1) {
-                const index = col + row * columns;
-                if (index >= 0 && index < totalLights) {
-                  pattern.push(index);
-                }
-              }
-            }
-          }
-        }
-        return pattern;
+      const is2DArray =
+        Array.isArray(gridPattern[0]) && typeof gridPattern[0] !== "number";
+      if (is2DArray) {
+        return parse2DGridPattern(
+          gridPattern as number[][],
+          rows,
+          columns,
+          totalLights
+        );
       }
       // Handle flat array [columns*rows]
-      const flatPattern = gridPattern as number[];
-      for (let i = 0; i < Math.min(flatPattern.length, totalLights); i++) {
-        if (flatPattern[i] === 1) {
-          pattern.push(i);
-        }
-      }
-      return pattern;
+      return parseFlatGridPattern(gridPattern as number[], totalLights);
     }
     if (randomLights) {
       return generateRandomPattern(totalLights);
@@ -114,7 +136,9 @@ export default function SwitchboardCard({
   // Animate lights - only for random lights mode (word/pattern stays high)
   useEffect(() => {
     // Word/pattern mode: no animation, lights stay high
-    if (!isRandomLightsMode) return;
+    if (!isRandomLightsMode) {
+      return;
+    }
 
     const interval = setInterval(() => {
       setLightStates((prev) => {
@@ -188,7 +212,8 @@ export default function SwitchboardCard({
         >
           {lightStates.map((state, index) => (
             <LightBulb
-              key={index}
+              // biome-ignore lint/suspicious/noArrayIndexKey: Light grid position is stable and never reorders
+              key={`light-${index}`}
               state={state}
               transitionDuration={transitionDuration}
             />

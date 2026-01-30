@@ -19,12 +19,12 @@ function useReducedMotion() {
   return shouldReduceMotion;
 }
 
-export type TypewriterTextProps = {
+export interface TypewriterTextProps {
   children: string;
   speed?: number;
   loop?: boolean;
   className?: string;
-};
+}
 
 const LOOP_RESTART_DELAY_MS = 1000;
 

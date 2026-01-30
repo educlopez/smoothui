@@ -7,14 +7,14 @@ import {
 import { GitBranch, UserIcon } from "lucide-react";
 import Image from "next/image";
 
-type ContributorProps = {
+interface ContributorProps {
   creator: {
     name: string;
     url?: string;
     avatar?: string;
   };
   contributors?: ContributorInfo[];
-};
+}
 
 export const Contributor = ({
   creator,

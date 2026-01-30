@@ -12,12 +12,12 @@ const TRANSITION_TIMEOUT = 1500;
 const AVATAR_SIZE = 160;
 const STAGGER_DELAY = 0.1;
 
-type TeamCarouselProps = {
+interface TeamCarouselProps {
   title?: string;
   subtitle?: string;
   description?: string;
   members?: Person[];
-};
+}
 
 export function TeamCarousel({
   title = "Tech Pioneers",
@@ -100,7 +100,7 @@ export function TeamCarousel({
           {/* Navigation Buttons */}
           <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
             <motion.button
-              className="-left-12 static top-1/2 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+              className="static top-1/2 -left-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
               disabled={currentIndex === 0 || isTransitioning}
               onClick={prevSlide}
               type="button"
@@ -126,7 +126,7 @@ export function TeamCarousel({
               <span className="sr-only">Previous slide</span>
             </motion.button>
             <motion.button
-              className="-right-12 static top-1/2 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+              className="static top-1/2 -right-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
               disabled={
                 currentIndex >= members.length - CARDS_PER_VIEW ||
                 isTransitioning
@@ -179,11 +179,13 @@ export function TeamCarousel({
                     <motion.div
                       className="rounded-2xl border border-border bg-background p-7 text-center"
                       initial={{ opacity: 0, y: 20 }}
-                      transition={{ duration: 0.5, delay: index * STAGGER_DELAY }}
+                      transition={{
+                        duration: 0.5,
+                        delay: index * STAGGER_DELAY,
+                      }}
                       viewport={{ once: true }}
                       whileInView={{ opacity: 1, y: 0 }}
                     >
-                      {/* biome-ignore lint/performance/noImgElement: Using img for team avatars without Next.js Image optimizations */}
                       <img
                         alt={member.name}
                         className="mx-auto size-20 rounded-full border border-border"

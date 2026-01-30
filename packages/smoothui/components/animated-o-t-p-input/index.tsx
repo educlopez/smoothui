@@ -29,7 +29,7 @@ const INITIAL_SCALE = 0.8;
 const INITIAL_Y = 10;
 const SEPARATOR_DELAY = 0.15;
 
-export type AnimatedInputOTPProps = {
+export interface AnimatedInputOTPProps {
   containerClassName?: string;
   value?: string;
   onChange?: (value: string) => void;
@@ -38,7 +38,7 @@ export type AnimatedInputOTPProps = {
   className?: string;
   "aria-label"?: string;
   "aria-describedby"?: string;
-};
+}
 
 function AnimatedInputOTP({
   className,
@@ -58,8 +58,8 @@ function AnimatedInputOTP({
 
   return (
     <OTPInput
-      aria-label={props["aria-label"] || "One-time password input"}
       aria-describedby={props["aria-describedby"]}
+      aria-label={props["aria-label"] || "One-time password input"}
       className={cn("disabled:cursor-not-allowed", className)}
       containerClassName={cn(
         "flex items-center gap-2 has-disabled:opacity-50",
@@ -77,10 +77,10 @@ function AnimatedInputOTP({
   );
 }
 
-type AnimatedInputOTPGroupProps = {
+interface AnimatedInputOTPGroupProps {
   className?: string;
   children?: ReactNode;
-};
+}
 
 function AnimatedInputOTPGroup({
   className,
@@ -90,9 +90,11 @@ function AnimatedInputOTPGroup({
   return (
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      className={cn("flex items-center", className)}
+      className={cn("flex items-center gap-2", className)}
       data-slot="input-otp-group"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: INITIAL_Y }}
+      initial={
+        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: INITIAL_Y }
+      }
       transition={
         shouldReduceMotion
           ? { duration: 0 }
@@ -107,10 +109,10 @@ function AnimatedInputOTPGroup({
   );
 }
 
-type AnimatedInputOTPSlotProps = {
+interface AnimatedInputOTPSlotProps {
   index: number;
   className?: string;
-};
+}
 
 function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
   const inputOTPContext = useContext(OTPInputContext);
@@ -138,7 +140,7 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
             }
       }
       className={cn(
-        "relative flex h-9 w-9 items-center justify-center border-input border-y border-r text-sm shadow-xs outline-none transition-all first:rounded-l-md first:border-l last:rounded-r-md aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-[3px] data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40",
+        "relative flex h-9 w-9 items-center justify-center rounded-md border border-zinc-300 bg-background text-sm shadow-sm outline-none transition-all aria-invalid:border-destructive data-[active=true]:z-10 data-[active=true]:border-ring data-[active=true]:ring-[3px] data-[active=true]:ring-ring/50 data-[active=true]:aria-invalid:border-destructive data-[active=true]:aria-invalid:ring-destructive/20 dark:border-zinc-700 dark:bg-input/30 dark:data-[active=true]:aria-invalid:ring-destructive/40",
         className
       )}
       data-active={isActive}
@@ -247,7 +249,11 @@ function AnimatedInputOTPSeparator() {
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
       data-slot="input-otp-separator"
-      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: INITIAL_SCALE }}
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, scale: INITIAL_SCALE }
+      }
       transition={
         shouldReduceMotion
           ? { duration: 0 }

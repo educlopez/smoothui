@@ -9,19 +9,19 @@ const OPACITY_LIGHTER = 0.5;
 
 export const COLOR_STORAGE_KEY = "smoothui-colors";
 
-type ColorVariations = {
+interface ColorVariations {
   lightColor: string;
   lighterColor: string;
-};
+}
 
-type ColorPalette = {
+interface ColorPalette {
   primary: string;
   primaryLight: string;
   primaryLighter: string;
   secondary: string;
   secondaryLight: string;
   secondaryLighter: string;
-};
+}
 
 function updateShadowCustomCandy(candySecondary: string) {
   if (typeof document === "undefined") {
@@ -110,7 +110,10 @@ export function applyColorPalette(
   body.style.setProperty("--color-brand-light", palette.primaryLight);
   body.style.setProperty("--color-brand-lighter", palette.primaryLighter);
   body.style.setProperty("--color-brand-secondary", palette.secondary);
-  body.style.setProperty("--color-brand-secondary-light", palette.secondaryLight);
+  body.style.setProperty(
+    "--color-brand-secondary-light",
+    palette.secondaryLight
+  );
   body.style.setProperty(
     "--color-brand-secondary-lighter",
     palette.secondaryLighter
@@ -162,5 +165,3 @@ export function persistColorPalette(
     JSON.stringify({ candy: primaryColor, candySecondary: secondaryColor })
   );
 }
-
-

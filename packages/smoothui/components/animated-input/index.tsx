@@ -19,7 +19,7 @@ const LABEL_TRANSITION = {
   ], // standard material easing
 };
 
-export type AnimatedInputProps = {
+export interface AnimatedInputProps {
   value?: string;
   defaultValue?: string;
   onChange?: (value: string) => void;
@@ -30,7 +30,7 @@ export type AnimatedInputProps = {
   inputClassName?: string;
   labelClassName?: string;
   icon?: React.ReactNode;
-};
+}
 
 export default function AnimatedInput({
   value,
@@ -53,12 +53,44 @@ export default function AnimatedInput({
   const shouldReduceMotion = useReducedMotion();
   const inputId = `animated-input-${Math.random().toString(RADIX_BASE_36).substring(RANDOM_ID_START_INDEX, RANDOM_ID_LENGTH)}`;
 
+  const getLabelAnimation = () => {
+    if (shouldReduceMotion) {
+      return {};
+    }
+    if (isFloating) {
+      return {
+        y: -24,
+        scale: 0.85,
+        color: "var(--color-brand)",
+        borderColor: "var(--color-brand)",
+      };
+    }
+    return { y: 0, scale: 1, color: "#6b7280" };
+  };
+
+  const getLabelStyle = () => {
+    if (!shouldReduceMotion) {
+      return {};
+    }
+    if (isFloating) {
+      return {
+        transform: "translateY(-24px) scale(0.85)",
+        color: "var(--color-brand)",
+        borderColor: "var(--color-brand)",
+      };
+    }
+    return {
+      transform: "translateY(0) scale(1)",
+      color: "#6b7280",
+    };
+  };
+
   return (
     <div className={`relative flex items-center ${className}`}>
       {icon && (
         <span
           aria-hidden="true"
-          className="-translate-y-1/2 absolute top-1/2 left-3"
+          className="absolute top-1/2 left-3 -translate-y-1/2"
         >
           {icon}
         </span>
@@ -82,34 +114,12 @@ export default function AnimatedInput({
         value={val}
       />
       <motion.label
-        animate={
-          shouldReduceMotion
-            ? {}
-            : isFloating
-              ? {
-                  y: -24,
-                  scale: 0.85,
-                  color: "var(--color-brand)",
-                  borderColor: "var(--color-brand)",
-                }
-              : { y: 0, scale: 1, color: "#6b7280" }
-        }
-        className={`-translate-y-1/2 pointer-events-none absolute top-1/2 left-3 origin-left rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
+        animate={getLabelAnimation()}
+        className={`pointer-events-none absolute top-1/2 left-3 origin-left -translate-y-1/2 rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
         htmlFor={inputId}
         style={{
           zIndex: 2,
-          ...(shouldReduceMotion && isFloating
-            ? {
-                transform: "translateY(-24px) scale(0.85)",
-                color: "var(--color-brand)",
-                borderColor: "var(--color-brand)",
-              }
-            : shouldReduceMotion
-              ? {
-                  transform: "translateY(0) scale(1)",
-                  color: "#6b7280",
-                }
-              : {}),
+          ...getLabelStyle(),
         }}
         transition={shouldReduceMotion ? { duration: 0 } : LABEL_TRANSITION}
       >

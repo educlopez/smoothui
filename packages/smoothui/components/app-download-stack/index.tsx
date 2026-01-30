@@ -1,16 +1,21 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useAnimation, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useAnimation,
+  useReducedMotion,
+} from "motion/react";
 import { useCallback, useMemo, useState } from "react";
 
-export type AppData = {
+export interface AppData {
   id: number;
   name: string;
   icon: string;
-};
+}
 
-export type AppDownloadStackProps = {
+export interface AppDownloadStackProps {
   apps?: AppData[];
   title?: string;
   selectedApps?: number[];
@@ -19,7 +24,7 @@ export type AppDownloadStackProps = {
   isExpanded?: boolean;
   onExpandChange?: (expanded: boolean) => void;
   className?: string;
-};
+}
 
 const DOWNLOAD_DURATION_MS = 3000;
 const RESET_DELAY_MS = 1000;
@@ -135,7 +140,14 @@ export default function AppDownloadStack({
         setDownloadComplete(false);
       }, RESET_DELAY_MS);
     }, DOWNLOAD_DURATION_MS);
-  }, [shineControls, selected, onDownload, onChange, onExpandChange]);
+  }, [
+    shineControls,
+    selected,
+    onDownload,
+    onChange,
+    onExpandChange,
+    shouldReduceMotion,
+  ]);
 
   const stackVariants = useMemo(
     () => ({
@@ -210,16 +222,19 @@ export default function AppDownloadStack({
               whileHover={shouldReduceMotion ? {} : "hover"}
             >
               {apps.map((app, index) => (
-                /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                 <motion.img
                   alt={`${app.name} Logo`}
-                  animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
+                  animate={
+                    shouldReduceMotion ? "initial" : ["initial", "float"]
+                  }
                   className="absolute inset-0 rounded-xl border-none"
                   custom={index}
                   height={64}
                   initial="initial"
                   key={app.id}
-                  layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
+                  layoutId={
+                    shouldReduceMotion ? undefined : `app-icon-${app.id}`
+                  }
                   src={app.icon}
                   transition={
                     shouldReduceMotion
@@ -267,14 +282,23 @@ export default function AppDownloadStack({
               <motion.ul className="grid grid-cols-2 gap-3">
                 {apps.map((app, index) => (
                   <motion.li
-                    animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+                    animate={
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                    }
                     className="relative flex h-[80px] w-[80px]"
-                    initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, y: 20 }
+                    }
                     key={app.id}
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { delay: index * STAGGER_DELAY_MULTIPLIER, duration: 0.25 }
+                        : {
+                            delay: index * STAGGER_DELAY_MULTIPLIER,
+                            duration: 0.25,
+                          }
                     }
                   >
                     <div
@@ -314,7 +338,6 @@ export default function AppDownloadStack({
                       onClick={() => toggleApp(app.id)}
                       type="button"
                     >
-                      {/* biome-ignore lint/performance/noImgElement: Using img for app icon without Next.js Image optimizations */}
                       <img
                         alt={app.name}
                         className="rounded-lg"
@@ -364,16 +387,19 @@ export default function AppDownloadStack({
                   style={{ x: 0 }}
                 />
                 {apps.map((app, index) => (
-                  /* biome-ignore lint/performance/noImgElement: Using motion.img for animated app icons */
                   <motion.img
                     alt={`${app.name} Logo`}
-                    animate={shouldReduceMotion ? "initial" : ["initial", "float"]}
+                    animate={
+                      shouldReduceMotion ? "initial" : ["initial", "float"]
+                    }
                     className="absolute inset-0 rounded-xl border-none"
                     custom={index}
                     height={64}
                     initial="initial"
                     key={app.id}
-                    layoutId={shouldReduceMotion ? undefined : `app-icon-${app.id}`}
+                    layoutId={
+                      shouldReduceMotion ? undefined : `app-icon-${app.id}`
+                    }
                     src={app.icon}
                     transition={
                       shouldReduceMotion

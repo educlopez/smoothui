@@ -47,7 +47,7 @@ const iconMap = {
   Zap,
 };
 
-type FaqsGridProps = {
+interface FaqsGridProps {
   title?: string;
   description?: string;
   categories?: Array<{
@@ -59,7 +59,7 @@ type FaqsGridProps = {
       icon: string;
     }>;
   }>;
-};
+}
 
 export function FaqsGrid({
   title = "FAQs",

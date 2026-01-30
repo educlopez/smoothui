@@ -1,28 +1,76 @@
 export const smoothUISchema = {
   "@context": "https://schema.org",
-  "@type": "Organization",
-  name: "SmoothUI",
-  url: "https://smoothui.dev",
-  logo: "https://smoothui.dev/logo-smoothui.svg",
-  description:
-    "Free React UI components built with TailwindCSS and Framer Motion. shadcn/ui compatible, customizable, responsive, dark mode-ready, and perfect for modern UIs.",
-  founder: {
-    "@type": "Person",
-    name: "Eduardo Calvo",
-    sameAs: ["https://twitter.com/educalvolpz"],
-  },
-  sameAs: ["https://twitter.com/educalvolpz"],
-  keywords: [
-    "react components",
-    "tailwindcss ui",
-    "motion animations",
-    "framer motion",
-    "shadcn/ui",
-    "shadcn ui components",
-    "react ui library",
-    "customizable components",
-    "animated ui components",
-    "dark mode components",
-    "shadcn alternative",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://smoothui.dev/#organization",
+      name: "SmoothUI",
+      url: "https://smoothui.dev",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://smoothui.dev/logo-smoothui.svg",
+      },
+      description:
+        "Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components with Tailwind CSS for modern UIs.",
+      founder: {
+        "@type": "Person",
+        name: "Eduardo Calvo",
+        sameAs: ["https://twitter.com/educalvolpz"],
+      },
+      sameAs: [
+        "https://twitter.com/educalvolpz",
+        "https://github.com/educlopez/smoothui",
+      ],
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://smoothui.dev/#software",
+      name: "SmoothUI",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Any",
+      description:
+        "A React component library featuring 50+ animated UI components with smooth Motion animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.",
+      url: "https://smoothui.dev",
+      author: {
+        "@id": "https://smoothui.dev/#organization",
+      },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      softwareVersion: "1.0",
+      programmingLanguage: ["TypeScript", "JavaScript"],
+      runtimePlatform: "React",
+      keywords: [
+        "react components",
+        "tailwindcss ui",
+        "motion animations",
+        "framer motion",
+        "shadcn/ui",
+        "shadcn ui components",
+        "shadcn alternative",
+        "react ui library",
+        "animated ui components",
+        "dark mode components",
+      ],
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://smoothui.dev/#website",
+      name: "SmoothUI",
+      url: "https://smoothui.dev",
+      publisher: {
+        "@id": "https://smoothui.dev/#organization",
+      },
+      potentialAction: {
+        "@type": "SearchAction",
+        target: {
+          "@type": "EntryPoint",
+          urlTemplate: "https://smoothui.dev/docs/components?q={search_term}",
+        },
+        "query-input": "required name=search_term",
+      },
+    },
   ],
 };

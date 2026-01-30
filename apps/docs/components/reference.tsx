@@ -1,9 +1,9 @@
 import { SparklesIcon } from "lucide-react";
 import Image from "next/image";
 
-type ReferenceProps = {
+interface ReferenceProps {
   sources: string[];
-};
+}
 
 const getHostname = (url: string) => {
   if (url.startsWith("/")) {

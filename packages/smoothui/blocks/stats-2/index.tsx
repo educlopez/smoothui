@@ -9,7 +9,7 @@ const ICON_STAGGER_OFFSET = 0.2;
 const VALUE_DELAY_OFFSET = 0.3;
 const TREND_STAGGER_OFFSET = 0.5;
 
-type StatsCardsProps = {
+interface StatsCardsProps {
   title?: string;
   description?: string;
   stats?: Array<{
@@ -22,7 +22,7 @@ type StatsCardsProps = {
       direction: "up" | "down";
     };
   }>;
-};
+}
 
 const iconMap = {
   DollarSign,

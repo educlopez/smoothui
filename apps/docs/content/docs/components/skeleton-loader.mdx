@@ -1,0 +1,48 @@
+---
+title: Skeleton
+description: Auto-adaptive skeleton that matches your UI's exact dimensions.
+icon: Loader
+dependencies: []
+installer: skeleton-loader
+---
+
+## Features
+
+- **Auto-adaptive**: Wrap any component and skeleton matches its exact shape
+- Uses Tailwind's `animate-pulse` for smooth animation
+- Toggle between loading/loaded states with `loading` prop
+- Works with any component structure
+- Accessible with ARIA attributes
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/skeleton-loader/index.tsx"
+  name="SkeletonProps"
+/>
+
+## Usage
+
+### Wrap your UI
+
+Simply wrap your component - the skeleton will match its exact dimensions:
+
+```tsx
+<Skeleton loading={isLoading}>
+  <UserCard user={user} />
+</Skeleton>
+```
+
+### Basic blocks
+
+Use without children for simple skeleton shapes:
+
+```tsx
+<div className="flex items-center gap-4">
+  <Skeleton className="size-12 rounded-full" />
+  <div className="space-y-2">
+    <Skeleton className="h-4 w-[200px]" />
+    <Skeleton className="h-4 w-[160px]" />
+  </div>
+</div>
+```

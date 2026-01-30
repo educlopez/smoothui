@@ -8,7 +8,7 @@ import {
 } from "@docs/app/lib/color-palette";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const CLOSE_DELAY = 200;
@@ -54,6 +54,7 @@ export function ColorPickerFloatNav() {
   const pickerRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
   const [saved, setSaved] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
@@ -160,24 +161,43 @@ export function ColorPickerFloatNav() {
       <AnimatePresence>
         {show && (
           <motion.div
-            animate={{ opacity: 1, scale: 1, y: 0 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, scale: 1, y: 0 }
+            }
             aria-modal="true"
-            className="-translate-x-1/2 absolute bottom-12 left-1/2 z-50 flex min-w-[220px] flex-col items-center rounded-xl border bg-background p-2 shadow-2xl"
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
+            className="absolute bottom-12 left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col items-center rounded-xl border bg-background p-2 shadow-2xl"
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, scale: 0.95, y: 20 }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, scale: 0.95, y: 20 }
+            }
             role="dialog"
             tabIndex={-1}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", stiffness: 300, damping: 30 }
+            }
           >
             <div className="mb-2 flex flex-row gap-3">
               {PALETTES.map((palette) => (
                 <motion.button
-                  animate={
-                    palette.candy === candy &&
-                    palette.candySecondary === candySecondary
-                      ? { scale: 1.12 }
-                      : { scale: 1 }
-                  }
+                  animate={(() => {
+                    const isSelected =
+                      palette.candy === candy &&
+                      palette.candySecondary === candySecondary;
+                    if (!isSelected) {
+                      return { scale: 1 };
+                    }
+                    return shouldReduceMotion ? {} : { scale: 1.12 };
+                  })()}
                   aria-label={`Select ${palette.name} palette`}
                   className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "cursor-not-allowed border shadow-custom-brand" : "cursor-pointer border border-transparent"}`}
                   key={palette.name}
@@ -191,22 +211,34 @@ export function ColorPickerFloatNav() {
                     background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,
                   }}
                   type="button"
-                  whileHover={{ scale: 1.08 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
+                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                 >
                   <AnimatePresence>
                     {palette.candy === candy &&
                       palette.candySecondary === candySecondary && (
                         <motion.span
-                          animate={{ opacity: 1, scale: 1 }}
+                          animate={
+                            shouldReduceMotion
+                              ? { opacity: 1 }
+                              : { opacity: 1, scale: 1 }
+                          }
                           className="absolute inset-0 flex items-center justify-center"
-                          exit={{ opacity: 0, scale: 0.7 }}
-                          initial={{ opacity: 0, scale: 0.7 }}
-                          transition={{
-                            type: "spring",
-                            stiffness: 400,
-                            damping: 30,
-                          }}
+                          exit={
+                            shouldReduceMotion
+                              ? { opacity: 0, transition: { duration: 0 } }
+                              : { opacity: 0, scale: 0.7 }
+                          }
+                          initial={
+                            shouldReduceMotion
+                              ? { opacity: 0 }
+                              : { opacity: 0, scale: 0.7 }
+                          }
+                          transition={
+                            shouldReduceMotion
+                              ? { duration: 0 }
+                              : { type: "spring", stiffness: 400, damping: 30 }
+                          }
                         >
                           <span className="rounded-full bg-white/40 p-0.5">
                             <Check className="h-4 w-4 text-white" />

@@ -53,10 +53,10 @@ export default function SearchableDropdownDemo() {
     <div className="flex w-full max-w-xs flex-col gap-4 p-8">
       <h3 className="font-medium text-lg">Select a device</h3>
       <SearchableDropdown
+        emptyMessage="No devices found"
         items={devices}
         label="Choose a device"
         placeholder="Search devices..."
-        emptyMessage="No devices found"
       />
     </div>
   );

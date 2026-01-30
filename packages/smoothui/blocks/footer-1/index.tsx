@@ -11,7 +11,7 @@ const DELAY_COMPANY = DELAY_INCREMENT * 3;
 const DELAY_SUPPORT = DELAY_INCREMENT * 4;
 const DELAY_COPYRIGHT = DELAY_INCREMENT * 5;
 
-type FooterSimpleProps = {
+interface FooterSimpleProps {
   companyName?: string;
   description?: string;
   links?: {
@@ -26,7 +26,7 @@ type FooterSimpleProps = {
     discord?: string;
   };
   copyright?: string;
-};
+}
 
 export function FooterSimple({
   companyName = "Smoothui",

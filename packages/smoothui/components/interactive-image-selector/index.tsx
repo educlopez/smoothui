@@ -28,12 +28,12 @@ const ITEM_ROTATE_POSITIVE = 2;
 const ITEM_ROTATE_NEGATIVE = -2;
 const RESET_ANIMATION_DURATION = 0.3;
 
-export type ImageData = {
+export interface ImageData {
   id: number;
   src: string;
-};
+}
 
-export type InteractiveImageSelectorProps = {
+export interface InteractiveImageSelectorProps {
   images: ImageData[];
   selectedImages?: number[];
   onChange?: (selected: number[]) => void;
@@ -41,7 +41,7 @@ export type InteractiveImageSelectorProps = {
   onShare?: (selected: number[]) => void;
   className?: string;
   selectable?: boolean;
-};
+}
 
 export default function InteractiveImageSelector({
   images,
@@ -244,7 +244,6 @@ export default function InteractiveImageSelector({
                 duration: isResetting ? RESET_ANIMATION_DURATION : undefined,
               }}
             >
-              {/* biome-ignore lint/performance/noImgElement: Using img for gallery images without Next.js Image optimizations */}
               <img
                 alt={`Gallery item ${img.id}`}
                 className={`h-full w-full rounded-lg object-cover ${
@@ -268,14 +267,18 @@ export default function InteractiveImageSelector({
         {isSelecting && (
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            className="-translate-x-1/2 absolute right-2 bottom-0 left-1/2 z-10 flex w-2/3 items-center justify-between rounded-full bg-background/20 p-4 bg-blend-luminosity backdrop-blur-md"
+            className="absolute right-2 bottom-0 left-1/2 z-10 flex w-2/3 -translate-x-1/2 items-center justify-between rounded-full bg-background/20 p-4 bg-blend-luminosity backdrop-blur-md"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
                 : { opacity: 0, y: 20 }
             }
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
+            initial={
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+            }
+            transition={
+              shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }
+            }
           >
             <button
               className="cursor-pointer text-brand"

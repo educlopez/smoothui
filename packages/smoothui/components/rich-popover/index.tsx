@@ -12,7 +12,7 @@ import { motion, useReducedMotion } from "motion/react";
 
 import type * as React from "react";
 
-export type RichTooltipProps = {
+export interface RichTooltipProps {
   trigger: React.ReactNode;
   title: string;
   description?: string;
@@ -25,7 +25,7 @@ export type RichTooltipProps = {
   className?: string;
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
-};
+}
 
 export function YouTubeIcon({
   className = "h-4 w-4 fill-red-600",
@@ -82,26 +82,35 @@ export default function RichTooltip({
     </div>
   );
 
-  const Action = actionLabel ? (
-    actionHref ? (
-      <a
-        className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-black text-xs transition-colors hover:bg-white/90"
-        href={actionHref}
-        rel="noopener noreferrer"
-        target="_blank"
-      >
-        <Play className="h-3.5 w-3.5" /> {actionLabel}
-      </a>
-    ) : (
-      <button
-        className="inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-black text-xs transition-colors hover:bg-white/90"
-        onClick={onActionClick}
-        type="button"
-      >
+  const renderAction = () => {
+    if (!actionLabel) {
+      return null;
+    }
+
+    const actionClassName =
+      "inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-black text-xs transition-colors hover:bg-white/90";
+
+    if (actionHref) {
+      return (
+        <a
+          className={actionClassName}
+          href={actionHref}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Play className="h-3.5 w-3.5" /> {actionLabel}
+        </a>
+      );
+    }
+
+    return (
+      <button className={actionClassName} onClick={onActionClick} type="button">
         <Play className="h-3.5 w-3.5" /> {actionLabel}
       </button>
-    )
-  ) : null;
+    );
+  };
+
+  const Action = renderAction();
 
   return (
     <PopoverRoot>

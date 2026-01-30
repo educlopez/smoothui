@@ -15,7 +15,7 @@ export type PresetType =
   | "rotate"
   | "swing";
 
-export type AnimatedGroupProps = {
+export interface AnimatedGroupProps {
   children: ReactNode;
   className?: string;
   variants?: {
@@ -25,7 +25,7 @@ export type AnimatedGroupProps = {
   preset?: PresetType;
   as?: React.ElementType;
   asChild?: React.ElementType;
-};
+}
 
 const defaultContainerVariants: Variants = {
   visible: {
@@ -127,7 +127,11 @@ function AnimatedGroup({
       variants={containerVariants}
     >
       {React.Children.map(children, (child, index) => (
-        <MotionChild key={index} variants={itemVariants}>
+        <MotionChild
+          // biome-ignore lint/suspicious/noArrayIndexKey: React.Children order is stable
+          key={index}
+          variants={itemVariants}
+        >
           {child}
         </MotionChild>
       ))}
@@ -136,4 +140,3 @@ function AnimatedGroup({
 }
 
 export { AnimatedGroup };
-

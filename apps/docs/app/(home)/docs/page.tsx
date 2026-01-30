@@ -4,7 +4,7 @@ import Link, { type LinkProps } from "next/link";
 
 export default function DocsPage() {
   return (
-    <main className="container z-2 flex flex-1 flex-col items-center justify-center py-24 md:py-36 text-center">
+    <main className="container z-2 flex flex-1 flex-col items-center justify-center py-24 text-center md:py-36">
       <h1 className="mb-4 font-semibold text-3xl md:text-4xl">
         Getting Started
       </h1>
@@ -32,13 +32,15 @@ export default function DocsPage() {
             href: "/docs/blocks",
           },
         ].map((item) => (
-          <Item href={item.href} key={item.name} className="flex flex-row gap-4">
+          <Item
+            className="flex flex-row gap-4"
+            href={item.href}
+            key={item.name}
+          >
             <Icon>{item.icon}</Icon>
             <div className="flex flex-col">
-            <h2 className="mb-2 font-semibold">{item.name}</h2>
-            <p className="text-foreground/70 text-sm">
-              {item.description}
-            </p>
+              <h2 className="mb-2 font-semibold">{item.name}</h2>
+              <p className="text-foreground/70 text-sm">{item.description}</p>
             </div>
           </Item>
         ))}
@@ -49,15 +51,23 @@ export default function DocsPage() {
 
 function Icon({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-2 size-8 rounded-lg  bg-primary p-1 text-foreground/70 border ">
+    <div className="mb-2 size-8 rounded-lg border bg-primary p-1 text-foreground/70">
       {children}
     </div>
   );
 }
 
-function Item(props: LinkProps & { children: React.ReactNode, className?: string }) {
+function Item(
+  props: LinkProps & { children: React.ReactNode; className?: string }
+) {
   return (
-    <Link {...props} className={cn("rounded-2xl border bg-card p-4 shadow-lg", props.className)}>
+    <Link
+      {...props}
+      className={cn(
+        "rounded-2xl border bg-card p-4 shadow-lg",
+        props.className
+      )}
+    >
       {props.children}
     </Link>
   );

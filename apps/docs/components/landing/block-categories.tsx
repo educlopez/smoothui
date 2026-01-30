@@ -30,7 +30,8 @@ import {
   Link as LinkIcon,
   Twitter,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -164,15 +165,17 @@ function HeroPreview() {
         }}
         variants={abstractVariants}
       >
-        <img
+        <Image
           alt="Hero illustration"
           className="h-full w-full object-cover opacity-60"
+          height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
             width: 160,
             height: 160,
             quality: 75,
             format: "auto",
           })}
+          width={160}
         />
       </motion.div>
     </motion.div>
@@ -254,7 +257,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[0].slice(0, 2).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`free-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-12 rounded-full bg-foreground/10" />
               </li>
@@ -275,7 +282,7 @@ function PricingPreview() {
           variants={cardVariants}
         >
           <motion.span
-            className="-top-1.5 -translate-x-1/2 absolute left-1/2 flex h-3 w-fit items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
+            className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
             transition={{
               duration: 0.2,
               ease: [0.25, 0.46, 0.45, 0.94],
@@ -298,7 +305,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[1].slice(0, 3).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`pro-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-10 rounded-full bg-foreground/10" />
               </li>
@@ -332,7 +343,11 @@ function PricingPreview() {
           <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
           <ul className="space-y-1">
             {features[2].slice(0, 2).map((_, i) => (
-              <li className="flex items-center gap-1" key={i}>
+              <li
+                className="flex items-center gap-1"
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
+                key={`startup-feature-${i}`}
+              >
                 <Check className="h-2 w-2 shrink-0 text-foreground/30" />
                 <div className="h-1 w-12 rounded-full bg-foreground/10" />
               </li>
@@ -384,11 +399,11 @@ function TestimonialPreview() {
     >
       <div className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border bg-background p-4">
         {/* Left Arrow */}
-        <div className="-translate-y-1/2 absolute top-1/2 left-1">
+        <div className="absolute top-1/2 left-1 -translate-y-1/2">
           <ChevronLeft className="h-3 w-3 text-foreground/30" />
         </div>
         {/* Right Arrow */}
-        <div className="-translate-y-1/2 absolute top-1/2 right-1">
+        <div className="absolute top-1/2 right-1 -translate-y-1/2">
           <ChevronRight className="h-3 w-3 text-foreground/30" />
         </div>
         <AnimatePresence custom={1} mode="wait">
@@ -405,18 +420,21 @@ function TestimonialPreview() {
             }}
             variants={slideVariants}
           >
-            <img
+            <Image
               alt={currentPerson?.name || "Avatar"}
               className="h-full w-full object-cover"
+              height={32}
               src={currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""}
+              width={32}
             />
           </motion.div>
         </AnimatePresence>
         <div className="flex gap-0.5">
-          {[...Array(5)].map((_, i) => (
+          {[...new Array(5)].map((_, i) => (
             <motion.div
               className="h-1.5 w-1.5 rounded-full bg-brand/40"
-              key={i}
+              // biome-ignore lint/suspicious/noArrayIndexKey: Static star rating that never reorders
+              key={`star-${i}`}
               transition={{
                 duration: 0.2,
                 delay: i * 0.03,
@@ -598,10 +616,11 @@ function FooterPreview() {
         <div className="flex items-center gap-2">
           <div className="h-2.5 w-2.5 rounded bg-brand/30" />
           <div className="flex gap-3">
-            {[...Array(3)].map((_, i) => (
+            {[...new Array(3)].map((_, i) => (
               <motion.div
                 className="h-1.5 w-12 rounded-full bg-foreground/20"
-                key={i}
+                // biome-ignore lint/suspicious/noArrayIndexKey: Static footer links that never reorder
+                key={`footer-link-${i}`}
                 transition={{
                   duration: 0.2,
                   delay: i * 0.03,
@@ -629,7 +648,7 @@ function FooterPreview() {
             {[Twitter, Github, LinkIcon].map((Icon, i) => (
               <motion.div
                 className="relative flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground/10"
-                key={i}
+                key={Icon.displayName}
                 transition={{
                   duration: 0.2,
                   delay: i * 0.03,
@@ -718,11 +737,11 @@ function LogoCloudPreview() {
         </div>
 
         <InfiniteSlider gap={10} speed={15} speedOnHover={0}>
-          {logos.map((LogoComponent, i) => (
+          {logos.map((LogoComponent) => (
             <motion.div
               className="relative flex shrink-0 flex-col items-center gap-1"
               initial="rest"
-              key={`logo-${i}`}
+              key={LogoComponent.name}
               transition={{
                 duration: 0.2,
                 ease: [0.25, 0.46, 0.45, 0.94],
@@ -772,7 +791,8 @@ function StatsPreview() {
         {[stat1, stat2, stat3].map((stat, i) => (
           <motion.div
             className="flex flex-col items-center gap-1.5 space-y-1 text-center"
-            key={i}
+            // biome-ignore lint/suspicious/noArrayIndexKey: Static stats array that never reorders
+            key={`stat-${i}`}
             transition={{
               duration: 0.2,
               delay: i * 0.03,
@@ -832,10 +852,12 @@ function TeamPreview() {
             }}
             variants={avatarVariants}
           >
-            <img
+            <Image
               alt={person.name}
               className="h-full w-full object-cover"
+              height={36}
               src={getAvatarUrl(person.avatar, 36)}
+              width={36}
             />
           </motion.div>
           <div className="h-1.5 w-10 rounded-full bg-foreground/15" />
@@ -847,24 +869,21 @@ function TeamPreview() {
 }
 
 export function BlockCategories() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <div className="mx-auto max-w-7xl">
         <motion.div
-          animate={{
-            opacity: 1,
-            y: 0,
-          }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="flex flex-col items-start md:items-center"
-          initial={{
-            opacity: 0,
-            y: 20,
-          }}
-          transition={{
-            duration: 0.6,
-            ease: EASE_OUT_QUAD,
-          }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.35, ease: EASE_OUT_QUAD }
+          }
         >
           {/* Heading */}
           <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition md:max-w-xl xl:max-w-2xl">
@@ -881,24 +900,26 @@ export function BlockCategories() {
         </motion.div>
 
         {/* Grid Container with overflow */}
-        <div className="-mx-3 relative mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
+        <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
               <motion.div
-                animate={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                initial={{
-                  opacity: 0,
-                  y: 20,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
                 key={category.title}
-                transition={{
-                  duration: 0.4,
-                  delay: index * 0.05,
-                  ease: EASE_OUT_QUAD,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.3,
+                        delay: index * 0.05,
+                        ease: EASE_OUT_QUAD,
+                      }
+                }
               >
                 <Link
                   className="relative block text-center"
@@ -926,7 +947,7 @@ export function BlockCategories() {
           {/* Bottom Button Overlay */}
           <Button
             asChild
-            className="-translate-x-1/2 absolute bottom-6 left-1/2 z-20 md:bottom-24"
+            className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 md:bottom-24"
             size="lg"
             variant="candy"
           >
@@ -935,6 +956,7 @@ export function BlockCategories() {
                 <span>Browse All Blocks</span>
               </span>
               <svg
+                aria-hidden="true"
                 className="-mx-1.5 size-5 shrink-0 text-white/72"
                 fill="none"
                 viewBox="0 0 20 20"

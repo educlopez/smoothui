@@ -1,12 +1,12 @@
 import { cache } from "react";
 
-export type ContributorInfo = {
+export interface ContributorInfo {
   name: string;
   email: string;
   url?: string;
   username?: string;
   avatar?: string;
-};
+}
 
 // Cache for contributors (key: owner/repo/filePath, value: contributors)
 const contributorsCache = new Map<string, ContributorInfo[]>();
@@ -113,21 +113,21 @@ function parseLinkHeader(linkHeader: string | null): {
   return links;
 }
 
-type CommitItem = {
+interface CommitItem {
   author: { login: string; avatar_url: string; html_url: string } | null;
   commit: {
     author: { name: string; email: string } | null;
   };
-};
+}
 
-type FetchCommitsPageOptions = {
+interface FetchCommitsPageOptions {
   owner: string;
   repo: string;
   filePath: string;
   page: number;
   perPage: number;
   headers: HeadersInit;
-};
+}
 
 /**
  * Fetch a single page of commits from GitHub API
@@ -179,23 +179,23 @@ async function fetchCommitsPage(
       return { commits: [], hasMore: false };
     }
 
-  const commits = (await response.json()) as unknown;
+    const commits = (await response.json()) as unknown;
 
-  // Validate response is an array
-  if (!Array.isArray(commits)) {
-    return { commits: [], hasMore: false };
-  }
-
-  // Validate and filter each commit item
-  const validCommits: CommitItem[] = [];
-  for (const item of commits) {
-    if (isValidCommitItem(item) && item.commit.author) {
-      validCommits.push(item);
+    // Validate response is an array
+    if (!Array.isArray(commits)) {
+      return { commits: [], hasMore: false };
     }
-  }
 
-  // Check if there are more pages
-  const hasMoreByCount = commits.length >= perPage;
+    // Validate and filter each commit item
+    const validCommits: CommitItem[] = [];
+    for (const item of commits) {
+      if (isValidCommitItem(item) && item.commit.author) {
+        validCommits.push(item);
+      }
+    }
+
+    // Check if there are more pages
+    const hasMoreByCount = commits.length >= perPage;
     const linkHeader = response.headers.get("Link");
     const links = parseLinkHeader(linkHeader);
     const hasMoreByLink = Boolean(links.next);
@@ -337,7 +337,10 @@ async function getGitHubContributors(
  */
 // Use React.cache() for per-request deduplication
 export const getComponentContributors = cache(
-  async (type: "component" | "block", name: string): Promise<ContributorInfo[]> => {
+  async (
+    type: "component" | "block",
+    name: string
+  ): Promise<ContributorInfo[]> => {
     const owner = "educlopez";
     const repo = "smoothui";
     const token = process.env.GITHUB_TOKEN;
@@ -347,6 +350,6 @@ export const getComponentContributors = cache(
         ? `packages/smoothui/components/${name}/index.tsx`
         : `packages/smoothui/blocks/${name}/index.tsx`;
 
-    return getGitHubContributors(owner, repo, filePath, token);
+    return await getGitHubContributors(owner, repo, filePath, token);
   }
 );

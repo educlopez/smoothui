@@ -1,5 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 
+// Regex for mobile detection - defined at top level for performance
+const MOBILE_REGEX =
+  /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+
+// Navigator extensions for connection and memory APIs
+interface NavigatorExtended extends Navigator {
+  connection?: {
+    effectiveType?: string;
+    saveData?: boolean;
+  };
+  deviceMemory?: number;
+}
+
 interface UseOptimizedGifOptions {
   gifUrl: string;
   placeholderUrl: string;
@@ -37,7 +50,8 @@ export function useOptimizedGif({
       ).matches;
 
       // Check if device is on a slow connection
-      const connection = (navigator as any).connection;
+      const nav = navigator as NavigatorExtended;
+      const connection = nav.connection;
       const isSlowConnection =
         connection &&
         (connection.effectiveType === "slow-2g" ||
@@ -45,17 +59,13 @@ export function useOptimizedGif({
           connection.effectiveType === "3g");
 
       // Check if device has limited memory
-      const hasLimitedMemory =
-        (navigator as any).deviceMemory && (navigator as any).deviceMemory < 4;
+      const hasLimitedMemory = nav.deviceMemory && nav.deviceMemory < 4;
 
       // Check if user is on mobile (more aggressive optimization)
-      const isMobile =
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-          navigator.userAgent
-        );
+      const isMobile = MOBILE_REGEX.test(navigator.userAgent);
 
       // Check if user has data saver enabled
-      const hasDataSaver = connection && connection.saveData;
+      const hasDataSaver = connection?.saveData;
 
       setShouldLoad(
         enableMotion &&
@@ -78,16 +88,18 @@ export function useOptimizedGif({
 
   // Intersection Observer for lazy loading
   useEffect(() => {
-    if (!(elementRef.current && shouldLoad)) return;
+    if (!(elementRef.current && shouldLoad)) {
+      return;
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
+        for (const entry of entries) {
           if (entry.isIntersecting) {
             setIsVisible(true);
             observer.disconnect();
           }
-        });
+        }
       },
       {
         rootMargin,

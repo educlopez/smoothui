@@ -9,12 +9,12 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import type { ElementRef, ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-type PreviewContentProps = {
+interface PreviewContentProps {
   children: ReactNode;
   type: "component" | "block";
   blockPath?: string;
   size?: PreviewSize;
-};
+}
 
 export type PreviewSize = "desktop" | "tablet" | "mobile";
 
@@ -33,11 +33,11 @@ const BLOCK_PREVIEW_MIN_HEIGHT_PX = BLOCK_PREVIEW_MIN_HEIGHT_REM * REM_IN_PX;
 const HEIGHT_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT";
 const HEIGHT_REQUEST_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT_REQUEST";
 
-type HeightMessage = {
+interface HeightMessage {
   type?: unknown;
   blockId?: unknown;
   height?: unknown;
-};
+}
 
 function extractHeightFromMessage(
   data: unknown,

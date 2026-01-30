@@ -22,7 +22,7 @@ const EXIT_BLUR_PX = 3;
 const MEASURE_DELAY_SHORT = 100;
 const MEASURE_DELAY_LONG = 500;
 const CONTAINER_CLOSE_DELAY = 0.08;
-const BLUR_DURATION = 0.4;
+const _BLUR_DURATION = 0.4;
 const BLUR_EASE_X1 = 0.22;
 const BLUR_EASE_Y1 = 1;
 const BLUR_EASE_X2 = 0.36;
@@ -34,7 +34,7 @@ const BLUR_EASE: [number, number, number, number] = [
   BLUR_EASE_Y2,
 ];
 
-export type FigmaCommentProps = {
+export interface FigmaCommentProps {
   avatarUrl?: string;
   avatarAlt?: string;
   className?: string;
@@ -43,7 +43,7 @@ export type FigmaCommentProps = {
   message?: string;
   width?: number;
   onOpenChange?: (isOpen: boolean) => void;
-};
+}
 
 export default function FigmaComment({
   avatarUrl = getImageKitUrl(
@@ -273,7 +273,6 @@ export default function FigmaComment({
           )}
         </AnimatePresence>
       </motion.div>
-
     </div>
   );
 }

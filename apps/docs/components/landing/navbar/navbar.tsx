@@ -1,7 +1,16 @@
 "use client";
 
-import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import {
+  Content as NavigationMenuContent,
+  Item as NavigationMenuItem,
+  Link as NavigationMenuLink,
+  List as NavigationMenuList,
+  Root as NavigationMenuRoot,
+  Trigger as NavigationMenuTrigger,
+  Viewport as NavigationMenuViewport,
+} from "@radix-ui/react-navigation-menu";
+import {
+  ArrowRight,
   Book,
   Heart,
   Layers3,
@@ -73,17 +82,17 @@ export default function Navbar({ className }: { className?: string }) {
   }
 
   return (
-    <NavigationMenu.Root className={cn("navbar-menu", className)}>
+    <NavigationMenuRoot className={cn("navbar-menu", className)}>
       <a className="flex flex-1 items-center gap-2" href="/">
         <Logo />
       </a>
-      <NavigationMenu.List className="menu-list flex-auto">
-        <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="trigger !cursor-default">
+      <NavigationMenuList className="menu-list flex-auto">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="trigger !cursor-default">
             <LayoutDashboard size={16} />
             Components
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="content">
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className="content">
             <div className="enhanced-submenu">
               <div className="submenu-nav">
                 <div className="submenu-items">
@@ -115,6 +124,13 @@ export default function Navbar({ className }: { className?: string }) {
                     Buttons, cards, forms, and more.
                   </EnhancedListItem>
                 </div>
+                <Link
+                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
+                  href="/docs/components"
+                >
+                  Explore all components
+                  <ArrowRight size={14} />
+                </Link>
               </div>
 
               <div className="submenu-preview">
@@ -132,15 +148,15 @@ export default function Navbar({ className }: { className?: string }) {
                 </div>
               </div>
             </div>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Trigger className="trigger !cursor-default">
+        <NavigationMenuItem>
+          <NavigationMenuTrigger className="trigger !cursor-default">
             <Zap size={16} />
             Blocks
-          </NavigationMenu.Trigger>
-          <NavigationMenu.Content className="content">
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className="content">
             <div className="enhanced-submenu">
               <div className="submenu-nav">
                 <div className="submenu-items">
@@ -172,6 +188,13 @@ export default function Navbar({ className }: { className?: string }) {
                     Stylish testimonial sections to build trust.
                   </EnhancedListItem>
                 </div>
+                <Link
+                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
+                  href="/docs/blocks"
+                >
+                  Explore all blocks
+                  <ArrowRight size={14} />
+                </Link>
               </div>
 
               <div className="submenu-preview">
@@ -189,27 +212,27 @@ export default function Navbar({ className }: { className?: string }) {
                 </div>
               </div>
             </div>
-          </NavigationMenu.Content>
-        </NavigationMenu.Item>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
 
-        <NavigationMenu.Item>
-          <NavigationMenu.Link className="trigger" href="/docs/guides">
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="/docs/guides">
             <Book size={16} /> Docs
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-        <NavigationMenu.Item>
-          <NavigationMenu.Link className="trigger" href="/docs/guides/sponsors">
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="/docs/guides/sponsors">
             <Heart size={16} /> Sponsors
-          </NavigationMenu.Link>
-        </NavigationMenu.Item>
-      </NavigationMenu.List>
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+      </NavigationMenuList>
       <div className="viewport-position">
-        <NavigationMenu.Viewport className="viewport" />
+        <NavigationMenuViewport className="viewport" />
       </div>
       <div className="flex flex-1 items-center justify-end gap-2">
         <GithubStars />
       </div>
-    </NavigationMenu.Root>
+    </NavigationMenuRoot>
   );
 }
 
@@ -232,7 +255,7 @@ function EnhancedListItem({
   ...props
 }: EnhancedListItemProps) {
   return (
-    <NavigationMenu.Link asChild>
+    <NavigationMenuLink asChild>
       <Link
         className="enhanced-list-item-link"
         href={href}
@@ -246,6 +269,6 @@ function EnhancedListItem({
           <p className="enhanced-list-item-text">{children}</p>
         </div>
       </Link>
-    </NavigationMenu.Link>
+    </NavigationMenuLink>
   );
 }

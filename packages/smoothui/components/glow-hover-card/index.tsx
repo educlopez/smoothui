@@ -1,36 +1,35 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useReducedMotion } from "motion/react";
+import { useReducedMotion } from "motion/react";
 import {
   type CSSProperties,
-  type ReactElement,
-  type ReactNode,
-  type Ref,
   cloneElement,
+  type ReactElement,
+  type Ref,
   useEffect,
   useRef,
   useState,
 } from "react";
 
-export type GlowHoverTheme = {
+export interface GlowHoverTheme {
   hue: number;
   saturation: number;
   lightness: number;
-};
+}
 
-export type GlowHoverItem = {
+export interface GlowHoverItem {
   id: string;
   element: ReactElement;
   theme?: GlowHoverTheme;
-};
+}
 
-export type GlowHoverProps = {
+export interface GlowHoverProps {
   items: GlowHoverItem[];
   className?: string;
   maskSize?: number;
   glowIntensity?: number;
-};
+}
 
 // Legacy types for backward compatibility
 export type GlowHoverCardTheme = GlowHoverTheme;
@@ -56,7 +55,9 @@ export default function GlowHover({
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container || shouldReduceMotion) return;
+    if (!container || shouldReduceMotion) {
+      return;
+    }
 
     const handlePointerMove = (e: PointerEvent) => {
       const rect = container.getBoundingClientRect();
@@ -86,16 +87,22 @@ export default function GlowHover({
 
   // Sync overlay card sizes and positions with original cards
   useEffect(() => {
-    if (shouldReduceMotion || !overlayRef.current || !containerRef.current) return;
+    if (shouldReduceMotion || !overlayRef.current || !containerRef.current) {
+      return;
+    }
 
     const syncCards = () => {
       const container = containerRef.current;
       const overlay = overlayRef.current;
-      if (!container || !overlay) return;
+      if (!(container && overlay)) {
+        return;
+      }
 
       itemRefs.current.forEach((itemEl, index) => {
         const overlayItemEl = overlayItemRefs.current[index];
-        if (!itemEl || !overlayItemEl) return;
+        if (!(itemEl && overlayItemEl)) {
+          return;
+        }
 
         const itemRect = itemEl.getBoundingClientRect();
         const containerRect = container.getBoundingClientRect();
@@ -116,8 +123,10 @@ export default function GlowHover({
     const mutationObserver = new MutationObserver(syncCards);
 
     // Sync on resize
-    itemRefs.current.forEach((itemEl) => {
-      if (!itemEl) return;
+    for (const itemEl of itemRefs.current) {
+      if (!itemEl) {
+        continue;
+      }
 
       const observer = new ResizeObserver(() => {
         syncCards();
@@ -125,7 +134,7 @@ export default function GlowHover({
 
       observer.observe(itemEl);
       observers.push(observer);
-    });
+    }
 
     // Sync on DOM mutations
     if (containerRef.current) {
@@ -144,12 +153,14 @@ export default function GlowHover({
     window.addEventListener("resize", syncCards);
 
     return () => {
-      observers.forEach((observer) => observer.disconnect());
+      for (const observer of observers) {
+        observer.disconnect();
+      }
       mutationObserver.disconnect();
       window.removeEventListener("scroll", syncCards);
       window.removeEventListener("resize", syncCards);
     };
-  }, [items, shouldReduceMotion]);
+  }, [shouldReduceMotion]);
 
   // Apply glow effect styles to an element
   const applyGlowStyles = (
@@ -157,9 +168,14 @@ export default function GlowHover({
     theme?: GlowHoverTheme,
     isOverlay = false
   ): ReactElement => {
-    if (!isOverlay) return element;
+    if (!isOverlay) {
+      return element;
+    }
 
-    const props = element.props as { style?: CSSProperties; className?: string };
+    const props = element.props as {
+      style?: CSSProperties;
+      className?: string;
+    };
     const existingStyle = props.style || {};
     const existingClassName = props.className || "";
 
@@ -191,50 +207,49 @@ export default function GlowHover({
       ...glowStyles,
     };
 
-    return cloneElement(
-      element,
-      {
-        ...props,
-        style: mergedStyle,
-        className: cn(existingClassName, "glow-overlay-item"),
-      } as any
-    );
+    return cloneElement(element, {
+      ...props,
+      style: mergedStyle,
+      className: cn(existingClassName, "glow-overlay-item"),
+      // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
+    } as any);
   };
 
   return (
     <div
-      ref={containerRef}
       className={cn("relative", className)}
+      ref={containerRef}
       style={shouldReduceMotion ? undefined : { willChange: "contents" }}
     >
       {/* Original Items */}
       <div className="contents">
-        {items.map((item, index) => {
-          return cloneElement(
-            item.element,
-            {
-              key: item.id,
-              ref: (el: HTMLElement | null) => {
-                itemRefs.current[index] = el;
-                // Preserve existing ref if any
-                const elementProps = item.element.props as { ref?: Ref<HTMLElement> };
-                const existingRef = elementProps?.ref;
-                if (typeof existingRef === "function") {
-                  existingRef(el);
-                } else if (existingRef && typeof existingRef === "object") {
-                  (existingRef as { current: HTMLElement | null }).current = el;
-                }
-              },
-            } as any
-          );
-        })}
+        {items.map((item, index) =>
+          cloneElement(item.element, {
+            key: item.id,
+            ref: (el: HTMLElement | null) => {
+              itemRefs.current[index] = el;
+              // Preserve existing ref if any
+              const elementProps = item.element.props as {
+                ref?: Ref<HTMLElement>;
+              };
+              const existingRef = elementProps?.ref;
+              if (typeof existingRef === "function") {
+                existingRef(el);
+              } else if (existingRef && typeof existingRef === "object") {
+                (existingRef as { current: HTMLElement | null }).current = el;
+              }
+            },
+            // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
+          } as any)
+        )}
       </div>
 
       {/* Overlay with Glow Effect */}
       {!shouldReduceMotion && (
         <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 select-none"
           ref={overlayRef}
-          className="absolute inset-0 pointer-events-none select-none"
           style={{
             opacity: mousePosition.opacity,
             maskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
@@ -243,19 +258,16 @@ export default function GlowHover({
               "opacity 200ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
             willChange: "mask-image, opacity",
           }}
-          aria-hidden="true"
         >
           {items.map((item, index) => {
             const glowElement = applyGlowStyles(item.element, item.theme, true);
-            return cloneElement(
-              glowElement,
-              {
-                key: item.id,
-                ref: (el: HTMLElement | null) => {
-                  overlayItemRefs.current[index] = el;
-                },
-              } as any
-            );
+            return cloneElement(glowElement, {
+              key: item.id,
+              ref: (el: HTMLElement | null) => {
+                overlayItemRefs.current[index] = el;
+              },
+              // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
+            } as any);
           })}
         </div>
       )}
@@ -267,4 +279,3 @@ export default function GlowHover({
 export function GlowHoverCards(props: GlowHoverCardsProps) {
   return <GlowHover {...props} />;
 }
-

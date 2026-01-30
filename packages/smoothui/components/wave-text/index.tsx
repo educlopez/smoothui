@@ -1,13 +1,13 @@
 import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 
-export type WaveTextProps = {
+export interface WaveTextProps {
   children: string;
   amplitude?: number;
   duration?: number;
   staggerDelay?: number;
   className?: string;
-};
+}
 
 const WaveText: React.FC<WaveTextProps> = ({
   children,
@@ -17,13 +17,15 @@ const WaveText: React.FC<WaveTextProps> = ({
   className = "",
 }) => {
   const shouldReduceMotion = useReducedMotion();
-  
+
   return (
     <span className={className} style={{ display: "inline-block" }}>
       {children.split("").map((char, i) => (
         <motion.span
           animate={
-            shouldReduceMotion ? { y: 0 } : { y: [0, -amplitude, 0, amplitude * 0.5, 0] }
+            shouldReduceMotion
+              ? { y: 0 }
+              : { y: [0, -amplitude, 0, amplitude * 0.5, 0] }
           }
           key={`${i}-${char}`}
           style={{

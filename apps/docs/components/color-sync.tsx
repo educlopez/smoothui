@@ -8,10 +8,10 @@ import {
   resetColorPalette,
 } from "@/app/lib/color-palette";
 
-type StoredPalette = {
+interface StoredPalette {
   candy?: string;
   candySecondary?: string;
-};
+}
 
 function applyFromStorageValue(value: string | null) {
   if (!value) {
@@ -36,9 +36,7 @@ export function ColorSync() {
       return;
     }
 
-    applyFromStorageValue(
-      window.localStorage.getItem(COLOR_STORAGE_KEY)
-    );
+    applyFromStorageValue(window.localStorage.getItem(COLOR_STORAGE_KEY));
 
     function handleStorage(event: StorageEvent) {
       if (event.key === COLOR_STORAGE_KEY) {
@@ -55,5 +53,3 @@ export function ColorSync() {
 
   return null;
 }
-
-

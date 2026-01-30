@@ -4,7 +4,7 @@ import PowerOffSlide from "@repo/smoothui/components/power-off-slide";
 import { useState } from "react";
 
 const PowerOffSlideDemo = () => {
-  const [poweredOff, setPoweredOff] = useState(false);
+  const [_poweredOff, setPoweredOff] = useState(false);
 
   return (
     <div className="flex flex-col items-center gap-4">

@@ -4,7 +4,7 @@ import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useState } from "react";
 
-export type ButtonCopyProps = {
+export interface ButtonCopyProps {
   onCopy?: () => Promise<void> | void;
   idleIcon?: ReactNode;
   loadingIcon?: ReactNode;
@@ -13,7 +13,7 @@ export type ButtonCopyProps = {
   duration?: number;
   loadingDuration?: number;
   disabled?: boolean;
-};
+}
 
 const defaultIcons = {
   idle: <Copy size={16} />,
@@ -55,12 +55,18 @@ export default function ButtonCopy({
     success: successIcon,
   };
 
+  const ariaLabels = {
+    idle: "Copy",
+    loading: "Copying...",
+    success: "Copied",
+  };
+
   return (
     <div className="flex justify-center">
       <button
-        aria-label={buttonState === "loading" ? "Copying..." : buttonState === "success" ? "Copied" : "Copy"}
+        aria-label={ariaLabels[buttonState]}
         aria-live="polite"
-        className={`relative w-auto cursor-pointer overflow-hidden rounded-full border bg-background p-3 disabled:opacity-50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] min-w-[44px] ${className}`}
+        className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
         disabled={buttonState !== "idle" || disabled}
         onClick={handleClick}
         type="button"

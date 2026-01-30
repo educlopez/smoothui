@@ -180,14 +180,14 @@ const MusicPlayer = () => {
 
 type View = "idle" | "ring" | "timer" | "notification" | "music";
 
-export type DynamicIslandProps = {
+export interface DynamicIslandProps {
   view?: View;
   onViewChange?: (view: View) => void;
   idleContent?: ReactNode;
   ringContent?: ReactNode;
   timerContent?: ReactNode;
   className?: string;
-};
+}
 
 export default function DynamicIsland({
   view: controlledView,
@@ -243,8 +243,9 @@ export default function DynamicIsland({
               : {
                   type: "spring",
                   bounce:
-                    BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
-                    DEFAULT_BOUNCE,
+                    BOUNCE_VARIANTS[
+                      variantKey as keyof typeof BOUNCE_VARIANTS
+                    ] ?? DEFAULT_BOUNCE,
                   duration: 0.25,
                 }
           }
@@ -281,7 +282,7 @@ export default function DynamicIsland({
           </motion.div>
         </motion.div>
 
-        <div className="-translate-x-1/2 absolute bottom-2 left-1/2 z-10 flex justify-center gap-1 rounded-full border bg-background p-1">
+        <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 justify-center gap-1 rounded-full border bg-background p-1">
           {[
             { key: "idle", icon: <CloudLightning className="size-3" /> },
             { key: "ring", icon: <Phone className="size-3" /> },

@@ -2,11 +2,11 @@
 
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 
-type PreviewCodeProps = {
+interface PreviewCodeProps {
   code: string;
   language: string;
   filename: string;
-};
+}
 
 export const PreviewCode = ({ code, language }: PreviewCodeProps) => (
   <div className="relative [&_figure]:rounded-none [&_figure]:border-none">

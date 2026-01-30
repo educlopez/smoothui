@@ -14,13 +14,13 @@ const SLIDE_THRESHOLD = 160;
 const SLIDE_MAX_DISTANCE = 168;
 const PERCENTAGE_MULTIPLIER = 100;
 
-export type PowerOffSlideProps = {
+export interface PowerOffSlideProps {
   onPowerOff?: () => void;
   label?: string;
   className?: string;
   duration?: number;
   disabled?: boolean;
-};
+}
 
 export default function PowerOffSlide({
   onPowerOff,
@@ -37,7 +37,9 @@ export default function PowerOffSlide({
   const shouldReduceMotion = useReducedMotion();
 
   useAnimationFrame((t) => {
-    if (shouldReduceMotion) return;
+    if (shouldReduceMotion) {
+      return;
+    }
     const animDuration = duration;
     const progress = (t % animDuration) / animDuration;
     if (textRef.current) {
@@ -97,7 +99,11 @@ export default function PowerOffSlide({
               onDragEnd={handleDragEnd}
               style={{ x }}
               tabIndex={disabled ? -1 : 0}
-              transition={shouldReduceMotion ? { duration: 0 } : { type: "spring", duration: 0.25 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring", duration: 0.25 }
+              }
             >
               <Power className="text-red-600" size={32} />
             </motion.div>

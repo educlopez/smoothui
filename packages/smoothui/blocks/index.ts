@@ -9,6 +9,7 @@ export { default as Header3 } from "./header-3";
 export { default as Header4 } from "./header-4";
 export { default as LogoCloud1 } from "./logo-cloud-1";
 export { default as LogoCloud2 } from "./logo-cloud-2";
+export { default as LogoCloud3 } from "./logo-cloud-3";
 export { default as Pricing1 } from "./pricing-1";
 export { default as Pricing2 } from "./pricing-2";
 export { default as Pricing3 } from "./pricing-3";

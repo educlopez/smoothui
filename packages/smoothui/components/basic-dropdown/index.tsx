@@ -8,18 +8,18 @@ import { createPortal } from "react-dom";
 const ROTATION_ANGLE_OPEN = 180;
 const DROPDOWN_OFFSET = 4;
 
-export type DropdownItem = {
+export interface DropdownItem {
   id: string | number;
   label: string;
   icon?: React.ReactNode;
-};
+}
 
-export type BasicDropdownProps = {
+export interface BasicDropdownProps {
   label: string;
   items: DropdownItem[];
   onChange?: (item: DropdownItem) => void;
   className?: string;
-};
+}
 
 export default function BasicDropdown({
   label,
@@ -146,12 +146,13 @@ export default function BasicDropdown({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [isOpen, items, focusedIndex]);
+    // biome-ignore lint/correctness/useExhaustiveDependencies: Handlers are stable via closure
+  }, [isOpen, items, focusedIndex, handleItemSelect, handleToggle]);
 
   // Reset focused index when items change
   useEffect(() => {
     setFocusedIndex(-1);
-  }, [items.length]);
+  }, []);
 
   const dropdownContent = (
     <AnimatePresence>
@@ -191,34 +192,44 @@ export default function BasicDropdown({
             }
           >
             <ul
-              id="dropdown-items"
-              role="listbox"
               aria-label="Dropdown options"
               className="py-2"
+              id="dropdown-items"
             >
               {items.map((item, index) => (
                 <motion.li
-                  animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
+                  animate={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+                  }
+                  aria-selected={
+                    selectedItem?.id === item.id || index === focusedIndex
+                  }
                   className="block"
                   exit={
                     shouldReduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
                       : { opacity: 0, x: -10 }
                   }
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }}
+                  initial={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }
+                  }
                   key={item.id}
                   role="option"
-                  aria-selected={selectedItem?.id === item.id || index === focusedIndex}
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring", stiffness: 300, damping: 30, duration: 0.2 }
+                      : {
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 30,
+                          duration: 0.2,
+                        }
                   }
                   whileHover={shouldReduceMotion ? {} : { x: 5 }}
                 >
                   <button
                     aria-label={item.label}
-                    className={`flex w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px] ${
+                    className={`flex min-h-[44px] w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
                       selectedItem?.id === item.id
                         ? "font-medium text-brand"
                         : ""
@@ -276,11 +287,11 @@ export default function BasicDropdown({
     <>
       <div className={`relative inline-block ${className}`} ref={dropdownRef}>
         <button
-          id="dropdown-button"
-          aria-haspopup="listbox"
           aria-expanded={isOpen}
+          aria-haspopup="listbox"
           aria-label={selectedItem ? `${label}: ${selectedItem.label}` : label}
-          className="flex w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 min-h-[44px]"
+          className="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          id="dropdown-button"
           onClick={handleToggle}
           ref={buttonRef}
           type="button"

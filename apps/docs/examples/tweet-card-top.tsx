@@ -14,10 +14,10 @@ export default function TweetCardTopDemo() {
         />
         {/* User info at top with circular avatar */}
         <ClientTweetCard
+          avatarRounded="rounded-full"
           fallback={<TweetSkeleton />}
           id="2010439383795810775"
           userInfoPosition="top"
-          avatarRounded="rounded-full"
         />
       </div>
     </div>

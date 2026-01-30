@@ -4,11 +4,11 @@ import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
-export type ClipCornersButtonProps = {
+export interface ClipCornersButtonProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
-};
+}
 
 export function ClipCornersButton({
   children,
@@ -39,7 +39,9 @@ export function ClipCornersButton({
       className={`relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90 ${className}`}
       onClick={onClick}
       onMouseEnter={() => {
-        if (isHoverDevice) setIsHovered(true);
+        if (isHoverDevice) {
+          setIsHovered(true);
+        }
       }}
       onMouseLeave={() => setIsHovered(false)}
       style={{ borderRadius: 8 }}

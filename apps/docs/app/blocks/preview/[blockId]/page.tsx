@@ -6,11 +6,11 @@ import { notFound } from "next/navigation";
 
 const TSX_EXTENSION_REGEX = /\.tsx$/;
 
-type PageProps = {
+interface PageProps {
   params: Promise<{
     blockId: string;
   }>;
-};
+}
 
 export default async function BlockPreviewPage({ params }: PageProps) {
   const { blockId } = await params;

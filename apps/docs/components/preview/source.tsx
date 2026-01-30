@@ -9,9 +9,9 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-type PreviewSourceProps = {
+interface PreviewSourceProps {
   source: { name: string; source: string }[];
-};
+}
 
 const parseCode = (code: string) =>
   code

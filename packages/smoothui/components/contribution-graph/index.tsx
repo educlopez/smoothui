@@ -4,19 +4,19 @@ import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { useMemo, useState } from "react";
 
-export type ContributionData = {
+export interface ContributionData {
   date: string;
   count: number;
   level: number;
-};
+}
 
-export type ContributionGraphProps = {
+export interface ContributionGraphProps {
   data?: ContributionData[];
   year?: number;
   className?: string;
   showLegend?: boolean;
   showTooltips?: boolean;
-};
+}
 
 const WEEKS_IN_YEAR = 53;
 const DAYS_IN_WEEK = 7;
@@ -94,13 +94,13 @@ const createDayData = (
 };
 
 // Helper function to check if month should be shown
-type MonthHeaderCheck = {
+interface MonthHeaderCheck {
   currentYear: number;
   targetYear: number;
   currentMonth: number;
   startDateDay: number;
   weekCount: number;
-};
+}
 const shouldShowMonthHeader = ({
   currentYear,
   targetYear,
@@ -292,14 +292,13 @@ export function ContributionGraph({
                 {/* Day Labels */}
                 <td className="relative w-7 min-w-7 text-foreground">
                   {dayIndex % 2 === 0 && (
-                    <span className="-bottom-0.5 absolute left-0 text-xs">
+                    <span className="absolute -bottom-0.5 left-0 text-xs">
                       {DAYS[dayIndex]}
                     </span>
                   )}
                 </td>
 
                 {/* Day Cells */}
-                {/* biome-ignore lint/nursery/noShadow: False positive - w is a different variable from dayIndex */}
                 {Array.from({ length: WEEKS_IN_YEAR }, (_, w) => {
                   const dayData = yearData[w * DAYS_IN_WEEK + dayIndex];
                   const cellKey = `${dayData?.date ?? "empty"}-${w}-${dayIndex}`;
@@ -341,14 +340,18 @@ export function ContributionGraph({
       {/* Tooltip */}
       {showTooltips && hoveredDay && (
         <motion.div
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+          animate={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+          }
           className="pointer-events-none fixed z-50 rounded-lg border bg-primary px-3 py-2 text-foreground text-sm shadow-lg"
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
               : { opacity: 0, scale: 0.8 }
           }
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+          initial={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+          }
           style={{
             left: tooltipPosition.x + TOOLTIP_OFFSET_X,
             top: tooltipPosition.y - TOOLTIP_OFFSET_Y,

@@ -16,7 +16,7 @@ export function Icon({ className }: { className?: string }) {
   const [lastClickTime, setLastClickTime] = useState(0);
   const [defeated, setDefeated] = useState(false);
   const [petted, setPetted] = useState(false);
-  const [petDirections, setPetDirections] = useState<number[]>([]);
+  const [_petDirections, setPetDirections] = useState<number[]>([]);
   const [lastPetX, setLastPetX] = useState<number | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
 
@@ -57,7 +57,9 @@ export function Icon({ className }: { className?: string }) {
 
   // Eye movement logic
   useEffect(() => {
-    if (!(svgRef.current && hasMoved)) return;
+    if (!(svgRef.current && hasMoved)) {
+      return;
+    }
     const svgRect = svgRef.current.getBoundingClientRect();
 
     function calc(x: number, y: number) {
@@ -87,12 +89,16 @@ export function Icon({ className }: { className?: string }) {
     let timeout: NodeJS.Timeout;
     let mounted = true;
     const blink = async () => {
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
       await Promise.all([
         leftEyeControls.start({ scaleY: 0.1 }),
         rightEyeControls.start({ scaleY: 0.1 }),
       ]);
-      if (!mounted) return;
+      if (!mounted) {
+        return;
+      }
       await Promise.all([
         leftEyeControls.start({ scaleY: 1 }),
         rightEyeControls.start({ scaleY: 1 }),
@@ -159,9 +165,13 @@ export function Icon({ className }: { className?: string }) {
 
   // Petting logic: detect 5 rapid left-right changes over SVG
   useEffect(() => {
-    if (!svgRef.current) return;
+    if (!svgRef.current) {
+      return;
+    }
     const handleMove = (e: MouseEvent) => {
-      if (!svgRef.current || defeated) return;
+      if (!svgRef.current || defeated) {
+        return;
+      }
       const svgRect = svgRef.current.getBoundingClientRect();
       if (
         e.clientX < svgRect.left ||

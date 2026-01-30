@@ -1,0 +1,154 @@
+---
+title: Animated React Components
+description: Explore 50+ animated React components built with Motion (Framer Motion). Smooth animations, hover effects, transitions, and interactive UI elements for modern web apps.
+icon: Sparkles
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Motion-Powered React Components
+
+SmoothUI provides a comprehensive collection of **animated React components** powered by Motion (formerly Framer Motion). Every component is designed with smooth, performant animations that enhance user experience without sacrificing accessibility.
+
+<div className="grid gap-4 md:grid-cols-3">
+
+<FeatureCardHover
+  title="50+ Components"
+  description="Buttons, cards, inputs, text effects, and more - all with built-in animations."
+  gradient="from-purple-400 via-pink-400 to-orange-400"
+/>
+
+<FeatureCardHover
+  title="Spring Physics"
+  description="Natural, fluid animations using spring physics for realistic motion."
+  gradient="from-blue-400 via-purple-400 to-pink-400"
+/>
+
+<FeatureCardHover
+  title="Reduced Motion"
+  description="Automatic accessibility support for users who prefer reduced motion."
+  gradient="from-green-400 via-blue-400 to-purple-400"
+/>
+
+</div>
+
+## Animation Categories
+
+### Text Animations
+
+Create engaging text effects that capture attention:
+
+| Component | Animation Type | Use Case |
+|-----------|---------------|----------|
+| [Typewriter Text](/docs/components/typewriter-text) | Character reveal | Hero sections, AI interfaces |
+| [Scramble Hover](/docs/components/scramble-hover) | Matrix-style scramble | Navigation, headings |
+| [Wave Text](/docs/components/wave-text) | Wave motion | Decorative headings |
+| [Reveal Text](/docs/components/reveal-text) | Directional reveal | Page transitions |
+
+### Interactive Cards
+
+Cards with smooth expand, hover, and transition animations:
+
+| Component | Animation Type | Use Case |
+|-----------|---------------|----------|
+| [Expandable Cards](/docs/components/expandable-cards) | Layout animation | Portfolios, galleries |
+| [Glow Hover Card](/docs/components/glow-hover-card) | Cursor-following glow | Feature highlights |
+| [Scrollable Card Stack](/docs/components/scrollable-card-stack) | Parallax reveal | Testimonials, profiles |
+
+### Button Animations
+
+Buttons with satisfying micro-interactions:
+
+| Component | Animation Type | Use Case |
+|-----------|---------------|----------|
+| [Magnetic Button](/docs/components/magnetic-button) | Cursor attraction | CTAs, navigation |
+| [Button Copy](/docs/components/button-copy) | Success feedback | Code snippets |
+| [Clip Corners Button](/docs/components/clip-corners-button) | Corner animation | Unique CTAs |
+
+### Form Inputs
+
+Inputs with smooth focus and validation animations:
+
+| Component | Animation Type | Use Case |
+|-----------|---------------|----------|
+| [Animated Input](/docs/components/animated-input) | Floating label | Forms, search |
+| [Animated OTP Input](/docs/components/animated-otp-input) | Digit animation | Verification flows |
+
+### Notification Components
+
+Animated feedback and notification elements:
+
+| Component | Animation Type | Use Case |
+|-----------|---------------|----------|
+| [Dynamic Island](/docs/components/dynamic-island) | Expand/collapse | Notifications, status |
+| [Basic Toast](/docs/components/basic-toast) | Slide animation | Alerts, confirmations |
+
+## Why Motion Animations?
+
+### Performance Optimized
+
+All animations use GPU-accelerated transforms (`transform` and `opacity`) for smooth 60fps performance. No layout thrashing or paint operations.
+
+### Accessibility First
+
+Every component respects the `prefers-reduced-motion` media query. Users who are sensitive to motion see instant transitions instead of animations.
+
+```tsx
+// Built into every component
+const shouldReduceMotion = useReducedMotion();
+```
+
+### Natural Feel
+
+Animations use spring physics with carefully tuned parameters for natural, fluid motion that feels right:
+
+```tsx
+transition={{
+  type: "spring",
+  duration: 0.25,
+  bounce: 0.1
+}}
+```
+
+## Getting Started
+
+Install any animated component using the shadcn CLI:
+
+```bash
+npx shadcn@latest add @smoothui/expandable-cards
+```
+
+Or browse all components:
+
+<Cards>
+<Card
+  href="/docs/components"
+  title="All Components"
+>
+  Explore the complete collection of 50+ animated components.
+</Card>
+
+<Card
+  href="/docs/guides/installation"
+  title="Installation"
+>
+  Set up SmoothUI in your React or Next.js project.
+</Card>
+</Cards>
+
+## Frequently Asked Questions
+
+<Accordions>
+<Accordion id="motion-required" title="Do I need to know Motion/Framer Motion?">
+  No! All animations are built-in and work out of the box. You can use components without writing any animation code. For customization, basic Motion knowledge helps but isn't required.
+</Accordion>
+<Accordion id="bundle-size" title="How do animations affect bundle size?">
+  Motion is the only animation dependency. Components are tree-shakeable, so you only ship the code you use. Typical impact is 20-40KB for Motion plus component code.
+</Accordion>
+<Accordion id="ssr-support" title="Do animations work with Next.js SSR?">
+  Yes! All components are designed for Next.js App Router and work with Server Components. Client-side animations hydrate smoothly without layout shift.
+</Accordion>
+<Accordion id="custom-animations" title="Can I customize the animations?">
+  Absolutely. Since you own the code (copied into your project), you can modify any animation parameters - duration, easing, spring physics, and more.
+</Accordion>
+</Accordions>

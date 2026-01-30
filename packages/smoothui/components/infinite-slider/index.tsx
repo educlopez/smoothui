@@ -1,11 +1,16 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { animate, motion, useMotionValue, useReducedMotion } from "motion/react";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+} from "motion/react";
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
-export type InfiniteSliderProps = {
+export interface InfiniteSliderProps {
   children: React.ReactNode;
   gap?: number;
   speed?: number;
@@ -13,7 +18,7 @@ export type InfiniteSliderProps = {
   direction?: "horizontal" | "vertical";
   reverse?: boolean;
   className?: string;
-};
+}
 
 export default function InfiniteSlider({
   children,
@@ -28,7 +33,7 @@ export default function InfiniteSlider({
   const [ref, { width, height }] = useMeasure();
   const translation = useMotionValue(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [key, setKey] = useState(0);
+  const [_key, setKey] = useState(0);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -36,7 +41,7 @@ export default function InfiniteSlider({
       translation.set(0);
       return;
     }
-    
+
     let controls:
       | {
           stop: () => void;
@@ -65,7 +70,7 @@ export default function InfiniteSlider({
     } else {
       controls = animate(translation, [from, to], {
         ease: "linear",
-        duration: duration,
+        duration,
         repeat: Number.POSITIVE_INFINITY,
         repeatType: "loop",
         repeatDelay: 0,
@@ -77,7 +82,6 @@ export default function InfiniteSlider({
 
     return controls?.stop;
   }, [
-    key,
     translation,
     currentSpeed,
     width,
@@ -122,4 +126,3 @@ export default function InfiniteSlider({
     </div>
   );
 }
-

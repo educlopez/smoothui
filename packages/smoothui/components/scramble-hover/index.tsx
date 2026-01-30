@@ -1,12 +1,12 @@
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
-export type ScrambleHoverProps = {
+export interface ScrambleHoverProps {
   children: string;
   duration?: number; // total animation duration in ms
   speed?: number; // interval between scrambles in ms
   className?: string;
-};
+}
 
 const CHARACTERS =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=<>?".split(
@@ -39,7 +39,7 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   useEffect(() => {
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const hoverQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    
+
     setShouldReduceMotion(motionQuery.matches);
     setIsHoverDevice(hoverQuery.matches);
 
@@ -52,7 +52,7 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
 
     motionQuery.addEventListener("change", handleMotionChange);
     hoverQuery.addEventListener("change", handleHoverChange);
-    
+
     return () => {
       motionQuery.removeEventListener("change", handleMotionChange);
       hoverQuery.removeEventListener("change", handleHoverChange);
@@ -60,7 +60,9 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
   }, []);
 
   const handleMouseEnter = () => {
-    if (shouldReduceMotion || !isHoverDevice) return;
+    if (shouldReduceMotion || !isHoverDevice) {
+      return;
+    }
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
     }

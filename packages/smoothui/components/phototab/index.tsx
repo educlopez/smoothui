@@ -12,16 +12,16 @@ import { useLayoutEffect, useRef, useState } from "react";
 /**
  * Tab definition for Phototab
  */
-export type PhototabTab = {
+export interface PhototabTab {
   /** Tab label */
   name: string;
   /** Tab icon (ReactNode) */
   icon: React.ReactNode;
   /** Tab image (string: URL or import) */
   image: string;
-};
+}
 
-export type PhototabProps = {
+export interface PhototabProps {
   /** Array of tabs to display */
   tabs: PhototabTab[];
   /** Default selected tab name */
@@ -36,7 +36,7 @@ export type PhototabProps = {
   tabTriggerClassName?: string;
   /** Class name for image */
   imageClassName?: string;
-};
+}
 
 export default function Phototab({
   tabs,
@@ -90,7 +90,7 @@ export default function Phototab({
     >
       <TabsList
         aria-label="Phototab Tabs"
-        className={`-translate-y-10 absolute right-0 bottom-2 left-0 mx-auto flex w-40 flex-row items-center justify-between rounded-full bg-primary/40 px-3 py-2 font-medium text-sm ring ring-border/70 backdrop-blur-sm transition hover:text-foreground md:translate-y-20 md:group-hover:translate-y-0 ${tabListClassName}`}
+        className={`absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full bg-primary/40 px-3 py-2 font-medium text-sm ring ring-border/70 backdrop-blur-sm transition hover:text-foreground md:translate-y-20 md:group-hover:translate-y-0 ${tabListClassName}`}
         ref={listRef}
         style={{ pointerEvents: "auto" }}
       >
@@ -112,7 +112,12 @@ export default function Phototab({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", stiffness: 400, damping: 40, duration: 0.25 }
+                  : {
+                      type: "spring",
+                      stiffness: 400,
+                      damping: 40,
+                      duration: 0.25,
+                    }
               }
             />
           )}
@@ -142,7 +147,6 @@ export default function Phototab({
       </TabsList>
       {tabs.map((tab) => (
         <TabsContent className="h-full w-full" key={tab.name} value={tab.name}>
-          {/* biome-ignore lint/performance/noImgElement: Using img for tab image without Next.js Image optimizations */}
           <img
             alt={tab.name}
             className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}

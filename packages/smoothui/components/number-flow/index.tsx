@@ -39,7 +39,7 @@ const animateDigit = (
 const getTensValue = (num: number) => Math.floor(num / TENS_PLACE);
 const getHundredsValue = (num: number) => Math.floor(num / HUNDREDS_PLACE);
 
-export type NumberFlowProps = {
+export interface NumberFlowProps {
   value?: number;
   onChange?: (value: number) => void;
   min?: number;
@@ -47,7 +47,7 @@ export type NumberFlowProps = {
   className?: string;
   digitClassName?: string;
   buttonClassName?: string;
-};
+}
 
 export default function NumberFlow({
   value: controlledValue,

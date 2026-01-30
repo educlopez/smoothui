@@ -11,13 +11,13 @@ const COUNTDOWN_DURATION = 2000;
 const AVATAR_COUNT = 5;
 const STAGGER_DELAY = 0.05;
 
-export type Stargazer = {
+export interface Stargazer {
   login: string;
   avatar_url: string;
   html_url: string;
-};
+}
 
-export type GitHubStarsAnimationProps = {
+export interface GitHubStarsAnimationProps {
   owner?: string;
   repo?: string;
   stargazers?: Stargazer[];
@@ -28,7 +28,7 @@ export type GitHubStarsAnimationProps = {
   countClassName?: string;
   showAvatars?: boolean;
   maxAvatars?: number;
-};
+}
 
 export default function GitHubStarsAnimation({
   owner = "educlopez",
@@ -241,7 +241,6 @@ export default function GitHubStarsAnimation({
               }
               whileHover={shouldReduceMotion ? {} : { scale: 1.1, zIndex: 20 }}
             >
-              {/* biome-ignore lint/performance/noImgElement: Using img for user avatars without Next.js Image optimizations */}
               <img
                 alt={`${stargazer.login}'s avatar`}
                 className="h-full w-full object-cover"
@@ -256,7 +255,9 @@ export default function GitHubStarsAnimation({
       <motion.div
         animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
         className={cn("flex items-center gap-1.5 font-medium", countClassName)}
-        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }}
+        initial={
+          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.9 }
+        }
         transition={
           shouldReduceMotion
             ? { duration: 0 }
@@ -269,6 +270,7 @@ export default function GitHubStarsAnimation({
         <Star className="h-4 w-4 fill-current" />
         <motion.span
           animate={shouldReduceMotion ? { scale: 1 } : { scale: [1, 1.1, 1] }}
+          className="tabular-nums"
           transition={
             shouldReduceMotion
               ? { duration: 0 }
@@ -277,7 +279,6 @@ export default function GitHubStarsAnimation({
                   ease: EASE_OUT_CUBIC,
                 }
           }
-          className="tabular-nums"
         >
           {displayCount.toLocaleString()}
         </motion.span>
@@ -285,20 +286,6 @@ export default function GitHubStarsAnimation({
           {displayCount === 1 ? "star" : "stars"}
         </span>
       </motion.div>
-
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

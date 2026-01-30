@@ -14,22 +14,22 @@ const MAX_SCALE = 2;
 const HOVER_SCALE_MULTIPLIER = 1.02;
 const CARD_PADDING = 100;
 
-type CardItem = {
+interface CardItem {
   id: string;
   name: string;
   handle: string;
   avatar: string;
   image: string;
   href: string;
-};
+}
 
-export type ScrollableCardStackProps = {
+export interface ScrollableCardStackProps {
   items: CardItem[];
   cardHeight?: number;
   perspective?: number;
   transitionDuration?: number;
   className?: string;
-};
+}
 
 const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   items,
@@ -246,7 +246,8 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       const offsetIndex = index - currentIndex;
 
       // Apply blur effect for cards behind the current one - matching reference exactly
-      const blur = shouldReduceMotion ? 0 : currentIndex > index ? 2 : 0;
+      const isBehindCurrent = currentIndex > index;
+      const blur = !shouldReduceMotion && isBehindCurrent ? 2 : 0;
 
       // Opacity based on distance - improved logic from reference
       const opacity = currentIndex > index ? 0 : 1;
@@ -334,12 +335,17 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 zIndex: transform.zIndex,
                 pointerEvents: isActive ? "auto" : "none",
                 transformOrigin: "center center",
-                willChange: shouldReduceMotion ? undefined : "opacity, filter, transform",
+                willChange: shouldReduceMotion
+                  ? undefined
+                  : "opacity, filter, transform",
                 filter: `blur(${transform.blur}px)`,
                 opacity: transform.opacity,
-                transitionProperty: shouldReduceMotion ? "none" : "opacity, filter",
+                transitionProperty: shouldReduceMotion
+                  ? "none"
+                  : "opacity, filter",
                 transitionDuration: shouldReduceMotion ? "0ms" : "200ms",
-                transitionTimingFunction: "cubic-bezier(0.645, 0.045, 0.355, 1)",
+                transitionTimingFunction:
+                  "cubic-bezier(0.645, 0.045, 0.355, 1)",
                 // Dynamic border width based on scale - from reference code
                 borderWidth: `${2 / transform.scale}px`,
               }}
@@ -381,13 +387,12 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               >
                 {/* Scroll indicator */}
                 {isScrolling && isActive && (
-                  <div className="-top-1 -translate-x-1/2 absolute left-1/2 h-1 w-8 rounded-full bg-brand opacity-75" />
+                  <div className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-brand opacity-75" />
                 )}
 
                 {/* Image Container - takes remaining space */}
                 <div className="relative w-full flex-1 overflow-hidden">
                   {/* Background blur image */}
-                  {/* biome-ignore lint/performance/noImgElement: Using img for background blur effect */}
                   <img
                     alt=""
                     aria-hidden="true"
@@ -404,7 +409,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     width={10}
                   />
                   {/* Image */}
-                  {/* biome-ignore lint/performance/noImgElement: Using img for card content without Next.js Image optimizations */}
                   <img
                     alt={`${item.name}'s card`}
                     className="absolute inset-0 h-full w-full object-cover"
@@ -431,7 +435,6 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  {/* biome-ignore lint/performance/noImgElement: Using img for user avatar without Next.js Image optimizations */}
                   <img
                     alt={`${item.name}'s avatar`}
                     className="mr-1 h-5 w-5 overflow-hidden rounded-full"
@@ -457,7 +460,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
         {/* Navigation indicators */}
         <div
           aria-label="Card navigation"
-          className="-translate-x-1/2 absolute bottom-4 left-1/2 flex transform space-x-2"
+          className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2"
           role="tablist"
         >
           {Array.from({ length: items.length }, (_, i) => (

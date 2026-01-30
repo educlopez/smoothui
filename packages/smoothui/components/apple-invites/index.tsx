@@ -5,14 +5,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { wrap } from "popmotion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-export type ResponsiveSize = {
+export interface ResponsiveSize {
   base?: number | string;
   sm?: number | string;
   md?: number | string;
   lg?: number | string;
   xl?: number | string;
   "2xl"?: number | string;
-};
+}
 
 const breakpoints = {
   sm: 640,
@@ -149,11 +149,11 @@ function calculateHeightFromWidth(width: string, aspectRatio: number): string {
   return `${heightNum}px`;
 }
 
-export type Participant = {
+export interface Participant {
   avatar: string;
-};
+}
 
-export type Event = {
+export interface Event {
   id: number;
   title?: string;
   subtitle?: string;
@@ -162,10 +162,9 @@ export type Event = {
   badge?: string;
   participants?: Participant[];
   backgroundClassName?: string;
-};
+}
 
-
-export type AppleInvitesProps = {
+export interface AppleInvitesProps {
   events: Event[];
   interval?: number;
   className?: string;
@@ -175,7 +174,7 @@ export type AppleInvitesProps = {
   cardWidth?: number | string | ResponsiveSize;
   cardHeight?: number | string | ResponsiveSize;
   aspectRatio?: number;
-};
+}
 
 export default function AppleInvites({
   events,
@@ -367,7 +366,6 @@ export default function AppleInvites({
     }
     if (event.image) {
       return (
-        /* biome-ignore lint/performance/noImgElement: Using img for event image without Next.js Image optimizations */
         <img
           alt={event.title || ""}
           className="h-full w-full object-cover"
@@ -388,7 +386,7 @@ export default function AppleInvites({
         {visibleEvents.map((event, index) => (
           <motion.div
             animate={getVariant(index)}
-            className={`-translate-y-1/2 absolute top-1/2 left-1/2 origin-center ${cardClassName}`}
+            className={`absolute top-1/2 left-1/2 origin-center -translate-y-1/2 ${cardClassName}`}
             custom={direction}
             exit="hidden"
             initial="hidden"
@@ -438,7 +436,6 @@ export default function AppleInvites({
                   }}
                 >
                   {event.participants?.map((participant, idx) => (
-                    /* biome-ignore lint/performance/noImgElement: Using img for participant avatar without Next.js Image optimizations */
                     <img
                       alt={`Participant ${idx + 1}`}
                       className="rounded-full"

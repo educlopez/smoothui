@@ -6,11 +6,11 @@ import Divider from "./divider";
 import { LoadingDots } from "./loading-dots";
 import { MediaPlayer } from "./media-player";
 
-export type TestimonialMedia = {
+export interface TestimonialMedia {
   id: string;
   type: "twitter";
   url: string;
-};
+}
 
 const testimonials: TestimonialMedia[] = [
   // Add your testimonials here
@@ -116,7 +116,7 @@ export function WhatTheySay() {
     // Early exit optimization: combine conditions for better performance
     const checkTweetsLoaded = () => {
       const container = tweetsContainerRef.current;
-      if (!container || !isMountedRef.current || !isLoadingRef.current) {
+      if (!(container && isMountedRef.current && isLoadingRef.current)) {
         return;
       }
 
@@ -149,30 +149,6 @@ export function WhatTheySay() {
 
   return (
     <section className="relative w-full bg-background px-8 py-24">
-      <style>
-        {`
-          @keyframes fadeInBlur {
-            from {
-              opacity: 0;
-              filter: blur(8px);
-            }
-            to {
-              opacity: 1;
-              filter: blur(0);
-            }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            @keyframes fadeInBlur {
-              from {
-                opacity: 0;
-              }
-              to {
-                opacity: 1;
-              }
-            }
-          }
-        `}
-      </style>
       <Divider />
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">

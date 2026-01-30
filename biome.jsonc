@@ -1,6 +1,10 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ],
   "files": {
     "includes": [
       "**/*",
@@ -8,5 +12,67 @@
       "!packages/shadcn-ui/lib",
       "!packages/shadcn-ui/hooks"
     ]
-  }
+  },
+  "css": {
+    "linter": {
+      "enabled": true
+    },
+    "parser": {
+      // Allow CSS modules :local/:global pseudo-classes
+      "cssModules": true
+    }
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        // Complex UI components may exceed default threshold
+        "noExcessiveCognitiveComplexity": {
+          "level": "warn",
+          "options": { "maxAllowedComplexity": 40 }
+        }
+      },
+      "correctness": {
+        // Allow img without explicit width/height (CSS handles sizing)
+        "useImageSize": "warn"
+      },
+      "performance": {
+        // Barrel files needed for package exports
+        "noBarrelFile": "off",
+        // Component library uses <img> for portability across frameworks
+        "noImgElement": "warn",
+        // Namespace imports needed in some cases
+        "noNamespaceImport": "warn"
+      },
+      "suspicious": {
+        // Static arrays can use index keys safely
+        "noArrayIndexKey": "warn",
+        // alert() is used in example components
+        "noAlert": "warn"
+      },
+      "a11y": {
+        // Decorative SVGs use aria-hidden
+        "noSvgWithoutTitle": "warn"
+      },
+      "style": {
+        // Allow nested ternaries for concise conditional logic
+        "noNestedTernary": "warn"
+      }
+    }
+  },
+  "overrides": [
+    {
+      // Component library uses <img> for portability across frameworks
+      "includes": ["packages/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noImgElement": "off"
+          },
+          "correctness": {
+            "useImageSize": "off"
+          }
+        }
+      }
+    }
+  ]
 }

@@ -14,7 +14,7 @@ const DELAY_SUPPORT = DELAY_INCREMENT * 4;
 const DELAY_LEGAL = DELAY_INCREMENT * 5;
 const DELAY_COPYRIGHT = DELAY_INCREMENT * 6;
 
-type FooterComplexProps = {
+interface FooterComplexProps {
   companyName?: string;
   description?: string;
   newsletter?: {
@@ -37,7 +37,7 @@ type FooterComplexProps = {
     youtube?: string;
   };
   copyright?: string;
-};
+}
 
 export function FooterComplex({
   companyName = "Smoothui",

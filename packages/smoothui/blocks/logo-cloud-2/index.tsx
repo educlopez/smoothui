@@ -20,7 +20,7 @@ const HOVER_ROTATE = 5;
 const SPRING_STIFFNESS = 300;
 const SCROLL_DISTANCE_FACTOR = 33.333;
 
-type LogoCloudAnimatedProps = {
+interface LogoCloudAnimatedProps {
   title?: string;
   description?: string;
   logos?: Array<{
@@ -28,7 +28,7 @@ type LogoCloudAnimatedProps = {
     logo: React.ComponentType;
     url?: string;
   }>;
-};
+}
 
 export function LogoCloudAnimated({
   title = "Trusted by the world's most innovative teams",

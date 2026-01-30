@@ -6,7 +6,7 @@ import { useRef } from "react";
 const STAGGER_DELAY = 0.1;
 const VALUE_DELAY_OFFSET = 0.2;
 
-type StatsGridProps = {
+interface StatsGridProps {
   title?: string;
   description?: string;
   stats?: Array<{
@@ -14,7 +14,7 @@ type StatsGridProps = {
     label: string;
     description?: string;
   }>;
-};
+}
 
 export function StatsGrid({
   title = "Our Impact in Numbers",

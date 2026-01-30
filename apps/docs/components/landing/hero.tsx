@@ -13,7 +13,7 @@ import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
 import ScrambleHover from "@repo/smoothui/components/scramble-hover";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
 import { User } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 
 const EASE_OUT_QUAD_X1 = 0.25;
@@ -28,6 +28,8 @@ const EASE_OUT_QUAD = [
 ] as const;
 
 export function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <section className="bg-background transition">
       <div className="relative py-24 md:py-36">
@@ -36,23 +38,22 @@ export function Hero() {
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
             {/* Left side - Hero content */}
             <motion.div
-              animate={{
-                opacity: 1,
-                y: 0,
-              }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="space-y-8"
-              initial={{
-                opacity: 0,
-                y: 20,
-              }}
-              transition={{
-                duration: 0.6,
-                ease: EASE_OUT_QUAD,
-              }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.35, ease: EASE_OUT_QUAD }
+              }
             >
               {/* Main heading */}
               <h1 className="text-balance font-semibold text-4xl text-foreground md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
-                Super Smooth UI Components for Every Team
+                Animated React Components for shadcn/ui
               </h1>
 
               {/* Description */}
@@ -100,20 +101,18 @@ export function Hero() {
 
             {/* Right side - SmoothUI Component showcase */}
             <motion.div
-              animate={{
-                opacity: 1,
-                x: 0,
-              }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+              }
               className="relative"
-              initial={{
-                opacity: 0,
-                x: 20,
-              }}
-              transition={{
-                duration: 0.6,
-                delay: 0.2,
-                ease: EASE_OUT_QUAD,
-              }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.35, delay: 0.2, ease: EASE_OUT_QUAD }
+              }
             >
               <div className="grid grid-cols-2 gap-4">
                 {/* SiriOrb Component */}

@@ -30,11 +30,11 @@ const LOGOS = [
   <Ramp key="12" />,
 ];
 
-type LogoCloudSimpleProps = {
+interface LogoCloudSimpleProps {
   title?: string;
   description?: string;
   count?: number;
-};
+}
 
 export function LogoCloudSimple({
   title = "You're in good company",

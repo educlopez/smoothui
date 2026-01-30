@@ -15,7 +15,7 @@ import {
   X,
   Zap,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
@@ -27,6 +27,7 @@ interface MobileNavbarProps {
 
 export function MobileNavbar({ className }: MobileNavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <div className={cn("mobile-navbar", className)}>
@@ -48,20 +49,41 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={
+              shouldReduceMotion
+                ? { opacity: 1 }
+                : { opacity: 1, y: 0, scale: 1 }
+            }
             className="mobile-navbar-menu"
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{
-              duration: 0.2,
-              ease: [0.22, 1, 0.36, 1], // ease-out-quart
-            }}
+            exit={
+              shouldReduceMotion
+                ? { opacity: 0, transition: { duration: 0 } }
+                : { opacity: 0, y: -10, scale: 0.95 }
+            }
+            initial={
+              shouldReduceMotion
+                ? { opacity: 0 }
+                : { opacity: 0, y: -10, scale: 0.95 }
+            }
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.2, ease: [0.22, 1, 0.36, 1] }
+            }
           >
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="mobile-navbar-section"
-              initial={{ opacity: 0, y: 10 }}
-              transition={{ delay: 0.05, duration: 0.2 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: 0.05, duration: 0.2 }
+              }
             >
               <div className="mobile-navbar-section-title">
                 <LayoutDashboard size={16} />
@@ -93,10 +115,18 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
             </motion.div>
 
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="mobile-navbar-section"
-              initial={{ opacity: 0, y: 10 }}
-              transition={{ delay: 0.1, duration: 0.2 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: 0.1, duration: 0.2 }
+              }
             >
               <div className="mobile-navbar-section-title">
                 <Zap size={16} />
@@ -125,10 +155,18 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
             </motion.div>
 
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="mobile-navbar-links"
-              initial={{ opacity: 0, y: 10 }}
-              transition={{ delay: 0.15, duration: 0.2 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: 0.15, duration: 0.2 }
+              }
             >
               <Link className="mobile-navbar-link" href="/docs/guides">
                 <Book size={16} />
@@ -141,10 +179,18 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
             </motion.div>
 
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="mobile-navbar-footer"
-              initial={{ opacity: 0, y: 10 }}
-              transition={{ delay: 0.2, duration: 0.2 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: 0.2, duration: 0.2 }
+              }
             >
               <GithubStars />
             </motion.div>

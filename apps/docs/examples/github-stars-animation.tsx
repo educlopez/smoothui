@@ -20,16 +20,3 @@ export default function GitHubStarsAnimationDemo() {
     </div>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

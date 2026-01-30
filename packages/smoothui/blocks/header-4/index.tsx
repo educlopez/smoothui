@@ -15,9 +15,9 @@ import { useEffect, useRef } from "react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
 import styles from "./hero-grid.module.css";
 
-type InteractiveGridProps = {
+interface InteractiveGridProps {
   hoverColors?: string | [string, string, string, string];
-};
+}
 
 const TOTAL_TILES = 1600;
 const INITIAL_TILE = 1;
@@ -70,9 +70,9 @@ function InteractiveGrid({ hoverColors }: InteractiveGridProps) {
   );
 }
 
-type HeroGridProps = {
+interface HeroGridProps {
   hoverColors?: string | [string, string, string, string];
-};
+}
 
 export function HeroGrid({ hoverColors }: HeroGridProps) {
   return (

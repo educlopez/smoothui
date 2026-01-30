@@ -1,15 +1,20 @@
 "use client";
 
-import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
+import {
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from "motion/react";
 import type React from "react";
 import { useEffect, useRef, useState } from "react";
 
-import { useCursorPosition } from "./useCursorPosition";
+import { useCursorPosition } from "./use-cursor-position";
 
-export type CursorFollowProps = {
+export interface CursorFollowProps {
   children: React.ReactNode;
   className?: string;
-};
+}
 
 const CIRCLE_SIZE = 16;
 const MIN_BUBBLE_WIDTH = 40;
@@ -111,7 +116,11 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
         }
         className="pointer-events-none fixed z-50"
         exit={shouldReduceMotion ? {} : { opacity: 0, scale: 0.7 }}
-        initial={shouldReduceMotion ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1, scale: 1 }
+            : { opacity: 0, scale: 0.7 }
+        }
         style={{ left: 0, top: 0, x: springX, y: springY }}
       >
         <motion.div
@@ -172,7 +181,11 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.2, delay: 0.05, ease: [0.645, 0.045, 0.355, 1] }
+                  : {
+                      duration: 0.2,
+                      delay: 0.05,
+                      ease: [0.645, 0.045, 0.355, 1],
+                    }
               }
             >
               {cursorText}

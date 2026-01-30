@@ -1,6 +1,5 @@
-import { cn } from "@/lib/utils";
-
 import { Button } from "@docs/components/smoothbutton";
+import { cn } from "@/lib/utils";
 
 export function OpenInV0Button({
   url,
@@ -11,22 +10,22 @@ export function OpenInV0Button({
 }) {
   return (
     <Button
-        aria-label="Open in v0"
-        variant="outline"
-          size="sm"
-          className={cn(className, "p-2")}
-        asChild
+      aria-label="Open in v0"
+      asChild
+      className={cn(className, "p-2")}
+      size="sm"
+      variant="outline"
     >
       <a
         href={`https://v0.dev/chat/api/open?url=${encodeURIComponent(url)}`}
-        target="_blank"
         rel="noreferrer"
+        target="_blank"
       >
         <svg
-          viewBox="0 0 40 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
           className="h-5 w-5 text-current"
+          fill="none"
+          viewBox="0 0 40 20"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <title>Open in v0</title>
           <path
@@ -42,4 +41,3 @@ export function OpenInV0Button({
     </Button>
   );
 }
-

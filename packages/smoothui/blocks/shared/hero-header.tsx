@@ -47,7 +47,6 @@ export const HeroHeader = () => {
                   href="/"
                 >
                   <span className="sr-only">SmoothUI</span>
-                  {/* biome-ignore lint/performance/noImgElement: Rendering static brand asset from public folder */}
                   <img
                     alt="SmoothUI logo"
                     className={cn("h-6 w-auto", "dark:filter", "dark:invert")}
@@ -59,7 +58,7 @@ export const HeroHeader = () => {
 
                 <button
                   aria-label={menuState === true ? "Close Menu" : "Open Menu"}
-                  className="-m-2.5 -mr-4 relative z-20 block cursor-pointer p-2.5 lg:hidden"
+                  className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
                   onClick={() => setMenuState(!menuState)}
                   type="button"
                 >

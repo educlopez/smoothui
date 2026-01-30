@@ -20,8 +20,8 @@
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
-    "check": "npx ultracite@latest check",
-    "fix": "npx ultracite@latest fix",
+    "check": "ultracite check",
+    "fix": "ultracite fix",
     "test": "turbo test",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
@@ -30,11 +30,11 @@
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",
-    "@biomejs/biome": "2.3.0",
+    "@biomejs/biome": "2.3.12",
     "@types/node": "^24.7.2",
     "turbo": "^2.5.8",
     "typescript": "^5.9.3",
-    "ultracite": "^6.0.0"
+    "ultracite": "^7.1.1"
   },
   "engines": {
     "node": ">=18"

@@ -30,14 +30,14 @@ import { PreviewCode } from "./code";
 import { PreviewContent, type PreviewSize } from "./content";
 import { PreviewSource } from "./source";
 
-type PreviewShellProps = {
+interface PreviewShellProps {
   type: "component" | "block";
   blockPath?: string;
   parsedCode: string;
   sourceComponents: { name: string; source: string }[];
   className?: string;
   children: ReactNode;
-};
+}
 
 const previewSizes: { label: string; value: PreviewSize; icon: ReactNode }[] = [
   {
