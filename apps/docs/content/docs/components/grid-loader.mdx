@@ -1,0 +1,145 @@
+---
+title: Grid Loader
+description: A 3x3 grid-based loading animation with preset patterns, customizable colors, and multiple animation modes.
+icon: Grid3x3
+dependencies:
+  - motion.dev
+installer: grid-loader
+---
+
+## Features
+
+- 60+ preset patterns: solo, lines, waves, corners, shapes, stripes, spirals, and more
+- Three animation modes: pulse, sequence, stagger
+- Five color presets plus custom CSS color support
+- Four size presets plus custom pixel values
+- Glow effect that scales with size
+- Respects reduced motion preferences
+- Accessible with proper ARIA attributes
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/grid-loader/index.tsx"
+  name="GridLoaderProps"
+/>
+
+## Animation Modes
+
+### Pulse (default)
+
+All active cells glow together in a breathing animation:
+
+```tsx
+<GridLoader pattern="plus-hollow" mode="pulse" />
+```
+
+### Stagger
+
+Active cells reveal one-by-one in reading order:
+
+```tsx
+<GridLoader pattern="frame" mode="stagger" />
+```
+
+### Sequence
+
+Cycles through an array of patterns:
+
+```tsx
+<GridLoader
+  mode="sequence"
+  sequence={["corners-only", "cross", "frame"]}
+/>
+```
+
+## Preset Patterns
+
+### Solo (single cell)
+`solo-center`, `solo-tl`, `solo-tr`, `solo-bl`, `solo-br`
+
+### Lines
+`line-h-top`, `line-h-mid`, `line-h-bot`, `line-v-left`, `line-v-mid`, `line-v-right`, `line-diag-1`, `line-diag-2`
+
+### Waves
+`wave-lr`, `wave-rl`, `wave-tb`, `wave-bt`
+
+### Diagonal Quadrants
+`diagonal-tl`, `diagonal-tr`, `diagonal-bl`, `diagonal-br`
+
+### Corners
+`corners-only`, `corners-sync`, `corners`
+
+### Plus & Cross
+`plus-hollow`, `plus-full`, `cross`
+
+### Shapes
+`x-shape`, `diamond`, `checkerboard`
+
+### L-shapes
+`L-tl`, `L-tr`, `L-bl`, `L-br`
+
+### T-shapes
+`T-top`, `T-bot`, `T-left`, `T-right`
+
+### Stripes
+`stripes-h`, `stripes-v`, `rows-alt`
+
+### Spirals
+`spiral-cw`, `spiral-ccw`
+
+### Snake
+`snake`, `snake-rev`
+
+### Rain
+`rain`, `rain-rev`
+
+### Duo
+`duo-h`, `duo-v`, `duo-diag`
+
+### Frame & Border
+`frame`, `frame-sync`, `border`, `ripple-out`, `ripple-in`
+
+### Effects
+`waterfall`, `breathing`, `heartbeat`, `twinkle`, `sparkle`, `chaos`
+
+### Edge
+`edge-cw`
+
+### Sparse
+`sparse-1`, `sparse-2`, `sparse-3`
+
+## Custom Patterns
+
+Pass a 3x3 matrix of 0s and 1s for custom patterns:
+
+```tsx
+<GridLoader
+  pattern={[
+    [1, 0, 1],
+    [0, 1, 0],
+    [1, 0, 1],
+  ]}
+/>
+```
+
+## Colors
+
+Five preset colors: `white`, `red`, `blue`, `green`, `amber`
+
+Or pass any CSS color value:
+
+```tsx
+<GridLoader color="#a855f7" />
+<GridLoader color="rgb(168, 85, 247)" />
+```
+
+## Sizes
+
+Four preset sizes: `sm` (24px), `md` (32px), `lg` (48px), `xl` (64px)
+
+Or pass a number for exact pixel value:
+
+```tsx
+<GridLoader size={40} />
+```

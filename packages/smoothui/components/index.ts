@@ -23,6 +23,7 @@ export { default as ExpandableCards } from "./expandable-cards";
 export { default as FigmaComment } from "./figma-comment";
 export { default as GitHubStarsAnimation } from "./github-stars-animation";
 export { default as GlowHoverCards } from "./glow-hover-card";
+export { default as GridLoader } from "./grid-loader";
 export { default as ImageMetadataPreview } from "./image-metadata-preview";
 export { default as InfiniteSlider } from "./infinite-slider";
 export { default as InteractiveImageSelector } from "./interactive-image-selector";
