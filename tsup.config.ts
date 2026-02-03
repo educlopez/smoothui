@@ -6,5 +6,9 @@ export default defineConfig({
   sourcemap: false,
   minify: true,
   dts: true,
-  format: ["cjs", "esm"],
+  format: ["esm"],
+  target: "node18",
+  banner: {
+    js: "#!/usr/bin/env node",
+  },
 });

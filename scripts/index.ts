@@ -1,46 +1,74 @@
-#!/usr/bin/env node
-
-import { spawnSync } from "node:child_process";
+import { add } from "./commands/add.js";
+import { list } from "./commands/list.js";
+import { error, header } from "./utils/colors.js";
 
 const args = process.argv.slice(2);
+const command = args[0];
 
-if (args.length < 2 || args[0] !== "add") {
-  console.log("Usage: npx smoothui add [...packages]");
-  process.exit(1);
+function printHelp(): void {
+  header();
+  console.log("Usage: npx smoothui <command> [options]");
+  console.log();
+  console.log("Commands:");
+  console.log("  add [components...]   Add components to your project");
+  console.log("  list                  List available components");
+  console.log();
+  console.log("Options:");
+  console.log("  --path <path>         Custom component install path");
+  console.log(
+    "  --force               Overwrite existing files without asking"
+  );
+  console.log("  --json                Output as JSON (list command)");
+  console.log("  --help                Show this help message");
+  console.log();
+  console.log("Examples:");
+  console.log("  npx smoothui add siri-orb");
+  console.log("  npx smoothui add siri-orb grid-loader");
+  console.log("  npx smoothui add                         # Interactive mode");
+  console.log("  npx smoothui list");
 }
 
-const packageNames = args.slice(1);
+async function main(): Promise<void> {
+  try {
+    if (!command || command === "--help" || command === "-h") {
+      printHelp();
+      return;
+    }
 
-for (const packageName of packageNames) {
-  if (!packageName.trim()) {
-    continue;
-  }
+    if (command === "add") {
+      const componentArgs: string[] = [];
+      let path: string | undefined;
+      let force = false;
 
-  console.log(`Adding ${packageName} component...`);
+      for (let i = 1; i < args.length; i++) {
+        const arg = args[i];
+        if (arg === "--path" && args[i + 1]) {
+          path = args[i + 1];
+          i++;
+        } else if (arg === "--force" || arg === "-f") {
+          force = true;
+        } else if (!arg.startsWith("-")) {
+          componentArgs.push(arg);
+        }
+      }
 
-  const registryUrl =
-    process.env.SMOOTHUI_REGISTRY_URL ||
-    (process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://smoothui.dev");
+      await add(componentArgs, { path, force });
+      return;
+    }
 
-  const url =
-    packageName === "ai"
-      ? new URL("all.json", "https://registry.ai-sdk.dev/")
-      : new URL(`r/${packageName}.json`, registryUrl);
+    if (command === "list" || command === "ls") {
+      const json = args.includes("--json");
+      await list({ json });
+      return;
+    }
 
-  const command = `npx -y shadcn@latest add ${url.toString()}`;
-
-  const result = spawnSync(command, {
-    stdio: "inherit",
-    shell: true,
-  });
-
-  if (result.error) {
-    console.error(`Failed to add ${packageName}:`, result.error.message);
+    error(`Unknown command: ${command}`);
+    printHelp();
     process.exit(1);
-  } else if (result.status !== 0) {
-    console.error(`Command failed with exit code ${result.status}`);
+  } catch (err) {
+    error((err as Error).message);
     process.exit(1);
   }
 }
+
+main();

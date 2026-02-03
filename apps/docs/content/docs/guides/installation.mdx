@@ -1,11 +1,98 @@
 ---
 title: Installation
-description: Learn how to install SmoothUI components using shadcn CLI or manual installation methods.
+description: Learn how to install SmoothUI components using the SmoothUI CLI, shadcn CLI, or manual installation methods.
 icon: Download
 ---
 
+## Installation (SmoothUI CLI)
 
-## Installation (Official Registry)
+<BodyText>
+The SmoothUI CLI provides an interactive way to browse and install components with automatic dependency resolution.
+</BodyText>
+
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```bash
+# Add specific components
+pnpm dlx smoothui-cli@latest add siri-orb
+
+# Add multiple components
+pnpm dlx smoothui-cli@latest add siri-orb rich-popover animated-input
+
+# Interactive mode - browse and select components
+pnpm dlx smoothui-cli@latest add
+
+# List all available components
+pnpm dlx smoothui-cli@latest list
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```bash
+# Add specific components
+npx smoothui-cli@latest add siri-orb
+
+# Add multiple components
+npx smoothui-cli@latest add siri-orb rich-popover animated-input
+
+# Interactive mode - browse and select components
+npx smoothui-cli@latest add
+
+# List all available components
+npx smoothui-cli@latest list
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```bash
+# Add specific components
+yarn dlx smoothui-cli@latest add siri-orb
+
+# Add multiple components
+yarn dlx smoothui-cli@latest add siri-orb rich-popover animated-input
+
+# Interactive mode - browse and select components
+yarn dlx smoothui-cli@latest add
+
+# List all available components
+yarn dlx smoothui-cli@latest list
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```bash
+# Add specific components
+bunx smoothui-cli@latest add siri-orb
+
+# Add multiple components
+bunx smoothui-cli@latest add siri-orb rich-popover animated-input
+
+# Interactive mode - browse and select components
+bunx smoothui-cli@latest add
+
+# List all available components
+bunx smoothui-cli@latest list
+```
+
+</Tab>
+
+</Tabs>
+
+<FeatureCard title="Interactive Mode" variant="info">
+Run `npx smoothui-cli add` without arguments to launch an interactive picker. Search and browse components by category, then select multiple components to install at once.
+</FeatureCard>
+
+---
+
+## Installation (shadcn Registry)
 
 <BodyText>
 SmoothUI is an official shadcn registry, so you can install components directly without any configuration. Just use the `@smoothui{:js}` namespace.
