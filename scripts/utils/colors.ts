@@ -33,7 +33,7 @@ const LOGO = [
 ];
 
 // Version from package.json (injected at build time or read dynamically)
-const VERSION = "1.1.0";
+const VERSION = "1.1.1";
 
 export function step(symbol: string, message: string): void {
   console.log(`${symbol}  ${message}`);

@@ -1,23 +1,105 @@
 ---
 title: Installation
-description: Learn how to install SmoothUI components using the shadcn CLI or manual installation methods.
+description: Learn how to install SmoothUI components using the SmoothUI CLI, shadcn CLI, or manual installation methods.
 icon: Download
 ---
 
-## Installation (shadcn Registry)
+## Using SmoothUI CLI (Recommended)
 
 <BodyText>
-SmoothUI is an official shadcn registry, so you can install components directly without any configuration. Just use the `@smoothui{:js}` namespace.
+The SmoothUI CLI provides an interactive way to browse and install components with automatic dependency resolution.
 </BodyText>
 
-<FeatureCard title="No Configuration Required" variant="info">
-Since SmoothUI is an official registry, you don't need to add anything to your `components.json{:js}` file. Just install components directly!
+<FeatureCard title="Features" variant="info">
+- Interactive component picker with search
+- Auto-detects package manager (npm, pnpm, yarn, bun)
+- Auto-detects component paths and tsconfig aliases
+- Shows dependency tree before installation
+- Auto-installs npm dependencies
 </FeatureCard>
 
-### Install Components
+<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+
+<Tab value="pnpm">
+
+```bash
+# Add a single component
+pnpm dlx smoothui-cli add siri-orb
+
+# Add multiple components
+pnpm dlx smoothui-cli add siri-orb grid-loader animated-tabs
+
+# Interactive mode - browse and select
+pnpm dlx smoothui-cli add
+
+# List all available components
+pnpm dlx smoothui-cli list
+```
+
+</Tab>
+
+<Tab value="npm">
+
+```bash
+# Add a single component
+npx smoothui-cli add siri-orb
+
+# Add multiple components
+npx smoothui-cli add siri-orb grid-loader animated-tabs
+
+# Interactive mode - browse and select
+npx smoothui-cli add
+
+# List all available components
+npx smoothui-cli list
+```
+
+</Tab>
+
+<Tab value="yarn">
+
+```bash
+# Add a single component
+yarn dlx smoothui-cli add siri-orb
+
+# Add multiple components
+yarn dlx smoothui-cli add siri-orb grid-loader animated-tabs
+
+# Interactive mode - browse and select
+yarn dlx smoothui-cli add
+
+# List all available components
+yarn dlx smoothui-cli list
+```
+
+</Tab>
+
+<Tab value="bun">
+
+```bash
+# Add a single component
+bunx smoothui-cli add siri-orb
+
+# Add multiple components
+bunx smoothui-cli add siri-orb grid-loader animated-tabs
+
+# Interactive mode - browse and select
+bunx smoothui-cli add
+
+# List all available components
+bunx smoothui-cli list
+```
+
+</Tab>
+
+</Tabs>
+
+---
+
+## Using shadcn CLI
 
 <BodyText>
-Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` namespace:
+SmoothUI is also an official shadcn registry, so you can install components using the shadcn CLI with the `@smoothui{:js}` namespace.
 </BodyText>
 
 <Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>

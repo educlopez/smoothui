@@ -1,158 +1,32 @@
-import {
-  createInterface,
-  emitKeypressEvents,
-  type Interface,
-  type Key,
-} from "node:readline";
+import { createInterface, emitKeypressEvents, type Key } from "node:readline";
+import { Writable } from "node:stream";
 import pc from "picocolors";
 
-// Symbols
-const S = {
-  active: "◆",
-  done: "◇",
-  selected: "●",
-  unselected: "○",
-  pointer: "❯",
-  bar: "│",
-};
+// Silent writable stream to prevent readline from echoing input
+const silentOutput = new Writable({
+  write(_chunk, _encoding, callback) {
+    callback();
+  },
+});
 
-interface SearchItem {
+export interface SearchItem {
   value: string;
   label: string;
-  category?: string;
+  hint?: string;
 }
 
-interface SearchMultiselectOptions {
+export interface SearchMultiselectOptions {
   message: string;
   items: SearchItem[];
   maxVisible?: number;
 }
 
-interface PromptState {
-  selected: Set<string>;
-  searchQuery: string;
-  cursorIndex: number;
-}
-
-const getFilteredItems = (
-  items: SearchItem[],
-  searchQuery: string
-): SearchItem[] => {
-  if (!searchQuery) {
-    return items;
-  }
-  const query = searchQuery.toLowerCase();
-  return items.filter(
-    (item) =>
-      item.label.toLowerCase().includes(query) ||
-      item.value.toLowerCase().includes(query) ||
-      item.category?.toLowerCase().includes(query)
-  );
-};
-
-const formatSelected = (selected: Set<string>, maxShow = 3): string => {
-  const arr = [...selected];
-  if (arr.length === 0) return "";
-  if (arr.length <= maxShow) return arr.join(", ");
-  return `${arr.slice(0, maxShow).join(", ")} +${arr.length - maxShow} more`;
-};
-
-const render = (
-  message: string,
-  items: SearchItem[],
-  state: PromptState,
-  maxVisible: number
-): void => {
-  const filtered = getFilteredItems(items, state.searchQuery);
-  const total = filtered.length;
-
-  // Clear screen and move to top
-  process.stdout.write("\x1b[2J\x1b[H");
-
-  // Header
-  console.log(
-    `${pc.green(S.active)}  ${message} ${pc.dim("(space to toggle)")}`
-  );
-  console.log(`${pc.dim(S.bar)}`);
-
-  // Search input
-  const searchDisplay = state.searchQuery || pc.dim("Type to search...");
-  console.log(
-    `${pc.dim(S.bar)}  ${pc.cyan("Search:")} ${searchDisplay}${pc.inverse(" ")}`
-  );
-  console.log(`${pc.dim(S.bar)}`);
-
-  // Calculate visible window (centered scrolling like Vercel)
-  const halfVisible = Math.floor(maxVisible / 2);
-  let startIndex = Math.max(0, state.cursorIndex - halfVisible);
-  const endIndex = Math.min(total, startIndex + maxVisible);
-
-  // Adjust start if we're near the end
-  if (endIndex - startIndex < maxVisible && startIndex > 0) {
-    startIndex = Math.max(0, endIndex - maxVisible);
-  }
-
-  // Show "↑ N more" indicator
-  if (startIndex > 0) {
-    console.log(`${pc.dim(S.bar)}  ${pc.dim(`↑ ${startIndex} more`)}`);
-  }
-
-  // Render items
-  for (let i = startIndex; i < endIndex; i++) {
-    const item = filtered[i];
-    const isSelected = state.selected.has(item.value);
-    const isCursor = i === state.cursorIndex;
-
-    const pointer = isCursor ? pc.cyan(S.pointer) : " ";
-    const checkbox = isSelected ? pc.green(S.selected) : pc.dim(S.unselected);
-    const label = isCursor ? pc.cyan(item.label) : item.label;
-    const hint = item.category ? pc.dim(` (${item.category})`) : "";
-
-    console.log(`${pc.dim(S.bar)}  ${pointer} ${checkbox} ${label}${hint}`);
-  }
-
-  // Show "↓ N more" indicator
-  const remaining = total - endIndex;
-  if (remaining > 0) {
-    console.log(`${pc.dim(S.bar)}  ${pc.dim(`↓ ${remaining} more`)}`);
-  }
-
-  // Empty state
-  if (total === 0) {
-    console.log(`${pc.dim(S.bar)}  ${pc.dim("No components found")}`);
-  }
-
-  console.log(`${pc.dim(S.bar)}`);
-
-  // Selected summary
-  const selectedSummary = formatSelected(state.selected);
-  if (selectedSummary) {
-    console.log(
-      `${pc.dim(S.bar)}  ${pc.green("Selected:")} ${selectedSummary}`
-    );
-    console.log(`${pc.dim(S.bar)}`);
-  }
-
-  // Footer with keyboard hints
-  console.log(
-    `${pc.dim(S.bar)}  ${pc.dim("↑↓ navigate • space select • enter confirm • esc cancel")}`
-  );
-};
-
-const cleanup = (
-  rl: Interface,
-  onKeypress?: (str: string | undefined, key: Key) => void
-): void => {
-  if (onKeypress) {
-    process.stdin.removeListener("keypress", onKeypress);
-  }
-  if (process.stdin.isTTY) {
-    process.stdin.setRawMode(false);
-  }
-  rl.close();
-  // Show cursor
-  process.stdout.write("\x1b[?25h");
-};
+const S_STEP_ACTIVE = pc.green("◆");
+const S_STEP_CANCEL = pc.red("■");
+const S_STEP_SUBMIT = pc.green("◇");
+const S_RADIO_ACTIVE = pc.green("●");
+const S_RADIO_INACTIVE = pc.dim("○");
+const S_BAR = pc.dim("│");
 
 export const searchMultiselect = (
   options: SearchMultiselectOptions
@@ -160,83 +34,221 @@ export const searchMultiselect = (
   const { message, items, maxVisible = 8 } = options;
 
   return new Promise((resolve) => {
-    const state: PromptState = {
-      selected: new Set<string>(),
-      searchQuery: "",
-      cursorIndex: 0,
-    };
-
     const rl = createInterface({
       input: process.stdin,
-      output: process.stdout,
+      output: silentOutput,
+      terminal: false,
     });
 
-    // Enable raw mode and hide cursor
+    // Enable raw mode for keypress detection
     if (process.stdin.isTTY) {
       process.stdin.setRawMode(true);
-      process.stdout.write("\x1b[?25l"); // Hide cursor
     }
     emitKeypressEvents(process.stdin, rl);
 
-    const doRender = () => render(message, items, state, maxVisible);
+    let query = "";
+    let cursor = 0;
+    const selected = new Set<string>();
+    let lastRenderHeight = 0;
 
-    const onKeypress = (str: string | undefined, key: Key): void => {
-      const filtered = getFilteredItems(items, state.searchQuery);
-      const totalItems = filtered.length;
-
-      // Cancel
-      if (key.name === "escape" || (key.ctrl && key.name === "c")) {
-        cleanup(rl, onKeypress);
-        process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
-        resolve(null);
-        return;
-      }
-
-      // Submit
-      if (key.name === "return") {
-        cleanup(rl, onKeypress);
-        process.stdout.write("\x1b[2J\x1b[H"); // Clear screen
-        resolve([...state.selected]);
-        return;
-      }
-
-      // Navigation
-      if (key.name === "up") {
-        state.cursorIndex = Math.max(0, state.cursorIndex - 1);
-      } else if (key.name === "down") {
-        state.cursorIndex = Math.min(totalItems - 1, state.cursorIndex + 1);
-      }
-      // Selection
-      else if (key.name === "space") {
-        const item = filtered[state.cursorIndex];
-        if (item) {
-          if (state.selected.has(item.value)) {
-            state.selected.delete(item.value);
-          } else {
-            state.selected.add(item.value);
-          }
-        }
-      }
-      // Search input
-      else if (key.name === "backspace") {
-        state.searchQuery = state.searchQuery.slice(0, -1);
-        state.cursorIndex = 0;
-      } else if (str && str.length === 1 && !key.ctrl && !key.meta) {
-        state.searchQuery += str;
-        state.cursorIndex = 0;
-      }
-
-      // Guard cursor against empty results
-      if (totalItems === 0) {
-        state.cursorIndex = 0;
-      } else if (state.cursorIndex >= totalItems) {
-        state.cursorIndex = totalItems - 1;
-      }
-
-      doRender();
+    const filter = (item: SearchItem, q: string): boolean => {
+      if (!q) return true;
+      const lowerQ = q.toLowerCase();
+      return (
+        item.label.toLowerCase().includes(lowerQ) ||
+        item.value.toLowerCase().includes(lowerQ)
+      );
     };
 
-    process.stdin.on("keypress", onKeypress);
-    doRender();
+    const getFiltered = (): SearchItem[] => {
+      return items.filter((item) => filter(item, query));
+    };
+
+    const clearRender = (): void => {
+      if (lastRenderHeight > 0) {
+        // Move up and clear each line
+        process.stdout.write(`\x1b[${lastRenderHeight}A`);
+        for (let i = 0; i < lastRenderHeight; i++) {
+          process.stdout.write("\x1b[2K\x1b[1B");
+        }
+        process.stdout.write(`\x1b[${lastRenderHeight}A`);
+      }
+    };
+
+    const render = (state: "active" | "submit" | "cancel" = "active"): void => {
+      clearRender();
+
+      const lines: string[] = [];
+      const filtered = getFiltered();
+
+      // Header
+      const icon =
+        state === "active"
+          ? S_STEP_ACTIVE
+          : state === "cancel"
+            ? S_STEP_CANCEL
+            : S_STEP_SUBMIT;
+      lines.push(`${icon}  ${pc.bold(message)}`);
+
+      if (state === "active") {
+        // Search input
+        const searchLine = `${S_BAR}  ${pc.dim("Search:")} ${query}${pc.inverse(" ")}`;
+        lines.push(searchLine);
+
+        // Hint
+        lines.push(
+          `${S_BAR}  ${pc.dim("↑↓ move, space select, enter confirm")}`
+        );
+        lines.push(`${S_BAR}`);
+
+        // Items
+        const visibleStart = Math.max(
+          0,
+          Math.min(
+            cursor - Math.floor(maxVisible / 2),
+            filtered.length - maxVisible
+          )
+        );
+        const visibleEnd = Math.min(filtered.length, visibleStart + maxVisible);
+        const visibleItems = filtered.slice(visibleStart, visibleEnd);
+
+        if (filtered.length === 0) {
+          lines.push(`${S_BAR}  ${pc.dim("No matches found")}`);
+        } else {
+          for (let i = 0; i < visibleItems.length; i++) {
+            const item = visibleItems[i];
+            const actualIndex = visibleStart + i;
+            const isSelected = selected.has(item.value);
+            const isCursor = actualIndex === cursor;
+
+            const radio = isSelected ? S_RADIO_ACTIVE : S_RADIO_INACTIVE;
+            const label = isCursor ? pc.underline(item.label) : item.label;
+            const hint = item.hint ? pc.dim(` (${item.hint})`) : "";
+
+            const prefix = isCursor ? pc.cyan("❯") : " ";
+            lines.push(`${S_BAR} ${prefix} ${radio} ${label}${hint}`);
+          }
+
+          // Show count if more items
+          const hiddenBefore = visibleStart;
+          const hiddenAfter = filtered.length - visibleEnd;
+          if (hiddenBefore > 0 || hiddenAfter > 0) {
+            const parts: string[] = [];
+            if (hiddenBefore > 0) parts.push(`↑ ${hiddenBefore} more`);
+            if (hiddenAfter > 0) parts.push(`↓ ${hiddenAfter} more`);
+            lines.push(`${S_BAR}  ${pc.dim(parts.join("  "))}`);
+          }
+        }
+
+        // Selected summary
+        lines.push(`${S_BAR}`);
+        if (selected.size === 0) {
+          lines.push(`${S_BAR}  ${pc.dim("Selected: (none)")}`);
+        } else {
+          const selectedLabels = items
+            .filter((item) => selected.has(item.value))
+            .map((item) => item.label);
+          const summary =
+            selectedLabels.length <= 3
+              ? selectedLabels.join(", ")
+              : `${selectedLabels.slice(0, 3).join(", ")} +${selectedLabels.length - 3} more`;
+          lines.push(`${S_BAR}  ${pc.green("Selected:")} ${summary}`);
+        }
+
+        lines.push(`${pc.dim("└")}`);
+      } else if (state === "submit") {
+        // Final state - show what was selected
+        const selectedLabels = items
+          .filter((item) => selected.has(item.value))
+          .map((item) => item.label);
+        lines.push(`${S_BAR}  ${pc.dim(selectedLabels.join(", "))}`);
+      } else if (state === "cancel") {
+        lines.push(`${S_BAR}  ${pc.strikethrough(pc.dim("Cancelled"))}`);
+      }
+
+      process.stdout.write(`${lines.join("\n")}\n`);
+      lastRenderHeight = lines.length;
+    };
+
+    const cleanup = (): void => {
+      process.stdin.removeListener("keypress", keypressHandler);
+      if (process.stdin.isTTY) {
+        process.stdin.setRawMode(false);
+      }
+      rl.close();
+    };
+
+    const submit = (): void => {
+      render("submit");
+      cleanup();
+      resolve([...selected]);
+    };
+
+    const cancel = (): void => {
+      render("cancel");
+      cleanup();
+      resolve(null);
+    };
+
+    // Handle keypresses
+    const keypressHandler = (_str: string | undefined, key: Key): void => {
+      if (!key) return;
+
+      const filtered = getFiltered();
+
+      if (key.name === "return") {
+        submit();
+        return;
+      }
+
+      if (key.name === "escape" || (key.ctrl && key.name === "c")) {
+        cancel();
+        return;
+      }
+
+      if (key.name === "up") {
+        cursor = Math.max(0, cursor - 1);
+        render();
+        return;
+      }
+
+      if (key.name === "down") {
+        cursor = Math.min(filtered.length - 1, cursor + 1);
+        render();
+        return;
+      }
+
+      if (key.name === "space") {
+        const item = filtered[cursor];
+        if (item) {
+          if (selected.has(item.value)) {
+            selected.delete(item.value);
+          } else {
+            selected.add(item.value);
+          }
+        }
+        render();
+        return;
+      }
+
+      if (key.name === "backspace") {
+        query = query.slice(0, -1);
+        cursor = 0;
+        render();
+        return;
+      }
+
+      // Regular character input
+      if (key.sequence && !key.ctrl && !key.meta && key.sequence.length === 1) {
+        query += key.sequence;
+        cursor = 0;
+        render();
+      }
+    };
+
+    process.stdin.on("keypress", keypressHandler);
+
+    // Initial render
+    render();
   });
 };
