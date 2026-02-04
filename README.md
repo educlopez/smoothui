@@ -26,11 +26,8 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
   - [Features](#features)
   - [Quick Start](#quick-start)
   - [Installation](#installation)
-    - [Using shadcn CLI v3 (Recommended)](#using-shadcn-cli-v3-recommended)
-      - [Step 1: Configure the Registry](#step-1-configure-the-registry)
-      - [Step 2: Install Components](#step-2-install-components)
-      - [Step 3: Use Components](#step-3-use-components)
-      - [Available Commands](#available-commands)
+    - [Using SmoothUI CLI](#using-smoothui-cli)
+    - [Using shadcn CLI](#using-shadcn-cli)
     - [Manual Installation](#manual-installation)
   - [Usage](#usage)
     - [Basic Usage](#basic-usage)
@@ -69,29 +66,21 @@ SmoothUI is a collection of beautifully designed components with smooth animatio
 - **Accessibility**: Enhanced accessibility features across all components
 - **TypeScript Support**: Full TypeScript support with type definitions
 - **Easy Integration**: Simple API for integrating components into your projects
-- **shadcn CLI v3 Support**: Full compatibility with the new shadcn CLI v3 namespace system
+- **CLI Tools**: Dedicated SmoothUI CLI and shadcn registry support for easy component installation
 
 ## Quick Start
 
-Get started with SmoothUI in just a few steps:
-
-1. **Add the registry** to your `components.json`:
-
-```json
-{
-  "registries": {
-    "@smoothui": "https://smoothui.dev/r/{name}.json"
-  }
-}
-```
-
-2. **Install a component**:
+Get started with SmoothUI in just one command:
 
 ```bash
+# Using SmoothUI CLI (recommended)
+npx smoothui-cli add siri-orb
+
+# Or using shadcn CLI
 npx shadcn@latest add @smoothui/siri-orb
 ```
 
-3. **Use the component**:
+Then use the component:
 
 ```tsx
 import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
@@ -103,41 +92,36 @@ export default function App() {
 
 ## Installation
 
-### Using shadcn CLI v3 (Recommended)
+### Using SmoothUI CLI
 
-SmoothUI is fully compatible with the new shadcn CLI v3 namespace system. This is the easiest way to install and manage SmoothUI components.
+The SmoothUI CLI provides an interactive way to browse and install components with automatic dependency resolution.
 
-#### Step 1: Configure the Registry
+```bash
+# Add a single component
+npx smoothui-cli add siri-orb
 
-Add the SmoothUI registry to your `components.json` file:
+# Add multiple components
+npx smoothui-cli add siri-orb rich-popover animated-input
 
-```json
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "new-york",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.js",
-    "css": "src/app/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui"
-  },
-  "registries": {
-    "@smoothui": "https://smoothui.dev/r/{name}.json"
-  }
-}
+# Interactive mode - browse and select components
+npx smoothui-cli add
+
+# List all available components
+npx smoothui-cli list
 ```
 
-#### Step 2: Install Components
+**Features:**
 
-Install components using the namespace:
+- Interactive component picker with search and categories
+- Auto-detects package manager (npm, pnpm, yarn, bun)
+- Auto-detects component paths and tsconfig aliases
+- Shows dependency tree before installation
+- Handles file conflicts with overwrite prompts
+- Auto-installs npm dependencies
+
+### Using shadcn CLI
+
+SmoothUI is an official shadcn registry, so you can install components directly using the `@smoothui` namespace:
 
 ```bash
 # Install a single component
@@ -145,40 +129,6 @@ npx shadcn@latest add @smoothui/siri-orb
 
 # Install multiple components
 npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
-
-# Install components with dependencies
-npx shadcn@latest add @smoothui/scrollable-card-stack
-```
-
-#### Step 3: Use Components
-
-Import and use the installed components:
-
-```tsx
-import { RichPopover } from "@/components/smoothui/ui/RichPopover";
-import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
-
-export default function App() {
-  return (
-    <div>
-      <SiriOrb size="200px" />
-      <RichPopover />
-    </div>
-  );
-}
-```
-
-#### Available Commands
-
-```bash
-# View all available components
-npx shadcn@latest search @smoothui
-
-# View component details before installation
-npx shadcn@latest view @smoothui/siri-orb
-
-# Install components
-npx shadcn@latest add @smoothui/component-name
 ```
 
 ### Manual Installation

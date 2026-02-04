@@ -14,15 +14,12 @@ importers:
 
   .:
     dependencies:
-      '@smoothui/data':
-        specifier: workspace:*
-        version: link:packages/data
-      tsup:
-        specifier: ^8.5.0
-        version: 8.5.0(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.0)
-      zod:
-        specifier: ^4.1.12
-        version: 4.1.12
+      '@clack/prompts':
+        specifier: ^0.11.0
+        version: 0.11.0
+      picocolors:
+        specifier: ^1.1.1
+        version: 1.1.1
     devDependencies:
       '@auto-it/first-time-contributor':
         specifier: ^11.3.0
@@ -30,9 +27,15 @@ importers:
       '@biomejs/biome':
         specifier: 2.3.12
         version: 2.3.12
+      '@smoothui/data':
+        specifier: workspace:*
+        version: link:packages/data
       '@types/node':
         specifier: ^24.7.2
         version: 24.9.1
+      tsup:
+        specifier: ^8.5.0
+        version: 8.5.0(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.0)
       turbo:
         specifier: ^2.5.8
         version: 2.5.8
@@ -42,6 +45,9 @@ importers:
       ultracite:
         specifier: ^7.1.1
         version: 7.1.1
+      zod:
+        specifier: ^4.1.12
+        version: 4.1.12
 
   apps/docs:
     dependencies:

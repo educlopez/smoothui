@@ -1,23 +1,40 @@
 {
-  "name": "@educlopez/smoothui",
-  "version": "1.1.0",
-  "author": "@educalvolpz",
-  "description": "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
-  "private": true,
+  "name": "smoothui-cli",
+  "version": "1.0.3",
+  "author": "educalvolpz",
+  "description": "CLI to install SmoothUI components - beautifully designed React components with smooth animations",
+  "private": false,
   "license": "MIT",
   "keywords": [
+    "cli",
     "components",
+    "ui",
+    "react",
     "tailwindcss",
     "motion",
-    "react"
+    "framer-motion",
+    "shadcn",
+    "animations"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/educlopez/smoothui.git"
+  },
+  "homepage": "https://smoothui.dev",
+  "bugs": {
+    "url": "https://github.com/educlopez/smoothui/issues"
+  },
   "bin": {
-    "smoothui": "dist/index.js"
+    "smoothui": "dist/index.js",
+    "smoothui-cli": "dist/index.js"
   },
   "files": [
-    "dist/index.js"
+    "dist/index.js",
+    "README.md"
   ],
   "scripts": {
+    "prepublishOnly": "cp README.md README.github.md && cp README.npm.md README.md",
+    "postpublish": "cp README.github.md README.md && rm README.github.md",
     "build": "turbo build",
     "dev": "turbo dev",
     "check": "ultracite check",
@@ -31,10 +48,13 @@
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",
     "@biomejs/biome": "2.3.12",
+    "@smoothui/data": "workspace:*",
     "@types/node": "^24.7.2",
+    "tsup": "^8.5.0",
     "turbo": "^2.5.8",
     "typescript": "^5.9.3",
-    "ultracite": "^7.1.1"
+    "ultracite": "^7.1.1",
+    "zod": "^4.1.12"
   },
   "engines": {
     "node": ">=18"
@@ -50,8 +70,7 @@
     }
   },
   "dependencies": {
-    "@smoothui/data": "workspace:*",
-    "tsup": "^8.5.0",
-    "zod": "^4.1.12"
+    "@clack/prompts": "^0.11.0",
+    "picocolors": "^1.1.1"
   }
 }
