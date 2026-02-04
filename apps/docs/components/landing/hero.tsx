@@ -12,9 +12,44 @@ import ButtonCopy from "@repo/smoothui/components/button-copy";
 import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
 import ScrambleHover from "@repo/smoothui/components/scramble-hover";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
-import { User } from "lucide-react";
+import { ArrowUpRight, Terminal, User } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+
+function AnnouncementBadge() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <Link
+      className="group inline-flex max-w-full items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full border bg-background px-3 py-0.5 font-medium text-foreground text-xs shadow-sm transition-all hover:shadow-md"
+      href="/docs/guides/installation"
+    >
+      <div className="relative -ml-2.5 flex shrink-0 items-center gap-1 overflow-hidden truncate rounded-full bg-brand/10 px-2.5 py-1 text-brand text-xs">
+        {!shouldReduceMotion && (
+          <motion.div
+            animate={{ x: ["-100%", "200%"] }}
+            className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
+            transition={{
+              duration: 2,
+              repeat: Number.POSITIVE_INFINITY,
+              repeatDelay: 3,
+              ease: "easeInOut",
+            }}
+          />
+        )}
+        <Terminal className="size-3" />
+        <span>New</span>
+      </div>
+      <div className="flex items-center gap-1 truncate py-1">
+        <span>SmoothUI CLI is here</span>
+        <ArrowUpRight
+          aria-hidden="true"
+          className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
+      </div>
+    </Link>
+  );
+}
 
 const EASE_OUT_QUAD_X1 = 0.25;
 const EASE_OUT_QUAD_Y1 = 0.46;
@@ -51,6 +86,9 @@ export function Hero() {
                   : { duration: 0.35, ease: EASE_OUT_QUAD }
               }
             >
+              {/* Announcement badge */}
+              <AnnouncementBadge />
+
               {/* Main heading */}
               <h1 className="text-balance font-semibold text-4xl text-foreground md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
                 Animated React Components for shadcn/ui
