@@ -76,8 +76,13 @@ export async function add(
   const seen = new Set<string>();
 
   for (const name of selectedComponents) {
+    // Skip if already processed from a previous component's dependencies
+    if (seen.has(name)) {
+      continue;
+    }
+
     try {
-      const tree = await resolveTree(name, seen);
+      const tree = await resolveTree(name);
       const flat = flattenTree(tree);
 
       for (const item of flat) {

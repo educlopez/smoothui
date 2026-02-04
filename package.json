@@ -1,6 +1,6 @@
 {
   "name": "smoothui-cli",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": "educalvolpz",
   "description": "CLI to install SmoothUI components - beautifully designed React components with smooth animations",
   "private": false,
