@@ -85,7 +85,6 @@ export const installDependencies = (
     const [cmd, ...args] = commands[packageManager];
     const result = spawnSync(cmd, args, {
       stdio: "pipe",
-      shell: true,
     });
 
     if (result.status !== 0) {
@@ -105,7 +104,6 @@ export const installDependencies = (
     const [cmd, ...args] = devCommands[packageManager];
     const result = spawnSync(cmd, args, {
       stdio: "pipe",
-      shell: true,
     });
 
     if (result.status !== 0) {
