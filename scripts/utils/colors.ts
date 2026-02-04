@@ -11,6 +11,30 @@ export const yellow = pc.yellow;
 export const bold = pc.bold;
 export const gray = pc.gray;
 
+// ANSI 256-color grays for gradient (works on light and dark terminals)
+const GRAYS = [
+  "\x1b[38;5;252m", // lightest
+  "\x1b[38;5;249m",
+  "\x1b[38;5;246m",
+  "\x1b[38;5;243m",
+  "\x1b[38;5;240m",
+  "\x1b[38;5;237m", // darkest
+];
+const RESET = "\x1b[0m";
+
+// ASCII art logo for SmoothUI
+const LOGO = [
+  "███████╗███╗   ███╗ ██████╗  ██████╗ ████████╗██╗  ██╗██╗   ██╗██╗",
+  "██╔════╝████╗ ████║██╔═══██╗██╔═══██╗╚══██╔══╝██║  ██║██║   ██║██║",
+  "███████╗██╔████╔██║██║   ██║██║   ██║   ██║   ███████║██║   ██║██║",
+  "╚════██║██║╚██╔╝██║██║   ██║██║   ██║   ██║   ██╔══██║██║   ██║██║",
+  "███████║██║ ╚═╝ ██║╚██████╔╝╚██████╔╝   ██║   ██║  ██║╚██████╔╝██║",
+  "╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝    ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝",
+];
+
+// Version from package.json (injected at build time or read dynamically)
+const VERSION = "1.1.0";
+
 export function step(symbol: string, message: string): void {
   console.log(`${symbol}  ${message}`);
 }
@@ -37,6 +61,14 @@ export function bar(message = ""): void {
 
 export function header(): void {
   console.log();
-  active(bold("SmoothUI"));
+
+  // Print logo with gradient
+  for (let i = 0; i < LOGO.length; i++) {
+    console.log(`${GRAYS[i]}${LOGO[i]}${RESET}`);
+  }
+
+  // Print version below
+  console.log();
+  console.log(`  ${dim(`v${VERSION}`)}`);
   console.log();
 }
