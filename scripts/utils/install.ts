@@ -29,11 +29,17 @@ export const writeComponent = async (
   const targetRoot = resolve(process.cwd(), config.componentPath);
 
   for (const file of item.files) {
+    // Use target path if available, strip common prefixes like "components/"
+    let filePath = file.target || file.path;
+    if (filePath.startsWith("components/")) {
+      filePath = filePath.slice("components/".length);
+    }
+
     // Validate path to prevent directory traversal
-    const targetPath = resolve(targetRoot, file.path);
+    const targetPath = resolve(targetRoot, filePath);
     const relativePath = relative(targetRoot, targetPath);
     if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
-      throw new Error(`Invalid registry file path: ${file.path}`);
+      throw new Error(`Invalid registry file path: ${filePath}`);
     }
 
     const targetDir = dirname(targetPath);
@@ -45,10 +51,10 @@ export const writeComponent = async (
 
     // Check if file exists
     if (existsSync(targetPath) && !shouldOverwriteAll) {
-      const action = await promptOverwrite(file.path);
+      const action = await promptOverwrite(filePath);
 
       if (action === "skip") {
-        skipped.push(file.path);
+        skipped.push(filePath);
         continue;
       }
 
@@ -60,7 +66,7 @@ export const writeComponent = async (
     // Transform and write content
     const content = transformImports(file.content, config.alias);
     writeFileSync(targetPath, content, "utf-8");
-    written.push(file.path);
+    written.push(filePath);
   }
 
   return { written, skipped };
