@@ -174,7 +174,17 @@ export async function add(
       loadingSpinner.stop(`Installed: ${allDeps.join(", ")}`);
     } else {
       loadingSpinner.stop("Failed to install dependencies");
-      bar(`Run manually: ${config.packageManager} add ${allDeps.join(" ")}`);
+      if (dependencies.length > 0) {
+        bar(
+          `Run manually: ${config.packageManager} add ${dependencies.join(" ")}`
+        );
+      }
+      if (devDependencies.length > 0) {
+        const devFlag = config.packageManager === "bun" ? "-d" : "-D";
+        bar(
+          `Run manually: ${config.packageManager} add ${devFlag} ${devDependencies.join(" ")}`
+        );
+      }
     }
   }
 
