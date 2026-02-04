@@ -5,18 +5,24 @@ description: Browse 40+ production-ready React components with smooth animations
 
 ## Basic Information About Components
 
-Install components using the shadcn CLI:
+Install components using the CLI:
 
 <Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
 
 <Tab value="pnpm">
 
 ```bash
-# Install a single component
-pnpm dlx shadcn@latest add @smoothui/animated-input
+# Add specific components
+pnpm dlx smoothui-cli@latest add animated-input
 
-# Install multiple components
-pnpm dlx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui/grid-loader
+# Add multiple components
+pnpm dlx smoothui-cli@latest add animated-input siri-orb grid-loader
+
+# Interactive mode - browse and select
+pnpm dlx smoothui-cli@latest add
+
+# List available components
+pnpm dlx smoothui-cli@latest list
 ```
 
 </Tab>
@@ -24,11 +30,17 @@ pnpm dlx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui
 <Tab value="npm">
 
 ```bash
-# Install a single component
-npx shadcn@latest add @smoothui/animated-input
+# Add specific components
+npx smoothui-cli@latest add animated-input
 
-# Install multiple components
-npx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui/grid-loader
+# Add multiple components
+npx smoothui-cli@latest add animated-input siri-orb grid-loader
+
+# Interactive mode - browse and select
+npx smoothui-cli@latest add
+
+# List available components
+npx smoothui-cli@latest list
 ```
 
 </Tab>
@@ -36,11 +48,17 @@ npx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui/grid
 <Tab value="yarn">
 
 ```bash
-# Install a single component
-yarn dlx shadcn@latest add @smoothui/animated-input
+# Add specific components
+yarn dlx smoothui-cli@latest add animated-input
 
-# Install multiple components
-yarn dlx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui/grid-loader
+# Add multiple components
+yarn dlx smoothui-cli@latest add animated-input siri-orb grid-loader
+
+# Interactive mode - browse and select
+yarn dlx smoothui-cli@latest add
+
+# List available components
+yarn dlx smoothui-cli@latest list
 ```
 
 </Tab>
@@ -48,16 +66,30 @@ yarn dlx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui
 <Tab value="bun">
 
 ```bash
-# Install a single component
-bunx shadcn@latest add @smoothui/animated-input
+# Add specific components
+bunx smoothui-cli@latest add animated-input
 
-# Install multiple components
-bunx shadcn@latest add @smoothui/animated-input @smoothui/siri-orb @smoothui/grid-loader
+# Add multiple components
+bunx smoothui-cli@latest add animated-input siri-orb grid-loader
+
+# Interactive mode - browse and select
+bunx smoothui-cli@latest add
+
+# List available components
+bunx smoothui-cli@latest list
 ```
 
 </Tab>
 
 </Tabs>
+
+### Using shadcn CLI
+
+You can also install components using the shadcn CLI:
+
+```bash
+npx shadcn@latest add @smoothui/animated-input
+```
 
 ## Usage
 
