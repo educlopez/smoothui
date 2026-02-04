@@ -102,7 +102,7 @@ export async function add(
 
   // Confirm installation
   const totalComponents = allComponents.length;
-  const totalDeps = allDeps.length;
+  const totalDeps = dependencies.length + devDependencies.length;
 
   const confirmMessage =
     totalDeps > 0
@@ -160,11 +160,15 @@ export async function add(
   }
 
   // Install npm dependencies
-  if (allDeps.length > 0) {
+  if (dependencies.length > 0 || devDependencies.length > 0) {
     const loadingSpinner = spinner();
     loadingSpinner.start(`Installing ${allDeps.join(", ")}`);
 
-    const installed = installDependencies(allDeps, config.packageManager);
+    const installed = installDependencies(
+      dependencies,
+      devDependencies,
+      config.packageManager
+    );
 
     if (installed) {
       loadingSpinner.stop(`Installed: ${allDeps.join(", ")}`);

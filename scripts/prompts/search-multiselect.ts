@@ -143,6 +143,13 @@ const handleNavigation = (
   totalItems: number,
   maxVisible: number
 ): void => {
+  // Guard against empty list
+  if (totalItems <= 0) {
+    state.cursorIndex = 0;
+    state.scrollOffset = 0;
+    return;
+  }
+
   if (key.name === "up") {
     state.cursorIndex = Math.max(0, state.cursorIndex - 1);
     if (state.cursorIndex < state.scrollOffset) {
@@ -183,7 +190,13 @@ const handleSearch = (
   }
 };
 
-const cleanup = (rl: Interface): void => {
+const cleanup = (
+  rl: Interface,
+  onKeypress?: (str: string | undefined, key: Key) => void
+): void => {
+  if (onKeypress) {
+    process.stdin.removeListener("keypress", onKeypress);
+  }
   if (process.stdin.isTTY) {
     process.stdin.setRawMode(false);
   }
@@ -221,13 +234,13 @@ export const searchMultiselect = (
       const totalItems = filtered.length;
 
       if (key.name === "escape" || (key.ctrl && key.name === "c")) {
-        cleanup(rl);
+        cleanup(rl, onKeypress);
         resolve(null);
         return;
       }
 
       if (key.name === "return") {
-        cleanup(rl);
+        cleanup(rl, onKeypress);
         resolve([...state.selected]);
         return;
       }

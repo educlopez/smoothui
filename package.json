@@ -1,6 +1,6 @@
 {
   "name": "smoothui-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "educalvolpz",
   "description": "CLI to install SmoothUI components - beautifully designed React components with smooth animations",
   "private": false,
@@ -25,7 +25,8 @@
     "url": "https://github.com/educlopez/smoothui/issues"
   },
   "bin": {
-    "smoothui": "dist/index.js"
+    "smoothui": "dist/index.js",
+    "smoothui-cli": "dist/index.js"
   },
   "files": [
     "dist/index.js",

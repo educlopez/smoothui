@@ -66,7 +66,8 @@ async function main(): Promise<void> {
     printHelp();
     process.exit(1);
   } catch (err) {
-    error((err as Error).message);
+    const msg = err instanceof Error ? err.message : String(err);
+    error(msg || "An unknown error occurred");
     process.exit(1);
   }
 }

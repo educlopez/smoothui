@@ -1,6 +1,6 @@
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, isAbsolute, relative, resolve } from "node:path";
 import type { ProjectConfig, RegistryItem } from "../types.js";
 
 export const transformImports = (content: string, alias: string): string => {
@@ -26,9 +26,16 @@ export const writeComponent = async (
   const written: string[] = [];
   const skipped: string[] = [];
   let shouldOverwriteAll = overwriteAll;
+  const targetRoot = resolve(process.cwd(), config.componentPath);
 
   for (const file of item.files) {
-    const targetPath = join(process.cwd(), config.componentPath, file.path);
+    // Validate path to prevent directory traversal
+    const targetPath = resolve(targetRoot, file.path);
+    const relativePath = relative(targetRoot, targetPath);
+    if (relativePath.startsWith("..") || isAbsolute(relativePath)) {
+      throw new Error(`Invalid registry file path: ${file.path}`);
+    }
+
     const targetDir = dirname(targetPath);
 
     // Ensure directory exists
@@ -61,27 +68,52 @@ export const writeComponent = async (
 
 export const installDependencies = (
   deps: string[],
+  devDeps: string[],
   packageManager: ProjectConfig["packageManager"]
 ): boolean => {
-  if (deps.length === 0) {
-    return true;
+  let success = true;
+
+  // Install regular dependencies
+  if (deps.length > 0) {
+    const commands: Record<typeof packageManager, string[]> = {
+      npm: ["npm", "install", ...deps],
+      pnpm: ["pnpm", "add", ...deps],
+      yarn: ["yarn", "add", ...deps],
+      bun: ["bun", "add", ...deps],
+    };
+
+    const [cmd, ...args] = commands[packageManager];
+    const result = spawnSync(cmd, args, {
+      stdio: "pipe",
+      shell: true,
+    });
+
+    if (result.status !== 0) {
+      success = false;
+    }
   }
 
-  const commands: Record<typeof packageManager, string[]> = {
-    npm: ["npm", "install", ...deps],
-    pnpm: ["pnpm", "add", ...deps],
-    yarn: ["yarn", "add", ...deps],
-    bun: ["bun", "add", ...deps],
-  };
+  // Install dev dependencies
+  if (devDeps.length > 0) {
+    const devCommands: Record<typeof packageManager, string[]> = {
+      npm: ["npm", "install", "-D", ...devDeps],
+      pnpm: ["pnpm", "add", "-D", ...devDeps],
+      yarn: ["yarn", "add", "-D", ...devDeps],
+      bun: ["bun", "add", "-d", ...devDeps],
+    };
 
-  const [cmd, ...args] = commands[packageManager];
+    const [cmd, ...args] = devCommands[packageManager];
+    const result = spawnSync(cmd, args, {
+      stdio: "pipe",
+      shell: true,
+    });
 
-  const result = spawnSync(cmd, args, {
-    stdio: "pipe",
-    shell: true,
-  });
+    if (result.status !== 0) {
+      success = false;
+    }
+  }
 
-  return result.status === 0;
+  return success;
 };
 
 export const getDiff = (
