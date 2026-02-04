@@ -3,47 +3,6 @@
 import { usePackageManager } from "@docs/hooks/use-package-manager";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { useState } from "react";
-
-interface InstallerProps {
-  packageName: string;
-}
-
-const SmoothUIIcon = () => (
-  <svg
-    className="size-4"
-    fill="currentColor"
-    viewBox="0 0 512 512"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M329.205 6.05469C331.396 0.985458 337.281 -1.34888 342.351 0.84082L355.644 6.58301C356.018 6.74496 356.377 6.93032 356.722 7.13086L439.729 42.9902C444.799 45.1805 447.134 51.066 444.944 56.1357L439.202 69.4277C437.012 74.4976 431.126 76.8315 426.056 74.6416L351.12 42.2705L330.918 89.0332C376.141 114.344 408.567 159.794 416.052 213.239H429.756V278.752H397.765L397.27 282.408L386.144 369.047C383.266 392.108 380.937 415.238 377.957 438.284C376.66 448.318 375.865 459.058 373.398 468.858C372.384 471.375 371.168 473.657 369.527 475.817C353.072 497.475 312.68 504.556 287.003 508.111C273.789 510.037 260.45 510.964 247.098 510.888C217.287 510.485 162.338 502.749 138.37 484.41C133.049 480.338 128.118 475.314 126.057 468.793C124.143 462.739 123.772 455.672 122.899 449.391L117.649 411.719L99.9443 278.752H67.7119V213.239H80.5723C92.1014 130.913 162.808 67.5599 248.312 67.5596C266.066 67.5596 283.183 70.2933 299.265 75.3594L329.205 6.05469ZM298.618 347.714C290.008 349.185 284.699 357.994 277.604 362.6C260.758 373.533 233.532 371.369 217.451 359.928C211.198 355.48 206.551 346.709 197.798 348.069C194.209 348.628 190.796 350.598 188.722 353.611C186.781 356.428 186.276 360.028 186.956 363.345C188.187 369.351 193.243 374.041 197.507 378.105C213.771 391.889 237.722 397.757 258.754 395.938C277.382 394.327 294.852 386.112 306.932 371.629C309.792 368.2 311.798 364.372 311.3 359.786C310.918 356.283 309.287 352.397 306.453 350.188C304.098 348.351 301.526 347.879 298.618 347.714ZM187.43 188.242C177.489 188.242 169.43 196.301 169.43 206.242V305.578C169.43 315.519 177.489 323.578 187.43 323.578H194.529C204.47 323.578 212.529 315.519 212.529 305.578V206.242C212.529 196.301 204.47 188.242 194.529 188.242H187.43ZM302.939 188.242C292.998 188.242 284.94 196.301 284.939 206.242V305.578C284.939 315.519 292.998 323.578 302.939 323.578H310.04C319.981 323.578 328.04 315.519 328.04 305.578V206.242C328.04 196.301 319.981 188.242 310.04 188.242H302.939Z" />
-  </svg>
-);
-
-const ShadcnIcon = () => (
-  <svg
-    className="size-4"
-    viewBox="0 0 256 256"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M208 128L128 208"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="32"
-    />
-    <path
-      d="M192 40L40 192"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="32"
-    />
-  </svg>
-);
 
 const PnpmIcon = ({ colored }: { colored?: boolean }) => (
   <svg
@@ -140,69 +99,38 @@ const packageManagers = [
   { id: "yarn", icon: YarnIcon },
   { id: "bun", icon: BunIcon },
 ] as const;
+
 type PackageManager = (typeof packageManagers)[number]["id"];
 
-export const Installer = ({ packageName }: InstallerProps) => {
-  const [activeTab, setActiveTab] = useState<"smoothui" | "shadcn">("smoothui");
+interface PackageManagerTabsProps {
+  pnpm: string;
+  npm: string;
+  yarn: string;
+  bun: string;
+}
+
+export const PackageManagerTabs = ({
+  pnpm,
+  npm,
+  yarn,
+  bun,
+}: PackageManagerTabsProps) => {
   const [activePm, setActivePm] = usePackageManager();
 
-  const smoothuiCommand = `npx smoothui-cli add ${packageName}`;
-
-  const shadcnCommands: Record<PackageManager, string> = {
-    pnpm: `pnpm dlx shadcn add @smoothui/${packageName}`,
-    npm: `npx shadcn@latest add @smoothui/${packageName}`,
-    yarn: `yarn dlx shadcn add @smoothui/${packageName}`,
-    bun: `bunx shadcn add @smoothui/${packageName}`,
-  };
+  const commands: Record<PackageManager, string> = { pnpm, npm, yarn, bun };
+  const currentCommand = commands[activePm];
 
   return (
-    <div className="overflow-hidden rounded-lg border border-border">
-      {/* Main tabs header */}
-      <div className="flex items-center justify-between bg-muted/50 px-2 py-1.5">
+    <div className="not-prose my-4 overflow-hidden rounded-lg border border-border">
+      {/* Package manager tabs header */}
+      <div className="flex items-center justify-between bg-muted/50 px-3 py-2">
         <div className="flex items-center gap-1">
-          <button
-            className={cn(
-              "flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
-              activeTab === "smoothui"
-                ? "border-border bg-background text-foreground shadow-sm"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
-            onClick={() => setActiveTab("smoothui")}
-            type="button"
-          >
-            <SmoothUIIcon />
-            SmoothUI CLI
-          </button>
-          <button
-            className={cn(
-              "flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
-              activeTab === "shadcn"
-                ? "border-border bg-background text-foreground shadow-sm"
-                : "border-transparent text-muted-foreground hover:text-foreground"
-            )}
-            onClick={() => setActiveTab("shadcn")}
-            type="button"
-          >
-            <ShadcnIcon />
-            shadcn CLI
-          </button>
-        </div>
-
-        {/* Package manager tabs - always render but hide when not shadcn */}
-        <div
-          className={cn(
-            "flex items-center gap-0.5 transition-opacity",
-            activeTab === "shadcn"
-              ? "opacity-100"
-              : "pointer-events-none opacity-0"
-          )}
-        >
           {packageManagers.map((pm) => {
             const isActive = activePm === pm.id;
             return (
               <button
                 className={cn(
-                  "flex items-center gap-1 rounded border px-2 py-1 font-medium text-xs transition-all",
+                  "flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-medium text-xs transition-all",
                   isActive
                     ? "border-border bg-background text-foreground shadow-sm"
                     : "border-transparent text-muted-foreground hover:text-foreground"
@@ -219,16 +147,9 @@ export const Installer = ({ packageName }: InstallerProps) => {
         </div>
       </div>
 
-      {/* Code block */}
+      {/* Code block with Shiki highlighting */}
       <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none [&_figure]:border-0">
-        <DynamicCodeBlock
-          code={
-            activeTab === "smoothui"
-              ? smoothuiCommand
-              : shadcnCommands[activePm]
-          }
-          lang="bash"
-        />
+        <DynamicCodeBlock code={currentCommand} lang="bash" />
       </div>
     </div>
   );

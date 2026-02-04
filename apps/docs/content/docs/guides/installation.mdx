@@ -10,84 +10,44 @@ icon: Download
 The SmoothUI CLI provides an interactive way to browse and install components with automatic dependency resolution.
 </BodyText>
 
-<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+### Add Components
 
-<Tab value="pnpm">
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
 
-```bash
-# Add specific components
-pnpm dlx smoothui-cli@latest add siri-orb
+### Add Multiple Components
 
-# Add multiple components
-pnpm dlx smoothui-cli@latest add siri-orb rich-popover animated-input
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb rich-popover animated-input"
+  npm="npx smoothui-cli@latest add siri-orb rich-popover animated-input"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb rich-popover animated-input"
+  bun="bunx smoothui-cli@latest add siri-orb rich-popover animated-input"
+/>
 
-# Interactive mode - browse and select components
-pnpm dlx smoothui-cli@latest add
+### Interactive Mode
 
-# List all available components
-pnpm dlx smoothui-cli@latest list
-```
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add"
+  npm="npx smoothui-cli@latest add"
+  yarn="yarn dlx smoothui-cli@latest add"
+  bun="bunx smoothui-cli@latest add"
+/>
 
-</Tab>
+### List Available Components
 
-<Tab value="npm">
-
-```bash
-# Add specific components
-npx smoothui-cli@latest add siri-orb
-
-# Add multiple components
-npx smoothui-cli@latest add siri-orb rich-popover animated-input
-
-# Interactive mode - browse and select components
-npx smoothui-cli@latest add
-
-# List all available components
-npx smoothui-cli@latest list
-```
-
-</Tab>
-
-<Tab value="yarn">
-
-```bash
-# Add specific components
-yarn dlx smoothui-cli@latest add siri-orb
-
-# Add multiple components
-yarn dlx smoothui-cli@latest add siri-orb rich-popover animated-input
-
-# Interactive mode - browse and select components
-yarn dlx smoothui-cli@latest add
-
-# List all available components
-yarn dlx smoothui-cli@latest list
-```
-
-</Tab>
-
-<Tab value="bun">
-
-```bash
-# Add specific components
-bunx smoothui-cli@latest add siri-orb
-
-# Add multiple components
-bunx smoothui-cli@latest add siri-orb rich-popover animated-input
-
-# Interactive mode - browse and select components
-bunx smoothui-cli@latest add
-
-# List all available components
-bunx smoothui-cli@latest list
-```
-
-</Tab>
-
-</Tabs>
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest list"
+  npm="npx smoothui-cli@latest list"
+  yarn="yarn dlx smoothui-cli@latest list"
+  bun="bunx smoothui-cli@latest list"
+/>
 
 <FeatureCard title="Interactive Mode" variant="info">
-Run `npx smoothui-cli add` without arguments to launch an interactive picker. Search and browse components by category, then select multiple components to install at once.
+Run the add command without arguments to launch an interactive picker. Search and browse components by category, then select multiple components to install at once.
 </FeatureCard>
 
 ---
@@ -108,69 +68,21 @@ Since SmoothUI is an official registry, you don't need to add anything to your `
 Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` namespace:
 </BodyText>
 
-<Tabs items={['pnpm', 'npm', 'yarn', 'bun']} defaultIndex={0}>
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
 
-<Tab value="pnpm">
+### Install Multiple Components
 
-```bash
-# Install a single component
-pnpm dlx shadcn@latest add @smoothui/siri-orb
-
-# Install multiple components
-pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
-
-# Install components with dependencies
-pnpm dlx shadcn@latest add @smoothui/scrollable-card-stack
-```
-
-</Tab>
-
-<Tab value="npm">
-
-```bash
-# Install a single component
-npx shadcn@latest add @smoothui/siri-orb
-
-# Install multiple components
-npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
-
-# Install components with dependencies
-npx shadcn@latest add @smoothui/scrollable-card-stack
-```
-
-</Tab>
-
-<Tab value="yarn">
-
-```bash
-# Install a single component
-yarn dlx shadcn@latest add @smoothui/siri-orb
-
-# Install multiple components
-yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
-
-# Install components with dependencies
-yarn dlx shadcn@latest add @smoothui/scrollable-card-stack
-```
-
-</Tab>
-
-<Tab value="bun">
-
-```bash
-# Install a single component
-bunx shadcn@latest add @smoothui/siri-orb
-
-# Install multiple components
-bunx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
-
-# Install components with dependencies
-bunx shadcn@latest add @smoothui/scrollable-card-stack
-```
-
-</Tab>
-
-</Tabs>
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
+  npm="npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
+  yarn="yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
+  bun="bunx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
+/>
 
 ### Use Components
 
@@ -191,4 +103,3 @@ export default function App() {
   )
 }
 ```
-

@@ -17,6 +17,7 @@ import type { ElementContent } from "hast";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import { z } from "zod";
+import { smoothuiDark, smoothuiLight } from "./lib/themes";
 
 export const docs = defineDocs({
   docs: {
@@ -56,8 +57,8 @@ export default defineConfig({
       langs: ["ts", "js", "html", "tsx", "mdx", "css"],
       inline: "tailing-curly-colon",
       themes: {
-        light: "catppuccin-latte",
-        dark: "catppuccin-mocha",
+        light: smoothuiLight,
+        dark: smoothuiDark,
       },
       transformers: [
         ...(rehypeCodeDefaultOptions.transformers ?? []),

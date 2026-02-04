@@ -7,6 +7,7 @@ import { Installer } from "@docs/components/installer";
 import Divider from "@docs/components/landing/divider";
 import { LastModified } from "@docs/components/last-modified";
 import { OpenInV0Button } from "@docs/components/open-in-v0-button";
+import { PackageManagerTabs } from "@docs/components/package-manager-tabs";
 import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { Preview } from "@docs/components/preview";
@@ -202,6 +203,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             Divider,
             ChangelogEntry,
             SponsorsPageContent,
+            PackageManagerTabs,
           }}
         />
       </DocsBody>
