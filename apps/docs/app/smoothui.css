@@ -54,9 +54,9 @@
 
 :root {
   --color-brand: oklch(0.72 0.2 352.53);
-  --color-brand-secondary: oklch(0.55 0.22 354.31);
-  --color-brand-light: oklch(0.85 0.14 352.53);
-  --color-brand-lighter: oklch(0.96 0.06 352.53);
+  --color-brand-secondary: oklch(0.66 0.21 354.31);
+  --color-brand-light: oklch(0.78 0.15 352.53);
+  --color-brand-lighter: oklch(0.85 0.1 352.53);
   --color-smooth-50: oklch(0.99 0 0);
   --color-smooth-100: oklch(0.98 0 0);
   --color-smooth-200: oklch(0.96 0 0);
