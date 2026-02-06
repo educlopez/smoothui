@@ -4,6 +4,7 @@ import Logo from "@docs/components/logo";
 import { Button } from "@docs/components/smoothbutton";
 import {
   Book,
+  FileText,
   Heart,
   Layers3,
   LayoutDashboard,
@@ -17,7 +18,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { GithubStars } from "./github-stars";
 
@@ -28,6 +29,33 @@ interface MobileNavbarProps {
 export function MobileNavbar({ className }: MobileNavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+      const target = event.target as Node;
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(target) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(target)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [isOpen]);
 
   return (
     <div className={cn("mobile-navbar", className)}>
@@ -39,6 +67,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
           aria-label="Toggle menu"
           className="mobile-menu-button"
           onClick={() => setIsOpen(!isOpen)}
+          ref={buttonRef}
           size="icon"
           variant="ghost"
         >
@@ -65,6 +94,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 ? { opacity: 0 }
                 : { opacity: 0, y: -10, scale: 0.95 }
             }
+            ref={menuRef}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
@@ -171,6 +201,10 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               <Link className="mobile-navbar-link" href="/docs/guides">
                 <Book size={16} />
                 Docs
+              </Link>
+              <Link className="mobile-navbar-link" href="/blog">
+                <FileText size={16} />
+                Blog
               </Link>
               <Link className="mobile-navbar-link" href="/docs/guides/sponsors">
                 <Heart size={16} />

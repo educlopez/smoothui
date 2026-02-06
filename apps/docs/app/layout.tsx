@@ -93,6 +93,12 @@ export default function Layout({ children }: LayoutProps<"/">) {
     >
       <head>
         <meta content="SmoothUI" name="apple-mobile-web-app-title" />
+        <link
+          href="/blog/rss.xml"
+          rel="alternate"
+          title="SmoothUI Blog"
+          type="application/rss+xml"
+        />
       </head>
       <body className="flex min-h-screen flex-col">
         <Script

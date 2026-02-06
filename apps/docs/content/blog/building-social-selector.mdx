@@ -1,0 +1,36 @@
+---
+title: "Building an Animated Social Selector Component"
+description: "Learn how to create a sleek social platform selector with spring-powered sliding indicator and blur transitions using Motion and React."
+date: "2025-02-05"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveSocialSelectorTutorial } from "@docs/components/blog/interactive-social-selector-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build the **Social Selector** component step by step. Scroll through to see how each feature is added - the component preview on the right will update as you progress.
+
+<InteractiveSocialSelectorTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **Sliding indicators** with `layoutId` create smooth following animations
+2. **High stiffness (500)** makes springs feel snappy and responsive
+3. **Damping (30)** prevents unwanted oscillation or bounciness
+4. **Combine y-offset + blur** for elegant content transitions
+5. **AnimatePresence with mode="wait"** ensures clean exit/enter sequences
+6. **Always support reduced motion** with `useReducedMotion()` from Motion
+
+---
+
+## Install the Component
+
+Want to use this component in your project?
+
+<Installer packageName="social-selector" />
+
+Check out the [full documentation](/docs/components/social-selector) for all props and variations.

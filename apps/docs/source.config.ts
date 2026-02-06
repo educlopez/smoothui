@@ -44,6 +44,20 @@ export const docs = defineDocs({
   },
 });
 
+export const blog = defineDocs({
+  dir: "content/blog",
+  docs: {
+    schema: frontmatterSchema.extend({
+      date: z.string(),
+      author: z.string().optional(),
+      image: z.string().optional(),
+    }),
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
+  },
+});
+
 export default defineConfig({
   lastModifiedTime: "git",
   plugins: [

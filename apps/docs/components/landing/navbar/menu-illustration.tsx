@@ -26,7 +26,12 @@ export function MenuIllustration({
       width="231"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g clipPath="url(#clip0_143_83)" id="components">
+      <defs>
+        <clipPath id="clip0_components">
+          <rect height="231" rx="7.22" width="231" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#clip0_components)" id="components">
         {/* Common background - always visible */}
         <path
           className="fill-brand-secondary"

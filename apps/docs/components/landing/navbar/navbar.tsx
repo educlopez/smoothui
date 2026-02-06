@@ -12,6 +12,7 @@ import {
 import {
   ArrowRight,
   Book,
+  FileText,
   Heart,
   Layers3,
   LayoutDashboard,
@@ -71,7 +72,11 @@ const blockPreviews = {
   },
 };
 
-export default function Navbar({ className }: { className?: string }) {
+interface NavbarProps {
+  className?: string;
+}
+
+export default function Navbar({ className }: NavbarProps) {
   const [hoveredComponent, setHoveredComponent] = useState<string | null>(null);
   const [hoveredBlock, setHoveredBlock] = useState<string | null>(null);
   const isMobile = useIsMobile();
@@ -83,9 +88,11 @@ export default function Navbar({ className }: { className?: string }) {
 
   return (
     <NavigationMenuRoot className={cn("navbar-menu", className)}>
-      <a className="flex flex-1 items-center gap-2" href="/">
-        <Logo />
-      </a>
+      <div className="flex flex-1 items-center gap-2">
+        <a href="/">
+          <Logo />
+        </a>
+      </div>
       <NavigationMenuList className="menu-list flex-auto">
         <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
@@ -218,6 +225,11 @@ export default function Navbar({ className }: { className?: string }) {
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/docs/guides">
             <Book size={16} /> Docs
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="/blog">
+            <FileText size={16} /> Blog
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>

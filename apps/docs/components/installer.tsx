@@ -158,7 +158,7 @@ export const Installer = ({ packageName }: InstallerProps) => {
   return (
     <div className="overflow-hidden rounded-lg border border-border">
       {/* Main tabs header */}
-      <div className="flex items-center justify-between bg-muted/50 px-2 py-1.5">
+      <div className="flex flex-col gap-2 bg-muted/50 px-2 py-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
         <div className="flex items-center gap-1">
           <button
             className={cn(
@@ -194,7 +194,7 @@ export const Installer = ({ packageName }: InstallerProps) => {
             "flex items-center gap-0.5 transition-opacity",
             activeTab === "shadcn"
               ? "opacity-100"
-              : "pointer-events-none opacity-0"
+              : "pointer-events-none hidden opacity-0 sm:flex"
           )}
         >
           {packageManagers.map((pm) => {

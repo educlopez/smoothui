@@ -1,0 +1,36 @@
+---
+title: "Building an Animated User Account Avatar Component"
+description: "A deep dive into creating interactive dropdown menus with smooth spring animations, expandable sections, and accessibility features using Radix UI and Motion."
+date: "2025-02-05"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveAvatarTutorial } from "@docs/components/blog/interactive-avatar-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build the **User Account Avatar** component step by step. Scroll through to see how each feature is added - the component preview on the left will update as you progress.
+
+<InteractiveAvatarTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **Spring animations** with `bounce: 0-0.1` feel professional and natural
+2. **Keep durations under 300ms** for responsive UI
+3. **Combine opacity + height + blur** for polished expand/collapse effects
+4. **Always support reduced motion** with `useReducedMotion()` from Motion
+5. **Use Radix primitives** for built-in accessibility
+6. **Test with keyboard** and screen readers
+
+---
+
+## Install the Component
+
+Want to use this component in your project?
+
+<Installer packageName="user-account-avatar" />
+
+Check out the [full documentation](/docs/components/user-account-avatar) for all props and variations.
