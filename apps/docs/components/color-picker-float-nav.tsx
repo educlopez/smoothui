@@ -22,28 +22,28 @@ const PALETTES = [
   },
   {
     name: "Indigo",
-    candy: "#A764FF",
-    candySecondary: "#6E48EC",
+    candy: "oklch(0.65 0.22 300.21)",
+    candySecondary: "oklch(0.54 0.23 286.53)",
   },
   {
     name: "Blue",
-    candy: "#4B94FD",
-    candySecondary: "#1477F6",
+    candy: "oklch(0.67 0.17 257.78)",
+    candySecondary: "oklch(0.59 0.21 258.02)",
   },
   {
     name: "Red",
-    candy: "#FD4B4E",
-    candySecondary: "#F61418",
+    candy: "oklch(0.67 0.21 24.28)",
+    candySecondary: "oklch(0.62 0.25 28.23)",
   },
   {
     name: "Orange",
-    candy: "#FF8743",
-    candySecondary: "#FF5C00",
+    candy: "oklch(0.75 0.17 47.65)",
+    candySecondary: "oklch(0.68 0.21 40.59)",
   },
   {
     name: "Green",
-    candy: "#10B981",
-    candySecondary: "#059669",
+    candy: "oklch(0.70 0.15 162.48)",
+    candySecondary: "oklch(0.60 0.13 163.23)",
   },
 ];
 
