@@ -1,5 +1,9 @@
+import { domain } from "@docs/lib/domain";
 import { generateRegistryRssFeed } from "@wandry/analytics-sdk";
-import type { NextRequest } from "next/server";
+
+// Build at deploy time only — RSS feeds don't need real-time updates
+export const dynamic = "force-static";
+export const revalidate = false;
 
 // Map individual block names to their category pages
 const blockCategoryMap: Record<string, string> = {
@@ -412,8 +416,8 @@ function removeExcludedItems(rssXml: string): string {
   return cleanedXml;
 }
 
-export async function GET(request: NextRequest) {
-  const baseUrl = new URL(request.url).origin;
+export async function GET() {
+  const baseUrl = domain;
   const owner = "educlopez";
   const repo = "smoothui";
   const token = process.env.GITHUB_TOKEN;

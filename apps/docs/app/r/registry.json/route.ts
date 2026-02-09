@@ -1,8 +1,12 @@
 import { getAllPackageNames, getPackage } from "@docs/lib/package";
-import { type NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import type { Registry } from "shadcn/schema";
 
-export const GET = async (_: NextRequest) => {
+// Build at deploy time only — registry only changes on deploy
+export const dynamic = "force-static";
+export const revalidate = false;
+
+export const GET = async () => {
   const response: Registry = {
     name: "SmoothUI Registry",
     homepage: "https://smoothui.dev/",

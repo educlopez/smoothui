@@ -283,9 +283,9 @@ async function getGitHubContributors(
     }
 
     // Fetch all commits with pagination
-    // Limit to first 5 pages during build to avoid rate limiting
-    // This still gives us up to 500 commits per file, which is usually enough
-    const maxPages = process.env.NODE_ENV === "production" ? 5 : 10;
+    // Limit pages during build to reduce GitHub API calls and Vercel GB-Hours
+    // 2 pages × 100 commits = 200 commits per file, which covers most components
+    const maxPages = process.env.NODE_ENV === "production" ? 2 : 5;
     const allCommits: CommitItem[] = [];
     let page = 1;
     const perPage = 100;

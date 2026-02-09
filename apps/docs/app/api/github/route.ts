@@ -24,7 +24,7 @@ const fetchGitHubRepo = cache(async (owner: string, repo: string) => {
     `https://api.github.com/repos/${owner}/${repo}`,
     {
       headers,
-      next: { revalidate: 300 }, // Cache for 5 minutes
+      next: { revalidate: 3600 }, // Cache for 1 hour
     }
   );
 
