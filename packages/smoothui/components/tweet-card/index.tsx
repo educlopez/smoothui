@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import DOMPurify from "isomorphic-dompurify";
 import { Suspense } from "react";
 import { type EnrichedTweet, enrichTweet, type TweetProps } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";
@@ -140,13 +139,11 @@ export const TweetBody = ({ tweet }: { tweet: EnrichedTweet }) => (
             return (
               <span
                 className="text-foreground"
-                // biome-ignore lint/security/noDangerouslySetInnerHtml: Content is sanitized with DOMPurify
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(entity.text),
-                }}
                 // biome-ignore lint/suspicious/noArrayIndexKey: Text entities from tweet API have no unique IDs
                 key={`text-${idx}`}
-              />
+              >
+                {entity.text}
+              </span>
             );
           default:
             return null;
