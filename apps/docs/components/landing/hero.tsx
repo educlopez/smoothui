@@ -1,12 +1,18 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { Button } from "@docs/components/smoothbutton";
 import ExpandableCardsDemo from "@docs/examples/expandable-cards";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@repo/shadcn-ui/components/ui/tooltip";
 import AnimatedInput from "@repo/smoothui/components/animated-input";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
 import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
@@ -111,29 +117,33 @@ export function Hero() {
                 </Button>
               </div>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-4">
-                  <div className="mt-14 hidden cursor-default items-center justify-start gap-3 font-medium text-primary-foreground text-xs uppercase tracking-widest transition sm:flex sm:justify-center">
-                    <span className="group flex items-center gap-1.5">
-                      <ReactLogo className="h-6 text-smooth-700 group-hover:text-brand" />
-                      <span className="group-hover:text-brand">React</span>
-                    </span>
-                    <span className="group flex items-center gap-1.5">
-                      <TailwindLogo className="h-5 text-smooth-700 group-hover:text-brand" />
-                      <span className="group-hover:text-brand">
-                        Tailwind CSS
+              <div className="mt-14 hidden items-center gap-8 sm:flex">
+                {[
+                  { name: "React", icon: ReactLogo, className: "size-7" },
+                  {
+                    name: "Tailwind CSS",
+                    icon: TailwindLogo,
+                    className: "h-6 w-auto",
+                  },
+                  { name: "shadcn/ui", icon: ShadcnLogo, className: "size-7" },
+                  {
+                    name: "Motion",
+                    icon: MotionLogo,
+                    className: "h-5 w-auto",
+                  },
+                  { name: "GSAP", icon: GsapLogo, className: "h-5 w-auto" },
+                ].map((tech) => (
+                  <Tooltip key={tech.name}>
+                    <TooltipTrigger asChild>
+                      <span className="cursor-default text-smooth-700 transition-colors hover:text-brand">
+                        <tech.icon className={tech.className} />
                       </span>
-                    </span>
-                    <span className="group flex items-center gap-1.5">
-                      <MotionLogo className="h-4 text-smooth-700 group-hover:text-brand" />
-                      <span className="group-hover:text-brand">Motion</span>
-                    </span>
-                    <span className="group flex items-center gap-1.5">
-                      <ShadcnLogo className="h-5 text-smooth-700 group-hover:text-brand" />
-                      <span className="group-hover:text-brand">shadcn/ui</span>
-                    </span>
-                  </div>
-                </div>
+                    </TooltipTrigger>
+                    <TooltipContent side="bottom" sideOffset={8}>
+                      {tech.name}
+                    </TooltipContent>
+                  </Tooltip>
+                ))}
               </div>
             </motion.div>
 

@@ -1,14 +1,14 @@
 ---
 title: Animated React Components
-description: Explore 50+ animated React components built with Motion (Framer Motion). Smooth animations, hover effects, transitions, and interactive UI elements for modern web apps.
+description: Explore 50+ animated React components built with Motion (Framer Motion) and GSAP. Smooth animations, hover effects, transitions, and interactive UI elements for modern web apps.
 icon: Sparkles
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
 
-## Motion-Powered React Components
+## Motion & GSAP-Powered React Components
 
-SmoothUI provides a comprehensive collection of **animated React components** powered by Motion (formerly Framer Motion). Every component is designed with smooth, performant animations that enhance user experience without sacrificing accessibility.
+SmoothUI provides a comprehensive collection of **animated React components** powered by [Motion](https://motion.dev) (formerly Framer Motion) and [GSAP](https://gsap.com). Every component is designed with smooth, performant animations that enhance user experience without sacrificing accessibility.
 
 <div className="grid gap-4 md:grid-cols-3">
 
@@ -83,7 +83,7 @@ Animated feedback and notification elements:
 | [Dynamic Island](/docs/components/dynamic-island) | Expand/collapse | Notifications, status |
 | [Basic Toast](/docs/components/basic-toast) | Slide animation | Alerts, confirmations |
 
-## Why Motion Animations?
+## Why Motion & GSAP?
 
 ### Performance Optimized
 
@@ -139,11 +139,11 @@ Or browse all components:
 ## Frequently Asked Questions
 
 <Accordions>
-<Accordion id="motion-required" title="Do I need to know Motion/Framer Motion?">
-  No! All animations are built-in and work out of the box. You can use components without writing any animation code. For customization, basic Motion knowledge helps but isn't required.
+<Accordion id="motion-required" title="Do I need to know Motion or GSAP?">
+  No! All animations are built-in and work out of the box. You can use components without writing any animation code. For customization, basic Motion or GSAP knowledge helps but isn't required.
 </Accordion>
 <Accordion id="bundle-size" title="How do animations affect bundle size?">
-  Motion is the only animation dependency. Components are tree-shakeable, so you only ship the code you use. Typical impact is 20-40KB for Motion plus component code.
+  Motion and GSAP are the animation dependencies. Components are tree-shakeable, so you only ship the code you use. Most components use Motion, while some use GSAP for advanced effects like the Gooey Popover.
 </Accordion>
 <Accordion id="ssr-support" title="Do animations work with Next.js SSR?">
   Yes! All components are designed for Next.js App Router and work with Server Components. Client-side animations hydrate smoothly without layout shift.

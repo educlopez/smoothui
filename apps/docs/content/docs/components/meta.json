@@ -1,6 +1,6 @@
 {
   "title": "Components",
-  "description": "Beautiful, animated UI components built with React and Framer Motion",
+  "description": "Beautiful, animated UI components built with React, Motion, and GSAP",
   "icon": "LayoutDashboard",
   "root": true,
   "pages": [
@@ -45,6 +45,7 @@
     "figma-comment",
     "glow-hover-card",
     "github-stars-animation",
+    "gooey-popover",
     "grid-loader",
     "image-metadata-preview",
     "infinite-slider",

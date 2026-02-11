@@ -11,7 +11,7 @@ export const smoothUISchema = {
         url: "https://smoothui.dev/logo-smoothui.svg",
       },
       description:
-        "Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components with Tailwind CSS for modern UIs.",
+        "Beautiful animated React components with smooth Motion and GSAP animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components with Tailwind CSS for modern UIs.",
       founder: {
         "@type": "Person",
         name: "Eduardo Calvo",
@@ -29,7 +29,7 @@ export const smoothUISchema = {
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Any",
       description:
-        "A React component library featuring 50+ animated UI components with smooth Motion animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.",
+        "A React component library featuring 50+ animated UI components with smooth Motion and GSAP animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.",
       url: "https://smoothui.dev",
       author: {
         "@id": "https://smoothui.dev/#organization",
@@ -47,6 +47,7 @@ export const smoothUISchema = {
         "tailwindcss ui",
         "motion animations",
         "framer motion",
+        "gsap animations",
         "shadcn/ui",
         "shadcn ui components",
         "shadcn alternative",

@@ -9,7 +9,7 @@ const features = [
   {
     title: "Smooth Animations",
     description:
-      "Built-in animations powered by Motion for delightful user experiences.",
+      "Built-in animations powered by Motion and GSAP for delightful user experiences.",
     icon: Package,
   },
   {
