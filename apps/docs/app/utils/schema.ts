@@ -39,7 +39,6 @@ export const smoothUISchema = {
         price: "0",
         priceCurrency: "USD",
       },
-      softwareVersion: "1.0",
       programmingLanguage: ["TypeScript", "JavaScript"],
       runtimePlatform: "React",
       keywords: [

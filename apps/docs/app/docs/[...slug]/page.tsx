@@ -1,4 +1,5 @@
 import { BodyText } from "@docs/components/body-text";
+import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
@@ -140,74 +141,77 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     ) : undefined;
 
   return (
-    <DocsPage
-      container={{
-        className: "max-w-[75rem]",
-      }}
-      full={page.data.full ?? page.slugs.includes("blocks")}
-      tableOfContent={{
-        style: "clerk",
-        footer: footerContent,
-      }}
-      toc={updatedToc}
-    >
-      <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-2 text-foreground/70 text-md">
-        {page.data.description}
-      </DocsDescription>
-      <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
-        <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-        <ViewOptions
-          githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
-          markdownUrl={`${page.url}.mdx`}
-        />
-        {registryUrl && <OpenInV0Button url={registryUrl} />}
-        {lastModified && (
-          <LastModified
-            className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"
-            lastModified={lastModified}
+    <>
+      <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
+      <DocsPage
+        container={{
+          className: "max-w-[75rem]",
+        }}
+        full={page.data.full ?? page.slugs.includes("blocks")}
+        tableOfContent={{
+          style: "clerk",
+          footer: footerContent,
+        }}
+        toc={updatedToc}
+      >
+        <DocsTitle>{page.data.title}</DocsTitle>
+        <DocsDescription className="mb-2 text-foreground/70 text-md">
+          {page.data.description}
+        </DocsDescription>
+        <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
+          <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
+          <ViewOptions
+            githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
+            markdownUrl={`${page.url}.mdx`}
           />
-        )}
-      </div>
-      <DocsBody>
-        {page.data.installer && (
-          <>
-            <Preview path={page.data.installer} type={type} />
-            <h2 id="installation">Installation</h2>
-            <Installer packageName={page.data.installer} />
-          </>
-        )}
-        <MDX
-          components={{
-            ...defaultMdxComponents,
-            Tab,
-            Tabs,
-            // HTML `ref` attribute conflicts with `forwardRef`
-            pre: (preProps) => {
-              const { ref: _ref, ...restProps } = preProps;
-              return (
-                <CodeBlock {...restProps}>
-                  <Pre>{restProps.children}</Pre>
-                </CodeBlock>
-              );
-            },
-            AutoTypeTable: AutoTypeTableWithGenerator,
-            Installer,
-            Preview,
-            PoweredBy,
-            Reference,
-            Contributor,
-            BodyText,
-            FeatureCard,
-            FeatureCardHover,
-            Divider,
-            ChangelogEntry,
-            SponsorsPageContent,
-            PackageManagerTabs,
-          }}
-        />
-      </DocsBody>
-    </DocsPage>
+          {registryUrl && <OpenInV0Button url={registryUrl} />}
+          {lastModified && (
+            <LastModified
+              className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"
+              lastModified={lastModified}
+            />
+          )}
+        </div>
+        <DocsBody>
+          {page.data.installer && (
+            <>
+              <Preview path={page.data.installer} type={type} />
+              <h2 id="installation">Installation</h2>
+              <Installer packageName={page.data.installer} />
+            </>
+          )}
+          <MDX
+            components={{
+              ...defaultMdxComponents,
+              Tab,
+              Tabs,
+              // HTML `ref` attribute conflicts with `forwardRef`
+              pre: (preProps) => {
+                const { ref: _ref, ...restProps } = preProps;
+                return (
+                  <CodeBlock {...restProps}>
+                    <Pre>{restProps.children}</Pre>
+                  </CodeBlock>
+                );
+              },
+              AutoTypeTable: AutoTypeTableWithGenerator,
+              Installer,
+              Preview,
+              PoweredBy,
+              Reference,
+              Contributor,
+              BodyText,
+              FeatureCard,
+              FeatureCardHover,
+              Divider,
+              ChangelogEntry,
+              SponsorsPageContent,
+              PackageManagerTabs,
+            }}
+          />
+        </DocsBody>
+      </DocsPage>
+    </>
   );
 }
 export async function generateMetadata(

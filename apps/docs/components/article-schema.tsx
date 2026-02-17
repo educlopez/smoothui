@@ -4,6 +4,7 @@ interface ArticleSchemaProps {
   title: string;
   description: string;
   date: string;
+  dateModified?: string;
   author?: string;
   url: string;
   image?: string;
@@ -13,17 +14,18 @@ export function ArticleSchema({
   title,
   description,
   date,
+  dateModified,
   author,
   url,
   image,
 }: ArticleSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     headline: title,
     description,
     datePublished: date,
-    dateModified: date,
+    dateModified: dateModified ?? date,
     author: author
       ? {
           "@type": "Person",
@@ -31,12 +33,7 @@ export function ArticleSchema({
         }
       : undefined,
     publisher: {
-      "@type": "Organization",
-      name: "SmoothUI",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://smoothui.dev/logo.png",
-      },
+      "@id": "https://smoothui.dev/#organization",
     },
     mainEntityOfPage: {
       "@type": "WebPage",
