@@ -1,12 +1,15 @@
 // Export all UI components from their individual packages
+export { default as AgentAvatar } from "./agent-avatar";
 export { default as AiBranch } from "./ai-branch";
 export { default as AiInput } from "./ai-input";
+export { default as AnimatedAvatarGroup } from "./animated-avatar-group";
 export { default as AnimatedInput } from "./animated-input";
 export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
 export { default as AnimatedProgressBar } from "./animated-progress-bar";
 export { default as AnimatedTabs } from "./animated-tabs";
 export { default as AnimatedTags } from "./animated-tags";
 export { default as AnimatedToggle } from "./animated-toggle";
+export { default as AnimatedTooltip } from "./animated-tooltip";
 export { default as AppDownloadStack } from "./app-download-stack";
 export { default as AppleInvites } from "./apple-invites";
 export { default as BasicAccordion } from "./basic-accordion";
