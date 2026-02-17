@@ -193,13 +193,18 @@ const AgentAvatar = ({
           const sparkleVal = shouldAnimate
             ? Math.sin(time * SPARKLE_SPEED + cell.sparklePhase)
             : 0;
-          const sparkle = sparkleVal > SPARKLE_THRESHOLD
-            ? (sparkleVal - SPARKLE_THRESHOLD) / (1 - SPARKLE_THRESHOLD) * SPARKLE_BOOST
-            : 0;
+          const sparkle =
+            sparkleVal > SPARKLE_THRESHOLD
+              ? ((sparkleVal - SPARKLE_THRESHOLD) / (1 - SPARKLE_THRESHOLD)) *
+                SPARKLE_BOOST
+              : 0;
 
           const finalLight = Math.min(
             90,
-            Math.max(20, (l + pulse + breatheOffset + wave + sparkle) * cell.brightness)
+            Math.max(
+              20,
+              (l + pulse + breatheOffset + wave + sparkle) * cell.brightness
+            )
           );
           const finalSat = Math.min(100, s + 5);
 
@@ -208,12 +213,7 @@ const AgentAvatar = ({
           ctx.shadowBlur = cellSize * 0.45;
 
           ctx.fillStyle = `hsl(${h}, ${finalSat}%, ${finalLight}%)`;
-          ctx.fillRect(
-            x * cellSize,
-            y * cellSize,
-            cellSize,
-            cellSize
-          );
+          ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
       }
 
