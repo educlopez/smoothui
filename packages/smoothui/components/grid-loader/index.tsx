@@ -114,6 +114,12 @@ export interface GridLoaderProps {
   color?: "white" | "red" | "blue" | "green" | "amber" | string;
   /** Size preset or pixel value */
   size?: "sm" | "md" | "lg" | "xl" | number;
+  /** Blur amount in pixels — creates a soft glow effect */
+  blur?: number;
+  /** Gap between cells in pixels */
+  gap?: number;
+  /** Use rounded (circular) cells instead of square */
+  rounded?: boolean;
   /** Disable animation and show static pattern */
   static?: boolean;
   /** Additional CSS classes */
@@ -559,6 +565,7 @@ const GridCell = ({
   mode,
   cycleDuration,
   shouldReduceMotion,
+  rounded,
 }: {
   active: boolean;
   color: string;
@@ -567,8 +574,10 @@ const GridCell = ({
   mode: "pulse" | "sequence" | "stagger";
   cycleDuration: number;
   shouldReduceMotion: boolean | null;
+  rounded?: boolean;
 }) => {
   const glowSize = cellSize * 0.8;
+  const borderRadius = rounded ? "50%" : undefined;
 
   if (!active) {
     return (
@@ -589,6 +598,7 @@ const GridCell = ({
           width: cellSize,
           height: cellSize,
           backgroundColor: color,
+          borderRadius,
           boxShadow: `
             0 0 ${glowSize * 0.3}px ${color},
             0 0 ${glowSize * 0.6}px ${color}40,
@@ -616,6 +626,7 @@ const GridCell = ({
         width: cellSize,
         height: cellSize,
         backgroundColor: color,
+        borderRadius,
         boxShadow: `
           0 0 ${glowSize * 0.3}px ${color},
           0 0 ${glowSize * 0.6}px ${color}40,
@@ -640,6 +651,9 @@ const GridLoader = ({
   speed = "normal",
   color,
   size,
+  blur,
+  gap: gapProp,
+  rounded,
   static: isStatic,
   className,
 }: GridLoaderProps) => {
@@ -647,7 +661,8 @@ const GridLoader = ({
   const [sequenceIndex, setSequenceIndex] = useState(0);
 
   const sizeInPx = resolveSize(size);
-  const cellSize = sizeInPx / 3;
+  const gapSize = gapProp ?? 0;
+  const cellSize = (sizeInPx - gapSize * 2) / 3;
   const resolvedColor = resolveColor(color);
   const cycleDuration = SPEEDS[speed] ?? SPEEDS.normal;
   const disableAnimation = isStatic || shouldReduceMotion;
@@ -710,7 +725,12 @@ const GridLoader = ({
     <output
       aria-label="Loading"
       className={cn("grid grid-cols-3", className)}
-      style={{ width: sizeInPx, height: sizeInPx }}
+      style={{
+        width: sizeInPx,
+        height: sizeInPx,
+        gap: gapSize,
+        filter: blur ? `blur(${blur}px)` : undefined,
+      }}
     >
       {cells.map((active, idx) => (
         <GridCell
@@ -721,6 +741,7 @@ const GridLoader = ({
           cycleDuration={cycleDuration}
           key={cellKeys[idx]}
           mode={mode}
+          rounded={rounded}
           shouldReduceMotion={disableAnimation}
         />
       ))}
