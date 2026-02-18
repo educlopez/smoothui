@@ -2,6 +2,7 @@
 
 import type { PresetPattern } from "@repo/smoothui/components/grid-loader";
 import GridLoader from "@repo/smoothui/components/grid-loader";
+import Scrubber from "@repo/smoothui/components/scrubber";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
@@ -330,28 +331,17 @@ export default function GridLoaderDemo() {
                       </button>
                     </div>
 
-                    {/* Blur slider */}
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center justify-between">
-                        <span className="text-muted-foreground text-xs">
-                          Blur
-                        </span>
-                        <span className="font-mono text-muted-foreground text-xs">
-                          {blur.toFixed(1)}
-                        </span>
-                      </div>
-                      <input
-                        className="w-full"
-                        max="3"
-                        min="0"
-                        onChange={(e) =>
-                          setBlur(Number.parseFloat(e.target.value))
-                        }
-                        step="0.1"
-                        type="range"
-                        value={blur}
-                      />
-                    </div>
+                    {/* Blur scrubber */}
+                    <Scrubber
+                      decimals={1}
+                      label="Blur"
+                      max={3}
+                      min={0}
+                      onValueChange={setBlur}
+                      step={0.1}
+                      ticks={5}
+                      value={blur}
+                    />
 
                     {/* Pattern grid */}
                     <div className="flex flex-col gap-2">

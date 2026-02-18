@@ -44,6 +44,7 @@ export { default as RichPopover } from "./rich-popover";
 export { default as ScrambleHover } from "./scramble-hover";
 export { default as ScrollRevealParagraph } from "./scroll-reveal-paragraph";
 export { default as ScrollableCardStack } from "./scrollable-card-stack";
+export { default as Scrubber } from "./scrubber";
 export { default as SearchableDropdown } from "./searchable-dropdown";
 export { default as SiriOrb } from "./siri-orb";
 export { default as Skeleton } from "./skeleton-loader";
