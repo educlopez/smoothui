@@ -121,6 +121,7 @@ export default function GridLoaderDemo() {
   const [blur, setBlur] = useState(1);
   const [rounded, setRounded] = useState(false);
   const [open, setOpen] = useState(false);
+  const [hoveredColor, setHoveredColor] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -232,21 +233,33 @@ export default function GridLoaderDemo() {
                   animate={{ x: 0 }}
                   aria-label="Customize panel"
                   aria-modal="true"
-                  className="fixed inset-y-0 right-0 z-[60] flex w-80 flex-col border-l bg-background shadow-lg"
+                  className="fixed inset-y-0 right-0 z-[60] flex w-80 flex-col shadow-2xl"
                   exit={{ x: "100%" }}
                   initial={{ x: "100%" }}
                   role="dialog"
+                  style={{ backgroundColor: "#1c1c1e" }}
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
                       : { type: "spring", duration: 0.5, bounce: 0.05 }
                   }
                 >
-                  <div className="flex items-center justify-between border-b px-4 py-3">
-                    <span className="font-semibold text-sm">Customize</span>
+                  <div
+                    className="flex items-center justify-between px-4 py-3"
+                    style={{
+                      borderBottom: "1px solid rgba(255,255,255,0.08)",
+                    }}
+                  >
+                    <span
+                      className="font-semibold text-sm"
+                      style={{ color: "white" }}
+                    >
+                      Grid Loader
+                    </span>
                     <button
-                      className="rounded-xs opacity-70 transition-opacity hover:opacity-100"
+                      className="rounded-xs transition-opacity hover:opacity-70"
                       onClick={() => setOpen(false)}
+                      style={{ color: "rgba(255,255,255,0.5)" }}
                       type="button"
                     >
                       <svg
@@ -266,24 +279,43 @@ export default function GridLoaderDemo() {
                     </button>
                   </div>
 
-                  <div className="flex flex-col gap-4 overflow-y-auto p-4">
-                    {/* Color selector */}
-                    <div className="flex flex-col gap-2">
-                      <span className="text-muted-foreground text-xs">
+                  <div className="flex flex-col gap-3 overflow-y-auto p-4">
+                    {/* Color */}
+                    <div
+                      className="flex items-center justify-between"
+                      style={{
+                        backgroundColor: "rgb(44, 44, 44)",
+                        borderRadius: 12,
+                        minHeight: 52,
+                        padding: "0 18px",
+                      }}
+                    >
+                      <span style={{ fontSize: 17, color: "white" }}>
                         Color
                       </span>
-                      <div className="flex gap-2">
+                      <div
+                        className="flex"
+                        style={{ borderRadius: 6, overflow: "hidden" }}
+                      >
                         {colors.map((color, idx) => (
                           <button
                             aria-label={`Select ${color} color`}
-                            className={`size-6 cursor-pointer rounded-sm border transition-all duration-200 ${
-                              idx === colorIndex
-                                ? "shadow-custom-brand"
-                                : "opacity-60 hover:opacity-100"
-                            }`}
+                            className="cursor-pointer transition-all duration-200"
                             key={color}
                             onClick={() => setColorIndex(idx)}
-                            style={{ background: colorValues[color] }}
+                            onMouseEnter={() => setHoveredColor(idx)}
+                            onMouseLeave={() => setHoveredColor(null)}
+                            style={{
+                              width: 24,
+                              height: 24,
+                              background: colorValues[color],
+                              opacity:
+                                idx === colorIndex
+                                  ? 1
+                                  : hoveredColor === idx
+                                    ? 1
+                                    : 0.45,
+                            }}
                             type="button"
                           />
                         ))}
@@ -291,44 +323,98 @@ export default function GridLoaderDemo() {
                     </div>
 
                     {/* Mode */}
-                    <div className="flex flex-col gap-2">
-                      <span className="text-muted-foreground text-xs">
-                        Mode
-                      </span>
-                      <div className="flex gap-1 rounded-lg bg-muted p-1">
-                        {modes.map((mode, idx) => (
-                          <button
-                            className={`flex-1 rounded-md px-2 py-1 font-medium text-xs transition-all ${
+                    <div
+                      className="flex items-center"
+                      style={{
+                        backgroundColor: "rgb(44, 44, 44)",
+                        borderRadius: 12,
+                        minHeight: 52,
+                        padding: "0 4px",
+                        gap: 4,
+                      }}
+                    >
+                      {modes.map((mode, idx) => (
+                        <button
+                          className="flex-1 transition-all"
+                          key={mode}
+                          onClick={() => setModeIndex(idx)}
+                          style={{
+                            borderRadius: 8,
+                            height: 44,
+                            fontSize: 17,
+                            backgroundColor:
                               idx === modeIndex
-                                ? "bg-background text-foreground shadow-sm"
-                                : "text-muted-foreground hover:text-foreground"
-                            }`}
-                            key={mode}
-                            onClick={() => setModeIndex(idx)}
-                            type="button"
-                          >
-                            {mode.charAt(0).toUpperCase() + mode.slice(1)}
-                          </button>
-                        ))}
-                      </div>
+                                ? "rgba(255,255,255,0.1)"
+                                : "transparent",
+                            color:
+                              idx === modeIndex
+                                ? "white"
+                                : "rgba(255,255,255,0.35)",
+                          }}
+                          type="button"
+                        >
+                          {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                        </button>
+                      ))}
                     </div>
 
                     {/* Rounded */}
-                    <div className="flex items-center justify-between">
-                      <span className="text-muted-foreground text-xs">
+                    <div
+                      className="flex items-center justify-between"
+                      style={{
+                        backgroundColor: "rgb(44, 44, 44)",
+                        borderRadius: 12,
+                        minHeight: 52,
+                        padding: "0 18px",
+                      }}
+                    >
+                      <span style={{ fontSize: 17, color: "white" }}>
                         Rounded
                       </span>
-                      <button
-                        className={`rounded-md px-2.5 py-1 font-medium text-xs transition-all ${
-                          rounded
-                            ? "bg-foreground text-background"
-                            : "bg-muted text-muted-foreground hover:text-foreground"
-                        }`}
-                        onClick={() => setRounded((prev) => !prev)}
-                        type="button"
+                      <div
+                        className="flex"
+                        style={{
+                          backgroundColor: "rgba(255,255,255,0.06)",
+                          borderRadius: 8,
+                          padding: 3,
+                          gap: 2,
+                        }}
                       >
-                        {rounded ? "On" : "Off"}
-                      </button>
+                        <button
+                          onClick={() => setRounded(false)}
+                          style={{
+                            borderRadius: 6,
+                            padding: "5px 14px",
+                            fontSize: 14,
+                            fontWeight: 500,
+                            color: rounded ? "rgba(255,255,255,0.35)" : "white",
+                            backgroundColor: rounded
+                              ? "transparent"
+                              : "rgba(255,255,255,0.1)",
+                            transition: "all 150ms",
+                          }}
+                          type="button"
+                        >
+                          Off
+                        </button>
+                        <button
+                          onClick={() => setRounded(true)}
+                          style={{
+                            borderRadius: 6,
+                            padding: "5px 14px",
+                            fontSize: 14,
+                            fontWeight: 500,
+                            color: rounded ? "white" : "rgba(255,255,255,0.35)",
+                            backgroundColor: rounded
+                              ? "rgba(255,255,255,0.1)"
+                              : "transparent",
+                            transition: "all 150ms",
+                          }}
+                          type="button"
+                        >
+                          On
+                        </button>
+                      </div>
                     </div>
 
                     {/* Blur scrubber */}
@@ -343,15 +429,31 @@ export default function GridLoaderDemo() {
                       value={blur}
                     />
 
-                    {/* Pattern grid */}
+                    {/* Pattern */}
                     <div className="flex flex-col gap-2">
-                      <span className="text-muted-foreground text-xs">
+                      <span
+                        style={{
+                          fontSize: 13,
+                          color: "rgba(255,255,255,0.35)",
+                          paddingLeft: 4,
+                        }}
+                      >
                         Pattern
                       </span>
-                      <div className="overflow-y-auto rounded-lg border bg-muted/50 p-2.5">
+                      <div
+                        className="overflow-y-auto"
+                        style={{
+                          backgroundColor: "rgb(44, 44, 44)",
+                          borderRadius: 12,
+                          padding: 10,
+                        }}
+                      >
                         {patternGroups.map((group) => (
                           <div className="mb-2.5 last:mb-0" key={group.label}>
-                            <div className="mb-1 px-1 font-medium text-[11px] text-muted-foreground">
+                            <div
+                              className="mb-1 px-1 font-medium text-[11px]"
+                              style={{ color: "rgba(255,255,255,0.3)" }}
+                            >
                               {group.label}
                             </div>
                             <div className="flex flex-wrap gap-1.5">

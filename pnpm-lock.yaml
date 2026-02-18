@@ -92,6 +92,9 @@ importers:
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
+      dialkit:
+        specifier: ^0.2.1
+        version: 0.2.1(motion@12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       fumadocs-core:
         specifier: ^16.0.4
         version: 16.0.4(@orama/core@1.2.13)(@types/react@19.2.7)(lucide-react@0.555.0(react@19.2.1))(next@16.1.5(@babel/core@7.28.4)(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -5437,6 +5440,20 @@ packages:
 
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
+
+  dialkit@0.1.2:
+    resolution: {integrity: sha512-92bDj/dHqWDa/OIgogxwUxli7XSWYkibd+rCOXlNKzHawjX98+B1oF4+3cXXOqsKzro2cL0ItZ5Vhmm9hfCDXw==}
+    peerDependencies:
+      motion: '>=11.0.0'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
+
+  dialkit@0.2.1:
+    resolution: {integrity: sha512-cS1UXYtyBiJy8uRO9ZESI+pwhmZft8812yJOc6giZF2HJeqaZ5cyJco0CQFz6B/R8hWv3MpFN7UloRzm/1gDIw==}
+    peerDependencies:
+      motion: '>=11.0.0'
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
 
   diff@8.0.3:
     resolution: {integrity: sha512-qejHi7bcSD4hQAZE0tNAawRK1ZtafHDmMTMkrrIGgSLl7hTnQHmKCeB45xAcbfTqK2zowkM3j3bHt/4b/ARbYQ==}
@@ -11132,6 +11149,19 @@ snapshots:
   devlop@1.1.0:
     dependencies:
       dequal: 2.0.3
+
+  dialkit@0.1.2(motion@12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+    dependencies:
+      motion: 12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
+
+  dialkit@0.2.1(motion@12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1):
+    dependencies:
+      dialkit: 0.1.2(motion@12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      motion: 12.23.25(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
+      react: 19.2.1
+      react-dom: 19.2.1(react@19.2.1)
 
   diff@8.0.3: {}
 
