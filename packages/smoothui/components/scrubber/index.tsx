@@ -146,7 +146,7 @@ const Scrubber = ({
         aria-valuemax={max}
         aria-valuemin={min}
         aria-valuenow={Number(value.toFixed(decimals))}
-        className="relative cursor-pointer overflow-hidden outline-offset-2"
+        className="relative cursor-pointer overflow-hidden bg-muted outline-offset-2"
         onKeyDown={handleKeyDown}
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
@@ -157,7 +157,6 @@ const Scrubber = ({
         role="slider"
         style={{
           height: 52,
-          backgroundColor: "rgb(44, 44, 44)",
           borderRadius: 12,
           touchAction: "none",
         }}
@@ -165,9 +164,8 @@ const Scrubber = ({
       >
         {/* Fill indicator */}
         <div
-          className="pointer-events-none absolute inset-y-0 left-0"
+          className="pointer-events-none absolute inset-y-0 left-0 bg-foreground/14"
           style={{
-            backgroundColor: "rgba(255, 255, 255, 0.14)",
             borderRadius: 12,
             width: `${percentage}%`,
             transition: isDragging
@@ -183,7 +181,7 @@ const Scrubber = ({
               const pos = ((i + 1) / (ticks + 1)) * 100;
               return (
                 <div
-                  className="absolute top-1/2"
+                  className="absolute top-1/2 bg-foreground/25"
                   key={pos}
                   style={{
                     left: `${pos}%`,
@@ -191,7 +189,6 @@ const Scrubber = ({
                     height: 8,
                     borderRadius: 999,
                     transform: "translateX(-50%) translateY(-50%)",
-                    backgroundColor: "rgba(255, 255, 255, 0.25)",
                   }}
                 />
               );
@@ -219,11 +216,11 @@ const Scrubber = ({
               scaleX: isActive ? 1 : 0.7,
               scaleY: isActive ? 1 : 0.7,
             }}
+            className="bg-foreground/90"
             style={{
               width: 5,
               height: 34,
               borderRadius: 999,
-              backgroundColor: "rgba(255, 255, 255, 0.9)",
             }}
             transition={springConfig}
           />
@@ -231,10 +228,9 @@ const Scrubber = ({
 
         {/* Label */}
         <div
-          className="pointer-events-none absolute top-1/2 left-[18px] -translate-y-1/2 whitespace-nowrap"
+          className="pointer-events-none absolute top-1/2 left-[18px] -translate-y-1/2 whitespace-nowrap text-foreground"
           style={{
             fontSize: 17,
-            color: "rgb(255, 255, 255)",
             zIndex: 4,
           }}
         >
@@ -243,10 +239,9 @@ const Scrubber = ({
 
         {/* Value display */}
         <div
-          className="pointer-events-none absolute top-1/2 right-[14px] -translate-y-1/2"
+          className="pointer-events-none absolute top-1/2 right-[14px] -translate-y-1/2 text-foreground"
           style={{
             zIndex: 4,
-            color: "rgb(255, 255, 255)",
             fontFamily: "ui-monospace, monospace",
             fontVariantNumeric: "tabular-nums",
             fontSize: 15,

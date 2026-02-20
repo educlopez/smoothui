@@ -60,7 +60,7 @@ export const Reference = ({ sources }: ReferenceProps) => (
             />
             {isValidUrl ? (
               <a
-                className="transition-all hover:text-primary"
+                className="transition-all hover:text-foreground"
                 href={url}
                 rel="noopener"
                 target="_blank"
