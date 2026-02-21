@@ -1,4 +1,5 @@
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import Script from "next/script";
@@ -118,6 +119,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           />
         )}
         {enableVercelAnalytics && <Analytics />}
+        {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>{children}</RootProvider>
       </body>
     </html>
