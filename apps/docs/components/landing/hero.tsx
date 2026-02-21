@@ -117,6 +117,18 @@ export function Hero() {
                 </Button>
               </div>
 
+              {/* Vercel OSS Program */}
+              <a
+                href="https://vercel.com/oss"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <img
+                  alt="Vercel OSS Program"
+                  src="https://vercel.com/oss/program-badge.svg"
+                />
+              </a>
+
               <div className="mt-14 hidden items-center gap-8 sm:flex">
                 {[
                   { name: "React", icon: ReactLogo, className: "size-7" },
