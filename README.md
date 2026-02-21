@@ -1,9 +1,16 @@
 # SmoothUI
 
 ![Screenshot of SmoothUI](/apps/docs/public/readme.png)
-
 <div align="center">
-
+<br />
+<br />
+<a href="https://vercel.com/oss">
+  <img alt="Vercel OSS Program" src="https://vercel.com/oss/program-badge.svg" />
+</a>
+<br />
+<br />
+<br />
+  
 ![Next.js Badge](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=flat)
 ![Tailwind CSS Badge](https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=flat)
 ![Motion Badge](https://img.shields.io/badge/Motion-ECD53F?style=flat)
