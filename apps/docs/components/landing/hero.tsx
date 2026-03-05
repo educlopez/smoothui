@@ -125,7 +125,7 @@ export function Hero() {
               >
                 <img
                   alt="Vercel OSS Program"
-                  src="https://vercel.com/oss/program-badge.svg"
+                  src="https://vercel.com/oss/program-badge-2026.svg"
                 />
               </a>
 
