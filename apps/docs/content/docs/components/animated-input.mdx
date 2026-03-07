@@ -17,6 +17,24 @@ installer: animated-input
 - Built with Framer Motion
 - Accessible form input
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Input | Provides an accessible name matching the label text |
+| `aria-hidden="true"` | Icon container | Hides the decorative icon from screen readers |
+
+### Screen Reader
+
+- The floating label is programmatically associated with the input via `htmlFor` and `id`
+- The `aria-label` attribute provides an accessible name for assistive technologies
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the floating label transitions are applied instantly without animation.
+
 ## Props
 
 <AutoTypeTable

@@ -17,6 +17,36 @@ installer: animated-tabs
 - Accessible with proper ARIA attributes
 - Respects reduced motion preferences
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow Right` | Moves focus and selection to the next tab (wraps to first) |
+| `Arrow Left` | Moves focus and selection to the previous tab (wraps to last) |
+| `Home` | Moves focus and selection to the first tab |
+| `End` | Moves focus and selection to the last tab |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="tablist"` | Container | Identifies the tab group as a tablist |
+| `aria-label="Tabs"` | Container | Provides an accessible name for the tablist |
+| `role="tab"` | Tab button | Identifies each button as a tab |
+| `aria-selected` | Tab button | Indicates which tab is currently active |
+| `tabindex` | Tab button | Uses roving tabindex: active tab is `0`, inactive tabs are `-1` |
+
+### Screen Reader
+
+- Only the active tab is in the tab order; arrow keys navigate between tabs
+- Each tab announces its selected state via `aria-selected`
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the sliding indicator animation between tabs is disabled instantly.
+
 ## Props
 
 <AutoTypeTable

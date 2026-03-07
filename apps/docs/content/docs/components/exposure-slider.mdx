@@ -18,6 +18,12 @@ installer: exposure-slider
 - onChange callback for value tracking
 - Respects reduced motion preferences
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the spring smoothing on the drag offset is bypassed and the raw motion value is used directly for instant visual feedback.
+
 ## Props
 
 <AutoTypeTable

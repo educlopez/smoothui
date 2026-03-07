@@ -14,6 +14,18 @@ installer: clip-corners-button
 - Works with icons and labels
 - Easy theming
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Corner SVGs | Each decorative corner triangle has an accessible label and `<title>` |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the corner triangle hover animations are disabled. The component also detects hover-capable devices and disables hover animations on touch devices.
+
 ## Props
 
 <AutoTypeTable

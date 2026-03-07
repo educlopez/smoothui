@@ -20,6 +20,22 @@ installer: tweet-card
 - Accessible with proper ARIA labels
 - Consistent 24px padding on all sides
 
+## Accessibility
+
+### Semantic HTML
+
+Uses `<article>` as the root element and `<blockquote>` for tweet text, providing meaningful document structure for assistive technologies.
+
+### ARIA Attributes
+
+- The external link button includes `aria-label="Open tweet in new tab"` for screen reader context.
+- Decorative SVG icons use `aria-hidden="true"` to hide them from the accessibility tree.
+- All external links include `rel="noreferrer"` or `rel="noopener noreferrer"` for security.
+
+### Reduced Motion
+
+The hover-activated link button uses Tailwind's `motion-safe:hover:scale-110` utility, which automatically disables the scale animation when `prefers-reduced-motion` is enabled. There is no additional JavaScript-level `useReducedMotion` check, as animations are CSS-only.
+
 ## Props
 
 <AutoTypeTable

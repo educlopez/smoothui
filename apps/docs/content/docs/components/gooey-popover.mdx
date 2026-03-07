@@ -18,6 +18,27 @@ installer: gooey-popover
 - Accessible with ARIA attributes and keyboard support
 - Reduced motion support (skips goo filter, instant state changes)
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the popover when open |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Trigger button | Indicates whether the popover is open or closed |
+| `aria-haspopup="dialog"` | Trigger button | Indicates the button opens a dialog-style popover |
+| `role="dialog"` | Content panel | Identifies the popover content as a dialog |
+| `aria-hidden="true"` | SVG filter, filtered layer, measurement div | Hides decorative and measurement elements from screen readers |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via a manual `matchMedia` listener (it uses GSAP instead of Motion's `useReducedMotion`). When reduced motion is preferred, the goo filter layer is skipped entirely and the popover content appears/disappears instantly.
+
 ## Props
 
 <AutoTypeTable

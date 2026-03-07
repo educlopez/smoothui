@@ -17,6 +17,33 @@ installer: basic-accordion
 - Smooth animations
 - Built on Radix UI Accordion
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus to the next accordion header button |
+| `Enter` / `Space` | Toggles the focused accordion item open or closed |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Header button | Indicates whether the associated section is open or closed |
+| `aria-controls` | Header button | References the `id` of the collapsible content region |
+| `aria-labelledby` | Content region | References the `id` of the header button that controls it |
+| `role="region"` | Content panel | Identifies the expandable content area as a landmark region |
+
+### Screen Reader
+
+- Each header button announces its expanded or collapsed state
+- Content regions are associated with their header via `aria-labelledby`
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, expand/collapse and chevron rotation animations are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

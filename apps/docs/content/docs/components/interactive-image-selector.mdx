@@ -15,6 +15,25 @@ installer: interactive-image-selector
 - Custom renderers and captions
 - Responsive grid
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Reset button | Provides accessible name "Reset selection" |
+| `aria-label` | Select/Cancel button | Dynamically describes current action |
+
+### Screen Reader
+
+- Each gallery image has an `alt` attribute (e.g., "Gallery item 1").
+- The selection count is displayed as visible text in the action bar.
+- The Share and Delete buttons use icon-only presentation without accessible labels.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, shake and slide-in animations are disabled.
+
 ## Props
 
 <AutoTypeTable

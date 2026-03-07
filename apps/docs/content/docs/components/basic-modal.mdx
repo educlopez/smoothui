@@ -17,6 +17,37 @@ installer: basic-modal
 - Focus trap friendly and accessible structure
 - Composable action area
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the modal |
+| `Tab` | Cycles focus through focusable elements within the modal (focus is trapped) |
+| `Shift + Tab` | Cycles focus backward through focusable elements within the modal |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="dialog"` | Modal container | Identifies the element as a dialog |
+| `aria-modal="true"` | Modal container | Indicates the dialog is modal and content behind it is inert |
+| `aria-labelledby` | Modal container | References the modal title for an accessible name |
+| `aria-label="Close modal"` | Close button | Provides an accessible name for the close button |
+| `aria-hidden="true"` | Close icon (X) | Hides the decorative icon from screen readers |
+
+### Screen Reader
+
+- Focus moves to the close button when the modal opens
+- Focus is trapped within the modal while open
+- Focus returns to the previously focused element when the modal closes
+- The modal title is announced via `aria-labelledby`
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, backdrop fade, modal scale/slide entrance, and close button hover animations are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

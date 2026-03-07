@@ -15,6 +15,34 @@ installer: expandable-cards
 - Grid or list layouts supported
 - Easy theming
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` | Toggles expand/collapse on the focused card |
+| `Space` | Toggles expand/collapse on the focused card |
+| `Tab` | Moves focus between cards |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="button"` | Card container | Indicates the card is an interactive element |
+| `aria-label` | Card container | Describes the card title and its expanded/collapsed state |
+| `aria-selected` | Card container | Indicates which card is currently expanded |
+| `tabIndex={0}` | Card container | Makes each card focusable |
+
+### Screen Reader
+
+- Each card announces its title and whether it is expanded (e.g., "Nature card, expanded").
+- The play button inside each card has a descriptive `aria-label` (e.g., "Play video: Nature").
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, expand/collapse width transitions and content blur animations are disabled.
+
 ## Props
 
 <AutoTypeTable

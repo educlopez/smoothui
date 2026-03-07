@@ -15,3 +15,20 @@ installer: ai-input
 - Clear/submit actions built-in
 - Smooth micro-interactions
 - Accessible and themable
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the feedback textarea and returns to the dock |
+| `Cmd + Enter` | Submits the feedback form |
+
+### Screen Reader
+
+- The submit shortcut is visually indicated with `<kbd>` elements showing the key combination
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all morph, fade, and layout animations are disabled instantly.

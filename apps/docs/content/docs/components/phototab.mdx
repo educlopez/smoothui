@@ -15,6 +15,25 @@ installer: phototab
 - Keyboard and ARIA tabs
 - Responsive grid
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Tab list | Provides an accessible name "Phototab Tabs" |
+| `aria-label` | Each tab trigger | Describes the tab name |
+
+### Screen Reader
+
+- Built on Radix UI's Tabs primitives, which provide built-in `role="tablist"`, `role="tab"`, and `role="tabpanel"` semantics with automatic `aria-selected` state management.
+- Each tab trigger includes a visually hidden `<span className="sr-only">` with the tab name.
+- Tab images have `alt` attributes matching the tab name.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the hover background pill animation uses instant transitions instead of spring physics.
+
 ## Props
 
 <AutoTypeTable

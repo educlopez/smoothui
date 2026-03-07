@@ -18,6 +18,18 @@ installer: magnetic-button
 - Polymorphic with `asChild` prop
 - GPU-accelerated transforms
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="presentation"` | Wrapper div | Indicates the outer mouse-tracking wrapper is decorative and not interactive |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the magnetic cursor-following effect is completely disabled. The component also detects hover-capable devices and disables the effect on touch devices. When the `disabled` prop is set, the magnetic effect is also disabled.
+
 ## Props
 
 <AutoTypeTable

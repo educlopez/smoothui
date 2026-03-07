@@ -15,6 +15,24 @@ installer: button-copy
 - Accessible with aria-live
 - Themable and lightweight
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Button | Dynamically updates to reflect the current state: "Copy", "Copying...", or "Copied" |
+| `aria-live="polite"` | Button | Announces state changes to screen readers without interrupting current speech |
+
+### Screen Reader
+
+- State transitions (idle, loading, success) are announced via the `aria-live="polite"` region
+- The button is automatically disabled during loading and success states to prevent double-clicks
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the icon swap blur and slide animations are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

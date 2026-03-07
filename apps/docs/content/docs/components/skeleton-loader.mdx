@@ -14,6 +14,18 @@ installer: skeleton-loader
 - Works with any component structure
 - Accessible with ARIA attributes
 
+## Accessibility
+
+### ARIA Attributes
+
+- Sets `aria-busy="true"` on the container while loading, signaling to assistive technologies that content is being loaded.
+- Uses `aria-live="polite"` so screen readers announce when content finishes loading.
+- Marks the pulse overlay with `aria-hidden="true"` to hide decorative elements from the accessibility tree.
+
+### Reduced Motion
+
+Uses Tailwind's `animate-pulse` for the shimmer effect. Tailwind respects the `prefers-reduced-motion` media query at the CSS level, but the component does not include an explicit JavaScript-level `useReducedMotion` check.
+
 ## Props
 
 <AutoTypeTable

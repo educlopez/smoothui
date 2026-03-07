@@ -14,6 +14,24 @@ installer: social-selector
 - Keyboard and screen reader support
 - Responsive layout
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Platform buttons | Describes the action (e.g., "Select X platform") |
+
+### Screen Reader
+
+- Each platform icon button contains a visually hidden `<span className="sr-only">` with the platform name.
+- SVG icons include `<title>` elements (e.g., "X icon", "Bluesky icon", "Threads icon").
+- External links use `rel="noopener noreferrer"` for security.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the background pill sliding animation and the domain text blur/slide transitions are disabled.
+
 ## Props
 
 <AutoTypeTable

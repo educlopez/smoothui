@@ -16,6 +16,17 @@ installer: figma-comment
 - Responsive height measurement
 - Accessible with reduced motion support
 
+## Accessibility
+
+### Screen Reader
+
+- The avatar uses an `AvatarImage` with an `alt` attribute and an `AvatarFallback` showing the author's initial.
+- The click-outside handler allows dismissing the comment by interacting elsewhere.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the expand/collapse spring animations and content blur transitions are disabled, and the container resizes instantly.
+
 ## Props
 
 <AutoTypeTable

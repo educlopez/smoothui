@@ -14,6 +14,20 @@ installer: number-flow
 - Easing and duration controls
 - Accessible labels
 
+## Accessibility
+
+### Reduced Motion
+
+This component does not currently support the `prefers-reduced-motion` media query. Digit slide animations will play regardless of user preference.
+
+### ARIA
+
+The increment and decrement buttons include descriptive `aria-label` attributes (`"Increase number"` and `"Decrease number"`). Buttons are properly disabled at the `min` and `max` boundaries via the `disabled` attribute.
+
+### Keyboard
+
+The controls use native `<button>` elements with `type="button"`, so they are focusable and operable via keyboard (Enter and Space) without additional handling.
+
 ## Props
 
 <AutoTypeTable

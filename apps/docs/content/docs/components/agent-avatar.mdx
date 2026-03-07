@@ -15,6 +15,16 @@ installer: agent-avatar
 - Circular clipping with outer glow
 - Respects `prefers-reduced-motion`
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `window.matchMedia`. When reduced motion is preferred, canvas animations are stopped and a single static frame is rendered instead.
+
+### ARIA
+
+The `<canvas>` element includes `role="img"` and an `aria-label` derived from the `seed` prop, ensuring screen readers announce the avatar meaningfully.
+
 ## Props
 
 <AutoTypeTable

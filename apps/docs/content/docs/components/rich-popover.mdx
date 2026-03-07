@@ -16,6 +16,25 @@ installer: rich-popover
 - Keyboard and screen reader support
 - Theming and sizes
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | YouTube SVG icon | Provides an accessible name "YouTube" for the icon |
+| `role="img"` | YouTube SVG icon | Identifies the SVG as an image |
+| `focusable="false"` | YouTube SVG icon | Prevents the decorative icon from receiving focus |
+
+### Screen Reader
+
+- The popover is built on Radix UI's Popover primitives, which provide built-in focus management and ARIA dialog semantics.
+- External links use `rel="noopener noreferrer"` and include an external link icon for visual indication.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the popover content appears and disappears instantly without scale, slide, or blur animations.
+
 ## Props
 
 <AutoTypeTable

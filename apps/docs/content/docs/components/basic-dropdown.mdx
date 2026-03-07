@@ -16,6 +16,40 @@ installer: basic-dropdown
 - Compact, accessible, and easy to style
 - Works with any React content
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Opens the dropdown when the trigger button is focused, or selects the focused item |
+| `Escape` | Closes the dropdown and returns focus to the trigger button |
+| `Arrow Down` | Moves focus to the next item (wraps to first) |
+| `Arrow Up` | Moves focus to the previous item (wraps to last) |
+| `Home` | Moves focus to the first item |
+| `End` | Moves focus to the last item |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Trigger button | Indicates whether the dropdown is open or closed |
+| `aria-haspopup="listbox"` | Trigger button | Indicates the button opens a listbox |
+| `aria-label` | Trigger button | Provides an accessible name including the selected item label |
+| `role="option"` | List item | Identifies each item as a selectable option |
+| `aria-selected` | List item | Indicates the currently selected or focused item |
+| `aria-label` | Item button | Provides an accessible name for each option |
+
+### Screen Reader
+
+- The trigger button announces its expanded/collapsed state and the currently selected value
+- Each option announces its label and selected state
+- A checkmark icon includes a `<title>` element for screen readers
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, dropdown open/close, item slide-in, and chevron rotation animations are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

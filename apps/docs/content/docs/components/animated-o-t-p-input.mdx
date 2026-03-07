@@ -16,6 +16,27 @@ installer: animated-o-t-p-input
 - Masking options
 - Accessible and mobile-friendly
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `0-9` | Enters a digit and auto-advances to the next slot |
+| `Backspace` | Deletes the current digit and moves focus to the previous slot |
+| `Tab` | Moves focus to/from the OTP input |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | OTP input | Provides an accessible name (defaults to "One-time password input") |
+| `aria-describedby` | OTP input | References an optional description element for additional context |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, slot entrance animations, digit flip transitions, and the blinking caret are all disabled.
+
 ## Props
 
 <AutoTypeTable

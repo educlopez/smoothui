@@ -16,6 +16,27 @@ installer: image-metadata-preview
 - Custom fields and layout
 - Works with static or dynamic data
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Share button | Provides accessible name "Share" |
+| `aria-label` | Open button | Provides accessible name "Open Metadata Preview" |
+| `aria-label` | Close button | Provides accessible name "Close metadata preview" |
+| `aria-hidden="true"` | Icon SVGs (Share, ChevronUp, CircleX) | Hides decorative icons from screen readers |
+
+### Screen Reader
+
+- All interactive buttons have descriptive `aria-label` attributes.
+- The metadata table uses semantic `<table>`, `<tbody>`, `<tr>`, and `<td>` elements for structured data.
+- Buttons have visible focus rings via `focus-visible:ring-2` and minimum touch target sizes (`min-h-[44px]`, `min-w-[44px]`).
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the image lift animation, metadata panel entrance blur/spring, and the open/close button blur transitions are all disabled.
+
 ## Props
 
 <AutoTypeTable

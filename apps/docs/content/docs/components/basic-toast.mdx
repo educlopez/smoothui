@@ -16,6 +16,17 @@ installer: basic-toast
 - Minimal styles for easy theming
 - Accessible announcements
 
+## Accessibility
+
+### Screen Reader
+
+- Each toast type (success, error, warning, info) displays a corresponding icon with semantic color for visual distinction
+- The close button allows manual dismissal of the notification
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the slide-in entrance and exit animations are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

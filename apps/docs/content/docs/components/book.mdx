@@ -18,6 +18,16 @@ installer: book
 - Optional illustration and logo slots
 - Respects reduced motion preferences
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the hover rotation and scale transition are disabled, and the book renders in its static resting state.
+
+### ARIA
+
+Decorative elements such as the spine binding overlays, page edges, and back cover are marked with `aria-hidden` to prevent screen readers from announcing visual-only content.
+
 ## Props
 
 <AutoTypeTable

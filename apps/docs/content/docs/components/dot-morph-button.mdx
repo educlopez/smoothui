@@ -14,6 +14,12 @@ installer: dot-morph-button
 - Keyboard and ARIA support
 - Easy to theme
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the dot morph hover animation is disabled. The component also detects hover-capable devices and disables the hover effect on touch devices.
+
 ## Props
 
 <AutoTypeTable

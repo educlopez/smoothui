@@ -14,6 +14,41 @@ installer: scrollable-card-stack
 - Keyboard and touch friendly
 - Theming options
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `ArrowUp` / `ArrowLeft` | Navigates to the previous card |
+| `ArrowDown` / `ArrowRight` | Navigates to the next card |
+| `Home` | Jumps to the first card |
+| `End` | Jumps to the last card |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Section | Provides an accessible name "Scrollable card stack" |
+| `aria-live="polite"` | Section | Announces card changes to screen readers |
+| `aria-atomic="true"` | Section | Ensures the full announcement is read together |
+| `role="application"` | Container | Indicates custom keyboard interaction model |
+| `role="tablist"` | Navigation dots | Groups the dot indicators as a tab list |
+| `role="tab"` | Each dot | Identifies each dot as a tab control |
+| `aria-selected` | Each dot | Indicates the active card indicator |
+| `aria-label` | Each dot | Describes position (e.g., "Go to card 1 of 5") |
+| `aria-hidden` | Non-active cards | Hides stacked cards behind the current one from screen readers |
+| `aria-label` | Profile link | Describes the link action (e.g., "View John's profile") |
+
+### Screen Reader
+
+- A live region announces the current card position (e.g., "Card 1 of 5 selected. Use arrow keys to navigate one card at a time, or click the dots below.").
+- Non-active cards are marked `aria-hidden` so only the visible card is announced.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, card scale/translate animations, blur effects, and hover scale transitions are all disabled.
+
 ## Props
 
 <AutoTypeTable

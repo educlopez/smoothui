@@ -19,6 +19,17 @@ published: 2026-01-05
 - Smooth transitions and animations
 - Fully customizable grid layout
 
+## Accessibility
+
+### ARIA Attributes
+
+- When rendered as a link (`href` prop) or button (`onButtonClick` prop), the wrapper includes `aria-label` set to the card's `title` for screen reader context.
+- Focus-visible ring styles (`focus-visible:ring-2`) provide clear keyboard focus indication on interactive card variants.
+
+### Reduced Motion
+
+The light grid uses CSS transitions (`opacity` and `transform`) with configurable `transitionDuration`. There is no explicit `prefers-reduced-motion` check at the JavaScript or CSS level. The animations are subtle opacity/scale transitions rather than layout-shifting motion.
+
 ## Props
 
 <AutoTypeTable

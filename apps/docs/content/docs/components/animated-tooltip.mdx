@@ -18,6 +18,31 @@ installer: animated-tooltip
 - Supports rich content via ReactNode
 - Optional show delay
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Dismisses the tooltip when focused |
+| `Tab` | Focus/blur on the trigger shows/hides the tooltip |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="tooltip"` | Tooltip content | Identifies the element as a tooltip |
+| `aria-describedby` | Trigger wrapper | Associates the trigger with the tooltip content when visible |
+| `aria-hidden="true"` | Arrow element | Hides the decorative arrow from screen readers |
+
+### Screen Reader
+
+- The tooltip content is linked to the trigger via `aria-describedby` using a unique `useId`-generated ID, so screen readers announce the tooltip text when the trigger is focused.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the tooltip appears and disappears instantly without spring or slide animations.
+
 ## Props
 
 <AutoTypeTable
