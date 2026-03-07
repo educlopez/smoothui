@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "tweet",
+      "twitter",
+      "x",
+      "embed",
+      "social",
+      "card"
+    ],
+    "complexity": "moderate",
+    "animationType": "none",
+    "useCases": [
+      "Embed Twitter/X posts with styled card component",
+      "Social proof section with real tweet displays",
+      "Testimonial display using actual tweets"
+    ],
+    "compositionHints": [
+      "Use with infinite-slider for scrolling tweet walls",
+      "Pair with skeleton-loader via TweetSkeleton for loading"
+    ],
+    "hasReducedMotion": false
   }
 }

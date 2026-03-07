@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "toggle",
+      "switch",
+      "checkbox",
+      "morph",
+      "icon",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Settings toggle with smooth morph animation",
+      "Theme switcher with icon variant",
+      "Feature flag toggle with accessible keyboard support"
+    ],
+    "compositionHints": [
+      "Use in settings panels alongside animated-input",
+      "Pair with basic-toast for toggle confirmation feedback"
+    ],
+    "hasReducedMotion": true
   }
 }

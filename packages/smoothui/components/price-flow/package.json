@@ -13,5 +13,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "price",
+      "counter",
+      "currency",
+      "digit",
+      "transition",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Animated price display with rolling digit transitions",
+      "Real-time price ticker with smooth updates",
+      "Currency amount display with increment/decrement animation"
+    ],
+    "compositionHints": [
+      "Use in pricing blocks alongside number-flow",
+      "Pair with animated-toggle for pricing interval switcher"
+    ],
+    "hasReducedMotion": false
   }
 }

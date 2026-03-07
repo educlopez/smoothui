@@ -16,5 +16,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "testimonials",
+      "grid",
+      "navigation",
+      "arrows",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Grid testimonials with navigation arrows",
+      "Customer reviews grid with paginated navigation",
+      "Testimonial section with manual browse controls"
+    ],
+    "compositionHints": [
+      "Use animated-avatar-group for reviewer photos"
+    ],
+    "hasReducedMotion": true
   }
 }

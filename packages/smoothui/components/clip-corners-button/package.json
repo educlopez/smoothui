@@ -14,5 +14,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "button",
+    "tags": [
+      "button",
+      "clip-path",
+      "corners",
+      "geometric",
+      "hover",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Stylized CTA button with clipped corner hover effect",
+      "Geometric button for gaming or tech-themed UIs",
+      "Creative hover button with corner triangle animations"
+    ],
+    "compositionHints": [
+      "Use with animated-tooltip for button descriptions"
+    ],
+    "hasReducedMotion": true
   }
 }

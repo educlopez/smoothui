@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "image",
+      "selector",
+      "gallery",
+      "selection",
+      "gesture",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Image gallery with animated selection and deselection",
+      "Multi-image picker with gesture-driven animations",
+      "Photo selection interface with share and delete actions"
+    ],
+    "compositionHints": [
+      "Combine with basic-modal for image detail views"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "graph",
+      "heatmap",
+      "calendar",
+      "github",
+      "activity",
+      "data-visualization"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "GitHub-style contribution heatmap",
+      "Activity tracking calendar visualization",
+      "Yearly data density chart with tooltip details"
+    ],
+    "compositionHints": [
+      "Pair with animated-tooltip for cell details",
+      "Use number-flow for animated stat counters alongside"
+    ],
+    "hasReducedMotion": true
   }
 }

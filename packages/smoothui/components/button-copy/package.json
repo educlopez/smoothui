@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "button",
+    "tags": [
+      "button",
+      "copy",
+      "clipboard",
+      "feedback",
+      "icon-swap",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Copy to clipboard button with loading/success animation",
+      "Code snippet copy button with icon transition",
+      "Share button with animated state feedback"
+    ],
+    "compositionHints": [
+      "Enhance with animated-tooltip to show copy hint",
+      "Use basic-toast for additional copy confirmation"
+    ],
+    "hasReducedMotion": true
   }
 }

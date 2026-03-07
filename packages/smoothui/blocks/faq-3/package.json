@@ -15,5 +15,25 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "faq",
+      "search",
+      "filter",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Searchable FAQ section with filter animations",
+      "Help center with instant search filtering",
+      "Documentation FAQ with real-time search"
+    ],
+    "compositionHints": [
+      "Could use searchable-dropdown for enhanced search"
+    ],
+    "hasReducedMotion": true
   }
 }

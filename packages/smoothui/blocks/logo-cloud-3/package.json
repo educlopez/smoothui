@@ -13,5 +13,24 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "logo",
+      "cloud",
+      "marquee",
+      "infinite-scroll",
+      "css"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "CSS-only infinite scrolling logo marquee",
+      "Lightweight logo carousel without JS",
+      "Performance-optimized logo cloud section"
+    ],
+    "compositionHints": [],
+    "hasReducedMotion": false
   }
 }

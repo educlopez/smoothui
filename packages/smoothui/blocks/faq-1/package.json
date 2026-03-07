@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "faq",
+      "grid",
+      "tabs",
+      "categories",
+      "icons",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "FAQ section with categorized tab navigation",
+      "Knowledge base grid with icon categories",
+      "Support page FAQ with animated filtering"
+    ],
+    "compositionHints": [
+      "Could use basic-accordion for individual FAQ items"
+    ],
+    "hasReducedMotion": true
   }
 }

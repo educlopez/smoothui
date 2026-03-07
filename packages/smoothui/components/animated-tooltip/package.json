@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "tooltip",
+      "popover",
+      "hint",
+      "placement",
+      "spring",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Show contextual help text on hover",
+      "Icon button label tooltip with spring animation",
+      "Multi-placement tooltip for UI element descriptions"
+    ],
+    "compositionHints": [
+      "Add to animated-avatar-group for user name hints",
+      "Enhance button-copy and magnetic-button with action tooltips"
+    ],
+    "hasReducedMotion": true
   }
 }

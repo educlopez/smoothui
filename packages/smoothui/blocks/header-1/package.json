@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "header",
+      "hero",
+      "navigation",
+      "grid",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "tween",
+    "useCases": [
+      "Interactive 3D grid hero header for landing pages",
+      "Animated hero section with color grid effect",
+      "SaaS landing page header with CTA"
+    ],
+    "compositionHints": [
+      "Uses shared block components like AnimatedGroup and HeroHeader"
+    ],
+    "hasReducedMotion": false
   }
 }

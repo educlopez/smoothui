@@ -17,5 +17,25 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "shared",
+      "blocks",
+      "utilities",
+      "base-components"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Shared utilities and base components for SmoothUI blocks",
+      "Common animated group, text, button, and header components",
+      "Foundation components reused across all block variants"
+    ],
+    "compositionHints": [
+      "Used internally by all header, footer, and section blocks"
+    ],
+    "hasReducedMotion": true
   }
 }

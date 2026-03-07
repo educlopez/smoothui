@@ -15,5 +15,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "dropdown",
+      "search",
+      "select",
+      "filter",
+      "combobox",
+      "portal",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Searchable select dropdown with filter-as-you-type",
+      "Combobox with animated open/close and item highlights",
+      "Filterable dropdown menu with icon and description support"
+    ],
+    "compositionHints": [
+      "Use alongside basic-dropdown for non-searchable selects",
+      "Pair with animated-tags for multi-select tagging"
+    ],
+    "hasReducedMotion": true
   }
 }

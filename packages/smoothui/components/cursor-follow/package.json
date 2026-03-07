@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "cursor",
+      "follow",
+      "mouse",
+      "interactive",
+      "bubble",
+      "spring",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Custom cursor follower with spring physics",
+      "Interactive cursor bubble that shows context text",
+      "Decorative cursor effect for portfolios and creative sites"
+    ],
+    "compositionHints": [
+      "Wrap around any content section for interactive cursor effect"
+    ],
+    "hasReducedMotion": true
   }
 }

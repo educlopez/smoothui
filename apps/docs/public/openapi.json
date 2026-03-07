@@ -1,0 +1,893 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SmoothUI Component API",
+    "version": "1.0.0",
+    "description": "REST API for discovering, searching, and retrieving SmoothUI components and blocks. Designed for both human developers and AI agents.\n\nNo authentication required. All endpoints support CORS.",
+    "contact": {
+      "name": "SmoothUI",
+      "url": "https://smoothui.dev"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://smoothui.dev",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/api/v1/components": {
+      "get": {
+        "operationId": "listComponents",
+        "summary": "List components",
+        "description": "Returns a paginated list of all SmoothUI components. Supports filtering by category, complexity, animation type, and tag.",
+        "tags": ["Components"],
+        "parameters": [
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Filter by component category.",
+            "schema": {
+              "$ref": "#/components/schemas/ComponentCategory"
+            }
+          },
+          {
+            "name": "complexity",
+            "in": "query",
+            "required": false,
+            "description": "Filter by complexity level.",
+            "schema": {
+              "$ref": "#/components/schemas/Complexity"
+            }
+          },
+          {
+            "name": "animationType",
+            "in": "query",
+            "required": false,
+            "description": "Filter by dominant animation technique.",
+            "schema": {
+              "$ref": "#/components/schemas/AnimationType"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "description": "Filter by tag (case-insensitive exact match).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "animation"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number (1-based). Defaults to 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Number of items per page. Defaults to 50, max 100.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of components.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComponentListResponse"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "name": "animated-tabs",
+                      "displayName": "AnimatedTabs",
+                      "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
+                      "category": "navigation",
+                      "tags": ["animation", "tabs", "navigation"],
+                      "useCases": ["Tab navigation with smooth transitions"],
+                      "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+                      "complexity": "moderate",
+                      "animationType": "spring",
+                      "dependencies": ["motion"],
+                      "registryDependencies": [],
+                      "hasReducedMotion": true,
+                      "propsCount": 5,
+                      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+                      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+                      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                    }
+                  ],
+                  "total": 84,
+                  "page": 1,
+                  "pageSize": 50,
+                  "totalPages": 2
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/components/{name}": {
+      "get": {
+        "operationId": "getComponent",
+        "summary": "Get component details",
+        "description": "Returns full metadata for a single component. Optionally includes the component source code.",
+        "tags": ["Components"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "Component name in kebab-case.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "animated-tabs"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Set to \"source\" to include the raw component source code in the response.",
+            "schema": {
+              "type": "string",
+              "enum": ["source"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Component details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComponentDetailResponse"
+                },
+                "example": {
+                  "component": {
+                    "name": "animated-tabs",
+                    "displayName": "AnimatedTabs",
+                    "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
+                    "category": "navigation",
+                    "tags": ["animation", "tabs", "navigation"],
+                    "useCases": ["Tab navigation with smooth transitions"],
+                    "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+                    "complexity": "moderate",
+                    "animationType": "spring",
+                    "dependencies": ["motion"],
+                    "registryDependencies": [],
+                    "hasReducedMotion": true,
+                    "propsCount": 5,
+                    "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+                    "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+                    "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Component not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "example": {
+                  "error": "Component \"unknown-component\" not found",
+                  "status": 404
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/components/search": {
+      "get": {
+        "operationId": "searchComponents",
+        "summary": "Search components",
+        "description": "Keyword-based relevance search across component names, descriptions, tags, use cases, and categories. At least one of q, category, or tags is required.",
+        "tags": ["Components"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "description": "Search query string. Matched against name, description, tags, use cases, and category.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "modal dialog"
+          },
+          {
+            "name": "category",
+            "in": "query",
+            "required": false,
+            "description": "Pre-filter by category before scoring.",
+            "schema": {
+              "$ref": "#/components/schemas/ComponentCategory"
+            }
+          },
+          {
+            "name": "tags",
+            "in": "query",
+            "required": false,
+            "description": "Comma-separated list of required tags (all must match).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "animation,tabs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranked search results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SearchResponse"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "name": "basic-modal",
+                      "displayName": "BasicModal",
+                      "description": "Accessible modal dialog with smooth enter/exit animations.",
+                      "category": "feedback",
+                      "tags": ["modal", "dialog", "overlay"],
+                      "useCases": ["Confirmation dialogs", "Form overlays"],
+                      "compositionHints": [],
+                      "complexity": "moderate",
+                      "animationType": "spring",
+                      "dependencies": ["motion"],
+                      "registryDependencies": [],
+                      "hasReducedMotion": true,
+                      "propsCount": 4,
+                      "installCommand": "npx shadcn@latest add @smoothui/basic-modal",
+                      "docUrl": "https://smoothui.dev/docs/components/basic-modal",
+                      "registryUrl": "https://smoothui.dev/r/basic-modal.json",
+                      "relevanceScore": 12
+                    }
+                  ],
+                  "total": 3,
+                  "query": "modal dialog",
+                  "filters": {}
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing required query parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "example": {
+                  "error": "At least one of 'q', 'category', or 'tags' query parameters is required",
+                  "status": 400
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks": {
+      "get": {
+        "operationId": "listBlocks",
+        "summary": "List blocks",
+        "description": "Returns a paginated list of all SmoothUI pre-built page blocks. Supports filtering by block type and tag.",
+        "tags": ["Blocks"],
+        "parameters": [
+          {
+            "name": "blockType",
+            "in": "query",
+            "required": false,
+            "description": "Filter by block section type.",
+            "schema": {
+              "$ref": "#/components/schemas/BlockType"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "description": "Filter by tag (case-insensitive exact match).",
+            "schema": {
+              "type": "string"
+            },
+            "example": "hero"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page number (1-based). Defaults to 1.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": false,
+            "description": "Number of items per page. Defaults to 50, max 100.",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 50
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of blocks.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockListResponse"
+                },
+                "example": {
+                  "data": [
+                    {
+                      "name": "hero-section",
+                      "displayName": "HeroSection",
+                      "description": "Animated hero section with gradient text and call-to-action buttons.",
+                      "blockType": "hero",
+                      "components": ["animated-gradient-text", "magnetic-button"],
+                      "category": "layout",
+                      "tags": ["hero", "landing-page"],
+                      "useCases": ["Landing page hero section"],
+                      "complexity": "moderate",
+                      "animationType": "spring",
+                      "dependencies": ["motion"],
+                      "hasReducedMotion": true,
+                      "installCommand": "npx shadcn@latest add @smoothui/hero-section",
+                      "docUrl": "https://smoothui.dev/docs/blocks/hero-section",
+                      "registryUrl": "https://smoothui.dev/r/hero-section.json"
+                    }
+                  ],
+                  "total": 5,
+                  "page": 1,
+                  "pageSize": 50,
+                  "totalPages": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/blocks/{name}": {
+      "get": {
+        "operationId": "getBlock",
+        "summary": "Get block details",
+        "description": "Returns full metadata for a single block. Optionally includes the block source code.",
+        "tags": ["Blocks"],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "description": "Block name in kebab-case.",
+            "schema": {
+              "type": "string"
+            },
+            "example": "hero-section"
+          },
+          {
+            "name": "include",
+            "in": "query",
+            "required": false,
+            "description": "Set to \"source\" to include the raw block source code in the response.",
+            "schema": {
+              "type": "string",
+              "enum": ["source"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Block details.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BlockDetailResponse"
+                },
+                "example": {
+                  "block": {
+                    "name": "hero-section",
+                    "displayName": "HeroSection",
+                    "description": "Animated hero section with gradient text and call-to-action buttons.",
+                    "blockType": "hero",
+                    "components": ["animated-gradient-text", "magnetic-button"],
+                    "category": "layout",
+                    "tags": ["hero", "landing-page"],
+                    "useCases": ["Landing page hero section"],
+                    "complexity": "moderate",
+                    "animationType": "spring",
+                    "dependencies": ["motion"],
+                    "hasReducedMotion": true,
+                    "installCommand": "npx shadcn@latest add @smoothui/hero-section",
+                    "docUrl": "https://smoothui.dev/docs/blocks/hero-section",
+                    "registryUrl": "https://smoothui.dev/r/hero-section.json"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Block not found.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "example": {
+                  "error": "Block \"unknown-block\" not found",
+                  "status": 404
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/suggest": {
+      "get": {
+        "operationId": "suggestComponents",
+        "summary": "Suggest components by need",
+        "description": "Given a natural-language description of what you need, returns the top 10 most relevant components and blocks ranked by keyword relevance. Ideal for AI agents selecting components.",
+        "tags": ["Discovery"],
+        "parameters": [
+          {
+            "name": "need",
+            "in": "query",
+            "required": true,
+            "description": "Natural-language description of what you need (e.g. \"animated tab navigation\" or \"toast notifications\").",
+            "schema": {
+              "type": "string"
+            },
+            "example": "animated tab navigation"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Ranked suggestions.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuggestResponse"
+                },
+                "example": {
+                  "need": "animated tab navigation",
+                  "suggestions": [
+                    {
+                      "type": "component",
+                      "name": "animated-tabs",
+                      "displayName": "AnimatedTabs",
+                      "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
+                      "category": "navigation",
+                      "relevanceScore": 21,
+                      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+                      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+                      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                    }
+                  ],
+                  "total": 1
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Missing or empty need parameter.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                },
+                "example": {
+                  "error": "'need' query parameter is required",
+                  "status": 400
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ComponentCategory": {
+        "type": "string",
+        "enum": ["basic-ui", "button", "text", "ai", "layout", "feedback", "data-display", "navigation", "other"],
+        "description": "Primary UI category for a component."
+      },
+      "Complexity": {
+        "type": "string",
+        "enum": ["simple", "moderate", "complex"],
+        "description": "Rough complexity level."
+      },
+      "AnimationType": {
+        "type": "string",
+        "enum": ["spring", "tween", "gesture", "scroll", "none"],
+        "description": "Dominant animation technique used."
+      },
+      "BlockType": {
+        "type": "string",
+        "enum": ["hero", "features", "pricing", "testimonials", "cta", "footer", "header", "other"],
+        "description": "Page section type for a block."
+      },
+      "ComponentMeta": {
+        "type": "object",
+        "description": "Full metadata for a single SmoothUI component.",
+        "required": ["name", "displayName", "description", "category", "tags", "useCases", "compositionHints", "complexity", "animationType", "dependencies", "registryDependencies", "hasReducedMotion", "propsCount", "installCommand", "docUrl", "registryUrl"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "kebab-case identifier (e.g. \"animated-tabs\")."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "PascalCase display name (e.g. \"AnimatedTabs\")."
+          },
+          "description": {
+            "type": "string",
+            "description": "1-2 sentence human-readable description."
+          },
+          "category": {
+            "$ref": "#/components/schemas/ComponentCategory"
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Discoverable tags."
+          },
+          "useCases": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Natural-language use-case descriptions."
+          },
+          "compositionHints": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Hints for combining with other components."
+          },
+          "complexity": {
+            "$ref": "#/components/schemas/Complexity"
+          },
+          "animationType": {
+            "$ref": "#/components/schemas/AnimationType"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "npm packages required."
+          },
+          "registryDependencies": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Other SmoothUI components required."
+          },
+          "hasReducedMotion": {
+            "type": "boolean",
+            "description": "Whether the component respects prefers-reduced-motion."
+          },
+          "propsCount": {
+            "type": "integer",
+            "description": "Number of public props."
+          },
+          "installCommand": {
+            "type": "string",
+            "description": "shadcn-style install command."
+          },
+          "docUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Full documentation URL."
+          },
+          "registryUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Registry JSON URL."
+          }
+        }
+      },
+      "BlockMeta": {
+        "type": "object",
+        "description": "Full metadata for a pre-built page block.",
+        "required": ["name", "displayName", "description", "blockType", "components", "category", "tags", "useCases", "complexity", "animationType", "dependencies", "hasReducedMotion", "installCommand", "docUrl", "registryUrl"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "kebab-case identifier."
+          },
+          "displayName": {
+            "type": "string",
+            "description": "PascalCase display name."
+          },
+          "description": {
+            "type": "string",
+            "description": "1-2 sentence description."
+          },
+          "blockType": {
+            "$ref": "#/components/schemas/BlockType"
+          },
+          "components": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "SmoothUI components used inside this block."
+          },
+          "category": {
+            "$ref": "#/components/schemas/ComponentCategory"
+          },
+          "tags": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Discoverable tags."
+          },
+          "useCases": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Natural-language use-case descriptions."
+          },
+          "complexity": {
+            "$ref": "#/components/schemas/Complexity"
+          },
+          "animationType": {
+            "$ref": "#/components/schemas/AnimationType"
+          },
+          "dependencies": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "npm packages required."
+          },
+          "hasReducedMotion": {
+            "type": "boolean",
+            "description": "Whether the block respects prefers-reduced-motion."
+          },
+          "installCommand": {
+            "type": "string",
+            "description": "shadcn-style install command."
+          },
+          "docUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Full documentation URL."
+          },
+          "registryUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Registry JSON URL."
+          }
+        }
+      },
+      "PaginatedResponse": {
+        "type": "object",
+        "description": "Paginated list response wrapper.",
+        "required": ["data", "total", "page", "pageSize", "totalPages"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {}
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total number of items matching the filter."
+          },
+          "page": {
+            "type": "integer",
+            "description": "Current page number."
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "Items per page."
+          },
+          "totalPages": {
+            "type": "integer",
+            "description": "Total number of pages."
+          }
+        }
+      },
+      "ComponentListResponse": {
+        "type": "object",
+        "description": "Paginated list of components.",
+        "required": ["data", "total", "page", "pageSize", "totalPages"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ComponentMeta" }
+          },
+          "total": { "type": "integer" },
+          "page": { "type": "integer" },
+          "pageSize": { "type": "integer" },
+          "totalPages": { "type": "integer" }
+        }
+      },
+      "BlockListResponse": {
+        "type": "object",
+        "description": "Paginated list of blocks.",
+        "required": ["data", "total", "page", "pageSize", "totalPages"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/BlockMeta" }
+          },
+          "total": { "type": "integer" },
+          "page": { "type": "integer" },
+          "pageSize": { "type": "integer" },
+          "totalPages": { "type": "integer" }
+        }
+      },
+      "ComponentDetailResponse": {
+        "type": "object",
+        "description": "Single component detail response.",
+        "required": ["component"],
+        "properties": {
+          "component": {
+            "$ref": "#/components/schemas/ComponentMeta"
+          },
+          "source": {
+            "type": "string",
+            "description": "Raw source code (included when ?include=source)."
+          }
+        }
+      },
+      "BlockDetailResponse": {
+        "type": "object",
+        "description": "Single block detail response.",
+        "required": ["block"],
+        "properties": {
+          "block": {
+            "$ref": "#/components/schemas/BlockMeta"
+          },
+          "source": {
+            "type": "string",
+            "description": "Raw source code (included when ?include=source)."
+          }
+        }
+      },
+      "SearchResponse": {
+        "type": "object",
+        "description": "Keyword relevance search results.",
+        "required": ["data", "total"],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                { "$ref": "#/components/schemas/ComponentMeta" },
+                {
+                  "type": "object",
+                  "properties": {
+                    "relevanceScore": {
+                      "type": "integer",
+                      "description": "Relevance score (higher is more relevant)."
+                    }
+                  },
+                  "required": ["relevanceScore"]
+                }
+              ]
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Number of results."
+          },
+          "query": {
+            "type": "string",
+            "description": "The search query (if provided)."
+          },
+          "filters": {
+            "type": "object",
+            "description": "Applied filters.",
+            "properties": {
+              "category": { "$ref": "#/components/schemas/ComponentCategory" },
+              "tags": { "type": "string" }
+            }
+          }
+        }
+      },
+      "SuggestResponse": {
+        "type": "object",
+        "description": "Natural-language suggestion results.",
+        "required": ["need", "suggestions", "total"],
+        "properties": {
+          "need": {
+            "type": "string",
+            "description": "The original need description."
+          },
+          "suggestions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Suggestion"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "description": "Number of suggestions returned (max 10)."
+          }
+        }
+      },
+      "Suggestion": {
+        "type": "object",
+        "description": "A single suggestion result.",
+        "required": ["type", "name", "displayName", "description", "category", "relevanceScore", "installCommand", "docUrl", "registryUrl"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["component", "block"],
+            "description": "Whether this is a component or a block."
+          },
+          "name": { "type": "string" },
+          "displayName": { "type": "string" },
+          "description": { "type": "string" },
+          "category": { "type": "string" },
+          "relevanceScore": {
+            "type": "integer",
+            "description": "Relevance score (higher is more relevant)."
+          },
+          "installCommand": { "type": "string" },
+          "docUrl": { "type": "string", "format": "uri" },
+          "registryUrl": { "type": "string", "format": "uri" }
+        }
+      },
+      "ApiErrorResponse": {
+        "type": "object",
+        "description": "Standard error envelope.",
+        "required": ["error", "status"],
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Human-readable error message."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code."
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Components",
+      "description": "Browse, filter, and retrieve SmoothUI components."
+    },
+    {
+      "name": "Blocks",
+      "description": "Browse and retrieve pre-built page sections."
+    },
+    {
+      "name": "Discovery",
+      "description": "AI-friendly natural-language component discovery."
+    }
+  ]
+}

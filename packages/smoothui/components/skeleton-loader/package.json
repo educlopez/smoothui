@@ -13,5 +13,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "skeleton",
+      "loader",
+      "loading",
+      "placeholder",
+      "shimmer",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Loading placeholder that matches content dimensions",
+      "Skeleton screen for async data loading states",
+      "Shimmer effect placeholder for cards and text blocks"
+    ],
+    "compositionHints": [
+      "Use with grid-loader for combined loading UX",
+      "Pair with tweet-card for tweet loading skeletons"
+    ],
+    "hasReducedMotion": false
   }
 }

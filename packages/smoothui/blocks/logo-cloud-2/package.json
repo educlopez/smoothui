@@ -14,5 +14,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "logo",
+      "cloud",
+      "infinite-scroll",
+      "marquee",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Animated logo cloud with infinite scroll marquee",
+      "Partner logos with continuous scroll animation",
+      "Trust section with moving logo carousel"
+    ],
+    "compositionHints": [
+      "Similar to infinite-slider component pattern"
+    ],
+    "hasReducedMotion": true
   }
 }

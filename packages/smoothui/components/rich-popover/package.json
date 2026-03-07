@@ -16,5 +16,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "popover",
+      "tooltip",
+      "rich",
+      "radix",
+      "link-preview",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Rich content popover with title, description, and action",
+      "Link preview tooltip with metadata display",
+      "Enhanced tooltip with icon, CTA button, and meta info"
+    ],
+    "compositionHints": [
+      "Use as an enhanced alternative to animated-tooltip",
+      "Pair with magnetic-button for trigger elements"
+    ],
+    "hasReducedMotion": true
   }
 }

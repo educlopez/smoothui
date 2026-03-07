@@ -16,5 +16,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "image",
+      "metadata",
+      "preview",
+      "expandable",
+      "file-info",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Image preview card with expandable metadata panel",
+      "File information display with share and close actions",
+      "Media asset preview with creation date and source info"
+    ],
+    "compositionHints": [
+      "Use inside basic-modal for full image preview dialogs"
+    ],
+    "hasReducedMotion": true
   }
 }

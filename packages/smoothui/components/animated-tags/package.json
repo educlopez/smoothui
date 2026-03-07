@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "tags",
+      "chips",
+      "filter",
+      "selection",
+      "animated",
+      "add-remove"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Tag selection with add/remove animations",
+      "Animated filter chips for content categorization",
+      "Interactive tag picker for forms and filters"
+    ],
+    "compositionHints": [
+      "Use with searchable-dropdown for tag suggestions",
+      "Pair with animated-input for tag creation"
+    ],
+    "hasReducedMotion": true
   }
 }

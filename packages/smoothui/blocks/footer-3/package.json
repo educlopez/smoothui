@@ -15,5 +15,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "footer",
+      "mega",
+      "newsletter",
+      "social",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Mega footer with newsletter, social links, and navigation",
+      "Full-featured footer for large marketing sites",
+      "Footer with multiple sections and social media integration"
+    ],
+    "compositionHints": [
+      "Use social-selector for social icons"
+    ],
+    "hasReducedMotion": true
   }
 }

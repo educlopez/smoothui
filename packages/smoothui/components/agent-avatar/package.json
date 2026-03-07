@@ -13,5 +13,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "avatar",
+      "generative",
+      "canvas",
+      "pixel-art",
+      "ai-agent",
+      "deterministic",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Display unique avatars for AI agents or chatbots",
+      "Generate deterministic user avatars from seed strings",
+      "Visual identity for automated systems"
+    ],
+    "compositionHints": [
+      "Pair with ai-input for a complete AI chat interface",
+      "Use alongside ai-branch for conversation displays"
+    ],
+    "hasReducedMotion": true
   }
 }

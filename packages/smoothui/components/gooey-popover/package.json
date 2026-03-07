@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "popover",
+      "gooey",
+      "svg-filter",
+      "gsap",
+      "morph",
+      "blob",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "tween",
+    "useCases": [
+      "Organic gooey blob popover with SVG filter effect",
+      "Creative popover with liquid morph animation",
+      "Unique menu or content reveal with gooey physics"
+    ],
+    "compositionHints": [
+      "Use as an alternative to animated-tooltip for creative UIs"
+    ],
+    "hasReducedMotion": false
   }
 }

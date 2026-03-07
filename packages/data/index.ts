@@ -1,3 +1,36 @@
+// ---------------------------------------------------------------------------
+// AI-first metadata types & schema
+// ---------------------------------------------------------------------------
+export type {
+  AnimationType,
+  ApiErrorResponse,
+  BlockDetailResponse,
+  BlockListResponse,
+  BlockMeta,
+  BlockQueryParams,
+  BlockType,
+  ComponentCategory,
+  ComponentDetailResponse,
+  ComponentListResponse,
+  ComponentMeta,
+  ComponentQueryParams,
+  Complexity,
+  PaginatedResponse,
+} from "./component-meta";
+
+export type {
+  ParseFailure,
+  ParseResult,
+  ParseSuccess,
+  SmoothUIPackageMeta,
+} from "./smoothui-schema";
+
+export { parseSmoothUIMeta } from "./smoothui-schema";
+
+// ---------------------------------------------------------------------------
+// People data
+// ---------------------------------------------------------------------------
+
 /**
  * Unified Person interface for all people data
  *

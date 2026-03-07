@@ -15,5 +15,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "testimonials",
+      "cards",
+      "auto-rotate",
+      "reviews",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Auto-rotating testimonial cards section",
+      "Customer review carousel for landing pages",
+      "Social proof section with animated card transitions"
+    ],
+    "compositionHints": [
+      "Use reviews-carousel component for alternative layout"
+    ],
+    "hasReducedMotion": true
   }
 }

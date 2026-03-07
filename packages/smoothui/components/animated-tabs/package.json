@@ -14,5 +14,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "tabs",
+      "navigation",
+      "indicator",
+      "underline",
+      "pill",
+      "segment",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Tab navigation with smooth sliding indicator",
+      "Section switcher with animated underline, pill, or segment styles",
+      "Content organization with animated tab transitions"
+    ],
+    "compositionHints": [
+      "Combine with animated-tooltip for rich tab headers",
+      "Use with expandable-cards for tabbed content panels"
+    ],
+    "hasReducedMotion": true
   }
 }

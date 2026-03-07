@@ -14,5 +14,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "badge",
+      "notification",
+      "count",
+      "status",
+      "dot",
+      "ping",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Notification count badge with animated entrance",
+      "Online/offline status indicator with pulse",
+      "Unread message counter with ping animation"
+    ],
+    "compositionHints": [
+      "Overlay on any icon button or avatar component",
+      "Use with dynamic-island for notification system"
+    ],
+    "hasReducedMotion": true
   }
 }

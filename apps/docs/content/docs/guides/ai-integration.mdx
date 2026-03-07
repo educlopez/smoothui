@@ -1,0 +1,147 @@
+---
+title: AI Integration
+description: SmoothUI is built for AI-assisted development. Discover components via MCP, REST API, and machine-readable catalogs.
+icon: Sparkles
+---
+
+# AI Integration
+
+<BodyText>
+SmoothUI is designed from the ground up for AI-assisted development. Whether you are an AI agent selecting components programmatically, or a developer using AI coding tools, SmoothUI provides first-class integration paths.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Quick Start
+
+<BodyText>
+Choose the integration that fits your workflow:
+</BodyText>
+
+| You are... | What to use | Setup |
+| --- | --- | --- |
+| **AI coding agent** (Claude, Cursor, Copilot) | MCP Server | `npx shadcn@latest mcp init` |
+| **Building custom tooling** | REST API | Call `https://smoothui.dev/api/v1/...` |
+| **LLM / RAG pipeline** | Machine-readable catalog | Fetch `https://smoothui.dev/llms-full.txt` |
+
+<Divider orientation="horizontal" className="relative" />
+
+## For AI Agents
+
+<BodyText>
+AI agents can discover, search, and install SmoothUI components through multiple channels.
+</BodyText>
+
+### MCP Server (Recommended)
+
+<BodyText>
+The fastest way to give an AI assistant full access to SmoothUI. The shadcn MCP server works out of the box with SmoothUI's registry.
+</BodyText>
+
+<Tabs items={['Claude Code', 'Cursor', 'VS Code']} defaultIndex={0}>
+
+<Tab value="Claude Code">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client claude
+```
+
+</Tab>
+
+<Tab value="Cursor">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client cursor
+```
+
+</Tab>
+
+<Tab value="VS Code">
+
+```shell title="Terminal"
+npx shadcn@latest mcp init --client vscode
+```
+
+</Tab>
+
+</Tabs>
+
+<BodyText>
+Once configured, your AI assistant can discover, search, and install any SmoothUI component. See the full [MCP Server guide](/docs/guides/mcp) for detailed setup and example prompts.
+</BodyText>
+
+### REST API
+
+<BodyText>
+For agents that need structured JSON data, SmoothUI provides a public REST API with no authentication required.
+</BodyText>
+
+```bash title="Discover components"
+curl "https://smoothui.dev/api/v1/suggest?need=animated+tab+navigation"
+```
+
+```bash title="Get component source"
+curl "https://smoothui.dev/api/v1/components/animated-tabs?include=source"
+```
+
+<BodyText>
+**Key endpoints:**
+</BodyText>
+
+| Endpoint | Purpose |
+| --- | --- |
+| `GET /api/v1/components` | List all components with filtering |
+| `GET /api/v1/components/{name}` | Get component details and source |
+| `GET /api/v1/components/search?q=...` | Keyword search |
+| `GET /api/v1/suggest?need=...` | Natural-language component suggestions |
+| `GET /api/v1/blocks` | List pre-built page sections |
+| `GET /openapi.json` | Full OpenAPI 3.1 specification |
+
+<BodyText>
+See the full [REST API reference](/docs/guides/api) for query parameters, response schemas, and error handling.
+</BodyText>
+
+### Machine-Readable Catalog
+
+<BodyText>
+For LLM context windows and RAG pipelines, SmoothUI provides machine-readable component catalogs following the `llms.txt` convention:
+</BodyText>
+
+| URL | Description |
+| --- | --- |
+| [`/llms.txt`](https://smoothui.dev/llms.txt) | Compact overview of all components |
+| [`/llms-full.txt`](https://smoothui.dev/llms-full.txt) | Full catalog with metadata, props, and usage hints |
+| [`/llms-components.json`](https://smoothui.dev/llms-components.json) | Structured JSON catalog for programmatic use |
+
+<Divider orientation="horizontal" className="relative" />
+
+## Agent Workflow
+
+<BodyText>
+Here is the recommended workflow for AI agents integrating SmoothUI components:
+</BodyText>
+
+1. **Discover** — Use `/api/v1/suggest?need=...` or the MCP server to find relevant components based on what the user needs.
+2. **Inspect** — Fetch full metadata and source with `/api/v1/components/{name}?include=source` to understand props and usage.
+3. **Install** — Use the `installCommand` from the metadata: `npx shadcn@latest add @smoothui/{name}`.
+4. **Integrate** — Use `compositionHints` and the source code to wire the component into the project correctly.
+
+<Divider orientation="horizontal" className="relative" />
+
+## Learn More
+
+<Cards className="md:grid-cols-3">
+
+<Card title="MCP Server" href="/docs/guides/mcp">
+  Full MCP setup guide with example prompts for Claude, Cursor, and VS Code.
+</Card>
+
+<Card title="REST API" href="/docs/guides/api">
+  Complete API reference with endpoints, parameters, and response schemas.
+</Card>
+
+<Card title="Installation" href="/docs/guides/installation">
+  Get started with SmoothUI in your project.
+</Card>
+
+</Cards>

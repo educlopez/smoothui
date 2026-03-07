@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "slider",
+      "exposure",
+      "ios",
+      "ticker",
+      "progress-ring",
+      "gesture",
+      "drag"
+    ],
+    "complexity": "complex",
+    "animationType": "gesture",
+    "useCases": [
+      "iOS-style exposure/brightness slider with ticker marks",
+      "Precise value control with drag gesture and progress ring",
+      "Camera-style parameter adjustment slider"
+    ],
+    "compositionHints": [
+      "Pair with scrubber for different slider styles"
+    ],
+    "hasReducedMotion": true
   }
 }

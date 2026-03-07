@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "team",
+      "grid",
+      "members",
+      "about",
+      "hover",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Team member grid with hover effects",
+      "About page team section",
+      "Staff directory with animated card interactions"
+    ],
+    "compositionHints": [
+      "Use animated-avatar-group for compact team display"
+    ],
+    "hasReducedMotion": true
   }
 }

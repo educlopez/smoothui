@@ -15,5 +15,24 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "footer",
+      "minimal",
+      "single-row",
+      "compact",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Minimal single-row footer for simple sites",
+      "Compact footer with copyright and essential links",
+      "Clean footer for documentation or blog sites"
+    ],
+    "compositionHints": [],
+    "hasReducedMotion": true
   }
 }

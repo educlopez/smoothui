@@ -18,8 +18,11 @@
     "hooks",
     "utilities",
     "design-principles",
-    "---Other---",
+    "---AI & Tooling---",
+    "ai-integration",
+    "api",
     "mcp",
+    "---Other---",
     "changelog",
     "sponsors"
   ]

@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "download",
+      "stack",
+      "cards",
+      "app-store",
+      "selection",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "App download selection with stacked card animation",
+      "Batch app installer with animated progress",
+      "Multi-select download manager with expand/collapse"
+    ],
+    "compositionHints": [
+      "Use animated-progress-bar for download progress visualization"
+    ],
+    "hasReducedMotion": true
   }
 }

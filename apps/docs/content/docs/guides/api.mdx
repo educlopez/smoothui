@@ -1,0 +1,325 @@
+---
+title: REST API
+description: Discover, search, and retrieve SmoothUI components and blocks programmatically. Designed for developers and AI agents.
+icon: Globe
+---
+
+# REST API
+
+<BodyText>
+SmoothUI exposes a public REST API that lets you discover, search, and retrieve component metadata and source code programmatically. The API is designed for both human developers building tooling and AI agents that need structured component data.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Overview
+
+<BodyText>
+**Base URL:** `https://smoothui.dev/api/v1`
+</BodyText>
+
+<BodyText>
+**Authentication:** None required. The API is fully public.
+</BodyText>
+
+<BodyText>
+**CORS:** All endpoints include `Access-Control-Allow-Origin: *` headers, so you can call them from any origin.
+</BodyText>
+
+<BodyText>
+**Format:** All responses are JSON. Errors follow a consistent `{"error": "...", "status": 400}` envelope.
+</BodyText>
+
+<BodyText>
+**OpenAPI Spec:** A full OpenAPI 3.1 specification is available at [`/openapi.json`](https://smoothui.dev/openapi.json).
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Endpoints
+
+### List Components
+
+<BodyText>
+Returns a paginated list of all SmoothUI components. Supports filtering by category, complexity, animation type, and tag.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/components?category=navigation&pageSize=10"
+```
+
+<BodyText>
+**Query parameters:**
+</BodyText>
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `category` | string | - | Filter by category: `basic-ui`, `button`, `text`, `ai`, `layout`, `feedback`, `data-display`, `navigation`, `other` |
+| `complexity` | string | - | Filter by complexity: `simple`, `moderate`, `complex` |
+| `animationType` | string | - | Filter by animation: `spring`, `tween`, `gesture`, `scroll`, `none` |
+| `tag` | string | - | Filter by tag (case-insensitive exact match) |
+| `page` | integer | `1` | Page number (1-based) |
+| `pageSize` | integer | `50` | Items per page (max 100) |
+
+```json title="Response"
+{
+  "data": [
+    {
+      "name": "animated-tabs",
+      "displayName": "AnimatedTabs",
+      "description": "Tab navigation with smooth spring-based transitions.",
+      "category": "navigation",
+      "tags": ["animation", "tabs", "navigation"],
+      "useCases": ["Tab navigation with smooth transitions"],
+      "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+      "complexity": "moderate",
+      "animationType": "spring",
+      "dependencies": ["motion"],
+      "registryDependencies": [],
+      "hasReducedMotion": true,
+      "propsCount": 5,
+      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+    }
+  ],
+  "total": 84,
+  "page": 1,
+  "pageSize": 10,
+  "totalPages": 9
+}
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+### Get Component Details
+
+<BodyText>
+Returns full metadata for a single component. Add `?include=source` to also retrieve the raw source code.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/components/animated-tabs"
+```
+
+```bash title="Request (with source code)"
+curl "https://smoothui.dev/api/v1/components/animated-tabs?include=source"
+```
+
+```json title="Response"
+{
+  "component": {
+    "name": "animated-tabs",
+    "displayName": "AnimatedTabs",
+    "description": "Tab navigation with smooth spring-based transitions.",
+    "category": "navigation",
+    "tags": ["animation", "tabs", "navigation"],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+    "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+    "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+  },
+  "source": "// --- index.tsx ---\n\"use client\";\nimport { motion } from ..."
+}
+```
+
+<BodyText>
+Returns `404` if the component name does not exist.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+### Search Components
+
+<BodyText>
+Keyword-based relevance search across component names, descriptions, tags, use cases, and categories. At least one of `q`, `category`, or `tags` is required.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/components/search?q=modal+dialog"
+```
+
+<BodyText>
+**Query parameters:**
+</BodyText>
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `q` | string | No* | Search query |
+| `category` | string | No* | Pre-filter by category |
+| `tags` | string | No* | Comma-separated required tags (all must match) |
+
+<BodyText>
+*At least one parameter is required.
+</BodyText>
+
+```json title="Response"
+{
+  "data": [
+    {
+      "name": "basic-modal",
+      "displayName": "BasicModal",
+      "description": "Accessible modal dialog with smooth enter/exit animations.",
+      "category": "feedback",
+      "tags": ["modal", "dialog", "overlay"],
+      "relevanceScore": 12
+    }
+  ],
+  "total": 3,
+  "query": "modal dialog",
+  "filters": {}
+}
+```
+
+<BodyText>
+Results are ranked by relevance score (higher is better). Exact name matches score highest, followed by tag matches, use case matches, description matches, and category matches.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+### List Blocks
+
+<BodyText>
+Returns a paginated list of pre-built page sections (blocks). Supports filtering by block type and tag.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/blocks?blockType=hero"
+```
+
+<BodyText>
+**Query parameters:**
+</BodyText>
+
+| Parameter | Type | Default | Description |
+| --- | --- | --- | --- |
+| `blockType` | string | - | Filter by type: `hero`, `features`, `pricing`, `testimonials`, `cta`, `footer`, `header`, `other` |
+| `tag` | string | - | Filter by tag (case-insensitive exact match) |
+| `page` | integer | `1` | Page number |
+| `pageSize` | integer | `50` | Items per page (max 100) |
+
+```json title="Response"
+{
+  "data": [
+    {
+      "name": "hero-section",
+      "displayName": "HeroSection",
+      "description": "Animated hero section with gradient text and CTA buttons.",
+      "blockType": "hero",
+      "components": ["animated-gradient-text", "magnetic-button"],
+      "category": "layout",
+      "tags": ["hero", "landing-page"],
+      "complexity": "moderate",
+      "animationType": "spring",
+      "installCommand": "npx shadcn@latest add @smoothui/hero-section"
+    }
+  ],
+  "total": 5,
+  "page": 1,
+  "pageSize": 50,
+  "totalPages": 1
+}
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+### Get Block Details
+
+<BodyText>
+Returns full metadata for a single block. Add `?include=source` for raw source code.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/blocks/hero-section?include=source"
+```
+
+<BodyText>
+Returns `404` if the block name does not exist.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+### Suggest Components
+
+<BodyText>
+Given a natural-language description of what you need, returns the top 10 most relevant components and blocks. This endpoint is particularly useful for AI agents selecting components based on a user's request.
+</BodyText>
+
+```bash title="Request"
+curl "https://smoothui.dev/api/v1/suggest?need=animated+tab+navigation"
+```
+
+| Parameter | Type | Required | Description |
+| --- | --- | --- | --- |
+| `need` | string | Yes | Natural-language description of what you need |
+
+```json title="Response"
+{
+  "need": "animated tab navigation",
+  "suggestions": [
+    {
+      "type": "component",
+      "name": "animated-tabs",
+      "displayName": "AnimatedTabs",
+      "description": "Tab navigation with smooth spring-based transitions.",
+      "category": "navigation",
+      "relevanceScore": 21,
+      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
+      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
+      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+    }
+  ],
+  "total": 1
+}
+```
+
+<BodyText>
+Suggestions include both components and blocks, distinguished by the `type` field. Results are ranked by keyword relevance.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Error Handling
+
+<BodyText>
+All error responses use a consistent JSON envelope:
+</BodyText>
+
+```json title="Error response"
+{
+  "error": "Component \"unknown\" not found",
+  "status": 404
+}
+```
+
+<BodyText>
+Common status codes:
+</BodyText>
+
+| Status | Meaning |
+| --- | --- |
+| `200` | Success |
+| `400` | Bad request (missing or invalid parameters) |
+| `404` | Resource not found |
+
+<Divider orientation="horizontal" className="relative" />
+
+## For AI Agents
+
+<BodyText>
+If you are building an AI agent or coding assistant that works with SmoothUI, here is the recommended workflow:
+</BodyText>
+
+1. **Discovery** -- Use `/api/v1/suggest?need=...` with the user's natural-language request to find relevant components.
+2. **Detail** -- Fetch full metadata and source with `/api/v1/components/{name}?include=source`.
+3. **Install** -- Use the `installCommand` field from the metadata to install the component.
+4. **Integrate** -- Use the source code and `compositionHints` to wire the component into the user's project.
+
+<BodyText>
+You can also fetch the full [OpenAPI specification](https://smoothui.dev/openapi.json) for automated client generation or tool registration.
+</BodyText>
+
+<BodyText>
+For MCP-based integration with AI coding assistants, see the [MCP Server](/docs/guides/mcp) guide.
+</BodyText>

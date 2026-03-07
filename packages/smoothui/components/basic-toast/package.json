@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "toast",
+      "notification",
+      "alert",
+      "snackbar",
+      "feedback",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Show success/error notifications after form submissions",
+      "Temporary status messages with auto-dismiss",
+      "Multi-type alerts with icons for success, error, warning, info"
+    ],
+    "compositionHints": [
+      "Use after basic-modal form submissions",
+      "Pair with button-copy for copy confirmation"
+    ],
+    "hasReducedMotion": true
   }
 }

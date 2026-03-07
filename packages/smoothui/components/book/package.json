@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "book",
+      "3d",
+      "css",
+      "perspective",
+      "hover",
+      "cover",
+      "decorative"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "3D book cover display with hover open animation",
+      "Product showcase for ebooks or documentation",
+      "Decorative book component with stripe and simple variants"
+    ],
+    "compositionHints": [
+      "Use reveal-text for animated book titles"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -16,5 +16,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "avatar",
+      "account",
+      "popover",
+      "profile",
+      "orders",
+      "radix",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "User account avatar with popover profile panel",
+      "Account menu with profile editing and order tracking",
+      "Interactive user avatar with animated tab navigation"
+    ],
+    "compositionHints": [
+      "Use with notification-badge for unread indicators",
+      "Pair with animated-avatar-group in team settings"
+    ],
+    "hasReducedMotion": true
   }
 }

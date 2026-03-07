@@ -15,5 +15,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "team",
+      "carousel",
+      "auto-play",
+      "members",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Team member carousel with auto-play rotation",
+      "Scrolling team showcase for about pages",
+      "Auto-rotating staff display with smooth transitions"
+    ],
+    "compositionHints": [
+      "Use infinite-slider for alternative team display"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "slide",
+      "power-off",
+      "gesture",
+      "drag",
+      "confirmation",
+      "ios",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "gesture",
+    "useCases": [
+      "iOS-style slide to power off confirmation",
+      "Destructive action confirmation with drag gesture",
+      "Slide-to-confirm component for critical actions"
+    ],
+    "compositionHints": [
+      "Use for logout or delete confirmations instead of basic-modal"
+    ],
+    "hasReducedMotion": true
   }
 }

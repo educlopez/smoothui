@@ -15,5 +15,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "header",
+      "hero",
+      "navigation",
+      "gradient",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Hero header variant with gradient logo and animations",
+      "Alternative premium landing page header",
+      "Content-focused hero section with animated entrance"
+    ],
+    "compositionHints": [
+      "Uses shared block components"
+    ],
+    "hasReducedMotion": true
   }
 }

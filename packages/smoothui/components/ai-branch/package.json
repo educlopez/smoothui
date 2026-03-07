@@ -15,5 +15,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "chat",
+      "branching",
+      "conversation",
+      "message",
+      "navigation",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Navigate between AI conversation branches",
+      "Show alternative AI responses in chat interfaces",
+      "Build multi-turn conversation UIs with edit/regenerate support"
+    ],
+    "compositionHints": [
+      "Combine with ai-input for a full chat experience",
+      "Use agent-avatar for AI message avatars"
+    ],
+    "hasReducedMotion": true
   }
 }

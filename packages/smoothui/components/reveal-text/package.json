@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "reveal",
+      "entrance",
+      "direction",
+      "scroll-trigger",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Text entrance animation with directional reveal",
+      "Hero headline with animated appearance on scroll",
+      "Section title with staggered character reveal"
+    ],
+    "compositionHints": [
+      "Combine with wave-text for layered text effects",
+      "Use for hero section headings in header blocks"
+    ],
+    "hasReducedMotion": true
   }
 }

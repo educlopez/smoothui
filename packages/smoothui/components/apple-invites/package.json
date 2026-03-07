@@ -17,5 +17,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "carousel",
+      "cards",
+      "invites",
+      "apple",
+      "3d",
+      "perspective",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Event invitation cards with 3D carousel",
+      "Apple-style invite card stack with swipe gestures",
+      "Showcase cards with perspective transforms and crown badges"
+    ],
+    "compositionHints": [
+      "Use animated-avatar-group for attendee lists on invite cards"
+    ],
+    "hasReducedMotion": true
   }
 }

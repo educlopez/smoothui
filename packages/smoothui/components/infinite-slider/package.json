@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "slider",
+      "infinite",
+      "marquee",
+      "carousel",
+      "auto-scroll",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Infinite scrolling logo marquee or content slider",
+      "Auto-scrolling testimonial or partner logo carousel",
+      "Continuous content slider with hover speed control"
+    ],
+    "compositionHints": [
+      "Ideal for logo-cloud blocks",
+      "Use with reviews-carousel for testimonial sections"
+    ],
+    "hasReducedMotion": true
   }
 }

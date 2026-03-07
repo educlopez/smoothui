@@ -15,5 +15,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "accordion",
+      "collapsible",
+      "faq",
+      "expand",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "FAQ section with expandable answers",
+      "Collapsible content sections for long pages",
+      "Settings panel with grouped collapsible sections"
+    ],
+    "compositionHints": [
+      "Use in FAQ blocks alongside reveal-text for section headings"
+    ],
+    "hasReducedMotion": true
   }
 }

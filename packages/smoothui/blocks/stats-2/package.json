@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "stats",
+      "metrics",
+      "cards",
+      "icons",
+      "trends",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Stats cards with icons and trend indicators",
+      "Dashboard-style metrics section",
+      "KPI display cards with animated entrance"
+    ],
+    "compositionHints": [
+      "Use number-flow for animated counter values",
+      "Use animated-progress-bar for visual stat representation"
+    ],
+    "hasReducedMotion": true
   }
 }

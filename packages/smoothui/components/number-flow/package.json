@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "number",
+      "counter",
+      "odometer",
+      "digit",
+      "transition",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Animated number counter with rolling digit transitions",
+      "Price or stat display with smooth increment/decrement",
+      "Odometer-style number animation for dashboards"
+    ],
+    "compositionHints": [
+      "Pair with animated-progress-bar for visual + numeric progress",
+      "Use in pricing sections with price-flow"
+    ],
+    "hasReducedMotion": false
   }
 }

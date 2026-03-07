@@ -13,5 +13,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "scramble",
+      "hover",
+      "glitch",
+      "effect",
+      "interactive"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Hover text effect with character scramble animation",
+      "Glitch-style text reveal on mouse interaction",
+      "Creative menu link hover effect"
+    ],
+    "compositionHints": [
+      "Use for navigation links alongside magnetic-button",
+      "Pair with reveal-text for combined text effects"
+    ],
+    "hasReducedMotion": false
   }
 }

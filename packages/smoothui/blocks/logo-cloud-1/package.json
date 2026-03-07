@@ -13,5 +13,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "logo",
+      "cloud",
+      "grid",
+      "partners",
+      "clients",
+      "trust"
+    ],
+    "complexity": "simple",
+    "animationType": "none",
+    "useCases": [
+      "Simple logo grid for partner or client logos",
+      "Trust section with company logos",
+      "Static logo cloud for social proof"
+    ],
+    "compositionHints": [
+      "Use with logo-cloud-2 for animated alternative"
+    ],
+    "hasReducedMotion": false
   }
 }

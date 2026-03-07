@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "tabs",
+      "photo",
+      "image",
+      "gallery",
+      "radix",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Photo gallery with animated tab navigation",
+      "Image showcase with icon-labeled tabs",
+      "Category-based image viewer with smooth transitions"
+    ],
+    "compositionHints": [
+      "Use as an alternative to animated-tabs for image-heavy content"
+    ],
+    "hasReducedMotion": true
   }
 }

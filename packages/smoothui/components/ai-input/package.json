@@ -15,5 +15,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "input",
+      "chat",
+      "morph",
+      "dock",
+      "textarea",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "AI chat input with morphing dock animation",
+      "Expandable AI prompt input for assistant interfaces",
+      "Floating AI input bar with Siri orb integration"
+    ],
+    "compositionHints": [
+      "Combine with siri-orb for visual AI presence",
+      "Use with ai-branch for full conversation UI"
+    ],
+    "hasReducedMotion": true
   }
 }

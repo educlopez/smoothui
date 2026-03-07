@@ -20,7 +20,6 @@ import {
   Sparkles,
   Type,
   User,
-  Users,
   Zap,
 } from "lucide-react";
 import type React from "react";
@@ -231,11 +230,6 @@ export default function Navbar({ className }: NavbarProps) {
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/blog">
             <FileText size={16} /> Blog
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/docs/community">
-            <Users size={16} /> Community
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>

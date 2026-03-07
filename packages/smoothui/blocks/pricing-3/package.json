@@ -14,5 +14,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "pricing",
+      "plans",
+      "creative",
+      "two-plans",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Creative two-plan pricing layout",
+      "Side-by-side pricing comparison with animated entrance",
+      "Product pricing with highlighted recommended plan"
+    ],
+    "compositionHints": [
+      "Use animated-toggle for billing period switcher"
+    ],
+    "hasReducedMotion": true
   }
 }

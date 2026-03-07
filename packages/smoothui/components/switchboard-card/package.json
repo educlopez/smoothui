@@ -13,5 +13,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "card",
+      "switchboard",
+      "lights",
+      "grid",
+      "decorative",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Decorative card with animated light grid pattern",
+      "Feature card with switchboard-style visual illustration",
+      "Landing page card with dynamic light effects"
+    ],
+    "compositionHints": [
+      "Use in feature showcase sections",
+      "Pair with glow-hover-card for a cohesive card group"
+    ],
+    "hasReducedMotion": false
   }
 }

@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "avatar",
+      "group",
+      "stack",
+      "overlap",
+      "hover",
+      "expand",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Show team members or contributors as overlapping avatars",
+      "Display active users in a collaborative workspace",
+      "Compact user list that expands on hover"
+    ],
+    "compositionHints": [
+      "Use with animated-tooltip to show user names on hover"
+    ],
+    "hasReducedMotion": true
   }
 }

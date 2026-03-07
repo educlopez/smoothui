@@ -15,5 +15,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "header",
+      "hero",
+      "3d",
+      "grid",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "tween",
+    "useCases": [
+      "Interactive 3D grid hero inspired by rauno.me",
+      "Creative portfolio hero section with grid animation",
+      "Developer portfolio header with interactive elements"
+    ],
+    "compositionHints": [
+      "Uses shared block components"
+    ],
+    "hasReducedMotion": true
   }
 }

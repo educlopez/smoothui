@@ -14,5 +14,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "button",
+    "tags": [
+      "button",
+      "dot",
+      "morph",
+      "hover",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Button with dot-to-arrow morph on hover",
+      "Creative CTA button with shape-shifting indicator",
+      "Hover-aware button with morphing dot animation"
+    ],
+    "compositionHints": [
+      "Use with animated-tooltip for additional context"
+    ],
+    "hasReducedMotion": true
   }
 }

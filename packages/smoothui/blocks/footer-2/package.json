@@ -14,5 +14,26 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "footer",
+      "newsletter",
+      "links",
+      "complex",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Complex footer with newsletter subscription form",
+      "Extended footer with multiple link columns",
+      "SaaS footer with newsletter and navigation"
+    ],
+    "compositionHints": [
+      "Use animated-input for newsletter email field"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "carousel",
+      "reviews",
+      "testimonials",
+      "slider",
+      "cards",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Review card carousel with stacked card effect",
+      "Testimonial slider with navigation arrows",
+      "Customer feedback display with animated card transitions"
+    ],
+    "compositionHints": [
+      "Use with animated-avatar-group for reviewer photos",
+      "Pair with github-stars-animation for social proof sections"
+    ],
+    "hasReducedMotion": true
   }
 }

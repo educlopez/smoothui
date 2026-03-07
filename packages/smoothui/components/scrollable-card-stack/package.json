@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "cards",
+      "stack",
+      "scroll",
+      "perspective",
+      "3d",
+      "gesture",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "gesture",
+    "useCases": [
+      "3D card stack with scroll-driven transitions",
+      "Social media feed with perspective card stacking",
+      "Content showcase with scroll and hover interactions"
+    ],
+    "compositionHints": [
+      "Use with animated-avatar-group for card author sections"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -14,5 +14,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "logo",
+      "cloud",
+      "grid",
+      "hover",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Interactive logo grid with hover effects",
+      "Partner logos with animated hover states",
+      "Logo showcase with motion feedback on interaction"
+    ],
+    "compositionHints": [
+      "Similar to glow-hover-card interaction pattern"
+    ],
+    "hasReducedMotion": true
   }
 }

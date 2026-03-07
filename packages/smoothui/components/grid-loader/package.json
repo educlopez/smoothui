@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "loader",
+      "grid",
+      "loading",
+      "spinner",
+      "pattern",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "3x3 grid loading animation with customizable patterns",
+      "Creative loading indicator with preset shape sequences",
+      "Decorative loader with configurable cell patterns"
+    ],
+    "compositionHints": [
+      "Use alongside skeleton-loader for different loading states",
+      "Pair with animated-progress-bar for determinate loading"
+    ],
+    "hasReducedMotion": true
   }
 }

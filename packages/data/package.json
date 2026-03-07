@@ -8,6 +8,14 @@
     ".": {
       "types": "./index.ts",
       "default": "./index.ts"
+    },
+    "./component-meta": {
+      "types": "./component-meta.ts",
+      "default": "./component-meta.ts"
+    },
+    "./smoothui-schema": {
+      "types": "./smoothui-schema.ts",
+      "default": "./smoothui-schema.ts"
     }
   },
   "scripts": {

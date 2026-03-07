@@ -13,5 +13,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "siri",
+      "orb",
+      "ai",
+      "animated",
+      "glow",
+      "css",
+      "decorative"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Animated Siri-inspired orb for AI interfaces",
+      "Visual AI status indicator with pulsing glow",
+      "Decorative animated orb for loading or presence states"
+    ],
+    "compositionHints": [
+      "Use inside ai-input for AI visual indicator",
+      "Pair with agent-avatar for AI presence displays"
+    ],
+    "hasReducedMotion": false
   }
 }

@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "cards",
+      "expandable",
+      "modal",
+      "gallery",
+      "layout-animation",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Card grid that expands to full detail view",
+      "Image gallery with animated card expansion",
+      "Content cards with smooth shared layout transitions"
+    ],
+    "compositionHints": [
+      "Combine with animated-tabs for categorized card grids",
+      "Use animated-avatar-group for card author displays"
+    ],
+    "hasReducedMotion": true
   }
 }

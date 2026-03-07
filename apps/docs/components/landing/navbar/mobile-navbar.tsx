@@ -13,7 +13,6 @@ import {
   Sparkles,
   Type,
   User,
-  Users,
   X,
   Zap,
 } from "lucide-react";
@@ -206,10 +205,6 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               <Link className="mobile-navbar-link" href="/blog">
                 <FileText size={16} />
                 Blog
-              </Link>
-              <Link className="mobile-navbar-link" href="/docs/community">
-                <Users size={16} />
-                Community
               </Link>
               <Link className="mobile-navbar-link" href="/docs/guides/sponsors">
                 <Heart size={16} />

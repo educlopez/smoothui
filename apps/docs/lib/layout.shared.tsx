@@ -9,19 +9,6 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: <Logo />,
     },
-    links: [
-      {
-        text: "Docs",
-        url: "/docs",
-      },
-      {
-        text: "Community",
-        url: "/docs/community",
-      },
-      {
-        text: "Blog",
-        url: "/blog",
-      },
-    ],
+    links: [],
   };
 }

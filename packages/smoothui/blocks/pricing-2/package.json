@@ -14,5 +14,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "pricing",
+      "plans",
+      "tiers",
+      "comparison",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Three-tier pricing comparison section",
+      "SaaS pricing page with plan comparison",
+      "Product pricing table with feature highlights"
+    ],
+    "compositionHints": [
+      "Use animated-toggle for monthly/yearly switcher",
+      "Use price-flow for animated price transitions"
+    ],
+    "hasReducedMotion": true
   }
 }

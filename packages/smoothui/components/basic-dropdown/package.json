@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "dropdown",
+      "select",
+      "menu",
+      "form",
+      "portal",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Form select dropdown with smooth open/close animation",
+      "Action menu with icon support",
+      "Accessible dropdown with keyboard navigation and portal rendering"
+    ],
+    "compositionHints": [
+      "Pair with animated-input in forms",
+      "Use basic-toast for selection confirmation"
+    ],
+    "hasReducedMotion": true
   }
 }

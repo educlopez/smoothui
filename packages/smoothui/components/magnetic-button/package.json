@@ -16,5 +16,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "button",
+    "tags": [
+      "button",
+      "magnetic",
+      "cursor",
+      "hover",
+      "spring",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Button that subtly follows cursor with magnetic attraction",
+      "Interactive CTA with spring-physics hover effect",
+      "Playful button with cursor-aware displacement"
+    ],
+    "compositionHints": [
+      "Enhance with animated-tooltip for hover descriptions",
+      "Use as primary CTA in hero sections"
+    ],
+    "hasReducedMotion": true
   }
 }

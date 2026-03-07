@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "progress",
+      "bar",
+      "loading",
+      "percentage",
+      "spring",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Show file upload or task completion progress",
+      "Animated skill level or stat bar",
+      "Visual progress indicator for multi-step flows"
+    ],
+    "compositionHints": [
+      "Pair with skeleton-loader for loading states",
+      "Use with number-flow to show animated percentage text"
+    ],
+    "hasReducedMotion": true
   }
 }

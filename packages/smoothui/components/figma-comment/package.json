@@ -14,5 +14,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "comment",
+      "figma",
+      "avatar",
+      "popover",
+      "morph",
+      "collaborative",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Figma-style expandable comment bubble with avatar",
+      "Collaborative annotation comment component",
+      "Morphing comment indicator that expands to show content"
+    ],
+    "compositionHints": [
+      "Use animated-avatar-group for comment thread participants"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -14,5 +14,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "wave",
+      "animation",
+      "continuous",
+      "bounce",
+      "decorative",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Continuous wave animation on text characters",
+      "Decorative animated heading for playful UIs",
+      "Attention-grabbing text effect for CTAs or logos"
+    ],
+    "compositionHints": [
+      "Combine with reveal-text for entrance + continuous effects",
+      "Use for loading state text or brand logos"
+    ],
+    "hasReducedMotion": true
   }
 }

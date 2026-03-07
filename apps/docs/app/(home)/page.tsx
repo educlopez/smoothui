@@ -1,3 +1,4 @@
+import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { FAQ } from "@docs/components/landing/faqs";
@@ -28,6 +29,7 @@ export default function Home() {
         <ComponentsSlideshow />
       </Suspense>
       <BlockCategories />
+      <AISection />
       <FAQ />
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />

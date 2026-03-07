@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "dynamic-island",
+      "apple",
+      "notification",
+      "music",
+      "timer",
+      "morph",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Apple Dynamic Island-inspired notification area",
+      "Morphing status bar for music player, timer, and calls",
+      "Context-aware notification component with layout animations"
+    ],
+    "compositionHints": [
+      "Use with notification-badge for alert indicators"
+    ],
+    "hasReducedMotion": true
   }
 }

@@ -14,5 +14,27 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "stats",
+      "metrics",
+      "grid",
+      "numbers",
+      "hover",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Stats grid section with hover effects",
+      "Key metrics display for landing pages",
+      "Company statistics showcase with animations"
+    ],
+    "compositionHints": [
+      "Use number-flow for animated stat counters"
+    ],
+    "hasReducedMotion": true
   }
 }

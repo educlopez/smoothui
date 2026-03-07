@@ -13,5 +13,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "typewriter",
+      "typing",
+      "cursor",
+      "loop",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Typewriter text effect for hero headlines",
+      "Typing animation for chatbot or terminal-style UIs",
+      "Looping text reveal for taglines or feature highlights"
+    ],
+    "compositionHints": [
+      "Combine with reveal-text for multi-style text sections",
+      "Use in hero sections with magnetic-button CTAs"
+    ],
+    "hasReducedMotion": true
   }
 }

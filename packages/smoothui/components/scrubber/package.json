@@ -14,5 +14,29 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "slider",
+      "scrubber",
+      "range",
+      "input",
+      "drag",
+      "design-tool",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Design tool-style scrubber slider with animated thumb",
+      "Precise numeric value control with drag interaction",
+      "Parameter adjustment slider with built-in label and ticks"
+    ],
+    "compositionHints": [
+      "Pair with exposure-slider for different slider aesthetics",
+      "Use in settings panels with animated-toggle"
+    ],
+    "hasReducedMotion": true
   }
 }

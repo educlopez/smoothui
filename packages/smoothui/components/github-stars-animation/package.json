@@ -15,5 +15,28 @@
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
     "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "github",
+      "stars",
+      "counter",
+      "social-proof",
+      "api",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Display GitHub repository star count with animated counter",
+      "Social proof widget with stargazer avatars",
+      "Repository statistics badge with live API data"
+    ],
+    "compositionHints": [
+      "Use with animated-avatar-group for stargazer display",
+      "Pair with number-flow for animated counter"
+    ],
+    "hasReducedMotion": true
   }
 }
