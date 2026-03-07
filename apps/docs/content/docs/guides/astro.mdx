@@ -1,0 +1,377 @@
+---
+title: Astro Integration
+description: Learn how to use SmoothUI animated React components in Astro projects using islands architecture, Tailwind CSS 4, and Motion.
+icon: Rocket
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Overview
+
+<BodyText>
+Astro's [islands architecture](https://docs.astro.build/en/concepts/islands/) lets you use SmoothUI React components as interactive islands within your static Astro pages. Each SmoothUI component hydrates independently, giving you smooth animations with minimal JavaScript overhead.
+</BodyText>
+
+<FeatureCard title="How It Works" variant="info">
+SmoothUI components are standard React components. Astro renders them server-side and hydrates them on the client using directives like `client:load` and `client:visible`. No modifications to the components are needed.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+Before getting started, make sure you have the following:
+</BodyText>
+
+| Requirement | Minimum Version | Purpose |
+|-------------|----------------|---------|
+| [Node.js](https://nodejs.org) | 18+ | Runtime |
+| [Astro](https://astro.build) | 4.0+ | Framework |
+| [@astrojs/react](https://docs.astro.build/en/guides/integrations-guide/react/) | 4.0+ | React integration for Astro |
+| [Tailwind CSS](https://tailwindcss.com) | 4.0+ | Styling |
+| [Motion](https://motion.dev) | 12.0+ | Animations (Framer Motion) |
+
+<Divider orientation="horizontal" className="relative" />
+
+## Project Setup
+
+### 1. Create a New Astro Project
+
+<BodyText>
+If you're starting from scratch, create a new Astro project:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm create astro@latest my-smoothui-app"
+  npm="npm create astro@latest my-smoothui-app"
+  yarn="yarn create astro my-smoothui-app"
+  bun="bunx create-astro@latest my-smoothui-app"
+/>
+
+### 2. Add the React Integration
+
+<BodyText>
+SmoothUI components are React components, so you need `@astrojs/react`:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm astro add react"
+  npm="npx astro add react"
+  yarn="yarn astro add react"
+  bun="bunx astro add react"
+/>
+
+<BodyText>
+This automatically updates your `astro.config.mjs{:js}` to include the React integration:
+</BodyText>
+
+```js title="astro.config.mjs"
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+
+export default defineConfig({
+  integrations: [react()],
+});
+```
+
+### 3. Set Up Tailwind CSS 4
+
+<BodyText>
+Install Tailwind CSS and the Astro integration:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm astro add tailwind && pnpm add tailwindcss @tailwindcss/vite"
+  npm="npx astro add tailwind && npm install tailwindcss @tailwindcss/vite"
+  yarn="yarn astro add tailwind && yarn add tailwindcss @tailwindcss/vite"
+  bun="bunx astro add tailwind && bun add tailwindcss @tailwindcss/vite"
+/>
+
+<BodyText>
+Add the Tailwind CSS Vite plugin to your Astro config:
+</BodyText>
+
+```js title="astro.config.mjs"
+import { defineConfig } from "astro/config";
+import react from "@astrojs/react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  integrations: [react()],
+  vite: {
+    plugins: [tailwindcss()],
+  },
+});
+```
+
+<BodyText>
+Create your main CSS file and import Tailwind:
+</BodyText>
+
+```css title="src/styles/global.css"
+@import "tailwindcss";
+```
+
+<BodyText>
+Import the stylesheet in your layout:
+</BodyText>
+
+```astro title="src/layouts/Layout.astro"
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>
+```
+
+### 4. Install Motion
+
+<BodyText>
+SmoothUI animations are powered by Motion (Framer Motion). Install it as a dependency:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add motion"
+  npm="npm install motion"
+  yarn="yarn add motion"
+  bun="bun add motion"
+/>
+
+### 5. Configure Path Aliases
+
+<BodyText>
+SmoothUI components use the `@/{:js}` path alias. Add it to your `tsconfig.json{:js}`:
+</BodyText>
+
+```json title="tsconfig.json"
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Installing SmoothUI Components
+
+### Using the SmoothUI CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
+
+### Using the shadcn CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
+
+<FeatureCard title="shadcn Configuration" variant="info">
+If this is your first time using the shadcn CLI in an Astro project, it will prompt you to create a `components.json{:js}` file. Accept the defaults — the CLI auto-detects Astro projects and configures paths accordingly.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Client Directives
+
+<BodyText>
+Astro components are static by default. To make SmoothUI components interactive, you need to add a [client directive](https://docs.astro.build/en/reference/directives-reference/#client-directives) that tells Astro when to hydrate the component.
+</BodyText>
+
+| Directive | When It Hydrates | Best For |
+|-----------|-----------------|----------|
+| `client:load{:astro}` | Immediately on page load | Above-the-fold components, critical interactions |
+| `client:visible{:astro}` | When the component scrolls into view | Below-the-fold components, cards, animations |
+| `client:idle{:astro}` | When the browser is idle | Non-critical UI, background animations |
+| `client:only="react"{:astro}` | Client-only, no SSR | Components that use browser APIs on mount |
+
+<FeatureCard title="Choosing the Right Directive" variant="info">
+Use `client:visible{:astro}` for most SmoothUI components — it gives the best performance since components only hydrate when the user can see them. Use `client:load{:astro}` for hero sections or components that must be interactive immediately.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Using Components in Astro Pages
+
+<BodyText>
+Here is a complete example of using a SmoothUI component in an Astro page:
+</BodyText>
+
+```astro title="src/pages/index.astro"
+---
+import Layout from "../layouts/Layout.astro";
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+---
+
+<Layout title="SmoothUI + Astro">
+  <main class="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
+    <h1 class="text-4xl font-bold">SmoothUI in Astro</h1>
+
+    <!-- Hydrate immediately — above the fold -->
+    <SiriOrb client:load size="200px" />
+
+    <!-- Hydrate when visible — below the fold -->
+    <section class="mt-32">
+      <SiriOrb client:visible size="150px" />
+    </section>
+  </main>
+</Layout>
+```
+
+### Using Multiple Components
+
+```astro title="src/pages/demo.astro"
+---
+import Layout from "../layouts/Layout.astro";
+import { MagneticButton } from "@/components/smoothui/ui/MagneticButton";
+import { ExpandableCards } from "@/components/smoothui/ui/ExpandableCards";
+import { TypewriterText } from "@/components/smoothui/ui/TypewriterText";
+---
+
+<Layout title="SmoothUI Components">
+  <main class="flex min-h-screen flex-col items-center gap-12 p-8">
+    <TypewriterText client:load text="Welcome to SmoothUI" />
+
+    <MagneticButton client:load>
+      Get Started
+    </MagneticButton>
+
+    <section class="w-full max-w-4xl">
+      <ExpandableCards client:visible />
+    </section>
+  </main>
+</Layout>
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Motion in Astro Islands
+
+<BodyText>
+Motion (Framer Motion) works seamlessly inside Astro islands. Since each island is a fully hydrated React component, all animation features are available — spring physics, layout animations, gestures, and `AnimatePresence{:tsx}`.
+</BodyText>
+
+<BodyText>
+If you create custom animated components alongside SmoothUI, follow the same pattern:
+</BodyText>
+
+```tsx title="src/components/FadeIn.tsx"
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+export type FadeInProps = {
+  children: ReactNode;
+};
+
+const FadeIn = ({ children }: FadeInProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default FadeIn;
+```
+
+```astro title="src/pages/index.astro"
+---
+import FadeIn from "../components/FadeIn";
+---
+
+<FadeIn client:visible>
+  <p>This content fades in when scrolled into view.</p>
+</FadeIn>
+```
+
+<FeatureCard title="The 'use client' Directive" variant="info">
+The `"use client"{:tsx}` directive at the top of React component files is a Next.js convention. Astro ignores it, so it does no harm — and it keeps your components compatible with both frameworks.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion id="no-animation" title="Component renders but doesn't animate">
+  Make sure you added a client directive (`client:load{:astro}`, `client:visible{:astro}`, etc.) to the component. Without a client directive, Astro renders the component as static HTML with no JavaScript, so animations won't run.
+</Accordion>
+<Accordion id="tailwind-not-working" title="Tailwind classes are not applied">
+  Verify that your `global.css{:css}` includes `@import "tailwindcss"{:css}` and that it's imported in your layout. Also check that the Tailwind Vite plugin is configured in `astro.config.mjs{:js}`.
+</Accordion>
+<Accordion id="hydration-mismatch" title="Hydration mismatch errors">
+  If a component relies on browser-only APIs (like `window{:js}` or `localStorage{:js}`) during initial render, use `client:only="react"{:astro}` instead of `client:load{:astro}`. This skips server-side rendering entirely for that component.
+</Accordion>
+<Accordion id="motion-ssr" title="Motion SSR warnings">
+  Motion works well with SSR by default. If you see warnings about `useLayoutEffect{:tsx}`, it's usually harmless. For components that heavily depend on browser measurements, use `client:only="react"{:astro}`.
+</Accordion>
+</Accordions>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Next Steps
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Methods"
+>
+  Learn about all available installation methods including the SmoothUI CLI and shadcn registry.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore the complete collection of 50+ animated React components.
+</Card>
+
+<Card
+  href="/docs/guides/animation-best-practices"
+  title="Animation Best Practices"
+>
+  Master animation performance, accessibility, and timing guidelines.
+</Card>
+</Cards>

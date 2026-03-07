@@ -10,6 +10,7 @@
     "shadcn-alternative",
     "animated-components",
     "animation-best-practices",
+    "astro",
     "---Reference---",
     "hooks",
     "utilities",
