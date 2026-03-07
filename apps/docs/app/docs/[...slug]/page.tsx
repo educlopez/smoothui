@@ -1,5 +1,6 @@
 import { BodyText } from "@docs/components/body-text";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
+import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
@@ -166,6 +167,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             markdownUrl={`${page.url}.mdx`}
           />
           {registryUrl && <OpenInV0Button url={registryUrl} />}
+          {componentName && <BundleSizeBadge slug={componentName} />}
           {lastModified && (
             <LastModified
               className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"

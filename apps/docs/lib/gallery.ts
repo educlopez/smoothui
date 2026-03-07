@@ -1,3 +1,4 @@
+import { getBundleSize } from "@docs/lib/bundle-size";
 import metaJson from "@docs/content/docs/components/meta.json";
 import { source } from "@docs/lib/source";
 
@@ -9,6 +10,10 @@ export type GalleryComponentMeta = {
   category: string;
   installer?: string;
   href: string;
+  bundleSize?: {
+    minified: number;
+    gzipped: number;
+  };
 };
 
 /**
@@ -83,6 +88,7 @@ export const getGalleryComponents = (): GalleryComponentMeta[] => {
     }
 
     const category = categoryMap.get(slug) ?? "Others";
+    const size = getBundleSize(slug);
 
     components.push({
       slug,
@@ -92,6 +98,7 @@ export const getGalleryComponents = (): GalleryComponentMeta[] => {
       category,
       installer: page.data.installer as string | undefined,
       href: page.url,
+      bundleSize: size ?? undefined,
     });
   }
 

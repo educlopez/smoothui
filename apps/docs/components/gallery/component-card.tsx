@@ -2,12 +2,17 @@
 
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Check, Copy } from "lucide-react";
+import { Check, Copy, Package } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import { GalleryPreview } from "./gallery-preview";
+
+const formatSize = (bytes: number): string => {
+  const kb = bytes / 1024;
+  return `~${kb.toFixed(1)} kB`;
+};
 
 export type ComponentCardProps = {
   component: GalleryComponentMeta;
@@ -98,14 +103,25 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
           </div>
 
           <div className="flex items-center justify-between gap-2 pt-1">
-            <span
-              className={cn(
-                "inline-flex rounded-full border px-2 py-0.5 font-medium text-[10px] leading-tight",
-                "border-border text-muted-foreground"
+            <div className="flex items-center gap-1.5">
+              <span
+                className={cn(
+                  "inline-flex rounded-full border px-2 py-0.5 font-medium text-[10px] leading-tight",
+                  "border-border text-muted-foreground"
+                )}
+              >
+                {component.category}
+              </span>
+              {component.bundleSize && (
+                <span
+                  className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground/70"
+                  title={`Gzipped: ${formatSize(component.bundleSize.gzipped)}`}
+                >
+                  <Package aria-hidden="true" className="h-2.5 w-2.5" />
+                  {formatSize(component.bundleSize.gzipped)}
+                </span>
               )}
-            >
-              {component.category}
-            </span>
+            </div>
 
             {component.installer && (
               <button

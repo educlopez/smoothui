@@ -1,0 +1,233 @@
+{
+  "generatedAt": "2026-03-07T12:06:30.885Z",
+  "components": {
+    "agent-avatar": {
+      "minified": 27236,
+      "gzipped": 9094
+    },
+    "ai-branch": {
+      "minified": 30436,
+      "gzipped": 9358
+    },
+    "ai-input": {
+      "minified": 36743,
+      "gzipped": 11962
+    },
+    "animated-avatar-group": {
+      "minified": 26541,
+      "gzipped": 8605
+    },
+    "animated-input": {
+      "minified": 1644,
+      "gzipped": 896
+    },
+    "animated-o-t-p-input": {
+      "minified": 28395,
+      "gzipped": 9137
+    },
+    "animated-progress-bar": {
+      "minified": 716,
+      "gzipped": 445
+    },
+    "animated-tabs": {
+      "minified": 27006,
+      "gzipped": 8770
+    },
+    "animated-tags": {
+      "minified": 2195,
+      "gzipped": 806
+    },
+    "animated-toggle": {
+      "minified": 26698,
+      "gzipped": 8697
+    },
+    "animated-tooltip": {
+      "minified": 27079,
+      "gzipped": 8788
+    },
+    "app-download-stack": {
+      "minified": 5761,
+      "gzipped": 2236
+    },
+    "apple-invites": {
+      "minified": 5281,
+      "gzipped": 2049
+    },
+    "basic-accordion": {
+      "minified": 1763,
+      "gzipped": 841
+    },
+    "basic-dropdown": {
+      "minified": 4262,
+      "gzipped": 1711
+    },
+    "basic-modal": {
+      "minified": 2760,
+      "gzipped": 1315
+    },
+    "basic-toast": {
+      "minified": 2807,
+      "gzipped": 1117
+    },
+    "book": {
+      "minified": 28965,
+      "gzipped": 9204
+    },
+    "button-copy": {
+      "minified": 1523,
+      "gzipped": 789
+    },
+    "clip-corners-button": {
+      "minified": 31545,
+      "gzipped": 10195
+    },
+    "contribution-graph": {
+      "minified": 4041,
+      "gzipped": 1835
+    },
+    "cursor-follow": {
+      "minified": 2623,
+      "gzipped": 1254
+    },
+    "dot-morph-button": {
+      "minified": 30049,
+      "gzipped": 9986
+    },
+    "dynamic-island": {
+      "minified": 5191,
+      "gzipped": 1711
+    },
+    "expandable-cards": {
+      "minified": 3692,
+      "gzipped": 1523
+    },
+    "exposure-slider": {
+      "minified": 28414,
+      "gzipped": 9381
+    },
+    "figma-comment": {
+      "minified": 42778,
+      "gzipped": 14129
+    },
+    "github-stars-animation": {
+      "minified": 27742,
+      "gzipped": 9215
+    },
+    "glow-hover-card": {
+      "minified": 27683,
+      "gzipped": 9082
+    },
+    "gooey-popover": {
+      "minified": 29154,
+      "gzipped": 9604
+    },
+    "grid-loader": {
+      "minified": 29447,
+      "gzipped": 9522
+    },
+    "image-metadata-preview": {
+      "minified": 4078,
+      "gzipped": 1270
+    },
+    "infinite-slider": {
+      "minified": 25884,
+      "gzipped": 8448
+    },
+    "interactive-image-selector": {
+      "minified": 3684,
+      "gzipped": 1623
+    },
+    "job-listing-component": {
+      "minified": 6985,
+      "gzipped": 2666
+    },
+    "magnetic-button": {
+      "minified": 27067,
+      "gzipped": 8895
+    },
+    "notification-badge": {
+      "minified": 26955,
+      "gzipped": 8767
+    },
+    "number-flow": {
+      "minified": 28098,
+      "gzipped": 8741
+    },
+    "phototab": {
+      "minified": 2213,
+      "gzipped": 1134
+    },
+    "power-off-slide": {
+      "minified": 1750,
+      "gzipped": 933
+    },
+    "price-flow": {
+      "minified": 26375,
+      "gzipped": 8405
+    },
+    "reveal-text": {
+      "minified": 611,
+      "gzipped": 389
+    },
+    "reviews-carousel": {
+      "minified": 28700,
+      "gzipped": 9541
+    },
+    "rich-popover": {
+      "minified": 3130,
+      "gzipped": 1519
+    },
+    "scramble-hover": {
+      "minified": 1346,
+      "gzipped": 734
+    },
+    "scroll-reveal-paragraph": {
+      "minified": 843,
+      "gzipped": 498
+    },
+    "scrollable-card-stack": {
+      "minified": 30612,
+      "gzipped": 10462
+    },
+    "scrubber": {
+      "minified": 27836,
+      "gzipped": 9231
+    },
+    "searchable-dropdown": {
+      "minified": 6681,
+      "gzipped": 2432
+    },
+    "siri-orb": {
+      "minified": 28738,
+      "gzipped": 9082
+    },
+    "skeleton-loader": {
+      "minified": 25272,
+      "gzipped": 8069
+    },
+    "social-selector": {
+      "minified": 4348,
+      "gzipped": 2038
+    },
+    "switchboard-card": {
+      "minified": 28761,
+      "gzipped": 9431
+    },
+    "tweet-card": {
+      "minified": 30292,
+      "gzipped": 9904
+    },
+    "typewriter-text": {
+      "minified": 758,
+      "gzipped": 444
+    },
+    "user-account-avatar": {
+      "minified": 5694,
+      "gzipped": 1741
+    },
+    "wave-text": {
+      "minified": 590,
+      "gzipped": 412
+    }
+  }
+}
