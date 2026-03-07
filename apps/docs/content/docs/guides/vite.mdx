@@ -1,0 +1,291 @@
+---
+title: Vite + React
+description: Learn how to use SmoothUI animated React components in a Vite + React project with Tailwind CSS 4 and Motion.
+icon: Zap
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Overview
+
+<BodyText>
+[Vite](https://vite.dev) is a fast build tool that provides an excellent developer experience for React projects. SmoothUI components work out of the box with Vite — no special configuration or SSR workarounds needed. This is the simplest way to get started with SmoothUI.
+</BodyText>
+
+<FeatureCard title="How It Works" variant="info">
+Vite + React is a purely client-side setup by default. SmoothUI components render directly in the browser with full access to DOM APIs, so every animation feature — spring physics, gestures, layout animations, and `AnimatePresence{:tsx}` — works without any additional setup.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+Before getting started, make sure you have the following:
+</BodyText>
+
+| Requirement | Minimum Version | Purpose |
+|-------------|----------------|---------|
+| [Node.js](https://nodejs.org) | 18+ | Runtime |
+| [Vite](https://vite.dev) | 6.0+ | Build tool |
+| [React](https://react.dev) | 19.0+ | UI library |
+| [Tailwind CSS](https://tailwindcss.com) | 4.0+ | Styling |
+| [Motion](https://motion.dev) | 12.0+ | Animations (Framer Motion) |
+
+<Divider orientation="horizontal" className="relative" />
+
+## Project Setup
+
+### 1. Create a New Vite + React Project
+
+<BodyText>
+If you're starting from scratch, create a new Vite project with the React TypeScript template:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm create vite@latest my-smoothui-app --template react-ts"
+  npm="npm create vite@latest my-smoothui-app -- --template react-ts"
+  yarn="yarn create vite my-smoothui-app --template react-ts"
+  bun="bunx create-vite@latest my-smoothui-app --template react-ts"
+/>
+
+<BodyText>
+Then install dependencies:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="cd my-smoothui-app && pnpm install"
+  npm="cd my-smoothui-app && npm install"
+  yarn="cd my-smoothui-app && yarn install"
+  bun="cd my-smoothui-app && bun install"
+/>
+
+### 2. Set Up Tailwind CSS 4
+
+<BodyText>
+Install Tailwind CSS and the Vite plugin:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add tailwindcss @tailwindcss/vite"
+  npm="npm install tailwindcss @tailwindcss/vite"
+  yarn="yarn add tailwindcss @tailwindcss/vite"
+  bun="bun add tailwindcss @tailwindcss/vite"
+/>
+
+<BodyText>
+Add the Tailwind CSS Vite plugin to your Vite config:
+</BodyText>
+
+```ts title="vite.config.ts"
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+});
+```
+
+<BodyText>
+Replace the contents of your main CSS file with the Tailwind import:
+</BodyText>
+
+```css title="src/index.css"
+@import "tailwindcss";
+```
+
+### 3. Install Motion
+
+<BodyText>
+SmoothUI animations are powered by Motion (Framer Motion). Install it as a dependency:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add motion"
+  npm="npm install motion"
+  yarn="yarn add motion"
+  bun="bun add motion"
+/>
+
+### 4. Configure Path Aliases
+
+<BodyText>
+SmoothUI components use the `@/{:ts}` path alias. Configure it in both `vite.config.ts{:ts}` and `tsconfig.json{:json}`:
+</BodyText>
+
+```ts title="vite.config.ts"
+import path from "node:path";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  plugins: [react(), tailwindcss()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+```
+
+```json title="tsconfig.app.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+<FeatureCard title="TypeScript Path Resolution" variant="info">
+Vite uses the `resolve.alias{:ts}` config for runtime path resolution, while TypeScript uses `paths{:json}` in `tsconfig.app.json{:json}` for type checking. You need both for everything to work correctly.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Installing SmoothUI Components
+
+### Using the SmoothUI CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
+
+### Using the shadcn CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
+
+<FeatureCard title="shadcn Configuration" variant="info">
+If this is your first time using the shadcn CLI in a Vite project, it will prompt you to create a `components.json{:json}` file. Accept the defaults — the CLI auto-detects Vite + React projects and configures paths accordingly.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Using Components
+
+<BodyText>
+Here is a complete example of using SmoothUI components in your Vite + React app:
+</BodyText>
+
+```tsx title="src/App.tsx"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+import { MagneticButton } from "@/components/smoothui/ui/MagneticButton";
+
+const App = () => {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
+      <h1 className="text-4xl font-bold">SmoothUI + Vite</h1>
+      <SiriOrb size="200px" />
+      <MagneticButton>Get Started</MagneticButton>
+    </main>
+  );
+};
+
+export default App;
+```
+
+### Custom Animated Components
+
+<BodyText>
+If you create custom animated components alongside SmoothUI, follow the same pattern:
+</BodyText>
+
+```tsx title="src/components/FadeIn.tsx"
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+export type FadeInProps = {
+  children: ReactNode;
+};
+
+const FadeIn = ({ children }: FadeInProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default FadeIn;
+```
+
+<FeatureCard title="The 'use client' Directive" variant="info">
+The `"use client"{:tsx}` directive at the top of component files is a Next.js convention. Vite ignores it, so it does no harm — and it keeps your components compatible if you ever migrate to a framework with SSR support.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion id="tailwind-not-working" title="Tailwind classes are not applied">
+  Make sure the `@tailwindcss/vite{:ts}` plugin is included in your `vite.config.ts{:ts}` plugins array, and that your `src/index.css{:css}` contains `@import "tailwindcss"{:css}`. Also verify that `index.css{:css}` is imported in your `src/main.tsx{:tsx}` entry file.
+</Accordion>
+<Accordion id="path-aliases" title="Path aliases not resolving">
+  You need path aliases configured in **two places**: `resolve.alias{:ts}` in `vite.config.ts{:ts}` for Vite's bundler, and `paths{:json}` in `tsconfig.app.json{:json}` for TypeScript. If only one is configured, you'll get either build errors or type errors.
+</Accordion>
+<Accordion id="hmr-not-working" title="Hot Module Replacement (HMR) not updating">
+  Vite's HMR requires that React components are exported as named or default exports from files that only export components. If HMR breaks, try restarting the dev server with `pnpm dev`. Also ensure `@vitejs/plugin-react{:ts}` is in your Vite config.
+</Accordion>
+<Accordion id="motion-bundle-size" title="Motion bundle size concerns">
+  Motion supports tree-shaking, so only the features you use are included in your bundle. If you want to verify, run `pnpm build` and inspect the output. For the smallest bundle, import directly from `motion/react{:ts}` rather than `framer-motion{:ts}`.
+</Accordion>
+</Accordions>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Next Steps
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Methods"
+>
+  Learn about all available installation methods including the SmoothUI CLI and shadcn registry.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore the complete collection of 50+ animated React components.
+</Card>
+
+<Card
+  href="/docs/guides/animation-best-practices"
+  title="Animation Best Practices"
+>
+  Master animation performance, accessibility, and timing guidelines.
+</Card>
+
+<Card
+  href="/docs/guides/astro"
+  title="Astro Integration"
+>
+  Learn how to use SmoothUI components in Astro with islands architecture.
+</Card>
+</Cards>

@@ -1,0 +1,365 @@
+---
+title: TanStack Start
+description: Learn how to use SmoothUI animated React components in TanStack Start projects with type-safe routing, streaming SSR, Tailwind CSS 4, and Motion.
+icon: Triangle
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Overview
+
+<BodyText>
+[TanStack Start](https://tanstack.com/start) is a modern full-stack React framework built on [Vinxi](https://vinxi.vercel.app) (a Vite-based server toolkit) and [TanStack Router](https://tanstack.com/router). It provides type-safe routing, streaming SSR, and server functions out of the box. SmoothUI components integrate smoothly with TanStack Start's architecture.
+</BodyText>
+
+<FeatureCard title="How It Works" variant="info">
+TanStack Start uses Vite under the hood via Vinxi, so SmoothUI components work the same way as in any Vite-based project. Components are server-rendered and hydrated on the client. The `"use client"{:tsx}` directive ensures animations activate after hydration.
+</FeatureCard>
+
+<FeatureCard title="Newer Framework" variant="warning">
+TanStack Start is a newer framework that is evolving quickly. The setup steps below reflect the current stable release. Check the [official docs](https://tanstack.com/start/latest/docs/framework/react/overview) for the latest changes.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+Before getting started, make sure you have the following:
+</BodyText>
+
+| Requirement | Minimum Version | Purpose |
+|-------------|----------------|---------|
+| [Node.js](https://nodejs.org) | 18+ | Runtime |
+| [TanStack Start](https://tanstack.com/start) | 1.0+ | Framework |
+| [React](https://react.dev) | 19.0+ | UI library |
+| [Tailwind CSS](https://tailwindcss.com) | 4.0+ | Styling |
+| [Motion](https://motion.dev) | 12.0+ | Animations (Framer Motion) |
+
+<Divider orientation="horizontal" className="relative" />
+
+## Project Setup
+
+### 1. Create a New TanStack Start Project
+
+<BodyText>
+If you're starting from scratch, create a new TanStack Start project:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm create @tanstack/start@latest my-smoothui-app"
+  npm="npx @tanstack/create-start@latest my-smoothui-app"
+  yarn="yarn create @tanstack/start my-smoothui-app"
+  bun="bunx @tanstack/create-start@latest my-smoothui-app"
+/>
+
+<BodyText>
+Then install dependencies:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="cd my-smoothui-app && pnpm install"
+  npm="cd my-smoothui-app && npm install"
+  yarn="cd my-smoothui-app && yarn install"
+  bun="cd my-smoothui-app && bun install"
+/>
+
+### 2. Set Up Tailwind CSS 4
+
+<BodyText>
+TanStack Start uses Vinxi, which is built on Vite. Install Tailwind CSS and the Vite plugin:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add tailwindcss @tailwindcss/vite"
+  npm="npm install tailwindcss @tailwindcss/vite"
+  yarn="yarn add tailwindcss @tailwindcss/vite"
+  bun="bun add tailwindcss @tailwindcss/vite"
+/>
+
+<BodyText>
+Add the Tailwind CSS Vite plugin to your app config:
+</BodyText>
+
+```ts title="app.config.ts"
+import { defineConfig } from "@tanstack/react-start/config";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  vite: {
+    plugins: () => [tailwindcss()],
+  },
+});
+```
+
+<BodyText>
+Create or update your main CSS file with the Tailwind import:
+</BodyText>
+
+```css title="app/styles/app.css"
+@import "tailwindcss";
+```
+
+<BodyText>
+Import the stylesheet in your root route (typically `app/routes/__root.tsx{:tsx}`):
+</BodyText>
+
+```tsx title="app/routes/__root.tsx"
+import { createRootRoute, Outlet } from "@tanstack/react-router";
+import appCss from "@/styles/app.css?url";
+
+export const Route = createRootRoute({
+  head: () => ({
+    links: [{ rel: "stylesheet", href: appCss }],
+  }),
+  component: RootComponent,
+});
+
+function RootComponent() {
+  return (
+    <html lang="en">
+      <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
+      <body>
+        <Outlet />
+      </body>
+    </html>
+  );
+}
+```
+
+### 3. Install Motion
+
+<BodyText>
+SmoothUI animations are powered by Motion (Framer Motion). Install it as a dependency:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add motion"
+  npm="npm install motion"
+  yarn="yarn add motion"
+  bun="bun add motion"
+/>
+
+### 4. Configure Path Aliases
+
+<BodyText>
+SmoothUI components use the `@/{:ts}` path alias. Configure it in your `tsconfig.json{:json}`:
+</BodyText>
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+<BodyText>
+TanStack Start resolves TypeScript paths automatically via Vinxi's Vite integration. If path aliases don't resolve at runtime, add `vite-tsconfig-paths{:ts}` to your app config:
+</BodyText>
+
+```ts title="app.config.ts"
+import { defineConfig } from "@tanstack/react-start/config";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  vite: {
+    plugins: () => [tailwindcss(), tsconfigPaths()],
+  },
+});
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Installing SmoothUI Components
+
+### Using the SmoothUI CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
+
+### Using the shadcn CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
+
+<FeatureCard title="shadcn Configuration" variant="info">
+If this is your first time using the shadcn CLI in a TanStack Start project, it will prompt you to create a `components.json{:json}` file. Configure the `aliases.components{:json}` path to match your project structure (typically `@/components{:json}`).
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## SSR & Streaming
+
+<BodyText>
+TanStack Start supports streaming SSR by default, which means components render progressively on the server. Here's what you need to know when using SmoothUI components:
+</BodyText>
+
+| Concern | How SmoothUI Handles It |
+|---------|------------------------|
+| `"use client"` directive | SmoothUI components include this directive. TanStack Start respects it for client-side hydration. |
+| Motion SSR | Motion handles SSR gracefully — animations start after hydration. No special config needed. |
+| Streaming compatibility | SmoothUI components work with streaming SSR. Animations start as each component hydrates. |
+| Browser APIs | Components using `window{:ts}` or `ResizeObserver{:ts}` during render need a client-only guard. |
+
+### Client-Only Components
+
+<BodyText>
+For the rare component that needs browser APIs during initial render, use a mounted check:
+</BodyText>
+
+```tsx title="app/components/client-only.tsx"
+"use client";
+
+import { type ReactNode, useEffect, useState } from "react";
+
+export type ClientOnlyProps = {
+  children: ReactNode;
+  fallback?: ReactNode;
+};
+
+const ClientOnly = ({ children, fallback = null }: ClientOnlyProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted ? children : fallback;
+};
+
+export default ClientOnly;
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Using Components in Routes
+
+<BodyText>
+Here is a complete example of using SmoothUI components in a TanStack Start route:
+</BodyText>
+
+```tsx title="app/routes/index.tsx"
+import { createFileRoute } from "@tanstack/react-router";
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+import { MagneticButton } from "@/components/smoothui/ui/MagneticButton";
+
+export const Route = createFileRoute("/")({
+  component: Home,
+});
+
+function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
+      <h1 className="text-4xl font-bold">SmoothUI + TanStack Start</h1>
+      <SiriOrb size="200px" />
+      <MagneticButton>Get Started</MagneticButton>
+    </main>
+  );
+}
+```
+
+### Custom Animated Components
+
+<BodyText>
+If you create custom animated components alongside SmoothUI, follow the same pattern:
+</BodyText>
+
+```tsx title="app/components/FadeIn.tsx"
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+export type FadeInProps = {
+  children: ReactNode;
+};
+
+const FadeIn = ({ children }: FadeInProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default FadeIn;
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion id="tailwind-not-working" title="Tailwind classes are not applied">
+  Verify that `@tailwindcss/vite{:ts}` is included in your `app.config.ts{:ts}` Vite plugins, and that your CSS file contains `@import "tailwindcss"{:css}`. Also check that the stylesheet is linked in your root route's `head{:tsx}` function.
+</Accordion>
+<Accordion id="path-aliases" title="Path aliases not resolving at runtime">
+  TanStack Start uses Vinxi (Vite-based), which should resolve TypeScript paths. If aliases don't work, add `vite-tsconfig-paths{:ts}` to your `app.config.ts{:ts}` Vite plugins as shown in the setup section.
+</Accordion>
+<Accordion id="hydration-mismatch" title="Hydration mismatch errors">
+  Hydration mismatches occur when server-rendered HTML differs from client output. Avoid using `Math.random(){:ts}`, `Date.now(){:ts}`, or browser APIs during render. For components that depend on client-only values, use the `ClientOnly` wrapper pattern.
+</Accordion>
+<Accordion id="streaming-animations" title="Animations don't play on streamed components">
+  With streaming SSR, components hydrate progressively. Animations using `initial{:tsx}` and `animate{:tsx}` props will play as each component hydrates — this is the expected behavior. If you want animations to trigger on scroll instead, use Motion's `whileInView{:tsx}` prop.
+</Accordion>
+</Accordions>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Next Steps
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Methods"
+>
+  Learn about all available installation methods including the SmoothUI CLI and shadcn registry.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore the complete collection of 50+ animated React components.
+</Card>
+
+<Card
+  href="/docs/guides/animation-best-practices"
+  title="Animation Best Practices"
+>
+  Master animation performance, accessibility, and timing guidelines.
+</Card>
+
+<Card
+  href="/docs/guides/remix"
+  title="Remix Integration"
+>
+  Full-stack SSR setup with Remix and React Router v7.
+</Card>
+</Cards>

@@ -1,0 +1,339 @@
+---
+title: Remix
+description: Learn how to use SmoothUI animated React components in Remix and React Router v7 projects with SSR support, Tailwind CSS 4, and Motion.
+icon: RefreshCw
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Overview
+
+<BodyText>
+[Remix](https://remix.run) is a full-stack React framework focused on web standards and progressive enhancement. As of v2, Remix has evolved into the framework mode of [React Router v7](https://reactrouter.com), bringing the same SSR-first architecture with a streamlined API. SmoothUI components work seamlessly in both Remix and React Router v7 projects.
+</BodyText>
+
+<FeatureCard title="How It Works" variant="info">
+SmoothUI components are standard React client components. Remix renders them on the server and hydrates them on the client. The `"use client"{:tsx}` directive ensures components with animations and browser APIs hydrate correctly. No special wrappers are needed for most components.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+Before getting started, make sure you have the following:
+</BodyText>
+
+| Requirement | Minimum Version | Purpose |
+|-------------|----------------|---------|
+| [Node.js](https://nodejs.org) | 18+ | Runtime |
+| [Remix](https://remix.run) / [React Router](https://reactrouter.com) | 2.0+ / 7.0+ | Framework |
+| [React](https://react.dev) | 19.0+ | UI library |
+| [Tailwind CSS](https://tailwindcss.com) | 4.0+ | Styling |
+| [Motion](https://motion.dev) | 12.0+ | Animations (Framer Motion) |
+
+<FeatureCard title="Remix or React Router v7?" variant="info">
+Remix has merged into React Router v7. If you're starting a new project, use `create react-router{:bash}`. Existing Remix v2 projects can upgrade to React Router v7 — see the [migration guide](https://reactrouter.com/upgrading/remix). Both setups work identically with SmoothUI.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Project Setup
+
+### 1. Create a New Project
+
+<BodyText>
+If you're starting from scratch, create a new React Router v7 project (the successor to Remix):
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm create react-router@latest my-smoothui-app"
+  npm="npx create-react-router@latest my-smoothui-app"
+  yarn="yarn create react-router my-smoothui-app"
+  bun="bunx create-react-router@latest my-smoothui-app"
+/>
+
+<BodyText>
+Then install dependencies:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="cd my-smoothui-app && pnpm install"
+  npm="cd my-smoothui-app && npm install"
+  yarn="cd my-smoothui-app && yarn install"
+  bun="cd my-smoothui-app && bun install"
+/>
+
+### 2. Set Up Tailwind CSS 4
+
+<BodyText>
+Remix and React Router v7 use Vite under the hood, so Tailwind CSS 4 setup uses the Vite plugin:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add tailwindcss @tailwindcss/vite"
+  npm="npm install tailwindcss @tailwindcss/vite"
+  yarn="yarn add tailwindcss @tailwindcss/vite"
+  bun="bun add tailwindcss @tailwindcss/vite"
+/>
+
+<BodyText>
+Add the Tailwind CSS Vite plugin to your Vite config:
+</BodyText>
+
+```ts title="vite.config.ts"
+import { reactRouter } from "@react-router/dev/vite";
+import { defineConfig } from "vite";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+
+export default defineConfig({
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
+});
+```
+
+<BodyText>
+Update your main CSS file with the Tailwind import:
+</BodyText>
+
+```css title="app/app.css"
+@import "tailwindcss";
+```
+
+### 3. Install Motion
+
+<BodyText>
+SmoothUI animations are powered by Motion (Framer Motion). Install it as a dependency:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add motion"
+  npm="npm install motion"
+  yarn="yarn add motion"
+  bun="bun add motion"
+/>
+
+### 4. Configure Path Aliases
+
+<BodyText>
+SmoothUI components use the `@/{:ts}` path alias. React Router v7 projects typically use `vite-tsconfig-paths{:ts}` to resolve paths from `tsconfig.json{:json}` automatically. Make sure your tsconfig includes the alias:
+</BodyText>
+
+```json title="tsconfig.json"
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./app/*"]
+    }
+  }
+}
+```
+
+<FeatureCard title="vite-tsconfig-paths" variant="info">
+React Router v7 projects include `vite-tsconfig-paths{:ts}` by default, which reads your `tsconfig.json{:json}` paths and applies them as Vite aliases. You only need to configure paths in one place — your tsconfig.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Installing SmoothUI Components
+
+### Using the SmoothUI CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
+
+### Using the shadcn CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
+
+<FeatureCard title="shadcn Configuration" variant="info">
+If this is your first time using the shadcn CLI in a Remix / React Router project, it will prompt you to create a `components.json{:json}` file. Accept the defaults — the CLI auto-detects the project structure and configures paths accordingly.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## SSR Considerations
+
+<BodyText>
+Remix and React Router v7 render components on the server first, then hydrate them on the client. Here's what you need to know when using SmoothUI components in an SSR environment:
+</BodyText>
+
+| Concern | How SmoothUI Handles It |
+|---------|------------------------|
+| `"use client"` directive | SmoothUI components include this directive. Remix respects it for client-side hydration. |
+| Motion SSR | Motion handles SSR gracefully — animations simply start after hydration. No special config needed. |
+| Browser APIs | Components that use `window{:ts}` or `localStorage{:ts}` during render need a `ClientOnly` wrapper. |
+| Hydration mismatches | Rare with SmoothUI. If seen, ensure no random values are generated during SSR (see Troubleshooting). |
+
+### The ClientOnly Pattern
+
+<BodyText>
+If you use a SmoothUI component that relies on browser measurements during initial render, wrap it with a `ClientOnly` helper:
+</BodyText>
+
+```tsx title="app/components/client-only.tsx"
+"use client";
+
+import { type ReactNode, useEffect, useState } from "react";
+
+export type ClientOnlyProps = {
+  children: ReactNode;
+  fallback?: ReactNode;
+};
+
+const ClientOnly = ({ children, fallback = null }: ClientOnlyProps) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  return mounted ? children : fallback;
+};
+
+export default ClientOnly;
+```
+
+```tsx title="app/routes/home.tsx"
+import ClientOnly from "@/components/client-only";
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+
+const Home = () => {
+  return (
+    <ClientOnly fallback={<div className="h-[200px] w-[200px]" />}>
+      <SiriOrb size="200px" />
+    </ClientOnly>
+  );
+};
+
+export default Home;
+```
+
+<FeatureCard title="Most Components Don't Need ClientOnly" variant="info">
+The majority of SmoothUI components work fine with SSR out of the box. Only use `ClientOnly` for components that access browser-only APIs like `window.matchMedia{:ts}` or `ResizeObserver{:ts}` during their initial render.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Using Components in Routes
+
+<BodyText>
+Here is a complete example of using SmoothUI components in a Remix / React Router v7 route:
+</BodyText>
+
+```tsx title="app/routes/home.tsx"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+import { MagneticButton } from "@/components/smoothui/ui/MagneticButton";
+
+const Home = () => {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
+      <h1 className="text-4xl font-bold">SmoothUI + Remix</h1>
+      <SiriOrb size="200px" />
+      <MagneticButton>Get Started</MagneticButton>
+    </main>
+  );
+};
+
+export default Home;
+```
+
+### Custom Animated Components
+
+<BodyText>
+If you create custom animated components alongside SmoothUI, follow the same pattern:
+</BodyText>
+
+```tsx title="app/components/FadeIn.tsx"
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+export type FadeInProps = {
+  children: ReactNode;
+};
+
+const FadeIn = ({ children }: FadeInProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default FadeIn;
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion id="hydration-mismatch" title="Hydration mismatch errors">
+  Hydration mismatches occur when the server-rendered HTML differs from what the client renders. Common causes: using `Math.random(){:ts}`, `Date.now(){:ts}`, or browser APIs during render. Use the `ClientOnly` pattern shown above for components that depend on browser-only values.
+</Accordion>
+<Accordion id="ssr-warnings" title="Motion SSR warnings about useLayoutEffect">
+  If you see `useLayoutEffect{:tsx}` warnings in your server logs, they're harmless — Motion uses `useLayoutEffect{:tsx}` for performance, and React warns when it's called during SSR. The animations will work correctly after hydration. To suppress the warning, you can use `client:only` or the `ClientOnly` wrapper.
+</Accordion>
+<Accordion id="tailwind-not-working" title="Tailwind classes are not applied">
+  Verify that `@tailwindcss/vite{:ts}` is included in your `vite.config.ts{:ts}` plugins array and that your `app/app.css{:css}` (or `app/root.css{:css}`) contains `@import "tailwindcss"{:css}`. Also check that the CSS file is imported in your root route.
+</Accordion>
+<Accordion id="client-only-flash" title="Flash of unstyled content (FOUC) with ClientOnly">
+  When using `ClientOnly`, provide a `fallback{:tsx}` with the same dimensions as the component to prevent layout shifts. For example: `<ClientOnly fallback={<div className="h-[200px] w-[200px]" />}>{:tsx}`.
+</Accordion>
+</Accordions>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Next Steps
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Methods"
+>
+  Learn about all available installation methods including the SmoothUI CLI and shadcn registry.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore the complete collection of 50+ animated React components.
+</Card>
+
+<Card
+  href="/docs/guides/animation-best-practices"
+  title="Animation Best Practices"
+>
+  Master animation performance, accessibility, and timing guidelines.
+</Card>
+
+<Card
+  href="/docs/guides/vite"
+  title="Vite + React"
+>
+  The simplest setup for using SmoothUI in a client-side React app.
+</Card>
+</Cards>
