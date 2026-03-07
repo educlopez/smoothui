@@ -13,6 +13,7 @@ import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { Preview } from "@docs/components/preview";
 import { Reference } from "@docs/components/reference";
+import { GalleryPage } from "@docs/components/gallery";
 import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
 import {
@@ -206,6 +207,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
               Divider,
               ChangelogEntry,
               SponsorsPageContent,
+              GalleryPage,
               PackageManagerTabs,
             }}
           />
