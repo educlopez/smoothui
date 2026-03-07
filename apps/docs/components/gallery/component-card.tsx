@@ -75,7 +75,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
       <Link
         aria-label={`View ${component.title} component`}
         className={cn(
-          "flex flex-col overflow-hidden rounded-lg border border-border bg-card",
+          "flex flex-col overflow-hidden rounded-lg border border-border bg-card no-underline",
           "transition-shadow",
           isHoverDevice && "hover:shadow-md hover:border-primary/30"
         )}

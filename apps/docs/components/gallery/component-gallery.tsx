@@ -86,7 +86,7 @@ export const ComponentGallery = ({
   }, [components, activeCategory, searchQuery]);
 
   return (
-    <div className="space-y-6">
+    <div className="not-prose space-y-6">
       <FilterBar
         activeCategory={activeCategory}
         categories={categories}
