@@ -17,6 +17,29 @@ installer: ai-branch
 - Built with Framer Motion
 - AI-themed visual elements
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| Click | Navigate between branches using the previous/next buttons |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Previous branch"` | Previous button | Identifies the previous branch navigation button |
+| `aria-label="Next branch"` | Next button | Identifies the next branch navigation button |
+| `aria-label="Copy message"` | Copy button | Identifies the copy action button |
+| `aria-label="Edit message"` | Edit button | Identifies the edit action button |
+| `type="button"` | All buttons | Prevents implicit form submission |
+| `disabled` | Navigation buttons | Disables navigation when there is only one branch |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, branch transition animations are disabled and all button scale effects are removed.
+
 ## Props
 
 <AutoTypeTable

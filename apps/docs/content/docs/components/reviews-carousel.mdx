@@ -18,6 +18,33 @@ installer: reviews-carousel
 - Stack-based card layout with depth effect
 - Blur and opacity effects for inactive cards
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `ArrowLeft` | Navigate to the previous review |
+| `ArrowRight` | Navigate to the next review |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Navigation buttons | Labels for "Anterior" (previous) and "Siguiente" (next) buttons |
+| `aria-label` | Indicator buttons | Labels each indicator with its position number |
+| `type="button"` | All buttons | Prevents implicit form submission |
+| `disabled` | Navigation buttons | Disables previous/next when at the bounds |
+
+### Screen Reader
+
+- Reviews use semantic `figure` and `figcaption` elements with `blockquote` for proper review structure.
+- Navigation state is communicated through disabled button states.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, card scale, vertical offset, blur, and opacity transitions use instant `0ms` durations instead of spring animations.
+
 ## Props
 
 <AutoTypeTable

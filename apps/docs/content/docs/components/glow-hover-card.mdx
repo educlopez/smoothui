@@ -15,6 +15,23 @@ installer: glow-hover-card
 - Accessible with reduced motion support
 - Performant GPU-accelerated effects
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Glow overlay | Hides the decorative glow overlay from assistive technologies |
+
+### Screen Reader
+
+- The glow overlay is marked as `aria-hidden` and uses `pointer-events: none`, ensuring it does not interfere with screen readers or interaction.
+- The original card elements remain fully accessible.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the entire glow overlay is not rendered, pointer tracking is disabled, and no `will-change` hints are applied.
+
 ## Props
 
 <AutoTypeTable

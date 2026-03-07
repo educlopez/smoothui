@@ -18,6 +18,23 @@ installer: notification-badge
 - Respects reduced motion preferences
 - Accessible with proper ARIA attributes
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Ping span | Hides the decorative ping animation from assistive technologies |
+
+### Screen Reader
+
+- The badge count is rendered as plain text, readable by screen readers.
+- The component wraps children in a `span` with `relative inline-flex` positioning, preserving the semantic meaning of the wrapped element.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, entrance/exit scale animations are disabled, the animated count transitions appear instantly, and the ping animation is not rendered.
+
 ## Props
 
 <AutoTypeTable

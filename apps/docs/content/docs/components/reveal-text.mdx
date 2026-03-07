@@ -15,6 +15,12 @@ installer: reveal-text
 - Built with Framer Motion
 - Accessible and performant
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text is displayed immediately at full opacity without any directional slide animation.
+
 ## Props
 
 <AutoTypeTable

@@ -18,6 +18,19 @@ installer: github-stars-animation
 - Loading and error states
 - Perfect for hero sections and landing pages
 
+## Accessibility
+
+### Screen Reader
+
+- Each stargazer avatar link has an `aria-label` with the username for screen readers.
+- Avatar images include descriptive `alt` text.
+- The star count is displayed as plain text, readable by screen readers.
+- External profile links open in new tabs with secure `rel` attributes.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the countdown animation is skipped (the final count is shown instantly), avatar entrance animations are disabled, and scale effects on hover are removed.
+
 ## Props
 
 <AutoTypeTable

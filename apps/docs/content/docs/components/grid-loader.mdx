@@ -18,6 +18,22 @@ installer: grid-loader
 - Respects reduced motion preferences
 - Accessible with proper ARIA attributes
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Loading"` | `output` element | Communicates the loading status to screen readers |
+
+### Screen Reader
+
+- The component uses the semantic `output` HTML element, which has an implicit `role="status"` with `aria-live="polite"`, making it announce loading status to assistive technologies.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred (or when the `static` prop is set), all pulse, stagger, and sequence animations are disabled and cells are displayed statically with their glow effect.
+
 ## Props
 
 <AutoTypeTable

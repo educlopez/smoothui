@@ -17,6 +17,12 @@ installer: infinite-slider
 - Reverse direction option
 - Seamless loop without jumps
 
+## Accessibility
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the scrolling animation is stopped and the translation is reset to 0, displaying the content statically.
+
 ## Props
 
 <AutoTypeTable

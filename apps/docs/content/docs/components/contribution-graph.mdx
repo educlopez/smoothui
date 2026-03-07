@@ -14,6 +14,26 @@ installer: contribution-graph
 - Custom color scales
 - Responsive grid
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `caption.sr-only` | Table | Provides a screen-reader-only caption: "Contribution Graph for year" |
+| `title` | Table cells | Native tooltip with formatted date and contribution count for each day |
+
+### Screen Reader
+
+- The component renders as a semantic `table` with `thead`, `tbody`, `caption`, and `td` elements.
+- Month headers are rendered as table column headers.
+- Day labels (Sun, Mon, etc.) are displayed in row header cells.
+- Each day cell includes a `title` attribute with the full date and contribution count.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the tooltip scale/opacity animation is disabled and appears instantly.
+
 ## Props
 
 <AutoTypeTable

@@ -15,6 +15,17 @@ installer: scroll-reveal-paragraph
 - Built with Framer Motion + Intersection Observer
 - Accessible and performant
 
+## Accessibility
+
+### Screen Reader
+
+- The component renders as a semantic `p` element, preserving paragraph structure for assistive technologies.
+- Each word is wrapped in a `span` for animation purposes, but the text content remains fully readable.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all words are displayed at full opacity immediately without the scroll-driven reveal effect. The ghost text overlay used for the reveal effect is also hidden.
+
 ## Props
 
 <AutoTypeTable

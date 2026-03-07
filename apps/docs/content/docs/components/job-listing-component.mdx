@@ -15,6 +15,24 @@ installer: job-listing-component
 - Accessible focus states
 - Responsive grid/list views
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the expanded job detail overlay |
+
+### Screen Reader
+
+- Job cards use layout animations via `layoutId` for smooth shared element transitions.
+- The expanded detail view uses a click-outside handler to dismiss, and `Escape` key support for keyboard users.
+- SVG logo icons (Resend, Turso, Supabase) include `title` elements for screen reader identification.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, layout animations and `layoutId` transitions are disabled, backdrop opacity animations are instant, and tap scale effects are removed.
+
 ## Props
 
 <AutoTypeTable

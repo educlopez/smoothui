@@ -20,6 +20,33 @@ installer: animated-toggle
 - Respects reduced motion preferences
 - Disabled state support
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` | Toggles the switch on/off |
+| `Enter` | Toggles the switch on/off |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="switch"` | Button | Identifies the element as a toggle switch |
+| `aria-checked` | Button | Reflects the current on/off state |
+| `aria-label` | Button | Provides an accessible name via the `label` prop |
+| `disabled` | Button | Indicates when the toggle is non-interactive |
+
+### Screen Reader
+
+- The `role="switch"` with `aria-checked` communicates the toggle state to assistive technologies.
+- Focus is visually indicated with a focus-visible ring style.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all spring animations, icon transitions, and morph effects are disabled instantly.
+
 ## Props
 
 <AutoTypeTable

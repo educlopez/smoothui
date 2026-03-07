@@ -16,6 +16,17 @@ installer: apple-invites
 - Presence transitions
 - Keyboard and screen reader support
 
+## Accessibility
+
+### Screen Reader
+
+- Event card images include `alt` text derived from the event title.
+- Participant avatar images include descriptive `alt` text (e.g., "Participant 1").
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, card transition spring animations are replaced with instant duration-zero transitions.
+
 ## Props
 
 <AutoTypeTable

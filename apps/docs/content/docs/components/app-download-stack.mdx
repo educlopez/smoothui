@@ -15,6 +15,26 @@ installer: app-download-stack
 - Flexible layout and copy
 - Responsive and accessible
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Expand app selection"` | Stack button | Labels the collapsed stack trigger for screen readers |
+| `type="button"` | All buttons | Prevents implicit form submission |
+| `disabled` | Download button | Disables the download button when no apps are selected |
+
+### Screen Reader
+
+- Each app icon includes an `alt` attribute with the app name (e.g., "GitHub Logo").
+- The checkmark SVG includes a `title` element for accessibility.
+- The selected count is displayed visually for sighted users.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, floating animations, stacked rotation effects, hover interactions, layout animations, and the download shine effect are all disabled.
+
 ## Props
 
 <AutoTypeTable

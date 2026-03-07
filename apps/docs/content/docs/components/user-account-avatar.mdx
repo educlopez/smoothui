@@ -18,6 +18,34 @@ installer: user-account-avatar
 - Status indicators
 - Built on Radix UI Avatar
 
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Toggle the "Edit Profile" or "Last Orders" sections |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="View Order"` | View order button | Labels the order detail button for screen readers |
+| `htmlFor` | Form labels | Associates labels with their form inputs |
+| `type="button"` | All buttons | Prevents implicit form submission |
+| `type="submit"` | Save button | Submits the profile edit form |
+
+### Screen Reader
+
+- The popover is built on Radix UI Popover, which manages focus trapping, return focus, and escape-to-close automatically.
+- Form inputs include proper `label` elements linked via `htmlFor`/`id` attributes.
+- Section toggle buttons include keyboard event handlers (`onKeyDown`) for `Enter` and `Space` keys.
+- The avatar image includes an `alt="User Avatar"` attribute.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, section expand/collapse animations, progress bar animations, and height transitions are all disabled instantly.
+
 ## Props
 
 <AutoTypeTable

@@ -17,6 +17,26 @@ installer: animated-avatar-group
 - Respects reduced motion preferences
 - Optional link support per avatar
 
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` | Container | Groups the avatars semantically |
+| `aria-label="Avatar group"` | Container | Labels the avatar group for screen readers |
+| `aria-label` | Avatar links | Uses the avatar's `alt` text to label each linked avatar |
+
+### Screen Reader
+
+- Each avatar image includes an `alt` attribute from the `AvatarData` configuration.
+- Linked avatars include `rel="noopener"` for security.
+- The "+N" overflow indicator conveys the number of hidden avatars.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all spring animations, scale effects, and stagger delays are disabled. The component also detects hover-capable devices and only applies hover animations on pointer-fine devices.
+
 ## Props
 
 <AutoTypeTable
