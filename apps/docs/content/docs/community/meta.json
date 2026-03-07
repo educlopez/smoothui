@@ -1,0 +1,12 @@
+{
+  "$schema": "../../../.source/json-schema/blog.meta.json",
+  "title": "Community",
+  "description": "Request components, share your projects, and connect with the SmoothUI community",
+  "icon": "Users",
+  "root": true,
+  "pages": [
+    "index",
+    "request",
+    "showcase"
+  ]
+}

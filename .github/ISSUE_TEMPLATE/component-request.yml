@@ -1,0 +1,59 @@
+name: Component Request
+description: Request a new animated component for SmoothUI
+title: "[Component Request] "
+labels: ["component-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to request a new component! Please fill out the details below so we can understand your idea.
+
+  - type: input
+    id: component-name
+    attributes:
+      label: Component Name
+      description: A clear, descriptive name for the component.
+      placeholder: "e.g., Magnetic Dock, Animated Tabs"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain what the component does, how it behaves, and what makes it unique. Be specific about the animations and interactions you envision.
+      placeholder: "Describe the component's behavior, appearance, and animations..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Describe the real-world scenario where this component would be useful.
+      placeholder: "I would use this component for..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: references
+    attributes:
+      label: Inspiration / Reference URLs
+      description: Links to similar components, websites, CodePens, screenshots, or videos that inspired this request.
+      placeholder: |
+        - https://example.com/cool-component
+        - https://codepen.io/example
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this component to your workflow?
+      options:
+        - Nice to have
+        - Would be great
+        - Critical
+    validations:
+      required: true

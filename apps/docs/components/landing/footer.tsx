@@ -13,6 +13,46 @@ export default function Footer() {
         SmoothUI
       </span>
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+        <nav
+          aria-label="Community links"
+          className="flex flex-wrap items-center justify-center gap-4 text-foreground/60 text-sm"
+        >
+          <a
+            className="transition-colors hover:text-foreground"
+            href="/docs/community"
+          >
+            Community
+          </a>
+          <span aria-hidden className="text-foreground/20">
+            |
+          </span>
+          <a
+            className="transition-colors hover:text-foreground"
+            href="/docs/community/request"
+          >
+            Request a Component
+          </a>
+          <span aria-hidden className="text-foreground/20">
+            |
+          </span>
+          <a
+            className="transition-colors hover:text-foreground"
+            href="/docs/community/showcase"
+          >
+            Showcase
+          </a>
+          <span aria-hidden className="text-foreground/20">
+            |
+          </span>
+          <a
+            className="transition-colors hover:text-foreground"
+            href="https://github.com/educlopez/smoothui/discussions"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Discussions
+          </a>
+        </nav>
         <a
           className="group my-10 flex items-center gap-2 rounded-sm px-3 py-2 hover:bg-primary hover:shadow-custom hover:backdrop-blur-xs"
           href="https://x.com/educalvolpz"
