@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import {
   Card,
   CardContent,
@@ -78,9 +78,9 @@ export function AnimatedOTPInputDemo() {
           )}
 
           <div className="flex justify-center">
-            <Button className="w-full" onClick={handleReset} variant="outline">
+            <SmoothButton className="w-full" onClick={handleReset} variant="outline">
               Reset Code
-            </Button>
+            </SmoothButton>
           </div>
         </CardContent>
       </Card>

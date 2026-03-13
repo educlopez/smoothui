@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@docs/components/smoothbutton";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import BasicModal from "@repo/smoothui/components/basic-modal";
 import { useState } from "react";
 
@@ -9,9 +9,9 @@ const Example = () => {
 
   return (
     <div>
-      <Button onClick={() => setIsOpen(true)} variant="candy">
+      <SmoothButton onClick={() => setIsOpen(true)} variant="candy">
         Open Modal
-      </Button>
+      </SmoothButton>
 
       <BasicModal
         isOpen={isOpen}
@@ -25,12 +25,12 @@ const Example = () => {
             the content here.
           </p>
           <div className="flex justify-end space-x-2">
-            <Button onClick={() => setIsOpen(false)} variant="outline">
+            <SmoothButton onClick={() => setIsOpen(false)} variant="outline">
               Cancel
-            </Button>
-            <Button onClick={() => setIsOpen(false)} variant="candy">
+            </SmoothButton>
+            <SmoothButton onClick={() => setIsOpen(false)} variant="candy">
               Confirm
-            </Button>
+            </SmoothButton>
           </div>
         </div>
       </BasicModal>

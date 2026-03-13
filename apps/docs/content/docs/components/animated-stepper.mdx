@@ -1,0 +1,50 @@
+---
+title: Animated Stepper
+description: A step-by-step wizard component with animated transitions between steps.
+icon: ListOrdered
+dependencies:
+  - motion.dev
+installer: animated-stepper
+new: 2026-03-13
+---
+
+## Features
+
+- Horizontal and vertical variants
+- Animated progress line between steps
+- Directional slide transitions for step content
+- Controlled and uncontrolled modes
+- Click navigation support
+- Full keyboard navigation
+- Accessible with proper ARIA attributes
+- Respects reduced motion preferences
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow Right/Down` | Moves to the next step (when click navigation enabled) |
+| `Arrow Left/Up` | Moves to the previous step (when click navigation enabled) |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` | Container | Identifies the step group |
+| `aria-label="Progress steps"` | Container | Provides an accessible name |
+| `role="tab"` | Step indicator | Identifies each step button |
+| `aria-selected` | Step indicator | Indicates the current step |
+| `role="tabpanel"` | Content area | Identifies the step content |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, step transitions and progress animations are disabled.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/animated-stepper/index.tsx"
+  name="AnimatedStepperProps"
+/>

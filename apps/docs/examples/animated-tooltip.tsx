@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import AnimatedTooltip from "@repo/smoothui/components/animated-tooltip";
 
 export default function AnimatedTooltipDemo() {
@@ -7,39 +8,19 @@ export default function AnimatedTooltipDemo() {
     <div className="flex flex-col items-center gap-12 py-8">
       <div className="flex flex-wrap items-center justify-center gap-8">
         <AnimatedTooltip content="Tooltip on top" placement="top">
-          <button
-            className="rounded-lg bg-foreground px-4 py-2 font-medium text-background text-sm transition-opacity hover:opacity-90"
-            type="button"
-          >
-            Top
-          </button>
+          <SmoothButton size="sm">Top</SmoothButton>
         </AnimatedTooltip>
 
         <AnimatedTooltip content="Tooltip on bottom" placement="bottom">
-          <button
-            className="rounded-lg bg-foreground px-4 py-2 font-medium text-background text-sm transition-opacity hover:opacity-90"
-            type="button"
-          >
-            Bottom
-          </button>
+          <SmoothButton size="sm">Bottom</SmoothButton>
         </AnimatedTooltip>
 
         <AnimatedTooltip content="Tooltip on left" placement="left">
-          <button
-            className="rounded-lg bg-foreground px-4 py-2 font-medium text-background text-sm transition-opacity hover:opacity-90"
-            type="button"
-          >
-            Left
-          </button>
+          <SmoothButton size="sm">Left</SmoothButton>
         </AnimatedTooltip>
 
         <AnimatedTooltip content="Tooltip on right" placement="right">
-          <button
-            className="rounded-lg bg-foreground px-4 py-2 font-medium text-background text-sm transition-opacity hover:opacity-90"
-            type="button"
-          >
-            Right
-          </button>
+          <SmoothButton size="sm">Right</SmoothButton>
         </AnimatedTooltip>
       </div>
 
@@ -53,12 +34,7 @@ export default function AnimatedTooltipDemo() {
           }
           placement="top"
         >
-          <button
-            className="rounded-lg border border-border bg-background px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-muted"
-            type="button"
-          >
-            Rich Content
-          </button>
+          <SmoothButton size="sm" variant="outline">Rich Content</SmoothButton>
         </AnimatedTooltip>
 
         <AnimatedTooltip
@@ -66,12 +42,7 @@ export default function AnimatedTooltipDemo() {
           delay={500}
           placement="bottom"
         >
-          <button
-            className="rounded-lg border border-border bg-background px-4 py-2 font-medium text-foreground text-sm transition-colors hover:bg-muted"
-            type="button"
-          >
-            With Delay
-          </button>
+          <SmoothButton size="sm" variant="outline">With Delay</SmoothButton>
         </AnimatedTooltip>
       </div>
     </div>

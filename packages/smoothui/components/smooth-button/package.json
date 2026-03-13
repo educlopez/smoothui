@@ -1,0 +1,42 @@
+{
+  "name": "@repo/smooth-button",
+  "description": "A polished button component with gradient variants and press animation",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@radix-ui/react-slot": "^1.2.3",
+    "@repo/shadcn-ui": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "button",
+    "tags": [
+      "button",
+      "gradient",
+      "candy",
+      "cta",
+      "interactive"
+    ],
+    "complexity": "simple",
+    "animationType": "css",
+    "useCases": [
+      "Call-to-action buttons",
+      "Primary action buttons with gradient styling",
+      "Form submit buttons"
+    ],
+    "compositionHints": [
+      "Use candy variant for primary CTAs",
+      "Use outline variant for secondary actions",
+      "Combine with asChild for link buttons"
+    ],
+    "hasReducedMotion": false
+  }
+}

@@ -2,8 +2,10 @@
 export { default as AgentAvatar } from "./agent-avatar";
 export { default as AiBranch } from "./ai-branch";
 export { default as AiInput } from "./ai-input";
+export { default as AnimatedFileUpload } from "./animated-file-upload";
 export { default as AnimatedAvatarGroup } from "./animated-avatar-group";
 export { default as AnimatedInput } from "./animated-input";
+export { default as AnimatedStepper } from "./animated-stepper";
 export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
 export { default as AnimatedProgressBar } from "./animated-progress-bar";
 export { default as AnimatedTabs } from "./animated-tabs";
@@ -39,6 +41,7 @@ export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
 export { default as Phototab } from "./phototab";
 export { default as PowerOffSlide } from "./power-off-slide";
+export { default as ProductCard } from "./product-card";
 export { default as PriceFlow } from "./price-flow";
 export { default as RevealText } from "./reveal-text";
 export { default as ReviewsCarousel } from "./reviews-carousel";
@@ -50,6 +53,7 @@ export { default as Scrubber } from "./scrubber";
 export { default as SearchableDropdown } from "./searchable-dropdown";
 export { default as SiriOrb } from "./siri-orb";
 export { default as Skeleton } from "./skeleton-loader";
+export { default as SmoothButton } from "./smooth-button";
 export { default as SocialSelector } from "./social-selector";
 export { default as SwitchboardCard } from "./switchboard-card";
 export {

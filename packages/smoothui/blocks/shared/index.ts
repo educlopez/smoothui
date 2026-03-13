@@ -16,4 +16,4 @@ export {
   Ramp,
   Strava,
 } from "./logos";
-export { Button } from "./smoothbutton";
+export { default as Button } from "@repo/smoothui/components/smooth-button";

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -35,7 +35,7 @@ export function ClipCornersButton({
   }, []);
 
   return (
-    <Button
+    <SmoothButton
       className={`relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90 ${className}`}
       onClick={onClick}
       onMouseEnter={() => {
@@ -166,7 +166,7 @@ export function ClipCornersButton({
       <span className="relative z-10 flex w-full select-none items-center justify-center">
         {children}
       </span>
-    </Button>
+    </SmoothButton>
   );
 }
 

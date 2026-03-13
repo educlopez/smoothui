@@ -1,0 +1,34 @@
+{
+  "name": "@repo/header-5",
+  "description": "Spotlight hero block with dark theme and gradient text",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["hero", "header", "spotlight", "dark", "gradient", "animated"],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Dark-themed landing page hero",
+      "Product launch page with spotlight effect",
+      "SaaS homepage with dramatic entrance"
+    ],
+    "compositionHints": [
+      "Pair with features-2 bento grid below"
+    ],
+    "hasReducedMotion": true
+  }
+}

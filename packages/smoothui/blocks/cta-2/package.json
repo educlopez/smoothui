@@ -1,0 +1,35 @@
+{
+  "name": "@repo/cta-2",
+  "description": "Split layout CTA block with text and illustration",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "@smoothui/data": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["cta", "call-to-action", "split", "marketing", "animated"],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Split CTA with image and text",
+      "Two-column call-to-action section",
+      "Product showcase with CTA"
+    ],
+    "compositionHints": [
+      "Replace placeholder with product screenshot or illustration"
+    ],
+    "hasReducedMotion": true
+  }
+}

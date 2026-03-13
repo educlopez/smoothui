@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion } from "motion/react";
 
 const ANIMATION_DURATION = 0.6;
@@ -130,13 +131,9 @@ export function FooterComplex({
                     placeholder={newsletter.placeholder}
                     type="email"
                   />
-                  <motion.button
-                    className="rounded-lg bg-brand px-6 py-2 font-medium text-background text-sm transition-colors hover:bg-brand/90"
-                    whileHover={{ scale: BUTTON_HOVER_SCALE }}
-                    whileTap={{ scale: BUTTON_TAP_SCALE }}
-                  >
+                  <SmoothButton variant="candy">
                     {newsletter.buttonText}
-                  </motion.button>
+                  </SmoothButton>
                 </div>
               </div>
 

@@ -1,0 +1,40 @@
+{
+  "name": "@repo/animated-stepper",
+  "description": "Animated stepper/wizard component with step transitions",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "stepper",
+      "wizard",
+      "steps",
+      "progress",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Multi-step form wizard with animated transitions",
+      "Onboarding flow with progress indicator",
+      "Checkout process with step navigation"
+    ],
+    "compositionHints": [
+      "Use with animated-input for multi-step forms",
+      "Combine with animated-progress-bar for additional progress display"
+    ],
+    "hasReducedMotion": true
+  }
+}

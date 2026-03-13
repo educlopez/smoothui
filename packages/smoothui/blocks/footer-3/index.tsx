@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Github, Linkedin, Twitter, Youtube } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
@@ -207,18 +208,9 @@ export const FooterMega = ({
                 placeholder={newsletter.placeholder}
                 type="email"
               />
-              <motion.button
-                className="rounded-lg bg-brand px-6 py-2.5 font-medium text-background text-sm transition-colors hover:bg-brand/90"
-                type="submit"
-                {...(shouldReduceMotion
-                  ? {}
-                  : {
-                      whileHover: { scale: 1.02 },
-                      whileTap: { scale: 0.98 },
-                    })}
-              >
+              <SmoothButton type="submit" variant="candy">
                 {newsletter.buttonText}
-              </motion.button>
+              </SmoothButton>
             </form>
           </motion.div>
         </motion.div>

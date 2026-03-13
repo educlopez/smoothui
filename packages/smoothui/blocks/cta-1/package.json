@@ -1,0 +1,34 @@
+{
+  "name": "@repo/cta-1",
+  "description": "Centered CTA block with radial glow background",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["cta", "call-to-action", "centered", "marketing", "animated"],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Centered call-to-action section",
+      "Marketing page CTA with gradient background",
+      "Landing page conversion section"
+    ],
+    "compositionHints": [
+      "Place before footer as final conversion point"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@docs/components/smoothbutton";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import PriceFlow from "@repo/smoothui/components/price-flow";
 import { useState } from "react";
 
@@ -20,9 +20,9 @@ const PriceFlowDemo = () => {
       </div>
 
       <div className="flex gap-4">
-        <Button onClick={handlePriceChange} type="button" variant="candy">
+        <SmoothButton onClick={handlePriceChange} type="button" variant="candy">
           Change Price
-        </Button>
+        </SmoothButton>
       </div>
     </div>
   );

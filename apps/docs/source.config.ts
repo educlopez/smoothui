@@ -25,6 +25,7 @@ export const docs = defineDocs({
       dependencies: z.array(z.string()).optional(),
       references: z.array(z.string()).optional(),
       installer: z.string().optional(),
+      new: z.coerce.date().optional(),
       contributor: z
         .object({
           name: z.string(),

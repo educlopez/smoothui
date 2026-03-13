@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -190,12 +191,9 @@ export function PricingCreative() {
                     </div>
 
                     {/* CTA Button */}
-                    <button
-                      className="mb-6 inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 font-medium text-background text-sm transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                      type="button"
-                    >
+                    <SmoothButton className="mb-6 w-full" variant="outline">
                       Get Started
-                    </button>
+                    </SmoothButton>
 
                     {/* Description */}
                     <p className="mb-6 flex-grow text-foreground/70 text-sm leading-relaxed">
@@ -274,12 +272,9 @@ export function PricingCreative() {
                     </div>
 
                     {/* CTA Button */}
-                    <button
-                      className="mb-6 inline-flex h-10 w-full cursor-pointer items-center justify-center gap-2 rounded-md bg-foreground px-4 py-2 font-medium text-background text-sm transition-colors hover:bg-foreground/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                      type="button"
-                    >
+                    <SmoothButton className="mb-6 w-full" variant="candy">
                       Get Started
-                    </button>
+                    </SmoothButton>
 
                     {/* Description */}
                     <p className="mb-6 flex-grow text-foreground/70 text-sm leading-relaxed">

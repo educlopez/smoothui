@@ -1,0 +1,33 @@
+{
+  "name": "@repo/header-6",
+  "description": "Minimal hero block with clean typography",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["hero", "header", "minimal", "clean", "typography", "animated"],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Minimalist landing page hero",
+      "Blog or portfolio homepage",
+      "Clean product page header"
+    ],
+    "compositionHints": [
+      "Works best with ample whitespace below"
+    ],
+    "hasReducedMotion": true
+  }
+}

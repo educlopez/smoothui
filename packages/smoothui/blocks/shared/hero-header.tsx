@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
@@ -113,11 +113,11 @@ export const HeroHeader = () => {
                   <ul className="flex gap-1">
                     {menuItems.map((item) => (
                       <li key={item.id}>
-                        <Button asChild size="sm" variant="ghost">
+                        <SmoothButton asChild size="sm" variant="ghost">
                           <a className="text-base" href={item.href}>
                             <span>{item.name}</span>
                           </a>
-                        </Button>
+                        </SmoothButton>
                       </li>
                     ))}
                   </ul>
@@ -170,21 +170,21 @@ export const HeroHeader = () => {
                         ease: EASE_OUT_QUART,
                       }}
                     >
-                      <Button
+                      <SmoothButton
                         onClick={() => setMenuState(false)}
                         size="sm"
                         type="button"
                         variant="ghost"
                       >
                         <span>Login</span>
-                      </Button>
-                      <Button
+                      </SmoothButton>
+                      <SmoothButton
                         onClick={() => setMenuState(false)}
                         size="sm"
                         type="button"
                       >
                         <span>Sign Up</span>
-                      </Button>
+                      </SmoothButton>
                     </motion.div>
                   </motion.div>
                 )}

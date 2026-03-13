@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cx } from "class-variance-authority";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import React from "react";
@@ -159,14 +159,14 @@ function Dock() {
           </AnimatePresence>
         </div>
 
-        <Button
+        <SmoothButton
           className="flex h-fit flex-1 justify-end rounded-full px-2 py-0.5!"
           onClick={openFeedback}
           type="button"
           variant="ghost"
         >
           <span className="truncate">Ask AI</span>
-        </Button>
+        </SmoothButton>
       </div>
     </footer>
   );

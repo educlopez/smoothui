@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import AnimatedProgressBar from "@repo/smoothui/components/animated-progress-bar";
 import { useState } from "react";
 
@@ -20,13 +21,13 @@ export default function AnimatedProgressBarDemo() {
         value={value}
       />
       <div className="mt-4 flex gap-2">
-        <button
-          className="rounded border bg-background px-4 py-2 text-foreground"
+        <SmoothButton
           onClick={() => setValue((v) => (v >= 100 ? 0 : v + 10))}
-          type="button"
+          size="sm"
+          variant="outline"
         >
           Increase
-        </button>
+        </SmoothButton>
       </div>
     </div>
   );

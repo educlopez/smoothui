@@ -1,0 +1,34 @@
+{
+  "name": "@repo/features-3",
+  "description": "Alternating features block with side-by-side layout",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@smoothui/data": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["features", "alternating", "zigzag", "marketing", "animated"],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Alternating feature rows with images",
+      "Product walkthrough sections",
+      "Detailed feature explanations"
+    ],
+    "compositionHints": [
+      "Replace placeholders with screenshots or illustrations"
+    ],
+    "hasReducedMotion": true
+  }
+}

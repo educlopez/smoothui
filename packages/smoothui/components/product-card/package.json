@@ -1,0 +1,41 @@
+{
+  "name": "@repo/product-card",
+  "description": "Animated product card component for ecommerce",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "others",
+    "tags": [
+      "card",
+      "product",
+      "ecommerce",
+      "shopping",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Ecommerce product listing cards",
+      "Product showcase with ratings and pricing",
+      "Shopping grid with add-to-cart interaction"
+    ],
+    "compositionHints": [
+      "Use in a grid layout for product listings",
+      "Combine with infinite-slider for product carousels"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@repo/features-1",
+  "description": "Feature grid block with animated cards",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["features", "grid", "cards", "marketing", "animated"],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Feature showcase grid section",
+      "Product benefits with icons",
+      "Service listing with hover effects"
+    ],
+    "compositionHints": [
+      "Place after hero section to highlight key features"
+    ],
+    "hasReducedMotion": true
+  }
+}

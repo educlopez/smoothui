@@ -1,0 +1,70 @@
+---
+title: Smooth Button
+description: A polished button component with multiple variants, sizes, and a subtle press animation.
+icon: RectangleEllipsis
+new: 2025-03-13
+dependencies:
+  - "@radix-ui/react-slot"
+  - class-variance-authority
+installer: smooth-button
+---
+
+## Features
+
+- 7 style variants: default, candy, destructive, outline, secondary, ghost, link
+- 4 sizes: sm, default, lg, icon
+- Subtle `active:scale(0.97)` press feedback
+- Polymorphic with `asChild` prop (via Radix Slot)
+- Brand gradient "candy" variant matching SmoothUI identity
+- Focus-visible ring for keyboard navigation
+- Disabled state with reduced opacity
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/smooth-button/index.tsx"
+  name="SmoothButtonProps"
+/>
+
+## Usage
+
+```tsx
+import SmoothButton from "@/components/smooth-button";
+
+export default function Example() {
+  return <SmoothButton variant="candy">Get Started</SmoothButton>;
+}
+```
+
+## Examples
+
+### Variants
+
+```tsx
+<SmoothButton variant="default">Default</SmoothButton>
+<SmoothButton variant="candy">Candy</SmoothButton>
+<SmoothButton variant="destructive">Delete</SmoothButton>
+<SmoothButton variant="outline">Outline</SmoothButton>
+<SmoothButton variant="secondary">Secondary</SmoothButton>
+<SmoothButton variant="ghost">Ghost</SmoothButton>
+<SmoothButton variant="link">Link</SmoothButton>
+```
+
+### Sizes
+
+```tsx
+<SmoothButton size="sm">Small</SmoothButton>
+<SmoothButton size="default">Default</SmoothButton>
+<SmoothButton size="lg">Large</SmoothButton>
+<SmoothButton size="icon"><Heart /></SmoothButton>
+```
+
+### As Child (Polymorphic)
+
+Render as any element using `asChild`:
+
+```tsx
+<SmoothButton asChild variant="candy">
+  <a href="/docs">Go to Docs</a>
+</SmoothButton>
+```

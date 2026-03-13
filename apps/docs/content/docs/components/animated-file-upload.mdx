@@ -1,0 +1,51 @@
+---
+title: Animated File Upload
+description: A drag-and-drop file upload component with animated file list and validation.
+icon: Upload
+dependencies:
+  - motion.dev
+installer: animated-file-upload
+new: 2026-03-13
+---
+
+## Features
+
+- Drag-and-drop file upload zone
+- Click to browse files
+- Animated drag-over state
+- File list with animated add/remove
+- File size validation
+- MIME type filtering
+- Single or multiple file support
+- Accessible with proper ARIA attributes
+- Respects reduced motion preferences
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Open file browser |
+| `Tab` | Navigate between drop zone and file items |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="button"` | Drop zone | Identifies the clickable upload area |
+| `aria-label` | Drop zone | Describes the upload action |
+| `aria-label="Selected files"` | File list | Identifies the file list |
+| `aria-label` | Remove button | Announces which file will be removed |
+| `role="alert"` | Error message | Announces validation errors |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, drag animations and file list transitions are disabled.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/animated-file-upload/index.tsx"
+  name="AnimatedFileUploadProps"
+/>

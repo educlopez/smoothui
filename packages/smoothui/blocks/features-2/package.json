@@ -1,0 +1,33 @@
+{
+  "name": "@repo/features-2",
+  "description": "Bento grid features block with asymmetric layout",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": ["features", "bento", "grid", "asymmetric", "animated"],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Bento-style feature showcase",
+      "Product capabilities overview",
+      "Modern asymmetric features section"
+    ],
+    "compositionHints": [
+      "Customize grid spans to highlight key features"
+    ],
+    "hasReducedMotion": true
+  }
+}

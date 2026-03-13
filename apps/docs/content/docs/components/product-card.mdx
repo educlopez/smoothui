@@ -1,0 +1,43 @@
+---
+title: Product Card
+description: An animated ecommerce product card with image, pricing, ratings, and add-to-cart interaction.
+icon: ShoppingCart
+dependencies:
+  - motion.dev
+installer: product-card
+new: 2026-03-13
+---
+
+## Features
+
+- Animated entrance on viewport entry
+- Image zoom on hover (hover-capable devices only)
+- Badge overlay for sales/new items
+- Star rating display
+- Discount pricing with strikethrough
+- Add to cart button with feedback animation
+- Respects reduced motion preferences
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="article"` | Card | Semantic card container |
+| `aria-label` | Card | Announces title and price |
+| `alt` | Image | Descriptive image text |
+| `aria-label` | Rating | Announces rating out of 5 |
+| `role="status"` | Badge | Announces discount/sale info |
+| `aria-label` | Add to cart | Announces action with product name |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, entrance animations, hover zoom, and scale effects are disabled.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/product-card/index.tsx"
+  name="ProductCardProps"
+/>

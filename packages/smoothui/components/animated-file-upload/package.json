@@ -1,0 +1,40 @@
+{
+  "name": "@repo/animated-file-upload",
+  "description": "Animated drag-and-drop file upload component",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "upload",
+      "file",
+      "drag-drop",
+      "input",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "File upload with drag-and-drop support",
+      "Image upload area with preview",
+      "Document upload in forms"
+    ],
+    "compositionHints": [
+      "Use inside forms with animated-input",
+      "Combine with animated-progress-bar for upload progress"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,6 +1,8 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import BasicToast from "@repo/smoothui/components/basic-toast";
+import { AlertCircle, CheckCircle, Info, XCircle } from "lucide-react";
 import { useState } from "react";
 
 const Example = () => {
@@ -17,34 +19,38 @@ const Example = () => {
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex flex-wrap gap-2">
-        <button
-          className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm text-white hover:bg-emerald-600"
+        <SmoothButton
           onClick={() => handleShowToast("success")}
-          type="button"
+          size="sm"
+          variant="outline"
         >
-          Success Toast
-        </button>
-        <button
-          className="rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
+          <CheckCircle className="h-4 w-4 text-emerald-500" />
+          Success
+        </SmoothButton>
+        <SmoothButton
           onClick={() => handleShowToast("error")}
-          type="button"
+          size="sm"
+          variant="outline"
         >
-          Error Toast
-        </button>
-        <button
-          className="rounded-md bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600"
+          <XCircle className="h-4 w-4 text-red-500" />
+          Error
+        </SmoothButton>
+        <SmoothButton
           onClick={() => handleShowToast("warning")}
-          type="button"
+          size="sm"
+          variant="outline"
         >
-          Warning Toast
-        </button>
-        <button
-          className="rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600"
+          <AlertCircle className="h-4 w-4 text-amber-500" />
+          Warning
+        </SmoothButton>
+        <SmoothButton
           onClick={() => handleShowToast("info")}
-          type="button"
+          size="sm"
+          variant="outline"
         >
-          Info Toast
-        </button>
+          <Info className="h-4 w-4 text-blue-500" />
+          Info
+        </SmoothButton>
       </div>
 
       {showToast && (

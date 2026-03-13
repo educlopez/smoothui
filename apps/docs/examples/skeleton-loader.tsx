@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import Skeleton from "@repo/smoothui/components/skeleton-loader";
 import Image from "next/image";
 import { useState } from "react";
@@ -38,20 +38,20 @@ export default function SkeletonLoaderDemo() {
               based in Colorado.
             </p>
             <div className="mt-4 flex gap-2">
-              <Button className="flex-1" size="sm">
+              <SmoothButton className="flex-1" size="sm">
                 Follow
-              </Button>
-              <Button className="flex-1" size="sm" variant="outline">
+              </SmoothButton>
+              <SmoothButton className="flex-1" size="sm" variant="outline">
                 Message
-              </Button>
+              </SmoothButton>
             </div>
           </div>
         </div>
       </Skeleton>
 
-      <Button onClick={() => setLoading(!loading)} variant="outline">
+      <SmoothButton onClick={() => setLoading(!loading)} variant="outline">
         {loading ? "Show content" : "Show skeleton"}
-      </Button>
+      </SmoothButton>
     </div>
   );
 }

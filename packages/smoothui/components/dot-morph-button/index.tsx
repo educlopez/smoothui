@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -32,7 +32,7 @@ export function DotMorphButton({
   }, []);
 
   return (
-    <Button
+    <SmoothButton
       className={`flex items-center gap-3 rounded-full border bg-background ${className}`}
       onClick={onClick}
       onMouseEnter={() => {
@@ -77,7 +77,7 @@ export function DotMorphButton({
       <span className="select-none font-medium text-2xl text-foreground">
         {label}
       </span>
-    </Button>
+    </SmoothButton>
   );
 }
 
