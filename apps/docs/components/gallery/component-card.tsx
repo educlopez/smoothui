@@ -2,6 +2,7 @@
 
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Check, Copy, Package } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
@@ -124,17 +125,14 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             </div>
 
             {component.installer && (
-              <button
+              <SmoothButton
                 aria-label={copied ? "Copied install command" : `Copy install command for ${component.title}`}
                 className={cn(
-                  "inline-flex items-center gap-1 rounded-md border px-2 py-1 text-[10px]",
-                  "transition-colors",
-                  copied
-                    ? "border-green-500/30 bg-green-500/10 text-green-600 dark:text-green-400"
-                    : "border-border text-muted-foreground hover:border-primary/30 hover:text-foreground"
+                  "h-auto gap-1 px-2 py-1 text-[10px]",
+                  copied && "border-green-500/30 bg-green-500/10 text-green-600 hover:bg-green-500/10 dark:text-green-400"
                 )}
                 onClick={handleCopy}
-                type="button"
+                variant="outline"
               >
                 {copied ? (
                   <Check className="h-3 w-3" />
@@ -142,7 +140,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                   <Copy className="h-3 w-3" />
                 )}
                 {copied ? "Copied" : "Install"}
-              </button>
+              </SmoothButton>
             )}
           </div>
         </div>

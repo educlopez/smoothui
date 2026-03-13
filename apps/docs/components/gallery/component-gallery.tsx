@@ -2,6 +2,7 @@
 
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
@@ -161,13 +162,14 @@ const EmptyState = ({ hasFilters, onClearFilters }: EmptyStateProps) => (
         : "No components are available yet."}
     </p>
     {hasFilters && (
-      <button
-        className="mt-4 rounded-md border border-border px-4 py-2 text-sm text-foreground transition-colors hover:bg-muted"
+      <SmoothButton
+        className="mt-4"
         onClick={onClearFilters}
-        type="button"
+        size="sm"
+        variant="outline"
       >
         Clear filters
-      </button>
+      </SmoothButton>
     )}
   </div>
 );
