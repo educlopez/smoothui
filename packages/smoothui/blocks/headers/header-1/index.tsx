@@ -2,7 +2,7 @@
 
 import { ExternalLink } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
+import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 import styles from "./hero-grid.module.css";
 
 const CELL_SIZE = 120; // px

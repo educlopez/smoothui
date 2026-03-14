@@ -1,6 +1,6 @@
 "use client";
 
-import Footer4 from "@repo/smoothui/blocks/footer-4";
+import Footer4 from "@repo/smoothui/blocks/footers/footer-4";
 
 const Example = () => (
   <div className="h-full w-full">

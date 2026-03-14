@@ -29,6 +29,44 @@ const blockCategoryMap: Record<string, string> = {
   "testimonials-3": "testimonial",
 };
 
+// Map block names to their filesystem category folder
+const blockFolderMap: Record<string, string> = {
+  "faq-1": "faqs",
+  "faq-2": "faqs",
+  "faq-3": "faqs",
+  "faq-4": "faqs",
+  "footer-1": "footers",
+  "footer-2": "footers",
+  "footer-3": "footers",
+  "footer-4": "footers",
+  "header-1": "headers",
+  "header-2": "headers",
+  "header-3": "headers",
+  "header-4": "headers",
+  "header-5": "headers",
+  "header-6": "headers",
+  "logo-cloud-1": "logos",
+  "logo-cloud-2": "logos",
+  "logo-cloud-3": "logos",
+  "logo-cloud-4": "logos",
+  "pricing-1": "pricing",
+  "pricing-2": "pricing",
+  "pricing-3": "pricing",
+  "stats-1": "stats",
+  "stats-2": "stats",
+  "team-1": "team",
+  "team-2": "team",
+  "testimonials-1": "testimonials",
+  "testimonials-2": "testimonials",
+  "testimonials-3": "testimonials",
+  "cta-1": "ctas",
+  "cta-2": "ctas",
+  "cta-3": "ctas",
+  "features-1": "features",
+  "features-2": "features",
+  "features-3": "features",
+};
+
 // Blocks that should be excluded from RSS (like shared components)
 const excludedBlocks = ["shared"];
 
@@ -185,7 +223,7 @@ async function getBlockLastEditDate(
       getGitHubLastEditDate(
         owner,
         repo,
-        `packages/smoothui/blocks/${block}/index.tsx`,
+        `packages/smoothui/blocks/${blockFolderMap[block] ?? block}/${block}/index.tsx`,
         token
       )
     );
@@ -202,7 +240,8 @@ async function getBlockLastEditDate(
   }
 
   // It's an individual block, get its date directly
-  const githubPath = `packages/smoothui/blocks/${blockName}/index.tsx`;
+  const folder = blockFolderMap[blockName] ?? blockName;
+  const githubPath = `packages/smoothui/blocks/${folder}/${blockName}/index.tsx`;
   return getGitHubLastEditDate(owner, repo, githubPath, token);
 }
 

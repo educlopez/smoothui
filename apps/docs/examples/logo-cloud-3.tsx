@@ -1,6 +1,6 @@
 "use client";
 
-import LogoCloud3 from "@repo/smoothui/blocks/logo-cloud-3";
+import LogoCloud3 from "@repo/smoothui/blocks/logos/logo-cloud-3";
 
 const Example = () => (
   <div className="h-full w-full">

@@ -1,6 +1,6 @@
 "use client";
 
-import Features1 from "@repo/smoothui/blocks/features-1";
+import Features1 from "@repo/smoothui/blocks/features/features-1";
 
 const Example = () => (
   <div className="h-full w-full">

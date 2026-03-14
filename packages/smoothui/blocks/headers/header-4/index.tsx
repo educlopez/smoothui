@@ -12,7 +12,7 @@
 
 import { ExternalLink } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
+import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 import styles from "./hero-grid.module.css";
 
 interface InteractiveGridProps {

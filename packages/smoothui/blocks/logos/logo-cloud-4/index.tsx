@@ -12,7 +12,7 @@ import {
   Duolingo,
   Faire,
   Strava,
-} from "../shared";
+} from "../../shared";
 
 export interface LogoGridProps {
   title?: string;

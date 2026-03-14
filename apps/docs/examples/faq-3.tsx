@@ -1,6 +1,6 @@
 "use client";
 
-import Faq3 from "@repo/smoothui/blocks/faq-3";
+import Faq3 from "@repo/smoothui/blocks/faqs/faq-3";
 
 const Example = () => (
   <div className="h-full w-full">

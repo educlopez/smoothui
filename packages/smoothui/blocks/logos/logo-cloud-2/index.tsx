@@ -11,7 +11,7 @@ import {
   Duolingo,
   Faire,
   Strava,
-} from "../shared";
+} from "../../shared";
 
 const ANIMATION_DURATION = 25;
 const STAGGER_DELAY = 0.1;

@@ -1,6 +1,6 @@
 "use client";
 
-import Cta2 from "@repo/smoothui/blocks/cta-2";
+import Cta2 from "@repo/smoothui/blocks/ctas/cta-2";
 
 const Example = () => (
   <div className="h-full w-full">

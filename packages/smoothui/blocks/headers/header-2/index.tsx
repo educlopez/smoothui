@@ -2,7 +2,7 @@
 
 import { getImageKitUrl } from "@smoothui/data";
 import { motion } from "motion/react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
+import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroProductProps {
   badgeText?: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import Header4 from "@repo/smoothui/blocks/header-4";
+import Header4 from "@repo/smoothui/blocks/headers/header-4";
 
 const Example = () => (
   <div className="h-full w-full">

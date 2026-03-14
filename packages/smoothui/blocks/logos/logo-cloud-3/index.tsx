@@ -10,7 +10,7 @@ import {
   Duolingo,
   Faire,
   Strava,
-} from "../shared";
+} from "../../shared";
 
 export interface LogoMarqueeProps {
   title?: string;

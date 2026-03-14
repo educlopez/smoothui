@@ -4,7 +4,7 @@ import { Avatar, AvatarImage } from "@repo/shadcn-ui/components/ui/avatar";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { ArrowDownRight, Star } from "lucide-react";
 import { motion } from "motion/react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../shared";
+import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroShowcaseProps {
   heading?: string;

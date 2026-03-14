@@ -1,6 +1,6 @@
 "use client";
 
-import Pricing1 from "@repo/smoothui/blocks/pricing-1";
+import Pricing1 from "@repo/smoothui/blocks/pricing/pricing-1";
 
 const Example = () => (
   <div className="h-full w-full">

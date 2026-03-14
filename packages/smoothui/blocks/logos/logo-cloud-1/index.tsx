@@ -13,7 +13,7 @@ import {
   Quizlet,
   Ramp,
   Strava,
-} from "../shared";
+} from "../../shared";
 
 const LOGOS = [
   <Canpoy key="1" />,
