@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/api/", "/og/"],
+        disallow: ["/api/", "/og/", "/blocks/preview/"],
       },
     ],
     sitemap: "https://smoothui.dev/sitemap.xml",

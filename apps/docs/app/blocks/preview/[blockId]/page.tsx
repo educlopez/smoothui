@@ -2,7 +2,12 @@ import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { ColorSync } from "@docs/components/color-sync";
 import { BlockHeightSync } from "@docs/components/preview/block-height-sync";
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  robots: { index: false, follow: false },
+};
 
 const TSX_EXTENSION_REGEX = /\.tsx$/;
 
