@@ -1,6 +1,13 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Library, Pencil } from "lucide-react";
+import type { Metadata } from "next";
 import Link, { type LinkProps } from "next/link";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/docs",
+  },
+};
 
 export default function DocsPage() {
   return (

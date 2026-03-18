@@ -1,22 +1,20 @@
-import { SparklesIcon } from "lucide-react";
+import { LibraryIcon, SparklesIcon } from "lucide-react";
 import Image from "next/image";
 
 interface ReferenceProps {
   sources: string[];
 }
 
-const getHostname = (url: string) => {
+const getHostname = (url: string): string | null => {
   if (url.startsWith("/")) {
     return new URL(url, "https://smoothui.dev").hostname.replace("www.", "");
   }
 
-  // Handle invalid URLs gracefully
   try {
     const parsedUrl = new URL(url);
     return parsedUrl.hostname.replace("www.", "");
   } catch {
-    // If it's not a valid URL, return the string as-is
-    return url;
+    return null;
   }
 };
 
@@ -51,13 +49,17 @@ export const Reference = ({ sources }: ReferenceProps) => (
             className="inline-flex items-center gap-1.5 text-muted-foreground text-sm"
             key={url}
           >
-            <Image
-              alt=""
-              className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
-              height={14}
-              src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
-              width={14}
-            />
+            {hostname ? (
+              <Image
+                alt=""
+                className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                height={14}
+                src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
+                width={14}
+              />
+            ) : (
+              <LibraryIcon className="size-3.5 text-muted-foreground" />
+            )}
             {isValidUrl ? (
               <a
                 className="transition-all hover:text-foreground"

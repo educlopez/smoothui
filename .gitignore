@@ -48,3 +48,6 @@ notes.md
 .playwright-mcp
 AGENT.md
 .backup-cli-docs/
+
+# internal planning docs (never committed)
+planning/

@@ -240,11 +240,16 @@ export async function generateMetadata(
     height: 630,
   };
 
+  const pageUrl = `/docs/${page.slugs.join("/")}`;
+
   return createMetadata({
     title: page.data.title,
     description,
+    alternates: {
+      canonical: pageUrl,
+    },
     openGraph: {
-      url: `/docs/${page.slugs.join("/")}`,
+      url: pageUrl,
       images: [image],
     },
     twitter: {

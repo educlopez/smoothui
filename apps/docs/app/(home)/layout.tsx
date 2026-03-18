@@ -3,7 +3,6 @@ import { FloatNav } from "@docs/components/float-nav";
 import { BgLines } from "@docs/components/landing/bg-lines";
 import Divider from "@docs/components/landing/divider";
 import Navbar from "@docs/components/landing/navbar/navbar";
-
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <div className="relative isolate bg-primary transition">

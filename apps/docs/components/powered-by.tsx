@@ -5,18 +5,17 @@ interface PoweredByProps {
   packages: string[];
 }
 
-const getHostname = (url: string) => {
+const getHostname = (url: string): string | null => {
   if (url.startsWith("/")) {
     return new URL(url, "https://smoothui.dev").hostname.replace("www.", "");
   }
 
-  // Handle invalid URLs gracefully
   try {
     const parsedUrl = new URL(url);
     return parsedUrl.hostname.replace("www.", "");
   } catch {
-    // If it's not a valid URL, return the string as-is
-    return url;
+    // Not a valid URL (npm package name) — no logo.dev hostname available
+    return null;
   }
 };
 
@@ -51,13 +50,23 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
             className="inline-flex items-center gap-1.5 text-muted-foreground text-sm"
             key={url}
           >
-            <Image
-              alt=""
-              className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
-              height={14}
-              src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
-              width={14}
-            />
+            {hostname ? (
+              <Image
+                alt=""
+                className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                height={14}
+                src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
+                width={14}
+              />
+            ) : (
+              <Image
+                alt=""
+                className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                height={14}
+                src={`https://img.logo.dev/npmjs.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
+                width={14}
+              />
+            )}
             {isValidUrl ? (
               <a
                 className="transition-all hover:text-primary"

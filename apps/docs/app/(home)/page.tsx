@@ -7,7 +7,14 @@ import Footer from "@docs/components/landing/footer";
 import { Hero } from "@docs/components/landing/hero";
 import { Sponsors } from "@docs/components/landing/sponsors";
 import { WhatTheySay } from "@docs/components/landing/what-they-say";
+import type { Metadata } from "next";
 import { Suspense } from "react";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
 
 function SectionSkeleton({ minHeight = "400px" }: { minHeight?: string }) {
   return (

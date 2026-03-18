@@ -13,9 +13,6 @@ const enableVercelAnalytics =
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoothui.dev"),
-  alternates: {
-    canonical: "/",
-  },
   title: {
     default:
       "SmoothUI - Animated React Components for shadcn/ui | Motion & Tailwind",
