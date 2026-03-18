@@ -18,7 +18,7 @@ export function OpenInV0Button({
     >
       <a
         href={`https://v0.dev/chat/api/open?url=${encodeURIComponent(url)}`}
-        rel="noreferrer"
+        rel="noreferrer nofollow"
         target="_blank"
       >
         <svg
