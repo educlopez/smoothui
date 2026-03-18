@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     template: "%s | SmoothUI",
   },
   description:
-    "Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components with Tailwind CSS for modern UIs.",
+    "Animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable with Tailwind CSS.",
   keywords: [
     "react components",
     "tailwindcss ui",
