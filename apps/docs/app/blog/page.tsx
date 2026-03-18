@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = createMetadata({
   title: "Blog",
   description:
-    "Tutorials, tips, and case studies about building beautiful animated React components with SmoothUI.",
+    "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
   openGraph: {
     url: "/blog",
   },
