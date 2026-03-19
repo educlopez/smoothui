@@ -7,6 +7,7 @@ import {
   FileText,
   Heart,
   Layers3,
+  Wand2,
   LayoutDashboard,
   Menu,
   PackagePlus,
@@ -210,6 +211,10 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 <Heart size={16} />
                 Sponsors
               </Link>
+              <a className="mobile-navbar-link" href="https://skills.smoothui.dev" rel="noopener noreferrer" target="_blank">
+                <Wand2 size={16} />
+                Skills
+              </a>
             </motion.div>
 
             <motion.div

@@ -5,6 +5,7 @@ import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
 import { Hero } from "@docs/components/landing/hero";
+import { SkillsSection } from "@docs/components/landing/skills-section";
 import { Sponsors } from "@docs/components/landing/sponsors";
 import { WhatTheySay } from "@docs/components/landing/what-they-say";
 import type { Metadata } from "next";
@@ -37,6 +38,7 @@ export default function Home() {
       </Suspense>
       <BlockCategories />
       <AISection />
+      <SkillsSection />
       <FAQ />
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />

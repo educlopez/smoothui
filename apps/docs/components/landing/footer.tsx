@@ -12,6 +12,32 @@ export default function Footer() {
       >
         SmoothUI
       </span>
+      <nav className="mx-auto mb-4 flex max-w-4xl items-center justify-center gap-6">
+        <a
+          className="text-foreground/50 text-sm transition-colors hover:text-foreground"
+          href="https://github.com/educlopez/smoothui"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          GitHub
+        </a>
+        <a
+          className="text-foreground/50 text-sm transition-colors hover:text-foreground"
+          href="https://skills.smoothui.dev"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Skills
+        </a>
+        <a
+          className="text-foreground/50 text-sm transition-colors hover:text-foreground"
+          href="https://x.com/educalvolpz"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          𝕏
+        </a>
+      </nav>
       <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
         <a
           className="group my-10 flex items-center gap-2 rounded-sm px-3 py-2 hover:bg-primary hover:shadow-custom hover:backdrop-blur-xs"

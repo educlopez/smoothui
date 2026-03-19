@@ -15,6 +15,7 @@ import {
   FileText,
   Heart,
   Layers3,
+  Wand2,
   LayoutDashboard,
   PackagePlus,
   Sparkles,
@@ -235,6 +236,11 @@ export default function Navbar({ className }: NavbarProps) {
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/docs/guides/sponsors">
             <Heart size={16} /> Sponsors
+          </NavigationMenuLink>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="https://skills.smoothui.dev" rel="noopener noreferrer" target="_blank">
+            <Wand2 size={16} /> Skills
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
