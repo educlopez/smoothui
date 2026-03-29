@@ -1,0 +1,47 @@
+---
+title: Pagination
+description: Animated pagination with spring-based active page indicator and ellipsis for large ranges.
+icon: Hash
+dependencies:
+  - motion.dev
+installer: pagination
+---
+
+## Features
+
+- Previous/next navigation buttons
+- Page numbers with smart ellipsis for large ranges
+- Spring-animated active page indicator
+- Controlled component with `page` and `onPageChange`
+- Configurable sibling count
+- Respects reduced motion preferences
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between pagination buttons |
+| `Enter` / `Space` | Activates the focused page button |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="navigation"` | `<nav>` | Identifies as navigation landmark |
+| `aria-label="Pagination"` | `<nav>` | Provides accessible name |
+| `aria-current="page"` | Active page button | Indicates the current page |
+| `aria-label="Go to page N"` | Page buttons | Descriptive label for each page |
+| `aria-label="Go to previous/next page"` | Prev/next buttons | Descriptive label for navigation |
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, the active page indicator appears instantly without spring animation.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pagination/index.tsx"
+  name="PaginationProps"
+/>

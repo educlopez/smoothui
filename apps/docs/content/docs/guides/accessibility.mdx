@@ -1,0 +1,112 @@
+---
+title: Accessibility
+description: Accessibility compliance matrix for all interactive SmoothUI components covering keyboard support, ARIA roles, screen reader behavior, and reduced motion.
+icon: Accessibility
+---
+
+## Overview
+
+Every SmoothUI component is built with accessibility in mind. Interactive components follow [WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/) design patterns and support keyboard navigation, screen readers, and reduced motion preferences.
+
+This page provides a quick reference for the accessibility features of each interactive component.
+
+---
+
+## Compliance Matrix
+
+### Overlay & Dialog Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Basic Modal](/docs/components/basic-modal) | `Escape` closes, `Tab` traps focus | `role="dialog"`, `aria-modal`, `aria-labelledby` | Focus moves to close button on open, announced via title | Scale/slide entrance and backdrop fade disabled |
+| [Basic Toast](/docs/components/basic-toast) | Auto-dismiss, focusable dismiss button | `role="alert"`, `aria-live="polite"` | Announced automatically via live region | Slide-in animation disabled |
+| [Rich Popover](/docs/components/rich-popover) | `Escape` closes, `Tab` navigates content | `aria-expanded`, `aria-haspopup` | Trigger state announced on toggle | Scale/fade transitions disabled |
+| [Gooey Popover](/docs/components/gooey-popover) | `Escape` closes | `aria-expanded` | Content announced on open | Gooey morph effect disabled, instant show/hide |
+
+### Button & Action Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Smooth Button](/docs/components/smooth-button) | `Enter`/`Space` activates | Native `<button>` semantics | Standard button announcement | Hover/press scale animation disabled |
+| [Magnetic Button](/docs/components/magnetic-button) | `Enter`/`Space` activates | Native `<button>` semantics | Standard button announcement | Magnetic follow effect disabled |
+| [Dot Morph Button](/docs/components/dot-morph-button) | `Enter`/`Space` activates | Native `<button>` semantics | Standard button announcement | Dot morph transition disabled |
+| [Clip Corners Button](/docs/components/clip-corners-button) | `Enter`/`Space` activates | Native `<button>` semantics | Standard button announcement | Corner clip animation disabled |
+| [Button Copy](/docs/components/button-copy) | `Enter`/`Space` copies | `aria-label` for copy action | Announces copy state change | Icon swap animation disabled |
+| [Power Off Slide](/docs/components/power-off-slide) | Keyboard drag via arrow keys | `role="slider"`, `aria-valuenow` | Value announced on change | Slide animation disabled |
+
+### Navigation & Selection Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Animated Tabs](/docs/components/animated-tabs) | `Arrow Left`/`Right` switches tabs | `role="tablist"`, `role="tab"`, `role="tabpanel"` | Active tab announced | Indicator slide animation disabled |
+| [Accordion](/docs/components/accordion) | `Enter`/`Space` toggles, arrow keys navigate | `aria-expanded`, `aria-controls` | Expanded/collapsed state announced | Expand/collapse animation disabled |
+| [Basic Dropdown](/docs/components/basic-dropdown) | `Enter`/`Space` opens, arrows navigate, `Escape` closes | `role="menu"`, `role="menuitem"`, `aria-expanded` | Menu items announced with position | Open/close animation disabled |
+| [Searchable Dropdown](/docs/components/searchable-dropdown) | Type to filter, arrows navigate, `Enter` selects, `Escape` closes | `role="combobox"`, `role="listbox"`, `aria-expanded` | Filtered results count announced | Dropdown animation disabled |
+| [Social Selector](/docs/components/social-selector) | Arrow keys navigate options | `role="radiogroup"`, `role="radio"` | Selection announced on change | Selection indicator animation disabled |
+| [Phototab](/docs/components/phototab) | Arrow keys switch, `Enter` selects | `role="tablist"` | Active tab announced | Tab transition disabled |
+
+### Input & Form Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Animated Input](/docs/components/animated-input) | Standard input keyboard behavior | `aria-label` or `aria-labelledby` | Label announced on focus | Float label animation disabled |
+| [Animated OTP Input](/docs/components/animated-o-t-p-input) | Tab between digits, backspace clears | `aria-label` per digit input | Each digit field announced | Digit entrance animation disabled |
+| [Animated Tags](/docs/components/animated-tags) | `Enter` adds tag, `Backspace` removes last | `aria-label` for tag list | Tag add/remove announced via live region | Tag entrance/exit animation disabled |
+| [Animated Toggle](/docs/components/animated-toggle) | `Enter`/`Space` toggles | `role="switch"`, `aria-checked` | On/off state announced | Toggle slide animation disabled |
+| [Exposure Slider](/docs/components/exposure-slider) | Arrow keys adjust value | `role="slider"`, `aria-valuenow`, `aria-valuemin`, `aria-valuemax` | Current value announced | Slider animation disabled |
+| [Animated File Upload](/docs/components/animated-file-upload) | `Enter`/`Space` opens file picker | `aria-label` for upload zone | File selection announced | Upload progress animation disabled |
+
+### Card & Content Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Expandable Cards](/docs/components/expandable-cards) | `Enter`/`Space` expands, `Escape` collapses | `aria-expanded` | Card title announced, expanded content readable | Expand/collapse spring animation disabled |
+| [Glow Hover Card](/docs/components/glow-hover-card) | Focusable via `Tab` | Standard card semantics | Card content announced | Glow effect disabled |
+| [Switchboard Card](/docs/components/switchboard-card) | `Tab` focuses, `Enter` activates | Button or link semantics | Card content announced | Flip/switch animation disabled |
+| [Product Card](/docs/components/product-card) | `Tab` focuses interactive elements | Semantic HTML structure | Product details announced | Hover animations disabled |
+
+### Visual & Decorative Components
+
+| Component | Keyboard Support | ARIA Roles | Screen Reader | Reduced Motion |
+|-----------|-----------------|------------|---------------|----------------|
+| [Siri Orb](/docs/components/siri-orb) | N/A (decorative) | `aria-hidden="true"` | Hidden from screen readers | Animation paused |
+| [Animated Progress Bar](/docs/components/animated-progress-bar) | N/A (display only) | `role="progressbar"`, `aria-valuenow` | Progress value announced | Fill animation disabled |
+| [Skeleton Loader](/docs/components/skeleton-loader) | N/A (display only) | `aria-busy="true"`, `aria-label` | Loading state announced | Shimmer animation disabled |
+| [Grid Loader](/docs/components/grid-loader) | N/A (display only) | `aria-busy="true"` | Loading state announced | Grid animation disabled |
+| [Notification Badge](/docs/components/notification-badge) | N/A (decorative indicator) | `aria-label` with count | Badge count announced | Entrance animation disabled |
+| [Animated Stepper](/docs/components/animated-stepper) | N/A (display only) | `aria-current="step"` | Current step announced | Step transition animation disabled |
+
+---
+
+## Reduced Motion Support
+
+All SmoothUI animated components use the `useReducedMotion` hook from [Motion](https://motion.dev). When a user has `prefers-reduced-motion: reduce` enabled in their operating system:
+
+- **Spring animations** are replaced with instant transitions (`duration: 0`)
+- **Decorative animations** (orbs, loaders, shimmer) are paused or hidden
+- **Functional transitions** (expand/collapse, tab switches) complete instantly while preserving the state change
+- **No content is lost** — all information remains accessible
+
+### Testing Reduced Motion
+
+To test reduced motion behavior during development:
+
+1. **macOS**: System Settings → Accessibility → Display → Reduce motion
+2. **Windows**: Settings → Accessibility → Visual effects → Animation effects (off)
+3. **Chrome DevTools**: Open Rendering tab → Emulate CSS media feature `prefers-reduced-motion`
+
+---
+
+## General Accessibility Practices
+
+SmoothUI components follow these principles:
+
+1. **Semantic HTML** — Native elements (`<button>`, `<nav>`, `<dialog>`) are preferred over divs with ARIA roles
+2. **Focus management** — Modal components trap focus; focus is restored on dismiss
+3. **Keyboard navigation** — All interactive components are fully operable via keyboard
+4. **Color contrast** — Components use theme tokens that should meet WCAG 2.1 AA contrast ratios
+5. **Screen reader compatibility** — Tested with VoiceOver (macOS) and NVDA (Windows)
+
+<FeatureCard title="Reporting Issues" variant="info">
+If you find an accessibility issue with any SmoothUI component, please [open an issue on GitHub](https://github.com/smoothui/smoothui/issues) with the "accessibility" label. We take a11y seriously and aim to fix issues promptly.
+</FeatureCard>

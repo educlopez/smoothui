@@ -1,0 +1,86 @@
+---
+title: Form
+description: "Lightweight, composable form wrapper with animated field-level error messages and full accessibility support."
+icon: FileText
+dependencies:
+  - motion.dev
+installer: form
+---
+
+## Features
+
+- Composable API: `Form > FormField > FormLabel + FormControl + FormMessage`
+- Animated error messages with spring entrance/exit (opacity + translateY)
+- `aria-describedby` links inputs to their error and description elements
+- `aria-invalid="true"` set on inputs when errors are present
+- Works standalone with simple validation or with react-hook-form
+- Composes with Checkbox, RadioGroup, Select, and native inputs
+- No forced dependency on any form library
+
+## Usage
+
+```tsx
+import Form, { FormField, FormLabel, FormControl, FormMessage } from "@smoothui/form";
+
+<Form errors={errors} onFormSubmit={handleSubmit}>
+  <FormField name="email">
+    <FormLabel>Email</FormLabel>
+    <FormControl>
+      <input type="email" />
+    </FormControl>
+    <FormMessage />
+  </FormField>
+</Form>
+```
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between form controls |
+| `Enter` | Submits the form (native behavior) |
+| `Space` | Activates checkboxes and buttons within the form |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-invalid` | Input (via FormControl) | Set to `true` when the field has an error |
+| `aria-describedby` | Input (via FormControl) | References the description and/or error message element IDs |
+| `role="alert"` | FormMessage | Announces error messages to screen readers |
+
+### Reduced Motion
+
+Error messages animate with a subtle opacity + translateY spring transition. When `prefers-reduced-motion` is enabled, messages appear and disappear instantly with zero duration.
+
+## Props
+
+### FormProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/form/index.tsx"
+  name="FormProps"
+/>
+
+### FormFieldProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/form/index.tsx"
+  name="FormFieldProps"
+/>
+
+### FormLabelProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/form/index.tsx"
+  name="FormLabelProps"
+/>
+
+### FormMessageProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/form/index.tsx"
+  name="FormMessageProps"
+/>

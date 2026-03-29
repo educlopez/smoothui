@@ -29,9 +29,9 @@
   --color-sidebar-foreground: var(--color-smooth-1000);
   --color-sidebar: var(--color-smooth-100);
   --color-ring: var(--color-brand);
-  --color-input: var(--color-smooth-400);
+  --color-input: var(--color-smooth-600);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--color-smooth-1000);
+  --color-accent-foreground: #fff;
   --color-accent: var(--color-brand);
   --color-muted-foreground: var(--color-smooth-800);
   --color-muted: var(--color-smooth-200);
@@ -49,7 +49,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --color-input: var(--color-input);
 }
 
 :root {
@@ -73,7 +72,7 @@
   --text-primary: var(--color-smooth-200);
   --text-quaternary: var(--color-smooth-1000);
   --radius: 0.625rem;
-  --color-input: var(--color-smooth-50);
+  --color-input: var(--color-smooth-600);
   --color-fd-card: var(--color-smooth-100);
 }
 

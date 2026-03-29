@@ -1,0 +1,67 @@
+---
+title: Combobox
+description: "An accessible Combobox component with text filtering, async search support, loading indicator, keyboard navigation, and reduced motion support."
+icon: TextSearch
+dependencies:
+  - motion.dev
+  - cmdk
+installer: combobox
+---
+
+## Features
+
+- Text filter input with dropdown option list
+- Static options or async search via `onSearch` callback
+- Configurable debounce for search queries
+- Loading indicator during async searches
+- Keyboard navigation with arrow keys, Enter to select, Escape to close
+- Controlled value with `value` and `onValueChange`
+- Disabled state for the entire combobox or individual options
+- Staggered item entry animation with spring physics
+- Check icon indicator for the selected option
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Opens the dropdown when trigger is focused, or selects the highlighted item |
+| `Escape` | Closes the dropdown and returns focus to the trigger |
+| `Arrow Down` | Moves highlight to the next option |
+| `Arrow Up` | Moves highlight to the previous option |
+| Character keys | Filters the option list by typing in the search input |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="combobox"` | Trigger | Identifies the element as a combobox |
+| `aria-expanded` | Trigger | Indicates whether the dropdown is open or closed |
+| `aria-haspopup="listbox"` | Trigger | Indicates the trigger opens a listbox |
+| `aria-label` | Trigger | Provides an accessible name for the combobox |
+| `aria-labelledby` | Trigger | References an external label element |
+
+### Screen Reader
+
+- The trigger announces its expanded/collapsed state and the currently selected value
+- Each option announces its label and selected state
+- The search input is announced as a text field for filtering
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all entry animations and transitions are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/combobox/index.tsx"
+  name="ComboboxProps"
+/>
+
+### ComboboxOption
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/combobox/index.tsx"
+  name="ComboboxOption"
+/>

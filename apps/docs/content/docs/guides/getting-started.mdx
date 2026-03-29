@@ -1,0 +1,156 @@
+---
+title: Getting Started
+description: Get up and running with SmoothUI in your React project in under 5 minutes.
+icon: Rocket
+---
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- **Node.js** 18.17 or later
+- **React** 19 or later
+- **Tailwind CSS** 4 or later configured in your project
+- A package manager: pnpm (recommended), npm, yarn, or bun
+
+<FeatureCard title="Framework Guides" variant="info">
+Already have a project? Jump to the framework-specific setup guides:
+
+- **[Next.js](/docs/guides/nextjs)** — Recommended for most projects
+- **[Vite + React](/docs/guides/vite)** — Client-side React apps
+- **[Astro](/docs/guides/astro)** — Islands architecture
+- **[Remix](/docs/guides/remix)** — Full-stack SSR
+- **[TanStack Start](/docs/guides/tanstack-start)** — Type-safe full-stack
+</FeatureCard>
+
+---
+
+## Step 1: Set Up a Next.js Project
+
+If you already have a project, skip to [Step 2](#step-2-initialize-shadcnui).
+
+```bash
+npx create-next-app@latest my-app --typescript --tailwind --app
+cd my-app
+```
+
+---
+
+## Step 2: Initialize shadcn/ui
+
+SmoothUI builds on the shadcn ecosystem. If you haven't initialized shadcn yet:
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest init"
+  npm="npx shadcn@latest init"
+  yarn="yarn dlx shadcn@latest init"
+  bun="bunx shadcn@latest init"
+/>
+
+Follow the prompts to configure your project. This sets up the `components.json` file and the utility functions SmoothUI components depend on.
+
+---
+
+## Step 3: Install Your First Component
+
+SmoothUI is an official shadcn registry — no extra configuration needed. Install a component using either the SmoothUI CLI or the shadcn CLI:
+
+### Option A: SmoothUI CLI (recommended)
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add smooth-button"
+  npm="npx smoothui-cli@latest add smooth-button"
+  yarn="yarn dlx smoothui-cli@latest add smooth-button"
+  bun="bunx smoothui-cli@latest add smooth-button"
+/>
+
+### Option B: shadcn Registry
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/smooth-button"
+  npm="npx shadcn@latest add @smoothui/smooth-button"
+  yarn="yarn dlx shadcn@latest add @smoothui/smooth-button"
+  bun="bunx shadcn@latest add @smoothui/smooth-button"
+/>
+
+Both methods automatically install the component files and any required dependencies (like `motion`).
+
+---
+
+## Step 4: Use the Component
+
+Import and render the component in your page:
+
+```tsx title="app/page.tsx"
+import SmoothButton from "@/components/smoothui/ui/SmoothButton"
+
+export default function Home() {
+  return (
+    <main className="flex min-h-screen items-center justify-center">
+      <SmoothButton>
+        Click me
+      </SmoothButton>
+    </main>
+  )
+}
+```
+
+Start your dev server to see it in action:
+
+<PackageManagerTabs
+  pnpm="pnpm dev"
+  npm="npm run dev"
+  yarn="yarn dev"
+  bun="bun dev"
+/>
+
+You should see an animated button with smooth hover and press transitions.
+
+---
+
+## Step 5: Explore More Components
+
+Browse the full component library and install anything you need:
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add"
+  npm="npx smoothui-cli@latest add"
+  yarn="yarn dlx smoothui-cli@latest add"
+  bun="bunx smoothui-cli@latest add"
+/>
+
+Running the add command without arguments launches interactive mode where you can search and select multiple components at once.
+
+### Popular Components to Try
+
+- **[Expandable Cards](/docs/components/expandable-cards)** — Cards that expand with smooth spring animations
+- **[Animated Tabs](/docs/components/animated-tabs)** — Tab navigation with animated indicator
+- **[Siri Orb](/docs/components/siri-orb)** — Mesmerizing animated gradient orb
+- **[Rich Popover](/docs/components/rich-popover)** — Contextual popover with fluid transitions
+- **[Dynamic Island](/docs/components/dynamic-island)** — Apple-inspired adaptive container
+
+---
+
+## How It Works
+
+SmoothUI components are **copied into your project** — not installed as a dependency. This means:
+
+1. **Full ownership** — You can customize any component to fit your needs
+2. **No version lock-in** — Components don't break when a library updates
+3. **Tree-shakeable** — Only the components you install are in your bundle
+4. **Type-safe** — Full TypeScript support with exported prop types
+
+Components are installed to `components/smoothui/ui/` by default and use:
+
+- **[Motion](https://motion.dev)** for spring-based animations
+- **[Tailwind CSS](https://tailwindcss.com)** for styling
+- **[shadcn/ui](https://ui.shadcn.com)** primitives where applicable
+
+---
+
+## Next Steps
+
+- **[Installation methods](/docs/guides/installation)** — Learn about all installation options in detail
+- **[Animation best practices](/docs/guides/animation-best-practices)** — Understand how SmoothUI handles animations
+- **[Design principles](/docs/guides/design-principles)** — The philosophy behind SmoothUI components
+- **[SmoothUI vs shadcn](/docs/guides/shadcn-alternative)** — How SmoothUI complements shadcn/ui

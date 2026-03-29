@@ -1,0 +1,45 @@
+---
+title: Checkbox
+description: Animated checkbox with spring checkmark animation, indeterminate state support, and full accessibility.
+icon: SquareCheck
+dependencies:
+  - motion.dev
+  - radix-ui
+installer: checkbox
+---
+
+## Features
+
+- Animated checkmark with spring path drawing animation
+- Indeterminate state with `aria-checked="mixed"` and animated dash icon
+- Disabled state support
+- Wraps Radix UI Checkbox for robust form integration
+- Works with HTML label elements via `id` prop
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` | Toggles the checkbox checked state |
+| `Tab` | Moves focus to/from the checkbox |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-checked` | Root | `true`, `false`, or `"mixed"` for indeterminate |
+| `role="checkbox"` | Root | Identifies the element as a checkbox (provided by Radix) |
+| `disabled` | Root | Disables interaction and applies visual styling |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the checkmark and indeterminate icon appear instantly without spring path animation.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/checkbox/index.tsx"
+  name="CheckboxProps"
+/>

@@ -1,0 +1,330 @@
+---
+title: Next.js
+description: Learn how to use SmoothUI animated React components in Next.js projects with App Router, Tailwind CSS 4, and Motion.
+icon: Globe
+---
+
+import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+
+## Overview
+
+<BodyText>
+[Next.js](https://nextjs.org) is the recommended framework for SmoothUI. With App Router, React Server Components, and built-in Tailwind CSS support, Next.js provides the best developer experience for building animated interfaces. SmoothUI components work seamlessly with both the App Router and Pages Router.
+</BodyText>
+
+<FeatureCard title="How It Works" variant="info">
+SmoothUI components are React client components that use the `"use client"{:tsx}` directive. In Next.js App Router, they render on the server and hydrate on the client — animations start smoothly after hydration with no extra configuration.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Prerequisites
+
+<BodyText>
+Before getting started, make sure you have the following:
+</BodyText>
+
+| Requirement | Minimum Version | Purpose |
+|-------------|----------------|---------|
+| [Node.js](https://nodejs.org/en) | 18+ | Runtime |
+| [Next.js](https://nextjs.org) | 15.0+ | Framework |
+| [React](https://react.dev) | 19.0+ | UI library |
+| [Tailwind CSS](https://tailwindcss.com) | 4.0+ | Styling |
+| [Motion](https://motion.dev) | 12.0+ | Animations (Framer Motion) |
+
+<Divider orientation="horizontal" className="relative" />
+
+## Project Setup
+
+### 1. Create a New Next.js Project
+
+<BodyText>
+If you're starting from scratch, create a new Next.js project with TypeScript and Tailwind CSS:
+</BodyText>
+
+```bash
+npx create-next-app@latest my-smoothui-app --typescript --tailwind --app
+cd my-smoothui-app
+```
+
+<BodyText>
+This scaffolds a Next.js project with App Router, TypeScript, and Tailwind CSS 4 pre-configured.
+</BodyText>
+
+### 2. Tailwind CSS 4 Configuration
+
+<BodyText>
+If you used `create-next-app` with the `--tailwind` flag, Tailwind CSS 4 is already configured. Your `app/globals.css` should contain:
+</BodyText>
+
+```css title="app/globals.css"
+@import "tailwindcss";
+```
+
+<BodyText>
+If you're adding Tailwind to an existing project, install it:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add tailwindcss @tailwindcss/postcss"
+  npm="npm install tailwindcss @tailwindcss/postcss"
+  yarn="yarn add tailwindcss @tailwindcss/postcss"
+  bun="bun add tailwindcss @tailwindcss/postcss"
+/>
+
+<BodyText>
+Then configure PostCSS:
+</BodyText>
+
+```js title="postcss.config.mjs"
+const config = {
+  plugins: {
+    "@tailwindcss/postcss": {},
+  },
+};
+
+export default config;
+```
+
+### 3. Install Motion
+
+<BodyText>
+SmoothUI animations are powered by Motion (Framer Motion). Install it as a dependency:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm add motion"
+  npm="npm install motion"
+  yarn="yarn add motion"
+  bun="bun add motion"
+/>
+
+### 4. Initialize shadcn/ui
+
+<BodyText>
+SmoothUI builds on the shadcn ecosystem. Initialize shadcn in your project:
+</BodyText>
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest init"
+  npm="npx shadcn@latest init"
+  yarn="yarn dlx shadcn@latest init"
+  bun="bunx shadcn@latest init"
+/>
+
+<BodyText>
+Follow the prompts to configure your project. This sets up `components.json` and the `cn()` utility that SmoothUI components depend on.
+</BodyText>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Installing SmoothUI Components
+
+### Using the SmoothUI CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb"
+  npm="npx smoothui-cli@latest add siri-orb"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb"
+  bun="bunx smoothui-cli@latest add siri-orb"
+/>
+
+### Using the shadcn CLI
+
+<PackageManagerTabs
+  pnpm="pnpm dlx shadcn@latest add @smoothui/siri-orb"
+  npm="npx shadcn@latest add @smoothui/siri-orb"
+  yarn="yarn dlx shadcn@latest add @smoothui/siri-orb"
+  bun="bunx shadcn@latest add @smoothui/siri-orb"
+/>
+
+<FeatureCard title="No Extra Configuration" variant="info">
+SmoothUI is an official shadcn registry. You don't need to add anything to `components.json{:json}` — just use the `@smoothui{:ts}` namespace and components are installed automatically.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Server Component Boundaries
+
+<BodyText>
+Next.js App Router uses React Server Components by default. SmoothUI components include the `"use client"{:tsx}` directive, so they automatically become client components when imported. Here's what you need to know:
+</BodyText>
+
+| Pattern | Behavior |
+|---------|----------|
+| Import SmoothUI component in a Server Component | Works — the component boundary switches to client at the import. |
+| Import SmoothUI component in a Client Component | Works — standard client-side rendering. |
+| Pass Server Component children to SmoothUI | Works — Server Components can be passed as `children{:tsx}` to client components. |
+| Use SmoothUI in `layout.tsx` | Works — layout renders on server, SmoothUI component hydrates on client. |
+
+### Example: Server Component with SmoothUI
+
+```tsx title="app/page.tsx"
+import { SiriOrb } from "@/components/smoothui/ui/SiriOrb";
+import { MagneticButton } from "@/components/smoothui/ui/MagneticButton";
+
+// This is a Server Component — SmoothUI components hydrate on the client
+export default function Home() {
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8 p-8">
+      <h1 className="text-4xl font-bold">SmoothUI + Next.js</h1>
+      <SiriOrb size="200px" />
+      <MagneticButton>Get Started</MagneticButton>
+    </main>
+  );
+}
+```
+
+### Example: Passing Server Component Children
+
+```tsx title="app/page.tsx"
+import { ExpandableCards } from "@/components/smoothui/ui/ExpandableCards";
+
+// Server-fetched data passed to a client component
+export default async function Page() {
+  const items = await fetchItems(); // Runs on the server
+
+  return (
+    <ExpandableCards items={items} />
+  );
+}
+```
+
+<FeatureCard title="No 'use client' Needed in Your Pages" variant="info">
+You do **not** need to add `"use client"{:tsx}` to your page or layout files just because they use SmoothUI components. The directive is already in the component files themselves. Your pages stay as Server Components, keeping data fetching on the server.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## App Router vs Pages Router
+
+<BodyText>
+SmoothUI works with both routing systems, but there are differences to be aware of:
+</BodyText>
+
+### App Router (Recommended)
+
+<BodyText>
+The App Router is the recommended approach. Server Components are the default, and SmoothUI's `"use client"{:tsx}` directive handles the boundary automatically.
+</BodyText>
+
+```tsx title="app/dashboard/page.tsx"
+import { AnimatedTabs } from "@/components/smoothui/ui/AnimatedTabs";
+
+export default function Dashboard() {
+  return <AnimatedTabs tabs={["Overview", "Analytics", "Settings"]} />;
+}
+```
+
+### Pages Router
+
+<BodyText>
+In the Pages Router, every page is a client component by default, so there are no Server Component boundaries to consider. SmoothUI components work the same way as any other React component:
+</BodyText>
+
+```tsx title="pages/dashboard.tsx"
+import { AnimatedTabs } from "@/components/smoothui/ui/AnimatedTabs";
+
+export default function Dashboard() {
+  return <AnimatedTabs tabs={["Overview", "Analytics", "Settings"]} />;
+}
+```
+
+<FeatureCard title="SSR in Pages Router" variant="info">
+Pages Router still uses SSR via `getServerSideProps{:ts}` or SSG via `getStaticProps{:ts}`. SmoothUI components render on the server and hydrate on the client — the same as App Router, just without the Server Component model.
+</FeatureCard>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Custom Animated Components
+
+<BodyText>
+If you create custom animated components alongside SmoothUI, follow the same pattern:
+</BodyText>
+
+```tsx title="components/FadeIn.tsx"
+"use client";
+
+import { motion, useReducedMotion } from "motion/react";
+import type { ReactNode } from "react";
+
+export type FadeInProps = {
+  children: ReactNode;
+};
+
+const FadeIn = ({ children }: FadeInProps) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+export default FadeIn;
+```
+
+<Divider orientation="horizontal" className="relative" />
+
+## Troubleshooting
+
+<Accordions>
+<Accordion id="use-client-error" title="Error: useState / useEffect can only be used in Client Components">
+  This means you're trying to use React hooks in a Server Component. SmoothUI components already include `"use client"{:tsx}`, so importing them in a Server Component should work. If you're building a custom wrapper, add `"use client"{:tsx}` at the top of that file.
+</Accordion>
+<Accordion id="hydration-mismatch" title="Hydration mismatch errors">
+  Hydration mismatches happen when server-rendered HTML differs from client output. Common causes: using `Math.random(){:ts}`, `Date.now(){:ts}`, or browser APIs during render. Wrap those values in `useEffect{:tsx}` or use `useState{:tsx}` with an initial value that matches server output.
+</Accordion>
+<Accordion id="tailwind-not-working" title="Tailwind classes are not applied">
+  Verify that `@tailwindcss/postcss{:ts}` is configured in `postcss.config.mjs{:js}` and that `app/globals.css{:css}` contains `@import "tailwindcss"{:css}`. Also check that `globals.css` is imported in your root layout.
+</Accordion>
+<Accordion id="turbopack-issues" title="Turbopack compatibility">
+  Next.js 15+ uses Turbopack in development by default. SmoothUI components are fully compatible with Turbopack. If you encounter issues, try running `next dev --no-turbopack` to verify the issue is Turbopack-related, then report it.
+</Accordion>
+<Accordion id="motion-bundle-size" title="Motion bundle size concerns">
+  Motion supports tree-shaking, so only the features you use are included in your bundle. Import from `motion/react{:ts}` rather than `framer-motion{:ts}` for the smallest bundle. Next.js also optimizes client bundles automatically with code splitting.
+</Accordion>
+</Accordions>
+
+<Divider orientation="horizontal" className="relative" />
+
+## Next Steps
+
+<Cards>
+<Card
+  href="/docs/guides/installation"
+  title="Installation Methods"
+>
+  Learn about all available installation methods including the SmoothUI CLI and shadcn registry.
+</Card>
+
+<Card
+  href="/docs/components"
+  title="Browse Components"
+>
+  Explore the complete collection of 50+ animated React components.
+</Card>
+
+<Card
+  href="/docs/guides/animation-best-practices"
+  title="Animation Best Practices"
+>
+  Master animation performance, accessibility, and timing guidelines.
+</Card>
+
+<Card
+  href="/docs/guides/vite"
+  title="Vite + React"
+>
+  The simplest setup for using SmoothUI in a client-side React app.
+</Card>
+</Cards>

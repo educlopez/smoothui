@@ -1,0 +1,58 @@
+---
+title: Context Menu
+description: Animated context menu triggered by right-click with spring animations, nested submenus, and full keyboard navigation.
+icon: MousePointerClick
+dependencies:
+  - motion.dev
+  - radix-ui
+installer: context-menu
+---
+
+## Features
+
+- Right-click to open at cursor position
+- Spring-animated open/close with scale and fade
+- Nested submenu support with animated sub-content
+- Full keyboard navigation (Arrow keys, Enter, Escape)
+- Destructive variant for dangerous actions
+- Keyboard shortcut display
+- Separator and group label support
+- Wraps Radix UI Context Menu for robust accessibility
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Activates the focused item |
+| `Escape` | Closes the context menu |
+| `Arrow Down` | Moves focus to the next item |
+| `Arrow Up` | Moves focus to the previous item |
+| `Arrow Right` | Opens a submenu when focused on a sub-trigger |
+| `Arrow Left` | Closes a submenu and returns focus to the parent |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="menu"` | Content | Identifies the context menu as a menu |
+| `role="menuitem"` | Item | Identifies each item as a menu item |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, all spring animations (open/close, item stagger, submenu reveal) are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/context-menu/index.tsx"
+  name="ContextMenuProps"
+/>
+
+### ContextMenuItemConfig
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/context-menu/index.tsx"
+  name="ContextMenuItemConfig"
+/>

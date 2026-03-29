@@ -1,0 +1,55 @@
+---
+title: Drawer
+description: "Animated slide-out panel that opens from any side of the viewport with spring animation, backdrop dismiss, and focus trap."
+icon: PanelLeft
+dependencies:
+  - motion.dev
+installer: drawer
+---
+
+## Features
+
+- Opens from all 4 sides: top, right, bottom, left
+- Controlled `open` and `onOpenChange` props
+- Backdrop click to dismiss
+- Escape key to dismiss
+- Focus trap within the drawer
+- Title and description slots
+- Footer slot for action buttons
+- Spring animation with reduced motion support
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the drawer |
+| `Tab` | Cycles focus through focusable elements within the drawer (focus is trapped) |
+| `Shift + Tab` | Cycles focus backward through focusable elements within the drawer |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="dialog"` | Drawer content | Identifies the element as a dialog |
+| `aria-labelledby` | Drawer content | References the drawer title for an accessible name |
+| `aria-describedby` | Drawer content | References the drawer description |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all slide and fade animations are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/drawer/index.tsx"
+  name="DrawerProps"
+/>
+
+### DrawerSide
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/drawer/index.tsx"
+  name="DrawerSide"
+/>

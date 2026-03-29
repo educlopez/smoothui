@@ -1,0 +1,40 @@
+{
+  "name": "@repo/dropdown-menu",
+  "description": "An animated Dropdown Menu component for SmoothUI with spring animations, nested submenus, and keyboard navigation.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "dropdown",
+      "menu",
+      "navigation",
+      "submenu",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Action menus with nested submenus",
+      "Navigation dropdown with keyboard support",
+      "Context-aware menu with animated open/close"
+    ],
+    "compositionHints": [
+      "Use as trigger for toolbar actions",
+      "Pair with smooth-button as trigger"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "@repo/checkbox",
+  "description": "An animated Checkbox component for SmoothUI with checkmark and indeterminate state animations.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0",
+    "radix-ui": "^1.4.2"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "checkbox",
+      "form",
+      "input",
+      "toggle",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Form checkbox with animated checkmark",
+      "Indeterminate state for partial selections",
+      "Accessible checkbox with keyboard support"
+    ],
+    "compositionHints": [
+      "Use inside form component for validation",
+      "Pair with label element for accessibility"
+    ],
+    "hasReducedMotion": true
+  }
+}

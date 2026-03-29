@@ -1,0 +1,66 @@
+---
+title: Dialog
+description: "Animated modal dialog with title, description, close button, and focus trap. Includes an AlertDialog variant that requires explicit user action."
+icon: MessageSquare
+dependencies:
+  - motion.dev
+installer: dialog
+---
+
+## Features
+
+- Controlled `open` and `onOpenChange` props
+- Title, description, and footer slots
+- Close button with configurable visibility
+- Focus trap within the dialog
+- Escape key to dismiss (Dialog only)
+- Backdrop click to dismiss (Dialog only)
+- AlertDialog variant that requires explicit action (no Escape dismiss)
+- Spring animation with reduced motion support
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the dialog (Dialog only — AlertDialog ignores Escape) |
+| `Tab` | Cycles focus through focusable elements within the dialog (focus is trapped) |
+| `Shift + Tab` | Cycles focus backward through focusable elements within the dialog |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="dialog"` | Dialog content | Identifies the element as a dialog |
+| `role="alertdialog"` | AlertDialog content | Identifies the element as an alert dialog requiring user action |
+| `aria-labelledby` | Dialog/AlertDialog content | References the title for an accessible name |
+| `aria-describedby` | Dialog/AlertDialog content | References the description |
+| `aria-modal="true"` | Dialog/AlertDialog content | Indicates content behind is inert |
+
+### Screen Reader
+
+- Focus moves to the dialog content when opened
+- Focus is trapped within the dialog while open
+- Focus returns to the previously focused element when the dialog closes
+- The title is announced via `aria-labelledby`
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all scale, fade, and zoom animations are disabled instantly.
+
+## Props
+
+### DialogProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dialog/index.tsx"
+  name="DialogProps"
+/>
+
+### AlertDialogProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dialog/index.tsx"
+  name="AlertDialogProps"
+/>

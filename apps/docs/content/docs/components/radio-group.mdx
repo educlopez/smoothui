@@ -1,0 +1,58 @@
+---
+title: Radio Group
+description: Animated radio group with spring selection indicator, arrow key navigation, and accessible labeling.
+icon: CircleDot
+dependencies:
+  - motion.dev
+  - radix-ui
+installer: radio-group
+---
+
+## Features
+
+- Animated selection indicator with spring scale animation
+- Arrow key navigation between radio options
+- Horizontal and vertical orientation support
+- Disabled state for individual items or the entire group
+- Wraps Radix UI Radio Group for robust form integration
+- Built-in label rendering with proper `htmlFor` association
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow Down` / `Arrow Right` | Moves focus and selection to the next radio option |
+| `Arrow Up` / `Arrow Left` | Moves focus and selection to the previous radio option |
+| `Tab` | Moves focus into/out of the radio group |
+| `Space` | Selects the focused radio option (if not already selected) |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="radiogroup"` | Root | Identifies the container as a radio group (provided by Radix) |
+| `role="radio"` | Item | Identifies each option as a radio button (provided by Radix) |
+| `aria-checked` | Item | Indicates whether the option is selected |
+| `aria-disabled` | Item | Indicates disabled state |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the selection indicator appears instantly without spring animation.
+
+## Props
+
+### RadioGroupProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/radio-group/index.tsx"
+  name="RadioGroupProps"
+/>
+
+### RadioProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/radio-group/index.tsx"
+  name="RadioProps"
+/>

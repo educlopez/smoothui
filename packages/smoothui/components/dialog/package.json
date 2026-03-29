@@ -1,0 +1,31 @@
+{
+  "name": "@repo/dialog",
+  "description": "Animated Dialog and AlertDialog components for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "lucide-react": "^0.468.0",
+    "motion": "^11.15.0",
+    "radix-ui": "latest"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "dialog",
+      "modal",
+      "alert",
+      "overlay",
+      "animated"
+    ],
+    "hasReducedMotion": true
+  }
+}

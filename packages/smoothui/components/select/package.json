@@ -1,0 +1,30 @@
+{
+  "name": "@repo/select",
+  "description": "An animated Select dropdown component for SmoothUI wrapping Radix Select with smooth animations.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "select",
+      "dropdown",
+      "form",
+      "listbox",
+      "animated"
+    ],
+    "hasReducedMotion": true
+  }
+}

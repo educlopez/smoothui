@@ -1,0 +1,150 @@
+---
+title: Migration from shadcn
+description: Step-by-step guide to replacing shadcn/ui components with animated SmoothUI equivalents.
+icon: ArrowRightLeft
+---
+
+## Overview
+
+SmoothUI is designed to complement shadcn/ui, not replace it entirely. This guide covers how to swap specific shadcn components with their SmoothUI animated equivalents when you want to add motion and polish to your interface.
+
+<FeatureCard title="Non-Breaking Migration" variant="info">
+SmoothUI components are additive. You can migrate one component at a time without affecting the rest of your application. Both shadcn and SmoothUI components can coexist in the same project.
+</FeatureCard>
+
+---
+
+## Step 1: Install the SmoothUI Component
+
+Use either the SmoothUI CLI or the shadcn registry to add the component you want:
+
+<PackageManagerTabs
+  pnpm="pnpm dlx smoothui-cli@latest add animated-tabs"
+  npm="npx smoothui-cli@latest add animated-tabs"
+  yarn="yarn dlx smoothui-cli@latest add animated-tabs"
+  bun="bunx smoothui-cli@latest add animated-tabs"
+/>
+
+This installs the component to `components/smoothui/ui/` alongside your existing shadcn components in `components/ui/`.
+
+---
+
+## Step 2: Update Imports
+
+Replace the shadcn import with the SmoothUI import:
+
+```tsx
+// Before: shadcn/ui
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+
+// After: SmoothUI
+import AnimatedTabs from "@/components/smoothui/ui/AnimatedTabs"
+```
+
+SmoothUI components use a **default export** pattern rather than named exports. Each component is a single self-contained import.
+
+---
+
+## Step 3: Adapt Props
+
+SmoothUI components have their own prop interfaces. Here are the common patterns to adjust:
+
+### Composition vs Props
+
+shadcn uses a **compound component** pattern with multiple named exports. SmoothUI components are **single components** that accept data as props:
+
+```tsx
+// shadcn: Compound components
+<Tabs defaultValue="tab1">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content 1</TabsContent>
+  <TabsContent value="tab2">Content 2</TabsContent>
+</Tabs>
+
+// SmoothUI: Data-driven props
+<AnimatedTabs
+  tabs={[
+    { label: "Tab 1", content: <div>Content 1</div> },
+    { label: "Tab 2", content: <div>Content 2</div> },
+  ]}
+/>
+```
+
+### Styling
+
+Both shadcn and SmoothUI use Tailwind CSS. SmoothUI components accept a `className` prop for customization:
+
+```tsx
+// Both support className for custom styling
+<AnimatedTabs className="w-full max-w-md" tabs={tabs} />
+```
+
+---
+
+## Component Mapping Reference
+
+Below is a mapping of shadcn components to their SmoothUI animated equivalents:
+
+| shadcn/ui Component | SmoothUI Equivalent | Key Differences |
+|---------------------|-------------------|-----------------|
+| `Tabs` | [Animated Tabs](/docs/components/animated-tabs) | Animated sliding indicator, data-driven API |
+| `Dialog` | [Basic Modal](/docs/components/basic-modal) | Spring entrance animation, controlled via `isOpen`/`onClose` |
+| `Toast` / `Sonner` | [Basic Toast](/docs/components/basic-toast) | Animated entrance/exit with spring physics |
+| `Accordion` | [Accordion](/docs/components/accordion) | Smooth height animation with spring easing |
+| `Tooltip` | [Animated Tooltip](/docs/components/animated-tooltip) | Spring-based show/hide with configurable delay |
+| `DropdownMenu` | [Basic Dropdown](/docs/components/basic-dropdown) | Animated open/close with spring transitions |
+| `Input` | [Animated Input](/docs/components/animated-input) | Floating label animation, focus effects |
+| `Toggle` | [Animated Toggle](/docs/components/animated-toggle) | Spring-based toggle with smooth state transitions |
+| `Progress` | [Animated Progress Bar](/docs/components/animated-progress-bar) | Animated fill with spring physics |
+| `Skeleton` | [Skeleton Loader](/docs/components/skeleton-loader) | Enhanced shimmer animation |
+| `Avatar` | [Animated Avatar Group](/docs/components/animated-avatar-group) | Staggered entrance, hover expansion |
+
+---
+
+## Disabling Animations
+
+If you need to disable animations for specific instances (for example, in a performance-critical area), SmoothUI components respect the system `prefers-reduced-motion` setting automatically.
+
+To programmatically control animation behavior, you can wrap components and use the Motion library's `MotionConfig` provider:
+
+```tsx
+import { MotionConfig } from "motion/react"
+
+// Disable all animations within this subtree
+<MotionConfig reducedMotion="always">
+  <AnimatedTabs tabs={tabs} />
+</MotionConfig>
+
+// Respect system setting (default behavior)
+<MotionConfig reducedMotion="user">
+  <AnimatedTabs tabs={tabs} />
+</MotionConfig>
+```
+
+---
+
+## Migration Checklist
+
+For each component you migrate:
+
+- [ ] Install the SmoothUI component via CLI
+- [ ] Update the import path from `@/components/ui/` to `@/components/smoothui/ui/`
+- [ ] Adjust the JSX from compound component pattern to SmoothUI's prop-based API
+- [ ] Verify the component renders correctly in development
+- [ ] Test keyboard navigation still works as expected
+- [ ] Test with `prefers-reduced-motion` enabled to verify graceful degradation
+- [ ] Remove the old shadcn component file if it is no longer used elsewhere
+
+---
+
+## Keeping Both
+
+You don't have to choose one or the other. A common pattern is:
+
+- **shadcn/ui** for form primitives, data tables, and areas where animation adds no value
+- **SmoothUI** for hero sections, interactive cards, navigation, and anywhere you want to add visual delight
+
+Both libraries use Tailwind CSS and share the same design token system, so they integrate seamlessly.

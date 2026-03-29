@@ -1,0 +1,50 @@
+---
+title: Breadcrumb
+description: Animated breadcrumb navigation with stagger-in animation and accessible markup.
+icon: Navigation
+dependencies:
+  - motion.dev
+installer: breadcrumb
+---
+
+## Features
+
+- Semantic `<nav>` with `<ol>` ordered list markup
+- Last item automatically marked with `aria-current="page"`
+- Subtle stagger-in animation on mount
+- Customizable separator (defaults to chevron icon)
+- Respects reduced motion preferences
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between breadcrumb links |
+| `Enter` | Activates the focused breadcrumb link |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Breadcrumb"` | `<nav>` | Identifies the navigation as a breadcrumb trail |
+| `aria-current="page"` | Last item `<span>` | Indicates the current page in the breadcrumb |
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, the stagger-in animation is disabled and all items appear instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/breadcrumb/index.tsx"
+  name="BreadcrumbProps"
+/>
+
+### BreadcrumbItemProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/breadcrumb/index.tsx"
+  name="BreadcrumbItemProps"
+/>

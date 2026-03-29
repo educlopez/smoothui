@@ -1,0 +1,30 @@
+{
+  "name": "@repo/pagination",
+  "description": "Animated pagination with spring-based active page indicator",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0",
+    "lucide-react": "^0.474.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "navigation",
+    "tags": [
+      "pagination",
+      "navigation",
+      "pages",
+      "paging"
+    ],
+    "hasReducedMotion": true
+  }
+}

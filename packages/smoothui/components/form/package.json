@@ -1,0 +1,43 @@
+{
+  "name": "@repo/form",
+  "description": "A lightweight, composable Form component with animated error messages and full accessibility support.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "form",
+      "validation",
+      "error",
+      "input",
+      "accessible",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Contact forms with validation",
+      "Settings forms with field-level errors",
+      "Signup forms with accessible error messages"
+    ],
+    "compositionHints": [
+      "Wrap Checkbox, RadioGroup, Select, and native inputs",
+      "Pass errors from react-hook-form or custom validation",
+      "Use FormField > FormLabel + FormControl + FormMessage pattern"
+    ],
+    "hasReducedMotion": true
+  }
+}

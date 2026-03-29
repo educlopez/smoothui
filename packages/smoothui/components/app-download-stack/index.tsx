@@ -363,7 +363,7 @@ export default function AppDownloadStack({
             </motion.div>
           )}
 
-          {isDownloading && (
+          {isDownloading && !downloadComplete && (
             <motion.div
               animate={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
@@ -419,12 +419,20 @@ export default function AppDownloadStack({
 
           {downloadComplete && (
             <motion.div
-              animate={{ opacity: 1, scale: 1 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+              }
               className="flex flex-col items-center gap-4"
-              exit={{ opacity: 0, scale: 0.8 }}
-              initial={{ opacity: 0, scale: 0.8 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, scale: 0.8 }
+              }
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+              }
               key="download-complete"
-              layout
+              layout={!shouldReduceMotion}
             >
               <span className="font-semibold text-green-500">
                 Download Complete!

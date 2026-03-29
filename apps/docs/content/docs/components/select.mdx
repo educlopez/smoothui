@@ -1,0 +1,69 @@
+---
+title: Select
+description: "An accessible Select dropdown component with single selection, keyboard navigation, typeahead matching, and reduced motion support."
+icon: ChevronDown
+dependencies:
+  - motion.dev
+installer: select
+---
+
+## Features
+
+- Single selection from a list of options
+- Flat and grouped option lists
+- Keyboard navigation with arrow keys, Home, End
+- Typeahead character matching for quick selection
+- Controlled and uncontrolled modes
+- Disabled state for individual options or the entire select
+- Smooth open/close animations with spring physics
+- Small and default size variants
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Opens the dropdown when trigger is focused, or selects the focused item |
+| `Escape` | Closes the dropdown and returns focus to the trigger |
+| `Arrow Down` | Moves focus to the next option |
+| `Arrow Up` | Moves focus to the previous option |
+| `Home` | Moves focus to the first option |
+| `End` | Moves focus to the last option |
+| Character keys | Typeahead matching — focuses the first option starting with the typed character |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="listbox"` | Content | Identifies the dropdown as a listbox (provided by Radix) |
+| `role="option"` | Item | Identifies each item as a selectable option (provided by Radix) |
+| `aria-expanded` | Trigger | Indicates whether the dropdown is open or closed |
+| `aria-selected` | Item | Indicates the currently selected option |
+| `aria-disabled` | Item/Trigger | Indicates disabled state |
+| `aria-label` | Trigger | Provides an accessible name for the select |
+| `aria-labelledby` | Trigger | References an external label element |
+
+### Screen Reader
+
+- The trigger announces its expanded/collapsed state and the currently selected value
+- Each option announces its label and selected state
+- Group labels are announced when navigating between groups
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all open/close and transition animations are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/select/index.tsx"
+  name="SelectProps"
+/>
+
+### SelectOptionProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/select/index.tsx"
+  name="SelectOptionProps"
+/>

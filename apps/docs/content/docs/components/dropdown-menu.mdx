@@ -1,0 +1,59 @@
+---
+title: Dropdown Menu
+description: Animated dropdown menu with spring animations, nested submenus, and full keyboard navigation.
+icon: ChevronDown
+dependencies:
+  - motion.dev
+  - radix-ui
+installer: dropdown-menu
+---
+
+## Features
+
+- Spring-animated open/close with scale and fade
+- Nested submenu support with animated sub-content
+- Full keyboard navigation (Arrow keys, Enter, Escape)
+- Destructive variant for dangerous actions
+- Keyboard shortcut display
+- Separator and group label support
+- Wraps Radix UI Dropdown Menu for robust accessibility
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Opens the dropdown when trigger is focused, or activates the focused item |
+| `Escape` | Closes the dropdown and returns focus to the trigger |
+| `Arrow Down` | Moves focus to the next item |
+| `Arrow Up` | Moves focus to the previous item |
+| `Arrow Right` | Opens a submenu when focused on a sub-trigger |
+| `Arrow Left` | Closes a submenu and returns focus to the parent |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="menu"` | Content | Identifies the dropdown as a menu |
+| `role="menuitem"` | Item | Identifies each item as a menu item |
+| `aria-expanded` | Trigger | Indicates whether the dropdown is open |
+| `aria-haspopup` | Trigger | Indicates the trigger opens a menu |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, all spring animations (open/close, item stagger, submenu reveal) are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dropdown-menu/index.tsx"
+  name="DropdownMenuProps"
+/>
+
+### DropdownMenuItemConfig
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dropdown-menu/index.tsx"
+  name="DropdownMenuItemConfig"
+/>
