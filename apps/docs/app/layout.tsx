@@ -6,8 +6,6 @@ import Script from "next/script";
 import "./global.css";
 import { inter, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
-
-const enableUmami = process.env.NEXT_PUBLIC_ENABLE_UMAMI === "true";
 const enableVercelAnalytics =
   process.env.NEXT_PUBLIC_ENABLE_VERCEL_ANALYTICS !== "false";
 
@@ -108,13 +106,6 @@ export default function Layout({ children }: LayoutProps<"/">) {
           strategy="beforeInteractive"
           type="application/ld+json"
         />
-        {enableUmami && (
-          <Script
-            data-website-id="065d3f91-4dc8-4b41-a95e-77369e47bd4e"
-            src="https://cloud.umami.is/script.js"
-            strategy="afterInteractive"
-          />
-        )}
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>{children}</RootProvider>
