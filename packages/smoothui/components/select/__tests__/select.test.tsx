@@ -6,11 +6,11 @@ describe("Select", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <Select
+        aria-label="Test select"
         options={[
           { value: "a", label: "Option A" },
           { value: "b", label: "Option B" },
         ]}
-        aria-label="Test select"
       />
     );
     expect(container).toBeInTheDocument();

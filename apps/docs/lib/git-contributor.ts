@@ -1,11 +1,11 @@
 import { cache } from "react";
 
 export interface ContributorInfo {
-  name: string;
+  avatar?: string;
   email: string;
+  name: string;
   url?: string;
   username?: string;
-  avatar?: string;
 }
 
 // Cache for contributors (key: owner/repo/filePath, value: contributors)
@@ -121,12 +121,12 @@ interface CommitItem {
 }
 
 interface FetchCommitsPageOptions {
-  owner: string;
-  repo: string;
   filePath: string;
+  headers: HeadersInit;
+  owner: string;
   page: number;
   perPage: number;
-  headers: HeadersInit;
+  repo: string;
 }
 
 /**

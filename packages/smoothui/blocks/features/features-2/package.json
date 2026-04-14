@@ -17,7 +17,13 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["features", "bento", "grid", "asymmetric", "animated"],
+    "tags": [
+      "features",
+      "bento",
+      "grid",
+      "asymmetric",
+      "animated"
+    ],
     "complexity": "moderate",
     "animationType": "spring",
     "useCases": [

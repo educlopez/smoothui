@@ -3,12 +3,12 @@ import type { Sponsor } from "@docs/lib/sponsors";
 import Image from "next/image";
 
 interface SponsorLogoProps {
-  sponsor: Sponsor;
   className?: string;
-  width?: number;
   height?: number;
-  style?: React.CSSProperties;
   onError?: (e: React.SyntheticEvent<HTMLImageElement, Event>) => void;
+  sponsor: Sponsor;
+  style?: React.CSSProperties;
+  width?: number;
 }
 
 export function SponsorLogo({

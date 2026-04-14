@@ -17,18 +17,19 @@ const DELAY_COPYRIGHT = DELAY_INCREMENT * 6;
 
 interface FooterComplexProps {
   companyName?: string;
+  copyright?: string;
   description?: string;
-  newsletter?: {
-    title: string;
-    description: string;
-    placeholder: string;
-    buttonText: string;
-  };
   links?: {
     product?: Array<{ name: string; url: string }>;
     company?: Array<{ name: string; url: string }>;
     support?: Array<{ name: string; url: string }>;
     legal?: Array<{ name: string; url: string }>;
+  };
+  newsletter?: {
+    title: string;
+    description: string;
+    placeholder: string;
+    buttonText: string;
   };
   social?: {
     twitter?: string;
@@ -37,7 +38,6 @@ interface FooterComplexProps {
     discord?: string;
     youtube?: string;
   };
-  copyright?: string;
 }
 
 export function FooterComplex({

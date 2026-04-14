@@ -7,13 +7,13 @@ const STAGGER_DELAY = 0.1;
 const VALUE_DELAY_OFFSET = 0.2;
 
 interface StatsGridProps {
-  title?: string;
   description?: string;
   stats?: Array<{
     value: string;
     label: string;
     description?: string;
   }>;
+  title?: string;
 }
 
 export function StatsGrid({

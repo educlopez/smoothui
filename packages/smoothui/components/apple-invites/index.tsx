@@ -6,12 +6,12 @@ import { wrap } from "popmotion";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 export interface ResponsiveSize {
-  base?: number | string;
-  sm?: number | string;
-  md?: number | string;
-  lg?: number | string;
-  xl?: number | string;
   "2xl"?: number | string;
+  base?: number | string;
+  lg?: number | string;
+  md?: number | string;
+  sm?: number | string;
+  xl?: number | string;
 }
 
 const breakpoints = {
@@ -154,26 +154,26 @@ export interface Participant {
 }
 
 export interface Event {
-  id: number;
-  title?: string;
-  subtitle?: string;
-  location: string;
-  image?: string;
-  badge?: string;
-  participants?: Participant[];
   backgroundClassName?: string;
+  badge?: string;
+  id: number;
+  image?: string;
+  location: string;
+  participants?: Participant[];
+  subtitle?: string;
+  title?: string;
 }
 
 export interface AppleInvitesProps {
+  activeIndex?: number;
+  aspectRatio?: number;
+  cardClassName?: string;
+  cardHeight?: number | string | ResponsiveSize;
+  cardWidth?: number | string | ResponsiveSize;
+  className?: string;
   events: Event[];
   interval?: number;
-  className?: string;
-  cardClassName?: string;
-  activeIndex?: number;
   onChange?: (index: number) => void;
-  cardWidth?: number | string | ResponsiveSize;
-  cardHeight?: number | string | ResponsiveSize;
-  aspectRatio?: number;
 }
 
 export default function AppleInvites({
@@ -250,7 +250,7 @@ export default function AppleInvites({
   }, [responsiveWidth, aspectRatio, cardHeight]);
 
   const responsiveHeight =
-    cardHeight !== undefined ? explicitHeight : calculatedHeight;
+    cardHeight === undefined ? calculatedHeight : explicitHeight;
 
   // Calculate responsive sizes based on card width
   const cardWidthNum = parseSize(responsiveWidth);
@@ -322,7 +322,7 @@ export default function AppleInvites({
     Math.round(BASE_TITLE_MARGIN_BOTTOM * scaleFactor)
   );
 
-  const page = controlledIndex !== undefined ? controlledIndex : internalPage;
+  const page = controlledIndex === undefined ? internalPage : controlledIndex;
   const setPage = (val: number, dir: number) => {
     if (onChange) {
       onChange(val);

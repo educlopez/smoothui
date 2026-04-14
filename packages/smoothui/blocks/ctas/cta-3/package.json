@@ -18,7 +18,13 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["cta", "call-to-action", "banner", "compact", "animated"],
+    "tags": [
+      "cta",
+      "call-to-action",
+      "banner",
+      "compact",
+      "animated"
+    ],
     "complexity": "simple",
     "animationType": "spring",
     "useCases": [

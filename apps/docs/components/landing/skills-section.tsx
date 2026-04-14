@@ -71,7 +71,7 @@ export function SkillsSection() {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-md shadow-black/5 ring-1 ring-border"
+          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-black/5 shadow-md ring-1 ring-border"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -197,7 +197,7 @@ export function SkillsSection() {
           >
             Explore UI Craft skill
             <ArrowUpRight
-              className="transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               size={14}
             />
           </Link>

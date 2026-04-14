@@ -1,9 +1,5 @@
 import { getBlockCatalog } from "@docs/lib/component-catalog";
-import type {
-  BlockListResponse,
-  BlockMeta,
-  BlockType,
-} from "@smoothui/data";
+import type { BlockListResponse, BlockMeta, BlockType } from "@smoothui/data";
 import type { NextRequest } from "next/server";
 import { jsonResponse } from "../_shared";
 
@@ -33,7 +29,10 @@ export const GET = async (request: NextRequest): Promise<Response> => {
   const page = Math.max(1, Number(searchParams.get("page") ?? "1"));
   const pageSize = Math.min(
     MAX_PAGE_SIZE,
-    Math.max(1, Number(searchParams.get("pageSize") ?? String(DEFAULT_PAGE_SIZE)))
+    Math.max(
+      1,
+      Number(searchParams.get("pageSize") ?? String(DEFAULT_PAGE_SIZE))
+    )
   );
 
   let blocks: BlockMeta[] = await getBlockCatalog();

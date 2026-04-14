@@ -5,14 +5,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 
 export interface FaqSearchableProps {
-  title?: string;
   description?: string;
-  searchPlaceholder?: string;
-  noResultsText?: string;
   faqs?: Array<{
     question: string;
     answer: string;
   }>;
+  noResultsText?: string;
+  searchPlaceholder?: string;
+  title?: string;
 }
 
 const defaultFaqs = [

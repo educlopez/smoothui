@@ -5,7 +5,7 @@ import RichPopover from "../index";
 describe("RichPopover", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <RichPopover trigger={<button type="button">Open</button>} title="Test" />
+      <RichPopover title="Test" trigger={<button type="button">Open</button>} />
     );
     expect(container).toBeInTheDocument();
   });

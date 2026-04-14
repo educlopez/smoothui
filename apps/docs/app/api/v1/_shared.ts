@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
 import type { ApiErrorResponse } from "@smoothui/data";
+import { NextResponse } from "next/server";
 
 /** Common CORS headers applied to all v1 API responses */
 export const corsHeaders = {

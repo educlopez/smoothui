@@ -3,10 +3,10 @@ import React from "react";
 
 export interface RevealTextProps {
   children: string;
-  direction?: "up" | "down" | "left" | "right";
-  delay?: number;
-  triggerOnView?: boolean;
   className?: string;
+  delay?: number;
+  direction?: "up" | "down" | "left" | "right";
+  triggerOnView?: boolean;
 }
 
 const REVEAL_ANIMATION_DURATION_S = 0.25;

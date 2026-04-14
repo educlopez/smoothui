@@ -12,12 +12,12 @@ import useMeasure from "react-use-measure";
 
 export interface InfiniteSliderProps {
   children: React.ReactNode;
+  className?: string;
+  direction?: "horizontal" | "vertical";
   gap?: number;
+  reverse?: boolean;
   speed?: number;
   speedOnHover?: number;
-  direction?: "horizontal" | "vertical";
-  reverse?: boolean;
-  className?: string;
 }
 
 export default function InfiniteSlider({

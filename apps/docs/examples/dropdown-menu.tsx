@@ -1,7 +1,7 @@
 "use client";
 
-import DropdownMenu from "@repo/smoothui/components/dropdown-menu";
 import type { DropdownMenuItemConfig } from "@repo/smoothui/components/dropdown-menu";
+import DropdownMenu from "@repo/smoothui/components/dropdown-menu";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 
 const items: DropdownMenuItemConfig[] = [
@@ -40,7 +40,7 @@ export default function DropdownMenuDemo() {
   return (
     <div className="flex w-full items-center justify-center p-8">
       <DropdownMenu items={items}>
-        <SmoothButton variant="outline" type="button">
+        <SmoothButton type="button" variant="outline">
           Open Menu
         </SmoothButton>
       </DropdownMenu>

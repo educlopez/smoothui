@@ -20,16 +20,16 @@ const LABEL_TRANSITION = {
 };
 
 export interface AnimatedInputProps {
-  value?: string;
-  defaultValue?: string;
-  onChange?: (value: string) => void;
-  label: string;
-  placeholder?: string;
-  disabled?: boolean;
   className?: string;
-  inputClassName?: string;
-  labelClassName?: string;
+  defaultValue?: string;
+  disabled?: boolean;
   icon?: React.ReactNode;
+  inputClassName?: string;
+  label: string;
+  labelClassName?: string;
+  onChange?: (value: string) => void;
+  placeholder?: string;
+  value?: string;
 }
 
 export default function AnimatedInput({

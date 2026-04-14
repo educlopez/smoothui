@@ -40,13 +40,13 @@ const getTensValue = (num: number) => Math.floor(num / TENS_PLACE);
 const getHundredsValue = (num: number) => Math.floor(num / HUNDREDS_PLACE);
 
 export interface NumberFlowProps {
-  value?: number;
-  onChange?: (value: number) => void;
-  min?: number;
-  max?: number;
+  buttonClassName?: string;
   className?: string;
   digitClassName?: string;
-  buttonClassName?: string;
+  max?: number;
+  min?: number;
+  onChange?: (value: number) => void;
+  value?: number;
 }
 
 export default function NumberFlow({
@@ -61,7 +61,7 @@ export default function NumberFlow({
   const [internalValue, setInternalValue] = useState(0);
   const [prevValue, setPrevValue] = useState(0);
 
-  const value = controlledValue !== undefined ? controlledValue : internalValue;
+  const value = controlledValue === undefined ? internalValue : controlledValue;
 
   const prevValueRef = useRef<HTMLElement>(null);
   const nextValueRef = useRef<HTMLElement>(null);

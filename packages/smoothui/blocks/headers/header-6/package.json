@@ -17,7 +17,14 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["hero", "header", "minimal", "clean", "typography", "animated"],
+    "tags": [
+      "hero",
+      "header",
+      "minimal",
+      "clean",
+      "typography",
+      "animated"
+    ],
     "complexity": "simple",
     "animationType": "spring",
     "useCases": [

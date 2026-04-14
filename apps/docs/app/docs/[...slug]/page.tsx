@@ -5,6 +5,7 @@ import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
+import { GalleryPage } from "@docs/components/gallery";
 import { Installer } from "@docs/components/installer";
 import Divider from "@docs/components/landing/divider";
 import { LastModified } from "@docs/components/last-modified";
@@ -14,7 +15,6 @@ import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { Preview } from "@docs/components/preview";
 import { Reference } from "@docs/components/reference";
-import { GalleryPage } from "@docs/components/gallery";
 import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
 import {

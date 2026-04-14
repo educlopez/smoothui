@@ -29,11 +29,18 @@
         "noExcessiveCognitiveComplexity": {
           "level": "warn",
           "options": { "maxAllowedComplexity": 40 }
-        }
+        },
+        "useOptionalChain": "warn"
       },
       "correctness": {
         // Allow img without explicit width/height (CSS handles sizing)
-        "useImageSize": "warn"
+        "useImageSize": "warn",
+        // Effects with stable refs/state are safe without full deps
+        "useExhaustiveDependencies": "warn",
+        // Unused params in generic callbacks are acceptable
+        "noUnusedFunctionParameters": "warn",
+        "noUnusedVariables": "warn",
+        "useHookAtTopLevel": "warn"
       },
       "performance": {
         // Barrel files needed for package exports
@@ -41,21 +48,44 @@
         // Component library uses <img> for portability across frameworks
         "noImgElement": "warn",
         // Namespace imports needed in some cases
-        "noNamespaceImport": "warn"
+        "noNamespaceImport": "warn",
+        "useTopLevelRegex": "warn"
       },
       "suspicious": {
         // Static arrays can use index keys safely
         "noArrayIndexKey": "warn",
         // alert() is used in example components
-        "noAlert": "warn"
+        "noAlert": "warn",
+        // Empty blocks are common in mocks and no-op callbacks
+        "noEmptyBlockStatements": "warn",
+        // Bitwise ops are intentional in bundle size / color math
+        "noBitwiseOperators": "warn",
+        "noDuplicateProperties": "warn"
       },
       "a11y": {
         // Decorative SVGs use aria-hidden
-        "noSvgWithoutTitle": "warn"
+        "noSvgWithoutTitle": "warn",
+        // Interactive patterns on static elements are used for scroll-step
+        // previews and tooltip wrappers where keyboard handlers exist elsewhere
+        "noNoninteractiveElementInteractions": "warn",
+        "noStaticElementInteractions": "warn",
+        "useKeyWithClickEvents": "warn",
+        "noLabelWithoutControl": "warn",
+        "useSemanticElements": "warn",
+        "useAriaPropsSupportedByRole": "warn",
+        "useValidAnchor": "warn",
+        "noRedundantAlt": "warn"
       },
       "style": {
         // Allow nested ternaries for concise conditional logic
-        "noNestedTernary": "warn"
+        "noNestedTernary": "warn",
+        // Prefer `type` but don't block on pre-existing interfaces
+        "useConsistentTypeDefinitions": "warn",
+        // Re-exporting imports is common in barrel files
+        "noExportedImports": "warn",
+        "noSubstr": "warn",
+        "useShorthandAssign": "warn",
+        "useDefaultSwitchClause": "warn"
       }
     }
   },

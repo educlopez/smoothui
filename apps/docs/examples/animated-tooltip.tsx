@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import AnimatedTooltip from "@repo/smoothui/components/animated-tooltip";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 
 export default function AnimatedTooltipDemo() {
   return (
@@ -34,7 +34,9 @@ export default function AnimatedTooltipDemo() {
           }
           placement="top"
         >
-          <SmoothButton size="sm" variant="outline">Rich Content</SmoothButton>
+          <SmoothButton size="sm" variant="outline">
+            Rich Content
+          </SmoothButton>
         </AnimatedTooltip>
 
         <AnimatedTooltip
@@ -42,7 +44,9 @@ export default function AnimatedTooltipDemo() {
           delay={500}
           placement="bottom"
         >
-          <SmoothButton size="sm" variant="outline">With Delay</SmoothButton>
+          <SmoothButton size="sm" variant="outline">
+            With Delay
+          </SmoothButton>
         </AnimatedTooltip>
       </div>
     </div>

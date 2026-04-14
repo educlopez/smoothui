@@ -1,6 +1,6 @@
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "../../../test-utils/render";
-import userEvent from "@testing-library/user-event";
 import Checkbox from "../index";
 
 describe("Checkbox interactions", () => {
@@ -12,7 +12,7 @@ describe("Checkbox interactions", () => {
       <div>
         <label htmlFor="cb">Accept</label>
         <Checkbox id="cb" onCheckedChange={onCheckedChange} />
-      </div>,
+      </div>
     );
 
     const checkbox = screen.getByRole("checkbox");
@@ -29,7 +29,7 @@ describe("Checkbox interactions", () => {
       <div>
         <label htmlFor="cb-key">Toggle</label>
         <Checkbox id="cb-key" onCheckedChange={onCheckedChange} />
-      </div>,
+      </div>
     );
 
     const checkbox = screen.getByRole("checkbox");
@@ -44,7 +44,7 @@ describe("Checkbox interactions", () => {
       <div>
         <label htmlFor="cb-ind">Select all</label>
         <Checkbox id="cb-ind" indeterminate />
-      </div>,
+      </div>
     );
 
     const checkbox = screen.getByRole("checkbox");
@@ -58,8 +58,8 @@ describe("Checkbox interactions", () => {
     render(
       <div>
         <label htmlFor="cb-dis">Disabled</label>
-        <Checkbox id="cb-dis" disabled onCheckedChange={onCheckedChange} />
-      </div>,
+        <Checkbox disabled id="cb-dis" onCheckedChange={onCheckedChange} />
+      </div>
     );
 
     const checkbox = screen.getByRole("checkbox");
@@ -72,8 +72,8 @@ describe("Checkbox interactions", () => {
     render(
       <div>
         <label htmlFor="cb-checked">Checked</label>
-        <Checkbox id="cb-checked" checked />
-      </div>,
+        <Checkbox checked id="cb-checked" />
+      </div>
     );
 
     const checkbox = screen.getByRole("checkbox");

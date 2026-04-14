@@ -1,30 +1,29 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import type React from "react";
+import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface CheckboxProps {
   /** Whether the checkbox is checked */
   checked?: boolean;
-  /** Whether the checkbox is in an indeterminate state */
-  indeterminate?: boolean;
-  /** Callback when the checked state changes */
-  onCheckedChange?: (checked: boolean) => void;
-  /** Whether the checkbox is disabled */
-  disabled?: boolean;
   /** Optional CSS class */
   className?: string;
-  /** Accessible name for the checkbox */
-  name?: string;
-  /** Value attribute for form submission */
-  value?: string;
+  /** Whether the checkbox is disabled */
+  disabled?: boolean;
   /** ID for label association */
   id?: string;
+  /** Whether the checkbox is in an indeterminate state */
+  indeterminate?: boolean;
+  /** Accessible name for the checkbox */
+  name?: string;
+  /** Callback when the checked state changes */
+  onCheckedChange?: (checked: boolean) => void;
   /** Whether the checkbox is required */
   required?: boolean;
+  /** Value attribute for form submission */
+  value?: string;
 }
 
 const CheckmarkPath = motion.path;
@@ -61,8 +60,8 @@ export default function Checkbox({
       aria-checked={indeterminate ? "mixed" : checked}
       checked={indeterminate ? "indeterminate" : checked}
       className={cn(
-        "peer border-input data-[state=unchecked]:bg-background dark:data-[state=unchecked]:bg-input/30 data-[state=checked]:bg-foreground data-[state=checked]:text-background data-[state=indeterminate]:bg-foreground data-[state=indeterminate]:text-background data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-        className,
+        "peer size-4 shrink-0 rounded-[4px] border border-input shadow-xs outline-none transition-shadow focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground data-[state=checked]:bg-foreground data-[state=indeterminate]:bg-foreground data-[state=unchecked]:bg-background data-[state=checked]:text-background data-[state=indeterminate]:text-background dark:data-[state=unchecked]:bg-input/30 dark:aria-invalid:ring-destructive/40",
+        className
       )}
       data-slot="checkbox"
       disabled={disabled}
@@ -80,7 +79,9 @@ export default function Checkbox({
         <AnimatePresence mode="wait">
           {derivedState === "checked" && (
             <MotionSvg
-              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+              }
               className="size-3.5"
               exit={
                 shouldReduceMotion
@@ -88,7 +89,9 @@ export default function Checkbox({
                   : { opacity: 0, scale: 0.8 }
               }
               fill="none"
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+              }
               key="check"
               stroke="currentColor"
               strokeLinecap="round"
@@ -112,7 +115,9 @@ export default function Checkbox({
           )}
           {derivedState === "indeterminate" && (
             <MotionSvg
-              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+              }
               className="size-3.5"
               exit={
                 shouldReduceMotion
@@ -120,7 +125,9 @@ export default function Checkbox({
                   : { opacity: 0, scale: 0.8 }
               }
               fill="none"
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
+              }
               key="indeterminate"
               stroke="currentColor"
               strokeLinecap="round"

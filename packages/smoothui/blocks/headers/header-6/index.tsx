@@ -24,9 +24,7 @@ export function HeroMinimal() {
             className="font-bold text-4xl tracking-tight md:text-5xl lg:text-6xl"
             id="hero-minimal-heading"
             initial={
-              shouldReduceMotion
-                ? undefined
-                : { letterSpacing: "0.05em" }
+              shouldReduceMotion ? undefined : { letterSpacing: "0.05em" }
             }
             transition={
               shouldReduceMotion

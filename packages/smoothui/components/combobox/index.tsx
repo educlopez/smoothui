@@ -1,13 +1,5 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import SmoothButton from "../smooth-button";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@repo/shadcn-ui/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -16,46 +8,54 @@ import {
   CommandItem,
   CommandList,
 } from "@repo/shadcn-ui/components/ui/command";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@repo/shadcn-ui/components/ui/popover";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { CheckIcon, ChevronsUpDownIcon, LoaderIcon } from "lucide-react";
-import { SPRING_DEFAULT, DURATION_INSTANT } from "../../lib/animation";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { DURATION_INSTANT, SPRING_DEFAULT } from "../../lib/animation";
+import SmoothButton from "../smooth-button";
 
 export interface ComboboxOption {
-  /** The value of the option */
-  value: string;
-  /** The display label for the option */
-  label: string;
   /** Whether the option is disabled */
   disabled?: boolean;
+  /** The display label for the option */
+  label: string;
+  /** The value of the option */
+  value: string;
 }
 
 export interface ComboboxProps {
-  /** The controlled selected value */
-  value?: string;
-  /** Callback when the selected value changes */
-  onValueChange?: (value: string) => void;
-  /** Static list of options (used when onSearch is not provided) */
-  options?: ComboboxOption[];
-  /** Async search callback — receives the query string, returns filtered options */
-  onSearch?: (query: string) => Promise<ComboboxOption[]>;
-  /** Debounce delay in ms for the onSearch callback */
-  searchDebounce?: number;
-  /** Placeholder text for the trigger button */
-  placeholder?: string;
-  /** Placeholder text for the search input */
-  searchPlaceholder?: string;
-  /** Text shown when no results match */
-  emptyText?: string;
-  /** Whether the combobox is disabled */
-  disabled?: boolean;
-  /** Additional CSS class names for the trigger button */
-  className?: string;
-  /** Additional CSS class names for the popover content */
-  contentClassName?: string;
   /** Accessible label for the combobox */
   "aria-label"?: string;
   /** ID of element that labels this combobox */
   "aria-labelledby"?: string;
+  /** Additional CSS class names for the trigger button */
+  className?: string;
+  /** Additional CSS class names for the popover content */
+  contentClassName?: string;
+  /** Whether the combobox is disabled */
+  disabled?: boolean;
+  /** Text shown when no results match */
+  emptyText?: string;
+  /** Async search callback — receives the query string, returns filtered options */
+  onSearch?: (query: string) => Promise<ComboboxOption[]>;
+  /** Callback when the selected value changes */
+  onValueChange?: (value: string) => void;
+  /** Static list of options (used when onSearch is not provided) */
+  options?: ComboboxOption[];
+  /** Placeholder text for the trigger button */
+  placeholder?: string;
+  /** Debounce delay in ms for the onSearch callback */
+  searchDebounce?: number;
+  /** Placeholder text for the search input */
+  searchPlaceholder?: string;
+  /** The controlled selected value */
+  value?: string;
 }
 
 const MotionCommandItem = motion.create(CommandItem);
@@ -82,17 +82,19 @@ export default function Combobox({
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const displayOptions = onSearch ? asyncOptions : staticOptions ?? [];
+  const displayOptions = onSearch ? asyncOptions : (staticOptions ?? []);
 
   const selectedLabel = displayOptions.find(
-    (opt) => opt.value === value,
+    (opt) => opt.value === value
   )?.label;
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
       setQuery(searchQuery);
 
-      if (!onSearch) return;
+      if (!onSearch) {
+        return;
+      }
 
       if (debounceRef.current) {
         clearTimeout(debounceRef.current);
@@ -108,7 +110,7 @@ export default function Combobox({
         }
       }, searchDebounce);
     },
-    [onSearch, searchDebounce],
+    [onSearch, searchDebounce]
   );
 
   // Load initial async options when popover opens
@@ -140,28 +142,28 @@ export default function Combobox({
   const itemTransition = shouldReduceMotion ? DURATION_INSTANT : SPRING_DEFAULT;
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover onOpenChange={setOpen} open={open}>
       <PopoverTrigger asChild>
         <SmoothButton
-          type="button"
-          variant="outline"
-          role="combobox"
           aria-expanded={open}
           aria-haspopup="listbox"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
-          disabled={disabled}
           className={cn(
             "h-9 w-full justify-between px-3 py-2 text-left font-normal [&:hover_*]:text-white",
             !selectedLabel && "text-muted-foreground",
             shouldReduceMotion && "!transition-none !duration-0",
-            className,
+            className
           )}
+          disabled={disabled}
+          role="combobox"
+          type="button"
+          variant="outline"
         >
           <span
             className={cn(
               "truncate transition-colors",
-              !selectedLabel && "text-muted-foreground",
+              !selectedLabel && "text-muted-foreground"
             )}
           >
             {selectedLabel ?? placeholder}
@@ -170,38 +172,36 @@ export default function Combobox({
         </SmoothButton>
       </PopoverTrigger>
       <PopoverContent
+        align="start"
         className={cn(
           "w-[var(--radix-popover-trigger-width)] p-0",
           shouldReduceMotion && "!animate-none !transition-none !duration-0",
-          contentClassName,
+          contentClassName
         )}
-        align="start"
       >
         <Command shouldFilter={!onSearch}>
           <CommandInput
+            className=""
+            onValueChange={handleSearch}
             placeholder={searchPlaceholder}
             value={query}
-            onValueChange={handleSearch}
-            className=""
           />
           <CommandList>
             <AnimatePresence>
               {loading && (
                 <motion.div
-                  className="flex items-center justify-center py-4"
-                  initial={
-                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }
-                  }
                   animate={{ opacity: 1 }}
+                  className="flex items-center justify-center py-4"
                   exit={
                     shouldReduceMotion
                       ? { opacity: 0, transition: DURATION_INSTANT }
                       : { opacity: 0 }
                   }
+                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                   transition={itemTransition}
                 >
-                  <LoaderIcon className="text-muted-foreground size-4 animate-spin" />
-                  <span className="text-muted-foreground ml-2 text-sm">
+                  <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
+                  <span className="ml-2 text-muted-foreground text-sm">
                     Loading…
                   </span>
                 </motion.div>
@@ -214,17 +214,16 @@ export default function Combobox({
               <CommandGroup>
                 {displayOptions.map((option, index) => (
                   <MotionCommandItem
-                    key={option.value}
-                    value={option.value}
-                    keywords={[option.label]}
+                    animate={{ opacity: 1, transform: "translateY(0px)" }}
                     disabled={option.disabled}
-                    onSelect={handleSelect}
                     initial={
                       shouldReduceMotion
                         ? { opacity: 1 }
                         : { opacity: 0, transform: "translateY(4px)" }
                     }
-                    animate={{ opacity: 1, transform: "translateY(0px)" }}
+                    key={option.value}
+                    keywords={[option.label]}
+                    onSelect={handleSelect}
                     transition={
                       shouldReduceMotion
                         ? DURATION_INSTANT
@@ -233,11 +232,12 @@ export default function Combobox({
                             delay: index * 0.02,
                           }
                     }
+                    value={option.value}
                   >
                     <CheckIcon
                       className={cn(
                         "mr-2 size-4 shrink-0",
-                        value === option.value ? "opacity-100" : "opacity-0",
+                        value === option.value ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {option.label}

@@ -5,8 +5,6 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 export interface FaqCategorizedProps {
-  title?: string;
-  description?: string;
   categories?: Array<{
     name: string;
     faqs: Array<{
@@ -14,6 +12,8 @@ export interface FaqCategorizedProps {
       answer: string;
     }>;
   }>;
+  description?: string;
+  title?: string;
 }
 
 const defaultCategories = [

@@ -1,7 +1,11 @@
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "../../../test-utils/render";
-import userEvent from "@testing-library/user-event";
-import Dialog, { AlertDialog, AlertDialogAction, AlertDialogCancel } from "../index";
+import Dialog, {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "../index";
 
 describe("Dialog interactions", () => {
   it("renders trigger and opens on click", async () => {
@@ -10,13 +14,13 @@ describe("Dialog interactions", () => {
 
     render(
       <Dialog
-        title="Test Dialog"
         description="Description"
-        trigger={<button type="button">Open</button>}
         onOpenChange={onOpenChange}
+        title="Test Dialog"
+        trigger={<button type="button">Open</button>}
       >
         <p>Content</p>
-      </Dialog>,
+      </Dialog>
     );
 
     const trigger = screen.getByRole("button", { name: "Open" });
@@ -29,9 +33,9 @@ describe("Dialog interactions", () => {
     const onOpenChange = vi.fn();
 
     render(
-      <Dialog open title="Test" onOpenChange={onOpenChange}>
+      <Dialog onOpenChange={onOpenChange} open title="Test">
         <p>Content</p>
-      </Dialog>,
+      </Dialog>
     );
 
     await user.keyboard("{Escape}");
@@ -40,9 +44,9 @@ describe("Dialog interactions", () => {
 
   it("renders title and description", () => {
     render(
-      <Dialog open title="My Title" description="My Description">
+      <Dialog description="My Description" open title="My Title">
         <p>Body</p>
-      </Dialog>,
+      </Dialog>
     );
 
     expect(screen.getByText("My Title")).toBeInTheDocument();
@@ -51,9 +55,9 @@ describe("Dialog interactions", () => {
 
   it("renders footer content", () => {
     render(
-      <Dialog open title="Test" footer={<button type="button">Save</button>}>
+      <Dialog footer={<button type="button">Save</button>} open title="Test">
         <p>Content</p>
-      </Dialog>,
+      </Dialog>
     );
 
     expect(screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
@@ -64,8 +68,6 @@ describe("AlertDialog interactions", () => {
   it("renders action and cancel buttons", () => {
     render(
       <AlertDialog
-        open
-        title="Confirm"
         description="Are you sure?"
         footer={
           <>
@@ -73,12 +75,14 @@ describe("AlertDialog interactions", () => {
             <AlertDialogAction>Continue</AlertDialogAction>
           </>
         }
-      />,
+        open
+        title="Confirm"
+      />
     );
 
     expect(screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Continue" }),
+      screen.getByRole("button", { name: "Continue" })
     ).toBeInTheDocument();
   });
 
@@ -88,16 +92,16 @@ describe("AlertDialog interactions", () => {
 
     render(
       <AlertDialog
-        open
-        title="Confirm"
-        onOpenChange={onOpenChange}
         footer={
           <>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction>OK</AlertDialogAction>
           </>
         }
-      />,
+        onOpenChange={onOpenChange}
+        open
+        title="Confirm"
+      />
     );
 
     await user.click(screen.getByRole("button", { name: "Cancel" }));

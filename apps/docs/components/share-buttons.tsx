@@ -4,8 +4,8 @@ import { Check, Copy, Linkedin, Twitter } from "lucide-react";
 import { useState } from "react";
 
 interface ShareButtonsProps {
-  url: string;
   title: string;
+  url: string;
 }
 
 export function ShareButtons({ url, title }: ShareButtonsProps) {

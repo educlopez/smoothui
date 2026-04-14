@@ -4,8 +4,8 @@ import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 
 interface PreviewCodeProps {
   code: string;
-  language: string;
   filename: string;
+  language: string;
 }
 
 export const PreviewCode = ({ code, language }: PreviewCodeProps) => (

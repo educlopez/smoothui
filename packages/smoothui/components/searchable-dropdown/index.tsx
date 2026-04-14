@@ -8,19 +8,19 @@ import { createPortal } from "react-dom";
 const ROTATION_ANGLE_OPEN = 180;
 
 export interface SearchableDropdownItem {
+  description?: string;
+  icon?: React.ReactNode;
   id: string | number;
   label: string;
-  icon?: React.ReactNode;
-  description?: string;
 }
 
 export interface SearchableDropdownProps {
-  label: string;
+  className?: string;
+  emptyMessage?: string;
   items: SearchableDropdownItem[];
+  label: string;
   onChange?: (item: SearchableDropdownItem) => void;
   placeholder?: string;
-  emptyMessage?: string;
-  className?: string;
 }
 
 export default function SearchableDropdown({

@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import BasicModal from "@repo/smoothui/components/basic-modal";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
 const Example = () => {

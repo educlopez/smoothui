@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  Drawer as DrawerPrimitive,
   DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,
+  Drawer as DrawerPrimitive,
   DrawerTitle,
   DrawerTrigger,
 } from "@repo/shadcn-ui/components/ui/drawer";
@@ -29,24 +29,24 @@ const STAGGER_CHILD_DELAY = 0.05;
 export type DrawerSide = "top" | "right" | "bottom" | "left";
 
 export interface DrawerProps {
-  /** Whether the drawer is open */
-  open?: boolean;
+  /** Drawer content */
+  children?: React.ReactNode;
+  /** Additional CSS class names */
+  className?: string;
+  /** Description displayed below the title */
+  description?: string;
+  /** Footer content */
+  footer?: React.ReactNode;
   /** Callback when the open state changes */
   onOpenChange?: (open: boolean) => void;
+  /** Whether the drawer is open */
+  open?: boolean;
   /** The side from which the drawer opens */
   side?: DrawerSide;
   /** Title displayed in the drawer header */
   title?: string;
-  /** Description displayed below the title */
-  description?: string;
-  /** Additional CSS class names */
-  className?: string;
-  /** Drawer content */
-  children?: React.ReactNode;
   /** Trigger element that opens the drawer */
   trigger?: React.ReactNode;
-  /** Footer content */
-  footer?: React.ReactNode;
 }
 
 /* ------------------------------------------------------------------ */
@@ -110,7 +110,7 @@ const AnimatedHandle = ({
             opacity: [0.5, 1, 0.5],
           }
     }
-    className="bg-muted mx-auto mt-4 h-2 w-[100px] shrink-0 rounded-full"
+    className="mx-auto mt-4 h-2 w-[100px] shrink-0 rounded-full bg-muted"
     transition={
       shouldReduceMotion
         ? { duration: 0 }
@@ -160,13 +160,13 @@ export default function Drawer({
   return (
     <DrawerPrimitive
       direction={side}
-      open={vaulOpen}
       onOpenChange={(next) => {
         if (!next && isAnimatingOut) {
           return; // Ignore vaul's close during our exit animation
         }
         onOpenChange?.(next);
       }}
+      open={vaulOpen}
     >
       {trigger && <DrawerTrigger asChild>{trigger}</DrawerTrigger>}
 
@@ -180,8 +180,9 @@ export default function Drawer({
           // Hide vaul's default CSS transition — we animate with motion
           "!transition-none !duration-0",
           // Hide the default handle for bottom drawers — we render our own animated one
-          side === "bottom" && "[&>[class*='h-2'][class*='rounded-full']]:hidden",
-          className,
+          side === "bottom" &&
+            "[&>[class*='h-2'][class*='rounded-full']]:hidden",
+          className
         )}
       >
         {/* Animated handle for bottom drawers */}
@@ -192,11 +193,7 @@ export default function Drawer({
         <AnimatePresence onExitComplete={handleExitComplete}>
           {open && (
             <motion.div
-              animate={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1 }
-              }
+              animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
@@ -232,9 +229,7 @@ export default function Drawer({
               {/* Staggered footer */}
               {footer && (
                 <StaggerChild
-                  index={
-                    (title || description ? 1 : 0) + (children ? 1 : 0)
-                  }
+                  index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                   shouldReduceMotion={shouldReduceMotion}
                 >
                   <DrawerFooter>{footer}</DrawerFooter>

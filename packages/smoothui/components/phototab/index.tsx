@@ -13,29 +13,29 @@ import { useLayoutEffect, useRef, useState } from "react";
  * Tab definition for Phototab
  */
 export interface PhototabTab {
-  /** Tab label */
-  name: string;
   /** Tab icon (ReactNode) */
   icon: React.ReactNode;
   /** Tab image (string: URL or import) */
   image: string;
+  /** Tab label */
+  name: string;
 }
 
 export interface PhototabProps {
-  /** Array of tabs to display */
-  tabs: PhototabTab[];
+  /** Class name for root */
+  className?: string;
   /** Default selected tab name */
   defaultTab?: string;
   /** Height of the component in pixels */
   height?: number;
-  /** Class name for root */
-  className?: string;
-  /** Class name for tab list */
-  tabListClassName?: string;
-  /** Class name for tab trigger */
-  tabTriggerClassName?: string;
   /** Class name for image */
   imageClassName?: string;
+  /** Class name for tab list */
+  tabListClassName?: string;
+  /** Array of tabs to display */
+  tabs: PhototabTab[];
+  /** Class name for tab trigger */
+  tabTriggerClassName?: string;
 }
 
 export default function Phototab({

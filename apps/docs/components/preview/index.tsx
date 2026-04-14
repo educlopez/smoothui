@@ -5,8 +5,8 @@ import { PreviewRender } from "./render";
 import { PreviewShell } from "./shell";
 
 interface PreviewProps {
-  path: string;
   className?: string;
+  path: string;
   type?: "component" | "block";
 }
 
@@ -82,8 +82,8 @@ interface SourceComponent {
 interface GatherSourceArgs {
   code: string;
   parsedCode: string;
-  type: "component" | "block";
   path: string;
+  type: "component" | "block";
 }
 
 const stripExtension = (value: string) =>

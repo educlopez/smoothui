@@ -5,7 +5,7 @@ import Pagination from "../index";
 describe("Pagination", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <Pagination page={1} totalPages={10} onPageChange={vi.fn()} />
+      <Pagination onPageChange={vi.fn()} page={1} totalPages={10} />
     );
     expect(container).toBeInTheDocument();
   });

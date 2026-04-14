@@ -1,12 +1,12 @@
 import { motion, useReducedMotion } from "motion/react";
 
 export interface AnimatedProgressBarProps {
-  value: number; // 0-100
-  label?: string;
-  color?: string;
-  className?: string;
   barClassName?: string;
+  className?: string;
+  color?: string;
+  label?: string;
   labelClassName?: string;
+  value: number; // 0-100
   /**
    * To replay the animation, change the React 'key' prop on this component from the parent.
    */

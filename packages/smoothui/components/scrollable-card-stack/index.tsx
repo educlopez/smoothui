@@ -15,20 +15,20 @@ const HOVER_SCALE_MULTIPLIER = 1.02;
 const CARD_PADDING = 100;
 
 interface CardItem {
-  id: string;
-  name: string;
-  handle: string;
   avatar: string;
-  image: string;
+  handle: string;
   href: string;
+  id: string;
+  image: string;
+  name: string;
 }
 
 export interface ScrollableCardStackProps {
-  items: CardItem[];
   cardHeight?: number;
+  className?: string;
+  items: CardItem[];
   perspective?: number;
   transitionDuration?: number;
-  className?: string;
 }
 
 const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({

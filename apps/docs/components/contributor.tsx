@@ -8,12 +8,12 @@ import { GitBranch, UserIcon } from "lucide-react";
 import Image from "next/image";
 
 interface ContributorProps {
+  contributors?: ContributorInfo[];
   creator: {
     name: string;
     url?: string;
     avatar?: string;
   };
-  contributors?: ContributorInfo[];
 }
 
 export const Contributor = ({

@@ -25,10 +25,10 @@ const WORDMARK_SVG = `<svg width="439" height="82" viewBox="0 0 439 82" fill="no
 </svg>`;
 
 interface LogoContextMenuContextValue {
-  isOpen: boolean;
-  position: { x: number; y: number };
-  openMenu: (e: React.MouseEvent) => void;
   closeMenu: () => void;
+  isOpen: boolean;
+  openMenu: (e: React.MouseEvent) => void;
+  position: { x: number; y: number };
 }
 
 const LogoContextMenuContext =

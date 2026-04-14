@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { render } from "../../../test-utils/render";
 import { axe } from "vitest-axe";
+import { render } from "../../../test-utils/render";
 import Checkbox from "../index";
 
 describe("Checkbox a11y", () => {
@@ -9,7 +9,7 @@ describe("Checkbox a11y", () => {
       <div>
         <label htmlFor="test-cb">Accept terms</label>
         <Checkbox id="test-cb" />
-      </div>,
+      </div>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -19,8 +19,8 @@ describe("Checkbox a11y", () => {
     const { container } = render(
       <div>
         <label htmlFor="test-cb-checked">Accept terms</label>
-        <Checkbox id="test-cb-checked" checked />
-      </div>,
+        <Checkbox checked id="test-cb-checked" />
+      </div>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -31,7 +31,7 @@ describe("Checkbox a11y", () => {
       <div>
         <label htmlFor="test-cb-indeterminate">Select all</label>
         <Checkbox id="test-cb-indeterminate" indeterminate />
-      </div>,
+      </div>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

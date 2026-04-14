@@ -10,13 +10,9 @@ export default function CheckboxDemo() {
   return (
     <div className="flex w-full max-w-xs flex-col gap-6 p-8">
       <div className="flex items-center gap-3">
-        <Checkbox
-          checked={checked}
-          id="terms"
-          onCheckedChange={setChecked}
-        />
+        <Checkbox checked={checked} id="terms" onCheckedChange={setChecked} />
         <label
-          className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+          className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           htmlFor="terms"
         >
           Accept terms and conditions
@@ -31,7 +27,7 @@ export default function CheckboxDemo() {
           onCheckedChange={() => setIndeterminate(false)}
         />
         <label
-          className="text-sm font-medium leading-none"
+          className="font-medium text-sm leading-none"
           htmlFor="indeterminate"
         >
           Select all (indeterminate)
@@ -39,13 +35,9 @@ export default function CheckboxDemo() {
       </div>
 
       <div className="flex items-center gap-3">
-        <Checkbox
-          checked={false}
-          disabled
-          id="disabled"
-        />
+        <Checkbox checked={false} disabled id="disabled" />
         <label
-          className="text-sm font-medium leading-none opacity-50"
+          className="font-medium text-sm leading-none opacity-50"
           htmlFor="disabled"
         >
           Disabled checkbox

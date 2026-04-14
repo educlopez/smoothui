@@ -5,17 +5,17 @@ import type React from "react";
 import { useMemo, useState } from "react";
 
 export interface ContributionData {
-  date: string;
   count: number;
+  date: string;
   level: number;
 }
 
 export interface ContributionGraphProps {
-  data?: ContributionData[];
-  year?: number;
   className?: string;
+  data?: ContributionData[];
   showLegend?: boolean;
   showTooltips?: boolean;
+  year?: number;
 }
 
 const WEEKS_IN_YEAR = 53;
@@ -95,10 +95,10 @@ const createDayData = (
 
 // Helper function to check if month should be shown
 interface MonthHeaderCheck {
-  currentYear: number;
-  targetYear: number;
   currentMonth: number;
+  currentYear: number;
   startDateDay: number;
+  targetYear: number;
   weekCount: number;
 }
 const shouldShowMonthHeader = ({

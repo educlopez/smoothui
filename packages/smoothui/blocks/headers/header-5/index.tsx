@@ -20,9 +20,7 @@ export function HeroSpotlight() {
           aria-hidden="true"
           className="pointer-events-none absolute top-0 left-1/2 h-full w-[600px] -translate-x-1/2"
           initial={
-            shouldReduceMotion
-              ? { opacity: 0.15 }
-              : { opacity: 0, scaleX: 0 }
+            shouldReduceMotion ? { opacity: 0.15 } : { opacity: 0, scaleX: 0 }
           }
           style={{
             background:
@@ -42,7 +40,10 @@ export function HeroSpotlight() {
         />
 
         {/* Floating particles */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0"
+        >
           {Array.from({ length: 20 }, (_, i) => (
             <div
               className="absolute h-1 w-1 rounded-full bg-white/20"
@@ -77,15 +78,22 @@ export function HeroSpotlight() {
             >
               Build stunning interfaces
             </h1>
-            <p className="mx-auto mt-6 max-w-xl text-zinc-400 text-lg">
+            <p className="mx-auto mt-6 max-w-xl text-lg text-zinc-400">
               Beautifully animated components built with React, Motion, and
               Tailwind CSS. Open source and ready for production.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
-              <SmoothButton className="bg-white text-zinc-900 hover:bg-zinc-200" size="lg">
+              <SmoothButton
+                className="bg-white text-zinc-900 hover:bg-zinc-200"
+                size="lg"
+              >
                 Get Started
               </SmoothButton>
-              <SmoothButton className="border-zinc-700 bg-transparent text-zinc-300 hover:bg-zinc-800" size="lg" variant="outline">
+              <SmoothButton
+                className="border-zinc-700 bg-transparent text-zinc-300 hover:bg-zinc-800"
+                size="lg"
+                variant="outline"
+              >
                 Documentation
               </SmoothButton>
             </div>

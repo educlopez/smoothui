@@ -12,22 +12,22 @@ import {
 export interface AnimatedToggleProps {
   /** Controlled checked state */
   checked?: boolean;
-  /** Default checked state for uncontrolled mode */
-  defaultChecked?: boolean;
-  /** Callback when checked state changes */
-  onChange?: (checked: boolean) => void;
-  /** Visual variant of the toggle */
-  variant?: "default" | "morph" | "icon";
-  /** Icons for on/off states (only used with icon variant) */
-  icons?: { on: ReactNode; off: ReactNode };
-  /** Size of the toggle */
-  size?: "sm" | "md" | "lg";
-  /** Whether the toggle is disabled */
-  disabled?: boolean;
-  /** Accessible label for the toggle */
-  label?: string;
   /** Additional CSS classes */
   className?: string;
+  /** Default checked state for uncontrolled mode */
+  defaultChecked?: boolean;
+  /** Whether the toggle is disabled */
+  disabled?: boolean;
+  /** Icons for on/off states (only used with icon variant) */
+  icons?: { on: ReactNode; off: ReactNode };
+  /** Accessible label for the toggle */
+  label?: string;
+  /** Callback when checked state changes */
+  onChange?: (checked: boolean) => void;
+  /** Size of the toggle */
+  size?: "sm" | "md" | "lg";
+  /** Visual variant of the toggle */
+  variant?: "default" | "morph" | "icon";
 }
 
 const SPRING = {

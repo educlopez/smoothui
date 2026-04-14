@@ -44,10 +44,7 @@ function decorateNode(node: Node, newUrls: Set<string>): Node {
   return node;
 }
 
-export function decorateNewPages(
-  tree: Root,
-  src: typeof source
-): Root {
+export function decorateNewPages(tree: Root, src: typeof source): Root {
   const newUrls = new Set<string>();
 
   for (const page of src.getPages()) {
@@ -57,12 +54,12 @@ export function decorateNewPages(
     }
   }
 
-  if (newUrls.size === 0) return tree;
+  if (newUrls.size === 0) {
+    return tree;
+  }
 
   return {
     ...tree,
-    children: tree.children.map((child: Node) =>
-      decorateNode(child, newUrls)
-    ),
+    children: tree.children.map((child: Node) => decorateNode(child, newUrls)),
   };
 }

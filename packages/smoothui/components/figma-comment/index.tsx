@@ -35,14 +35,14 @@ const BLUR_EASE: [number, number, number, number] = [
 ];
 
 export interface FigmaCommentProps {
-  avatarUrl?: string;
-  avatarAlt?: string;
-  className?: string;
   authorName?: string;
-  timestamp?: string;
+  avatarAlt?: string;
+  avatarUrl?: string;
+  className?: string;
   message?: string;
-  width?: number;
   onOpenChange?: (isOpen: boolean) => void;
+  timestamp?: string;
+  width?: number;
 }
 
 export default function FigmaComment({

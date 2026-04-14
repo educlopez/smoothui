@@ -14,8 +14,8 @@ import {
 } from "../utils/tree.js";
 
 interface AddOptions {
-  path?: string;
   force?: boolean;
+  path?: string;
 }
 
 export async function add(

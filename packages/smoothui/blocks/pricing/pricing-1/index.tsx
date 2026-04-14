@@ -6,8 +6,8 @@ import { motion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 interface PriceFlowProps {
-  value: number;
   className?: string;
+  value: number;
 }
 
 function PriceFlow({ value, className = "" }: PriceFlowProps) {

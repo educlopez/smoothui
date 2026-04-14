@@ -15,11 +15,11 @@ const SLIDE_MAX_DISTANCE = 168;
 const PERCENTAGE_MULTIPLIER = 100;
 
 export interface PowerOffSlideProps {
-  onPowerOff?: () => void;
-  label?: string;
   className?: string;
-  duration?: number;
   disabled?: boolean;
+  duration?: number;
+  label?: string;
+  onPowerOff?: () => void;
 }
 
 export default function PowerOffSlide({

@@ -6,8 +6,10 @@ import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroProductProps {
   badgeText?: string;
-  heading?: string;
   description?: string;
+  heading?: string;
+  imageAlt?: string;
+  imageSrc?: string;
   primaryButton?: {
     text: string;
     url: string;
@@ -16,8 +18,6 @@ interface HeroProductProps {
     text: string;
     url: string;
   };
-  imageSrc?: string;
-  imageAlt?: string;
 }
 
 export function HeroProduct({

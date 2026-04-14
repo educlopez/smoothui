@@ -7,18 +7,18 @@ import { useOnClickOutside } from "usehooks-ts";
 
 export interface Job {
   company: string;
-  title: string;
-  logo: React.ReactNode;
   job_description: string;
-  salary: string;
-  location: string;
-  remote: string;
   job_time: string;
+  location: string;
+  logo: React.ReactNode;
+  remote: string;
+  salary: string;
+  title: string;
 }
 
 export interface JobListingComponentProps {
-  jobs: Job[];
   className?: string;
+  jobs: Job[];
   onJobClick?: (job: Job) => void;
 }
 

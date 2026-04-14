@@ -25,12 +25,12 @@ const ITEM_HOVER_X = 2;
 // ---------------------------------------------------------------------------
 
 export interface SelectOptionProps {
-  /** The value of the option */
-  value: string;
-  /** The display label for the option */
-  label: string;
   /** Whether the option is disabled */
   disabled?: boolean;
+  /** The display label for the option */
+  label: string;
+  /** The value of the option */
+  value: string;
 }
 
 export interface SelectGroupOption {
@@ -41,34 +41,34 @@ export interface SelectGroupOption {
 }
 
 export interface SelectProps {
-  /** The controlled value of the select */
-  value?: string;
-  /** The default value (uncontrolled) */
-  defaultValue?: string;
-  /** Callback when the value changes */
-  onValueChange?: (value: string) => void;
-  /** Placeholder text when no value is selected */
-  placeholder?: string;
-  /** Whether the select is disabled */
-  disabled?: boolean;
-  /** Whether the select is required */
-  required?: boolean;
-  /** The name attribute for form submission */
-  name?: string;
-  /** Flat list of options */
-  options?: SelectOptionProps[];
-  /** Grouped options */
-  groups?: SelectGroupOption[];
-  /** Additional CSS class names for the trigger */
-  className?: string;
-  /** Additional CSS class names for the content dropdown */
-  contentClassName?: string;
-  /** The size of the trigger */
-  size?: "sm" | "default";
   /** Accessible label for the select */
   "aria-label"?: string;
   /** ID of element that labels this select */
   "aria-labelledby"?: string;
+  /** Additional CSS class names for the trigger */
+  className?: string;
+  /** Additional CSS class names for the content dropdown */
+  contentClassName?: string;
+  /** The default value (uncontrolled) */
+  defaultValue?: string;
+  /** Whether the select is disabled */
+  disabled?: boolean;
+  /** Grouped options */
+  groups?: SelectGroupOption[];
+  /** The name attribute for form submission */
+  name?: string;
+  /** Callback when the value changes */
+  onValueChange?: (value: string) => void;
+  /** Flat list of options */
+  options?: SelectOptionProps[];
+  /** Placeholder text when no value is selected */
+  placeholder?: string;
+  /** Whether the select is required */
+  required?: boolean;
+  /** The size of the trigger */
+  size?: "sm" | "default";
+  /** The controlled value of the select */
+  value?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -102,7 +102,7 @@ export default function Select({
   const portalRef = useRef<HTMLDivElement>(null);
 
   const selectedValue =
-    controlledValue !== undefined ? controlledValue : internalValue;
+    controlledValue === undefined ? internalValue : controlledValue;
 
   // Flatten all options for keyboard navigation
   const allOptions: SelectOptionProps[] = (() => {
@@ -123,7 +123,7 @@ export default function Select({
   })();
 
   const selectedLabel = allOptions.find(
-    (opt) => opt.value === selectedValue,
+    (opt) => opt.value === selectedValue
   )?.label;
 
   // ---------------------------------------------------------------------------
@@ -143,7 +143,7 @@ export default function Select({
       setFocusedIndex(-1);
       triggerRef.current?.focus();
     },
-    [controlledValue, onValueChange],
+    [controlledValue, onValueChange]
   );
 
   const handleToggle = useCallback(() => {
@@ -240,12 +240,12 @@ export default function Select({
       } else if (event.key === "ArrowDown") {
         event.preventDefault();
         setFocusedIndex((prev) =>
-          prev < allOptions.length - 1 ? prev + 1 : 0,
+          prev < allOptions.length - 1 ? prev + 1 : 0
         );
       } else if (event.key === "ArrowUp") {
         event.preventDefault();
         setFocusedIndex((prev) =>
-          prev > 0 ? prev - 1 : allOptions.length - 1,
+          prev > 0 ? prev - 1 : allOptions.length - 1
         );
       } else if (event.key === "Enter" && focusedIndex >= 0) {
         event.preventDefault();
@@ -272,27 +272,20 @@ export default function Select({
   // ---------------------------------------------------------------------------
 
   /** Render a single option item with stagger animation */
-  const renderItem = (
-    opt: SelectOptionProps,
-    globalIndex: number,
-  ) => {
+  const renderItem = (opt: SelectOptionProps, globalIndex: number) => {
     const isSelected = opt.value === selectedValue;
     const isFocused = globalIndex === focusedIndex;
 
     return (
       <motion.div
-        key={opt.value}
-        animate={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-        }
-        initial={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -8 }
-        }
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
         exit={
           shouldReduceMotion
             ? { opacity: 0, transition: { duration: 0 } }
             : { opacity: 0, x: -8 }
         }
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -8 }}
+        key={opt.value}
         transition={
           shouldReduceMotion
             ? DURATION_INSTANT
@@ -306,13 +299,13 @@ export default function Select({
         <button
           aria-selected={isSelected}
           className={cn(
-            "relative flex w-full cursor-default items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-left text-sm outline-hidden select-none",
+            "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm py-1.5 pr-8 pl-2 text-left text-sm outline-hidden",
             "transition-colors",
             opt.disabled
               ? "pointer-events-none opacity-50"
               : "hover:bg-accent hover:text-white",
             isFocused && "bg-accent text-white",
-            isSelected && "font-medium",
+            isSelected && "font-medium"
           )}
           disabled={opt.disabled}
           onClick={() => handleSelect(opt)}
@@ -374,7 +367,7 @@ export default function Select({
             }
             className={cn(
               "fixed z-50 origin-top overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
-              contentClassName,
+              contentClassName
             )}
             exit={
               shouldReduceMotion
@@ -424,9 +417,9 @@ export default function Select({
                   return (
                     <div key={group.label}>
                       {groupIdx > 0 && (
-                        <div className="bg-border pointer-events-none -mx-1 my-1 h-px" />
+                        <div className="pointer-events-none -mx-1 my-1 h-px bg-border" />
                       )}
-                      <div className="text-muted-foreground px-2 py-1.5 text-xs">
+                      <div className="px-2 py-1.5 text-muted-foreground text-xs">
                         {group.label}
                       </div>
                       {groupItems}
@@ -465,22 +458,22 @@ export default function Select({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-required={required || undefined}
-          role="combobox"
           className={cn(
-            "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full items-center justify-between gap-2 rounded-md border bg-background px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
+            "flex w-full items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground",
             size === "default" ? "h-9" : "h-8",
-            className,
+            className
           )}
           data-placeholder={!selectedLabel || undefined}
           disabled={disabled}
           onClick={handleToggle}
           ref={triggerRef}
+          role="combobox"
           type="button"
         >
           <span
             className={cn(
               "line-clamp-1 flex items-center gap-2 text-left",
-              !selectedLabel && "text-muted-foreground",
+              !selectedLabel && "text-muted-foreground"
             )}
           >
             {selectedLabel ?? placeholder}
@@ -501,9 +494,9 @@ export default function Select({
         </button>
       </div>
 
-      {typeof window !== "undefined"
-        ? createPortal(dropdownContent, document.body)
-        : null}
+      {typeof window === "undefined"
+        ? null
+        : createPortal(dropdownContent, document.body)}
     </>
   );
 }

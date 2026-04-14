@@ -21,12 +21,7 @@ export type ComponentCategory =
   | "navigation"
   | "other";
 
-export type AnimationType =
-  | "spring"
-  | "tween"
-  | "gesture"
-  | "scroll"
-  | "none";
+export type AnimationType = "spring" | "tween" | "gesture" | "scroll" | "none";
 
 export type Complexity = "simple" | "moderate" | "complex";
 
@@ -42,38 +37,38 @@ export type Complexity = "simple" | "moderate" | "complex";
  * - MDX frontmatter and registry info (derived at build time)
  */
 export interface ComponentMeta {
-  /** kebab-case identifier, e.g. "animated-tabs" */
-  name: string;
-  /** PascalCase display name, e.g. "AnimatedTabs" */
-  displayName: string;
-  /** 1-2 sentence human-readable description */
-  description: string;
+  /** Dominant animation technique */
+  animationType: AnimationType;
   /** Primary UI category */
   category: ComponentCategory;
+  /** Rough complexity level */
+  complexity: Complexity;
+  /** Hints for combining with other components */
+  compositionHints: readonly string[];
+  /** npm packages required (excluding peer deps) */
+  dependencies: readonly string[];
+  /** 1-2 sentence human-readable description */
+  description: string;
+  /** PascalCase display name, e.g. "AnimatedTabs" */
+  displayName: string;
+  /** Full documentation URL */
+  docUrl: string;
+  /** Whether the component respects prefers-reduced-motion */
+  hasReducedMotion: boolean;
+  /** shadcn-style install command */
+  installCommand: string;
+  /** kebab-case identifier, e.g. "animated-tabs" */
+  name: string;
+  /** Number of public props */
+  propsCount: number;
+  /** Other SmoothUI components required */
+  registryDependencies: readonly string[];
+  /** Registry JSON URL */
+  registryUrl: string;
   /** Discoverable tags, e.g. ["animation", "tabs", "navigation"] */
   tags: readonly string[];
   /** Natural-language use-case descriptions */
   useCases: readonly string[];
-  /** Hints for combining with other components */
-  compositionHints: readonly string[];
-  /** Rough complexity level */
-  complexity: Complexity;
-  /** Dominant animation technique */
-  animationType: AnimationType;
-  /** npm packages required (excluding peer deps) */
-  dependencies: readonly string[];
-  /** Other SmoothUI components required */
-  registryDependencies: readonly string[];
-  /** Whether the component respects prefers-reduced-motion */
-  hasReducedMotion: boolean;
-  /** Number of public props */
-  propsCount: number;
-  /** shadcn-style install command */
-  installCommand: string;
-  /** Full documentation URL */
-  docUrl: string;
-  /** Registry JSON URL */
-  registryUrl: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -94,36 +89,36 @@ export type BlockType =
  * Full metadata for a pre-built page block (section).
  */
 export interface BlockMeta {
-  /** kebab-case identifier */
-  name: string;
-  /** PascalCase display name */
-  displayName: string;
-  /** 1-2 sentence description */
-  description: string;
-  /** Block section type */
-  blockType: BlockType;
-  /** SmoothUI components used inside this block */
-  components: readonly string[];
-  /** Primary UI category */
-  category: ComponentCategory;
-  /** Discoverable tags */
-  tags: readonly string[];
-  /** Natural-language use-case descriptions */
-  useCases: readonly string[];
-  /** Rough complexity level */
-  complexity: Complexity;
   /** Dominant animation technique */
   animationType: AnimationType;
+  /** Block section type */
+  blockType: BlockType;
+  /** Primary UI category */
+  category: ComponentCategory;
+  /** Rough complexity level */
+  complexity: Complexity;
+  /** SmoothUI components used inside this block */
+  components: readonly string[];
   /** npm packages required */
   dependencies: readonly string[];
+  /** 1-2 sentence description */
+  description: string;
+  /** PascalCase display name */
+  displayName: string;
+  /** Full documentation URL */
+  docUrl: string;
   /** Whether the block respects prefers-reduced-motion */
   hasReducedMotion: boolean;
   /** shadcn-style install command */
   installCommand: string;
-  /** Full documentation URL */
-  docUrl: string;
+  /** kebab-case identifier */
+  name: string;
   /** Registry JSON URL */
   registryUrl: string;
+  /** Discoverable tags */
+  tags: readonly string[];
+  /** Natural-language use-case descriptions */
+  useCases: readonly string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -135,9 +130,9 @@ export interface BlockMeta {
  */
 export interface PaginatedResponse<T> {
   data: T[];
-  total: number;
   page: number;
   pageSize: number;
+  total: number;
   totalPages: number;
 }
 
@@ -172,21 +167,21 @@ export interface ApiErrorResponse {
 
 /** Supported filter parameters for component list queries */
 export interface ComponentQueryParams {
+  animationType?: AnimationType;
   category?: ComponentCategory;
   complexity?: Complexity;
-  animationType?: AnimationType;
-  tag?: string;
-  search?: string;
   page?: number;
   pageSize?: number;
+  search?: string;
+  tag?: string;
 }
 
 /** Supported filter parameters for block list queries */
 export interface BlockQueryParams {
   blockType?: BlockType;
   complexity?: Complexity;
-  tag?: string;
-  search?: string;
   page?: number;
   pageSize?: number;
+  search?: string;
+  tag?: string;
 }

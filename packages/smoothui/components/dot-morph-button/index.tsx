@@ -5,8 +5,8 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
 export interface DotMorphButtonProps {
-  label: string;
   className?: string;
+  label: string;
   onClick?: () => void;
 }
 

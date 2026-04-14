@@ -17,7 +17,13 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["features", "grid", "cards", "marketing", "animated"],
+    "tags": [
+      "features",
+      "grid",
+      "cards",
+      "marketing",
+      "animated"
+    ],
     "complexity": "simple",
     "animationType": "spring",
     "useCases": [

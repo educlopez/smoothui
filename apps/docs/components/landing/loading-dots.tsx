@@ -5,8 +5,8 @@ import { useEffect, useState } from "react";
 
 interface LoadingDotsProps {
   className?: string;
-  size?: number;
   showText?: boolean;
+  size?: number;
 }
 
 // Wave animation delays for each dot (creates a wave effect)

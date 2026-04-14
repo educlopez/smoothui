@@ -1,6 +1,5 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import {
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import {
   CardTitle,
 } from "@repo/shadcn-ui/components/ui/card";
 import { AnimatedOTPInput } from "@repo/smoothui/components/animated-o-t-p-input";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { CheckCircle, RefreshCw } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
@@ -78,7 +78,11 @@ export function AnimatedOTPInputDemo() {
           )}
 
           <div className="flex justify-center">
-            <SmoothButton className="w-full" onClick={handleReset} variant="outline">
+            <SmoothButton
+              className="w-full"
+              onClick={handleReset}
+              variant="outline"
+            >
               Reset Code
             </SmoothButton>
           </div>

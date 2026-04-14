@@ -27,7 +27,7 @@ export async function GET() {
   const catalogSection = [
     "# SmoothUI Component Catalog",
     "",
-    `> For structured JSON data, see: https://smoothui.dev/llms-components.json`,
+    "> For structured JSON data, see: https://smoothui.dev/llms-components.json",
     "",
     `## Components (${components.length})`,
     "",

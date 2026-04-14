@@ -2,11 +2,11 @@ import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 
 export interface WaveTextProps {
-  children: string;
   amplitude?: number;
+  children: string;
+  className?: string;
   duration?: number;
   staggerDelay?: number;
-  className?: string;
 }
 
 const WaveText: React.FC<WaveTextProps> = ({

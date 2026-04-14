@@ -5,7 +5,7 @@ import Drawer from "../index";
 describe("Drawer", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <Drawer trigger={<button type="button">Open</button>} title="Test Drawer">
+      <Drawer title="Test Drawer" trigger={<button type="button">Open</button>}>
         <p>Content</p>
       </Drawer>
     );

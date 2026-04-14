@@ -8,12 +8,12 @@ import { createPortal } from "react-dom";
 export type ToastType = "success" | "error" | "info" | "warning";
 
 export interface ToastProps {
-  message: string;
-  type?: ToastType;
-  duration?: number;
-  onClose?: () => void;
-  isVisible?: boolean;
   className?: string;
+  duration?: number;
+  isVisible?: boolean;
+  message: string;
+  onClose?: () => void;
+  type?: ToastType;
 }
 
 const toastIcons = {

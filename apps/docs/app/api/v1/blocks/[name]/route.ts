@@ -1,8 +1,5 @@
 import { getBlockCatalog } from "@docs/lib/component-catalog";
-import {
-  getAllPackageNameMapping,
-  getPackage,
-} from "@docs/lib/package";
+import { getAllPackageNameMapping, getPackage } from "@docs/lib/package";
 import type { BlockDetailResponse } from "@smoothui/data";
 import type { NextRequest } from "next/server";
 import { errorResponse, jsonResponse } from "../../_shared";
@@ -40,10 +37,7 @@ export const GET = async (
       if (fullPackageName) {
         const pkg = await getPackage(fullPackageName);
         const source = pkg.files
-          ?.map(
-            (f) =>
-              `// --- ${f.path} ---\n${f.content ?? ""}`
-          )
+          ?.map((f) => `// --- ${f.path} ---\n${f.content ?? ""}`)
           .join("\n\n");
 
         if (source) {

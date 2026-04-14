@@ -35,9 +35,9 @@ const featureCardBarVariants = cva("h-full w-1 rounded-full bg-linear-to-b", {
 });
 
 interface FeatureCardProps {
-  title: string;
   children: ReactNode;
   className?: string;
+  title: string;
   variant?: VariantProps<typeof featureCardVariants>["variant"];
 }
 

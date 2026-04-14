@@ -1,11 +1,11 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import SmoothButton from "../smooth-button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useCallback, useId, useMemo } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
+import SmoothButton from "../smooth-button";
 
 export type PaginationProps = {
   /** Current active page (1-indexed). */
@@ -95,16 +95,19 @@ export default function Pagination({
   );
 
   const handlePrev = useCallback(() => {
-    if (page > 1) onPageChange(page - 1);
+    if (page > 1) {
+      onPageChange(page - 1);
+    }
   }, [page, onPageChange]);
 
   const handleNext = useCallback(() => {
-    if (page < totalPages) onPageChange(page + 1);
+    if (page < totalPages) {
+      onPageChange(page + 1);
+    }
   }, [page, totalPages, onPageChange]);
 
   return (
     <nav
-      role="navigation"
       aria-label="Pagination"
       className={cn("mx-auto flex w-full justify-center", className)}
     >
@@ -112,13 +115,13 @@ export default function Pagination({
         {/* Previous button */}
         <li>
           <SmoothButton
-            type="button"
-            variant="ghost"
-            size="sm"
             aria-label="Go to previous page"
+            className="gap-1 px-2.5"
             disabled={page <= 1}
             onClick={handlePrev}
-            className="gap-1 px-2.5"
+            size="sm"
+            type="button"
+            variant="ghost"
           >
             <ChevronLeft className="size-4" />
             <span className="hidden sm:block">Previous</span>
@@ -130,9 +133,9 @@ export default function Pagination({
           if (item === ELLIPSIS) {
             return (
               <li
-                key={`ellipsis-${String(index)}`}
                 aria-hidden="true"
                 className="flex size-9 items-center justify-center"
+                key={`ellipsis-${String(index)}`}
               >
                 <motion.span
                   animate={
@@ -140,7 +143,7 @@ export default function Pagination({
                       ? { opacity: 1 }
                       : { opacity: 1, transform: "translateY(0px)" }
                   }
-                  className="text-sm text-muted-foreground"
+                  className="text-muted-foreground text-sm"
                   initial={
                     shouldReduceMotion
                       ? { opacity: 1 }
@@ -186,18 +189,16 @@ export default function Pagination({
               }
             >
               <SmoothButton
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label={`Go to page ${String(item)}`}
                 aria-current={isActive ? "page" : undefined}
-                onClick={() => onPageChange(item)}
+                aria-label={`Go to page ${String(item)}`}
                 className={cn(
                   "relative size-9",
-                  isActive
-                    ? "text-foreground"
-                    : "text-muted-foreground"
+                  isActive ? "text-foreground" : "text-muted-foreground"
                 )}
+                onClick={() => onPageChange(item)}
+                size="icon"
+                type="button"
+                variant="ghost"
               >
                 {isActive && (
                   <motion.span
@@ -206,9 +207,7 @@ export default function Pagination({
                     layoutId={layoutId}
                     style={{ originY: "0px" }}
                     transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : SPRING_INDICATOR
+                      shouldReduceMotion ? { duration: 0 } : SPRING_INDICATOR
                     }
                   />
                 )}
@@ -221,13 +220,13 @@ export default function Pagination({
         {/* Next button */}
         <li>
           <SmoothButton
-            type="button"
-            variant="ghost"
-            size="sm"
             aria-label="Go to next page"
+            className="gap-1 px-2.5"
             disabled={page >= totalPages}
             onClick={handleNext}
-            className="gap-1 px-2.5"
+            size="sm"
+            type="button"
+            variant="ghost"
           >
             <span className="hidden sm:block">Next</span>
             <ChevronRight className="size-4" />

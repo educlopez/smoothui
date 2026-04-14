@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 import { cache } from "react";
 
 interface GitHubRepoResponse {
-  stargazers_count: number;
   forks_count: number;
   full_name: string;
   html_url: string;
+  stargazers_count: number;
 }
 
 // Use React.cache() for per-request deduplication

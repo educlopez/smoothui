@@ -1,41 +1,41 @@
 export interface RegistryFile {
-  path: string;
   content: string;
-  type: "registry:ui" | "registry:style";
+  path: string;
   target?: string;
+  type: "registry:ui" | "registry:style";
 }
 
 export interface RegistryItem {
   $schema?: string;
-  name: string;
-  type: "registry:ui" | "registry:style";
-  title?: string;
-  description?: string;
-  dependencies?: string[];
-  devDependencies?: string[];
-  registryDependencies?: string[];
-  files: RegistryFile[];
   css?: Record<string, string>;
+  dependencies?: string[];
+  description?: string;
+  devDependencies?: string[];
+  files: RegistryFile[];
+  name: string;
+  registryDependencies?: string[];
+  title?: string;
+  type: "registry:ui" | "registry:style";
 }
 
 export interface Registry {
-  name: string;
   homepage: string;
   items: RegistryItem[];
+  name: string;
 }
 
 export interface TreeNode {
-  component: RegistryItem;
   children: TreeNode[];
+  component: RegistryItem;
 }
 
 export interface ProjectConfig {
-  componentPath: string;
   alias: string;
+  componentPath: string;
   packageManager: "npm" | "pnpm" | "yarn" | "bun";
 }
 
 export interface Category {
-  name: string;
   components: string[];
+  name: string;
 }

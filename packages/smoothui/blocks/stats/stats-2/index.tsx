@@ -10,7 +10,6 @@ const VALUE_DELAY_OFFSET = 0.3;
 const TREND_STAGGER_OFFSET = 0.5;
 
 interface StatsCardsProps {
-  title?: string;
   description?: string;
   stats?: Array<{
     value: string;
@@ -22,6 +21,7 @@ interface StatsCardsProps {
       direction: "up" | "down";
     };
   }>;
+  title?: string;
 }
 
 const iconMap = {

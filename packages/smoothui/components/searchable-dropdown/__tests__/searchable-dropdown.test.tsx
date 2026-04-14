@@ -6,8 +6,8 @@ describe("SearchableDropdown", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <SearchableDropdown
-        label="Pick one"
         items={[{ id: "1", label: "Item 1" }]}
+        label="Pick one"
       />
     );
     expect(container).toBeInTheDocument();

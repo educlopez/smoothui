@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { render } from "../../../test-utils/render";
 import { axe } from "vitest-axe";
+import { render } from "../../../test-utils/render";
 import DropdownMenu from "../index";
 
 const items = [
@@ -13,7 +13,7 @@ describe("DropdownMenu a11y", () => {
     const { container } = render(
       <DropdownMenu items={items}>
         <button type="button">Open menu</button>
-      </DropdownMenu>,
+      </DropdownMenu>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -23,7 +23,7 @@ describe("DropdownMenu a11y", () => {
     const { container } = render(
       <DropdownMenu items={items} open>
         <button type="button">Open menu</button>
-      </DropdownMenu>,
+      </DropdownMenu>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

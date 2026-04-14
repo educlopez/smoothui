@@ -162,11 +162,8 @@
 /* Component PowerOffSlide */
 @layer utilities {
   .loading-shimmer {
+    display: inline-block;
     -webkit-text-fill-color: transparent;
-    animation-delay: 0.5s;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
-    animation-name: loading-shimmer;
     background: var(--text-quaternary)
       gradient(
         linear,
@@ -185,11 +182,14 @@
         color-stop(0.5, var(--text-primary)),
         to(var(--text-quaternary))
       );
-    background-clip: text;
-    -webkit-background-clip: text;
     background-repeat: no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
     background-size: 50% 200%;
-    display: inline-block;
+    animation-name: loading-shimmer;
+    animation-duration: 3s;
+    animation-delay: 0.5s;
+    animation-iteration-count: infinite;
   }
 
   .loading-shimmer {
@@ -197,8 +197,8 @@
   }
   .loading-shimmer:hover {
     -webkit-text-fill-color: var(--text-quaternary);
-    animation: none;
     background: transparent;
+    animation: none;
   }
 
   @keyframes loading-shimmer {

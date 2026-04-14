@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import Skeleton from "@repo/smoothui/components/skeleton-loader";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import Image from "next/image";
 import { useState } from "react";
 

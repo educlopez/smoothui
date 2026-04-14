@@ -102,28 +102,28 @@ export type PresetPattern =
   | "border";
 
 export interface GridLoaderProps {
-  /** Pattern to display - preset name or custom 3x3 matrix */
-  pattern?: PresetPattern | GridMatrix;
-  /** Animation mode */
-  mode?: "pulse" | "sequence" | "stagger";
-  /** Array of patterns for sequence mode */
-  sequence?: Array<PresetPattern | GridMatrix>;
-  /** Animation speed */
-  speed?: "slow" | "normal" | "fast";
-  /** Color preset or custom CSS color */
-  color?: "white" | "red" | "blue" | "green" | "amber" | string;
-  /** Size preset or pixel value */
-  size?: "sm" | "md" | "lg" | "xl" | number;
   /** Blur amount in pixels — creates a soft glow effect */
   blur?: number;
-  /** Gap between cells in pixels */
-  gap?: number;
-  /** Use rounded (circular) cells instead of square */
-  rounded?: boolean;
-  /** Disable animation and show static pattern */
-  static?: boolean;
   /** Additional CSS classes */
   className?: string;
+  /** Color preset or custom CSS color */
+  color?: "white" | "red" | "blue" | "green" | "amber" | string;
+  /** Gap between cells in pixels */
+  gap?: number;
+  /** Animation mode */
+  mode?: "pulse" | "sequence" | "stagger";
+  /** Pattern to display - preset name or custom 3x3 matrix */
+  pattern?: PresetPattern | GridMatrix;
+  /** Use rounded (circular) cells instead of square */
+  rounded?: boolean;
+  /** Array of patterns for sequence mode */
+  sequence?: Array<PresetPattern | GridMatrix>;
+  /** Size preset or pixel value */
+  size?: "sm" | "md" | "lg" | "xl" | number;
+  /** Animation speed */
+  speed?: "slow" | "normal" | "fast";
+  /** Disable animation and show static pattern */
+  static?: boolean;
 }
 
 // Preset patterns as 3x3 matrices
@@ -752,4 +752,4 @@ const GridLoader = ({
 export default GridLoader;
 
 // Export patterns for advanced usage
-export { PATTERNS, COLORS, SIZES };
+export { COLORS, PATTERNS, SIZES };

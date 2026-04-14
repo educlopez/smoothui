@@ -6,11 +6,7 @@ describe("AnimatedStepper", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <AnimatedStepper
-        steps={[
-          { label: "Step 1" },
-          { label: "Step 2" },
-          { label: "Step 3" },
-        ]}
+        steps={[{ label: "Step 1" }, { label: "Step 2" }, { label: "Step 3" }]}
       />
     );
     expect(container).toBeInTheDocument();

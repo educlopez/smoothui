@@ -1,6 +1,6 @@
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "../../../test-utils/render";
-import userEvent from "@testing-library/user-event";
 import Drawer from "../index";
 
 describe("Drawer interactions", () => {
@@ -10,12 +10,12 @@ describe("Drawer interactions", () => {
 
     render(
       <Drawer
+        onOpenChange={onOpenChange}
         title="Test Drawer"
         trigger={<button type="button">Open Drawer</button>}
-        onOpenChange={onOpenChange}
       >
         <p>Drawer content</p>
-      </Drawer>,
+      </Drawer>
     );
 
     const trigger = screen.getByRole("button", { name: "Open Drawer" });
@@ -25,9 +25,9 @@ describe("Drawer interactions", () => {
 
   it("renders title and description when open", () => {
     render(
-      <Drawer open title="Drawer Title" description="Drawer Description">
+      <Drawer description="Drawer Description" open title="Drawer Title">
         <p>Content</p>
-      </Drawer>,
+      </Drawer>
     );
 
     expect(screen.getByText("Drawer Title")).toBeInTheDocument();
@@ -36,9 +36,9 @@ describe("Drawer interactions", () => {
 
   it("renders footer content when open", () => {
     render(
-      <Drawer open title="Test" footer={<button type="button">Submit</button>}>
+      <Drawer footer={<button type="button">Submit</button>} open title="Test">
         <p>Content</p>
-      </Drawer>,
+      </Drawer>
     );
 
     expect(screen.getByRole("button", { name: "Submit" })).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe("Drawer interactions", () => {
     render(
       <Drawer open title="Test">
         <p>Inner content here</p>
-      </Drawer>,
+      </Drawer>
     );
 
     expect(screen.getByText("Inner content here")).toBeInTheDocument();

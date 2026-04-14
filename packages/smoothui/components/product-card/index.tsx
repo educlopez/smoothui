@@ -6,16 +6,16 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useId, useState } from "react";
 
 export interface ProductCardProps {
-  image: string;
-  title: string;
-  price: number;
-  originalPrice?: number;
-  currency?: string;
-  rating?: number;
   badge?: string;
+  className?: string;
+  currency?: string;
+  image: string;
   onAddToCart?: () => void;
   onWishlist?: () => void;
-  className?: string;
+  originalPrice?: number;
+  price: number;
+  rating?: number;
+  title: string;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -83,11 +83,7 @@ function StarIcon({ filled, half }: { filled: boolean; half?: boolean }) {
       strokeWidth={filled ? 0 : 1.5}
       viewBox="0 0 24 24"
     >
-      <path
-        d={STAR_PATH}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d={STAR_PATH} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -102,11 +98,7 @@ function CheckIcon() {
       strokeWidth={2.5}
       viewBox="0 0 24 24"
     >
-      <path
-        d="M5 13l4 4L19 7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -149,10 +141,7 @@ function HeartIcon({ filled }: { filled: boolean }) {
   );
 }
 
-function RatingStars({
-  rating,
-  title,
-}: { rating: number; title: string }) {
+function RatingStars({ rating, title }: { rating: number; title: string }) {
   const fullStars = Math.floor(rating);
   const hasHalf = rating - fullStars >= 0.25 && rating - fullStars < 0.75;
   const roundedUp = rating - fullStars >= 0.75;
@@ -198,9 +187,7 @@ export default function ProductCard({
   const [isWishlisted, setIsWishlisted] = useState(false);
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia(
-      "(hover: hover) and (pointer: fine)"
-    );
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
     setIsHoverDevice(mediaQuery.matches);
     const handler = (e: MediaQueryListEvent) => setIsHoverDevice(e.matches);
     mediaQuery.addEventListener("change", handler);
@@ -226,11 +213,10 @@ export default function ProductCard({
   return (
     <motion.div
       aria-label={`${title} - ${currency}${price}`}
-      role="article"
       className={cn(
         "group relative flex w-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm",
         "transition-shadow duration-300",
-        isHoverDevice && "hover:shadow-xl hover:shadow-black/5",
+        isHoverDevice && "hover:shadow-black/5 hover:shadow-xl",
         className
       )}
       initial={
@@ -238,6 +224,7 @@ export default function ProductCard({
           ? { opacity: 1 }
           : { opacity: 0, transform: "translateY(20px) scale(0.97)" }
       }
+      role="article"
       transition={shouldReduceMotion ? { duration: 0 } : SPRING}
       viewport={{ once: true, margin: "-50px" }}
       whileInView={
@@ -254,9 +241,7 @@ export default function ProductCard({
             "h-full w-full object-cover",
             !shouldReduceMotion &&
               "transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
-            isHoverDevice &&
-              !shouldReduceMotion &&
-              "group-hover:scale-105"
+            isHoverDevice && !shouldReduceMotion && "group-hover:scale-105"
           )}
           src={image}
         />
@@ -308,9 +293,7 @@ export default function ProductCard({
             "absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm",
             "transition-colors duration-150",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-            isHoverDevice
-              ? "opacity-0 group-hover:opacity-100"
-              : "opacity-100"
+            isHoverDevice ? "opacity-0 group-hover:opacity-100" : "opacity-100"
           )}
           onClick={handleWishlist}
           type="button"
@@ -330,9 +313,7 @@ export default function ProductCard({
           {title}
         </h3>
 
-        {rating !== undefined && (
-          <RatingStars rating={rating} title={title} />
-        )}
+        {rating !== undefined && <RatingStars rating={rating} title={title} />}
 
         <div className="flex items-baseline gap-2">
           <span className="font-bold text-foreground text-xl tracking-tight">
@@ -357,8 +338,7 @@ export default function ProductCard({
             aria-label={`Add ${title} to cart`}
             className={cn(
               "w-full gap-2",
-              isAdded &&
-                "bg-emerald-600 text-white hover:bg-emerald-600"
+              isAdded && "bg-emerald-600 text-white hover:bg-emerald-600"
             )}
             disabled={isAdded}
             onClick={handleAddToCart}
@@ -374,9 +354,7 @@ export default function ProductCard({
                   initial={{ opacity: 0, transform: "scale(0.8)" }}
                   key="added"
                   transition={
-                    shouldReduceMotion
-                      ? { duration: 0 }
-                      : { duration: 0.15 }
+                    shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }
                   }
                 >
                   <CheckIcon /> Added
@@ -389,9 +367,7 @@ export default function ProductCard({
                   initial={{ opacity: 0, transform: "scale(0.8)" }}
                   key="cart"
                   transition={
-                    shouldReduceMotion
-                      ? { duration: 0 }
-                      : { duration: 0.15 }
+                    shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }
                   }
                 >
                   <CartIcon /> Add to Cart

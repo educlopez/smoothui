@@ -10,8 +10,8 @@ import Form, {
 } from "@repo/smoothui/components/form";
 import Select from "@repo/smoothui/components/select";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { useState } from "react";
 import type React from "react";
+import { useState } from "react";
 
 const subjectOptions = [
   { value: "general", label: "General inquiry" },
@@ -77,14 +77,19 @@ export default function FormDemo() {
           Thank you, {formData.name}.
         </p>
         <SmoothButton
-          variant="link"
           className="mt-2"
           onClick={() => {
             setSubmitted(false);
-            setFormData({ name: "", email: "", subject: "", acceptTerms: false });
+            setFormData({
+              name: "",
+              email: "",
+              subject: "",
+              acceptTerms: false,
+            });
             setErrors({});
           }}
           type="button"
+          variant="link"
         >
           Reset form
         </SmoothButton>
@@ -99,7 +104,7 @@ export default function FormDemo() {
           <FormLabel>Name</FormLabel>
           <FormControl>
             <input
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:font-medium file:text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, name: e.target.value }))
               }
@@ -115,7 +120,7 @@ export default function FormDemo() {
           <FormLabel>Email</FormLabel>
           <FormControl>
             <input
-              className="border-input bg-background ring-offset-background placeholder:text-muted-foreground focus-visible:ring-ring flex h-10 w-full rounded-md border px-3 py-2 text-sm file:border-0 file:bg-transparent file:font-medium file:text-sm focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, email: e.target.value }))
               }
@@ -153,7 +158,7 @@ export default function FormDemo() {
               }
             />
             <label
-              className="text-sm font-medium leading-none"
+              className="font-medium text-sm leading-none"
               htmlFor="accept-terms"
             >
               I accept the terms and conditions

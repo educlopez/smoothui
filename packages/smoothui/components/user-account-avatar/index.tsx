@@ -11,24 +11,24 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 export interface UserData {
-  name: string;
-  email: string;
   avatar: string;
+  email: string;
+  name: string;
 }
 
 export interface Order {
-  id: string;
   date: string;
-  status: "processing" | "shipped" | "delivered";
+  id: string;
   progress: number;
+  status: "processing" | "shipped" | "delivered";
 }
 
 export interface UserAccountAvatarProps {
-  user: UserData;
-  orders?: Order[];
-  onProfileSave?: (user: UserData) => void;
-  onOrderView?: (orderId: string) => void;
   className?: string;
+  onOrderView?: (orderId: string) => void;
+  onProfileSave?: (user: UserData) => void;
+  orders?: Order[];
+  user: UserData;
 }
 
 const mockOrders: Order[] = [

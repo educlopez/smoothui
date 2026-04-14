@@ -1,6 +1,5 @@
 "use client";
 
-import { useCallback, useRef } from "react";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import {
   type MotionValue,
@@ -10,24 +9,25 @@ import {
   useSpring,
   useTransform,
 } from "motion/react";
+import { useCallback, useRef } from "react";
 
 export interface ExposureSliderProps {
-  /** Minimum value */
-  min?: number;
-  /** Maximum value */
-  max?: number;
-  /** Step size between values */
-  step?: number;
-  /** Initial value */
-  defaultValue?: number;
-  /** Callback fired when the value changes */
-  onChange?: (value: number) => void;
-  /** Show the circular progress indicator with the current value */
-  showIndicator?: boolean;
   /** Accent color for the active notch and progress ring (CSS color value) */
   accentColor?: string;
   /** Additional CSS classes */
   className?: string;
+  /** Initial value */
+  defaultValue?: number;
+  /** Maximum value */
+  max?: number;
+  /** Minimum value */
+  min?: number;
+  /** Callback fired when the value changes */
+  onChange?: (value: number) => void;
+  /** Show the circular progress indicator with the current value */
+  showIndicator?: boolean;
+  /** Step size between values */
+  step?: number;
 }
 
 const NOTCH_WIDTH = 13; // px per notch (3px notch + 10px gap)
@@ -54,14 +54,15 @@ const ExposureSlider = ({
 
   // Raw drag offset and spring-smoothed version
   const rawX = useMotionValue(0);
-  const x = shouldReduceMotion
-    ? rawX
-    : useSpring(rawX, SPRING_CONFIG);
+  const x = shouldReduceMotion ? rawX : useSpring(rawX, SPRING_CONFIG);
 
   // Current value derived from offset
   const currentValue = useTransform(x, (latest) => {
     const indexOffset = Math.round(-latest / NOTCH_WIDTH);
-    const val = Math.max(min, Math.min(max, (centerIndex + indexOffset) * step + min));
+    const val = Math.max(
+      min,
+      Math.min(max, (centerIndex + indexOffset) * step + min)
+    );
     return val;
   });
 
@@ -126,11 +127,16 @@ const ExposureSlider = ({
         "flex w-full max-w-[500px] flex-col items-center gap-6 text-foreground",
         className
       )}
-      style={{ "--es-accent": accentColor ?? DEFAULT_ACCENT } as React.CSSProperties}
+      style={
+        { "--es-accent": accentColor ?? DEFAULT_ACCENT } as React.CSSProperties
+      }
     >
       {/* Progress circle */}
       {showIndicator && (
-        <ProgressCircle normalizedValue={normalizedValue} displayValue={displayValue} />
+        <ProgressCircle
+          displayValue={displayValue}
+          normalizedValue={normalizedValue}
+        />
       )}
 
       {/* Ticker slider */}
@@ -144,25 +150,20 @@ const ExposureSlider = ({
         }}
       >
         <div
-          ref={containerRef}
           className="relative h-full w-full cursor-grab select-none active:cursor-grabbing"
+          onPointerDown={handlePointerDown}
+          ref={containerRef}
           style={{
             touchAction: "pan-y",
             padding: `0 calc(50% - ${NOTCH_WIDTH / 2}px)`,
           }}
-          onPointerDown={handlePointerDown}
         >
           <motion.ul
-            className="relative flex h-full list-none items-center p-0 m-0"
+            className="relative m-0 flex h-full list-none items-center p-0"
             style={{ x, marginLeft: -centerIndex * NOTCH_WIDTH }}
           >
             {items.map((i) => (
-              <Notch
-                key={i}
-                index={i}
-                centerIndex={centerIndex}
-                x={x}
-              />
+              <Notch centerIndex={centerIndex} index={i} key={i} x={x} />
             ))}
           </motion.ul>
         </div>
@@ -243,14 +244,14 @@ const ProgressCircle = ({
 
   return (
     <div className="relative flex h-[75px] w-[75px] items-center justify-center">
-      <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 100 100">
         {/* Background ring */}
         <circle
           cx="50"
           cy="50"
-          r="48"
           fill="currentColor"
           fillOpacity={0.067}
+          r="48"
           stroke="currentColor"
           strokeOpacity={0.3}
           strokeWidth="3"
@@ -259,13 +260,13 @@ const ProgressCircle = ({
         <motion.circle
           cx="50"
           cy="50"
-          r="48"
           fill="none"
-          stroke="var(--es-accent)"
-          strokeWidth="3"
           pathLength={1}
-          strokeDashoffset={0}
+          r="48"
+          stroke="var(--es-accent)"
           strokeDasharray={positiveDash}
+          strokeDashoffset={0}
+          strokeWidth="3"
           style={{
             transform: "rotate(-90deg)",
             transformOrigin: "50% 50%",
@@ -276,13 +277,13 @@ const ProgressCircle = ({
         <motion.circle
           cx="50"
           cy="50"
-          r="48"
           fill="none"
-          stroke="var(--es-accent)"
-          strokeWidth="3"
           pathLength={1}
-          strokeDashoffset={0}
+          r="48"
+          stroke="var(--es-accent)"
           strokeDasharray={negativeDash}
+          strokeDashoffset={0}
+          strokeWidth="3"
           style={{
             transform: "scaleX(-1) rotate(-90deg)",
             transformOrigin: "50% 50%",
@@ -290,10 +291,7 @@ const ProgressCircle = ({
           }}
         />
       </svg>
-      <motion.span
-        className="absolute text-lg font-semibold"
-        style={{ color }}
-      >
+      <motion.span className="absolute font-semibold text-lg" style={{ color }}>
         {displayValue}
       </motion.span>
     </div>

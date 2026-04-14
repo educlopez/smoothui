@@ -1,12 +1,11 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import {
-  DropdownMenu as DropdownMenuRoot,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenu as DropdownMenuRoot,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuSub,
@@ -14,49 +13,50 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@repo/shadcn-ui/components/ui/dropdown-menu";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { useState } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface DropdownMenuProps {
-  /** The trigger element that opens the menu */
-  children: React.ReactNode;
-  /** Menu items to render */
-  items: DropdownMenuItemConfig[];
-  /** Optional CSS class for the content container */
-  className?: string;
-  /** Controlled open state */
-  open?: boolean;
-  /** Callback when open state changes */
-  onOpenChange?: (open: boolean) => void;
-  /** Side offset for the dropdown content */
-  sideOffset?: number;
   /** Alignment of the dropdown relative to the trigger */
   align?: "start" | "center" | "end";
+  /** The trigger element that opens the menu */
+  children: React.ReactNode;
+  /** Optional CSS class for the content container */
+  className?: string;
+  /** Menu items to render */
+  items: DropdownMenuItemConfig[];
+  /** Callback when open state changes */
+  onOpenChange?: (open: boolean) => void;
+  /** Controlled open state */
+  open?: boolean;
+  /** Side offset for the dropdown content */
+  sideOffset?: number;
 }
 
 export interface DropdownMenuItemConfig {
+  /** Nested submenu items */
+  children?: DropdownMenuItemConfig[];
+  /** Whether the item is disabled */
+  disabled?: boolean;
+  /** Renders a group label instead of an item */
+  groupLabel?: string;
+  /** Optional icon to display before the label */
+  icon?: React.ReactNode;
   /** Unique key for the item */
   key: string;
   /** Display label */
   label: string;
-  /** Optional icon to display before the label */
-  icon?: React.ReactNode;
   /** Callback when item is selected */
   onSelect?: () => void;
-  /** Whether the item is disabled */
-  disabled?: boolean;
-  /** Destructive variant styling */
-  variant?: "default" | "destructive";
-  /** Optional keyboard shortcut text to display */
-  shortcut?: string;
-  /** Nested submenu items */
-  children?: DropdownMenuItemConfig[];
   /** Renders a separator instead of an item */
   separator?: boolean;
-  /** Renders a group label instead of an item */
-  groupLabel?: string;
+  /** Optional keyboard shortcut text to display */
+  shortcut?: string;
+  /** Destructive variant styling */
+  variant?: "default" | "destructive";
 }
 
 export default function DropdownMenu({
@@ -84,9 +84,7 @@ export default function DropdownMenu({
 
     if (item.groupLabel) {
       return (
-        <DropdownMenuLabel key={item.key}>
-          {item.groupLabel}
-        </DropdownMenuLabel>
+        <DropdownMenuLabel key={item.key}>{item.groupLabel}</DropdownMenuLabel>
       );
     }
 
@@ -99,7 +97,7 @@ export default function DropdownMenu({
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
             {item.children.map((child, childIndex) =>
-              renderItem(child, childIndex),
+              renderItem(child, childIndex)
             )}
           </DropdownMenuSubContent>
         </DropdownMenuSub>
@@ -108,12 +106,8 @@ export default function DropdownMenu({
 
     return (
       <motion.div
-        animate={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-        }
-        initial={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }
-        }
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }}
         key={item.key}
         transition={
           shouldReduceMotion
@@ -146,9 +140,7 @@ export default function DropdownMenu({
       >
         <motion.div
           animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, scale: 1, y: 0 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
           }
           initial={
             shouldReduceMotion

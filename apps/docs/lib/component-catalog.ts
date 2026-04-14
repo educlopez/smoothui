@@ -1,6 +1,5 @@
-import { readFile, readdir } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { cache } from "react";
 import type {
   BlockMeta,
   BlockType,
@@ -8,6 +7,7 @@ import type {
   SmoothUIPackageMeta,
 } from "@smoothui/data";
 import { parseSmoothUIMeta } from "@smoothui/data";
+import { cache } from "react";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -115,10 +115,7 @@ const buildComponentMeta = async (
   // Extract npm dependencies (filter workspace/peer deps)
   const deps = (pkg.dependencies ?? {}) as Record<string, string>;
   const filteredDeps = Object.keys(deps).filter(
-    (dep) =>
-      !dep.startsWith("@repo/") &&
-      dep !== "react" &&
-      dep !== "react-dom"
+    (dep) => !dep.startsWith("@repo/") && dep !== "react" && dep !== "react-dom"
   );
 
   // Extract registry dependencies (other smoothui components)
@@ -153,16 +150,14 @@ const buildComponentMeta = async (
  * `React.cache()` so multiple consumers (API routes, llms.txt) share
  * the same data within a single render pass.
  */
-export const getComponentCatalog = cache(
-  async (): Promise<ComponentMeta[]> => {
-    const dirs = await listComponentDirs();
-    const results = await Promise.all(dirs.map(buildComponentMeta));
+export const getComponentCatalog = cache(async (): Promise<ComponentMeta[]> => {
+  const dirs = await listComponentDirs();
+  const results = await Promise.all(dirs.map(buildComponentMeta));
 
-    return results
-      .filter((r): r is ComponentMeta => r !== null)
-      .sort((a, b) => a.name.localeCompare(b.name));
-  }
-);
+  return results
+    .filter((r): r is ComponentMeta => r !== null)
+    .sort((a, b) => a.name.localeCompare(b.name));
+});
 
 // ---------------------------------------------------------------------------
 // Block catalog
@@ -173,8 +168,7 @@ const listBlockDirs = async (): Promise<string[]> => {
   const entries = await readdir(BLOCKS_DIR, { withFileTypes: true });
   return entries
     .filter(
-      (e) =>
-        e.isDirectory() && !e.name.startsWith(".") && e.name !== "shared"
+      (e) => e.isDirectory() && !e.name.startsWith(".") && e.name !== "shared"
     )
     .map((e) => e.name);
 };
@@ -239,10 +233,7 @@ const buildBlockMeta = async (name: string): Promise<BlockMeta | null> => {
 
   const deps = (pkg.dependencies ?? {}) as Record<string, string>;
   const filteredDeps = Object.keys(deps).filter(
-    (dep) =>
-      !dep.startsWith("@repo/") &&
-      dep !== "react" &&
-      dep !== "react-dom"
+    (dep) => !dep.startsWith("@repo/") && dep !== "react" && dep !== "react-dom"
   );
 
   const components = await detectBlockComponents(dir);

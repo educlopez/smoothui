@@ -5,7 +5,7 @@ import ProductCard from "../index";
 describe("ProductCard", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <ProductCard image="/test.jpg" title="Test Product" price={29.99} />
+      <ProductCard image="/test.jpg" price={29.99} title="Test Product" />
     );
     expect(container).toBeInTheDocument();
   });

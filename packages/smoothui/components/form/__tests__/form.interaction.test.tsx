@@ -1,12 +1,12 @@
+import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen } from "../../../test-utils/render";
-import userEvent from "@testing-library/user-event";
 import Form, {
+  FormControl,
+  FormDescription,
   FormField,
   FormLabel,
-  FormControl,
   FormMessage,
-  FormDescription,
 } from "../index";
 
 describe("Form interactions", () => {
@@ -23,7 +23,7 @@ describe("Form interactions", () => {
           </FormControl>
         </FormField>
         <button type="submit">Submit</button>
-      </Form>,
+      </Form>
     );
 
     await user.click(screen.getByRole("button", { name: "Submit" }));
@@ -40,7 +40,7 @@ describe("Form interactions", () => {
           </FormControl>
           <FormMessage />
         </FormField>
-      </Form>,
+      </Form>
     );
 
     expect(screen.getByRole("alert")).toHaveTextContent("Email is required");
@@ -56,7 +56,7 @@ describe("Form interactions", () => {
           </FormControl>
           <FormDescription>Tell us about yourself.</FormDescription>
         </FormField>
-      </Form>,
+      </Form>
     );
 
     expect(screen.getByText("Tell us about yourself.")).toBeInTheDocument();
@@ -71,7 +71,7 @@ describe("Form interactions", () => {
             <input type="text" />
           </FormControl>
         </FormField>
-      </Form>,
+      </Form>
     );
 
     const label = screen.getByText("Username");
@@ -93,7 +93,7 @@ describe("Form interactions", () => {
           </FormControl>
           <FormMessage />
         </FormField>
-      </Form>,
+      </Form>
     );
 
     const input = screen.getByRole("textbox");
@@ -110,7 +110,7 @@ describe("Form interactions", () => {
           </FormControl>
           <FormMessage />
         </FormField>
-      </Form>,
+      </Form>
     );
 
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
@@ -127,7 +127,7 @@ describe("Form interactions", () => {
             <input type="text" />
           </FormControl>
         </FormField>
-      </Form>,
+      </Form>
     );
 
     const input = screen.getByRole("textbox");

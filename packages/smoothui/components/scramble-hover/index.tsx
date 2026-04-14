@@ -3,9 +3,9 @@ import { useEffect, useRef, useState } from "react";
 
 export interface ScrambleHoverProps {
   children: string;
+  className?: string;
   duration?: number; // total animation duration in ms
   speed?: number; // interval between scrambles in ms
-  className?: string;
 }
 
 const CHARACTERS =

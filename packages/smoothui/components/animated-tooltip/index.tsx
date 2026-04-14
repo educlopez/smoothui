@@ -8,16 +8,16 @@ import { useCallback, useEffect, useId, useRef, useState } from "react";
 export type AnimatedTooltipPlacement = "top" | "bottom" | "left" | "right";
 
 export interface AnimatedTooltipProps {
-  /** Content displayed inside the tooltip */
-  content: ReactNode;
-  /** Placement of the tooltip relative to the trigger */
-  placement?: AnimatedTooltipPlacement;
-  /** Delay in milliseconds before the tooltip appears */
-  delay?: number;
   /** The trigger element the tooltip is anchored to */
   children: ReactNode;
   /** Additional CSS class names for the tooltip container */
   className?: string;
+  /** Content displayed inside the tooltip */
+  content: ReactNode;
+  /** Delay in milliseconds before the tooltip appears */
+  delay?: number;
+  /** Placement of the tooltip relative to the trigger */
+  placement?: AnimatedTooltipPlacement;
 }
 
 const SPRING = {

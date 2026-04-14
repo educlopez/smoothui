@@ -14,11 +14,11 @@ const MAX_SUGGESTIONS = 10;
 
 /** Shared fields used for scoring both components and blocks */
 interface Scoreable {
-  name: string;
+  category: string;
   description: string;
+  name: string;
   tags: readonly string[];
   useCases: readonly string[];
-  category: string;
 }
 
 /**
@@ -63,15 +63,15 @@ const scoreItem = (item: Scoreable, terms: string[]): number => {
 };
 
 interface Suggestion {
-  type: "component" | "block";
-  name: string;
-  displayName: string;
-  description: string;
   category: string;
-  relevanceScore: number;
-  installCommand: string;
+  description: string;
+  displayName: string;
   docUrl: string;
+  installCommand: string;
+  name: string;
   registryUrl: string;
+  relevanceScore: number;
+  type: "component" | "block";
 }
 
 const toSuggestion = (

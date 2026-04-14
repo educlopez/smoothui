@@ -10,10 +10,10 @@ import type { ElementRef, ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 interface PreviewContentProps {
-  children: ReactNode;
-  type: "component" | "block";
   blockPath?: string;
+  children: ReactNode;
   size?: PreviewSize;
+  type: "component" | "block";
 }
 
 export type PreviewSize = "desktop" | "tablet" | "mobile";
@@ -34,9 +34,9 @@ const HEIGHT_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT";
 const HEIGHT_REQUEST_MESSAGE_TYPE = "BLOCK_PREVIEW_HEIGHT_REQUEST";
 
 interface HeightMessage {
-  type?: unknown;
   blockId?: unknown;
   height?: unknown;
+  type?: unknown;
 }
 
 function extractHeightFromMessage(

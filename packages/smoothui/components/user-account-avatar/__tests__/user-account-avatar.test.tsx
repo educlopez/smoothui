@@ -6,7 +6,11 @@ describe("UserAccountAvatar", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <UserAccountAvatar
-        user={{ name: "Test User", email: "test@example.com", avatar: "/avatar.jpg" }}
+        user={{
+          name: "Test User",
+          email: "test@example.com",
+          avatar: "/avatar.jpg",
+        }}
       />
     );
     expect(container).toBeInTheDocument();

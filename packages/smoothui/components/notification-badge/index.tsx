@@ -6,15 +6,15 @@ import type { ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 
 export interface NotificationBadgeProps {
-  variant?: "dot" | "count" | "status";
-  count?: number;
-  max?: number;
-  status?: "online" | "offline" | "busy" | "away";
-  showZero?: boolean;
-  ping?: boolean;
-  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
   children?: ReactNode;
   className?: string;
+  count?: number;
+  max?: number;
+  ping?: boolean;
+  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
+  showZero?: boolean;
+  status?: "online" | "offline" | "busy" | "away";
+  variant?: "dot" | "count" | "status";
 }
 
 const statusColors = {

@@ -9,23 +9,23 @@ const _AVATAR_SIZE = 96;
 const EASE_OUT_QUINT = [0.23, 1, 0.32, 1] as const;
 
 export interface Card {
-  id: number;
-  title: string;
-  image: string;
-  content: string;
   author?: {
     name: string;
     role: string;
     image: string;
   };
+  content: string;
+  id: number;
+  image: string;
+  title: string;
 }
 
 export interface ExpandableCardsProps {
-  cards: Card[];
-  selectedCard?: number | null;
-  onSelect?: (id: number | null) => void;
-  className?: string;
   cardClassName?: string;
+  cards: Card[];
+  className?: string;
+  onSelect?: (id: number | null) => void;
+  selectedCard?: number | null;
 }
 
 export default function ExpandableCards({
@@ -40,7 +40,7 @@ export default function ExpandableCards({
   const shouldReduceMotion = useReducedMotion();
 
   const selectedCard =
-    controlledSelected !== undefined ? controlledSelected : internalSelected;
+    controlledSelected === undefined ? internalSelected : controlledSelected;
 
   useEffect(() => {
     if (scrollRef.current) {

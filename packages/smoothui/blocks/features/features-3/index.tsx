@@ -84,19 +84,13 @@ export function FeaturesAlternating() {
                         ? { opacity: 1 }
                         : { opacity: 0, x: slideDirection }
                     }
-                    transition={
-                      shouldReduceMotion ? { duration: 0 } : SPRING
-                    }
+                    transition={shouldReduceMotion ? { duration: 0 } : SPRING}
                     viewport={{ once: true, margin: "-100px" }}
                     whileInView={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 1, x: 0 }
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }
                   >
-                    <h3 className="mb-4 font-bold text-2xl">
-                      {feature.title}
-                    </h3>
+                    <h3 className="mb-4 font-bold text-2xl">{feature.title}</h3>
                     <p className="text-foreground/70 text-lg leading-relaxed">
                       {feature.description}
                     </p>
@@ -109,14 +103,10 @@ export function FeaturesAlternating() {
                         ? { opacity: 1 }
                         : { opacity: 0, x: -slideDirection }
                     }
-                    transition={
-                      shouldReduceMotion ? { duration: 0 } : SPRING
-                    }
+                    transition={shouldReduceMotion ? { duration: 0 } : SPRING}
                     viewport={{ once: true, margin: "-100px" }}
                     whileInView={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 1, x: 0 }
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }
                   >
                     <div className="overflow-hidden rounded-xl border shadow-md">

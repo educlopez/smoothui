@@ -8,16 +8,16 @@ const CHEVRON_ROTATION_DEGREES = 180;
 const CHEVRON_ANIMATION_DURATION = 0.2;
 
 export interface AccordionItem {
+  content: React.ReactNode;
   id: string | number;
   title: string;
-  content: React.ReactNode;
 }
 
 export interface BasicAccordionProps {
-  items: AccordionItem[];
   allowMultiple?: boolean;
   className?: string;
   defaultExpandedIds?: Array<string | number>;
+  items: AccordionItem[];
 }
 
 export default function BasicAccordion({

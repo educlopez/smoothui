@@ -1,6 +1,6 @@
 "use client";
 
-import { RadioGroup, Radio } from "@repo/smoothui/components/radio-group";
+import { Radio, RadioGroup } from "@repo/smoothui/components/radio-group";
 import { useState } from "react";
 
 export default function RadioGroupDemo() {
@@ -20,9 +20,7 @@ export default function RadioGroupDemo() {
           Spacious
         </Radio>
       </RadioGroup>
-      <p className="text-sm text-muted-foreground">
-        Selected: {value}
-      </p>
+      <p className="text-muted-foreground text-sm">Selected: {value}</p>
     </div>
   );
 }

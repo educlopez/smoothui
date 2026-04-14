@@ -172,14 +172,10 @@ export function FeaturesGrid() {
               <motion.li
                 className={cn(
                   "rounded-xl border bg-background p-6 transition-shadow",
-                  isHoverDevice &&
-                    !shouldReduceMotion &&
-                    "hover:shadow-md"
+                  isHoverDevice && !shouldReduceMotion && "hover:shadow-md"
                 )}
                 initial={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0, y: 20 }
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
                 }
                 key={feature.title}
                 transition={
@@ -189,14 +185,10 @@ export function FeaturesGrid() {
                 }
                 viewport={{ once: true, margin: "-100px" }}
                 whileHover={
-                  isHoverDevice && !shouldReduceMotion
-                    ? { y: -4 }
-                    : undefined
+                  isHoverDevice && !shouldReduceMotion ? { y: -4 } : undefined
                 }
                 whileInView={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1, y: 0 }
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                 }
               >
                 <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-2.5 text-primary">

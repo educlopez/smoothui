@@ -165,7 +165,9 @@ const main = async () => {
 
   writeFileSync(OUTPUT_PATH, JSON.stringify(manifest, null, 2), "utf-8");
 
-  console.log(`\nDone! ${successCount} components measured, ${failCount} skipped.`);
+  console.log(
+    `\nDone! ${successCount} components measured, ${failCount} skipped.`
+  );
   console.log(`Manifest written to: ${OUTPUT_PATH}`);
 };
 

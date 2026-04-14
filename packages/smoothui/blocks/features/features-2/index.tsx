@@ -19,7 +19,8 @@ const features = [
   },
   {
     title: "Team Collaboration",
-    description: "Work together in real-time with built-in commenting and sharing.",
+    description:
+      "Work together in real-time with built-in commenting and sharing.",
     span: "col-span-1",
   },
   {
@@ -34,7 +35,8 @@ const features = [
   },
   {
     title: "Security",
-    description: "Enterprise-grade security with SOC 2 compliance and encryption.",
+    description:
+      "Enterprise-grade security with SOC 2 compliance and encryption.",
     span: "col-span-1",
   },
 ];
@@ -80,9 +82,7 @@ export function FeaturesBento() {
                 }
                 viewport={{ once: true, margin: "-100px" }}
                 whileInView={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1, scale: 1 }
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }
               >
                 <h3 className="mb-1 font-semibold text-foreground">

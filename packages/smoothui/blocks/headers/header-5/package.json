@@ -18,7 +18,14 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["hero", "header", "spotlight", "dark", "gradient", "animated"],
+    "tags": [
+      "hero",
+      "header",
+      "spotlight",
+      "dark",
+      "gradient",
+      "animated"
+    ],
     "complexity": "moderate",
     "animationType": "spring",
     "useCases": [

@@ -257,7 +257,9 @@ export function InteractiveSocialSelectorTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">

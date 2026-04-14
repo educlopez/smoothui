@@ -16,15 +16,15 @@ export type PresetType =
   | "swing";
 
 export interface AnimatedGroupProps {
+  as?: React.ElementType;
+  asChild?: React.ElementType;
   children: ReactNode;
   className?: string;
+  preset?: PresetType;
   variants?: {
     container?: Variants;
     item?: Variants;
   };
-  preset?: PresetType;
-  as?: React.ElementType;
-  asChild?: React.ElementType;
 }
 
 const defaultContainerVariants: Variants = {

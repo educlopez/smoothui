@@ -1,6 +1,6 @@
 interface DividerProps {
-  orientation?: "horizontal" | "vertical";
   className?: string;
+  orientation?: "horizontal" | "vertical";
 }
 
 export default function Divider({

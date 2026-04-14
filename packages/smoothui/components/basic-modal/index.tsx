@@ -7,11 +7,11 @@ import { createPortal } from "react-dom";
 import { useOnClickOutside } from "usehooks-ts";
 
 export interface BasicModalProps {
+  children: React.ReactNode;
   isOpen: boolean;
   onClose: () => void;
-  title?: string;
-  children: React.ReactNode;
   size?: "sm" | "md" | "lg" | "xl" | "full";
+  title?: string;
 }
 
 const modalSizes = {

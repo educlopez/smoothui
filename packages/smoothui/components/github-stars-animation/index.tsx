@@ -12,22 +12,22 @@ const AVATAR_COUNT = 5;
 const STAGGER_DELAY = 0.05;
 
 export interface Stargazer {
-  login: string;
   avatar_url: string;
   html_url: string;
+  login: string;
 }
 
 export interface GitHubStarsAnimationProps {
+  apiEndpoint?: string;
+  avatarClassName?: string;
+  className?: string;
+  countClassName?: string;
+  maxAvatars?: number;
   owner?: string;
   repo?: string;
-  stargazers?: Stargazer[];
-  starCount?: number;
-  apiEndpoint?: string;
-  className?: string;
-  avatarClassName?: string;
-  countClassName?: string;
   showAvatars?: boolean;
-  maxAvatars?: number;
+  starCount?: number;
+  stargazers?: Stargazer[];
 }
 
 export default function GitHubStarsAnimation({

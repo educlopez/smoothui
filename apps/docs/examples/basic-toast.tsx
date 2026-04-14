@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import BasicToast from "@repo/smoothui/components/basic-toast";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { AlertCircle, CheckCircle, Info, XCircle } from "lucide-react";
 import { useState } from "react";
 

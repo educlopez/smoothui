@@ -13,16 +13,16 @@ function clamp(val: number, [min, max]: [number, number]): number {
 }
 
 export interface Review {
-  id: string | number;
-  body: string;
   author: string;
+  body: string;
+  id: string | number;
   title: string;
 }
 
 interface ReviewCardProps {
-  review: Review;
-  index: number;
   activeIndex: number;
+  index: number;
+  review: Review;
   totalCards: number;
 }
 
@@ -102,8 +102,8 @@ function ReviewCard({
 
 interface NavigationButtonProps {
   direction: "prev" | "next";
-  onClick: () => void;
   disabled: boolean;
+  onClick: () => void;
 }
 
 function NavigationButton({
@@ -138,14 +138,14 @@ function NavigationButton({
 }
 
 export interface ReviewsCarouselProps {
-  reviews: Review[];
-  className?: string;
-  height?: string;
-  excludeIds?: (string | number)[];
-  showIndicators?: boolean;
-  showNavigation?: boolean;
   autoPlay?: boolean;
   autoPlayInterval?: number;
+  className?: string;
+  excludeIds?: (string | number)[];
+  height?: string;
+  reviews: Review[];
+  showIndicators?: boolean;
+  showNavigation?: boolean;
 }
 
 export default function ReviewsCarousel({

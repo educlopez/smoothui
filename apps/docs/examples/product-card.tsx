@@ -26,11 +26,7 @@ export default function ProductCardDemo() {
   return (
     <div className="mx-auto grid w-full max-w-lg grid-cols-2 gap-4">
       {products.map((product) => (
-        <ProductCard
-          key={product.title}
-          onAddToCart={() => {}}
-          {...product}
-        />
+        <ProductCard key={product.title} onAddToCart={() => {}} {...product} />
       ))}
     </div>
   );

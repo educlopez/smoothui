@@ -1,12 +1,11 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import {
-  ContextMenu as ContextMenuRoot,
   ContextMenuContent,
   ContextMenuGroup,
   ContextMenuItem,
   ContextMenuLabel,
+  ContextMenu as ContextMenuRoot,
   ContextMenuSeparator,
   ContextMenuShortcut,
   ContextMenuSub,
@@ -14,6 +13,7 @@ import {
   ContextMenuSubTrigger,
   ContextMenuTrigger,
 } from "@repo/shadcn-ui/components/ui/context-menu";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
@@ -21,33 +21,33 @@ import { SPRING_DEFAULT } from "../../lib/animation";
 export interface ContextMenuProps {
   /** The trigger element that opens the context menu on right-click */
   children: React.ReactNode;
-  /** Menu items to render */
-  items: ContextMenuItemConfig[];
   /** Optional CSS class for the content container */
   className?: string;
+  /** Menu items to render */
+  items: ContextMenuItemConfig[];
 }
 
 export interface ContextMenuItemConfig {
+  /** Nested submenu items */
+  children?: ContextMenuItemConfig[];
+  /** Whether the item is disabled */
+  disabled?: boolean;
+  /** Renders a group label instead of an item */
+  groupLabel?: string;
+  /** Optional icon to display before the label */
+  icon?: React.ReactNode;
   /** Unique key for the item */
   key: string;
   /** Display label */
   label: string;
-  /** Optional icon to display before the label */
-  icon?: React.ReactNode;
   /** Callback when item is selected */
   onSelect?: () => void;
-  /** Whether the item is disabled */
-  disabled?: boolean;
-  /** Destructive variant styling */
-  variant?: "default" | "destructive";
-  /** Optional keyboard shortcut text to display */
-  shortcut?: string;
-  /** Nested submenu items */
-  children?: ContextMenuItemConfig[];
   /** Renders a separator instead of an item */
   separator?: boolean;
-  /** Renders a group label instead of an item */
-  groupLabel?: string;
+  /** Optional keyboard shortcut text to display */
+  shortcut?: string;
+  /** Destructive variant styling */
+  variant?: "default" | "destructive";
 }
 
 export default function ContextMenu({
@@ -77,7 +77,7 @@ export default function ContextMenu({
           </ContextMenuSubTrigger>
           <ContextMenuSubContent>
             {item.children.map((child, childIndex) =>
-              renderItem(child, childIndex),
+              renderItem(child, childIndex)
             )}
           </ContextMenuSubContent>
         </ContextMenuSub>
@@ -86,12 +86,8 @@ export default function ContextMenu({
 
     return (
       <motion.div
-        animate={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-        }
-        initial={
-          shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }
-        }
+        animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+        initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }}
         key={item.key}
         transition={
           shouldReduceMotion
@@ -120,9 +116,7 @@ export default function ContextMenu({
       <ContextMenuContent className={cn("origin-top", className)}>
         <motion.div
           animate={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, scale: 1, y: 0 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
           }
           initial={
             shouldReduceMotion

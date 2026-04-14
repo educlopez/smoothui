@@ -28,9 +28,7 @@ export const ComponentGallery = ({
   const [activeCategory, setActiveCategory] = useState<string | null>(
     searchParams.get("category") ?? null
   );
-  const [searchQuery, setSearchQuery] = useState(
-    searchParams.get("q") ?? ""
-  );
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("q") ?? "");
 
   const syncUrl = useCallback(
     (category: string | null, query: string) => {
@@ -97,7 +95,7 @@ export const ComponentGallery = ({
       />
 
       {/* Results count */}
-      <p className="text-muted-foreground text-sm" aria-live="polite">
+      <p aria-live="polite" className="text-muted-foreground text-sm">
         {filteredComponents.length}{" "}
         {filteredComponents.length === 1 ? "component" : "components"}
         {activeCategory ? ` in ${activeCategory}` : ""}
@@ -116,8 +114,6 @@ export const ComponentGallery = ({
           <AnimatePresence mode="popLayout">
             {filteredComponents.map((component) => (
               <motion.div
-                key={component.slug}
-                layout={!shouldReduceMotion}
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0, transition: { duration: 0 } }
@@ -127,6 +123,8 @@ export const ComponentGallery = ({
                         transition: { duration: 0.15 },
                       }
                 }
+                key={component.slug}
+                layout={!shouldReduceMotion}
                 role="listitem"
               >
                 <ComponentCard component={component} />
@@ -154,7 +152,7 @@ type EmptyStateProps = {
 };
 
 const EmptyState = ({ hasFilters, onClearFilters }: EmptyStateProps) => (
-  <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-border py-16 text-center">
+  <div className="flex flex-col items-center justify-center rounded-lg border border-border border-dashed py-16 text-center">
     <p className="font-medium text-foreground text-sm">No components found</p>
     <p className="mt-1 text-muted-foreground text-xs">
       {hasFilters

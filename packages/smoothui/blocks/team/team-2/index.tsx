@@ -13,10 +13,10 @@ const AVATAR_SIZE = 160;
 const STAGGER_DELAY = 0.1;
 
 interface TeamCarouselProps {
-  title?: string;
-  subtitle?: string;
   description?: string;
   members?: Person[];
+  subtitle?: string;
+  title?: string;
 }
 
 export function TeamCarousel({

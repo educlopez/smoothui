@@ -1,10 +1,13 @@
 import path from "node:path";
 import { defineConfig } from "vitest/config";
 
-const shadcnPath = path.resolve(__dirname, "../shadcn-ui");
-const smoothuiPath = path.resolve(__dirname, ".");
-const reactPath = path.resolve(__dirname, "node_modules/react");
-const reactDomPath = path.resolve(__dirname, "node_modules/react-dom");
+const shadcnPath = path.resolve(import.meta.dirname, "../shadcn-ui");
+const smoothuiPath = path.resolve(import.meta.dirname, ".");
+const reactPath = path.resolve(import.meta.dirname, "node_modules/react");
+const reactDomPath = path.resolve(
+  import.meta.dirname,
+  "node_modules/react-dom"
+);
 
 export default defineConfig({
   esbuild: {
@@ -24,7 +27,7 @@ export default defineConfig({
       "@repo/shadcn-ui": shadcnPath,
       "@repo/smoothui/components": path.join(smoothuiPath, "components"),
       "@repo/smoothui": smoothuiPath,
-      "react": reactPath,
+      react: reactPath,
       "react/jsx-runtime": path.join(reactPath, "jsx-runtime"),
       "react/jsx-dev-runtime": path.join(reactPath, "jsx-dev-runtime"),
       "react-dom": reactDomPath,

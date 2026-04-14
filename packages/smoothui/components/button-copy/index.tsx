@@ -5,14 +5,14 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useState } from "react";
 
 export interface ButtonCopyProps {
-  onCopy?: () => Promise<void> | void;
-  idleIcon?: ReactNode;
-  loadingIcon?: ReactNode;
-  successIcon?: ReactNode;
   className?: string;
-  duration?: number;
-  loadingDuration?: number;
   disabled?: boolean;
+  duration?: number;
+  idleIcon?: ReactNode;
+  loadingDuration?: number;
+  loadingIcon?: ReactNode;
+  onCopy?: () => Promise<void> | void;
+  successIcon?: ReactNode;
 }
 
 const defaultIcons = {

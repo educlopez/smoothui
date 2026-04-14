@@ -15,24 +15,21 @@ const DrawerDemo = () => {
     <div className="flex flex-wrap items-center gap-3">
       {sides.map((side) => (
         <div key={side}>
-          <SmoothButton
-            onClick={() => setOpenSide(side)}
-            variant="outline"
-          >
+          <SmoothButton onClick={() => setOpenSide(side)} variant="outline">
             Open {side}
           </SmoothButton>
           <Drawer
             description={`This drawer slides in from the ${side}.`}
-            open={openSide === side}
             onOpenChange={(open) => {
               if (!open) {
                 setOpenSide(null);
               }
             }}
+            open={openSide === side}
             side={side}
             title={`${side.charAt(0).toUpperCase() + side.slice(1)} Drawer`}
           >
-            <p className="text-muted-foreground py-4">
+            <p className="py-4 text-muted-foreground">
               Drawer content goes here. Click outside or press Escape to close.
             </p>
           </Drawer>

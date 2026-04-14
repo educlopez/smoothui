@@ -13,15 +13,15 @@ import {
 } from "../../shared";
 
 export interface LogoMarqueeProps {
-  title?: string;
   description?: string;
+  direction?: "left" | "right";
   logos?: Array<{
     name: string;
     logo: React.ReactNode;
   }>;
-  speed?: "slow" | "normal" | "fast";
-  direction?: "left" | "right";
   pauseOnHover?: boolean;
+  speed?: "slow" | "normal" | "fast";
+  title?: string;
 }
 
 const DEFAULT_LOGOS = [

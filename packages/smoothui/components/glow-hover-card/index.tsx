@@ -14,21 +14,21 @@ import {
 
 export interface GlowHoverTheme {
   hue: number;
-  saturation: number;
   lightness: number;
+  saturation: number;
 }
 
 export interface GlowHoverItem {
-  id: string;
   element: ReactElement;
+  id: string;
   theme?: GlowHoverTheme;
 }
 
 export interface GlowHoverProps {
-  items: GlowHoverItem[];
   className?: string;
-  maskSize?: number;
   glowIntensity?: number;
+  items: GlowHoverItem[];
+  maskSize?: number;
 }
 
 // Legacy types for backward compatibility

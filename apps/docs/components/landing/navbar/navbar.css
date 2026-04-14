@@ -36,8 +36,8 @@
 }
 
 .viewport {
-  height: var(--radix-navigation-menu-viewport-height);
   width: var(--radix-navigation-menu-viewport-width);
+  height: var(--radix-navigation-menu-viewport-height);
   @apply bg-background relative mt-2 overflow-hidden rounded-lg border transition-all duration-250 ease-in-out;
 }
 
@@ -54,14 +54,14 @@
 }
 
 .list.one {
-  width: 500px;
   grid-template-columns: 0.75fr 1fr;
+  width: 500px;
 }
 
 .list.two {
-  width: 400px;
-  grid-auto-flow: column;
   grid-template-rows: repeat(3, 1fr);
+  grid-auto-flow: column;
+  width: 400px;
 }
 
 /* Enhanced submenu styles */

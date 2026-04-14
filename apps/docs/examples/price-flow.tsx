@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import PriceFlow from "@repo/smoothui/components/price-flow";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
 const PriceFlowDemo = () => {

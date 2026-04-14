@@ -6,6 +6,7 @@ import Script from "next/script";
 import "./global.css";
 import { inter, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
+
 const enableVercelAnalytics =
   process.env.NEXT_PUBLIC_ENABLE_VERCEL_ANALYTICS !== "false";
 

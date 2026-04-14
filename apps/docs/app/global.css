@@ -115,9 +115,9 @@
 }
 
 .prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  padding-inline-start: 1rem;
   margin-top: 1.25em;
   margin-bottom: 1.25em;
-  padding-inline-start: 1rem;
   list-style-type: disc;
 }
 .prose

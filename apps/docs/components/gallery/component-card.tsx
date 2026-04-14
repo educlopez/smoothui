@@ -64,26 +64,22 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
 
   return (
     <motion.div
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       className="group relative"
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
-      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       transition={
         shouldReduceMotion
           ? { duration: 0 }
           : { type: "spring", duration: 0.25, bounce: 0.1 }
       }
-      whileHover={
-        isHoverDevice && !shouldReduceMotion
-          ? { y: -2 }
-          : undefined
-      }
+      whileHover={isHoverDevice && !shouldReduceMotion ? { y: -2 } : undefined}
     >
       <Link
         aria-label={`View ${component.title} component`}
         className={cn(
           "flex flex-col overflow-hidden rounded-lg border border-border bg-card no-underline",
           "transition-shadow",
-          isHoverDevice && "hover:shadow-md hover:border-primary/30"
+          isHoverDevice && "hover:border-primary/30 hover:shadow-md"
         )}
         href={component.href}
       >
@@ -126,10 +122,15 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
 
             {component.installer && (
               <SmoothButton
-                aria-label={copied ? "Copied install command" : `Copy install command for ${component.title}`}
+                aria-label={
+                  copied
+                    ? "Copied install command"
+                    : `Copy install command for ${component.title}`
+                }
                 className={cn(
                   "h-auto gap-1 px-2 py-1 text-[10px]",
-                  copied && "border-green-500/30 bg-green-500/10 text-green-600 hover:bg-green-500/10 dark:text-green-400"
+                  copied &&
+                    "border-green-500/30 bg-green-500/10 text-green-600 hover:bg-green-500/10 dark:text-green-400"
                 )}
                 onClick={handleCopy}
                 variant="outline"

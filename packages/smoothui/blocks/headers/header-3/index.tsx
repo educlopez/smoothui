@@ -7,8 +7,6 @@ import { motion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroShowcaseProps {
-  heading?: string;
-  description?: string;
   buttons?: {
     primary?: {
       text: string;
@@ -19,6 +17,8 @@ interface HeroShowcaseProps {
       url: string;
     };
   };
+  description?: string;
+  heading?: string;
   reviews?: {
     count: number;
     avatars: {

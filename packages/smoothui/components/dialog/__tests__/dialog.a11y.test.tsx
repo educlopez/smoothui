@@ -1,14 +1,18 @@
 import { describe, expect, it } from "vitest";
-import { render } from "../../../test-utils/render";
 import { axe } from "vitest-axe";
-import Dialog, { AlertDialog, AlertDialogAction, AlertDialogCancel } from "../index";
+import { render } from "../../../test-utils/render";
+import Dialog, {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from "../index";
 
 describe("Dialog a11y", () => {
   it("has no accessibility violations when open", async () => {
     const { container } = render(
-      <Dialog open title="Test Dialog" description="A test dialog">
+      <Dialog description="A test dialog" open title="Test Dialog">
         <p>Dialog content</p>
-      </Dialog>,
+      </Dialog>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -16,9 +20,9 @@ describe("Dialog a11y", () => {
 
   it("has no accessibility violations when closed", async () => {
     const { container } = render(
-      <Dialog title="Test Dialog" description="A test dialog">
+      <Dialog description="A test dialog" title="Test Dialog">
         <p>Dialog content</p>
-      </Dialog>,
+      </Dialog>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -29,8 +33,6 @@ describe("AlertDialog a11y", () => {
   it("has no accessibility violations when open", async () => {
     const { container } = render(
       <AlertDialog
-        open
-        title="Confirm Action"
         description="Are you sure?"
         footer={
           <>
@@ -38,9 +40,11 @@ describe("AlertDialog a11y", () => {
             <AlertDialogAction>Continue</AlertDialogAction>
           </>
         }
+        open
+        title="Confirm Action"
       >
         <p>Alert content</p>
-      </AlertDialog>,
+      </AlertDialog>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

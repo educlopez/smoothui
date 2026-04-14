@@ -6,8 +6,8 @@ import { useEffect, useRef, useState } from "react";
 const STAGGER_DELAY = 50;
 
 export interface PriceFlowProps {
-  value: number;
   className?: string;
+  value: number;
 }
 
 const animateDigit = (

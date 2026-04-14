@@ -10,15 +10,15 @@ const silentOutput = new Writable({
 });
 
 export interface SearchItem {
-  value: string;
-  label: string;
   hint?: string;
+  label: string;
+  value: string;
 }
 
 export interface SearchMultiselectOptions {
-  message: string;
   items: SearchItem[];
   maxVisible?: number;
+  message: string;
 }
 
 const S_STEP_ACTIVE = pc.green("◆");
@@ -52,7 +52,9 @@ export const searchMultiselect = (
     let lastRenderHeight = 0;
 
     const filter = (item: SearchItem, q: string): boolean => {
-      if (!q) return true;
+      if (!q) {
+        return true;
+      }
       const lowerQ = q.toLowerCase();
       return (
         item.label.toLowerCase().includes(lowerQ) ||
@@ -134,8 +136,12 @@ export const searchMultiselect = (
           const hiddenAfter = filtered.length - visibleEnd;
           if (hiddenBefore > 0 || hiddenAfter > 0) {
             const parts: string[] = [];
-            if (hiddenBefore > 0) parts.push(`↑ ${hiddenBefore} more`);
-            if (hiddenAfter > 0) parts.push(`↓ ${hiddenAfter} more`);
+            if (hiddenBefore > 0) {
+              parts.push(`↑ ${hiddenBefore} more`);
+            }
+            if (hiddenAfter > 0) {
+              parts.push(`↓ ${hiddenAfter} more`);
+            }
             lines.push(`${S_BAR}  ${pc.dim(parts.join("  "))}`);
           }
         }
@@ -192,7 +198,9 @@ export const searchMultiselect = (
 
     // Handle keypresses
     const keypressHandler = (_str: string | undefined, key: Key): void => {
-      if (!key) return;
+      if (!key) {
+        return;
+      }
 
       const filtered = getFiltered();
 

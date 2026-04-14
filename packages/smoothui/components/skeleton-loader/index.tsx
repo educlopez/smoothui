@@ -4,12 +4,12 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import type { ReactNode } from "react";
 
 export interface SkeletonProps {
-  /** When true, shows skeleton effect. When false, shows children */
-  loading?: boolean;
   /** Content to wrap - skeleton will match its dimensions */
   children?: ReactNode;
   /** Additional classes */
   className?: string;
+  /** When true, shows skeleton effect. When false, shows children */
+  loading?: boolean;
 }
 
 const Skeleton = ({ loading = true, children, className }: SkeletonProps) => {

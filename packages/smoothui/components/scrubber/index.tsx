@@ -5,26 +5,26 @@ import { motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface ScrubberProps {
-  /** Label displayed on the left side of the track */
-  label?: string;
-  /** Controlled value */
-  value?: number;
-  /** Default value for uncontrolled usage */
-  defaultValue?: number;
-  /** Called when value changes during interaction */
-  onValueChange?: (value: number) => void;
-  /** Minimum value */
-  min?: number;
-  /** Maximum value */
-  max?: number;
-  /** Step increment */
-  step?: number;
-  /** Number of decimal places to display */
-  decimals?: number;
-  /** Number of tick marks (0 to hide) */
-  ticks?: number;
   /** Additional CSS classes */
   className?: string;
+  /** Number of decimal places to display */
+  decimals?: number;
+  /** Default value for uncontrolled usage */
+  defaultValue?: number;
+  /** Label displayed on the left side of the track */
+  label?: string;
+  /** Maximum value */
+  max?: number;
+  /** Minimum value */
+  min?: number;
+  /** Called when value changes during interaction */
+  onValueChange?: (value: number) => void;
+  /** Step increment */
+  step?: number;
+  /** Number of tick marks (0 to hide) */
+  ticks?: number;
+  /** Controlled value */
+  value?: number;
 }
 
 const clamp = (val: number, min: number, max: number) =>
@@ -69,7 +69,9 @@ const Scrubber = ({
   const setValue = useCallback(
     (newValue: number) => {
       const clamped = clamp(roundToStep(newValue, step, min), min, max);
-      if (!isControlled) setInternalValue(clamped);
+      if (!isControlled) {
+        setInternalValue(clamped);
+      }
       onValueChange?.(clamped);
     },
     [step, min, max, isControlled, onValueChange]
@@ -78,7 +80,9 @@ const Scrubber = ({
   const getValueFromPointer = useCallback(
     (clientX: number) => {
       const track = trackRef.current;
-      if (!track) return value;
+      if (!track) {
+        return value;
+      }
       const rect = track.getBoundingClientRect();
       const ratio = clamp((clientX - rect.left) / rect.width, 0, 1);
       return min + ratio * range;
@@ -98,7 +102,9 @@ const Scrubber = ({
 
   const handlePointerMove = useCallback(
     (e: React.PointerEvent) => {
-      if (!isDragging) return;
+      if (!isDragging) {
+        return;
+      }
       setValue(getValueFromPointer(e.clientX));
     },
     [isDragging, getValueFromPointer, setValue]

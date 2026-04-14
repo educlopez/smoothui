@@ -48,8 +48,6 @@ const iconMap = {
 };
 
 interface FaqsGridProps {
-  title?: string;
-  description?: string;
   categories?: Array<{
     name: string;
     id: string;
@@ -59,6 +57,8 @@ interface FaqsGridProps {
       icon: string;
     }>;
   }>;
+  description?: string;
+  title?: string;
 }
 
 export function FaqsGrid({

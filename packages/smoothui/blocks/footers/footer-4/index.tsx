@@ -9,14 +9,14 @@ const HOVER_SCALE = 1.08;
 const TAP_SCALE = 0.95;
 
 export interface FooterMinimalProps {
-  logo?: ReactNode;
+  copyright?: string;
   links?: Array<{ label: string; href: string }>;
+  logo?: ReactNode;
   socialLinks?: Array<{
     icon: ReactNode;
     href: string;
     label: string;
   }>;
-  copyright?: string;
 }
 
 const defaultLinks = [

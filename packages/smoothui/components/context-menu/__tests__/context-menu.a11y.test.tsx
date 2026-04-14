@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { render } from "../../../test-utils/render";
 import { axe } from "vitest-axe";
+import { render } from "../../../test-utils/render";
 import ContextMenu from "../index";
 
 const items = [
@@ -13,7 +13,7 @@ describe("ContextMenu a11y", () => {
     const { container } = render(
       <ContextMenu items={items}>
         <div>Right-click me</div>
-      </ContextMenu>,
+      </ContextMenu>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

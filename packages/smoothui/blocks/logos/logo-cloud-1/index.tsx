@@ -31,9 +31,9 @@ const LOGOS = [
 ];
 
 interface LogoCloudSimpleProps {
-  title?: string;
-  description?: string;
   count?: number;
+  description?: string;
+  title?: string;
 }
 
 export function LogoCloudSimple({

@@ -9,9 +9,9 @@ const AVATAR_SIZE = 400;
 const STAGGER_DELAY = 0.1;
 
 interface TeamGridProps {
-  title?: string;
   description?: string;
   members?: Person[];
+  title?: string;
 }
 
 export function TeamGrid({

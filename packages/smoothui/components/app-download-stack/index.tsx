@@ -10,20 +10,20 @@ import {
 import { useCallback, useMemo, useState } from "react";
 
 export interface AppData {
+  icon: string;
   id: number;
   name: string;
-  icon: string;
 }
 
 export interface AppDownloadStackProps {
   apps?: AppData[];
-  title?: string;
-  selectedApps?: number[];
+  className?: string;
+  isExpanded?: boolean;
   onChange?: (selected: number[]) => void;
   onDownload?: (selected: number[]) => void;
-  isExpanded?: boolean;
   onExpandChange?: (expanded: boolean) => void;
-  className?: string;
+  selectedApps?: number[];
+  title?: string;
 }
 
 const DOWNLOAD_DURATION_MS = 3000;
@@ -82,7 +82,7 @@ export default function AppDownloadStack({
   const shouldReduceMotion = useReducedMotion();
 
   const isExpanded =
-    controlledExpanded !== undefined ? controlledExpanded : internalExpanded;
+    controlledExpanded === undefined ? internalExpanded : controlledExpanded;
   const selected = controlledSelected ?? internalSelected;
 
   const setExpanded = (val: boolean) => {

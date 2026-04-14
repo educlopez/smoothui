@@ -13,12 +13,13 @@ const DELAY_NEWSLETTER = 6;
 const DELAY_BOTTOM = 7;
 
 export interface FooterMegaProps {
-  logo?: ReactNode;
-  description?: string;
   columns?: Array<{
     title: string;
     links: Array<{ label: string; href: string }>;
   }>;
+  copyright?: string;
+  description?: string;
+  logo?: ReactNode;
   newsletter?: {
     title: string;
     description: string;
@@ -30,7 +31,6 @@ export interface FooterMegaProps {
     href: string;
     label: string;
   }>;
-  copyright?: string;
 }
 
 const defaultColumns = [

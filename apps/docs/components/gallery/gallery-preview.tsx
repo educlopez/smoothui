@@ -125,12 +125,12 @@ export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
 
   return (
     <div
-      ref={containerRef}
       aria-label={`Preview of ${title}`}
       className={cn(
         "relative h-[200px] w-full overflow-hidden rounded-t-lg bg-muted/30",
         "pointer-events-none select-none"
       )}
+      ref={containerRef}
     >
       {isVisible && ExampleComponent ? (
         <div className="flex h-full w-full items-center justify-center [&>*]:scale-[0.6] [&>*]:transform">

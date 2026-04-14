@@ -2,11 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Check } from "lucide-react";
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-} from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import {
   cloneElement,
@@ -39,44 +35,44 @@ const SHAKE_KEYFRAMES = [0, -6, 5, -4, 3, -1, 0];
 export type FormErrors = Record<string, string | undefined>;
 
 export interface FormProps extends React.ComponentProps<"form"> {
+  /** Form contents */
+  children: React.ReactNode;
+  /** Optional CSS class */
+  className?: string;
   /** External errors object (e.g. from react-hook-form's `formState.errors`) */
   errors?: FormErrors;
   /** Callback invoked on native form submit with current errors map */
   onFormSubmit?: (e: React.FormEvent<HTMLFormElement>) => void;
-  /** Optional CSS class */
-  className?: string;
-  /** Form contents */
-  children: React.ReactNode;
 }
 
 export interface FormFieldProps {
-  /** Unique field name — used to look up errors */
-  name: string;
-  /** Optional CSS class for the field wrapper */
-  className?: string;
   /** Field contents (label, input, message) */
   children: React.ReactNode;
+  /** Optional CSS class for the field wrapper */
+  className?: string;
+  /** Unique field name — used to look up errors */
+  name: string;
 }
 
 export interface FormLabelProps extends React.ComponentProps<"label"> {
-  /** Optional CSS class */
-  className?: string;
   /** Label text */
   children: React.ReactNode;
+  /** Optional CSS class */
+  className?: string;
 }
 
 export interface FormMessageProps {
-  /** Optional CSS class */
-  className?: string;
   /** Override the error message (otherwise pulled from FormField context) */
   children?: React.ReactNode;
+  /** Optional CSS class */
+  className?: string;
 }
 
 export interface FormDescriptionProps extends React.ComponentProps<"p"> {
-  /** Optional CSS class */
-  className?: string;
   /** Description text */
   children: React.ReactNode;
+  /** Optional CSS class */
+  className?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -85,20 +81,20 @@ export interface FormDescriptionProps extends React.ComponentProps<"p"> {
 
 interface FormContextValue {
   errors: FormErrors;
-  submitCount: number;
   prevErrors: FormErrors;
+  submitCount: number;
 }
 
 interface FormFieldContextValue {
-  name: string;
-  id: string;
   error: string | undefined;
-  formItemId: string;
-  formDescriptionId: string;
-  formMessageId: string;
   fieldIndex: number;
-  submitCount: number;
+  formDescriptionId: string;
+  formItemId: string;
+  formMessageId: string;
+  id: string;
+  name: string;
   prevError: string | undefined;
+  submitCount: number;
 }
 
 const FormContext = createContext<FormContextValue>({
@@ -135,7 +131,7 @@ export default function Form({
 
   const ctxValue = useMemo(
     () => ({ errors, submitCount, prevErrors }),
-    [errors, submitCount, prevErrors],
+    [errors, submitCount, prevErrors]
   );
 
   const handleSubmit = useCallback(
@@ -147,7 +143,7 @@ export default function Form({
         onFormSubmit(e);
       }
     },
-    [onFormSubmit, errors],
+    [onFormSubmit, errors]
   );
 
   return (
@@ -204,7 +200,7 @@ export function FormField({ name, className, children }: FormFieldProps) {
       submitCount,
       prevError,
     }),
-    [name, id, error, submitCount, prevError],
+    [name, id, error, submitCount, prevError]
   );
 
   return (
@@ -237,18 +233,10 @@ function FormFieldInner({
 
   return (
     <motion.div
-      animate={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 1, y: 0 }
-      }
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
       className={cn("grid gap-1.5", className)}
       data-slot="form-field"
-      initial={
-        shouldReduceMotion
-          ? { opacity: 1 }
-          : { opacity: 0, y: 8 }
-      }
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8 }}
       transition={
         shouldReduceMotion
           ? DURATION_INSTANT
@@ -259,13 +247,11 @@ function FormFieldInner({
       }
     >
       <motion.div
-        key={shakeKey}
         animate={
-          shouldShake && !shouldReduceMotion
-            ? { x: SHAKE_KEYFRAMES }
-            : { x: 0 }
+          shouldShake && !shouldReduceMotion ? { x: SHAKE_KEYFRAMES } : { x: 0 }
         }
         className="grid gap-1.5"
+        key={shakeKey}
         transition={
           shouldReduceMotion
             ? DURATION_INSTANT
@@ -290,7 +276,7 @@ export function FormLabel({ className, children, ...props }: FormLabelProps) {
       className={cn(
         "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
         error && "text-destructive",
-        className,
+        className
       )}
       data-slot="form-label"
       htmlFor={formItemId}
@@ -308,7 +294,10 @@ export function FormLabel({ className, children, ...props }: FormLabelProps) {
 export function FormControl({
   children,
   className,
-}: { children: React.ReactNode; className?: string }) {
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   const shouldReduceMotion = useReducedMotion();
   const { formItemId, formDescriptionId, formMessageId, error } =
     useFormFieldCtx();
@@ -327,8 +316,8 @@ export function FormControl({
       }
       className={cn("rounded-md", className)}
       data-slot="form-control"
-      onFocus={() => setIsFocused(true)}
       onBlur={() => setIsFocused(false)}
+      onFocus={() => setIsFocused(true)}
       transition={shouldReduceMotion ? DURATION_INSTANT : SPRING_SNAPPY}
     >
       {cloneChildWithA11y(children, {
@@ -344,7 +333,7 @@ export function FormControl({
 
 function cloneChildWithA11y(
   children: React.ReactNode,
-  a11yProps: Record<string, unknown>,
+  a11yProps: Record<string, unknown>
 ): React.ReactNode {
   const child = Array.isArray(children) ? children[0] : children;
   if (child && typeof child === "object" && "type" in child) {
@@ -384,8 +373,7 @@ export function FormDescription({
 
 export function FormMessage({ className, children }: FormMessageProps) {
   const shouldReduceMotion = useReducedMotion();
-  const { error, formMessageId, submitCount, prevError } =
-    useFormFieldCtx();
+  const { error, formMessageId, submitCount, prevError } = useFormFieldCtx();
 
   const body = children ?? error;
 
@@ -397,11 +385,7 @@ export function FormMessage({ className, children }: FormMessageProps) {
       <AnimatePresence mode="wait">
         {body ? (
           <motion.p
-            animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, y: 0 }
-            }
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className={cn("text-destructive text-sm", className)}
             data-slot="form-message"
             exit={
@@ -411,9 +395,7 @@ export function FormMessage({ className, children }: FormMessageProps) {
             }
             id={formMessageId}
             initial={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 0, y: -4 }
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: -4 }
             }
             key={typeof body === "string" ? body : "message"}
             role="alert"
@@ -424,9 +406,7 @@ export function FormMessage({ className, children }: FormMessageProps) {
         ) : wasError ? (
           <motion.div
             animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, scale: 1 }
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
             }
             className="flex items-center gap-1 text-sm"
             exit={
@@ -435,15 +415,18 @@ export function FormMessage({ className, children }: FormMessageProps) {
                 : { opacity: 0, scale: 0.9 }
             }
             initial={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 0, scale: 0.8 }
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 }
             }
             key="success"
             transition={
               shouldReduceMotion
                 ? DURATION_INSTANT
-                : { type: "spring", stiffness: 300, damping: 20, duration: 0.25 }
+                : {
+                    type: "spring",
+                    stiffness: 300,
+                    damping: 20,
+                    duration: 0.25,
+                  }
             }
           >
             <motion.span

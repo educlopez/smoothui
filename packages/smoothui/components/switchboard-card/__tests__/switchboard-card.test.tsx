@@ -5,7 +5,7 @@ import SwitchboardCard from "../index";
 describe("SwitchboardCard", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <SwitchboardCard title="Test" subtitle="Subtitle" />
+      <SwitchboardCard subtitle="Subtitle" title="Test" />
     );
     expect(container).toBeInTheDocument();
   });

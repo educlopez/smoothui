@@ -6,18 +6,18 @@ import { useEffect, useMemo, useState } from "react";
 export type LightState = "off" | "medium" | "high";
 
 export interface SwitchboardCardProps {
-  title: string;
-  subtitle: string;
-  columns?: number;
-  rows?: number;
-  gridPattern?: number[] | number[][]; // Direct grid pattern: flat array (columns*rows) or 2D array [rows][columns] where 0=off, 1=high
-  randomLights?: boolean; // If true, randomly activate some lights
-  transitionDuration?: number; // in milliseconds (default: 200ms for smooth light transitions)
   className?: string;
-  variant?: "default" | "next";
-  showButton?: boolean;
+  columns?: number;
+  gridPattern?: number[] | number[][]; // Direct grid pattern: flat array (columns*rows) or 2D array [rows][columns] where 0=off, 1=high
   href?: string;
   onButtonClick?: () => void;
+  randomLights?: boolean; // If true, randomly activate some lights
+  rows?: number;
+  showButton?: boolean;
+  subtitle: string;
+  title: string;
+  transitionDuration?: number; // in milliseconds (default: 200ms for smooth light transitions)
+  variant?: "default" | "next";
 }
 
 function generateRandomPattern(
@@ -308,7 +308,7 @@ function LightBulb({
       data-state={state}
       style={{
         ...transitionStyle,
-        transform: state !== "off" ? "scale(1)" : "unset",
+        transform: state === "off" ? "unset" : "scale(1)",
       }}
     >
       {/* Glow effect for medium state (::before equivalent) */}

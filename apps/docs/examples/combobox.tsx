@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Combobox from "@repo/smoothui/components/combobox";
 import type { ComboboxOption } from "@repo/smoothui/components/combobox";
+import Combobox from "@repo/smoothui/components/combobox";
+import { useState } from "react";
 
 const frameworks: ComboboxOption[] = [
   { value: "nextjs", label: "Next.js" },
@@ -32,7 +32,7 @@ const simulateSearch = (query: string): Promise<ComboboxOption[]> =>
   new Promise((resolve) => {
     setTimeout(() => {
       const filtered = allLanguages.filter((lang) =>
-        lang.label.toLowerCase().includes(query.toLowerCase()),
+        lang.label.toLowerCase().includes(query.toLowerCase())
       );
       resolve(filtered);
     }, 600);
@@ -47,46 +47,42 @@ export default function ComboboxDemo() {
       <div className="flex flex-col gap-2">
         <h3 className="font-medium text-lg">Basic Combobox</h3>
         <Combobox
-          options={frameworks}
-          value={framework}
+          aria-label="Framework selection"
           onValueChange={setFramework}
+          options={frameworks}
           placeholder="Select a framework…"
           searchPlaceholder="Search frameworks…"
-          aria-label="Framework selection"
+          value={framework}
         />
         {framework && (
-          <p className="text-muted-foreground text-sm">
-            Selected: {framework}
-          </p>
+          <p className="text-muted-foreground text-sm">Selected: {framework}</p>
         )}
       </div>
 
       <div className="flex flex-col gap-2">
         <h3 className="font-medium text-lg">Async Search</h3>
         <Combobox
-          value={language}
-          onValueChange={setLanguage}
-          onSearch={simulateSearch}
-          searchDebounce={200}
-          placeholder="Search languages…"
-          searchPlaceholder="Type to search…"
-          emptyText="No languages found."
           aria-label="Language selection"
+          emptyText="No languages found."
+          onSearch={simulateSearch}
+          onValueChange={setLanguage}
+          placeholder="Search languages…"
+          searchDebounce={200}
+          searchPlaceholder="Type to search…"
+          value={language}
         />
         {language && (
-          <p className="text-muted-foreground text-sm">
-            Selected: {language}
-          </p>
+          <p className="text-muted-foreground text-sm">Selected: {language}</p>
         )}
       </div>
 
       <div className="flex flex-col gap-2">
         <h3 className="font-medium text-lg">Disabled</h3>
         <Combobox
+          aria-label="Disabled combobox"
+          disabled
           options={frameworks}
           placeholder="Not available"
-          disabled
-          aria-label="Disabled combobox"
         />
       </div>
     </div>

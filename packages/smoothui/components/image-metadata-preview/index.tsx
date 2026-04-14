@@ -6,17 +6,17 @@ import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
 
 export interface ImageMetadata {
-  created: string;
-  updated: string;
   by: string;
+  created: string;
   source: string;
+  updated: string;
 }
 
 export interface ImageMetadataPreviewProps {
-  imageSrc: string;
   alt?: string;
-  filename?: string;
   description?: string;
+  filename?: string;
+  imageSrc: string;
   metadata: ImageMetadata;
   onShare?: () => void;
 }

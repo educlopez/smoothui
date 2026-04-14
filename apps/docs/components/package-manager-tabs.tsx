@@ -103,10 +103,10 @@ const packageManagers = [
 type PackageManager = (typeof packageManagers)[number]["id"];
 
 interface PackageManagerTabsProps {
-  pnpm: string;
-  npm: string;
-  yarn: string;
   bun: string;
+  npm: string;
+  pnpm: string;
+  yarn: string;
 }
 
 export const PackageManagerTabs = ({

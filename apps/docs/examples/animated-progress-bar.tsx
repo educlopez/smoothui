@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import AnimatedProgressBar from "@repo/smoothui/components/animated-progress-bar";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
 export default function AnimatedProgressBarDemo() {

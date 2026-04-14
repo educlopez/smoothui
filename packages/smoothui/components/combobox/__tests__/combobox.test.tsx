@@ -6,11 +6,11 @@ describe("Combobox", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <Combobox
+        aria-label="Test combobox"
         options={[
           { value: "a", label: "Option A" },
           { value: "b", label: "Option B" },
         ]}
-        aria-label="Test combobox"
       />
     );
     expect(container).toBeInTheDocument();

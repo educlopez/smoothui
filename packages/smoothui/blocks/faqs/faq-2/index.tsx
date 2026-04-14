@@ -14,12 +14,12 @@ const CONTENT_DELAY = 0.1;
 const INITIAL_CONTENT_Y = -10;
 
 interface FaqsAccordionProps {
-  title?: string;
   description?: string;
   faqs?: Array<{
     question: string;
     answer: string;
   }>;
+  title?: string;
 }
 
 export function FaqsAccordion({

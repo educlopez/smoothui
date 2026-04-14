@@ -13,6 +13,7 @@ const DELAY_COPYRIGHT = DELAY_INCREMENT * 5;
 
 interface FooterSimpleProps {
   companyName?: string;
+  copyright?: string;
   description?: string;
   links?: {
     product?: Array<{ name: string; url: string }>;
@@ -25,7 +26,6 @@ interface FooterSimpleProps {
     github?: string;
     discord?: string;
   };
-  copyright?: string;
 }
 
 export function FooterSimple({

@@ -45,20 +45,20 @@ import type {
  * (name, displayName, dependencies, URLs) are computed at build time.
  */
 export interface SmoothUIPackageMeta {
-  /** Primary UI category */
-  category: ComponentCategory;
-  /** Discoverable tags */
-  tags: string[];
-  /** Rough complexity level */
-  complexity: Complexity;
   /** Dominant animation technique */
   animationType: AnimationType;
-  /** Natural-language use-case descriptions */
-  useCases: string[];
+  /** Primary UI category */
+  category: ComponentCategory;
+  /** Rough complexity level */
+  complexity: Complexity;
   /** Hints for combining with other components */
   compositionHints: string[];
   /** Whether the component respects prefers-reduced-motion */
   hasReducedMotion: boolean;
+  /** Discoverable tags */
+  tags: string[];
+  /** Natural-language use-case descriptions */
+  useCases: string[];
 }
 
 // ---------------------------------------------------------------------------
@@ -111,20 +111,21 @@ const isStringArray = (value: unknown): value is string[] =>
 const isOneOf = <T extends string>(
   value: unknown,
   allowed: readonly T[]
-): value is T => isString(value) && (allowed as readonly string[]).includes(value);
+): value is T =>
+  isString(value) && (allowed as readonly string[]).includes(value);
 
 // ---------------------------------------------------------------------------
 // Parse result
 // ---------------------------------------------------------------------------
 
 export interface ParseSuccess {
-  success: true;
   data: SmoothUIPackageMeta;
+  success: true;
 }
 
 export interface ParseFailure {
-  success: false;
   errors: ValidationError[];
+  success: false;
 }
 
 export type ParseResult = ParseSuccess | ParseFailure;

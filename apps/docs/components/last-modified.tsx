@@ -1,11 +1,11 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 
 export interface LastModifiedProps {
+  className?: string;
   /**
    * The last modified timestamp in milliseconds
    */
   lastModified: number;
-  className?: string;
 }
 
 export function LastModified({ lastModified, className }: LastModifiedProps) {

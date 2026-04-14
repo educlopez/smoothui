@@ -18,10 +18,10 @@ const SPRING_MASS = 0.7;
 const CLOSE_DELAY = 0.08;
 
 interface FooterContext {
+  closeFeedback: () => void;
+  openFeedback: () => void;
   showFeedback: boolean;
   success: boolean;
-  openFeedback: () => void;
-  closeFeedback: () => void;
 }
 
 const FooterContext = React.createContext({} as FooterContext);

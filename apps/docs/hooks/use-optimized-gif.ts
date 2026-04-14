@@ -14,19 +14,19 @@ interface NavigatorExtended extends Navigator {
 }
 
 interface UseOptimizedGifOptions {
+  enableMotion?: boolean;
   gifUrl: string;
   placeholderUrl: string;
-  threshold?: number;
   rootMargin?: string;
-  enableMotion?: boolean;
+  threshold?: number;
 }
 
 interface UseOptimizedGifReturn {
-  shouldLoad: boolean;
-  isVisible: boolean;
   isLoaded: boolean;
-  src: string;
+  isVisible: boolean;
   ref: React.RefObject<HTMLElement | null>;
+  shouldLoad: boolean;
+  src: string;
 }
 
 export function useOptimizedGif({

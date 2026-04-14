@@ -2,8 +2,8 @@ import type { ImageResponseOptions } from "next/server";
 import type { ReactNode } from "react";
 
 export interface GenerateProps {
-  title: ReactNode;
   description?: ReactNode;
+  title: ReactNode;
 }
 
 export function getImageResponseOptions(): ImageResponseOptions {

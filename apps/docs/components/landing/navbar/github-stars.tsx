@@ -6,16 +6,16 @@ import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface GithubInfoProps {
+  className?: string;
   owner?: string;
   repo?: string;
-  className?: string;
   showForks?: boolean;
 }
 
 interface GitHubData {
-  stars: number;
   forks: number;
   name: string;
+  stars: number;
   url: string;
 }
 

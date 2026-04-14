@@ -225,8 +225,12 @@ export function InteractiveAvatarTutorial({
   };
 
   const getStatusColor = (status: "processing" | "shipped" | "delivered") => {
-    if (status === "processing") return "bg-blue-500";
-    if (status === "shipped") return "bg-amber-500";
+    if (status === "processing") {
+      return "bg-blue-500";
+    }
+    if (status === "shipped") {
+      return "bg-amber-500";
+    }
     return "bg-emerald-500";
   };
 
@@ -265,7 +269,9 @@ export function InteractiveAvatarTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">

@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import NotificationBadge from "@repo/smoothui/components/notification-badge";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Bell } from "lucide-react";
 import { useState } from "react";
 

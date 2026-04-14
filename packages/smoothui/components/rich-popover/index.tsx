@@ -13,18 +13,18 @@ import { motion, useReducedMotion } from "motion/react";
 import type * as React from "react";
 
 export interface RichTooltipProps {
-  trigger: React.ReactNode;
-  title: string;
-  description?: string;
-  icon?: React.ReactNode;
-  href?: string;
-  actionLabel?: string;
   actionHref?: string;
-  onActionClick?: () => void;
-  meta?: string;
-  className?: string;
-  side?: "top" | "bottom" | "left" | "right";
+  actionLabel?: string;
   align?: "start" | "center" | "end";
+  className?: string;
+  description?: string;
+  href?: string;
+  icon?: React.ReactNode;
+  meta?: string;
+  onActionClick?: () => void;
+  side?: "top" | "bottom" | "left" | "right";
+  title: string;
+  trigger: React.ReactNode;
 }
 
 export function YouTubeIcon({

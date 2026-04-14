@@ -5,7 +5,7 @@ import Dialog from "../index";
 describe("Dialog", () => {
   it("renders without throwing", () => {
     const { container } = render(
-      <Dialog trigger={<button type="button">Open</button>} title="Test Dialog">
+      <Dialog title="Test Dialog" trigger={<button type="button">Open</button>}>
         <p>Content</p>
       </Dialog>
     );

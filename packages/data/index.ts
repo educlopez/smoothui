@@ -9,12 +9,12 @@ export type {
   BlockMeta,
   BlockQueryParams,
   BlockType,
+  Complexity,
   ComponentCategory,
   ComponentDetailResponse,
   ComponentListResponse,
   ComponentMeta,
   ComponentQueryParams,
-  Complexity,
   PaginatedResponse,
 } from "./component-meta";
 
@@ -41,22 +41,22 @@ export { parseSmoothUIMeta } from "./smoothui-schema";
  * - Mixed components: any combination of fields
  */
 export interface Person {
+  avatar: string;
+  bio?: string;
+  company?: string;
+  content?: string;
+  experience?: string;
+  location?: string;
   name: string;
   role: string;
-  bio?: string;
-  avatar: string;
-  location?: string;
-  experience?: string;
   social?: {
     twitter?: string;
     linkedin?: string;
     github?: string;
     website?: string;
   };
-  company?: string;
   // Testimonial specific fields
   stars?: number;
-  content?: string;
 }
 
 export const peopleData: Person[] = [
@@ -255,11 +255,11 @@ export const testimonialsData: Person[] = peopleData.filter(
 );
 
 interface ImageKitOptions {
-  width?: number;
+  format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
   height?: number;
   quality?: number;
-  format?: "auto" | "webp" | "jpg" | "jpeg" | "png" | "avif";
   transformations?: string;
+  width?: number;
 }
 
 /**

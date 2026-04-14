@@ -15,14 +15,14 @@ import {
 } from "../../shared";
 
 export interface LogoGridProps {
-  title?: string;
+  columns?: 3 | 4 | 5 | 6;
   description?: string;
   logos?: Array<{
     name: string;
     logo: React.ReactNode;
     href?: string;
   }>;
-  columns?: 3 | 4 | 5 | 6;
+  title?: string;
 }
 
 const DEFAULT_LOGOS = [
@@ -48,12 +48,12 @@ const HOVER_LIFT_OFFSET = -4;
 const INACTIVE_OPACITY = 0.6;
 
 interface LogoItemProps {
+  isHoverDevice: boolean;
   logo: {
     name: string;
     logo: React.ReactNode;
     href?: string;
   };
-  isHoverDevice: boolean;
   shouldReduceMotion: boolean | null;
 }
 

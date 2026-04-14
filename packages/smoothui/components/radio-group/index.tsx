@@ -1,46 +1,46 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import { motion, useReducedMotion } from "motion/react";
+import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import type React from "react";
-import { Children, isValidElement, cloneElement } from "react";
+import { Children, cloneElement, isValidElement } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface RadioGroupProps {
-  /** The controlled value of the selected radio item */
-  value?: string;
-  /** The default value when uncontrolled */
-  defaultValue?: string;
-  /** Callback when the selected value changes */
-  onValueChange?: (value: string) => void;
-  /** Whether the entire group is disabled */
-  disabled?: boolean;
-  /** Optional CSS class for the group container */
-  className?: string;
   /** Radio items to render */
   children: React.ReactNode;
+  /** Optional CSS class for the group container */
+  className?: string;
+  /** The default value when uncontrolled */
+  defaultValue?: string;
+  /** Whether the entire group is disabled */
+  disabled?: boolean;
   /** Name attribute for form submission */
   name?: string;
-  /** Whether a selection is required */
-  required?: boolean;
+  /** Callback when the selected value changes */
+  onValueChange?: (value: string) => void;
   /** Orientation of the radio group for arrow key navigation */
   orientation?: "horizontal" | "vertical";
+  /** Whether a selection is required */
+  required?: boolean;
+  /** The controlled value of the selected radio item */
+  value?: string;
 }
 
 export interface RadioProps {
-  /** The value of this radio option */
-  value: string;
-  /** Whether this radio is disabled */
-  disabled?: boolean;
-  /** Optional CSS class */
-  className?: string;
-  /** ID for label association */
-  id?: string;
-  /** Children (label content) to render next to the radio */
-  children?: React.ReactNode;
   /** @internal Stagger index passed by RadioGroup */
   _staggerIndex?: number;
+  /** Children (label content) to render next to the radio */
+  children?: React.ReactNode;
+  /** Optional CSS class */
+  className?: string;
+  /** Whether this radio is disabled */
+  disabled?: boolean;
+  /** ID for label association */
+  id?: string;
+  /** The value of this radio option */
+  value: string;
 }
 
 /** Spring for the selection dot — playful bounce per CLAUDE.md (0.2-0.3 for playful interactions) */
@@ -87,7 +87,7 @@ export function RadioGroup({
     <RadioGroupPrimitive.Root
       className={cn(
         orientation === "vertical" ? "grid gap-3" : "flex items-center gap-4",
-        className,
+        className
       )}
       data-slot="radio-group"
       defaultValue={defaultValue}
@@ -113,7 +113,7 @@ export function Radio({
 }: RadioProps) {
   const shouldReduceMotion = useReducedMotion();
   const staggerDelay =
-    _staggerIndex !== undefined ? _staggerIndex * STAGGER_DELAY : 0;
+    _staggerIndex === undefined ? 0 : _staggerIndex * STAGGER_DELAY;
 
   const wrapper = (content: React.ReactNode) => {
     if (shouldReduceMotion || _staggerIndex === undefined) {
@@ -137,16 +137,14 @@ export function Radio({
   return wrapper(
     <>
       <motion.div
-        whileHover={
-          shouldReduceMotion ? {} : { transform: "scale(1.1)" }
-        }
-        transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
         className="relative"
+        transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+        whileHover={shouldReduceMotion ? {} : { transform: "scale(1.1)" }}
       >
         <RadioGroupPrimitive.Item
           className={cn(
-            "group/radio border-input bg-background focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 data-[state=checked]:border-brand aspect-square size-4 shrink-0 rounded-full border shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50",
-            className,
+            "group/radio aspect-square size-4 shrink-0 rounded-full border border-input bg-background shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-brand dark:bg-input/30 dark:aria-invalid:ring-destructive/40",
+            className
           )}
           data-slot="radio-group-item"
           disabled={disabled}
@@ -178,9 +176,7 @@ export function Radio({
                   ? { opacity: 1 }
                   : { opacity: 0, transform: "scale(0)" }
               }
-              transition={
-                shouldReduceMotion ? { duration: 0 } : SPRING_DOT
-              }
+              transition={shouldReduceMotion ? { duration: 0 } : SPRING_DOT}
             />
           </RadioGroupPrimitive.Indicator>
         </RadioGroupPrimitive.Item>
@@ -188,8 +184,8 @@ export function Radio({
       {children && (
         <label
           className={cn(
-            "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
-            disabled && "cursor-not-allowed opacity-70",
+            "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+            disabled && "cursor-not-allowed opacity-70"
           )}
           htmlFor={id}
         >

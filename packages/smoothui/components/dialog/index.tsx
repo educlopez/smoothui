@@ -45,43 +45,43 @@ const STAGGER_DELAY = 0.06;
 /* ------------------------------------------------------------------ */
 
 export interface DialogProps {
-  /** Whether the dialog is open */
-  open?: boolean;
-  /** Callback when the open state changes */
-  onOpenChange?: (open: boolean) => void;
-  /** Title displayed in the dialog header */
-  title?: string;
-  /** Description displayed below the title */
-  description?: string;
-  /** Whether to show the close button */
-  showCloseButton?: boolean;
-  /** Additional CSS class names for the content */
-  className?: string;
   /** Dialog content */
   children?: React.ReactNode;
-  /** Trigger element that opens the dialog */
-  trigger?: React.ReactNode;
+  /** Additional CSS class names for the content */
+  className?: string;
+  /** Description displayed below the title */
+  description?: string;
   /** Footer content */
   footer?: React.ReactNode;
+  /** Callback when the open state changes */
+  onOpenChange?: (open: boolean) => void;
+  /** Whether the dialog is open */
+  open?: boolean;
+  /** Whether to show the close button */
+  showCloseButton?: boolean;
+  /** Title displayed in the dialog header */
+  title?: string;
+  /** Trigger element that opens the dialog */
+  trigger?: React.ReactNode;
 }
 
 export interface AlertDialogProps {
-  /** Whether the alert dialog is open */
-  open?: boolean;
-  /** Callback when the open state changes */
-  onOpenChange?: (open: boolean) => void;
-  /** Title displayed in the alert dialog header */
-  title?: string;
-  /** Description displayed below the title */
-  description?: string;
-  /** Additional CSS class names for the content */
-  className?: string;
   /** Alert dialog content */
   children?: React.ReactNode;
-  /** Trigger element that opens the alert dialog */
-  trigger?: React.ReactNode;
+  /** Additional CSS class names for the content */
+  className?: string;
+  /** Description displayed below the title */
+  description?: string;
   /** Footer content (typically AlertDialogAction + AlertDialogCancel) */
   footer?: React.ReactNode;
+  /** Callback when the open state changes */
+  onOpenChange?: (open: boolean) => void;
+  /** Whether the alert dialog is open */
+  open?: boolean;
+  /** Title displayed in the alert dialog header */
+  title?: string;
+  /** Trigger element that opens the alert dialog */
+  trigger?: React.ReactNode;
 }
 
 /* ------------------------------------------------------------------ */
@@ -145,7 +145,7 @@ const AnimatedCloseButton = ({
 }) => (
   <motion.button
     aria-label="Close dialog"
-    className="ring-offset-background focus:ring-ring absolute top-4 right-4 rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none"
+    className="absolute top-4 right-4 rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
     onClick={onClick}
     transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
     type="button"
@@ -183,7 +183,7 @@ export default function Dialog({
       }
       onOpenChange?.(next);
     },
-    [isControlled, onOpenChange],
+    [isControlled, onOpenChange]
   );
 
   // Track mount state for AnimatePresence exit animations
@@ -205,8 +205,8 @@ export default function Dialog({
 
   return (
     <DialogRadix.Root
-      open={isOpen || showContent}
       onOpenChange={handleOpenChange}
+      open={isOpen || showContent}
     >
       {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
 
@@ -239,8 +239,8 @@ export default function Dialog({
                       }
                 }
                 className={cn(
-                  "bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border p-6 shadow-lg sm:max-w-lg",
-                  className,
+                  "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg",
+                  className
                 )}
                 data-slot="dialog-content"
                 exit={
@@ -292,9 +292,7 @@ export default function Dialog({
 
                 {footer && (
                   <StaggerChild
-                    index={
-                      (title || description ? 1 : 0) + (children ? 1 : 0)
-                    }
+                    index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <DialogFooter>{footer}</DialogFooter>
@@ -342,7 +340,7 @@ export function AlertDialog({
       }
       onOpenChange?.(next);
     },
-    [isControlled, onOpenChange],
+    [isControlled, onOpenChange]
   );
 
   const [showContent, setShowContent] = useState(false);
@@ -363,8 +361,8 @@ export function AlertDialog({
 
   return (
     <AlertDialogRadix.Root
-      open={isOpen || showContent}
       onOpenChange={handleOpenChange}
+      open={isOpen || showContent}
     >
       {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
 
@@ -397,8 +395,8 @@ export function AlertDialog({
                       }
                 }
                 className={cn(
-                  "bg-background fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border p-6 shadow-lg sm:max-w-lg",
-                  className,
+                  "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg",
+                  className
                 )}
                 data-slot="alert-dialog-content"
                 exit={
@@ -451,9 +449,7 @@ export function AlertDialog({
 
                 {footer && (
                   <StaggerChild
-                    index={
-                      (title || description ? 1 : 0) + (children ? 1 : 0)
-                    }
+                    index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <AlertDialogFooter>{footer}</AlertDialogFooter>

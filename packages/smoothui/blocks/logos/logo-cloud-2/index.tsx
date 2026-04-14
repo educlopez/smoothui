@@ -21,13 +21,13 @@ const SPRING_STIFFNESS = 300;
 const SCROLL_DISTANCE_FACTOR = 33.333;
 
 interface LogoCloudAnimatedProps {
-  title?: string;
   description?: string;
   logos?: Array<{
     name: string;
     logo: React.ComponentType;
     url?: string;
   }>;
+  title?: string;
 }
 
 export function LogoCloudAnimated({

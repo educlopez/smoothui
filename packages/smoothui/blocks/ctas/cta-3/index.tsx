@@ -18,16 +18,12 @@ export function CtaBanner() {
         <motion.div
           className="mx-auto max-w-4xl overflow-hidden rounded-2xl border bg-gradient-to-r from-primary/5 via-background to-primary/5 p-8 md:p-12"
           initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, scale: 0.97 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.97 }
           }
           transition={shouldReduceMotion ? { duration: 0 } : SPRING}
           viewport={{ once: true }}
           whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, scale: 1 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
           }
         >
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
@@ -42,9 +38,7 @@ export function CtaBanner() {
                 Install any component with a single command.
               </p>
             </div>
-            <SmoothButton variant="candy">
-              Get Started →
-            </SmoothButton>
+            <SmoothButton variant="candy">Get Started →</SmoothButton>
           </div>
         </motion.div>
       </div>

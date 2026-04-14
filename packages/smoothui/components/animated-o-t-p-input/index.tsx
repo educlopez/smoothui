@@ -30,14 +30,14 @@ const INITIAL_Y = 10;
 const SEPARATOR_DELAY = 0.15;
 
 export interface AnimatedInputOTPProps {
+  "aria-describedby"?: string;
+  "aria-label"?: string;
+  className?: string;
   containerClassName?: string;
-  value?: string;
+  maxLength?: number;
   onChange?: (value: string) => void;
   onComplete?: (value: string) => void;
-  maxLength?: number;
-  className?: string;
-  "aria-label"?: string;
-  "aria-describedby"?: string;
+  value?: string;
 }
 
 function AnimatedInputOTP({
@@ -78,8 +78,8 @@ function AnimatedInputOTP({
 }
 
 interface AnimatedInputOTPGroupProps {
-  className?: string;
   children?: ReactNode;
+  className?: string;
 }
 
 function AnimatedInputOTPGroup({
@@ -110,8 +110,8 @@ function AnimatedInputOTPGroup({
 }
 
 interface AnimatedInputOTPSlotProps {
-  index: number;
   className?: string;
+  index: number;
 }
 
 function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
@@ -305,8 +305,8 @@ export function AnimatedOTPInput({
 export {
   AnimatedInputOTP,
   AnimatedInputOTPGroup,
-  AnimatedInputOTPSlot,
   AnimatedInputOTPSeparator,
+  AnimatedInputOTPSlot,
 };
 
 export default AnimatedOTPInput;

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../../test-utils/render";
-import Form, { FormField, FormLabel, FormControl, FormMessage } from "../index";
+import Form, { FormControl, FormField, FormLabel, FormMessage } from "../index";
 
 describe("Form", () => {
   it("renders without throwing", () => {

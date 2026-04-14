@@ -1,5 +1,5 @@
-import { getBundleSize } from "@docs/lib/bundle-size";
 import metaJson from "@docs/content/docs/components/meta.json";
+import { getBundleSize } from "@docs/lib/bundle-size";
 import { source } from "@docs/lib/source";
 
 export type GalleryComponentMeta = {
@@ -26,9 +26,7 @@ const SECTION_SEPARATOR_REGEX = /^---(.+)---$/;
  * Parse meta.json pages array to build a slug-to-category map.
  * Section separators like "---Basic UI ---" define category boundaries.
  */
-const buildCategoryMap = (
-  pages: readonly string[]
-): Map<string, string> => {
+const buildCategoryMap = (pages: readonly string[]): Map<string, string> => {
   const map = new Map<string, string>();
   let currentCategory = "Others";
 

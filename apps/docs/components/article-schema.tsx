@@ -1,13 +1,13 @@
 import Script from "next/script";
 
 interface ArticleSchemaProps {
-  title: string;
-  description: string;
+  author?: string;
   date: string;
   dateModified?: string;
-  author?: string;
-  url: string;
+  description: string;
   image?: string;
+  title: string;
+  url: string;
 }
 
 export function ArticleSchema({

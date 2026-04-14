@@ -9,16 +9,16 @@ const ROTATION_ANGLE_OPEN = 180;
 const DROPDOWN_OFFSET = 4;
 
 export interface DropdownItem {
+  icon?: React.ReactNode;
   id: string | number;
   label: string;
-  icon?: React.ReactNode;
 }
 
 export interface BasicDropdownProps {
-  label: string;
-  items: DropdownItem[];
-  onChange?: (item: DropdownItem) => void;
   className?: string;
+  items: DropdownItem[];
+  label: string;
+  onChange?: (item: DropdownItem) => void;
 }
 
 export default function BasicDropdown({
@@ -307,9 +307,9 @@ export default function BasicDropdown({
           </motion.div>
         </button>
       </div>
-      {typeof window !== "undefined"
-        ? createPortal(dropdownContent, document.body)
-        : null}
+      {typeof window === "undefined"
+        ? null
+        : createPortal(dropdownContent, document.body)}
     </>
   );
 }

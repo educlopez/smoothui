@@ -1,7 +1,7 @@
 "use client";
 
-import ContextMenu from "@repo/smoothui/components/context-menu";
 import type { ContextMenuItemConfig } from "@repo/smoothui/components/context-menu";
+import ContextMenu from "@repo/smoothui/components/context-menu";
 
 const items: ContextMenuItemConfig[] = [
   {
@@ -28,8 +28,18 @@ const items: ContextMenuItemConfig[] = [
     key: "more-tools",
     label: "More Tools",
     children: [
-      { key: "save-page", label: "Save Page As…", shortcut: "⌘S", onSelect: () => {} },
-      { key: "dev-tools", label: "Developer Tools", shortcut: "⌘⌥I", onSelect: () => {} },
+      {
+        key: "save-page",
+        label: "Save Page As…",
+        shortcut: "⌘S",
+        onSelect: () => {},
+      },
+      {
+        key: "dev-tools",
+        label: "Developer Tools",
+        shortcut: "⌘⌥I",
+        onSelect: () => {},
+      },
     ],
   },
   { key: "sep-2", separator: true, label: "" },
@@ -50,7 +60,7 @@ export default function ContextMenuDemo() {
   return (
     <div className="flex w-full items-center justify-center p-8">
       <ContextMenu items={items}>
-        <div className="flex h-40 w-72 items-center justify-center rounded-md border border-dashed text-sm text-muted-foreground">
+        <div className="flex h-40 w-72 items-center justify-center rounded-md border border-dashed text-muted-foreground text-sm">
           Right-click here
         </div>
       </ContextMenu>

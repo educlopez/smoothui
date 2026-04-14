@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from "react";
 const CARD_ANIMATION_DELAY = 0.1;
 
 interface PriceFlowProps {
-  value: number;
   className?: string;
+  value: number;
 }
 
 function PriceFlow({ value, className = "" }: PriceFlowProps) {

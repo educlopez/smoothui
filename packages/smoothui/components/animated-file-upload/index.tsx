@@ -5,12 +5,12 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useRef, useState } from "react";
 
 export interface AnimatedFileUploadProps {
-  onFilesSelected: (files: File[]) => void;
   accept?: string;
-  multiple?: boolean;
-  maxSize?: number;
   className?: string;
   disabled?: boolean;
+  maxSize?: number;
+  multiple?: boolean;
+  onFilesSelected: (files: File[]) => void;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -36,8 +36,12 @@ const SPRING_BOUNCY = {
 };
 
 function formatFileSize(bytes: number): string {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  if (bytes < 1024) {
+    return `${bytes} B`;
+  }
+  if (bytes < 1024 * 1024) {
+    return `${(bytes / 1024).toFixed(1)} KB`;
+  }
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 }
 
@@ -130,7 +134,9 @@ export default function AnimatedFileUpload({
   const handleFiles = useCallback(
     (newFiles: File[]) => {
       const valid = validateFiles(newFiles);
-      if (valid.length === 0) return;
+      if (valid.length === 0) {
+        return;
+      }
       const updated = multiple ? [...files, ...valid] : valid.slice(0, 1);
       setFiles(updated);
       onFilesSelected(updated);
@@ -150,7 +156,9 @@ export default function AnimatedFileUpload({
   const handleDragEnter = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
-      if (disabled) return;
+      if (disabled) {
+        return;
+      }
       dragCounter.current += 1;
       setIsDragOver(true);
     },
@@ -168,7 +176,9 @@ export default function AnimatedFileUpload({
   const handleDragOver = useCallback(
     (e: React.DragEvent) => {
       e.preventDefault();
-      if (disabled) return;
+      if (disabled) {
+        return;
+      }
     },
     [disabled]
   );
@@ -178,7 +188,9 @@ export default function AnimatedFileUpload({
       e.preventDefault();
       dragCounter.current = 0;
       setIsDragOver(false);
-      if (disabled) return;
+      if (disabled) {
+        return;
+      }
       const droppedFiles = Array.from(e.dataTransfer.files);
       handleFiles(droppedFiles);
     },
@@ -186,7 +198,9 @@ export default function AnimatedFileUpload({
   );
 
   const handleClick = () => {
-    if (!disabled) inputRef.current?.click();
+    if (!disabled) {
+      inputRef.current?.click();
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -199,7 +213,9 @@ export default function AnimatedFileUpload({
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const selected = e.target.files ? Array.from(e.target.files) : [];
     handleFiles(selected);
-    if (inputRef.current) inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   return (
@@ -251,7 +267,9 @@ export default function AnimatedFileUpload({
             exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -4 }}
             initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 4 }}
             key={isDragOver ? "drop" : "idle"}
-            transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }}
+            transition={
+              shouldReduceMotion ? { duration: 0 } : { duration: 0.15 }
+            }
           >
             {isDragOver ? "Drop files here" : "Drag & drop or click to upload"}
           </motion.p>

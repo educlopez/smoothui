@@ -24,9 +24,9 @@ const NO_BLUR = "blur(0px)";
 const BLUR_AMOUNT = "blur(8px)";
 
 interface FeatureCardHoverProps {
-  title: string;
   description: string;
   gradient: string;
+  title: string;
 }
 
 export function FeatureCardHover({

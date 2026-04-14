@@ -21,9 +21,7 @@ export function CtaCentered() {
         />
         <motion.div
           className="relative mx-auto max-w-3xl px-6 text-center"
-          initial={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }
-          }
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 24 }}
           transition={
             shouldReduceMotion
               ? { duration: 0 }

@@ -1,8 +1,5 @@
 import { getComponentCatalog } from "@docs/lib/component-catalog";
-import type {
-  ComponentCategory,
-  ComponentMeta,
-} from "@smoothui/data";
+import type { ComponentCategory, ComponentMeta } from "@smoothui/data";
 import type { NextRequest } from "next/server";
 import { errorResponse, jsonResponse } from "../../_shared";
 
@@ -26,7 +23,10 @@ const scoreComponent = (component: ComponentMeta, query: string): number => {
 
   for (const term of terms) {
     // Exact name match is highest signal
-    if (component.name === term || component.displayName.toLowerCase() === term) {
+    if (
+      component.name === term ||
+      component.displayName.toLowerCase() === term
+    ) {
       score += 10;
     } else if (component.name.includes(term)) {
       score += 6;
@@ -55,7 +55,9 @@ const scoreComponent = (component: ComponentMeta, query: string): number => {
     }
 
     // Composition hints
-    if (component.compositionHints.some((h) => h.toLowerCase().includes(term))) {
+    if (
+      component.compositionHints.some((h) => h.toLowerCase().includes(term))
+    ) {
       score += 1;
     }
   }
@@ -69,7 +71,7 @@ export const GET = async (request: NextRequest): Promise<Response> => {
   const category = searchParams.get("category") as ComponentCategory | null;
   const tagsParam = searchParams.get("tags");
 
-  if (!query && !category && !tagsParam) {
+  if (!(query || category || tagsParam)) {
     return errorResponse(
       "At least one of 'q', 'category', or 'tags' query parameters is required",
       400
@@ -92,9 +94,7 @@ export const GET = async (request: NextRequest): Promise<Response> => {
 
     if (requiredTags.length > 0) {
       components = components.filter((c) =>
-        requiredTags.every((rt) =>
-          c.tags.some((t) => t.toLowerCase() === rt)
-        )
+        requiredTags.every((rt) => c.tags.some((t) => t.toLowerCase() === rt))
       );
     }
   }
@@ -104,7 +104,10 @@ export const GET = async (request: NextRequest): Promise<Response> => {
 
   if (query) {
     results = components
-      .map((component) => ({ component, score: scoreComponent(component, query) }))
+      .map((component) => ({
+        component,
+        score: scoreComponent(component, query),
+      }))
       .filter((r) => r.score > 0)
       .sort((a, b) => b.score - a.score);
   } else {

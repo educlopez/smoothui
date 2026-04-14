@@ -62,7 +62,10 @@ export const FilterBar = ({
     inputRef.current?.focus();
   }, [onSearchChange]);
 
-  const allCategories = [{ label: "All", value: null }, ...categories.map((c) => ({ label: c, value: c }))];
+  const allCategories = [
+    { label: "All", value: null },
+    ...categories.map((c) => ({ label: c, value: c })),
+  ];
 
   return (
     <div className="flex flex-col gap-4">
@@ -70,16 +73,16 @@ export const FilterBar = ({
       <div className="relative">
         <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
-          ref={inputRef}
           aria-label="Search components"
           className={cn(
-            "h-10 w-full rounded-lg border border-border bg-background pl-10 pr-10 text-sm text-foreground",
+            "h-10 w-full rounded-lg border border-border bg-background pr-10 pl-10 text-foreground text-sm",
             "placeholder:text-muted-foreground",
             "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary",
             "transition-colors"
           )}
           onChange={(e) => handleSearchInput(e.target.value)}
           placeholder="Search components..."
+          ref={inputRef}
           type="text"
           value={localSearch}
         />

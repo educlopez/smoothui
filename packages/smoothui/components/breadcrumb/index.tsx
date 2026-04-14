@@ -34,24 +34,24 @@ export default function Breadcrumb({
 
   return (
     <nav aria-label="Breadcrumb" className={cn("inline-flex", className)}>
-      <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground sm:gap-2.5">
+      <ol className="flex flex-wrap items-center gap-1.5 text-muted-foreground text-sm sm:gap-2.5">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
           return (
             <motion.li
-              key={
-                typeof item.label === "string"
-                  ? item.label
-                  : `breadcrumb-${String(index)}`
-              }
+              animate={{ opacity: 1, transform: "translateX(0px)" }}
               className="inline-flex items-center gap-1.5"
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
                   : { opacity: 0, transform: "translateX(-4px)" }
               }
-              animate={{ opacity: 1, transform: "translateX(0px)" }}
+              key={
+                typeof item.label === "string"
+                  ? item.label
+                  : `breadcrumb-${String(index)}`
+              }
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
@@ -63,9 +63,9 @@ export default function Breadcrumb({
             >
               {index > 0 && (
                 <span
-                  role="presentation"
                   aria-hidden="true"
                   className="mr-1.5 [&>svg]:size-3.5"
+                  role="presentation"
                 >
                   {separator ?? <ChevronRight className="size-3.5" />}
                 </span>
@@ -79,8 +79,8 @@ export default function Breadcrumb({
                 </span>
               ) : (
                 <a
-                  href={item.href ?? "#"}
                   className="transition-colors hover:text-foreground"
+                  href={item.href ?? "#"}
                 >
                   {item.label}
                 </a>

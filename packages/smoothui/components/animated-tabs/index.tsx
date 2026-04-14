@@ -5,13 +5,13 @@ import { motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useId, useState } from "react";
 
 export interface AnimatedTabsProps {
-  tabs: { id: string; label: string; icon?: ReactNode }[];
   activeTab?: string;
-  defaultTab?: string;
-  onChange?: (tabId: string) => void;
-  variant?: "underline" | "pill" | "segment";
-  layoutId?: string;
   className?: string;
+  defaultTab?: string;
+  layoutId?: string;
+  onChange?: (tabId: string) => void;
+  tabs: { id: string; label: string; icon?: ReactNode }[];
+  variant?: "underline" | "pill" | "segment";
 }
 
 const SPRING = {

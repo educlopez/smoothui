@@ -34,13 +34,13 @@ export interface ImageData {
 }
 
 export interface InteractiveImageSelectorProps {
+  className?: string;
   images: ImageData[];
-  selectedImages?: number[];
   onChange?: (selected: number[]) => void;
   onDelete?: (deleted: number[]) => void;
   onShare?: (selected: number[]) => void;
-  className?: string;
   selectable?: boolean;
+  selectedImages?: number[];
 }
 
 export default function InteractiveImageSelector({

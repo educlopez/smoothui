@@ -12,8 +12,8 @@ import { useRef } from "react";
 const KEY_PREFIX_LENGTH = 3;
 
 export interface ScrollRevealParagraphProps {
-  paragraph: string;
   className?: string;
+  paragraph: string;
 }
 
 export default function ScrollRevealParagraph({

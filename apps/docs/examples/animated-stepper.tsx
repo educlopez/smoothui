@@ -1,7 +1,7 @@
 "use client";
 
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import AnimatedStepper from "@repo/smoothui/components/animated-stepper";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
 const steps = [

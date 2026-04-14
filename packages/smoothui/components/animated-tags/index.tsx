@@ -5,10 +5,10 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 export interface AnimatedTagsProps {
-  initialTags?: string[];
-  selectedTags?: string[];
-  onChange?: (selected: string[]) => void;
   className?: string;
+  initialTags?: string[];
+  onChange?: (selected: string[]) => void;
+  selectedTags?: string[];
 }
 
 export default function AnimatedTags({

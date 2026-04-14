@@ -18,7 +18,13 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["features", "alternating", "zigzag", "marketing", "animated"],
+    "tags": [
+      "features",
+      "alternating",
+      "zigzag",
+      "marketing",
+      "animated"
+    ],
     "complexity": "simple",
     "animationType": "spring",
     "useCases": [

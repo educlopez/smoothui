@@ -41,11 +41,11 @@ export function BlockHeightSync({ blockId }: BlockHeightSyncProps) {
     postHeight();
 
     const resizeObserver =
-      typeof ResizeObserver !== "undefined"
-        ? new ResizeObserver(() => {
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(() => {
             postHeight();
-          })
-        : null;
+          });
 
     resizeObserver?.observe(target);
 
@@ -75,11 +75,11 @@ export function BlockHeightSync({ blockId }: BlockHeightSyncProps) {
     window.addEventListener("message", handleMessage);
 
     const handleMutation =
-      typeof MutationObserver !== "undefined"
-        ? new MutationObserver(() => {
+      typeof MutationObserver === "undefined"
+        ? null
+        : new MutationObserver(() => {
             postHeight();
-          })
-        : null;
+          });
 
     handleMutation?.observe(target, {
       childList: true,

@@ -1,11 +1,8 @@
 import { getComponentCatalog } from "@docs/lib/component-catalog";
-import {
-  getAllPackageNameMapping,
-  getPackage,
-} from "@docs/lib/package";
+import { getAllPackageNameMapping, getPackage } from "@docs/lib/package";
 import type { ComponentDetailResponse } from "@smoothui/data";
 import type { NextRequest } from "next/server";
-import { corsHeaders, errorResponse, jsonResponse } from "../../_shared";
+import { errorResponse, jsonResponse } from "../../_shared";
 
 export { OPTIONS } from "../../_shared";
 
@@ -41,10 +38,7 @@ export const GET = async (
         const pkg = await getPackage(fullPackageName);
         // Combine all file contents into a single source string
         const source = pkg.files
-          ?.map(
-            (f) =>
-              `// --- ${f.path} ---\n${f.content ?? ""}`
-          )
+          ?.map((f) => `// --- ${f.path} ---\n${f.content ?? ""}`)
           .join("\n\n");
 
         if (source) {

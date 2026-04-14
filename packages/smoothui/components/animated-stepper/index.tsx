@@ -5,20 +5,20 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useCallback, useId, useState } from "react";
 
 export interface StepItem {
-  label: string;
+  content?: ReactNode;
   description?: string;
   icon?: ReactNode;
-  content?: ReactNode;
+  label: string;
 }
 
 export interface AnimatedStepperProps {
-  steps: StepItem[];
+  allowClickNavigation?: boolean;
+  className?: string;
   currentStep?: number;
   defaultStep?: number;
   onStepChange?: (step: number) => void;
+  steps: StepItem[];
   variant?: "horizontal" | "vertical";
-  allowClickNavigation?: boolean;
-  className?: string;
 }
 
 /* ─────────────────────────────────────────────────────────
@@ -54,11 +54,7 @@ function CheckIcon() {
       strokeWidth={2.5}
       viewBox="0 0 24 24"
     >
-      <path
-        d="M5 13l4 4L19 7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
+      <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -83,7 +79,9 @@ export default function AnimatedStepper({
 
   const handleStepChange = useCallback(
     (step: number) => {
-      if (step < 0 || step >= steps.length) return;
+      if (step < 0 || step >= steps.length) {
+        return;
+      }
       setDirection(step > activeStep ? 1 : -1);
       if (!isControlled) {
         setInternalStep(step);
@@ -95,7 +93,9 @@ export default function AnimatedStepper({
 
   const handleKeyDown = useCallback(
     (event: React.KeyboardEvent) => {
-      if (!allowClickNavigation) return;
+      if (!allowClickNavigation) {
+        return;
+      }
       const isHoriz = variant === "horizontal";
       const nextKey = isHoriz ? "ArrowRight" : "ArrowDown";
       const prevKey = isHoriz ? "ArrowLeft" : "ArrowUp";
@@ -146,31 +146,23 @@ export default function AnimatedStepper({
               key={`${id}-step-${step.label}`}
             >
               <motion.button
-                animate={
-                  shouldReduceMotion
-                    ? undefined
-                    : { scale: 1 }
-                }
+                animate={shouldReduceMotion ? undefined : { scale: 1 }}
                 aria-label={`Step ${index + 1}: ${step.label}${isCompleted ? ", completed" : ""}${isActive ? ", current" : ""}`}
                 aria-selected={isActive}
                 className={cn(
                   "relative flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 font-medium text-sm",
                   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                  isActive && "border-primary bg-primary text-primary-foreground",
+                  isActive &&
+                    "border-primary bg-primary text-primary-foreground",
                   isCompleted &&
                     "border-primary bg-primary text-primary-foreground",
-                  !isActive &&
-                    !isCompleted &&
+                  !(isActive || isCompleted) &&
                     "border-muted-foreground/30 bg-background text-muted-foreground",
-                  allowClickNavigation
-                    ? "cursor-pointer"
-                    : "cursor-default"
+                  allowClickNavigation ? "cursor-pointer" : "cursor-default"
                 )}
                 disabled={!allowClickNavigation}
                 id={`${id}-step-${index}`}
-                onClick={() =>
-                  allowClickNavigation && handleStepChange(index)
-                }
+                onClick={() => allowClickNavigation && handleStepChange(index)}
                 onKeyDown={handleKeyDown}
                 role="tab"
                 tabIndex={isActive ? 0 : -1}
@@ -211,7 +203,9 @@ export default function AnimatedStepper({
                           : { opacity: 0, scale: 0.5 }
                       }
                       key="check"
-                      transition={shouldReduceMotion ? { duration: 0 } : SPRING_BOUNCY}
+                      transition={
+                        shouldReduceMotion ? { duration: 0 } : SPRING_BOUNCY
+                      }
                     >
                       <CheckIcon />
                     </motion.span>
@@ -268,9 +262,7 @@ export default function AnimatedStepper({
                   <p
                     className={cn(
                       "font-medium text-sm transition-colors duration-200",
-                      isActive
-                        ? "text-foreground"
-                        : "text-muted-foreground"
+                      isActive ? "text-foreground" : "text-muted-foreground"
                     )}
                   >
                     {step.label}
@@ -288,9 +280,7 @@ export default function AnimatedStepper({
                   <p
                     className={cn(
                       "font-medium text-sm transition-colors duration-200",
-                      isActive
-                        ? "text-foreground"
-                        : "text-muted-foreground"
+                      isActive ? "text-foreground" : "text-muted-foreground"
                     )}
                   >
                     {step.label}
@@ -308,9 +298,7 @@ export default function AnimatedStepper({
                   <motion.div
                     animate={{ width: index < activeStep ? "100%" : "0%" }}
                     className="h-full bg-primary"
-                    transition={
-                      shouldReduceMotion ? { duration: 0 } : SPRING
-                    }
+                    transition={shouldReduceMotion ? { duration: 0 } : SPRING}
                   />
                 </div>
               )}
@@ -332,11 +320,7 @@ export default function AnimatedStepper({
       <div aria-label={`Step ${activeStep + 1} content`} role="tabpanel">
         <AnimatePresence initial={false} mode="wait">
           <motion.div
-            animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, x: 0 }
-            }
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }}
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }

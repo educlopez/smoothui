@@ -31,7 +31,6 @@ export async function getLLMText(page: InferPageType<typeof source>) {
 ${processed}`;
 }
 
-
 export function getBlogPageImage(slug: string) {
   return {
     url: `/og/blog/${slug}/image.png`,

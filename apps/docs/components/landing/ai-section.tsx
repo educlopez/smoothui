@@ -1,9 +1,9 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 
 function McpIllustration() {
   const shouldReduceMotion = useReducedMotion();
@@ -95,14 +95,16 @@ function ApiIllustration() {
       >
         <div className="flex justify-between text-sm">
           <span className="text-foreground/50">GET</span>
-          <span className="font-mono text-brand text-xs">
-            /api/v1/suggest
-          </span>
+          <span className="font-mono text-brand text-xs">/api/v1/suggest</span>
         </div>
         <div className="h-px bg-border" />
         <div className="space-y-1.5 font-mono text-xs">
           {[
-            { text: '{ "results": [', className: "text-foreground/40", delay: 0.15 },
+            {
+              text: '{ "results": [',
+              className: "text-foreground/40",
+              delay: 0.15,
+            },
             {
               text: (
                 <>
@@ -207,7 +209,7 @@ function LlmsIllustration() {
               : { opacity: 1, transform: "translateX(0px)" }
           }
         >
-          <div className="relative ml-7 mt-0.5 inline-flex items-center gap-2 font-medium text-sm before:absolute before:inset-y-0 before:-left-[19px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-brand before:bg-background before:ring before:ring-background">
+          <div className="relative mt-0.5 ml-7 inline-flex items-center gap-2 font-medium text-sm before:absolute before:inset-y-0 before:-left-[19px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-brand before:bg-background before:ring before:ring-background">
             <span className="text-brand">tags</span>
             <span className="text-foreground/40">categories</span>
             <span className="text-foreground/40">useCases</span>
@@ -327,7 +329,7 @@ export function AISection() {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-md shadow-black/5 ring-1 ring-border"
+          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-black/5 shadow-md ring-1 ring-border"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -349,11 +351,7 @@ export function AISection() {
             {aiFeatures.map((feature, index) => (
               <motion.div
                 className="row-span-2 grid grid-rows-subgrid gap-8 p-8"
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0 }
-                }
+                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 key={feature.label}
                 transition={
                   shouldReduceMotion
@@ -367,9 +365,7 @@ export function AISection() {
                 }
                 viewport={{ once: true, amount: 0.2 }}
                 whileInView={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1 }
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }
                 }
               >
                 <feature.illustration />
@@ -388,22 +384,14 @@ export function AISection() {
 
         <motion.div
           className="mt-8 flex justify-center"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0 }
-          }
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
           transition={
             shouldReduceMotion
               ? { duration: 0 }
               : { type: "spring", duration: 0.25, bounce: 0.1, delay: 0.5 }
           }
           viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1 }
-          }
+          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
         >
           <Link
             className="group flex items-center gap-2 font-medium text-brand text-sm transition-colors hover:text-foreground"

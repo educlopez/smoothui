@@ -18,7 +18,13 @@
   },
   "smoothui": {
     "category": "layout",
-    "tags": ["cta", "call-to-action", "centered", "marketing", "animated"],
+    "tags": [
+      "cta",
+      "call-to-action",
+      "centered",
+      "marketing",
+      "animated"
+    ],
     "complexity": "simple",
     "animationType": "spring",
     "useCases": [

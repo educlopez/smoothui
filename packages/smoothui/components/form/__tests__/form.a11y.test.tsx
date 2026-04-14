@@ -1,12 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { render } from "../../../test-utils/render";
 import { axe } from "vitest-axe";
+import { render } from "../../../test-utils/render";
 import Form, {
+  FormControl,
+  FormDescription,
   FormField,
   FormLabel,
-  FormControl,
   FormMessage,
-  FormDescription,
 } from "../index";
 
 describe("Form a11y", () => {
@@ -16,12 +16,12 @@ describe("Form a11y", () => {
         <FormField name="email">
           <FormLabel>Email</FormLabel>
           <FormControl>
-            <input type="email" placeholder="you@example.com" />
+            <input placeholder="you@example.com" type="email" />
           </FormControl>
           <FormDescription>We will never share your email.</FormDescription>
           <FormMessage />
         </FormField>
-      </Form>,
+      </Form>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
@@ -33,11 +33,11 @@ describe("Form a11y", () => {
         <FormField name="email">
           <FormLabel>Email</FormLabel>
           <FormControl>
-            <input type="email" placeholder="you@example.com" />
+            <input placeholder="you@example.com" type="email" />
           </FormControl>
           <FormMessage />
         </FormField>
-      </Form>,
+      </Form>
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

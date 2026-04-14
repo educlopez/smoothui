@@ -105,7 +105,9 @@
                       "category": "navigation",
                       "tags": ["animation", "tabs", "navigation"],
                       "useCases": ["Tab navigation with smooth transitions"],
-                      "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+                      "compositionHints": [
+                        "Combine with animated-tooltip for rich tab headers"
+                      ],
                       "complexity": "moderate",
                       "animationType": "spring",
                       "dependencies": ["motion"],
@@ -172,7 +174,9 @@
                     "category": "navigation",
                     "tags": ["animation", "tabs", "navigation"],
                     "useCases": ["Tab navigation with smooth transitions"],
-                    "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+                    "compositionHints": [
+                      "Combine with animated-tooltip for rich tab headers"
+                    ],
                     "complexity": "moderate",
                     "animationType": "spring",
                     "dependencies": ["motion"],
@@ -360,7 +364,10 @@
                       "displayName": "HeroSection",
                       "description": "Animated hero section with gradient text and call-to-action buttons.",
                       "blockType": "hero",
-                      "components": ["animated-gradient-text", "magnetic-button"],
+                      "components": [
+                        "animated-gradient-text",
+                        "magnetic-button"
+                      ],
                       "category": "layout",
                       "tags": ["hero", "landing-page"],
                       "useCases": ["Landing page hero section"],
@@ -527,7 +534,17 @@
     "schemas": {
       "ComponentCategory": {
         "type": "string",
-        "enum": ["basic-ui", "button", "text", "ai", "layout", "feedback", "data-display", "navigation", "other"],
+        "enum": [
+          "basic-ui",
+          "button",
+          "text",
+          "ai",
+          "layout",
+          "feedback",
+          "data-display",
+          "navigation",
+          "other"
+        ],
         "description": "Primary UI category for a component."
       },
       "Complexity": {
@@ -542,13 +559,39 @@
       },
       "BlockType": {
         "type": "string",
-        "enum": ["hero", "features", "pricing", "testimonials", "cta", "footer", "header", "other"],
+        "enum": [
+          "hero",
+          "features",
+          "pricing",
+          "testimonials",
+          "cta",
+          "footer",
+          "header",
+          "other"
+        ],
         "description": "Page section type for a block."
       },
       "ComponentMeta": {
         "type": "object",
         "description": "Full metadata for a single SmoothUI component.",
-        "required": ["name", "displayName", "description", "category", "tags", "useCases", "compositionHints", "complexity", "animationType", "dependencies", "registryDependencies", "hasReducedMotion", "propsCount", "installCommand", "docUrl", "registryUrl"],
+        "required": [
+          "name",
+          "displayName",
+          "description",
+          "category",
+          "tags",
+          "useCases",
+          "compositionHints",
+          "complexity",
+          "animationType",
+          "dependencies",
+          "registryDependencies",
+          "hasReducedMotion",
+          "propsCount",
+          "installCommand",
+          "docUrl",
+          "registryUrl"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -623,7 +666,23 @@
       "BlockMeta": {
         "type": "object",
         "description": "Full metadata for a pre-built page block.",
-        "required": ["name", "displayName", "description", "blockType", "components", "category", "tags", "useCases", "complexity", "animationType", "dependencies", "hasReducedMotion", "installCommand", "docUrl", "registryUrl"],
+        "required": [
+          "name",
+          "displayName",
+          "description",
+          "blockType",
+          "components",
+          "category",
+          "tags",
+          "useCases",
+          "complexity",
+          "animationType",
+          "dependencies",
+          "hasReducedMotion",
+          "installCommand",
+          "docUrl",
+          "registryUrl"
+        ],
         "properties": {
           "name": {
             "type": "string",
@@ -839,7 +898,17 @@
       "Suggestion": {
         "type": "object",
         "description": "A single suggestion result.",
-        "required": ["type", "name", "displayName", "description", "category", "relevanceScore", "installCommand", "docUrl", "registryUrl"],
+        "required": [
+          "type",
+          "name",
+          "displayName",
+          "description",
+          "category",
+          "relevanceScore",
+          "installCommand",
+          "docUrl",
+          "registryUrl"
+        ],
         "properties": {
           "type": {
             "type": "string",
