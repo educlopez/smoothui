@@ -12,6 +12,7 @@ import {
 import {
   ArrowRight,
   Book,
+  Compass,
   FileText,
   Heart,
   Layers3,
@@ -33,7 +34,11 @@ import { useIsMobile } from "@repo/shadcn-ui/hooks/use-mobile";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { GithubStars } from "./github-stars";
-import { BlocksMenuIllustration, MenuIllustration } from "./menu-illustration";
+import {
+  BlocksMenuIllustration,
+  MenuIllustration,
+  ResourcesMenuIllustration,
+} from "./menu-illustration";
 import { MobileNavbar } from "./mobile-navbar";
 
 // Preview components data
@@ -80,6 +85,7 @@ interface NavbarProps {
 export default function Navbar({ className }: NavbarProps) {
   const [hoveredComponent, setHoveredComponent] = useState<string | null>(null);
   const [hoveredBlock, setHoveredBlock] = useState<string | null>(null);
+  const [hoveredResource, setHoveredResource] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
   // Show mobile navbar on mobile devices
@@ -229,19 +235,62 @@ export default function Navbar({ className }: NavbarProps) {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/blog">
-            <FileText size={16} /> Blog
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/docs/guides/sponsors">
-            <Heart size={16} /> Sponsors
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="https://skills.smoothui.dev" rel="noopener noreferrer" target="_blank">
-            <Wand2 size={16} /> Skills
-          </NavigationMenuLink>
+          <NavigationMenuTrigger className="trigger !cursor-default">
+            <Compass size={16} />
+            Resources
+          </NavigationMenuTrigger>
+          <NavigationMenuContent className="content">
+            <div className="enhanced-submenu">
+              <div className="submenu-nav">
+                <div className="submenu-items">
+                  <EnhancedListItem
+                    href="/blog"
+                    icon={<FileText size={20} />}
+                    onHover={() => setHoveredResource("blog")}
+                    onLeave={() => setHoveredResource(null)}
+                    title="Blog"
+                  >
+                    Interactive tutorials and deep dives on components.
+                  </EnhancedListItem>
+                  <EnhancedListItem
+                    href="/docs/guides/sponsors"
+                    icon={<Heart size={20} />}
+                    onHover={() => setHoveredResource("sponsors")}
+                    onLeave={() => setHoveredResource(null)}
+                    title="Sponsors"
+                  >
+                    Support the project and meet our backers.
+                  </EnhancedListItem>
+                  <EnhancedListItem
+                    external
+                    href="https://skills.smoothui.dev"
+                    icon={<Wand2 size={20} />}
+                    onHover={() => setHoveredResource("skills")}
+                    onLeave={() => setHoveredResource(null)}
+                    title="Skills"
+                  >
+                    Claude Code skills to scaffold SmoothUI components.
+                  </EnhancedListItem>
+                </div>
+                <Link
+                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
+                  href="/blog"
+                >
+                  Read the blog
+                  <ArrowRight size={14} />
+                </Link>
+              </div>
+
+              <div className="submenu-preview">
+                <div className="flex h-full w-full items-center justify-center">
+                  <ResourcesMenuIllustration
+                    activeSection={hoveredResource ?? "blog"}
+                    className="h-full w-full"
+                  />
+                </div>
+              </div>
+            </div>
+          </NavigationMenuContent>
         </NavigationMenuItem>
       </NavigationMenuList>
       <div className="viewport-position">
@@ -261,6 +310,7 @@ interface EnhancedListItemProps {
   href: string;
   onHover: () => void;
   onLeave: () => void;
+  external?: boolean;
 }
 
 function EnhancedListItem({
@@ -270,8 +320,13 @@ function EnhancedListItem({
   href,
   onHover,
   onLeave,
+  external,
   ...props
 }: EnhancedListItemProps) {
+  const externalProps = external
+    ? { rel: "noopener noreferrer", target: "_blank" }
+    : {};
+
   return (
     <NavigationMenuLink asChild>
       <Link
@@ -279,6 +334,7 @@ function EnhancedListItem({
         href={href}
         onMouseEnter={onHover}
         onMouseLeave={onLeave}
+        {...externalProps}
         {...props}
       >
         <div className="enhanced-list-item-icon frame-box relative">{icon}</div>

@@ -1,0 +1,34 @@
+---
+title: "Building Animated Tabs with a Shared Layout Indicator"
+description: "How to build tabs where a single pill slides smoothly between the active option, with full keyboard support and reduced-motion compliance."
+date: "2026-04-14"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveAnimatedTabsTutorial } from "@docs/components/blog/interactive-animated-tabs-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build the **Animated Tabs** component step by step. Click between tabs in the preview to see the shared indicator slide as each layer is added.
+
+<InteractiveAnimatedTabsTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **`layoutId`** is Motion's magic for shared-element transitions
+2. **`role="tablist"` + `aria-selected`** gives you accessibility for free
+3. **Arrow keys + Home/End** are expected in tab widgets — don't skip them
+4. **Spring with `bounce: 0.05`** keeps the slide tight and professional
+5. **Reduce motion = `duration: 0`** — instant, not "soft"
+6. **Unique `layoutId` per instance** prevents cross-talk when you render multiple tab groups
+
+---
+
+## Install the Component
+
+<Installer packageName="animated-tabs" />
+
+Check out the [full documentation](/docs/components/animated-tabs) for all props and variations.

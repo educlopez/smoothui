@@ -1,0 +1,34 @@
+---
+title: "Building a Magnetic Button with Cursor Physics"
+description: "Learn how to build a button that's pulled towards the user's cursor — with radius falloff, spring physics, and full accessibility support."
+date: "2026-04-14"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveMagneticButtonTutorial } from "@docs/components/blog/interactive-magnetic-button-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build the **Magnetic Button** step by step. Move your cursor near the preview — the button will lean towards you as you add each layer.
+
+<InteractiveMagneticButtonTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **Distance math** with `getBoundingClientRect` + `Math.sqrt` drives the effect
+2. **A strength factor < 1** keeps the motion subtle — 0.3–0.4 is a sweet spot
+3. **Radius falloff** makes the interaction local instead of global
+4. **`useSpring`** turns raw deltas into organic motion, including the snap-back
+5. **Touch + reduced-motion checks** are not optional — always gate hover effects
+6. **Only animate `transform`** (via `x`/`y` motion values) for 60fps performance
+
+---
+
+## Install the Component
+
+<Installer packageName="magnetic-button" />
+
+Check out the [full documentation](/docs/components/magnetic-button) for all props and variations.

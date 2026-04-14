@@ -4,6 +4,7 @@ import Logo from "@docs/components/logo";
 import { Button } from "@docs/components/smoothbutton";
 import {
   Book,
+  Compass,
   FileText,
   Heart,
   Layers3,
@@ -203,18 +204,48 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 <Book size={16} />
                 Docs
               </Link>
-              <Link className="mobile-navbar-link" href="/blog">
-                <FileText size={16} />
-                Blog
-              </Link>
-              <Link className="mobile-navbar-link" href="/docs/guides/sponsors">
-                <Heart size={16} />
-                Sponsors
-              </Link>
-              <a className="mobile-navbar-link" href="https://skills.smoothui.dev" rel="noopener noreferrer" target="_blank">
-                <Wand2 size={16} />
-                Skills
-              </a>
+            </motion.div>
+
+            <motion.div
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
+              className="mobile-navbar-section"
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { delay: 0.18, duration: 0.2 }
+              }
+            >
+              <div className="mobile-navbar-section-title">
+                <Compass size={16} />
+                Resources
+              </div>
+              <div className="mobile-navbar-links">
+                <Link className="mobile-navbar-link" href="/blog">
+                  <FileText size={16} />
+                  Blog
+                </Link>
+                <Link
+                  className="mobile-navbar-link"
+                  href="/docs/guides/sponsors"
+                >
+                  <Heart size={16} />
+                  Sponsors
+                </Link>
+                <a
+                  className="mobile-navbar-link"
+                  href="https://skills.smoothui.dev"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <Wand2 size={16} />
+                  Skills
+                </a>
+              </div>
             </motion.div>
 
             <motion.div

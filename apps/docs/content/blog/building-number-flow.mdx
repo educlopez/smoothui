@@ -1,0 +1,34 @@
+---
+title: "Building a Number Flow Animation"
+description: "A step-by-step guide to animating numeric values digit-by-digit with direction-aware motion, tabular alignment, and accessibility in mind."
+date: "2026-04-14"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveNumberFlowTutorial } from "@docs/components/blog/interactive-number-flow-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build a **Number Flow** animation step by step. Use the + / − buttons in the preview to trigger the animation as each layer is added.
+
+<InteractiveNumberFlowTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **`tabular-nums`** keeps digits at a fixed width — essential for any animated counter
+2. **Split by character** so digits can enter and exit independently
+3. **`AnimatePresence` with `mode="popLayout"`** lets old and new digits coexist during transition
+4. **Direction-aware motion** (sliding up vs. down) makes increments and decrements feel different
+5. **Springs with low bounce** read as "mechanical" — perfect for numbers and counters
+6. **Reduced motion swaps instantly** — the number still updates, just without the slide
+
+---
+
+## Install the Component
+
+<Installer packageName="number-flow" />
+
+Check out the [full documentation](/docs/components/number-flow) for all props and variations.

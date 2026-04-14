@@ -150,6 +150,189 @@ export function MenuIllustration({
   );
 }
 
+// Resources MenuIllustration - for blog, sponsors, skills
+export function ResourcesMenuIllustration({
+  activeSection,
+  className = "",
+}: MenuIllustrationProps) {
+  return (
+    <motion.svg
+      animate={{ opacity: 1 }}
+      aria-label={`Resources menu illustration for ${activeSection} section`}
+      className={cn(className, "overflow-hidden rounded-md")}
+      fill="none"
+      height="231"
+      initial={{ opacity: 0 }}
+      role="img"
+      style={{ overflow: "hidden" }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      viewBox="0 0 231 231"
+      width="231"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <clipPath id="clip0_resources">
+          <rect height="231" rx="7.22" width="231" />
+        </clipPath>
+      </defs>
+      <g clipPath="url(#clip0_resources)">
+        <rect
+          className="fill-brand-secondary"
+          height="231"
+          rx="7.22"
+          width="231"
+        />
+
+        {/* Blog — stacked article cards */}
+        <motion.g
+          animate={{
+            opacity: activeSection === "blog" ? 1 : 0,
+            y: activeSection === "blog" ? 0 : 20,
+          }}
+          initial={{ opacity: 0, y: 20 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <rect
+            height="55"
+            rx="10"
+            style={{ fill: "var(--color-brand-lighter)" }}
+            width="260"
+            x="-15"
+            y="24"
+          />
+          <rect
+            height="12"
+            rx="6"
+            style={{ fill: "var(--color-brand)" }}
+            width="120"
+            x="20"
+            y="38"
+          />
+          <rect
+            height="8"
+            rx="4"
+            style={{ fill: "var(--color-brand-light)" }}
+            width="180"
+            x="20"
+            y="58"
+          />
+          <rect
+            height="55"
+            rx="10"
+            style={{ fill: "var(--color-brand-light)" }}
+            width="260"
+            x="-15"
+            y="88"
+          />
+          <rect
+            height="12"
+            rx="6"
+            style={{ fill: "var(--color-brand)" }}
+            width="150"
+            x="20"
+            y="102"
+          />
+          <rect
+            height="8"
+            rx="4"
+            style={{ fill: "var(--color-brand-lighter)" }}
+            width="160"
+            x="20"
+            y="122"
+          />
+          <rect
+            height="55"
+            rx="10"
+            style={{ fill: "var(--color-brand-lighter)" }}
+            width="260"
+            x="-15"
+            y="152"
+          />
+          <rect
+            height="12"
+            rx="6"
+            style={{ fill: "var(--color-brand)" }}
+            width="100"
+            x="20"
+            y="166"
+          />
+          <rect
+            height="8"
+            rx="4"
+            style={{ fill: "var(--color-brand-light)" }}
+            width="190"
+            x="20"
+            y="186"
+          />
+        </motion.g>
+
+        {/* Sponsors — big heart */}
+        <motion.g
+          animate={{
+            opacity: activeSection === "sponsors" ? 1 : 0,
+            scale: activeSection === "sponsors" ? 1 : 0.9,
+          }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          style={{ transformOrigin: "115.5px 115.5px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          <path
+            d="M115.5 185 C 60 150, 30 115, 30 80 C 30 55, 50 38, 75 38 C 92 38, 108 48, 115.5 62 C 123 48, 139 38, 156 38 C 181 38, 201 55, 201 80 C 201 115, 171 150, 115.5 185 Z"
+            style={{ fill: "var(--color-brand)" }}
+          />
+          <path
+            d="M115.5 165 C 75 137, 50 110, 50 83 C 50 68, 62 57, 78 57 C 92 57, 105 66, 115.5 80 C 126 66, 139 57, 153 57 C 169 57, 181 68, 181 83 C 181 110, 156 137, 115.5 165 Z"
+            style={{ fill: "var(--color-brand-light)" }}
+          />
+        </motion.g>
+
+        {/* Skills — wand + sparkles (centered on canvas diagonal) */}
+        <motion.g
+          animate={{
+            opacity: activeSection === "skills" ? 1 : 0,
+            rotate: activeSection === "skills" ? 0 : -8,
+          }}
+          initial={{ opacity: 0, rotate: -8 }}
+          style={{ transformOrigin: "115.5px 115.5px" }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+        >
+          {/* Wand shaft — centered bar rotated on the canvas diagonal */}
+          <rect
+            height="18"
+            rx="9"
+            style={{ fill: "var(--color-brand)" }}
+            transform="rotate(-45 115.5 115.5)"
+            width="150"
+            x="40.5"
+            y="106.5"
+          />
+          {/* Wand tip sparkle (top-right end) */}
+          <path
+            d="M167 60 L174 78 L192 85 L174 92 L167 110 L160 92 L142 85 L160 78 Z"
+            style={{ fill: "var(--color-brand-lighter)" }}
+          />
+          {/* Handle dot (bottom-left end) */}
+          <circle
+            cx="64"
+            cy="167"
+            r="10"
+            style={{ fill: "var(--color-brand-lighter)" }}
+          />
+          {/* Balanced accent sparkles */}
+          <path
+            d="M58 58 L62 70 L74 74 L62 78 L58 90 L54 78 L42 74 L54 70 Z"
+            style={{ fill: "var(--color-brand-light)" }}
+          />
+          <path
+            d="M173 155 L176 164 L185 167 L176 170 L173 179 L170 170 L161 167 L170 164 Z"
+            style={{ fill: "var(--color-brand-light)" }}
+          />
+        </motion.g>
+      </g>
+    </motion.svg>
+  );
+}
+
 // Blocks MenuIllustration - for hero, pricing, testimonial
 export function BlocksMenuIllustration({
   activeSection,

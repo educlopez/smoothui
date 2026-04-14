@@ -1,0 +1,34 @@
+---
+title: "Building a Scramble-on-Hover Text Effect"
+description: "A tutorial on crafting the cyberpunk-style text scramble effect with pure React, timers, and proper cleanup — no external libs required."
+date: "2026-04-14"
+author: "Eduardo Calvo"
+---
+
+import { InteractiveScrambleHoverTutorial } from "@docs/components/blog/interactive-scramble-hover-tutorial";
+import { Installer } from "@docs/components/installer";
+
+In this tutorial, we'll build the **Scramble Hover** effect step by step. Hover the preview text after each step to see what you've unlocked.
+
+<InteractiveScrambleHoverTutorial className="mt-8" />
+
+---
+
+## Key Takeaways
+
+After building this component, you've learned:
+
+1. **Pure, stateless scramble functions** are easy to test and reuse
+2. **Preserve spaces** so the silhouette of the text stays readable
+3. **30ms intervals** feel glitchy without being unreadable; 600ms total is a natural duration
+4. **Refs for timers** — never put `setInterval` IDs in state
+5. **Always clean up** both timers on leave; otherwise hovers can stack
+6. **Gate on `hover:hover`** so touch devices don't fire the effect on tap
+
+---
+
+## Install the Component
+
+<Installer packageName="scramble-hover" />
+
+Check out the [full documentation](/docs/components/scramble-hover) for all props and variations.
