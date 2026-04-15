@@ -8,13 +8,13 @@ import {
   FileText,
   Heart,
   Layers3,
-  Wand2,
   LayoutDashboard,
   Menu,
   PackagePlus,
   Sparkles,
   Type,
   User,
+  Wand2,
   X,
   Zap,
 } from "lucide-react";
@@ -36,7 +36,9 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
 
   // Close menu when clicking outside
   useEffect(() => {
-    if (!isOpen) return;
+    if (!isOpen) {
+      return;
+    }
 
     const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       const target = event.target as Node;

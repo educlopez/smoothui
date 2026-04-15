@@ -63,7 +63,7 @@ const STEPS = [
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
-  base: `<button>{text}</button>`,
+  base: "<button>{text}</button>",
   scramble: `const CHARACTERS = "ABC...xyz0123!@#".split("");
 
 function scrambleText(original: string) {
@@ -142,13 +142,17 @@ export function InteractiveScrambleHoverTutorial({
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-step");
-            if (id) setCurrentStep(id as StepId);
+            if (id) {
+              setCurrentStep(id as StepId);
+            }
           }
         }
       },
       { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
     );
-    for (const ref of stepRefs.current.values()) observer.observe(ref);
+    for (const ref of stepRefs.current.values()) {
+      observer.observe(ref);
+    }
     return () => observer.disconnect();
   }, []);
 
@@ -166,19 +170,27 @@ export function InteractiveScrambleHoverTutorial({
   }, [currentStep]);
 
   const clearTimers = () => {
-    if (intervalRef.current) clearInterval(intervalRef.current);
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
   };
 
   const handleEnter = () => {
-    if (!canScramble) return;
+    if (!canScramble) {
+      return;
+    }
     clearTimers();
     intervalRef.current = setInterval(() => {
       setDisplay(scrambleText(ORIGINAL));
     }, 30);
     if (hasTimeout) {
       timeoutRef.current = setTimeout(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
+        if (intervalRef.current) {
+          clearInterval(intervalRef.current);
+        }
         setDisplay(ORIGINAL);
       }, 600);
     }
@@ -217,7 +229,9 @@ export function InteractiveScrambleHoverTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">

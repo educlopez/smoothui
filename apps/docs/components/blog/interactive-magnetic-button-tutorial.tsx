@@ -4,11 +4,11 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { motion, useReducedMotion, useSpring } from "motion/react";
 import {
+  type MouseEvent,
   useCallback,
   useEffect,
   useRef,
   useState,
-  type MouseEvent,
 } from "react";
 
 const SmoothUIIsotype = () => (
@@ -143,13 +143,17 @@ export function InteractiveMagneticButtonTutorial({
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-step");
-            if (id) setCurrentStep(id as StepId);
+            if (id) {
+              setCurrentStep(id as StepId);
+            }
           }
         }
       },
       { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
     );
-    for (const ref of stepRefs.current.values()) observer.observe(ref);
+    for (const ref of stepRefs.current.values()) {
+      observer.observe(ref);
+    }
     return () => observer.disconnect();
   }, []);
 
@@ -168,7 +172,9 @@ export function InteractiveMagneticButtonTutorial({
 
   const handleMouseMove = useCallback(
     (event: MouseEvent<HTMLDivElement>) => {
-      if (!showTrack || !buttonRef.current || shouldReduceMotion) return;
+      if (!(showTrack && buttonRef.current) || shouldReduceMotion) {
+        return;
+      }
       const rect = buttonRef.current.getBoundingClientRect();
       const centerX = rect.left + rect.width / 2;
       const centerY = rect.top + rect.height / 2;
@@ -176,7 +182,9 @@ export function InteractiveMagneticButtonTutorial({
       const dy = event.clientY - centerY;
       const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (!showPull) return;
+      if (!showPull) {
+        return;
+      }
 
       if (showRadius) {
         if (distance < radius) {
@@ -230,7 +238,9 @@ export function InteractiveMagneticButtonTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">

@@ -22,7 +22,8 @@ const STEPS = [
   {
     id: "static",
     title: "Static Number",
-    description: "Start by rendering a number with tabular-nums so digits stay aligned.",
+    description:
+      "Start by rendering a number with tabular-nums so digits stay aligned.",
   },
   {
     id: "digits",
@@ -126,13 +127,17 @@ export function InteractiveNumberFlowTutorial({
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-step");
-            if (id) setCurrentStep(id as StepId);
+            if (id) {
+              setCurrentStep(id as StepId);
+            }
           }
         }
       },
       { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
     );
-    for (const ref of stepRefs.current.values()) observer.observe(ref);
+    for (const ref of stepRefs.current.values()) {
+      observer.observe(ref);
+    }
     return () => observer.disconnect();
   }, []);
 
@@ -186,7 +191,9 @@ export function InteractiveNumberFlowTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">
@@ -224,7 +231,7 @@ export function InteractiveNumberFlowTutorial({
             </div>
             <div className="flex min-h-[350px] flex-col items-center justify-center gap-6 bg-background p-8">
               <div className="flex items-baseline gap-1 font-semibold text-5xl text-foreground tabular-nums">
-                <span className="text-muted-foreground text-2xl">$</span>
+                <span className="text-2xl text-muted-foreground">$</span>
                 {splitDigits ? (
                   <span className="inline-flex overflow-hidden">
                     {digits.map((digit, index) =>

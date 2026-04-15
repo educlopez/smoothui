@@ -16,12 +16,12 @@ import {
   FileText,
   Heart,
   Layers3,
-  Wand2,
   LayoutDashboard,
   PackagePlus,
   Sparkles,
   Type,
   User,
+  Wand2,
   Zap,
 } from "lucide-react";
 import type React from "react";
@@ -305,12 +305,12 @@ export default function Navbar({ className }: NavbarProps) {
 
 interface EnhancedListItemProps {
   children: React.ReactNode;
-  title: string;
-  icon: React.ReactNode;
+  external?: boolean;
   href: string;
+  icon: React.ReactNode;
   onHover: () => void;
   onLeave: () => void;
-  external?: boolean;
+  title: string;
 }
 
 function EnhancedListItem({

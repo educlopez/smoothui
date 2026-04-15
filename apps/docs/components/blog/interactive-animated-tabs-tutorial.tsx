@@ -114,9 +114,7 @@ export function InteractiveAnimatedTabsTutorial({
   className,
 }: InteractiveAnimatedTabsTutorialProps) {
   const [currentStep, setCurrentStep] = useState<StepId>("markup");
-  const [active, setActive] = useState<(typeof TABS)[number]["id"]>(
-    TABS[0].id
-  );
+  const [active, setActive] = useState<(typeof TABS)[number]["id"]>(TABS[0].id);
   const shouldReduceMotion = useReducedMotion();
   const stepRefs = useRef<Map<string, HTMLElement>>(new Map());
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -133,13 +131,17 @@ export function InteractiveAnimatedTabsTutorial({
         for (const entry of entries) {
           if (entry.isIntersecting) {
             const id = entry.target.getAttribute("data-step");
-            if (id) setCurrentStep(id as StepId);
+            if (id) {
+              setCurrentStep(id as StepId);
+            }
           }
         }
       },
       { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
     );
-    for (const ref of stepRefs.current.values()) observer.observe(ref);
+    for (const ref of stepRefs.current.values()) {
+      observer.observe(ref);
+    }
     return () => observer.disconnect();
   }, []);
 
@@ -186,7 +188,9 @@ export function InteractiveAnimatedTabsTutorial({
                 key={step.id}
                 onClick={() => handleStepClick(step.id)}
                 ref={(el) => {
-                  if (el) stepRefs.current.set(step.id, el);
+                  if (el) {
+                    stepRefs.current.set(step.id, el);
+                  }
                 }}
               >
                 <h3 className="mb-1 font-semibold text-foreground uppercase tracking-wide">
@@ -247,7 +251,7 @@ export function InteractiveAnimatedTabsTutorial({
                     >
                       {showIndicator && isActive && (
                         <motion.span
-                          className="-z-10 absolute inset-0 rounded-full border border-border bg-background shadow-sm"
+                          className="absolute inset-0 -z-10 rounded-full border border-border bg-background shadow-sm"
                           layoutId="tutorial-tabs-indicator"
                           transition={
                             effectiveReduced
