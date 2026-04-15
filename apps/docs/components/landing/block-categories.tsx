@@ -2,6 +2,7 @@
 
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import Divider from "@docs/components/landing/divider";
+import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import {
   Canpoy,
@@ -875,29 +876,18 @@ export function BlockCategories() {
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <div className="mx-auto max-w-7xl">
-        <motion.div
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          className="flex flex-col items-start md:items-center"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { duration: 0.35, ease: EASE_OUT_QUAD }
+        <SectionHeader
+          description={
+            <>
+              <span className="font-medium text-foreground">Customizable</span>{" "}
+              blocks that seamlessly{" "}
+              <span className="font-medium text-foreground">adapt</span> to your
+              project needs
+            </>
           }
-        >
-          {/* Heading */}
-          <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition md:max-w-xl xl:max-w-2xl">
-            Elevate your design with premium blocks
-          </h2>
-
-          {/* Description */}
-          <p className="mt-3 text-pretty text-center text-foreground/60 text-sm xl:mt-5">
-            <span className="font-medium text-foreground">Customizable</span>{" "}
-            blocks that seamlessly{" "}
-            <span className="font-medium text-foreground">adapt</span> to your
-            project needs
-          </p>
-        </motion.div>
+          eyebrow="Blocks"
+          title="Elevate your design with premium blocks"
+        />
 
         {/* Grid Container with overflow */}
         <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
@@ -932,12 +922,15 @@ export function BlockCategories() {
                     </div>
                   </div>
 
-                  {/* Content - Centered */}
-                  <div className="mt-3 text-foreground text-sm md:mt-4 xl:text-base">
-                    {category.title}
-                  </div>
-                  <div className="mt-1 text-foreground/50 text-xs">
-                    {category.blockCount} Blocks
+                  {/* Content - Centered with pill tag */}
+                  <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
+                      <span className="size-1.5 rounded-full bg-brand" />
+                      {category.title}
+                    </span>
+                    <span className="text-foreground/50 text-xs">
+                      {category.blockCount} Blocks
+                    </span>
                   </div>
                 </Link>
               </motion.div>

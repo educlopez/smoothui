@@ -1,3 +1,5 @@
+import { cn } from "@repo/shadcn-ui/lib/utils";
+
 interface DividerProps {
   className?: string;
   orientation?: "horizontal" | "vertical";
@@ -7,15 +9,17 @@ export default function Divider({
   orientation = "horizontal",
   className,
 }: DividerProps) {
+  const isHorizontal = orientation === "horizontal";
+
   return (
     <div
-      className={`absolute ${
-        orientation === "horizontal"
-          ? "bottom-0 left-0 h-[2px] w-full"
-          : "top-0 right-0 h-full w-[2px]"
-      } z-1 border-smooth-300 bg-white transition dark:bg-black ${
-        orientation === "horizontal" ? "border-t" : "border-r"
-      } ${className}`}
+      className={cn(
+        "absolute z-1",
+        isHorizontal
+          ? "right-0 bottom-0 left-0 h-px bg-gradient-to-r from-transparent via-border to-transparent"
+          : "top-0 right-0 h-full w-px bg-gradient-to-b from-transparent via-border to-transparent",
+        className
+      )}
     />
   );
 }

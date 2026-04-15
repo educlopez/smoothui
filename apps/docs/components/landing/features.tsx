@@ -2,6 +2,7 @@ import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Package } from "lucide-react";
 
@@ -36,9 +37,15 @@ export function Features() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
-      <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
-        Why Choose Smooth<span className="text-brand">UI</span>?
-      </h2>
+      <SectionHeader
+        description="Built on the foundations you already love, with the polish you've been wishing for."
+        eyebrow="Why SmoothUI"
+        title={
+          <>
+            Why Choose Smooth<span className="text-brand">UI</span>?
+          </>
+        }
+      />
       <div className="mt-16 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-4">
         {features.map((feature) => (
           <div

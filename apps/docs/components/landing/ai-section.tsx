@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { SectionHeader } from "@docs/components/landing/section-header";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
@@ -271,62 +272,11 @@ export function AISection() {
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <div className="mx-auto max-w-5xl">
-        <motion.p
-          className="mb-2 text-center font-medium text-brand text-sm uppercase tracking-wider"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { type: "spring", duration: 0.3, bounce: 0.1 }
-          }
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-        >
-          AI-Native
-        </motion.p>
-        <motion.h2
-          className="text-balance text-center font-semibold font-title text-3xl text-foreground transition"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(10px)" }
-          }
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { type: "spring", duration: 0.3, bounce: 0.1, delay: 0.05 }
-          }
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          Built for AI-Assisted Development
-        </motion.h2>
-        <motion.p
-          className="mx-auto mt-4 max-w-2xl text-balance text-center text-primary-foreground transition"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(10px)" }
-          }
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { type: "spring", duration: 0.3, bounce: 0.1, delay: 0.1 }
-          }
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          The first component library designed for AI agents. Discover, search,
-          and install components programmatically.
-        </motion.p>
+        <SectionHeader
+          description="The first component library designed for AI agents. Discover, search, and install components programmatically."
+          eyebrow="AI-Native"
+          title="Built for AI-Assisted Development"
+        />
 
         <motion.div
           className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"

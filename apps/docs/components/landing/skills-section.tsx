@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { SectionHeader } from "@docs/components/landing/section-header";
 import { ArrowUpRight, Eye, Search, Sparkles, Wand2 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -25,50 +26,11 @@ export function SkillsSection() {
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <div className="mx-auto max-w-5xl">
-        <motion.p
-          className="mb-2 text-center font-medium text-brand text-sm uppercase tracking-wider"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          transition={springTransition(0)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-        >
-          Skills
-        </motion.p>
-        <motion.h2
-          className="text-balance text-center font-semibold font-title text-3xl text-foreground transition"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(10px)" }
-          }
-          transition={springTransition(0.05)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          Design taste for your AI agent
-        </motion.h2>
-        <motion.p
-          className="mx-auto mt-4 max-w-2xl text-balance text-center text-primary-foreground transition"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(10px)" }
-          }
-          transition={springTransition(0.1)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          Same prompt. Same model. Different result. UI Craft gives your coding
-          agent the design intuition it's missing.
-        </motion.p>
+        <SectionHeader
+          description="Same prompt. Same model. Different result. UI Craft gives your coding agent the design intuition it's missing."
+          eyebrow="Skills"
+          title="Design taste for your AI agent"
+        />
 
         <motion.div
           className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"
