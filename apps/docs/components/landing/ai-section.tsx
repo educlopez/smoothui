@@ -279,7 +279,7 @@ export function AISection() {
         />
 
         <motion.div
-          className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"
+          className="relative mx-auto mt-16 grid divide-y overflow-hidden rounded-2xl border border-transparent bg-card/50 shadow-black/5 shadow-md ring-1 ring-border md:grid-cols-3 md:divide-x md:divide-y-0"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -297,39 +297,35 @@ export function AISection() {
               : { opacity: 1, transform: "translateY(0px) scale(1)" }
           }
         >
-          <div className="grid divide-y md:grid-cols-3 md:divide-x md:divide-y-0">
-            {aiFeatures.map((feature, index) => (
-              <motion.div
-                className="row-span-2 grid grid-rows-subgrid gap-8 p-8"
-                initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                key={feature.label}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : {
-                        type: "spring",
-                        duration: 0.25,
-                        bounce: 0.1,
-                        delay: 0.25 + index * 0.1,
-                      }
-                }
-                viewport={{ once: true, amount: 0.2 }}
-                whileInView={
-                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }
-                }
-              >
-                <feature.illustration />
-                <div className="relative z-10 mx-auto max-w-sm text-center">
-                  <h3 className="text-balance font-semibold text-foreground">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-3 text-balance text-primary-foreground text-sm">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+          {aiFeatures.map((feature, index) => (
+            <motion.div
+              className="row-span-2 grid grid-rows-subgrid gap-8 p-8"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+              key={feature.label}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      type: "spring",
+                      duration: 0.25,
+                      bounce: 0.1,
+                      delay: 0.25 + index * 0.1,
+                    }
+              }
+              viewport={{ once: true, amount: 0.2 }}
+              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
+            >
+              <feature.illustration />
+              <div className="relative z-10 mx-auto max-w-sm text-center">
+                <h3 className="text-balance font-semibold text-foreground">
+                  {feature.title}
+                </h3>
+                <p className="mt-3 text-balance text-primary-foreground text-sm">
+                  {feature.description}
+                </p>
+              </div>
+            </motion.div>
+          ))}
         </motion.div>
 
         <motion.div
