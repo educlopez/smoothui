@@ -27,7 +27,7 @@ function McpIllustration() {
           <span className="text-foreground/60 text-sm">AI Agent</span>
         </motion.div>
         <motion.div
-          className="w-fit rounded-2xl rounded-tl border border-transparent bg-primary/60 p-2.5 text-foreground/70 text-xs shadow shadow-black/10 ring-1 ring-border"
+          className="w-fit rounded-2xl rounded-tl border border-border bg-background p-2.5 text-foreground/70 text-xs"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -45,7 +45,7 @@ function McpIllustration() {
           smoothui
         </motion.div>
         <motion.div
-          className="ml-auto w-fit rounded-2xl rounded-tr border border-transparent bg-brand/10 p-2.5 text-foreground/70 text-xs shadow shadow-black/10 ring-1 ring-brand/20"
+          className="ml-auto w-fit rounded-2xl rounded-tr border border-brand/20 bg-brand/10 p-2.5 text-foreground/70 text-xs"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -79,7 +79,7 @@ function ApiIllustration() {
   return (
     <div aria-hidden className="self-center">
       <motion.div
-        className="space-y-2.5 rounded-2xl border border-transparent bg-primary/60 p-4 shadow shadow-black/10 ring-1 ring-border"
+        className="space-y-2.5 rounded-2xl border border-border bg-background p-4"
         initial={
           shouldReduceMotion
             ? { opacity: 1 }
@@ -195,7 +195,7 @@ function LlmsIllustration() {
           </div>
         </motion.div>
         <motion.div
-          className="-mx-5 flex rounded-xl border border-transparent bg-primary/60 py-1 pr-4 pl-2 text-xs shadow shadow-black/10 ring-1 ring-border"
+          className="-mx-5 flex rounded-xl border border-border bg-background py-1 pr-4 pl-2 text-xs"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -329,7 +329,7 @@ export function AISection() {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-black/5 shadow-md ring-1 ring-border"
+          className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }

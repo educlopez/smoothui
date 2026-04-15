@@ -71,7 +71,7 @@ export function SkillsSection() {
         </motion.p>
 
         <motion.div
-          className="mx-auto mt-16 overflow-hidden rounded-2xl border border-transparent bg-primary/20 shadow-black/5 shadow-md ring-1 ring-border"
+          className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -139,7 +139,7 @@ export function SkillsSection() {
               >
                 {modes.map((mode) => (
                   <div
-                    className="flex items-center gap-2.5 rounded-xl bg-primary/60 p-3 ring-1 ring-border"
+                    className="flex items-center gap-2.5 rounded-xl border border-border bg-background p-3"
                     key={mode.label}
                   >
                     <mode.icon className="size-4 shrink-0 text-brand" />
@@ -157,7 +157,7 @@ export function SkillsSection() {
 
               {/* Install command */}
               <motion.div
-                className="overflow-hidden rounded-xl bg-primary/60 p-4 ring-1 ring-border"
+                className="overflow-hidden rounded-xl border border-border bg-background p-4"
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1 }

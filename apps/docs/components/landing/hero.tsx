@@ -27,7 +27,7 @@ function AnnouncementBadge() {
 
   return (
     <a
-      className="group inline-flex max-w-full items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full border bg-background px-3 py-0.5 font-medium text-foreground text-xs shadow-sm transition-all hover:shadow-md"
+      className="group inline-flex max-w-full items-center justify-center gap-2 overflow-hidden whitespace-nowrap rounded-full border bg-background px-3 py-0.5 font-medium text-foreground text-xs transition-all"
       href="https://skills.smoothui.dev"
       rel="noopener noreferrer"
       target="_blank"
