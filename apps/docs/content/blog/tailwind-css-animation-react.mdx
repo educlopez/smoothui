@@ -1,0 +1,252 @@
+---
+title: "Tailwind CSS Animations in React: From Utility Classes to Spring Physics"
+description: "Learn every approach to animation in React + Tailwind — from built-in utility classes and @keyframes to Motion spring physics. A practical guide with real code and performance tips."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+Tailwind CSS ships with animation utilities out of the box — `animate-spin`, `animate-pulse`, `animate-bounce`, `transition-all`. For simple hover states and loading indicators, that's enough. But the moment you need spring physics, exit animations, gesture detection, or scroll-triggered reveals, you need to level up.
+
+This guide covers **every animation approach** available in React + Tailwind, from the simplest CSS utility to full spring-based Motion animations.
+
+## Level 1: Tailwind transition utilities
+
+The fastest way to add motion. Zero JavaScript, zero bundle cost.
+
+```tsx
+<button className="rounded-md bg-primary px-4 py-2 transition-colors duration-200 ease-out hover:bg-primary/80">
+  Hover me
+</button>
+```
+
+Tailwind's transition utilities map directly to CSS:
+
+| Utility | CSS Property |
+|---|---|
+| `transition-all` | `transition-property: all` |
+| `transition-colors` | `transition-property: color, background-color, border-color...` |
+| `transition-opacity` | `transition-property: opacity` |
+| `transition-transform` | `transition-property: transform` |
+| `duration-200` | `transition-duration: 200ms` |
+| `ease-out` | `transition-timing-function: cubic-bezier(0, 0, 0.2, 1)` |
+
+**Best for:** Hover states, focus rings, color changes, opacity toggles. Anything where the animation is triggered by a CSS pseudo-class (`:hover`, `:focus`, `:active`).
+
+**Limitation:** No enter/exit animations. No spring physics. No gesture detection. The element must already be in the DOM — you can't animate something appearing or disappearing.
+
+### Performance tip
+
+Always use `transition-colors` or `transition-transform` instead of `transition-all`. Transitioning `all` means the browser watches every CSS property for changes, which is wasteful and can cause unexpected animations on properties you didn't intend to animate (like `height` or `padding`).
+
+## Level 2: Tailwind @keyframes
+
+For animations that run continuously (spinners, pulses, skeleton loading) or need multi-step sequences:
+
+```tsx
+{/* Built-in */}
+<div className="animate-spin" />     {/* 360° rotation */}
+<div className="animate-pulse" />    {/* Opacity fade in/out */}
+<div className="animate-bounce" />   {/* Vertical bounce */}
+
+{/* Custom in your CSS */}
+<div className="animate-slide-in" />
+```
+
+Define custom keyframes in your Tailwind CSS:
+
+```css
+@theme {
+  --animate-slide-in: slide-in 0.3s ease-out;
+}
+
+@keyframes slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+```
+
+**Best for:** Loading indicators, skeleton screens, decorative background animations, attention-grabbing UI elements.
+
+**Limitation:** No control from JavaScript. You can't dynamically change the animation based on state, respond to user gestures, or orchestrate sequences.
+
+## Level 3: CSS @starting-style (entry animations)
+
+Chrome 117+ supports entry animations natively via `@starting-style`. Elements can now animate from an initial state when they first render:
+
+```css
+.card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+```
+
+This is pure CSS — no JavaScript, no libraries. Combined with `transition-behavior: allow-discrete`, you can even animate `display: none` to `display: block`.
+
+**Best for:** Simple entrance animations on modern browsers. Page transitions via the View Transition API.
+
+**Limitation:** No exit animations (the element is removed before it can animate out). No spring physics. Browser support is still incomplete (no Firefox as of early 2026).
+
+## Level 4: Motion (Framer Motion) with Tailwind
+
+This is where most production React apps land. Motion gives you everything CSS can't:
+
+- **Spring physics** — natural, physics-based motion
+- **Exit animations** — `AnimatePresence` delays DOM removal
+- **Layout animations** — shared element transitions with `layoutId`
+- **Gesture detection** — `whileHover`, `whileTap`, `whileDrag`
+- **Scroll triggers** — `whileInView` with configurable viewport thresholds
+- **Reduced motion** — `useReducedMotion()` hook
+
+```tsx
+import { motion, useReducedMotion } from "motion/react";
+
+const Card = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      className="rounded-xl border bg-card p-6"
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      Content
+    </motion.div>
+  );
+};
+```
+
+Notice how Tailwind handles all the visual styling (`rounded-xl border bg-card p-6`) while Motion handles the animation (`initial`, `animate`, `transition`). They're complementary — Tailwind for appearance, Motion for behavior.
+
+### Spring physics: why they matter
+
+CSS easing functions (`ease-in`, `ease-out`, `cubic-bezier`) are mathematical curves. Springs are physical simulations. The difference:
+
+- **Easing** feels robotic — the speed profile is always the same regardless of distance
+- **Springs** feel alive — a small movement is quick and tight, a large movement overshoots slightly and settles
+
+For UI interactions (buttons, toggles, tabs, modals), springs almost always feel better. Key parameters:
+
+- **`duration: 0.25`** — how long the animation takes (in seconds)
+- **`bounce: 0.1`** — how much it overshoots (0 = no overshoot, 1 = full bounce)
+- **`type: "spring"`** — tells Motion to use spring physics
+
+Keep `bounce ≤ 0.1` for professional UI. Reserve `0.2–0.3` for playful or drag interactions.
+
+## When to use what
+
+| Need | Approach | Bundle cost |
+|---|---|---|
+| Hover color change | Tailwind `transition-colors` | 0 KB |
+| Loading spinner | Tailwind `animate-spin` | 0 KB |
+| Skeleton pulse | Tailwind `animate-pulse` | 0 KB |
+| Enter animation (modern browsers only) | CSS `@starting-style` | 0 KB |
+| Enter + exit animations | Motion `AnimatePresence` | ~16 KB |
+| Spring physics | Motion `type: "spring"` | ~16 KB |
+| Gesture detection (hover, tap, drag) | Motion `whileHover`, `whileTap` | ~16 KB |
+| Layout/shared element transitions | Motion `layoutId` | ~16 KB |
+| Scroll-triggered reveals | Motion `whileInView` | ~16 KB |
+
+The 16 KB cost of Motion is paid once — every subsequent animation adds zero to your bundle.
+
+## Real examples with Tailwind + Motion
+
+### Toggle with spring
+
+```tsx
+<motion.div
+  className="h-6 w-6 rounded-full bg-white shadow-sm"
+  animate={{ x: isOn ? 24 : 0 }}
+  transition={{ type: "spring", duration: 0.25, bounce: 0.15 }}
+/>
+```
+
+The [Animated Toggle](/docs/components/animated-toggle) component implements this with accessible `role="switch"`, keyboard support, and reduced motion handling.
+
+<Installer packageName="animated-toggle" />
+
+### Card with glow tracking
+
+```tsx
+<div
+  className="relative overflow-hidden rounded-xl border bg-card p-6"
+  onMouseMove={handleGlow}
+>
+  <div
+    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity group-hover:opacity-100"
+    style={{
+      background: `radial-gradient(400px at ${x}px ${y}px, rgba(var(--brand-rgb), 0.15), transparent)`,
+    }}
+  />
+  {/* Card content */}
+</div>
+```
+
+The [Glow Hover Card](/docs/components/glow-hover-card) wraps this pattern with proper GPU acceleration and hover device detection.
+
+<Installer packageName="glow-hover-card" />
+
+### Text wave animation
+
+```tsx
+{"Hello".split("").map((char, i) => (
+  <motion.span
+    key={i}
+    animate={{ y: [0, -8, 0] }}
+    transition={{
+      duration: 0.6,
+      repeat: Infinity,
+      repeatDelay: 2,
+      delay: i * 0.05,
+    }}
+  >
+    {char}
+  </motion.span>
+))}
+```
+
+The [Wave Text](/docs/components/wave-text) component handles letter splitting, stagger timing, and accessibility:
+
+<Installer packageName="wave-text" />
+
+## Performance rules
+
+1. **Only animate `transform` and `opacity`** — these skip layout and paint, going straight to the compositor
+2. **Never animate `height` or `width`** — use `transform: scaleY()` or Motion's `AnimatePresence` for expand/collapse
+3. **Use `transition-transform` not `transition-all`** — be explicit about which properties transition
+4. **Set `will-change: transform`** only on elements about to animate, not permanently
+5. **Profile with DevTools** → Performance tab → watch for red "Layout Shift" markers
+6. **Keep durations under 300ms** for interactions, under 500ms for page transitions
+7. **Disable on low-power** — `useReducedMotion()` isn't just accessibility, it's also performance on low-end devices
+
+## The practical recommendation
+
+For most React + Tailwind projects:
+
+1. **Start with Tailwind utilities** — hover states, focus rings, color transitions
+2. **Add Motion when you need it** — enter/exit animations, springs, gestures, scroll triggers
+3. **Use pre-built components for common patterns** — [SmoothUI](https://smoothui.dev) provides 73+ animated components that combine Tailwind styling with Motion animations, all shadcn-compatible
+
+```bash
+npx shadcn@latest add "https://smoothui.dev/r/animated-tabs.json"
+```
+
+Browse the [component library](https://smoothui.dev/docs/components) to see what's available, or read the [interactive tutorials](https://smoothui.dev/blog) to learn how each animation technique works from scratch.

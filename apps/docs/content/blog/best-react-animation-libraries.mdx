@@ -1,0 +1,182 @@
+---
+title: "Best React Animation Libraries in 2026: A Complete Comparison"
+description: "A detailed comparison of the top React animation libraries — Motion, React Spring, GSAP, SmoothUI, and more. Learn which library fits your project with real examples and performance benchmarks."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+Choosing the right animation library for your React project can make or break the user experience. Too heavy, and your bundle bloats. Too minimal, and you're writing raw CSS keyframes for every micro-interaction. This guide compares the **most popular React animation libraries in 2026** so you can pick the right tool — or skip the decision entirely with a pre-built component library.
+
+## Why animations matter
+
+Animations aren't decoration. They serve three concrete purposes:
+
+1. **Spatial orientation** — transitions show where content comes from and where it goes
+2. **Feedback** — hover states, press effects, and loading indicators confirm that the interface is responding
+3. **Perceived performance** — a skeleton with a shimmer feels faster than a blank screen, even when the data takes the same time to arrive
+
+The key constraint: **only animate `transform` and `opacity`** if you want 60fps. Any library that makes you animate `height`, `width`, or `top`/`left` by default is setting you up for layout thrashing.
+
+## The libraries
+
+### Motion (Framer Motion)
+
+The most popular React animation library. Declarative API with `animate`, `initial`, `exit`, and `variants`. Supports layout animations, shared element transitions, gesture detection, and spring physics.
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ type: "spring", duration: 0.25, bounce: 0.1 }}
+>
+  Content appears smoothly
+</motion.div>
+```
+
+**Best for:** Most React projects. The API is intuitive, the bundle impact is reasonable (~16KB gzipped for core), and the ecosystem is massive.
+
+**Limitation:** No CSS-only fallback. Everything runs in JavaScript, which means no animation on the server render.
+
+### React Spring
+
+Physics-based animations with a hook-driven API (`useSpring`, `useTransition`, `useTrail`). Every animation is modeled as a spring, which means no duration — just mass, tension, and friction.
+
+```tsx
+const styles = useSpring({
+  from: { opacity: 0, transform: "translateY(20px)" },
+  to: { opacity: 1, transform: "translateY(0px)" },
+  config: { tension: 280, friction: 20 },
+});
+```
+
+**Best for:** Projects where physics-based motion is a core design principle. The spring model produces natural-feeling animations without tweaking cubic-bezier curves.
+
+**Limitation:** Steeper learning curve. The imperative `api.start()` pattern can feel foreign if you're used to declarative JSX.
+
+### GSAP (GreenSock)
+
+The industry standard for complex, timeline-based animations. GSAP predates React and works at a lower level — it animates DOM properties directly. The React integration (`@gsap/react` + `useGSAP`) provides cleanup and scoping.
+
+```tsx
+useGSAP(() => {
+  gsap.to(".box", {
+    x: 100,
+    rotation: 360,
+    duration: 1,
+    ease: "power2.out",
+  });
+});
+```
+
+**Best for:** Marketing pages, scroll-driven narratives, SVG animation, and anything requiring precise timeline sequencing.
+
+**Limitation:** Not declarative. You're writing imperative animation code and managing refs manually. The free license excludes some plugins (ScrollSmoother, MorphSVG) from commercial use without a paid plan.
+
+### AutoAnimate
+
+Zero-config animation plugin. Add one attribute and elements animate when they're added, removed, or reordered. No keyframes, no spring configs — it just works.
+
+```tsx
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+
+const [parent] = useAutoAnimate();
+return <ul ref={parent}>{items.map(item => <li key={item.id}>{item.name}</li>)}</ul>;
+```
+
+**Best for:** Lists, tables, and any content that changes dynamically. The lowest effort-to-result ratio of any library on this list.
+
+**Limitation:** No control over timing, easing, or individual element animations. It's a blunt instrument — powerful but opinionated.
+
+### CSS Animations + `@starting-style`
+
+Not a library — just the platform. CSS now supports entry animations via `@starting-style` (Chrome 117+), `transition-behavior: allow-discrete`, and the `View Transition API`. For many use cases, you don't need JavaScript at all.
+
+```css
+.card {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
+
+  @starting-style {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+```
+
+**Best for:** Static sites, server-rendered pages, and projects where bundle size is the top priority.
+
+**Limitation:** No spring physics. No shared layout transitions. No gesture detection. You'll hit a wall quickly on interactive UIs.
+
+### Remotion
+
+A completely different category: Remotion renders React components as MP4/WebM videos. Each frame is a React render. Great for generating dynamic video content (marketing clips, social media, data visualizations) — not for UI animation.
+
+**Best for:** Programmatic video generation, not UI.
+
+## Comparison table
+
+| Library | Bundle size (gzip) | API style | Spring physics | Layout animation | Gesture support | SSR safe |
+|---|---|---|---|---|---|---|
+| Motion | ~16KB | Declarative JSX | Yes | Yes | Yes | Partial |
+| React Spring | ~12KB | Hooks | Yes (native) | No | No | Yes |
+| GSAP | ~24KB | Imperative | No (easing only) | No | No | Yes |
+| AutoAnimate | ~2KB | Ref-based | No | No | No | Yes |
+| CSS native | 0KB | Stylesheet | No | Via View Transitions | No | Yes |
+| Remotion | ~50KB+ | Component-per-frame | No | N/A | N/A | No |
+
+## Skip the boilerplate: use pre-built animated components
+
+If you've read this far and your real question is "I just need animated buttons, tabs, modals, and cards that look good" — you don't need to pick a library and build from scratch.
+
+[SmoothUI](https://smoothui.dev) provides **73+ production-ready animated components** built with Motion, React 19, and Tailwind CSS v4. Every component:
+
+- Uses spring physics with `bounce ≤ 0.1` for tight, professional motion
+- Respects `prefers-reduced-motion` via `useReducedMotion`
+- Only animates `transform` and `opacity` for 60fps performance
+- Installs with one command via the shadcn registry
+
+For example, here's how you'd add an animated tab component to your project:
+
+<Installer packageName="animated-tabs" />
+
+The [Animated Tabs](/docs/components/animated-tabs) component uses Motion's `layoutId` for a shared sliding indicator, supports keyboard navigation (arrow keys, Home, End), and ships with three variants: underline, pill, and segment.
+
+Other components you might find useful:
+
+- [Magnetic Button](/docs/components/magnetic-button) — a button that leans toward the cursor using spring physics
+- [Number Flow](/docs/components/number-flow) — digit-by-digit animated counter with direction-aware motion
+- [Scramble Hover](/docs/components/scramble-hover) — cyberpunk text scramble effect on hover
+- [Rich Popover](/docs/components/rich-popover) — media-rich popovers with scale + blur materializing animation
+- [Dynamic Island](/docs/components/dynamic-island) — Apple-style morphing container
+
+Browse the full [component library](https://smoothui.dev/docs/components) or read [interactive tutorials](https://smoothui.dev/blog) that walk through building each component step by step.
+
+## How to choose
+
+Use this decision tree:
+
+1. **Need video generation?** → Remotion
+2. **Need complex timelines / scroll narratives?** → GSAP
+3. **Need physics-based motion only?** → React Spring
+4. **Need zero config for list reordering?** → AutoAnimate
+5. **Need zero JavaScript?** → CSS native
+6. **Need a general-purpose animation library?** → Motion
+7. **Need production-ready animated components now?** → SmoothUI (built on Motion)
+
+## Performance checklist
+
+Regardless of which library you choose:
+
+- **Only animate `transform` and `opacity`** — everything else triggers layout or paint
+- **Use `will-change: transform`** sparingly and only on elements that will animate
+- **Set explicit `duration`** — spring animations without duration can run indefinitely on low-end devices
+- **Test with `prefers-reduced-motion`** — respect user accessibility preferences
+- **Profile with Chrome DevTools** → Performance tab → check for layout shift during animations
+- **Keep durations under 300ms** for UI interactions (hover, click, toggle). Reserve 400ms+ for decorative/page transitions only
+
+## Conclusion
+
+For most React projects in 2026, **Motion** is the default choice — it has the best balance of power, API ergonomics, and ecosystem support. If you want to skip the boilerplate and ship polished animations immediately, **SmoothUI** gives you 73+ components built on Motion with proper accessibility, spring physics, and Tailwind integration out of the box.

@@ -1,0 +1,257 @@
+---
+title: "15 Animated Components That Supercharge Your shadcn/ui Project"
+description: "shadcn/ui gives you solid static components. Here are 15 animated components that plug into the same ecosystem — same CLI, same Tailwind tokens, same copy-paste workflow — and add motion, gestures, and interactivity."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+shadcn/ui is the default component library for React + Tailwind projects. 112K GitHub stars, a CLI that copies components into your project, and a design system built on Radix primitives. It covers forms, dialogs, tables, navigation — the backbone of any app.
+
+What it doesn't cover is **motion**. No animated tabs, no spring-based buttons, no scroll-triggered text reveals, no gesture-driven interactions. That's by design — shadcn focuses on structure and accessibility, not animation.
+
+This article fills the gap. These 15 animated components are **fully shadcn-compatible** — they use the same `cn()` utility, the same CSS variables, the same Tailwind tokens, and install through the same CLI. Drop them into any shadcn project without conflicts.
+
+## How installation works
+
+Every component installs with the shadcn CLI you already use:
+
+```bash
+npx shadcn@latest add "https://smoothui.dev/r/[component-name].json"
+```
+
+The component is copied into your project. You own the code. Customize it however you want.
+
+## 1. Animated Tabs
+
+shadcn's `Tabs` component switches content — but the active indicator just snaps. Animated Tabs adds a **sliding pill indicator** that follows your selection using Motion's `layoutId`:
+
+- Three variants: underline, pill, segment
+- Full keyboard navigation (Arrow keys, Home, End)
+- `useReducedMotion` support
+
+<Installer packageName="animated-tabs" />
+
+**When to use:** Tab bars, segmented controls, filter toggles. Any horizontal selection pattern where the user needs spatial continuity between options.
+
+[Full documentation →](/docs/components/animated-tabs)
+
+## 2. Magnetic Button
+
+A button that **leans toward the cursor** before being clicked. Uses `useSpring` with radius falloff — the effect is subtle near the edges and stronger at the center.
+
+- Configurable strength (0.1–0.5) and radius
+- Disabled on touch devices and when `prefers-reduced-motion` is set
+- Supports all shadcn button variants
+
+<Installer packageName="magnetic-button" />
+
+**When to use:** Primary CTAs, hero buttons, any action where you want the button to "reach out" to the user.
+
+[Full documentation →](/docs/components/magnetic-button) · [Tutorial →](/blog/building-magnetic-button)
+
+## 3. Rich Popover
+
+shadcn's `Popover` opens and closes. Rich Popover adds a **materializing effect** — scale + opacity + blur that makes the content feel like it's coming into focus from behind frosted glass.
+
+- Spring physics (stiffness: 500, damping: 30)
+- Structured content layout: icon + title + description + metadata + action
+- Dark theme aesthetic with subtle white borders
+
+<Installer packageName="rich-popover" />
+
+**When to use:** Link previews, media embeds, profile cards — any inline content that deserves more than a plain tooltip.
+
+[Full documentation →](/docs/components/rich-popover) · [Tutorial →](/blog/building-rich-popover)
+
+## 4. Number Flow
+
+Animates numeric values **digit by digit** with direction-aware motion. Digits slide up when the value increases, down when it decreases.
+
+- `AnimatePresence` with `mode="popLayout"` for smooth digit swaps
+- `tabular-nums` for fixed-width alignment
+- Spring transition with low bounce
+
+<Installer packageName="number-flow" />
+
+**When to use:** Counters, pricing displays, dashboards, statistics — any number that changes dynamically.
+
+[Full documentation →](/docs/components/number-flow) · [Tutorial →](/blog/building-number-flow)
+
+## 5. Animated Input
+
+A text input with a **floating label** that lifts smoothly when focused or filled. Spring-animated with proper focus states.
+
+- Works with shadcn's form system
+- Supports validation states (error, success)
+- Label animation respects reduced motion
+
+<Installer packageName="animated-input" />
+
+**When to use:** Login forms, sign-up flows, settings pages — anywhere you need text inputs that feel polished.
+
+[Full documentation →](/docs/components/animated-input)
+
+## 6. Animated OTP Input
+
+A one-time-password input where each digit has its own box with **staggered entrance animations**. Auto-advances focus as you type.
+
+- Per-digit animation with configurable stagger
+- Paste support (fills all digits at once)
+- Keyboard navigation between digits
+
+<Installer packageName="animated-o-t-p-input" />
+
+**When to use:** Two-factor authentication, email verification, phone confirmation flows.
+
+[Full documentation →](/docs/components/animated-o-t-p-input)
+
+## 7. Scramble Hover
+
+**Cyberpunk-style text scramble** on hover. Characters shuffle randomly for 600ms then resolve back to the original text. Pure React — no animation library needed, just `setInterval` and `setTimeout`.
+
+- Preserves spaces so the text silhouette stays readable
+- 30ms scramble interval, 600ms total duration
+- Disabled on touch devices
+
+<Installer packageName="scramble-hover" />
+
+**When to use:** Navigation links, headings, feature labels — any text element where you want a techy, glitch aesthetic on interaction.
+
+[Full documentation →](/docs/components/scramble-hover) · [Tutorial →](/blog/building-scramble-hover)
+
+## 8. Dynamic Island
+
+An **Apple-style morphing container** that transitions between compact, expanded, and full states. Uses shared layout animation for the morph effect.
+
+- Three size modes with smooth transitions between them
+- Content swaps inside the island without breaking the animation
+- Dark background with rounded corners matching the Apple design language
+
+<Installer packageName="dynamic-island" />
+
+**When to use:** Status indicators, notification banners, media controls — any compact UI that needs to expand contextually.
+
+[Full documentation →](/docs/components/dynamic-island)
+
+## 9. Animated File Upload
+
+A **drag-and-drop file upload** zone with animated states — idle, hover, uploading, and complete. Progress bar with spring physics.
+
+- File type validation and size limits
+- Animated progress tracking
+- Success/error state transitions
+
+<Installer packageName="animated-file-upload" />
+
+**When to use:** File upload forms, document submission flows, image galleries.
+
+[Full documentation →](/docs/components/animated-file-upload)
+
+## 10. Expandable Cards
+
+Cards that **expand on tap** using Motion's shared layout animation. The card morphs from its grid position into a full-view overlay, then collapses back.
+
+- Smooth shared element transition
+- Overlay backdrop with blur
+- Content scrolls within the expanded card
+
+<Installer packageName="expandable-cards" />
+
+**When to use:** Portfolios, product grids, team member profiles — any card grid where tapping reveals more detail.
+
+[Full documentation →](/docs/components/expandable-cards)
+
+## 11. Glow Hover Card
+
+A card with a **cursor-tracking glow effect**. The gradient highlight follows the mouse position across the card surface.
+
+- GPU-accelerated (CSS background only, no layout recalculation)
+- Configurable glow color and radius
+- Smooth falloff at card edges
+
+<Installer packageName="glow-hover-card" />
+
+**When to use:** Feature cards, pricing tiers, testimonials — any card that benefits from a premium hover feel.
+
+[Full documentation →](/docs/components/glow-hover-card)
+
+## 12. Animated Stepper
+
+A **multi-step wizard** with animated transitions between steps. Progress bar tracks completion, and step content slides in/out.
+
+- Horizontal and vertical variants
+- Step validation before advancing
+- Animated progress indicator
+
+<Installer packageName="animated-stepper" />
+
+**When to use:** Onboarding flows, checkout processes, multi-page forms.
+
+[Full documentation →](/docs/components/animated-stepper)
+
+## 13. Animated Tooltip
+
+An enhanced tooltip with **spring-based enter/exit animations**. Scales and fades in from the trigger direction.
+
+- Configurable placement (top, bottom, left, right)
+- Spring physics for natural motion
+- Keyboard accessible (shows on focus)
+
+<Installer packageName="animated-tooltip" />
+
+**When to use:** Icon buttons, truncated text, any element that needs contextual information on hover.
+
+[Full documentation →](/docs/components/animated-tooltip)
+
+## 14. Infinite Slider
+
+An **auto-scrolling carousel** that loops infinitely. No pagination dots, no arrows — content flows continuously like a marquee.
+
+- Configurable speed and direction
+- Pauses on hover
+- Supports any content (images, cards, logos)
+
+<Installer packageName="infinite-slider" />
+
+**When to use:** Logo clouds, partner carousels, testimonial strips, social proof sections.
+
+[Full documentation →](/docs/components/infinite-slider)
+
+## 15. Social Selector
+
+A **social platform picker** with a sliding indicator and blur content transitions. Select a platform, and the associated content animates in with a y-offset + blur effect.
+
+- `layoutId` for the sliding indicator
+- `AnimatePresence` with `mode="wait"` for content transitions
+- High stiffness spring (500) for snappy feedback
+
+<Installer packageName="social-selector" />
+
+**When to use:** Social link configurators, platform selectors, share dialogs.
+
+[Full documentation →](/docs/components/social-selector) · [Tutorial →](/blog/building-social-selector)
+
+## The pattern: shadcn for structure, SmoothUI for motion
+
+Both libraries follow the same philosophy:
+
+| | shadcn/ui | SmoothUI |
+|---|---|---|
+| **Install** | `npx shadcn@latest add button` | `npx shadcn@latest add "https://smoothui.dev/r/magnetic-button.json"` |
+| **Own the code** | Yes — copied to your project | Yes — copied to your project |
+| **Utility function** | `cn()` from `lib/utils` | Same `cn()` |
+| **CSS variables** | `--primary`, `--background`, etc. | Same variables |
+| **Tailwind version** | v4 | v4 |
+| **React version** | 19 | 19 |
+
+They compose because SmoothUI imports from `@repo/shadcn-ui` internally. You're not adding a second design system — you're extending the one you already have.
+
+## Beyond components: 40+ pre-built blocks
+
+If you need full page sections rather than individual components, SmoothUI also provides [40+ pre-built blocks](/docs/blocks) — hero sections, pricing tables, testimonials, FAQ accordions, footers, team grids, stats displays, and logo clouds. All built with the same Tailwind tokens and animation patterns.
+
+## Getting started
+
+Browse the [full component library](https://smoothui.dev/docs/components), or start with the [installation guide](https://smoothui.dev/docs/guides/getting-started). Every component has live demos, props documentation, and source code you can copy.

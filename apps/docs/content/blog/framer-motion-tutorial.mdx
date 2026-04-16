@@ -1,0 +1,307 @@
+---
+title: "Framer Motion Tutorial: Build Stunning React Animations in 2026"
+description: "Learn how to use Motion (formerly Framer Motion) to build smooth, accessible animations in React. From basic transitions to spring physics, gestures, and layout animations — with real examples."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+Motion (formerly Framer Motion) is the most widely used animation library in the React ecosystem. It powers the animations in Vercel's dashboard, Linear, Raycast, and thousands of production apps. This tutorial takes you from zero to production-ready animations — covering the core API, spring physics, gestures, layout transitions, scroll-triggered effects, and accessibility.
+
+## What is Motion?
+
+Motion is a declarative animation library for React. You describe **what** the animation should look like, not **how** to execute it frame by frame. The library handles interpolation, spring physics, and hardware-accelerated rendering under the hood.
+
+```bash
+npm install motion
+```
+
+The package was renamed from `framer-motion` to `motion` in late 2024. The API is identical — if you're migrating, just update your imports:
+
+```tsx
+// Before
+import { motion } from "framer-motion";
+// After
+import { motion } from "motion/react";
+```
+
+## The basics: animate, initial, exit
+
+Every Motion animation uses three states:
+
+```tsx
+import { motion } from "motion/react";
+
+const FadeIn = () => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -20 }}
+  >
+    Hello, world
+  </motion.div>
+);
+```
+
+- **`initial`** — where the element starts (before it mounts)
+- **`animate`** — where it ends (the resting state)
+- **`exit`** — where it goes when removed from the DOM (requires `AnimatePresence`)
+
+These three props cover 80% of animation use cases. The rest is about refining the timing.
+
+## Transitions: easing vs springs
+
+By default, Motion uses a spring transition. You can customize it:
+
+### Easing-based (duration + curve)
+
+```tsx
+<motion.div
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    duration: 0.25,
+    ease: [0.23, 1, 0.32, 1], // ease-out
+  }}
+/>
+```
+
+Use easing when you need **predictable timing** — loading bars, progress indicators, or anything that needs to finish at exactly the right moment.
+
+### Spring-based (physics)
+
+```tsx
+<motion.div
+  animate={{ opacity: 1, y: 0 }}
+  transition={{
+    type: "spring",
+    duration: 0.25,
+    bounce: 0.1,
+  }}
+/>
+```
+
+Springs feel more natural because they model real-world physics. The `bounce` parameter (0 to 1) controls how much the element overshoots before settling. For UI interactions, keep it under `0.1` — anything higher feels playful, which is great for games but distracting for dashboards.
+
+**Rule of thumb:** use springs for interactive UI (buttons, modals, tabs) and easing for decorative/sequential animations (page transitions, scroll reveals).
+
+## AnimatePresence: exit animations
+
+React removes elements from the DOM immediately. Motion's `AnimatePresence` delays removal until the exit animation completes:
+
+```tsx
+import { AnimatePresence, motion } from "motion/react";
+
+const Notification = ({ isVisible, message }) => (
+  <AnimatePresence>
+    {isVisible && (
+      <motion.div
+        key="notification"
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -10 }}
+        transition={{ type: "spring", duration: 0.25, bounce: 0.1 }}
+      >
+        {message}
+      </motion.div>
+    )}
+  </AnimatePresence>
+);
+```
+
+The `mode` prop controls how elements enter and exit when swapping:
+
+- **`mode="sync"`** (default) — old and new elements animate simultaneously
+- **`mode="wait"`** — old element exits completely before new one enters
+- **`mode="popLayout"`** — old element is removed from layout flow immediately, new one enters. Best for replacing content without layout shift
+
+## Layout animations with `layoutId`
+
+This is Motion's most powerful feature. When two components share a `layoutId`, Motion automatically animates between their positions and sizes:
+
+```tsx
+const TabBar = ({ activeTab, tabs }) => (
+  <div className="flex gap-2">
+    {tabs.map((tab) => (
+      <button key={tab} onClick={() => setActive(tab)}>
+        {tab}
+        {activeTab === tab && (
+          <motion.div
+            layoutId="tab-indicator"
+            className="absolute bottom-0 h-0.5 w-full bg-blue-500"
+            transition={{ type: "spring", duration: 0.25, bounce: 0.05 }}
+          />
+        )}
+      </button>
+    ))}
+  </div>
+);
+```
+
+The indicator slides smoothly between tabs without any manual coordinate calculations. This is how most modern tab components, navigation highlights, and selection indicators are built.
+
+Want to see this in action? The [Animated Tabs](/docs/components/animated-tabs) component implements this exact pattern with three variants (underline, pill, segment), full keyboard navigation, and accessibility support:
+
+<Installer packageName="animated-tabs" />
+
+## Gesture animations
+
+Motion detects hover, tap, drag, and focus gestures natively:
+
+```tsx
+<motion.button
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  transition={{ type: "spring", duration: 0.2, bounce: 0.1 }}
+>
+  Click me
+</motion.button>
+```
+
+For more advanced pointer interactions, `useSpring` gives you reactive motion values that track the cursor:
+
+```tsx
+import { motion, useSpring } from "motion/react";
+
+const x = useSpring(0, { duration: 0.4, bounce: 0.1 });
+const y = useSpring(0, { duration: 0.4, bounce: 0.1 });
+
+const handleMouseMove = (e) => {
+  const rect = ref.current.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width / 2);
+  const dy = e.clientY - (rect.top + rect.height / 2);
+  x.set(dx * 0.3); // 30% of the distance
+  y.set(dy * 0.3);
+};
+
+return (
+  <motion.div style={{ x, y }} onMouseMove={handleMouseMove}>
+    I follow your cursor
+  </motion.div>
+);
+```
+
+This is the core mechanic behind the [Magnetic Button](/docs/components/magnetic-button) — a button that leans toward the pointer with spring physics and radius falloff:
+
+<Installer packageName="magnetic-button" />
+
+Read the [step-by-step tutorial](/blog/building-magnetic-button) for a deep dive into how it works.
+
+## Scroll-triggered animations
+
+Motion provides `whileInView` for triggering animations when elements scroll into the viewport:
+
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 40 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  viewport={{ once: true, amount: 0.5 }}
+  transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+>
+  I animate once when 50% visible
+</motion.div>
+```
+
+- **`viewport.once: true`** — animate only the first time (don't re-trigger on scroll back)
+- **`viewport.amount: 0.5`** — trigger when 50% of the element is visible
+
+For paragraph-level scroll reveals, the [Scroll Reveal Paragraph](/docs/components/scroll-reveal-paragraph) component highlights words progressively as you scroll through them.
+
+## Variants: orchestrate children
+
+Variants let you define named animation states and propagate them to children with staggering:
+
+```tsx
+const container = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.05 },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 },
+};
+
+<motion.ul variants={container} initial="hidden" animate="show">
+  {items.map((i) => (
+    <motion.li key={i} variants={item}>
+      {i}
+    </motion.li>
+  ))}
+</motion.ul>
+```
+
+Each child automatically inherits the parent's animation state and staggers 50ms apart. This is how list entrance animations, card grids, and dashboard loading sequences are typically built.
+
+## Accessibility: useReducedMotion
+
+**This is not optional.** Users with vestibular disorders can experience nausea, dizziness, and migraines from animations. Motion provides `useReducedMotion` to respect the operating system's accessibility setting:
+
+```tsx
+import { motion, useReducedMotion } from "motion/react";
+
+const Card = () => {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={
+        shouldReduceMotion
+          ? { opacity: 1 }
+          : { opacity: 0, y: 20 }
+      }
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      Content
+    </motion.div>
+  );
+};
+```
+
+When `prefers-reduced-motion: reduce` is set:
+- **Don't remove animations entirely** — content should still appear (opacity: 1)
+- **Set `duration: 0`** — the transition happens instantly
+- **Skip transform animations** — no y-offset, scale, or rotation
+
+Every component in [SmoothUI](https://smoothui.dev) follows this pattern. The library enforces `useReducedMotion` checks across all 73+ components, so you don't have to remember it yourself.
+
+## Performance best practices
+
+1. **Only animate `transform` and `opacity`** — these are composited properties that don't trigger layout or paint
+2. **Avoid animating `height`** — use `max-height` with `overflow: hidden`, or let `AnimatePresence` handle it
+3. **Use `layout` prop sparingly** — layout animations are expensive because they trigger a layout recalculation
+4. **Set explicit `duration`** on springs — without it, the animation runs until the spring settles, which can be 2+ seconds on low-end devices
+5. **Profile in Chrome DevTools** — open the Performance tab, record while animating, and look for red "Layout Shift" markers
+6. **Keep durations under 300ms** for interactive elements (buttons, toggles, tabs). Reserve 400ms+ for page transitions or decorative effects
+
+## Skip the boilerplate
+
+If you're building a React app with Tailwind CSS and want polished animations without writing them from scratch, [SmoothUI](https://smoothui.dev) provides 73+ production-ready components built on Motion. Every component uses springs, respects reduced motion, and installs via the shadcn registry:
+
+```bash
+npx shadcn@latest add "https://smoothui.dev/r/animated-tabs.json"
+```
+
+Some highlights:
+
+- **[Animated Tabs](/docs/components/animated-tabs)** — shared layout indicator with 3 variants
+- **[Magnetic Button](/docs/components/magnetic-button)** — cursor-tracking with spring physics
+- **[Scramble Hover](/docs/components/scramble-hover)** — cyberpunk text scramble effect
+- **[Number Flow](/docs/components/number-flow)** — direction-aware digit animation
+- **[Rich Popover](/docs/components/rich-popover)** — scale + blur materializing effect
+- **[Animated Stepper](/docs/components/animated-stepper)** — multi-step wizard with animated transitions
+
+Browse the full [component library](https://smoothui.dev/docs/components) or read the [interactive tutorials](https://smoothui.dev/blog) to see how each component is built from scratch.
+
+## Conclusion
+
+Motion gives you the primitives — `animate`, springs, `layoutId`, gestures, `whileInView`, `AnimatePresence`. The library handles the hard parts (interpolation, spring physics, GPU compositing) so you can describe animations declaratively in JSX.
+
+Start with `initial` + `animate` + a spring transition. Add `exit` when you need unmount animations. Reach for `layoutId` when you need shared-element transitions. And always, always check `useReducedMotion`.

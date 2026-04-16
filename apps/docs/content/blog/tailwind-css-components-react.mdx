@@ -1,0 +1,216 @@
+---
+title: "50+ Free Tailwind CSS Components for React in 2026"
+description: "A curated guide to the best free Tailwind CSS component libraries for React — from headless primitives to fully animated, production-ready UI kits. Compare features, install methods, and find the right library for your project."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+Tailwind CSS changed how we style React apps. Instead of writing CSS files, you compose utility classes directly in your JSX. But building a full UI from utilities alone is slow — you need components. This guide covers the **best free Tailwind CSS component libraries for React** in 2026, from headless primitives to fully animated UI kits.
+
+## The landscape
+
+Tailwind CSS component libraries fall into three categories:
+
+1. **Headless primitives** — unstyled, accessible components (you add the Tailwind classes)
+2. **Copy-paste libraries** — styled components you copy into your project and own
+3. **Animated component libraries** — pre-built components with motion and interactivity
+
+Most production apps use a mix of all three.
+
+## Headless primitives
+
+### Radix UI
+
+The foundation that many Tailwind libraries build on. Radix provides unstyled, accessible primitives for dialogs, dropdowns, popovers, tabs, and more. You bring your own styles via Tailwind.
+
+```tsx
+import * as Dialog from "@radix-ui/react-dialog";
+
+<Dialog.Root>
+  <Dialog.Trigger className="rounded-md bg-primary px-4 py-2">
+    Open
+  </Dialog.Trigger>
+  <Dialog.Portal>
+    <Dialog.Overlay className="fixed inset-0 bg-black/50" />
+    <Dialog.Content className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-6">
+      {/* content */}
+    </Dialog.Content>
+  </Dialog.Portal>
+</Dialog.Root>
+```
+
+**Best for:** teams that want full control over visual design while getting accessibility for free.
+
+### Headless UI
+
+From the Tailwind Labs team. Covers common patterns (Menu, Listbox, Combobox, Dialog, Tabs, Radio Group) with built-in transitions. Pairs with `@headlessui/tailwindcss` for styling open/closed states.
+
+**Best for:** projects that want Tailwind-first components from the same team that builds Tailwind.
+
+### React Aria (Adobe)
+
+The most comprehensive accessibility library. Over 40 hooks and components covering every ARIA pattern. Unstyled by default, works with any CSS framework.
+
+**Best for:** enterprise apps where accessibility compliance is non-negotiable.
+
+## Copy-paste component libraries
+
+### shadcn/ui
+
+The library that popularized the "copy-paste, own the code" model. Built on Radix UI + Tailwind CSS, with a CLI that copies components directly into your project:
+
+```bash
+npx shadcn@latest add button dialog tabs
+```
+
+112K+ GitHub stars. The de facto standard for new React projects. Provides ~50 components covering forms, data display, navigation, and layout.
+
+**Best for:** every React + Tailwind project. Start here, then add specialized libraries for what shadcn doesn't cover (animations, charts, rich interactions).
+
+### DaisyUI
+
+A Tailwind CSS plugin that adds component classes (`btn`, `card`, `modal`, `navbar`). Unlike shadcn, DaisyUI works at the CSS layer — no JavaScript, no React dependency. Includes 30+ themes.
+
+```html
+<button class="btn btn-primary">Click me</button>
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title">Card title</h2>
+  </div>
+</div>
+```
+
+**Best for:** multi-framework projects, server-rendered HTML, or teams that want styled components without a JavaScript runtime.
+
+### Tremor
+
+Data visualization and dashboard components built with Tailwind. Charts (bar, line, area, donut), KPI cards, tables, and lists. Uses Recharts under the hood.
+
+**Best for:** analytics dashboards and admin panels.
+
+### Flowbite React
+
+450+ components across every category. Form elements, navigation, marketing sections, e-commerce blocks. Includes Tailwind CSS + React components.
+
+**Best for:** teams that want breadth — a single library covering every UI pattern.
+
+## Animated component libraries
+
+This is where most libraries leave a gap. shadcn gives you solid static components, but no motion. Here's where animation-focused libraries fill in.
+
+### SmoothUI
+
+**73+ animated React components** built with Motion (Framer Motion), Tailwind CSS v4, and React 19. Fully shadcn-compatible — uses the same registry system, same `cn()` utility, same copy-paste model.
+
+What sets it apart:
+
+- **Every component is animated** — spring physics, gestures, layout transitions
+- **Accessibility enforced** — all components check `useReducedMotion`
+- **shadcn registry** — install with the same CLI you already use
+- **Interactive tutorials** — [blog posts](/blog) walk through building each component step by step
+- **40+ pre-built blocks** — hero sections, pricing tables, testimonials, footers
+
+Install any component:
+
+```bash
+npx shadcn@latest add "https://smoothui.dev/r/magnetic-button.json"
+```
+
+Some highlights across categories:
+
+**Buttons & CTAs:**
+- [Magnetic Button](/docs/components/magnetic-button) — follows cursor with spring physics
+- [Dot Morph Button](/docs/components/dot-morph-button) — morphs between states
+- [Clip Corners Button](/docs/components/clip-corners-button) — geometric corner animation
+
+<Installer packageName="magnetic-button" />
+
+**Navigation & Tabs:**
+- [Animated Tabs](/docs/components/animated-tabs) — shared sliding indicator (3 variants)
+- [Breadcrumb](/docs/components/breadcrumb) — animated path navigation
+- [Pagination](/docs/components/pagination) — page indicator with layout animation
+
+**Data Display:**
+- [Number Flow](/docs/components/number-flow) — direction-aware digit counter
+- [Contribution Graph](/docs/components/contribution-graph) — GitHub-style activity grid
+- [Price Flow](/docs/components/price-flow) — animated pricing display
+
+**Cards & Popovers:**
+- [Rich Popover](/docs/components/rich-popover) — scale + blur materializing effect
+- [Glow Hover Card](/docs/components/glow-hover-card) — cursor-tracking glow
+- [Expandable Cards](/docs/components/expandable-cards) — tap to expand with shared layout
+
+**Inputs & Forms:**
+- [Animated Input](/docs/components/animated-input) — floating label with spring
+- [Animated OTP Input](/docs/components/animated-o-t-p-input) — per-digit animated entry
+- [Animated File Upload](/docs/components/animated-file-upload) — drag-and-drop with progress
+
+**Text & Typography:**
+- [Scramble Hover](/docs/components/scramble-hover) — cyberpunk text scramble
+- [Typewriter Text](/docs/components/typewriter-text) — typing effect
+- [Wave Text](/docs/components/wave-text) — letter-by-letter wave animation
+- [Reveal Text](/docs/components/reveal-text) — scroll-triggered text reveal
+
+### Magic UI
+
+Animated components with a similar shadcn-compatible approach. Includes dock, marquee, globe, and other visual effects. 20K+ GitHub stars.
+
+**Best for:** landing pages and marketing sites where eye-catching effects are the priority.
+
+### Aceternity UI
+
+100+ components with a focus on visual effects — aurora backgrounds, 3D cards, spotlight effects, text generate effects. Has both free and Pro tiers.
+
+**Best for:** creative portfolios and product marketing pages.
+
+## How to choose
+
+| Need | Library |
+|---|---|
+| Accessible primitives, bring your own styles | Radix UI or React Aria |
+| Solid static components (forms, dialogs, tables) | shadcn/ui |
+| Animated interactive components | SmoothUI |
+| CSS-only, no JavaScript | DaisyUI |
+| Dashboard / analytics | Tremor |
+| Everything in one place | Flowbite React |
+| Landing page eye candy | Magic UI or Aceternity |
+
+## The practical stack
+
+For most React + Tailwind projects in 2026, this combination covers everything:
+
+1. **shadcn/ui** — forms, dialogs, dropdowns, data tables, layout primitives
+2. **SmoothUI** — animated buttons, tabs, cards, inputs, popovers, text effects
+3. **Tremor** (if building dashboards) — charts, KPIs, analytics components
+
+All three use Tailwind CSS. shadcn and SmoothUI share the same registry system — you can install components from both in the same project without conflicts:
+
+```bash
+# shadcn component
+npx shadcn@latest add button
+
+# SmoothUI component
+npx shadcn@latest add "https://smoothui.dev/r/animated-tabs.json"
+```
+
+They compose together because SmoothUI components import from `@repo/shadcn-ui` internally — using the same `cn()` utility, the same CSS variables, and the same design tokens.
+
+## Tailwind CSS v4: what changed
+
+Tailwind CSS v4 (released 2025) brought significant changes that affect component libraries:
+
+- **CSS-first configuration** — `tailwind.config.js` replaced by CSS `@theme` directives
+- **Faster builds** — new Oxide engine written in Rust
+- **Composable variants** — `group-hover:peer-focus:` chains work natively
+- **Container queries** — `@container` and `@min-*`/`@max-*` variants
+- **New color system** — OKLCH by default, better for dark mode
+
+All libraries mentioned above support Tailwind v4 except DaisyUI (which requires the v3 compatibility layer as of writing).
+
+## Conclusion
+
+The Tailwind component ecosystem in 2026 is mature enough that you shouldn't build common UI patterns from scratch. Use shadcn/ui as your foundation, add SmoothUI for animations and interactivity, and reach for specialized libraries (Tremor, Flowbite) when you need domain-specific components.
+
+Browse the [SmoothUI component library](https://smoothui.dev/docs/components) to see all 73+ animated components, or start with the [installation guide](https://smoothui.dev/docs/guides/getting-started).

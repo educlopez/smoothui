@@ -1,0 +1,263 @@
+---
+title: "10 React Hover Effects That Feel Premium (With Code)"
+description: "Copy-paste code for 10 polished React hover effects — magnetic pull, glow tracking, text scramble, scale springs, blur reveals, and more. Each technique explained with performance tips."
+date: "2026-04-16"
+author: "Eduardo Calvo"
+---
+
+import { Installer } from "@docs/components/installer";
+
+A good hover effect does three things: confirms the element is interactive, hints at what will happen on click, and makes the interface feel crafted rather than default. A bad hover effect does the opposite — it distracts, jitters, or slows down the page.
+
+This article shows **10 hover effects** that work in production. Each one includes the code, the reasoning behind the technique, and performance considerations.
+
+## 1. Scale spring
+
+The simplest upgrade from CSS `scale`. Instead of a linear transition, use a spring with low bounce for a physical, snappy feel:
+
+```tsx
+<motion.button
+  whileHover={{ scale: 1.03 }}
+  whileTap={{ scale: 0.97 }}
+  transition={{ type: "spring", duration: 0.2, bounce: 0.1 }}
+  className="rounded-lg bg-primary px-6 py-3 text-primary-foreground"
+>
+  Click me
+</motion.button>
+```
+
+**Why 1.03 and not 1.1?** Subtlety. A 3% scale increase is felt, not seen. A 10% increase screams "I'm an animation!" and draws attention to itself rather than to the content.
+
+**Performance:** `scale` is a `transform` property — composited, GPU-accelerated, no layout recalculation.
+
+## 2. Magnetic pull
+
+The button **leans toward the cursor** before being clicked. Track the pointer position relative to the button center and translate proportionally:
+
+```tsx
+const x = useSpring(0, { duration: 0.4, bounce: 0.1 });
+const y = useSpring(0, { duration: 0.4, bounce: 0.1 });
+
+const handleMouseMove = (e: React.MouseEvent) => {
+  const rect = ref.current!.getBoundingClientRect();
+  const dx = e.clientX - (rect.left + rect.width / 2);
+  const dy = e.clientY - (rect.top + rect.height / 2);
+  const distance = Math.sqrt(dx * dx + dy * dy);
+
+  if (distance < 150) {
+    const falloff = 1 - distance / 150;
+    x.set(dx * 0.3 * falloff);
+    y.set(dy * 0.3 * falloff);
+  }
+};
+```
+
+The radius falloff means the pull is strongest when the cursor is near the center and fades to zero at the edge. The `useSpring` wrapping means the snap-back is animated too.
+
+The [Magnetic Button](/docs/components/magnetic-button) component packages this with variant support, touch device detection, and reduced motion handling:
+
+<Installer packageName="magnetic-button" />
+
+[Read the step-by-step tutorial →](/blog/building-magnetic-button)
+
+## 3. Cursor glow tracking
+
+A radial gradient follows the pointer across the card surface. The trick: use CSS `background` with dynamic `at Xpx Ypx` positioning updated via mouse event coordinates.
+
+```tsx
+const [pos, setPos] = useState({ x: 0, y: 0 });
+
+const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  setPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+};
+
+<div
+  className="relative overflow-hidden rounded-xl border bg-card p-6"
+  onMouseMove={handleMouseMove}
+>
+  <div
+    className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+    style={{
+      background: `radial-gradient(350px at ${pos.x}px ${pos.y}px, hsl(var(--brand) / 0.12), transparent 70%)`,
+    }}
+  />
+  {/* Content */}
+</div>
+```
+
+**Performance:** Only `background` changes on the pseudo-element — no layout, no paint on the main content. `pointer-events-none` ensures the glow doesn't interfere with child interactions.
+
+The [Glow Hover Card](/docs/components/glow-hover-card) component implements this with proper GPU acceleration:
+
+<Installer packageName="glow-hover-card" />
+
+## 4. Text scramble
+
+Characters randomize on hover, then resolve back to the original text. No animation library needed — pure `setInterval`:
+
+```tsx
+const handleMouseEnter = () => {
+  intervalRef.current = setInterval(() => {
+    setDisplay(text.split("").map(c =>
+      c === " " ? " " : CHARS[Math.floor(Math.random() * CHARS.length)]
+    ).join(""));
+  }, 30);
+
+  timeoutRef.current = setTimeout(() => {
+    clearInterval(intervalRef.current!);
+    setDisplay(text); // snap back to original
+  }, 600);
+};
+```
+
+Key details:
+- **Preserve spaces** so the text silhouette stays readable during scramble
+- **30ms interval** feels glitchy without being unreadable
+- **600ms total** — long enough to notice, short enough to not annoy
+- **Clean up timers on mouse leave** — otherwise hovers stack
+
+The [Scramble Hover](/docs/components/scramble-hover) component handles all edge cases:
+
+<Installer packageName="scramble-hover" />
+
+[Read the step-by-step tutorial →](/blog/building-scramble-hover)
+
+## 5. Background color sweep
+
+A colored background sweeps in from one edge on hover. Use a `::before` pseudo-element with `transform: scaleX()`:
+
+```tsx
+<a className="group relative overflow-hidden rounded-md px-4 py-2">
+  <span className="relative z-10 transition-colors group-hover:text-primary-foreground">
+    Link text
+  </span>
+  <span className="absolute inset-0 origin-left scale-x-0 bg-brand transition-transform duration-250 ease-out group-hover:scale-x-100" />
+</a>
+```
+
+**Why `scaleX` instead of `width`?** `width` triggers layout recalculation on every frame. `transform: scaleX()` is composited — GPU handles it at 60fps.
+
+The `origin-left` means the sweep starts from the left edge. Change to `origin-right` or `origin-bottom` for different directions.
+
+## 6. Border glow pulse
+
+A subtle glow pulses around the card border on hover. Use `box-shadow` with a color transition:
+
+```tsx
+<div className="rounded-xl border border-border bg-card p-6 shadow-[0_0_0_0_transparent] transition-shadow duration-300 hover:shadow-[0_0_20px_2px_hsl(var(--brand)/0.15)]">
+  Card content
+</div>
+```
+
+**Performance note:** `box-shadow` doesn't trigger layout, but it does trigger paint. For most cards this is fine — only avoid it on elements that repaint frequently (like items in a rapidly scrolling list).
+
+## 7. Tilt 3D perspective
+
+The card tilts slightly toward the cursor, creating a 3D parallax effect:
+
+```tsx
+const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const rect = e.currentTarget.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;   // -0.5 to 0.5
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  e.currentTarget.style.transform =
+    `perspective(600px) rotateX(${y * -8}deg) rotateY(${x * 8}deg)`;
+};
+
+const handleMouseLeave = (e: React.MouseEvent<HTMLDivElement>) => {
+  e.currentTarget.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg)";
+};
+```
+
+Keep the rotation under **8 degrees** — more than that causes motion sickness in some users. Add `transition: transform 0.15s ease-out` for a smooth settle on mouse leave.
+
+## 8. Blur-to-focus reveal
+
+Content starts blurred and sharpens on hover. Creates a "coming into focus" effect:
+
+```tsx
+<div className="group overflow-hidden rounded-xl">
+  <div className="blur-sm brightness-90 transition-all duration-300 group-hover:blur-0 group-hover:brightness-100">
+    <img src="/preview.jpg" alt="Preview" className="h-full w-full object-cover" />
+  </div>
+  <div className="absolute inset-0 flex items-center justify-center opacity-100 transition-opacity group-hover:opacity-0">
+    <span className="text-white text-sm font-medium">Hover to reveal</span>
+  </div>
+</div>
+```
+
+**Performance:** `filter: blur()` is GPU-composited in most browsers. The key is applying it to images/backgrounds only — blurring text makes it unreadable and hurts accessibility.
+
+## 9. Underline slide
+
+A bottom border slides in from the left on hover — cleaner than the default `text-decoration: underline`:
+
+```tsx
+<a className="group relative">
+  Link text
+  <span className="absolute bottom-0 left-0 h-px w-0 bg-foreground transition-all duration-250 ease-out group-hover:w-full" />
+</a>
+```
+
+**Variant:** For a center-out effect, use `left-1/2 w-0 group-hover:left-0 group-hover:w-full` — but the `width` animation isn't GPU-composited. For better performance, use `scaleX` with `origin-center`:
+
+```tsx
+<span className="absolute bottom-0 left-0 h-px w-full origin-center scale-x-0 bg-foreground transition-transform duration-250 ease-out group-hover:scale-x-100" />
+```
+
+## 10. Staggered children reveal
+
+Hover on the parent reveals children one by one with a stagger delay:
+
+```tsx
+<motion.div
+  className="group grid grid-cols-3 gap-4 rounded-xl border bg-card p-6"
+  whileHover="hovered"
+>
+  {items.map((item, i) => (
+    <motion.div
+      key={item.id}
+      className="rounded-lg bg-muted p-4"
+      variants={{
+        initial: { opacity: 0.5, y: 4 },
+        hovered: { opacity: 1, y: 0 },
+      }}
+      transition={{
+        type: "spring",
+        duration: 0.2,
+        bounce: 0.05,
+        delay: i * 0.03,
+      }}
+    >
+      {item.label}
+    </motion.div>
+  ))}
+</motion.div>
+```
+
+The `0.03s` stagger per child creates a wave effect. `variants` with `whileHover="hovered"` on the parent automatically propagates the animation state to all children.
+
+## Performance checklist
+
+Before shipping any hover effect:
+
+- [ ] **Only animate `transform` and `opacity`** when possible
+- [ ] **Detect hover-capable devices** — `window.matchMedia("(hover: hover)")`. Don't fire hover effects on touch
+- [ ] **Respect `prefers-reduced-motion`** — either disable or make instant
+- [ ] **Keep durations 150–250ms** — hover effects should feel immediate
+- [ ] **Test on low-end devices** — Chrome DevTools → Performance → throttle 4x CPU
+- [ ] **Don't animate `height`, `width`, or `top/left`** — use `transform` equivalents
+
+## Pre-built hover components
+
+If you want these effects without building them from scratch, [SmoothUI](https://smoothui.dev) provides production-ready components with all the edge cases handled:
+
+- [Magnetic Button](/docs/components/magnetic-button) — cursor-tracking pull with spring physics
+- [Glow Hover Card](/docs/components/glow-hover-card) — radial gradient tracking
+- [Scramble Hover](/docs/components/scramble-hover) — text character shuffling
+- [Rich Popover](/docs/components/rich-popover) — scale + blur materializing
+- [Cursor Follow](/docs/components/cursor-follow) — element follows cursor position
+
+Browse all [73+ components](https://smoothui.dev/docs/components) or read the [interactive tutorials](https://smoothui.dev/blog) to see each technique deconstructed step by step.
