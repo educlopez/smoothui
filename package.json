@@ -44,7 +44,8 @@
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
     "clean": "git clean -xdf node_modules",
-    "calculate-sizes": "npx tsx scripts/calculate-bundle-sizes.ts"
+    "calculate-sizes": "npx tsx scripts/calculate-bundle-sizes.ts",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.6",
@@ -52,6 +53,8 @@
     "@smoothui/data": "workspace:*",
     "@types/node": "^24.10.10",
     "esbuild": "^0.27.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "tsup": "^8.5.1",
     "turbo": "^2.8.3",
     "typescript": "^5.9.3",
@@ -94,6 +97,14 @@
       "vite": ">=7.3.2",
       "lodash-es": ">=4.18.0"
     }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "biome check --write"
+    ],
+    "*.{json,css,md,mdx}": [
+      "biome format --write"
+    ]
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
