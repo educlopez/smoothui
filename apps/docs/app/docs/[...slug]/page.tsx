@@ -146,9 +146,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <>
       <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
       <DocsPage
-        container={{
-          className: "max-w-[75rem]",
-        }}
+        className="max-w-[75rem]"
         full={page.data.full ?? page.slugs.includes("blocks")}
         tableOfContent={{
           style: "clerk",

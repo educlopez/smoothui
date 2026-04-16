@@ -16,7 +16,7 @@ const LABEL_TRANSITION = {
     EASE_IN_OUT_CUBIC_Y1,
     EASE_IN_OUT_CUBIC_X2,
     EASE_IN_OUT_CUBIC_Y2,
-  ], // standard material easing
+  ] as [number, number, number, number], // cubic-bezier tuple
 };
 
 export interface AnimatedInputProps {

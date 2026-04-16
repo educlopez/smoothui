@@ -52,7 +52,7 @@
     "@biomejs/biome": "2.4.10",
     "@smoothui/data": "workspace:*",
     "@types/node": "^24.10.10",
-    "esbuild": "^0.27.3",
+    "esbuild": "^0.27.7",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "tsup": "^8.5.1",
@@ -70,6 +70,7 @@
     "overrides": {
       "react": "^19.2.1",
       "react-dom": "^19.2.1",
+      "shiki": ">=4.0.0",
       "glob": ">=10.5.0",
       "@types/react": "^19.2.7",
       "@types/react-dom": "^19.2.3",

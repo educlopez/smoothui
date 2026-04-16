@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchContext } from "fumadocs-ui/provider";
+import { useSearchContext } from "fumadocs-ui/contexts/search";
 import { Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 import { ColorPickerFloatNav } from "./color-picker-float-nav";
