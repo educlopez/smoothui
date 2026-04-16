@@ -62,6 +62,6 @@
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.17",
     "ts-morph": "^27.0.2",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }

@@ -14,7 +14,7 @@
     "@repo/typescript-config": "workspace:*",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   },
   "smoothui": {
     "category": "button",
