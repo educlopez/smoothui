@@ -134,7 +134,7 @@ export default function FigmaComment({
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 550,
                 damping: 45,
                 mass: 0.7,
@@ -166,7 +166,7 @@ export default function FigmaComment({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 300,
                   damping: 25,
                   duration: 0.25,
@@ -240,7 +240,7 @@ export default function FigmaComment({
                 width: `${width}px`,
               }}
               transition={
-                shouldReduceMotion
+                (shouldReduceMotion
                   ? { duration: 0 }
                   : (isExiting: boolean) => ({
                       opacity: {
@@ -253,7 +253,7 @@ export default function FigmaComment({
                         ease: BLUR_EASE,
                         delay: isExiting ? 0 : CONTENT_DELAY,
                       },
-                    })
+                    })) as import("motion/react").Transition
               }
             >
               {/* Attribution */}

@@ -8,7 +8,7 @@
     "@smoothui/data": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^11.15.0",
+    "motion": "^12.23.25",
     "lucide-react": "^0.545.0",
     "popmotion": "^11.0.3"
   },

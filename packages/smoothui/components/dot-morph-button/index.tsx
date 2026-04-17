@@ -67,7 +67,7 @@ export function DotMorphButton({
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 600,
                 damping: 22,
                 duration: 0.25,

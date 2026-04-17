@@ -188,7 +188,7 @@ export default function BasicDropdown({
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring", bounce: 0.1, duration: 0.25 }
+                : { type: "spring" as const, bounce: 0.1, duration: 0.25 }
             }
           >
             <ul
@@ -219,7 +219,7 @@ export default function BasicDropdown({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          type: "spring",
+                          type: "spring" as const,
                           stiffness: 300,
                           damping: 30,
                           duration: 0.2,
@@ -250,7 +250,7 @@ export default function BasicDropdown({
                           shouldReduceMotion
                             ? { duration: 0 }
                             : {
-                                type: "spring",
+                                type: "spring" as const,
                                 stiffness: 300,
                                 damping: 20,
                                 duration: 0.2,

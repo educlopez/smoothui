@@ -102,7 +102,7 @@ export default function PowerOffSlide({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", duration: 0.25 }
+                  : { type: "spring" as const, duration: 0.25 }
               }
             >
               <Power className="text-red-600" size={32} />

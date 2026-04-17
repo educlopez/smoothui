@@ -7,7 +7,7 @@
     "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^11.15.0",
+    "motion": "^12.23.25",
     "lucide-react": "^0.545.0",
     "@radix-ui/react-popover": "1.1.15"
   },

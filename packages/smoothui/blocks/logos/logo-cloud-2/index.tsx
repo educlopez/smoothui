@@ -99,7 +99,10 @@ export function LogoCloudAnimated({
               >
                 <motion.div
                   className="mb-2 text-4xl *:fill-foreground"
-                  transition={{ type: "spring", stiffness: SPRING_STIFFNESS }}
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: SPRING_STIFFNESS,
+                  }}
                   whileHover={{ scale: HOVER_SCALE, rotate: HOVER_ROTATE }}
                 >
                   <logo.logo />
@@ -123,7 +126,10 @@ export function LogoCloudAnimated({
               >
                 <motion.div
                   className="mb-2 text-4xl *:fill-foreground"
-                  transition={{ type: "spring", stiffness: SPRING_STIFFNESS }}
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: SPRING_STIFFNESS,
+                  }}
                   whileHover={{ scale: HOVER_SCALE, rotate: HOVER_ROTATE }}
                 >
                   <logo.logo />
@@ -147,7 +153,10 @@ export function LogoCloudAnimated({
               >
                 <motion.div
                   className="mb-2 text-4xl *:fill-foreground"
-                  transition={{ type: "spring", stiffness: SPRING_STIFFNESS }}
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: SPRING_STIFFNESS,
+                  }}
                   whileHover={{ scale: HOVER_SCALE, rotate: HOVER_ROTATE }}
                 >
                   <logo.logo />

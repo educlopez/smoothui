@@ -73,7 +73,7 @@ export default function AnimatedTags({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.25, bounce: 0, type: "spring" }
+                    : { duration: 0.25, bounce: 0, type: "spring" as const }
                 }
               >
                 {tag}{" "}
@@ -116,7 +116,7 @@ export default function AnimatedTags({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.25, bounce: 0, type: "spring" }
+                  : { duration: 0.25, bounce: 0, type: "spring" as const }
               }
             >
               {tag}{" "}

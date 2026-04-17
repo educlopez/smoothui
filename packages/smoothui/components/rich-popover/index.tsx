@@ -144,7 +144,7 @@ export default function RichTooltip({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 500,
                     damping: 30,
                     duration: 0.2,

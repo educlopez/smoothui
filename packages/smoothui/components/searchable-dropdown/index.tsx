@@ -238,7 +238,7 @@ export default function SearchableDropdown({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 400,
                     damping: 30,
                     mass: 0.8,
@@ -260,7 +260,7 @@ export default function SearchableDropdown({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        type: "spring",
+                        type: "spring" as const,
                         stiffness: 400,
                         damping: 25,
                         delay: 0.05,
@@ -295,7 +295,7 @@ export default function SearchableDropdown({
                       initial={{ opacity: 0 }}
                       onClick={handleClearSearch}
                       transition={{
-                        type: "spring",
+                        type: "spring" as const,
                         stiffness: 400,
                         damping: 25,
                       }}
@@ -344,7 +344,7 @@ export default function SearchableDropdown({
                         shouldReduceMotion
                           ? { duration: 0 }
                           : {
-                              type: "spring",
+                              type: "spring" as const,
                               stiffness: 400,
                               damping: 28,
                               mass: 0.6,
@@ -385,7 +385,7 @@ export default function SearchableDropdown({
                               shouldReduceMotion
                                 ? { duration: 0 }
                                 : {
-                                    type: "spring",
+                                    type: "spring" as const,
                                     stiffness: 400,
                                     damping: 25,
                                     mass: 0.5,
@@ -423,7 +423,7 @@ export default function SearchableDropdown({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring",
+                            type: "spring" as const,
                             stiffness: 400,
                             damping: 25,
                             duration: 0.2,
@@ -463,7 +463,7 @@ export default function SearchableDropdown({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 400,
                     damping: 25,
                     duration: 0.2,

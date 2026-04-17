@@ -175,7 +175,7 @@ export default function JobListingComponent({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       duration: 0.25,
                       bounce: 0.1,
                       layout: {
@@ -268,7 +268,7 @@ export default function JobListingComponent({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       duration: 0.25,
                       bounce: 0.1,
                       layout: {

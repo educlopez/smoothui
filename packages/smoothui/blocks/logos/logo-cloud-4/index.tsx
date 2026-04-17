@@ -76,7 +76,7 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              type: "spring",
+              type: "spring" as const,
               duration: 0.25,
               bounce: 0.05,
             }
@@ -113,7 +113,7 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     duration: 0.25,
                     bounce: 0.05,
                   }

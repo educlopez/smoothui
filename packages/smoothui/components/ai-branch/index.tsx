@@ -116,7 +116,7 @@ export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
           ? { duration: 0 }
           : {
               duration: 0.25,
-              type: "spring",
+              type: "spring" as const,
               stiffness: 300,
               damping: 30,
             }
@@ -182,7 +182,12 @@ export const AIBranchPrevious = ({
       transition={
         shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+          : {
+              type: "spring" as const,
+              stiffness: 400,
+              damping: 25,
+              duration: 0.2,
+            }
       }
       type="button"
       whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -217,7 +222,12 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
       transition={
         shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 400, damping: 25, duration: 0.2 }
+          : {
+              type: "spring" as const,
+              stiffness: 400,
+              damping: 25,
+              duration: 0.2,
+            }
       }
       type="button"
       whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -302,7 +312,7 @@ export function LegacyAiBranch({
           initial={{ opacity: 0, y: 10 }}
           transition={{
             duration: 0.3,
-            type: "spring",
+            type: "spring" as const,
             stiffness: 300,
             damping: 30,
           }}
@@ -328,7 +338,7 @@ export function LegacyAiBranch({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring",
+                            type: "spring" as const,
                             stiffness: 400,
                             damping: 25,
                             duration: 0.2,
@@ -352,7 +362,7 @@ export function LegacyAiBranch({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring",
+                            type: "spring" as const,
                             stiffness: 400,
                             damping: 25,
                             duration: 0.2,
@@ -379,7 +389,7 @@ export function LegacyAiBranch({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring",
+                            type: "spring" as const,
                             stiffness: 400,
                             damping: 25,
                             duration: 0.2,
@@ -410,7 +420,7 @@ export function LegacyAiBranch({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring",
+                            type: "spring" as const,
                             stiffness: 400,
                             damping: 25,
                             duration: 0.2,

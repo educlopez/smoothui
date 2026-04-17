@@ -47,7 +47,7 @@ export function TestimonialsSimple() {
               exit={{ opacity: 0, y: -30 }}
               initial={{ opacity: 0, y: 30 }}
               key={index}
-              transition={{ type: "spring", duration: 0.5 }}
+              transition={{ type: "spring" as const, duration: 0.5 }}
             >
               &ldquo;{testimonials[index].quote}&rdquo;
             </motion.blockquote>
@@ -61,7 +61,7 @@ export function TestimonialsSimple() {
               exit={{ opacity: 0, filter: "blur(8px)" }}
               initial={{ opacity: 0, filter: "blur(8px)" }}
               key={index}
-              transition={{ type: "spring", duration: 0.5 }}
+              transition={{ type: "spring" as const, duration: 0.5 }}
             >
               <img
                 alt={`${testimonials[index].name} avatar`}
@@ -105,7 +105,7 @@ export function TestimonialsSimple() {
                   border: "none",
                 }}
                 transition={{
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 300,
                   damping: 30,
                   duration: 0.4,

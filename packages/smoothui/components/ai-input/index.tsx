@@ -97,7 +97,7 @@ export function MorphSurface() {
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring",
+                type: "spring" as const,
                 stiffness: SPRING_STIFFNESS / SPEED,
                 damping: SPRING_DAMPING,
                 mass: SPRING_MASS,
@@ -226,7 +226,7 @@ function Feedback({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: SPRING_STIFFNESS / SPEED,
                     damping: SPRING_DAMPING,
                     mass: SPRING_MASS,

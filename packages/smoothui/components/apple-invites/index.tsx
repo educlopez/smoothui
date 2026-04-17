@@ -202,7 +202,12 @@ export default function AppleInvites({
         zIndex: 3,
         transition: shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+          : {
+              type: "spring" as const,
+              stiffness: 300,
+              damping: 30,
+              duration: 0.25,
+            },
       },
       left: {
         x: "-130%",
@@ -212,7 +217,12 @@ export default function AppleInvites({
         zIndex: 2,
         transition: shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+          : {
+              type: "spring" as const,
+              stiffness: 300,
+              damping: 30,
+              duration: 0.25,
+            },
       },
       right: {
         x: "30%",
@@ -222,7 +232,12 @@ export default function AppleInvites({
         zIndex: 2,
         transition: shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", stiffness: 300, damping: 30, duration: 0.25 },
+          : {
+              type: "spring" as const,
+              stiffness: 300,
+              damping: 30,
+              duration: 0.25,
+            },
       },
       hidden: {
         opacity: 0,

@@ -63,7 +63,12 @@ export function ClipCornersButton({
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+            : {
+                type: "spring" as const,
+                stiffness: 400,
+                damping: 24,
+                duration: 0.2,
+              }
         }
       >
         <svg
@@ -92,7 +97,12 @@ export function ClipCornersButton({
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+            : {
+                type: "spring" as const,
+                stiffness: 400,
+                damping: 24,
+                duration: 0.2,
+              }
         }
       >
         <svg
@@ -121,7 +131,12 @@ export function ClipCornersButton({
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+            : {
+                type: "spring" as const,
+                stiffness: 400,
+                damping: 24,
+                duration: 0.2,
+              }
         }
       >
         <svg
@@ -150,7 +165,12 @@ export function ClipCornersButton({
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { type: "spring", stiffness: 400, damping: 24, duration: 0.2 }
+            : {
+                type: "spring" as const,
+                stiffness: 400,
+                damping: 24,
+                duration: 0.2,
+              }
         }
       >
         <svg

@@ -81,7 +81,7 @@ export function StatsGrid({
                 transition={{
                   duration: 0.8,
                   delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 200,
                 }}
               >

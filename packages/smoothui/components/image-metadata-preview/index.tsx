@@ -132,7 +132,7 @@ export default function ImageMetadataPreview({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", duration: 0.25, bounce: 0 }
+                  : { type: "spring" as const, duration: 0.25, bounce: 0 }
               }
             >
               <div className="flex flex-col items-start" ref={elementRef}>

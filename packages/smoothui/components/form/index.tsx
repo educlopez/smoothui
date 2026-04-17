@@ -422,7 +422,7 @@ export function FormMessage({ className, children }: FormMessageProps) {
               shouldReduceMotion
                 ? DURATION_INSTANT
                 : {
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 300,
                     damping: 20,
                     duration: 0.25,
@@ -436,7 +436,7 @@ export function FormMessage({ className, children }: FormMessageProps) {
                 shouldReduceMotion
                   ? DURATION_INSTANT
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 15,
                       duration: 0.2,

@@ -80,7 +80,7 @@ export default function BasicAccordion({
                           opacity: 1,
                           transition: {
                             height: {
-                              type: "spring",
+                              type: "spring" as const,
                               stiffness: 500,
                               damping: 40,
                               duration: 0.25,

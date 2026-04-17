@@ -50,13 +50,21 @@ export function TeamGrid({
             >
               <motion.div
                 className="group"
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                transition={{
+                  type: "spring" as const,
+                  stiffness: 300,
+                  damping: 20,
+                }}
                 whileHover={{ scale: 1.02 }}
               >
                 {/* Avatar */}
                 <motion.div
                   className="relative overflow-hidden rounded-2xl"
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  transition={{
+                    type: "spring" as const,
+                    stiffness: 300,
+                    damping: 20,
+                  }}
                   whileHover={{ scale: 1.05 }}
                 >
                   <img

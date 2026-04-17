@@ -238,7 +238,7 @@ export default function InteractiveImageSelector({
               layout
               onClick={() => handleImageClick(img.id)}
               transition={{
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 300,
                 damping: 25,
                 duration: isResetting ? RESET_ANIMATION_DURATION : undefined,

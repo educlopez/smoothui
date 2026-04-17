@@ -331,7 +331,7 @@ export default function Select({
                     shouldReduceMotion
                       ? DURATION_INSTANT
                       : {
-                          type: "spring",
+                          type: "spring" as const,
                           stiffness: 300,
                           damping: 20,
                           duration: 0.2,
@@ -486,7 +486,7 @@ export default function Select({
             transition={
               shouldReduceMotion
                 ? DURATION_INSTANT
-                : { type: "spring", duration: 0.25, bounce: 0.05 }
+                : { type: "spring" as const, duration: 0.25, bounce: 0.05 }
             }
           >
             <ChevronDown className="size-4 opacity-50" />

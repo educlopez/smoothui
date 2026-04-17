@@ -92,7 +92,7 @@ export default function BasicToast({
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring", bounce: 0.1, duration: 0.25 }
+              : { type: "spring" as const, bounce: 0.1, duration: 0.25 }
           }
         >
           <div className="flex-shrink-0">{toastIcons[type]}</div>

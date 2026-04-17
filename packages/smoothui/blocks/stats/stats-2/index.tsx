@@ -103,7 +103,7 @@ export function StatsCards({
               transition={{
                 duration: 0.6,
                 delay: index * STAGGER_DELAY,
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 100,
               }}
             >
@@ -119,7 +119,7 @@ export function StatsCards({
                 transition={{
                   duration: 0.6,
                   delay: index * STAGGER_DELAY + ICON_STAGGER_OFFSET,
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 200,
                 }}
               >
@@ -139,7 +139,7 @@ export function StatsCards({
                 transition={{
                   duration: 0.8,
                   delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 200,
                 }}
               >

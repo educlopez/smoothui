@@ -174,7 +174,7 @@ export function FaqsGrid({
                     initial={false}
                     layoutId="activeTab"
                     transition={{
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: SPRING_STIFFNESS,
                       damping: SPRING_DAMPING,
                     }}

@@ -130,7 +130,7 @@ export function HeroProduct({
                 >
                   <motion.div
                     transition={{
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 10,
                     }}
@@ -148,7 +148,7 @@ export function HeroProduct({
 
                   <motion.div
                     transition={{
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 10,
                     }}
@@ -182,7 +182,7 @@ export function HeroProduct({
                 <motion.div
                   className="mt-12 md:mt-16"
                   transition={{
-                    type: "spring",
+                    type: "spring" as const,
                     stiffness: 300,
                     damping: 20,
                   }}

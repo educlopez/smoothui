@@ -61,7 +61,7 @@ const AnimatedCount = ({
           exit={{ y: direction * -12, opacity: 0 }}
           initial={{ y: direction * 12, opacity: 0 }}
           key={value}
-          transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+          transition={{ type: "spring" as const, duration: 0.3, bounce: 0.1 }}
         >
           {displayValue}
         </motion.span>
@@ -140,7 +140,7 @@ const NotificationBadge = ({
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring", duration: 0.25, bounce: 0.2 }
+              : { type: "spring" as const, duration: 0.25, bounce: 0.2 }
           }
         >
           {variant === "count" && (

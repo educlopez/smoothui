@@ -354,7 +354,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 250,
                       damping: 20,
                       mass: 0.5,
@@ -367,7 +367,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   : {
                       scale: transform.scale * HOVER_SCALE_MULTIPLIER,
                       transition: {
-                        type: "spring",
+                        type: "spring" as const,
                         stiffness: 250,
                         damping: 20,
                         mass: 0.5,
@@ -486,7 +486,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               }}
               role="tab"
               transition={{
-                type: "spring",
+                type: "spring" as const,
                 stiffness: 250,
                 damping: 20,
                 mass: 0.5,

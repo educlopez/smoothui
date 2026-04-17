@@ -113,7 +113,7 @@ export default function Phototab({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 400,
                       damping: 40,
                       duration: 0.25,

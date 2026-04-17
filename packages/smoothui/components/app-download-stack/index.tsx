@@ -150,7 +150,8 @@ export default function AppDownloadStack({
   ]);
 
   const stackVariants = useMemo(
-    () => ({
+    // biome-ignore lint/suspicious/noExplicitAny: Variants type requires flexible return
+    (): Record<string, (i: number) => any> => ({
       initial: (i: number) =>
         shouldReduceMotion
           ? {

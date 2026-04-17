@@ -61,7 +61,7 @@ export function HeroShowcase({
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           className="relative overflow-hidden bg-gradient-to-b from-background to-muted"
           initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
-          transition={{ type: "spring", bounce: 0.32, duration: 0.9 }}
+          transition={{ type: "spring" as const, bounce: 0.32, duration: 0.9 }}
         >
           <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:gap-20">
             <AnimatedGroup
@@ -91,7 +91,7 @@ export function HeroShowcase({
                       key={`${avatar.src}-${index}`}
                       style={{ display: "inline-block" }}
                       transition={{
-                        type: "spring",
+                        type: "spring" as const,
                         stiffness: 300,
                         damping: 20,
                       }}

@@ -165,7 +165,7 @@ export function TeamCarousel({
                 }}
                 className="-ml-4 flex max-w-[min(calc(100vw-4rem),24rem)] select-none"
                 transition={{
-                  type: "spring",
+                  type: "spring" as const,
                   stiffness: 300,
                   damping: 30,
                 }}

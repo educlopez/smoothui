@@ -157,7 +157,7 @@ export default function BasicModal({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       damping: 25,
                       stiffness: 300,
                       duration: 0.25,

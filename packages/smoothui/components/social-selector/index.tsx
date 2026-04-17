@@ -152,7 +152,7 @@ export default function SocialSelector({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring",
+                      type: "spring" as const,
                       stiffness: 500,
                       damping: 30,
                       duration: 0.25,

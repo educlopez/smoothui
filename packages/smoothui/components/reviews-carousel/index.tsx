@@ -56,7 +56,7 @@ function ReviewCard({
         y,
         scale,
         transition: {
-          type: "spring",
+          type: "spring" as const,
           stiffness: 250,
           damping: 20,
           mass: 0.5,

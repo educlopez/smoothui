@@ -150,7 +150,7 @@ export default function UserAccountAvatar({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          type: "spring",
+                          type: "spring" as const,
                           stiffness: 300,
                           damping: 30,
                           duration: 0.4,
@@ -205,7 +205,7 @@ export default function UserAccountAvatar({
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring", duration: 0.25, bounce: 0 }
+                : { type: "spring" as const, duration: 0.25, bounce: 0 }
             }
           >
             <div
@@ -257,7 +257,7 @@ export default function UserAccountAvatar({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", duration: 0.25, bounce: 0 }
+                        : { type: "spring" as const, duration: 0.25, bounce: 0 }
                     }
                   >
                     {renderEditProfile()}
@@ -309,7 +309,7 @@ export default function UserAccountAvatar({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", duration: 0.25, bounce: 0 }
+                        : { type: "spring" as const, duration: 0.25, bounce: 0 }
                     }
                   >
                     {renderLastOrders()}

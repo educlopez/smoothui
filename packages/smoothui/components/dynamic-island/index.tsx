@@ -241,7 +241,7 @@ export default function DynamicIsland({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  type: "spring",
+                  type: "spring" as const,
                   bounce:
                     BOUNCE_VARIANTS[
                       variantKey as keyof typeof BOUNCE_VARIANTS
@@ -272,7 +272,7 @@ export default function DynamicIsland({
             }}
             key={view}
             transition={{
-              type: "spring",
+              type: "spring" as const,
               bounce:
                 BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
                 DEFAULT_BOUNCE,
