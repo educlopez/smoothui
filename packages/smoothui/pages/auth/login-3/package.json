@@ -1,13 +1,13 @@
 {
-  "name": "@repo/login-2",
-  "description": "Split-screen full-page login with product preview and animated feature cards",
+  "name": "@repo/login-3",
+  "description": "Creative split-screen login with pastel gradient hero, iridescent orb, and branded OAuth grid",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
     "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
-    "@repo/glow-hover-card": "workspace:*",
-    "@repo/typewriter-text": "workspace:*",
+    "@repo/siri-orb": "workspace:*",
+    "@repo/blocks-shared": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^11.15.0",
@@ -29,18 +29,17 @@
       "auth",
       "split-screen",
       "full-page",
-      "testimonial",
-      "showcase",
-      "candy-cta",
-      "glow-hover",
-      "typewriter"
+      "creative",
+      "pastel",
+      "iridescent",
+      "candy-cta"
     ],
     "complexity": "moderate",
     "animationType": "spring",
     "useCases": [
-      "Marketing-forward login page with product preview",
-      "Split-screen auth for SaaS products",
-      "Dedicated /login route with brand reinforcement"
+      "Creative-first login page with pastel gradient hero",
+      "Split-screen auth for design studios and creative SaaS",
+      "Standalone /login route with iridescent ambient orb"
     ],
     "compositionHints": [
       "Use as standalone /login route page",

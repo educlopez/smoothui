@@ -1,8 +1,11 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { Input } from "@repo/shadcn-ui/components/ui/input";
 import { Label } from "@repo/shadcn-ui/components/ui/label";
+import MagneticButton from "@repo/smoothui/components/magnetic-button";
+import SiriOrb from "@repo/smoothui/components/siri-orb";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import TypewriterText from "@repo/smoothui/components/typewriter-text";
 import { ArrowLeft, Hexagon, Mail, MailCheck } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type FormEvent, useState } from "react";
@@ -57,7 +60,7 @@ export function MagicLink() {
       />
 
       <div className="relative w-full max-w-sm">
-        <div className="rounded-xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur">
+        <div className="relative overflow-hidden rounded-2xl border border-border/60 bg-background/80 p-8 shadow-black/5 shadow-xl backdrop-blur-xl">
           <AnimatePresence initial={false} mode="wait">
             {view === "input" ? (
               <motion.div
@@ -73,7 +76,7 @@ export function MagicLink() {
                   initial={initial}
                   transition={item}
                 >
-                  <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <span className="flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-brand-secondary text-white shadow-sm">
                     <Hexagon className="size-5" />
                   </span>
                   <h1
@@ -107,10 +110,15 @@ export function MagicLink() {
                       value={email}
                     />
                   </div>
-                  <Button className="w-full gap-2" type="submit">
+                  <SmoothButton
+                    className="w-full gap-2"
+                    size="lg"
+                    type="submit"
+                    variant="candy"
+                  >
                     <Mail className="size-4" />
                     Send magic link
-                  </Button>
+                  </SmoothButton>
                 </motion.form>
 
                 <motion.p
@@ -138,13 +146,20 @@ export function MagicLink() {
               >
                 <motion.div
                   animate={animate}
-                  className="flex flex-col items-center text-center"
+                  className="relative flex flex-col items-center text-center"
                   initial={initial}
                   transition={item}
                 >
+                  {/* Ambient halo behind the mail icon */}
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-x-0 top-[-80px] flex items-center justify-center opacity-70 blur-2xl"
+                  >
+                    <SiriOrb animationDuration={18} size="240px" />
+                  </div>
                   <motion.span
                     animate={iconAnimate}
-                    className="flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary"
+                    className="relative flex size-12 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20"
                     initial={iconInitial}
                     transition={
                       shouldReduceMotion
@@ -154,27 +169,29 @@ export function MagicLink() {
                   >
                     <MailCheck className="size-6" />
                   </motion.span>
-                  <h2 className="mt-5 font-semibold text-2xl tracking-tight">
+                  <h2 className="relative mt-5 font-semibold text-2xl tracking-tight">
                     Check your email
                   </h2>
-                  <p className="mt-2 text-balance text-foreground/60 text-sm">
-                    We sent a link to{" "}
-                    <span className="font-medium text-foreground">
-                      {email || "your inbox"}
-                    </span>
-                    . Click it to continue.
+                  <p className="relative mt-2 text-balance text-foreground/70 text-sm">
+                    <TypewriterText key={email} speed={24}>
+                      {`We just sent a secure link to ${email || "your inbox"}. Click it to continue.`}
+                    </TypewriterText>
                   </p>
                 </motion.div>
 
                 <motion.div
                   animate={animate}
-                  className="mt-8 flex flex-col gap-3"
+                  className="relative mt-8 flex flex-col gap-3"
                   initial={initial}
                   transition={item}
                 >
-                  <Button type="button" variant="outline">
+                  <MagneticButton
+                    className="w-full"
+                    type="button"
+                    variant="outline"
+                  >
                     Resend link
-                  </Button>
+                  </MagneticButton>
                   <button
                     className="inline-flex items-center justify-center gap-1 text-foreground/60 text-sm hover:text-foreground"
                     onClick={handleUseDifferentEmail}

@@ -1,8 +1,10 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { Input } from "@repo/shadcn-ui/components/ui/input";
 import { Label } from "@repo/shadcn-ui/components/ui/label";
+import ScrambleHover from "@repo/smoothui/components/scramble-hover";
+import SiriOrb from "@repo/smoothui/components/siri-orb";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Apple, Github, Globe, Hexagon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
@@ -44,34 +46,53 @@ export function Login1() {
       aria-labelledby="login-1-heading"
       className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-6 py-16"
     >
+      {/* Ambient orb hero — sits behind the card for atmospheric glow */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--color-primary)/0.08,transparent_70%)]"
+        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-60 blur-2xl dark:opacity-40"
+      >
+        <SiriOrb animationDuration={30} size="640px" />
+      </div>
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-b from-transparent via-background/30 to-background"
       />
+
       <motion.div
         animate={containerAnimate}
         className="relative w-full max-w-sm"
         initial={containerInitial}
         transition={containerTransition}
       >
-        <div className="rounded-xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur">
+        {/* Wordmark */}
+        <motion.div
+          animate={itemAnimate}
+          className="mb-6 flex items-center justify-center gap-2"
+          initial={itemInitial}
+          transition={itemTransition}
+        >
+          <span className="flex size-7 items-center justify-center rounded-md bg-gradient-to-br from-brand to-brand-secondary text-white shadow-sm">
+            <Hexagon className="size-4" />
+          </span>
+          <span className="font-semibold text-sm tracking-tight">SmoothUI</span>
+        </motion.div>
+
+        <div className="rounded-2xl border border-border/60 bg-background/80 p-8 shadow-black/5 shadow-xl backdrop-blur-xl">
           <motion.div
             animate={itemAnimate}
             className="flex flex-col items-center text-center"
             initial={itemInitial}
             transition={itemTransition}
           >
-            <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <Hexagon className="size-5" />
-            </span>
             <h1
-              className="mt-5 font-semibold text-2xl tracking-tight"
+              className="font-semibold text-2xl tracking-tight"
               id="login-1-heading"
             >
-              Welcome back
+              Welcome back to{" "}
+              <ScrambleHover className="font-semibold">SmoothUI</ScrambleHover>
             </h1>
             <p className="mt-2 text-foreground/60 text-sm">
-              Sign in to continue to SmoothUI
+              Sign in to continue building beautiful interfaces
             </p>
           </motion.div>
 
@@ -82,7 +103,7 @@ export function Login1() {
             transition={itemTransition}
           >
             {OAUTH_PROVIDERS.map(({ name, Icon, label }) => (
-              <Button
+              <SmoothButton
                 className="w-full justify-center gap-2"
                 key={name}
                 type="button"
@@ -90,7 +111,7 @@ export function Login1() {
               >
                 <Icon className="size-4" />
                 {label}
-              </Button>
+              </SmoothButton>
             ))}
           </motion.div>
 
@@ -125,9 +146,14 @@ export function Login1() {
                 type="email"
               />
             </div>
-            <Button className="w-full" type="submit">
+            <SmoothButton
+              className="w-full"
+              size="lg"
+              type="submit"
+              variant="candy"
+            >
               Continue with email
-            </Button>
+            </SmoothButton>
           </motion.form>
 
           <motion.p

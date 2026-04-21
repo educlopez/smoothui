@@ -6,6 +6,9 @@
   "dependencies": {
     "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
+    "@repo/siri-orb": "workspace:*",
+    "@repo/typewriter-text": "workspace:*",
+    "@repo/magnetic-button": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^11.15.0",
@@ -26,7 +29,11 @@
       "email",
       "sign-in",
       "auth",
-      "full-page"
+      "full-page",
+      "ambient-orb",
+      "typewriter",
+      "magnetic-button",
+      "candy-cta"
     ],
     "complexity": "moderate",
     "animationType": "spring",

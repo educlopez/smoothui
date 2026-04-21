@@ -3584,9 +3584,15 @@ importers:
 
   packages/smoothui/pages/auth/login-1:
     dependencies:
+      '@repo/scramble-hover':
+        specifier: workspace:*
+        version: link:../../../components/scramble-hover
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../../../shadcn-ui
+      '@repo/siri-orb':
+        specifier: workspace:*
+        version: link:../../../components/siri-orb
       '@repo/smooth-button':
         specifier: workspace:*
         version: link:../../../components/smooth-button
@@ -3618,12 +3624,95 @@ importers:
 
   packages/smoothui/pages/auth/login-2:
     dependencies:
+      '@repo/glow-hover-card':
+        specifier: workspace:*
+        version: link:../../../components/glow-hover-card
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../../../shadcn-ui
       '@repo/smooth-button':
         specifier: workspace:*
         version: link:../../../components/smooth-button
+      '@repo/typewriter-text':
+        specifier: workspace:*
+        version: link:../../../components/typewriter-text
+      lucide-react:
+        specifier: ^0.545.0
+        version: 0.545.0(react@19.2.5)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.5
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.5(react@19.2.5)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/pages/auth/login-3:
+    dependencies:
+      '@repo/blocks-shared':
+        specifier: workspace:*
+        version: link:../../../blocks/shared
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../../shadcn-ui
+      '@repo/siri-orb':
+        specifier: workspace:*
+        version: link:../../../components/siri-orb
+      '@repo/smooth-button':
+        specifier: workspace:*
+        version: link:../../../components/smooth-button
+      lucide-react:
+        specifier: ^0.545.0
+        version: 0.545.0(react@19.2.5)
+      motion:
+        specifier: ^11.15.0
+        version: 11.18.2(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.5
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.5(react@19.2.5)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/pages/auth/login-4:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../../shadcn-ui
+      '@repo/smooth-button':
+        specifier: workspace:*
+        version: link:../../../components/smooth-button
+      '@repo/wave-text':
+        specifier: workspace:*
+        version: link:../../../components/wave-text
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.5)
@@ -3652,12 +3741,21 @@ importers:
 
   packages/smoothui/pages/auth/magic-link:
     dependencies:
+      '@repo/magnetic-button':
+        specifier: workspace:*
+        version: link:../../../components/magnetic-button
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../../../shadcn-ui
+      '@repo/siri-orb':
+        specifier: workspace:*
+        version: link:../../../components/siri-orb
       '@repo/smooth-button':
         specifier: workspace:*
         version: link:../../../components/smooth-button
+      '@repo/typewriter-text':
+        specifier: workspace:*
+        version: link:../../../components/typewriter-text
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.5)
@@ -3686,6 +3784,9 @@ importers:
 
   packages/smoothui/pages/auth/signup-1:
     dependencies:
+      '@repo/blocks-shared':
+        specifier: workspace:*
+        version: link:../../../blocks/shared
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../../../shadcn-ui

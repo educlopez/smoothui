@@ -6,6 +6,8 @@
   "dependencies": {
     "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
+    "@repo/siri-orb": "workspace:*",
+    "@repo/scramble-hover": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^11.15.0",
@@ -27,14 +29,17 @@
       "auth",
       "centered",
       "full-page",
-      "email"
+      "email",
+      "ambient-orb",
+      "frosted-glass",
+      "candy-cta"
     ],
     "complexity": "moderate",
     "animationType": "spring",
     "useCases": [
       "Standalone /login route page for web apps",
-      "Centered login screen with OAuth providers",
-      "Email-based sign-in with social fallback"
+      "Centered login screen with ambient orb hero and frosted-glass card",
+      "Email-based sign-in with OAuth fallback and branded candy CTA"
     ],
     "compositionHints": [
       "Use as standalone /login route page",

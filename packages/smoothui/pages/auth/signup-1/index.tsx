@@ -1,9 +1,17 @@
 "use client";
 
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import {
+  Canva,
+  Descript,
+  Duolingo,
+  Faire,
+  Ramp,
+  Strava,
+} from "@repo/blocks-shared";
 import { Checkbox } from "@repo/shadcn-ui/components/ui/checkbox";
 import { Input } from "@repo/shadcn-ui/components/ui/input";
 import { Label } from "@repo/shadcn-ui/components/ui/label";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Apple, Github, Globe, Hexagon } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { type FormEvent, useState } from "react";
@@ -20,34 +28,60 @@ const OAUTH_PROVIDERS = [
   { name: "GitHub", Icon: Github, label: "Continue with GitHub" },
 ] as const;
 
+const SOCIAL_PROOF_LOGOS = [
+  { name: "Canva", Logo: Canva },
+  { name: "Duolingo", Logo: Duolingo },
+  { name: "Ramp", Logo: Ramp },
+  { name: "Strava", Logo: Strava },
+  { name: "Faire", Logo: Faire },
+  { name: "Descript", Logo: Descript },
+] as const;
+
 const MIN_STRONG_PASSWORD_LENGTH = 10;
 const MIN_MEDIUM_PASSWORD_LENGTH = 6;
 
-const getPasswordHint = (password: string) => {
+const getPasswordStrength = (password: string) => {
   if (password.length === 0) {
     return {
       label: "Use at least 8 characters with a number or symbol.",
       tone: "muted" as const,
+      percent: 0,
     };
   }
   if (password.length >= MIN_STRONG_PASSWORD_LENGTH) {
-    return { label: "Strong password", tone: "strong" as const };
+    return { label: "Strong password", tone: "strong" as const, percent: 100 };
   }
   if (password.length >= MIN_MEDIUM_PASSWORD_LENGTH) {
     return {
       label: "Getting there — add a number or symbol.",
       tone: "medium" as const,
+      percent: 66,
     };
   }
-  return { label: "Too short — keep going.", tone: "weak" as const };
+  return {
+    label: "Too short — keep going.",
+    tone: "weak" as const,
+    percent: 33,
+  };
 };
 
-const TONE_CLASSES: Record<"muted" | "weak" | "medium" | "strong", string> = {
+const TEXT_TONE_CLASSES: Record<
+  "muted" | "weak" | "medium" | "strong",
+  string
+> = {
   muted: "text-foreground/50",
   weak: "text-destructive",
-  medium: "text-amber-600 dark:text-amber-400",
-  strong: "text-emerald-600 dark:text-emerald-400",
+  medium: "text-amber-500",
+  strong: "text-emerald-500",
 };
+
+const BAR_TONE_CLASSES: Record<"muted" | "weak" | "medium" | "strong", string> =
+  {
+    muted: "bg-border",
+    weak: "bg-destructive",
+    medium: "bg-amber-500",
+    strong: "bg-emerald-500",
+  };
 
 export function Signup1() {
   const shouldReduceMotion = useReducedMotion();
@@ -61,7 +95,7 @@ export function Signup1() {
     : { ...SPRING, staggerChildren: 0.05 };
   const item = shouldReduceMotion ? { duration: 0 } : SPRING;
 
-  const hint = getPasswordHint(password);
+  const strength = getPasswordStrength(password);
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -82,14 +116,14 @@ export function Signup1() {
         initial={initial}
         transition={stagger}
       >
-        <div className="rounded-xl border border-border/60 bg-card/70 p-8 shadow-sm backdrop-blur">
+        <div className="rounded-2xl border border-border/60 bg-background/80 p-8 shadow-black/5 shadow-xl backdrop-blur-xl">
           <motion.div
             animate={animate}
             className="flex flex-col items-center text-center"
             initial={initial}
             transition={item}
           >
-            <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <span className="flex size-10 items-center justify-center rounded-lg bg-gradient-to-br from-brand to-brand-secondary text-white shadow-sm">
               <Hexagon className="size-5" />
             </span>
             <h1
@@ -110,7 +144,7 @@ export function Signup1() {
             transition={item}
           >
             {OAUTH_PROVIDERS.map(({ name, Icon, label }) => (
-              <Button
+              <SmoothButton
                 className="w-full justify-center gap-2"
                 key={name}
                 type="button"
@@ -118,7 +152,7 @@ export function Signup1() {
               >
                 <Icon className="size-4" />
                 {label}
-              </Button>
+              </SmoothButton>
             ))}
           </motion.div>
 
@@ -176,8 +210,23 @@ export function Signup1() {
                 type="password"
                 value={password}
               />
-              <p className={`text-xs ${TONE_CLASSES[hint.tone]}`}>
-                {hint.label}
+              <div
+                aria-hidden="true"
+                className="h-1 w-full overflow-hidden rounded-full bg-border/60"
+              >
+                <motion.div
+                  animate={{ width: `${strength.percent}%` }}
+                  className={`h-full rounded-full ${BAR_TONE_CLASSES[strength.tone]}`}
+                  initial={{ width: 0 }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { type: "spring", duration: 0.25, bounce: 0.1 }
+                  }
+                />
+              </div>
+              <p className={`text-xs ${TEXT_TONE_CLASSES[strength.tone]}`}>
+                {strength.label}
               </p>
             </div>
             <label
@@ -210,9 +259,15 @@ export function Signup1() {
                 .
               </span>
             </label>
-            <Button className="w-full" disabled={!acceptedTerms} type="submit">
+            <SmoothButton
+              className="w-full"
+              disabled={!acceptedTerms}
+              size="lg"
+              type="submit"
+              variant="candy"
+            >
               Create account
-            </Button>
+            </SmoothButton>
           </motion.form>
 
           <motion.p
@@ -230,6 +285,29 @@ export function Signup1() {
             </a>
           </motion.p>
         </div>
+
+        {/* Social proof strip — trusted-by logos */}
+        <motion.div
+          animate={animate}
+          className="mt-8"
+          initial={initial}
+          transition={item}
+        >
+          <p className="text-center text-foreground/50 text-xs uppercase tracking-wider">
+            Trusted by teams building at
+          </p>
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-foreground/60 opacity-70 grayscale transition-opacity hover:opacity-100">
+            {SOCIAL_PROOF_LOGOS.map(({ name, Logo }) => (
+              <span
+                aria-label={name}
+                className="inline-flex h-5 items-center [&_svg]:h-5 [&_svg]:w-auto"
+                key={name}
+              >
+                <Logo />
+              </span>
+            ))}
+          </div>
+        </motion.div>
       </motion.div>
     </section>
   );
