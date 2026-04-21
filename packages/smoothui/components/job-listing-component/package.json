@@ -8,7 +8,7 @@
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "usehooks-ts": "^1.0.0"
+    "usehooks-ts": "^3.1.1"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

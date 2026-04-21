@@ -1964,8 +1964,8 @@ importers:
         specifier: ^19.2.1
         version: 19.2.5(react@19.2.5)
       usehooks-ts:
-        specifier: ^1.0.0
-        version: 1.2.0(react@19.2.5)
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.5)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -2777,8 +2777,8 @@ importers:
         specifier: ^19.2.1
         version: 19.2.5(react@19.2.5)
       usehooks-ts:
-        specifier: ^1.0.0
-        version: 1.2.0(react@19.2.5)
+        specifier: ^3.1.1
+        version: 3.1.1(react@19.2.5)
     devDependencies:
       '@repo/typescript-config':
         specifier: workspace:*
@@ -7984,6 +7984,9 @@ packages:
   lodash.chunk@4.2.0:
     resolution: {integrity: sha512-ZzydJKfUHJwHa+hF5X66zLFCBrWn5GeF28OHEr4WVWtNDXlQ/IjWKPBiikqKo2ne0+v6JgCgJ0GzJp8k8bHC7w==}
 
+  lodash.debounce@4.0.8:
+    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
+
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
     deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
@@ -9653,8 +9656,9 @@ packages:
     peerDependencies:
       react: ^19.2.1
 
-  usehooks-ts@1.2.0:
-    resolution: {integrity: sha512-9FuA+AEkmv7Je+EGJbclkMjkI892Ijcvfv8btt5z8tTZu4EL/ebDVnqz6LPgYBSC+RONJkdly6ZxFb3oKb8QcQ==}
+  usehooks-ts@3.1.1:
+    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
+    engines: {node: '>=16.15.0'}
     peerDependencies:
       react: ^19.2.1
 
@@ -14210,6 +14214,8 @@ snapshots:
 
   lodash.chunk@4.2.0: {}
 
+  lodash.debounce@4.0.8: {}
+
   lodash.get@4.4.2: {}
 
   lodash@4.18.1: {}
@@ -16496,8 +16502,9 @@ snapshots:
     dependencies:
       react: 19.2.5
 
-  usehooks-ts@1.2.0(react@19.2.5):
+  usehooks-ts@3.1.1(react@19.2.5):
     dependencies:
+      lodash.debounce: 4.0.8
       react: 19.2.5
 
   util-deprecate@1.0.2: {}
