@@ -4,3 +4,4 @@ packages:
   - "packages/smoothui/components/*"
   - "packages/smoothui/blocks/*/*"
   - "packages/smoothui/blocks/shared"
+  - "packages/smoothui/pages/*/*"

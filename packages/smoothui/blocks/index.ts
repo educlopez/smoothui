@@ -1,4 +1,6 @@
-// Export all UI blocks from their category packages
+// Export all UI blocks from their category packages.
+// Full-page auth/login/signup templates live in ../pages/ instead (not composable sections).
+
 export { default as Faq1 } from "./faqs/faq-1";
 export { default as Faq2 } from "./faqs/faq-2";
 export { default as Footer1 } from "./footers/footer-1";

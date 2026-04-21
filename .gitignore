@@ -51,3 +51,7 @@ AGENT.md
 
 # internal planning docs (never committed)
 planning/
+drafts/
+
+# Node compile cache (runtime artifact)
+node-compile-cache/

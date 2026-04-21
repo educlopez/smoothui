@@ -1,5 +1,5 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Library, Pencil } from "lucide-react";
+import { LayoutTemplate, Library, Pencil } from "lucide-react";
 import type { Metadata } from "next";
 import Link, { type LinkProps } from "next/link";
 
@@ -18,7 +18,7 @@ export default function DocsPage() {
       <p className="text-foreground/70 text-md">
         Portal to different sections of docs.
       </p>
-      <div className="mt-8 grid grid-cols-1 gap-4 text-start md:grid-cols-3">
+      <div className="mt-8 grid grid-cols-1 gap-4 text-start md:grid-cols-2 lg:grid-cols-4">
         {[
           {
             name: "Documentation",
@@ -37,6 +37,12 @@ export default function DocsPage() {
             description: "The library of SmoothUI blocks.",
             icon: <Pencil className="size-full" />,
             href: "/docs/blocks",
+          },
+          {
+            name: "Pages",
+            description: "Full-page templates — auth, dashboards, and more.",
+            icon: <LayoutTemplate className="size-full" />,
+            href: "/docs/pages",
           },
         ].map((item) => (
           <Item

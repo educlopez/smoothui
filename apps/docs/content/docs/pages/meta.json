@@ -1,0 +1,7 @@
+{
+  "title": "Pages",
+  "description": "Full-page templates ready to drop into your app — authentication, dashboards, and more",
+  "icon": "LayoutTemplate",
+  "root": true,
+  "pages": ["---Authentication---", "auth"]
+}

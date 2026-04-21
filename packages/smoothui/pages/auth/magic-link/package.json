@@ -1,0 +1,44 @@
+{
+  "name": "@repo/magic-link",
+  "description": "Passwordless full-page magic link sign-in with two-state email flow",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^11.15.0",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "authentication",
+    "tags": [
+      "authentication",
+      "magic-link",
+      "passwordless",
+      "email",
+      "sign-in",
+      "auth",
+      "full-page"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Passwordless sign-in flow with email verification",
+      "Magic link request + confirmation screen",
+      "Modern auth UX without passwords"
+    ],
+    "compositionHints": [
+      "Use as standalone /login route page for passwordless flows",
+      "Pair with login-1 as the password-based alternative"
+    ],
+    "hasReducedMotion": true
+  }
+}
