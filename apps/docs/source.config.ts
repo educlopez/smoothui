@@ -10,6 +10,7 @@ import {
   metaSchema,
 } from "fumadocs-mdx/config";
 import jsonSchema from "fumadocs-mdx/plugins/json-schema";
+import lastModified from "fumadocs-mdx/plugins/last-modified";
 import { transformerTwoslash } from "fumadocs-twoslash";
 import { createFileSystemTypesCache } from "fumadocs-twoslash/cache-fs";
 import { remarkAutoTypeTable } from "fumadocs-typescript";
@@ -60,11 +61,11 @@ export const blog = defineDocs({
 });
 
 export default defineConfig({
-  lastModifiedTime: "git",
   plugins: [
     jsonSchema({
       insert: true,
     }),
+    lastModified(),
   ],
   mdxOptions: {
     rehypeCodeOptions: {

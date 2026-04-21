@@ -16,15 +16,11 @@ import { ChangelogEntry } from "./components/changelog-entry";
 // In production runtime (Vercel), tsconfig.json is not available,
 // so we use a stub generator to avoid runtime errors
 
-// Stub generator that matches the expected interface
 const stubGenerator = {
-  generateDocumentation: () => [],
+  generateDocumentation: async () => [],
   generateTypeTable: async () => [],
-} as ReturnType<typeof createGenerator>;
+} as unknown as ReturnType<typeof createGenerator>;
 
-// In Vercel runtime, tsconfig.json is not accessible, so always use stub
-// In development/build, we can try to create the real generator
-// Check for Vercel environment or if we're in production runtime
 const isVercelRuntime =
   process.env.VERCEL === "1" ||
   (process.env.NODE_ENV === "production" &&
@@ -33,14 +29,11 @@ const isVercelRuntime =
 let typeGenerator: ReturnType<typeof createGenerator>;
 
 if (isVercelRuntime) {
-  // In Vercel runtime, use stub generator directly to avoid tsconfig.json errors
   typeGenerator = stubGenerator;
 } else {
-  // In development/build, try to create the real generator
   try {
     typeGenerator = createGenerator();
   } catch {
-    // If creation fails, fallback to stub generator
     typeGenerator = stubGenerator;
   }
 }
