@@ -6,8 +6,10 @@ import {
   ResizablePanelGroup,
 } from "@repo/shadcn-ui/components/ui/resizable";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import type { ElementRef, ReactNode } from "react";
+import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
+// biome-ignore lint/style/useImportType: used as generic type parameter only
+import { type PanelImperativeHandle } from "react-resizable-panels";
 
 interface PreviewContentProps {
   blockPath?: string;
@@ -76,7 +78,7 @@ export const PreviewContent = ({
   blockPath,
   size = "desktop",
 }: PreviewContentProps) => {
-  const resizablePanelRef = useRef<ElementRef<typeof ResizablePanel>>(null);
+  const resizablePanelRef = useRef<PanelImperativeHandle | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const blockIdRef = useRef<string | undefined>(blockPath);
   const [blockHeight, setBlockHeight] = useState<number>(
@@ -164,7 +166,7 @@ export const PreviewContent = ({
           "flex-1",
           type === "component" ? "size-full" : "h-auto w-full"
         )}
-        direction="horizontal"
+        orientation="horizontal"
       >
         <ResizablePanel
           className={cn(
@@ -186,7 +188,7 @@ export const PreviewContent = ({
           minSize={
             type === "block" ? BLOCK_PANEL_MIN_SIZE : COMPONENT_PANEL_MIN_SIZE
           }
-          ref={type === "block" ? resizablePanelRef : undefined}
+          panelRef={type === "block" ? resizablePanelRef : undefined}
         >
           {type === "block" && iframeSrc ? (
             <iframe

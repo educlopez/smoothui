@@ -38,6 +38,7 @@
     "postcss-nested": "^7.0.2",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
+    "react-resizable-panels": "^4.10.0",
     "react-use-measure": "^2.1.7",
     "rehype-katex": "^7.0.1",
     "remark": "^15.0.1",
