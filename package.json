@@ -64,7 +64,7 @@
   "engines": {
     "node": ">=18"
   },
-  "packageManager": "pnpm@10.20.0",
+  "packageManager": "pnpm@11.1.2",
   "type": "module",
   "pnpm": {
     "overrides": {
@@ -86,6 +86,9 @@
       "ajv": ">=8.18.0",
       "hono": ">=4.12.18",
       "@hono/node-server": ">=1.19.13",
+      "fast-uri": ">=3.1.2",
+      "ip-address": ">=10.1.1",
+      "postcss@<8.5.10": ">=8.5.10",
       "body-parser": ">=2.2.1",
       "js-yaml": ">=4.1.1",
       "@octokit/request": ">=8.4.1",
