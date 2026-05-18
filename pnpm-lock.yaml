@@ -123,8 +123,8 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1
       dialkit:
-        specifier: ^0.2.1
-        version: 0.2.2(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+        specifier: ^1.2.0
+        version: 1.2.0(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       fumadocs-core:
         specifier: ^16.8.11
         version: 16.8.11(@mdx-js/mdx@3.1.1)(@orama/core@1.2.19)(@types/estree-jsx@1.0.5)(@types/hast@3.0.4)(@types/mdast@4.0.4)(@types/react@19.2.14)(lucide-react@0.555.0(react@19.2.6))(next@16.2.6(@babel/core@7.29.0)(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)(zod@3.25.76)
@@ -6773,19 +6773,29 @@ packages:
   devlop@1.1.0:
     resolution: {integrity: sha512-RWmIqhcFf1lRYBvNmr7qTNuyCt/7/ns2jbpp1+PalgE/rDQcBT0fioSMUpJ93irlUhC5hrg4cYqe6U+0ImW0rA==}
 
-  dialkit@0.1.2:
-    resolution: {integrity: sha512-92bDj/dHqWDa/OIgogxwUxli7XSWYkibd+rCOXlNKzHawjX98+B1oF4+3cXXOqsKzro2cL0ItZ5Vhmm9hfCDXw==}
+  dialkit@1.2.0:
+    resolution: {integrity: sha512-VRPpFegBQwrXclLFc+qgMchoby+IoJuRjoWjYKSRV2I1cxpvIpAv1WsgO1PiiNhKAGmymKx5ivRBJIZPv1tqGg==}
     peerDependencies:
       motion: '>=11.0.0'
+      motion-v: '>=2.0.0'
       react: ^19.2.1
       react-dom: ^19.2.1
-
-  dialkit@0.2.2:
-    resolution: {integrity: sha512-uISIFKHuZp6cRk8vFHRSrcIK3JUH3/g7JKn4Tms/xjUJYAEB1aKh/GR9ytNN6e2hOjsKs6tOF60wjXCrlJ4zhg==}
-    peerDependencies:
-      motion: '>=11.0.0'
-      react: ^19.2.1
-      react-dom: ^19.2.1
+      solid-js: '>=1.6.0'
+      svelte: '>=5.8.0'
+      vue: '>=3.3.0'
+    peerDependenciesMeta:
+      motion-v:
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+      solid-js:
+        optional: true
+      svelte:
+        optional: true
+      vue:
+        optional: true
 
   diff@8.0.4:
     resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
@@ -12670,16 +12680,10 @@ snapshots:
     dependencies:
       dequal: 2.0.3
 
-  dialkit@0.1.2(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
+  dialkit@1.2.0(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
     dependencies:
       motion: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      react: 19.2.6
-      react-dom: 19.2.6(react@19.2.6)
-
-  dialkit@0.2.2(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6):
-    dependencies:
-      dialkit: 0.1.2(motion@12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6))(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      motion: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+    optionalDependencies:
       react: 19.2.6
       react-dom: 19.2.6(react@19.2.6)
 

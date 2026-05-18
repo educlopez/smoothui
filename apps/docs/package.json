@@ -19,7 +19,7 @@
     "@vercel/speed-insights": "^2.0.0",
     "@wandry/analytics-sdk": "^1.16.0",
     "class-variance-authority": "^0.7.1",
-    "dialkit": "^0.2.1",
+    "dialkit": "^1.2.0",
     "fumadocs-core": "^16.8.11",
     "fumadocs-docgen": "^3.0.10",
     "fumadocs-mdx": "^14.3.2",
