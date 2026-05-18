@@ -4,3 +4,7 @@ packages:
   - "packages/smoothui/components/*"
   - "packages/smoothui/blocks/*/*"
   - "packages/smoothui/blocks/shared"
+allowBuilds:
+  esbuild: true
+  msw: true
+  sharp: true
