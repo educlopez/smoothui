@@ -261,7 +261,21 @@ export const SmoothTweet = ({
   userInfoPosition?: "top" | "bottom";
   avatarRounded?: string;
 }) => {
-  const enrichedTweet = enrichTweet(tweet);
+  // react-tweet's enrichTweet iterates over each entity array without
+  // guarding for undefined. The syndication API can omit arrays (e.g.
+  // symbols/user_mentions) for some tweets, which would throw
+  // "entities is not iterable" and crash the whole tree. Normalize first.
+  const safeTweet: Tweet = {
+    ...tweet,
+    entities: {
+      hashtags: tweet.entities?.hashtags ?? [],
+      symbols: tweet.entities?.symbols ?? [],
+      urls: tweet.entities?.urls ?? [],
+      user_mentions: tweet.entities?.user_mentions ?? [],
+      ...(tweet.entities?.media ? { media: tweet.entities.media } : {}),
+    },
+  };
+  const enrichedTweet = enrichTweet(safeTweet);
   const userInfo = (
     <TweetHeader avatarRounded={avatarRounded} tweet={enrichedTweet} />
   );
