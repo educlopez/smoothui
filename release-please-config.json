@@ -20,8 +20,7 @@
   ],
   "packages": {
     "packages/smoothui": {
-      "package-name": "smoothui",
-      "changelog-path": "../../CHANGELOG.md"
+      "package-name": "smoothui"
     }
   }
 }
