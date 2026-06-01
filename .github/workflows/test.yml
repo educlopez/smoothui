@@ -11,6 +11,35 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  lockfile-audit:
+    name: Lockfile Audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # Supply-chain gate: pnpm-lock.yaml must only resolve from the registry
+      # over HTTPS with integrity hashes. lockfile-lint does not support pnpm
+      # lockfiles, so we assert the invariants directly. Package integrity
+      # (SHA-512) and lockfile/manifest drift are already enforced by the
+      # `pnpm install --frozen-lockfile` step in the other jobs.
+      - name: Validate pnpm-lock.yaml (HTTPS-only, no exotic sources)
+        run: |
+          set -euo pipefail
+          fail=0
+          if grep -nE 'resolution:.*http://' pnpm-lock.yaml; then
+            echo "::error::Insecure http:// resolution found in pnpm-lock.yaml"
+            fail=1
+          fi
+          if grep -nE 'resolution:[[:space:]]*\{[[:space:]]*(tarball|git|directory):' pnpm-lock.yaml; then
+            echo "::error::Exotic (git/tarball/directory) resolution found in pnpm-lock.yaml"
+            fail=1
+          fi
+          if [ "$fail" -eq 0 ]; then
+            echo "pnpm-lock.yaml OK: registry-only, HTTPS, no git/tarball sources."
+          fi
+          exit "$fail"
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
