@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const CARD_ANIMATION_DELAY = 0.1;
@@ -118,6 +118,7 @@ function PriceFlow({ value, className = "" }: PriceFlowProps) {
 }
 
 export function PricingCreative() {
+  const shouldReduceMotion = useReducedMotion();
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
@@ -167,11 +168,19 @@ export function PricingCreative() {
               <div className="grid grid-cols-2 gap-6 *:p-8">
                 {/* Free Plan */}
                 <motion.div
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                  }
                   className="group relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-background p-8"
                   data-animate-card
-                  initial={{ opacity: 0, y: 40 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  initial={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                  }
                 >
                   <div className="card-content relative z-10 flex h-full flex-col">
                     {/* Title */}
@@ -243,15 +252,23 @@ export function PricingCreative() {
                 </motion.div>
                 {/* Pro Plan */}
                 <motion.div
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                  }
                   className="group relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-primary p-8"
                   data-animate-card
-                  initial={{ opacity: 0, y: 40 }}
-                  transition={{
-                    duration: 0.3,
-                    ease: [0.22, 1, 0.36, 1],
-                    delay: CARD_ANIMATION_DELAY,
-                  }}
+                  initial={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : {
+                          duration: 0.3,
+                          ease: [0.22, 1, 0.36, 1],
+                          delay: CARD_ANIMATION_DELAY,
+                        }
+                  }
                 >
                   {/* Gradient Accent */}
                   <div className="gradient-accent absolute top-0 right-0 h-4 w-32 rounded-bl-2xl bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400" />

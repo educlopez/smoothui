@@ -17,7 +17,7 @@ import {
   WalletCards,
   Zap,
 } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const ANIMATION_DURATION = 0.3;
@@ -139,6 +139,7 @@ export function FaqsGrid({
     },
   ],
 }: FaqsGridProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [activeTab, setActiveTab] = useState(0);
 
   return (
@@ -164,20 +165,24 @@ export function FaqsGrid({
                 key={category.id}
                 onClick={() => setActiveTab(index)}
                 type="button"
-                whileHover={{ scale: HOVER_SCALE }}
-                whileTap={{ scale: TAP_SCALE }}
+                whileHover={shouldReduceMotion ? {} : { scale: HOVER_SCALE }}
+                whileTap={shouldReduceMotion ? {} : { scale: TAP_SCALE }}
               >
                 {category.name}
                 {activeTab === index && (
                   <motion.div
                     className="absolute right-0 bottom-0 left-0 h-0.5 rounded-t-full bg-brand"
                     initial={false}
-                    layoutId="activeTab"
-                    transition={{
-                      type: "spring" as const,
-                      stiffness: SPRING_STIFFNESS,
-                      damping: SPRING_DAMPING,
-                    }}
+                    layoutId={shouldReduceMotion ? undefined : "activeTab"}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            type: "spring" as const,
+                            stiffness: SPRING_STIFFNESS,
+                            damping: SPRING_DAMPING,
+                          }
+                    }
                   />
                 )}
               </motion.button>
@@ -189,11 +194,25 @@ export function FaqsGrid({
         <div className="mt-8 md:mt-8">
           <AnimatePresence mode="wait">
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: EXIT_Y_OFFSET }}
-              initial={{ opacity: 0, y: INITIAL_Y_OFFSET }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, y: EXIT_Y_OFFSET }
+              }
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, y: INITIAL_Y_OFFSET }
+              }
               key={activeTab}
-              transition={{ duration: ANIMATION_DURATION, ease: "easeInOut" }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: ANIMATION_DURATION, ease: "easeInOut" }
+              }
             >
               <div className="space-y-6">
                 <dl className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
@@ -203,14 +222,26 @@ export function FaqsGrid({
 
                     return (
                       <motion.div
-                        animate={{ opacity: 1, y: 0 }}
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, y: 0 }
+                        }
                         className="space-y-3"
-                        initial={{ opacity: 0, y: INITIAL_Y_OFFSET }}
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 0, y: INITIAL_Y_OFFSET }
+                        }
                         key={`${categories[activeTab].id}-${faqIndex}`}
-                        transition={{
-                          duration: 0.4,
-                          delay: faqIndex * FAQ_STAGGER_DELAY,
-                        }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                duration: 0.4,
+                                delay: faqIndex * FAQ_STAGGER_DELAY,
+                              }
+                        }
                       >
                         <div className="flex size-8 items-center justify-center rounded-md border bg-card *:m-auto *:size-4">
                           <IconComponent className="h-4 w-4" />

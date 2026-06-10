@@ -1,7 +1,7 @@
 "use client";
 
 import { getAllPeople, getAvatarUrl, type Person } from "@smoothui/data";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
 const CARDS_PER_VIEW = 3; // Number of cards visible at once
@@ -25,6 +25,7 @@ export function TeamCarousel({
   description = "We bring together brilliant developers, engineers, and tech innovators to create groundbreaking digital solutions.",
   members = getAllPeople(),
 }: TeamCarouselProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -84,10 +85,12 @@ export function TeamCarousel({
     <section className="overflow-hidden py-32">
       <div className="mx-auto max-w-5xl px-8 lg:px-0">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6 }}
           viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+          }
         >
           <h2 className="font-medium text-5xl md:text-6xl">
             {title} <br />
@@ -104,8 +107,8 @@ export function TeamCarousel({
               disabled={currentIndex === 0 || isTransitioning}
               onClick={prevSlide}
               type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
             >
               <svg
                 aria-hidden="true"
@@ -133,8 +136,8 @@ export function TeamCarousel({
               }
               onClick={nextSlide}
               type="button"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
             >
               <svg
                 aria-hidden="true"
@@ -160,15 +163,13 @@ export function TeamCarousel({
           <div className="mt-16 [&>div[data-slot=carousel-content]]:overflow-visible">
             <div className="overflow-hidden" data-slot="carousel-content">
               <motion.div
-                animate={{
-                  x: `-${currentIndex * (CARD_WIDTH + CARD_GAP)}px`,
-                }}
+                animate={{ x: `-${currentIndex * (CARD_WIDTH + CARD_GAP)}px` }}
                 className="-ml-4 flex max-w-[min(calc(100vw-4rem),24rem)] select-none"
-                transition={{
-                  type: "spring" as const,
-                  stiffness: 300,
-                  damping: 30,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { type: "spring" as const, stiffness: 300, damping: 30 }
+                }
               >
                 {members.map((member, index) => (
                   <div
@@ -178,13 +179,22 @@ export function TeamCarousel({
                   >
                     <motion.div
                       className="rounded-2xl border border-border bg-background p-7 text-center"
-                      initial={{ opacity: 0, y: 20 }}
-                      transition={{
-                        duration: 0.5,
-                        delay: index * STAGGER_DELAY,
-                      }}
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { opacity: 0, y: 20 }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : { duration: 0.5, delay: index * STAGGER_DELAY }
+                      }
                       viewport={{ once: true }}
-                      whileInView={{ opacity: 1, y: 0 }}
+                      whileInView={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { opacity: 1, y: 0 }
+                      }
                     >
                       <img
                         alt={member.name}

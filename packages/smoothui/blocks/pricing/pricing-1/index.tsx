@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 interface PriceFlowProps {
@@ -116,6 +116,7 @@ function PriceFlow({ value, className = "" }: PriceFlowProps) {
 }
 
 export function PricingSimple() {
+  const shouldReduceMotion = useReducedMotion();
   const [isAnnual, setIsAnnual] = useState(true);
 
   return (
@@ -166,11 +167,19 @@ export function PricingSimple() {
           <div className="container">
             <div className="mx-auto max-w-md">
               <motion.div
-                animate={{ opacity: 1, y: 0 }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
                 className="group relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-background p-8"
                 data-animate-card
-                initial={{ opacity: 0, y: 40 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: 0.3, ease: [0.22, 1, 0.36, 1] }
+                }
               >
                 {/* Gradient Accent */}
                 <div className="gradient-accent absolute top-0 right-0 h-4 w-32 rounded-bl-2xl bg-gradient-to-r from-green-400 via-blue-400 to-purple-400" />
