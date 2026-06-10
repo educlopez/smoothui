@@ -40,6 +40,7 @@
     "check": "ultracite check",
     "fix": "ultracite fix",
     "test": "turbo test",
+    "typecheck": "turbo typecheck",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",

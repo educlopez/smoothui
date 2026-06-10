@@ -7,6 +7,7 @@ settings:
 overrides:
   react: ^19.2.1
   react-dom: ^19.2.1
+  radix-ui: 1.4.3
   shiki: ^4.0.2
   '@shikijs/types': ^4.0.2
   glob: '>=10.5.0'
@@ -204,8 +205,8 @@ importers:
         specifier: ^11.1.2
         version: 11.1.2
       shadcn:
-        specifier: ^4.3.0
-        version: 4.7.0(@types/node@25.8.0)(typescript@5.9.3)
+        specifier: ^4.10.0
+        version: 4.10.0(@types/node@25.8.0)(typescript@5.9.3)
       shiki:
         specifier: ^4.0.2
         version: 4.0.2
@@ -295,7 +296,7 @@ importers:
         specifier: ^0.4.6
         version: 0.4.6(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       radix-ui:
-        specifier: latest
+        specifier: 1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.1
@@ -340,6 +341,9 @@ importers:
 
   packages/smoothui:
     devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
       '@testing-library/jest-dom':
         specifier: ^6.6.3
         version: 6.9.1
@@ -355,6 +359,9 @@ importers:
       '@types/react-dom':
         specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
       jsdom:
         specifier: ^29.0.2
         version: 29.1.1(@noble/hashes@1.8.0)
@@ -364,6 +371,9 @@ importers:
       react-dom:
         specifier: ^19.2.1
         version: 19.2.6(react@19.2.6)
+      tailwind-merge:
+        specifier: ^3.3.1
+        version: 3.6.0
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -2117,7 +2127,7 @@ importers:
         specifier: ^12.23.25
         version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       radix-ui:
-        specifier: ^1.4.2
+        specifier: 1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.1
@@ -2300,7 +2310,7 @@ importers:
         specifier: ^12.23.25
         version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       radix-ui:
-        specifier: latest
+        specifier: 1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.1
@@ -3051,7 +3061,7 @@ importers:
         specifier: ^12.23.25
         version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       radix-ui:
-        specifier: ^1.4.2
+        specifier: 1.4.3
         version: 1.4.3(@types/react-dom@19.2.3(@types/react@19.2.14))(@types/react@19.2.14)(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
       react:
         specifier: ^19.2.1
@@ -9016,8 +9026,8 @@ packages:
   setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  shadcn@4.7.0:
-    resolution: {integrity: sha512-70fwnesNrY1GgeD7Kdzn+3SsYeyfibm8immsA5L68+OusoPTvYF01oWExl8/latKpMpvVXcbgdbbE6VFBJQ38w==}
+  shadcn@4.10.0:
+    resolution: {integrity: sha512-84IJhUsK0xqSCRJx3QxyZe2NpUXj2Nwk8Vc8Ow/tCOND3yz4CT6uU4655vqicNXhzG9Q1cyUt+TBl2SiCJwNgg==}
     hasBin: true
 
   sharp@0.34.5:
@@ -15539,7 +15549,7 @@ snapshots:
 
   setprototypeof@1.2.0: {}
 
-  shadcn@4.7.0(@types/node@25.8.0)(typescript@5.9.3):
+  shadcn@4.10.0(@types/node@25.8.0)(typescript@5.9.3):
     dependencies:
       '@babel/core': 7.29.0
       '@babel/parser': 7.29.3
