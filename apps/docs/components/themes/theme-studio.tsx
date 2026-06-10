@@ -642,9 +642,18 @@ function PreviewCanvas({
     el.scrollTop = (el.scrollHeight - el.clientHeight) / 2;
   }, []);
 
+  // Capturing the pointer on pointerdown would retarget the eventual click
+  // to the canvas, silently breaking onClick handlers on non-button elements
+  // inside the demos. So the pan only arms on pointerdown and captures after
+  // the pointer actually travels — a plain click never gets hijacked.
+  const PAN_THRESHOLD_PX = 5;
+
   function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
-    // Pan from anywhere except real interactive controls, which keep full
-    // pointer ownership (button presses, input focus, slider drags).
+    // Primary button only: right-click must reach context menus untouched.
+    if (event.button !== 0) {
+      return;
+    }
+    // Real interactive controls keep full pointer ownership (slider drags).
     if (
       (event.target as HTMLElement).closest(
         "button, a, input, textarea, select, [contenteditable], [role='tab'], [role='switch'], [role='slider'], [role='checkbox']"
@@ -663,8 +672,6 @@ function PreviewCanvas({
       left: el.scrollLeft,
       top: el.scrollTop,
     };
-    el.setPointerCapture(event.pointerId);
-    setPanning(true);
   }
 
   function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
@@ -672,9 +679,20 @@ function PreviewCanvas({
     if (!(panState.current.active && el)) {
       return;
     }
-    el.scrollLeft =
-      panState.current.left - (event.clientX - panState.current.x);
-    el.scrollTop = panState.current.top - (event.clientY - panState.current.y);
+    const deltaX = event.clientX - panState.current.x;
+    const deltaY = event.clientY - panState.current.y;
+    if (!panning) {
+      if (
+        Math.abs(deltaX) < PAN_THRESHOLD_PX &&
+        Math.abs(deltaY) < PAN_THRESHOLD_PX
+      ) {
+        return;
+      }
+      el.setPointerCapture(event.pointerId);
+      setPanning(true);
+    }
+    el.scrollLeft = panState.current.left - deltaX;
+    el.scrollTop = panState.current.top - deltaY;
   }
 
   function handlePointerEnd() {
