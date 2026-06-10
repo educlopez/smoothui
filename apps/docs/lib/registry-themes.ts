@@ -53,7 +53,7 @@ export const THEME_PALETTES: ThemePalette[] = [
   },
 ];
 
-const LIGHT_SCALE = {
+export const LIGHT_SCALE = {
   50: "oklch(0.99 0 0)",
   100: "oklch(0.98 0 0)",
   200: "oklch(0.96 0 0)",
@@ -66,7 +66,7 @@ const LIGHT_SCALE = {
   1000: "oklch(0.2 0 0)",
 } as const;
 
-const DARK_SCALE = {
+export const DARK_SCALE = {
   50: "oklch(0.2002 0 0)",
   100: "oklch(0.2264 0 0)",
   200: "oklch(0.2562 0 0)",

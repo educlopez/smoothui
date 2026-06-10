@@ -7,7 +7,14 @@ import {
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
-import { Check, CheckCheck, Copy, RotateCcw, Save } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  CheckCheck,
+  Copy,
+  RotateCcw,
+  Save,
+} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -316,6 +323,13 @@ export function ColorPickerFloatNav() {
                 )}
               </Button>
             </div>
+            <a
+              className="mt-3 flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-foreground"
+              href="/themes"
+            >
+              Browse installable themes
+              <ArrowRight className="h-3 w-3" />
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

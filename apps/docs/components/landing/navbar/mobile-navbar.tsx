@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   Menu,
   PackagePlus,
+  Palette,
   Sparkles,
   Type,
   User,
@@ -202,6 +203,10 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                   : { delay: 0.15, duration: 0.2 }
               }
             >
+              <Link className="mobile-navbar-link" href="/themes">
+                <Palette size={16} />
+                Themes
+              </Link>
               <Link className="mobile-navbar-link" href="/docs/guides">
                 <Book size={16} />
                 Docs
