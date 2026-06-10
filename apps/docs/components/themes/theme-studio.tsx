@@ -37,6 +37,9 @@ type PreviewMode = "light" | "dark";
 const installCommand = (paletteName: string) =>
   `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName}.json`;
 
+const componentInstallCommand = (slug: string) =>
+  `npx shadcn@latest add https://smoothui.dev/r/${slug}.json`;
+
 const toCssBlock = (vars: Record<string, string>, selector: string) => {
   const body = Object.entries(vars)
     .map(([key, value]) => `  --${key}: ${value};`)
@@ -614,6 +617,26 @@ const BOARD_COLUMNS: (typeof DEMO_CARDS)[] = Array.from(
     )
 );
 
+function CopyInstallButton({ slug }: { slug: string }) {
+  const { copied, copy } = useCopy();
+
+  return (
+    <button
+      aria-label={`Copy install command for ${demoTitle(slug)}`}
+      className="text-muted-foreground transition-colors hover:text-foreground"
+      onClick={() => copy(componentInstallCommand(slug))}
+      title={componentInstallCommand(slug)}
+      type="button"
+    >
+      {copied ? (
+        <Check className="size-3.5 text-accent" />
+      ) : (
+        <Terminal className="size-3.5" />
+      )}
+    </button>
+  );
+}
+
 function PreviewCanvas({
   palette,
   mode,
@@ -730,13 +753,16 @@ function PreviewCanvas({
                   <span className="font-medium text-foreground text-sm">
                     {demoTitle(slug)}
                   </span>
-                  <a
-                    aria-label={`Open ${demoTitle(slug)} docs`}
-                    className="text-muted-foreground transition-colors hover:text-foreground"
-                    href={`/docs/components/${slug}`}
-                  >
-                    <ExternalLink className="size-3.5" />
-                  </a>
+                  <div className="flex items-center gap-2.5">
+                    <CopyInstallButton slug={slug} />
+                    <a
+                      aria-label={`Open ${demoTitle(slug)} docs`}
+                      className="text-muted-foreground transition-colors hover:text-foreground"
+                      href={`/docs/components/${slug}`}
+                    >
+                      <ExternalLink className="size-3.5" />
+                    </a>
+                  </div>
                 </div>
                 <LazyDemo Demo={Demo} />
               </div>
