@@ -243,10 +243,10 @@ export function FaqsGrid({
                               }
                         }
                       >
-                        <div className="flex size-8 items-center justify-center rounded-md border bg-card *:m-auto *:size-4">
-                          <IconComponent className="h-4 w-4" />
-                        </div>
-                        <dt className="font-semibold text-foreground">
+                        <dt className="space-y-3 font-semibold text-foreground">
+                          <div className="flex size-8 items-center justify-center rounded-md border bg-card *:m-auto *:size-4">
+                            <IconComponent className="h-4 w-4" />
+                          </div>
                           {faq.question}
                         </dt>
                         <dd className="text-muted-foreground">{faq.answer}</dd>

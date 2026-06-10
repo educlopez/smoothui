@@ -95,6 +95,7 @@ export function LogoCloudAnimated({
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }
+                aria-label={`Visit ${logo.name}`}
                 className="group flex shrink-0 flex-col items-center justify-center p-6 transition-all hover:scale-105"
                 href={logo.url}
                 initial={
@@ -137,6 +138,7 @@ export function LogoCloudAnimated({
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }
+                aria-label={`Visit ${logo.name}`}
                 className="group flex shrink-0 flex-col items-center justify-center p-6 transition-all hover:scale-105"
                 href={logo.url}
                 initial={
@@ -176,6 +178,7 @@ export function LogoCloudAnimated({
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }
+                aria-label={`Visit ${logo.name}`}
                 className="group flex shrink-0 flex-col items-center justify-center p-6 transition-all hover:scale-105"
                 href={logo.url}
                 initial={

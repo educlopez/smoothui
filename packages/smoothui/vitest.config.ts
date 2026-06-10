@@ -16,11 +16,32 @@ export default defineConfig({
   test: {
     environment: "jsdom",
     setupFiles: ["./test-utils/setup.ts"],
-    include: ["components/**/__tests__/**/*.test.{ts,tsx}"],
+    include: [
+      "components/**/__tests__/**/*.test.{ts,tsx}",
+      "blocks/**/__tests__/**/*.test.{ts,tsx}",
+    ],
     globals: true,
-    // input-otp and motion access window after jsdom teardown — suppress
-    // the unhandled ReferenceError so the test run exits cleanly.
-    dangerouslyIgnoreUnhandledErrors: true,
+    server: {
+      deps: {
+        // react-tweet ships ESM importing CSS modules; inline it so Vite
+        // transforms the .css imports instead of node's ESM loader choking.
+        inline: ["react-tweet"],
+      },
+    },
+    coverage: {
+      provider: "v8",
+      include: ["components/**", "blocks/**", "hooks/**", "utils/**", "lib/**"],
+      exclude: ["**/__tests__/**", "**/*.d.ts"],
+      reporter: ["json-summary", "lcov"],
+      // Regression gate just below the current baseline (2026-06):
+      // lines 57.9, statements 57.5, functions 50.6, branches 41.5.
+      thresholds: {
+        lines: 55,
+        statements: 55,
+        functions: 48,
+        branches: 38,
+      },
+    },
   },
   resolve: {
     dedupe: ["react", "react-dom"],
@@ -30,6 +51,7 @@ export default defineConfig({
       "@repo/shadcn-ui": shadcnPath,
       "@repo/smoothui/components": path.join(smoothuiPath, "components"),
       "@repo/smoothui": smoothuiPath,
+      "@smoothui/data": path.resolve(import.meta.dirname, "../data"),
       react: reactPath,
       "react/jsx-runtime": path.join(reactPath, "jsx-runtime"),
       "react/jsx-dev-runtime": path.join(reactPath, "jsx-dev-runtime"),

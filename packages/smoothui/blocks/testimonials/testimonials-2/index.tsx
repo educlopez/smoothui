@@ -71,6 +71,7 @@ export function TestimonialsGrid() {
                     animate={
                       shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }
+                    aria-label="Previous testimonial"
                     className="group/button flex h-8 w-8 items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
                     initial={
                       shouldReduceMotion
@@ -93,6 +94,7 @@ export function TestimonialsGrid() {
                     animate={
                       shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }
+                    aria-label="Next testimonial"
                     className="group/button flex h-8 w-8 items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
                     initial={
                       shouldReduceMotion
