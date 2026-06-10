@@ -237,7 +237,7 @@ export default function GridLoaderDemo() {
                   animate={{ x: 0 }}
                   aria-label="Customize panel"
                   aria-modal="true"
-                  className="fixed inset-y-0 right-0 z-[60] flex w-80 flex-col bg-smooth-100 shadow-2xl"
+                  className="fixed top-3 right-3 bottom-3 z-[60] flex w-80 flex-col overflow-hidden rounded-2xl border bg-smooth-100 shadow-2xl"
                   exit={{ x: "100%" }}
                   initial={{ x: "100%" }}
                   role="dialog"
@@ -278,7 +278,7 @@ export default function GridLoaderDemo() {
                     <div
                       className="flex items-center justify-between bg-smooth-200"
                       style={{
-                        borderRadius: 12,
+                        borderRadius: 16,
                         minHeight: 52,
                         padding: "0 18px",
                       }}
@@ -322,7 +322,7 @@ export default function GridLoaderDemo() {
                     <div
                       className="flex items-center bg-smooth-200"
                       style={{
-                        borderRadius: 12,
+                        borderRadius: 16,
                         minHeight: 52,
                         padding: "0 4px",
                         gap: 4,
@@ -353,7 +353,7 @@ export default function GridLoaderDemo() {
                     <div
                       className="flex items-center justify-between bg-smooth-200"
                       style={{
-                        borderRadius: 12,
+                        borderRadius: 16,
                         minHeight: 52,
                         padding: "0 18px",
                       }}
@@ -435,7 +435,7 @@ export default function GridLoaderDemo() {
                       <div
                         className="overflow-y-auto bg-smooth-200"
                         style={{
-                          borderRadius: 12,
+                          borderRadius: 16,
                           padding: 10,
                         }}
                       >
