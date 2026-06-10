@@ -111,8 +111,8 @@ function PanelRow({
   label: string;
 }) {
   return (
-    <div className="flex min-h-[56px] items-center justify-between rounded-2xl bg-smooth-200 py-2 pr-3 pl-[18px]">
-      <span className="text-[17px] text-foreground">{label}</span>
+    <div className="flex min-h-9 items-center justify-between rounded-lg bg-smooth-200 py-1 pr-1.5 pl-3">
+      <span className="font-medium text-[13px] text-foreground">{label}</span>
       {children}
     </div>
   );
@@ -149,9 +149,9 @@ function StudioSidebar({
   }
 
   return (
-    <aside className="flex w-full shrink-0 flex-col gap-3 overflow-y-auto rounded-2xl border bg-smooth-100 p-4 shadow-sm lg:w-72">
+    <aside className="flex w-full shrink-0 flex-col gap-1.5 overflow-y-auto rounded-xl border bg-smooth-100 p-3 shadow-sm lg:w-64">
       <div className="flex items-center justify-between px-1 pb-1">
-        <span className="font-semibold text-foreground text-sm">
+        <span className="font-semibold text-[15px] text-foreground">
           Theme Studio
         </span>
         <button
@@ -170,7 +170,7 @@ function StudioSidebar({
             <button
               aria-label={`Select ${entry.label} theme`}
               aria-pressed={entry.name === palette.name}
-              className="size-7 cursor-pointer transition-opacity duration-200"
+              className="size-5 cursor-pointer transition-opacity duration-200"
               key={entry.name}
               onClick={() => onPalette(entry)}
               style={{
@@ -184,12 +184,12 @@ function StudioSidebar({
         </div>
       </PanelRow>
 
-      <div className="flex min-h-[56px] items-center gap-1 rounded-2xl bg-smooth-200 p-1">
+      <div className="flex min-h-9 items-center gap-1 rounded-lg bg-smooth-200 p-1">
         {(["light", "dark"] as const).map((entry) => (
           <button
             aria-pressed={mode === entry}
             className={cn(
-              "flex h-12 flex-1 items-center justify-center gap-2 rounded-xl text-[17px] capitalize transition-all",
+              "flex h-7 flex-1 items-center justify-center gap-1.5 rounded-md font-medium text-[13px] capitalize transition-all",
               mode === entry
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -199,9 +199,9 @@ function StudioSidebar({
             type="button"
           >
             {entry === "light" ? (
-              <Sun className="size-4" />
+              <Sun className="size-3.5" />
             ) : (
-              <Moon className="size-4" />
+              <Moon className="size-3.5" />
             )}
             {entry}
           </button>
@@ -220,10 +220,12 @@ function StudioSidebar({
       />
 
       <div className="flex flex-col gap-2">
-        <span className="pl-1 text-[13px] text-muted-foreground">Preset</span>
-        <div className="flex flex-col gap-1 rounded-2xl bg-smooth-200 p-2">
+        <span className="pl-1 font-semibold text-[13px] text-foreground/65">
+          Preset
+        </span>
+        <div className="flex flex-col gap-0.5 rounded-lg bg-smooth-200 p-1">
           <button
-            className="flex items-center justify-between rounded-xl px-3 py-2.5 font-mono text-base text-foreground transition-colors hover:bg-foreground/5"
+            className="flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
             onClick={() => presetCopy.copy(`--preset ${PRESET_CODE}`)}
             type="button"
           >
@@ -235,7 +237,7 @@ function StudioSidebar({
             )}
           </button>
           <a
-            className="flex items-center justify-between rounded-xl px-3 py-2.5 text-base text-foreground transition-colors hover:bg-foreground/5"
+            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
             href={SHADCN_CREATE_PRESET_URL}
             rel="noopener noreferrer"
             target="_blank"
