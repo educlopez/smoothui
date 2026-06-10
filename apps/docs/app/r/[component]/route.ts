@@ -3,6 +3,8 @@ import {
   getAllPackageNames,
   getPackage,
 } from "@docs/lib/package";
+import { getSkill, SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
+import { getAllThemeNames, getTheme } from "@docs/lib/registry-themes";
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
@@ -26,6 +28,16 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
 
   if (filteredPackages.includes(shortName)) {
     notFound();
+  }
+
+  const theme = getTheme(shortName);
+
+  if (theme) {
+    return NextResponse.json(theme);
+  }
+
+  if (shortName === SKILL_ITEM_NAME) {
+    return NextResponse.json(await getSkill());
   }
 
   try {
@@ -52,7 +64,11 @@ export const generateStaticParams = async () => {
   const allPackageNames = await getAllPackageNames();
 
   // Return only the short names for the URL
-  return allPackageNames.map((name) => ({
-    component: name.split("/").at(-1) || name,
-  }));
+  return [
+    ...allPackageNames.map((name) => ({
+      component: name.split("/").at(-1) || name,
+    })),
+    ...getAllThemeNames().map((name) => ({ component: name })),
+    { component: SKILL_ITEM_NAME },
+  ];
 };
