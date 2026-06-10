@@ -230,6 +230,7 @@ export default function AppDownloadStack({
                   }
                   className="absolute inset-0 rounded-xl border-none"
                   custom={index}
+                  draggable={false}
                   height={64}
                   initial="initial"
                   key={app.id}
@@ -342,6 +343,7 @@ export default function AppDownloadStack({
                       <img
                         alt={app.name}
                         className="rounded-lg"
+                        draggable={false}
                         height={40}
                         src={app.icon}
                         width={40}
@@ -395,6 +397,7 @@ export default function AppDownloadStack({
                     }
                     className="absolute inset-0 rounded-xl border-none"
                     custom={index}
+                    draggable={false}
                     height={64}
                     initial="initial"
                     key={app.id}

@@ -123,6 +123,7 @@ export default function ExpandableCards({
               <img
                 alt={card.title}
                 className="h-full w-full object-cover"
+                draggable={false}
                 height={300}
                 src={card.image || "/placeholder.svg"}
                 width={200}
@@ -207,6 +208,7 @@ export default function ExpandableCards({
                           <img
                             alt={card.author.name}
                             className="h-full w-full object-cover"
+                            draggable={false}
                             height={48}
                             src={card.author.image}
                             width={48}

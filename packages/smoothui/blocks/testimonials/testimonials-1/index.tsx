@@ -95,6 +95,7 @@ export function TestimonialsSimple() {
               <img
                 alt={`${testimonials[index].name} avatar`}
                 className="h-12 w-12 rounded-full border bg-foreground/10 object-cover"
+                draggable={false}
                 height={48}
                 src={getAvatarUrl(testimonials[index].avatar, AVATAR_SIZE)}
                 width={48}

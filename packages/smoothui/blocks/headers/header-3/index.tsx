@@ -157,6 +157,7 @@ export function HeroShowcase({
               <img
                 alt="app screen"
                 className="h-full w-full rounded-md object-cover"
+                draggable={false}
                 height={1842}
                 src={getImageKitUrl("/images/hero-example_xertaz.png", {
                   width: 1200,

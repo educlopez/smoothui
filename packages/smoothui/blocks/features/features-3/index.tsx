@@ -113,6 +113,7 @@ export function FeaturesAlternating() {
                       <img
                         alt={feature.imageAlt}
                         className="aspect-video h-auto w-full object-cover"
+                        draggable={false}
                         src={feature.image}
                       />
                     </div>

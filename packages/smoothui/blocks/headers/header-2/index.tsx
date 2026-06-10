@@ -261,6 +261,7 @@ export function HeroProduct({
                       <img
                         alt={imageAlt}
                         className="h-auto w-full"
+                        draggable={false}
                         height="1842"
                         src={imageSrc}
                         width="2880"

@@ -384,6 +384,7 @@ export default function AppleInvites({
         <img
           alt={event.title || ""}
           className="h-full w-full object-cover"
+          draggable={false}
           height={400}
           src={event.image}
           width={400}
@@ -454,6 +455,7 @@ export default function AppleInvites({
                     <img
                       alt={`Participant ${idx + 1}`}
                       className="rounded-full"
+                      draggable={false}
                       height={avatarSize}
                       key={`participant-${participant.avatar}-${idx}`}
                       src={participant.avatar}

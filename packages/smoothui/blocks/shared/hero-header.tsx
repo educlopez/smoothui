@@ -51,6 +51,7 @@ export const HeroHeader = () => {
                   <img
                     alt="SmoothUI logo"
                     className={cn("h-6 w-auto", "dark:filter", "dark:invert")}
+                    draggable={false}
                     height={28}
                     src="/logo-smoothui.svg"
                     width={140}

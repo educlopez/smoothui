@@ -199,6 +199,7 @@ export function TeamCarousel({
                       <img
                         alt={member.name}
                         className="mx-auto size-20 rounded-full border border-border"
+                        draggable={false}
                         height={80}
                         src={getAvatarUrl(member.avatar, AVATAR_SIZE)}
                         width={80}

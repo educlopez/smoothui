@@ -150,6 +150,7 @@ export default function Phototab({
           <img
             alt={tab.name}
             className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}
+            draggable={false}
             height={height}
             loading="lazy"
             src={tab.image}

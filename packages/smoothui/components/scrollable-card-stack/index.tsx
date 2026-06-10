@@ -398,6 +398,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     aria-hidden="true"
                     className="absolute inset-0 h-full w-full object-cover text-transparent"
                     decoding="async"
+                    draggable={false}
                     height={10}
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+"
                     style={{
@@ -438,6 +439,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   <img
                     alt={`${item.name}'s avatar`}
                     className="mr-1 h-5 w-5 overflow-hidden rounded-full"
+                    draggable={false}
                     height={20}
                     src={item.avatar}
                     style={{
