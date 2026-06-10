@@ -162,8 +162,8 @@ const Scrubber = ({
         ref={trackRef}
         role="slider"
         style={{
-          height: 52,
-          borderRadius: 12,
+          height: 36,
+          borderRadius: 8,
           touchAction: "none",
         }}
         tabIndex={0}
@@ -172,7 +172,7 @@ const Scrubber = ({
         <div
           className="pointer-events-none absolute inset-y-0 left-0 bg-foreground/14"
           style={{
-            borderRadius: 12,
+            borderRadius: 8,
             width: `${percentage}%`,
             transition: isDragging
               ? "none"
@@ -192,7 +192,7 @@ const Scrubber = ({
                   style={{
                     left: `${pos}%`,
                     width: 1,
-                    height: 8,
+                    height: 6,
                     borderRadius: 999,
                     transform: "translateX(-50%) translateY(-50%)",
                   }}
@@ -209,7 +209,7 @@ const Scrubber = ({
             top: "50%",
             left: `${percentage}%`,
             transform: "translateX(-50%) translateY(-50%)",
-            marginLeft: -6,
+            marginLeft: -5,
             zIndex: 3,
             transition: isDragging
               ? "none"
@@ -224,8 +224,8 @@ const Scrubber = ({
             }}
             className="bg-foreground/90"
             style={{
-              width: 5,
-              height: 34,
+              width: 4,
+              height: 22,
               borderRadius: 999,
             }}
             transition={springConfig}
@@ -234,9 +234,10 @@ const Scrubber = ({
 
         {/* Label */}
         <div
-          className="pointer-events-none absolute top-1/2 left-[18px] -translate-y-1/2 whitespace-nowrap text-foreground"
+          className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2 whitespace-nowrap text-foreground"
           style={{
-            fontSize: 17,
+            fontSize: 13,
+            fontWeight: 500,
             zIndex: 4,
           }}
         >
@@ -245,12 +246,12 @@ const Scrubber = ({
 
         {/* Value display */}
         <div
-          className="pointer-events-none absolute top-1/2 right-[14px] -translate-y-1/2 text-foreground"
+          className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-foreground"
           style={{
             zIndex: 4,
             fontFamily: "ui-monospace, monospace",
             fontVariantNumeric: "tabular-nums",
-            fontSize: 15,
+            fontSize: 13,
             fontWeight: 500,
           }}
         >
