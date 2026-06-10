@@ -10,6 +10,8 @@ import type { RegistryItem } from "shadcn/schema";
 export interface ThemePalette {
   label: string;
   name: string;
+  /** Closest shadcn/create preset (catalog enums can't carry exact oklch) */
+  presetCode: string;
   primary: string;
   secondary: string;
 }
@@ -17,36 +19,42 @@ export interface ThemePalette {
 export const THEME_PALETTES: ThemePalette[] = [
   {
     name: "candy",
+    presetCode: "b3gmgq",
     label: "Candy",
     primary: "oklch(0.72 0.2 352.53)",
     secondary: "oklch(0.66 0.21 354.31)",
   },
   {
     name: "indigo",
+    presetCode: "b2pzIe",
     label: "Indigo",
     primary: "oklch(0.65 0.22 300.21)",
     secondary: "oklch(0.54 0.23 286.53)",
   },
   {
     name: "blue",
+    presetCode: "b1PzeK",
     label: "Blue",
     primary: "oklch(0.67 0.17 257.78)",
     secondary: "oklch(0.59 0.21 258.02)",
   },
   {
     name: "red",
+    presetCode: "b4Fywy",
     label: "Red",
     primary: "oklch(0.67 0.21 24.28)",
     secondary: "oklch(0.62 0.25 28.23)",
   },
   {
     name: "orange",
+    presetCode: "b3PBYm",
     label: "Orange",
     primary: "oklch(0.75 0.17 47.65)",
     secondary: "oklch(0.68 0.21 40.59)",
   },
   {
     name: "green",
+    presetCode: "b2YOAa",
     label: "Green",
     primary: "oklch(0.70 0.15 162.48)",
     secondary: "oklch(0.60 0.13 163.23)",

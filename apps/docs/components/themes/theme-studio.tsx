@@ -29,8 +29,47 @@ import {
 } from "react";
 
 const COPY_FEEDBACK_DURATION = 1500;
-const PRESET_CODE = "b3gmgq";
-const SHADCN_CREATE_PRESET_URL = `https://ui.shadcn.com/create?preset=${PRESET_CODE}`;
+
+const FONT_OPTIONS = [
+  { id: "sans", label: "Sans", stack: "Inter, ui-sans-serif, sans-serif" },
+  { id: "serif", label: "Serif", stack: "Georgia, ui-serif, serif" },
+  {
+    id: "mono",
+    label: "Mono",
+    stack: '"Geist Mono", ui-monospace, monospace',
+  },
+] as const;
+
+type FontId = (typeof FONT_OPTIONS)[number]["id"];
+
+const fontStack = (font: FontId): string =>
+  FONT_OPTIONS.find((option) => option.id === font)?.stack ??
+  FONT_OPTIONS[0].stack;
+
+const OKLCH_REGEX = /oklch\((\S+) (\S+) (\S+)\)/;
+
+// Shift an oklch color's lightness by a percentage-point delta.
+const shiftLightness = (color: string, delta: number): string => {
+  const match = color.match(OKLCH_REGEX);
+  if (!match) {
+    return color;
+  }
+  const lightness = Math.min(
+    1,
+    Math.max(0, Number.parseFloat(match[1]) + delta / 100)
+  );
+  return `oklch(${Number(lightness.toFixed(3))} ${match[2]} ${match[3]})`;
+};
+
+// cssVars keys that carry the brand accent and must follow adjustments
+const ACCENT_KEYS = [
+  "accent",
+  "ring",
+  "chart-1",
+  "sidebar-primary",
+  "sidebar-ring",
+];
+const SECONDARY_KEYS = ["chart-2"];
 
 type PreviewMode = "light" | "dark";
 
@@ -49,19 +88,47 @@ const toCssBlock = (vars: Record<string, string>, selector: string) => {
 
 const PX_PER_REM = 16;
 
-const buildThemeCss = (paletteName: string, radiusPx: number): string => {
+const applyAccent = (
+  vars: Record<string, string>,
+  delta: number
+): Record<string, string> => {
+  if (delta === 0) {
+    return vars;
+  }
+  const next = { ...vars };
+  for (const key of ACCENT_KEYS) {
+    if (next[key]) {
+      next[key] = shiftLightness(next[key], delta);
+    }
+  }
+  for (const key of SECONDARY_KEYS) {
+    if (next[key]) {
+      next[key] = shiftLightness(next[key], delta);
+    }
+  }
+  return next;
+};
+
+const buildThemeCss = (
+  paletteName: string,
+  radiusPx: number,
+  accentDelta: number,
+  font: FontId
+): string => {
   const theme = getTheme(`theme-${paletteName}`);
   if (!(theme?.cssVars?.light && theme.cssVars.dark)) {
     return "";
   }
+  const themeBlock = { "font-sans": fontStack(font) };
   const light = {
-    ...theme.cssVars.light,
+    ...applyAccent(theme.cssVars.light, accentDelta),
     radius: `${radiusPx / PX_PER_REM}rem`,
   };
-  return `${toCssBlock(light, ":root")}\n\n${toCssBlock(
-    theme.cssVars.dark,
-    ".dark"
-  )}`;
+  const dark = applyAccent(theme.cssVars.dark, accentDelta);
+  return `${toCssBlock(themeBlock, ":root")}\n\n${toCssBlock(
+    light,
+    ":root"
+  )}\n\n${toCssBlock(dark, ".dark")}`;
 };
 
 // The docs app's Tailwind theme is declared with `@theme inline`, so
@@ -71,15 +138,16 @@ const buildThemeCss = (paletteName: string, radiusPx: number): string => {
 const buildPreviewStyle = (
   palette: ThemePalette,
   mode: PreviewMode,
-  radiusPx: number
+  radiusPx: number,
+  accentDelta: number
 ): Record<string, string> => {
   const scale: Record<string, string> =
     mode === "dark" ? DARK_SCALE : LIGHT_SCALE;
   const destructive = getTheme(`theme-${palette.name}`)?.cssVars?.[mode]
     ?.destructive;
   const style: Record<string, string> = {
-    "--color-brand": palette.primary,
-    "--color-brand-secondary": palette.secondary,
+    "--color-brand": shiftLightness(palette.primary, accentDelta),
+    "--color-brand-secondary": shiftLightness(palette.secondary, accentDelta),
     "--radius": `${radiusPx}px`,
     ...(destructive ? { "--destructive": destructive } : {}),
   };
@@ -122,23 +190,31 @@ function StudioSidebar({
   palette,
   mode,
   radius,
+  accent,
+  font,
   onPalette,
   onMode,
   onRadius,
+  onAccent,
+  onFont,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
   radius: number;
+  accent: number;
+  font: FontId;
   onPalette: (palette: ThemePalette) => void;
   onMode: (mode: PreviewMode) => void;
   onRadius: (radius: number) => void;
+  onAccent: (accent: number) => void;
+  onFont: (font: FontId) => void;
 }) {
   const presetCopy = useCopy();
   const commandCopy = useCopy();
   const cssCopy = useCopy();
   const themeCss = useMemo(
-    () => buildThemeCss(palette.name, radius),
-    [palette.name, radius]
+    () => buildThemeCss(palette.name, radius, accent, font),
+    [palette.name, radius, accent, font]
   );
 
   function handleShuffle() {
@@ -208,6 +284,26 @@ function StudioSidebar({
         ))}
       </div>
 
+      <div className="flex min-h-9 items-center gap-1 rounded-lg bg-smooth-200 p-1">
+        {FONT_OPTIONS.map((option) => (
+          <button
+            aria-pressed={font === option.id}
+            className={cn(
+              "flex h-7 flex-1 items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              font === option.id
+                ? "bg-foreground/10 text-foreground"
+                : "text-muted-foreground"
+            )}
+            key={option.id}
+            onClick={() => onFont(option.id)}
+            style={{ fontFamily: option.stack }}
+            type="button"
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+
       <Scrubber
         decimals={0}
         label="Radius"
@@ -219,6 +315,17 @@ function StudioSidebar({
         value={radius}
       />
 
+      <Scrubber
+        decimals={0}
+        label="Accent"
+        max={15}
+        min={-15}
+        onValueChange={onAccent}
+        step={1}
+        ticks={5}
+        value={accent}
+      />
+
       <div className="flex flex-col gap-2">
         <span className="pl-1 font-semibold text-[13px] text-foreground/65">
           Preset
@@ -226,10 +333,10 @@ function StudioSidebar({
         <div className="flex flex-col gap-0.5 rounded-lg bg-smooth-200 p-1">
           <button
             className="flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
-            onClick={() => presetCopy.copy(`--preset ${PRESET_CODE}`)}
+            onClick={() => presetCopy.copy(`--preset ${palette.presetCode}`)}
             type="button"
           >
-            --preset {PRESET_CODE}
+            --preset {palette.presetCode}
             {presetCopy.copied ? (
               <Check className="size-3.5" />
             ) : (
@@ -238,7 +345,7 @@ function StudioSidebar({
           </button>
           <a
             className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
-            href={SHADCN_CREATE_PRESET_URL}
+            href={`https://ui.shadcn.com/create?preset=${palette.presetCode}`}
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -646,14 +753,21 @@ function PreviewCanvas({
   palette,
   mode,
   radius,
+  accent,
+  font,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
   radius: number;
+  accent: number;
+  font: FontId;
 }) {
   const style = useMemo(
-    () => buildPreviewStyle(palette, mode, radius),
-    [palette, mode, radius]
+    () => ({
+      ...buildPreviewStyle(palette, mode, radius, accent),
+      fontFamily: fontStack(font),
+    }),
+    [palette, mode, radius, accent, font]
   );
   const panRef = useRef<HTMLDivElement>(null);
   const panState = useRef({ active: false, x: 0, y: 0, left: 0, top: 0 });
@@ -785,19 +899,31 @@ export function ThemeStudio() {
   const [palette, setPalette] = useState<ThemePalette>(THEME_PALETTES[0]);
   const [mode, setMode] = useState<PreviewMode>("light");
   const [radius, setRadius] = useState(DEFAULT_RADIUS_PX);
+  const [accent, setAccent] = useState(0);
+  const [font, setFont] = useState<FontId>("sans");
 
   return (
     <div className="flex w-full flex-col gap-4 px-3 pt-20 pb-3 lg:h-dvh lg:flex-row lg:items-stretch lg:overflow-hidden lg:pr-0 lg:pb-4 lg:pl-6">
       <h1 className="sr-only">SmoothUI Themes</h1>
       <StudioSidebar
+        accent={accent}
+        font={font}
         mode={mode}
+        onAccent={setAccent}
+        onFont={setFont}
         onMode={setMode}
         onPalette={setPalette}
         onRadius={setRadius}
         palette={palette}
         radius={radius}
       />
-      <PreviewCanvas mode={mode} palette={palette} radius={radius} />
+      <PreviewCanvas
+        accent={accent}
+        font={font}
+        mode={mode}
+        palette={palette}
+        radius={radius}
+      />
     </div>
   );
 }
