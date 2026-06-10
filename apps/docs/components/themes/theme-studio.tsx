@@ -75,10 +75,13 @@ const buildPreviewStyle = (
 ): Record<string, string> => {
   const scale: Record<string, string> =
     mode === "dark" ? DARK_SCALE : LIGHT_SCALE;
+  const destructive = getTheme(`theme-${palette.name}`)?.cssVars?.[mode]
+    ?.destructive;
   const style: Record<string, string> = {
     "--color-brand": palette.primary,
     "--color-brand-secondary": palette.secondary,
     "--radius": `${radiusPx}px`,
+    ...(destructive ? { "--destructive": destructive } : {}),
   };
   for (const [stop, value] of Object.entries(scale)) {
     style[`--color-smooth-${stop}`] = value;
