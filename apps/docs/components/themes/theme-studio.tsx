@@ -7,6 +7,20 @@ import {
   THEME_PALETTES,
   type ThemePalette,
 } from "@docs/lib/registry-themes";
+import {
+  buildStudioCssVars,
+  CUSTOM_THEME_PREFIX,
+  decodeStudioPreset,
+  encodeStudioPreset,
+  FONT_OPTIONS,
+  type FontId,
+  fontStack,
+  type StudioPresetState,
+  shiftLightness,
+  TINT_OPTIONS,
+  type TintId,
+  tintScale,
+} from "@docs/lib/studio-preset";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Scrubber from "@repo/smoothui/components/scrubber";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
@@ -30,51 +44,19 @@ import {
 
 const COPY_FEEDBACK_DURATION = 1500;
 
-const FONT_OPTIONS = [
-  { id: "sans", label: "Sans", stack: "Inter, ui-sans-serif, sans-serif" },
-  { id: "serif", label: "Serif", stack: "Georgia, ui-serif, serif" },
-  {
-    id: "mono",
-    label: "Mono",
-    stack: '"Geist Mono", ui-monospace, monospace',
-  },
-] as const;
-
-type FontId = (typeof FONT_OPTIONS)[number]["id"];
-
-const fontStack = (font: FontId): string =>
-  FONT_OPTIONS.find((option) => option.id === font)?.stack ??
-  FONT_OPTIONS[0].stack;
-
-const OKLCH_REGEX = /oklch\((\S+) (\S+) (\S+)\)/;
-
-// Shift an oklch color's lightness by a percentage-point delta.
-const shiftLightness = (color: string, delta: number): string => {
-  const match = color.match(OKLCH_REGEX);
-  if (!match) {
-    return color;
-  }
-  const lightness = Math.min(
-    1,
-    Math.max(0, Number.parseFloat(match[1]) + delta / 100)
-  );
-  return `oklch(${Number(lightness.toFixed(3))} ${match[2]} ${match[3]})`;
-};
-
-// cssVars keys that carry the brand accent and must follow adjustments
-const ACCENT_KEYS = [
-  "accent",
-  "ring",
-  "chart-1",
-  "sidebar-primary",
-  "sidebar-ring",
-];
-const SECONDARY_KEYS = ["chart-2"];
-
 type PreviewMode = "light" | "dark";
 
-const installCommand = (paletteName: string) =>
-  `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName}.json`;
+const installCommand = (state: StudioPresetState): string => {
+  const isCustom =
+    state.accent !== 0 ||
+    state.font !== "sans" ||
+    state.tint !== "neutral" ||
+    state.radius !== 10;
+  const item = isCustom
+    ? `${CUSTOM_THEME_PREFIX}${encodeStudioPreset(state)}`
+    : `theme-${state.palette}`;
+  return `npx shadcn@latest add https://smoothui.dev/r/${item}.json`;
+};
 
 const componentInstallCommand = (slug: string) =>
   `npx shadcn@latest add https://smoothui.dev/r/${slug}.json`;
@@ -86,49 +68,15 @@ const toCssBlock = (vars: Record<string, string>, selector: string) => {
   return `${selector} {\n${body}\n}`;
 };
 
-const PX_PER_REM = 16;
-
-const applyAccent = (
-  vars: Record<string, string>,
-  delta: number
-): Record<string, string> => {
-  if (delta === 0) {
-    return vars;
-  }
-  const next = { ...vars };
-  for (const key of ACCENT_KEYS) {
-    if (next[key]) {
-      next[key] = shiftLightness(next[key], delta);
-    }
-  }
-  for (const key of SECONDARY_KEYS) {
-    if (next[key]) {
-      next[key] = shiftLightness(next[key], delta);
-    }
-  }
-  return next;
-};
-
-const buildThemeCss = (
-  paletteName: string,
-  radiusPx: number,
-  accentDelta: number,
-  font: FontId
-): string => {
-  const theme = getTheme(`theme-${paletteName}`);
-  if (!(theme?.cssVars?.light && theme.cssVars.dark)) {
+const buildThemeCss = (state: StudioPresetState): string => {
+  const cssVars = buildStudioCssVars(state);
+  if (!(cssVars?.light && cssVars.dark && cssVars.theme)) {
     return "";
   }
-  const themeBlock = { "font-sans": fontStack(font) };
-  const light = {
-    ...applyAccent(theme.cssVars.light, accentDelta),
-    radius: `${radiusPx / PX_PER_REM}rem`,
-  };
-  const dark = applyAccent(theme.cssVars.dark, accentDelta);
-  return `${toCssBlock(themeBlock, ":root")}\n\n${toCssBlock(
-    light,
+  return `${toCssBlock(cssVars.theme, ":root")}\n\n${toCssBlock(
+    cssVars.light,
     ":root"
-  )}\n\n${toCssBlock(dark, ".dark")}`;
+  )}\n\n${toCssBlock(cssVars.dark, ".dark")}`;
 };
 
 // The docs app's Tailwind theme is declared with `@theme inline`, so
@@ -138,17 +86,18 @@ const buildThemeCss = (
 const buildPreviewStyle = (
   palette: ThemePalette,
   mode: PreviewMode,
-  radiusPx: number,
-  accentDelta: number
+  state: StudioPresetState
 ): Record<string, string> => {
-  const scale: Record<string, string> =
-    mode === "dark" ? DARK_SCALE : LIGHT_SCALE;
+  const scale = tintScale(
+    mode === "dark" ? DARK_SCALE : LIGHT_SCALE,
+    state.tint
+  );
   const destructive = getTheme(`theme-${palette.name}`)?.cssVars?.[mode]
     ?.destructive;
   const style: Record<string, string> = {
-    "--color-brand": shiftLightness(palette.primary, accentDelta),
-    "--color-brand-secondary": shiftLightness(palette.secondary, accentDelta),
-    "--radius": `${radiusPx}px`,
+    "--color-brand": shiftLightness(palette.primary, state.accent),
+    "--color-brand-secondary": shiftLightness(palette.secondary, state.accent),
+    "--radius": `${state.radius}px`,
     ...(destructive ? { "--destructive": destructive } : {}),
   };
   for (const [stop, value] of Object.entries(scale)) {
@@ -192,30 +141,37 @@ function StudioSidebar({
   radius,
   accent,
   font,
+  tint,
   onPalette,
   onMode,
   onRadius,
   onAccent,
   onFont,
+  onTint,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
   radius: number;
   accent: number;
   font: FontId;
+  tint: TintId;
   onPalette: (palette: ThemePalette) => void;
   onMode: (mode: PreviewMode) => void;
   onRadius: (radius: number) => void;
   onAccent: (accent: number) => void;
   onFont: (font: FontId) => void;
+  onTint: (tint: TintId) => void;
 }) {
   const presetCopy = useCopy();
+  const linkCopy = useCopy();
   const commandCopy = useCopy();
   const cssCopy = useCopy();
-  const themeCss = useMemo(
-    () => buildThemeCss(palette.name, radius, accent, font),
-    [palette.name, radius, accent, font]
+  const state = useMemo<StudioPresetState>(
+    () => ({ accent, font, palette: palette.name, radius, tint }),
+    [accent, font, palette.name, radius, tint]
   );
+  const presetCode = useMemo(() => encodeStudioPreset(state), [state]);
+  const themeCss = useMemo(() => buildThemeCss(state), [state]);
 
   function handleShuffle() {
     const others = THEME_PALETTES.filter(
@@ -304,6 +260,25 @@ function StudioSidebar({
         ))}
       </div>
 
+      <div className="flex min-h-9 items-center gap-1 rounded-lg bg-smooth-200 p-1">
+        {TINT_OPTIONS.map((option) => (
+          <button
+            aria-pressed={tint === option.id}
+            className={cn(
+              "flex h-7 flex-1 items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              tint === option.id
+                ? "bg-foreground/10 text-foreground"
+                : "text-muted-foreground"
+            )}
+            key={option.id}
+            onClick={() => onTint(option.id)}
+            type="button"
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+
       <Scrubber
         decimals={0}
         label="Radius"
@@ -332,25 +307,42 @@ function StudioSidebar({
         </span>
         <div className="flex flex-col gap-0.5 rounded-lg bg-smooth-200 p-1">
           <button
-            className="flex items-center justify-between rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
-            onClick={() => presetCopy.copy(`--preset ${palette.presetCode}`)}
+            className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
+            onClick={() => presetCopy.copy(presetCode)}
             type="button"
           >
-            --preset {palette.presetCode}
+            <span className="truncate">{presetCode}</span>
             {presetCopy.copied ? (
+              <Check className="size-3.5 shrink-0" />
+            ) : (
+              <Copy className="size-3.5 shrink-0 text-muted-foreground" />
+            )}
+          </button>
+          <button
+            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
+            onClick={() =>
+              linkCopy.copy(
+                `${window.location.origin}/themes?preset=${presetCode}`
+              )
+            }
+            type="button"
+          >
+            Copy preset link
+            {linkCopy.copied ? (
               <Check className="size-3.5" />
             ) : (
               <Copy className="size-3.5 text-muted-foreground" />
             )}
           </button>
           <a
-            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
+            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
             href={`https://ui.shadcn.com/create?preset=${palette.presetCode}`}
             rel="noopener noreferrer"
             target="_blank"
+            title="Approximation: shadcn/create only supports its own catalog values"
           >
-            Open in shadcn/create
-            <ExternalLink className="size-3.5 text-muted-foreground" />
+            shadcn/create (approx.)
+            <ExternalLink className="size-3.5" />
           </a>
         </div>
       </div>
@@ -358,7 +350,7 @@ function StudioSidebar({
       <div className="mt-auto flex flex-col gap-2 pt-2">
         <SmoothButton
           className="w-full"
-          onClick={() => commandCopy.copy(installCommand(palette.name))}
+          onClick={() => commandCopy.copy(installCommand(state))}
           variant="candy"
         >
           {commandCopy.copied ? (
@@ -752,22 +744,18 @@ function CopyInstallButton({ slug }: { slug: string }) {
 function PreviewCanvas({
   palette,
   mode,
-  radius,
-  accent,
-  font,
+  state,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
-  radius: number;
-  accent: number;
-  font: FontId;
+  state: StudioPresetState;
 }) {
   const style = useMemo(
     () => ({
-      ...buildPreviewStyle(palette, mode, radius, accent),
-      fontFamily: fontStack(font),
+      ...buildPreviewStyle(palette, mode, state),
+      fontFamily: fontStack(state.font),
     }),
-    [palette, mode, radius, accent, font]
+    [palette, mode, state]
   );
   const panRef = useRef<HTMLDivElement>(null);
   const panState = useRef({ active: false, x: 0, y: 0, left: 0, top: 0 });
@@ -901,6 +889,34 @@ export function ThemeStudio() {
   const [radius, setRadius] = useState(DEFAULT_RADIUS_PX);
   const [accent, setAccent] = useState(0);
   const [font, setFont] = useState<FontId>("sans");
+  const [tint, setTint] = useState<TintId>("neutral");
+
+  // Restore a shared preset from /themes?preset=<code>
+  useEffect(() => {
+    const code = new URLSearchParams(window.location.search).get("preset");
+    if (!code) {
+      return;
+    }
+    const restored = decodeStudioPreset(code);
+    if (!restored) {
+      return;
+    }
+    const restoredPalette = THEME_PALETTES.find(
+      (entry) => entry.name === restored.palette
+    );
+    if (restoredPalette) {
+      setPalette(restoredPalette);
+    }
+    setRadius(restored.radius);
+    setAccent(restored.accent);
+    setFont(restored.font);
+    setTint(restored.tint);
+  }, []);
+
+  const state = useMemo<StudioPresetState>(
+    () => ({ accent, font, palette: palette.name, radius, tint }),
+    [accent, font, palette.name, radius, tint]
+  );
 
   return (
     <div className="flex w-full flex-col gap-4 px-3 pt-20 pb-3 lg:h-dvh lg:flex-row lg:items-stretch lg:overflow-hidden lg:pr-0 lg:pb-4 lg:pl-6">
@@ -914,16 +930,12 @@ export function ThemeStudio() {
         onMode={setMode}
         onPalette={setPalette}
         onRadius={setRadius}
+        onTint={setTint}
         palette={palette}
         radius={radius}
+        tint={tint}
       />
-      <PreviewCanvas
-        accent={accent}
-        font={font}
-        mode={mode}
-        palette={palette}
-        radius={radius}
-      />
+      <PreviewCanvas mode={mode} palette={palette} state={state} />
     </div>
   );
 }
