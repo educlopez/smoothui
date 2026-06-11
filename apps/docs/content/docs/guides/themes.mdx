@@ -1,0 +1,66 @@
+---
+title: Themes
+description: Installable SmoothUI color themes for any shadcn project, plus the Theme Studio — customize palette, radius, accent, font and neutral tint, then install or share your own preset.
+icon: Palette
+---
+
+SmoothUI ships complete color themes you can install in **any shadcn project** with one command — light and dark mode included, compatible with both Radix UI and Base UI primitives.
+
+## Quick start
+
+Pick a palette and install it. The CLI writes every CSS variable into your global stylesheet:
+
+```bash
+npx shadcn@latest add https://smoothui.dev/r/theme-candy.json
+```
+
+Available themes: `theme-candy`, `theme-indigo`, `theme-blue`, `theme-red`, `theme-orange`, `theme-green`.
+
+Each theme defines the full token set — backgrounds, foregrounds, borders, inputs, ring, charts, sidebar — using SmoothUI's smooth neutral scale with the palette's accent, in both `:root` and `.dark`.
+
+## Theme Studio
+
+[smoothui.dev/themes](https://smoothui.dev/themes) is an interactive studio: a draggable board previewing the entire component registry with your theme applied live.
+
+- **Theme** — six accent palettes.
+- **Mode** — preview light or dark.
+- **Font** — Sans, Serif or Mono, applied to the preview and the exported CSS (`--font-sans`).
+- **Tint** — re-tint the neutral scale: pure Neutral, Warm or Cool.
+- **Radius** — a continuous 0–24px scrubber driving every `rounded-*` value.
+- **Accent** — shift the accent's oklch lightness ±15 points.
+
+Every card on the board shows a real component demo, links to its docs, and copies its install command.
+
+## SmoothUI presets
+
+The studio encodes your full configuration into a compact preset code:
+
+```
+s1.candy.16.20.mono.warm
+```
+
+Unlike shadcn/create presets (limited to their catalog values), SmoothUI presets carry the exact oklch palette, continuous radius, accent shift, font and tint. Three ways to use one:
+
+### Share it
+
+`Copy preset link` produces a URL that restores every control:
+
+```
+https://smoothui.dev/themes?preset=s1.candy.16.20.mono.warm
+```
+
+### Install it
+
+Any custom configuration is installable directly — the registry builds the theme on the fly from the code:
+
+```bash
+npx shadcn@latest add https://smoothui.dev/r/theme-custom-s1.candy.16.20.mono.warm.json
+```
+
+### Copy the CSS
+
+`Copy CSS variables` exports the exact `:root` / `.dark` blocks for manual pasting, always reflecting the current controls.
+
+## shadcn/create interop
+
+Each palette also maps to the closest [shadcn/create](https://ui.shadcn.com/create) preset (for example Candy ≈ `b3gmgq`, their pink). The studio links to it as an **approximation**: shadcn's preset system only supports its own catalog values, so the exact SmoothUI palette, tint and accent shift don't survive the round trip. For full fidelity, use SmoothUI presets.
