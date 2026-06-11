@@ -27,8 +27,10 @@ import SmoothButton from "@repo/smoothui/components/smooth-button";
 import {
   Check,
   Copy,
+  Crosshair,
   ExternalLink,
   Moon,
+  Search,
   Shuffle,
   Sun,
   Terminal,
@@ -148,6 +150,9 @@ function StudioSidebar({
   onAccent,
   onFont,
   onTint,
+  query,
+  onQuery,
+  onCenter,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
@@ -161,6 +166,9 @@ function StudioSidebar({
   onAccent: (accent: number) => void;
   onFont: (font: FontId) => void;
   onTint: (tint: TintId) => void;
+  query: string;
+  onQuery: (query: string) => void;
+  onCenter: () => void;
 }) {
   const presetCopy = useCopy();
   const linkCopy = useCopy();
@@ -186,14 +194,38 @@ function StudioSidebar({
         <span className="font-semibold text-[15px] text-foreground">
           Theme Studio
         </span>
-        <button
-          aria-label="Shuffle theme"
-          className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
-          onClick={handleShuffle}
-          type="button"
-        >
-          <Shuffle className="size-4" />
-        </button>
+        <div className="flex items-center gap-0.5">
+          <button
+            aria-label="Center board"
+            className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+            onClick={onCenter}
+            title="Center board"
+            type="button"
+          >
+            <Crosshair className="size-4" />
+          </button>
+          <button
+            aria-label="Shuffle theme"
+            className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+            onClick={handleShuffle}
+            title="Shuffle theme"
+            type="button"
+          >
+            <Shuffle className="size-4" />
+          </button>
+        </div>
+      </div>
+
+      <div className="flex min-h-9 items-center gap-2 rounded-lg bg-smooth-200 px-3">
+        <Search className="size-3.5 shrink-0 text-muted-foreground" />
+        <input
+          aria-label="Search components"
+          className="w-full bg-transparent font-medium text-[13px] text-foreground outline-none placeholder:text-muted-foreground"
+          onChange={(event) => onQuery(event.target.value)}
+          placeholder="Search components"
+          type="search"
+          value={query}
+        />
       </div>
 
       <PanelRow label="Theme">
@@ -745,10 +777,14 @@ function PreviewCanvas({
   palette,
   mode,
   state,
+  query,
+  centerSignal,
 }: {
   palette: ThemePalette;
   mode: PreviewMode;
   state: StudioPresetState;
+  query: string;
+  centerSignal: number;
 }) {
   const style = useMemo(
     () => ({
@@ -762,7 +798,9 @@ function PreviewCanvas({
   const [panning, setPanning] = useState(false);
 
   // Start centered on the board so the user can pan in any direction
-  // right away instead of being parked at the top-left corner.
+  // right away instead of being parked at the top-left corner. Re-centers
+  // when the sidebar's center action fires.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: centerSignal is the trigger
   useEffect(() => {
     const el = panRef.current;
     if (!el) {
@@ -770,7 +808,7 @@ function PreviewCanvas({
     }
     el.scrollLeft = (el.scrollWidth - el.clientWidth) / 2;
     el.scrollTop = (el.scrollHeight - el.clientHeight) / 2;
-  }, []);
+  }, [centerSignal]);
 
   // Capturing the pointer on pointerdown would retarget the eventual click
   // to the canvas, silently breaking onClick handlers on non-button elements
@@ -830,6 +868,19 @@ function PreviewCanvas({
     setPanning(false);
   }
 
+  const normalizedQuery = query.trim().toLowerCase();
+  const columns = useMemo(() => {
+    if (!normalizedQuery) {
+      return BOARD_COLUMNS;
+    }
+    const matches = DEMO_CARDS.filter(({ slug }) =>
+      demoTitle(slug).toLowerCase().includes(normalizedQuery)
+    );
+    return Array.from({ length: BOARD_COLUMN_COUNT }, (_, index) =>
+      matches.filter((_, cardIndex) => cardIndex % BOARD_COLUMN_COUNT === index)
+    );
+  }, [normalizedQuery]);
+
   return (
     <div
       className={cn(
@@ -844,7 +895,7 @@ function PreviewCanvas({
       style={{ ...style, overflow: "auto", scrollbarWidth: "none" }}
     >
       <div className="frame-box relative flex w-[2600px] items-start gap-5 p-8">
-        {BOARD_COLUMNS.map((column, columnIndex) => (
+        {columns.map((column, columnIndex) => (
           <div
             className="flex min-w-0 flex-1 flex-col gap-5"
             // biome-ignore lint/suspicious/noArrayIndexKey: columns are static
@@ -890,6 +941,8 @@ export function ThemeStudio() {
   const [accent, setAccent] = useState(0);
   const [font, setFont] = useState<FontId>("sans");
   const [tint, setTint] = useState<TintId>("neutral");
+  const [query, setQuery] = useState("");
+  const [centerSignal, setCenterSignal] = useState(0);
 
   // Restore a shared preset from /themes?preset=<code>
   useEffect(() => {
@@ -926,16 +979,25 @@ export function ThemeStudio() {
         font={font}
         mode={mode}
         onAccent={setAccent}
+        onCenter={() => setCenterSignal((signal) => signal + 1)}
         onFont={setFont}
         onMode={setMode}
         onPalette={setPalette}
+        onQuery={setQuery}
         onRadius={setRadius}
         onTint={setTint}
         palette={palette}
+        query={query}
         radius={radius}
         tint={tint}
       />
-      <PreviewCanvas mode={mode} palette={palette} state={state} />
+      <PreviewCanvas
+        centerSignal={centerSignal}
+        mode={mode}
+        palette={palette}
+        query={query}
+        state={state}
+      />
     </div>
   );
 }
