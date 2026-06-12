@@ -4,7 +4,7 @@ import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,53 +17,72 @@ function McpIllustration() {
       ? { duration: 0 }
       : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
 
+  const lift = (delay: number) => ({
+    initial: shouldReduceMotion
+      ? { opacity: 1 }
+      : { opacity: 0, transform: "translateY(8px)" },
+    whileInView: shouldReduceMotion
+      ? { opacity: 1 }
+      : { opacity: 1, transform: "translateY(0px)" },
+    transition: bubbleTransition(delay),
+    viewport: { once: true, amount: 0.4 },
+  });
+
+  const steps = [
+    "Search the registry",
+    "Resolve dependencies",
+    "Add @smoothui/siri-orb",
+  ];
+
   return (
-    <div aria-hidden className="w-full space-y-3">
-      {/* User message — right */}
+    <div aria-hidden className="w-full space-y-2.5">
+      {/* User request — right */}
       <motion.div
-        className="ml-auto w-fit max-w-[72%] rounded-2xl rounded-br-sm bg-brand px-3 py-2 text-white text-xs"
-        initial={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 0, transform: "translateY(8px)" }
-        }
-        transition={bubbleTransition(0.05)}
-        viewport={{ once: true, amount: 0.5 }}
-        whileInView={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 1, transform: "translateY(0px)" }
-        }
+        className="ml-auto w-fit max-w-[78%] rounded-2xl rounded-br-sm bg-brand px-3 py-1.5 text-white text-xs"
+        {...lift(0.05)}
       >
-        Install the SiriOrb component
+        Automate component installs
       </motion.div>
-      {/* AI agent reply — left, with avatar */}
+      {/* Skill card with steps */}
       <motion.div
-        className="flex items-end gap-2"
-        initial={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 0, transform: "translateY(8px)" }
-        }
-        transition={bubbleTransition(0.25)}
-        viewport={{ once: true, amount: 0.5 }}
-        whileInView={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 1, transform: "translateY(0px)" }
-        }
+        className="rounded-xl border border-border bg-background p-3 shadow-sm"
+        {...lift(0.15)}
       >
+        <div className="flex items-center gap-2">
+          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
+            <Sparkles className="size-3.5" />
+          </div>
+          <div className="leading-tight">
+            <div className="font-medium text-foreground text-xs">
+              Install component
+            </div>
+            <div className="text-[10px] text-muted-foreground">
+              Skill · 3 steps
+            </div>
+          </div>
+        </div>
+        <div className="mt-2.5 space-y-1.5">
+          {steps.map((step, index) => (
+            <div className="flex items-center gap-2" key={step}>
+              <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-muted text-[9px] text-muted-foreground">
+                {index + 1}
+              </span>
+              <span className="text-[11px] text-foreground/70">{step}</span>
+            </div>
+          ))}
+        </div>
+      </motion.div>
+      {/* Agent confirmation — left, with avatar */}
+      <motion.div className="flex items-center gap-2" {...lift(0.3)}>
         <AgentAvatar
           animated
           className="shrink-0 rounded-full"
           seed="SmoothUI Agent"
-          size={24}
+          size={20}
         />
-        <div className="w-fit max-w-[85%] rounded-2xl rounded-bl-sm border border-border bg-background px-3 py-2">
-          <code className="font-mono text-[11px] text-foreground/80">
-            npx shadcn@latest add @smoothui/siri-orb
-          </code>
-        </div>
+        <span className="text-[11px] text-foreground/60">
+          Done — installed in your project.
+        </span>
       </motion.div>
     </div>
   );
@@ -302,7 +321,7 @@ export function AISection() {
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
             <div className="relative flex flex-1 items-center justify-center p-6">
-              <div className="w-full max-w-xs rounded-2xl border border-border bg-background p-4 shadow-lg">
+              <div className="w-full max-w-xs rounded-2xl border border-white/40 bg-background/80 p-4 shadow-xl backdrop-blur-xl">
                 <McpIllustration />
               </div>
             </div>
