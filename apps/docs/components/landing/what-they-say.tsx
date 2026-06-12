@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import Divider from "./divider";
@@ -23,11 +24,6 @@ const testimonials: TestimonialMedia[] = [
     id: "2",
     type: "twitter",
     url: "https://x.com/PeteCapeCod/status/1962707094395556337",
-  },
-  {
-    id: "4",
-    type: "twitter",
-    url: "https://x.com/dew_yashtwt/status/1986010168065466568",
   },
   {
     id: "5",
@@ -131,6 +127,7 @@ export function WhatTheySay() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
   const [isHoverDevice, setIsHoverDevice] = useState(false);
+  const [page, setPage] = useState(0);
   const tweetsContainerRef = useRef<HTMLDivElement>(null);
   const startTimeRef = useRef(Date.now());
   const timeoutRefsRef = useRef<Set<NodeJS.Timeout>>(new Set());
@@ -245,55 +242,89 @@ export function WhatTheySay() {
     { kind: "tile", data: featuredQuotes[1] },
     { kind: "tweet", data: testimonials[2] },
     { kind: "tweet", data: testimonials[3] },
-    { kind: "tweet", data: testimonials[4] },
   ];
+
+  // Page the bento into groups of three for the arrow-driven slider.
+  const ITEMS_PER_PAGE = 3;
+  const pages: (typeof bentoItems)[] = [];
+  for (let i = 0; i < bentoItems.length; i += ITEMS_PER_PAGE) {
+    pages.push(bentoItems.slice(i, i + ITEMS_PER_PAGE));
+  }
+  const pageCount = pages.length;
+  const goTo = (delta: number) =>
+    setPage((current) => (current + delta + pageCount) % pageCount);
+
+  const arrowClass =
+    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary";
 
   return (
     <section className="relative w-full bg-background px-8 py-24">
       <Divider />
       <div className="mx-auto max-w-7xl">
-        <div className="mb-12 text-center">
-          <motion.h2
-            className="text-balance text-center font-semibold font-title text-3xl text-foreground transition"
-            initial={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 0, transform: "translateY(12px)" }
-            }
-            transition={shouldReduceMotion ? { duration: 0 } : headerSpring}
-            viewport={{ once: true, amount: 0.5 }}
-            whileInView={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, transform: "translateY(0px)" }
-            }
-          >
-            What they say about us
-          </motion.h2>
-          <motion.p
-            className="mx-auto mt-4 max-w-2xl text-foreground/70 text-lg"
-            initial={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 0, transform: "translateY(12px)" }
-            }
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { ...headerSpring, delay: 0.1 }
-            }
-            viewport={{ once: true, amount: 0.5 }}
-            whileInView={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, transform: "translateY(0px)" }
-            }
-          >
-            See what developers and designers are saying about SmoothUI.
-          </motion.p>
+        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <motion.h2
+              className="text-balance font-semibold font-title text-3xl text-foreground"
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, transform: "translateY(12px)" }
+              }
+              transition={shouldReduceMotion ? { duration: 0 } : headerSpring}
+              viewport={{ once: true, amount: 0.5 }}
+              whileInView={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, transform: "translateY(0px)" }
+              }
+            >
+              What they say about us
+            </motion.h2>
+            <motion.p
+              className="mt-4 text-foreground/70 text-lg"
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, transform: "translateY(12px)" }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { ...headerSpring, delay: 0.1 }
+              }
+              viewport={{ once: true, amount: 0.5 }}
+              whileInView={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, transform: "translateY(0px)" }
+              }
+            >
+              See what developers and designers are saying about SmoothUI.
+            </motion.p>
+          </div>
+          {pageCount > 1 && (
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                aria-label="Previous testimonials"
+                className={arrowClass}
+                onClick={() => goTo(-1)}
+                type="button"
+              >
+                <ChevronLeft className="size-4" />
+              </button>
+              <button
+                aria-label="Next testimonials"
+                className={arrowClass}
+                onClick={() => goTo(1)}
+                type="button"
+              >
+                <ChevronRight className="size-4" />
+              </button>
+            </div>
+          )}
         </div>
 
-        <div className="relative mt-4 flex min-h-[600px] gap-4 overflow-hidden px-1 pt-px">
+        <div className="relative min-h-[420px] overflow-hidden px-1 pt-px">
           {/* Loading overlay - always show when loading */}
           {isLoading && (
             <div className="absolute inset-0 z-20 flex items-center justify-center bg-background">
@@ -301,50 +332,62 @@ export function WhatTheySay() {
             </div>
           )}
 
-          {/* Tweets container - render invisibly when not ready, then animate in when ready */}
-          <div
+          {/* Slider track — all pages mounted so tweets load once */}
+          <motion.div
+            animate={{ transform: `translateX(-${page * 100}%)` }}
             className={cn(
-              "mt-10 columns-1 gap-5 sm:columns-2 sm:gap-7 md:columns-3",
+              "flex items-start",
               showContent ? "" : "pointer-events-none invisible"
             )}
             ref={tweetsContainerRef}
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { type: "spring", duration: 0.5, bounce: 0.12 }
+            }
           >
-            {bentoItems.map((item, index) => (
-              <motion.div
-                animate={getCardAnimateState(showContent, shouldReduceMotion)}
-                className="mb-5 break-inside-avoid"
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 0 }
-                    : { opacity: 0, transform: "translateY(20px)" }
-                }
-                key={item.data.id}
-                style={{ willChange: "transform, opacity" }}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : {
-                        ...entrySpring,
-                        delay: index * STAGGER_DELAY_S,
-                      }
-                }
-                whileHover={
-                  isHoverDevice && !shouldReduceMotion
-                    ? {
-                        transform: "translateY(-2px) scale(1.02)",
-                        transition: hoverSpring,
-                      }
-                    : undefined
-                }
+            {pages.map((pageItems, pageIdx) => (
+              <div
+                className="grid w-full shrink-0 grid-cols-1 items-start gap-5 md:grid-cols-3 md:gap-7"
+                key={`page-${pageIdx}`}
               >
-                {item.kind === "tile" ? (
-                  <FeaturedTile data={item.data} />
-                ) : (
-                  <MediaPlayer media={item.data} />
-                )}
-              </motion.div>
+                {pageItems.map((item, index) => (
+                  <motion.div
+                    animate={getCardAnimateState(
+                      showContent,
+                      shouldReduceMotion
+                    )}
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 0 }
+                        : { opacity: 0, transform: "translateY(20px)" }
+                    }
+                    key={item.data.id}
+                    style={{ willChange: "transform, opacity" }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { ...entrySpring, delay: index * STAGGER_DELAY_S }
+                    }
+                    whileHover={
+                      isHoverDevice && !shouldReduceMotion
+                        ? {
+                            transform: "translateY(-2px) scale(1.02)",
+                            transition: hoverSpring,
+                          }
+                        : undefined
+                    }
+                  >
+                    {item.kind === "tile" ? (
+                      <FeaturedTile data={item.data} />
+                    ) : (
+                      <MediaPlayer media={item.data} />
+                    )}
+                  </motion.div>
+                ))}
+              </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
