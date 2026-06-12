@@ -15,7 +15,7 @@ function McpIllustration() {
       : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
 
   return (
-    <div aria-hidden className="mx-auto max-w-56 self-center">
+    <div aria-hidden className="mx-auto max-w-56 self-end">
       <div className="space-y-2">
         <motion.div
           className="flex items-center gap-2"
@@ -78,7 +78,7 @@ function ApiIllustration() {
       : { type: "spring" as const, duration: 0.25, bounce: 0.1, delay };
 
   return (
-    <div aria-hidden className="self-center">
+    <div aria-hidden className="self-end">
       <motion.div
         className="space-y-2.5 rounded-2xl border border-border bg-background p-4"
         initial={
@@ -157,7 +157,7 @@ function LlmsIllustration() {
       : { type: "spring" as const, duration: 0.25, bounce: 0.1, delay };
 
   return (
-    <div aria-hidden className="relative w-full select-none self-center">
+    <div aria-hidden className="relative w-full select-none self-end">
       <div className="relative w-full space-y-2 py-4">
         <motion.div
           className="absolute inset-y-0 left-0 w-px bg-[length:1px_4px] bg-repeat-y opacity-25 [background-image:linear-gradient(180deg,var(--color-foreground)_1px,transparent_1px)]"
@@ -279,7 +279,7 @@ export function AISection() {
         />
 
         <motion.div
-          className="relative mx-auto mt-16 grid divide-y overflow-hidden rounded-2xl border border-transparent bg-card/50 shadow-black/5 shadow-md ring-1 ring-border md:grid-cols-3 md:divide-x md:divide-y-0"
+          className="relative mx-auto mt-16 grid divide-y overflow-hidden rounded-2xl border border-border bg-primary/40 md:grid-cols-3 md:divide-x md:divide-y-0"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
