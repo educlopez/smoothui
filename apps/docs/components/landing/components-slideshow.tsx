@@ -1,5 +1,6 @@
 import Divider from "@docs/components/landing/divider";
 import Frame from "@docs/components/landing/frame";
+import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -37,9 +38,11 @@ export function ComponentsSlideshow() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
-      <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
-        Components showcase
-      </h2>
+      <SectionHeader
+        description="Real components from the registry — preview the motion, then install with one command."
+        eyebrow="Components"
+        title="Components showcase"
+      />
       <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
         {SHOWCASE_COMPONENTS.map(({ id, component }) => (
           <div className="relative" key={id}>
