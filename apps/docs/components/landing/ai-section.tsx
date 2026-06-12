@@ -275,7 +275,7 @@ export function AISection() {
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
           eyebrow="AI-Native"
-          title="Built for AI-Assisted Development"
+          title="Built for AI-assisted development"
         />
 
         <motion.div

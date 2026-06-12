@@ -38,7 +38,7 @@ export function ComponentsSlideshow() {
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
       <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
-        Components Showcase
+        Components showcase
       </h2>
       <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
         {SHOWCASE_COMPONENTS.map(({ id, component }) => (
@@ -54,7 +54,7 @@ export function ComponentsSlideshow() {
       </div>
       <div className="mx-auto mt-8 flex justify-center">
         <Button asChild variant="candy">
-          <Link href="/docs/components">View All Components</Link>
+          <Link href="/docs/components">View all components</Link>
         </Button>
       </div>
     </section>

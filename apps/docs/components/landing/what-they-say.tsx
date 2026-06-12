@@ -207,7 +207,7 @@ export function WhatTheySay() {
                 : { opacity: 1, transform: "translateY(0px)" }
             }
           >
-            What They Say About Us
+            What they say about us
           </motion.h2>
           <motion.p
             className="mx-auto mt-4 max-w-2xl text-foreground/70 text-lg"
