@@ -176,15 +176,22 @@ const SideTile = ({
   slot,
   active,
   reduce,
+  align,
 }: {
   slot: { data: Testimonial };
   active: boolean;
   reduce: boolean | null;
+  align: "start" | "end";
 }) => (
   <motion.div
     className={cn(
       "relative min-h-0 overflow-hidden rounded-2xl",
-      active ? "w-full flex-[1.7]" : "aspect-square flex-1 self-center"
+      active
+        ? "w-full flex-[1.7]"
+        : cn(
+            "aspect-square flex-1",
+            align === "end" ? "self-end" : "self-start"
+          )
     )}
     layout
     transition={reduce ? { duration: 0 } : morphSpring}
@@ -316,11 +323,13 @@ export function WhatTheySay() {
           <div className="flex w-[210px] flex-col gap-3">
             <SideTile
               active={lt.activePage === page}
+              align="end"
               reduce={shouldReduceMotion}
               slot={lt}
             />
             <SideTile
               active={lb.activePage === page}
+              align="end"
               reduce={shouldReduceMotion}
               slot={lb}
             />
@@ -329,11 +338,13 @@ export function WhatTheySay() {
           <div className="flex w-[210px] flex-col gap-3">
             <SideTile
               active={rt.activePage === page}
+              align="start"
               reduce={shouldReduceMotion}
               slot={rt}
             />
             <SideTile
               active={rb.activePage === page}
+              align="start"
               reduce={shouldReduceMotion}
               slot={rb}
             />
