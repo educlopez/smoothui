@@ -305,11 +305,11 @@ export function AISection() {
               className="object-cover"
               fill
               sizes="(max-width: 768px) 100vw, 420px"
-              src="/blur/ai-mcp.jpg"
+              src="/scenes/ai-mcp.jpg"
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
             <div className="relative flex flex-1 items-center justify-center p-6">
-              <div className="w-full max-w-xs rounded-2xl border border-white/30 bg-background/90 p-4 shadow-lg backdrop-blur-md">
+              <div className="w-full max-w-xs rounded-2xl border border-border bg-background p-4 shadow-lg">
                 <McpIllustration />
               </div>
             </div>

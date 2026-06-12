@@ -32,7 +32,7 @@ const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
 // Center feature card per page (crossfades).
 const CENTERS: { image: string; data: Testimonial }[] = [
   {
-    image: "/testimonials/landscape-2.jpg",
+    image: "/scenes/testimonial-1.jpg",
     data: {
       id: "orcdev",
       name: "OrcDev",
@@ -43,7 +43,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
     },
   },
   {
-    image: "/testimonials/landscape-1.jpg",
+    image: "/scenes/testimonial-2.jpg",
     data: {
       id: "jaykosai",
       name: "jeth.eth",
