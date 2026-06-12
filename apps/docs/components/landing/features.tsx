@@ -72,6 +72,17 @@ const CardHeading = ({
   </>
 );
 
+const WindowChrome = ({ label }: { label: string }) => (
+  <div className="flex items-center gap-1.5 border-border border-b px-3 py-2">
+    <span className="size-2 rounded-full bg-smooth-400" />
+    <span className="size-2 rounded-full bg-smooth-400" />
+    <span className="size-2 rounded-full bg-smooth-400" />
+    <span className="ml-1.5 font-mono text-[10px] text-muted-foreground">
+      {label}
+    </span>
+  </div>
+);
+
 export function Features() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
@@ -125,9 +136,12 @@ export function Features() {
 
         {/* Modern React — a real code snippet */}
         <div className={cn(cardBase, "lg:col-span-2")}>
-          <pre className="mb-4 overflow-x-auto rounded-lg border bg-background p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
-            <code>{REACT_SNIPPET}</code>
-          </pre>
+          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+            <WindowChrome label="orb.tsx" />
+            <pre className="overflow-x-auto p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
+              <code>{REACT_SNIPPET}</code>
+            </pre>
+          </div>
           <CardHeading
             description="Server Components, TypeScript and hooks throughout — built for React 19."
             icon={ReactLogo}
@@ -137,15 +151,18 @@ export function Features() {
 
         {/* Tailwind v4 — real token / utility chips */}
         <div className={cardBase}>
-          <div className="mb-4 flex flex-wrap gap-1.5">
-            {TOKEN_CHIPS.map((token) => (
-              <span
-                className="rounded-md border bg-background px-2 py-1 font-mono text-[10px] text-muted-foreground"
-                key={token}
-              >
-                {token}
-              </span>
-            ))}
+          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+            <WindowChrome label="globals.css" />
+            <div className="flex flex-wrap gap-1.5 p-3">
+              {TOKEN_CHIPS.map((token) => (
+                <span
+                  className="rounded-md border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground"
+                  key={token}
+                >
+                  {token}
+                </span>
+              ))}
+            </div>
           </div>
           <CardHeading
             description="The latest utility-first engine, with a unified token spine."
@@ -156,10 +173,13 @@ export function Features() {
 
         {/* shadcn — the real install command */}
         <div className={cardBase}>
-          <div className="mb-4 overflow-x-auto rounded-lg border bg-background p-3 font-mono text-[11px] leading-relaxed">
-            <span className="select-none text-muted-foreground">$ </span>
-            <span className="text-foreground/80">npx shadcn add </span>
-            <span className="text-brand">@smoothui/siri-orb</span>
+          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+            <WindowChrome label="Terminal" />
+            <div className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed">
+              <span className="select-none text-muted-foreground">$ </span>
+              <span className="text-foreground/80">npx shadcn add </span>
+              <span className="text-brand">@smoothui/siri-orb</span>
+            </div>
           </div>
           <CardHeading
             description="Drops into any shadcn project — same patterns, one command."

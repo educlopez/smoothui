@@ -113,8 +113,10 @@ function ApiIllustration() {
             : { opacity: 1, transform: "scale(1)" }
         }
       >
-        <div className="flex justify-between text-sm">
-          <span className="text-foreground/50">GET</span>
+        <div className="flex items-center justify-between text-sm">
+          <span className="rounded bg-brand/10 px-1.5 py-0.5 font-semibold text-[10px] text-brand">
+            GET
+          </span>
           <span className="font-mono text-foreground/50 text-xs">
             /api/v1/suggest
           </span>
