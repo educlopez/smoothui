@@ -18,61 +18,53 @@ function McpIllustration() {
       : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
 
   return (
-    <div aria-hidden className="mx-auto max-w-56 self-end">
-      <div className="space-y-2">
-        <motion.div
-          className="flex items-center gap-2"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          transition={bubbleTransition(0)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-        >
-          <AgentAvatar
-            animated
-            className="rounded-full"
-            seed="SmoothUI Agent"
-            size={20}
-          />
-          <span className="text-foreground/60 text-sm">AI Agent</span>
-        </motion.div>
-        <motion.div
-          className="w-fit rounded-2xl rounded-tl border border-border bg-background p-2.5 text-foreground/70 text-xs"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(8px)" }
-          }
-          transition={bubbleTransition(0.1)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          Install the <span className="text-brand">SiriOrb</span> component from
-          smoothui
-        </motion.div>
-        <motion.div
-          className="ml-auto w-fit rounded-2xl rounded-tr border border-border bg-muted p-2.5 text-foreground/70 text-xs"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(8px)" }
-          }
-          transition={bubbleTransition(0.25)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px)" }
-          }
-        >
-          <code className="font-mono text-[11px]">
+    <div aria-hidden className="mx-auto w-full max-w-64 space-y-3">
+      {/* User message — right */}
+      <motion.div
+        className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-brand px-3 py-2 text-white text-xs"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 0, transform: "translateY(8px)" }
+        }
+        transition={bubbleTransition(0.05)}
+        viewport={{ once: true, amount: 0.5 }}
+        whileInView={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 1, transform: "translateY(0px)" }
+        }
+      >
+        Install the SiriOrb component from smoothui
+      </motion.div>
+      {/* AI agent reply — left, with avatar */}
+      <motion.div
+        className="flex items-end gap-2"
+        initial={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 0, transform: "translateY(8px)" }
+        }
+        transition={bubbleTransition(0.25)}
+        viewport={{ once: true, amount: 0.5 }}
+        whileInView={
+          shouldReduceMotion
+            ? { opacity: 1 }
+            : { opacity: 1, transform: "translateY(0px)" }
+        }
+      >
+        <AgentAvatar
+          animated
+          className="shrink-0 rounded-full"
+          seed="SmoothUI Agent"
+          size={24}
+        />
+        <div className="w-fit max-w-[85%] rounded-2xl rounded-bl-sm border border-border bg-background px-3 py-2">
+          <code className="font-mono text-[11px] text-foreground/80">
             npx shadcn@latest add @smoothui/siri-orb
           </code>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
