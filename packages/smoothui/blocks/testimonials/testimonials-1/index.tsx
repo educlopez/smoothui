@@ -1,7 +1,7 @@
 "use client";
 
 import { getAvatarUrl, getTestimonials } from "@smoothui/data";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const TESTIMONIAL_COUNT = 4;
@@ -21,6 +21,7 @@ const testimonials = getTestimonials(TESTIMONIAL_COUNT).map((testimonial) => ({
 }));
 
 export function TestimonialsSimple() {
+  const shouldReduceMotion = useReducedMotion();
   const [index, setIndex] = useState(0);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -42,12 +43,24 @@ export function TestimonialsSimple() {
         <div className="min-h-[120px] w-full">
           <AnimatePresence mode="wait">
             <motion.blockquote
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="mb-8 text-center font-semibold text-2xl text-foreground leading-tight md:text-4xl"
-              exit={{ opacity: 0, y: -30 }}
-              initial={{ opacity: 0, y: 30 }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, y: -30 }
+              }
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
+              }
               key={index}
-              transition={{ type: "spring" as const, duration: 0.5 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring" as const, duration: 0.5 }
+              }
             >
               &ldquo;{testimonials[index].quote}&rdquo;
             </motion.blockquote>
@@ -56,16 +69,33 @@ export function TestimonialsSimple() {
         <div className="flex w-full max-w-lg items-center justify-center gap-8 pt-8">
           <AnimatePresence initial={false} mode="wait">
             <motion.div
-              animate={{ opacity: 1, filter: "blur(0px)" }}
+              animate={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 1, filter: "blur(0px)" }
+              }
               className="flex items-center gap-4"
-              exit={{ opacity: 0, filter: "blur(8px)" }}
-              initial={{ opacity: 0, filter: "blur(8px)" }}
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, filter: "blur(8px)" }
+              }
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, filter: "blur(8px)" }
+              }
               key={index}
-              transition={{ type: "spring" as const, duration: 0.5 }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { type: "spring" as const, duration: 0.5 }
+              }
             >
               <img
                 alt={`${testimonials[index].name} avatar`}
                 className="h-12 w-12 rounded-full border bg-foreground/10 object-cover"
+                draggable={false}
                 height={48}
                 src={getAvatarUrl(testimonials[index].avatar, AVATAR_SIZE)}
                 width={48}
@@ -88,40 +118,60 @@ export function TestimonialsSimple() {
             const isActive = i === index;
             return (
               <motion.span
-                animate={{
-                  width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
-                  height: CIRCLE_SIZE,
-                  borderRadius: isActive
-                    ? BORDER_RADIUS_ACTIVE
-                    : BORDER_RADIUS_INACTIVE,
-                }}
+                animate={
+                  shouldReduceMotion
+                    ? {
+                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
+                        height: CIRCLE_SIZE,
+                        borderRadius: isActive
+                          ? BORDER_RADIUS_ACTIVE
+                          : BORDER_RADIUS_INACTIVE,
+                      }
+                    : {
+                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
+                        height: CIRCLE_SIZE,
+                        borderRadius: isActive
+                          ? BORDER_RADIUS_ACTIVE
+                          : BORDER_RADIUS_INACTIVE,
+                      }
+                }
                 className="relative block overflow-hidden bg-foreground/10"
                 initial={false}
                 key={`testimonial-${testimonial.name}-${i}`}
-                layout
+                layout={!shouldReduceMotion}
                 style={{
                   minWidth: CIRCLE_SIZE,
                   maxWidth: BAR_WIDTH,
                   border: "none",
                 }}
-                transition={{
-                  type: "spring" as const,
-                  stiffness: 300,
-                  damping: 30,
-                  duration: 0.4,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        type: "spring" as const,
+                        stiffness: 300,
+                        damping: 30,
+                        duration: 0.4,
+                      }
+                }
               >
                 {isActive && (
                   <motion.div
                     animate={{ width: "100%" }}
                     className="absolute top-0 left-0 h-full rounded-lg bg-brand"
                     exit={{ width: 0 }}
-                    initial={{ width: 0 }}
+                    initial={
+                      shouldReduceMotion ? { width: "100%" } : { width: 0 }
+                    }
                     key={index}
-                    transition={{
-                      duration: DURATION / MILLISECONDS_TO_SECONDS,
-                      ease: "linear",
-                    }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            duration: DURATION / MILLISECONDS_TO_SECONDS,
+                            ease: "linear",
+                          }
+                    }
                   />
                 )}
               </motion.span>

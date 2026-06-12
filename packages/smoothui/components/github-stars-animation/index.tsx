@@ -244,6 +244,7 @@ export default function GitHubStarsAnimation({
               <img
                 alt={`${stargazer.login}'s avatar`}
                 className="h-full w-full object-cover"
+                draggable={false}
                 src={stargazer.avatar_url}
               />
             </motion.a>

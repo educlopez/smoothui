@@ -1,7 +1,7 @@
 "use client";
 
 import { getImageKitUrl } from "@smoothui/data";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroProductProps {
@@ -39,31 +39,52 @@ export function HeroProduct({
   }),
   imageAlt = "SmoothUI desktop application interface",
 }: HeroProductProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <div className="relative">
       <HeroHeader />
       <main>
         <motion.section
-          animate={{ opacity: 1, scale: 1 }}
+          animate={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
+          }
           className="relative overflow-hidden"
-          initial={{ opacity: 0, scale: 1.02 }}
-          transition={{
-            duration: 0.8,
-            ease: [0.25, 0.46, 0.45, 0.94], // ease-out-quad
-          }}
+          initial={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 1.02 }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : {
+                  duration: 0.8,
+                  ease: [0.25, 0.46, 0.45, 0.94], // ease-out-quad
+                }
+          }
         >
           <div className="py-20 md:py-36">
             <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
               <AnimatedGroup className="space-y-8" preset="blur-slide">
                 {/* Badge with animated sparkle */}
                 <motion.div
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  initial={{ opacity: 0, y: 20, scale: 0.9 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.1,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
+                  animate={
+                    shouldReduceMotion
+                      ? { opacity: 1 }
+                      : { opacity: 1, y: 0, scale: 1 }
+                  }
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 1 }
+                      : { opacity: 0, y: 20, scale: 0.9 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : {
+                          duration: 0.6,
+                          delay: 0.1,
+                          ease: [0.25, 0.46, 0.45, 0.94],
+                        }
+                  }
                 >
                   <a
                     className="mx-auto flex w-fit items-center justify-center gap-2 rounded-md py-0.5 pr-3 pl-1 transition-colors duration-200 ease-out hover:bg-foreground/5"
@@ -119,14 +140,22 @@ export function HeroProduct({
 
                 {/* CTA buttons with staggered animation */}
                 <motion.div
-                  animate={{ opacity: 1, y: 0 }}
+                  animate={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                  }
                   className="flex items-center justify-center gap-3"
-                  initial={{ opacity: 0, y: 20 }}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.4,
-                    ease: [0.25, 0.46, 0.45, 0.94],
-                  }}
+                  initial={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : {
+                          duration: 0.6,
+                          delay: 0.4,
+                          ease: [0.25, 0.46, 0.45, 0.94],
+                        }
+                  }
                 >
                   <motion.div
                     transition={{
@@ -134,8 +163,8 @@ export function HeroProduct({
                       stiffness: 400,
                       damping: 10,
                     }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <Button asChild size="lg" variant="candy">
                       <a href={primaryButton.url}>
@@ -152,8 +181,8 @@ export function HeroProduct({
                       stiffness: 400,
                       damping: 10,
                     }}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <Button asChild size="lg" variant="outline">
                       <a href={secondaryButton.url}>
@@ -186,10 +215,14 @@ export function HeroProduct({
                     stiffness: 300,
                     damping: 20,
                   }}
-                  whileHover={{
-                    scale: 1.02,
-                    rotateY: 2,
-                  }}
+                  whileHover={
+                    shouldReduceMotion
+                      ? {}
+                      : {
+                          scale: 1.02,
+                          rotateY: 2,
+                        }
+                  }
                 >
                   <motion.div
                     className="relative mx-auto overflow-hidden rounded-(--radius) border border-transparent bg-background shadow-black/10 shadow-lg ring-1 ring-black/10"
@@ -201,23 +234,34 @@ export function HeroProduct({
                       duration: 0.3,
                       ease: [0.25, 0.46, 0.45, 0.94],
                     }}
-                    whileHover={{
-                      boxShadow:
-                        "0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1)",
-                    }}
+                    whileHover={
+                      shouldReduceMotion
+                        ? {}
+                        : {
+                            boxShadow:
+                              "0 20px 40px -10px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.1)",
+                          }
+                    }
                   >
                     <motion.div
                       animate={{ scale: 1 }}
-                      initial={{ scale: 1.05 }}
-                      transition={{
-                        duration: 1.2,
-                        delay: 0.8,
-                        ease: [0.25, 0.46, 0.45, 0.94],
-                      }}
+                      initial={
+                        shouldReduceMotion ? { scale: 1 } : { scale: 1.05 }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : {
+                              duration: 1.2,
+                              delay: 0.8,
+                              ease: [0.25, 0.46, 0.45, 0.94],
+                            }
+                      }
                     >
                       <img
                         alt={imageAlt}
                         className="h-auto w-full"
+                        draggable={false}
                         height="1842"
                         src={imageSrc}
                         width="2880"

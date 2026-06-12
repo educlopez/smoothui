@@ -20,15 +20,17 @@ interface PreviewContentProps {
 
 export type PreviewSize = "desktop" | "tablet" | "mobile";
 
-const SIZE_TO_PERCENT: Record<PreviewSize, number> = {
-  desktop: 100,
-  tablet: 60,
-  mobile: 30,
+// react-resizable-panels v4 reads bare numbers as pixels — percentages must
+// be passed as "%" strings or the panel constraints collapse and lock.
+const SIZE_TO_PERCENT: Record<PreviewSize, string> = {
+  desktop: "100%",
+  tablet: "60%",
+  mobile: "30%",
 };
 
 const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
-const COMPONENT_PANEL_MIN_SIZE = 40;
-const BLOCK_PANEL_MIN_SIZE = 30;
+const COMPONENT_PANEL_MIN_SIZE = "40%";
+const BLOCK_PANEL_MIN_SIZE = "30%";
 const IFRAME_MIN_HEIGHT_REM = 32;
 const REM_IN_PX = 16;
 const BLOCK_PREVIEW_MIN_HEIGHT_PX = BLOCK_PREVIEW_MIN_HEIGHT_REM * REM_IN_PX;
@@ -183,8 +185,8 @@ export const PreviewContent = ({
                   `min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
                 )
           )}
-          defaultSize={100}
-          maxSize={100}
+          defaultSize="100%"
+          maxSize="100%"
           minSize={
             type === "block" ? BLOCK_PANEL_MIN_SIZE : COMPONENT_PANEL_MIN_SIZE
           }
@@ -211,15 +213,12 @@ export const PreviewContent = ({
             children
           )}
         </ResizablePanel>
-        <ResizableHandle
-          className="peer-data-[panel-size=100.0]:w-0"
-          withHandle
-        />
+        <ResizableHandle withHandle />
         <ResizablePanel
           className={cn("bg-background", "border-none")}
-          defaultSize={0}
-          maxSize={70}
-          minSize={0}
+          defaultSize="0%"
+          maxSize="70%"
+          minSize="0%"
         />
       </ResizablePanelGroup>
     </div>

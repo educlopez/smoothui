@@ -135,7 +135,7 @@ export default function NumberFlow({
   return (
     <div
       className={cn(
-        "flex min-h-screen flex-col items-center justify-center gap-8",
+        "flex flex-col items-center justify-center gap-8",
         className
       )}
     >

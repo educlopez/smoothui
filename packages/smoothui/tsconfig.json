@@ -15,7 +15,9 @@
     "hooks/**/*.ts",
     "hooks/**/*.tsx",
     "utils/**/*.ts",
-    "lib/**/*.ts"
+    "lib/**/*.ts",
+    "test-utils/**/*.ts",
+    "test-utils/**/*.tsx"
   ],
   "exclude": ["node_modules", "dist"]
 }

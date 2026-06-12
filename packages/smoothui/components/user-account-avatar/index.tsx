@@ -185,6 +185,7 @@ export default function UserAccountAvatar({
           <img
             alt="User Avatar"
             className="rounded-full"
+            draggable={false}
             height={48}
             src={userData.avatar}
             width={48}

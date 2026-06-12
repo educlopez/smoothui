@@ -1,14 +1,12 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 
 const ANIMATION_DURATION = 0.6;
 const DELAY_INCREMENT = 0.1;
 const HOVER_SCALE = 1.1;
 const TAP_SCALE = 0.9;
-const BUTTON_HOVER_SCALE = 1.02;
-const BUTTON_TAP_SCALE = 0.98;
 const DELAY_PRODUCT = DELAY_INCREMENT * 2;
 const DELAY_COMPANY = DELAY_INCREMENT * 3;
 const DELAY_SUPPORT = DELAY_INCREMENT * 4;
@@ -87,28 +85,44 @@ export function FooterComplex({
   },
   copyright = "© 2024 Smoothui. All rights reserved.",
 }: FooterComplexProps) {
+  const shouldReduceMotion = useReducedMotion();
+  const socialHover = shouldReduceMotion ? {} : { scale: HOVER_SCALE };
+  const socialTap = shouldReduceMotion ? {} : { scale: TAP_SCALE };
   return (
     <footer className="border-border border-t bg-background">
       <div className="mx-auto max-w-7xl px-6 py-16">
         <motion.div
-          animate={{ opacity: 1, y: 0 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="grid grid-cols-1 gap-12 lg:grid-cols-12"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: ANIMATION_DURATION }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: ANIMATION_DURATION }
+          }
           viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+          }
         >
           {/* Company Info & Newsletter */}
           <div className="lg:col-span-5">
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{
-                duration: ANIMATION_DURATION,
-                delay: DELAY_INCREMENT,
-              }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+              }
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: ANIMATION_DURATION, delay: DELAY_INCREMENT }
+              }
               viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
             >
               <h3 className="mb-4 font-bold text-2xl text-foreground">
                 {companyName}
@@ -146,8 +160,8 @@ export function FooterComplex({
                     href={social.twitter}
                     rel="noopener noreferrer"
                     target="_blank"
-                    whileHover={{ scale: HOVER_SCALE }}
-                    whileTap={{ scale: TAP_SCALE }}
+                    whileHover={socialHover}
+                    whileTap={socialTap}
                   >
                     <svg
                       aria-hidden="true"
@@ -166,8 +180,8 @@ export function FooterComplex({
                     href={social.linkedin}
                     rel="noopener noreferrer"
                     target="_blank"
-                    whileHover={{ scale: HOVER_SCALE }}
-                    whileTap={{ scale: TAP_SCALE }}
+                    whileHover={socialHover}
+                    whileTap={socialTap}
                   >
                     <svg
                       aria-hidden="true"
@@ -186,8 +200,8 @@ export function FooterComplex({
                     href={social.github}
                     rel="noopener noreferrer"
                     target="_blank"
-                    whileHover={{ scale: HOVER_SCALE }}
-                    whileTap={{ scale: TAP_SCALE }}
+                    whileHover={socialHover}
+                    whileTap={socialTap}
                   >
                     <svg
                       aria-hidden="true"
@@ -206,8 +220,8 @@ export function FooterComplex({
                     href={social.discord}
                     rel="noopener noreferrer"
                     target="_blank"
-                    whileHover={{ scale: HOVER_SCALE }}
-                    whileTap={{ scale: TAP_SCALE }}
+                    whileHover={socialHover}
+                    whileTap={socialTap}
                   >
                     <svg
                       aria-hidden="true"
@@ -226,8 +240,8 @@ export function FooterComplex({
                     href={social.youtube}
                     rel="noopener noreferrer"
                     target="_blank"
-                    whileHover={{ scale: HOVER_SCALE }}
-                    whileTap={{ scale: TAP_SCALE }}
+                    whileHover={socialHover}
+                    whileTap={socialTap}
                   >
                     <svg
                       aria-hidden="true"
@@ -248,14 +262,21 @@ export function FooterComplex({
           <div className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-4">
             {links.product && (
               <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: ANIMATION_DURATION,
-                  delay: DELAY_PRODUCT,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: ANIMATION_DURATION, delay: DELAY_PRODUCT }
+                }
                 viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
               >
                 <h4 className="mb-4 font-semibold text-foreground text-sm uppercase tracking-wide">
                   Product
@@ -277,14 +298,21 @@ export function FooterComplex({
 
             {links.company && (
               <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: ANIMATION_DURATION,
-                  delay: DELAY_COMPANY,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: ANIMATION_DURATION, delay: DELAY_COMPANY }
+                }
                 viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
               >
                 <h4 className="mb-4 font-semibold text-foreground text-sm uppercase tracking-wide">
                   Company
@@ -306,14 +334,21 @@ export function FooterComplex({
 
             {links.support && (
               <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: ANIMATION_DURATION,
-                  delay: DELAY_SUPPORT,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: ANIMATION_DURATION, delay: DELAY_SUPPORT }
+                }
                 viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
               >
                 <h4 className="mb-4 font-semibold text-foreground text-sm uppercase tracking-wide">
                   Support
@@ -335,14 +370,21 @@ export function FooterComplex({
 
             {links.legal && (
               <motion.div
-                animate={{ opacity: 1, y: 0 }}
-                initial={{ opacity: 0, y: 20 }}
-                transition={{
-                  duration: ANIMATION_DURATION,
-                  delay: DELAY_LEGAL,
-                }}
+                animate={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { duration: ANIMATION_DURATION, delay: DELAY_LEGAL }
+                }
                 viewport={{ once: true }}
-                whileInView={{ opacity: 1, y: 0 }}
+                whileInView={
+                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+                }
               >
                 <h4 className="mb-4 font-semibold text-foreground text-sm uppercase tracking-wide">
                   Legal

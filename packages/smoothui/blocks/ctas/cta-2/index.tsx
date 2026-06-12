@@ -62,6 +62,7 @@ export function CtaSplit() {
               <img
                 alt="Product preview showing animated UI components"
                 className="h-auto w-full object-cover"
+                draggable={false}
                 src={getImageKitUrl("/images/hero-smoothui.png", {
                   width: 800,
                   quality: 85,

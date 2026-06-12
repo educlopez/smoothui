@@ -9,6 +9,36 @@ icon: History
 > [GitHub Releases](https://github.com/educlopez/smoothui/releases) or
 > [`CHANGELOG.md`](https://github.com/educlopez/smoothui/blob/main/CHANGELOG.md).
 
+## 3.5.0
+
+<ChangelogEntry date="Jun 11, 2026" version="3.5.0" title="Theme Studio, Installable Themes & Accessibility">
+
+### Theme Studio
+
+- New **[Theme Studio](/themes)**: a draggable, infinite-canvas board previewing all 70 component demos with your theme applied live
+- Dialkit-style inspector with palette, light/dark, font, neutral tint, a continuous radius scrubber, and an accent lightness scrubber
+- Component search and one-click board re-centering
+
+### Installable Themes & Presets
+
+- Six **`registry:theme`** items (`theme-candy` … `theme-green`) installable in any shadcn project — full token set, light and dark, Radix and Base UI compatible
+- **SmoothUI presets**: shareable codes (`s1.…`) that round-trip the entire studio state via URL, and install as on-the-fly custom themes through `theme-custom-<code>.json`
+- Per-palette [shadcn/create](https://ui.shadcn.com/create) preset mapping, labeled as approximation
+
+### Accessibility & Quality
+
+- **100% `prefers-reduced-motion` compliance**: every animated block now renders statically under reduced motion (WCAG 2.1 SC 2.3.3)
+- Fixed real accessibility violations caught by new tests: unlabeled logo links, unlabeled carousel buttons, invalid `<dl>` structure
+- All images across the library are now non-draggable, so drag interactions never fight browser ghost-drags
+
+### Registry & Infrastructure
+
+- Registry content rewriting: installed components and blocks now ship with fully resolvable imports (no more workspace specifiers leaking)
+- Blocks correctly typed as `registry:block`; new `lib` (animation constants) and `data` items; AI **skill** item installable at `/r/skill.json`
+- Test suite grew from 106 to 186 tests (every block and component covered) with coverage gates in CI, plus typecheck and registry-validation CI jobs
+
+</ChangelogEntry>
+
 ## 3.4.0
 
 <ChangelogEntry date="Mar 7, 2026" version="3.4.0" title="AI-First Developer Experience">

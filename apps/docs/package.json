@@ -5,7 +5,8 @@
   "scripts": {
     "build": "next build --turbopack",
     "dev": "next dev --turbopack",
-    "start": "next start"
+    "start": "next start",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.0.7",
@@ -46,7 +47,7 @@
     "remark-math": "^6.0.0",
     "remark-mdx": "^3.1.1",
     "remark-rehype": "^11.1.2",
-    "shadcn": "^4.3.0",
+    "shadcn": "^4.11.0",
     "shiki": "^4.0.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",

@@ -3,7 +3,7 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Menu, X } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const menuItems = [
@@ -32,6 +32,7 @@ const TRANSLATE_Y_OFFSET = -10;
 const TRANSLATE_X_OFFSET = -10;
 
 export const HeroHeader = () => {
+  const shouldReduceMotion = useReducedMotion();
   const [menuState, setMenuState] = useState(false);
 
   return (
@@ -50,6 +51,7 @@ export const HeroHeader = () => {
                   <img
                     alt="SmoothUI logo"
                     className={cn("h-6 w-auto", "dark:filter", "dark:invert")}
+                    draggable={false}
                     height={28}
                     src="/logo-smoothui.svg"
                     width={140}
@@ -65,43 +67,75 @@ export const HeroHeader = () => {
                   <AnimatePresence mode="wait">
                     {menuState ? (
                       <motion.div
-                        animate={{ opacity: 1, rotate: 0, scale: SCALE_MAX }}
-                        exit={{
-                          opacity: 0,
-                          rotate: -ROTATION_ANGLE,
-                          scale: SCALE_MIN,
-                        }}
-                        initial={{
-                          opacity: 0,
-                          rotate: ROTATION_ANGLE,
-                          scale: SCALE_MIN,
-                        }}
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, rotate: 0, scale: SCALE_MAX }
+                        }
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0, transition: { duration: 0 } }
+                            : {
+                                opacity: 0,
+                                rotate: -ROTATION_ANGLE,
+                                scale: SCALE_MIN,
+                              }
+                        }
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : {
+                                opacity: 0,
+                                rotate: ROTATION_ANGLE,
+                                scale: SCALE_MIN,
+                              }
+                        }
                         key="close"
-                        transition={{
-                          duration: ANIMATION_DURATION,
-                          ease: EASE_OUT_QUART,
-                        }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                duration: ANIMATION_DURATION,
+                                ease: EASE_OUT_QUART,
+                              }
+                        }
                       >
                         <X className="m-auto size-6" />
                       </motion.div>
                     ) : (
                       <motion.div
-                        animate={{ opacity: 1, rotate: 0, scale: SCALE_MAX }}
-                        exit={{
-                          opacity: 0,
-                          rotate: ROTATION_ANGLE,
-                          scale: SCALE_MIN,
-                        }}
-                        initial={{
-                          opacity: 0,
-                          rotate: -ROTATION_ANGLE,
-                          scale: SCALE_MIN,
-                        }}
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, rotate: 0, scale: SCALE_MAX }
+                        }
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0, transition: { duration: 0 } }
+                            : {
+                                opacity: 0,
+                                rotate: ROTATION_ANGLE,
+                                scale: SCALE_MIN,
+                              }
+                        }
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : {
+                                opacity: 0,
+                                rotate: -ROTATION_ANGLE,
+                                scale: SCALE_MIN,
+                              }
+                        }
                         key="menu"
-                        transition={{
-                          duration: ANIMATION_DURATION,
-                          ease: EASE_OUT_QUART,
-                        }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                duration: ANIMATION_DURATION,
+                                ease: EASE_OUT_QUART,
+                              }
+                        }
                       >
                         <Menu className="m-auto size-6" />
                       </motion.div>
@@ -127,27 +161,55 @@ export const HeroHeader = () => {
               <AnimatePresence>
                 {menuState && (
                   <motion.div
-                    animate={{ opacity: 1, y: 0, scale: SCALE_MAX }}
+                    animate={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 1, y: 0, scale: SCALE_MAX }
+                    }
                     className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent"
-                    exit={{ opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }}
-                    initial={{ opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }}
-                    transition={{
-                      duration: ANIMATION_DURATION,
-                      ease: EASE_OUT_QUART,
-                    }}
+                    exit={
+                      shouldReduceMotion
+                        ? { opacity: 0, transition: { duration: 0 } }
+                        : { opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }
+                    }
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }
+                    }
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : {
+                            duration: ANIMATION_DURATION,
+                            ease: EASE_OUT_QUART,
+                          }
+                    }
                   >
                     <div className="lg:hidden">
                       <ul className="space-y-6 text-base">
                         {menuItems.map((item, index) => (
                           <motion.li
-                            animate={{ opacity: 1, x: 0 }}
-                            initial={{ opacity: 0, x: TRANSLATE_X_OFFSET }}
+                            animate={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 1, x: 0 }
+                            }
+                            initial={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 0, x: TRANSLATE_X_OFFSET }
+                            }
                             key={item.id}
-                            transition={{
-                              delay: index * STAGGER_DELAY,
-                              duration: ANIMATION_DURATION,
-                              ease: EASE_OUT_QUART,
-                            }}
+                            transition={
+                              shouldReduceMotion
+                                ? { duration: 0 }
+                                : {
+                                    delay: index * STAGGER_DELAY,
+                                    duration: ANIMATION_DURATION,
+                                    ease: EASE_OUT_QUART,
+                                  }
+                            }
                           >
                             <a
                               className="block text-muted-foreground duration-150 hover:text-accent-foreground"
@@ -161,14 +223,28 @@ export const HeroHeader = () => {
                       </ul>
                     </div>
                     <motion.div
-                      animate={{ opacity: 1, y: 0 }}
+                      animate={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { opacity: 1, y: 0 }
+                      }
                       className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit"
-                      initial={{ opacity: 0, y: 10 }}
-                      transition={{
-                        delay: menuItems.length * STAGGER_DELAY + STAGGER_DELAY,
-                        duration: ANIMATION_DURATION,
-                        ease: EASE_OUT_QUART,
-                      }}
+                      initial={
+                        shouldReduceMotion
+                          ? { opacity: 1 }
+                          : { opacity: 0, y: 10 }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : {
+                              delay:
+                                menuItems.length * STAGGER_DELAY +
+                                STAGGER_DELAY,
+                              duration: ANIMATION_DURATION,
+                              ease: EASE_OUT_QUART,
+                            }
+                      }
                     >
                       <SmoothButton
                         onClick={() => setMenuState(false)}

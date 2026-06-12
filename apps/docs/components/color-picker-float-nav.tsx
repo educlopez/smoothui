@@ -7,12 +7,23 @@ import {
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
-import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  CheckCheck,
+  Copy,
+  RotateCcw,
+  Save,
+} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
 const CLOSE_DELAY = 200;
 const SAVE_MESSAGE_DURATION = 1200;
+const COPY_MESSAGE_DURATION = 1200;
+
+const themeInstallCommand = (paletteName: string) =>
+  `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName.toLowerCase()}.json`;
 
 const PALETTES = [
   {
@@ -54,7 +65,24 @@ export function ColorPickerFloatNav() {
   const pickerRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  const selectedPalette = PALETTES.find(
+    (palette) =>
+      palette.candy === candy && palette.candySecondary === candySecondary
+  );
+
+  async function handleCopyInstall() {
+    if (!selectedPalette) {
+      return;
+    }
+    await navigator.clipboard.writeText(
+      themeInstallCommand(selectedPalette.name)
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), COPY_MESSAGE_DURATION);
+  }
 
   useEffect(() => {
     const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
@@ -246,6 +274,27 @@ export function ColorPickerFloatNav() {
                 </motion.button>
               ))}
             </div>
+            {selectedPalette && (
+              <Button
+                aria-label={`Copy install command for the ${selectedPalette.name} theme`}
+                className="w-full font-mono text-xs"
+                onClick={handleCopyInstall}
+                size="sm"
+                type="button"
+                variant="ghost"
+              >
+                {copied ? (
+                  <>
+                    <CheckCheck className="h-3.5 w-3.5" /> Copied!
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-3.5 w-3.5" /> Install{" "}
+                    {selectedPalette.name} theme
+                  </>
+                )}
+              </Button>
+            )}
             <div className="mt-2 flex justify-end gap-2">
               <Button
                 aria-label="Reset to original colors"
@@ -274,6 +323,13 @@ export function ColorPickerFloatNav() {
                 )}
               </Button>
             </div>
+            <a
+              className="mt-3 flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-foreground"
+              href="/themes"
+            >
+              Browse installable themes
+              <ArrowRight className="h-3 w-3" />
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

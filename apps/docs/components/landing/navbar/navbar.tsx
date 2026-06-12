@@ -18,6 +18,7 @@ import {
   Layers3,
   LayoutDashboard,
   PackagePlus,
+  Palette,
   Sparkles,
   Type,
   User,
@@ -229,6 +230,11 @@ export default function Navbar({ className }: NavbarProps) {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="/themes">
+            <Palette size={16} /> Themes
+          </NavigationMenuLink>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/docs/guides">
             <Book size={16} /> Docs
