@@ -29,6 +29,7 @@ import {
   Github,
   HelpCircle,
   Link as LinkIcon,
+  Star,
   Twitter,
 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -232,117 +233,69 @@ function PricingPreview() {
   );
 }
 
+const TESTIMONIAL_QUOTES = [
+  "Best component library I've shipped with.",
+  "The animations just work out of the box.",
+  "Dropped straight into my app — love it.",
+];
+
 function TestimonialPreview() {
   const people = getAllPeople().slice(0, 3);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const currentPerson = people[currentIndex] || people[0];
+  const quote = TESTIMONIAL_QUOTES[currentIndex % TESTIMONIAL_QUOTES.length];
 
-  const starVariants = {
-    rest: { scale: 1, backgroundColor: "hsl(var(--color-brand) / 0.4)" },
-    hover: { scale: 1.3, backgroundColor: "hsl(var(--color-brand) / 0.6)" },
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 20 : -20,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -20 : 20,
-      opacity: 0,
-    }),
+  const slide = {
+    enter: { opacity: 0, transform: "translateY(6px)" },
+    center: { opacity: 1, transform: "translateY(0px)" },
+    exit: { opacity: 0, transform: "translateY(-6px)" },
   };
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      onHoverStart={() => {
-        setCurrentIndex((prev) => (prev + 1) % people.length);
-      }}
-      whileHover="hover"
+      onHoverStart={() => setCurrentIndex((prev) => (prev + 1) % people.length)}
     >
-      <div className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border bg-background p-4">
-        {/* Left Arrow */}
-        <div className="absolute top-1/2 left-1 -translate-y-1/2">
-          <ChevronLeft className="h-3 w-3 text-foreground/30" />
-        </div>
-        {/* Right Arrow */}
-        <div className="absolute top-1/2 right-1 -translate-y-1/2">
-          <ChevronRight className="h-3 w-3 text-foreground/30" />
-        </div>
-        <AnimatePresence custom={1} mode="wait">
+      <div className="relative flex w-[180px] flex-col items-center gap-2 overflow-hidden rounded-xl border border-border bg-background p-4 shadow-sm">
+        <ChevronLeft className="absolute top-1/2 left-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <ChevronRight className="absolute top-1/2 right-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <AnimatePresence mode="wait">
           <motion.div
             animate="center"
-            className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full"
-            custom={1}
+            className="flex flex-col items-center gap-1.5"
             exit="exit"
             initial="enter"
             key={currentIndex}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
+            transition={{ duration: 0.25, ease: EASE_OUT_QUAD }}
+            variants={slide}
           >
-            <Image
-              alt={currentPerson?.name || "Avatar"}
-              className="h-full w-full object-cover"
-              height={32}
-              src={currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""}
-              width={32}
-            />
+            <span className="relative size-8 overflow-hidden rounded-full">
+              <Image
+                alt={currentPerson?.name || ""}
+                className="size-full object-cover"
+                height={32}
+                src={
+                  currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""
+                }
+                width={32}
+              />
+            </span>
+            <div className="flex gap-0.5">
+              {[...new Array(5)].map((_, i) => (
+                <Star
+                  className="size-2 fill-brand text-brand"
+                  // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star rating
+                  key={`star-${i}`}
+                />
+              ))}
+            </div>
+            <p className="text-balance text-center text-[9px] text-foreground/70 leading-snug">
+              “{quote}”
+            </p>
+            <span className="font-medium text-[8px] text-muted-foreground">
+              {currentPerson?.name}
+            </span>
           </motion.div>
-        </AnimatePresence>
-        <div className="flex gap-0.5">
-          {[...new Array(5)].map((_, i) => (
-            <motion.div
-              className="h-1.5 w-1.5 rounded-full bg-brand/40"
-              // biome-ignore lint/suspicious/noArrayIndexKey: Static star rating that never reorders
-              key={`star-${i}`}
-              transition={{
-                duration: 0.2,
-                delay: i * 0.03,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              variants={starVariants}
-            />
-          ))}
-        </div>
-        <AnimatePresence custom={1} mode="wait">
-          <motion.div
-            animate="center"
-            className="h-2 w-20 rounded-full bg-foreground/10"
-            custom={1}
-            exit="exit"
-            initial="enter"
-            key={`line1-${currentIndex}`}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
-          />
-        </AnimatePresence>
-        <AnimatePresence custom={1} mode="wait">
-          <motion.div
-            animate="center"
-            className="h-2 w-16 rounded-full bg-foreground/5"
-            custom={1}
-            exit="exit"
-            initial="enter"
-            key={`line2-${currentIndex}`}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
-          />
         </AnimatePresence>
       </div>
     </motion.div>
@@ -374,82 +327,58 @@ function FAQPreview() {
 
   return (
     <motion.div
-      className="group/preview relative flex h-full w-full flex-col items-center justify-center gap-4 p-4"
+      className="group/preview relative flex h-full w-full flex-col items-stretch justify-center gap-2 p-4"
       initial="open"
       whileHover="closed"
     >
-      {/* First FAQ - Expanded by default, closes on hover */}
+      {/* First FAQ — expanded by default, closes on hover */}
       <motion.div
-        className="flex flex-col overflow-hidden rounded-md border border-foreground/10 bg-background px-2 pt-2 pb-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
+        className="flex flex-col overflow-hidden rounded-md border border-border bg-background p-2"
+        transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+        whileHover={{ scale: 1.02 }}
       >
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-0.5">
-            <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-            <div className="h-2 w-16 rounded-full bg-foreground/20" />
+          <div className="flex items-center gap-1">
+            <HelpCircle className="size-2.5 shrink-0 text-brand/60" />
+            <span className="font-medium text-[9px] text-foreground/80">
+              Is it free to use?
+            </span>
           </div>
           <motion.div
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
             variants={chevronVariants}
           >
-            <ChevronDown className="h-3 w-3 text-foreground/30" />
+            <ChevronDown className="size-3 text-foreground/30" />
           </motion.div>
         </div>
-        {/* Expanded content - hidden on hover */}
         <motion.div
-          className="flex flex-col gap-1.5 overflow-hidden pl-1"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
+          className="overflow-hidden pl-3.5"
+          transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
           variants={contentVariants}
         >
-          <div className="h-1.5 w-full rounded-full bg-foreground/10" />
-          <div className="h-1.5 w-3/4 rounded-full bg-foreground/8" />
-          <div className="h-1.5 w-5/6 rounded-full bg-foreground/6" />
+          <p className="text-[8px] text-foreground/55 leading-snug">
+            Yes — MIT licensed. Copy any block into your project, free forever.
+          </p>
         </motion.div>
       </motion.div>
-      <motion.div
-        className="flex items-center justify-between gap-2 rounded-md border border-foreground/10 bg-background p-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
-      >
-        <div className="flex items-center gap-0.5">
-          <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-          <div className="h-2 w-16 rounded-full bg-foreground/15" />
-        </div>
-        <ChevronDown className="h-3 w-3 text-foreground/30" />
-      </motion.div>
-      <motion.div
-        className="flex items-center justify-between gap-2 rounded-md border border-foreground/10 bg-background p-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
-      >
-        <div className="flex items-center gap-0.5">
-          <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-          <div className="h-2 w-16 rounded-full bg-foreground/15" />
-        </div>
-        <ChevronDown className="h-3 w-3 text-foreground/30" />
-      </motion.div>
+      {["Does it work with shadcn?", "Can I customize the theme?"].map(
+        (question) => (
+          <motion.div
+            className="flex items-center justify-between gap-2 rounded-md border border-border bg-background p-2"
+            key={question}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="flex items-center gap-1">
+              <HelpCircle className="size-2.5 shrink-0 text-brand/60" />
+              <span className="font-medium text-[9px] text-foreground/80">
+                {question}
+              </span>
+            </div>
+            <ChevronDown className="size-3 text-foreground/30" />
+          </motion.div>
+        )
+      )}
     </motion.div>
   );
 }
