@@ -4,7 +4,7 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Divider from "./divider";
 
 type Testimonial = {
@@ -14,91 +14,107 @@ type Testimonial = {
   quote: string;
 };
 
-type Page = {
-  variant: "brand" | "dark";
-  feature: Testimonial;
-  sides: [Testimonial, Testimonial];
-};
-
-// Static testimonial copy (pulled from real tweets). No live embeds — full
-// control over layout and animation.
-const PAGES: Page[] = [
+// Center feature card per page (crossfades).
+const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
   {
     variant: "brand",
-    feature: {
+    data: {
       id: "orcdev",
       name: "OrcDev",
       handle: "@orcdev",
       quote:
         "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
     },
-    sides: [
-      {
-        id: "lucas",
-        name: "Lucas",
-        handle: "@Lucas_Moveset",
-        quote:
-          "Great resource! UI libraries like SmoothUI simplify your workflow and boost your project's design aesthetic. Happy coding!",
-      },
-      {
-        id: "pete",
-        name: "Peter Cruckshank",
-        handle: "@PeteCapeCod",
-        quote:
-          "I just checked out SmoothUI and that's some great stuff! 👏 Great job 👍",
-      },
-    ],
   },
   {
     variant: "dark",
-    feature: {
+    data: {
       id: "jaykosai",
       name: "jeth.eth",
       handle: "@jaykosai",
       quote:
-        "All I can say is 🙌🔥 — I'm planning to build something crazy with it.",
+        "All I can say is 🙌🔥 — planning to build something crazy with it.",
     },
-    sides: [
-      {
-        id: "potato",
-        name: "Potato Dragon",
-        handle: "@Potato___Dragon",
-        quote:
-          "I really liked the buttons on the SmoothUI website — that clickable kind of animation. Can you share it?",
-      },
-      {
-        id: "openhunts",
-        name: "openhunts",
-        handle: "@openhunts",
-        quote: "I love this UI component from @educalvolpz!",
-      },
-    ],
   },
 ];
 
+// Four side slots. Each holds one testimonial and is a card on its activePage,
+// otherwise a small square. The two slots in a column swap card/square on page
+// change — the ElevenLabs morph.
+const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
+  // left column: top, bottom
+  {
+    activePage: 0,
+    data: {
+      id: "lucas",
+      name: "Lucas",
+      handle: "@Lucas_Moveset",
+      quote:
+        "Great resource! UI libraries like SmoothUI simplify your workflow and boost your design aesthetic.",
+    },
+  },
+  {
+    activePage: 1,
+    data: {
+      id: "potato",
+      name: "Potato Dragon",
+      handle: "@Potato___Dragon",
+      quote:
+        "I really liked the buttons on SmoothUI — that clickable kind of animation. Can you share it?",
+    },
+  },
+  // right column: top, bottom
+  {
+    activePage: 1,
+    data: {
+      id: "openhunts",
+      name: "openhunts",
+      handle: "@openhunts",
+      quote: "I love this UI component from @educalvolpz!",
+    },
+  },
+  {
+    activePage: 0,
+    data: {
+      id: "pete",
+      name: "Peter Cruckshank",
+      handle: "@PeteCapeCod",
+      quote: "Checked out SmoothUI — some great stuff! 👏 Great job 👍",
+    },
+  },
+];
+
+const PAGE_COUNT = CENTERS.length;
+
 const headerSpring = { type: "spring" as const, duration: 0.35, bounce: 0.1 };
-const hoverSpring = { type: "spring" as const, duration: 0.25, bounce: 0.1 };
-const CARD_STAGGER_S = 0.07;
+const morphSpring = { type: "spring" as const, duration: 0.55, bounce: 0.14 };
+const fadeTween = { duration: 0.25, ease: [0.23, 1, 0.32, 1] as const };
 
-const Avatar = ({ seed, animated }: { seed: string; animated: boolean }) => (
-  <AgentAvatar
-    animated={animated}
-    className="size-9 shrink-0 rounded-full"
-    seed={seed}
-    size={36}
-  />
-);
-
-const PlainCard = ({ data }: { data: Testimonial }) => (
-  <div className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-6">
-    <p className="text-balance text-foreground/90 leading-relaxed">
+const PlainCard = ({
+  data,
+  compact,
+}: {
+  data: Testimonial;
+  compact?: boolean;
+}) => (
+  <div className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4">
+    <p
+      className={cn(
+        "text-balance text-foreground/90 text-sm leading-relaxed",
+        compact && "line-clamp-4"
+      )}
+    >
       {data.quote}
     </p>
-    <div className="mt-6 flex items-center gap-3">
-      <Avatar animated={false} seed={data.handle} />
+    <div className="mt-3 flex items-center gap-2">
+      <AgentAvatar
+        className="size-7 shrink-0 rounded-full"
+        seed={data.handle}
+        size={28}
+      />
       <div className="leading-tight">
-        <div className="font-medium text-foreground text-sm">{data.name}</div>
-        <div className="text-muted-foreground text-xs">{data.handle}</div>
+        <div className="font-medium text-foreground text-xs">{data.name}</div>
+        <div className="text-[11px] text-muted-foreground">{data.handle}</div>
       </div>
     </div>
   </div>
@@ -107,13 +123,15 @@ const PlainCard = ({ data }: { data: Testimonial }) => (
 const FeatureCard = ({
   data,
   variant,
+  animated,
 }: {
   data: Testimonial;
   variant: "brand" | "dark";
+  animated: boolean;
 }) => (
   <div
     className={cn(
-      "relative flex h-full min-h-[300px] flex-col justify-end overflow-hidden rounded-2xl p-7",
+      "relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6",
       variant === "brand"
         ? "bg-gradient-to-br from-brand-secondary via-brand to-brand-light text-white"
         : "bg-smooth-1000 text-smooth-50"
@@ -131,11 +149,16 @@ const FeatureCard = ({
     {variant === "brand" && (
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
     )}
-    <p className="relative text-balance font-medium text-xl leading-snug">
+    <p className="relative text-balance font-medium text-lg leading-snug">
       {data.quote}
     </p>
-    <div className="relative mt-6 flex items-center gap-3">
-      <Avatar animated seed={data.handle} />
+    <div className="relative mt-5 flex items-center gap-2.5">
+      <AgentAvatar
+        animated={animated}
+        className="size-8 shrink-0 rounded-full"
+        seed={data.handle}
+        size={32}
+      />
       <div className="leading-tight">
         <div className="font-medium text-sm">{data.name}</div>
         <div className="text-sm opacity-70">{data.handle}</div>
@@ -144,74 +167,88 @@ const FeatureCard = ({
   </div>
 );
 
+const SideTile = ({
+  slot,
+  active,
+  reduce,
+}: {
+  slot: { data: Testimonial };
+  active: boolean;
+  reduce: boolean | null;
+}) => (
+  <motion.div
+    className={cn(
+      "relative overflow-hidden rounded-2xl",
+      active ? "h-44 w-full" : "size-20 self-center"
+    )}
+    layout
+    transition={reduce ? { duration: 0 } : morphSpring}
+  >
+    <AnimatePresence initial={false}>
+      {active ? (
+        <motion.div
+          animate={{ opacity: 1 }}
+          className="absolute inset-0"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          key="card"
+          transition={reduce ? { duration: 0 } : fadeTween}
+        >
+          <PlainCard compact data={slot.data} />
+        </motion.div>
+      ) : (
+        <motion.div
+          animate={{ opacity: 1 }}
+          className="absolute inset-0 rounded-2xl bg-smooth-200/60"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          key="square"
+          transition={reduce ? { duration: 0 } : fadeTween}
+        />
+      )}
+    </AnimatePresence>
+  </motion.div>
+);
+
 export function WhatTheySay() {
   const [page, setPage] = useState(0);
-  const [isHoverDevice, setIsHoverDevice] = useState(false);
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
-    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
-    setIsHoverDevice(mediaQuery.matches);
-    const onChange = (event: MediaQueryListEvent) =>
-      setIsHoverDevice(event.matches);
-    mediaQuery.addEventListener("change", onChange);
-    return () => mediaQuery.removeEventListener("change", onChange);
-  }, []);
-
-  const pageCount = PAGES.length;
   const goTo = (delta: number) =>
-    setPage((current) => (current + delta + pageCount) % pageCount);
+    setPage((current) => (current + delta + PAGE_COUNT) % PAGE_COUNT);
 
-  const active = PAGES[page];
-
-  const cardMotion = (
-    order: number,
-    wrapperClass: string,
-    node: React.ReactNode
-  ) => (
-    <motion.div
-      animate={{ opacity: 1, transform: "translateY(0px)" }}
-      className={wrapperClass}
-      exit={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, transform: "translateY(10px)" }
-      }
-      initial={
-        shouldReduceMotion
-          ? { opacity: 0 }
-          : { opacity: 0, transform: "translateY(14px)" }
-      }
-      transition={
-        shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring",
-              duration: 0.4,
-              bounce: 0.1,
-              delay: order * CARD_STAGGER_S,
-            }
-      }
-      whileHover={
-        isHoverDevice && !shouldReduceMotion
-          ? {
-              transform: "translateY(-3px)",
-              transition: hoverSpring,
-            }
-          : undefined
-      }
-    >
-      {node}
-    </motion.div>
-  );
+  const center = CENTERS[page];
+  const [lt, lb, rt, rb] = SIDE_SLOTS;
+  const mobileSlots = SIDE_SLOTS.filter((s) => s.activePage === page);
 
   const arrowClass =
     "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary";
 
+  const renderCenter = (
+    <div className="relative size-full">
+      <AnimatePresence initial={false} mode="popLayout">
+        <motion.div
+          animate={{ opacity: 1 }}
+          className="absolute inset-0"
+          exit={{ opacity: 0 }}
+          initial={{ opacity: 0 }}
+          key={page}
+          transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
+        >
+          <FeatureCard
+            animated={!shouldReduceMotion}
+            data={center.data}
+            variant={center.variant}
+          />
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  );
+
   return (
     <section className="relative w-full bg-background px-8 py-24">
       <Divider />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-6xl">
         <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div className="max-w-2xl">
             <motion.h2
@@ -273,45 +310,56 @@ export function WhatTheySay() {
           </div>
         </div>
 
-        <div className="relative">
+        {/* Desktop: morphing card / square columns around a crossfading center */}
+        <div className="hidden items-center justify-center gap-5 md:flex">
+          <div className="flex h-72 w-[210px] flex-col gap-5">
+            <SideTile
+              active={lt.activePage === page}
+              reduce={shouldReduceMotion}
+              slot={lt}
+            />
+            <SideTile
+              active={lb.activePage === page}
+              reduce={shouldReduceMotion}
+              slot={lb}
+            />
+          </div>
+          <div className="h-80 w-[360px] shrink-0">{renderCenter}</div>
+          <div className="flex h-72 w-[210px] flex-col gap-5">
+            <SideTile
+              active={rt.activePage === page}
+              reduce={shouldReduceMotion}
+              slot={rt}
+            />
+            <SideTile
+              active={rb.activePage === page}
+              reduce={shouldReduceMotion}
+              slot={rb}
+            />
+          </div>
+        </div>
+
+        {/* Mobile: simple stacked fade of the active page's three cards */}
+        <div className="md:hidden">
           <AnimatePresence initial={false} mode="popLayout">
-            {/* Staggered bento — medium · large · medium, with faint
-                decoration tiles in the gaps (ElevenLabs layout). */}
             <motion.div
               animate={{ opacity: 1 }}
-              className="relative flex flex-col gap-5 md:flex-row md:items-stretch md:justify-center md:gap-6"
+              className="flex flex-col gap-4"
               exit={{ opacity: 0 }}
               initial={{ opacity: 0 }}
               key={page}
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.3, ease: [0.23, 1, 0.32, 1] }
-              }
+              transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
             >
-              <div
-                aria-hidden
-                className="absolute top-2 right-[3%] hidden size-24 rounded-2xl bg-smooth-200/60 md:block"
-              />
-              <div
-                aria-hidden
-                className="absolute bottom-2 left-[3%] hidden size-20 rounded-2xl bg-smooth-200/60 md:block"
-              />
-              {cardMotion(
-                1,
-                "relative z-10 md:w-[27%] md:self-start",
-                <PlainCard data={active.sides[0]} />
-              )}
-              {cardMotion(
-                0,
-                "relative z-10 md:min-h-[360px] md:w-[40%]",
-                <FeatureCard data={active.feature} variant={active.variant} />
-              )}
-              {cardMotion(
-                2,
-                "relative z-10 md:w-[27%] md:self-end",
-                <PlainCard data={active.sides[1]} />
-              )}
+              <div className="h-72">
+                <FeatureCard
+                  animated={!shouldReduceMotion}
+                  data={center.data}
+                  variant={center.variant}
+                />
+              </div>
+              {mobileSlots.map((slot) => (
+                <PlainCard data={slot.data} key={slot.data.id} />
+              ))}
             </motion.div>
           </AnimatePresence>
         </div>
