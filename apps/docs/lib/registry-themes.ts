@@ -61,31 +61,36 @@ export const THEME_PALETTES: ThemePalette[] = [
   },
 ];
 
+// Perceptually uniform neutral ramp — mirror of app/smoothui.css. Even oklch-L
+// spacing so installed themes inherit WCAG-passing borders/inputs/muted text.
 export const LIGHT_SCALE = {
   50: "oklch(0.99 0 0)",
-  100: "oklch(0.98 0 0)",
-  200: "oklch(0.96 0 0)",
-  400: "oklch(0.93 0 0)",
-  500: "oklch(0.91 0 0)",
-  600: "oklch(0.89 0 0)",
-  800: "oklch(0.65 0 0)",
-  900: "oklch(0.62 0 0)",
-  950: "oklch(0.54 0 0)",
-  1000: "oklch(0.2 0 0)",
+  100: "oklch(0.972 0 0)",
+  200: "oklch(0.945 0 0)",
+  300: "oklch(0.91 0 0)",
+  400: "oklch(0.865 0 0)",
+  500: "oklch(0.81 0 0)",
+  600: "oklch(0.74 0 0)",
+  700: "oklch(0.66 0 0)",
+  800: "oklch(0.56 0 0)",
+  900: "oklch(0.47 0 0)",
+  950: "oklch(0.36 0 0)",
+  1000: "oklch(0.22 0 0)",
 } as const;
 
 export const DARK_SCALE = {
-  50: "oklch(0.2002 0 0)",
-  100: "oklch(0.2264 0 0)",
-  200: "oklch(0.2562 0 0)",
-  400: "oklch(0.3012 0 0)",
-  500: "oklch(0.325 0 0)",
-  600: "oklch(0.3639 0 0)",
-  700: "oklch(0.4313 0 0)",
-  800: "oklch(0.5452 0 0)",
-  900: "oklch(0.5931 0 0)",
-  950: "oklch(0.7058 0 0)",
-  1000: "oklch(0.9461 0 0)",
+  50: "oklch(0.2 0 0)",
+  100: "oklch(0.235 0 0)",
+  200: "oklch(0.275 0 0)",
+  300: "oklch(0.315 0 0)",
+  400: "oklch(0.36 0 0)",
+  500: "oklch(0.41 0 0)",
+  600: "oklch(0.47 0 0)",
+  700: "oklch(0.55 0 0)",
+  800: "oklch(0.66 0 0)",
+  900: "oklch(0.74 0 0)",
+  950: "oklch(0.85 0 0)",
+  1000: "oklch(0.96 0 0)",
 } as const;
 
 const WHITE = "oklch(1 0 0)";
@@ -112,7 +117,9 @@ const buildModeVars = (
   accent: primary,
   "accent-foreground": WHITE,
   destructive,
-  border: scale[500],
+  // Dividers are decorative (WCAG-exempt); keep them subtle. Control
+  // boundaries that need 3:1 live in `input`, not here.
+  border: scale[300],
   input,
   ring: primary,
   "chart-1": primary,
@@ -161,7 +168,7 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
           LIGHT_SCALE,
           palette.primary,
           palette.secondary,
-          LIGHT_SCALE[600],
+          LIGHT_SCALE[700],
           "oklch(0.577 0.245 27.325)"
         ),
         radius: "0.625rem",
