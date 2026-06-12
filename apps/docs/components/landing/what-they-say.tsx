@@ -14,9 +14,6 @@ export interface TestimonialMedia {
 }
 
 const testimonials: TestimonialMedia[] = [
-  // Add your testimonials here
-  // Example:
-
   {
     id: "1",
     type: "twitter",
@@ -26,11 +23,6 @@ const testimonials: TestimonialMedia[] = [
     id: "2",
     type: "twitter",
     url: "https://x.com/PeteCapeCod/status/1962707094395556337",
-  },
-  {
-    id: "3",
-    type: "twitter",
-    url: "https://x.com/orcdev/status/2007091382784303330",
   },
   {
     id: "4",
@@ -47,12 +39,66 @@ const testimonials: TestimonialMedia[] = [
     type: "twitter",
     url: "https://x.com/openhunts/status/1980911462030950489",
   },
+];
+
+// Standout quotes featured as full-bleed gradient tiles in the bento, breaking
+// up the white tweet cards. Pulled from real tweets (attributed below).
+type FeaturedQuote = {
+  id: string;
+  quote: string;
+  author: string;
+  handle: string;
+  variant: "brand" | "dark";
+};
+
+const featuredQuotes: FeaturedQuote[] = [
   {
-    id: "7",
-    type: "twitter",
-    url: "https://x.com/jaykosai/status/1919079453017231481",
+    id: "feat-orcdev",
+    quote:
+      "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
+    author: "OrcDev",
+    handle: "@orcdev",
+    variant: "brand",
+  },
+  {
+    id: "feat-jaykosai",
+    quote:
+      "All I can say is 🙌🔥 — I'm planning to build something crazy with it.",
+    author: "jeth.eth",
+    handle: "@jaykosai",
+    variant: "dark",
   },
 ];
+
+const FeaturedTile = ({ data }: { data: FeaturedQuote }) => (
+  <div
+    className={cn(
+      "relative flex min-h-[240px] flex-col justify-end overflow-hidden rounded-2xl p-6",
+      data.variant === "brand"
+        ? "bg-gradient-to-br from-brand-secondary via-brand to-brand-light text-white"
+        : "bg-smooth-1000 text-smooth-50"
+    )}
+  >
+    {data.variant === "brand" ? (
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-10 -right-10 size-40 rounded-full bg-brand-lighter/40 blur-3xl"
+      />
+    ) : (
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -right-12 -bottom-12 size-40 rounded-full bg-brand/30 blur-3xl"
+      />
+    )}
+    {data.variant === "brand" && (
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+    )}
+    <p className="relative font-medium text-lg leading-snug">{data.quote}</p>
+    <span className="relative mt-3 text-sm opacity-80">
+      {data.author} · {data.handle}
+    </span>
+  </div>
+);
 
 const MIN_LOADING_DURATION_MS = 1200;
 const TWEET_LOAD_CHECK_INTERVAL_MS = 200;
@@ -187,6 +233,21 @@ export function WhatTheySay() {
     return null;
   }
 
+  // Interleave the gradient feature tiles with the tweet cards so the bento
+  // mixes bold full-bleed quotes with the regular white cards.
+  const bentoItems: (
+    | { kind: "tile"; data: FeaturedQuote }
+    | { kind: "tweet"; data: TestimonialMedia }
+  )[] = [
+    { kind: "tile", data: featuredQuotes[0] },
+    { kind: "tweet", data: testimonials[0] },
+    { kind: "tweet", data: testimonials[1] },
+    { kind: "tile", data: featuredQuotes[1] },
+    { kind: "tweet", data: testimonials[2] },
+    { kind: "tweet", data: testimonials[3] },
+    { kind: "tweet", data: testimonials[4] },
+  ];
+
   return (
     <section className="relative w-full bg-background px-8 py-24">
       <Divider />
@@ -243,21 +304,21 @@ export function WhatTheySay() {
           {/* Tweets container - render invisibly when not ready, then animate in when ready */}
           <div
             className={cn(
-              "mt-10 columns-1 gap-5 sm:columns-2 sm:gap-7 [&_[data-tweet]]:mb-5",
+              "mt-10 columns-1 gap-5 sm:columns-2 sm:gap-7 md:columns-3",
               showContent ? "" : "pointer-events-none invisible"
             )}
             ref={tweetsContainerRef}
           >
-            {testimonials.map((testimonial, index) => (
+            {bentoItems.map((item, index) => (
               <motion.div
                 animate={getCardAnimateState(showContent, shouldReduceMotion)}
-                className="break-inside-avoid"
+                className="mb-5 break-inside-avoid"
                 initial={
                   shouldReduceMotion
                     ? { opacity: 0 }
                     : { opacity: 0, transform: "translateY(20px)" }
                 }
-                key={testimonial.id}
+                key={item.data.id}
                 style={{ willChange: "transform, opacity" }}
                 transition={
                   shouldReduceMotion
@@ -276,7 +337,11 @@ export function WhatTheySay() {
                     : undefined
                 }
               >
-                <MediaPlayer key={testimonial.id} media={testimonial} />
+                {item.kind === "tile" ? (
+                  <FeaturedTile data={item.data} />
+                ) : (
+                  <MediaPlayer media={item.data} />
+                )}
               </motion.div>
             ))}
           </div>
