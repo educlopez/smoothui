@@ -23,7 +23,7 @@ export function SkillsSection() {
       : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
 
   return (
-    <section className="relative bg-background px-8 py-24 transition">
+    <section className="relative bg-background px-8 py-32 transition">
       <Divider />
       <div className="mx-auto max-w-5xl">
         <SectionHeader

@@ -269,7 +269,7 @@ export function AISection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative bg-background px-8 py-24 transition">
+    <section className="relative bg-background px-8 py-40 transition">
       <Divider />
       <div className="mx-auto max-w-5xl">
         <SectionHeader
