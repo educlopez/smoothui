@@ -411,7 +411,7 @@ export default function Footer({
                   <span className="absolute inset-0 inline-flex size-full animate-ping rounded-full bg-brand/60 opacity-75" />
                   <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
                 </span>
-                <span className="text-foreground text-xs">
+                <span className="text-foreground text-xs tabular-nums">
                   v{version}
                   {componentCount !== undefined && (
                     <>

@@ -74,10 +74,12 @@ export function GithubStars({
         <>
           <span className="flex items-center gap-1 text-foreground/60">
             <Star className="size-3.5 fill-current" />
-            <span className="text-xs">{data.stars.toLocaleString()}</span>
+            <span className="text-xs tabular-nums">
+              {data.stars.toLocaleString()}
+            </span>
           </span>
           {showForks && (
-            <span className="text-foreground/60 text-xs">
+            <span className="text-foreground/60 text-xs tabular-nums">
               {data.forks.toLocaleString()} forks
             </span>
           )}

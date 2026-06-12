@@ -243,7 +243,7 @@ export function WhatTheySay() {
           {/* Tweets container - render invisibly when not ready, then animate in when ready */}
           <div
             className={cn(
-              "mt-10 columns-1 gap-5 sm:columns-2 sm:gap-7 md:columns-3 [&_[data-tweet]]:mb-5",
+              "mt-10 columns-1 gap-5 sm:columns-2 sm:gap-7 [&_[data-tweet]]:mb-5",
               showContent ? "" : "pointer-events-none invisible"
             )}
             ref={tweetsContainerRef}
