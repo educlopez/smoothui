@@ -4,7 +4,7 @@ import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import GridLoader from "@repo/smoothui/components/grid-loader";
+import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 
 type Feature = {
   title: string;
@@ -43,6 +43,28 @@ const cardBase =
 const iconBadge =
   "flex size-9 items-center justify-center rounded-full border border-brand/40 bg-background text-brand";
 
+const SHOWCASE_ROW_A = [
+  "Siri Orb",
+  "Dynamic Island",
+  "Number Flow",
+  "Apple Invites",
+  "Scramble Hover",
+];
+
+const SHOWCASE_ROW_B = [
+  "Wave Text",
+  "Grid Loader",
+  "Social Selector",
+  "Image Metadata",
+  "Power Off Slide",
+];
+
+const Pill = ({ children }: { children: string }) => (
+  <span className="flex shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-background px-3 py-1.5 text-foreground/70 text-sm">
+    {children}
+  </span>
+);
+
 export function Features() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
@@ -64,15 +86,17 @@ export function Features() {
             "overflow-hidden p-0 md:col-span-2 lg:col-span-2 lg:row-span-2"
           )}
         >
-          <div className="frame-box relative flex flex-1 items-center justify-center rounded-t-2xl border-0 px-6 py-12">
-            <div className="pointer-events-none absolute top-1/2 left-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-3xl" />
-            <GridLoader
-              color="var(--color-foreground)"
-              mode="sequence"
-              sequence={["breathing", "diamond", "cross", "sparkle", "corners"]}
-              size={132}
-              speed="normal"
-            />
+          <div className="frame-box relative flex flex-1 flex-col justify-center gap-3 overflow-hidden rounded-t-2xl border-0 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+            <InfiniteSlider gap={12} speed={32}>
+              {SHOWCASE_ROW_A.map((name) => (
+                <Pill key={name}>{name}</Pill>
+              ))}
+            </InfiniteSlider>
+            <InfiniteSlider gap={12} reverse speed={32}>
+              {SHOWCASE_ROW_B.map((name) => (
+                <Pill key={name}>{name}</Pill>
+              ))}
+            </InfiniteSlider>
           </div>
           <div className="p-6">
             <h3 className="mb-2 font-semibold text-foreground text-xl tracking-tight">
