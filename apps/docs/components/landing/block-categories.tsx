@@ -22,7 +22,6 @@ import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 import PriceFlow from "@repo/smoothui/components/price-flow";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import {
-  Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -134,30 +133,9 @@ function HeroPreview() {
 }
 
 const PRICING_PLANS = [
-  {
-    name: "Free",
-    base: 0,
-    hover: 5,
-    features: ["Basic analytics", "5GB storage"],
-    cta: "Start",
-    popular: false,
-  },
-  {
-    name: "Pro",
-    base: 19,
-    hover: 24,
-    features: ["Everything in Free", "Unlimited", "Priority support"],
-    cta: "Choose Pro",
-    popular: true,
-  },
-  {
-    name: "Scale",
-    base: 29,
-    hover: 34,
-    features: ["Everything in Pro", "SSO & SAML"],
-    cta: "Start",
-    popular: false,
-  },
+  { name: "Free", base: 0, hover: 5, popular: false },
+  { name: "Pro", base: 19, hover: 24, popular: true },
+  { name: "Scale", base: 29, hover: 34, popular: false },
 ];
 
 function PricingPreview() {
@@ -165,22 +143,14 @@ function PricingPreview() {
 
   return (
     <motion.div
-      className="group/preview relative flex h-full w-full flex-col gap-3 p-4"
+      className="group/preview relative flex h-full w-full items-center justify-center p-4"
       onHoverEnd={() => setHovered(false)}
       onHoverStart={() => setHovered(true)}
     >
-      <div className="flex flex-col items-center gap-0.5 text-center">
-        <div className="font-semibold text-[11px] text-foreground tracking-tight">
-          Simple, scalable pricing
-        </div>
-        <div className="text-[9px] text-muted-foreground">
-          Pick a plan that grows with you
-        </div>
-      </div>
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid w-full grid-cols-3 gap-2">
         {PRICING_PLANS.map((plan) => (
           <motion.div
-            className={`relative flex flex-col rounded-lg border p-2 ${
+            className={`relative flex flex-col gap-2 rounded-lg border p-2.5 ${
               plan.popular
                 ? "border-brand/30 bg-background shadow-sm"
                 : "border-border bg-primary"
@@ -194,9 +164,9 @@ function PricingPreview() {
                 Popular
               </span>
             )}
-            <div className="font-medium text-[9px] text-foreground/70">
+            <span className="font-medium text-[9px] text-foreground/70">
               {plan.name}
-            </div>
+            </span>
             <div className="flex items-baseline gap-0.5">
               <span className="text-[10px] text-foreground/40">$</span>
               <div className="origin-left scale-75">
@@ -204,28 +174,15 @@ function PricingPreview() {
               </div>
               <span className="text-[8px] text-foreground/30">/mo</span>
             </div>
-            <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-            <ul className="space-y-1">
-              {plan.features.map((feature) => (
-                <li className="flex items-center gap-1" key={feature}>
-                  <Check className="size-2 shrink-0 text-brand/60" />
-                  <span className="truncate text-[8px] text-foreground/55">
-                    {feature}
-                  </span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-auto pt-2">
-              <span
-                className={`block rounded-md py-1 text-center font-medium text-[8px] ${
-                  plan.popular
-                    ? "bg-brand text-white"
-                    : "border border-border bg-background text-foreground/70"
-                }`}
-              >
-                {plan.cta}
-              </span>
-            </div>
+            <span
+              className={`mt-1 block rounded-md py-1 text-center font-medium text-[8px] ${
+                plan.popular
+                  ? "bg-brand text-white"
+                  : "border border-border bg-background text-foreground/70"
+              }`}
+            >
+              {plan.popular ? "Choose" : "Start"}
+            </span>
           </motion.div>
         ))}
       </div>
