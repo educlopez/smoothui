@@ -346,47 +346,82 @@ export function WhatTheySay() {
                 : { type: "spring", duration: 0.5, bounce: 0.12 }
             }
           >
-            {pages.map((pageItems, pageIdx) => (
-              <div
-                className="grid w-full shrink-0 grid-cols-1 items-start gap-5 md:grid-cols-3 md:gap-7"
-                key={`page-${pageIdx}`}
-              >
-                {pageItems.map((item, index) => (
-                  <motion.div
-                    animate={getCardAnimateState(
-                      showContent,
-                      shouldReduceMotion
-                    )}
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 0 }
-                        : { opacity: 0, transform: "translateY(20px)" }
-                    }
-                    key={item.data.id}
-                    style={{ willChange: "transform, opacity" }}
-                    transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : { ...entrySpring, delay: index * STAGGER_DELAY_S }
-                    }
-                    whileHover={
-                      isHoverDevice && !shouldReduceMotion
-                        ? {
-                            transform: "translateY(-2px) scale(1.02)",
-                            transition: hoverSpring,
-                          }
-                        : undefined
-                    }
-                  >
-                    {item.kind === "tile" ? (
-                      <FeaturedTile data={item.data} />
-                    ) : (
-                      <MediaPlayer media={item.data} />
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            ))}
+            {pages.map((pageItems, pageIdx) => {
+              const tileItem = pageItems.find((it) => it.kind === "tile");
+              const tweetItems = pageItems.filter((it) => it.kind === "tweet");
+
+              const renderCard = (
+                item: (typeof pageItems)[number],
+                order: number,
+                wrapperClass: string
+              ) => (
+                <motion.div
+                  animate={getCardAnimateState(showContent, shouldReduceMotion)}
+                  className={wrapperClass}
+                  initial={
+                    shouldReduceMotion
+                      ? { opacity: 0 }
+                      : { opacity: 0, transform: "translateY(20px)" }
+                  }
+                  key={item.data.id}
+                  style={{ willChange: "transform, opacity" }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { ...entrySpring, delay: order * STAGGER_DELAY_S }
+                  }
+                  whileHover={
+                    isHoverDevice && !shouldReduceMotion
+                      ? {
+                          transform: "translateY(-2px) scale(1.02)",
+                          transition: hoverSpring,
+                        }
+                      : undefined
+                  }
+                >
+                  {item.kind === "tile" ? (
+                    <FeaturedTile data={item.data} />
+                  ) : (
+                    <MediaPlayer media={item.data} />
+                  )}
+                </motion.div>
+              );
+
+              return (
+                <div className="w-full shrink-0 px-1" key={`page-${pageIdx}`}>
+                  {/* Staggered bento: medium · large · medium, with faint
+                      decoration tiles filling the gaps (ElevenLabs layout). */}
+                  <div className="relative flex flex-col gap-5 md:flex-row md:items-stretch md:justify-center md:gap-6">
+                    <div
+                      aria-hidden
+                      className="absolute top-2 right-[3%] hidden size-24 rounded-2xl bg-smooth-200/60 md:block"
+                    />
+                    <div
+                      aria-hidden
+                      className="absolute bottom-2 left-[3%] hidden size-20 rounded-2xl bg-smooth-200/60 md:block"
+                    />
+                    {tweetItems[0] &&
+                      renderCard(
+                        tweetItems[0],
+                        1,
+                        "relative z-10 md:w-[27%] md:self-start"
+                      )}
+                    {tileItem &&
+                      renderCard(
+                        tileItem,
+                        0,
+                        "relative z-10 md:min-h-[360px] md:w-[40%] [&>*]:h-full"
+                      )}
+                    {tweetItems[1] &&
+                      renderCard(
+                        tweetItems[1],
+                        2,
+                        "relative z-10 md:w-[27%] md:self-end"
+                      )}
+                  </div>
+                </div>
+              );
+            })}
           </motion.div>
         </div>
       </div>
