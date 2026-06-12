@@ -4,34 +4,44 @@ import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Package } from "lucide-react";
+import GridLoader from "@repo/smoothui/components/grid-loader";
 
-const features = [
+type Feature = {
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+};
+
+const lead = {
+  title: "Smooth animations",
+  description:
+    "Every component ships with motion built in — powered by Motion and GSAP, tuned for spring physics, and fully reduced-motion aware.",
+};
+
+const supporting: Feature[] = [
   {
-    title: "Smooth Animations",
+    title: "Modern React",
     description:
-      "Built-in animations powered by Motion and GSAP for delightful user experiences.",
-    icon: Package,
-  },
-  {
-    title: "React",
-    description:
-      "Built with modern React patterns including Server Components, TypeScript, and hooks for optimal performance.",
+      "Server Components, TypeScript and hooks throughout — built for React 19.",
     icon: ReactLogo,
   },
   {
-    title: "Tailwindcss",
-    description:
-      "Built with Tailwind CSS v4, featuring the latest utility-first CSS framework with enhanced dark mode and modern design patterns.",
+    title: "Tailwind CSS v4",
+    description: "The latest utility-first engine, with a unified token spine.",
     icon: TailwindLogo,
   },
   {
-    title: "shadcn/ui Compatible",
-    description:
-      "Fully compatible with shadcn/ui ecosystem. Easy to integrate with existing shadcn/ui projects and follows the same patterns.",
+    title: "shadcn compatible",
+    description: "Drops into any shadcn project — same patterns, one command.",
     icon: ShadcnLogo,
   },
 ];
+
+const cardBase =
+  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+
+const iconBadge =
+  "flex size-9 items-center justify-center rounded-full border border-brand/40 bg-background text-brand";
 
 export function Features() {
   return (
@@ -42,26 +52,49 @@ export function Features() {
         eyebrow="Why SmoothUI"
         title={
           <>
-            Why Choose Smooth<span className="text-brand">UI</span>?
+            Why choose Smooth<span className="text-brand">UI</span>?
           </>
         }
       />
-      <div className="mt-16 grid w-full gap-8 md:grid-cols-2 lg:grid-cols-4">
-        {features.map((feature) => (
+      <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+        {/* Lead cell — large, showing a real SmoothUI component in motion */}
+        <div
+          className={cn(
+            cardBase,
+            "overflow-hidden p-0 md:col-span-2 lg:col-span-2 lg:row-span-2"
+          )}
+        >
+          <div className="frame-box relative flex flex-1 items-center justify-center rounded-t-2xl border-0 px-6 py-12">
+            <div className="pointer-events-none absolute top-1/2 left-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-3xl" />
+            <GridLoader
+              color="var(--color-brand)"
+              mode="sequence"
+              sequence={["breathing", "diamond", "cross", "sparkle", "corners"]}
+              size={132}
+              speed="normal"
+            />
+          </div>
+          <div className="p-6">
+            <h3 className="mb-2 font-semibold text-foreground text-xl tracking-tight">
+              {lead.title}
+            </h3>
+            <p className="max-w-md text-muted-foreground">{lead.description}</p>
+          </div>
+        </div>
+
+        {/* Supporting cells — varied placement around the lead */}
+        {supporting.map((feature, index) => (
           <div
-            className={cn(
-              "group relative inset-ring-2 inset-ring-background flex flex-col rounded-2xl bg-linear-to-b bg-transparent from-65% from-primary/30 to-transparent p-6 backdrop-blur-lg transition-all hover:from-primary",
-              "border shadow-blue-800/10 shadow-sm hover:shadow-none"
-            )}
+            className={cn(cardBase, index === 0 && "lg:col-span-2")}
             key={feature.title}
           >
-            <div className="inset-ring inset-ring-background mb-4 flex h-8 w-8 items-center justify-center rounded-full border-[0.5px] border-brand bg-primary p-2">
-              <feature.icon className="text-brand transition" />
+            <div className={cn(iconBadge, "mb-4")}>
+              <feature.icon className="size-4" />
             </div>
-            <h3 className="mb-2 font-semibold text-foreground text-xl transition">
+            <h3 className="mb-1.5 font-semibold text-foreground text-lg tracking-tight">
               {feature.title}
             </h3>
-            <p className="text-primary-foreground transition">
+            <p className="text-muted-foreground text-sm">
               {feature.description}
             </p>
           </div>
