@@ -21,7 +21,7 @@ function McpIllustration() {
     <div aria-hidden className="mx-auto w-full max-w-64 space-y-3">
       {/* User message — right */}
       <motion.div
-        className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-sm bg-brand px-3 py-2 text-white text-xs"
+        className="ml-auto w-fit max-w-[72%] rounded-2xl rounded-br-sm bg-brand px-3 py-2 text-white text-xs"
         initial={
           shouldReduceMotion
             ? { opacity: 1 }
@@ -35,7 +35,7 @@ function McpIllustration() {
             : { opacity: 1, transform: "translateY(0px)" }
         }
       >
-        Install the SiriOrb component from smoothui
+        Install the SiriOrb component
       </motion.div>
       {/* AI agent reply — left, with avatar */}
       <motion.div
