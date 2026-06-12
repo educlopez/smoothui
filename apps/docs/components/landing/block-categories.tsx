@@ -384,79 +384,40 @@ function FAQPreview() {
 }
 
 function FooterPreview() {
-  const linkVariants = {
-    rest: { scaleY: 1, backgroundColor: "hsl(var(--color-foreground) / 0.2)" },
-    hover: {
-      scaleY: 1.2,
-      backgroundColor: "hsl(var(--color-brand) / 0.2)",
-    },
-  };
-
-  const lineVariants = {
-    rest: { backgroundColor: "hsl(var(--color-foreground) / 0.1)" },
-    hover: { backgroundColor: "hsl(var(--color-brand) / 0.3)" },
-  };
-
-  const iconVariants = {
-    rest: { scale: 1, backgroundColor: "hsl(var(--color-foreground) / 0.1)" },
-    hover: {
-      scale: 1.2,
-      backgroundColor: "hsl(var(--color-brand) / 0.3)",
-    },
-  };
-
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      whileHover="hover"
+      whileHover={{ scale: 1.02 }}
     >
-      <div className="flex w-full flex-col gap-1.5 rounded-lg border border-foreground/10 bg-background p-3">
-        <div className="flex items-center gap-2">
-          <div className="h-2.5 w-2.5 rounded bg-brand/30" />
-          <div className="flex gap-3">
-            {[...new Array(3)].map((_, i) => (
-              <motion.div
-                className="h-1.5 w-12 rounded-full bg-foreground/20"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static footer links that never reorder
-                key={`footer-link-${i}`}
-                transition={{
-                  duration: 0.2,
-                  delay: i * 0.03,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                variants={linkVariants}
-              />
+      <div className="flex w-full flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex size-3.5 items-center justify-center rounded bg-brand text-[7px] text-white">
+            S
+          </div>
+          <div className="flex gap-2.5">
+            {["Docs", "Blocks", "Pricing"].map((label) => (
+              <span
+                className="text-[9px] text-foreground/60 transition-colors group-hover/preview:text-brand"
+                key={label}
+              >
+                {label}
+              </span>
             ))}
           </div>
         </div>
-        <motion.div
-          className="h-px w-full bg-foreground/10"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={lineVariants}
-        />
+        <div className="h-px w-full bg-border" />
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className="h-1.5 w-20 rounded-full bg-foreground/15" />
-            <div className="h-1 w-10 rounded-full bg-foreground/10" />
-          </div>
+          <span className="text-[8px] text-muted-foreground">
+            © 2026 SmoothUI
+          </span>
           <div className="flex gap-1.5">
-            {[Twitter, Github, LinkIcon].map((Icon, i) => (
-              <motion.div
-                className="relative flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground/10"
+            {[Twitter, Github, LinkIcon].map((Icon) => (
+              <span
+                className="flex size-3.5 items-center justify-center rounded-full bg-muted text-foreground/40"
                 key={Icon.displayName}
-                transition={{
-                  duration: 0.2,
-                  delay: i * 0.03,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                variants={iconVariants}
               >
-                <Icon className="h-2 w-2 text-foreground/40" />
-              </motion.div>
+                <Icon className="size-2" />
+              </span>
             ))}
           </div>
         </div>
@@ -548,10 +509,9 @@ function LogoCloudPreview() {
               variants={logoVariants}
               whileHover="hover"
             >
-              <div className="relative flex h-7 w-7 items-center justify-center rounded-md border border-foreground/10 bg-background text-foreground transition-opacity duration-200 [&_svg]:h-full [&_svg]:w-full [&_svg]:fill-current">
+              <div className="relative flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground transition-opacity duration-200 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:fill-current">
                 <LogoComponent />
               </div>
-              <div className="h-0.5 w-5 rounded-full bg-foreground/10" />
             </motion.div>
           ))}
         </InfiniteSlider>
@@ -560,52 +520,36 @@ function LogoCloudPreview() {
   );
 }
 
-function StatsPreview() {
-  const [stat1, setStat1] = useState(24);
-  const [stat2, setStat2] = useState(48);
-  const [stat3, setStat3] = useState(72);
+const STATS = [
+  { base: 70, hover: 72, label: "Components" },
+  { base: 24, hover: 26, label: "Blocks" },
+  { base: 813, hover: 820, label: "GitHub stars" },
+];
 
-  const numberVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05 },
-  };
+function StatsPreview() {
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      onHoverEnd={() => {
-        setStat1(24);
-        setStat2(48);
-        setStat3(72);
-      }}
-      onHoverStart={() => {
-        setStat1(34);
-        setStat2(58);
-        setStat3(82);
-      }}
-      whileHover="hover"
+      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => setHovered(true)}
     >
-      <div className="grid w-full grid-cols-3 divide-x divide-foreground/10">
-        {[stat1, stat2, stat3].map((stat, i) => (
+      <div className="grid w-full grid-cols-3 divide-x divide-border">
+        {STATS.map((stat) => (
           <motion.div
-            className="flex flex-col items-center gap-1.5 space-y-1 text-center"
-            // biome-ignore lint/suspicious/noArrayIndexKey: Static stats array that never reorders
-            key={`stat-${i}`}
-            transition={{
-              duration: 0.2,
-              delay: i * 0.03,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={numberVariants}
+            className="flex flex-col items-center gap-1 text-center"
+            key={stat.label}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.05 }}
           >
-            <div className="flex items-baseline justify-center gap-0.5 font-bold">
-              <span className="text-[8px] text-foreground/40">+</span>
-              <div className="scale-90">
-                <PriceFlow value={stat} />
-              </div>
+            <div className="flex items-baseline justify-center gap-0.5 font-bold text-foreground">
+              <span className="text-[8px] text-brand">+</span>
+              <PriceFlow value={hovered ? stat.hover : stat.base} />
             </div>
-            <div className="h-1 w-7 rounded-full bg-foreground/15" />
+            <span className="text-[9px] text-muted-foreground">
+              {stat.label}
+            </span>
           </motion.div>
         ))}
       </div>
@@ -613,55 +557,37 @@ function StatsPreview() {
   );
 }
 
+const TEAM_ROLES = ["Maintainer", "Designer", "Engineer"];
+
 function TeamPreview() {
   const people = getAllPeople().slice(0, 3);
-
-  const containerVariants = {
-    rest: { scale: 1, y: 0 },
-    hover: { scale: 1.08, y: -3 },
-  };
-
-  const avatarVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.15 },
-  };
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center gap-2.5 p-4"
-      initial="rest"
-      whileHover="hover"
+      whileHover={{ scale: 1.04, y: -3 }}
     >
       {people.map((person, i) => (
-        <motion.div
-          className="flex flex-col items-center gap-1.5 rounded-lg border border-foreground/10 bg-background p-2.5"
+        <div
+          className="flex flex-col items-center gap-1 rounded-lg border border-border bg-background p-2.5"
           key={person.name}
-          transition={{
-            duration: 0.2,
-            delay: i * 0.03,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={containerVariants}
         >
-          <motion.div
-            className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full"
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={avatarVariants}
-          >
+          <span className="relative size-9 overflow-hidden rounded-full">
             <Image
               alt={person.name}
-              className="h-full w-full object-cover"
+              className="size-full object-cover"
               height={36}
               src={getAvatarUrl(person.avatar, 36)}
               width={36}
             />
-          </motion.div>
-          <div className="h-1.5 w-10 rounded-full bg-foreground/15" />
-          <div className="h-1 w-8 rounded-full bg-foreground/10" />
-        </motion.div>
+          </span>
+          <span className="max-w-14 truncate font-medium text-[9px] text-foreground/80">
+            {person.name}
+          </span>
+          <span className="text-[8px] text-muted-foreground">
+            {TEAM_ROLES[i]}
+          </span>
+        </div>
       ))}
     </motion.div>
   );
