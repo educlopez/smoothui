@@ -100,6 +100,7 @@ export function Features() {
             fill
             sizes="(max-width: 768px) 100vw, 420px"
             src="/scenes/why-choose.jpg"
+            unoptimized
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
           <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">

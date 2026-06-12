@@ -156,6 +156,7 @@ const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
       fill
       sizes="(max-width: 768px) 100vw, 360px"
       src={image}
+      unoptimized
     />
     {/* legibility scrim over the photo */}
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
