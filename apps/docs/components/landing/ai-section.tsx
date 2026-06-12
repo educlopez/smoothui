@@ -2,6 +2,7 @@
 
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
@@ -24,7 +25,12 @@ function McpIllustration() {
           viewport={{ once: true, amount: 0.5 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
         >
-          <div className="size-4 rounded-full bg-brand/20 ring-1 ring-brand/30" />
+          <AgentAvatar
+            animated
+            className="rounded-full"
+            seed="SmoothUI Agent"
+            size={20}
+          />
           <span className="text-foreground/60 text-sm">AI Agent</span>
         </motion.div>
         <motion.div
@@ -46,7 +52,7 @@ function McpIllustration() {
           smoothui
         </motion.div>
         <motion.div
-          className="ml-auto w-fit rounded-2xl rounded-tr border border-brand/20 bg-brand/10 p-2.5 text-foreground/70 text-xs"
+          className="ml-auto w-fit rounded-2xl rounded-tr border border-border bg-muted p-2.5 text-foreground/70 text-xs"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -96,7 +102,9 @@ function ApiIllustration() {
       >
         <div className="flex justify-between text-sm">
           <span className="text-foreground/50">GET</span>
-          <span className="font-mono text-brand text-xs">/api/v1/suggest</span>
+          <span className="font-mono text-foreground/50 text-xs">
+            /api/v1/suggest
+          </span>
         </div>
         <div className="h-px bg-border" />
         <div className="space-y-1.5 font-mono text-xs">
@@ -210,7 +218,7 @@ function LlmsIllustration() {
               : { opacity: 1, transform: "translateX(0px)" }
           }
         >
-          <div className="relative mt-0.5 ml-7 inline-flex items-center gap-2 font-medium text-sm before:absolute before:inset-y-0 before:-left-[19px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-brand before:bg-background before:ring before:ring-background">
+          <div className="relative mt-0.5 ml-7 inline-flex items-center gap-2 font-medium text-sm before:absolute before:inset-y-0 before:-left-[19px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-foreground/40 before:bg-background before:ring before:ring-background">
             <span className="text-brand">tags</span>
             <span className="text-foreground/40">categories</span>
             <span className="text-foreground/40">useCases</span>

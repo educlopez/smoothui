@@ -67,7 +67,7 @@ export function Features() {
           <div className="frame-box relative flex flex-1 items-center justify-center rounded-t-2xl border-0 px-6 py-12">
             <div className="pointer-events-none absolute top-1/2 left-1/2 size-40 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/15 blur-3xl" />
             <GridLoader
-              color="var(--color-brand)"
+              color="var(--color-foreground)"
               mode="sequence"
               sequence={["breathing", "diamond", "cross", "sparkle", "corners"]}
               size={132}
