@@ -592,10 +592,7 @@ export function BlockCategories() {
                       }
                 }
               >
-                <Link
-                  className="relative block text-center"
-                  href={category.href}
-                >
+                <Link className="relative block" href={category.href}>
                   {/* Preview Area - Simple rounded container with frame-box */}
                   <div className="w-full overflow-hidden">
                     <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
