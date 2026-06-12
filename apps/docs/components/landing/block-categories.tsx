@@ -90,85 +90,34 @@ const blockCategories = [
 ];
 
 function HeroPreview() {
-  const titleVariants = {
-    rest: { width: "10rem" },
-    hover: { width: "10.5rem" },
-  };
-
-  const descriptionVariants = {
-    rest: { width: "8rem" },
-    hover: { width: "8.5rem" },
-  };
-
-  const buttonVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05 },
-  };
-
-  const abstractVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover: { scale: 1.1, rotate: 5 },
-  };
-
   return (
-    <motion.div
-      className="group/preview relative flex h-full w-full items-center justify-between gap-4 p-4"
-      initial="rest"
-      whileHover="hover"
-    >
-      {/* Left side - Content */}
-      <div className="flex flex-1 flex-col items-start justify-center gap-3">
-        {/* Title */}
-        <motion.div
-          className="h-4 w-40 rounded-full bg-foreground/20"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={titleVariants}
-        />
-        {/* Description */}
-        <motion.div
-          className="h-2 w-32 rounded-full bg-foreground/10"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={descriptionVariants}
-        />
-        <div className="h-2 w-28 rounded-full bg-foreground/8" />
-        {/* Buttons */}
-        <div className="mt-2 flex items-center gap-2">
-          <motion.div
-            className="h-4 w-8 rounded-full bg-brand"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={buttonVariants}
-          />
-          <motion.div
-            className="h-4 w-8 rounded-full border bg-background"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={buttonVariants}
-          />
+    <div className="group/preview flex h-full w-full items-center justify-between gap-3 p-5">
+      {/* Left — real mini hero copy */}
+      <div className="flex flex-1 flex-col items-start gap-1.5">
+        <span className="rounded-full bg-brand/10 px-2 py-0.5 font-medium text-[9px] text-brand">
+          New
+        </span>
+        <h4 className="font-semibold text-foreground text-sm leading-tight tracking-tight">
+          Ship beautiful UI
+        </h4>
+        <p className="text-[10px] text-muted-foreground leading-snug">
+          Production-ready React blocks, animated out of the box.
+        </p>
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <span className="rounded-md bg-brand px-2 py-1 font-medium text-[9px] text-white transition-transform group-hover/preview:scale-105">
+            Get started
+          </span>
+          <span className="rounded-md border border-border bg-background px-2 py-1 text-[9px] text-foreground/70">
+            Docs
+          </span>
         </div>
       </div>
-      {/* Right side - Abstract visual */}
-      <motion.div
-        className="relative flex h-20 w-20 items-center justify-center overflow-hidden"
-        transition={{
-          duration: 0.3,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        variants={abstractVariants}
-      >
+      {/* Right — the SmoothUI orb */}
+      <div className="relative size-20 shrink-0 transition-transform duration-300 group-hover/preview:scale-105">
         <Image
-          alt="Hero illustration"
-          className="h-full w-full object-cover opacity-60"
+          alt=""
+          aria-hidden
+          className="size-full object-contain"
           height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
             width: 160,
@@ -178,186 +127,106 @@ function HeroPreview() {
           })}
           width={160}
         />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
+const PRICING_PLANS = [
+  {
+    name: "Free",
+    base: 0,
+    hover: 5,
+    features: ["Basic analytics", "5GB storage"],
+    cta: "Start",
+    popular: false,
+  },
+  {
+    name: "Pro",
+    base: 19,
+    hover: 24,
+    features: ["Everything in Free", "Unlimited", "Priority support"],
+    cta: "Choose Pro",
+    popular: true,
+  },
+  {
+    name: "Scale",
+    base: 29,
+    hover: 34,
+    features: ["Everything in Pro", "SSO & SAML"],
+    cta: "Start",
+    popular: false,
+  },
+];
+
 function PricingPreview() {
-  const [price1, setPrice1] = useState(0);
-  const [price2, setPrice2] = useState(19);
-  const [price3, setPrice3] = useState(29);
-
-  const cardVariants = {
-    rest: { scale: 1, y: 0 },
-    hover: { scale: 1.02, y: -2 },
-  };
-
-  const popularBadgeVariants = {
-    rest: { scale: 1, opacity: 1 },
-    hover: { scale: 1.05, opacity: 1 },
-  };
-
-  const features = [
-    ["Basic Analytics", "5GB Storage", "Email Support"],
-    [
-      "Everything in Free",
-      "5GB Storage",
-      "Email Support",
-      "Community Forum",
-      "Single User",
-      "Basic Templates",
-    ],
-    ["Everything in Pro", "5GB Storage", "Email Support"],
-  ];
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      className="group/preview relative flex h-full w-full flex-col gap-4 p-4"
-      initial="rest"
-      onHoverEnd={() => {
-        setPrice1(0);
-        setPrice2(19);
-        setPrice3(29);
-      }}
-      onHoverStart={() => {
-        setPrice1(5);
-        setPrice2(24);
-        setPrice3(34);
-      }}
-      whileHover="hover"
+      className="group/preview relative flex h-full w-full flex-col gap-3 p-4"
+      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => setHovered(true)}
     >
-      {/* Header */}
-      <div className="flex flex-col items-center gap-1.5 text-center">
-        <div className="h-2 w-32 rounded-full bg-foreground/20" />
-        <div className="h-1.5 w-24 rounded-full bg-foreground/10" />
+      <div className="flex flex-col items-center gap-0.5 text-center">
+        <div className="font-semibold text-[11px] text-foreground tracking-tight">
+          Simple, scalable pricing
+        </div>
+        <div className="text-[9px] text-muted-foreground">
+          Pick a plan that grows with you
+        </div>
       </div>
-
-      {/* Cards Grid */}
       <div className="grid grid-cols-3 gap-2">
-        {/* Free Plan */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-primary p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-8 rounded-full bg-foreground/20" />
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price1} />
-              </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
-            </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[0].slice(0, 2).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`free-feature-${i}`}
-              >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-12 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md border bg-background" />
-          </div>
-        </motion.div>
-
-        {/* Pro Plan - Popular */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-background p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <motion.span
-            className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={popularBadgeVariants}
+        {PRICING_PLANS.map((plan) => (
+          <motion.div
+            className={`relative flex flex-col rounded-lg border p-2 ${
+              plan.popular
+                ? "border-brand/30 bg-background shadow-sm"
+                : "border-border bg-primary"
+            }`}
+            key={plan.name}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.02, y: -2 }}
           >
-            Popular
-          </motion.span>
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-6 rounded-full bg-foreground/20" />
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price2} />
-              </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
+            {plan.popular && (
+              <span className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white">
+                Popular
+              </span>
+            )}
+            <div className="font-medium text-[9px] text-foreground/70">
+              {plan.name}
             </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[1].slice(0, 3).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`pro-feature-${i}`}
-              >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-10 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md bg-brand/20" />
-          </div>
-        </motion.div>
-
-        {/* Startup Plan */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-primary p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-10 rounded-full bg-foreground/20" />
             <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price3} />
+              <span className="text-[10px] text-foreground/40">$</span>
+              <div className="origin-left scale-75">
+                <PriceFlow value={hovered ? plan.hover : plan.base} />
               </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
+              <span className="text-[8px] text-foreground/30">/mo</span>
             </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[2].slice(0, 2).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`startup-feature-${i}`}
+            <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
+            <ul className="space-y-1">
+              {plan.features.map((feature) => (
+                <li className="flex items-center gap-1" key={feature}>
+                  <Check className="size-2 shrink-0 text-brand/60" />
+                  <span className="truncate text-[8px] text-foreground/55">
+                    {feature}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto pt-2">
+              <span
+                className={`block rounded-md py-1 text-center font-medium text-[8px] ${
+                  plan.popular
+                    ? "bg-brand text-white"
+                    : "border border-border bg-background text-foreground/70"
+                }`}
               >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-12 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md border bg-background" />
-          </div>
-        </motion.div>
+                {plan.cta}
+              </span>
+            </div>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );
