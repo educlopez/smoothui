@@ -257,7 +257,7 @@ export function WhatTheySay() {
     <section className="relative w-full bg-background px-8 py-24">
       <Divider />
       <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
             <motion.h2
               className="text-balance font-semibold font-title text-3xl text-foreground"
