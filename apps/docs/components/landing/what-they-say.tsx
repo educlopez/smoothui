@@ -30,9 +30,9 @@ const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
 );
 
 // Center feature card per page (crossfades).
-const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
+const CENTERS: { image: string; data: Testimonial }[] = [
   {
-    variant: "brand",
+    image: "/testimonials/landscape-2.jpg",
     data: {
       id: "orcdev",
       name: "OrcDev",
@@ -43,7 +43,7 @@ const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
     },
   },
   {
-    variant: "dark",
+    image: "/testimonials/landscape-1.jpg",
     data: {
       id: "jaykosai",
       name: "jeth.eth",
@@ -142,44 +142,31 @@ const PlainCard = ({
   </a>
 );
 
-const FeatureCard = ({
-  data,
-  variant,
-}: {
-  data: Testimonial;
-  variant: "brand" | "dark";
-}) => (
+const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
   <a
-    className={cn(
-      "relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6 transition-[filter] hover:brightness-105",
-      variant === "brand"
-        ? "bg-gradient-to-br from-brand-secondary via-brand to-brand-light text-white"
-        : "bg-smooth-1000 text-smooth-50"
-    )}
+    className="relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6 text-white transition-[filter] hover:brightness-105"
     href={data.tweetUrl}
     rel="noopener noreferrer"
     target="_blank"
   >
-    <div
+    <Image
+      alt=""
       aria-hidden
-      className={cn(
-        "pointer-events-none absolute size-44 rounded-full blur-3xl",
-        variant === "brand"
-          ? "-top-12 -right-12 bg-brand-lighter/40"
-          : "-right-12 -bottom-12 bg-brand/30"
-      )}
+      className="object-cover"
+      fill
+      sizes="(max-width: 768px) 100vw, 360px"
+      src={image}
     />
-    {variant === "brand" && (
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 to-transparent" />
-    )}
-    <p className="relative text-balance font-medium text-lg leading-snug">
+    {/* legibility scrim over the photo */}
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
+    <p className="relative text-balance font-medium text-lg leading-snug drop-shadow-sm">
       {data.quote}
     </p>
     <div className="relative mt-5 flex items-center gap-2.5">
       <Avatar data={data} size={32} />
       <div className="leading-tight">
         <div className="font-medium text-sm">{data.name}</div>
-        <div className="text-sm opacity-70">{data.handle}</div>
+        <div className="text-sm opacity-80">{data.handle}</div>
       </div>
     </div>
   </a>
@@ -253,7 +240,7 @@ export function WhatTheySay() {
           key={page}
           transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
         >
-          <FeatureCard data={center.data} variant={center.variant} />
+          <FeatureCard data={center.data} image={center.image} />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -365,7 +352,7 @@ export function WhatTheySay() {
               transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
             >
               <div className="h-72">
-                <FeatureCard data={center.data} variant={center.variant} />
+                <FeatureCard data={center.data} image={center.image} />
               </div>
               {mobileSlots.map((slot) => (
                 <PlainCard data={slot.data} key={slot.data.id} />
