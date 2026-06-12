@@ -36,6 +36,13 @@
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand);
   --color-fd-secondary: var(--color-smooth-50);
+  /* Motion spine — match .cursor/rules/animations.mdc. Exit ~75% of enter;
+     always honor prefers-reduced-motion. See .ui-craft/tokens.md. */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.4s;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .dark {
@@ -202,13 +209,13 @@
   @apply -tracking-wide font-bold text-3xl;
 }
 .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-lg;
+  @apply font-semibold text-2xl;
 }
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-base;
+  @apply font-semibold text-lg;
 }
 .prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-sm;
+  @apply font-semibold text-base;
 }
 .prose :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-xs;
