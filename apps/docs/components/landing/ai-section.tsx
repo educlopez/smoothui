@@ -2,6 +2,7 @@
 
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -273,6 +274,9 @@ const aiFeatures = [
   },
 ];
 
+const cardBase =
+  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+
 export function AISection() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -286,55 +290,53 @@ export function AISection() {
           title="Built for AI-assisted development"
         />
 
-        <motion.div
-          className="relative mx-auto mt-16 grid divide-y overflow-hidden rounded-2xl border border-border bg-primary/40 md:grid-cols-3 md:divide-x md:divide-y-0"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(16px) scale(0.98)" }
-          }
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { type: "spring", duration: 0.4, bounce: 0.1, delay: 0.15 }
-          }
-          viewport={{ once: true, amount: 0.2 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px) scale(1)" }
-          }
-        >
-          {aiFeatures.map((feature, index) => (
-            <motion.div
-              className="row-span-2 grid grid-rows-subgrid gap-8 p-8"
-              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-              key={feature.label}
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : {
-                      type: "spring",
-                      duration: 0.25,
-                      bounce: 0.1,
-                      delay: 0.25 + index * 0.1,
-                    }
-              }
-              viewport={{ once: true, amount: 0.2 }}
-              whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-            >
-              <feature.illustration />
-              <div className="relative z-10 mx-auto max-w-sm text-center">
-                <h3 className="text-balance font-semibold text-foreground">
-                  {feature.title}
-                </h3>
-                <p className="mt-3 text-balance text-primary-foreground text-sm">
-                  {feature.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
+        <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+          {/* MCP — lead pillar with the agent-chat artifact */}
+          <div
+            className={cn(
+              cardBase,
+              "md:col-span-2 lg:col-span-2 lg:row-span-2"
+            )}
+          >
+            <div className="flex flex-1 items-center justify-center py-4">
+              <McpIllustration />
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground text-lg tracking-tight">
+                {aiFeatures[0].title}
+              </h3>
+              <p className="mt-1.5 max-w-sm text-muted-foreground text-sm">
+                {aiFeatures[0].description}
+              </p>
+            </div>
+          </div>
+
+          {/* REST API — the endpoint response artifact */}
+          <div className={cn(cardBase, "lg:col-span-2")}>
+            <div className="mb-4 flex justify-center">
+              <ApiIllustration />
+            </div>
+            <h3 className="font-semibold text-foreground text-lg tracking-tight">
+              {aiFeatures[1].title}
+            </h3>
+            <p className="mt-1.5 text-muted-foreground text-sm">
+              {aiFeatures[1].description}
+            </p>
+          </div>
+
+          {/* llms.txt — the machine-readable catalog artifact */}
+          <div className={cn(cardBase, "lg:col-span-2")}>
+            <div className="mb-4">
+              <LlmsIllustration />
+            </div>
+            <h3 className="font-semibold text-foreground text-lg tracking-tight">
+              {aiFeatures[2].title}
+            </h3>
+            <p className="mt-1.5 text-muted-foreground text-sm">
+              {aiFeatures[2].description}
+            </p>
+          </div>
+        </div>
 
         <motion.div
           className="mt-8 flex justify-center"
