@@ -183,8 +183,8 @@ const SideTile = ({
 }) => (
   <motion.div
     className={cn(
-      "relative min-h-0 w-full overflow-hidden rounded-2xl",
-      active ? "flex-[1.7]" : "flex-1"
+      "relative min-h-0 overflow-hidden rounded-2xl",
+      active ? "w-full flex-[1.7]" : "aspect-square flex-1 self-center"
     )}
     layout
     transition={reduce ? { duration: 0 } : morphSpring}
