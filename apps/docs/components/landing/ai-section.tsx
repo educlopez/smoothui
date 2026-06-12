@@ -6,6 +6,7 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { ArrowRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import Link from "next/link";
 
 function McpIllustration() {
@@ -291,21 +292,32 @@ export function AISection() {
         />
 
         <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-          {/* MCP — lead pillar with the agent-chat artifact */}
+          {/* MCP — lead pillar: agent-chat mockup over a saturated blurred photo */}
           <div
             className={cn(
               cardBase,
-              "md:col-span-2 lg:col-span-2 lg:row-span-2"
+              "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
             )}
           >
-            <div className="flex flex-1 items-center justify-center py-4">
-              <McpIllustration />
+            <Image
+              alt=""
+              aria-hidden
+              className="object-cover"
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              src="/blur/ai-mcp.jpg"
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
+            <div className="relative flex flex-1 items-center justify-center p-6">
+              <div className="w-full max-w-xs rounded-2xl border border-white/30 bg-background/90 p-4 shadow-lg backdrop-blur-md">
+                <McpIllustration />
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-foreground text-lg tracking-tight">
+            <div className="relative p-6">
+              <h3 className="font-semibold text-lg tracking-tight drop-shadow-sm">
                 {aiFeatures[0].title}
               </h3>
-              <p className="mt-1.5 max-w-sm text-muted-foreground text-sm">
+              <p className="mt-1.5 max-w-sm text-sm text-white/80">
                 {aiFeatures[0].description}
               </p>
             </div>

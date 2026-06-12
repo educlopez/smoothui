@@ -5,6 +5,7 @@ import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
+import Image from "next/image";
 
 const lead = {
   title: "Smooth animations",
@@ -85,14 +86,23 @@ export function Features() {
         }
       />
       <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-        {/* Lead — a real SmoothUI component (InfiniteSlider) in motion */}
+        {/* Lead — live component marquee over a saturated blurred photo */}
         <div
           className={cn(
             cardBase,
-            "overflow-hidden p-0 md:col-span-2 lg:col-span-2 lg:row-span-2"
+            "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
           )}
         >
-          <div className="frame-box relative flex flex-1 flex-col justify-center gap-3 overflow-hidden rounded-t-2xl border-0 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+          <Image
+            alt=""
+            aria-hidden
+            className="object-cover"
+            fill
+            sizes="(max-width: 768px) 100vw, 420px"
+            src="/blur/why-choose.jpg"
+          />
+          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
+          <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
             <InfiniteSlider gap={12} speed={32}>
               {SHOWCASE_ROW_A.map((name) => (
                 <Pill key={name}>{name}</Pill>
@@ -104,11 +114,11 @@ export function Features() {
               ))}
             </InfiniteSlider>
           </div>
-          <div className="p-6">
-            <h3 className="mb-2 font-semibold text-foreground text-xl tracking-tight">
+          <div className="relative p-6">
+            <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
               {lead.title}
             </h3>
-            <p className="max-w-md text-muted-foreground">{lead.description}</p>
+            <p className="max-w-md text-sm text-white/80">{lead.description}</p>
           </div>
         </div>
 
