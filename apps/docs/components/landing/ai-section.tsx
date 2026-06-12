@@ -18,7 +18,7 @@ function McpIllustration() {
       : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
 
   return (
-    <div aria-hidden className="mx-auto w-full max-w-64 space-y-3">
+    <div aria-hidden className="w-full space-y-3">
       {/* User message — right */}
       <motion.div
         className="ml-auto w-fit max-w-[72%] rounded-2xl rounded-br-sm bg-brand px-3 py-2 text-white text-xs"
