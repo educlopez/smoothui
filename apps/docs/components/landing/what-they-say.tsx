@@ -1,9 +1,9 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import Image from "next/image";
 import { useState } from "react";
 import Divider from "./divider";
 
@@ -12,7 +12,22 @@ type Testimonial = {
   name: string;
   handle: string;
   quote: string;
+  tweetUrl: string;
 };
+
+const username = (handle: string) => handle.replace(/^@/, "");
+const avatarUrl = (handle: string) =>
+  `https://unavatar.io/x/${username(handle)}`;
+
+const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
+  <Image
+    alt={data.name}
+    className="shrink-0 rounded-full object-cover"
+    height={size}
+    src={avatarUrl(data.handle)}
+    width={size}
+  />
+);
 
 // Center feature card per page (crossfades).
 const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
@@ -22,6 +37,7 @@ const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
       id: "orcdev",
       name: "OrcDev",
       handle: "@orcdev",
+      tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
       quote:
         "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
     },
@@ -32,6 +48,7 @@ const CENTERS: { variant: "brand" | "dark"; data: Testimonial }[] = [
       id: "jaykosai",
       name: "jeth.eth",
       handle: "@jaykosai",
+      tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
       quote:
         "All I can say is 🙌🔥 — planning to build something crazy with it.",
     },
@@ -49,6 +66,7 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
       id: "lucas",
       name: "Lucas",
       handle: "@Lucas_Moveset",
+      tweetUrl: "https://x.com/Lucas_Moveset/status/1990155654019887348",
       quote:
         "Great resource! UI libraries like SmoothUI simplify your workflow and boost your design aesthetic.",
     },
@@ -59,6 +77,7 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
       id: "potato",
       name: "Potato Dragon",
       handle: "@Potato___Dragon",
+      tweetUrl: "https://x.com/Potato___Dragon/status/1980544421121970512",
       quote:
         "I really liked the buttons on SmoothUI — that clickable kind of animation. Can you share it?",
     },
@@ -70,6 +89,7 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
       id: "openhunts",
       name: "openhunts",
       handle: "@openhunts",
+      tweetUrl: "https://x.com/openhunts/status/1980911462030950489",
       quote: "I love this UI component from @educalvolpz!",
     },
   },
@@ -79,6 +99,7 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
       id: "pete",
       name: "Peter Cruckshank",
       handle: "@PeteCapeCod",
+      tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
       quote: "Checked out SmoothUI — some great stuff! 👏 Great job 👍",
     },
   },
@@ -97,7 +118,12 @@ const PlainCard = ({
   data: Testimonial;
   compact?: boolean;
 }) => (
-  <div className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4">
+  <a
+    className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
+    href={data.tweetUrl}
+    rel="noopener noreferrer"
+    target="_blank"
+  >
     <p
       className={cn(
         "text-balance text-foreground/90 text-sm leading-relaxed",
@@ -107,35 +133,32 @@ const PlainCard = ({
       {data.quote}
     </p>
     <div className="mt-3 flex items-center gap-2">
-      <AgentAvatar
-        className="size-7 shrink-0 rounded-full"
-        seed={data.handle}
-        size={28}
-      />
+      <Avatar data={data} size={28} />
       <div className="leading-tight">
         <div className="font-medium text-foreground text-xs">{data.name}</div>
         <div className="text-[11px] text-muted-foreground">{data.handle}</div>
       </div>
     </div>
-  </div>
+  </a>
 );
 
 const FeatureCard = ({
   data,
   variant,
-  animated,
 }: {
   data: Testimonial;
   variant: "brand" | "dark";
-  animated: boolean;
 }) => (
-  <div
+  <a
     className={cn(
-      "relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6",
+      "relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6 transition-[filter] hover:brightness-105",
       variant === "brand"
         ? "bg-gradient-to-br from-brand-secondary via-brand to-brand-light text-white"
         : "bg-smooth-1000 text-smooth-50"
     )}
+    href={data.tweetUrl}
+    rel="noopener noreferrer"
+    target="_blank"
   >
     <div
       aria-hidden
@@ -153,18 +176,13 @@ const FeatureCard = ({
       {data.quote}
     </p>
     <div className="relative mt-5 flex items-center gap-2.5">
-      <AgentAvatar
-        animated={animated}
-        className="size-8 shrink-0 rounded-full"
-        seed={data.handle}
-        size={32}
-      />
+      <Avatar data={data} size={32} />
       <div className="leading-tight">
         <div className="font-medium text-sm">{data.name}</div>
         <div className="text-sm opacity-70">{data.handle}</div>
       </div>
     </div>
-  </div>
+  </a>
 );
 
 const SideTile = ({
@@ -235,11 +253,7 @@ export function WhatTheySay() {
           key={page}
           transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
         >
-          <FeatureCard
-            animated={!shouldReduceMotion}
-            data={center.data}
-            variant={center.variant}
-          />
+          <FeatureCard data={center.data} variant={center.variant} />
         </motion.div>
       </AnimatePresence>
     </div>
@@ -351,11 +365,7 @@ export function WhatTheySay() {
               transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
             >
               <div className="h-72">
-                <FeatureCard
-                  animated={!shouldReduceMotion}
-                  data={center.data}
-                  variant={center.variant}
-                />
+                <FeatureCard data={center.data} variant={center.variant} />
               </div>
               {mobileSlots.map((slot) => (
                 <PlainCard data={slot.data} key={slot.data.id} />
