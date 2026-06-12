@@ -196,8 +196,8 @@ const SideTile = ({
 }) => (
   <motion.div
     className={cn(
-      "relative overflow-hidden rounded-2xl",
-      active ? "h-44 w-full" : "size-20 self-center"
+      "relative min-h-0 w-full overflow-hidden rounded-2xl",
+      active ? "flex-[1.7]" : "flex-1"
     )}
     layout
     transition={reduce ? { duration: 0 } : morphSpring}
@@ -325,8 +325,8 @@ export function WhatTheySay() {
         </div>
 
         {/* Desktop: morphing card / square columns around a crossfading center */}
-        <div className="hidden items-center justify-center gap-5 md:flex">
-          <div className="flex h-72 w-[210px] flex-col gap-5">
+        <div className="hidden items-stretch justify-center gap-3 md:flex">
+          <div className="flex w-[210px] flex-col gap-3">
             <SideTile
               active={lt.activePage === page}
               reduce={shouldReduceMotion}
@@ -339,7 +339,7 @@ export function WhatTheySay() {
             />
           </div>
           <div className="h-80 w-[360px] shrink-0">{renderCenter}</div>
-          <div className="flex h-72 w-[210px] flex-col gap-5">
+          <div className="flex w-[210px] flex-col gap-3">
             <SideTile
               active={rt.activePage === page}
               reduce={shouldReduceMotion}
