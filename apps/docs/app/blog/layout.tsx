@@ -4,15 +4,12 @@ import { BgLines } from "@docs/components/landing/bg-lines";
 import Divider from "@docs/components/landing/divider";
 import Footer from "@docs/components/landing/footer";
 import Navbar from "@docs/components/landing/navbar/navbar";
-import { getSmoothuiStats } from "@docs/lib/smoothui-stats";
 
 export default function BlogLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const stats = getSmoothuiStats();
-
   return (
     <div className="relative isolate bg-primary transition">
       <BgLines />
@@ -37,7 +34,7 @@ export default function BlogLayout({
         />
         <BlogFloatNav />
       </main>
-      <Footer componentCount={stats.componentCount} version={stats.version} />
+      <Footer />
     </div>
   );
 }

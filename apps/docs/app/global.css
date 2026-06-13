@@ -260,3 +260,59 @@
 .animate-accordion-up {
   animation: accordion-up 0.2s ease-out;
 }
+
+/* Center the docs content column within its (full-width) grid track,
+   mirroring ElevenLabs' `w-content-width mx-auto` article. */
+#nd-page {
+  width: 100%;
+  max-width: calc(900px + 2 * 2rem);
+  margin-inline: auto;
+}
+
+#nd-page[data-full="true"] {
+  max-width: calc(1285px + 2 * 2rem);
+}
+
+/* Docs headings use the title font (Plus Jakarta Sans). */
+#nd-page :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-title);
+}
+
+/* ElevenLabs-style docs chrome: clean white surfaces + hairline borders,
+   built from our own tokens (no hardcoded colors). */
+#nd-notebook-layout,
+#nd-sidebar {
+  --fd-sidebar-width: 240px;
+}
+
+/* The fumadocs notebook container sets grid-template via inline style using
+   `calc(var(--fd-layout-width,97rem) - sidebar - toc)` for the main track.
+   Percentage values in CSS vars don't resolve against the grid container's
+   inline size (circular), so the outer 1fr gutter columns end up non-zero
+   even with --fd-layout-width:100%. Override the column template directly
+   to collapse them to 0px.
+
+   Mobile: sidebar is max-md:hidden but with collapsible:false collapsed=false
+   always, so --fd-sidebar-col stays at 240px. Force column 2 to 0px on mobile
+   so the hidden sidebar doesn't occupy grid space. */
+@media (max-width: 767px) {
+  #nd-notebook-layout {
+    grid-template-columns: 0px 0px 1fr 0px 0px !important;
+  }
+}
+@media (min-width: 768px) {
+  #nd-notebook-layout {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr var(--fd-toc-width) 0px !important;
+  }
+}
+
+/* Top nav: solid surface instead of the translucent gray. The inner
+   tabs row already carries its own border-b, so no border here. */
+#nd-subnav {
+  background-color: var(--color-background);
+}
+
+/* Sidebar: hairline separator from the content column. */
+#nd-sidebar {
+  border-inline-end: 1px solid var(--color-border);
+}

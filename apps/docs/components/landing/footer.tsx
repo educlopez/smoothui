@@ -12,7 +12,6 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { ArrowUpRight, Heart } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import smoothuiPkg from "../../../../packages/smoothui/package.json";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -277,15 +276,7 @@ function LinkColumn({ column }: { column: FooterColumn }) {
 
 const ENTER_EASE = [0.23, 1, 0.32, 1] as const;
 
-interface FooterProps {
-  componentCount?: number;
-  version?: string;
-}
-
-export default function Footer({
-  componentCount,
-  version = smoothuiPkg.version,
-}: FooterProps) {
+export default function Footer() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -317,114 +308,107 @@ export default function Footer({
 
       {/* Footer body */}
       <footer className="bg-muted/60 py-16 sm:py-20">
-        <div className="mx-auto max-w-5xl space-y-14 px-6">
-          <div className="grid gap-12 md:grid-cols-5">
-            {/* Brand column (spans 2) */}
-            <div className="space-y-6 md:col-span-2 md:space-y-8">
-              <Link
-                aria-label="SmoothUI home"
-                className="inline-flex items-center gap-2 transition-opacity hover:opacity-80"
-                href="/"
+        <FooterBody />
+      </footer>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Footer body — link columns + bottom bar, reusable without the CTA card
+// ---------------------------------------------------------------------------
+
+export function FooterBody() {
+  return (
+    <div className="mx-auto max-w-5xl space-y-14 px-6">
+      <div className="grid gap-12 md:grid-cols-5">
+        {/* Brand column (spans 2) */}
+        <div className="space-y-6 md:col-span-2 md:space-y-8">
+          <Link
+            aria-label="SmoothUI home"
+            className="inline-flex items-center gap-2 transition-opacity hover:opacity-80"
+            href="/"
+          >
+            <Icon className="h-6 w-auto" />
+            <span className="mt-0.5 select-none font-medium font-title text-foreground text-xl">
+              Smooth<span className="text-brand">UI</span>
+            </span>
+          </Link>
+          <p className="max-w-xs text-balance text-muted-foreground text-sm leading-relaxed">
+            Animated React components with smooth Motion animations. Drop-in
+            shadcn/ui compatible.
+          </p>
+        </div>
+
+        {/* 3 link columns */}
+        <div className="grid gap-8 sm:grid-cols-3 md:col-span-3">
+          <LinkColumn column={navigateColumn} />
+          <LinkColumn column={developColumn} />
+          <div>
+            <LinkColumn column={connectColumn} />
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                href="https://x.com/educalvolpz"
+                rel="noopener noreferrer"
+                target="_blank"
               >
-                <Icon className="h-6 w-auto" />
-                <span className="mt-0.5 select-none font-medium font-title text-foreground text-xl">
-                  Smooth<span className="text-brand">UI</span>
-                </span>
-              </Link>
-              <p className="max-w-xs text-balance text-muted-foreground text-sm leading-relaxed">
-                Animated React components with smooth Motion animations. Drop-in
-                shadcn/ui compatible.
-              </p>
-            </div>
-
-            {/* 3 link columns */}
-            <div className="grid gap-8 sm:grid-cols-3 md:col-span-3">
-              <LinkColumn column={navigateColumn} />
-              <LinkColumn column={developColumn} />
-              <div>
-                <LinkColumn column={connectColumn} />
-                <div className="mt-5 flex items-center gap-3">
-                  <a
-                    className="text-muted-foreground transition-colors duration-200 hover:text-brand"
-                    href="https://x.com/educalvolpz"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <XIcon className="size-[18px]" />
-                  </a>
-                  <a
-                    aria-label="SmoothUI on GitHub"
-                    className="text-muted-foreground transition-colors duration-200 hover:text-brand"
-                    href="https://github.com/educlopez/smoothui"
-                    rel="noopener noreferrer"
-                    target="_blank"
-                  >
-                    <GithubIcon className="size-[18px]" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Dotted divider */}
-          <div
-            aria-hidden
-            className="h-px bg-[length:6px_1px] bg-repeat-x opacity-30 [background-image:linear-gradient(90deg,var(--color-foreground)_1px,transparent_1px)]"
-          />
-
-          {/* Bottom bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
-              <p className="text-muted-foreground text-sm">
-                &copy; {new Date().getFullYear()} SmoothUI. Built by{" "}
-                <a
-                  className="text-foreground underline underline-offset-4 transition-colors hover:text-brand"
-                  href="https://x.com/educalvolpz"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Eduardo Calvo
-                </a>
-                .
-              </p>
-            </div>
-
-            <div className="flex items-center gap-3">
-              {/* Tech stack row */}
-              <div className="hidden items-center gap-3 text-smooth-800 sm:flex">
-                {techStack.map((tech) => (
-                  <span
-                    aria-label={tech.name}
-                    className="transition-colors duration-200 hover:text-brand"
-                    key={tech.name}
-                    role="img"
-                    title={tech.name}
-                  >
-                    <tech.icon className={tech.className} />
-                  </span>
-                ))}
-              </div>
-
-              {/* Status pill — SmoothUI version of "All Systems Normal" */}
-              <div className="flex items-center gap-2 rounded-full border border-transparent bg-background py-1 pr-3 pl-2 shadow-sm ring-1 ring-border/60">
-                <span aria-hidden className="relative flex size-2.5">
-                  <span className="absolute inset-0 inline-flex size-full animate-ping rounded-full bg-brand/60 opacity-75" />
-                  <span className="relative inline-flex size-2.5 rounded-full bg-brand" />
-                </span>
-                <span className="text-foreground text-xs tabular-nums">
-                  v{version}
-                  {componentCount !== undefined && (
-                    <>
-                      <span className="text-muted-foreground"> · </span>
-                      {componentCount} components
-                    </>
-                  )}
-                </span>
-              </div>
+                <XIcon className="size-[18px]" />
+              </a>
+              <a
+                aria-label="SmoothUI on GitHub"
+                className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                href="https://github.com/educlopez/smoothui"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <GithubIcon className="size-[18px]" />
+              </a>
             </div>
           </div>
         </div>
-      </footer>
+      </div>
+
+      {/* Dotted divider */}
+      <div
+        aria-hidden
+        className="h-px bg-[length:6px_1px] bg-repeat-x opacity-30 [background-image:linear-gradient(90deg,var(--color-foreground)_1px,transparent_1px)]"
+      />
+
+      {/* Bottom bar */}
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-4">
+          <p className="text-muted-foreground text-sm">
+            &copy; {new Date().getFullYear()} SmoothUI. Built by{" "}
+            <a
+              className="text-foreground underline underline-offset-4 transition-colors hover:text-brand"
+              href="https://x.com/educalvolpz"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Eduardo Calvo
+            </a>
+            .
+          </p>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Tech stack row */}
+          <div className="hidden items-center gap-3 text-smooth-800 sm:flex">
+            {techStack.map((tech) => (
+              <span
+                aria-label={tech.name}
+                className="transition-colors duration-200 hover:text-brand"
+                key={tech.name}
+                role="img"
+                title={tech.name}
+              >
+                <tech.icon className={tech.className} />
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
