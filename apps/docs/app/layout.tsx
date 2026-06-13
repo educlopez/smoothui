@@ -4,7 +4,7 @@ import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./global.css";
-import { inter, poppins } from "./fonts";
+import { inter, plusJakartaSans, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
 
 const enableVercelAnalytics =
@@ -84,7 +84,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html
-      className={`${inter.className} ${inter.variable} ${poppins.variable}`}
+      className={`${inter.className} ${inter.variable} ${poppins.variable} ${plusJakartaSans.variable}`}
       lang="en"
       suppressHydrationWarning
     >

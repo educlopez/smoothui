@@ -98,7 +98,7 @@ export function Hero() {
               <AnnouncementBadge />
 
               {/* Main heading */}
-              <h1 className="text-balance font-semibold text-4xl text-foreground md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
+              <h1 className="text-balance font-semibold font-title text-4xl text-foreground md:text-5xl lg:text-6xl lg:leading-15 lg:tracking-tight">
                 Animated React Components for shadcn/ui
               </h1>
 
