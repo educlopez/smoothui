@@ -28,7 +28,6 @@ export function SkillsSection() {
       <div className="mx-auto max-w-5xl">
         <SectionHeader
           description="Same prompt. Same model. Different result. UI Craft gives your coding agent the design intuition it's missing."
-          eyebrow="Skills"
           title="Design taste for your AI agent"
         />
 

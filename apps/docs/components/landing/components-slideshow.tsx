@@ -40,7 +40,6 @@ export function ComponentsSlideshow() {
       <Divider />
       <SectionHeader
         description="Real components from the registry — preview the motion, then install with one command."
-        eyebrow="Components"
         title="Components showcase"
       />
       <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">

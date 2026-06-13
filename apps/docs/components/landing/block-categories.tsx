@@ -566,7 +566,6 @@ export function BlockCategories() {
               project needs
             </>
           }
-          eyebrow="Blocks"
           title="Elevate your design with premium blocks"
         />
 

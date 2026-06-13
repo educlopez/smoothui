@@ -300,7 +300,6 @@ export function AISection() {
       <div className="mx-auto max-w-5xl">
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
-          eyebrow="AI-Native"
           title="Built for AI-assisted development"
         />
 

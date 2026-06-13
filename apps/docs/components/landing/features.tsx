@@ -89,7 +89,6 @@ export function Features() {
       <Divider />
       <SectionHeader
         description="Built on the foundations you already love, with the polish you've been wishing for."
-        eyebrow="Why SmoothUI"
         title={
           <>
             Why choose Smooth<span className="text-brand">UI</span>?
