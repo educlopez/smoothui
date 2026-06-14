@@ -1,7 +1,6 @@
 {
   "title": "Guides",
   "description": "Learn how to use SmoothUI components and blocks",
-  "icon": "Book",
   "root": true,
   "pages": [
     "---Guide---",

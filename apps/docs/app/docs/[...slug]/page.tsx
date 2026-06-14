@@ -45,6 +45,11 @@ const AutoTypeTableWithGenerator = (
   props: React.ComponentProps<typeof AutoTypeTable>
 ) => <AutoTypeTable {...props} generator={typeGenerator} />;
 
+// Renders BodyText as div to avoid <p>-in-<p> hydration errors when MDX wraps content in <p>
+const BodyTextAsDiv = (props: React.ComponentProps<typeof BodyText>) => (
+  <BodyText as="div" {...props} />
+);
+
 export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const params = await props.params;
   const page = source.getPage(params.slug);
@@ -201,7 +206,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
               PoweredBy,
               Reference,
               Contributor,
-              BodyText,
+              BodyText: BodyTextAsDiv,
               FeatureCard,
               FeatureCardHover,
               Divider,

@@ -28,7 +28,7 @@ import dynamic from "next/dynamic";
 import {
   IconCheckFill24,
   IconConsoleFill24,
-  IconCopyFill24,
+  IconCopy2Fill24,
   IconDiceFill24,
   IconExternalLinkFill24,
   IconMagnifierFill24,
@@ -347,7 +347,7 @@ function StudioSidebar({
             {presetCopy.copied ? (
               <IconCheckFill24 className="size-3.5 shrink-0" />
             ) : (
-              <IconCopyFill24 className="size-3.5 shrink-0 text-muted-foreground" />
+              <IconCopy2Fill24 className="size-3.5 shrink-0 text-muted-foreground" />
             )}
           </button>
           <button
@@ -363,7 +363,7 @@ function StudioSidebar({
             {linkCopy.copied ? (
               <IconCheckFill24 className="size-3.5" />
             ) : (
-              <IconCopyFill24 className="size-3.5 text-muted-foreground" />
+              <IconCopy2Fill24 className="size-3.5 text-muted-foreground" />
             )}
           </button>
           <a
@@ -400,7 +400,7 @@ function StudioSidebar({
           {cssCopy.copied ? (
             <IconCheckFill24 className="size-3.5" />
           ) : (
-            <IconCopyFill24 className="size-3.5" />
+            <IconCopy2Fill24 className="size-3.5" />
           )}
           {cssCopy.copied ? "Copied!" : "Copy CSS variables"}
         </SmoothButton>

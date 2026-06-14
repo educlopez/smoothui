@@ -8,7 +8,7 @@ import Link from "next/link";
 import {
   IconBoxFill24,
   IconCheckFill24,
-  IconCopyFill24,
+  IconCopy2Fill24,
 } from "nucleo-core-fill-24";
 import { useCallback, useEffect, useState } from "react";
 
@@ -19,9 +19,9 @@ const formatSize = (bytes: number): string => {
   return `~${kb.toFixed(1)} kB`;
 };
 
-export type ComponentCardProps = {
+export interface ComponentCardProps {
   component: GalleryComponentMeta;
-};
+}
 
 export const ComponentCard = ({ component }: ComponentCardProps) => {
   const shouldReduceMotion = useReducedMotion();
@@ -142,7 +142,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                 {copied ? (
                   <IconCheckFill24 className="h-3 w-3" />
                 ) : (
-                  <IconCopyFill24 className="h-3 w-3" />
+                  <IconCopy2Fill24 className="h-3 w-3" />
                 )}
                 {copied ? "Copied" : "Install"}
               </SmoothButton>

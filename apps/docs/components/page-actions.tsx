@@ -10,7 +10,7 @@ import { useCopyButton } from "fumadocs-ui/utils/use-copy-button";
 import {
   IconCheckFill24,
   IconChevronDownFill24,
-  IconCopyFill24,
+  IconCopy2Fill24,
   IconExternalLinkFill24,
   IconMessageFill24,
 } from "nucleo-core-fill-24";
@@ -64,7 +64,7 @@ export function LLMCopyButton({
       disabled={isLoading}
       onClick={onClick}
     >
-      {checked ? <IconCheckFill24 /> : <IconCopyFill24 />}
+      {checked ? <IconCheckFill24 /> : <IconCopy2Fill24 />}
       Copy Markdown
     </Button>
   );

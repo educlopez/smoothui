@@ -1,6 +1,6 @@
 "use client";
 
-import { IconCheckFill24, IconCopyFill24 } from "nucleo-core-fill-24";
+import { IconCheckFill24, IconCopy2Fill24 } from "nucleo-core-fill-24";
 import { IconLinkedin, IconXTwitter } from "nucleo-social-media";
 import { useState } from "react";
 
@@ -51,7 +51,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         {copied ? (
           <IconCheckFill24 className="h-4 w-4" />
         ) : (
-          <IconCopyFill24 className="h-4 w-4" />
+          <IconCopy2Fill24 className="h-4 w-4" />
         )}
       </button>
     </div>

@@ -328,3 +328,10 @@
 #nd-sidebar {
   border-inline-end: 1px solid var(--color-border);
 }
+
+/* With navMode="top" and collapsible=false the sidebar renders an empty
+   header div (p-4 pb-2) that has no visible content on desktop — collapse
+   its padding so the first separator starts without a large gap above it. */
+#nd-sidebar > div:first-child {
+  padding-block: 0 !important;
+}

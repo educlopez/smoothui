@@ -12,7 +12,7 @@ import {
   IconArrowRightFill24,
   IconCheckDoubleFill24,
   IconCheckFill24,
-  IconCopyFill24,
+  IconCopy2Fill24,
   IconFloppyDiskFill24,
   IconRefresh2Fill24,
 } from "nucleo-core-fill-24";
@@ -289,7 +289,7 @@ export function ColorPickerFloatNav() {
                   </>
                 ) : (
                   <>
-                    <IconCopyFill24 className="h-3.5 w-3.5" /> Install{" "}
+                    <IconCopy2Fill24 className="h-3.5 w-3.5" /> Install{" "}
                     {selectedPalette.name} theme
                   </>
                 )}
