@@ -218,22 +218,22 @@
   @apply font-semibold text-foreground tracking-tight;
 }
 .prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply -tracking-wide font-bold text-3xl;
+  @apply font-extrabold text-4xl leading-tight;
 }
 .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-2xl;
+  @apply font-bold text-2xl leading-tight;
 }
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-lg;
+  @apply font-semibold text-xl leading-tight;
 }
 .prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-base;
+  @apply font-semibold text-lg leading-tight;
 }
 .prose :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-xs;
+  @apply font-semibold text-base;
 }
 .prose :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-medium text-xs;
+  @apply font-semibold text-sm;
 }
 .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply text-base;
@@ -288,6 +288,36 @@
 /* Docs headings use the title font (Plus Jakarta Sans). */
 #nd-page :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-title);
+}
+
+/* Override fumadocs utility classes on headings — unlayered beats @layer utilities */
+#nd-page h1 {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+}
+#nd-page h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+#nd-page h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+#nd-page h4 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+#nd-page h5 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+#nd-page h6 {
+  font-size: var(--text-sm);
+  font-weight: 600;
 }
 
 /* ElevenLabs-style docs chrome: clean white surfaces + hairline borders,

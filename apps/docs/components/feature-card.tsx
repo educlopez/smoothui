@@ -57,7 +57,7 @@ export function FeatureCard({
         role="presentation"
       />
       <div className="relative z-10">
-        <p className="m-0 font-medium text-xs">{title}</p>
+        <p className="m-0 mb-1 font-medium text-xs">{title}</p>
         <div className="text-foreground/70 text-xs leading-normal [&_p]:m-0">
           {children}
         </div>
