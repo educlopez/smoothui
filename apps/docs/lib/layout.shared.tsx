@@ -1,4 +1,6 @@
+import { ChangelogPopover } from "@docs/components/changelog-popover";
 import Logo from "@docs/components/logo";
+import { NavThemeSwitch } from "@docs/components/nav-theme-switch";
 import type { BaseLayoutProps } from "fumadocs-ui/layouts/shared";
 
 export function baseOptions(): BaseLayoutProps {
@@ -9,6 +11,16 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: <Logo />,
     },
-    links: [],
+    links: [
+      {
+        type: "custom",
+        children: (
+          <div className="flex items-center gap-2">
+            <ChangelogPopover />
+            <NavThemeSwitch />
+          </div>
+        ),
+      },
+    ],
   };
 }

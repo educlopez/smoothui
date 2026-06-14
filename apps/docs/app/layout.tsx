@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./global.css";
 import { inter, plusJakartaSans, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
@@ -96,17 +95,14 @@ export default function Layout({ children }: LayoutProps<"/">) {
           title="SmoothUI Blog"
           type="application/rss+xml"
         />
-      </head>
-      <body className="flex min-h-screen flex-col">
-        <Script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data requires innerHTML
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(smoothUISchema),
-          }}
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
           id="smoothui-schema"
-          strategy="beforeInteractive"
           type="application/ld+json"
         />
+      </head>
+      <body className="flex min-h-screen flex-col">
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>{children}</RootProvider>
