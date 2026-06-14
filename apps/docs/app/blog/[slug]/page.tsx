@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         title={post.data.title}
         url={post.url}
       />
-      <main className="container max-w-6xl py-12">
+      <main className="mx-auto w-full max-w-6xl px-6 py-12">
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
           href="/blog"

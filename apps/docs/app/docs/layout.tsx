@@ -20,16 +20,16 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
       nav={{ ...options.nav, mode: "top" }}
       sidebar={{
         collapsible: false,
-        footer: <NavSponsorCard />,
+        footer: <NavSponsorCard key="nav-sponsor-card" />,
       }}
       tabMode="navbar"
     >
       {children}
-      <FloatNav />
+      <FloatNav key="float-nav" />
       {/* SEO footer inside the scroll flow, spanning the full grid width
           so it lands at the bottom without breaking the 100dvh layout.
           DocsFooter constrains its content to the main column band. */}
-      <div className="[grid-column:1/-1]">
+      <div className="[grid-column:1/-1]" key="docs-footer">
         <DocsFooter />
       </div>
     </DocsLayout>
