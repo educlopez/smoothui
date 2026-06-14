@@ -1,7 +1,7 @@
 "use client";
 
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { Hand } from "lucide-react";
+import { IconPointerFill24 } from "nucleo-core-fill-24";
 import {
   Accordion,
   AccordionContent,
@@ -24,7 +24,7 @@ export const PreviewSource = ({ source }: PreviewSourceProps) => (
       <AccordionItem key={name} value={name}>
         <AccordionTrigger className="rounded-none bg-secondary px-4">
           <div className="flex items-center gap-2 text-sm">
-            <Hand className="size-4 text-muted-foreground" />
+            <IconPointerFill24 className="size-4 text-muted-foreground" />
             <span>{name}</span>
           </div>
         </AccordionTrigger>

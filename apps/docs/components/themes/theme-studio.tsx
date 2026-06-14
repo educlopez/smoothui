@@ -24,18 +24,18 @@ import {
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Scrubber from "@repo/smoothui/components/scrubber";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import {
-  Check,
-  Copy,
-  Crosshair,
-  ExternalLink,
-  Moon,
-  Search,
-  Shuffle,
-  Sun,
-  Terminal,
-} from "lucide-react";
 import dynamic from "next/dynamic";
+import {
+  IconCheckFill24,
+  IconConsoleFill24,
+  IconCopyFill24,
+  IconDiceFill24,
+  IconExternalLinkFill24,
+  IconMagnifierFill24,
+  IconMoonFill24,
+  IconSunFill24,
+  IconTargetFill24,
+} from "nucleo-core-fill-24";
 import {
   type ComponentType,
   useEffect,
@@ -202,7 +202,7 @@ function StudioSidebar({
             title="Center board"
             type="button"
           >
-            <Crosshair className="size-4" />
+            <IconTargetFill24 className="size-4" />
           </button>
           <button
             aria-label="Shuffle theme"
@@ -211,13 +211,13 @@ function StudioSidebar({
             title="Shuffle theme"
             type="button"
           >
-            <Shuffle className="size-4" />
+            <IconDiceFill24 className="size-4" />
           </button>
         </div>
       </div>
 
       <div className="flex min-h-9 items-center gap-2 rounded-lg bg-smooth-200 px-3">
-        <Search className="size-3.5 shrink-0 text-muted-foreground" />
+        <IconMagnifierFill24 className="size-3.5 shrink-0 text-muted-foreground" />
         <input
           aria-label="Search components"
           className="w-full bg-transparent font-medium text-[13px] text-foreground outline-none placeholder:text-muted-foreground"
@@ -263,9 +263,9 @@ function StudioSidebar({
             type="button"
           >
             {entry === "light" ? (
-              <Sun className="size-3.5" />
+              <IconSunFill24 className="size-3.5" />
             ) : (
-              <Moon className="size-3.5" />
+              <IconMoonFill24 className="size-3.5" />
             )}
             {entry}
           </button>
@@ -345,9 +345,9 @@ function StudioSidebar({
           >
             <span className="truncate">{presetCode}</span>
             {presetCopy.copied ? (
-              <Check className="size-3.5 shrink-0" />
+              <IconCheckFill24 className="size-3.5 shrink-0" />
             ) : (
-              <Copy className="size-3.5 shrink-0 text-muted-foreground" />
+              <IconCopyFill24 className="size-3.5 shrink-0 text-muted-foreground" />
             )}
           </button>
           <button
@@ -361,9 +361,9 @@ function StudioSidebar({
           >
             Copy preset link
             {linkCopy.copied ? (
-              <Check className="size-3.5" />
+              <IconCheckFill24 className="size-3.5" />
             ) : (
-              <Copy className="size-3.5 text-muted-foreground" />
+              <IconCopyFill24 className="size-3.5 text-muted-foreground" />
             )}
           </button>
           <a
@@ -374,7 +374,7 @@ function StudioSidebar({
             title="Approximation: shadcn/create only supports its own catalog values"
           >
             shadcn/create (approx.)
-            <ExternalLink className="size-3.5" />
+            <IconExternalLinkFill24 className="size-3.5" />
           </a>
         </div>
       </div>
@@ -386,9 +386,9 @@ function StudioSidebar({
           variant="candy"
         >
           {commandCopy.copied ? (
-            <Check className="size-4" />
+            <IconCheckFill24 className="size-4" />
           ) : (
-            <Terminal className="size-4" />
+            <IconConsoleFill24 className="size-4" />
           )}
           {commandCopy.copied ? "Copied!" : `Install ${palette.label}`}
         </SmoothButton>
@@ -398,9 +398,9 @@ function StudioSidebar({
           variant="outline"
         >
           {cssCopy.copied ? (
-            <Check className="size-3.5" />
+            <IconCheckFill24 className="size-3.5" />
           ) : (
-            <Copy className="size-3.5" />
+            <IconCopyFill24 className="size-3.5" />
           )}
           {cssCopy.copied ? "Copied!" : "Copy CSS variables"}
         </SmoothButton>
@@ -765,9 +765,9 @@ function CopyInstallButton({ slug }: { slug: string }) {
       type="button"
     >
       {copied ? (
-        <Check className="size-3.5 text-accent" />
+        <IconCheckFill24 className="size-3.5 text-accent" />
       ) : (
-        <Terminal className="size-3.5" />
+        <IconConsoleFill24 className="size-3.5" />
       )}
     </button>
   );
@@ -918,7 +918,7 @@ function PreviewCanvas({
                       className="text-muted-foreground transition-colors hover:text-foreground"
                       href={`/docs/components/${slug}`}
                     >
-                      <ExternalLink className="size-3.5" />
+                      <IconExternalLinkFill24 className="size-3.5" />
                     </a>
                   </div>
                 </div>

@@ -13,16 +13,16 @@ import {
   ToggleGroupItem,
 } from "@repo/shadcn-ui/components/ui/toggle-group";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import {
-  BoxIcon,
-  CodeIcon,
-  EyeIcon,
-  Fullscreen,
-  Monitor,
-  Smartphone,
-  Tablet,
-} from "lucide-react";
 import Link from "next/link";
+import {
+  IconBoxFill24,
+  IconCodeFill24,
+  IconExpandFill24,
+  IconEyeFill24,
+  IconMobile2Fill24,
+  IconMonitorFill24,
+  IconTabletFill24,
+} from "nucleo-core-fill-24";
 import type { ReactNode } from "react";
 import { useState } from "react";
 
@@ -43,17 +43,17 @@ const previewSizes: { label: string; value: PreviewSize; icon: ReactNode }[] = [
   {
     label: "Desktop preview",
     value: "desktop",
-    icon: <Monitor className="h-4 w-4" />,
+    icon: <IconMonitorFill24 className="h-4 w-4" />,
   },
   {
     label: "Tablet preview",
     value: "tablet",
-    icon: <Tablet className="h-4 w-4" />,
+    icon: <IconTabletFill24 className="h-4 w-4" />,
   },
   {
     label: "Mobile preview",
     value: "mobile",
-    icon: <Smartphone className="h-4 w-4" />,
+    icon: <IconMobile2Fill24 className="h-4 w-4" />,
   },
 ];
 
@@ -89,16 +89,16 @@ export const PreviewShell = ({
         <div className="flex flex-col gap-2 border-b bg-muted/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
           <TabsList className="flex h-9 items-center gap-1 rounded-md bg-transparent p-0 shadow-none">
             <TabsTrigger value="preview">
-              <EyeIcon className="text-muted-foreground" size={16} />
+              <IconEyeFill24 className="text-muted-foreground" size={16} />
               Preview
             </TabsTrigger>
             <TabsTrigger value="example">
-              <BoxIcon className="text-muted-foreground" size={16} />
+              <IconBoxFill24 className="text-muted-foreground" size={16} />
               Example
             </TabsTrigger>
             {sourceComponents.length > 0 && (
               <TabsTrigger value="code">
-                <CodeIcon className="text-muted-foreground" size={16} />
+                <IconCodeFill24 className="text-muted-foreground" size={16} />
                 Code
               </TabsTrigger>
             )}
@@ -145,7 +145,7 @@ export const PreviewShell = ({
                     target="_blank"
                   >
                     <span className="sr-only">Open preview in new tab</span>
-                    <Fullscreen className="h-4 w-4" />
+                    <IconExpandFill24 className="h-4 w-4" />
                   </Link>
                 </Button>
               )}

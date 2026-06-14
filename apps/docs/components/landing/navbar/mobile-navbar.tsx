@@ -2,25 +2,24 @@
 
 import Logo from "@docs/components/logo";
 import { Button } from "@docs/components/smoothbutton";
-import {
-  Book,
-  Compass,
-  FileText,
-  Heart,
-  Layers3,
-  LayoutDashboard,
-  Menu,
-  PackagePlus,
-  Palette,
-  Sparkles,
-  Type,
-  User,
-  Wand2,
-  X,
-  Zap,
-} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import {
+  IconBoltFill24,
+  IconBookFill24,
+  IconBoxFill24,
+  IconColorPaletteFill24,
+  IconCompassFill24,
+  IconGrid2Fill24,
+  IconHeartFill24,
+  IconLayersFill24,
+  IconMenuFill24,
+  IconSparkleFill24,
+  IconTextFill24,
+  IconUserFill24,
+  IconWandSparkleFill24,
+  IconXmarkFill24,
+} from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { GithubStars } from "./github-stars";
@@ -76,7 +75,11 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
           size="icon"
           variant="ghost"
         >
-          {isOpen ? <X size={20} /> : <Menu size={20} />}
+          {isOpen ? (
+            <IconXmarkFill24 size={20} />
+          ) : (
+            <IconMenuFill24 size={20} />
+          )}
         </Button>
       </div>
 
@@ -121,7 +124,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               }
             >
               <div className="mobile-navbar-section-title">
-                <LayoutDashboard size={16} />
+                <IconGrid2Fill24 size={16} />
                 Components
               </div>
               <div className="mobile-navbar-links">
@@ -129,21 +132,21 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                   className="mobile-navbar-link"
                   href="/docs/components/scroll-reveal-paragraph"
                 >
-                  <Type size={16} />
+                  <IconTextFill24 size={16} />
                   Text Components
                 </Link>
                 <Link
                   className="mobile-navbar-link"
                   href="/docs/components/accordion"
                 >
-                  <Layers3 size={16} />
+                  <IconLayersFill24 size={16} />
                   Basic Components
                 </Link>
                 <Link
                   className="mobile-navbar-link"
                   href="/docs/components/animated-o-t-p-input"
                 >
-                  <LayoutDashboard size={16} />
+                  <IconGrid2Fill24 size={16} />
                   UI Components
                 </Link>
               </div>
@@ -164,26 +167,26 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               }
             >
               <div className="mobile-navbar-section-title">
-                <Zap size={16} />
+                <IconBoltFill24 size={16} />
                 Blocks
               </div>
               <div className="mobile-navbar-links">
                 <Link className="mobile-navbar-link" href="/docs/blocks/hero">
-                  <Sparkles size={16} />
+                  <IconSparkleFill24 size={16} />
                   Hero Blocks
                 </Link>
                 <Link
                   className="mobile-navbar-link"
                   href="/docs/blocks/pricing"
                 >
-                  <PackagePlus size={16} />
+                  <IconBoxFill24 size={16} />
                   Pricing Blocks
                 </Link>
                 <Link
                   className="mobile-navbar-link"
                   href="/docs/blocks/testimonial"
                 >
-                  <User size={16} />
+                  <IconUserFill24 size={16} />
                   Testimonial Blocks
                 </Link>
               </div>
@@ -204,11 +207,11 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               }
             >
               <Link className="mobile-navbar-link" href="/themes">
-                <Palette size={16} />
+                <IconColorPaletteFill24 size={16} />
                 Themes
               </Link>
               <Link className="mobile-navbar-link" href="/docs/guides">
-                <Book size={16} />
+                <IconBookFill24 size={16} />
                 Docs
               </Link>
             </motion.div>
@@ -228,19 +231,19 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               }
             >
               <div className="mobile-navbar-section-title">
-                <Compass size={16} />
+                <IconCompassFill24 size={16} />
                 Resources
               </div>
               <div className="mobile-navbar-links">
                 <Link className="mobile-navbar-link" href="/blog">
-                  <FileText size={16} />
+                  <IconTextFill24 size={16} />
                   Blog
                 </Link>
                 <Link
                   className="mobile-navbar-link"
                   href="/docs/guides/sponsors"
                 >
-                  <Heart size={16} />
+                  <IconHeartFill24 size={16} />
                   Sponsors
                 </Link>
                 <a
@@ -249,7 +252,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                   rel="noopener noreferrer"
                   target="_blank"
                 >
-                  <Wand2 size={16} />
+                  <IconWandSparkleFill24 size={16} />
                   Skills
                 </a>
               </div>

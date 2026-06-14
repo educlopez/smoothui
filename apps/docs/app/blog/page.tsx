@@ -1,8 +1,8 @@
 import { createMetadata } from "@docs/lib/metadata";
 import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
-import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = createMetadata({
   title: "Blog",
@@ -40,10 +40,9 @@ function ReadLink({ title }: { title: string }) {
       className="flex items-center gap-1 font-medium text-brand text-sm transition-colors duration-200 group-hover:text-foreground"
     >
       Read
-      <ChevronRight
+      <IconChevronRightFill24
         aria-hidden="true"
         className="size-3.5 translate-y-px transition-transform duration-200 group-hover:translate-x-0.5"
-        strokeWidth={2.5}
       />
     </span>
   );

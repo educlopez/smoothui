@@ -4,10 +4,10 @@ import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
-import { ArrowRight, Sparkles } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import { IconArrowRightFill24, IconSparkleFill24 } from "nucleo-core-fill-24";
 
 function McpIllustration() {
   const shouldReduceMotion = useReducedMotion();
@@ -50,7 +50,7 @@ function McpIllustration() {
       >
         <div className="flex items-center gap-2">
           <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
-            <Sparkles className="size-3.5" />
+            <IconSparkleFill24 className="size-3.5" />
           </div>
           <div className="leading-tight">
             <div className="font-medium text-foreground text-xs">
@@ -379,7 +379,7 @@ export function AISection() {
             href="/docs/guides/ai-integration"
           >
             Learn more about AI integration
-            <ArrowRight
+            <IconArrowRightFill24
               className="transition-transform group-hover:translate-x-1"
               size={14}
             />

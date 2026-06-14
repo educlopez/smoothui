@@ -21,19 +21,18 @@ import {
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 import PriceFlow from "@repo/smoothui/components/price-flow";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
-import {
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Github,
-  HelpCircle,
-  Link as LinkIcon,
-  Star,
-  Twitter,
-} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  IconChevronDownFill24,
+  IconChevronLeftFill24,
+  IconChevronRightFill24,
+  IconCircleQuestionFill24,
+  IconExternalLinkFill24,
+  IconStarFill24,
+} from "nucleo-core-fill-24";
+import { IconGithub, IconXTwitter } from "nucleo-social-media";
 import { useState } from "react";
 
 const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
@@ -92,7 +91,6 @@ const blockCategories = [
 function HeroPreview() {
   return (
     <div className="group/preview flex h-full w-full items-center justify-between gap-3 p-5">
-      {/* Left — real mini hero copy */}
       <div className="flex flex-1 flex-col items-start gap-1.5">
         <span className="rounded-full bg-brand/10 px-2 py-0.5 font-medium text-[9px] text-brand">
           New
@@ -112,7 +110,6 @@ function HeroPreview() {
           </span>
         </div>
       </div>
-      {/* Right — the SmoothUI orb */}
       <div className="relative size-20 shrink-0 transition-transform duration-300 group-hover/preview:scale-105">
         <Image
           alt=""
@@ -214,8 +211,8 @@ function TestimonialPreview() {
       onHoverStart={() => setCurrentIndex((prev) => (prev + 1) % people.length)}
     >
       <div className="relative flex w-[180px] flex-col items-center gap-2 overflow-hidden rounded-xl border border-border bg-background p-4 shadow-sm">
-        <ChevronLeft className="absolute top-1/2 left-1.5 size-3 -translate-y-1/2 text-foreground/30" />
-        <ChevronRight className="absolute top-1/2 right-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <IconChevronLeftFill24 className="absolute top-1/2 left-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <IconChevronRightFill24 className="absolute top-1/2 right-1.5 size-3 -translate-y-1/2 text-foreground/30" />
         <AnimatePresence mode="wait">
           <motion.div
             animate="center"
@@ -239,7 +236,7 @@ function TestimonialPreview() {
             </span>
             <div className="flex gap-0.5">
               {[...new Array(5)].map((_, i) => (
-                <Star
+                <IconStarFill24
                   className="size-2 fill-brand text-brand"
                   // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star rating
                   key={`star-${i}`}
@@ -247,7 +244,7 @@ function TestimonialPreview() {
               ))}
             </div>
             <p className="text-balance text-center text-[9px] text-foreground/70 leading-snug">
-              “{quote}”
+              "{quote}"
             </p>
             <span className="font-medium text-[8px] text-muted-foreground">
               {currentPerson?.name}
@@ -261,25 +258,13 @@ function TestimonialPreview() {
 
 function FAQPreview() {
   const chevronVariants = {
-    open: {
-      rotate: 180,
-    },
-    closed: {
-      rotate: 0,
-    },
+    open: { rotate: 180 },
+    closed: { rotate: 0 },
   };
 
   const contentVariants = {
-    open: {
-      opacity: 1,
-      height: "auto",
-      marginTop: "0.25rem",
-    },
-    closed: {
-      opacity: 0,
-      height: 0,
-      marginTop: 0,
-    },
+    open: { opacity: 1, height: "auto", marginTop: "0.25rem" },
+    closed: { opacity: 0, height: 0, marginTop: 0 },
   };
 
   return (
@@ -288,7 +273,6 @@ function FAQPreview() {
       initial="open"
       whileHover="closed"
     >
-      {/* First FAQ — expanded by default, closes on hover */}
       <motion.div
         className="flex flex-col overflow-hidden rounded-md border border-border bg-background p-2"
         transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
@@ -296,7 +280,7 @@ function FAQPreview() {
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1">
-            <HelpCircle className="size-2.5 shrink-0 text-brand/60" />
+            <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
             <span className="font-medium text-[9px] text-foreground/80">
               Is it free to use?
             </span>
@@ -305,7 +289,7 @@ function FAQPreview() {
             transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
             variants={chevronVariants}
           >
-            <ChevronDown className="size-3 text-foreground/30" />
+            <IconChevronDownFill24 className="size-3 text-foreground/30" />
           </motion.div>
         </div>
         <motion.div
@@ -327,12 +311,12 @@ function FAQPreview() {
             whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-center gap-1">
-              <HelpCircle className="size-2.5 shrink-0 text-brand/60" />
+              <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
               <span className="font-medium text-[9px] text-foreground/80">
                 {question}
               </span>
             </div>
-            <ChevronDown className="size-3 text-foreground/30" />
+            <IconChevronDownFill24 className="size-3 text-foreground/30" />
           </motion.div>
         )
       )}
@@ -368,10 +352,16 @@ function FooterPreview() {
             © 2026 SmoothUI
           </span>
           <div className="flex gap-1.5">
-            {[Twitter, Github, LinkIcon].map((Icon) => (
+            {(
+              [
+                { Icon: IconXTwitter, key: "twitter" },
+                { Icon: IconGithub, key: "github" },
+                { Icon: IconExternalLinkFill24, key: "link" },
+              ] as const
+            ).map(({ Icon, key }) => (
               <span
                 className="flex size-3.5 items-center justify-center rounded-full bg-muted text-foreground/40"
-                key={Icon.displayName}
+                key={key}
               >
                 <Icon className="size-2" />
               </span>
@@ -384,7 +374,6 @@ function FooterPreview() {
 }
 
 function LogoCloudPreview() {
-  // Use more logos for a smoother infinite loop
   const logos = [
     Canpoy,
     Canva,
@@ -401,17 +390,10 @@ function LogoCloudPreview() {
   ];
 
   const logoVariants = {
-    rest: {
-      scale: 1,
-      opacity: 0.6,
-    },
-    hover: {
-      scale: 1.08,
-      opacity: 1,
-    },
+    rest: { scale: 1, opacity: 0.6 },
+    hover: { scale: 1.08, opacity: 1 },
   };
 
-  // Create blur mask layers - simplified for preview
   const createBlurMask = (
     direction: "left" | "right",
     blur: number,
@@ -439,30 +421,21 @@ function LogoCloudPreview() {
   return (
     <div className="group/preview relative flex h-full w-full items-center justify-center overflow-hidden p-4">
       <div className="relative w-full overflow-hidden">
-        {/* Base gradient backgrounds */}
         <div className="absolute inset-y-0 left-0 z-10 w-5 bg-linear-to-r from-background" />
         <div className="absolute inset-y-0 right-0 z-10 w-5 bg-linear-to-l from-background" />
-
-        {/* Left blur mask layers */}
         <div className="pointer-events-none absolute top-0 left-0 z-20 h-full w-5">
           {Array.from({ length: 4 }, (_, i) => createBlurMask("left", i, i))}
         </div>
-
-        {/* Right blur mask layers */}
         <div className="pointer-events-none absolute top-0 right-0 z-20 h-full w-5">
           {Array.from({ length: 4 }, (_, i) => createBlurMask("right", i, i))}
         </div>
-
         <InfiniteSlider gap={10} speed={15} speedOnHover={0}>
           {logos.map((LogoComponent) => (
             <motion.div
               className="relative flex shrink-0 flex-col items-center gap-1"
               initial="rest"
               key={LogoComponent.name}
-              transition={{
-                duration: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
+              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               variants={logoVariants}
               whileHover="hover"
             >
@@ -569,7 +542,6 @@ export function BlockCategories() {
           title="Elevate your design with premium blocks"
         />
 
-        {/* Grid Container with overflow */}
         <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
@@ -592,14 +564,11 @@ export function BlockCategories() {
                 }
               >
                 <Link className="relative block" href={category.href}>
-                  {/* Preview Area - Simple rounded container with frame-box */}
                   <div className="w-full overflow-hidden">
                     <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
                       <category.preview />
                     </div>
                   </div>
-
-                  {/* Content - Centered with pill tag */}
                   <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
                       <span className="size-1.5 rounded-full bg-brand" />
@@ -614,7 +583,6 @@ export function BlockCategories() {
             ))}
           </div>
 
-          {/* Bottom Button Overlay */}
           <Button
             asChild
             className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 md:bottom-24"
@@ -642,16 +610,13 @@ export function BlockCategories() {
             </Link>
           </Button>
 
-          {/* BlurMagic Fade Effect */}
           <BlurMagic
             background="var(--color-background)"
             blur="4px"
             className="!absolute !bottom-0 !left-0 z-10 h-80 w-full"
             height="500px"
             side="bottom"
-            style={{
-              position: "absolute",
-            }}
+            style={{ position: "absolute" }}
           />
         </div>
       </div>

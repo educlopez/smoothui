@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Volume2 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { IconVolume2Fill24 } from "nucleo-core-fill-24";
 import {
   createContext,
   type ReactNode,
@@ -209,7 +209,7 @@ function LogoContextMenuPopup() {
               type="button"
             >
               <span className="font-medium">/smooth-yoo-eye/</span>
-              <Volume2
+              <IconVolume2Fill24
                 aria-hidden="true"
                 className="size-4 text-muted-foreground"
               />

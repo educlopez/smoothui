@@ -2,16 +2,34 @@
 
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
-import { ArrowUpRight, Eye, Search, Sparkles, Wand2 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  IconArrowUpRightFill24,
+  IconEyeFill24,
+  IconMagnifierFill24,
+  IconSparkleFill24,
+  IconWandSparkleFill24,
+} from "nucleo-core-fill-24";
 
 const modes = [
-  { icon: Wand2, label: "Build", description: "Scaffold with taste" },
-  { icon: Sparkles, label: "Animate", description: "Motion that feels right" },
-  { icon: Eye, label: "Review", description: "Catch what AI misses" },
-  { icon: Search, label: "Polish", description: "Pixel-perfect details" },
+  {
+    icon: IconWandSparkleFill24,
+    label: "Build",
+    description: "Scaffold with taste",
+  },
+  {
+    icon: IconSparkleFill24,
+    label: "Animate",
+    description: "Motion that feels right",
+  },
+  { icon: IconEyeFill24, label: "Review", description: "Catch what AI misses" },
+  {
+    icon: IconMagnifierFill24,
+    label: "Polish",
+    description: "Pixel-perfect details",
+  },
 ];
 
 export function SkillsSection() {
@@ -157,7 +175,7 @@ export function SkillsSection() {
             target="_blank"
           >
             Explore UI Craft skill
-            <ArrowUpRight
+            <IconArrowUpRightFill24
               className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
               size={14}
             />

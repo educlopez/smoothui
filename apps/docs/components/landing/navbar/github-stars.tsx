@@ -1,7 +1,7 @@
 "use client";
 
-import { Star } from "lucide-react";
 import Link from "next/link";
+import { IconStarFill24 } from "nucleo-core-fill-24";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -73,7 +73,7 @@ export function GithubStars({
       {data && !loading && !error && (
         <>
           <span className="flex items-center gap-1 text-foreground/60">
-            <Star className="size-3.5 fill-current" />
+            <IconStarFill24 className="size-3.5 fill-current" />
             <span className="text-xs tabular-nums">
               {data.stars.toLocaleString()}
             </span>

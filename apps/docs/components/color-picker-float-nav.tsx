@@ -7,15 +7,15 @@ import {
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
-import {
-  ArrowRight,
-  Check,
-  CheckCheck,
-  Copy,
-  RotateCcw,
-  Save,
-} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  IconArrowRightFill24,
+  IconCheckDoubleFill24,
+  IconCheckFill24,
+  IconCopyFill24,
+  IconFloppyDiskFill24,
+  IconRefresh2Fill24,
+} from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
 
 const CLOSE_DELAY = 200;
@@ -266,7 +266,7 @@ export function ColorPickerFloatNav() {
                           }
                         >
                           <span className="rounded-full bg-white/40 p-0.5">
-                            <Check className="h-4 w-4 text-white" />
+                            <IconCheckFill24 className="h-4 w-4 text-white" />
                           </span>
                         </motion.span>
                       )}
@@ -285,11 +285,11 @@ export function ColorPickerFloatNav() {
               >
                 {copied ? (
                   <>
-                    <CheckCheck className="h-3.5 w-3.5" /> Copied!
+                    <IconCheckDoubleFill24 className="h-3.5 w-3.5" /> Copied!
                   </>
                 ) : (
                   <>
-                    <Copy className="h-3.5 w-3.5" /> Install{" "}
+                    <IconCopyFill24 className="h-3.5 w-3.5" /> Install{" "}
                     {selectedPalette.name} theme
                   </>
                 )}
@@ -303,7 +303,7 @@ export function ColorPickerFloatNav() {
                 type="button"
                 variant="outline"
               >
-                <RotateCcw className="mr-1 h-4 w-4" />
+                <IconRefresh2Fill24 className="mr-1 h-4 w-4" />
                 Reset
               </Button>
               <Button
@@ -314,11 +314,11 @@ export function ColorPickerFloatNav() {
               >
                 {saved ? (
                   <>
-                    <CheckCheck className="h-4 w-4" /> Saved!
+                    <IconCheckDoubleFill24 className="h-4 w-4" /> Saved!
                   </>
                 ) : (
                   <>
-                    <Save className="h-4 w-4" /> Save
+                    <IconFloppyDiskFill24 className="h-4 w-4" /> Save
                   </>
                 )}
               </Button>
@@ -328,7 +328,7 @@ export function ColorPickerFloatNav() {
               href="/themes"
             >
               Browse installable themes
-              <ArrowRight className="h-3 w-3" />
+              <IconArrowRightFill24 className="h-3 w-3" />
             </a>
           </motion.div>
         )}

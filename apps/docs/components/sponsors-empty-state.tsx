@@ -1,13 +1,13 @@
-import { Heart } from "lucide-react";
 import Link from "next/link";
+import { IconHeartFill24 } from "nucleo-core-fill-24";
 import { Button } from "./smoothbutton";
 
 export function SponsorsEmptyState() {
   return (
     <div className="not-prose mb-12 rounded-lg border border-dashed bg-linear-to-br from-background via-background to-brand/5 p-12 text-center">
       <div className="relative mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full border bg-linear-to-br from-background via-background to-brand/10">
-        <Heart className="absolute top-1/2 left-1/2 z-1 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-red-500 text-red-500" />
-        <Heart className="absolute top-1/2 left-1/2 z-0 h-8 w-8 -translate-x-1/2 -translate-y-1/2 animate-pulse fill-red-500 text-red-500 opacity-75" />
+        <IconHeartFill24 className="absolute top-1/2 left-1/2 z-1 h-6 w-6 -translate-x-1/2 -translate-y-1/2 fill-red-500 text-red-500" />
+        <IconHeartFill24 className="absolute top-1/2 left-1/2 z-0 h-8 w-8 -translate-x-1/2 -translate-y-1/2 animate-pulse fill-red-500 text-red-500 opacity-75" />
       </div>
       <h3 className="mb-2 font-semibold text-foreground text-lg">
         No Active Sponsors Yet

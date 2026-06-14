@@ -1,7 +1,7 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { IconMoonFill24, IconSunFill24 } from "nucleo-core-fill-24";
 import { ColorPickerFloatNav } from "./color-picker-float-nav";
 
 function ThemeSwitch() {
@@ -17,7 +17,11 @@ function ThemeSwitch() {
       onClick={toggleTheme}
       type="button"
     >
-      {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {resolvedTheme === "dark" ? (
+        <IconSunFill24 size={20} />
+      ) : (
+        <IconMoonFill24 size={20} />
+      )}
     </button>
   );
 }

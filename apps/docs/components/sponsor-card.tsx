@@ -2,8 +2,8 @@
 
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import type { Sponsor, SponsorTier } from "@docs/lib/sponsors";
-import { Zap } from "lucide-react";
 import Link from "next/link";
+import { IconBoltFill24 } from "nucleo-core-fill-24";
 
 interface SponsorCardProps {
   sponsor: Sponsor;
@@ -29,7 +29,7 @@ export function SponsorCard({ sponsor, tier }: SponsorCardProps) {
       {/* Velocity Badge */}
       {isVelocity && (
         <div className="group/badge absolute top-4 right-4 isolate inline-flex h-[1.875rem] items-center justify-center gap-1 overflow-hidden rounded-full border-0 bg-brand px-3 font-medium text-white text-xs shadow-[0_1px_theme(colors.white/0.07)_inset,0_1px_3px_theme(colors.gray.900/0.2)] ring-brand transition duration-300 ease-[cubic-bezier(0.4,0.36,0,1)] before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-full before:bg-gradient-to-b before:from-white/20 before:opacity-50 before:transition-opacity before:duration-300 before:ease-[cubic-bezier(0.4,0.36,0,1)] after:pointer-events-none after:absolute after:inset-0 after:-z-10 after:rounded-full after:bg-gradient-to-b after:from-[46%] after:from-white/10 after:to-[54%] after:mix-blend-overlay hover:before:opacity-100">
-          <Zap className="h-3 w-3 fill-white text-white" />
+          <IconBoltFill24 className="h-3 w-3 fill-white text-white" />
           <span className="font-semibold text-xs">Velocity</span>
         </div>
       )}

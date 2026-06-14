@@ -8,10 +8,10 @@ import Divider from "@docs/components/landing/divider";
 import Footer from "@docs/components/landing/footer";
 import Navbar from "@docs/components/landing/navbar/navbar";
 import { Button } from "@docs/components/smoothbutton";
-import { ArrowLeft, Home } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { IconArrowLeftFill24, IconHouse4Fill24 } from "nucleo-core-fill-24";
 import { useMemo } from "react";
 
 const quotes = [
@@ -132,12 +132,12 @@ export default function NotFound() {
               </div>
               <div className="flex flex-wrap items-center justify-center gap-3">
                 <Button onClick={() => router.back()} variant="outline">
-                  <ArrowLeft aria-hidden className="h-4 w-4" />
+                  <IconArrowLeftFill24 aria-hidden className="h-4 w-4" />
                   Go back
                 </Button>
                 <Button asChild variant="candy">
                   <Link href="/">
-                    <Home aria-hidden className="h-4 w-4" />
+                    <IconHouse4Fill24 aria-hidden className="h-4 w-4" />
                     Take me home
                   </Link>
                 </Button>

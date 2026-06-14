@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Search, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import { IconMagnifierFill24, IconXmarkFill24 } from "nucleo-core-fill-24";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export type FilterBarProps = {
@@ -72,7 +72,7 @@ export const FilterBar = ({
     <div className="flex flex-col gap-4">
       {/* Search input */}
       <div className="relative">
-        <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+        <IconMagnifierFill24 className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <input
           aria-label="Search components"
           className={cn(
@@ -94,7 +94,7 @@ export const FilterBar = ({
             onClick={clearSearch}
             type="button"
           >
-            <X className="h-4 w-4" />
+            <IconXmarkFill24 className="h-4 w-4" />
           </button>
         )}
       </div>

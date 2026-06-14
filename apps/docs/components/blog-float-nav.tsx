@@ -1,8 +1,12 @@
 "use client";
 
 import { useSearchContext } from "fumadocs-ui/contexts/search";
-import { Moon, Search, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import {
+  IconMagnifierFill24,
+  IconMoonFill24,
+  IconSunFill24,
+} from "nucleo-core-fill-24";
 import { ColorPickerFloatNav } from "./color-picker-float-nav";
 
 function ThemeSwitch() {
@@ -18,7 +22,11 @@ function ThemeSwitch() {
       onClick={toggleTheme}
       type="button"
     >
-      {resolvedTheme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+      {resolvedTheme === "dark" ? (
+        <IconSunFill24 size={20} />
+      ) : (
+        <IconMoonFill24 size={20} />
+      )}
     </button>
   );
 }
@@ -33,7 +41,7 @@ function SearchButton() {
       onClick={() => setOpenSearch(true)}
       type="button"
     >
-      <Search size={20} />
+      <IconMagnifierFill24 size={20} />
     </button>
   );
 }

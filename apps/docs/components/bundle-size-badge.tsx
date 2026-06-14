@@ -1,6 +1,6 @@
 import { formatSize, getBundleSize } from "@docs/lib/bundle-size";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Package } from "lucide-react";
+import { IconBoxFill24 } from "nucleo-core-fill-24";
 
 export type BundleSizeBadgeProps = {
   slug: string;
@@ -26,7 +26,7 @@ export const BundleSizeBadge = ({ slug, className }: BundleSizeBadgeProps) => {
       )}
       title={`Minified: ${formatSize(size.minified)} / Gzipped: ${formatSize(size.gzipped)}`}
     >
-      <Package aria-hidden="true" className="h-3 w-3" />
+      <IconBoxFill24 aria-hidden="true" className="h-3 w-3" />
       {formatSize(size.gzipped)}
     </span>
   );

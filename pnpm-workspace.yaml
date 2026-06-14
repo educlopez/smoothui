@@ -8,6 +8,7 @@ packages:
 allowBuilds:
   esbuild: true
   msw: true
+  nucleo-core-fill-24: true
   sharp: true
 
 overrides:

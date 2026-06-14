@@ -7,8 +7,12 @@ import {
 } from "@repo/shadcn-ui/components/ui/popover";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { Clock, ExternalLink, Play } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
+import {
+  IconClockFill24,
+  IconExternalLinkFill24,
+  IconMediaPlayFill24,
+} from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
 
 // SmoothUI Logo Isotype
@@ -87,7 +91,7 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     <div className="flex-1">
       <h3 className="font-semibold text-white">
         Video Title
-        <ExternalLink className="ml-1 inline" />
+        <IconExternalLinkFill24 className="ml-1 inline" />
       </h3>
       <p className="text-white/70 text-sm">
         Description text here...
@@ -368,7 +372,7 @@ export function InteractiveRichPopoverTutorial({
                                 target="_blank"
                               >
                                 Introducing GPT-5
-                                <ExternalLink className="size-3.5" />
+                                <IconExternalLinkFill24 className="size-3.5" />
                               </a>
                               <p className="mt-1 max-w-[220px] text-pretty text-sm text-white/70">
                                 OpenAI announces their most capable model yet
@@ -379,14 +383,14 @@ export function InteractiveRichPopoverTutorial({
                             {/* Meta & Action */}
                             <div className="flex items-center justify-between pt-1">
                               <div className="flex items-center gap-1.5 text-white/50 text-xs">
-                                <Clock className="size-3.5" />
+                                <IconClockFill24 className="size-3.5" />
                                 <span>12:34</span>
                               </div>
                               <button
                                 className="flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 font-medium text-black text-xs transition-colors hover:bg-white/90"
                                 type="button"
                               >
-                                <Play className="size-3.5" />
+                                <IconMediaPlayFill24 className="size-3.5" />
                                 Play
                               </button>
                             </div>

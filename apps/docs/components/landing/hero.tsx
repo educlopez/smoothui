@@ -18,9 +18,13 @@ import ButtonCopy from "@repo/smoothui/components/button-copy";
 import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
 import ScrambleHover from "@repo/smoothui/components/scramble-hover";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
-import { ArrowUpRight, User, Wand2 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import {
+  IconArrowUpRightFill24,
+  IconUserFill24,
+  IconWandSparkleFill24,
+} from "nucleo-core-fill-24";
 
 function AnnouncementBadge() {
   const shouldReduceMotion = useReducedMotion();
@@ -45,12 +49,12 @@ function AnnouncementBadge() {
             }}
           />
         )}
-        <Wand2 className="size-3" />
+        <IconWandSparkleFill24 className="size-3" />
         <span>New</span>
       </div>
       <div className="flex items-center gap-1 truncate py-1">
         <span>UI Craft — Design taste for AI agents</span>
-        <ArrowUpRight
+        <IconArrowUpRightFill24
           aria-hidden="true"
           className="size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
         />
@@ -192,7 +196,7 @@ export function Hero() {
                 {/* AnimatedInput Component */}
                 <div className="frame-box relative rounded-lg p-4">
                   <AnimatedInput
-                    icon={<User size={16} strokeWidth={1.5} />}
+                    icon={<IconUserFill24 size={16} strokeWidth={1.5} />}
                     label="Username"
                     placeholder="Enter username"
                   />

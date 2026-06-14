@@ -1,9 +1,12 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
+import {
+  IconChevronLeftFill24,
+  IconChevronRightFill24,
+} from "nucleo-core-fill-24";
 import { useState } from "react";
 import Divider from "./divider";
 
@@ -306,7 +309,7 @@ export function WhatTheySay() {
               onClick={() => goTo(-1)}
               type="button"
             >
-              <ChevronLeft className="size-4" />
+              <IconChevronLeftFill24 className="size-4" />
             </button>
             <button
               aria-label="Next testimonials"
@@ -314,7 +317,7 @@ export function WhatTheySay() {
               onClick={() => goTo(1)}
               type="button"
             >
-              <ChevronRight className="size-4" />
+              <IconChevronRightFill24 className="size-4" />
             </button>
           </div>
         </div>

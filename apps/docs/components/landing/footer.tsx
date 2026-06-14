@@ -9,9 +9,9 @@ import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { ArrowUpRight, Heart } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import { IconArrowUpRightFill24, IconHeartFill24 } from "nucleo-core-fill-24";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -160,7 +160,10 @@ function CtaCard() {
         {hasSponsors ? (
           <>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
-              <Heart aria-hidden className="size-3.5 fill-brand text-brand" />
+              <IconHeartFill24
+                aria-hidden
+                className="size-3.5 fill-brand text-brand"
+              />
               <span className="text-foreground">Thank you to our sponsors</span>
             </div>
             <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
@@ -208,7 +211,7 @@ function CtaCard() {
                 href="/docs/guides/sponsors"
               >
                 Become a sponsor
-                <ArrowUpRight aria-hidden className="size-4" />
+                <IconArrowUpRightFill24 aria-hidden className="size-4" />
               </Link>
               <a
                 className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border/70 bg-background/60 px-4 py-2 font-medium text-foreground text-sm backdrop-blur-sm transition-colors duration-200 hover:border-brand/40 hover:text-brand"
@@ -241,7 +244,7 @@ function FooterLinkItem({ link }: { link: FooterLink }) {
         target="_blank"
       >
         <span>{link.label}</span>
-        <ArrowUpRight
+        <IconArrowUpRightFill24
           aria-hidden
           className="size-3 shrink-0 opacity-60 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
         />

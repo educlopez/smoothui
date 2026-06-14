@@ -3,9 +3,13 @@
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { Check, Copy, Package } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
+import {
+  IconBoxFill24,
+  IconCheckFill24,
+  IconCopyFill24,
+} from "nucleo-core-fill-24";
 import { useCallback, useEffect, useState } from "react";
 
 import { GalleryPreview } from "./gallery-preview";
@@ -114,7 +118,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                   className="inline-flex items-center gap-0.5 text-[10px] text-muted-foreground/70"
                   title={`Gzipped: ${formatSize(component.bundleSize.gzipped)}`}
                 >
-                  <Package aria-hidden="true" className="h-2.5 w-2.5" />
+                  <IconBoxFill24 aria-hidden="true" className="h-2.5 w-2.5" />
                   {formatSize(component.bundleSize.gzipped)}
                 </span>
               )}
@@ -136,9 +140,9 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
                 variant="outline"
               >
                 {copied ? (
-                  <Check className="h-3 w-3" />
+                  <IconCheckFill24 className="h-3 w-3" />
                 ) : (
-                  <Copy className="h-3 w-3" />
+                  <IconCopyFill24 className="h-3 w-3" />
                 )}
                 {copied ? "Copied" : "Install"}
               </SmoothButton>

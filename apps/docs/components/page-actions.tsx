@@ -8,12 +8,12 @@ import {
 } from "fumadocs-ui/components/ui/popover";
 import { useCopyButton } from "fumadocs-ui/utils/use-copy-button";
 import {
-  Check,
-  ChevronDown,
-  Copy,
-  ExternalLinkIcon,
-  MessageCircleIcon,
-} from "lucide-react";
+  IconCheckFill24,
+  IconChevronDownFill24,
+  IconCopyFill24,
+  IconExternalLinkFill24,
+  IconMessageFill24,
+} from "nucleo-core-fill-24";
 import { useMemo, useState } from "react";
 import { Button, buttonVariants } from "./smoothbutton";
 
@@ -64,7 +64,7 @@ export function LLMCopyButton({
       disabled={isLoading}
       onClick={onClick}
     >
-      {checked ? <Check /> : <Copy />}
+      {checked ? <IconCheckFill24 /> : <IconCopyFill24 />}
       Copy Markdown
     </Button>
   );
@@ -210,7 +210,7 @@ export function ViewOptions({
         href: `https://t3.chat/new?${new URLSearchParams({
           q,
         })}`,
-        icon: <MessageCircleIcon />,
+        icon: <IconMessageFill24 />,
       },
     ];
   }, [githubUrl, markdownUrl]);
@@ -220,7 +220,7 @@ export function ViewOptions({
       <PopoverTrigger asChild>
         <Button className="text-foreground" size="sm" variant="outline">
           Open
-          <ChevronDown className="d size-3.5" />
+          <IconChevronDownFill24 className="d size-3.5" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="flex flex-col">
@@ -234,7 +234,7 @@ export function ViewOptions({
           >
             {item.icon}
             {item.title}
-            <ExternalLinkIcon className="ms-auto size-3.5 text-fd-muted-foreground" />
+            <IconExternalLinkFill24 className="ms-auto size-3.5 text-fd-muted-foreground" />
           </a>
         ))}
       </PopoverContent>

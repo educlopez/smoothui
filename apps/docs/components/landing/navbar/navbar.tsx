@@ -10,21 +10,20 @@ import {
   Viewport as NavigationMenuViewport,
 } from "@radix-ui/react-navigation-menu";
 import {
-  ArrowRight,
-  Book,
-  Compass,
-  FileText,
-  Heart,
-  Layers3,
-  LayoutDashboard,
-  PackagePlus,
-  Palette,
-  Sparkles,
-  Type,
-  User,
-  Wand2,
-  Zap,
-} from "lucide-react";
+  IconArrowRightFill24,
+  IconBoltFill24,
+  IconBookFill24,
+  IconBoxFill24,
+  IconColorPaletteFill24,
+  IconCompassFill24,
+  IconGrid2Fill24,
+  IconHeartFill24,
+  IconLayersFill24,
+  IconSparkleFill24,
+  IconTextFill24,
+  IconUserFill24,
+  IconWandSparkleFill24,
+} from "nucleo-core-fill-24";
 import type React from "react";
 import { useState } from "react";
 
@@ -46,17 +45,17 @@ import { MobileNavbar } from "./mobile-navbar";
 const componentPreviews = {
   text: {
     title: "Text Components",
-    icon: <Type size={20} />,
+    icon: <IconTextFill24 size={20} />,
     section: "text",
   },
   basic: {
     title: "Basic Components",
-    icon: <Layers3 size={20} />,
+    icon: <IconLayersFill24 size={20} />,
     section: "basic",
   },
   components: {
     title: "UI Components",
-    icon: <LayoutDashboard size={20} />,
+    icon: <IconGrid2Fill24 size={20} />,
     section: "components",
   },
 };
@@ -64,17 +63,17 @@ const componentPreviews = {
 const blockPreviews = {
   hero: {
     title: "Hero Blocks",
-    icon: <Sparkles size={20} />,
+    icon: <IconSparkleFill24 size={20} />,
     section: "hero",
   },
   pricing: {
     title: "Pricing Blocks",
-    icon: <PackagePlus size={20} />,
+    icon: <IconBoxFill24 size={20} />,
     section: "pricing",
   },
   testimonial: {
     title: "Testimonial Blocks",
-    icon: <User size={20} />,
+    icon: <IconUserFill24 size={20} />,
     section: "testimonial",
   },
 };
@@ -104,7 +103,7 @@ export default function Navbar({ className }: NavbarProps) {
       <NavigationMenuList className="menu-list flex-auto">
         <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
-            <LayoutDashboard size={16} />
+            <IconGrid2Fill24 size={16} />
             Components
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
@@ -144,7 +143,7 @@ export default function Navbar({ className }: NavbarProps) {
                   href="/docs/components"
                 >
                   Explore all components
-                  <ArrowRight size={14} />
+                  <IconArrowRightFill24 size={14} />
                 </Link>
               </div>
 
@@ -168,7 +167,7 @@ export default function Navbar({ className }: NavbarProps) {
 
         <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
-            <Zap size={16} />
+            <IconBoltFill24 size={16} />
             Blocks
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
@@ -208,7 +207,7 @@ export default function Navbar({ className }: NavbarProps) {
                   href="/docs/blocks"
                 >
                   Explore all blocks
-                  <ArrowRight size={14} />
+                  <IconArrowRightFill24 size={14} />
                 </Link>
               </div>
 
@@ -232,17 +231,17 @@ export default function Navbar({ className }: NavbarProps) {
 
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/themes">
-            <Palette size={16} /> Themes
+            <IconColorPaletteFill24 size={16} /> Themes
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/docs/guides">
-            <Book size={16} /> Docs
+            <IconBookFill24 size={16} /> Docs
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
-            <Compass size={16} />
+            <IconCompassFill24 size={16} />
             Resources
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
@@ -251,7 +250,7 @@ export default function Navbar({ className }: NavbarProps) {
                 <div className="submenu-items">
                   <EnhancedListItem
                     href="/blog"
-                    icon={<FileText size={20} />}
+                    icon={<IconTextFill24 size={20} />}
                     onHover={() => setHoveredResource("blog")}
                     onLeave={() => setHoveredResource(null)}
                     title="Blog"
@@ -260,7 +259,7 @@ export default function Navbar({ className }: NavbarProps) {
                   </EnhancedListItem>
                   <EnhancedListItem
                     href="/docs/guides/sponsors"
-                    icon={<Heart size={20} />}
+                    icon={<IconHeartFill24 size={20} />}
                     onHover={() => setHoveredResource("sponsors")}
                     onLeave={() => setHoveredResource(null)}
                     title="Sponsors"
@@ -270,7 +269,7 @@ export default function Navbar({ className }: NavbarProps) {
                   <EnhancedListItem
                     external
                     href="https://skills.smoothui.dev"
-                    icon={<Wand2 size={20} />}
+                    icon={<IconWandSparkleFill24 size={20} />}
                     onHover={() => setHoveredResource("skills")}
                     onLeave={() => setHoveredResource(null)}
                     title="Skills"
@@ -283,7 +282,7 @@ export default function Navbar({ className }: NavbarProps) {
                   href="/blog"
                 >
                   Read the blog
-                  <ArrowRight size={14} />
+                  <IconArrowRightFill24 size={14} />
                 </Link>
               </div>
 
