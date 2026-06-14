@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { BgLines } from "./landing/bg-lines";
 
 const featureCardVariants = cva(
-  "frame-box relative grid grid-cols-[4px_1fr] items-start gap-3 rounded-lg bg-linear-to-br from-background via-background p-4",
+  "frame-box relative grid grid-cols-[4px_1fr] items-start gap-2 rounded-md bg-linear-to-br from-background via-background px-3 py-2.5",
   {
     variants: {
       variant: {
@@ -48,15 +48,17 @@ export function FeatureCard({
   variant,
 }: FeatureCardProps) {
   return (
-    <div className={cn(featureCardVariants({ variant }), className)}>
+    <div
+      className={cn(featureCardVariants({ variant }), "not-prose", className)}
+    >
       <BgLines />
       <div
         className={featureCardBarVariants({ variant })}
         role="presentation"
       />
       <div className="relative z-10">
-        <p>{title}</p>
-        <div className="text-foreground/70 text-sm leading-relaxed">
+        <p className="m-0 font-medium text-xs">{title}</p>
+        <div className="text-foreground/70 text-xs leading-normal [&_p]:m-0">
           {children}
         </div>
       </div>
