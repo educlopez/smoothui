@@ -8,8 +8,6 @@ import {
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import type { ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
-// biome-ignore lint/style/useImportType: used as generic type parameter only
-import { type PanelImperativeHandle } from "react-resizable-panels";
 
 interface PreviewContentProps {
   blockPath?: string;
@@ -20,15 +18,13 @@ interface PreviewContentProps {
 
 export type PreviewSize = "desktop" | "tablet" | "mobile";
 
-const SIZE_TO_PERCENT: Record<PreviewSize, number> = {
+const PANEL1_SIZE: Record<PreviewSize, number> = {
   desktop: 100,
-  tablet: 60,
-  mobile: 30,
+  tablet: 62,
+  mobile: 35,
 };
 
 const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
-const COMPONENT_PANEL_MIN_SIZE = 40;
-const BLOCK_PANEL_MIN_SIZE = 30;
 const IFRAME_MIN_HEIGHT_REM = 32;
 const REM_IN_PX = 16;
 const BLOCK_PREVIEW_MIN_HEIGHT_PX = BLOCK_PREVIEW_MIN_HEIGHT_REM * REM_IN_PX;
@@ -78,7 +74,6 @@ export const PreviewContent = ({
   blockPath,
   size = "desktop",
 }: PreviewContentProps) => {
-  const resizablePanelRef = useRef<PanelImperativeHandle | null>(null);
   const iframeRef = useRef<HTMLIFrameElement | null>(null);
   const blockIdRef = useRef<string | undefined>(blockPath);
   const [blockHeight, setBlockHeight] = useState<number>(
@@ -97,11 +92,6 @@ export const PreviewContent = ({
   useEffect(() => {
     if (type !== "block") {
       return;
-    }
-
-    const percentage = SIZE_TO_PERCENT[size] ?? SIZE_TO_PERCENT.desktop;
-    if (resizablePanelRef.current) {
-      resizablePanelRef.current.resize(percentage);
     }
 
     if (iframeRef.current?.contentWindow) {
@@ -149,6 +139,10 @@ export const PreviewContent = ({
     return `/blocks/preview/${blockPath}`;
   }, [blockPath, type]);
 
+  const panel1Size = PANEL1_SIZE[size] ?? PANEL1_SIZE.desktop;
+  const panel2Size = 100 - panel1Size;
+  const isDesktop = size === "desktop";
+
   return (
     <div
       className={cn(
@@ -166,6 +160,11 @@ export const PreviewContent = ({
           "flex-1",
           type === "component" ? "size-full" : "h-auto w-full"
         )}
+        defaultLayout={{
+          "preview-panel": panel1Size,
+          "spacer-panel": panel2Size,
+        }}
+        key={size}
         orientation="horizontal"
       >
         <ResizablePanel
@@ -173,22 +172,16 @@ export const PreviewContent = ({
             "bg-background",
             "not-fumadocs-codeblock",
             "not-prose",
-            "peer",
             type === "component"
-              ? cn("overflow-hidden!", "size-full")
+              ? "overflow-hidden!"
               : cn(
                   "h-auto",
                   "overflow-hidden!",
-                  "w-full",
                   `min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
                 )
           )}
-          defaultSize={100}
-          maxSize={100}
-          minSize={
-            type === "block" ? BLOCK_PANEL_MIN_SIZE : COMPONENT_PANEL_MIN_SIZE
-          }
-          panelRef={type === "block" ? resizablePanelRef : undefined}
+          id="preview-panel"
+          minSize="45%"
         >
           {type === "block" && iframeSrc ? (
             <iframe
@@ -208,17 +201,16 @@ export const PreviewContent = ({
               title={`${blockPath ?? "block"} preview`}
             />
           ) : (
-            children
+            <div className="h-full w-full overflow-hidden">{children}</div>
           )}
         </ResizablePanel>
         <ResizableHandle
-          className="peer-data-[panel-size=100.0]:w-0"
+          className={isDesktop ? "hidden" : undefined}
           withHandle
         />
         <ResizablePanel
           className={cn("bg-background", "border-none")}
-          defaultSize={0}
-          maxSize={70}
+          id="spacer-panel"
           minSize={0}
         />
       </ResizablePanelGroup>

@@ -103,54 +103,56 @@ export const PreviewShell = ({
               </TabsTrigger>
             )}
           </TabsList>
-          {type === "block" && (
-            <div className="flex items-center justify-end gap-1 sm:gap-1.5">
-              <ToggleGroup
-                className="hidden gap-0.5 rounded-md border bg-background p-1 sm:flex"
-                onValueChange={(value) => {
-                  if (!value) {
-                    return;
-                  }
-                  setPreviewSize(value as PreviewSize);
-                }}
-                type="single"
-                value={previewSize}
-              >
-                {previewSizes.map(({ label, value, icon }) => (
-                  <ToggleGroupItem
-                    className="h-8 w-8 p-0 data-[state=on]:bg-fd-primary/10 data-[state=on]:text-fd-primary"
-                    key={value}
-                    title={label}
-                    value={value}
-                  >
-                    <span className="sr-only">{label}</span>
-                    {icon}
-                  </ToggleGroupItem>
-                ))}
-              </ToggleGroup>
-              <Separator
-                className="hidden h-6 sm:flex"
-                orientation="vertical"
-              />
-              {iframeSrc && (
-                <Button
-                  asChild
-                  className="h-8 w-8 rounded-md p-0"
-                  size="icon-sm"
-                  variant="ghost"
+          <div className="flex items-center justify-end gap-1 sm:gap-1.5">
+            <ToggleGroup
+              className="hidden gap-0.5 rounded-md border bg-background p-1 sm:flex"
+              onValueChange={(value) => {
+                if (!value) {
+                  return;
+                }
+                setPreviewSize(value as PreviewSize);
+              }}
+              type="single"
+              value={previewSize}
+            >
+              {previewSizes.map(({ label, value, icon }) => (
+                <ToggleGroupItem
+                  className="h-8 w-8 p-0 data-[state=on]:bg-fd-primary/10 data-[state=on]:text-fd-primary"
+                  key={value}
+                  title={label}
+                  value={value}
                 >
-                  <Link
-                    href={iframeSrc}
-                    rel="noopener noreferrer"
-                    target="_blank"
+                  <span className="sr-only">{label}</span>
+                  {icon}
+                </ToggleGroupItem>
+              ))}
+            </ToggleGroup>
+            {type === "block" && (
+              <>
+                <Separator
+                  className="hidden h-6 sm:flex"
+                  orientation="vertical"
+                />
+                {iframeSrc && (
+                  <Button
+                    asChild
+                    className="h-8 w-8 rounded-md p-0"
+                    size="icon-sm"
+                    variant="ghost"
                   >
-                    <span className="sr-only">Open preview in new tab</span>
-                    <Fullscreen className="h-4 w-4" />
-                  </Link>
-                </Button>
-              )}
-            </div>
-          )}
+                    <Link
+                      href={iframeSrc}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span className="sr-only">Open preview in new tab</span>
+                      <Fullscreen className="h-4 w-4" />
+                    </Link>
+                  </Button>
+                )}
+              </>
+            )}
+          </div>
         </div>
         <TabsContent
           className={cn(
