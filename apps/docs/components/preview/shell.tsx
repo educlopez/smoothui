@@ -72,20 +72,14 @@ export const PreviewShell = ({
   return (
     <div
       className={cn(
-        "not-prose size-full overflow-hidden rounded-lg border bg-background",
+        "not-prose w-full overflow-hidden rounded-lg border bg-background",
         type === "block" &&
           "h-auto min-h-[32rem] prose-code:border-none prose-code:p-0",
-        type === "component" && "h-[32rem]",
+        type === "component" && "max-h-[32rem]",
         className
       )}
     >
-      <Tabs
-        className={cn(
-          "flex flex-col gap-0",
-          type === "component" ? "h-full" : "h-auto"
-        )}
-        defaultValue="preview"
-      >
+      <Tabs className="flex flex-col gap-0" defaultValue="preview">
         <div className="flex flex-col gap-2 border-b bg-muted/30 px-3 py-2 sm:flex-row sm:items-center sm:justify-between">
           <TabsList className="flex h-9 items-center gap-1 rounded-md bg-transparent p-0 shadow-none">
             <TabsTrigger value="preview">
@@ -157,8 +151,6 @@ export const PreviewShell = ({
         <TabsContent
           className={cn(
             "bg-background",
-            type === "component" ? "flex-1" : "flex-none",
-            type === "component" ? "size-full" : "h-auto",
             type === "component" ? "overflow-hidden" : "overflow-visible"
           )}
           value="preview"

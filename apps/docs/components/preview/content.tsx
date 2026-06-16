@@ -147,19 +147,13 @@ export const PreviewContent = ({
     <div
       className={cn(
         "flex",
-        "h-full",
         "w-full",
         "flex-col",
-        type === "component"
-          ? "size-full"
-          : `h-auto min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
+        type === "block" && `h-auto min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
       )}
     >
       <ResizablePanelGroup
-        className={cn(
-          "flex-1",
-          type === "component" ? "size-full" : "h-auto w-full"
-        )}
+        className={cn("w-full", "h-auto")}
         defaultLayout={{
           "preview-panel": panel1Size,
           "spacer-panel": panel2Size,
@@ -201,7 +195,7 @@ export const PreviewContent = ({
               title={`${blockPath ?? "block"} preview`}
             />
           ) : (
-            <div className="h-full w-full overflow-hidden">{children}</div>
+            <div className="w-full overflow-hidden">{children}</div>
           )}
         </ResizablePanel>
         <ResizableHandle
