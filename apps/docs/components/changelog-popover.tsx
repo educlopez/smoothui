@@ -1,6 +1,7 @@
 "use client";
 
 import { CHANGELOG } from "@docs/lib/changelog-data";
+import { buttonVariants } from "fumadocs-ui/components/ui/button";
 import {
   Popover,
   PopoverContent,
@@ -13,9 +14,9 @@ function BellIcon() {
     <svg
       aria-hidden="true"
       fill="none"
-      height="16"
+      height="18"
       viewBox="0 0 20 20"
-      width="16"
+      width="18"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
@@ -62,7 +63,11 @@ export function ChangelogPopover() {
       <PopoverTrigger asChild>
         <button
           aria-label="Changelog"
-          className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-foreground transition-colors hover:bg-fd-accent"
+          className={buttonVariants({
+            color: "ghost",
+            size: "icon-sm",
+            className: "relative text-fd-muted-foreground",
+          })}
           type="button"
         >
           <BellIcon />

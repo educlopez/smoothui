@@ -1,5 +1,6 @@
 "use client";
 
+import { buttonVariants } from "fumadocs-ui/components/ui/button";
 import { useTheme } from "next-themes";
 import { IconMoonFill24, IconSunFill24 } from "nucleo-core-fill-24";
 
@@ -9,14 +10,18 @@ export function NavThemeSwitch() {
   return (
     <button
       aria-label="Toggle theme"
-      className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-border bg-background text-foreground transition-colors hover:bg-fd-accent"
+      className={buttonVariants({
+        color: "ghost",
+        size: "icon-sm",
+        className: "text-fd-muted-foreground",
+      })}
       onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
       type="button"
     >
       {resolvedTheme === "dark" ? (
-        <IconSunFill24 size={16} />
+        <IconSunFill24 size={18} />
       ) : (
-        <IconMoonFill24 size={16} />
+        <IconMoonFill24 size={18} />
       )}
     </button>
   );
