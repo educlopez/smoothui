@@ -1,7 +1,7 @@
 "use client";
 
 import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const CHEVRON_ROTATION_DEGREES = 180;
@@ -69,54 +69,38 @@ export default function BasicAccordion({
               </motion.div>
             </button>
 
-            <AnimatePresence initial={false}>
-              {isExpanded && (
-                <motion.div
-                  animate={
-                    shouldReduceMotion
-                      ? { height: "auto", opacity: 1 }
-                      : {
-                          height: "auto",
-                          opacity: 1,
-                          transition: {
-                            height: {
-                              type: "spring" as const,
-                              stiffness: 500,
-                              damping: 40,
-                              duration: 0.25,
-                            },
-                            opacity: { duration: 0.2 },
-                          },
-                        }
-                  }
-                  aria-labelledby={`accordion-header-${item.id}`}
-                  className="overflow-hidden"
-                  exit={
-                    shouldReduceMotion
-                      ? { height: 0, opacity: 0, transition: { duration: 0 } }
-                      : {
-                          height: 0,
-                          opacity: 0,
-                          transition: {
-                            height: { duration: 0.2 },
-                            opacity: { duration: 0.15 },
-                          },
-                        }
-                  }
-                  id={`accordion-content-${item.id}`}
-                  initial={
-                    shouldReduceMotion
-                      ? { height: "auto", opacity: 1 }
-                      : { height: 0, opacity: 0 }
-                  }
-                  role="region"
-                >
-                  <div className="border-t bg-background px-4 py-3">
-                    {item.content}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Content stays mounted (height-animated, not unmounted) so the
+                accordion keeps a stable width whether open or closed. `inert`
+                removes collapsed content from tab order and the a11y tree. */}
+            <motion.div
+              animate={{
+                height: isExpanded ? "auto" : 0,
+                opacity: isExpanded ? 1 : 0,
+              }}
+              aria-labelledby={`accordion-header-${item.id}`}
+              className="overflow-hidden"
+              id={`accordion-content-${item.id}`}
+              inert={!isExpanded}
+              initial={false}
+              role="region"
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      height: {
+                        type: "spring" as const,
+                        stiffness: 500,
+                        damping: 40,
+                        duration: 0.25,
+                      },
+                      opacity: { duration: 0.2 },
+                    }
+              }
+            >
+              <div className="border-t bg-background px-4 py-3">
+                {item.content}
+              </div>
+            </motion.div>
           </div>
         );
       })}
