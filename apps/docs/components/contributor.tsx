@@ -44,6 +44,7 @@ export const Contributor = ({
                   <Image
                     alt={`${creator.name}'s avatar`}
                     className="object-cover"
+                    draggable={false}
                     height={24}
                     src={creator.avatar}
                     width={24}
@@ -65,6 +66,7 @@ export const Contributor = ({
                   <Image
                     alt={`${creator.name}'s avatar`}
                     className="object-cover"
+                    draggable={false}
                     height={24}
                     src={creator.avatar}
                     width={24}
@@ -109,6 +111,7 @@ export const Contributor = ({
                         <Image
                           alt={`${contributor.name}'s avatar`}
                           className="object-cover"
+                          draggable={false}
                           height={24}
                           src={contributor.avatar}
                           width={24}
@@ -131,6 +134,7 @@ export const Contributor = ({
                         <Image
                           alt={`${contributor.name}'s avatar`}
                           className="object-cover"
+                          draggable={false}
                           height={24}
                           src={contributor.avatar}
                           width={24}

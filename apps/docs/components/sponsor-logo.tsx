@@ -44,6 +44,7 @@ export function SponsorLogo({
     <Image
       alt={sponsor.name}
       className={className}
+      draggable={false}
       height={height}
       onError={onError}
       src={sponsor.logo}

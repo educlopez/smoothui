@@ -107,6 +107,7 @@ export function Features() {
             alt=""
             aria-hidden
             className="object-cover"
+            draggable={false}
             fill
             sizes="(max-width: 768px) 100vw, 420px"
             src="/scenes/why-choose.jpg"

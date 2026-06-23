@@ -26,6 +26,7 @@ const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
   <Image
     alt={data.name}
     className="shrink-0 rounded-full object-cover"
+    draggable={false}
     height={size}
     src={avatarUrl(data.handle)}
     width={size}
@@ -156,6 +157,7 @@ const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
       alt=""
       aria-hidden
       className="object-cover"
+      draggable={false}
       fill
       sizes="(max-width: 768px) 100vw, 360px"
       src={image}

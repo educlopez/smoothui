@@ -355,6 +355,7 @@ export function InteractiveAvatarTutorial({
                     <img
                       alt="User Avatar"
                       className="size-full object-cover"
+                      draggable={false}
                       height={48}
                       src={mockUser.avatar}
                       width={48}

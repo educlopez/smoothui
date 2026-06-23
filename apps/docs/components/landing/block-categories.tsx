@@ -115,6 +115,7 @@ function HeroPreview() {
           alt=""
           aria-hidden
           className="size-full object-contain"
+          draggable={false}
           height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
             width: 160,
@@ -227,6 +228,7 @@ function TestimonialPreview() {
               <Image
                 alt={currentPerson?.name || ""}
                 className="size-full object-cover"
+                draggable={false}
                 height={32}
                 src={
                   currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""
@@ -506,6 +508,7 @@ function TeamPreview() {
             <Image
               alt={person.name}
               className="size-full object-cover"
+              draggable={false}
               height={36}
               src={getAvatarUrl(person.avatar, 36)}
               width={36}

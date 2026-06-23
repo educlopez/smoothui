@@ -85,6 +85,7 @@ export function SkillsSection() {
               <Image
                 alt="UI Craft — Design taste for AI coding agents"
                 className="size-28 rounded-3xl shadow shadow-black/10 ring-1 ring-border"
+                draggable={false}
                 height={112}
                 src="/icon-ui-craft.png"
                 width={112}

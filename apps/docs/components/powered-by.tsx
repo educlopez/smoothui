@@ -54,6 +54,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
               <Image
                 alt=""
                 className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                draggable={false}
                 height={14}
                 src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
                 width={14}
@@ -62,6 +63,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
               <Image
                 alt=""
                 className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                draggable={false}
                 height={14}
                 src={`https://img.logo.dev/npmjs.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
                 width={14}
