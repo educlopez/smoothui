@@ -7,6 +7,7 @@
     "@radix-ui/react-slot": "^1.2.3",
     "@repo/shadcn-ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
+    "motion": "^12.23.25",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -26,7 +27,7 @@
       "interactive"
     ],
     "complexity": "simple",
-    "animationType": "css",
+    "animationType": "motion",
     "useCases": [
       "Call-to-action buttons",
       "Primary action buttons with gradient styling",
@@ -37,6 +38,6 @@
       "Use outline variant for secondary actions",
       "Combine with asChild for link buttons"
     ],
-    "hasReducedMotion": false
+    "hasReducedMotion": true
   }
 }

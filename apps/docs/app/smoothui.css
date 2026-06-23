@@ -7,6 +7,15 @@
   --color-brand-secondary: var(--color-brand-secondary);
   --color-brand-light: var(--color-brand-light);
   --color-brand-lighter: var(--color-brand-lighter);
+  --color-blue: var(--color-blue);
+  --color-blue-hover: var(--color-blue-hover);
+  --color-blue-fg: var(--color-blue-fg);
+  --color-amber: var(--color-amber);
+  --color-amber-hover: var(--color-amber-hover);
+  --color-amber-fg: var(--color-amber-fg);
+  --color-green: var(--color-green);
+  --color-green-hover: var(--color-green-hover);
+  --color-green-fg: var(--color-green-fg);
   --color-smooth-50: var(--color-smooth-50);
   --color-smooth-100: var(--color-smooth-100);
   --color-smooth-200: var(--color-smooth-200);
@@ -56,6 +65,17 @@
   --color-brand-secondary: oklch(0.66 0.21 354.31);
   --color-brand-light: oklch(0.78 0.15 352.53);
   --color-brand-lighter: oklch(0.85 0.1 352.53);
+  /* DS Button color families (decoupled `color` axis). Each: base / hover / fg.
+     Soft + outline tints are derived at use-site via color-mix. See design-system/components/button.md */
+  --color-blue: oklch(0.62 0.19 256);
+  --color-blue-hover: oklch(0.56 0.2 256);
+  --color-blue-fg: #fff;
+  --color-amber: oklch(0.77 0.16 75);
+  --color-amber-hover: oklch(0.71 0.17 70);
+  --color-amber-fg: var(--color-smooth-1000);
+  --color-green: oklch(0.7 0.17 152);
+  --color-green-hover: oklch(0.64 0.18 152);
+  --color-green-fg: #fff;
   /* Perceptually uniform neutral ramp. Even oklch-L spacing so mid-tones
      exist for legible borders and secondary text. See DS-AUDIT.md. */
   --color-smooth-50: oklch(0.99 0 0);
@@ -80,6 +100,16 @@
 
 .dark {
   --destructive: oklch(0.704 0.191 22.216);
+  /* DS Button color families — dark mode (lift base L, amber keeps dark fg). */
+  --color-blue: oklch(0.66 0.18 256);
+  --color-blue-hover: oklch(0.72 0.16 256);
+  --color-blue-fg: #fff;
+  --color-amber: oklch(0.8 0.15 75);
+  --color-amber-hover: oklch(0.85 0.14 72);
+  --color-amber-fg: oklch(0.2 0 0);
+  --color-green: oklch(0.73 0.16 152);
+  --color-green-hover: oklch(0.79 0.15 152);
+  --color-green-fg: oklch(0.2 0 0);
   /* Perceptually uniform dark ramp (50 darkest → 1000 lightest). */
   --color-smooth-50: oklch(0.2 0 0);
   --color-smooth-100: oklch(0.235 0 0);
