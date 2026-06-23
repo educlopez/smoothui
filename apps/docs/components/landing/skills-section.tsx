@@ -2,6 +2,7 @@
 
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import { Button } from "@docs/components/smoothbutton";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -168,18 +169,25 @@ export function SkillsSection() {
           viewport={{ once: true, amount: 0.5 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
         >
-          <Link
-            className="group flex items-center gap-2 font-medium text-brand text-sm transition-colors hover:text-foreground"
-            href="https://skills.smoothui.dev"
-            rel="noopener noreferrer"
-            target="_blank"
+          <Button
+            asChild
+            className="group"
+            color="accent"
+            size="sm"
+            variant="ghost"
           >
-            Explore UI Craft skill
-            <IconArrowUpRightFill24
-              className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-              size={14}
-            />
-          </Link>
+            <Link
+              href="https://skills.smoothui.dev"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Explore UI Craft skill
+              <IconArrowUpRightFill24
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                size={14}
+              />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>

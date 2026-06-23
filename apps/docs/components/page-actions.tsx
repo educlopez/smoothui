@@ -15,7 +15,7 @@ import {
   IconMessageFill24,
 } from "nucleo-core-fill-24";
 import { useMemo, useState } from "react";
-import { Button, buttonVariants } from "./smoothbutton";
+import { Button } from "./smoothbutton";
 
 const cache = new Map<string, string>();
 
@@ -54,15 +54,11 @@ export function LLMCopyButton({
 
   return (
     <Button
-      className={cn(
-        buttonVariants({
-          variant: "outline",
-          size: "sm",
-          className: "text-foreground [&_svg]:size-3.5",
-        })
-      )}
+      className="text-foreground [&_svg]:size-3.5"
       disabled={isLoading}
       onClick={onClick}
+      size="sm"
+      variant="outline"
     >
       {checked ? <IconCheckFill24 /> : <IconCopy2Fill24 />}
       Copy Markdown

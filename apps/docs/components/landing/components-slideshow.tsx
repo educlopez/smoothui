@@ -55,8 +55,26 @@ export function ComponentsSlideshow() {
         ))}
       </div>
       <div className="mx-auto mt-8 flex justify-center">
-        <Button asChild variant="candy">
-          <Link href="/docs/components">View all components</Link>
+        <Button asChild size="lg" variant="candy">
+          <Link href="/docs/components">
+            <span className="flex items-center gap-1">
+              <span>View all components</span>
+            </span>
+            <svg
+              aria-hidden="true"
+              className="-mx-1.5 size-5 shrink-0 text-white/72"
+              fill="none"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M8.333 13.333 11.667 10 8.333 6.667"
+                stroke="currentColor"
+                strokeLinecap="square"
+                strokeWidth="1.25"
+              />
+            </svg>
+          </Link>
         </Button>
       </div>
     </section>

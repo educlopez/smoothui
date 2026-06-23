@@ -6,6 +6,7 @@ import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { Button } from "@docs/components/smoothbutton";
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
 import { cn } from "@repo/shadcn-ui/lib/utils";
@@ -206,22 +207,22 @@ function CtaCard() {
               helps ship more components, blocks, and animation recipes.
             </p>
             <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <Link
-                className="inline-flex items-center justify-center gap-1.5 rounded-md bg-foreground px-4 py-2 font-medium text-background text-sm transition-transform duration-200 hover:-translate-y-0.5"
-                href="/docs/guides/sponsors"
-              >
-                Become a sponsor
-                <IconArrowUpRightFill24 aria-hidden className="size-4" />
-              </Link>
-              <a
-                className="inline-flex items-center justify-center gap-1.5 rounded-md border border-border/70 bg-background/60 px-4 py-2 font-medium text-foreground text-sm backdrop-blur-sm transition-colors duration-200 hover:border-brand/40 hover:text-brand"
-                href="https://github.com/educlopez/smoothui"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <GithubIcon className="size-4" />
-                Star on GitHub
-              </a>
+              <Button asChild color="neutral" variant="solid">
+                <Link href="/docs/guides/sponsors">
+                  Become a sponsor
+                  <IconArrowUpRightFill24 aria-hidden />
+                </Link>
+              </Button>
+              <Button asChild variant="outline">
+                <a
+                  href="https://github.com/educlopez/smoothui"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <GithubIcon />
+                  Star on GitHub
+                </a>
+              </Button>
             </div>
           </>
         )}

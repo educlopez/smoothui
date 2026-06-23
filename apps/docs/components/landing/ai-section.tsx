@@ -2,6 +2,7 @@
 
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import { Button } from "@docs/components/smoothbutton";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import AgentAvatar from "@repo/smoothui/components/agent-avatar";
 import { motion, useReducedMotion } from "motion/react";
@@ -374,16 +375,21 @@ export function AISection() {
           viewport={{ once: true, amount: 0.5 }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
         >
-          <Link
-            className="group flex items-center gap-2 font-medium text-brand text-sm transition-colors hover:text-foreground"
-            href="/docs/guides/ai-integration"
+          <Button
+            asChild
+            className="group"
+            color="accent"
+            size="sm"
+            variant="ghost"
           >
-            Learn more about AI integration
-            <IconArrowRightFill24
-              className="transition-transform group-hover:translate-x-1"
-              size={14}
-            />
-          </Link>
+            <Link href="/docs/guides/ai-integration">
+              Learn more about AI integration
+              <IconArrowRightFill24
+                className="transition-transform group-hover:translate-x-1"
+                size={14}
+              />
+            </Link>
+          </Button>
         </motion.div>
       </div>
     </section>
