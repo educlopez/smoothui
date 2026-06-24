@@ -132,7 +132,9 @@ export function Hero() {
                 <img
                   alt="Vercel OSS Program"
                   draggable={false}
-                  src="https://vercel.com/oss/program-badge-2026.svg"
+                  height={24}
+                  src="/vercel-oss-badge.svg"
+                  width={240}
                 />
               </a>
 
