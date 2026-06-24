@@ -50,7 +50,7 @@ export function PostCover({
       {image ? (
         <Image
           alt={alt}
-          className="object-cover"
+          className="object-cover object-center"
           draggable={false}
           fill
           sizes={sizes}
