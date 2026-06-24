@@ -6,9 +6,12 @@ import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = createMetadata({
-  title: "Blog",
+  title: "React Animation Tutorials & Guides",
   description:
     "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
+  alternates: {
+    canonical: "/blog",
+  },
   openGraph: {
     url: "/blog",
   },
@@ -71,7 +74,7 @@ export default async function BlogPage() {
         {/* Header */}
         <div className="mb-12 max-w-xl">
           <h1 className="text-balance font-semibold text-4xl text-foreground sm:text-5xl lg:tracking-tight">
-            Blog
+            React Animation Tutorials &amp; Guides
           </h1>
           <p className="mt-3 text-muted-foreground">
             Tutorials, deep dives, and case studies on building beautiful

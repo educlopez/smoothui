@@ -44,6 +44,36 @@ export default async function BlogPostPage({ params }: PageProps) {
         title={post.data.title}
         url={post.url}
       />
+      <script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://smoothui.dev",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: "https://smoothui.dev/blog",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.data.title,
+                item: `https://smoothui.dev${post.url}`,
+              },
+            ],
+          }),
+        }}
+        type="application/ld+json"
+      />
       <main className="mx-auto w-full max-w-6xl px-6 py-12">
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
@@ -72,7 +102,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <img
                     alt={post.data.author as string}
                     className="size-8 rounded-full object-cover"
+                    draggable={false}
+                    height={32}
+                    loading="lazy"
                     src="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631&tr=w-64,h-64,q-85,f-auto"
+                    width={32}
                   />
                   <span className="font-medium text-foreground">
                     {post.data.author as string}
