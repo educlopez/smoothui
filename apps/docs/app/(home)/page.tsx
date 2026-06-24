@@ -39,13 +39,13 @@ export default function Home() {
       <BlockCategories />
       <AISection />
       <SkillsSection />
-      <FAQ />
-      <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
-        <WhatTheySay />
-      </Suspense>
       <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
         <LatestPosts />
       </Suspense>
+      <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
+        <WhatTheySay />
+      </Suspense>
+      <FAQ />
       <Footer />
     </>
   );
