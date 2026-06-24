@@ -154,7 +154,7 @@ export const PreviewContent = ({
 
   // Delegated UI sound: a subtle tap on any interactive click inside a live
   // component demo, gated by the global sound preference (off by default).
-  const playTap = useUiSound("/sounds/select.wav", 0.3);
+  const playTap = useUiSound("/sounds/button.wav", 0.3);
   const handleDemoClick = (event: ReactMouseEvent<HTMLDivElement>) => {
     const target = event.target as HTMLElement;
     if (
