@@ -1,5 +1,6 @@
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import { PostCover } from "@docs/components/post-cover";
 import { Button } from "@docs/components/smoothbutton";
 import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
 import Link from "next/link";
@@ -38,29 +39,37 @@ export async function LatestPosts() {
         {withMeta.map(({ post, readingTime }) => (
           <article className="group relative" key={post.url}>
             <Link
-              className="flex h-full flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary"
+              className="flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary"
               href={post.url}
             >
-              <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                <time dateTime={post.data.date as string}>
-                  {formatDate(post.data.date as string)}
-                </time>
-                <span aria-hidden="true">·</span>
-                <span>{readingTime} min read</span>
+              <PostCover
+                alt={post.data.title}
+                className="aspect-video border-border border-b"
+                image={post.data.image as string | undefined}
+                seed={post.url}
+              />
+              <div className="flex flex-1 flex-col p-6">
+                <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                  <time dateTime={post.data.date as string}>
+                    {formatDate(post.data.date as string)}
+                  </time>
+                  <span aria-hidden="true">·</span>
+                  <span>{readingTime} min read</span>
+                </div>
+                <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand">
+                  {post.data.title}
+                </h3>
+                <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+                  {post.data.description}
+                </p>
+                <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand text-sm">
+                  Read
+                  <IconChevronRightFill24
+                    aria-hidden="true"
+                    className="size-3.5 translate-y-px transition-transform group-hover:translate-x-0.5"
+                  />
+                </span>
               </div>
-              <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand">
-                {post.data.title}
-              </h3>
-              <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
-                {post.data.description}
-              </p>
-              <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand text-sm">
-                Read
-                <IconChevronRightFill24
-                  aria-hidden="true"
-                  className="size-3.5 translate-y-px transition-transform group-hover:translate-x-0.5"
-                />
-              </span>
             </Link>
           </article>
         ))}

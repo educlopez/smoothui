@@ -1,4 +1,5 @@
 import { ArticleSchema } from "@docs/components/article-schema";
+import { PostCover } from "@docs/components/post-cover";
 import { RelatedPosts } from "@docs/components/related-posts";
 import { ShareButtons } from "@docs/components/share-buttons";
 import { createMetadata } from "@docs/lib/metadata";
@@ -50,6 +51,14 @@ export default async function BlogPostPage({ params }: PageProps) {
         >
           ← Back to Blog
         </Link>
+
+        <PostCover
+          alt={post.data.title}
+          className="mb-8 aspect-[2.4/1] rounded-2xl border border-border"
+          image={post.data.image as string | undefined}
+          seed={post.url}
+          sizes="(max-width: 1024px) 100vw, 1152px"
+        />
 
         <article>
           <header className="mb-8 border-b pb-8">
