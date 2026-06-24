@@ -7,6 +7,7 @@ import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { Button } from "@docs/components/smoothbutton";
+import { useUiSound } from "@docs/components/sound-provider";
 import ExpandableCardsDemo from "@docs/examples/expandable-cards";
 import {
   Tooltip,
@@ -76,6 +77,7 @@ const EASE_OUT_QUAD = [
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  const playClick = useUiSound("/sounds/button.wav", 0.4);
 
   return (
     <section className="bg-background transition">
@@ -115,10 +117,20 @@ export function Hero() {
 
               {/* CTA buttons */}
               <div className="flex flex-col gap-4 sm:flex-row">
-                <Button asChild size="sm" variant="candy">
+                <Button
+                  asChild
+                  onClick={() => playClick()}
+                  size="sm"
+                  variant="candy"
+                >
                   <Link href="/docs/guides">Explore Docs</Link>
                 </Button>
-                <Button asChild size="sm" variant="outline">
+                <Button
+                  asChild
+                  onClick={() => playClick()}
+                  size="sm"
+                  variant="outline"
+                >
                   <Link href="/docs/components">Explore components</Link>
                 </Button>
               </div>

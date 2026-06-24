@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { useUiSound } from "@docs/components/sound-provider";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,10 +18,13 @@ export function SkillsSection() {
   const shouldReduceMotion = useReducedMotion();
   const [copied, setCopied] = useState(false);
 
+  const playCopied = useUiSound("/sounds/celebration.wav", 0.35);
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(INSTALL_CMD);
       setCopied(true);
+      playCopied();
       setTimeout(() => setCopied(false), 1600);
     } catch {
       // clipboard unavailable — no-op

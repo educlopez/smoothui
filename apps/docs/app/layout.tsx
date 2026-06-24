@@ -1,3 +1,4 @@
+import { SoundProvider } from "@docs/components/sound-provider";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
@@ -105,7 +106,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
       <body className="flex min-h-screen flex-col">
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
-        <RootProvider>{children}</RootProvider>
+        <RootProvider>
+          <SoundProvider>{children}</SoundProvider>
+        </RootProvider>
       </body>
     </html>
   );
