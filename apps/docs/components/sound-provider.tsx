@@ -8,6 +8,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from "react";
 import useSound from "use-sound";
@@ -79,9 +80,22 @@ export function useSoundToggle() {
 
 type PlayFn = (options?: { forceSoundEnabled?: boolean }) => void;
 
-/** Returns a play() bound to the global sound preference. */
+/** Returns a play() bound to the global sound preference, throttled so a single
+ * interaction can't double-fire (e.g. a label + its input both emitting click). */
 export function useUiSound(src: string, volume = 0.5): PlayFn {
   const { enabled } = useContext(SoundContext);
-  const [play] = useSound(src, { soundEnabled: enabled, volume });
-  return play as PlayFn;
+  const [rawPlay] = useSound(src, { soundEnabled: enabled, volume });
+  const lastPlayedRef = useRef(0);
+
+  return useCallback<PlayFn>(
+    (options) => {
+      const now = performance.now();
+      if (now - lastPlayedRef.current < 70) {
+        return;
+      }
+      lastPlayedRef.current = now;
+      (rawPlay as PlayFn)(options);
+    },
+    [rawPlay]
+  );
 }
