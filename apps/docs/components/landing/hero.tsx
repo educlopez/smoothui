@@ -23,9 +23,12 @@ import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import {
   IconArrowUpRightFill24,
+  IconCheckFill24,
+  IconCopy2Fill24,
   IconUserFill24,
   IconWandSparkleFill24,
 } from "nucleo-core-fill-24";
+import { useState } from "react";
 
 function AnnouncementBadge() {
   const shouldReduceMotion = useReducedMotion();
@@ -75,9 +78,23 @@ const EASE_OUT_QUAD = [
   EASE_OUT_QUAD_Y2,
 ] as const;
 
+const INSTALL_COMMAND = "npx shadcn@latest add @smoothui/dynamic-island";
+
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const playClick = useUiSound("/sounds/button.wav", 0.4);
+  const [installCopied, setInstallCopied] = useState(false);
+
+  const copyInstall = async () => {
+    try {
+      await navigator.clipboard.writeText(INSTALL_COMMAND);
+      setInstallCopied(true);
+      playClick();
+      setTimeout(() => setInstallCopied(false), 1600);
+    } catch {
+      // clipboard unavailable — no-op
+    }
+  };
 
   return (
     <section className="bg-background transition">
@@ -110,9 +127,8 @@ export function Hero() {
 
               {/* Description */}
               <p className="text-balance text-foreground/70 sm:text-lg md:text-xl">
-                Highly customizable, production-ready UI blocks for building
-                beautiful websites and apps that look and feel the way you mean
-                it.
+                50+ animated React components — drop into any shadcn/ui project
+                with one command. Motion-powered, Tailwind v4, TypeScript.
               </p>
 
               {/* CTA buttons */}
@@ -123,7 +139,7 @@ export function Hero() {
                   size="sm"
                   variant="candy"
                 >
-                  <Link href="/docs/guides">Explore Docs</Link>
+                  <Link href="/docs/components">Browse components</Link>
                 </Button>
                 <Button
                   asChild
@@ -131,9 +147,29 @@ export function Hero() {
                   size="sm"
                   variant="outline"
                 >
-                  <Link href="/docs/components">Explore components</Link>
+                  <Link href="/docs/guides">Read the docs</Link>
                 </Button>
               </div>
+
+              {/* Install command — copy to start in seconds */}
+              <button
+                aria-label="Copy install command"
+                className="group flex w-fit items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2 font-mono text-foreground/80 text-sm transition-colors hover:border-brand/40"
+                onClick={copyInstall}
+                type="button"
+              >
+                <span aria-hidden className="select-none text-muted-foreground">
+                  $
+                </span>
+                <span>{INSTALL_COMMAND}</span>
+                <span className="text-muted-foreground transition-colors group-hover:text-foreground">
+                  {installCopied ? (
+                    <IconCheckFill24 className="size-4 text-brand" />
+                  ) : (
+                    <IconCopy2Fill24 className="size-4" />
+                  )}
+                </span>
+              </button>
 
               {/* Vercel OSS Program */}
               <a
