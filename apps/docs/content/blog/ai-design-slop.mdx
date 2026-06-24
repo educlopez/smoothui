@@ -1,0 +1,53 @@
+---
+title: "AI Design Slop: Why AI-Generated UI Looks Generic — and the Fix"
+description: "AI coding agents ship the same purple gradients, glassmorphism, and identical card grids. Here's why AI-generated UI looks like slop — and how a closed-loop design-quality bar fixes it for good."
+date: "2026-06-24"
+author: "Eduardo Calvo"
+---
+
+You can spot it in a second now. The purple-to-cyan gradient. Glassmorphism with a neon glow. Six identical cards in a row, each with an icon, a heading, and two lines of text. A bounce on every hover. It has a name: **AI design slop** — the generic, interchangeable UI that coding agents produce by default.
+
+The agents aren't bad at writing code. They're bad at knowing what *good* looks like — and at checking their own work.
+
+## Why AI-generated UI looks like slop
+
+Two reasons, and the second one is the one nobody fixes.
+
+**1. No taste.** A model will happily generate a hero section, but "looks designed" isn't in its objective. Absent direction, it reaches for the most statistically common pattern — which is exactly the gradient-and-glass aesthetic that floods its training data. Polish without judgment.
+
+**2. No loop.** This is the real gap. AI design is **one-shot**: the agent generates, you eyeball it, you fix the same problems by hand, and next session it makes them again. Even tools that *critique* UI stop at a one-shot report — a list of findings, no fix, no re-check. Nothing closes the loop.
+
+The result isn't just ugly. It's often *unusable*: missing focus states, contrast that fails WCAG, empty and error states that were never designed. A December 2025 analysis of 470 real pull requests found AI-generated code carried [1.7× more issues and 2.74× more security vulnerabilities](https://www.coderabbit.ai/blog/state-of-ai-vs-human-code-generation-report) than human code. Research presented at CHI 2025 showed AI assistants [systematically generate inaccessible markup](https://arxiv.org/abs/2502.10884). The problem is real, measured, and growing as more UI gets generated.
+
+## The fix is a closed loop, not more rules
+
+Design rules alone don't fix slop — plenty of linters list what's wrong and stop there. What actually moves output from "AI-made" to "shippable" is a **closed loop**:
+
+1. **Build** with guardrails — anti-slop patterns and accessibility enforced *at generation time*, not bolted on after.
+2. **Critique** the result with real design judgment — anti-slop tells, usability heuristics, an explicit acceptance bar.
+3. **Fix** the highest-impact issue.
+4. **Re-evaluate** — and repeat until the work passes the bar or a budget is hit.
+
+That last step is the whole game. A one-shot generator or a one-shot auditor can't converge. A loop can. It's the difference between "here are 9 problems" and "here's the version with zero problems left."
+
+## How UI Craft closes it
+
+[**UI Craft**](https://skills.smoothui.dev) is a design-quality system for AI coding agents, built around that loop:
+
+- **Guardrails** — opinionated, craft-level rules across layout, type, color, motion, accessibility, and UX copy, plus an anti-slop test every surface has to pass.
+- **A 10-item acceptance bar** — a concrete, checkable definition of "would a designer retouch this?" The build isn't done until every box is green.
+- **An iterate-until-converged loop** — build → critique → fix the highest-impact issue → re-check, until it passes. The skill grades its own output and keeps going.
+- **Self-correction** — correct it once ("no gradients on the hero") and it records the rule in your project brief, so it never repeats the mistake.
+- **Portable** — it's a skill, not a service. No tool lock-in; if there's nothing to render with, it reasons over the code and tells you honestly what it couldn't verify.
+
+Same prompt, same model — output that clears the bar instead of looking like every other AI demo.
+
+## Try it
+
+```bash
+npx skills add educlopez/ui-craft
+```
+
+Works with Claude Code (native plugin), Codex, Cursor, Gemini, and OpenCode. Full reference at [skills.smoothui.dev/docs](https://skills.smoothui.dev/docs).
+
+The era of shipping AI slop because "the agent made it" is ending. Hold your UI to a bar — and make the agent clear it.
