@@ -233,9 +233,18 @@ export async function generateMetadata(
       title: "Not Found",
     });
 
+  // Per-page fallback so pages without a frontmatter description don't all share
+  // one generic (thin/duplicate) meta description.
+  const section = slug[0];
+  const kind =
+    section === "blocks"
+      ? "block"
+      : section === "guides"
+        ? "guide"
+        : "component";
   const description =
     page.data.description ??
-    "Beautiful React components with smooth animations";
+    `${page.data.title} — an animated React ${kind} for shadcn/ui, built with Motion and Tailwind CSS. Copy, paste, and ship.`;
 
   const image = {
     url: getPageImage(page).url,

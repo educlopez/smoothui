@@ -98,6 +98,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 0.7,
     },
+    {
+      url: url("/themes"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
     ...blogSource.getPages().map(
       (post) =>
         ({
