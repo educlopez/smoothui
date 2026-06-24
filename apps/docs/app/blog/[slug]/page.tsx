@@ -54,7 +54,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <PostCover
           alt={post.data.title}
-          className="mb-8 aspect-[2.4/1] rounded-2xl border border-border"
+          className="mb-8 aspect-[4/1] rounded-2xl border border-border"
           image={post.data.image as string | undefined}
           seed={post.url}
           sizes="(max-width: 1024px) 100vw, 1152px"
