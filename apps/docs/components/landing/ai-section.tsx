@@ -319,7 +319,7 @@ export function AISection() {
               draggable={false}
               fill
               sizes="(max-width: 768px) 100vw, 420px"
-              src="/scenes/ai-mcp.jpg"
+              src="/scenes/ai-mcp.webp"
               unoptimized
             />
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
