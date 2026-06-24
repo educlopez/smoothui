@@ -5,6 +5,7 @@ import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
 import { Hero } from "@docs/components/landing/hero";
+import { LatestPosts } from "@docs/components/landing/latest-posts";
 import { SkillsSection } from "@docs/components/landing/skills-section";
 import { WhatTheySay } from "@docs/components/landing/what-they-say";
 import type { Metadata } from "next";
@@ -41,6 +42,9 @@ export default function Home() {
       <FAQ />
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />
+      </Suspense>
+      <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
+        <LatestPosts />
       </Suspense>
       <Footer />
     </>
