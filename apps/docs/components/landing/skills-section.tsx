@@ -1,195 +1,188 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
-import { SectionHeader } from "@docs/components/landing/section-header";
-import { Button } from "@docs/components/smoothbutton";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import {
   IconArrowUpRightFill24,
-  IconEyeFill24,
-  IconMagnifierFill24,
-  IconSparkleFill24,
-  IconWandSparkleFill24,
+  IconCheckFill24,
+  IconCopy2Fill24,
 } from "nucleo-core-fill-24";
+import { useState } from "react";
 
-const modes = [
-  {
-    icon: IconWandSparkleFill24,
-    label: "Build",
-    description: "Scaffold with taste",
-  },
-  {
-    icon: IconSparkleFill24,
-    label: "Animate",
-    description: "Motion that feels right",
-  },
-  { icon: IconEyeFill24, label: "Review", description: "Catch what AI misses" },
-  {
-    icon: IconMagnifierFill24,
-    label: "Polish",
-    description: "Pixel-perfect details",
-  },
-];
+const INSTALL_CMD = "npx skills add educlopez/ui-craft";
 
 export function SkillsSection() {
   const shouldReduceMotion = useReducedMotion();
+  const [copied, setCopied] = useState(false);
 
-  const springTransition = (delay: number) =>
-    shouldReduceMotion
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(INSTALL_CMD);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      // clipboard unavailable — no-op
+    }
+  };
+
+  const lift = (delay: number) => ({
+    initial: shouldReduceMotion
+      ? { opacity: 1 }
+      : { opacity: 0, transform: "translateY(16px)" },
+    whileInView: shouldReduceMotion
+      ? { opacity: 1 }
+      : { opacity: 1, transform: "translateY(0px)" },
+    transition: shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
+      : { type: "spring" as const, duration: 0.35, bounce: 0.1, delay },
+    viewport: { once: true, amount: 0.3 },
+  });
 
   return (
     <section className="relative bg-background px-8 py-32 transition">
       <Divider />
       <div className="mx-auto max-w-5xl">
-        <SectionHeader
-          description="Same prompt. Same model. Different result. UI Craft gives your coding agent the design intuition it's missing."
-          title="Design taste for your AI agent"
-        />
+        {/* Static: the install pill uses backdrop-filter, which a transformed
+            or faded ancestor would disable mid-animation. So the card and the
+            pill's wrapper never animate — only the inner text/icon do, and the
+            pill reveals by animating its own blur value. */}
+        <div className="relative isolate overflow-hidden rounded-3xl border border-border">
+          {/* meadow background */}
+          <Image
+            alt=""
+            aria-hidden
+            className="-z-10 object-cover"
+            draggable={false}
+            fill
+            sizes="(max-width: 1024px) 100vw, 960px"
+            src="/scenes/skill-meadow.webp"
+          />
+          <div
+            aria-hidden
+            className="absolute inset-0 -z-10 bg-gradient-to-b from-black/45 via-black/30 to-black/60"
+          />
 
-        <motion.div
-          className="frame-box relative mx-auto mt-16 overflow-hidden rounded-2xl"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateY(16px) scale(0.98)" }
-          }
-          transition={springTransition(0.15)}
-          viewport={{ once: true, amount: 0.2 }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateY(0px) scale(1)" }
-          }
-        >
-          <div className="grid gap-8 p-8 md:grid-cols-2 md:gap-12 md:p-12">
-            {/* Logo side */}
-            <motion.div
-              className="flex flex-col items-center justify-center gap-6"
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "scale(0.95)" }
-              }
-              transition={springTransition(0.25)}
-              viewport={{ once: true, amount: 0.3 }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "scale(1)" }
-              }
-            >
+          <div className="flex flex-col items-center gap-5 px-6 py-20 text-center md:py-28">
+            <motion.div {...lift(0.05)}>
               <Image
-                alt="UI Craft — Design taste for AI coding agents"
-                className="size-28 rounded-3xl shadow shadow-black/10 ring-1 ring-border"
+                alt="UI Craft"
+                className="size-14 rounded-2xl shadow-black/20 shadow-lg ring-1 ring-white/40"
                 draggable={false}
-                height={112}
+                height={56}
                 src="/icon-ui-craft.png"
-                width={112}
+                width={56}
               />
-              <div className="text-center">
-                <p className="font-semibold text-foreground text-lg">
-                  UI Craft
-                </p>
-                <p className="mt-1 text-primary-foreground text-sm">
-                  Design taste for AI coding agents
-                </p>
-              </div>
             </motion.div>
 
-            {/* Info side */}
-            <div className="flex flex-col justify-center gap-6">
-              {/* 4 modes */}
-              <motion.div
-                className="grid grid-cols-2 gap-3"
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0, transform: "translateY(8px)" }
-                }
-                transition={springTransition(0.3)}
-                viewport={{ once: true, amount: 0.3 }}
-                whileInView={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1, transform: "translateY(0px)" }
-                }
-              >
-                {modes.map((mode) => (
-                  <div
-                    className="flex items-center gap-2.5 rounded-xl border border-border bg-background p-3"
-                    key={mode.label}
-                  >
-                    <mode.icon className="size-4 shrink-0 text-brand" />
-                    <div>
-                      <p className="font-medium text-foreground text-sm leading-tight">
-                        {mode.label}
-                      </p>
-                      <p className="text-primary-foreground text-xs leading-tight">
-                        {mode.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </motion.div>
+            <motion.span
+              className="font-medium text-[11px] text-white/75 uppercase tracking-[0.18em]"
+              {...lift(0.1)}
+            >
+              UI Craft · AI skill
+            </motion.span>
 
-              {/* Install command */}
-              <motion.div
-                className="overflow-hidden rounded-xl border border-border bg-background p-4"
+            <motion.h2
+              className="max-w-2xl text-balance font-semibold font-title text-3xl text-white tracking-tight md:text-5xl"
+              {...lift(0.15)}
+            >
+              Design taste for your AI agent
+            </motion.h2>
+
+            <motion.p
+              className="max-w-xl text-balance text-white/85"
+              {...lift(0.2)}
+            >
+              Same prompt. Same model. Different result — UI Craft gives your
+              coding agent the design intuition it&apos;s missing.
+            </motion.p>
+
+            <div className="mt-3 flex flex-col items-center gap-4">
+              <motion.button
+                aria-label="Copy install command"
+                className="group flex items-center gap-3 rounded-xl border border-white/25 bg-white/10 py-2.5 pr-3 pl-4 transition-colors hover:border-white/40 hover:bg-white/15"
                 initial={
                   shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0, transform: "translateY(8px)" }
+                    ? { backdropFilter: "blur(12px)" }
+                    : { backdropFilter: "blur(0px)" }
                 }
-                transition={springTransition(0.35)}
-                viewport={{ once: true, amount: 0.3 }}
-                whileInView={
+                onClick={copy}
+                transition={
                   shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 1, transform: "translateY(0px)" }
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.5,
+                        delay: 0.3,
+                        ease: [0.23, 1, 0.32, 1] as const,
+                      }
                 }
+                type="button"
+                viewport={{ once: true, amount: 0.3 }}
+                whileInView={{ backdropFilter: "blur(12px)" }}
               >
-                <p className="mb-2 text-primary-foreground text-xs">
-                  Install with one command
-                </p>
-                <code className="block font-mono text-foreground text-sm">
-                  npx skills add educlopez/ui-craft
+                <code className="font-mono text-sm text-white">
+                  {INSTALL_CMD}
                 </code>
-              </motion.div>
+                <span className="relative flex size-4 items-center justify-center text-white/70 transition-colors group-hover:text-white">
+                  <AnimatePresence initial={false} mode="wait">
+                    {copied ? (
+                      <motion.span
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, scale: 1 }
+                        }
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 0, scale: 0.6 }
+                        }
+                        key="check"
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : { type: "spring", stiffness: 500, damping: 28 }
+                        }
+                      >
+                        <IconCheckFill24 className="size-4 text-brand-lighter" />
+                      </motion.span>
+                    ) : (
+                      <motion.span
+                        animate={{ opacity: 1 }}
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0, transition: { duration: 0 } }
+                            : { opacity: 0, scale: 0.6 }
+                        }
+                        initial={{ opacity: 1 }}
+                        key="copy"
+                      >
+                        <IconCopy2Fill24 className="size-4" />
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
+                <span aria-live="polite" className="sr-only">
+                  {copied ? "Copied to clipboard" : ""}
+                </span>
+              </motion.button>
+
+              <Link
+                className="group flex items-center gap-1.5 font-medium text-sm text-white/80 transition-colors hover:text-white"
+                href="https://skills.smoothui.dev"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Explore UI Craft skill
+                <IconArrowUpRightFill24
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  size={14}
+                />
+              </Link>
             </div>
           </div>
-        </motion.div>
-
-        <motion.div
-          className="mt-8 flex justify-center"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          transition={springTransition(0.5)}
-          viewport={{ once: true, amount: 0.5 }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-        >
-          <Button
-            asChild
-            className="group"
-            color="accent"
-            size="sm"
-            variant="ghost"
-          >
-            <Link
-              href="https://skills.smoothui.dev"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Explore UI Craft skill
-              <IconArrowUpRightFill24
-                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                size={14}
-              />
-            </Link>
-          </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
