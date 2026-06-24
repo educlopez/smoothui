@@ -366,16 +366,6 @@ function StudioSidebar({
               <IconCopy2Fill24 className="size-3.5 text-muted-foreground" />
             )}
           </button>
-          <a
-            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-foreground/5 hover:text-foreground"
-            href={`https://ui.shadcn.com/create?preset=${palette.presetCode}`}
-            rel="noopener noreferrer"
-            target="_blank"
-            title="Approximation: shadcn/create only supports its own catalog values"
-          >
-            shadcn/create (approx.)
-            <IconExternalLinkFill24 className="size-3.5" />
-          </a>
         </div>
       </div>
 
