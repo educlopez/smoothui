@@ -1,5 +1,6 @@
 import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
+import { ClosingCta } from "@docs/components/landing/closing-cta";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { Coverage } from "@docs/components/landing/coverage";
 import { FAQ } from "@docs/components/landing/faqs";
@@ -8,6 +9,7 @@ import Footer from "@docs/components/landing/footer";
 import { Hero } from "@docs/components/landing/hero";
 import { LatestPosts } from "@docs/components/landing/latest-posts";
 import { SkillsSection } from "@docs/components/landing/skills-section";
+import { SocialProof } from "@docs/components/landing/social-proof";
 import { WhatTheySay } from "@docs/components/landing/what-they-say";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -33,21 +35,23 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Features />
+      <SocialProof />
       <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
         <ComponentsSlideshow />
       </Suspense>
+      <Features />
       <BlockCategories />
       <AISection />
       <SkillsSection />
-      <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
-        <LatestPosts />
-      </Suspense>
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />
       </Suspense>
       <Coverage />
       <FAQ />
+      <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
+        <LatestPosts />
+      </Suspense>
+      <ClosingCta />
       <Footer />
     </>
   );
