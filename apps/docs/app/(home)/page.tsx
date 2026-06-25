@@ -1,6 +1,5 @@
 import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
-import { ClosingCta } from "@docs/components/landing/closing-cta";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { Coverage } from "@docs/components/landing/coverage";
 import { FAQ } from "@docs/components/landing/faqs";
@@ -51,7 +50,6 @@ export default function Home() {
       <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
         <LatestPosts />
       </Suspense>
-      <ClosingCta />
       <Footer />
     </>
   );

@@ -1,4 +1,3 @@
-import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { PostCover } from "@docs/components/post-cover";
 import { Button } from "@docs/components/smoothbutton";
@@ -29,7 +28,6 @@ export async function LatestPosts() {
 
   return (
     <section className="relative bg-background px-8 py-24 transition">
-      <Divider />
       <SectionHeader
         description="Tutorials, deep dives and case studies on building beautifully animated React components."
         title="From the blog"
