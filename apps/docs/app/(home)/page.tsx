@@ -1,6 +1,7 @@
 import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
+import { Coverage } from "@docs/components/landing/coverage";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
@@ -45,6 +46,7 @@ export default function Home() {
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />
       </Suspense>
+      <Coverage />
       <FAQ />
       <Footer />
     </>
