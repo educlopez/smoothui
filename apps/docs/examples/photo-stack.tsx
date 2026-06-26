@@ -3,37 +3,28 @@
 import PhotoStack, {
   type PhotoStackPhoto,
 } from "@repo/smoothui/components/photo-stack";
-import { getImageKitUrl } from "@smoothui/data";
-
-const photo = (path: string) =>
-  getImageKitUrl(path, {
-    width: 448,
-    height: 576,
-    quality: 80,
-    format: "auto",
-  });
 
 const photos: PhotoStackPhoto[] = [
   {
-    id: "girl",
-    src: photo("/images/girl-summer.webp"),
-    alt: "Person in summer light",
-    name: "Mara Okonkwo",
-    role: "Design engineer",
+    id: "canyon",
+    src: "/images/figma/bg-9.webp",
+    alt: "Desert canyon at sunset",
+    name: "Desert Canyon",
+    role: "Golden hour",
   },
   {
-    id: "dog",
-    src: photo("/images/dog-white.webp"),
-    alt: "White dog",
-    name: "Noa Bergström",
-    role: "Frontend lead",
+    id: "palms",
+    src: "/images/figma/bg-11.webp",
+    alt: "Palm grove in soft light",
+    name: "Palm Grove",
+    role: "Summer haze",
   },
   {
-    id: "surf",
-    src: photo("/images/surf.webp"),
-    alt: "Surfer on a wave",
-    name: "Ines Duarte",
-    role: "Solo founder",
+    id: "lights",
+    src: "/images/figma/bg-13.webp",
+    alt: "City lights bokeh at night",
+    name: "City Lights",
+    role: "After dark",
   },
 ];
 

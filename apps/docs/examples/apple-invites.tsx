@@ -3,7 +3,7 @@
 import AppleInvites, {
   type Event,
 } from "@repo/smoothui/components/apple-invites";
-import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
+import { getAllPeople, getAvatarUrl } from "@smoothui/data";
 
 const AVATAR_SIZE = 72;
 
@@ -13,12 +13,7 @@ const demoEvents: Event[] = [
     title: "Yoga",
     subtitle: "Sat, June 14, 6:00 AM",
     location: "Central Park",
-    image: getImageKitUrl("/images/yogaday.webp", {
-      width: 400,
-      height: 500,
-      quality: 80,
-      format: "auto",
-    }),
+    image: "/images/figma/bg-11.webp",
     badge: "Hosting",
     participants: [
       {
@@ -31,12 +26,7 @@ const demoEvents: Event[] = [
     title: "Tyler Turns 3!",
     subtitle: "Sat, June 14, 3:00 PM",
     location: "Central Park",
-    image: getImageKitUrl("/images/park.webp", {
-      width: 400,
-      height: 500,
-      quality: 80,
-      format: "auto",
-    }),
+    image: "/images/figma/bg-9.webp",
     badge: "Going",
     participants: [
       {
@@ -49,12 +39,7 @@ const demoEvents: Event[] = [
     title: "Golf party",
     subtitle: "Sun, April 15, 9:00 AM",
     location: "Golf Park",
-    image: getImageKitUrl("/images/golf.webp", {
-      width: 400,
-      height: 500,
-      quality: 80,
-      format: "auto",
-    }),
+    image: "/images/figma/bg-5.webp",
     badge: "Going",
     participants: [
       {
@@ -67,12 +52,7 @@ const demoEvents: Event[] = [
     title: "Movie Night",
     subtitle: "Fri, June 20, 8:00 PM",
     location: "Cine Town",
-    image: getImageKitUrl("/images/movie.webp", {
-      width: 400,
-      height: 500,
-      quality: 80,
-      format: "auto",
-    }),
+    image: "/images/figma/bg-13.webp",
     badge: "Interested",
     participants: [
       {

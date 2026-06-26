@@ -20,14 +20,7 @@ export default function ScrollableCardStackDemo() {
           format: "auto",
         }
       ), // Keep educlopez as requested
-      image: getImageKitUrl(
-        "https://ik.imagekit.io/16u211libb/smoothui/surf.webp?updatedAt=1764932280262",
-        {
-          width: 600,
-          quality: 80,
-          format: "auto",
-        }
-      ),
+      image: "/images/figma/bg-5.webp",
       href: "https://x.com/educalvolpz",
     },
     {
@@ -56,14 +49,7 @@ export default function ScrollableCardStackDemo() {
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
       avatar: getAvatarUrl(people[2]?.avatar || "", 40),
-      image: getImageKitUrl(
-        "https://ik.imagekit.io/16u211libb/smoothui/dreams.webp?updatedAt=1764932263863",
-        {
-          width: 600,
-          quality: 80,
-          format: "auto",
-        }
-      ),
+      image: "/images/figma/bg-8.webp",
       href: `https://x.com/${
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
@@ -75,14 +61,7 @@ export default function ScrollableCardStackDemo() {
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
       avatar: getAvatarUrl(people[3]?.avatar || "", 40),
-      image: getImageKitUrl(
-        "https://ik.imagekit.io/16u211libb/smoothui/galleryart.webp?updatedAt=1764932265858",
-        {
-          width: 600,
-          quality: 80,
-          format: "auto",
-        }
-      ),
+      image: "/images/figma/bg-1.webp",
       href: `https://x.com/${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
