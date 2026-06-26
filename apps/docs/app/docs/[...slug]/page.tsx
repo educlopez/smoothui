@@ -170,12 +170,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             markdownUrl={`${page.url}.mdx`}
           />
           {registryUrl && <OpenInV0Button url={registryUrl} />}
-          {componentName && <BundleSizeBadge slug={componentName} />}
-          {lastModified && (
-            <LastModified
-              className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"
-              lastModified={lastModified}
-            />
+          {(componentName || lastModified) && (
+            <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
+              {componentName && <BundleSizeBadge slug={componentName} />}
+              {lastModified && <LastModified lastModified={lastModified} />}
+            </div>
           )}
         </div>
         <DocsBody>
