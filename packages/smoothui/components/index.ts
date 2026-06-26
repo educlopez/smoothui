@@ -55,6 +55,7 @@ export { default as MagneticButton } from "./magnetic-button";
 export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
 export { default as Pagination } from "./pagination";
+export { default as PhotoStack } from "./photo-stack";
 export { default as Phototab } from "./phototab";
 export { default as PowerOffSlide } from "./power-off-slide";
 export { default as PriceFlow } from "./price-flow";

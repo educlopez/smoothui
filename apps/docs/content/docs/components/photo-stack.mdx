@@ -1,0 +1,81 @@
+---
+title: Photo Stack
+description: A draggable deck of photo cards. Drag or tap the top card to flick it to the back and reveal the next — with spring motion and reduced-motion support.
+icon: Images
+dependencies:
+  - motion.dev
+installer: photo-stack
+---
+
+## Features
+
+- Draggable top card — drag it in any direction and release to send it to the back
+- Tap or keyboard (Enter / Space) to cycle the deck
+- Layered stack with per-position offset, scale, and dim
+- Optional caption (name + role) over the front card
+- Spring transitions with `prefers-reduced-motion` fallback
+- Fully typed, headless of any specific image source
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Focus the front card |
+| `Enter` / `Space` | Cycle the front card to the back |
+
+### Screen Reader
+
+- The front card exposes `role="button"` with an `aria-label` derived from the photo's name (or alt text).
+- Back cards are removed from the tab order (`tabIndex={-1}`) and their dim overlay is `aria-hidden`.
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, dragging is disabled and cards snap between positions with no spring animation (tap / keyboard still cycle the deck).
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/photo-stack/index.tsx"
+  name="PhotoStackProps"
+/>
+
+## Usage
+
+```tsx
+import PhotoStack from "@/components/photo-stack";
+
+export default function Example() {
+  const photos = [
+    { id: "1", src: "/people/mara.jpg", alt: "Mara Okonkwo", name: "Mara Okonkwo", role: "Design engineer" },
+    { id: "2", src: "/people/noa.jpg", alt: "Noa Bergström", name: "Noa Bergström", role: "Frontend lead" },
+    { id: "3", src: "/people/ines.jpg", alt: "Ines Duarte", name: "Ines Duarte", role: "Solo founder" },
+  ];
+
+  return <PhotoStack photos={photos} />;
+}
+```
+
+## Examples
+
+### Plain photos (no caption)
+
+```tsx
+<PhotoStack
+  photos={[
+    { id: "a", src: "/shots/one.jpg", alt: "Shot one" },
+    { id: "b", src: "/shots/two.jpg", alt: "Shot two" },
+    { id: "c", src: "/shots/three.jpg", alt: "Shot three" },
+  ]}
+/>
+```
+
+### React to the order changing
+
+```tsx
+<PhotoStack
+  photos={photos}
+  onCycle={(order) => console.log("new order", order)}
+/>
+```
