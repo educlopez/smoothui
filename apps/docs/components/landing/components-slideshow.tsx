@@ -1,9 +1,11 @@
 import Divider from "@docs/components/landing/divider";
-import Frame from "@docs/components/landing/frame";
+import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { createElement } from "react";
 
 // Lazy-load example components to reduce initial bundle size
 const AnimatedTags = dynamic(() => import("@docs/examples/animated-tags"));
@@ -22,16 +24,52 @@ const UserAccountAvatar = dynamic(
   () => import("@docs/examples/user-account-avatar")
 );
 
-const SHOWCASE_COMPONENTS = [
-  { id: "animatedTags", component: AnimatedTags },
-  { id: "socialSelector", component: SocialSelector },
-  { id: "powerOffSlide", component: PowerOffSlide },
-  { id: "scrollableCardStack", component: ScrollableCardStack },
-  { id: "userAccountAvatar", component: UserAccountAvatar },
-  { id: "numberFlow", component: NumberFlow },
-  { id: "phototab", component: Phototab },
-  { id: "dynamicIsland", component: DynamicIsland },
-  { id: "imageMetadataPreview", component: ImageMetadataPreview },
+type ShowcaseItem = {
+  component: React.ComponentType;
+  name: string;
+  slug: string;
+  /** Extra grid span classes for the bento layout. */
+  span?: string;
+};
+
+// Rows are arranged so each md row sums to 3 columns.
+const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
+  {
+    name: "Dynamic Island",
+    slug: "dynamic-island",
+    component: DynamicIsland,
+    span: "md:col-span-2",
+  },
+  { name: "Number Flow", slug: "number-flow", component: NumberFlow },
+  { name: "Phototab", slug: "phototab", component: Phototab },
+  {
+    name: "Social Selector",
+    slug: "social-selector",
+    component: SocialSelector,
+  },
+  {
+    name: "User Account Avatar",
+    slug: "user-account-avatar",
+    component: UserAccountAvatar,
+  },
+  {
+    name: "Scrollable Card Stack",
+    slug: "scrollable-card-stack",
+    component: ScrollableCardStack,
+    span: "md:col-span-2",
+  },
+  {
+    name: "Power Off Slide",
+    slug: "power-off-slide",
+    component: PowerOffSlide,
+  },
+  { name: "Animated Tags", slug: "animated-tags", component: AnimatedTags },
+  {
+    name: "Image Metadata Preview",
+    slug: "image-metadata-preview",
+    component: ImageMetadataPreview,
+    span: "md:col-span-2",
+  },
 ];
 
 export function ComponentsSlideshow() {
@@ -43,14 +81,28 @@ export function ComponentsSlideshow() {
         title="Components showcase"
       />
       <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {SHOWCASE_COMPONENTS.map(({ id, component }) => (
-          <div className="relative" key={id}>
-            <Frame
-              className="m-0 p-0 md:w-full"
-              clean={false}
-              component={component}
-              group="components"
-            />
+        {SHOWCASE_COMPONENTS.map(({ name, slug, component, span }) => (
+          <div
+            className={cn(
+              "group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card",
+              span
+            )}
+            key={slug}
+          >
+            <div className="frame-box flex h-[280px] items-center justify-center overflow-hidden p-6">
+              <div className="relative z-10 flex h-full w-full items-center justify-center">
+                {createElement(component)}
+              </div>
+            </div>
+            <footer className="flex items-center justify-between gap-2 border-border/60 border-t px-4 py-2.5">
+              <Link
+                className="truncate font-medium text-foreground text-sm transition-colors hover:text-brand"
+                href={`/docs/components/${slug}`}
+              >
+                {name}
+              </Link>
+              <InstallCopyButton slug={slug} />
+            </footer>
           </div>
         ))}
       </div>
