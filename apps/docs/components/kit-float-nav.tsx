@@ -10,6 +10,7 @@ import { THEME_PALETTES } from "@docs/lib/registry-themes";
 import { STARTER_KITS } from "@docs/lib/starter-kits";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
+import { track } from "@vercel/analytics";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconBag24Fill24,
@@ -98,10 +99,11 @@ export function KitFloatNav() {
   const isKitActive = (slugs: string[]) =>
     slugs.every((slug) => items.some((i) => i.slug === slug));
 
-  const toggleStarter = (slugs: string[]) => {
+  const toggleStarter = (id: string, slugs: string[]) => {
     if (isKitActive(slugs)) {
       removeMany(slugs);
     } else {
+      track("bundle_starter_kit", { id });
       addMany(slugs.map((slug) => ({ slug, title: prettify(slug) })));
     }
   };
@@ -220,7 +222,9 @@ export function KitFloatNav() {
                                         : "border-border hover:bg-muted"
                                     )}
                                     key={kit.id}
-                                    onClick={() => toggleStarter(kit.slugs)}
+                                    onClick={() =>
+                                      toggleStarter(kit.id, kit.slugs)
+                                    }
                                     type="button"
                                   >
                                     <span className="flex min-w-0 items-center gap-3">
@@ -364,16 +368,24 @@ export function KitFloatNav() {
                           loadingIcon={
                             <IconDotsLoaderFill24 className="size-3.5 animate-spin" />
                           }
-                          onCopy={() => navigator.clipboard.writeText(command)}
+                          onCopy={() => {
+                            track("bundle_copy_command", {
+                              count,
+                              pm,
+                              theme: siteTheme ?? "none",
+                            });
+                            navigator.clipboard.writeText(command);
+                          }}
                           successIcon={<IconCheckFill24 className="size-3.5" />}
                         />
                       </div>
                       <div className="mt-3 flex items-center justify-between">
                         <button
                           className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-muted"
-                          onClick={() =>
-                            navigator.clipboard.writeText(shareUrl)
-                          }
+                          onClick={() => {
+                            track("bundle_share", { count });
+                            navigator.clipboard.writeText(shareUrl);
+                          }}
                           title={shareUrl}
                           type="button"
                         >
@@ -382,7 +394,10 @@ export function KitFloatNav() {
                         </button>
                         <button
                           className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-destructive"
-                          onClick={clear}
+                          onClick={() => {
+                            track("bundle_clear", { count });
+                            clear();
+                          }}
                           type="button"
                         >
                           <IconRefresh2Fill24 size={13} />

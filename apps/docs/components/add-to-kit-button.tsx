@@ -2,6 +2,7 @@
 
 import { useKit } from "@docs/lib/kit-context";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import { track } from "@vercel/analytics";
 import { IconBag24Fill24, IconCheckFill24 } from "nucleo-core-fill-24";
 
 export interface AddToKitButtonProps {
@@ -38,6 +39,9 @@ export function AddToKitButton({
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
+        if (!inKit) {
+          track("bundle_add", { slug });
+        }
         toggle({ slug, title });
       }}
       type="button"
