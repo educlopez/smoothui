@@ -86,6 +86,7 @@ export { default as SharedAxisX } from "./shared-axis-x";
 export { default as SharedAxisY } from "./shared-axis-y";
 export { default as SharedAxisZ } from "./shared-axis-z";
 export { default as ShimmerSweep } from "./shimmer-sweep";
+export { default as ShineText } from "./shine-text";
 export { default as ShortSlideDown } from "./short-slide-down";
 export { default as ShortSlideRight } from "./short-slide-right";
 export { default as SiriOrb } from "./siri-orb";
