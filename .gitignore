@@ -51,3 +51,7 @@ AGENT.md
 
 # internal planning docs (never committed)
 planning/
+.agents/
+node-compile-cache/
+skills-lock.json
+.claude/skills/
