@@ -190,7 +190,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             <>
               <Preview path={page.data.installer} type={type} />
               <h2 id="installation">Installation</h2>
-              <Installer packageName={page.data.installer} />
+              <Installer addToKit={false} packageName={page.data.installer} />
             </>
           )}
           <MDX
