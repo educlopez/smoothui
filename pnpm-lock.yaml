@@ -2946,6 +2946,34 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
+  packages/smoothui/components/photo-stack:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^12.23.25
+        version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
   packages/smoothui/components/phototab:
     dependencies:
       '@radix-ui/react-tabs':
