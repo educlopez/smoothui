@@ -1,0 +1,29 @@
+---
+title: Line-by-Line Slide
+description: Animated React per-line text reveal where each line slides in from the left with a staggered entrance — inspired by Apple landing page subheads, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: line-by-line-slide
+---
+
+## Features
+
+- Per-line slide-in from the left with staggered entrance (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Pass lines via `children` string with `\n` separators or the explicit `lines` prop
+- Configurable delay and per-line stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no sliding motion. The full string is exposed to screen readers via `aria-label`, with the per-line spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/line-by-line-slide/index.tsx"
+  name="LineByLineSlideProps"
+/>

@@ -1,0 +1,29 @@
+---
+title: Short Slide Right
+description: The whole phrase glides in from the left as one compact move while words reveal in sequence through opacity — Keynote-style editorial restraint.
+icon: Type
+dependencies:
+  - motion.dev
+installer: short-slide-right
+---
+
+## Features
+
+- Shared horizontal container translation with per-word opacity stagger
+- Compact travel distance keeps motion editorial, not swishy
+- Clean exit with slight rightward drift and blur
+- Respects `prefers-reduced-motion`
+- Announces updates via `aria-live="polite"`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, phrases swap instantly with no translation or opacity stagger. The current phrase is announced via `aria-live="polite"`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/short-slide-right/index.tsx"
+  name="ShortSlideRightProps"
+/>

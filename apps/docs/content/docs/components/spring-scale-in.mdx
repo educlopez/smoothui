@@ -1,0 +1,29 @@
+---
+title: Spring Scale In
+description: Animated React per-word text reveal with a soft overshoot scale — iOS app icon-style pop, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: spring-scale-in
+---
+
+## Features
+
+- Per-word scale-in with a soft overshoot (`cubic-bezier(0.34, 1.56, 0.64, 1)`)
+- iOS home screen / Dock-inspired bounce pop
+- Configurable delay and per-word stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no scale animation. The full string is exposed to screen readers via `aria-label`, with the per-word spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/spring-scale-in/index.tsx"
+  name="SpringScaleInProps"
+/>

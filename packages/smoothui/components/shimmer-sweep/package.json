@@ -1,0 +1,43 @@
+{
+  "name": "@repo/shimmer-sweep",
+  "description": "A ShimmerSweep text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "shimmer",
+      "sweep",
+      "slide",
+      "blur",
+      "whole-text",
+      "entrance",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Hero headline with subtle sweep entrance",
+      "Section heading animated on scroll",
+      "Clean title reveal with left-to-center motion"
+    ],
+    "compositionHints": [
+      "Best on hero titles and section headings",
+      "Pair with triggerOnView for scroll-driven reveals"
+    ],
+    "hasReducedMotion": true
+  }
+}

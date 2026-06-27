@@ -18,7 +18,10 @@ export { default as BasicAccordion } from "./basic-accordion";
 export { default as BasicDropdown } from "./basic-dropdown";
 export { default as BasicModal } from "./basic-modal";
 export { default as BasicToast } from "./basic-toast";
+// Text animation components (animate-text catalog)
+export { default as BlurOutUp } from "./blur-out-up";
 export { default as Book } from "./book";
+export { default as BottomUpLetters } from "./bottom-up-letters";
 export { default as Breadcrumb } from "./breadcrumb";
 export { default as ButtonCopy } from "./button-copy";
 export { default as Checkbox } from "./checkbox";
@@ -27,6 +30,7 @@ export { default as Combobox } from "./combobox";
 export { default as ContextMenu } from "./context-menu";
 export { default as ContributionGraph } from "./contribution-graph";
 export { default as CursorFollow } from "./cursor-follow";
+export { default as DepthParallaxWords } from "./depth-parallax-words";
 export { AlertDialog, default as Dialog } from "./dialog";
 export { default as DotMorphButton } from "./dot-morph-button";
 export { default as Drawer } from "./drawer";
@@ -34,7 +38,9 @@ export { default as DropdownMenu } from "./dropdown-menu";
 export { default as DynamicIsland } from "./dynamic-island";
 export { default as ExpandableCards } from "./expandable-cards";
 export { default as ExposureSlider } from "./exposure-slider";
+export { default as FadeThrough } from "./fade-through";
 export { default as FigmaComment } from "./figma-comment";
+export { default as FocusBlurResolve } from "./focus-blur-resolve";
 export {
   default as Form,
   FormControl,
@@ -51,10 +57,16 @@ export { default as ImageMetadataPreview } from "./image-metadata-preview";
 export { default as InfiniteSlider } from "./infinite-slider";
 export { default as InteractiveImageSelector } from "./interactive-image-selector";
 export { default as JobListingComponent } from "./job-listing-component";
+export { default as KineticCenterBuild } from "./kinetic-center-build";
+export { default as LineByLineSlide } from "./line-by-line-slide";
 export { default as MagneticButton } from "./magnetic-button";
+export { default as MaskRevealUp } from "./mask-reveal-up";
+export { default as MicroScaleFade } from "./micro-scale-fade";
 export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
 export { default as Pagination } from "./pagination";
+export { default as PerCharacterRise } from "./per-character-rise";
+export { default as PerWordCrossfade } from "./per-word-crossfade";
 export { default as PhotoStack } from "./photo-stack";
 export { default as Phototab } from "./phototab";
 export { default as PowerOffSlide } from "./power-off-slide";
@@ -70,11 +82,22 @@ export { default as ScrollableCardStack } from "./scrollable-card-stack";
 export { default as Scrubber } from "./scrubber";
 export { default as SearchableDropdown } from "./searchable-dropdown";
 export { default as Select } from "./select";
+export { default as SharedAxisX } from "./shared-axis-x";
+export { default as SharedAxisY } from "./shared-axis-y";
+export { default as SharedAxisZ } from "./shared-axis-z";
+export { default as ShimmerSweep } from "./shimmer-sweep";
+export { default as ShortSlideDown } from "./short-slide-down";
+export { default as ShortSlideRight } from "./short-slide-right";
 export { default as SiriOrb } from "./siri-orb";
 export { default as Skeleton } from "./skeleton-loader";
 export { default as SmoothButton } from "./smooth-button";
 export { default as SocialSelector } from "./social-selector";
+export { default as SoftBlurIn } from "./soft-blur-in";
+export { default as SpringScaleIn } from "./spring-scale-in";
+export { default as StaggerFromCenter } from "./stagger-from-center";
+export { default as StaggerFromEdges } from "./stagger-from-edges";
 export { default as SwitchboardCard } from "./switchboard-card";
+export { default as TopDownLetters } from "./top-down-letters";
 export {
   ClientTweetCard,
   default as TweetCard,

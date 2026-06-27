@@ -1,0 +1,42 @@
+{
+  "name": "@repo/top-down-letters",
+  "description": "A TopDownLetters text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "per-character",
+      "top-down",
+      "staircase",
+      "entrance",
+      "apple",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Short word or label reveal with pronounced top-down staircase",
+      "Compact headline entrance descending from above",
+      "Editorial headers and controlled top-down word reveals"
+    ],
+    "compositionHints": [
+      "Best for single words or short phrases at 40px+",
+      "Top-down counterpart to bottom-up-letters"
+    ],
+    "hasReducedMotion": true
+  }
+}

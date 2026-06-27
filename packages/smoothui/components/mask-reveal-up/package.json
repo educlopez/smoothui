@@ -1,0 +1,41 @@
+{
+  "name": "@repo/mask-reveal-up",
+  "description": "A MaskRevealUp text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "mask",
+      "per-line",
+      "entrance",
+      "apple",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple-style section heading reveal",
+      "Two-line or three-line masked headline entrance",
+      "Section copy animated on scroll"
+    ],
+    "compositionHints": [
+      "Best for two-line and three-line headings where line order should stay readable",
+      "Pair with soft-blur-in for mixed hero sections"
+    ],
+    "hasReducedMotion": true
+  }
+}

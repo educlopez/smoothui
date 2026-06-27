@@ -1,0 +1,29 @@
+---
+title: Blur Out Up
+description: Animated React per-word text reveal — words arrive clean from a gentle blur and upward drift, Apple-style airy entrance, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: blur-out-up
+---
+
+## Features
+
+- Per-word fade-in with a gentle blur (6 px) and upward drift (10 px)
+- Apple signature ease-out (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Fast stagger (28 ms) keeps total duration tight
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no blur or movement. The full string is exposed to screen readers via `aria-label`, with the per-word spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/blur-out-up/index.tsx"
+  name="BlurOutUpProps"
+/>

@@ -1,0 +1,29 @@
+---
+title: Shimmer Sweep
+description: Animated React whole-text entrance with a left-to-center slide and blur dissolve — a subtle sweep across a clean headline, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: shimmer-sweep
+---
+
+## Features
+
+- Whole-text fade-in with a left-to-center slide and blur dissolve
+- Smooth ease-out curve (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Configurable delay
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no slide or blur. The full string is exposed to screen readers via `aria-label`, with the animated span `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/shimmer-sweep/index.tsx"
+  name="ShimmerSweepProps"
+/>

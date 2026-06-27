@@ -1,0 +1,30 @@
+---
+title: Mask Reveal Up
+description: Animated React per-line text reveal with an upward masked motion — Apple's signature section-transition headline entrance, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: mask-reveal-up
+---
+
+## Features
+
+- Per-line masked reveal with upward drift and soft blur (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Overflow-hidden mask per line for a clean reveal effect
+- Pass lines via `children` string with `\n` separators or the explicit `lines` prop
+- Configurable delay and per-line stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no movement. The full string is exposed to screen readers via `aria-label`, with the per-line spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/mask-reveal-up/index.tsx"
+  name="MaskRevealUpProps"
+/>

@@ -1,0 +1,29 @@
+---
+title: Per Word Crossfade
+description: Animated React per-word text reveal with a calm fade and upward drift — keynote-style heading entrance, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: per-word-crossfade
+---
+
+## Features
+
+- Per-word fade-in with a subtle upward drift (8 px)
+- Calm keynote rhythm (`cubic-bezier(0.16, 1, 0.3, 1)`)
+- Configurable delay and per-word stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no movement. The full string is exposed to screen readers via `aria-label`, with the per-word spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/per-word-crossfade/index.tsx"
+  name="PerWordCrossfadeProps"
+/>

@@ -1,0 +1,29 @@
+---
+title: Scale Down Fade
+description: Animated React whole-text reveal with a subtle premium settle-in — the text enters slightly scaled up and settles to its natural size, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: scale-down-fade
+---
+
+## Features
+
+- Whole-text scale-down settle-in from scale 1.04 to 1 with opacity and a slight y drift (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Restrained, quiet motion — polished without being distracting
+- Configurable delay
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no scaling or movement. The `aria-label` on the wrapper ensures screen readers get the full text.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/scale-down-fade/index.tsx"
+  name="ScaleDownFadeProps"
+/>

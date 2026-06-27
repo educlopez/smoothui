@@ -1,0 +1,41 @@
+{
+  "name": "@repo/line-by-line-slide",
+  "description": "A LineByLineSlide text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "slide",
+      "per-line",
+      "entrance",
+      "apple",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple-style subhead line-by-line entrance",
+      "Flowing paragraph reveal with stagger",
+      "Section header animated on scroll"
+    ],
+    "compositionHints": [
+      "Great for 2-line or 3-line headings",
+      "Reduce x-distance for narrow layouts to keep motion tight on mobile"
+    ],
+    "hasReducedMotion": true
+  }
+}

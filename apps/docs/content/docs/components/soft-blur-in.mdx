@@ -1,0 +1,29 @@
+---
+title: Soft Blur In
+description: Animated React per-character text reveal with a gentle blur and upward motion — Apple's signature hero-title entrance, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: soft-blur-in
+---
+
+## Features
+
+- Per-character fade-in with a soft blur and upward drift
+- Apple keynote-style hero reveal (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Configurable delay and per-character stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no blur or movement. The full string is exposed to screen readers via `aria-label`, with the per-character spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/soft-blur-in/index.tsx"
+  name="SoftBlurInProps"
+/>

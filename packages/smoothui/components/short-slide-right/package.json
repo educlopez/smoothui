@@ -1,0 +1,42 @@
+{
+  "name": "@repo/short-slide-right",
+  "description": "A ShortSlideRight text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "swap",
+      "slide",
+      "per-word",
+      "opacity",
+      "keynote",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "slide",
+    "useCases": [
+      "Keynote-style editorial headings with restrained motion",
+      "Feature benefit cycling with word-order emphasis",
+      "Hero taglines with directional reveal"
+    ],
+    "compositionHints": [
+      "Best on 3-5 word phrases where word order matters",
+      "Keep font weight bold for the opacity stagger to read clearly"
+    ],
+    "hasReducedMotion": true
+  }
+}

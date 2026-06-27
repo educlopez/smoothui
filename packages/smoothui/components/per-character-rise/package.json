@@ -1,0 +1,42 @@
+{
+  "name": "@repo/per-character-rise",
+  "description": "A PerCharacterRise text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "per-character",
+      "rise",
+      "entrance",
+      "apple",
+      "tvos",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple tvOS-style headline reveal",
+      "Crisp kinetic title entrance without blur",
+      "Section heading animated on scroll"
+    ],
+    "compositionHints": [
+      "Use on 40px+ headlines over any background",
+      "Zero blur keeps it sharp — key distinction from soft-blur-in"
+    ],
+    "hasReducedMotion": true
+  }
+}

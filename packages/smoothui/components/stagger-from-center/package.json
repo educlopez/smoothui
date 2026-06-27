@@ -1,0 +1,42 @@
+{
+  "name": "@repo/stagger-from-center",
+  "description": "A StaggerFromCenter text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "per-character",
+      "center-out",
+      "stagger",
+      "blur",
+      "entrance",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Product hero typography with center-weighted emphasis",
+      "Short keyword reveal that emphasizes the core",
+      "Section heading with outward reveal on scroll"
+    ],
+    "compositionHints": [
+      "Use on short words or compact titles for best effect",
+      "Pair with stagger-from-edges for alternating reveal patterns"
+    ],
+    "hasReducedMotion": true
+  }
+}

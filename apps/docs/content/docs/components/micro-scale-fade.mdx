@@ -1,0 +1,29 @@
+---
+title: Micro Scale Fade
+description: Animated React whole-text reveal with a calm, tiny scale pop — subtle premium polish for labels and headings, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: micro-scale-fade
+---
+
+## Features
+
+- Whole-text scale fade from 0.96 to 1 with opacity (`cubic-bezier(0.32, 0.72, 0, 1)`)
+- Calm micro-animation — not distracting, premium-feeling
+- Configurable delay
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no scaling. The `aria-label` on the wrapper ensures screen readers get the full text.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/micro-scale-fade/index.tsx"
+  name="MicroScaleFadeProps"
+/>

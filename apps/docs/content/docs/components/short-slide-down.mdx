@@ -1,0 +1,30 @@
+---
+title: Short Slide Down
+description: Each new word drops in from above into its own line and pushes the stack downward until a centered multi-line composition locks in place.
+icon: Type
+dependencies:
+  - motion.dev
+installer: short-slide-down
+---
+
+## Features
+
+- Word-by-word vertical build with top-entry and downward push
+- Each word occupies its own centered line
+- Layout-animated stacking as words are added
+- Soft blur entry and bottom-exit per word
+- Respects `prefers-reduced-motion`
+- Announces updates via `aria-live="polite"`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the full phrase appears at once and swaps instantly. The current phrase is announced via `aria-live="polite"`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/short-slide-down/index.tsx"
+  name="ShortSlideDownProps"
+/>

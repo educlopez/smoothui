@@ -1,0 +1,32 @@
+---
+title: Fade Through
+description: Material-style phrase cycling animation — old text fades out, new text fades in with a soft delay. Ideal for hero headlines and rotating taglines.
+icon: Type
+dependencies:
+  - motion.dev
+installer: fade-through
+---
+
+## Features
+
+- **Material-style crossfade** — exit completes before enter begins (`AnimatePresence mode="wait"`), creating a clean swap with no overlap
+- **Soft enter** — new phrase rises 6px and unblurs into view over 420ms
+- **Crisp exit** — current phrase fades up and out quickly over 260ms
+- **Configurable interval** — control how long each phrase is displayed via the `interval` prop
+- **Reduced motion** — when `prefers-reduced-motion` is enabled, cycling stops and the first phrase is shown statically with no animation
+
+## Accessibility
+
+### Reduced Motion
+
+The component checks `prefers-reduced-motion` via Motion's `useReducedMotion` hook. When `true`:
+
+- The interval timer does **not** start — the first phrase is shown statically
+- No motion is applied to the element
+- The text remains fully readable at all times
+
+The outer container uses `aria-live="polite"` so screen readers announce each phrase change as it cycles.
+
+## Props
+
+<AutoTypeTable path="../../packages/smoothui/components/fade-through/index.tsx" name="FadeThroughProps" />

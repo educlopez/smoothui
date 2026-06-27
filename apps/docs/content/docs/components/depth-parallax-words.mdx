@@ -1,0 +1,29 @@
+---
+title: Depth Parallax Words
+description: Animated React per-word text reveal with scale, vertical drift, and blur for layered depth — product landing page entrance, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: depth-parallax-words
+---
+
+## Features
+
+- Per-word depth motion: fade-in, upward drift (18 px), scale (0.92 → 1), and soft blur (3 px)
+- Apple signature ease-out (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- Configurable delay and per-word stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no depth animation. The full string is exposed to screen readers via `aria-label`, with the per-word spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/depth-parallax-words/index.tsx"
+  name="DepthParallaxWordsProps"
+/>
