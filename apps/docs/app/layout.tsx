@@ -1,4 +1,5 @@
 import { SoundProvider } from "@docs/components/sound-provider";
+import { KitProvider } from "@docs/lib/kit-context";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
@@ -107,7 +108,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>
-          <SoundProvider>{children}</SoundProvider>
+          <SoundProvider>
+            <KitProvider>{children}</KitProvider>
+          </SoundProvider>
         </RootProvider>
       </body>
     </html>

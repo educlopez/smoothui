@@ -1,3 +1,4 @@
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { BodyText } from "@docs/components/body-text";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
@@ -170,6 +171,13 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             markdownUrl={`${page.url}.mdx`}
           />
           {registryUrl && <OpenInV0Button url={registryUrl} />}
+          {page.data.installer && (
+            <AddToKitButton
+              className="px-2.5 py-1.5 text-xs"
+              slug={page.data.installer}
+              title={page.data.title}
+            />
+          )}
           {(componentName || lastModified) && (
             <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
               {componentName && <BundleSizeBadge slug={componentName} />}

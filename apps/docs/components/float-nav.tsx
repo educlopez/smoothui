@@ -4,6 +4,8 @@ import { useSoundToggle, useUiSound } from "@docs/components/sound-provider";
 import { useTheme } from "next-themes";
 import { IconMoonFill24, IconSunFill24 } from "nucleo-core-fill-24";
 import { ColorPickerFloatNav } from "./color-picker-float-nav";
+import { KitFloatNav } from "./kit-float-nav";
+import { PmFloatNav } from "./pm-float-nav";
 
 function ThemeSwitch() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -96,10 +98,16 @@ export function FloatNav() {
       aria-label="Floating Navigation"
       className="fixed bottom-5 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
     >
-      <div className="flex items-center">
+      <div className="flex items-center gap-0.5">
+        {/* Site options */}
         <ThemeSwitch />
         <SoundToggle />
         <ColorPickerFloatNav />
+        {/* Divider */}
+        <div aria-hidden className="mx-1 h-5 w-px bg-border" />
+        {/* Install configurator */}
+        <PmFloatNav />
+        <KitFloatNav />
       </div>
     </nav>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
@@ -125,27 +126,33 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             </div>
 
             {component.installer && (
-              <SmoothButton
-                aria-label={
-                  copied
-                    ? "Copied install command"
-                    : `Copy install command for ${component.title}`
-                }
-                className={cn(
-                  "h-auto gap-1 px-2 py-1 text-[10px]",
-                  copied &&
-                    "border-green-500/30 bg-green-500/10 text-green-600 hover:bg-green-500/10 dark:text-green-400"
-                )}
-                onClick={handleCopy}
-                variant="outline"
-              >
-                {copied ? (
-                  <IconCheckFill24 className="h-3 w-3" />
-                ) : (
-                  <IconCopy2Fill24 className="h-3 w-3" />
-                )}
-                {copied ? "Copied" : "Install"}
-              </SmoothButton>
+              <div className="flex items-center gap-1.5">
+                <AddToKitButton
+                  slug={component.installer}
+                  title={component.title}
+                />
+                <SmoothButton
+                  aria-label={
+                    copied
+                      ? "Copied install command"
+                      : `Copy install command for ${component.title}`
+                  }
+                  className={cn(
+                    "h-auto gap-1 px-2 py-1 text-[10px]",
+                    copied &&
+                      "border-green-500/30 bg-green-500/10 text-green-600 hover:bg-green-500/10 dark:text-green-400"
+                  )}
+                  onClick={handleCopy}
+                  variant="outline"
+                >
+                  {copied ? (
+                    <IconCheckFill24 className="h-3 w-3" />
+                  ) : (
+                    <IconCopy2Fill24 className="h-3 w-3" />
+                  )}
+                  {copied ? "Copied" : "Install"}
+                </SmoothButton>
+              </div>
             )}
           </div>
         </div>

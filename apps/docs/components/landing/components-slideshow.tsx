@@ -1,3 +1,4 @@
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import Divider from "@docs/components/landing/divider";
 import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import { SectionHeader } from "@docs/components/landing/section-header";
@@ -89,7 +90,7 @@ export function ComponentsSlideshow() {
             )}
             key={slug}
           >
-            <div className="frame-box flex h-[280px] items-center justify-center overflow-hidden p-6">
+            <div className="relative flex h-[280px] items-center justify-center overflow-hidden bg-primary p-6 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[--dots-color:--alpha(var(--color-foreground)/5%)] before:[background-size:16px_16px]">
               <div className="relative z-10 flex h-full w-full items-center justify-center">
                 {createElement(component)}
               </div>
@@ -101,7 +102,14 @@ export function ComponentsSlideshow() {
               >
                 {name}
               </Link>
-              <InstallCopyButton slug={slug} />
+              <div className="flex shrink-0 items-center gap-1.5">
+                <AddToKitButton
+                  className="h-7 gap-1.5 px-2.5 text-xs"
+                  slug={slug}
+                  title={name}
+                />
+                <InstallCopyButton slug={slug} />
+              </div>
             </footer>
           </div>
         ))}
