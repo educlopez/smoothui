@@ -1,0 +1,43 @@
+{
+  "name": "@repo/prism-sweep-transition",
+  "description": "A persistent WebGL prism sweep transition wrapper for route and state changes.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "transition",
+      "page-transition",
+      "route-transition",
+      "prism",
+      "sweep",
+      "gradient",
+      "motion",
+      "state-change"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Celebrate a successful publish or submit flow",
+      "Punctuate major route changes with a shader-inspired liquid sweep",
+      "Wrap demos, previews, or onboarding steps with a premium liquid state transition"
+    ],
+    "compositionHints": [
+      "Trigger sparingly for meaningful state changes, not every hover or click",
+      "Pair with cards, dashboards, or confirmation screens where the new state appears under the sweep"
+    ],
+    "hasReducedMotion": true
+  }
+}

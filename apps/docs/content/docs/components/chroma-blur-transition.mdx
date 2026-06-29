@@ -1,0 +1,30 @@
+---
+title: Chroma Blur Transition
+description: Frame-level shader transition that swaps content under a liquid chromatic sweep.
+icon: Palette
+dependencies:
+  - motion.dev
+installer: chroma-blur-transition
+---
+
+## Features
+
+- Persistent WebGL transition wrapper triggered by a `transitionKey`
+- Swaps content at the shader midpoint so the next state appears under the sweep
+- Designed for route/state moments, not hover decoration
+- Accessible: honors `prefers-reduced-motion` and keeps semantic content in the DOM
+
+## Usage guidance
+
+Use it sparingly for meaningful state changes: publish flows, checkout completion, onboarding steps, presentation mode changes, or section-level navigation.
+
+## Accessibility
+
+When reduced motion is preferred, content swaps immediately and `onRest` still fires.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/chroma-blur-transition/index.tsx"
+  name="ChromaBlurTransitionProps"
+/>

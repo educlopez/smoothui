@@ -1,0 +1,30 @@
+{
+  "name": "@repo/warped-circle-transition",
+  "description": "A wavy perimeter circle reveal inspired by the Codrops circle warping step.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/sdf-blob-transition": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "transitions",
+    "tags": [
+      "transition",
+      "webgl",
+      "sdf",
+      "codrops",
+      "state-change"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "hasReducedMotion": true
+  }
+}

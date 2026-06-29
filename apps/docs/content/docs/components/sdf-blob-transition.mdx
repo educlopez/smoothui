@@ -1,0 +1,30 @@
+---
+title: SDF Blob Transition
+description: Frame-level WebGL transition that swaps content under soft-merged SDF circles with organic noise.
+icon: Blend
+dependencies:
+  - motion.dev
+installer: sdf-blob-transition
+---
+
+## Features
+
+- Persistent WebGL transition wrapper triggered by a `transitionKey`
+- Soft-merged SDF circles inspired by shader image reveal techniques
+- Organic noise on the perimeter so the reveal feels alive without leaving residue
+- Accessible: honors `prefers-reduced-motion` and keeps semantic content in the DOM
+
+## Usage guidance
+
+Use it for launch moments, onboarding steps, checkout completion, or presentation state changes where an organic reveal fits the product language.
+
+## Accessibility
+
+When reduced motion is preferred, content swaps immediately and `onRest` still fires.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/sdf-blob-transition/index.tsx"
+  name="SdfBlobTransitionProps"
+/>
