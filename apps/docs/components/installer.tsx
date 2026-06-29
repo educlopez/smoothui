@@ -224,7 +224,8 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
           </div>
           {addToKit && (
             <AddToKitButton
-              className="h-7 shrink-0 px-2.5 text-xs"
+              className="shrink-0"
+              size="xs"
               slug={packageName}
               title={prettify(packageName)}
             />

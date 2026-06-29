@@ -173,7 +173,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
           {registryUrl && <OpenInV0Button url={registryUrl} />}
           {page.data.installer && (
             <AddToKitButton
-              className="px-2.5 py-1.5 text-xs"
+              size="sm"
               slug={page.data.installer}
               title={page.data.title}
             />

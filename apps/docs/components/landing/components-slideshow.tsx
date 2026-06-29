@@ -103,11 +103,7 @@ export function ComponentsSlideshow() {
                 {name}
               </Link>
               <div className="flex shrink-0 items-center gap-1.5">
-                <AddToKitButton
-                  className="h-7 gap-1.5 px-2.5 text-xs"
-                  slug={slug}
-                  title={name}
-                />
+                <AddToKitButton size="xs" slug={slug} title={name} />
                 <InstallCopyButton slug={slug} />
               </div>
             </footer>

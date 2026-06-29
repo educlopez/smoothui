@@ -1,5 +1,6 @@
 "use client";
 
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import {
   DARK_SCALE,
   getTheme,
@@ -25,12 +26,11 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import Scrubber from "@repo/smoothui/components/scrubber";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import dynamic from "next/dynamic";
+import { useTheme } from "next-themes";
 import {
   IconCheckFill24,
-  IconConsoleFill24,
   IconCopy2Fill24,
   IconDiceFill24,
-  IconExternalLinkFill24,
   IconMagnifierFill24,
   IconMoonFill24,
   IconSunFill24,
@@ -62,6 +62,73 @@ const installCommand = (state: StudioPresetState): string => {
 
 const componentInstallCommand = (slug: string) =>
   `npx shadcn@latest add https://smoothui.dev/r/${slug}.json`;
+
+function DuotoneInstallIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M4.75 6.75A2.75 2.75 0 0 1 7.5 4h9A2.75 2.75 0 0 1 19.25 6.75v10.5A2.75 2.75 0 0 1 16.5 20h-9a2.75 2.75 0 0 1-2.75-2.75V6.75Z"
+        fill="currentColor"
+        opacity="0.16"
+      />
+      <path
+        d="M8 10.25 10.35 12 8 13.75M12 14h4"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M4.75 8.25h14.5M7.5 4h9a2.75 2.75 0 0 1 2.75 2.75v10.5A2.75 2.75 0 0 1 16.5 20h-9a2.75 2.75 0 0 1-2.75-2.75V6.75A2.75 2.75 0 0 1 7.5 4Z"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.7"
+      />
+      <path
+        d="M7.5 6.25h.01M10 6.25h.01"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.9"
+      />
+    </svg>
+  );
+}
+
+function DuotoneExternalIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      className={className}
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M6 7.5A1.5 1.5 0 0 1 7.5 6H18v10.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 6 16.5v-9Z"
+        fill="currentColor"
+        opacity="0.18"
+      />
+      <path
+        d="M9 15 17 7m0 0h-5.5M17 7v5.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+      <path
+        d="M10 6H7.5A1.5 1.5 0 0 0 6 7.5v9A1.5 1.5 0 0 0 7.5 18h9a1.5 1.5 0 0 0 1.5-1.5V14"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
 
 const toCssBlock = (vars: Record<string, string>, selector: string) => {
   const body = Object.entries(vars)
@@ -378,7 +445,7 @@ function StudioSidebar({
           {commandCopy.copied ? (
             <IconCheckFill24 className="size-4" />
           ) : (
-            <IconConsoleFill24 className="size-4" />
+            <DuotoneInstallIcon className="size-4" />
           )}
           {commandCopy.copied ? "Copied!" : `Install ${palette.label}`}
         </SmoothButton>
@@ -749,15 +816,15 @@ function CopyInstallButton({ slug }: { slug: string }) {
   return (
     <button
       aria-label={`Copy install command for ${demoTitle(slug)}`}
-      className="text-muted-foreground transition-colors hover:text-foreground"
+      className="grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
       onClick={() => copy(componentInstallCommand(slug))}
       title={componentInstallCommand(slug)}
       type="button"
     >
       {copied ? (
-        <IconCheckFill24 className="size-3.5 text-accent" />
+        <IconCheckFill24 className="size-4 text-brand" />
       ) : (
-        <IconConsoleFill24 className="size-3.5" />
+        <DuotoneInstallIcon className="size-4" />
       )}
     </button>
   );
@@ -779,6 +846,7 @@ function PreviewCanvas({
   const style = useMemo(
     () => ({
       ...buildPreviewStyle(palette, mode, state),
+      colorScheme: mode,
       fontFamily: fontStack(state.font),
     }),
     [palette, mode, state]
@@ -875,6 +943,7 @@ function PreviewCanvas({
     <div
       className={cn(
         "min-w-0 flex-1 rounded-2xl bg-secondary text-foreground transition-colors duration-200 lg:rounded-r-none",
+        mode === "dark" && "dark",
         panning ? "cursor-grabbing select-none" : "cursor-grab"
       )}
       onPointerCancel={handlePointerEnd}
@@ -882,7 +951,11 @@ function PreviewCanvas({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerEnd}
       ref={panRef}
-      style={{ ...style, overflow: "auto", scrollbarWidth: "none" }}
+      style={{
+        ...style,
+        overflow: "auto",
+        scrollbarWidth: "none",
+      }}
     >
       <div className="frame-box relative flex w-[2600px] items-start gap-5 p-8">
         {columns.map((column, columnIndex) => (
@@ -902,13 +975,20 @@ function PreviewCanvas({
                     {demoTitle(slug)}
                   </span>
                   <div className="flex items-center gap-2.5">
+                    <AddToKitButton
+                      className="border-transparent bg-transparent text-muted-foreground shadow-none ring-0 hover:bg-muted/70 hover:text-foreground dark:ring-0"
+                      iconOnly
+                      size="xs"
+                      slug={slug}
+                      title={demoTitle(slug)}
+                    />
                     <CopyInstallButton slug={slug} />
                     <a
                       aria-label={`Open ${demoTitle(slug)} docs`}
-                      className="text-muted-foreground transition-colors hover:text-foreground"
+                      className="grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
                       href={`/docs/components/${slug}`}
                     >
-                      <IconExternalLinkFill24 className="size-3.5" />
+                      <DuotoneExternalIcon className="size-4" />
                     </a>
                   </div>
                 </div>
@@ -925,6 +1005,7 @@ function PreviewCanvas({
 const DEFAULT_RADIUS_PX = 10;
 
 export function ThemeStudio() {
+  const { resolvedTheme } = useTheme();
   const [palette, setPalette] = useState<ThemePalette>(THEME_PALETTES[0]);
   const [mode, setMode] = useState<PreviewMode>("light");
   const [radius, setRadius] = useState(DEFAULT_RADIUS_PX);
@@ -933,6 +1014,12 @@ export function ThemeStudio() {
   const [tint, setTint] = useState<TintId>("neutral");
   const [query, setQuery] = useState("");
   const [centerSignal, setCenterSignal] = useState(0);
+
+  useEffect(() => {
+    if (resolvedTheme === "dark" || resolvedTheme === "light") {
+      setMode(resolvedTheme);
+    }
+  }, [resolvedTheme]);
 
   // Restore a shared preset from /themes?preset=<code>
   useEffect(() => {

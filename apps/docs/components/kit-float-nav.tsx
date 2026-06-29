@@ -13,7 +13,6 @@ import ButtonCopy from "@repo/smoothui/components/button-copy";
 import { track } from "@vercel/analytics";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
-  IconBag24Fill24,
   IconChartBarTrendUpFill24,
   IconCheckFill24,
   IconChevronDownFill24,
@@ -251,7 +250,7 @@ export function KitFloatNav() {
                                       {active ? (
                                         <IconCheckFill24 size={13} />
                                       ) : (
-                                        <IconBag24Fill24 size={15} />
+                                        <IconLayersFill24 size={15} />
                                       )}
                                     </span>
                                   </button>
