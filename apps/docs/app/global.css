@@ -281,8 +281,15 @@
   margin-inline: auto;
 }
 
+/* Full pages (no TOC) stretch to the whole main track; also lift the
+   *:max-w-[1285px] child cap fumadocs applies in full mode. Unlayered
+   rules win over the layered utilities. */
 #nd-page[data-full="true"] {
-  max-width: calc(1285px + 2 * 2rem);
+  max-width: none;
+}
+
+#nd-page[data-full="true"] > * {
+  max-width: none;
 }
 
 /* Docs headings use the title font (Plus Jakarta Sans). */
@@ -346,15 +353,25 @@
   #nd-notebook-layout {
     grid-template-columns: 0px var(--fd-sidebar-col) 1fr var(--fd-toc-width) 0px !important;
   }
+
+  #nd-notebook-layout:has(#nd-page[data-full="true"]) {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
+  }
 }
 
 /* At xl+, always reserve 268px for the toc column so content width is identical
    on pages with and without a TOC. --fd-toc-width on #nd-notebook-layout itself
    is overridden by the [--fd-toc-width:0px] utility class on the same element,
-   so hardcode the column value directly instead of relying on the variable. */
+   so hardcode the column value directly instead of relying on the variable.
+   Exception: full pages (no TOC by design, e.g. the components gallery)
+   collapse the toc column and let the main track take the whole width. */
 @media (min-width: 1280px) {
   #nd-notebook-layout {
     grid-template-columns: 0px var(--fd-sidebar-col) 1fr 240px 0px !important;
+  }
+
+  #nd-notebook-layout:has(#nd-page[data-full="true"]) {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
   }
 }
 
