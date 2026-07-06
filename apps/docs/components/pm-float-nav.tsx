@@ -46,7 +46,7 @@ export function PmFloatNav() {
         type="button"
       >
         {CurrentIcon && <CurrentIcon colored />}
-        <span className="font-medium text-sm">{activePm}</span>
+        <span className="hidden font-medium text-sm sm:inline">{activePm}</span>
       </button>
       <AnimatePresence>
         {open && (

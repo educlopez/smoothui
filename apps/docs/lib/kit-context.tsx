@@ -12,6 +12,7 @@ import {
   useEffect,
   useMemo,
   useReducer,
+  useState,
 } from "react";
 
 const STORAGE_KEY = "smoothui-kit-v1";
@@ -124,6 +125,8 @@ const applySharedTheme = (name: string | null) => {
 type KitContextValue = {
   items: KitItem[];
   count: number;
+  /** Latest human-readable change, for an `aria-live` announcer. */
+  message: string;
   has: (slug: string) => boolean;
   add: (item: KitItem) => void;
   addMany: (items: KitItem[]) => void;
@@ -137,6 +140,10 @@ const KitContext = createContext<KitContextValue | null>(null);
 
 export function KitProvider({ children }: { children: ReactNode }) {
   const [items, dispatch] = useReducer(reducer, []);
+  const [message, setMessage] = useState("");
+  // Gates the persist effect so it can't flush the empty initial state to
+  // storage before hydration (from `?kit=` or localStorage) has landed.
+  const [hasHydrated, setHasHydrated] = useState(false);
 
   // Hydrate after mount (SSR-safe). A `?kit=` link wins over stored state so
   // shared kits load as-is (applying the shared theme to the site palette);
@@ -158,6 +165,7 @@ export function KitProvider({ children }: { children: ReactNode }) {
         items: parse(localStorage.getItem(STORAGE_KEY)),
       });
     }
+    setHasHydrated(true);
 
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY) {
@@ -168,24 +176,65 @@ export function KitProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("storage", onStorage);
   }, []);
 
-  // Persist on every change.
+  // Persist on every change, once hydration has landed (avoids overwriting
+  // stored/shared items with the empty initial state on first mount).
   useEffect(() => {
+    if (!hasHydrated) {
+      return;
+    }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+  }, [items, hasHydrated]);
 
   const value = useMemo<KitContextValue>(
     () => ({
       items,
       count: items.length,
+      message,
       has: (slug) => items.some((i) => i.slug === slug),
-      add: (item) => dispatch({ type: "add", item }),
-      addMany: (next) => dispatch({ type: "addMany", items: next }),
-      remove: (slug) => dispatch({ type: "remove", slug }),
-      removeMany: (slugs) => dispatch({ type: "removeMany", slugs }),
-      toggle: (item) => dispatch({ type: "toggle", item }),
-      clear: () => dispatch({ type: "clear" }),
+      add: (item) => {
+        dispatch({ type: "add", item });
+        setMessage(`${item.title} added to bundle`);
+      },
+      addMany: (next) => {
+        dispatch({ type: "addMany", items: next });
+        setMessage(
+          next.length === 1
+            ? `${next[0].title} added to bundle`
+            : `${next.length} components added to bundle`
+        );
+      },
+      remove: (slug) => {
+        const removed = items.find((i) => i.slug === slug);
+        dispatch({ type: "remove", slug });
+        setMessage(
+          removed
+            ? `${removed.title} removed from bundle`
+            : "Item removed from bundle"
+        );
+      },
+      removeMany: (slugs) => {
+        dispatch({ type: "removeMany", slugs });
+        setMessage(
+          slugs.length === 1
+            ? "1 component removed from bundle"
+            : `${slugs.length} components removed from bundle`
+        );
+      },
+      toggle: (item) => {
+        const exists = items.some((i) => i.slug === item.slug);
+        dispatch({ type: "toggle", item });
+        setMessage(
+          exists
+            ? `${item.title} removed from bundle`
+            : `${item.title} added to bundle`
+        );
+      },
+      clear: () => {
+        dispatch({ type: "clear" });
+        setMessage("Bundle cleared");
+      },
     }),
-    [items]
+    [items, message]
   );
 
   return <KitContext.Provider value={value}>{children}</KitContext.Provider>;

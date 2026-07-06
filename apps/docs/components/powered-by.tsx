@@ -39,7 +39,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
       <IconBooksFill24 className="size-4 text-muted-foreground" />
       <p className="text-muted-foreground text-sm">Powered by</p>
     </div>
-    <div className="flex flex-col gap-2 pl-[14px]">
+    <div className="flex flex-col gap-2 pl-3.5">
       {packages.map((url) => {
         const isValidUrl = url.startsWith("http") || url.startsWith("/");
         const hostname = getHostname(url);

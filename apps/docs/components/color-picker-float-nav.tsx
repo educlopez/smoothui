@@ -6,7 +6,7 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import { Button } from "@repo/shadcn-ui/components/ui/button";
+import { Button } from "@docs/components/smoothbutton";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconArrowRightFill24,
@@ -281,7 +281,7 @@ export function ColorPickerFloatNav() {
                 onClick={handleCopyInstall}
                 size="sm"
                 type="button"
-                variant="ghost"
+                variant="candy"
               >
                 {copied ? (
                   <>
@@ -311,6 +311,7 @@ export function ColorPickerFloatNav() {
                 onClick={handleSave}
                 size="sm"
                 type="button"
+                variant="candy"
               >
                 {saved ? (
                   <>

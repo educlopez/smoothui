@@ -19,7 +19,7 @@ function ThemeSwitch() {
   return (
     <button
       aria-label="Theme Switcher"
-      className="float-trigger h-auto w-auto p-2!"
+      className="float-trigger grid h-11! w-11! place-items-center p-0!"
       onClick={toggleTheme}
       type="button"
     >
@@ -53,7 +53,7 @@ function SoundToggle() {
     <button
       aria-label={enabled ? "Mute interface sounds" : "Enable interface sounds"}
       aria-pressed={enabled}
-      className="float-trigger h-auto w-auto p-2!"
+      className="float-trigger grid h-11! w-11! place-items-center p-0!"
       onClick={toggle}
       type="button"
     >
@@ -96,7 +96,7 @@ export function FloatNav() {
   return (
     <nav
       aria-label="Floating Navigation"
-      className="fixed bottom-5 left-1/2 z-50 flex w-fit -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
+      className="fixed bottom-5 left-1/2 z-50 flex w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
     >
       <div className="flex items-center gap-0.5">
         {/* Site options */}

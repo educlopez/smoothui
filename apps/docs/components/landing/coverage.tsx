@@ -32,9 +32,9 @@ export function Coverage() {
     <section className="relative bg-background px-8 py-20 transition">
       <Divider />
       <div className="mx-auto max-w-3xl text-center">
-        <p className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
+        <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
           Featured across the community
-        </p>
+        </h2>
 
         <blockquote className="mt-5 text-balance font-semibold font-title text-foreground text-xl tracking-tight md:text-2xl">
           &ldquo;SmoothUI is a game-changer for frontend developers looking for

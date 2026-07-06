@@ -134,6 +134,9 @@ export function Hero() {
                       <IconCopy2Fill24 className="size-4" />
                     )}
                   </span>
+                  <span aria-live="polite" className="sr-only">
+                    {installCopied ? "Copied to clipboard" : ""}
+                  </span>
                 </button>
               </div>
 

@@ -8,6 +8,51 @@ import {
   PopoverTrigger,
 } from "fumadocs-ui/components/ui/popover";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+
+// Tracks the newest changelog entry the user has seen, so the bell trigger
+// can show an unread dot without a hydration mismatch (state starts empty
+// and is only populated client-side in an effect).
+const SEEN_STORAGE_KEY = "smoothui-changelog-seen";
+
+const getNewestChangelogDate = () => CHANGELOG[0]?.date;
+
+function useChangelogUnread() {
+  const [hasUnread, setHasUnread] = useState(false);
+
+  useEffect(() => {
+    const newestDate = getNewestChangelogDate();
+    if (!newestDate || typeof window === "undefined") {
+      return;
+    }
+    try {
+      const seen = window.localStorage.getItem(SEEN_STORAGE_KEY);
+      const newestTime = Date.parse(newestDate);
+      const seenTime = seen ? Date.parse(seen) : 0;
+      if (Number.isNaN(newestTime)) {
+        return;
+      }
+      setHasUnread(!seenTime || newestTime > seenTime);
+    } catch {
+      // localStorage unavailable (privacy mode, etc.) — skip the indicator.
+    }
+  }, []);
+
+  const markAsSeen = () => {
+    const newestDate = getNewestChangelogDate();
+    if (!(newestDate && typeof window !== "undefined")) {
+      return;
+    }
+    try {
+      window.localStorage.setItem(SEEN_STORAGE_KEY, newestDate);
+    } catch {
+      // Ignore write failures — worst case the dot reappears next visit.
+    }
+    setHasUnread(false);
+  };
+
+  return { hasUnread, markAsSeen };
+}
 
 function BellIcon() {
   return (
@@ -58,8 +103,16 @@ function ArrowIcon() {
 }
 
 export function ChangelogPopover() {
+  const { hasUnread, markAsSeen } = useChangelogUnread();
+
   return (
-    <Popover>
+    <Popover
+      onOpenChange={(open) => {
+        if (open) {
+          markAsSeen();
+        }
+      }}
+    >
       <PopoverTrigger asChild>
         <button
           aria-label="Changelog"
@@ -71,6 +124,12 @@ export function ChangelogPopover() {
           type="button"
         >
           <BellIcon />
+          {hasUnread && (
+            <span
+              aria-hidden="true"
+              className="absolute top-0.5 right-0.5 size-1.5 rounded-full bg-brand"
+            />
+          )}
         </button>
       </PopoverTrigger>
       <PopoverContent
@@ -102,7 +161,10 @@ export function ChangelogPopover() {
                 </span>
               </div>
               <h3 className="mt-1.5 font-semibold text-sm leading-snug">
-                <Link className="outline-none" href={entry.href}>
+                <Link
+                  className="outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                  href={entry.href}
+                >
                   <span className="absolute inset-0 z-10" />
                   {entry.title}
                   <ArrowIcon />

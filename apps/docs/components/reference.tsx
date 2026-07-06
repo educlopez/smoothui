@@ -38,7 +38,7 @@ export const Reference = ({ sources }: ReferenceProps) => (
       <IconSparkleFill24 className="size-4 text-muted-foreground" />
       <p className="text-muted-foreground text-sm">Inspired by</p>
     </div>
-    <div className="flex flex-col gap-2 pl-[14px]">
+    <div className="flex flex-col gap-2 pl-3.5">
       {sources.map((url) => {
         const isValidUrl = url.startsWith("http") || url.startsWith("/");
         const hostname = getHostname(url);

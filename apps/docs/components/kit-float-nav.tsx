@@ -25,7 +25,7 @@ import {
   IconShareLeft3Fill24,
   IconXmarkFill24,
 } from "nucleo-core-fill-24";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const KIT_ICON: Record<string, typeof IconLayersFill24> = {
@@ -41,8 +41,12 @@ const PM_PREFIX: Record<PackageManager, string> = {
   bun: "bunx shadcn add",
 };
 
+const FOCUSABLE_SELECTOR =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
 export function KitFloatNav() {
-  const { items, count, remove, removeMany, clear, addMany } = useKit();
+  const { items, count, remove, removeMany, clear, addMany, message } =
+    useKit();
   const [pm] = usePackageManager();
   const [open, setOpen] = useState(false);
   const [kitsOpen, setKitsOpen] = useState(false);
@@ -50,17 +54,26 @@ export function KitFloatNav() {
   // Theme comes from the float color picker (site palette), not the drawer.
   const [siteTheme, setSiteTheme] = useState<string | null>(null);
   const reduceMotion = useReducedMotion();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Lock body scroll + close on Escape, and read the current site palette so
-  // the command can include the matching `@smoothui/theme-<name>`.
+  // Lock body scroll, trap focus, close on Escape, and read the current site
+  // palette so the command can include the matching `@smoothui/theme-<name>`.
   useEffect(() => {
     if (!open) {
+      previouslyFocusedRef.current?.focus();
+      previouslyFocusedRef.current = null;
       return;
     }
+
+    previouslyFocusedRef.current =
+      (document.activeElement as HTMLElement | null) ?? triggerRef.current;
+
     try {
       const raw = localStorage.getItem(COLOR_STORAGE_KEY);
       const candy = raw ? JSON.parse(raw).candy : null;
@@ -69,15 +82,48 @@ export function KitFloatNav() {
     } catch {
       setSiteTheme(null);
     }
+
+    // Move focus into the dialog once it has mounted.
+    const focusFrame = requestAnimationFrame(() => {
+      dialogRef.current?.focus();
+    });
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) {
+        return;
+      }
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      ).filter((el) => !el.hasAttribute("disabled"));
+      if (focusable.length === 0) {
+        e.preventDefault();
+        return;
+      }
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!(first && last)) {
+        return;
+      }
+      const active = document.activeElement as HTMLElement | null;
+      if (e.shiftKey) {
+        if (active === first || !dialogRef.current.contains(active)) {
+          e.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !dialogRef.current.contains(active)) {
+        e.preventDefault();
+        first.focus();
       }
     };
     document.addEventListener("keydown", onKey);
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
+      cancelAnimationFrame(focusFrame);
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prevOverflow;
     };
@@ -113,16 +159,23 @@ export function KitFloatNav() {
         aria-label={`Open install bundle (${count} selected)`}
         className="float-trigger flex h-auto w-auto items-center gap-1.5 p-2!"
         onClick={() => setOpen(true)}
+        ref={triggerRef}
         type="button"
       >
         <IconLayersFill24 size={20} />
-        <span className="font-medium text-sm">Bundle</span>
+        <span className="hidden font-medium text-sm sm:inline">Bundle</span>
         {count > 0 && (
           <span className="grid min-w-5 place-items-center rounded-full bg-brand px-1.5 py-0.5 font-semibold text-[11px] text-white">
             {count}
           </span>
         )}
       </button>
+
+      {/* Announces bundle changes for screen reader users, independent of
+          whether the drawer is currently open. */}
+      <span aria-atomic="true" aria-live="polite" className="sr-only">
+        {message}
+      </span>
 
       {mounted &&
         createPortal(
@@ -144,7 +197,7 @@ export function KitFloatNav() {
                   animate={{ y: 0, opacity: 1 }}
                   aria-label="Install bundle"
                   aria-modal="true"
-                  className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex max-h-[80vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl border bg-background shadow-xl"
+                  className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex max-h-[80vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl border bg-background shadow-xl outline-none"
                   exit={
                     reduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
@@ -154,7 +207,9 @@ export function KitFloatNav() {
                     reduceMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }
                   }
                   key="kit-panel"
+                  ref={dialogRef}
                   role="dialog"
+                  tabIndex={-1}
                   transition={
                     reduceMotion
                       ? { duration: 0 }
@@ -329,7 +384,7 @@ export function KitFloatNav() {
                                   {item.title}
                                 </span>
                                 <button
-                                  aria-label={`Remove ${item.title}`}
+                                  aria-label={`Remove ${item.title} from bundle`}
                                   className="grid size-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                                   onClick={() => remove(item.slug)}
                                   type="button"

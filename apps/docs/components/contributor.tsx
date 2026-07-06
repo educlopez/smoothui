@@ -30,7 +30,7 @@ export const Contributor = ({
           <IconUserFill24 className="size-4 text-muted-foreground" />
           <p className="text-muted-foreground text-sm">Created by</p>
         </div>
-        <div className="pl-[14px]">
+        <div className="pl-3.5">
           {/* Creator - more prominent */}
           {creator.url ? (
             <a
@@ -92,7 +92,7 @@ export const Contributor = ({
             <IconBranchOutFill24 className="size-4 text-muted-foreground" />
             <p className="text-muted-foreground text-sm">Improved by</p>
           </div>
-          <div className="flex flex-wrap items-center gap-2 pl-[14px]">
+          <div className="flex flex-wrap items-center gap-2 pl-3.5">
             {otherContributors.map((contributor, index) => (
               <Tooltip key={`${contributor.email}-${index}`}>
                 <TooltipTrigger asChild>
