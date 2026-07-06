@@ -1556,234 +1556,6 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
 
-  packages/smoothui/components/akella-circle-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-image-transition:
-    dependencies:
-      '@repo/shadcn-ui':
-        specifier: workspace:*
-        version: link:../../../shadcn-ui
-      motion:
-        specifier: ^12.23.25
-        version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-luma-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-noise-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-planetary-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-push-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-stripes-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-wipe-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/smoothui/components/akella-zoom-transition:
-    dependencies:
-      '@repo/akella-image-transition':
-        specifier: workspace:*
-        version: link:../akella-image-transition
-      react:
-        specifier: ^19.2.1
-        version: 19.2.6
-      react-dom:
-        specifier: ^19.2.1
-        version: 19.2.6(react@19.2.6)
-    devDependencies:
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../../typescript-config
-      '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.14
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.14)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
   packages/smoothui/components/animated-avatar-group:
     dependencies:
       '@repo/shadcn-ui':
@@ -4118,6 +3890,234 @@ importers:
       motion:
         specifier: ^12.23.25
         version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-circle-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-luma-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-noise-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-planetary-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-push-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-stripes-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-transition:
+    dependencies:
+      '@repo/shadcn-ui':
+        specifier: workspace:*
+        version: link:../../../shadcn-ui
+      motion:
+        specifier: ^12.23.25
+        version: 12.38.0(react-dom@19.2.6(react@19.2.6))(react@19.2.6)
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-wipe-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
+      react:
+        specifier: ^19.2.1
+        version: 19.2.6
+      react-dom:
+        specifier: ^19.2.1
+        version: 19.2.6(react@19.2.6)
+    devDependencies:
+      '@repo/typescript-config':
+        specifier: workspace:*
+        version: link:../../../typescript-config
+      '@types/react':
+        specifier: ^19.2.7
+        version: 19.2.14
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.14)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/smoothui/components/shader-reveal-zoom-transition:
+    dependencies:
+      '@repo/shader-reveal-transition':
+        specifier: workspace:*
+        version: link:../shader-reveal-transition
       react:
         specifier: ^19.2.1
         version: 19.2.6

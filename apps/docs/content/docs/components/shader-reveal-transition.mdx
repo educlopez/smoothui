@@ -1,0 +1,30 @@
+---
+title: Shader Reveal Transition
+description: A shared WebGL transition engine with eight shader-driven reveal variants for frame-level state changes.
+icon: Shapes
+dependencies:
+  - motion.dev
+installer: shader-reveal-transition
+---
+
+## Features
+
+- Persistent WebGL transition wrapper triggered by a `transitionKey`
+- Eight built-in shader variants: `noise`, `zoom`, `circle`, `wipe`, `luma`, `planetary`, `stripes`, `push`
+- Preserves semantic React content and swaps at the shader midpoint
+- Accessible: honors `prefers-reduced-motion` and fires `onRest`
+
+## Usage guidance
+
+Use it for meaningful product state changes where a shader-led transition should feel intentional, not decorative. Pick a `variant` that matches the moment — for example `circle` for a focal reveal, or `stripes` for a sharper, more mechanical cut. The eight single-purpose transition components (`ShaderRevealCircleTransition`, `ShaderRevealNoiseTransition`, etc.) wrap this same engine with a fixed variant if you don't need to switch variants at runtime.
+
+## Accessibility
+
+When reduced motion is preferred, content swaps immediately and `onRest` still fires.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/shader-reveal-transition/index.tsx"
+  name="ShaderRevealTransitionProps"
+/>
