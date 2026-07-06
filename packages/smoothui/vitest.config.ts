@@ -33,13 +33,13 @@ export default defineConfig({
       include: ["components/**", "blocks/**", "hooks/**", "utils/**", "lib/**"],
       exclude: ["**/__tests__/**", "**/*.d.ts"],
       reporter: ["json-summary", "lcov"],
-      // Regression gate just below the current baseline (2026-06):
-      // lines 57.9, statements 57.5, functions 50.6, branches 41.5.
+      // Regression gate just below the current baseline (2026-07):
+      // lines 75.9, statements 75.5, functions 67.0, branches 53.3.
       thresholds: {
-        lines: 55,
-        statements: 55,
-        functions: 48,
-        branches: 38,
+        lines: 70,
+        statements: 70,
+        functions: 62,
+        branches: 48,
       },
     },
   },
