@@ -2,7 +2,7 @@ import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
 import { render, screen, waitFor } from "../../../test-utils/render";
-import AppDownloadStack, { type AppData } from "../index";
+import AppDownloadStack from "../index";
 
 const apps = [
   { id: 1, name: "GitHub", icon: "https://example.com/github.png" },
@@ -129,13 +129,13 @@ describe("AppDownloadStack", () => {
   }, 10_000);
 
   it("supports controlled selectedApps and isExpanded", () => {
-    const emptyApps: AppData[] = [];
+    const noSelection: number[] = [];
     render(
       <AppDownloadStack
         apps={apps}
         isExpanded
         onChange={vi.fn()}
-        selectedApps={emptyApps}
+        selectedApps={noSelection}
       />
     );
 
