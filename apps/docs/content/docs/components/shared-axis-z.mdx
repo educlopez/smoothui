@@ -1,0 +1,28 @@
+---
+title: Shared Axis Z
+description: Scale-based phrase transition inspired by Google Material shared axis (Z) — incoming text scales up from depth while the outgoing phrase scales out and fades.
+icon: Type
+dependencies:
+  - motion.dev
+installer: shared-axis-z
+---
+
+## Features
+
+- Scale and blur enter/exit between cycling phrases
+- Communicates depth and focus shift through the Z axis
+- Respects `prefers-reduced-motion`
+- Announces updates via `aria-live="polite"`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, phrases swap instantly with no scale or blur. The current phrase is announced via `aria-live="polite"`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/shared-axis-z/index.tsx"
+  name="SharedAxisZProps"
+/>

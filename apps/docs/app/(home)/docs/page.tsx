@@ -1,7 +1,7 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Library, Pencil } from "lucide-react";
 import type { Metadata } from "next";
 import Link, { type LinkProps } from "next/link";
+import { IconBooksFill24, IconPencilFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = {
   alternates: {
@@ -23,19 +23,19 @@ export default function DocsPage() {
           {
             name: "Documentation",
             description: "The guides for SmoothUI.",
-            icon: <Library className="size-full" />,
+            icon: <IconBooksFill24 className="size-full" />,
             href: "/docs/guides",
           },
           {
             name: "Components",
             description: "The library of SmoothUI components.",
-            icon: <Pencil className="size-full" />,
+            icon: <IconPencilFill24 className="size-full" />,
             href: "/docs/components",
           },
           {
             name: "Blocks",
             description: "The library of SmoothUI blocks.",
-            icon: <Pencil className="size-full" />,
+            icon: <IconPencilFill24 className="size-full" />,
             href: "/docs/blocks",
           },
         ].map((item) => (

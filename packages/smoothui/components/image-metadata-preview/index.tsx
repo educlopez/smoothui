@@ -61,7 +61,13 @@ export default function ImageMetadataPreview({
         className="pointer-events-none overflow-hidden rounded-xl"
         transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
       >
-        <img alt={alt} height={437} src={imageSrc} width={300} />
+        <img
+          alt={alt}
+          draggable={false}
+          height={437}
+          src={imageSrc}
+          width={300}
+        />
       </motion.div>
 
       <div className="relative flex w-full flex-col items-center gap-4">

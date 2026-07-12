@@ -237,7 +237,7 @@ export default function GridLoaderDemo() {
                   animate={{ x: 0 }}
                   aria-label="Customize panel"
                   aria-modal="true"
-                  className="fixed inset-y-0 right-0 z-[60] flex w-80 flex-col bg-smooth-100 shadow-2xl"
+                  className="fixed top-3 right-3 bottom-3 z-[60] flex w-72 flex-col overflow-hidden rounded-xl border bg-smooth-100 shadow-2xl"
                   exit={{ x: "100%" }}
                   initial={{ x: "100%" }}
                   role="dialog"
@@ -273,14 +273,14 @@ export default function GridLoaderDemo() {
                     </button>
                   </div>
 
-                  <div className="flex flex-col gap-3 overflow-y-auto p-4">
+                  <div className="flex flex-col gap-1.5 overflow-y-auto p-3">
                     {/* Color */}
                     <div
                       className="flex items-center justify-between bg-smooth-200"
                       style={{
-                        borderRadius: 12,
-                        minHeight: 52,
-                        padding: "0 18px",
+                        borderRadius: 8,
+                        minHeight: 36,
+                        padding: "0 12px",
                       }}
                     >
                       <span
@@ -322,8 +322,8 @@ export default function GridLoaderDemo() {
                     <div
                       className="flex items-center bg-smooth-200"
                       style={{
-                        borderRadius: 12,
-                        minHeight: 52,
+                        borderRadius: 8,
+                        minHeight: 36,
                         padding: "0 4px",
                         gap: 4,
                       }}
@@ -339,8 +339,8 @@ export default function GridLoaderDemo() {
                           onClick={() => setModeIndex(idx)}
                           style={{
                             borderRadius: 8,
-                            height: 44,
-                            fontSize: 17,
+                            height: 28,
+                            fontSize: 13,
                           }}
                           type="button"
                         >
@@ -353,9 +353,9 @@ export default function GridLoaderDemo() {
                     <div
                       className="flex items-center justify-between bg-smooth-200"
                       style={{
-                        borderRadius: 12,
-                        minHeight: 52,
-                        padding: "0 18px",
+                        borderRadius: 8,
+                        minHeight: 36,
+                        padding: "0 12px",
                       }}
                     >
                       <span
@@ -381,8 +381,8 @@ export default function GridLoaderDemo() {
                           onClick={() => setRounded(false)}
                           style={{
                             borderRadius: 6,
-                            padding: "5px 14px",
-                            fontSize: 14,
+                            padding: "3px 10px",
+                            fontSize: 12,
                             fontWeight: 500,
                           }}
                           type="button"
@@ -398,8 +398,8 @@ export default function GridLoaderDemo() {
                           onClick={() => setRounded(true)}
                           style={{
                             borderRadius: 6,
-                            padding: "5px 14px",
-                            fontSize: 14,
+                            padding: "3px 10px",
+                            fontSize: 12,
                             fontWeight: 500,
                           }}
                           type="button"
@@ -427,6 +427,7 @@ export default function GridLoaderDemo() {
                         className="text-muted-foreground"
                         style={{
                           fontSize: 13,
+                          fontWeight: 600,
                           paddingLeft: 4,
                         }}
                       >
@@ -435,7 +436,7 @@ export default function GridLoaderDemo() {
                       <div
                         className="overflow-y-auto bg-smooth-200"
                         style={{
-                          borderRadius: 12,
+                          borderRadius: 8,
                           padding: 10,
                         }}
                       >

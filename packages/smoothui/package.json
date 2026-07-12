@@ -4,17 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run --coverage",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.1",
+    "@vitest/coverage-v8": "^4.1.8",
+    "clsx": "^2.1.1",
     "jsdom": "^29.0.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwind-merge": "^3.3.1",
     "typescript": "^5.9.3",
     "vitest": "^4.1.0",
     "vitest-axe": "^1.0.0-pre.3"

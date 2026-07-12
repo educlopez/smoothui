@@ -1,0 +1,41 @@
+{
+  "name": "@repo/micro-scale-fade",
+  "description": "A MicroScaleFade text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "scale",
+      "fade",
+      "whole",
+      "premium",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple system status copy and secondary UI labels",
+      "Lightweight onboarding micro-animations",
+      "Single word or short title premium entrance"
+    ],
+    "compositionHints": [
+      "Use for single words or short titles",
+      "For paragraphs, switch to a per-word variant to avoid perceivable lag"
+    ],
+    "hasReducedMotion": true
+  }
+}

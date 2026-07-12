@@ -35,6 +35,7 @@ const CursorFollowDemo = () => (
             className="aspect-[9/16] w-48 rounded-xl border-background object-cover transition-transform duration-200 hover:scale-105"
             data-cursor-text={img.label}
             height={341}
+            priority
             src={img.src}
             style={{ cursor: "none" }}
             width={192}

@@ -2,8 +2,8 @@
 
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
-import { Heart } from "lucide-react";
 import Link from "next/link";
+import { IconHeartFill24 } from "nucleo-core-fill-24";
 import Divider from "./divider";
 
 export function Sponsors() {
@@ -17,7 +17,7 @@ export function Sponsors() {
         {hasSponsors && (
           <div className="mb-12 text-center">
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-linear-to-br from-background via-background to-brand/10 px-4 py-2">
-              <Heart className="h-4 w-4 fill-red-500 text-red-500" />
+              <IconHeartFill24 className="h-4 w-4 fill-red-500 text-red-500" />
               <span className="font-medium text-foreground text-sm">
                 Thank You to Our Sponsors
               </span>

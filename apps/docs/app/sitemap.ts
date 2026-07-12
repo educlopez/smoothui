@@ -1,4 +1,4 @@
-import { source } from "@docs/lib/source";
+import { blogSource, source } from "@docs/lib/source";
 import type { MetadataRoute } from "next";
 
 export const revalidate = false;
@@ -93,5 +93,26 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: getPriority(page.url),
       } as MetadataRoute.Sitemap[number];
     }),
+    {
+      url: url("/blog"),
+      changeFrequency: "weekly",
+      priority: 0.7,
+    },
+    {
+      url: url("/themes"),
+      changeFrequency: "monthly",
+      priority: 0.6,
+    },
+    ...blogSource.getPages().map(
+      (post) =>
+        ({
+          url: url(post.url),
+          lastModified: post.data.date
+            ? new Date(post.data.date as string)
+            : undefined,
+          changeFrequency: "monthly",
+          priority: 0.6,
+        }) as MetadataRoute.Sitemap[number]
+    ),
   ];
 }

@@ -1,0 +1,42 @@
+{
+  "name": "@repo/blur-out-up",
+  "description": "A BlurOutUp text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "blur",
+      "per-word",
+      "entrance",
+      "airy",
+      "apple",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple-style airy word entrance",
+      "Short phrase reveal with soft blur",
+      "Light typography heading animation"
+    ],
+    "compositionHints": [
+      "Best for short phrases",
+      "Fast stagger keeps total duration tight"
+    ],
+    "hasReducedMotion": true
+  }
+}

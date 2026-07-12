@@ -1,0 +1,43 @@
+{
+  "name": "@repo/depth-parallax-words",
+  "description": "A DepthParallaxWords text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "blur",
+      "scale",
+      "parallax",
+      "per-word",
+      "depth",
+      "entrance",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Product landing page hero heading",
+      "Depth-cued section title reveal",
+      "Layered typography entrance on scroll"
+    ],
+    "compositionHints": [
+      "Use short copy blocks",
+      "Moderate stagger avoids visual overload"
+    ],
+    "hasReducedMotion": true
+  }
+}

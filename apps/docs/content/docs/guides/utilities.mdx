@@ -1,7 +1,6 @@
 ---
 title: Utility Functions
 description: SmoothUI utility functions for React and Tailwind CSS. The cn() utility for merging class names with clsx and tailwind-merge for conflict-free styling.
-icon: Wrench
 ---
 
 ## Overview
@@ -245,6 +244,91 @@ export function cn(...inputs: ClassValue[]) {
 // - boolean | null | undefined (falsy values ignored)
 // - ClassValue[] (arrays)
 // - { [key: string]: boolean } (objects)
+```
+
+---
+
+## Animation Constants
+
+Several SmoothUI components share a small set of animation constants — spring
+configs, easing curves, and durations — so motion feels consistent across the
+library. They live in `lib/animation.ts` and follow the project's [animation
+guidelines](/docs/guides/animation-best-practices) (durations of 0.2–0.25s and
+bounce ≤ 0.1 for standard UI).
+
+### Installation
+
+You don't install these directly. Any component that uses them (for example
+`pagination`, `select`, `combobox`, `dropdown-menu`, `context-menu`,
+`radio-group`, `checkbox`, `form`, or `breadcrumb`) lists them as a registry
+dependency, so `shadcn` pulls `lib/animation.ts` into your project automatically:
+
+```bash
+npx shadcn@latest add @smoothui/pagination
+```
+
+The file lands at `components/smoothui/lib/animation.ts` and the component's
+imports resolve to `@/components/smoothui/lib/animation`. To add it on its own:
+
+```bash
+npx shadcn@latest add @smoothui/lib
+```
+
+### Available Constants
+
+```tsx
+// components/smoothui/lib/animation.ts
+
+/** Default spring for most UI animations */
+export const SPRING_DEFAULT = { type: "spring", duration: 0.25, bounce: 0.1 };
+
+/** Snappy spring for quick, no-overshoot transitions */
+export const SPRING_SNAPPY = { type: "spring", duration: 0.2, bounce: 0 };
+
+/** Ease-out for entering elements — cubic-bezier(.23, 1, .32, 1) */
+export const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
+/** Ease-in-out for moving elements — cubic-bezier(0.645, 0.045, 0.355, 1) */
+export const EASE_IN_OUT = [0.645, 0.045, 0.355, 1] as const;
+
+/** Instant transition for reduced-motion contexts */
+export const DURATION_INSTANT = { duration: 0 };
+
+/** Standard animation durations (seconds) */
+export const DURATION = { fast: 0.15, default: 0.25, slow: 0.3, complex: 0.4 } as const;
+```
+
+### Usage
+
+Feed them straight into Motion's `transition` prop, and swap to
+`DURATION_INSTANT` when the user prefers reduced motion:
+
+```tsx
+import { motion, useReducedMotion } from "motion/react";
+import { SPRING_DEFAULT, DURATION_INSTANT } from "@/components/smoothui/lib/animation";
+
+function Panel() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 10 }}
+      transition={shouldReduceMotion ? DURATION_INSTANT : SPRING_DEFAULT}
+    />
+  );
+}
+```
+
+Use the easing curves anywhere Motion accepts an `ease` value:
+
+```tsx
+import { EASE_OUT } from "@/components/smoothui/lib/animation";
+
+<motion.div
+  animate={{ opacity: 1 }}
+  transition={{ duration: DURATION.default, ease: EASE_OUT }}
+/>
 ```
 
 ---

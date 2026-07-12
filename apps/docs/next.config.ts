@@ -38,6 +38,10 @@ const config: NextConfig = {
         protocol: "https",
         hostname: "abs.twimg.com",
       },
+      {
+        protocol: "https",
+        hostname: "unavatar.io",
+      },
     ],
   },
   redirects() {

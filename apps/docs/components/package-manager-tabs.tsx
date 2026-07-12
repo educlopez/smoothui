@@ -93,7 +93,7 @@ const BunIcon = ({ colored }: { colored?: boolean }) => (
   </svg>
 );
 
-const packageManagers = [
+export const packageManagers = [
   { id: "pnpm", icon: PnpmIcon },
   { id: "npm", icon: NpmIcon },
   { id: "yarn", icon: YarnIcon },

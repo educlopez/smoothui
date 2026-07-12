@@ -7,8 +7,12 @@ import {
 } from "@repo/shadcn-ui/components/ui/popover";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { Eye, Package, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  IconBoxFill24,
+  IconEyeFill24,
+  IconUserFill24,
+} from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
 
 // SmoothUI Logo Isotype
@@ -351,6 +355,7 @@ export function InteractiveAvatarTutorial({
                     <img
                       alt="User Avatar"
                       className="size-full object-cover"
+                      draggable={false}
                       height={48}
                       src={mockUser.avatar}
                       width={48}
@@ -393,7 +398,7 @@ export function InteractiveAvatarTutorial({
                               onClick={() => handleSectionClick("profile")}
                               type="button"
                             >
-                              <User className="shrink-0" size={16} />
+                              <IconUserFill24 className="shrink-0" size={16} />
                               Edit Profile
                             </button>
                             <AnimatePresence initial={false}>
@@ -487,7 +492,7 @@ export function InteractiveAvatarTutorial({
                               onClick={() => handleSectionClick("orders")}
                               type="button"
                             >
-                              <Package className="shrink-0" size={16} />
+                              <IconBoxFill24 className="shrink-0" size={16} />
                               Last Orders
                             </button>
                             <AnimatePresence initial={false}>
@@ -605,7 +610,7 @@ export function InteractiveAvatarTutorial({
                                             className="flex shrink-0 items-center justify-center rounded-md border bg-background p-2"
                                             type="button"
                                           >
-                                            <Eye
+                                            <IconEyeFill24
                                               className="text-muted-foreground"
                                               size={16}
                                             />

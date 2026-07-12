@@ -1,4 +1,6 @@
 import { getAllPackageNames, getPackage } from "@docs/lib/package";
+import { getSkill } from "@docs/lib/registry-skill";
+import { getAllThemeNames, getTheme } from "@docs/lib/registry-themes";
 import { NextResponse } from "next/server";
 import type { Registry } from "shadcn/schema";
 
@@ -32,6 +34,16 @@ export const GET = async () => {
       // skip packages that fail
     }
   }
+
+  for (const themeName of getAllThemeNames()) {
+    const theme = getTheme(themeName);
+
+    if (theme) {
+      response.items.push(theme);
+    }
+  }
+
+  response.items.push(await getSkill());
 
   return NextResponse.json(response);
 };

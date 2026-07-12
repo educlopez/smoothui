@@ -1,0 +1,40 @@
+{
+  "name": "@repo/aperture-blur-transition",
+  "description": "Persistent WebGL shader transition wrapper that swaps content behind a cinematic aperture bloom.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "transitions",
+    "tags": [
+      "transition",
+      "page-transition",
+      "state-change",
+      "frame",
+      "motion"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Punctuate major route or state changes",
+      "Wrap onboarding, checkout, or publish flows",
+      "Make demos and previews feel more premium"
+    ],
+    "compositionHints": [
+      "Use sparingly for meaningful changes only",
+      "Wrap the whole preview or route frame instead of a tiny card"
+    ],
+    "hasReducedMotion": true
+  }
+}

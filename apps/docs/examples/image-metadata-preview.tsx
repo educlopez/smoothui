@@ -19,8 +19,8 @@ const Example = () => {
       <ImageMetadataPreview
         alt="Mountain landscape"
         description="Beautiful mountain landscape with snow-capped peaks"
-        filename="mountain-landscape.jpg"
-        imageSrc="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=300&h=437&fit=crop"
+        filename="desert-canyon.jpg"
+        imageSrc="/images/figma/bg-9.webp"
         metadata={sampleMetadata}
         onShare={handleShare}
       />

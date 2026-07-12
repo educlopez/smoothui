@@ -21,19 +21,18 @@ import {
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 import PriceFlow from "@repo/smoothui/components/price-flow";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
-import {
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-  Github,
-  HelpCircle,
-  Link as LinkIcon,
-  Twitter,
-} from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  IconChevronDownFill24,
+  IconChevronLeftFill24,
+  IconChevronRightFill24,
+  IconCircleQuestionFill24,
+  IconExternalLinkFill24,
+  IconStarFill24,
+} from "nucleo-core-fill-24";
+import { IconGithub, IconXTwitter } from "nucleo-social-media";
 import { useState } from "react";
 
 const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
@@ -90,85 +89,33 @@ const blockCategories = [
 ];
 
 function HeroPreview() {
-  const titleVariants = {
-    rest: { width: "10rem" },
-    hover: { width: "10.5rem" },
-  };
-
-  const descriptionVariants = {
-    rest: { width: "8rem" },
-    hover: { width: "8.5rem" },
-  };
-
-  const buttonVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05 },
-  };
-
-  const abstractVariants = {
-    rest: { scale: 1, rotate: 0 },
-    hover: { scale: 1.1, rotate: 5 },
-  };
-
   return (
-    <motion.div
-      className="group/preview relative flex h-full w-full items-center justify-between gap-4 p-4"
-      initial="rest"
-      whileHover="hover"
-    >
-      {/* Left side - Content */}
-      <div className="flex flex-1 flex-col items-start justify-center gap-3">
-        {/* Title */}
-        <motion.div
-          className="h-4 w-40 rounded-full bg-foreground/20"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={titleVariants}
-        />
-        {/* Description */}
-        <motion.div
-          className="h-2 w-32 rounded-full bg-foreground/10"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={descriptionVariants}
-        />
-        <div className="h-2 w-28 rounded-full bg-foreground/8" />
-        {/* Buttons */}
-        <div className="mt-2 flex items-center gap-2">
-          <motion.div
-            className="h-4 w-8 rounded-full bg-brand"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={buttonVariants}
-          />
-          <motion.div
-            className="h-4 w-8 rounded-full border bg-background"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={buttonVariants}
-          />
+    <div className="group/preview flex h-full w-full items-center justify-between gap-3 p-5">
+      <div className="flex flex-1 flex-col items-start gap-1.5">
+        <span className="rounded-full bg-brand/10 px-2 py-0.5 font-medium text-[9px] text-brand">
+          New
+        </span>
+        <h4 className="font-semibold text-foreground text-sm leading-tight tracking-tight">
+          Ship beautiful UI
+        </h4>
+        <p className="text-[10px] text-muted-foreground leading-snug">
+          Production-ready React blocks, animated out of the box.
+        </p>
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <span className="rounded-md bg-brand px-2 py-1 font-medium text-[9px] text-white transition-transform group-hover/preview:scale-105">
+            Get started
+          </span>
+          <span className="rounded-md border border-border bg-background px-2 py-1 text-[9px] text-foreground/70">
+            Docs
+          </span>
         </div>
       </div>
-      {/* Right side - Abstract visual */}
-      <motion.div
-        className="relative flex h-20 w-20 items-center justify-center overflow-hidden"
-        transition={{
-          duration: 0.3,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        variants={abstractVariants}
-      >
+      <div className="relative size-20 shrink-0 transition-transform duration-300 group-hover/preview:scale-105">
         <Image
-          alt="Hero illustration"
-          className="h-full w-full object-cover opacity-60"
+          alt=""
+          aria-hidden
+          className="size-full object-contain"
+          draggable={false}
           height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
             width: 160,
@@ -178,302 +125,133 @@ function HeroPreview() {
           })}
           width={160}
         />
-      </motion.div>
-    </motion.div>
+      </div>
+    </div>
   );
 }
 
+const PRICING_PLANS = [
+  { name: "Free", base: 0, hover: 5, popular: false },
+  { name: "Pro", base: 19, hover: 24, popular: true },
+  { name: "Scale", base: 29, hover: 34, popular: false },
+];
+
 function PricingPreview() {
-  const [price1, setPrice1] = useState(0);
-  const [price2, setPrice2] = useState(19);
-  const [price3, setPrice3] = useState(29);
-
-  const cardVariants = {
-    rest: { scale: 1, y: 0 },
-    hover: { scale: 1.02, y: -2 },
-  };
-
-  const popularBadgeVariants = {
-    rest: { scale: 1, opacity: 1 },
-    hover: { scale: 1.05, opacity: 1 },
-  };
-
-  const features = [
-    ["Basic Analytics", "5GB Storage", "Email Support"],
-    [
-      "Everything in Free",
-      "5GB Storage",
-      "Email Support",
-      "Community Forum",
-      "Single User",
-      "Basic Templates",
-    ],
-    ["Everything in Pro", "5GB Storage", "Email Support"],
-  ];
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
-      className="group/preview relative flex h-full w-full flex-col gap-4 p-4"
-      initial="rest"
-      onHoverEnd={() => {
-        setPrice1(0);
-        setPrice2(19);
-        setPrice3(29);
-      }}
-      onHoverStart={() => {
-        setPrice1(5);
-        setPrice2(24);
-        setPrice3(34);
-      }}
-      whileHover="hover"
+      className="group/preview relative flex h-full w-full items-center justify-center p-4"
+      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => setHovered(true)}
     >
-      {/* Header */}
-      <div className="flex flex-col items-center gap-1.5 text-center">
-        <div className="h-2 w-32 rounded-full bg-foreground/20" />
-        <div className="h-1.5 w-24 rounded-full bg-foreground/10" />
-      </div>
-
-      {/* Cards Grid */}
-      <div className="grid grid-cols-3 gap-2">
-        {/* Free Plan */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-primary p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-8 rounded-full bg-foreground/20" />
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price1} />
-              </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
-            </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[0].slice(0, 2).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`free-feature-${i}`}
-              >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-12 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md border bg-background" />
-          </div>
-        </motion.div>
-
-        {/* Pro Plan - Popular */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-background p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <motion.span
-            className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white"
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={popularBadgeVariants}
+      <div className="grid w-full grid-cols-3 gap-2">
+        {PRICING_PLANS.map((plan) => (
+          <motion.div
+            className={`relative flex flex-col gap-2 rounded-lg border p-2.5 ${
+              plan.popular
+                ? "border-brand/30 bg-background shadow-sm"
+                : "border-border bg-primary"
+            }`}
+            key={plan.name}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.02, y: -2 }}
           >
-            Popular
-          </motion.span>
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-6 rounded-full bg-foreground/20" />
+            {plan.popular && (
+              <span className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white">
+                Popular
+              </span>
+            )}
+            <span className="font-medium text-[9px] text-foreground/70">
+              {plan.name}
+            </span>
             <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price2} />
+              <span className="text-[10px] text-foreground/40">$</span>
+              <div className="origin-left scale-75">
+                <PriceFlow value={hovered ? plan.hover : plan.base} />
               </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
+              <span className="text-[8px] text-foreground/30">/mo</span>
             </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[1].slice(0, 3).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`pro-feature-${i}`}
-              >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-10 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md bg-brand/20" />
-          </div>
-        </motion.div>
-
-        {/* Startup Plan */}
-        <motion.div
-          className="relative flex flex-col rounded-lg border bg-primary p-2"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={cardVariants}
-        >
-          <div className="flex flex-col gap-1">
-            <div className="h-1.5 w-10 rounded-full bg-foreground/20" />
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-foreground/40 text-xs">$</span>
-              <div className="scale-75">
-                <PriceFlow value={price3} />
-              </div>
-              <span className="text-[10px] text-foreground/30">/mo</span>
-            </div>
-            <div className="h-1 w-6 rounded-full bg-foreground/10" />
-          </div>
-          <div className="my-1.5 h-px border-foreground/10 border-t border-dashed" />
-          <ul className="space-y-1">
-            {features[2].slice(0, 2).map((_, i) => (
-              <li
-                className="flex items-center gap-1"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static list that never reorders
-                key={`startup-feature-${i}`}
-              >
-                <Check className="h-2 w-2 shrink-0 text-foreground/30" />
-                <div className="h-1 w-12 rounded-full bg-foreground/10" />
-              </li>
-            ))}
-          </ul>
-          <div className="mt-auto pt-2">
-            <div className="h-2 w-full rounded-md border bg-background" />
-          </div>
-        </motion.div>
+            <span
+              className={`mt-1 block rounded-md py-1 text-center font-medium text-[8px] ${
+                plan.popular
+                  ? "bg-brand text-white"
+                  : "border border-border bg-background text-foreground/70"
+              }`}
+            >
+              {plan.popular ? "Choose" : "Start"}
+            </span>
+          </motion.div>
+        ))}
       </div>
     </motion.div>
   );
 }
+
+const TESTIMONIAL_QUOTES = [
+  "Best component library I've shipped with.",
+  "The animations just work out of the box.",
+  "Dropped straight into my app — love it.",
+];
 
 function TestimonialPreview() {
   const people = getAllPeople().slice(0, 3);
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const currentPerson = people[currentIndex] || people[0];
+  const quote = TESTIMONIAL_QUOTES[currentIndex % TESTIMONIAL_QUOTES.length];
 
-  const starVariants = {
-    rest: { scale: 1, backgroundColor: "hsl(var(--color-brand) / 0.4)" },
-    hover: { scale: 1.3, backgroundColor: "hsl(var(--color-brand) / 0.6)" },
-  };
-
-  const slideVariants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 20 : -20,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -20 : 20,
-      opacity: 0,
-    }),
+  const slide = {
+    enter: { opacity: 0, transform: "translateY(6px)" },
+    center: { opacity: 1, transform: "translateY(0px)" },
+    exit: { opacity: 0, transform: "translateY(-6px)" },
   };
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      onHoverStart={() => {
-        setCurrentIndex((prev) => (prev + 1) % people.length);
-      }}
-      whileHover="hover"
+      onHoverStart={() => setCurrentIndex((prev) => (prev + 1) % people.length)}
     >
-      <div className="relative flex flex-col items-center justify-center gap-2 overflow-hidden rounded-lg border bg-background p-4">
-        {/* Left Arrow */}
-        <div className="absolute top-1/2 left-1 -translate-y-1/2">
-          <ChevronLeft className="h-3 w-3 text-foreground/30" />
-        </div>
-        {/* Right Arrow */}
-        <div className="absolute top-1/2 right-1 -translate-y-1/2">
-          <ChevronRight className="h-3 w-3 text-foreground/30" />
-        </div>
-        <AnimatePresence custom={1} mode="wait">
+      <div className="relative flex w-[180px] flex-col items-center gap-2 overflow-hidden rounded-xl border border-border bg-background p-4 shadow-sm">
+        <IconChevronLeftFill24 className="absolute top-1/2 left-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <IconChevronRightFill24 className="absolute top-1/2 right-1.5 size-3 -translate-y-1/2 text-foreground/30" />
+        <AnimatePresence mode="wait">
           <motion.div
             animate="center"
-            className="relative flex h-8 w-8 items-center justify-center overflow-hidden rounded-full"
-            custom={1}
+            className="flex flex-col items-center gap-1.5"
             exit="exit"
             initial="enter"
             key={currentIndex}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
+            transition={{ duration: 0.25, ease: EASE_OUT_QUAD }}
+            variants={slide}
           >
-            <Image
-              alt={currentPerson?.name || "Avatar"}
-              className="h-full w-full object-cover"
-              height={32}
-              src={currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""}
-              width={32}
-            />
+            <span className="relative size-8 overflow-hidden rounded-full">
+              <Image
+                alt={currentPerson?.name || ""}
+                className="size-full object-cover"
+                draggable={false}
+                height={32}
+                src={
+                  currentPerson ? getAvatarUrl(currentPerson.avatar, 32) : ""
+                }
+                width={32}
+              />
+            </span>
+            <div className="flex gap-0.5">
+              {[...new Array(5)].map((_, i) => (
+                <IconStarFill24
+                  className="size-2 fill-brand text-brand"
+                  // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star rating
+                  key={`star-${i}`}
+                />
+              ))}
+            </div>
+            <p className="text-balance text-center text-[9px] text-foreground/70 leading-snug">
+              "{quote}"
+            </p>
+            <span className="font-medium text-[8px] text-muted-foreground">
+              {currentPerson?.name}
+            </span>
           </motion.div>
-        </AnimatePresence>
-        <div className="flex gap-0.5">
-          {[...new Array(5)].map((_, i) => (
-            <motion.div
-              className="h-1.5 w-1.5 rounded-full bg-brand/40"
-              // biome-ignore lint/suspicious/noArrayIndexKey: Static star rating that never reorders
-              key={`star-${i}`}
-              transition={{
-                duration: 0.2,
-                delay: i * 0.03,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-              variants={starVariants}
-            />
-          ))}
-        </div>
-        <AnimatePresence custom={1} mode="wait">
-          <motion.div
-            animate="center"
-            className="h-2 w-20 rounded-full bg-foreground/10"
-            custom={1}
-            exit="exit"
-            initial="enter"
-            key={`line1-${currentIndex}`}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
-          />
-        </AnimatePresence>
-        <AnimatePresence custom={1} mode="wait">
-          <motion.div
-            animate="center"
-            className="h-2 w-16 rounded-full bg-foreground/5"
-            custom={1}
-            exit="exit"
-            initial="enter"
-            key={`line2-${currentIndex}`}
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={slideVariants}
-          />
         </AnimatePresence>
       </div>
     </motion.div>
@@ -482,183 +260,113 @@ function TestimonialPreview() {
 
 function FAQPreview() {
   const chevronVariants = {
-    open: {
-      rotate: 180,
-    },
-    closed: {
-      rotate: 0,
-    },
+    open: { rotate: 180 },
+    closed: { rotate: 0 },
   };
 
   const contentVariants = {
-    open: {
-      opacity: 1,
-      height: "auto",
-      marginTop: "0.25rem",
-    },
-    closed: {
-      opacity: 0,
-      height: 0,
-      marginTop: 0,
-    },
+    open: { opacity: 1, height: "auto", marginTop: "0.25rem" },
+    closed: { opacity: 0, height: 0, marginTop: 0 },
   };
 
   return (
     <motion.div
-      className="group/preview relative flex h-full w-full flex-col items-center justify-center gap-4 p-4"
+      className="group/preview relative flex h-full w-full flex-col items-stretch justify-center gap-2 p-4"
       initial="open"
       whileHover="closed"
     >
-      {/* First FAQ - Expanded by default, closes on hover */}
       <motion.div
-        className="flex flex-col overflow-hidden rounded-md border border-foreground/10 bg-background px-2 pt-2 pb-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
+        className="flex flex-col overflow-hidden rounded-md border border-border bg-background p-2"
+        transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+        whileHover={{ scale: 1.02 }}
       >
         <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-0.5">
-            <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-            <div className="h-2 w-16 rounded-full bg-foreground/20" />
+          <div className="flex items-center gap-1">
+            <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
+            <span className="font-medium text-[9px] text-foreground/80">
+              Is it free to use?
+            </span>
           </div>
           <motion.div
-            transition={{
-              duration: 0.2,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
             variants={chevronVariants}
           >
-            <ChevronDown className="h-3 w-3 text-foreground/30" />
+            <IconChevronDownFill24 className="size-3 text-foreground/30" />
           </motion.div>
         </div>
-        {/* Expanded content - hidden on hover */}
         <motion.div
-          className="flex flex-col gap-1.5 overflow-hidden pl-1"
-          transition={{
-            duration: 0.2,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
+          className="overflow-hidden pl-3.5"
+          transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
           variants={contentVariants}
         >
-          <div className="h-1.5 w-full rounded-full bg-foreground/10" />
-          <div className="h-1.5 w-3/4 rounded-full bg-foreground/8" />
-          <div className="h-1.5 w-5/6 rounded-full bg-foreground/6" />
+          <p className="text-[8px] text-foreground/55 leading-snug">
+            Yes — MIT licensed. Copy any block into your project, free forever.
+          </p>
         </motion.div>
       </motion.div>
-      <motion.div
-        className="flex items-center justify-between gap-2 rounded-md border border-foreground/10 bg-background p-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
-      >
-        <div className="flex items-center gap-0.5">
-          <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-          <div className="h-2 w-16 rounded-full bg-foreground/15" />
-        </div>
-        <ChevronDown className="h-3 w-3 text-foreground/30" />
-      </motion.div>
-      <motion.div
-        className="flex items-center justify-between gap-2 rounded-md border border-foreground/10 bg-background p-2"
-        transition={{
-          duration: 0.2,
-          ease: [0.25, 0.46, 0.45, 0.94],
-        }}
-        whileHover={{
-          scale: 1.02,
-        }}
-      >
-        <div className="flex items-center gap-0.5">
-          <HelpCircle className="h-2.5 w-2.5 text-foreground/30" />
-          <div className="h-2 w-16 rounded-full bg-foreground/15" />
-        </div>
-        <ChevronDown className="h-3 w-3 text-foreground/30" />
-      </motion.div>
+      {["Does it work with shadcn?", "Can I customize the theme?"].map(
+        (question) => (
+          <motion.div
+            className="flex items-center justify-between gap-2 rounded-md border border-border bg-background p-2"
+            key={question}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.02 }}
+          >
+            <div className="flex items-center gap-1">
+              <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
+              <span className="font-medium text-[9px] text-foreground/80">
+                {question}
+              </span>
+            </div>
+            <IconChevronDownFill24 className="size-3 text-foreground/30" />
+          </motion.div>
+        )
+      )}
     </motion.div>
   );
 }
 
 function FooterPreview() {
-  const linkVariants = {
-    rest: { scaleY: 1, backgroundColor: "hsl(var(--color-foreground) / 0.2)" },
-    hover: {
-      scaleY: 1.2,
-      backgroundColor: "hsl(var(--color-brand) / 0.2)",
-    },
-  };
-
-  const lineVariants = {
-    rest: { backgroundColor: "hsl(var(--color-foreground) / 0.1)" },
-    hover: { backgroundColor: "hsl(var(--color-brand) / 0.3)" },
-  };
-
-  const iconVariants = {
-    rest: { scale: 1, backgroundColor: "hsl(var(--color-foreground) / 0.1)" },
-    hover: {
-      scale: 1.2,
-      backgroundColor: "hsl(var(--color-brand) / 0.3)",
-    },
-  };
-
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      whileHover="hover"
+      whileHover={{ scale: 1.02 }}
     >
-      <div className="flex w-full flex-col gap-1.5 rounded-lg border border-foreground/10 bg-background p-3">
-        <div className="flex items-center gap-2">
-          <div className="h-2.5 w-2.5 rounded bg-brand/30" />
-          <div className="flex gap-3">
-            {[...new Array(3)].map((_, i) => (
-              <motion.div
-                className="h-1.5 w-12 rounded-full bg-foreground/20"
-                // biome-ignore lint/suspicious/noArrayIndexKey: Static footer links that never reorder
-                key={`footer-link-${i}`}
-                transition={{
-                  duration: 0.2,
-                  delay: i * 0.03,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                variants={linkVariants}
-              />
+      <div className="flex w-full flex-col gap-2 rounded-lg border border-border bg-background p-3">
+        <div className="flex items-center gap-2.5">
+          <div className="flex size-3.5 items-center justify-center rounded bg-brand text-[7px] text-white">
+            S
+          </div>
+          <div className="flex gap-2.5">
+            {["Docs", "Blocks", "Pricing"].map((label) => (
+              <span
+                className="text-[9px] text-foreground/60 transition-colors group-hover/preview:text-brand"
+                key={label}
+              >
+                {label}
+              </span>
             ))}
           </div>
         </div>
-        <motion.div
-          className="h-px w-full bg-foreground/10"
-          transition={{
-            duration: 0.3,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={lineVariants}
-        />
+        <div className="h-px w-full bg-border" />
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-1.5">
-            <div className="h-1.5 w-20 rounded-full bg-foreground/15" />
-            <div className="h-1 w-10 rounded-full bg-foreground/10" />
-          </div>
+          <span className="text-[8px] text-muted-foreground">
+            © 2026 SmoothUI
+          </span>
           <div className="flex gap-1.5">
-            {[Twitter, Github, LinkIcon].map((Icon, i) => (
-              <motion.div
-                className="relative flex h-3.5 w-3.5 items-center justify-center rounded-full bg-foreground/10"
-                key={Icon.displayName}
-                transition={{
-                  duration: 0.2,
-                  delay: i * 0.03,
-                  ease: [0.25, 0.46, 0.45, 0.94],
-                }}
-                variants={iconVariants}
+            {(
+              [
+                { Icon: IconXTwitter, key: "twitter" },
+                { Icon: IconGithub, key: "github" },
+                { Icon: IconExternalLinkFill24, key: "link" },
+              ] as const
+            ).map(({ Icon, key }) => (
+              <span
+                className="flex size-3.5 items-center justify-center rounded-full bg-muted text-foreground/40"
+                key={key}
               >
-                <Icon className="h-2 w-2 text-foreground/40" />
-              </motion.div>
+                <Icon className="size-2" />
+              </span>
             ))}
           </div>
         </div>
@@ -668,7 +376,6 @@ function FooterPreview() {
 }
 
 function LogoCloudPreview() {
-  // Use more logos for a smoother infinite loop
   const logos = [
     Canpoy,
     Canva,
@@ -685,17 +392,10 @@ function LogoCloudPreview() {
   ];
 
   const logoVariants = {
-    rest: {
-      scale: 1,
-      opacity: 0.6,
-    },
-    hover: {
-      scale: 1.08,
-      opacity: 1,
-    },
+    rest: { scale: 1, opacity: 0.6 },
+    hover: { scale: 1.08, opacity: 1 },
   };
 
-  // Create blur mask layers - simplified for preview
   const createBlurMask = (
     direction: "left" | "right",
     blur: number,
@@ -723,37 +423,27 @@ function LogoCloudPreview() {
   return (
     <div className="group/preview relative flex h-full w-full items-center justify-center overflow-hidden p-4">
       <div className="relative w-full overflow-hidden">
-        {/* Base gradient backgrounds */}
         <div className="absolute inset-y-0 left-0 z-10 w-5 bg-linear-to-r from-background" />
         <div className="absolute inset-y-0 right-0 z-10 w-5 bg-linear-to-l from-background" />
-
-        {/* Left blur mask layers */}
         <div className="pointer-events-none absolute top-0 left-0 z-20 h-full w-5">
           {Array.from({ length: 4 }, (_, i) => createBlurMask("left", i, i))}
         </div>
-
-        {/* Right blur mask layers */}
         <div className="pointer-events-none absolute top-0 right-0 z-20 h-full w-5">
           {Array.from({ length: 4 }, (_, i) => createBlurMask("right", i, i))}
         </div>
-
         <InfiniteSlider gap={10} speed={15} speedOnHover={0}>
           {logos.map((LogoComponent) => (
             <motion.div
               className="relative flex shrink-0 flex-col items-center gap-1"
               initial="rest"
               key={LogoComponent.name}
-              transition={{
-                duration: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
+              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
               variants={logoVariants}
               whileHover="hover"
             >
-              <div className="relative flex h-7 w-7 items-center justify-center rounded-md border border-foreground/10 bg-background text-foreground transition-opacity duration-200 [&_svg]:h-full [&_svg]:w-full [&_svg]:fill-current">
+              <div className="relative flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground transition-opacity duration-200 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:fill-current">
                 <LogoComponent />
               </div>
-              <div className="h-0.5 w-5 rounded-full bg-foreground/10" />
             </motion.div>
           ))}
         </InfiniteSlider>
@@ -762,52 +452,36 @@ function LogoCloudPreview() {
   );
 }
 
-function StatsPreview() {
-  const [stat1, setStat1] = useState(24);
-  const [stat2, setStat2] = useState(48);
-  const [stat3, setStat3] = useState(72);
+const STATS = [
+  { base: 70, hover: 72, label: "Components" },
+  { base: 24, hover: 26, label: "Blocks" },
+  { base: 813, hover: 820, label: "GitHub stars" },
+];
 
-  const numberVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05 },
-  };
+function StatsPreview() {
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      initial="rest"
-      onHoverEnd={() => {
-        setStat1(24);
-        setStat2(48);
-        setStat3(72);
-      }}
-      onHoverStart={() => {
-        setStat1(34);
-        setStat2(58);
-        setStat3(82);
-      }}
-      whileHover="hover"
+      onHoverEnd={() => setHovered(false)}
+      onHoverStart={() => setHovered(true)}
     >
-      <div className="grid w-full grid-cols-3 divide-x divide-foreground/10">
-        {[stat1, stat2, stat3].map((stat, i) => (
+      <div className="grid w-full grid-cols-3 divide-x divide-border">
+        {STATS.map((stat) => (
           <motion.div
-            className="flex flex-col items-center gap-1.5 space-y-1 text-center"
-            // biome-ignore lint/suspicious/noArrayIndexKey: Static stats array that never reorders
-            key={`stat-${i}`}
-            transition={{
-              duration: 0.2,
-              delay: i * 0.03,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={numberVariants}
+            className="flex flex-col items-center gap-1 text-center"
+            key={stat.label}
+            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
+            whileHover={{ scale: 1.05 }}
           >
-            <div className="flex items-baseline justify-center gap-0.5 font-bold">
-              <span className="text-[8px] text-foreground/40">+</span>
-              <div className="scale-90">
-                <PriceFlow value={stat} />
-              </div>
+            <div className="flex items-baseline justify-center gap-0.5 font-bold text-foreground">
+              <span className="text-[8px] text-brand">+</span>
+              <PriceFlow value={hovered ? stat.hover : stat.base} />
             </div>
-            <div className="h-1 w-7 rounded-full bg-foreground/15" />
+            <span className="text-[9px] text-muted-foreground">
+              {stat.label}
+            </span>
           </motion.div>
         ))}
       </div>
@@ -815,55 +489,38 @@ function StatsPreview() {
   );
 }
 
+const TEAM_ROLES = ["Maintainer", "Designer", "Engineer"];
+
 function TeamPreview() {
   const people = getAllPeople().slice(0, 3);
-
-  const containerVariants = {
-    rest: { scale: 1, y: 0 },
-    hover: { scale: 1.08, y: -3 },
-  };
-
-  const avatarVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.15 },
-  };
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center gap-2.5 p-4"
-      initial="rest"
-      whileHover="hover"
+      whileHover={{ scale: 1.04, y: -3 }}
     >
       {people.map((person, i) => (
-        <motion.div
-          className="flex flex-col items-center gap-1.5 rounded-lg border border-foreground/10 bg-background p-2.5"
+        <div
+          className="flex flex-col items-center gap-1 rounded-lg border border-border bg-background p-2.5"
           key={person.name}
-          transition={{
-            duration: 0.2,
-            delay: i * 0.03,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-          variants={containerVariants}
         >
-          <motion.div
-            className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full"
-            transition={{
-              duration: 0.3,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-            variants={avatarVariants}
-          >
+          <span className="relative size-9 overflow-hidden rounded-full">
             <Image
               alt={person.name}
-              className="h-full w-full object-cover"
+              className="size-full object-cover"
+              draggable={false}
               height={36}
               src={getAvatarUrl(person.avatar, 36)}
               width={36}
             />
-          </motion.div>
-          <div className="h-1.5 w-10 rounded-full bg-foreground/15" />
-          <div className="h-1 w-8 rounded-full bg-foreground/10" />
-        </motion.div>
+          </span>
+          <span className="max-w-14 truncate font-medium text-[9px] text-foreground/80">
+            {person.name}
+          </span>
+          <span className="text-[8px] text-muted-foreground">
+            {TEAM_ROLES[i]}
+          </span>
+        </div>
       ))}
     </motion.div>
   );
@@ -885,11 +542,9 @@ export function BlockCategories() {
               project needs
             </>
           }
-          eyebrow="Blocks"
           title="Elevate your design with premium blocks"
         />
 
-        {/* Grid Container with overflow */}
         <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
@@ -911,18 +566,12 @@ export function BlockCategories() {
                       }
                 }
               >
-                <Link
-                  className="relative block text-center"
-                  href={category.href}
-                >
-                  {/* Preview Area - Simple rounded container with frame-box */}
+                <Link className="relative block" href={category.href}>
                   <div className="w-full overflow-hidden">
                     <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
                       <category.preview />
                     </div>
                   </div>
-
-                  {/* Content - Centered with pill tag */}
                   <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
                     <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
                       <span className="size-1.5 rounded-full bg-brand" />
@@ -937,7 +586,6 @@ export function BlockCategories() {
             ))}
           </div>
 
-          {/* Bottom Button Overlay */}
           <Button
             asChild
             className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 md:bottom-24"
@@ -965,16 +613,13 @@ export function BlockCategories() {
             </Link>
           </Button>
 
-          {/* BlurMagic Fade Effect */}
           <BlurMagic
             background="var(--color-background)"
             blur="4px"
             className="!absolute !bottom-0 !left-0 z-10 h-80 w-full"
             height="500px"
             side="bottom"
-            style={{
-              position: "absolute",
-            }}
+            style={{ position: "absolute" }}
           />
         </div>
       </div>

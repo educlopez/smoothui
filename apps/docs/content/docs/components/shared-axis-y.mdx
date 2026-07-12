@@ -1,0 +1,28 @@
+---
+title: Word Cut Staircase
+description: Per-word hard-cut staircase transition — each word flips in and out with stepped timing for sharp, editorial phrase swaps.
+icon: Type
+dependencies:
+  - motion.dev
+installer: shared-axis-y
+---
+
+## Features
+
+- Hard-cut per-word opacity flips with staircase stagger timing
+- Sharp, editorial feel with no easing curves
+- Respects `prefers-reduced-motion`
+- Announces updates via `aria-live="polite"`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, phrases swap instantly with no stagger. The current phrase is announced via `aria-live="polite"`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/shared-axis-y/index.tsx"
+  name="SharedAxisYProps"
+/>

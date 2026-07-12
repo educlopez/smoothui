@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const ANIMATION_DURATION = 0.6;
@@ -58,6 +58,7 @@ export function FaqsAccordion({
     },
   ],
 }: FaqsAccordionProps) {
+  const shouldReduceMotion = useReducedMotion();
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleAccordion = (index: number) => {
@@ -68,12 +69,22 @@ export function FaqsAccordion({
     <section className="py-20">
       <div className="mx-auto max-w-4xl px-6">
         <motion.div
-          animate={{ opacity: 1, y: 0 }}
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
           className="mb-16 text-center"
-          initial={{ opacity: 0, y: INITIAL_Y_OFFSET }}
-          transition={{ duration: ANIMATION_DURATION }}
+          initial={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { opacity: 0, y: INITIAL_Y_OFFSET }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: ANIMATION_DURATION }
+          }
           viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+          }
         >
           <h2 className="mb-4 font-bold text-3xl text-foreground lg:text-4xl">
             {title}
@@ -86,37 +97,61 @@ export function FaqsAccordion({
         <div className="space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
-              animate={{ opacity: 1, y: 0 }}
+              animate={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
               className="group overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-brand hover:shadow-lg"
-              initial={{ opacity: 0, y: INITIAL_Y_OFFSET }}
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
+                  : { opacity: 0, y: INITIAL_Y_OFFSET }
+              }
               key={faq.question}
-              transition={{
-                duration: ANIMATION_DURATION,
-                delay: index * STAGGER_DELAY,
-              }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      duration: ANIMATION_DURATION,
+                      delay: index * STAGGER_DELAY,
+                    }
+              }
               viewport={{ once: true }}
-              whileInView={{ opacity: 1, y: 0 }}
+              whileInView={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+              }
             >
               <motion.button
                 className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-background/50"
                 onClick={() => toggleAccordion(index)}
                 type="button"
-                whileHover={{ scale: HOVER_SCALE }}
-                whileTap={{ scale: TAP_SCALE }}
+                whileHover={shouldReduceMotion ? {} : { scale: HOVER_SCALE }}
+                whileTap={shouldReduceMotion ? {} : { scale: TAP_SCALE }}
               >
                 <h3 className="pr-4 font-semibold text-foreground text-lg">
                   {faq.question}
                 </h3>
                 <motion.div
-                  animate={{
-                    rotate:
-                      openIndex === index ? ROTATION_OPEN : ROTATION_CLOSED,
-                  }}
+                  animate={
+                    shouldReduceMotion
+                      ? {
+                          rotate:
+                            openIndex === index
+                              ? ROTATION_OPEN
+                              : ROTATION_CLOSED,
+                        }
+                      : {
+                          rotate:
+                            openIndex === index
+                              ? ROTATION_OPEN
+                              : ROTATION_CLOSED,
+                        }
+                  }
                   className="flex-shrink-0"
-                  transition={{
-                    duration: ANIMATION_DURATION,
-                    ease: "easeInOut",
-                  }}
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : { duration: ANIMATION_DURATION, ease: "easeInOut" }
+                  }
                 >
                   <svg
                     aria-hidden="true"
@@ -140,22 +175,41 @@ export function FaqsAccordion({
                   <motion.div
                     animate={{ height: "auto", opacity: 1 }}
                     className="overflow-hidden"
-                    exit={{ height: 0, opacity: 0 }}
-                    initial={{ height: 0, opacity: 0 }}
-                    transition={{
-                      duration: ANIMATION_DURATION,
-                      ease: "easeInOut",
-                    }}
+                    exit={
+                      shouldReduceMotion
+                        ? { opacity: 0, transition: { duration: 0 } }
+                        : { height: 0, opacity: 0 }
+                    }
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { height: 0, opacity: 0 }
+                    }
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: ANIMATION_DURATION, ease: "easeInOut" }
+                    }
                   >
                     <motion.div
                       animate={{ y: 0 }}
                       className="px-6 pb-6"
-                      exit={{ y: INITIAL_CONTENT_Y }}
-                      initial={{ y: INITIAL_CONTENT_Y }}
-                      transition={{
-                        duration: ANIMATION_DURATION,
-                        delay: CONTENT_DELAY,
-                      }}
+                      exit={
+                        shouldReduceMotion
+                          ? { transition: { duration: 0 } }
+                          : { y: INITIAL_CONTENT_Y }
+                      }
+                      initial={
+                        shouldReduceMotion ? { y: 0 } : { y: INITIAL_CONTENT_Y }
+                      }
+                      transition={
+                        shouldReduceMotion
+                          ? { duration: 0 }
+                          : {
+                              duration: ANIMATION_DURATION,
+                              delay: CONTENT_DELAY,
+                            }
+                      }
                     >
                       <p className="text-foreground/70 leading-relaxed">
                         {faq.answer}

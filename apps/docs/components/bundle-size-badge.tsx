@@ -26,7 +26,7 @@ export const BundleSizeBadge = ({ slug, className }: BundleSizeBadgeProps) => {
       )}
       title={`Minified: ${formatSize(size.minified)} / Gzipped: ${formatSize(size.gzipped)}`}
     >
-      <Package aria-hidden="true" className="h-3 w-3" />
+      <Package aria-hidden="true" className="h-3.5 w-3.5" />
       {formatSize(size.gzipped)}
     </span>
   );

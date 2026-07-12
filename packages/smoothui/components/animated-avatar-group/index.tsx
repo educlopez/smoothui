@@ -79,6 +79,7 @@ const AnimatedAvatarGroup = ({
                   }
             }
             className="rounded-full object-cover"
+            draggable={false}
             height={size}
             initial={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }

@@ -3,7 +3,7 @@
 import { Avatar, AvatarImage } from "@repo/shadcn-ui/components/ui/avatar";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { ArrowDownRight, Star } from "lucide-react";
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
 
 interface HeroShowcaseProps {
@@ -53,15 +53,28 @@ export function HeroShowcase({
       })),
   },
 }: HeroShowcaseProps) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <>
       <HeroHeader />
       <main>
         <motion.section
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+          animate={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { opacity: 1, scale: 1, filter: "blur(0px)" }
+          }
           className="relative overflow-hidden bg-gradient-to-b from-background to-muted"
-          initial={{ opacity: 0, scale: 1.04, filter: "blur(12px)" }}
-          transition={{ type: "spring" as const, bounce: 0.32, duration: 0.9 }}
+          initial={
+            shouldReduceMotion
+              ? { opacity: 1 }
+              : { opacity: 0, scale: 1.04, filter: "blur(12px)" }
+          }
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { type: "spring" as const, bounce: 0.32, duration: 0.9 }
+          }
         >
           <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:gap-20">
             <AnimatedGroup
@@ -95,7 +108,7 @@ export function HeroShowcase({
                         stiffness: 300,
                         damping: 20,
                       }}
-                      whileHover={{ y: -8 }}
+                      whileHover={shouldReduceMotion ? {} : { y: -8 }}
                     >
                       <Avatar className="size-12 border">
                         <AvatarImage alt={avatar.alt} src={avatar.src} />
@@ -144,6 +157,7 @@ export function HeroShowcase({
               <img
                 alt="app screen"
                 className="h-full w-full rounded-md object-cover"
+                draggable={false}
                 height={1842}
                 src={getImageKitUrl("/images/hero-example_xertaz.png", {
                   width: 1200,

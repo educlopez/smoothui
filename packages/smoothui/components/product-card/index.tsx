@@ -243,6 +243,7 @@ export default function ProductCard({
               "transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)]",
             isHoverDevice && !shouldReduceMotion && "group-hover:scale-105"
           )}
+          draggable={false}
           src={image}
         />
 

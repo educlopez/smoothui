@@ -1,0 +1,41 @@
+{
+  "name": "@repo/soft-blur-in",
+  "description": "A SoftBlurIn text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "blur",
+      "per-character",
+      "entrance",
+      "apple",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Apple-style hero title reveal",
+      "Premium headline entrance with soft blur",
+      "Section heading animated on scroll"
+    ],
+    "compositionHints": [
+      "Use on hero titles 48px+ over solid backgrounds",
+      "Pair with per-word effects for long copy"
+    ],
+    "hasReducedMotion": true
+  }
+}

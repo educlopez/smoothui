@@ -1,11 +1,15 @@
 "use client";
 
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { usePackageManager } from "@docs/hooks/use-package-manager";
+import { prettify } from "@docs/lib/kit-context";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { useState } from "react";
 
 interface InstallerProps {
+  /** Show the "Add to bundle" button (default true). */
+  addToKit?: boolean;
   packageName: string;
 }
 
@@ -142,7 +146,7 @@ const packageManagers = [
 ] as const;
 type PackageManager = (typeof packageManagers)[number]["id"];
 
-export const Installer = ({ packageName }: InstallerProps) => {
+export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
   const [activeTab, setActiveTab] = useState<"smoothui" | "shadcn">("smoothui");
   const [activePm, setActivePm] = usePackageManager();
 
@@ -188,34 +192,44 @@ export const Installer = ({ packageName }: InstallerProps) => {
           </button>
         </div>
 
-        {/* Package manager tabs - always render but hide when not shadcn */}
-        <div
-          className={cn(
-            "flex items-center gap-0.5 transition-opacity",
-            activeTab === "shadcn"
-              ? "opacity-100"
-              : "pointer-events-none hidden opacity-0 sm:flex"
+        <div className="flex items-center gap-2">
+          {/* Package manager tabs - always render but hide when not shadcn */}
+          <div
+            className={cn(
+              "flex items-center gap-0.5 transition-opacity",
+              activeTab === "shadcn"
+                ? "opacity-100"
+                : "pointer-events-none hidden opacity-0 sm:flex"
+            )}
+          >
+            {packageManagers.map((pm) => {
+              const isActive = activePm === pm.id;
+              return (
+                <button
+                  className={cn(
+                    "flex items-center gap-1 rounded border px-2 py-1 font-medium text-xs transition-all",
+                    isActive
+                      ? "border-border bg-background text-foreground shadow-sm"
+                      : "border-transparent text-muted-foreground hover:text-foreground"
+                  )}
+                  key={pm.id}
+                  onClick={() => setActivePm(pm.id)}
+                  type="button"
+                >
+                  <pm.icon colored={isActive} />
+                  {pm.id}
+                </button>
+              );
+            })}
+          </div>
+          {addToKit && (
+            <AddToKitButton
+              className="shrink-0"
+              size="xs"
+              slug={packageName}
+              title={prettify(packageName)}
+            />
           )}
-        >
-          {packageManagers.map((pm) => {
-            const isActive = activePm === pm.id;
-            return (
-              <button
-                className={cn(
-                  "flex items-center gap-1 rounded border px-2 py-1 font-medium text-xs transition-all",
-                  isActive
-                    ? "border-border bg-background text-foreground shadow-sm"
-                    : "border-transparent text-muted-foreground hover:text-foreground"
-                )}
-                key={pm.id}
-                onClick={() => setActivePm(pm.id)}
-                type="button"
-              >
-                <pm.icon colored={isActive} />
-                {pm.id}
-              </button>
-            );
-          })}
         </div>
       </div>
 

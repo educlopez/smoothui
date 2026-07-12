@@ -8,6 +8,44 @@ import type { RegistryItem } from "shadcn/schema";
 // Regex patterns for detecting imports (hoisted for performance)
 const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
 const RELATIVE_IMPORT_REGEX = /from\s+["']\.\.\/([a-z-]+)["']/g;
+const SMOOTHUI_IMPORT_REGEX = /@\/components\/smoothui\/([a-z0-9-]+)/g;
+const SMOOTHUI_DATA_IMPORT_REGEX = /@\/lib\/smoothui-data/;
+
+const REGISTRY_URL = "https://smoothui.dev/r";
+
+// Workspace import specifiers must be rewritten to the paths where the
+// registry installs files in user projects — raw @repo/* or @smoothui/*
+// specifiers don't resolve outside this monorepo.
+const WORKSPACE_IMPORT_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/@repo\/shadcn-ui\/lib\/utils/g, "@/lib/utils"],
+  [/@repo\/shadcn-ui\/components\/ui\//g, "@/components/ui/"],
+  [/@repo\/smoothui\/components\//g, "@/components/smoothui/"],
+  [/@smoothui\/data/g, "@/lib/smoothui-data"],
+  // Components import shared animation constants via "../../lib/animation";
+  // the registry installs that file at components/smoothui/lib/animation.ts.
+  [/(?:\.\.\/)+lib\/animation/g, "@/components/smoothui/lib/animation"],
+  // Blocks import the shared helpers barrel via "../../shared", which would
+  // point outside the install dir (components/smoothui/<name>/) in user
+  // projects.
+  [/from\s+["'](?:\.\.\/)+shared["']/g, 'from "@/components/smoothui/shared"'],
+];
+
+const rewriteWorkspaceImports = (content: string): string => {
+  let rewritten = content;
+  for (const [pattern, replacement] of WORKSPACE_IMPORT_REWRITES) {
+    rewritten = rewritten.replace(pattern, replacement);
+  }
+  return rewritten;
+};
+
+const toTitleCase = (name: string): string =>
+  name
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+// Workspace package name → registry item short name, when they differ
+const WORKSPACE_DEP_ALIASES = new Map([["blocks-shared", "shared"]]);
 
 // Cache filtered package names for repeated lookups
 const FILTERED_PACKAGES = new Set([
@@ -15,7 +53,12 @@ const FILTERED_PACKAGES = new Set([
   "typescript-config",
   "patterns",
 ]);
-const FILTERED_DEPS = new Set(["react", "react-dom", "@repo/shadcn-ui"]);
+const FILTERED_DEPS = new Set([
+  "react",
+  "react-dom",
+  "@repo/shadcn-ui",
+  "@smoothui/data",
+]);
 const FILTERED_DEV_DEPS = new Set([
   "@repo/typescript-config",
   "@types/react",
@@ -124,26 +167,45 @@ export const getPackage = cache(async (packageName: string) => {
     (dep) => !FILTERED_DEV_DEPS.has(dep)
   );
 
+  const isData = packageName === "data";
+  const isSharedLib = packageName === "smoothui/blocks/shared";
+  const isBlock = packageName.startsWith("smoothui/blocks/") && !isSharedLib;
+
   const packageFiles = await readdir(packageDir, { withFileTypes: true });
-  const tsxFiles = packageFiles.filter(
-    (file) => file.isFile() && file.name.endsWith(".tsx")
+  const sourceFiles = packageFiles.filter(
+    (file) =>
+      file.isFile() &&
+      !file.name.includes(".config.") &&
+      (file.name.endsWith(".tsx") ||
+        (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
   );
 
   const cssFiles = packageFiles.filter(
     (file) => file.isFile() && file.name.endsWith(".css")
   );
 
+  let fileType: RegistryItem["type"] = "registry:ui";
+  if (isData || packageName === "smoothui/lib") {
+    fileType = "registry:lib";
+  } else if (isBlock) {
+    fileType = "registry:block";
+  } else if (isSharedLib) {
+    fileType = "registry:component";
+  }
+
   const files: RegistryItem["files"] = [];
 
-  for (const file of tsxFiles) {
+  for (const file of sourceFiles) {
     const filePath = join(packageDir, file.name);
     const content = await readFile(filePath, "utf-8");
 
     files.push({
-      type: "registry:ui",
+      type: fileType,
       path: file.name,
-      content,
-      target: `components/smoothui/${actualPackageName}/${file.name}`,
+      content: rewriteWorkspaceImports(content),
+      target: isData
+        ? `lib/smoothui-data/${file.name}`
+        : `components/smoothui/${actualPackageName}/${file.name}`,
     });
   }
 
@@ -165,18 +227,34 @@ export const getPackage = cache(async (packageName: string) => {
     .map((match) => match[1])
     .filter((name): name is string => !!name);
 
-  const registryDependencies = [...shadcnDependencies];
+  const registryDependencies = new Set<string>(shadcnDependencies);
 
   // Add smoothui dependencies from package.json
   for (const dep of smoothuiDependencies) {
-    const pkg = dep.replace("@repo/", "");
+    const raw = dep.replace("@repo/", "");
+    const pkg = WORKSPACE_DEP_ALIASES.get(raw) ?? raw;
 
-    registryDependencies.push(`https://smoothui.dev/r/${pkg}.json`);
+    if (pkg !== actualPackageName) {
+      registryDependencies.add(`${REGISTRY_URL}/${pkg}.json`);
+    }
   }
 
   // Add relative imports as registry dependencies
   for (const relativeImport of relativeImports) {
-    registryDependencies.push(`https://smoothui.dev/r/${relativeImport}.json`);
+    registryDependencies.add(`${REGISTRY_URL}/${relativeImport}.json`);
+  }
+
+  // Add cross-item imports detected in the rewritten content
+  // (@/components/smoothui/<name> covers components and the shared barrel)
+  for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
+    const name = match[1];
+    if (name && name !== actualPackageName) {
+      registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
+    }
+  }
+
+  if (!isData && SMOOTHUI_DATA_IMPORT_REGEX.test(allContent)) {
+    registryDependencies.add(`${REGISTRY_URL}/data.json`);
   }
 
   const css: RegistryItem["css"] = {};
@@ -246,9 +324,9 @@ export const getPackage = cache(async (packageName: string) => {
     });
   }
 
-  let type: RegistryItem["type"] = "registry:ui";
+  let type: RegistryItem["type"] = fileType;
 
-  if (!Object.keys(files).length && Object.keys(css).length) {
+  if (!files.length && Object.keys(css).length) {
     type = "registry:style";
   }
 
@@ -256,12 +334,12 @@ export const getPackage = cache(async (packageName: string) => {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     name: actualPackageName,
     type,
-    title: actualPackageName,
+    title: toTitleCase(actualPackageName),
     description: packageJson.description,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
     dependencies,
     devDependencies,
-    registryDependencies,
+    registryDependencies: Array.from(registryDependencies),
     files,
     css,
   };

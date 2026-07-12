@@ -1,13 +1,17 @@
+import { PostCover } from "@docs/components/post-cover";
 import { createMetadata } from "@docs/lib/metadata";
 import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
-import { ChevronRight } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = createMetadata({
-  title: "Blog",
+  title: "React Animation Tutorials & Guides",
   description:
     "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
+  alternates: {
+    canonical: "/blog",
+  },
   openGraph: {
     url: "/blog",
   },
@@ -40,39 +44,11 @@ function ReadLink({ title }: { title: string }) {
       className="flex items-center gap-1 font-medium text-brand text-sm transition-colors duration-200 group-hover:text-foreground"
     >
       Read
-      <ChevronRight
+      <IconChevronRightFill24
         aria-hidden="true"
         className="size-3.5 translate-y-px transition-transform duration-200 group-hover:translate-x-0.5"
-        strokeWidth={2.5}
       />
     </span>
-  );
-}
-
-/** Abstract decorative illustration for the featured post. Mesh gradient, CSS-only. */
-function FeaturedIllustration() {
-  return (
-    <div
-      aria-hidden="true"
-      className="relative aspect-video overflow-hidden rounded-[10px] border border-transparent shadow-black/10 shadow-md ring-1 ring-border"
-      style={{
-        background: [
-          "radial-gradient(ellipse 80% 60% at 20% 30%, var(--color-brand) 0%, transparent 60%)",
-          "radial-gradient(ellipse 60% 80% at 75% 70%, var(--color-brand-secondary) 0%, transparent 55%)",
-          "radial-gradient(ellipse 50% 50% at 55% 20%, var(--color-brand-light) 0%, transparent 50%)",
-          "radial-gradient(ellipse 40% 60% at 40% 80%, var(--color-brand-lighter) 0%, transparent 50%)",
-          "linear-gradient(135deg, var(--color-brand-secondary) 0%, var(--color-brand-light) 100%)",
-        ].join(", "),
-      }}
-    >
-      <div
-        className="absolute inset-0 opacity-40 mix-blend-soft-light"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 70% 25%, white 0%, transparent 40%)",
-        }}
-      />
-    </div>
   );
 }
 
@@ -98,7 +74,7 @@ export default async function BlogPage() {
         {/* Header */}
         <div className="mb-12 max-w-xl">
           <h1 className="text-balance font-semibold text-4xl text-foreground sm:text-5xl lg:tracking-tight">
-            Blog
+            React Animation Tutorials &amp; Guides
           </h1>
           <p className="mt-3 text-muted-foreground">
             Tutorials, deep dives, and case studies on building beautiful
@@ -111,7 +87,13 @@ export default async function BlogPage() {
           {/* Featured post */}
           <article className="group relative grid divide-x divide-border md:grid-cols-2">
             <div className="bg-card p-6 lg:p-10">
-              <FeaturedIllustration />
+              <PostCover
+                alt={featured.data.title}
+                className="aspect-video rounded-[10px] border border-transparent shadow-black/10 shadow-md ring-1 ring-border"
+                image={featured.data.image as string | undefined}
+                seed={featured.url}
+                sizes="(max-width: 768px) 100vw, 460px"
+              />
             </div>
             <div>
               <Link
@@ -144,40 +126,35 @@ export default async function BlogPage() {
           {/* Posts grid */}
           {rest.length > 0 && (
             <div className="grid divide-x divide-y divide-border border-border border-t sm:grid-cols-2 lg:grid-cols-3">
-              {rest.map(async (post) => {
-                const content = await post.data.getText("processed");
-                const readingTime = getReadingTime(content);
-
-                return (
-                  <article className="group relative" key={post.url}>
-                    <Link
-                      className="flex h-full flex-col bg-card p-6 transition-colors duration-200 hover:bg-card/80 lg:p-10"
-                      href={post.url}
-                    >
-                      <div className="flex flex-1 flex-col gap-3">
-                        <time
-                          className="text-muted-foreground text-sm"
-                          dateTime={post.data.date as string}
-                        >
-                          {formatDate(post.data.date as string)}
-                        </time>
-                        <h2 className="font-semibold text-foreground transition-colors group-hover:text-brand">
-                          {post.data.title}
-                        </h2>
-                        <p className="text-muted-foreground text-sm">
-                          {post.data.description}
-                        </p>
-                      </div>
-                      <div className="mt-auto flex items-end justify-between gap-2 pt-6">
-                        {post.data.author && (
-                          <AuthorBadge name={post.data.author as string} />
-                        )}
-                        <ReadLink title={post.data.title} />
-                      </div>
-                    </Link>
-                  </article>
-                );
-              })}
+              {rest.map((post) => (
+                <article className="group relative" key={post.url}>
+                  <Link
+                    className="flex h-full flex-col bg-card p-6 transition-colors duration-200 hover:bg-card/80 lg:p-10"
+                    href={post.url}
+                  >
+                    <div className="flex flex-1 flex-col gap-3">
+                      <time
+                        className="text-muted-foreground text-sm"
+                        dateTime={post.data.date as string}
+                      >
+                        {formatDate(post.data.date as string)}
+                      </time>
+                      <h2 className="font-semibold text-foreground transition-colors group-hover:text-brand">
+                        {post.data.title}
+                      </h2>
+                      <p className="text-muted-foreground text-sm">
+                        {post.data.description}
+                      </p>
+                    </div>
+                    <div className="mt-auto flex items-end justify-between gap-2 pt-6">
+                      {post.data.author && (
+                        <AuthorBadge name={post.data.author as string} />
+                      )}
+                      <ReadLink title={post.data.title} />
+                    </div>
+                  </Link>
+                </article>
+              ))}
             </div>
           )}
         </div>

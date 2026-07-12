@@ -8,12 +8,10 @@ export interface SectionHeaderProps {
   align?: "center" | "left";
   className?: string;
   description?: ReactNode;
-  eyebrow?: ReactNode;
   title: ReactNode;
 }
 
 export function SectionHeader({
-  eyebrow,
   title,
   description,
   className,
@@ -43,17 +41,6 @@ export function SectionHeader({
     <div
       className={cn("max-w-2xl", isCenter && "mx-auto text-center", className)}
     >
-      {eyebrow && (
-        <motion.p
-          className={cn(
-            "mb-2 font-medium text-brand text-sm uppercase tracking-wider",
-            isCenter && "text-center"
-          )}
-          {...fadeUp(0)}
-        >
-          {eyebrow}
-        </motion.p>
-      )}
       <motion.h2
         className={cn(
           "text-balance font-semibold font-title text-3xl text-foreground transition md:text-4xl",

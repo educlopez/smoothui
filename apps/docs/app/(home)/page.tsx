@@ -1,13 +1,15 @@
 import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
+import { Coverage } from "@docs/components/landing/coverage";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
 import { Hero } from "@docs/components/landing/hero";
+import { LatestPosts } from "@docs/components/landing/latest-posts";
 import { SkillsSection } from "@docs/components/landing/skills-section";
+import { SocialProof } from "@docs/components/landing/social-proof";
 import { WhatTheySay } from "@docs/components/landing/what-they-say";
-import { getSmoothuiStats } from "@docs/lib/smoothui-stats";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
@@ -29,22 +31,26 @@ function SectionSkeleton({ minHeight = "400px" }: { minHeight?: string }) {
 }
 
 export default function Home() {
-  const stats = getSmoothuiStats();
   return (
     <>
       <Hero />
-      <Features />
+      <SocialProof />
       <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
         <ComponentsSlideshow />
       </Suspense>
+      <Features />
       <BlockCategories />
       <AISection />
       <SkillsSection />
-      <FAQ />
       <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
         <WhatTheySay />
       </Suspense>
-      <Footer componentCount={stats.componentCount} version={stats.version} />
+      <Coverage />
+      <FAQ />
+      <Suspense fallback={<SectionSkeleton minHeight="500px" />}>
+        <LatestPosts />
+      </Suspense>
+      <Footer />
     </>
   );
 }

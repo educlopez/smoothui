@@ -11,6 +11,9 @@
     "test": {
       "dependsOn": ["^test"]
     },
+    "typecheck": {
+      "dependsOn": ["^typecheck"]
+    },
     "analyze": {
       "dependsOn": ["^analyze"]
     },
@@ -24,7 +27,9 @@
     "//#clean": {
       "cache": false
     },
-    "//#check": {},
+    "//#check": {
+      "cache": false
+    },
     "//#fix": {
       "cache": false
     }

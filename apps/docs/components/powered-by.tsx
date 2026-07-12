@@ -1,5 +1,5 @@
-import { LibraryIcon } from "lucide-react";
 import Image from "next/image";
+import { IconBooksFill24 } from "nucleo-core-fill-24";
 
 interface PoweredByProps {
   packages: string[];
@@ -36,10 +36,10 @@ const getPackageName = (url: string) => {
 export const PoweredBy = ({ packages }: PoweredByProps) => (
   <div className="not-prose mt-6 flex flex-col gap-2">
     <div className="flex items-center gap-2">
-      <LibraryIcon className="size-4 text-muted-foreground" />
+      <IconBooksFill24 className="size-4 text-muted-foreground" />
       <p className="text-muted-foreground text-sm">Powered by</p>
     </div>
-    <div className="flex flex-col gap-2 pl-[14px]">
+    <div className="flex flex-col gap-2 pl-3.5">
       {packages.map((url) => {
         const isValidUrl = url.startsWith("http") || url.startsWith("/");
         const hostname = getHostname(url);
@@ -54,6 +54,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
               <Image
                 alt=""
                 className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                draggable={false}
                 height={14}
                 src={`https://img.logo.dev/${hostname}?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
                 width={14}
@@ -62,6 +63,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
               <Image
                 alt=""
                 className="h-3.5 w-3.5 overflow-hidden rounded-sm object-cover"
+                draggable={false}
                 height={14}
                 src={`https://img.logo.dev/npmjs.com?token=${process.env.NEXT_PUBLIC_LOGO_DEV_TOKEN}&size=14&retina=true`}
                 width={14}

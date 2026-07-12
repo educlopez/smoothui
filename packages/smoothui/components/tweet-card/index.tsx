@@ -97,6 +97,7 @@ export const TweetHeader = ({
       <img
         alt={tweet.user.screen_name}
         className={cn("size-10 object-cover object-center", avatarRounded)}
+        draggable={false}
         height={40}
         loading="eager"
         src={tweet.user.profile_image_url_https}
@@ -192,6 +193,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                 <img
                   alt={tweet.text}
                   className="w-full rounded-xl border object-cover shadow-sm"
+                  draggable={false}
                   height={photos[0].height}
                   key={photos[0].url}
                   src={photos[0].url}
@@ -205,6 +207,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                     <img
                       alt={tweet.text}
                       className="w-full rounded-xl border object-cover shadow-sm"
+                      draggable={false}
                       height={photo.height}
                       key={photo.url}
                       src={photo.url}
@@ -223,6 +226,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
                         "w-full rounded-xl border object-cover shadow-sm",
                         index === 0 && photos.length > 3 && "row-span-2"
                       )}
+                      draggable={false}
                       height={photo.height}
                       key={photo.url}
                       src={photo.url}
@@ -239,6 +243,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
         <img
           alt={tweet.text}
           className="w-full rounded-xl border object-cover shadow-sm"
+          draggable={false}
           src={
             // @ts-expect-error package doesn't have type definitions
             tweet.card.binding_values.thumbnail_image_large.image_value.url

@@ -1,13 +1,10 @@
 import { motion, useReducedMotion } from "motion/react";
-import { useRef, useState } from "react";
+import { useId, useRef, useState } from "react";
 
 const EASE_IN_OUT_CUBIC_X1 = 0.4;
 const EASE_IN_OUT_CUBIC_Y1 = 0;
 const EASE_IN_OUT_CUBIC_X2 = 0.2;
 const EASE_IN_OUT_CUBIC_Y2 = 1;
-const RADIX_BASE_36 = 36;
-const RANDOM_ID_START_INDEX = 2;
-const RANDOM_ID_LENGTH = 9;
 
 const LABEL_TRANSITION = {
   duration: 0.28,
@@ -51,7 +48,8 @@ export default function AnimatedInput({
   const [isFocused, setIsFocused] = useState(false);
   const isFloating = !!val || isFocused;
   const shouldReduceMotion = useReducedMotion();
-  const inputId = `animated-input-${Math.random().toString(RADIX_BASE_36).substring(RANDOM_ID_START_INDEX, RANDOM_ID_LENGTH)}`;
+  const reactId = useId();
+  const inputId = `animated-input-${reactId.replace(/:/g, "")}`;
 
   const getLabelAnimation = () => {
     if (shouldReduceMotion) {

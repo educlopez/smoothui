@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 
 const STAGGER_DELAY = 0.1;
@@ -44,16 +44,19 @@ export function StatsGrid({
 }: StatsGridProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           className="mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6 }}
           viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+          }
         >
           <h2 className="mb-4 font-bold text-3xl text-foreground lg:text-4xl">
             {title}
@@ -68,22 +71,42 @@ export function StatsGrid({
         >
           {stats.map((stat, index) => (
             <motion.div
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              animate={(() => {
+                if (shouldReduceMotion) {
+                  return { opacity: 1 };
+                }
+                return isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 };
+              })()}
               className="group relative overflow-hidden rounded-2xl border border-border bg-background p-8 text-center transition-all hover:border-brand hover:shadow-lg"
-              initial={{ opacity: 0, y: 30 }}
+              initial={
+                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 30 }
+              }
               key={stat.label}
-              transition={{ duration: 0.6, delay: index * STAGGER_DELAY }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.6, delay: index * STAGGER_DELAY }
+              }
             >
               <motion.div
-                animate={isInView ? { scale: 1 } : { scale: 0.5 }}
+                animate={(() => {
+                  if (shouldReduceMotion) {
+                    return { scale: 1 };
+                  }
+                  return isInView ? { scale: 1 } : { scale: 0.5 };
+                })()}
                 className="mb-2 font-bold text-4xl text-brand lg:text-5xl"
-                initial={{ scale: 0.5 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                  type: "spring" as const,
-                  stiffness: 200,
-                }}
+                initial={shouldReduceMotion ? { scale: 1 } : { scale: 0.5 }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.8,
+                        delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
+                        type: "spring" as const,
+                        stiffness: 200,
+                      }
+                }
               >
                 {stat.value}
               </motion.div>

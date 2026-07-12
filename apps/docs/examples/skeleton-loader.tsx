@@ -16,7 +16,7 @@ export default function SkeletonLoaderDemo() {
             alt="Surf"
             className="h-40 w-full object-cover"
             height={160}
-            src="https://ik.imagekit.io/16u211libb/smoothui/surf.webp?tr=w-320,h-160"
+            src="/images/figma/bg-5.webp"
             width={320}
           />
           <div className="p-4">

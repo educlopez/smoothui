@@ -1,0 +1,30 @@
+---
+title: Stagger From Edges
+description: Animated React per-character text reveal where characters start from both edges and converge toward the center. Built with Motion for modern product hero typography.
+icon: Type
+dependencies:
+  - motion.dev
+installer: stagger-from-edges
+---
+
+## Features
+
+- Per-character edges-in reveal with subtle blur and upward drift
+- Delay computed by distance from the nearest edge — characters converge to center
+- Directional emphasis for modern product hero systems
+- Configurable delay and per-step stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no blur or movement. The full string is exposed to screen readers via `aria-label`, with the per-character spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/stagger-from-edges/index.tsx"
+  name="StaggerFromEdgesProps"
+/>

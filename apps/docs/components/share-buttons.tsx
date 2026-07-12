@@ -1,6 +1,7 @@
 "use client";
 
-import { Check, Copy, Linkedin, Twitter } from "lucide-react";
+import { IconCheckFill24, IconCopy2Fill24 } from "nucleo-core-fill-24";
+import { IconLinkedin, IconXTwitter } from "nucleo-social-media";
 import { useState } from "react";
 
 interface ShareButtonsProps {
@@ -30,7 +31,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         rel="noopener noreferrer"
         target="_blank"
       >
-        <Twitter className="h-4 w-4" />
+        <IconXTwitter className="h-4 w-4" />
       </a>
       <a
         aria-label="Share on LinkedIn"
@@ -39,7 +40,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         rel="noopener noreferrer"
         target="_blank"
       >
-        <Linkedin className="h-4 w-4" />
+        <IconLinkedin className="h-4 w-4" />
       </a>
       <button
         aria-label="Copy link"
@@ -47,7 +48,11 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
         onClick={copyToClipboard}
         type="button"
       >
-        {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+        {copied ? (
+          <IconCheckFill24 className="h-4 w-4" />
+        ) : (
+          <IconCopy2Fill24 className="h-4 w-4" />
+        )}
       </button>
     </div>
   );

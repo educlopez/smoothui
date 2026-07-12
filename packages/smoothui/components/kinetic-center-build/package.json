@@ -1,0 +1,42 @@
+{
+  "name": "@repo/kinetic-center-build",
+  "description": "A KineticCenterBuild text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "build",
+      "kinetic",
+      "per-word",
+      "center",
+      "apple",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "kinetic-build",
+    "useCases": [
+      "Apple keynote-style word builds for hero headings",
+      "Short three-word editorial phrases with kinetic push",
+      "Centered typography builds for feature highlights"
+    ],
+    "compositionHints": [
+      "Best on 2-4 word phrases; longer phrases may overflow on mobile",
+      "Use large font sizes (48px+) for the push motion to read clearly"
+    ],
+    "hasReducedMotion": true
+  }
+}

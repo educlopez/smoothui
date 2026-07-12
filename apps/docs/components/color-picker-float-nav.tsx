@@ -6,13 +6,24 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import { Button } from "@repo/shadcn-ui/components/ui/button";
-import { Check, CheckCheck, RotateCcw, Save } from "lucide-react";
+import { Button } from "@docs/components/smoothbutton";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  IconArrowRightFill24,
+  IconCheckDoubleFill24,
+  IconCheckFill24,
+  IconCopy2Fill24,
+  IconFloppyDiskFill24,
+  IconRefresh2Fill24,
+} from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
 
 const CLOSE_DELAY = 200;
 const SAVE_MESSAGE_DURATION = 1200;
+const COPY_MESSAGE_DURATION = 1200;
+
+const themeInstallCommand = (paletteName: string) =>
+  `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName.toLowerCase()}.json`;
 
 const PALETTES = [
   {
@@ -54,7 +65,24 @@ export function ColorPickerFloatNav() {
   const pickerRef = useRef<HTMLDivElement>(null);
   const [show, setShow] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [copied, setCopied] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+
+  const selectedPalette = PALETTES.find(
+    (palette) =>
+      palette.candy === candy && palette.candySecondary === candySecondary
+  );
+
+  async function handleCopyInstall() {
+    if (!selectedPalette) {
+      return;
+    }
+    await navigator.clipboard.writeText(
+      themeInstallCommand(selectedPalette.name)
+    );
+    setCopied(true);
+    setTimeout(() => setCopied(false), COPY_MESSAGE_DURATION);
+  }
 
   useEffect(() => {
     const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
@@ -238,7 +266,7 @@ export function ColorPickerFloatNav() {
                           }
                         >
                           <span className="rounded-full bg-white/40 p-0.5">
-                            <Check className="h-4 w-4 text-white" />
+                            <IconCheckFill24 className="h-4 w-4 text-white" />
                           </span>
                         </motion.span>
                       )}
@@ -246,6 +274,27 @@ export function ColorPickerFloatNav() {
                 </motion.button>
               ))}
             </div>
+            {selectedPalette && (
+              <Button
+                aria-label={`Copy install command for the ${selectedPalette.name} theme`}
+                className="w-full font-mono text-xs"
+                onClick={handleCopyInstall}
+                size="sm"
+                type="button"
+                variant="candy"
+              >
+                {copied ? (
+                  <>
+                    <IconCheckDoubleFill24 className="h-3.5 w-3.5" /> Copied!
+                  </>
+                ) : (
+                  <>
+                    <IconCopy2Fill24 className="h-3.5 w-3.5" /> Install{" "}
+                    {selectedPalette.name} theme
+                  </>
+                )}
+              </Button>
+            )}
             <div className="mt-2 flex justify-end gap-2">
               <Button
                 aria-label="Reset to original colors"
@@ -254,7 +303,7 @@ export function ColorPickerFloatNav() {
                 type="button"
                 variant="outline"
               >
-                <RotateCcw className="mr-1 h-4 w-4" />
+                <IconRefresh2Fill24 className="mr-1 h-4 w-4" />
                 Reset
               </Button>
               <Button
@@ -262,18 +311,26 @@ export function ColorPickerFloatNav() {
                 onClick={handleSave}
                 size="sm"
                 type="button"
+                variant="candy"
               >
                 {saved ? (
                   <>
-                    <CheckCheck className="h-4 w-4" /> Saved!
+                    <IconCheckDoubleFill24 className="h-4 w-4" /> Saved!
                   </>
                 ) : (
                   <>
-                    <Save className="h-4 w-4" /> Save
+                    <IconFloppyDiskFill24 className="h-4 w-4" /> Save
                   </>
                 )}
               </Button>
             </div>
+            <a
+              className="mt-3 flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-foreground"
+              href="/themes"
+            >
+              Browse installable themes
+              <IconArrowRightFill24 className="h-3 w-3" />
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

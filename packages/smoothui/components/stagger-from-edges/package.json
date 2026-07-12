@@ -1,0 +1,42 @@
+{
+  "name": "@repo/stagger-from-edges",
+  "description": "A StaggerFromEdges text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "per-character",
+      "edges-in",
+      "stagger",
+      "blur",
+      "entrance",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Modern product hero typography with edge-to-center convergence",
+      "Medium-length word reveal with directional emphasis",
+      "Section heading with converging reveal on scroll"
+    ],
+    "compositionHints": [
+      "Effective for medium word lengths where edge-to-center motion remains readable",
+      "Pair with stagger-from-center for alternating reveal patterns"
+    ],
+    "hasReducedMotion": true
+  }
+}

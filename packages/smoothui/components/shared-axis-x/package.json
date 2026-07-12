@@ -1,0 +1,41 @@
+{
+  "name": "@repo/shared-axis-x",
+  "description": "A SharedAxisX text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "swap",
+      "horizontal",
+      "material",
+      "transition",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "shared-axis",
+    "useCases": [
+      "Rotating hero taglines with horizontal flow",
+      "Feature carousel text with directional continuity",
+      "Sibling page headings with Material-style transitions"
+    ],
+    "compositionHints": [
+      "Pair with horizontal layout shifts for maximum directional coherence",
+      "Use on short phrases under 6 words for cleanest motion"
+    ],
+    "hasReducedMotion": true
+  }
+}

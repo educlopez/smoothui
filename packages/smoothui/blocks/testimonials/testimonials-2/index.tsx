@@ -7,12 +7,13 @@ import {
 } from "@repo/shadcn-ui/components/ui/avatar";
 import { getAvatarUrl, getTestimonials } from "@smoothui/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useEffect, useState } from "react";
 
 const testimonials = getTestimonials(7);
 
 export function TestimonialsGrid() {
+  const shouldReduceMotion = useReducedMotion();
   const [active, setActive] = useState(0);
   const [autoplay] = useState(false);
 
@@ -38,10 +39,16 @@ export function TestimonialsGrid() {
       <div className="min-h-auto bg-muted py-24">
         <div className="container mx-auto w-full max-w-6xl px-6">
           <motion.div
-            animate={{ opacity: 1, y: 0 }}
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className="mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            initial={
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
+            }
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+            }
           >
             {/* Layout: Title on left, Testimonial on right */}
             <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
@@ -61,26 +68,48 @@ export function TestimonialsGrid() {
                 {/* Navigation Arrows - Above the card */}
                 <div className="mb-4 flex justify-center gap-2">
                   <motion.button
-                    animate={{ opacity: 1, x: 0 }}
+                    animate={
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+                    }
+                    aria-label="Previous testimonial"
                     className="group/button flex h-8 w-8 items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
-                    initial={{ opacity: 0, x: -20 }}
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, x: -20 }
+                    }
                     onClick={handlePrev}
-                    transition={{ duration: 0.3, delay: 0.4 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: 0.3, delay: 0.4 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <ChevronLeft className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:-rotate-12" />
                   </motion.button>
                   <motion.button
-                    animate={{ opacity: 1, x: 0 }}
+                    animate={
+                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
+                    }
+                    aria-label="Next testimonial"
                     className="group/button flex h-8 w-8 items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
-                    initial={{ opacity: 0, x: 20 }}
+                    initial={
+                      shouldReduceMotion
+                        ? { opacity: 1 }
+                        : { opacity: 0, x: 20 }
+                    }
                     onClick={handleNext}
-                    transition={{ duration: 0.3, delay: 0.4 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0 }
+                        : { duration: 0.3, delay: 0.4 }
+                    }
                     type="button"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
+                    whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
+                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
                     <ChevronRight className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:rotate-12" />
                   </motion.button>
@@ -89,67 +118,119 @@ export function TestimonialsGrid() {
                   <AnimatePresence>
                     {testimonials.map((testimonial, index) => (
                       <motion.div
-                        animate={{
-                          opacity: isActive(index) ? 1 : 0,
-                          scale: isActive(index) ? 1 : 0.95,
-                          y: isActive(index) ? 0 : 30,
-                        }}
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: isActive(index) ? 1 : 0 }
+                            : {
+                                opacity: isActive(index) ? 1 : 0,
+                                scale: isActive(index) ? 1 : 0.95,
+                                y: isActive(index) ? 0 : 30,
+                              }
+                        }
                         className={`absolute inset-0 min-h-fit ${isActive(index) ? "z-10" : "z-0"}`}
-                        exit={{
-                          opacity: 0,
-                          scale: 0.9,
-                          y: -30,
-                        }}
-                        initial={{
-                          opacity: 0,
-                          scale: 0.9,
-                          y: 30,
-                        }}
+                        exit={
+                          shouldReduceMotion
+                            ? { opacity: 0, transition: { duration: 0 } }
+                            : {
+                                opacity: 0,
+                                scale: 0.9,
+                                y: -30,
+                              }
+                        }
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 0 }
+                            : {
+                                opacity: 0,
+                                scale: 0.9,
+                                y: 30,
+                              }
+                        }
                         key={testimonial.name}
-                        transition={{
-                          duration: 0.4,
-                          ease: "easeInOut",
-                        }}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                duration: 0.4,
+                                ease: "easeInOut",
+                              }
+                        }
                       >
                         <div className="rounded-2xl border bg-background px-6 py-6 shadow-lg transition-all duration-200">
                           <motion.p
-                            animate={{ opacity: 1, y: 0 }}
+                            animate={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 1, y: 0 }
+                            }
                             className="mb-6 text-foreground text-lg"
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 0, y: 10 }
+                            }
                             key={active}
-                            transition={{ duration: 0.3 }}
+                            transition={
+                              shouldReduceMotion
+                                ? { duration: 0 }
+                                : { duration: 0.3 }
+                            }
                           >
                             {(testimonial.content || "")
                               .split(" ")
                               .map((word, wordIndex) => (
                                 <motion.span
-                                  animate={{
-                                    filter: "blur(0px)",
-                                    opacity: 1,
-                                    y: 0,
-                                  }}
+                                  animate={
+                                    shouldReduceMotion
+                                      ? { opacity: 1 }
+                                      : {
+                                          filter: "blur(0px)",
+                                          opacity: 1,
+                                          y: 0,
+                                        }
+                                  }
                                   className="inline-block"
-                                  initial={{
-                                    filter: "blur(4px)",
-                                    opacity: 0,
-                                    y: 5,
-                                  }}
+                                  initial={
+                                    shouldReduceMotion
+                                      ? { opacity: 1 }
+                                      : {
+                                          filter: "blur(4px)",
+                                          opacity: 0,
+                                          y: 5,
+                                        }
+                                  }
                                   key={`${testimonial.name}-word-${wordIndex}`}
-                                  transition={{
-                                    duration: 0.2,
-                                    ease: "easeInOut",
-                                    delay: wordIndex * 0.02,
-                                  }}
+                                  transition={
+                                    shouldReduceMotion
+                                      ? { duration: 0 }
+                                      : {
+                                          duration: 0.2,
+                                          ease: "easeInOut",
+                                          delay: wordIndex * 0.02,
+                                        }
+                                  }
                                 >
                                   {word}&nbsp;
                                 </motion.span>
                               ))}
                           </motion.p>
                           <motion.div
-                            animate={{ opacity: 1, y: 0 }}
+                            animate={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 1, y: 0 }
+                            }
                             className="flex items-center gap-3"
-                            initial={{ opacity: 0, y: 10 }}
-                            transition={{ duration: 0.3, delay: 0.2 }}
+                            initial={
+                              shouldReduceMotion
+                                ? { opacity: 1 }
+                                : { opacity: 0, y: 10 }
+                            }
+                            transition={
+                              shouldReduceMotion
+                                ? { duration: 0 }
+                                : { duration: 0.3, delay: 0.2 }
+                            }
                           >
                             <Avatar className="size-8 border border-transparent shadow ring-1 ring-foreground/10">
                               <AvatarImage

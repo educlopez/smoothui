@@ -1,0 +1,41 @@
+{
+  "name": "@repo/per-word-crossfade",
+  "description": "A PerWordCrossfade text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "fade",
+      "per-word",
+      "entrance",
+      "crossfade",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Calm keynote-style heading reveal",
+      "Section title entrance on scroll",
+      "Medium phrase animated text"
+    ],
+    "compositionHints": [
+      "Best for medium phrases up to 16–18 words",
+      "Pair with SoftBlurIn for mixed granularity"
+    ],
+    "hasReducedMotion": true
+  }
+}

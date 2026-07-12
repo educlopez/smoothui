@@ -249,6 +249,7 @@ export default function InteractiveImageSelector({
                 className={`h-full w-full rounded-lg object-cover ${
                   selected.includes(img.id) && isSelecting ? "opacity-75" : ""
                 }`}
+                draggable={false}
                 height={200}
                 loading="lazy"
                 src={img.src}

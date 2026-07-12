@@ -1,4 +1,5 @@
 import { ArticleSchema } from "@docs/components/article-schema";
+import { PostCover } from "@docs/components/post-cover";
 import { RelatedPosts } from "@docs/components/related-posts";
 import { ShareButtons } from "@docs/components/share-buttons";
 import { createMetadata } from "@docs/lib/metadata";
@@ -43,13 +44,51 @@ export default async function BlogPostPage({ params }: PageProps) {
         title={post.data.title}
         url={post.url}
       />
-      <main className="container max-w-6xl py-12">
+      <script
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: "https://smoothui.dev",
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Blog",
+                item: "https://smoothui.dev/blog",
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: post.data.title,
+                item: `https://smoothui.dev${post.url}`,
+              },
+            ],
+          }),
+        }}
+        type="application/ld+json"
+      />
+      <main className="mx-auto w-full max-w-6xl px-6 py-12">
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
           href="/blog"
         >
           ← Back to Blog
         </Link>
+
+        <PostCover
+          alt={post.data.title}
+          className="mb-8 aspect-[4/1] rounded-2xl border border-border"
+          image={post.data.image as string | undefined}
+          seed={post.url}
+          sizes="(max-width: 1024px) 100vw, 1152px"
+        />
 
         <article>
           <header className="mb-8 border-b pb-8">
@@ -63,7 +102,11 @@ export default async function BlogPostPage({ params }: PageProps) {
                   <img
                     alt={post.data.author as string}
                     className="size-8 rounded-full object-cover"
+                    draggable={false}
+                    height={32}
+                    loading="lazy"
                     src="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631&tr=w-64,h-64,q-85,f-auto"
+                    width={32}
                   />
                   <span className="font-medium text-foreground">
                     {post.data.author as string}

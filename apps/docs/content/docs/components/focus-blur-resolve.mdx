@@ -1,0 +1,65 @@
+---
+title: Focus Blur Resolve
+description: A premium focus pull from heavy blur to crisp text. Whole-text entrance with blur, upward drift, and scale settle — ideal for hero headlines and section titles.
+icon: Type
+dependencies:
+  - motion.dev
+installer: focus-blur-resolve
+---
+
+## Features
+
+- Whole-text entrance that resolves from heavy blur (`14px`) to sharp in a single smooth motion
+- Subtle upward drift (`y: 14`) and scale settle (`scale: 1.01 → 1`) for a cinematic feel
+- Optional `delay` prop to sequence multiple lines
+- `triggerOnView` mode using `useInView` — fires once the element enters the viewport
+- Full `prefers-reduced-motion` support — renders instantly with no blur when motion is reduced
+
+## Usage
+
+```tsx
+import FocusBlurResolve from "@repo/smoothui/components/focus-blur-resolve";
+
+export default function Example() {
+  return (
+    <FocusBlurResolve className="font-bold text-5xl tracking-tight">
+      Clarity from chaos.
+    </FocusBlurResolve>
+  );
+}
+```
+
+## Scroll-triggered
+
+Use `triggerOnView` to play the animation only when the element scrolls into view:
+
+```tsx
+<FocusBlurResolve triggerOnView className="text-3xl font-semibold">
+  Revealed on scroll.
+</FocusBlurResolve>
+```
+
+## Sequenced lines
+
+Use `delay` to stagger multiple text lines:
+
+```tsx
+<FocusBlurResolve className="font-bold text-5xl">
+  Hero headline.
+</FocusBlurResolve>
+<FocusBlurResolve className="text-lg text-muted-foreground" delay={400}>
+  Supporting copy beneath it.
+</FocusBlurResolve>
+```
+
+## Accessibility
+
+### Reduced Motion
+
+`FocusBlurResolve` calls `useReducedMotion()` from `motion/react`. When the user has enabled **Reduce Motion** in their OS settings, the component renders at full opacity with no blur, scale, or movement — no animation plays. The transition duration is set to `0` so the change is instant.
+
+The outer `<span>` carries an `aria-label` equal to `children`, and the animated inner `<motion.span>` is marked `aria-hidden="true"`, so screen readers announce the text exactly once.
+
+## Props
+
+<AutoTypeTable path="../../packages/smoothui/components/focus-blur-resolve/index.tsx" name="FocusBlurResolveProps" />

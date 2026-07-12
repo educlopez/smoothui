@@ -1,3 +1,4 @@
+import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { BodyText } from "@docs/components/body-text";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
@@ -44,6 +45,11 @@ export const revalidate = false;
 const AutoTypeTableWithGenerator = (
   props: React.ComponentProps<typeof AutoTypeTable>
 ) => <AutoTypeTable {...props} generator={typeGenerator} />;
+
+// Renders BodyText as div to avoid <p>-in-<p> hydration errors when MDX wraps content in <p>
+const BodyTextAsDiv = (props: React.ComponentProps<typeof BodyText>) => (
+  <BodyText as="div" {...props} />
+);
 
 export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const params = await props.params;
@@ -147,7 +153,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
       <DocsPage
         className="max-w-[75rem]"
-        full={page.data.full ?? page.slugs.includes("blocks")}
+        full={page.data.full ?? false}
         tableOfContent={{
           style: "clerk",
           footer: footerContent,
@@ -165,12 +171,18 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             markdownUrl={`${page.url}.mdx`}
           />
           {registryUrl && <OpenInV0Button url={registryUrl} />}
-          {componentName && <BundleSizeBadge slug={componentName} />}
-          {lastModified && (
-            <LastModified
-              className="order-last w-full pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0"
-              lastModified={lastModified}
+          {page.data.installer && (
+            <AddToKitButton
+              size="sm"
+              slug={page.data.installer}
+              title={page.data.title}
             />
+          )}
+          {(componentName || lastModified) && (
+            <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
+              {componentName && <BundleSizeBadge slug={componentName} />}
+              {lastModified && <LastModified lastModified={lastModified} />}
+            </div>
           )}
         </div>
         <DocsBody>
@@ -178,7 +190,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             <>
               <Preview path={page.data.installer} type={type} />
               <h2 id="installation">Installation</h2>
-              <Installer packageName={page.data.installer} />
+              <Installer addToKit={false} packageName={page.data.installer} />
             </>
           )}
           <MDX
@@ -201,7 +213,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
               PoweredBy,
               Reference,
               Contributor,
-              BodyText,
+              BodyText: BodyTextAsDiv,
               FeatureCard,
               FeatureCardHover,
               Divider,
@@ -228,9 +240,18 @@ export async function generateMetadata(
       title: "Not Found",
     });
 
+  // Per-page fallback so pages without a frontmatter description don't all share
+  // one generic (thin/duplicate) meta description.
+  const section = slug[0];
+  const kind =
+    section === "blocks"
+      ? "block"
+      : section === "guides"
+        ? "guide"
+        : "component";
   const description =
     page.data.description ??
-    "Beautiful React components with smooth animations";
+    `${page.data.title} — an animated React ${kind} for shadcn/ui, built with Motion and Tailwind CSS. Copy, paste, and ship.`;
 
   const image = {
     url: getPageImage(page).url,

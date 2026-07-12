@@ -11,7 +11,7 @@
 
 @theme inline {
   --font-body: var(--font-inter);
-  --font-title: var(--font-poppins);
+  --font-title: var(--font-plus-jakarta-sans);
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme);
   --shiki--dark: var(--shiki-theme);
@@ -36,6 +36,13 @@
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand);
   --color-fd-secondary: var(--color-smooth-50);
+  /* Motion spine — match .cursor/rules/animations.mdc. Exit ~75% of enter;
+     always honor prefers-reduced-motion. See .ui-craft/tokens.md. */
+  --duration-fast: 0.15s;
+  --duration-normal: 0.25s;
+  --duration-slow: 0.4s;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .dark {
@@ -56,10 +63,12 @@
     border-color: var(--color-gray-200, currentColor);
   }
   * {
+    scrollbar-color: gray transparent;
+    scrollbar-width: thin;
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
   }
 
   .dark {
@@ -88,6 +97,16 @@
 }
 .hover\:gradient-brand:hover {
   @apply from-brand-secondary to-brand bg-gradient-to-bl;
+}
+
+/* Nucleo duo-tone: color-2 inherits parent icon color at reduced opacity */
+[data-color="color-2"] {
+  color: color-mix(in oklch, currentColor 25%, transparent);
+}
+
+/* Active sidebar items: color-2 uses brand tint */
+[data-active="true"] [data-color="color-2"] {
+  color: color-mix(in oklch, var(--color-brand) 35%, transparent);
 }
 
 .shadow-custom-btgray {
@@ -128,7 +147,7 @@
 }
 
 .frame-box {
-  @apply bg-primary inset-ring-background border inset-ring-2 before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
+  @apply bg-primary inset-ring-background border inset-ring-2 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
 }
 
 /* Price Flow Animations */
@@ -199,22 +218,22 @@
   @apply font-semibold text-foreground tracking-tight;
 }
 .prose :where(h1):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply -tracking-wide font-bold text-3xl;
+  @apply font-extrabold text-4xl leading-tight;
 }
 .prose :where(h2):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-lg;
+  @apply font-bold text-2xl leading-tight;
 }
 .prose :where(h3):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-base;
+  @apply font-semibold text-xl leading-tight;
 }
 .prose :where(h4):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-sm;
+  @apply font-semibold text-lg leading-tight;
 }
 .prose :where(h5):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-semibold text-xs;
+  @apply font-semibold text-base;
 }
 .prose :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply font-medium text-xs;
+  @apply font-semibold text-sm;
 }
 .prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply text-base;
@@ -252,4 +271,136 @@
 
 .animate-accordion-up {
   animation: accordion-up 0.2s ease-out;
+}
+
+/* Center the docs content column within its (full-width) grid track,
+   mirroring ElevenLabs' `w-content-width mx-auto` article. */
+#nd-page {
+  width: 100%;
+  max-width: calc(900px + 2 * 2rem);
+  margin-inline: auto;
+}
+
+/* Full pages (no TOC) stretch to the whole main track; also lift the
+   *:max-w-[1285px] child cap fumadocs applies in full mode. Unlayered
+   rules win over the layered utilities. */
+#nd-page[data-full="true"] {
+  max-width: none;
+}
+
+#nd-page[data-full="true"] > * {
+  max-width: none;
+}
+
+/* Docs headings use the title font (Plus Jakarta Sans). */
+#nd-page :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-title);
+}
+
+/* Override fumadocs utility classes on headings — unlayered beats @layer utilities */
+#nd-page h1 {
+  font-size: var(--text-4xl);
+  font-weight: 800;
+  line-height: var(--leading-tight);
+}
+#nd-page h2 {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: var(--leading-tight);
+}
+#nd-page h3 {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+#nd-page h4 {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+#nd-page h5 {
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+#nd-page h6 {
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+/* ElevenLabs-style docs chrome: clean white surfaces + hairline borders,
+   built from our own tokens (no hardcoded colors). */
+#nd-notebook-layout,
+#nd-sidebar {
+  --fd-sidebar-width: 240px;
+}
+
+/* The fumadocs notebook container sets grid-template via inline style using
+   `calc(var(--fd-layout-width,97rem) - sidebar - toc)` for the main track.
+   Percentage values in CSS vars don't resolve against the grid container's
+   inline size (circular), so the outer 1fr gutter columns end up non-zero
+   even with --fd-layout-width:100%. Override the column template directly
+   to collapse them to 0px.
+
+   Mobile: sidebar is max-md:hidden but with collapsible:false collapsed=false
+   always, so --fd-sidebar-col stays at 240px. Force column 2 to 0px on mobile
+   so the hidden sidebar doesn't occupy grid space. */
+@media (max-width: 767px) {
+  #nd-notebook-layout {
+    grid-template-columns: 0px 0px 1fr 0px 0px !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 1279px) {
+  #nd-notebook-layout {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr var(--fd-toc-width) 0px !important;
+  }
+
+  #nd-notebook-layout:has(#nd-page[data-full="true"]) {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
+  }
+}
+
+/* At xl+, always reserve 268px for the toc column so content width is identical
+   on pages with and without a TOC. --fd-toc-width on #nd-notebook-layout itself
+   is overridden by the [--fd-toc-width:0px] utility class on the same element,
+   so hardcode the column value directly instead of relying on the variable.
+   Exception: full pages (no TOC by design, e.g. the components gallery)
+   collapse the toc column and let the main track take the whole width. */
+@media (min-width: 1280px) {
+  #nd-notebook-layout {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 240px 0px !important;
+  }
+
+  #nd-notebook-layout:has(#nd-page[data-full="true"]) {
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
+  }
+}
+
+/* Top nav: solid surface instead of the translucent gray. The inner
+   tabs row already carries its own border-b, so no border here. */
+#nd-subnav {
+  background-color: var(--color-background);
+}
+
+/* Sidebar: hairline separator from the content column. */
+#nd-sidebar {
+  border-inline-end: 1px solid var(--color-border);
+}
+
+/* Match TOC column width to sidebar (fumadocs default 268px → 240px).
+   xl:layout:[--fd-toc-width:268px] sets it on #nd-notebook-layout via :has();
+   this unlayered rule wins over @layer utilities. */
+#nd-notebook-layout {
+  --fd-toc-width: 240px;
+}
+
+/* Three sources of top gap in the sidebar when navMode="top" + collapsible=false:
+   1. Header div (p-4 pb-2) has no visible content → collapse it
+   2. ScrollViewport inner div has p-4 top padding → remove it
+   3. Hidden lg:hidden menu items precede the first separator so first:mt-0 never
+      fires and the separator keeps mt-6; pt-0 on the viewport absorbs that. */
+#nd-sidebar > div:first-child {
+  padding-block: 0 !important;
+}
+#nd-sidebar [data-radix-scroll-area-viewport] > div {
+  padding-top: 0 !important;
 }

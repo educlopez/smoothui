@@ -1,0 +1,29 @@
+---
+title: Top Down Letters
+description: Animated React per-character text reveal where letters descend from above in a pronounced staircase, one symbol at a time, with zero blur. The top-down counterpart to Bottom Up Letters, built with Motion.
+icon: Type
+dependencies:
+  - motion.dev
+installer: top-down-letters
+---
+
+## Features
+
+- Per-character top-down staircase reveal with zero blur
+- Pronounced staging at 88ms stagger for deliberate, one-letter-at-a-time rhythm
+- Configurable delay and per-character stagger
+- Optional scroll-trigger via `triggerOnView`
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders immediately at full opacity with no movement. The full string is exposed to screen readers via `aria-label`, with the per-character spans `aria-hidden`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/top-down-letters/index.tsx"
+  name="TopDownLettersProps"
+/>

@@ -1,0 +1,26 @@
+---
+title: Warped Circle Transition
+description: A wavy perimeter circle reveal inspired by the Codrops circle warping step.
+icon: CircleDot
+dependencies:
+  - motion.dev
+installer: warped-circle-transition
+---
+
+## Features
+
+- Persistent WebGL transition wrapper triggered by a `transitionKey`
+- Replicates the “Warped Circle” stage from the Codrops shader progression
+- Uses the shared SmoothUI SDF transition engine with reduced-motion fallback
+- Accessible: semantic content stays in the DOM and `onRest` still fires
+
+## Usage guidance
+
+Use it for meaningful route/state transitions where this shader grammar fits the product moment.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/warped-circle-transition/index.tsx"
+  name="WarpedCircleTransitionProps"
+/>

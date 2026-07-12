@@ -1,0 +1,29 @@
+---
+title: Kinetic Center Build
+description: Apple keynote-style word-by-word build — each new word enters from the right and pushes the line until the full phrase locks centered.
+icon: Type
+dependencies:
+  - motion.dev
+installer: kinetic-center-build
+---
+
+## Features
+
+- Word-by-word build with right-to-left entry and push reflow
+- Layout-animated centering as words are added
+- Soft blur entry and clean blur exit per word
+- Respects `prefers-reduced-motion`
+- Announces updates via `aria-live="polite"`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the full phrase appears at once and swaps instantly. The current phrase is announced via `aria-live="polite"`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/kinetic-center-build/index.tsx"
+  name="KineticCenterBuildProps"
+/>

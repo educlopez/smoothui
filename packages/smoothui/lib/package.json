@@ -1,0 +1,10 @@
+{
+  "name": "@repo/smoothui-lib",
+  "description": "Shared animation constants (springs, easing curves, durations) for SmoothUI components",
+  "version": "0.0.0",
+  "private": true,
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.9.3"
+  }
+}

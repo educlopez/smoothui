@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "motion/react";
+import { motion, useReducedMotion, type Variants } from "motion/react";
 import React, { type ReactNode } from "react";
 
 export type PresetType =
@@ -95,6 +95,16 @@ const presetVariants: Record<PresetType, Variants> = {
   },
 };
 
+const reducedContainerVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: { opacity: 1, transition: { staggerChildren: 0 } },
+};
+
+const reducedItemVariants: Variants = {
+  hidden: { opacity: 1 },
+  visible: { opacity: 1 },
+};
+
 const addDefaultVariants = (variants: Variants) => ({
   hidden: { ...defaultItemVariants.hidden, ...variants.hidden },
   visible: { ...defaultItemVariants.visible, ...variants.visible },
@@ -108,12 +118,18 @@ function AnimatedGroup({
   as = "div",
   asChild = "div",
 }: AnimatedGroupProps) {
+  const shouldReduceMotion = useReducedMotion();
+
   const selectedVariants = {
     item: addDefaultVariants(preset ? presetVariants[preset] : {}),
     container: addDefaultVariants(defaultContainerVariants),
   };
-  const containerVariants = variants?.container || selectedVariants.container;
-  const itemVariants = variants?.item || selectedVariants.item;
+  const containerVariants = shouldReduceMotion
+    ? reducedContainerVariants
+    : (variants?.container ?? selectedVariants.container);
+  const itemVariants = shouldReduceMotion
+    ? reducedItemVariants
+    : (variants?.item ?? selectedVariants.item);
 
   const MotionComponent = motion(as);
 

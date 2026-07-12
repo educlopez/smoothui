@@ -1,12 +1,13 @@
 "use client";
 
+import { useUiSound } from "@docs/components/sound-provider";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@repo/shadcn-ui/components/ui/resizable";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import type { ReactNode } from "react";
+import type { MouseEvent as ReactMouseEvent, ReactNode } from "react";
 import { useEffect, useMemo, useRef, useState } from "react";
 // biome-ignore lint/style/useImportType: used as generic type parameter only
 import { type PanelImperativeHandle } from "react-resizable-panels";
@@ -20,15 +21,17 @@ interface PreviewContentProps {
 
 export type PreviewSize = "desktop" | "tablet" | "mobile";
 
-const SIZE_TO_PERCENT: Record<PreviewSize, number> = {
-  desktop: 100,
-  tablet: 60,
-  mobile: 30,
+// react-resizable-panels v4 reads bare numbers as pixels — percentages must
+// be passed as "%" strings or the panel constraints collapse and lock.
+const SIZE_TO_PERCENT: Record<PreviewSize, string> = {
+  desktop: "100%",
+  tablet: "60%",
+  mobile: "30%",
 };
 
 const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
-const COMPONENT_PANEL_MIN_SIZE = 40;
-const BLOCK_PANEL_MIN_SIZE = 30;
+const COMPONENT_PANEL_MIN_SIZE = "40%";
+const BLOCK_PANEL_MIN_SIZE = "30%";
 const IFRAME_MIN_HEIGHT_REM = 32;
 const REM_IN_PX = 16;
 const BLOCK_PREVIEW_MIN_HEIGHT_PX = BLOCK_PREVIEW_MIN_HEIGHT_REM * REM_IN_PX;
@@ -149,6 +152,20 @@ export const PreviewContent = ({
     return `/blocks/preview/${blockPath}`;
   }, [blockPath, type]);
 
+  // Delegated UI sound: a subtle tap on any interactive click inside a live
+  // component demo, gated by the global sound preference (off by default).
+  const playTap = useUiSound("/sounds/button.wav", 0.3);
+  const handleDemoClick = (event: ReactMouseEvent<HTMLDivElement>) => {
+    const target = event.target as HTMLElement;
+    if (
+      target.closest(
+        'button,[role="button"],a[href],label,[data-slot="button"],input[type="checkbox"],input[type="radio"]'
+      )
+    ) {
+      playTap();
+    }
+  };
+
   return (
     <div
       className={cn(
@@ -183,8 +200,8 @@ export const PreviewContent = ({
                   `min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
                 )
           )}
-          defaultSize={100}
-          maxSize={100}
+          defaultSize="100%"
+          maxSize="100%"
           minSize={
             type === "block" ? BLOCK_PANEL_MIN_SIZE : COMPONENT_PANEL_MIN_SIZE
           }
@@ -208,18 +225,18 @@ export const PreviewContent = ({
               title={`${blockPath ?? "block"} preview`}
             />
           ) : (
-            children
+            // biome-ignore lint/a11y/useKeyWithClickEvents: passive sound cue only
+            <div className="contents" onClickCapture={handleDemoClick}>
+              {children}
+            </div>
           )}
         </ResizablePanel>
-        <ResizableHandle
-          className="peer-data-[panel-size=100.0]:w-0"
-          withHandle
-        />
+        <ResizableHandle withHandle />
         <ResizablePanel
           className={cn("bg-background", "border-none")}
-          defaultSize={0}
-          maxSize={70}
-          minSize={0}
+          defaultSize="0%"
+          maxSize="70%"
+          minSize="0%"
         />
       </ResizablePanelGroup>
     </div>

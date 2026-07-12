@@ -1,7 +1,7 @@
 "use client";
 
 import { DollarSign, Smartphone, Star, Users } from "lucide-react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView, useReducedMotion } from "motion/react";
 import React, { useRef } from "react";
 
 const STAGGER_DELAY = 0.1;
@@ -67,16 +67,19 @@ export function StatsCards({
 }: StatsCardsProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="py-20">
       <div className="mx-auto max-w-7xl px-6">
         <motion.div
           className="mb-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
+          transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.6 }}
           viewport={{ once: true }}
-          whileInView={{ opacity: 1, y: 0 }}
+          whileInView={
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
+          }
         >
           <h2 className="mb-4 font-bold text-3xl text-foreground lg:text-4xl">
             {title}
@@ -92,36 +95,58 @@ export function StatsCards({
         >
           {stats.map((stat, index) => (
             <motion.div
-              animate={
-                isInView
+              animate={(() => {
+                if (shouldReduceMotion) {
+                  return { opacity: 1 };
+                }
+                return isInView
                   ? { opacity: 1, y: 0, scale: 1 }
+                  : { opacity: 0, y: 30, scale: 0.9 };
+              })()}
+              className="group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-background to-background/50 p-6 transition-all hover:scale-105 hover:border-brand hover:shadow-xl"
+              initial={
+                shouldReduceMotion
+                  ? { opacity: 1 }
                   : { opacity: 0, y: 30, scale: 0.9 }
               }
-              className="group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-background to-background/50 p-6 transition-all hover:scale-105 hover:border-brand hover:shadow-xl"
-              initial={{ opacity: 0, y: 30, scale: 0.9 }}
               key={stat.label}
-              transition={{
-                duration: 0.6,
-                delay: index * STAGGER_DELAY,
-                type: "spring" as const,
-                stiffness: 100,
-              }}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : {
+                      duration: 0.6,
+                      delay: index * STAGGER_DELAY,
+                      type: "spring" as const,
+                      stiffness: 100,
+                    }
+              }
             >
               {/* Icon */}
               <motion.div
-                animate={
-                  isInView
+                animate={(() => {
+                  if (shouldReduceMotion) {
+                    return { rotate: 0, scale: 1 };
+                  }
+                  return isInView
+                    ? { rotate: 0, scale: 1 }
+                    : { rotate: -10, scale: 0.8 };
+                })()}
+                className="mb-4 text-3xl"
+                initial={
+                  shouldReduceMotion
                     ? { rotate: 0, scale: 1 }
                     : { rotate: -10, scale: 0.8 }
                 }
-                className="mb-4 text-3xl"
-                initial={{ rotate: -10, scale: 0.8 }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * STAGGER_DELAY + ICON_STAGGER_OFFSET,
-                  type: "spring" as const,
-                  stiffness: 200,
-                }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.6,
+                        delay: index * STAGGER_DELAY + ICON_STAGGER_OFFSET,
+                        type: "spring" as const,
+                        stiffness: 200,
+                      }
+                }
               >
                 {React.createElement(
                   iconMap[stat.icon as keyof typeof iconMap] || DollarSign,
@@ -133,15 +158,24 @@ export function StatsCards({
 
               {/* Value */}
               <motion.div
-                animate={isInView ? { scale: 1 } : { scale: 0.5 }}
+                animate={(() => {
+                  if (shouldReduceMotion) {
+                    return { scale: 1 };
+                  }
+                  return isInView ? { scale: 1 } : { scale: 0.5 };
+                })()}
                 className="mb-1 font-bold text-2xl text-foreground lg:text-3xl"
-                initial={{ scale: 0.5 }}
-                transition={{
-                  duration: 0.8,
-                  delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                  type: "spring" as const,
-                  stiffness: 200,
-                }}
+                initial={shouldReduceMotion ? { scale: 1 } : { scale: 0.5 }}
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : {
+                        duration: 0.8,
+                        delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
+                        type: "spring" as const,
+                        stiffness: 200,
+                      }
+                }
               >
                 {stat.value}
               </motion.div>
@@ -161,19 +195,30 @@ export function StatsCards({
               {/* Trend */}
               {stat.trend && (
                 <motion.div
-                  animate={
-                    isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }
-                  }
+                  animate={(() => {
+                    if (shouldReduceMotion) {
+                      return { opacity: 1 };
+                    }
+                    return isInView
+                      ? { opacity: 1, x: 0 }
+                      : { opacity: 0, x: -10 };
+                  })()}
                   className={`inline-flex items-center rounded-full px-2 py-1 font-medium text-xs ${
                     stat.trend.direction === "up"
                       ? "bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-400"
                       : "bg-red-100 text-red-800 dark:bg-red-900/20 dark:text-red-400"
                   }`}
-                  initial={{ opacity: 0, x: -10 }}
-                  transition={{
-                    duration: 0.4,
-                    delay: index * STAGGER_DELAY + TREND_STAGGER_OFFSET,
-                  }}
+                  initial={
+                    shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: -10 }
+                  }
+                  transition={
+                    shouldReduceMotion
+                      ? { duration: 0 }
+                      : {
+                          duration: 0.4,
+                          delay: index * STAGGER_DELAY + TREND_STAGGER_OFFSET,
+                        }
+                  }
                 >
                   <span className="mr-1">
                     {stat.trend.direction === "up" ? "↗" : "↘"}

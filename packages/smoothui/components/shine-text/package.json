@@ -1,0 +1,41 @@
+{
+  "name": "@repo/shine-text",
+  "description": "A ShineText light-sweep text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "shine",
+      "shimmer",
+      "gradient",
+      "loop",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "ease",
+    "useCases": [
+      "Metallic shine sweep across a headline",
+      "Subtle attention loop on a label or badge",
+      "Premium gradient highlight on hero copy"
+    ],
+    "compositionHints": [
+      "Use on short headings or labels",
+      "Pair muted base with foreground shine for contrast"
+    ],
+    "hasReducedMotion": true
+  }
+}

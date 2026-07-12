@@ -1,0 +1,29 @@
+---
+title: Shine Text
+description: Animated React text with a metallic light sweep gliding across the letters on a loop, built with Motion and a clipped moving gradient.
+icon: Type
+dependencies:
+  - motion.dev
+installer: shine-text
+---
+
+## Features
+
+- A bright highlight band sweeps across the text on a continuous loop
+- Clipped moving gradient (`background-clip: text`) — works on any string
+- Configurable `duration`, `repeatDelay`, `baseColor`, and `shineColor`
+- Theme-aware defaults (muted base, foreground shine)
+- Accessible: respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the text renders statically in `baseColor` with no sweeping gradient.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/shine-text/index.tsx"
+  name="ShineTextProps"
+/>

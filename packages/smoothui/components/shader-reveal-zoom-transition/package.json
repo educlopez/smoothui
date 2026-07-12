@@ -1,0 +1,29 @@
+{
+  "name": "@repo/shader-reveal-zoom-transition",
+  "description": "Demo 2 adaptation: vertical-progress zoom mix translated into a UI frame transition.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shader-reveal-transition": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "transitions",
+    "tags": [
+      "transition",
+      "webgl",
+      "shader",
+      "state-change"
+    ],
+    "complexity": "advanced",
+    "animationType": "tween",
+    "hasReducedMotion": true
+  }
+}

@@ -1,0 +1,35 @@
+---
+title: Prism Sweep Transition
+description: Premium React transition wrapper that swaps content under a custom faceted WebGL prism field — frame-level, persistent, and reduced-motion friendly.
+icon: Sparkles
+dependencies:
+  - motion.dev
+installer: prism-sweep-transition
+---
+
+## Features
+
+- Route/state transition wrapper triggered by a `transitionKey`
+- Custom faceted prism field rendered over the whole component frame with a persistent WebGL shader controller
+- Swaps the new content at the shader midpoint so the reveal lands under the crest
+- Direction controls for product-specific motion language
+- Accessible: honors `prefers-reduced-motion` and keeps semantic content in the DOM
+
+## Why it is different
+
+Product UI needs control, restraint, and graceful failure. Prism Sweep Transition uses a SmoothUI-specific faceted caustic shader, swaps content under the field crest, and contains the canvas inside the component frame instead of taking over the whole app.
+
+Use it sparingly for meaningful state changes: publishing, checkout completion, presentation mode changes, or section-level navigation. Avoid triggering it on passive interactions like hover, dropdowns, or every internal link.
+
+## Accessibility
+
+### Reduced Motion
+
+The component uses `useReducedMotion` from Motion. When reduced motion is preferred, content swaps immediately, the sweep is skipped, and `onRest` still fires so application logic stays consistent.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/prism-sweep-transition/index.tsx"
+  name="PrismSweepTransitionProps"
+/>
