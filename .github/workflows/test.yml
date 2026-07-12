@@ -10,6 +10,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# nucleo-core-fill-24 runs a license-check preinstall (allowlisted in
+# pnpm-workspace.yaml allowBuilds) that fails without this key.
+env:
+  NUCLEO_LICENSE_KEY: ${{ secrets.NUCLEO_LICENSE_KEY }}
+
 jobs:
   lockfile-audit:
     name: Lockfile Audit
