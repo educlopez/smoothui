@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.5.1](https://github.com/educlopez/smoothui/compare/v3.5.0...v3.5.1) (2026-07-12)
+
+
+### Bug Fixes
+
+* **smoothui:** annotate createStubGl return type to avoid non-portable inference (TS2742) ([a395d5b](https://github.com/educlopez/smoothui/commit/a395d5b704651ac73ebc5a0de5eb0e65bb5d2923))
+
 ## [3.5.0](https://github.com/educlopez/smoothui/compare/v3.4.1...v3.5.0) (2026-07-12)
 
 
