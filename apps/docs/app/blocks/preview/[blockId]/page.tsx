@@ -25,6 +25,10 @@ export default async function BlockPreviewPage({ params }: PageProps) {
       (mod) => mod.default
     );
 
+    if (typeof BlockExample !== "function") {
+      notFound();
+    }
+
     return (
       <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">
         <ColorSync />
