@@ -1,5 +1,5 @@
 import { act } from "@testing-library/react";
-import { vi } from "vitest";
+import { type Mock, vi } from "vitest";
 
 /**
  * Shared jsdom stubs for the WebGL shader-transition components.
@@ -28,7 +28,7 @@ const GL_CONSTANTS = {
   VERTEX_SHADER: 35_633,
 } as const;
 
-const createStubGl = () =>
+const createStubGl = (): Record<string, Mock | number> =>
   ({
     ...GL_CONSTANTS,
     attachShader: vi.fn(),
