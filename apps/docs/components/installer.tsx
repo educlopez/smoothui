@@ -1,11 +1,11 @@
 "use client";
 
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
+import { useInstallCli } from "@docs/hooks/use-install-cli";
 import { usePackageManager } from "@docs/hooks/use-package-manager";
 import { prettify } from "@docs/lib/kit-context";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
-import { useState } from "react";
 
 interface InstallerProps {
   /** Show the "Add to bundle" button (default true). */
@@ -13,7 +13,7 @@ interface InstallerProps {
   packageName: string;
 }
 
-const SmoothUIIcon = () => (
+export const SmoothUIIcon = () => (
   <svg
     className="size-4"
     fill="currentColor"
@@ -24,7 +24,7 @@ const SmoothUIIcon = () => (
   </svg>
 );
 
-const ShadcnIcon = () => (
+export const ShadcnIcon = () => (
   <svg
     className="size-4"
     viewBox="0 0 256 256"
@@ -147,7 +147,9 @@ const packageManagers = [
 type PackageManager = (typeof packageManagers)[number]["id"];
 
 export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
-  const [activeTab, setActiveTab] = useState<"smoothui" | "shadcn">("smoothui");
+  // Shared with each block's toolbar rather than local: both are answering
+  // "how do I install this", and they should not disagree.
+  const [activeTab, setActiveTab] = useInstallCli();
   const [activePm, setActivePm] = usePackageManager();
 
   const smoothuiCommand = `npx smoothui-cli add ${packageName}`;

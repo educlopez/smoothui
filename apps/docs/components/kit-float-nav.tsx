@@ -11,6 +11,7 @@ import { STARTER_KITS } from "@docs/lib/starter-kits";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
 import { track } from "@vercel/analytics";
+import { Package, PackageOpen } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconChartBarTrendUpFill24,
@@ -162,7 +163,9 @@ export function KitFloatNav() {
         ref={triggerRef}
         type="button"
       >
-        <IconLayersFill24 size={20} />
+        {/* A box, matching the "add to bundle" button on every preview:
+            you fill a package, you do not stack layers. */}
+        <Package aria-hidden="true" size={19} />
         <span className="hidden font-medium text-sm sm:inline">Bundle</span>
         {count > 0 && (
           <span className="grid min-w-5 place-items-center rounded-full bg-brand px-1.5 py-0.5 font-semibold text-[11px] text-white">
@@ -358,7 +361,10 @@ export function KitFloatNav() {
                               />
                             </svg>
                             <div className="relative flex size-14 items-center justify-center rounded-xl border border-border bg-background text-foreground shadow-sm">
-                              <IconLayersFill24 className="size-6" />
+                              <PackageOpen
+                                aria-hidden="true"
+                                className="size-6"
+                              />
                             </div>
                           </div>
                           <h3 className="mt-3 font-semibold text-foreground text-sm">

@@ -1,4 +1,5 @@
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
+import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import { BodyText } from "@docs/components/body-text";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
@@ -63,6 +64,20 @@ const BodyTextAsDiv = (props: React.ComponentProps<typeof BodyText>) => (
   <BodyText as="div" {...props} />
 );
 
+// The file tree for one demo, keyed by where each file lands after installing —
+// the registry writes every package to `components/smoothui/<name>/`. The demo
+// itself is not installed anywhere; it is the usage example, so it sits at the
+// root of the tree.
+const toPreviewFiles = (data: Awaited<ReturnType<typeof loadPreview>>) => [
+  { code: data.parsedCode, path: "demo.tsx" },
+  ...data.sourceComponents.map((component) => ({
+    code: component.source
+      .replace(SHADCN_SOURCE_IMPORT, "@/")
+      .replace(REPO_SOURCE_IMPORT, "@/components/smoothui/"),
+    path: component.target,
+  })),
+];
+
 export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const params = await props.params;
   const page = source.getPage(params.slug);
@@ -76,23 +91,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // Access lastModified from page data (available when lastModifiedTime: 'git' is enabled)
   const lastModified = (page.data as { lastModified?: number }).lastModified;
 
-  const updatedToc: TableOfContents = [
-    {
-      title: "Installation",
-      url: "#installation",
-      depth: 2,
-    },
-    ...page.data.toc,
-  ];
-
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
   const isComponentOrBlock =
     page.data.info.path.startsWith("components") ||
     page.data.info.path.startsWith("blocks");
 
-  // Get the component/block name from the last slug (skip index pages)
+  // Get the component name from the last slug (skip index pages).
+  //
+  // Block pages are excluded on purpose: a page like `blocks/hero` documents
+  // five packages and is not one itself, so `/r/hero.json` 500s and the bundle
+  // size 404s. Everything that identifies a single package — Open in v0, the
+  // bundle badge, the registry URL — belongs on each block's own toolbar.
   const componentName =
-    isComponentOrBlock && page.slugs.length > 1
+    isComponentOrBlock && type !== "block" && page.slugs.length > 1
       ? (page.slugs.at(-1) ?? null)
       : null;
   const registryUrl = componentName
@@ -144,15 +155,41 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     };
   }
 
-  // Split is the default for component pages: one component, one stage. Block
-  // pages document several blocks at once and have no single `installer`, so they
-  // keep the stacked layout unless a page opts in with `splitPreview: true`.
+  // Split is the default for component pages: one component, one stage. A block
+  // page documents several blocks at once, so it stays stacked — each preview
+  // full width under the section that describes it, with its own controls.
   const installer = page.data.installer;
   const isSplit = Boolean(
     installer && (page.data.splitPreview ?? type === "component")
   );
+
   const previewData =
     isSplit && installer ? await loadPreview({ path: installer, type }) : null;
+
+  // Blocks are full-width page sections. Capping the article at 1200px showed
+  // every hero at a width nobody ships one at, which is the whole reason to be
+  // looking at a preview.
+  //
+  // `min-w-0` is not cosmetic: the article is a grid item, so it defaults to
+  // `min-width: auto` and sizes itself to its widest content. One long Tailwind
+  // class string in a source file stretched it to ~3900px, which pushed the
+  // preview column off screen instead of scrolling inside the code pane.
+  let contentWidth = "min-w-0";
+  if (!isSplit) {
+    contentWidth =
+      type === "block" ? "min-w-0 max-w-none" : "min-w-0 max-w-[75rem]";
+  }
+
+  // The install section is injected by the layout, not written in the MDX, so it
+  // is missing from the generated table of contents. Only add the entry where
+  // the anchor actually exists — block pages install per block, from each
+  // preview's own toolbar.
+  const updatedToc: TableOfContents = installer
+    ? [
+        { depth: 2, title: "Installation", url: "#installation" },
+        ...page.data.toc,
+      ]
+    : page.data.toc;
 
   const hasDependencies =
     Array.isArray(dependencies) && dependencies.length > 0;
@@ -274,7 +311,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <>
       <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
       <DocsPage
-        className={isSplit ? undefined : "max-w-[75rem]"}
+        className={contentWidth}
         // Split pages render their own prev/next at the end of the reading
         // column; Fumadocs' full-width one underneath would be the same links
         // twice.
@@ -286,21 +323,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         }}
         toc={updatedToc}
       >
-        {isSplit && previewData && installer ? (
+        {isSplit && previewData ? (
           <DocsBody>
             <SplitDocsChrome />
             <SplitPreviewShell
-              files={[
-                // Named for what it is: the component\'s own file is in the list too,
-                // and two tabs called siri-orb.tsx helped nobody.
-                { code: previewData.parsedCode, name: "demo.tsx" },
-                ...previewData.sourceComponents.map((component) => ({
-                  code: component.source
-                    .replace(SHADCN_SOURCE_IMPORT, "@/")
-                    .replace(REPO_SOURCE_IMPORT, "@/components/smoothui/"),
-                  name: `${component.name}.tsx`,
-                })),
-              ]}
+              files={previewData ? toPreviewFiles(previewData) : []}
               nav={
                 <DocsBreadcrumb
                   section={sectionNav.title}
@@ -308,9 +335,9 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 />
               }
               popOutHref={
-                type === "block"
-                  ? `/blocks/preview/${installer}`
-                  : `/preview/${installer}`
+                installer
+                  ? `${type === "block" ? "/blocks" : ""}/preview/${installer}`
+                  : ""
               }
               title={page.data.title}
             >
@@ -337,6 +364,40 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
           </DocsBody>
         ) : (
           <>
+            {/* Block pages borrow the split pages' chrome: the catalogue starts
+                collapsed and the crumb doubles as its handle. A block is a
+                full-width page section, so 240px of permanent sidebar was coming
+                straight out of the preview. */}
+            {type === "block" && (
+              <>
+                <SplitDocsChrome hideLayoutFooter={false} />
+                {/* Same geometry as the split pages: the row cancels the
+                    article's 56px top padding so it starts pinned under the
+                    navbar instead of travelling down on the first scroll, and
+                    the content below it begins past the fade rather than opening
+                    already smudged. */}
+                <div className="not-prose sticky top-[6.5rem] z-10 mb-6 flex items-center py-2 lg:-mt-14 lg:mb-36">
+                  {/* The module only blurs; painting the page colour under the
+                      mask is what makes the text dissolve instead of staying
+                      legible-but-smudged. */}
+                  <BlurMagic
+                    background="var(--color-background)"
+                    blur="6px"
+                    className="absolute! inset-x-0! -top-2! -z-10 h-[178px]! w-auto!"
+                    side="top"
+                    stop="25%"
+                    style={{
+                      background:
+                        "linear-gradient(to bottom, var(--color-background), transparent)",
+                    }}
+                  />
+                  <DocsBreadcrumb
+                    section={sectionNav.title}
+                    title={page.data.title}
+                  />
+                </div>
+              </>
+            )}
             {heading}
             {actionRow}
             <DocsBody>

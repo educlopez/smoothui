@@ -3,6 +3,7 @@
 import { useKit } from "@docs/lib/kit-context";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { track } from "@vercel/analytics";
+import { PackagePlus } from "lucide-react";
 import { IconCheckFill24 } from "nucleo-core-fill-24";
 
 export interface AddToKitButtonProps {
@@ -11,36 +12,6 @@ export interface AddToKitButtonProps {
   size?: "xs" | "sm";
   slug: string;
   title: string;
-}
-
-function BundleLayersIcon() {
-  return (
-    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24">
-      <path
-        d="M12 4.5 19.25 8.35 12 12.2 4.75 8.35 12 4.5Z"
-        fill="var(--color-brand)"
-        opacity="0.42"
-      />
-      <path
-        d="M7 12.2 12 14.85l5-2.65v2.35L12 17.2l-5-2.65V12.2Z"
-        fill="var(--color-brand)"
-        opacity="0.24"
-      />
-      <path
-        d="M4.75 8.35 12 4.5l7.25 3.85L12 12.2 4.75 8.35Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.6"
-      />
-      <path
-        d="m7 12.2 5 2.65 5-2.65M7 15.45l5 2.65 5-2.65"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.6"
-      />
-    </svg>
-  );
 }
 
 /**
@@ -85,7 +56,13 @@ export function AddToKitButton({
       title={inKit ? "Remove from bundle" : "Add to bundle"}
       type="button"
     >
-      {inKit ? <IconCheckFill24 aria-hidden="true" /> : <BundleLayersIcon />}
+      {/* A box with a plus says "add this to the pile I am installing".
+          The stacked-diamonds mark it replaced read as a generic logo. */}
+      {inKit ? (
+        <IconCheckFill24 aria-hidden="true" />
+      ) : (
+        <PackagePlus aria-hidden="true" />
+      )}
       {!iconOnly && (inKit ? "Added" : "Add")}
     </button>
   );

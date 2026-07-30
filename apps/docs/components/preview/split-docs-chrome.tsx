@@ -20,7 +20,17 @@ import { useEffect } from "react";
  *    owns the exception for exactly as long as it is mounted, and there is no
  *    stylesheet rule left behind to explain later.
  */
-export const SplitDocsChrome = () => {
+export type SplitDocsChromeProps = {
+  /**
+   * Split pages render their own footer at the end of the reading column, so the
+   * layout's copy would be a duplicate. Block pages are stacked and keep it.
+   */
+  hideLayoutFooter?: boolean;
+};
+
+export const SplitDocsChrome = ({
+  hideLayoutFooter = true,
+}: SplitDocsChromeProps) => {
   const { setCollapsed } = useSidebar();
 
   useEffect(() => {
@@ -28,9 +38,9 @@ export const SplitDocsChrome = () => {
     root.dataset.splitDocs = "true";
     setCollapsed(true);
 
-    const layoutFooter = document.querySelector<HTMLElement>(
-      "[data-docs-seo-footer]"
-    );
+    const layoutFooter = hideLayoutFooter
+      ? document.querySelector<HTMLElement>("[data-docs-seo-footer]")
+      : null;
     const previousDisplay = layoutFooter?.style.display ?? "";
     if (layoutFooter) {
       layoutFooter.style.display = "none";
@@ -43,7 +53,7 @@ export const SplitDocsChrome = () => {
         layoutFooter.style.display = previousDisplay;
       }
     };
-  }, [setCollapsed]);
+  }, [hideLayoutFooter, setCollapsed]);
 
   return null;
 };

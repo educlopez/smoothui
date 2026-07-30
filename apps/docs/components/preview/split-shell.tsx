@@ -2,6 +2,11 @@
 
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import { PreviewCode } from "@docs/components/preview/code";
+import {
+  FileTypeIcon,
+  languageOf,
+  tabLabel,
+} from "@docs/components/preview/code-explorer";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { Separator } from "@repo/shadcn-ui/components/ui/separator";
 import {
@@ -23,7 +28,7 @@ import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { type ReactNode, useState } from "react";
 
-export type PreviewFile = { code: string; name: string };
+export type PreviewFile = { code: string; path: string };
 
 type Viewport = "desktop" | "tablet" | "mobile";
 type Pane = "info" | "source";
@@ -201,6 +206,7 @@ export const SplitPreviewShell = ({
             animating in has no such dependency. */}
         <motion.div
           animate={{ opacity: 1, y: 0 }}
+          className="min-w-0"
           initial={
             shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: PANE_OFFSET }
           }
@@ -210,36 +216,39 @@ export const SplitPreviewShell = ({
           {pane === "info" ? (
             children
           ) : (
-            <div className="not-prose flex flex-col lg:sticky lg:top-[9.75rem] lg:h-[calc(100dvh-11rem)]">
-              {/* Tabs, like an editor: three unlabelled code blocks told you
-                  nothing about which file you were reading. */}
-              <div className="flex items-center gap-1 overflow-x-auto rounded-t-lg border border-b-0 bg-muted/40 px-1 pt-1">
+            <div className="not-prose flex min-w-0 flex-col lg:sticky lg:top-[9.75rem] lg:h-[calc(100dvh-11rem)]">
+              {/* Tabs, not the blocks pages' file tree: the reading column is
+                  under half the viewport, and a 16rem sidebar next to the source
+                  would leave the code itself too narrow to read. A component's
+                  file list is short enough that a strip of names does the job. */}
+              <div className="flex min-w-0 items-center gap-1 overflow-x-auto rounded-t-lg border border-b-0 bg-muted/40 px-1 pt-1">
                 {files.map((entry, index) => (
                   <button
                     aria-pressed={index === activeFile}
                     className={cn(
-                      "shrink-0 rounded-t-md px-3 py-1.5 font-mono text-xs transition-colors",
+                      "flex shrink-0 items-center gap-1.5 rounded-t-md px-3 py-1.5 font-mono text-xs transition-colors",
                       index === activeFile
                         ? "bg-background text-foreground"
                         : "text-muted-foreground hover:text-foreground"
                     )}
-                    key={entry.name}
+                    key={entry.path}
                     onClick={() => setActiveFile(index)}
                     type="button"
                   >
-                    {entry.name}
+                    <FileTypeIcon path={entry.path} />
+                    {tabLabel(entry.path)}
                   </button>
                 ))}
               </div>
               {/* Fumadocs' code block caps its scroller at 600px, so inside a
                   full-height panel the code stopped halfway and left the rest of
                   the box empty. Let it fill and scroll on its own. */}
-              <div className="min-h-0 flex-1 overflow-hidden rounded-b-lg border [&>div]:h-full [&_figure>div]:h-full [&_figure>div]:max-h-none! [&_figure]:h-full">
+              <div className="code-explorer-lines min-h-0 w-full min-w-0 flex-1 overflow-auto rounded-b-lg border bg-background [&>div]:h-full [&_.fd-scroll-container]:h-full [&_.fd-scroll-container]:max-h-none! [&_figure]:h-full [&_figure]:bg-background! [&_pre]:min-h-full [&_pre]:bg-background!">
                 {file && (
                   <PreviewCode
                     code={file.code}
-                    filename={file.name}
-                    language="tsx"
+                    filename={file.path}
+                    language={languageOf(file.path)}
                   />
                 )}
               </div>
