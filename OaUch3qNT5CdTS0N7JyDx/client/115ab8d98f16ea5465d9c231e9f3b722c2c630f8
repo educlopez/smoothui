@@ -1,0 +1,35 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/radio-group/index.tsx", {"importedNames":["default","Radio"]});
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("RadioGroup", () => {
+  (0,__vite_ssr_import_1__.it)("renders without throwing", () => {
+    const { container } = (0,__vite_ssr_import_2__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { defaultValue: "a", children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.Radio), { value: "a", children: "Option A" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.test.tsx",
+          lineNumber: 9,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.Radio), { value: "b", children: "Option B" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.test.tsx",
+          lineNumber: 10,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.test.tsx",
+        lineNumber: 8,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_1__.expect)(container).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBUVE7QUFSUjtBQUNBO0FBQ0E7Ozs7O0dBRUEsZ0NBQVMsY0FBYyxNQUFNO0FBQzNCLCtCQUFHLDRCQUE0QixNQUFNO0FBQ25DLFVBQU0sRUFBRSxVQUFVLE9BQUk7QUFBQSxNQUNwQixvREFBQyxrQ0FBVyxjQUFhLEtBQ3ZCO0FBQUEsNERBQUMsZ0NBQU0sT0FBTSxLQUFJLHdCQUFqQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBQXlCO0FBQUEsUUFDekIsb0RBQUMsZ0NBQU0sT0FBTSxLQUFJLHdCQUFqQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBQXlCO0FBQUEsV0FGM0I7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQUdBO0FBQUEsSUFDRjtBQUNBLHFDQUFPLFNBQVMsRUFBRSxrQkFBa0I7QUFBQSxFQUN0QyxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsicmFkaW8tZ3JvdXAudGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tIFwidml0ZXN0XCI7XG5pbXBvcnQgeyByZW5kZXIgfSBmcm9tIFwiLi4vLi4vLi4vdGVzdC11dGlscy9yZW5kZXJcIjtcbmltcG9ydCBSYWRpb0dyb3VwLCB7IFJhZGlvIH0gZnJvbSBcIi4uL2luZGV4XCI7XG5cbmRlc2NyaWJlKFwiUmFkaW9Hcm91cFwiLCAoKSA9PiB7XG4gIGl0KFwicmVuZGVycyB3aXRob3V0IHRocm93aW5nXCIsICgpID0+IHtcbiAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgPFJhZGlvR3JvdXAgZGVmYXVsdFZhbHVlPVwiYVwiPlxuICAgICAgICA8UmFkaW8gdmFsdWU9XCJhXCI+T3B0aW9uIEE8L1JhZGlvPlxuICAgICAgICA8UmFkaW8gdmFsdWU9XCJiXCI+T3B0aW9uIEI8L1JhZGlvPlxuICAgICAgPC9SYWRpb0dyb3VwPlxuICAgICk7XG4gICAgZXhwZWN0KGNvbnRhaW5lcikudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG59KTtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvcmFkaW8tZ3JvdXAvX190ZXN0c19fL3JhZGlvLWdyb3VwLnRlc3QudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9yYWRpby1ncm91cC9fX3Rlc3RzX18vcmFkaW8tZ3JvdXAudGVzdC50c3giLCIvY29tcG9uZW50cy9yYWRpby1ncm91cC9fX3Rlc3RzX18vcmFkaW8tZ3JvdXAudGVzdC50c3giLFtdXQ==

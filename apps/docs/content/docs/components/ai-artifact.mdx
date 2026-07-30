@@ -1,0 +1,58 @@
+---
+title: AI Artifact
+description: Generated-artifact frame whose preview and code panes swap along a shared axis rather than cross-fading.
+icon: PanelsTopLeft
+dependencies: []
+installer: ai-artifact
+---
+
+## Features
+
+- Preview and code panes, either optional
+- Tab indicator is one shared element that slides between tabs
+- Panes travel along a single horizontal axis
+- Copy action with a check confirmation that resets itself
+- Renders only the tabs it has content for
+
+## Panes have a direction
+
+Preview always sits to the left of code. Switching moves the outgoing pane out
+one way and the incoming pane in from the other, so the swap has a direction and,
+after one go, a memory — you know where the other pane went and where it will
+come back from. A cross-fade gives you neither.
+
+## The indicator is one object
+
+Two separately styled tabs swapping colour reads as two states. A single element
+sliding between them reads as one selection moving, which is what a tab bar
+actually is.
+
+## Usage
+
+```tsx
+<AIArtifact
+  code={source}
+  copyText={source}
+  preview={<Rendered />}
+  title="utils.ts"
+/>
+```
+
+Give the frame a `title` so the artifact is nameable — people refer to these in
+conversation, and "the second one" is a bad name.
+
+## Accessibility
+
+Tabs carry `role="tab"` and `aria-selected`. The copy control is labelled and its
+label changes to `Copied` on success.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: panes swap with no travel and the indicator jumps.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-artifact/index.tsx"
+  name="AIArtifactProps"
+/>

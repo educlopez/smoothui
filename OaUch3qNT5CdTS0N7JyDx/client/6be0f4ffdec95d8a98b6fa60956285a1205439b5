@@ -1,0 +1,136 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/@testing-library+user-event@14.6.1_@testing-library+dom@10.4.1/node_modules/@testing-library/user-event/dist/esm/index.js", {"importedNames":["default"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it","vi"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render","screen"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/checkbox/index.tsx", {"importedNames":["default"]});
+
+
+
+
+
+(0,__vite_ssr_import_2__.describe)("Checkbox interactions", () => {
+  (0,__vite_ssr_import_2__.it)("toggles checked state on click", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onCheckedChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("label", { htmlFor: "cb", children: "Accept" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 13,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { id: "cb", onCheckedChange }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 14,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+        lineNumber: 12,
+        columnNumber: 7
+      }, this)
+    );
+    const checkbox = __vite_ssr_import_3__.screen.getByRole("checkbox");
+    await user.click(checkbox);
+    (0,__vite_ssr_import_2__.expect)(onCheckedChange).toHaveBeenCalledWith(true);
+  });
+  (0,__vite_ssr_import_2__.it)("toggles via keyboard Space", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onCheckedChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("label", { htmlFor: "cb-key", children: "Toggle" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 30,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { id: "cb-key", onCheckedChange }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 31,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+        lineNumber: 29,
+        columnNumber: 7
+      }, this)
+    );
+    const checkbox = __vite_ssr_import_3__.screen.getByRole("checkbox");
+    checkbox.focus();
+    await user.keyboard(" ");
+    (0,__vite_ssr_import_2__.expect)(onCheckedChange).toHaveBeenCalledWith(true);
+  });
+  (0,__vite_ssr_import_2__.it)("renders with aria-checked mixed for indeterminate", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("label", { htmlFor: "cb-ind", children: "Select all" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 45,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { id: "cb-ind", indeterminate: true }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 46,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+        lineNumber: 44,
+        columnNumber: 7
+      }, this)
+    );
+    const checkbox = __vite_ssr_import_3__.screen.getByRole("checkbox");
+    (0,__vite_ssr_import_2__.expect)(checkbox).toHaveAttribute("aria-checked", "mixed");
+  });
+  (0,__vite_ssr_import_2__.it)("does not fire onCheckedChange when disabled", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onCheckedChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("label", { htmlFor: "cb-dis", children: "Disabled" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 60,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { disabled: true, id: "cb-dis", onCheckedChange }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 61,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+        lineNumber: 59,
+        columnNumber: 7
+      }, this)
+    );
+    const checkbox = __vite_ssr_import_3__.screen.getByRole("checkbox");
+    await user.click(checkbox);
+    (0,__vite_ssr_import_2__.expect)(onCheckedChange).not.toHaveBeenCalled();
+  });
+  (0,__vite_ssr_import_2__.it)("reflects checked state correctly", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("label", { htmlFor: "cb-checked", children: "Checked" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 74,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { checked: true, id: "cb-checked" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+          lineNumber: 75,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/__tests__/checkbox.interaction.test.tsx",
+        lineNumber: 73,
+        columnNumber: 7
+      }, this)
+    );
+    const checkbox = __vite_ssr_import_3__.screen.getByRole("checkbox");
+    (0,__vite_ssr_import_2__.expect)(checkbox).toHaveAttribute("aria-checked", "true");
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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VUFBTSxXQUFXLDZCQUFPLFVBQVUsVUFBVTtBQUM1QyxxQ0FBTyxRQUFRLEVBQUUsZ0JBQWdCLGdCQUFnQixNQUFNO0FBQUEsRUFDekQsQ0FBQztBQUNILENBQUMiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImNoZWNrYm94LmludGVyYWN0aW9uLnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB1c2VyRXZlbnQgZnJvbSBcIkB0ZXN0aW5nLWxpYnJhcnkvdXNlci1ldmVudFwiO1xuaW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQsIHZpIH0gZnJvbSBcInZpdGVzdFwiO1xuaW1wb3J0IHsgcmVuZGVyLCBzY3JlZW4gfSBmcm9tIFwiLi4vLi4vLi4vdGVzdC11dGlscy9yZW5kZXJcIjtcbmltcG9ydCBDaGVja2JveCBmcm9tIFwiLi4vaW5kZXhcIjtcblxuZGVzY3JpYmUoXCJDaGVja2JveCBpbnRlcmFjdGlvbnNcIiwgKCkgPT4ge1xuICBpdChcInRvZ2dsZXMgY2hlY2tlZCBzdGF0ZSBvbiBjbGlja1wiLCBhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgdXNlciA9IHVzZXJFdmVudC5zZXR1cCgpO1xuICAgIGNvbnN0IG9uQ2hlY2tlZENoYW5nZSA9IHZpLmZuKCk7XG5cbiAgICByZW5kZXIoXG4gICAgICA8ZGl2PlxuICAgICAgICA8bGFiZWwgaHRtbEZvcj1cImNiXCI+QWNjZXB0PC9sYWJlbD5cbiAgICAgICAgPENoZWNrYm94IGlkPVwiY2JcIiBvbkNoZWNrZWRDaGFuZ2U9e29uQ2hlY2tlZENoYW5nZX0gLz5cbiAgICAgIDwvZGl2PlxuICAgICk7XG5cbiAgICBjb25zdCBjaGVja2JveCA9IHNjcmVlbi5nZXRCeVJvbGUoXCJjaGVja2JveFwiKTtcbiAgICBhd2FpdCB1c2VyLmNsaWNrKGNoZWNrYm94KTtcblxuICAgIGV4cGVjdChvbkNoZWNrZWRDaGFuZ2UpLnRvSGF2ZUJlZW5DYWxsZWRXaXRoKHRydWUpO1xuICB9KTtcblxuICBpdChcInRvZ2dsZXMgdmlhIGtleWJvYXJkIFNwYWNlXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25DaGVja2VkQ2hhbmdlID0gdmkuZm4oKTtcblxuICAgIHJlbmRlcihcbiAgICAgIDxkaXY+XG4gICAgICAgIDxsYWJlbCBodG1sRm9yPVwiY2Ita2V5XCI+VG9nZ2xlPC9sYWJlbD5cbiAgICAgICAgPENoZWNrYm94IGlkPVwiY2Ita2V5XCIgb25DaGVja2VkQ2hhbmdlPXtvbkNoZWNrZWRDaGFuZ2V9IC8+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuXG4gICAgY29uc3QgY2hlY2tib3ggPSBzY3JlZW4uZ2V0QnlSb2xlKFwiY2hlY2tib3hcIik7XG4gICAgY2hlY2tib3guZm9jdXMoKTtcbiAgICBhd2FpdCB1c2VyLmtleWJvYXJkKFwiIFwiKTtcblxuICAgIGV4cGVjdChvbkNoZWNrZWRDaGFuZ2UpLnRvSGF2ZUJlZW5DYWxsZWRXaXRoKHRydWUpO1xuICB9KTtcblxuICBpdChcInJlbmRlcnMgd2l0aCBhcmlhLWNoZWNrZWQgbWl4ZWQgZm9yIGluZGV0ZXJtaW5hdGVcIiwgKCkgPT4ge1xuICAgIHJlbmRlcihcbiAgICAgIDxkaXY+XG4gICAgICAgIDxsYWJlbCBodG1sRm9yPVwiY2ItaW5kXCI+U2VsZWN0IGFsbDwvbGFiZWw+XG4gICAgICAgIDxDaGVja2JveCBpZD1cImNiLWluZFwiIGluZGV0ZXJtaW5hdGUgLz5cbiAgICAgIDwvZGl2PlxuICAgICk7XG5cbiAgICBjb25zdCBjaGVja2JveCA9IHNjcmVlbi5nZXRCeVJvbGUoXCJjaGVja2JveFwiKTtcbiAgICBleHBlY3QoY2hlY2tib3gpLnRvSGF2ZUF0dHJpYnV0ZShcImFyaWEtY2hlY2tlZFwiLCBcIm1peGVkXCIpO1xuICB9KTtcblxuICBpdChcImRvZXMgbm90IGZpcmUgb25DaGVja2VkQ2hhbmdlIHdoZW4gZGlzYWJsZWRcIiwgYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IHVzZXIgPSB1c2VyRXZlbnQuc2V0dXAoKTtcbiAgICBjb25zdCBvbkNoZWNrZWRDaGFuZ2UgPSB2aS5mbigpO1xuXG4gICAgcmVuZGVyKFxuICAgICAgPGRpdj5cbiAgICAgICAgPGxhYmVsIGh0bWxGb3I9XCJjYi1kaXNcIj5EaXNhYmxlZDwvbGFiZWw+XG4gICAgICAgIDxDaGVja2JveCBkaXNhYmxlZCBpZD1cImNiLWRpc1wiIG9uQ2hlY2tlZENoYW5nZT17b25DaGVja2VkQ2hhbmdlfSAvPlxuICAgICAgPC9kaXY+XG4gICAgKTtcblxuICAgIGNvbnN0IGNoZWNrYm94ID0gc2NyZWVuLmdldEJ5Um9sZShcImNoZWNrYm94XCIpO1xuICAgIGF3YWl0IHVzZXIuY2xpY2soY2hlY2tib3gpO1xuXG4gICAgZXhwZWN0KG9uQ2hlY2tlZENoYW5nZSkubm90LnRvSGF2ZUJlZW5DYWxsZWQoKTtcbiAgfSk7XG5cbiAgaXQoXCJyZWZsZWN0cyBjaGVja2VkIHN0YXRlIGNvcnJlY3RseVwiLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPGRpdj5cbiAgICAgICAgPGxhYmVsIGh0bWxGb3I9XCJjYi1jaGVja2VkXCI+Q2hlY2tlZDwvbGFiZWw+XG4gICAgICAgIDxDaGVja2JveCBjaGVja2VkIGlkPVwiY2ItY2hlY2tlZFwiIC8+XG4gICAgICA8L2Rpdj5cbiAgICApO1xuXG4gICAgY29uc3QgY2hlY2tib3ggPSBzY3JlZW4uZ2V0QnlSb2xlKFwiY2hlY2tib3hcIik7XG4gICAgZXhwZWN0KGNoZWNrYm94KS50b0hhdmVBdHRyaWJ1dGUoXCJhcmlhLWNoZWNrZWRcIiwgXCJ0cnVlXCIpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9jaGVja2JveC9fX3Rlc3RzX18vY2hlY2tib3guaW50ZXJhY3Rpb24udGVzdC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9jaGVja2JveC9fX3Rlc3RzX18vY2hlY2tib3guaW50ZXJhY3Rpb24udGVzdC50c3giLCIvY29tcG9uZW50cy9jaGVja2JveC9fX3Rlc3RzX18vY2hlY2tib3guaW50ZXJhY3Rpb24udGVzdC50c3giLFtdXQ==

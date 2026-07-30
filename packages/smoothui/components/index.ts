@@ -1,7 +1,25 @@
 // Export all UI components from their individual packages
 export { default as AgentAvatar } from "./agent-avatar";
+export { default as AiApproval } from "./ai-approval";
+export { default as AiArtifact } from "./ai-artifact";
 export { default as AiBranch } from "./ai-branch";
+export { default as AiCitation } from "./ai-citation";
+export { default as AiContextMeter } from "./ai-context-meter";
+export { default as AiConversation } from "./ai-conversation";
+export * from "./ai-core";
+export { default as AiDiff } from "./ai-diff";
+/** @deprecated Renamed to `MorphSurface`. Removed one release after the rename. */
 export { default as AiInput } from "./ai-input";
+export { default as AiLoader } from "./ai-loader";
+export { default as AiMessage } from "./ai-message";
+export { default as AiOrbFace } from "./ai-orb-face";
+export { default as AiPromptInput } from "./ai-prompt-input";
+export { default as AiReasoning } from "./ai-reasoning";
+export { default as AiResponse } from "./ai-response";
+export { default as AiSources } from "./ai-sources";
+export { default as AiSuggestions } from "./ai-suggestions";
+export { default as AiTaskList } from "./ai-task-list";
+export { default as AiToolCall } from "./ai-tool-call";
 export { default as AnimatedAvatarGroup } from "./animated-avatar-group";
 export { default as AnimatedFileUpload } from "./animated-file-upload";
 export { default as AnimatedInput } from "./animated-input";
@@ -64,6 +82,7 @@ export { default as LineByLineSlide } from "./line-by-line-slide";
 export { default as MagneticButton } from "./magnetic-button";
 export { default as MaskRevealUp } from "./mask-reveal-up";
 export { default as MicroScaleFade } from "./micro-scale-fade";
+export { default as MorphSurface } from "./morph-surface";
 export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
 export { default as OrganicMergeTransition } from "./organic-merge-transition";

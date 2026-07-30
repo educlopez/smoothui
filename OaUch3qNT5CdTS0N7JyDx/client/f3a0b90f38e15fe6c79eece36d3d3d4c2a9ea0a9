@@ -1,0 +1,24 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/shader-reveal-wipe-transition/index.tsx", {"importedNames":["default"]});
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("ShaderRevealWipeTransition", () => {
+  (0,__vite_ssr_import_1__.it)("renders the active content", () => {
+    const { getByText } = (0,__vite_ssr_import_2__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { transitionKey: "draft", children: "Draft saved" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-wipe-transition/__tests__/shader-reveal-wipe-transition.test.tsx",
+        lineNumber: 8,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_1__.expect)(getByText("Draft saved")).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBT007QUFQTjtBQUNBO0FBQ0E7Ozs7O0dBRUEsZ0NBQVMsOEJBQThCLE1BQU07QUFDM0MsK0JBQUcsOEJBQThCLE1BQU07QUFDckMsVUFBTSxFQUFFLFVBQVUsT0FBSTtBQUFBLE1BQ3BCLG9EQUFDLGtDQUEyQixlQUFjLFNBQVEsMkJBQWxEO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFFQTtBQUFBLElBQ0Y7QUFFQSxxQ0FBTyxVQUFVLGFBQWEsQ0FBQyxFQUFFLGtCQUFrQjtBQUFBLEVBQ3JELENBQUM7QUFDSCxDQUFDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJzaGFkZXItcmV2ZWFsLXdpcGUtdHJhbnNpdGlvbi50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gXCJ2aXRlc3RcIjtcbmltcG9ydCB7IHJlbmRlciB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IFNoYWRlclJldmVhbFdpcGVUcmFuc2l0aW9uIGZyb20gXCIuLi9pbmRleFwiO1xuXG5kZXNjcmliZShcIlNoYWRlclJldmVhbFdpcGVUcmFuc2l0aW9uXCIsICgpID0+IHtcbiAgaXQoXCJyZW5kZXJzIHRoZSBhY3RpdmUgY29udGVudFwiLCAoKSA9PiB7XG4gICAgY29uc3QgeyBnZXRCeVRleHQgfSA9IHJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxXaXBlVHJhbnNpdGlvbiB0cmFuc2l0aW9uS2V5PVwiZHJhZnRcIj5cbiAgICAgICAgRHJhZnQgc2F2ZWRcbiAgICAgIDwvU2hhZGVyUmV2ZWFsV2lwZVRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGV4cGVjdChnZXRCeVRleHQoXCJEcmFmdCBzYXZlZFwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG59KTtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvc2hhZGVyLXJldmVhbC13aXBlLXRyYW5zaXRpb24vX190ZXN0c19fL3NoYWRlci1yZXZlYWwtd2lwZS10cmFuc2l0aW9uLnRlc3QudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9zaGFkZXItcmV2ZWFsLXdpcGUtdHJhbnNpdGlvbi9fX3Rlc3RzX18vc2hhZGVyLXJldmVhbC13aXBlLXRyYW5zaXRpb24udGVzdC50c3giLCIvY29tcG9uZW50cy9zaGFkZXItcmV2ZWFsLXdpcGUtdHJhbnNpdGlvbi9fX3Rlc3RzX18vc2hhZGVyLXJldmVhbC13aXBlLXRyYW5zaXRpb24udGVzdC50c3giLFtdXQ==

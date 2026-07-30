@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-tool-call",
+  "description": "Collapsible tool invocation whose status badge is one ring that evolves — breathing, spinning, then drawing a check or a cross.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "tool",
+      "function-call",
+      "agent",
+      "status",
+      "collapsible"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Tool or function call inside an agent transcript",
+      "MCP tool invocation with arguments and result",
+      "Compact status row for a background step"
+    ],
+    "compositionHints": [
+      "The badge never unmounts, so the eye tracks one object through the lifecycle",
+      "Omit args and result to render a plain non-expandable status row",
+      "Stack several inside a conversation for an agent trace"
+    ],
+    "hasReducedMotion": true
+  }
+}

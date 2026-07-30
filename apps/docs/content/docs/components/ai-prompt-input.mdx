@@ -1,0 +1,79 @@
+---
+title: AI Prompt Input
+description: Chat composer with an autogrowing textarea, attachment chips, a character counter and a genuine send-to-stop path morph.
+icon: MessageSquarePlus
+dependencies: []
+installer: ai-prompt-input
+---
+
+## Features
+
+- Autogrowing textarea capped at eight rows, animated with a layout spring
+- Attachment chips that spring in with a stagger and collapse on removal
+- Character counter that appears only past 80% of `maxLength`
+- Enter sends, Shift+Enter breaks the line
+- Toolbar slot for model pickers and mode toggles via `children`
+- Reads the shared `AIState`: `streaming` turns submit into stop
+
+## Send and stop
+
+Submit is lucide's thin `ArrowUp`; while streaming it becomes a filled `Square`.
+The swap scales and fades over 180ms so the control still reads as one button
+changing job rather than two buttons trading places.
+
+An earlier version interpolated one hand-authored SVG `d` into another so the
+shapes folded into each other. It looked good and was the wrong call: it was not
+a lucide glyph, so it drifted from every other icon in the library, and a filled
+wedge reads as "play", not "send". Every component here draws from **lucide**, the
+only icon set the registry can hand to the people installing it.
+
+## Why the composer barely changes with state
+
+Every other AI component in the set shows status prominently. This one does not:
+it shows a one-pixel accent ring on `done` and `error` and nothing else. A box
+that changes shape, colour or size while someone is typing into it fights the
+text. Put the status in an orb next to it instead.
+
+## Usage
+
+```tsx
+"use client";
+
+import AIPromptInput from "@/components/smoothui/ai-prompt-input";
+import { useState } from "react";
+
+export const Composer = () => {
+  const [state, setState] = useState<"idle" | "streaming">("idle");
+
+  return (
+    <AIPromptInput
+      maxLength={2000}
+      onStop={() => setState("idle")}
+      onSubmit={(value) => {
+        send(value);
+        setState("streaming");
+      }}
+      state={state}
+    >
+      <ModelPicker />
+    </AIPromptInput>
+  );
+};
+```
+
+Leave `value` undefined to let the component own the draft, or pass
+`value` + `onValueChange` to control it.
+
+## Accessibility
+
+- The submit control is labelled "Send message" or "Stop generating" depending on state
+- Each attachment's remove button is labelled with the file name
+- `useReducedMotion` disables the growth spring, the chip stagger and the morph;
+  the icon swaps instantly instead
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-prompt-input/index.tsx"
+  name="AIPromptInputProps"
+/>

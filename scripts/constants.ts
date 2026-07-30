@@ -28,7 +28,7 @@ export const CATEGORIES: Record<string, string[]> = {
     "scramble-hover",
     "scroll-reveal-paragraph",
   ],
-  AI: ["ai-branch", "ai-input"],
+  AI: ["ai-branch", "ai-prompt-input", "ai-response", "ai-tool-call"],
   "Cards & Layouts": [
     "expandable-cards",
     "glow-hover-card",

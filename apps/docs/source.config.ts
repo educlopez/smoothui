@@ -27,6 +27,12 @@ export const docs = defineDocs({
       references: z.array(z.string()).optional(),
       installer: z.string().optional(),
       new: z.coerce.date().optional(),
+      /**
+       * Opt into the split layout: MDX scrolls on the left, the live preview
+       * sticks on the right. Temporary — it exists so the layout can be judged on
+       * one page before it becomes the default for every component and block.
+       */
+      splitPreview: z.boolean().optional(),
       contributor: z
         .object({
           name: z.string(),

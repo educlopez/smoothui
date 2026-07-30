@@ -1,15 +1,12 @@
 {
   "name": "@repo/ai-input",
-  "description": "A AiInput component for SmoothUI.",
+  "description": "Deprecated alias for morph-surface. Kept for one release so existing installs keep resolving.",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
-    "@repo/smooth-button": "workspace:*",
+    "@repo/morph-surface": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "motion": "^12.23.25",
-    "class-variance-authority": "^0.7.1"
+    "react-dom": "^19.2.0"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -18,26 +15,22 @@
     "typescript": "^5.9.3"
   },
   "smoothui": {
-    "category": "ai",
+    "category": "others",
     "tags": [
-      "ai",
-      "input",
-      "chat",
+      "deprecated",
+      "alias",
       "morph",
-      "dock",
-      "textarea",
-      "animated"
+      "dock"
     ],
-    "complexity": "complex",
+    "complexity": "simple",
     "animationType": "spring",
     "useCases": [
-      "AI chat input with morphing dock animation",
-      "Expandable AI prompt input for assistant interfaces",
-      "Floating AI input bar with Siri orb integration"
+      "Kept only so existing ai-input installs keep resolving",
+      "Use morph-surface for the dock, ai-prompt-input for a chat composer"
     ],
     "compositionHints": [
-      "Combine with siri-orb for visual AI presence",
-      "Use with ai-branch for full conversation UI"
+      "Deprecated — import morph-surface instead",
+      "Scheduled for removal one release after the rename"
     ],
     "hasReducedMotion": true
   }

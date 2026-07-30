@@ -1,0 +1,182 @@
+__vite_ssr_exportName__("default", () => { try { return Checkbox } catch {} });
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/shadcn-ui/lib/utils.ts", {"importedNames":["cn"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@12.38.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/react.mjs", {"importedNames":["AnimatePresence","motion","useReducedMotion"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/radix-ui@1.4.3_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react@19.2.14_react_7c84db1ddd2e1c1401fd07328a1340a2/node_modules/radix-ui/dist/index.mjs", {"importedNames":["Checkbox"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/lib/animation.ts", {"importedNames":["SPRING_DEFAULT"]});
+"use client";
+
+
+
+
+
+const CheckmarkPath = __vite_ssr_import_2__.motion.path;
+const MotionSvg = __vite_ssr_import_2__.motion.svg;
+function Checkbox({
+  checked = false,
+  indeterminate = false,
+  onCheckedChange,
+  disabled = false,
+  className,
+  name,
+  value,
+  id,
+  required
+}) {
+  const shouldReduceMotion = (0,__vite_ssr_import_2__.useReducedMotion)();
+  const derivedState = indeterminate ? "indeterminate" : checked ? "checked" : "unchecked";
+  const handleChange = (state) => {
+    if (state === "indeterminate") {
+      return;
+    };
+    onCheckedChange?.(state);
+  };
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+    __vite_ssr_import_3__.Checkbox.Root,
+    {
+      "aria-checked": indeterminate ? "mixed" : checked,
+      checked: indeterminate ? "indeterminate" : checked,
+      className: (0,__vite_ssr_import_1__.cn)(
+        "peer size-4 shrink-0 rounded-[4px] border border-input shadow-xs outline-none transition-shadow focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground data-[state=checked]:bg-foreground data-[state=indeterminate]:bg-foreground data-[state=unchecked]:bg-background data-[state=checked]:text-background data-[state=indeterminate]:text-background dark:data-[state=unchecked]:bg-input/30 dark:aria-invalid:ring-destructive/40",
+        className
+      ),
+      "data-slot": "checkbox",
+      disabled,
+      id,
+      name,
+      onCheckedChange: handleChange,
+      required,
+      value,
+      children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        __vite_ssr_import_3__.Checkbox.Indicator,
+        {
+          className: "grid place-content-center text-current",
+          "data-slot": "checkbox-indicator",
+          forceMount: true,
+          children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.AnimatePresence), { mode: "wait", children: [
+            derivedState === "checked" && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              MotionSvg,
+              {
+                animate: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 },
+                className: "size-3.5",
+                exit: shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, scale: 0.8 },
+                fill: "none",
+                initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 },
+                stroke: "currentColor",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 3,
+                transition: shouldReduceMotion ? { duration: 0 } : __vite_ssr_import_4__.SPRING_DEFAULT,
+                viewBox: "0 0 24 24",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Checked" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                    lineNumber: 103,
+                    columnNumber: 15
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                    CheckmarkPath,
+                    {
+                      animate: shouldReduceMotion ? {} : { pathLength: 1 },
+                      d: "M20 6L9 17l-5-5",
+                      initial: shouldReduceMotion ? {} : { pathLength: 0 },
+                      transition: shouldReduceMotion ? { duration: 0 } : { ...__vite_ssr_import_4__.SPRING_DEFAULT, delay: 0.05 }
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                      lineNumber: 104,
+                      columnNumber: 15
+                    },
+                    this
+                  )
+                ]
+              },
+              "check",
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                lineNumber: 81,
+                columnNumber: 13
+              },
+              this
+            ),
+            derivedState === "indeterminate" && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              MotionSvg,
+              {
+                animate: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 },
+                className: "size-3.5",
+                exit: shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, scale: 0.8 },
+                fill: "none",
+                initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.8 },
+                stroke: "currentColor",
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 3,
+                transition: shouldReduceMotion ? { duration: 0 } : __vite_ssr_import_4__.SPRING_DEFAULT,
+                viewBox: "0 0 24 24",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Indeterminate" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                    lineNumber: 139,
+                    columnNumber: 15
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                    CheckmarkPath,
+                    {
+                      animate: shouldReduceMotion ? {} : { pathLength: 1 },
+                      d: "M5 12h14",
+                      initial: shouldReduceMotion ? {} : { pathLength: 0 },
+                      transition: shouldReduceMotion ? { duration: 0 } : { ...__vite_ssr_import_4__.SPRING_DEFAULT, delay: 0.05 }
+                    },
+                    void 0,
+                    false,
+                    {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                      lineNumber: 140,
+                      columnNumber: 15
+                    },
+                    this
+                  )
+                ]
+              },
+              "indeterminate",
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+                lineNumber: 117,
+                columnNumber: 13
+              },
+              this
+            )
+          ] }, void 0, true, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+            lineNumber: 79,
+            columnNumber: 9
+          }, this)
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+          lineNumber: 74,
+          columnNumber: 7
+        },
+        this
+      )
+    },
+    void 0,
+    false,
+    {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/checkbox/index.tsx",
+      lineNumber: 59,
+      columnNumber: 5
+    },
+    this
+  );
+}
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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QUUvQixNQUFLO0FBQUEsZ0JBQ0wsU0FDRSxxQkFBcUIsRUFBRSxTQUFTLEVBQUUsSUFBSSxFQUFFLFNBQVMsR0FBRyxPQUFPLElBQUk7QUFBQSxnQkFHakUsUUFBTztBQUFBLGdCQUNQLGVBQWM7QUFBQSxnQkFDZCxnQkFBZTtBQUFBLGdCQUNmLGFBQWE7QUFBQSxnQkFDYixZQUFZLHFCQUFxQixFQUFFLFVBQVUsRUFBRSxJQUFJO0FBQUEsZ0JBQ25ELFNBQVE7QUFBQSxnQkFFUjtBQUFBLG1FQUFDLFdBQU0sNkJBQVA7QUFBQTtBQUFBO0FBQUE7QUFBQSx5QkFBb0I7QUFBQSxrQkFDcEI7QUFBQSxvQkFBQztBQUFBO0FBQUEsc0JBQ0MsU0FBUyxxQkFBcUIsQ0FBQyxJQUFJLEVBQUUsWUFBWSxFQUFFO0FBQUEsc0JBQ25ELEdBQUU7QUFBQSxzQkFDRixTQUFTLHFCQUFxQixDQUFDLElBQUksRUFBRSxZQUFZLEVBQUU7QUFBQSxzQkFDbkQsWUFDRSxxQkFDSSxFQUFFLFVBQVUsRUFBRSxJQUNkLEVBQUUsR0FBRyxzQ0FBZ0IsT0FBTyxLQUFLO0FBQUE7QUFBQSxvQkFQekM7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGtCQVNBO0FBQUE7QUFBQTtBQUFBLGNBbEJJO0FBQUEsY0FkTjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLFlBaUNBO0FBQUEsZUF2RUo7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkF5RUE7QUFBQTtBQUFBLFFBOUVGO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxNQStFQTtBQUFBO0FBQUEsSUE5RkY7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLEVBK0ZBO0FBRUoiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImluZGV4LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBjbGllbnRcIjtcblxuaW1wb3J0IHsgY24gfSBmcm9tIFwiQHJlcG8vc2hhZGNuLXVpL2xpYi91dGlsc1wiO1xuaW1wb3J0IHsgQW5pbWF0ZVByZXNlbmNlLCBtb3Rpb24sIHVzZVJlZHVjZWRNb3Rpb24gfSBmcm9tIFwibW90aW9uL3JlYWN0XCI7XG5pbXBvcnQgeyBDaGVja2JveCBhcyBDaGVja2JveFByaW1pdGl2ZSB9IGZyb20gXCJyYWRpeC11aVwiO1xuaW1wb3J0IHsgU1BSSU5HX0RFRkFVTFQgfSBmcm9tIFwiLi4vLi4vbGliL2FuaW1hdGlvblwiO1xuXG5leHBvcnQgaW50ZXJmYWNlIENoZWNrYm94UHJvcHMge1xuICAvKiogV2hldGhlciB0aGUgY2hlY2tib3ggaXMgY2hlY2tlZCAqL1xuICBjaGVja2VkPzogYm9vbGVhbjtcbiAgLyoqIE9wdGlvbmFsIENTUyBjbGFzcyAqL1xuICBjbGFzc05hbWU/OiBzdHJpbmc7XG4gIC8qKiBXaGV0aGVyIHRoZSBjaGVja2JveCBpcyBkaXNhYmxlZCAqL1xuICBkaXNhYmxlZD86IGJvb2xlYW47XG4gIC8qKiBJRCBmb3IgbGFiZWwgYXNzb2NpYXRpb24gKi9cbiAgaWQ/OiBzdHJpbmc7XG4gIC8qKiBXaGV0aGVyIHRoZSBjaGVja2JveCBpcyBpbiBhbiBpbmRldGVybWluYXRlIHN0YXRlICovXG4gIGluZGV0ZXJtaW5hdGU/OiBib29sZWFuO1xuICAvKiogQWNjZXNzaWJsZSBuYW1lIGZvciB0aGUgY2hlY2tib3ggKi9cbiAgbmFtZT86IHN0cmluZztcbiAgLyoqIENhbGxiYWNrIHdoZW4gdGhlIGNoZWNrZWQgc3RhdGUgY2hhbmdlcyAqL1xuICBvbkNoZWNrZWRDaGFuZ2U/OiAoY2hlY2tlZDogYm9vbGVhbikgPT4gdm9pZDtcbiAgLyoqIFdoZXRoZXIgdGhlIGNoZWNrYm94IGlzIHJlcXVpcmVkICovXG4gIHJlcXVpcmVkPzogYm9vbGVhbjtcbiAgLyoqIFZhbHVlIGF0dHJpYnV0ZSBmb3IgZm9ybSBzdWJtaXNzaW9uICovXG4gIHZhbHVlPzogc3RyaW5nO1xufVxuXG5jb25zdCBDaGVja21hcmtQYXRoID0gbW90aW9uLnBhdGg7XG5jb25zdCBNb3Rpb25TdmcgPSBtb3Rpb24uc3ZnO1xuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBDaGVja2JveCh7XG4gIGNoZWNrZWQgPSBmYWxzZSxcbiAgaW5kZXRlcm1pbmF0ZSA9IGZhbHNlLFxuICBvbkNoZWNrZWRDaGFuZ2UsXG4gIGRpc2FibGVkID0gZmFsc2UsXG4gIGNsYXNzTmFtZSxcbiAgbmFtZSxcbiAgdmFsdWUsXG4gIGlkLFxuICByZXF1aXJlZCxcbn06IENoZWNrYm94UHJvcHMpIHtcbiAgY29uc3Qgc2hvdWxkUmVkdWNlTW90aW9uID0gdXNlUmVkdWNlZE1vdGlvbigpO1xuXG4gIGNvbnN0IGRlcml2ZWRTdGF0ZSA9IGluZGV0ZXJtaW5hdGVcbiAgICA/IFwiaW5kZXRlcm1pbmF0ZVwiXG4gICAgOiBjaGVja2VkXG4gICAgICA/IFwiY2hlY2tlZFwiXG4gICAgICA6IFwidW5jaGVja2VkXCI7XG5cbiAgY29uc3QgaGFuZGxlQ2hhbmdlID0gKHN0YXRlOiBib29sZWFuIHwgXCJpbmRldGVybWluYXRlXCIpID0+IHtcbiAgICBpZiAoc3RhdGUgPT09IFwiaW5kZXRlcm1pbmF0ZVwiKSB7XG4gICAgICByZXR1cm47XG4gICAgfVxuICAgIG9uQ2hlY2tlZENoYW5nZT8uKHN0YXRlKTtcbiAgfTtcblxuICByZXR1cm4gKFxuICAgIDxDaGVja2JveFByaW1pdGl2ZS5Sb290XG4gICAgICBhcmlhLWNoZWNrZWQ9e2luZGV0ZXJtaW5hdGUgPyBcIm1peGVkXCIgOiBjaGVja2VkfVxuICAgICAgY2hlY2tlZD17aW5kZXRlcm1pbmF0ZSA/IFwiaW5kZXRlcm1pbmF0ZVwiIDogY2hlY2tlZH1cbiAgICAgIGNsYXNzTmFtZT17Y24oXG4gICAgICAgIFwicGVlciBzaXplLTQgc2hyaW5rLTAgcm91bmRlZC1bNHB4XSBib3JkZXIgYm9yZGVyLWlucHV0IHNoYWRvdy14cyBvdXRsaW5lLW5vbmUgdHJhbnNpdGlvbi1zaGFkb3cgZm9jdXMtdmlzaWJsZTpib3JkZXItcmluZyBmb2N1cy12aXNpYmxlOnJpbmctWzNweF0gZm9jdXMtdmlzaWJsZTpyaW5nLXJpbmcvNTAgZGlzYWJsZWQ6Y3Vyc29yLW5vdC1hbGxvd2VkIGRpc2FibGVkOm9wYWNpdHktNTAgYXJpYS1pbnZhbGlkOmJvcmRlci1kZXN0cnVjdGl2ZSBhcmlhLWludmFsaWQ6cmluZy1kZXN0cnVjdGl2ZS8yMCBkYXRhLVtzdGF0ZT1jaGVja2VkXTpib3JkZXItZm9yZWdyb3VuZCBkYXRhLVtzdGF0ZT1pbmRldGVybWluYXRlXTpib3JkZXItZm9yZWdyb3VuZCBkYXRhLVtzdGF0ZT1jaGVja2VkXTpiZy1mb3JlZ3JvdW5kIGRhdGEtW3N0YXRlPWluZGV0ZXJtaW5hdGVdOmJnLWZvcmVncm91bmQgZGF0YS1bc3RhdGU9dW5jaGVja2VkXTpiZy1iYWNrZ3JvdW5kIGRhdGEtW3N0YXRlPWNoZWNrZWRdOnRleHQtYmFja2dyb3VuZCBkYXRhLVtzdGF0ZT1pbmRldGVybWluYXRlXTp0ZXh0LWJhY2tncm91bmQgZGFyazpkYXRhLVtzdGF0ZT11bmNoZWNrZWRdOmJnLWlucHV0LzMwIGRhcms6YXJpYS1pbnZhbGlkOnJpbmctZGVzdHJ1Y3RpdmUvNDBcIixcbiAgICAgICAgY2xhc3NOYW1lXG4gICAgICApfVxuICAgICAgZGF0YS1zbG90PVwiY2hlY2tib3hcIlxuICAgICAgZGlzYWJsZWQ9e2Rpc2FibGVkfVxuICAgICAgaWQ9e2lkfVxuICAgICAgbmFtZT17bmFtZX1cbiAgICAgIG9uQ2hlY2tlZENoYW5nZT17aGFuZGxlQ2hhbmdlfVxuICAgICAgcmVxdWlyZWQ9e3JlcXVpcmVkfVxuICAgICAgdmFsdWU9e3ZhbHVlfVxuICAgID5cbiAgICAgIDxDaGVja2JveFByaW1pdGl2ZS5JbmRpY2F0b3JcbiAgICAgICAgY2xhc3NOYW1lPVwiZ3JpZCBwbGFjZS1jb250ZW50LWNlbnRlciB0ZXh0LWN1cnJlbnRcIlxuICAgICAgICBkYXRhLXNsb3Q9XCJjaGVja2JveC1pbmRpY2F0b3JcIlxuICAgICAgICBmb3JjZU1vdW50XG4gICAgICA+XG4gICAgICAgIDxBbmltYXRlUHJlc2VuY2UgbW9kZT1cIndhaXRcIj5cbiAgICAgICAgICB7ZGVyaXZlZFN0YXRlID09PSBcImNoZWNrZWRcIiAmJiAoXG4gICAgICAgICAgICA8TW90aW9uU3ZnXG4gICAgICAgICAgICAgIGFuaW1hdGU9e1xuICAgICAgICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvbiA/IHsgb3BhY2l0eTogMSB9IDogeyBvcGFjaXR5OiAxLCBzY2FsZTogMSB9XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgY2xhc3NOYW1lPVwic2l6ZS0zLjVcIlxuICAgICAgICAgICAgICBleGl0PXtcbiAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb25cbiAgICAgICAgICAgICAgICAgID8geyBvcGFjaXR5OiAwLCB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwIH0gfVxuICAgICAgICAgICAgICAgICAgOiB7IG9wYWNpdHk6IDAsIHNjYWxlOiAwLjggfVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIGZpbGw9XCJub25lXCJcbiAgICAgICAgICAgICAgaW5pdGlhbD17XG4gICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uID8geyBvcGFjaXR5OiAxIH0gOiB7IG9wYWNpdHk6IDAsIHNjYWxlOiAwLjggfVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIGtleT1cImNoZWNrXCJcbiAgICAgICAgICAgICAgc3Ryb2tlPVwiY3VycmVudENvbG9yXCJcbiAgICAgICAgICAgICAgc3Ryb2tlTGluZWNhcD1cInJvdW5kXCJcbiAgICAgICAgICAgICAgc3Ryb2tlTGluZWpvaW49XCJyb3VuZFwiXG4gICAgICAgICAgICAgIHN0cm9rZVdpZHRoPXszfVxuICAgICAgICAgICAgICB0cmFuc2l0aW9uPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IGR1cmF0aW9uOiAwIH0gOiBTUFJJTkdfREVGQVVMVH1cbiAgICAgICAgICAgICAgdmlld0JveD1cIjAgMCAyNCAyNFwiXG4gICAgICAgICAgICA+XG4gICAgICAgICAgICAgIDx0aXRsZT5DaGVja2VkPC90aXRsZT5cbiAgICAgICAgICAgICAgPENoZWNrbWFya1BhdGhcbiAgICAgICAgICAgICAgICBhbmltYXRlPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7fSA6IHsgcGF0aExlbmd0aDogMSB9fVxuICAgICAgICAgICAgICAgIGQ9XCJNMjAgNkw5IDE3bC01LTVcIlxuICAgICAgICAgICAgICAgIGluaXRpYWw9e3Nob3VsZFJlZHVjZU1vdGlvbiA/IHt9IDogeyBwYXRoTGVuZ3RoOiAwIH19XG4gICAgICAgICAgICAgICAgdHJhbnNpdGlvbj17XG4gICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb25cbiAgICAgICAgICAgICAgICAgICAgPyB7IGR1cmF0aW9uOiAwIH1cbiAgICAgICAgICAgICAgICAgICAgOiB7IC4uLlNQUklOR19ERUZBVUxULCBkZWxheTogMC4wNSB9XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAvPlxuICAgICAgICAgICAgPC9Nb3Rpb25Tdmc+XG4gICAgICAgICAgKX1cbiAgICAgICAgICB7ZGVyaXZlZFN0YXRlID09PSBcImluZGV0ZXJtaW5hdGVcIiAmJiAoXG4gICAgICAgICAgICA8TW90aW9uU3ZnXG4gICAgICAgICAgICAgIGFuaW1hdGU9e1xuICAgICAgICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvbiA/IHsgb3BhY2l0eTogMSB9IDogeyBvcGFjaXR5OiAxLCBzY2FsZTogMSB9XG4gICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgY2xhc3NOYW1lPVwic2l6ZS0zLjVcIlxuICAgICAgICAgICAgICBleGl0PXtcbiAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb25cbiAgICAgICAgICAgICAgICAgID8geyBvcGFjaXR5OiAwLCB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwIH0gfVxuICAgICAgICAgICAgICAgICAgOiB7IG9wYWNpdHk6IDAsIHNjYWxlOiAwLjggfVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIGZpbGw9XCJub25lXCJcbiAgICAgICAgICAgICAgaW5pdGlhbD17XG4gICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uID8geyBvcGFjaXR5OiAxIH0gOiB7IG9wYWNpdHk6IDAsIHNjYWxlOiAwLjggfVxuICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgIGtleT1cImluZGV0ZXJtaW5hdGVcIlxuICAgICAgICAgICAgICBzdHJva2U9XCJjdXJyZW50Q29sb3JcIlxuICAgICAgICAgICAgICBzdHJva2VMaW5lY2FwPVwicm91bmRcIlxuICAgICAgICAgICAgICBzdHJva2VMaW5lam9pbj1cInJvdW5kXCJcbiAgICAgICAgICAgICAgc3Ryb2tlV2lkdGg9ezN9XG4gICAgICAgICAgICAgIHRyYW5zaXRpb249e3Nob3VsZFJlZHVjZU1vdGlvbiA/IHsgZHVyYXRpb246IDAgfSA6IFNQUklOR19ERUZBVUxUfVxuICAgICAgICAgICAgICB2aWV3Qm94PVwiMCAwIDI0IDI0XCJcbiAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgPHRpdGxlPkluZGV0ZXJtaW5hdGU8L3RpdGxlPlxuICAgICAgICAgICAgICA8Q2hlY2ttYXJrUGF0aFxuICAgICAgICAgICAgICAgIGFuaW1hdGU9e3Nob3VsZFJlZHVjZU1vdGlvbiA/IHt9IDogeyBwYXRoTGVuZ3RoOiAxIH19XG4gICAgICAgICAgICAgICAgZD1cIk01IDEyaDE0XCJcbiAgICAgICAgICAgICAgICBpbml0aWFsPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7fSA6IHsgcGF0aExlbmd0aDogMCB9fVxuICAgICAgICAgICAgICAgIHRyYW5zaXRpb249e1xuICAgICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgICAgICAgICAgICAgID8geyBkdXJhdGlvbjogMCB9XG4gICAgICAgICAgICAgICAgICAgIDogeyAuLi5TUFJJTkdfREVGQVVMVCwgZGVsYXk6IDAuMDUgfVxuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDwvTW90aW9uU3ZnPlxuICAgICAgICAgICl9XG4gICAgICAgIDwvQW5pbWF0ZVByZXNlbmNlPlxuICAgICAgPC9DaGVja2JveFByaW1pdGl2ZS5JbmRpY2F0b3I+XG4gICAgPC9DaGVja2JveFByaW1pdGl2ZS5Sb290PlxuICApO1xufVxuIl0sImZpbGUiOiIvY29tcG9uZW50cy9jaGVja2JveC9pbmRleC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9jaGVja2JveC9pbmRleC50c3giLCIvY29tcG9uZW50cy9jaGVja2JveC9pbmRleC50c3giLFtdXQ==

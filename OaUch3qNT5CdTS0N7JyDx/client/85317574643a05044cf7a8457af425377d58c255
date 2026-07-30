@@ -1,0 +1,61 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/@testing-library+react@16.3.2_@testing-library+dom@10.4.1_@types+react-dom@19.2.3_@type_01f2c7bab43719bd0469ec1c0554baf5/node_modules/@testing-library/react/dist/index.js", {"importedNames":["fireEvent","screen"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/ai-reasoning/index.tsx", {"importedNames":["default"]});
+
+
+
+
+
+(0,__vite_ssr_import_2__.describe)("AIReasoning", () => {
+  (0,__vite_ssr_import_2__.it)("starts open while streaming", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { isStreaming: true, children: "trace" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/ai-reasoning/__tests__/ai-reasoning.test.tsx",
+      lineNumber: 8,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_1__.screen.getByRole("button")).toHaveAttribute("aria-expanded", "true");
+  });
+  (0,__vite_ssr_import_2__.it)("starts closed when there is nothing happening", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { children: "trace" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/ai-reasoning/__tests__/ai-reasoning.test.tsx",
+      lineNumber: 13,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_1__.screen.getByRole("button")).toHaveAttribute(
+      "aria-expanded",
+      "false"
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("labels itself Thinking while streaming", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { isStreaming: true, children: "trace" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/ai-reasoning/__tests__/ai-reasoning.test.tsx",
+      lineNumber: 21,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_1__.screen.getByRole("button")).toHaveTextContent("Thinking");
+  });
+  (0,__vite_ssr_import_2__.it)("reports a duration it was given", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { duration: 4.2, children: "trace" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/ai-reasoning/__tests__/ai-reasoning.test.tsx",
+      lineNumber: 26,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_1__.screen.getByRole("button")).toHaveTextContent("Thought for 4.2s");
+  });
+  (0,__vite_ssr_import_2__.it)("toggles on click", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { defaultOpen: false, children: "trace" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/ai-reasoning/__tests__/ai-reasoning.test.tsx",
+      lineNumber: 31,
+      columnNumber: 12
+    }, this));
+    const trigger = __vite_ssr_import_1__.screen.getByRole("button");
+    __vite_ssr_import_1__.fireEvent.click(trigger);
+    (0,__vite_ssr_import_2__.expect)(trigger).toHaveAttribute("aria-expanded", "true");
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBT1c7QUFQWDtBQUNBO0FBQ0E7QUFDQTs7Ozs7O0dBRUEsZ0NBQVMsZUFBZSxNQUFNO0FBQzVCLCtCQUFHLCtCQUErQixNQUFNO0FBQ3RDLHFDQUFPLG9EQUFDLGtDQUFZLGFBQVcsTUFBQyxxQkFBekI7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUE4QixDQUFjO0FBQ25ELHFDQUFPLDZCQUFPLFVBQVUsUUFBUSxDQUFDLEVBQUUsZ0JBQWdCLGlCQUFpQixNQUFNO0FBQUEsRUFDNUUsQ0FBQztBQUVELCtCQUFHLGlEQUFpRCxNQUFNO0FBQ3hELHFDQUFPLG9EQUFDLGtDQUFZLHFCQUFiO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBa0IsQ0FBYztBQUN2QyxxQ0FBTyw2QkFBTyxVQUFVLFFBQVEsQ0FBQyxFQUFFO0FBQUEsTUFDakM7QUFBQSxNQUNBO0FBQUEsSUFDRjtBQUFBLEVBQ0YsQ0FBQztBQUVELCtCQUFHLDBDQUEwQyxNQUFNO0FBQ2pELHFDQUFPLG9EQUFDLGtDQUFZLGFBQVcsTUFBQyxxQkFBekI7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUE4QixDQUFjO0FBQ25ELHFDQUFPLDZCQUFPLFVBQVUsUUFBUSxDQUFDLEVBQUUsa0JBQWtCLFVBQVU7QUFBQSxFQUNqRSxDQUFDO0FBRUQsK0JBQUcsbUNBQW1DLE1BQU07QUFDMUMscUNBQU8sb0RBQUMsa0NBQVksVUFBVSxLQUFLLHFCQUE1QjtBQUFBO0FBQUE7QUFBQTtBQUFBLFdBQWlDLENBQWM7QUFDdEQscUNBQU8sNkJBQU8sVUFBVSxRQUFRLENBQUMsRUFBRSxrQkFBa0Isa0JBQWtCO0FBQUEsRUFDekUsQ0FBQztBQUVELCtCQUFHLG9CQUFvQixNQUFNO0FBQzNCLHFDQUFPLG9EQUFDLGtDQUFZLGFBQWEsT0FBTyxxQkFBakM7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUFzQyxDQUFjO0FBQzNELFVBQU0sVUFBVSw2QkFBTyxVQUFVLFFBQVE7QUFDekMsb0NBQVUsTUFBTSxPQUFPO0FBQ3ZCLHFDQUFPLE9BQU8sRUFBRSxnQkFBZ0IsaUJBQWlCLE1BQU07QUFBQSxFQUN6RCxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiYWktcmVhc29uaW5nLnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGZpcmVFdmVudCwgc2NyZWVuIH0gZnJvbSBcIkB0ZXN0aW5nLWxpYnJhcnkvcmVhY3RcIjtcbmltcG9ydCB7IGRlc2NyaWJlLCBleHBlY3QsIGl0IH0gZnJvbSBcInZpdGVzdFwiO1xuaW1wb3J0IHsgcmVuZGVyIH0gZnJvbSBcIi4uLy4uLy4uL3Rlc3QtdXRpbHMvcmVuZGVyXCI7XG5pbXBvcnQgQUlSZWFzb25pbmcgZnJvbSBcIi4uL2luZGV4XCI7XG5cbmRlc2NyaWJlKFwiQUlSZWFzb25pbmdcIiwgKCkgPT4ge1xuICBpdChcInN0YXJ0cyBvcGVuIHdoaWxlIHN0cmVhbWluZ1wiLCAoKSA9PiB7XG4gICAgcmVuZGVyKDxBSVJlYXNvbmluZyBpc1N0cmVhbWluZz50cmFjZTwvQUlSZWFzb25pbmc+KTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiKSkudG9IYXZlQXR0cmlidXRlKFwiYXJpYS1leHBhbmRlZFwiLCBcInRydWVcIik7XG4gIH0pO1xuXG4gIGl0KFwic3RhcnRzIGNsb3NlZCB3aGVuIHRoZXJlIGlzIG5vdGhpbmcgaGFwcGVuaW5nXCIsICgpID0+IHtcbiAgICByZW5kZXIoPEFJUmVhc29uaW5nPnRyYWNlPC9BSVJlYXNvbmluZz4pO1xuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlSb2xlKFwiYnV0dG9uXCIpKS50b0hhdmVBdHRyaWJ1dGUoXG4gICAgICBcImFyaWEtZXhwYW5kZWRcIixcbiAgICAgIFwiZmFsc2VcIlxuICAgICk7XG4gIH0pO1xuXG4gIGl0KFwibGFiZWxzIGl0c2VsZiBUaGlua2luZyB3aGlsZSBzdHJlYW1pbmdcIiwgKCkgPT4ge1xuICAgIHJlbmRlcig8QUlSZWFzb25pbmcgaXNTdHJlYW1pbmc+dHJhY2U8L0FJUmVhc29uaW5nPik7XG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJidXR0b25cIikpLnRvSGF2ZVRleHRDb250ZW50KFwiVGhpbmtpbmdcIik7XG4gIH0pO1xuXG4gIGl0KFwicmVwb3J0cyBhIGR1cmF0aW9uIGl0IHdhcyBnaXZlblwiLCAoKSA9PiB7XG4gICAgcmVuZGVyKDxBSVJlYXNvbmluZyBkdXJhdGlvbj17NC4yfT50cmFjZTwvQUlSZWFzb25pbmc+KTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiKSkudG9IYXZlVGV4dENvbnRlbnQoXCJUaG91Z2h0IGZvciA0LjJzXCIpO1xuICB9KTtcblxuICBpdChcInRvZ2dsZXMgb24gY2xpY2tcIiwgKCkgPT4ge1xuICAgIHJlbmRlcig8QUlSZWFzb25pbmcgZGVmYXVsdE9wZW49e2ZhbHNlfT50cmFjZTwvQUlSZWFzb25pbmc+KTtcbiAgICBjb25zdCB0cmlnZ2VyID0gc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiKTtcbiAgICBmaXJlRXZlbnQuY2xpY2sodHJpZ2dlcik7XG4gICAgZXhwZWN0KHRyaWdnZXIpLnRvSGF2ZUF0dHJpYnV0ZShcImFyaWEtZXhwYW5kZWRcIiwgXCJ0cnVlXCIpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9haS1yZWFzb25pbmcvX190ZXN0c19fL2FpLXJlYXNvbmluZy50ZXN0LnRzeCJ9
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9haS1yZWFzb25pbmcvX190ZXN0c19fL2FpLXJlYXNvbmluZy50ZXN0LnRzeCIsIi9jb21wb25lbnRzL2FpLXJlYXNvbmluZy9fX3Rlc3RzX18vYWktcmVhc29uaW5nLnRlc3QudHN4IixbXV0=

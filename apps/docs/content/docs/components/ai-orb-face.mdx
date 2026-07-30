@@ -1,0 +1,76 @@
+---
+title: AI Orb Face
+description: A cartoon character whose expression carries the AI state — gaze that follows the cursor, natural blinks, thinking saccades, happy arcs and spiral eyes.
+icon: Smile
+dependencies: []
+installer: ai-orb-face
+---
+
+## Features
+
+- Gaze follows the pointer with a spring, and looks *away* while thinking
+- Blinks on a natural cadence — snap shut, ease open, occasionally a double
+- Squints while thinking, widens while listening, half-closes while streaming
+- Happy arc eyes and a squash-and-stretch hop when it finishes
+- Spiral eyes and a woozy wobble on error, then it recovers on its own
+- Body breathes with the voice, driven from a `MotionValue` so audio never re-renders React
+
+## Expression instead of iconography
+
+Status here is carried by the face, which is the thing humans read fastest. That
+is also why the other orbs in this family carry state in their *material* rather
+than wearing a badge: a checkmark stuck onto a decorative orb looks like a
+sticker. A character can simply be pleased.
+
+| State | Expression |
+| --- | --- |
+| `idle` | Eyes open, follows the cursor, occasional blink |
+| `listening` | Eyes widen, body breathes with the voice |
+| `thinking` | Squints and looks away in saccades, off-centre "hmm" mouth |
+| `streaming` | Eyes half-closed and focused |
+| `done` | Happy arc eyes, curved smile, a small hop |
+| `error` | Spiral eyes, woozy mouth, one wobble — confused, not scolding |
+
+The gaze and blink timings are lifted from the SmoothUI moai in the site header,
+so the two read as the same creature.
+
+## Usage
+
+```tsx
+"use client";
+
+import type { AIState } from "@/components/smoothui/ai-core";
+import AIOrbFace from "@/components/smoothui/ai-orb-face";
+
+export const Companion = ({ state }: { state: AIState }) => (
+  <AIOrbFace aria-label={`Assistant is ${state}`} size={96} state={state} />
+);
+```
+
+Turn the gaze off where many instances would compete for attention:
+
+```tsx
+<AIOrbFace gaze={false} size={32} state={state} />
+```
+
+## Accessibility
+
+### Reduced Motion
+
+Uses `useReducedMotion`. Blinking, saccades, the hop and the dizzy wobble are all
+disabled; expressions still change, they just arrive instantly. Pointer tracking
+is also disabled, since involuntary following motion is exactly what motion
+sensitivity is about.
+
+### Labelling
+
+Without `aria-label` the character is `aria-hidden`. When it is the only status
+indicator, pass a label that states the state in words — an expression is not
+available to a screen reader.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-orb-face/index.tsx"
+  name="AIOrbFaceProps"
+/>

@@ -8,6 +8,7 @@
 @source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/smoothui/templates/**/*.{js,jsx,ts,tsx}";
 
 @theme inline {
   --font-body: var(--font-inter);

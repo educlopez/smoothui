@@ -1,0 +1,7 @@
+__vite_ssr_exportName__("default", () => { try { return __vite_ssr_export_default__ } catch {} });
+const __vite_ssr_export_default__ = new Proxy(Object.create(null), {
+            get(_, style) {
+              return `_${style}_af3ae0`;
+            },
+          })
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvYmxvY2tzL2hlYWRlcnMvaGVhZGVyLTQvaGVyby1ncmlkLm1vZHVsZS5jc3MiLCIvYmxvY2tzL2hlYWRlcnMvaGVhZGVyLTQvaGVyby1ncmlkLm1vZHVsZS5jc3MiLFtdXQ==

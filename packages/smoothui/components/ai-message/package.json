@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-message",
+  "description": "Chat message bubble whose action row slides out of the bubble's own edge, revealed on hover and on focus.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "chat",
+      "message",
+      "bubble",
+      "actions",
+      "copy"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "User and assistant turns in a chat thread",
+      "Message with copy, retry and feedback actions",
+      "Thread rows that need an avatar or orb slot"
+    ],
+    "compositionHints": [
+      "Actions reveal on hover and focus-within, so keyboard users reach them",
+      "Pass copyText to enable the clipboard action",
+      "Drop an orb into avatar to tie the message to the assistant presence"
+    ],
+    "hasReducedMotion": true
+  }
+}

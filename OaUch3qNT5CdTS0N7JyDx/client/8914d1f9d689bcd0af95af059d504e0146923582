@@ -1,0 +1,331 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/@testing-library+user-event@14.6.1_@testing-library+dom@10.4.1/node_modules/@testing-library/user-event/dist/esm/index.js", {"importedNames":["default"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it","vi"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["fireEvent","render","screen","waitFor"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/select/index.tsx", {"importedNames":["default"]});
+
+
+
+
+
+const options = [
+  { value: "apple", label: "Apple" },
+  { value: "banana", label: "Banana" },
+  { value: "cherry", label: "Cherry" }
+];
+const groups = [
+  {
+    label: "Citrus",
+    options: [
+      { value: "lemon", label: "Lemon" },
+      { value: "lime", label: "Lime" }
+    ]
+  },
+  {
+    label: "Berries",
+    options: [{ value: "grape", label: "Grape", disabled: true }]
+  }
+];
+(0,__vite_ssr_import_2__.describe)("Select interactions", () => {
+  (0,__vite_ssr_import_2__.it)("renders with placeholder text", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          options,
+          placeholder: "Pick a fruit"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 29,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("Pick a fruit")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("renders trigger as a combobox", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 40,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("shows selected value text", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options, value: "cherry" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+        lineNumber: 47,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("Cherry")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("disables the trigger when disabled prop is set", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", disabled: true, options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 54,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toBeDisabled();
+  });
+  (0,__vite_ssr_import_2__.it)("sets aria-label on the trigger", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Choose fruit", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 60,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toHaveAttribute(
+      "aria-label",
+      "Choose fruit"
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("sets aria-expanded to false when closed", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Closed select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 69,
+      columnNumber: 12
+    }, this));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toHaveAttribute(
+      "aria-expanded",
+      "false"
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("opens the listbox on trigger click", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 79,
+      columnNumber: 12
+    }, this));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("listbox")).toBeInTheDocument();
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toHaveAttribute(
+      "aria-expanded",
+      "true"
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("does not open when disabled", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", disabled: true, options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 92,
+      columnNumber: 12
+    }, this));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.queryByRole("listbox")).not.toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("selects an option on click, updates label, and calls onValueChange", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          onValueChange,
+          options
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 103,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("option", { name: "Banana" }));
+    (0,__vite_ssr_import_2__.expect)(onValueChange).toHaveBeenCalledWith("banana");
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toHaveTextContent("Banana");
+    await (0,__vite_ssr_import_3__.waitFor)(
+      () => (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.queryByRole("listbox")).not.toBeInTheDocument()
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("does not select a disabled option", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          groups,
+          onValueChange
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 124,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("option", { name: "Grape" }));
+    (0,__vite_ssr_import_2__.expect)(onValueChange).not.toHaveBeenCalled();
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("listbox")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("renders grouped options and selects from a group", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          groups,
+          onValueChange
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 142,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("Citrus")).toBeInTheDocument();
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("Berries")).toBeInTheDocument();
+    await user.click(__vite_ssr_import_3__.screen.getByRole("option", { name: "Lime" }));
+    (0,__vite_ssr_import_2__.expect)(onValueChange).toHaveBeenCalledWith("lime");
+  });
+  (0,__vite_ssr_import_2__.it)("does not update displayed label when controlled", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          onValueChange,
+          options,
+          value: "apple"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 161,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("option", { name: "Cherry" }));
+    (0,__vite_ssr_import_2__.expect)(onValueChange).toHaveBeenCalledWith("cherry");
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("combobox")).toHaveTextContent("Apple");
+  });
+  (0,__vite_ssr_import_2__.it)("closes the listbox on outside click", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 178,
+      columnNumber: 12
+    }, this));
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("listbox")).toBeInTheDocument();
+    await user.click(document.body);
+    await (0,__vite_ssr_import_3__.waitFor)(
+      () => (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.queryByRole("listbox")).not.toBeInTheDocument()
+    );
+  });
+  (0,__vite_ssr_import_2__.it)("opens on Enter when trigger is focused", () => {
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 190,
+      columnNumber: 12
+    }, this));
+    const trigger = __vite_ssr_import_3__.screen.getByRole("combobox");
+    trigger.focus();
+    __vite_ssr_import_3__.fireEvent.keyDown(trigger, { key: "Enter" });
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("listbox")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("navigates with ArrowDown/ArrowUp and selects the focused option with Enter", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          onValueChange,
+          options
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 203,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "ArrowDown" });
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "ArrowDown" });
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "ArrowUp" });
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "Enter" });
+    (0,__vite_ssr_import_2__.expect)(onValueChange).toHaveBeenCalledWith("apple");
+  });
+  (0,__vite_ssr_import_2__.it)("moves focus to first/last option with Home/End", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onValueChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Fruit select",
+          onValueChange,
+          options
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+          lineNumber: 223,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("combobox"));
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "End" });
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "Enter" });
+    (0,__vite_ssr_import_2__.expect)(onValueChange).toHaveBeenCalledWith("cherry");
+  });
+  (0,__vite_ssr_import_2__.it)("closes the listbox on Escape and refocuses the trigger", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    (0,__vite_ssr_import_3__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Fruit select", options }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/select/__tests__/select.interaction.test.tsx",
+      lineNumber: 239,
+      columnNumber: 12
+    }, this));
+    const trigger = __vite_ssr_import_3__.screen.getByRole("combobox");
+    await user.click(trigger);
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("listbox")).toBeInTheDocument();
+    __vite_ssr_import_3__.fireEvent.keyDown(document, { key: "Escape" });
+    await (0,__vite_ssr_import_3__.waitFor)(
+      () => (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.queryByRole("listbox")).not.toBeInTheDocument()
+    );
+    (0,__vite_ssr_import_2__.expect)(trigger).toHaveFocus();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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LFdBQWxDO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBb0QsQ0FBRTtBQUU3RCxVQUFNLFVBQVUsNkJBQU8sVUFBVSxVQUFVO0FBQzNDLFVBQU0sS0FBSyxNQUFNLE9BQU87QUFDeEIscUNBQU8sNkJBQU8sVUFBVSxTQUFTLENBQUMsRUFBRSxrQkFBa0I7QUFFdEQsb0NBQVUsUUFBUSxVQUFVLEVBQUUsS0FBSyxTQUFTLENBQUM7QUFFN0MsYUFBTTtBQUFBLE1BQVEsU0FDWiw4QkFBTyw2QkFBTyxZQUFZLFNBQVMsQ0FBQyxFQUFFLElBQUksa0JBQWtCO0FBQUEsSUFDOUQ7QUFDQSxxQ0FBTyxPQUFPLEVBQUUsWUFBWTtBQUFBLEVBQzlCLENBQUM7QUFDSCxDQUFDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJzZWxlY3QuaW50ZXJhY3Rpb24udGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHVzZXJFdmVudCBmcm9tIFwiQHRlc3RpbmctbGlicmFyeS91c2VyLWV2ZW50XCI7XG5pbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCwgdmkgfSBmcm9tIFwidml0ZXN0XCI7XG5pbXBvcnQgeyBmaXJlRXZlbnQsIHJlbmRlciwgc2NyZWVuLCB3YWl0Rm9yIH0gZnJvbSBcIi4uLy4uLy4uL3Rlc3QtdXRpbHMvcmVuZGVyXCI7XG5pbXBvcnQgU2VsZWN0IGZyb20gXCIuLi9pbmRleFwiO1xuXG5jb25zdCBvcHRpb25zID0gW1xuICB7IHZhbHVlOiBcImFwcGxlXCIsIGxhYmVsOiBcIkFwcGxlXCIgfSxcbiAgeyB2YWx1ZTogXCJiYW5hbmFcIiwgbGFiZWw6IFwiQmFuYW5hXCIgfSxcbiAgeyB2YWx1ZTogXCJjaGVycnlcIiwgbGFiZWw6IFwiQ2hlcnJ5XCIgfSxcbl07XG5cbmNvbnN0IGdyb3VwcyA9IFtcbiAge1xuICAgIGxhYmVsOiBcIkNpdHJ1c1wiLFxuICAgIG9wdGlvbnM6IFtcbiAgICAgIHsgdmFsdWU6IFwibGVtb25cIiwgbGFiZWw6IFwiTGVtb25cIiB9LFxuICAgICAgeyB2YWx1ZTogXCJsaW1lXCIsIGxhYmVsOiBcIkxpbWVcIiB9LFxuICAgIF0sXG4gIH0sXG4gIHtcbiAgICBsYWJlbDogXCJCZXJyaWVzXCIsXG4gICAgb3B0aW9uczogW3sgdmFsdWU6IFwiZ3JhcGVcIiwgbGFiZWw6IFwiR3JhcGVcIiwgZGlzYWJsZWQ6IHRydWUgfV0sXG4gIH0sXG5dO1xuXG5kZXNjcmliZShcIlNlbGVjdCBpbnRlcmFjdGlvbnNcIiwgKCkgPT4ge1xuICBpdChcInJlbmRlcnMgd2l0aCBwbGFjZWhvbGRlciB0ZXh0XCIsICgpID0+IHtcbiAgICByZW5kZXIoXG4gICAgICA8U2VsZWN0XG4gICAgICAgIGFyaWEtbGFiZWw9XCJGcnVpdCBzZWxlY3RcIlxuICAgICAgICBvcHRpb25zPXtvcHRpb25zfVxuICAgICAgICBwbGFjZWhvbGRlcj1cIlBpY2sgYSBmcnVpdFwiXG4gICAgICAvPlxuICAgICk7XG5cbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dChcIlBpY2sgYSBmcnVpdFwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG5cbiAgaXQoXCJyZW5kZXJzIHRyaWdnZXIgYXMgYSBjb21ib2JveFwiLCAoKSA9PiB7XG4gICAgcmVuZGVyKDxTZWxlY3QgYXJpYS1sYWJlbD1cIkZydWl0IHNlbGVjdFwiIG9wdGlvbnM9e29wdGlvbnN9IC8+KTtcblxuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlSb2xlKFwiY29tYm9ib3hcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xuXG4gIGl0KFwic2hvd3Mgc2VsZWN0ZWQgdmFsdWUgdGV4dFwiLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPFNlbGVjdCBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCIgb3B0aW9ucz17b3B0aW9uc30gdmFsdWU9XCJjaGVycnlcIiAvPlxuICAgICk7XG5cbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dChcIkNoZXJyeVwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG5cbiAgaXQoXCJkaXNhYmxlcyB0aGUgdHJpZ2dlciB3aGVuIGRpc2FibGVkIHByb3AgaXMgc2V0XCIsICgpID0+IHtcbiAgICByZW5kZXIoPFNlbGVjdCBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCIgZGlzYWJsZWQgb3B0aW9ucz17b3B0aW9uc30gLz4pO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJjb21ib2JveFwiKSkudG9CZURpc2FibGVkKCk7XG4gIH0pO1xuXG4gIGl0KFwic2V0cyBhcmlhLWxhYmVsIG9uIHRoZSB0cmlnZ2VyXCIsICgpID0+IHtcbiAgICByZW5kZXIoPFNlbGVjdCBhcmlhLWxhYmVsPVwiQ2hvb3NlIGZydWl0XCIgb3B0aW9ucz17b3B0aW9uc30gLz4pO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJjb21ib2JveFwiKSkudG9IYXZlQXR0cmlidXRlKFxuICAgICAgXCJhcmlhLWxhYmVsXCIsXG4gICAgICBcIkNob29zZSBmcnVpdFwiXG4gICAgKTtcbiAgfSk7XG5cbiAgaXQoXCJzZXRzIGFyaWEtZXhwYW5kZWQgdG8gZmFsc2Ugd2hlbiBjbG9zZWRcIiwgKCkgPT4ge1xuICAgIHJlbmRlcig8U2VsZWN0IGFyaWEtbGFiZWw9XCJDbG9zZWQgc2VsZWN0XCIgb3B0aW9ucz17b3B0aW9uc30gLz4pO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJjb21ib2JveFwiKSkudG9IYXZlQXR0cmlidXRlKFxuICAgICAgXCJhcmlhLWV4cGFuZGVkXCIsXG4gICAgICBcImZhbHNlXCJcbiAgICApO1xuICB9KTtcblxuICBpdChcIm9wZW5zIHRoZSBsaXN0Ym94IG9uIHRyaWdnZXIgY2xpY2tcIiwgYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IHVzZXIgPSB1c2VyRXZlbnQuc2V0dXAoKTtcbiAgICByZW5kZXIoPFNlbGVjdCBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCIgb3B0aW9ucz17b3B0aW9uc30gLz4pO1xuXG4gICAgYXdhaXQgdXNlci5jbGljayhzY3JlZW4uZ2V0QnlSb2xlKFwiY29tYm9ib3hcIikpO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJsaXN0Ym94XCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlSb2xlKFwiY29tYm9ib3hcIikpLnRvSGF2ZUF0dHJpYnV0ZShcbiAgICAgIFwiYXJpYS1leHBhbmRlZFwiLFxuICAgICAgXCJ0cnVlXCJcbiAgICApO1xuICB9KTtcblxuICBpdChcImRvZXMgbm90IG9wZW4gd2hlbiBkaXNhYmxlZFwiLCBhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgdXNlciA9IHVzZXJFdmVudC5zZXR1cCgpO1xuICAgIHJlbmRlcig8U2VsZWN0IGFyaWEtbGFiZWw9XCJGcnVpdCBzZWxlY3RcIiBkaXNhYmxlZCBvcHRpb25zPXtvcHRpb25zfSAvPik7XG5cbiAgICBhd2FpdCB1c2VyLmNsaWNrKHNjcmVlbi5nZXRCeVJvbGUoXCJjb21ib2JveFwiKSk7XG5cbiAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlSb2xlKFwibGlzdGJveFwiKSkubm90LnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xuXG4gIGl0KFwic2VsZWN0cyBhbiBvcHRpb24gb24gY2xpY2ssIHVwZGF0ZXMgbGFiZWwsIGFuZCBjYWxscyBvblZhbHVlQ2hhbmdlXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25WYWx1ZUNoYW5nZSA9IHZpLmZuKCk7XG4gICAgcmVuZGVyKFxuICAgICAgPFNlbGVjdFxuICAgICAgICBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCJcbiAgICAgICAgb25WYWx1ZUNoYW5nZT17b25WYWx1ZUNoYW5nZX1cbiAgICAgICAgb3B0aW9ucz17b3B0aW9uc31cbiAgICAgIC8+XG4gICAgKTtcblxuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKTtcbiAgICBhd2FpdCB1c2VyLmNsaWNrKHNjcmVlbi5nZXRCeVJvbGUoXCJvcHRpb25cIiwgeyBuYW1lOiBcIkJhbmFuYVwiIH0pKTtcblxuICAgIGV4cGVjdChvblZhbHVlQ2hhbmdlKS50b0hhdmVCZWVuQ2FsbGVkV2l0aChcImJhbmFuYVwiKTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKS50b0hhdmVUZXh0Q29udGVudChcIkJhbmFuYVwiKTtcbiAgICBhd2FpdCB3YWl0Rm9yKCgpID0+XG4gICAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlSb2xlKFwibGlzdGJveFwiKSkubm90LnRvQmVJblRoZURvY3VtZW50KClcbiAgICApO1xuICB9KTtcblxuICBpdChcImRvZXMgbm90IHNlbGVjdCBhIGRpc2FibGVkIG9wdGlvblwiLCBhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgdXNlciA9IHVzZXJFdmVudC5zZXR1cCgpO1xuICAgIGNvbnN0IG9uVmFsdWVDaGFuZ2UgPSB2aS5mbigpO1xuICAgIHJlbmRlcihcbiAgICAgIDxTZWxlY3RcbiAgICAgICAgYXJpYS1sYWJlbD1cIkZydWl0IHNlbGVjdFwiXG4gICAgICAgIGdyb3Vwcz17Z3JvdXBzfVxuICAgICAgICBvblZhbHVlQ2hhbmdlPXtvblZhbHVlQ2hhbmdlfVxuICAgICAgLz5cbiAgICApO1xuXG4gICAgYXdhaXQgdXNlci5jbGljayhzY3JlZW4uZ2V0QnlSb2xlKFwiY29tYm9ib3hcIikpO1xuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcIm9wdGlvblwiLCB7IG5hbWU6IFwiR3JhcGVcIiB9KSk7XG5cbiAgICBleHBlY3Qob25WYWx1ZUNoYW5nZSkubm90LnRvSGF2ZUJlZW5DYWxsZWQoKTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImxpc3Rib3hcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xuXG4gIGl0KFwicmVuZGVycyBncm91cGVkIG9wdGlvbnMgYW5kIHNlbGVjdHMgZnJvbSBhIGdyb3VwXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25WYWx1ZUNoYW5nZSA9IHZpLmZuKCk7XG4gICAgcmVuZGVyKFxuICAgICAgPFNlbGVjdFxuICAgICAgICBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCJcbiAgICAgICAgZ3JvdXBzPXtncm91cHN9XG4gICAgICAgIG9uVmFsdWVDaGFuZ2U9e29uVmFsdWVDaGFuZ2V9XG4gICAgICAvPlxuICAgICk7XG5cbiAgICBhd2FpdCB1c2VyLmNsaWNrKHNjcmVlbi5nZXRCeVJvbGUoXCJjb21ib2JveFwiKSk7XG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoXCJDaXRydXNcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVRleHQoXCJCZXJyaWVzXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuXG4gICAgYXdhaXQgdXNlci5jbGljayhzY3JlZW4uZ2V0QnlSb2xlKFwib3B0aW9uXCIsIHsgbmFtZTogXCJMaW1lXCIgfSkpO1xuICAgIGV4cGVjdChvblZhbHVlQ2hhbmdlKS50b0hhdmVCZWVuQ2FsbGVkV2l0aChcImxpbWVcIik7XG4gIH0pO1xuXG4gIGl0KFwiZG9lcyBub3QgdXBkYXRlIGRpc3BsYXllZCBsYWJlbCB3aGVuIGNvbnRyb2xsZWRcIiwgYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IHVzZXIgPSB1c2VyRXZlbnQuc2V0dXAoKTtcbiAgICBjb25zdCBvblZhbHVlQ2hhbmdlID0gdmkuZm4oKTtcbiAgICByZW5kZXIoXG4gICAgICA8U2VsZWN0XG4gICAgICAgIGFyaWEtbGFiZWw9XCJGcnVpdCBzZWxlY3RcIlxuICAgICAgICBvblZhbHVlQ2hhbmdlPXtvblZhbHVlQ2hhbmdlfVxuICAgICAgICBvcHRpb25zPXtvcHRpb25zfVxuICAgICAgICB2YWx1ZT1cImFwcGxlXCJcbiAgICAgIC8+XG4gICAgKTtcblxuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKTtcbiAgICBhd2FpdCB1c2VyLmNsaWNrKHNjcmVlbi5nZXRCeVJvbGUoXCJvcHRpb25cIiwgeyBuYW1lOiBcIkNoZXJyeVwiIH0pKTtcblxuICAgIGV4cGVjdChvblZhbHVlQ2hhbmdlKS50b0hhdmVCZWVuQ2FsbGVkV2l0aChcImNoZXJyeVwiKTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKS50b0hhdmVUZXh0Q29udGVudChcIkFwcGxlXCIpO1xuICB9KTtcblxuICBpdChcImNsb3NlcyB0aGUgbGlzdGJveCBvbiBvdXRzaWRlIGNsaWNrXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgcmVuZGVyKDxTZWxlY3QgYXJpYS1sYWJlbD1cIkZydWl0IHNlbGVjdFwiIG9wdGlvbnM9e29wdGlvbnN9IC8+KTtcblxuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImxpc3Rib3hcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG5cbiAgICBhd2FpdCB1c2VyLmNsaWNrKGRvY3VtZW50LmJvZHkpO1xuICAgIGF3YWl0IHdhaXRGb3IoKCkgPT5cbiAgICAgIGV4cGVjdChzY3JlZW4ucXVlcnlCeVJvbGUoXCJsaXN0Ym94XCIpKS5ub3QudG9CZUluVGhlRG9jdW1lbnQoKVxuICAgICk7XG4gIH0pO1xuXG4gIGl0KFwib3BlbnMgb24gRW50ZXIgd2hlbiB0cmlnZ2VyIGlzIGZvY3VzZWRcIiwgKCkgPT4ge1xuICAgIHJlbmRlcig8U2VsZWN0IGFyaWEtbGFiZWw9XCJGcnVpdCBzZWxlY3RcIiBvcHRpb25zPXtvcHRpb25zfSAvPik7XG5cbiAgICBjb25zdCB0cmlnZ2VyID0gc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpO1xuICAgIHRyaWdnZXIuZm9jdXMoKTtcbiAgICBmaXJlRXZlbnQua2V5RG93bih0cmlnZ2VyLCB7IGtleTogXCJFbnRlclwiIH0pO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJsaXN0Ym94XCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICB9KTtcblxuICBpdChcIm5hdmlnYXRlcyB3aXRoIEFycm93RG93bi9BcnJvd1VwIGFuZCBzZWxlY3RzIHRoZSBmb2N1c2VkIG9wdGlvbiB3aXRoIEVudGVyXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25WYWx1ZUNoYW5nZSA9IHZpLmZuKCk7XG4gICAgcmVuZGVyKFxuICAgICAgPFNlbGVjdFxuICAgICAgICBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCJcbiAgICAgICAgb25WYWx1ZUNoYW5nZT17b25WYWx1ZUNoYW5nZX1cbiAgICAgICAgb3B0aW9ucz17b3B0aW9uc31cbiAgICAgIC8+XG4gICAgKTtcblxuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKTtcbiAgICBmaXJlRXZlbnQua2V5RG93bihkb2N1bWVudCwgeyBrZXk6IFwiQXJyb3dEb3duXCIgfSk7XG4gICAgZmlyZUV2ZW50LmtleURvd24oZG9jdW1lbnQsIHsga2V5OiBcIkFycm93RG93blwiIH0pO1xuICAgIGZpcmVFdmVudC5rZXlEb3duKGRvY3VtZW50LCB7IGtleTogXCJBcnJvd1VwXCIgfSk7XG4gICAgZmlyZUV2ZW50LmtleURvd24oZG9jdW1lbnQsIHsga2V5OiBcIkVudGVyXCIgfSk7XG5cbiAgICBleHBlY3Qob25WYWx1ZUNoYW5nZSkudG9IYXZlQmVlbkNhbGxlZFdpdGgoXCJhcHBsZVwiKTtcbiAgfSk7XG5cbiAgaXQoXCJtb3ZlcyBmb2N1cyB0byBmaXJzdC9sYXN0IG9wdGlvbiB3aXRoIEhvbWUvRW5kXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25WYWx1ZUNoYW5nZSA9IHZpLmZuKCk7XG4gICAgcmVuZGVyKFxuICAgICAgPFNlbGVjdFxuICAgICAgICBhcmlhLWxhYmVsPVwiRnJ1aXQgc2VsZWN0XCJcbiAgICAgICAgb25WYWx1ZUNoYW5nZT17b25WYWx1ZUNoYW5nZX1cbiAgICAgICAgb3B0aW9ucz17b3B0aW9uc31cbiAgICAgIC8+XG4gICAgKTtcblxuICAgIGF3YWl0IHVzZXIuY2xpY2soc2NyZWVuLmdldEJ5Um9sZShcImNvbWJvYm94XCIpKTtcbiAgICBmaXJlRXZlbnQua2V5RG93bihkb2N1bWVudCwgeyBrZXk6IFwiRW5kXCIgfSk7XG4gICAgZmlyZUV2ZW50LmtleURvd24oZG9jdW1lbnQsIHsga2V5OiBcIkVudGVyXCIgfSk7XG5cbiAgICBleHBlY3Qob25WYWx1ZUNoYW5nZSkudG9IYXZlQmVlbkNhbGxlZFdpdGgoXCJjaGVycnlcIik7XG4gIH0pO1xuXG4gIGl0KFwiY2xvc2VzIHRoZSBsaXN0Ym94IG9uIEVzY2FwZSBhbmQgcmVmb2N1c2VzIHRoZSB0cmlnZ2VyXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgcmVuZGVyKDxTZWxlY3QgYXJpYS1sYWJlbD1cIkZydWl0IHNlbGVjdFwiIG9wdGlvbnM9e29wdGlvbnN9IC8+KTtcblxuICAgIGNvbnN0IHRyaWdnZXIgPSBzY3JlZW4uZ2V0QnlSb2xlKFwiY29tYm9ib3hcIik7XG4gICAgYXdhaXQgdXNlci5jbGljayh0cmlnZ2VyKTtcbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImxpc3Rib3hcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG5cbiAgICBmaXJlRXZlbnQua2V5RG93bihkb2N1bWVudCwgeyBrZXk6IFwiRXNjYXBlXCIgfSk7XG5cbiAgICBhd2FpdCB3YWl0Rm9yKCgpID0+XG4gICAgICBleHBlY3Qoc2NyZWVuLnF1ZXJ5QnlSb2xlKFwibGlzdGJveFwiKSkubm90LnRvQmVJblRoZURvY3VtZW50KClcbiAgICApO1xuICAgIGV4cGVjdCh0cmlnZ2VyKS50b0hhdmVGb2N1cygpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9zZWxlY3QvX190ZXN0c19fL3NlbGVjdC5pbnRlcmFjdGlvbi50ZXN0LnRzeCJ9
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9zZWxlY3QvX190ZXN0c19fL3NlbGVjdC5pbnRlcmFjdGlvbi50ZXN0LnRzeCIsIi9jb21wb25lbnRzL3NlbGVjdC9fX3Rlc3RzX18vc2VsZWN0LmludGVyYWN0aW9uLnRlc3QudHN4IixbXV0=

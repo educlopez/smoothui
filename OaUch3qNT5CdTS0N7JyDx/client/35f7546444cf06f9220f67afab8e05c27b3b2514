@@ -1,0 +1,65 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest-axe@1.0.0-pre.5_vitest@4.1.7/node_modules/vitest-axe/dist/index.js", {"importedNames":["axe"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/radio-group/index.tsx", {"importedNames":["default","Radio"]});
+
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("RadioGroup a11y", () => {
+  (0,__vite_ssr_import_1__.it)("has no accessibility violations", async () => {
+    const { container } = (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Test options", defaultValue: "a", children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.Radio), { id: "opt-a", value: "a", children: "Option A" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+          lineNumber: 10,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.Radio), { id: "opt-b", value: "b", children: "Option B" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+          lineNumber: 13,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.Radio), { id: "opt-c", value: "c", children: "Option C" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+          lineNumber: 16,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+        lineNumber: 9,
+        columnNumber: 7
+      }, this)
+    );
+    const results = await (0,__vite_ssr_import_2__.axe)(container);
+    (0,__vite_ssr_import_1__.expect)(results).toHaveNoViolations();
+  });
+  (0,__vite_ssr_import_1__.it)("has no accessibility violations when disabled", async () => {
+    const { container } = (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { "aria-label": "Disabled options", defaultValue: "a", disabled: true, children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.Radio), { id: "dis-a", value: "a", children: "Option A" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+          lineNumber: 28,
+          columnNumber: 9
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.Radio), { id: "dis-b", value: "b", children: "Option B" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+          lineNumber: 31,
+          columnNumber: 9
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/radio-group/__tests__/radio-group.a11y.test.tsx",
+        lineNumber: 27,
+        columnNumber: 7
+      }, this)
+    );
+    const results = await (0,__vite_ssr_import_2__.axe)(container);
+    (0,__vite_ssr_import_1__.expect)(results).toHaveNoViolations();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBU1E7QUFUUjtBQUNBO0FBQ0E7QUFDQTs7Ozs7O0dBRUEsZ0NBQVMsbUJBQW1CLE1BQU07QUFDaEMsK0JBQUcsbUNBQW1DLFlBQVk7QUFDaEQsVUFBTSxFQUFFLFVBQVUsT0FBSTtBQUFBLE1BQ3BCLG9EQUFDLGtDQUFXLGNBQVcsZ0JBQWUsY0FBYSxLQUNqRDtBQUFBLDREQUFDLGdDQUFNLElBQUcsU0FBUSxPQUFNLEtBQUksd0JBQTVCO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFFQTtBQUFBLFFBQ0Esb0RBQUMsZ0NBQU0sSUFBRyxTQUFRLE9BQU0sS0FBSSx3QkFBNUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUVBO0FBQUEsUUFDQSxvREFBQyxnQ0FBTSxJQUFHLFNBQVEsT0FBTSxLQUFJLHdCQUE1QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBRUE7QUFBQSxXQVRGO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFVQTtBQUFBLElBQ0Y7QUFDQSxVQUFNLFVBQVUsU0FBTSwyQkFBSSxTQUFTO0FBQ25DLHFDQUFPLE9BQU8sRUFBRSxtQkFBbUI7QUFBQSxFQUNyQyxDQUFDO0FBRUQsK0JBQUcsaURBQWlELFlBQVk7QUFDOUQsVUFBTSxFQUFFLFVBQVUsT0FBSTtBQUFBLE1BQ3BCLG9EQUFDLGtDQUFXLGNBQVcsb0JBQW1CLGNBQWEsS0FBSSxVQUFRLE1BQ2pFO0FBQUEsNERBQUMsZ0NBQU0sSUFBRyxTQUFRLE9BQU0sS0FBSSx3QkFBNUI7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUVBO0FBQUEsUUFDQSxvREFBQyxnQ0FBTSxJQUFHLFNBQVEsT0FBTSxLQUFJLHdCQUE1QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBRUE7QUFBQSxXQU5GO0FBQUE7QUFBQTtBQUFBO0FBQUEsYUFPQTtBQUFBLElBQ0Y7QUFDQSxVQUFNLFVBQVUsU0FBTSwyQkFBSSxTQUFTO0FBQ25DLHFDQUFPLE9BQU8sRUFBRSxtQkFBbUI7QUFBQSxFQUNyQyxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsicmFkaW8tZ3JvdXAuYTExeS50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gXCJ2aXRlc3RcIjtcbmltcG9ydCB7IGF4ZSB9IGZyb20gXCJ2aXRlc3QtYXhlXCI7XG5pbXBvcnQgeyByZW5kZXIgfSBmcm9tIFwiLi4vLi4vLi4vdGVzdC11dGlscy9yZW5kZXJcIjtcbmltcG9ydCBSYWRpb0dyb3VwLCB7IFJhZGlvIH0gZnJvbSBcIi4uL2luZGV4XCI7XG5cbmRlc2NyaWJlKFwiUmFkaW9Hcm91cCBhMTF5XCIsICgpID0+IHtcbiAgaXQoXCJoYXMgbm8gYWNjZXNzaWJpbGl0eSB2aW9sYXRpb25zXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgPFJhZGlvR3JvdXAgYXJpYS1sYWJlbD1cIlRlc3Qgb3B0aW9uc1wiIGRlZmF1bHRWYWx1ZT1cImFcIj5cbiAgICAgICAgPFJhZGlvIGlkPVwib3B0LWFcIiB2YWx1ZT1cImFcIj5cbiAgICAgICAgICBPcHRpb24gQVxuICAgICAgICA8L1JhZGlvPlxuICAgICAgICA8UmFkaW8gaWQ9XCJvcHQtYlwiIHZhbHVlPVwiYlwiPlxuICAgICAgICAgIE9wdGlvbiBCXG4gICAgICAgIDwvUmFkaW8+XG4gICAgICAgIDxSYWRpbyBpZD1cIm9wdC1jXCIgdmFsdWU9XCJjXCI+XG4gICAgICAgICAgT3B0aW9uIENcbiAgICAgICAgPC9SYWRpbz5cbiAgICAgIDwvUmFkaW9Hcm91cD5cbiAgICApO1xuICAgIGNvbnN0IHJlc3VsdHMgPSBhd2FpdCBheGUoY29udGFpbmVyKTtcbiAgICBleHBlY3QocmVzdWx0cykudG9IYXZlTm9WaW9sYXRpb25zKCk7XG4gIH0pO1xuXG4gIGl0KFwiaGFzIG5vIGFjY2Vzc2liaWxpdHkgdmlvbGF0aW9ucyB3aGVuIGRpc2FibGVkXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKFxuICAgICAgPFJhZGlvR3JvdXAgYXJpYS1sYWJlbD1cIkRpc2FibGVkIG9wdGlvbnNcIiBkZWZhdWx0VmFsdWU9XCJhXCIgZGlzYWJsZWQ+XG4gICAgICAgIDxSYWRpbyBpZD1cImRpcy1hXCIgdmFsdWU9XCJhXCI+XG4gICAgICAgICAgT3B0aW9uIEFcbiAgICAgICAgPC9SYWRpbz5cbiAgICAgICAgPFJhZGlvIGlkPVwiZGlzLWJcIiB2YWx1ZT1cImJcIj5cbiAgICAgICAgICBPcHRpb24gQlxuICAgICAgICA8L1JhZGlvPlxuICAgICAgPC9SYWRpb0dyb3VwPlxuICAgICk7XG4gICAgY29uc3QgcmVzdWx0cyA9IGF3YWl0IGF4ZShjb250YWluZXIpO1xuICAgIGV4cGVjdChyZXN1bHRzKS50b0hhdmVOb1Zpb2xhdGlvbnMoKTtcbiAgfSk7XG59KTtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvcmFkaW8tZ3JvdXAvX190ZXN0c19fL3JhZGlvLWdyb3VwLmExMXkudGVzdC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9yYWRpby1ncm91cC9fX3Rlc3RzX18vcmFkaW8tZ3JvdXAuYTExeS50ZXN0LnRzeCIsIi9jb21wb25lbnRzL3JhZGlvLWdyb3VwL19fdGVzdHNfXy9yYWRpby1ncm91cC5hMTF5LnRlc3QudHN4IixbXV0=

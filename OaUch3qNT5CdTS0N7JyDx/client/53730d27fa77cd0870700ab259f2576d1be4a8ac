@@ -1,0 +1,43 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest-axe@1.0.0-pre.5_vitest@4.1.7/node_modules/vitest-axe/dist/index.js", {"importedNames":["axe"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/combobox/index.tsx", {"importedNames":["default"]});
+
+
+
+
+
+const options = [
+  { value: "react", label: "React" },
+  { value: "vue", label: "Vue" },
+  { value: "angular", label: "Angular" }
+];
+(0,__vite_ssr_import_1__.describe)("Combobox a11y", () => {
+  (0,__vite_ssr_import_1__.it)("has no accessibility violations in closed state", async () => {
+    const { container } = (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          "aria-label": "Choose a framework",
+          options,
+          placeholder: "Select framework…"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/combobox/__tests__/combobox.a11y.test.tsx",
+          lineNumber: 15,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    const results = await (0,__vite_ssr_import_2__.axe)(container);
+    (0,__vite_ssr_import_1__.expect)(results).toHaveNoViolations();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBY007QUFkTjtBQUNBO0FBQ0E7QUFDQTs7Ozs7O0FBRUEsTUFBTSxVQUFVO0FBQUEsRUFDZCxFQUFFLE9BQU8sU0FBUyxPQUFPLFFBQVE7QUFBQSxFQUNqQyxFQUFFLE9BQU8sT0FBTyxPQUFPLE1BQU07QUFBQSxFQUM3QixFQUFFLE9BQU8sV0FBVyxPQUFPLFVBQVU7QUFDdkM7R0FFQSxnQ0FBUyxpQkFBaUIsTUFBTTtBQUM5QiwrQkFBRyxtREFBbUQsWUFBWTtBQUNoRSxVQUFNLEVBQUUsVUFBVSxPQUFJO0FBQUEsTUFDcEI7QUFBQSxXQUFDO0FBQUE7QUFBQSxVQUNDLGNBQVc7QUFBQSxVQUNYO0FBQUEsVUFDQSxhQUFZO0FBQUE7QUFBQSxRQUhkO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxNQUlBO0FBQUEsSUFDRjtBQUNBLFVBQU0sVUFBVSxTQUFNLDJCQUFJLFNBQVM7QUFDbkMscUNBQU8sT0FBTyxFQUFFLG1CQUFtQjtBQUFBLEVBQ3JDLENBQUM7QUFDSCxDQUFDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJjb21ib2JveC5hMTF5LnRlc3QudHN4Il0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGRlc2NyaWJlLCBleHBlY3QsIGl0IH0gZnJvbSBcInZpdGVzdFwiO1xuaW1wb3J0IHsgYXhlIH0gZnJvbSBcInZpdGVzdC1heGVcIjtcbmltcG9ydCB7IHJlbmRlciB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IENvbWJvYm94IGZyb20gXCIuLi9pbmRleFwiO1xuXG5jb25zdCBvcHRpb25zID0gW1xuICB7IHZhbHVlOiBcInJlYWN0XCIsIGxhYmVsOiBcIlJlYWN0XCIgfSxcbiAgeyB2YWx1ZTogXCJ2dWVcIiwgbGFiZWw6IFwiVnVlXCIgfSxcbiAgeyB2YWx1ZTogXCJhbmd1bGFyXCIsIGxhYmVsOiBcIkFuZ3VsYXJcIiB9LFxuXTtcblxuZGVzY3JpYmUoXCJDb21ib2JveCBhMTF5XCIsICgpID0+IHtcbiAgaXQoXCJoYXMgbm8gYWNjZXNzaWJpbGl0eSB2aW9sYXRpb25zIGluIGNsb3NlZCBzdGF0ZVwiLCBhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgIDxDb21ib2JveFxuICAgICAgICBhcmlhLWxhYmVsPVwiQ2hvb3NlIGEgZnJhbWV3b3JrXCJcbiAgICAgICAgb3B0aW9ucz17b3B0aW9uc31cbiAgICAgICAgcGxhY2Vob2xkZXI9XCJTZWxlY3QgZnJhbWV3b3Jr4oCmXCJcbiAgICAgIC8+XG4gICAgKTtcbiAgICBjb25zdCByZXN1bHRzID0gYXdhaXQgYXhlKGNvbnRhaW5lcik7XG4gICAgZXhwZWN0KHJlc3VsdHMpLnRvSGF2ZU5vVmlvbGF0aW9ucygpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9jb21ib2JveC9fX3Rlc3RzX18vY29tYm9ib3guYTExeS50ZXN0LnRzeCJ9
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9jb21ib2JveC9fX3Rlc3RzX18vY29tYm9ib3guYTExeS50ZXN0LnRzeCIsIi9jb21wb25lbnRzL2NvbWJvYm94L19fdGVzdHNfXy9jb21ib2JveC5hMTF5LnRlc3QudHN4IixbXV0=

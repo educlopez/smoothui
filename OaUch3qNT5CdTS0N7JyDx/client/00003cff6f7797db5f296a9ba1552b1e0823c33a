@@ -1,0 +1,123 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["afterEach","beforeEach","describe","expect","it","vi"]});
+__vite_ssr_import_0__.vi.mock("motion/react", async (importOriginal) => {
+  const actual = await importOriginal();
+  return { ...actual, useReducedMotion: __vite_ssr_import_0__.vi.fn(() => false) };
+});
+const __vi_import_0__ = await __vite_ssr_dynamic_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js");
+const __vi_import_1__ = await __vite_ssr_dynamic_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@12.38.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/react.mjs");
+const __vi_import_2__ = await __vite_ssr_dynamic_import__("/test-utils/render.tsx");
+const __vi_import_3__ = await __vite_ssr_dynamic_import__("/test-utils/webgl-mock.ts");
+const __vi_import_4__ = await __vite_ssr_dynamic_import__("/components/aperture-blur-transition/index.tsx");
+
+
+
+
+
+
+(0,__vite_ssr_import_0__.describe)("ApertureBlurTransition", () => {
+  (0,__vite_ssr_import_0__.beforeEach)(() => {
+    __vi_import_3__.installWebglMock();
+  });
+  (0,__vite_ssr_import_0__.afterEach)(() => {
+    __vi_import_3__.uninstallWebglMock();
+    __vite_ssr_import_0__.vi.mocked(__vi_import_1__.useReducedMotion).mockReturnValue(false);
+  });
+  (0,__vite_ssr_import_0__.it)("renders the active content", () => {
+    const { getByText } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { transitionKey: "draft", children: "Draft saved" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 29,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(getByText("Draft saved")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_0__.it)("runs the aperture sweep, swaps content at the midpoint, and calls onRest", () => {
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 100, onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 40,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(getByText("First")).toBeInTheDocument();
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 100, onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 48,
+        columnNumber: 7
+      }, this)
+    );
+    __vi_import_3__.runFramesFor(400);
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("skips the animation and swaps content immediately when reduced motion is preferred", () => {
+    __vite_ssr_import_0__.vi.mocked(__vi_import_1__.useReducedMotion).mockReturnValue(true);
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 65,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 71,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("swaps content immediately when WebGL is unavailable", () => {
+    __vi_import_3__.uninstallWebglMock();
+    __vi_import_3__.installWebglMock({ supported: false });
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 87,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 93,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("does not throw when unmounted mid-animation", () => {
+    const { rerender, unmount } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 200, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 105,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 200, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/aperture-blur-transition/__tests__/aperture-blur-transition.test.tsx",
+        lineNumber: 111,
+        columnNumber: 7
+      }, this)
+    );
+    __vi_import_3__.flushFrames(2);
+    (0,__vite_ssr_import_0__.expect)(() => unmount()).not.toThrow();
+    (0,__vite_ssr_import_0__.expect)(() => __vi_import_3__.flushFrames(2)).not.toThrow();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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OUMscUNBQU8sTUFBTSxFQUFFLHNCQUFzQixDQUFDO0FBQUEsRUFDeEMsQ0FBQztBQUVELCtCQUFHLCtDQUErQyxNQUFNO0FBQ3RELFVBQU0sRUFBRSxVQUFVLFFBQVEsSUFBSTtBQUFBLE1BQzVCLHVDQUFDLDJCQUF1QixVQUFVLEtBQUssZUFBYyxLQUFJLHFCQUF6RDtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBRUE7QUFBQSxJQUNGO0FBRUE7QUFBQSxNQUNFLHVDQUFDLDJCQUF1QixVQUFVLEtBQUssZUFBYyxLQUFJLHNCQUF6RDtBQUFBO0FBQUE7QUFBQTtBQUFBLGFBRUE7QUFBQSxJQUNGO0FBRUEsZ0NBQVksQ0FBQztBQUViLHFDQUFPLE1BQU0sUUFBUSxDQUFDLEVBQUUsSUFBSSxRQUFRO0FBQ3BDLHFDQUFPLE1BQU0sNEJBQVksQ0FBQyxDQUFDLEVBQUUsSUFBSSxRQUFRO0FBQUEsRUFDM0MsQ0FBQztBQUNILENBQUMiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImFwZXJ0dXJlLWJsdXItdHJhbnNpdGlvbi50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyB1c2VSZWR1Y2VkTW90aW9uIH0gZnJvbSBcIm1vdGlvbi9yZWFjdFwiO1xuaW1wb3J0IHsgYWZ0ZXJFYWNoLCBiZWZvcmVFYWNoLCBkZXNjcmliZSwgZXhwZWN0LCBpdCwgdmkgfSBmcm9tIFwidml0ZXN0XCI7XG5pbXBvcnQgeyByZW5kZXIgfSBmcm9tIFwiLi4vLi4vLi4vdGVzdC11dGlscy9yZW5kZXJcIjtcbmltcG9ydCB7XG4gIGZsdXNoRnJhbWVzLFxuICBpbnN0YWxsV2ViZ2xNb2NrLFxuICBydW5GcmFtZXNGb3IsXG4gIHVuaW5zdGFsbFdlYmdsTW9jayxcbn0gZnJvbSBcIi4uLy4uLy4uL3Rlc3QtdXRpbHMvd2ViZ2wtbW9ja1wiO1xuaW1wb3J0IEFwZXJ0dXJlQmx1clRyYW5zaXRpb24gZnJvbSBcIi4uL2luZGV4XCI7XG5cbnZpLm1vY2soXCJtb3Rpb24vcmVhY3RcIiwgYXN5bmMgKGltcG9ydE9yaWdpbmFsKSA9PiB7XG4gIGNvbnN0IGFjdHVhbCA9IGF3YWl0IGltcG9ydE9yaWdpbmFsPHR5cGVvZiBpbXBvcnQoXCJtb3Rpb24vcmVhY3RcIik+KCk7XG4gIHJldHVybiB7IC4uLmFjdHVhbCwgdXNlUmVkdWNlZE1vdGlvbjogdmkuZm4oKCkgPT4gZmFsc2UpIH07XG59KTtcblxuZGVzY3JpYmUoXCJBcGVydHVyZUJsdXJUcmFuc2l0aW9uXCIsICgpID0+IHtcbiAgYmVmb3JlRWFjaCgoKSA9PiB7XG4gICAgaW5zdGFsbFdlYmdsTW9jaygpO1xuICB9KTtcblxuICBhZnRlckVhY2goKCkgPT4ge1xuICAgIHVuaW5zdGFsbFdlYmdsTW9jaygpO1xuICAgIHZpLm1vY2tlZCh1c2VSZWR1Y2VkTW90aW9uKS5tb2NrUmV0dXJuVmFsdWUoZmFsc2UpO1xuICB9KTtcblxuICBpdChcInJlbmRlcnMgdGhlIGFjdGl2ZSBjb250ZW50XCIsICgpID0+IHtcbiAgICBjb25zdCB7IGdldEJ5VGV4dCB9ID0gcmVuZGVyKFxuICAgICAgPEFwZXJ0dXJlQmx1clRyYW5zaXRpb24gdHJhbnNpdGlvbktleT1cImRyYWZ0XCI+XG4gICAgICAgIERyYWZ0IHNhdmVkXG4gICAgICA8L0FwZXJ0dXJlQmx1clRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGV4cGVjdChnZXRCeVRleHQoXCJEcmFmdCBzYXZlZFwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG5cbiAgaXQoXCJydW5zIHRoZSBhcGVydHVyZSBzd2VlcCwgc3dhcHMgY29udGVudCBhdCB0aGUgbWlkcG9pbnQsIGFuZCBjYWxscyBvblJlc3RcIiwgKCkgPT4ge1xuICAgIGNvbnN0IG9uUmVzdCA9IHZpLmZuKCk7XG4gICAgY29uc3QgeyBnZXRCeVRleHQsIHF1ZXJ5QnlUZXh0LCByZXJlbmRlciB9ID0gcmVuZGVyKFxuICAgICAgPEFwZXJ0dXJlQmx1clRyYW5zaXRpb24gZHVyYXRpb249ezEwMH0gb25SZXN0PXtvblJlc3R9IHRyYW5zaXRpb25LZXk9XCJhXCI+XG4gICAgICAgIEZpcnN0XG4gICAgICA8L0FwZXJ0dXJlQmx1clRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGV4cGVjdChnZXRCeVRleHQoXCJGaXJzdFwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcblxuICAgIHJlcmVuZGVyKFxuICAgICAgPEFwZXJ0dXJlQmx1clRyYW5zaXRpb24gZHVyYXRpb249ezEwMH0gb25SZXN0PXtvblJlc3R9IHRyYW5zaXRpb25LZXk9XCJiXCI+XG4gICAgICAgIFNlY29uZFxuICAgICAgPC9BcGVydHVyZUJsdXJUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICBydW5GcmFtZXNGb3IoNDAwKTtcblxuICAgIGV4cGVjdChxdWVyeUJ5VGV4dChcIkZpcnN0XCIpKS5ub3QudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgICBleHBlY3QoZ2V0QnlUZXh0KFwiU2Vjb25kXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChvblJlc3QpLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTtcbiAgfSk7XG5cbiAgaXQoXCJza2lwcyB0aGUgYW5pbWF0aW9uIGFuZCBzd2FwcyBjb250ZW50IGltbWVkaWF0ZWx5IHdoZW4gcmVkdWNlZCBtb3Rpb24gaXMgcHJlZmVycmVkXCIsICgpID0+IHtcbiAgICB2aS5tb2NrZWQodXNlUmVkdWNlZE1vdGlvbikubW9ja1JldHVyblZhbHVlKHRydWUpO1xuXG4gICAgY29uc3Qgb25SZXN0ID0gdmkuZm4oKTtcbiAgICBjb25zdCB7IGdldEJ5VGV4dCwgcXVlcnlCeVRleHQsIHJlcmVuZGVyIH0gPSByZW5kZXIoXG4gICAgICA8QXBlcnR1cmVCbHVyVHJhbnNpdGlvbiBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImFcIj5cbiAgICAgICAgRmlyc3RcbiAgICAgIDwvQXBlcnR1cmVCbHVyVHJhbnNpdGlvbj5cbiAgICApO1xuXG4gICAgcmVyZW5kZXIoXG4gICAgICA8QXBlcnR1cmVCbHVyVHJhbnNpdGlvbiBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImJcIj5cbiAgICAgICAgU2Vjb25kXG4gICAgICA8L0FwZXJ0dXJlQmx1clRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGV4cGVjdChxdWVyeUJ5VGV4dChcIkZpcnN0XCIpKS5ub3QudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgICBleHBlY3QoZ2V0QnlUZXh0KFwiU2Vjb25kXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChvblJlc3QpLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTtcbiAgfSk7XG5cbiAgaXQoXCJzd2FwcyBjb250ZW50IGltbWVkaWF0ZWx5IHdoZW4gV2ViR0wgaXMgdW5hdmFpbGFibGVcIiwgKCkgPT4ge1xuICAgIHVuaW5zdGFsbFdlYmdsTW9jaygpO1xuICAgIGluc3RhbGxXZWJnbE1vY2soeyBzdXBwb3J0ZWQ6IGZhbHNlIH0pO1xuXG4gICAgY29uc3Qgb25SZXN0ID0gdmkuZm4oKTtcbiAgICBjb25zdCB7IGdldEJ5VGV4dCwgcXVlcnlCeVRleHQsIHJlcmVuZGVyIH0gPSByZW5kZXIoXG4gICAgICA8QXBlcnR1cmVCbHVyVHJhbnNpdGlvbiBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImFcIj5cbiAgICAgICAgRmlyc3RcbiAgICAgIDwvQXBlcnR1cmVCbHVyVHJhbnNpdGlvbj5cbiAgICApO1xuXG4gICAgcmVyZW5kZXIoXG4gICAgICA8QXBlcnR1cmVCbHVyVHJhbnNpdGlvbiBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImJcIj5cbiAgICAgICAgU2Vjb25kXG4gICAgICA8L0FwZXJ0dXJlQmx1clRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGV4cGVjdChxdWVyeUJ5VGV4dChcIkZpcnN0XCIpKS5ub3QudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgICBleHBlY3QoZ2V0QnlUZXh0KFwiU2Vjb25kXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChvblJlc3QpLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTtcbiAgfSk7XG5cbiAgaXQoXCJkb2VzIG5vdCB0aHJvdyB3aGVuIHVubW91bnRlZCBtaWQtYW5pbWF0aW9uXCIsICgpID0+IHtcbiAgICBjb25zdCB7IHJlcmVuZGVyLCB1bm1vdW50IH0gPSByZW5kZXIoXG4gICAgICA8QXBlcnR1cmVCbHVyVHJhbnNpdGlvbiBkdXJhdGlvbj17MjAwfSB0cmFuc2l0aW9uS2V5PVwiYVwiPlxuICAgICAgICBGaXJzdFxuICAgICAgPC9BcGVydHVyZUJsdXJUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICByZXJlbmRlcihcbiAgICAgIDxBcGVydHVyZUJsdXJUcmFuc2l0aW9uIGR1cmF0aW9uPXsyMDB9IHRyYW5zaXRpb25LZXk9XCJiXCI+XG4gICAgICAgIFNlY29uZFxuICAgICAgPC9BcGVydHVyZUJsdXJUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICBmbHVzaEZyYW1lcygyKTtcblxuICAgIGV4cGVjdCgoKSA9PiB1bm1vdW50KCkpLm5vdC50b1Rocm93KCk7XG4gICAgZXhwZWN0KCgpID0+IGZsdXNoRnJhbWVzKDIpKS5ub3QudG9UaHJvdygpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9hcGVydHVyZS1ibHVyLXRyYW5zaXRpb24vX190ZXN0c19fL2FwZXJ0dXJlLWJsdXItdHJhbnNpdGlvbi50ZXN0LnRzeCJ9
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9hcGVydHVyZS1ibHVyLXRyYW5zaXRpb24vX190ZXN0c19fL2FwZXJ0dXJlLWJsdXItdHJhbnNpdGlvbi50ZXN0LnRzeCIsIi9jb21wb25lbnRzL2FwZXJ0dXJlLWJsdXItdHJhbnNpdGlvbi9fX3Rlc3RzX18vYXBlcnR1cmUtYmx1ci10cmFuc2l0aW9uLnRlc3QudHN4IixbXV0=

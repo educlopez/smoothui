@@ -1,0 +1,44 @@
+{
+  "name": "@repo/morph-surface",
+  "description": "Feedback dock that morphs from a compact pill into a panel and back, with a spring layout transition.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/smooth-button": "workspace:*",
+    "class-variance-authority": "^0.7.1",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "others",
+    "tags": [
+      "morph",
+      "dock",
+      "feedback",
+      "panel",
+      "textarea",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Compact feedback dock that expands into a form",
+      "Floating action pill that morphs into a panel",
+      "Any control that should grow in place rather than open a modal"
+    ],
+    "compositionHints": [
+      "Grows in place, so keep it out of tight layouts that would clip the panel",
+      "For an actual AI composer use ai-prompt-input instead",
+      "Escape closes the panel; Cmd+Enter submits"
+    ],
+    "hasReducedMotion": true
+  }
+}

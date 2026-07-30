@@ -19,6 +19,9 @@ export default defineConfig({
     include: [
       "components/**/__tests__/**/*.test.{ts,tsx}",
       "blocks/**/__tests__/**/*.test.{ts,tsx}",
+      "templates/**/__tests__/**/*.test.{ts,tsx}",
+      // Package-wide guards that belong to no single component.
+      "__tests__/**/*.test.{ts,tsx}",
     ],
     globals: true,
     server: {
@@ -30,7 +33,14 @@ export default defineConfig({
     },
     coverage: {
       provider: "v8",
-      include: ["components/**", "blocks/**", "hooks/**", "utils/**", "lib/**"],
+      include: [
+        "components/**",
+        "blocks/**",
+        "templates/**",
+        "hooks/**",
+        "utils/**",
+        "lib/**",
+      ],
       exclude: ["**/__tests__/**", "**/*.d.ts"],
       reporter: ["json-summary", "lcov"],
       // Regression gate just below the current baseline (2026-07):

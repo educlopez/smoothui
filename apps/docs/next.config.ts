@@ -54,6 +54,11 @@ const config: NextConfig = {
       },
       // Specific redirects for renamed components (must come before generic patterns)
       {
+        source: "/docs/components/ai-input",
+        destination: "/docs/components/morph-surface",
+        permanent: true,
+      },
+      {
         source: "/doc/components/animated-otp-input",
         destination: "/docs/components/animated-o-t-p-input",
         permanent: true,

@@ -1,0 +1,181 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["afterEach","beforeEach","describe","expect","it","vi"]});
+__vite_ssr_import_0__.vi.mock("motion/react", async (importOriginal) => {
+  const actual = await importOriginal();
+  return { ...actual, useReducedMotion: __vite_ssr_import_0__.vi.fn(() => false) };
+});
+const __vi_import_0__ = await __vite_ssr_dynamic_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js");
+const __vi_import_1__ = await __vite_ssr_dynamic_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@12.38.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/react.mjs");
+const __vi_import_2__ = await __vite_ssr_dynamic_import__("/test-utils/render.tsx");
+const __vi_import_3__ = await __vite_ssr_dynamic_import__("/test-utils/webgl-mock.ts");
+const __vi_import_4__ = await __vite_ssr_dynamic_import__("/components/shader-reveal-transition/index.tsx");
+
+
+
+
+
+
+const ALL_VARIANTS = [
+  "noise",
+  "zoom",
+  "circle",
+  "wipe",
+  "luma",
+  "planetary",
+  "stripes",
+  "push"
+];
+(0,__vite_ssr_import_0__.describe)("ShaderRevealTransition", () => {
+  (0,__vite_ssr_import_0__.beforeEach)(() => {
+    __vi_import_3__.installWebglMock();
+  });
+  (0,__vite_ssr_import_0__.afterEach)(() => {
+    __vi_import_3__.uninstallWebglMock();
+    __vite_ssr_import_0__.vi.mocked(__vi_import_1__.useReducedMotion).mockReturnValue(false);
+  });
+  (0,__vite_ssr_import_0__.it)("renders the active content", () => {
+    const { getByText } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { transitionKey: "draft", children: "Draft saved" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 40,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(getByText("Draft saved")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_0__.it)("runs the reveal, swaps content at the midpoint, and calls onRest", () => {
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 100, onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 51,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(getByText("First")).toBeInTheDocument();
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 100, onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 59,
+        columnNumber: 7
+      }, this)
+    );
+    __vi_import_3__.runFramesFor(400);
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("skips the animation and swaps content immediately when reduced motion is preferred", () => {
+    __vite_ssr_import_0__.vi.mocked(__vi_import_1__.useReducedMotion).mockReturnValue(true);
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 76,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 82,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("swaps content immediately when WebGL is unavailable", () => {
+    __vi_import_3__.uninstallWebglMock();
+    __vi_import_3__.installWebglMock({ supported: false });
+    const onRest = __vite_ssr_import_0__.vi.fn();
+    const { getByText, queryByText, rerender } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 98,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { onRest, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 104,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_0__.expect)(queryByText("First")).not.toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+    (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+  });
+  (0,__vite_ssr_import_0__.it)("does not throw when unmounted mid-animation", () => {
+    const { rerender, unmount } = __vi_import_2__.render(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 200, transitionKey: "a", children: "First" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 116,
+        columnNumber: 7
+      }, this)
+    );
+    rerender(
+      /* @__PURE__ */ __vi_import_0__.jsxDEV(__vi_import_4__.default, { duration: 200, transitionKey: "b", children: "Second" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+        lineNumber: 122,
+        columnNumber: 7
+      }, this)
+    );
+    __vi_import_3__.flushFrames(2);
+    (0,__vite_ssr_import_0__.expect)(() => unmount()).not.toThrow();
+    (0,__vite_ssr_import_0__.expect)(() => __vi_import_3__.flushFrames(2)).not.toThrow();
+  });
+  for (const variant of ALL_VARIANTS) {
+    (0,__vite_ssr_import_0__.it)(`renders and animates the "${variant}" variant without throwing`, () => {
+      const onRest = __vite_ssr_import_0__.vi.fn();
+      const { getByText, rerender } = __vi_import_2__.render(
+        /* @__PURE__ */ __vi_import_0__.jsxDEV(
+          __vi_import_4__.default,
+          {
+            duration: 80,
+            onRest,
+            transitionKey: "a",
+            variant,
+            children: "First"
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+            lineNumber: 137,
+            columnNumber: 9
+          },
+          this
+        )
+      );
+      rerender(
+        /* @__PURE__ */ __vi_import_0__.jsxDEV(
+          __vi_import_4__.default,
+          {
+            duration: 80,
+            onRest,
+            transitionKey: "b",
+            variant,
+            children: "Second"
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/shader-reveal-transition/__tests__/shader-reveal-transition.test.tsx",
+            lineNumber: 148,
+            columnNumber: 9
+          },
+          this
+        )
+      );
+      (0,__vite_ssr_import_0__.expect)(() => __vi_import_3__.runFramesFor(300)).not.toThrow();
+      (0,__vite_ssr_import_0__.expect)(getByText("Second")).toBeInTheDocument();
+      (0,__vite_ssr_import_0__.expect)(onRest).toHaveBeenCalledTimes(1);
+    });
+  }
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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O0FBQUE7QUFBQTtBQUFBLFFBT0E7QUFBQSxNQUNGO0FBRUEsdUNBQU8sTUFBTSw2QkFBYSxHQUFHLENBQUMsRUFBRSxJQUFJLFFBQVE7QUFDNUMsdUNBQU8sVUFBVSxRQUFRLENBQUMsRUFBRSxrQkFBa0I7QUFDOUMsdUNBQU8sTUFBTSxFQUFFLHNCQUFzQixDQUFDO0FBQUEsSUFDeEMsQ0FBQztBQUFBLEVBQ0g7QUFDRixDQUFDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJzaGFkZXItcmV2ZWFsLXRyYW5zaXRpb24udGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgdXNlUmVkdWNlZE1vdGlvbiB9IGZyb20gXCJtb3Rpb24vcmVhY3RcIjtcbmltcG9ydCB7IGFmdGVyRWFjaCwgYmVmb3JlRWFjaCwgZGVzY3JpYmUsIGV4cGVjdCwgaXQsIHZpIH0gZnJvbSBcInZpdGVzdFwiO1xuaW1wb3J0IHsgcmVuZGVyIH0gZnJvbSBcIi4uLy4uLy4uL3Rlc3QtdXRpbHMvcmVuZGVyXCI7XG5pbXBvcnQge1xuICBmbHVzaEZyYW1lcyxcbiAgaW5zdGFsbFdlYmdsTW9jayxcbiAgcnVuRnJhbWVzRm9yLFxuICB1bmluc3RhbGxXZWJnbE1vY2ssXG59IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3dlYmdsLW1vY2tcIjtcbmltcG9ydCBTaGFkZXJSZXZlYWxUcmFuc2l0aW9uLCB7IHR5cGUgU2hhZGVyUmV2ZWFsVmFyaWFudCB9IGZyb20gXCIuLi9pbmRleFwiO1xuXG52aS5tb2NrKFwibW90aW9uL3JlYWN0XCIsIGFzeW5jIChpbXBvcnRPcmlnaW5hbCkgPT4ge1xuICBjb25zdCBhY3R1YWwgPSBhd2FpdCBpbXBvcnRPcmlnaW5hbDx0eXBlb2YgaW1wb3J0KFwibW90aW9uL3JlYWN0XCIpPigpO1xuICByZXR1cm4geyAuLi5hY3R1YWwsIHVzZVJlZHVjZWRNb3Rpb246IHZpLmZuKCgpID0+IGZhbHNlKSB9O1xufSk7XG5cbmNvbnN0IEFMTF9WQVJJQU5UUzogU2hhZGVyUmV2ZWFsVmFyaWFudFtdID0gW1xuICBcIm5vaXNlXCIsXG4gIFwiem9vbVwiLFxuICBcImNpcmNsZVwiLFxuICBcIndpcGVcIixcbiAgXCJsdW1hXCIsXG4gIFwicGxhbmV0YXJ5XCIsXG4gIFwic3RyaXBlc1wiLFxuICBcInB1c2hcIixcbl07XG5cbmRlc2NyaWJlKFwiU2hhZGVyUmV2ZWFsVHJhbnNpdGlvblwiLCAoKSA9PiB7XG4gIGJlZm9yZUVhY2goKCkgPT4ge1xuICAgIGluc3RhbGxXZWJnbE1vY2soKTtcbiAgfSk7XG5cbiAgYWZ0ZXJFYWNoKCgpID0+IHtcbiAgICB1bmluc3RhbGxXZWJnbE1vY2soKTtcbiAgICB2aS5tb2NrZWQodXNlUmVkdWNlZE1vdGlvbikubW9ja1JldHVyblZhbHVlKGZhbHNlKTtcbiAgfSk7XG5cbiAgaXQoXCJyZW5kZXJzIHRoZSBhY3RpdmUgY29udGVudFwiLCAoKSA9PiB7XG4gICAgY29uc3QgeyBnZXRCeVRleHQgfSA9IHJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIHRyYW5zaXRpb25LZXk9XCJkcmFmdFwiPlxuICAgICAgICBEcmFmdCBzYXZlZFxuICAgICAgPC9TaGFkZXJSZXZlYWxUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICBleHBlY3QoZ2V0QnlUZXh0KFwiRHJhZnQgc2F2ZWRcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xuXG4gIGl0KFwicnVucyB0aGUgcmV2ZWFsLCBzd2FwcyBjb250ZW50IGF0IHRoZSBtaWRwb2ludCwgYW5kIGNhbGxzIG9uUmVzdFwiLCAoKSA9PiB7XG4gICAgY29uc3Qgb25SZXN0ID0gdmkuZm4oKTtcbiAgICBjb25zdCB7IGdldEJ5VGV4dCwgcXVlcnlCeVRleHQsIHJlcmVuZGVyIH0gPSByZW5kZXIoXG4gICAgICA8U2hhZGVyUmV2ZWFsVHJhbnNpdGlvbiBkdXJhdGlvbj17MTAwfSBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImFcIj5cbiAgICAgICAgRmlyc3RcbiAgICAgIDwvU2hhZGVyUmV2ZWFsVHJhbnNpdGlvbj5cbiAgICApO1xuXG4gICAgZXhwZWN0KGdldEJ5VGV4dChcIkZpcnN0XCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuXG4gICAgcmVyZW5kZXIoXG4gICAgICA8U2hhZGVyUmV2ZWFsVHJhbnNpdGlvbiBkdXJhdGlvbj17MTAwfSBvblJlc3Q9e29uUmVzdH0gdHJhbnNpdGlvbktleT1cImJcIj5cbiAgICAgICAgU2Vjb25kXG4gICAgICA8L1NoYWRlclJldmVhbFRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIHJ1bkZyYW1lc0Zvcig0MDApO1xuXG4gICAgZXhwZWN0KHF1ZXJ5QnlUZXh0KFwiRmlyc3RcIikpLm5vdC50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChnZXRCeVRleHQoXCJTZWNvbmRcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KG9uUmVzdCkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpO1xuICB9KTtcblxuICBpdChcInNraXBzIHRoZSBhbmltYXRpb24gYW5kIHN3YXBzIGNvbnRlbnQgaW1tZWRpYXRlbHkgd2hlbiByZWR1Y2VkIG1vdGlvbiBpcyBwcmVmZXJyZWRcIiwgKCkgPT4ge1xuICAgIHZpLm1vY2tlZCh1c2VSZWR1Y2VkTW90aW9uKS5tb2NrUmV0dXJuVmFsdWUodHJ1ZSk7XG5cbiAgICBjb25zdCBvblJlc3QgPSB2aS5mbigpO1xuICAgIGNvbnN0IHsgZ2V0QnlUZXh0LCBxdWVyeUJ5VGV4dCwgcmVyZW5kZXIgfSA9IHJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIG9uUmVzdD17b25SZXN0fSB0cmFuc2l0aW9uS2V5PVwiYVwiPlxuICAgICAgICBGaXJzdFxuICAgICAgPC9TaGFkZXJSZXZlYWxUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICByZXJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIG9uUmVzdD17b25SZXN0fSB0cmFuc2l0aW9uS2V5PVwiYlwiPlxuICAgICAgICBTZWNvbmRcbiAgICAgIDwvU2hhZGVyUmV2ZWFsVHJhbnNpdGlvbj5cbiAgICApO1xuXG4gICAgZXhwZWN0KHF1ZXJ5QnlUZXh0KFwiRmlyc3RcIikpLm5vdC50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChnZXRCeVRleHQoXCJTZWNvbmRcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KG9uUmVzdCkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpO1xuICB9KTtcblxuICBpdChcInN3YXBzIGNvbnRlbnQgaW1tZWRpYXRlbHkgd2hlbiBXZWJHTCBpcyB1bmF2YWlsYWJsZVwiLCAoKSA9PiB7XG4gICAgdW5pbnN0YWxsV2ViZ2xNb2NrKCk7XG4gICAgaW5zdGFsbFdlYmdsTW9jayh7IHN1cHBvcnRlZDogZmFsc2UgfSk7XG5cbiAgICBjb25zdCBvblJlc3QgPSB2aS5mbigpO1xuICAgIGNvbnN0IHsgZ2V0QnlUZXh0LCBxdWVyeUJ5VGV4dCwgcmVyZW5kZXIgfSA9IHJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIG9uUmVzdD17b25SZXN0fSB0cmFuc2l0aW9uS2V5PVwiYVwiPlxuICAgICAgICBGaXJzdFxuICAgICAgPC9TaGFkZXJSZXZlYWxUcmFuc2l0aW9uPlxuICAgICk7XG5cbiAgICByZXJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIG9uUmVzdD17b25SZXN0fSB0cmFuc2l0aW9uS2V5PVwiYlwiPlxuICAgICAgICBTZWNvbmRcbiAgICAgIDwvU2hhZGVyUmV2ZWFsVHJhbnNpdGlvbj5cbiAgICApO1xuXG4gICAgZXhwZWN0KHF1ZXJ5QnlUZXh0KFwiRmlyc3RcIikpLm5vdC50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChnZXRCeVRleHQoXCJTZWNvbmRcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KG9uUmVzdCkudG9IYXZlQmVlbkNhbGxlZFRpbWVzKDEpO1xuICB9KTtcblxuICBpdChcImRvZXMgbm90IHRocm93IHdoZW4gdW5tb3VudGVkIG1pZC1hbmltYXRpb25cIiwgKCkgPT4ge1xuICAgIGNvbnN0IHsgcmVyZW5kZXIsIHVubW91bnQgfSA9IHJlbmRlcihcbiAgICAgIDxTaGFkZXJSZXZlYWxUcmFuc2l0aW9uIGR1cmF0aW9uPXsyMDB9IHRyYW5zaXRpb25LZXk9XCJhXCI+XG4gICAgICAgIEZpcnN0XG4gICAgICA8L1NoYWRlclJldmVhbFRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIHJlcmVuZGVyKFxuICAgICAgPFNoYWRlclJldmVhbFRyYW5zaXRpb24gZHVyYXRpb249ezIwMH0gdHJhbnNpdGlvbktleT1cImJcIj5cbiAgICAgICAgU2Vjb25kXG4gICAgICA8L1NoYWRlclJldmVhbFRyYW5zaXRpb24+XG4gICAgKTtcblxuICAgIGZsdXNoRnJhbWVzKDIpO1xuXG4gICAgZXhwZWN0KCgpID0+IHVubW91bnQoKSkubm90LnRvVGhyb3coKTtcbiAgICBleHBlY3QoKCkgPT4gZmx1c2hGcmFtZXMoMikpLm5vdC50b1Rocm93KCk7XG4gIH0pO1xuXG4gIGZvciAoY29uc3QgdmFyaWFudCBvZiBBTExfVkFSSUFOVFMpIHtcbiAgICBpdChgcmVuZGVycyBhbmQgYW5pbWF0ZXMgdGhlIFwiJHt2YXJpYW50fVwiIHZhcmlhbnQgd2l0aG91dCB0aHJvd2luZ2AsICgpID0+IHtcbiAgICAgIGNvbnN0IG9uUmVzdCA9IHZpLmZuKCk7XG4gICAgICBjb25zdCB7IGdldEJ5VGV4dCwgcmVyZW5kZXIgfSA9IHJlbmRlcihcbiAgICAgICAgPFNoYWRlclJldmVhbFRyYW5zaXRpb25cbiAgICAgICAgICBkdXJhdGlvbj17ODB9XG4gICAgICAgICAgb25SZXN0PXtvblJlc3R9XG4gICAgICAgICAgdHJhbnNpdGlvbktleT1cImFcIlxuICAgICAgICAgIHZhcmlhbnQ9e3ZhcmlhbnR9XG4gICAgICAgID5cbiAgICAgICAgICBGaXJzdFxuICAgICAgICA8L1NoYWRlclJldmVhbFRyYW5zaXRpb24+XG4gICAgICApO1xuXG4gICAgICByZXJlbmRlcihcbiAgICAgICAgPFNoYWRlclJldmVhbFRyYW5zaXRpb25cbiAgICAgICAgICBkdXJhdGlvbj17ODB9XG4gICAgICAgICAgb25SZXN0PXtvblJlc3R9XG4gICAgICAgICAgdHJhbnNpdGlvbktleT1cImJcIlxuICAgICAgICAgIHZhcmlhbnQ9e3ZhcmlhbnR9XG4gICAgICAgID5cbiAgICAgICAgICBTZWNvbmRcbiAgICAgICAgPC9TaGFkZXJSZXZlYWxUcmFuc2l0aW9uPlxuICAgICAgKTtcblxuICAgICAgZXhwZWN0KCgpID0+IHJ1bkZyYW1lc0ZvcigzMDApKS5ub3QudG9UaHJvdygpO1xuICAgICAgZXhwZWN0KGdldEJ5VGV4dChcIlNlY29uZFwiKSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgICAgIGV4cGVjdChvblJlc3QpLnRvSGF2ZUJlZW5DYWxsZWRUaW1lcygxKTtcbiAgICB9KTtcbiAgfVxufSk7XG4iXSwiZmlsZSI6Ii9jb21wb25lbnRzL3NoYWRlci1yZXZlYWwtdHJhbnNpdGlvbi9fX3Rlc3RzX18vc2hhZGVyLXJldmVhbC10cmFuc2l0aW9uLnRlc3QudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9zaGFkZXItcmV2ZWFsLXRyYW5zaXRpb24vX190ZXN0c19fL3NoYWRlci1yZXZlYWwtdHJhbnNpdGlvbi50ZXN0LnRzeCIsIi9jb21wb25lbnRzL3NoYWRlci1yZXZlYWwtdHJhbnNpdGlvbi9fX3Rlc3RzX18vc2hhZGVyLXJldmVhbC10cmFuc2l0aW9uLnRlc3QudHN4IixbXV0=

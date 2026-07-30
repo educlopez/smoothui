@@ -1,0 +1,34 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/glow-hover-card/index.tsx", {"importedNames":["default"]});
+
+
+
+
+const items = [
+  { id: "one", element: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: "One" }, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/glow-hover-card/__tests__/glow-hover-card.test.tsx",
+    lineNumber: 6,
+    columnNumber: 25
+  }, this) },
+  { id: "two", element: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: "Two" }, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/glow-hover-card/__tests__/glow-hover-card.test.tsx",
+    lineNumber: 7,
+    columnNumber: 25
+  }, this) }
+];
+(0,__vite_ssr_import_1__.describe)("GlowHoverCard", () => {
+  (0,__vite_ssr_import_1__.it)("renders without throwing", () => {
+    const { container } = (0,__vite_ssr_import_2__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { items }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/glow-hover-card/__tests__/glow-hover-card.test.tsx",
+      lineNumber: 12,
+      columnNumber: 34
+    }, this));
+    (0,__vite_ssr_import_1__.expect)(container).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBS3dCO0FBTHhCO0FBQ0E7QUFDQTs7Ozs7QUFFQSxNQUFNLFFBQXlCO0FBQUEsRUFDN0IsRUFBRSxJQUFJLE9BQU8sU0FBUyxpREFBQyxTQUFJLG1CQUFMO0FBQUE7QUFBQTtBQUFBO0FBQUEsU0FBUSxFQUFPO0FBQUEsRUFDckMsRUFBRSxJQUFJLE9BQU8sU0FBUyxpREFBQyxTQUFJLG1CQUFMO0FBQUE7QUFBQTtBQUFBO0FBQUEsU0FBUSxFQUFPO0FBQ3ZDO0dBRUEsZ0NBQVMsaUJBQWlCLE1BQU07QUFDOUIsK0JBQUcsNEJBQTRCLE1BQU07QUFDbkMsVUFBTSxFQUFFLFVBQVUsT0FBSSw4QkFBTyxvREFBQyxrQ0FBVSxTQUFYO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBeUIsQ0FBRTtBQUN4RCxxQ0FBTyxTQUFTLEVBQUUsa0JBQWtCO0FBQUEsRUFDdEMsQ0FBQztBQUNILENBQUMiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImdsb3ctaG92ZXItY2FyZC50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gXCJ2aXRlc3RcIjtcbmltcG9ydCB7IHJlbmRlciB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IEdsb3dIb3ZlciwgeyB0eXBlIEdsb3dIb3Zlckl0ZW0gfSBmcm9tIFwiLi4vaW5kZXhcIjtcblxuY29uc3QgaXRlbXM6IEdsb3dIb3Zlckl0ZW1bXSA9IFtcbiAgeyBpZDogXCJvbmVcIiwgZWxlbWVudDogPGRpdj5PbmU8L2Rpdj4gfSxcbiAgeyBpZDogXCJ0d29cIiwgZWxlbWVudDogPGRpdj5Ud288L2Rpdj4gfSxcbl07XG5cbmRlc2NyaWJlKFwiR2xvd0hvdmVyQ2FyZFwiLCAoKSA9PiB7XG4gIGl0KFwicmVuZGVycyB3aXRob3V0IHRocm93aW5nXCIsICgpID0+IHtcbiAgICBjb25zdCB7IGNvbnRhaW5lciB9ID0gcmVuZGVyKDxHbG93SG92ZXIgaXRlbXM9e2l0ZW1zfSAvPik7XG4gICAgZXhwZWN0KGNvbnRhaW5lcikudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG59KTtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvZ2xvdy1ob3Zlci1jYXJkL19fdGVzdHNfXy9nbG93LWhvdmVyLWNhcmQudGVzdC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9nbG93LWhvdmVyLWNhcmQvX190ZXN0c19fL2dsb3ctaG92ZXItY2FyZC50ZXN0LnRzeCIsIi9jb21wb25lbnRzL2dsb3ctaG92ZXItY2FyZC9fX3Rlc3RzX18vZ2xvdy1ob3Zlci1jYXJkLnRlc3QudHN4IixbXV0=

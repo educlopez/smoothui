@@ -169,7 +169,10 @@ export const getPackage = cache(async (packageName: string) => {
 
   const isData = packageName === "data";
   const isSharedLib = packageName === "smoothui/blocks/shared";
-  const isBlock = packageName.startsWith("smoothui/blocks/") && !isSharedLib;
+  // Templates ship as blocks: multi-file, page-level, and installed as a unit.
+  const isBlock =
+    (packageName.startsWith("smoothui/blocks/") && !isSharedLib) ||
+    packageName.startsWith("smoothui/templates/");
 
   const packageFiles = await readdir(packageDir, { withFileTypes: true });
   const sourceFiles = packageFiles.filter(

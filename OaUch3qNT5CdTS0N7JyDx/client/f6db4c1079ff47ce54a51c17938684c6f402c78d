@@ -1,0 +1,530 @@
+__vite_ssr_exportName__("default", () => { try { return Dialog } catch {} });
+__vite_ssr_exportName__("AlertDialog", () => { try { return AlertDialog } catch {} });
+__vite_ssr_exportName__("AlertDialogAction", () => { try { return __vite_ssr_import_1__.AlertDialogAction } catch {} });
+__vite_ssr_exportName__("AlertDialogCancel", () => { try { return __vite_ssr_import_1__.AlertDialogCancel } catch {} });
+__vite_ssr_exportName__("AlertDialogDescription", () => { try { return __vite_ssr_import_1__.AlertDialogDescription } catch {} });
+__vite_ssr_exportName__("AlertDialogFooter", () => { try { return __vite_ssr_import_1__.AlertDialogFooter } catch {} });
+__vite_ssr_exportName__("AlertDialogHeader", () => { try { return __vite_ssr_import_1__.AlertDialogHeader } catch {} });
+__vite_ssr_exportName__("AlertDialogTitle", () => { try { return __vite_ssr_import_1__.AlertDialogTitle } catch {} });
+__vite_ssr_exportName__("AlertDialogTrigger", () => { try { return __vite_ssr_import_1__.AlertDialogTrigger } catch {} });
+__vite_ssr_exportName__("DialogClose", () => { try { return __vite_ssr_import_2__.DialogClose } catch {} });
+__vite_ssr_exportName__("DialogDescription", () => { try { return __vite_ssr_import_2__.DialogDescription } catch {} });
+__vite_ssr_exportName__("DialogFooter", () => { try { return __vite_ssr_import_2__.DialogFooter } catch {} });
+__vite_ssr_exportName__("DialogHeader", () => { try { return __vite_ssr_import_2__.DialogHeader } catch {} });
+__vite_ssr_exportName__("DialogTitle", () => { try { return __vite_ssr_import_2__.DialogTitle } catch {} });
+__vite_ssr_exportName__("DialogTrigger", () => { try { return __vite_ssr_import_2__.DialogTrigger } catch {} });
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/shadcn-ui/components/ui/alert-dialog.tsx", {"importedNames":["AlertDialogAction","AlertDialogCancel","AlertDialogDescription","AlertDialogFooter","AlertDialogHeader","AlertDialogTitle","AlertDialogTrigger"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/shadcn-ui/components/ui/dialog.tsx", {"importedNames":["DialogClose","DialogDescription","DialogFooter","DialogHeader","DialogTitle","DialogTrigger"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/shadcn-ui/lib/utils.ts", {"importedNames":["cn"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/lucide-react@0.468.0_react@19.2.6/node_modules/lucide-react/dist/cjs/lucide-react.js", {"importedNames":["X"]});
+const __vite_ssr_import_5__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@12.38.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/react.mjs", {"importedNames":["AnimatePresence","motion","useReducedMotion"]});
+const __vite_ssr_import_6__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/radix-ui@1.4.3_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react@19.2.14_react_7c84db1ddd2e1c1401fd07328a1340a2/node_modules/radix-ui/dist/index.mjs", {"importedNames":["AlertDialog","Dialog"]});
+const __vite_ssr_import_7__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/index.js", {"importedNames":["useCallback","useEffect","useRef","useState"]});
+"use client";
+
+
+
+
+
+
+
+
+const SPRING_PANEL = {
+  type: "spring",
+  duration: 0.25,
+  bounce: 0.05
+};
+const BACKDROP_DURATION = 0.2;
+const STAGGER_DELAY = 0.06;
+const StaggerChild = ({
+  children,
+  index,
+  shouldReduceMotion
+}) => /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+  __vite_ssr_import_5__.motion.div,
+  {
+    animate: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, transform: "translateY(0px)" },
+    exit: shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : {
+      opacity: 0,
+      transform: "translateY(4px)",
+      transition: { duration: 0.12 }
+    },
+    initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0, transform: "translateY(8px)" },
+    transition: shouldReduceMotion ? { duration: 0 } : {
+      type: "spring",
+      duration: 0.25,
+      bounce: 0,
+      delay: index * STAGGER_DELAY
+    },
+    children
+  },
+  void 0,
+  false,
+  {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+    lineNumber: 100,
+    columnNumber: 3
+  },
+  this
+);
+const AnimatedCloseButton = ({
+  onClick,
+  shouldReduceMotion
+}) => /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+  __vite_ssr_import_5__.motion.button,
+  {
+    "aria-label": "Close dialog",
+    className: "absolute top-4 right-4 rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none",
+    onClick,
+    transition: { duration: shouldReduceMotion ? 0 : 0.2 },
+    type: "button",
+    whileHover: shouldReduceMotion ? {} : { rotate: 90 },
+    children: [
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.X), { "aria-hidden": "true", className: "pointer-events-none size-4 shrink-0" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+        lineNumber: 154,
+        columnNumber: 5
+      }, this),
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("span", { className: "sr-only", children: "Close" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+        lineNumber: 155,
+        columnNumber: 5
+      }, this)
+    ]
+  },
+  void 0,
+  true,
+  {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+    lineNumber: 146,
+    columnNumber: 3
+  },
+  this
+);
+function Dialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  showCloseButton = true,
+  className,
+  children,
+  trigger,
+  footer
+}) {
+  const shouldReduceMotion = (0,__vite_ssr_import_5__.useReducedMotion)();
+  const [internalOpen, setInternalOpen] = (0,__vite_ssr_import_7__.useState)(false);
+  const isControlled = open !== void 0;
+  const isOpen = isControlled ? open : internalOpen;
+  const handleOpenChange = (0,__vite_ssr_import_7__.useCallback)(
+    (next) => {
+      if (!isControlled) {
+        setInternalOpen(next);
+      };
+      onOpenChange?.(next);
+    },
+    [isControlled, onOpenChange]
+  );
+  const [showContent, setShowContent] = (0,__vite_ssr_import_7__.useState)(false);
+  const prevOpenRef = (0,__vite_ssr_import_7__.useRef)(false);
+  (0,__vite_ssr_import_7__.useEffect)(() => {
+    if (isOpen && !prevOpenRef.current) {
+      setShowContent(true);
+    };
+    prevOpenRef.current = !!isOpen;
+  }, [isOpen]);
+  const handleAnimationComplete = (0,__vite_ssr_import_7__.useCallback)(() => {
+    if (!isOpen) {
+      setShowContent(false);
+    }
+  }, [isOpen]);
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+    __vite_ssr_import_6__.Dialog.Root,
+    {
+      onOpenChange: handleOpenChange,
+      open: isOpen || showContent,
+      children: [
+        trigger && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.DialogTrigger), { asChild: true, children: trigger }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 211,
+          columnNumber: 19
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_5__.AnimatePresence), { onExitComplete: () => setShowContent(false), children: isOpen && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.Dialog.Portal, { forceMount: true, children: [
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.Dialog.Overlay, { asChild: true, forceMount: true, children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+            __vite_ssr_import_5__.motion.div,
+            {
+              animate: { opacity: 1 },
+              className: "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm",
+              "data-slot": "dialog-overlay",
+              exit: { opacity: 0 },
+              initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0 },
+              transition: {
+                duration: shouldReduceMotion ? 0 : BACKDROP_DURATION
+              }
+            },
+            void 0,
+            false,
+            {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+              lineNumber: 218,
+              columnNumber: 15
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+            lineNumber: 217,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.Dialog.Content, { asChild: true, forceMount: true, children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+            __vite_ssr_import_5__.motion.div,
+            {
+              animate: shouldReduceMotion ? { opacity: 1 } : {
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1)"
+              },
+              className: (0,__vite_ssr_import_3__.cn)(
+                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg",
+                className
+              ),
+              "data-slot": "dialog-content",
+              exit: shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : {
+                opacity: 0,
+                transform: "translate(-50%, -50%) scale(0.95)",
+                transition: { duration: 0.15 }
+              },
+              initial: shouldReduceMotion ? {
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1)"
+              } : {
+                opacity: 0,
+                transform: "translate(-50%, -48%) scale(0.95)"
+              },
+              onAnimationComplete: handleAnimationComplete,
+              transition: shouldReduceMotion ? { duration: 0 } : SPRING_PANEL,
+              children: [
+                (title || description) && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: 0,
+                    shouldReduceMotion,
+                    children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.DialogHeader), { children: [
+                      title && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.DialogTitle), { children: title }, void 0, false, {
+                        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                        lineNumber: 276,
+                        columnNumber: 33
+                      }, this),
+                      description && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.DialogDescription), { children: description }, void 0, false, {
+                        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                        lineNumber: 278,
+                        columnNumber: 25
+                      }, this)
+                    ] }, void 0, true, {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                      lineNumber: 275,
+                      columnNumber: 21
+                    }, this)
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 271,
+                    columnNumber: 19
+                  },
+                  this
+                ),
+                children && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: title || description ? 1 : 0,
+                    shouldReduceMotion,
+                    children
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 285,
+                    columnNumber: 19
+                  },
+                  this
+                ),
+                footer && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: (title || description ? 1 : 0) + (children ? 1 : 0),
+                    shouldReduceMotion,
+                    children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.DialogFooter), { children: footer }, void 0, false, {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                      lineNumber: 298,
+                      columnNumber: 21
+                    }, this)
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 294,
+                    columnNumber: 19
+                  },
+                  this
+                ),
+                showCloseButton && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  AnimatedCloseButton,
+                  {
+                    onClick: () => handleOpenChange(false),
+                    shouldReduceMotion
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 303,
+                    columnNumber: 19
+                  },
+                  this
+                )
+              ]
+            },
+            void 0,
+            true,
+            {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+              lineNumber: 232,
+              columnNumber: 15
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+            lineNumber: 231,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 215,
+          columnNumber: 11
+        }, this) }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 213,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    true,
+    {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+      lineNumber: 207,
+      columnNumber: 5
+    },
+    this
+  );
+};
+function AlertDialog({
+  open,
+  onOpenChange,
+  title,
+  description,
+  className,
+  children,
+  trigger,
+  footer
+}) {
+  const shouldReduceMotion = (0,__vite_ssr_import_5__.useReducedMotion)();
+  const [internalOpen, setInternalOpen] = (0,__vite_ssr_import_7__.useState)(false);
+  const isControlled = open !== void 0;
+  const isOpen = isControlled ? open : internalOpen;
+  const handleOpenChange = (0,__vite_ssr_import_7__.useCallback)(
+    (next) => {
+      if (!isControlled) {
+        setInternalOpen(next);
+      };
+      onOpenChange?.(next);
+    },
+    [isControlled, onOpenChange]
+  );
+  const [showContent, setShowContent] = (0,__vite_ssr_import_7__.useState)(false);
+  const prevOpenRef = (0,__vite_ssr_import_7__.useRef)(false);
+  (0,__vite_ssr_import_7__.useEffect)(() => {
+    if (isOpen && !prevOpenRef.current) {
+      setShowContent(true);
+    };
+    prevOpenRef.current = !!isOpen;
+  }, [isOpen]);
+  const handleAnimationComplete = (0,__vite_ssr_import_7__.useCallback)(() => {
+    if (!isOpen) {
+      setShowContent(false);
+    }
+  }, [isOpen]);
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+    __vite_ssr_import_6__.AlertDialog.Root,
+    {
+      onOpenChange: handleOpenChange,
+      open: isOpen || showContent,
+      children: [
+        trigger && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.AlertDialogTrigger), { asChild: true, children: trigger }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 367,
+          columnNumber: 19
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_5__.AnimatePresence), { onExitComplete: () => setShowContent(false), children: isOpen && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.AlertDialog.Portal, { forceMount: true, children: [
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.AlertDialog.Overlay, { asChild: true, forceMount: true, children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+            __vite_ssr_import_5__.motion.div,
+            {
+              animate: { opacity: 1 },
+              className: "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm",
+              "data-slot": "alert-dialog-overlay",
+              exit: { opacity: 0 },
+              initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0 },
+              transition: {
+                duration: shouldReduceMotion ? 0 : BACKDROP_DURATION
+              }
+            },
+            void 0,
+            false,
+            {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+              lineNumber: 374,
+              columnNumber: 15
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+            lineNumber: 373,
+            columnNumber: 13
+          }, this),
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(__vite_ssr_import_6__.AlertDialog.Content, { asChild: true, forceMount: true, children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+            __vite_ssr_import_5__.motion.div,
+            {
+              animate: shouldReduceMotion ? { opacity: 1 } : {
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1)"
+              },
+              className: (0,__vite_ssr_import_3__.cn)(
+                "fixed top-[50%] left-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] gap-4 rounded-lg border bg-background p-6 shadow-lg sm:max-w-lg",
+                className
+              ),
+              "data-slot": "alert-dialog-content",
+              exit: shouldReduceMotion ? { opacity: 0, transition: { duration: 0 } } : {
+                opacity: 0,
+                transform: "translate(-50%, -50%) scale(0.95)",
+                transition: { duration: 0.15 }
+              },
+              initial: shouldReduceMotion ? {
+                opacity: 1,
+                transform: "translate(-50%, -50%) scale(1)"
+              } : {
+                opacity: 0,
+                transform: "translate(-50%, -48%) scale(0.95)"
+              },
+              onAnimationComplete: handleAnimationComplete,
+              transition: shouldReduceMotion ? { duration: 0 } : SPRING_PANEL,
+              children: [
+                (title || description) && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: 0,
+                    shouldReduceMotion,
+                    children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.AlertDialogHeader), { children: [
+                      title && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.AlertDialogTitle), { children: title }, void 0, false, {
+                        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                        lineNumber: 431,
+                        columnNumber: 33
+                      }, this),
+                      description && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.AlertDialogDescription), { children: description }, void 0, false, {
+                        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                        lineNumber: 433,
+                        columnNumber: 25
+                      }, this)
+                    ] }, void 0, true, {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                      lineNumber: 430,
+                      columnNumber: 21
+                    }, this)
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 426,
+                    columnNumber: 19
+                  },
+                  this
+                ),
+                children && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: title || description ? 1 : 0,
+                    shouldReduceMotion,
+                    children
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 442,
+                    columnNumber: 19
+                  },
+                  this
+                ),
+                footer && /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+                  StaggerChild,
+                  {
+                    index: (title || description ? 1 : 0) + (children ? 1 : 0),
+                    shouldReduceMotion,
+                    children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.AlertDialogFooter), { children: footer }, void 0, false, {
+                      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                      lineNumber: 455,
+                      columnNumber: 21
+                    }, this)
+                  },
+                  void 0,
+                  false,
+                  {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+                    lineNumber: 451,
+                    columnNumber: 19
+                  },
+                  this
+                )
+              ]
+            },
+            void 0,
+            true,
+            {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+              lineNumber: 388,
+              columnNumber: 15
+            },
+            this
+          ) }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+            lineNumber: 387,
+            columnNumber: 13
+          }, this)
+        ] }, void 0, true, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 371,
+          columnNumber: 11
+        }, this) }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+          lineNumber: 369,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    true,
+    {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/index.tsx",
+      lineNumber: 363,
+      columnNumber: 5
+    },
+    this
+  );
+};
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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QkFFQztBQUFBO0FBQUEsa0JBSkg7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLGdCQUtBO0FBQUEsZ0JBR0QsVUFDQztBQUFBLGtCQUFDO0FBQUE7QUFBQSxvQkFDQyxRQUFRLFNBQVMsY0FBYyxJQUFJLE1BQU0sV0FBVyxJQUFJO0FBQUEsb0JBQ3hEO0FBQUEsb0JBRUEsOERBQUMsNENBQW1CLG9CQUFwQjtBQUFBO0FBQUE7QUFBQTtBQUFBLDJCQUEyQjtBQUFBO0FBQUEsa0JBSjdCO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxnQkFLQTtBQUFBO0FBQUE7QUFBQSxZQXBFSjtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsVUFzRUEsS0F2RUY7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkF3RUE7QUFBQSxhQXhGRjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBeUZBLEtBM0ZKO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUE2RkE7QUFBQTtBQUFBO0FBQUEsSUFuR0Y7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLEVBb0dBO0FBRUoiLCJuYW1lcyI6W10sImlnbm9yZUxpc3QiOltdLCJzb3VyY2VzIjpbImluZGV4LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJcInVzZSBjbGllbnRcIjtcblxuaW1wb3J0IHtcbiAgQWxlcnREaWFsb2dBY3Rpb24sXG4gIEFsZXJ0RGlhbG9nQ2FuY2VsLFxuICBBbGVydERpYWxvZ0Rlc2NyaXB0aW9uLFxuICBBbGVydERpYWxvZ0Zvb3RlcixcbiAgQWxlcnREaWFsb2dIZWFkZXIsXG4gIEFsZXJ0RGlhbG9nVGl0bGUsXG4gIEFsZXJ0RGlhbG9nVHJpZ2dlcixcbn0gZnJvbSBcIkByZXBvL3NoYWRjbi11aS9jb21wb25lbnRzL3VpL2FsZXJ0LWRpYWxvZ1wiO1xuaW1wb3J0IHtcbiAgRGlhbG9nQ2xvc2UsXG4gIERpYWxvZ0Rlc2NyaXB0aW9uLFxuICBEaWFsb2dGb290ZXIsXG4gIERpYWxvZ0hlYWRlcixcbiAgRGlhbG9nVGl0bGUsXG4gIERpYWxvZ1RyaWdnZXIsXG59IGZyb20gXCJAcmVwby9zaGFkY24tdWkvY29tcG9uZW50cy91aS9kaWFsb2dcIjtcbmltcG9ydCB7IGNuIH0gZnJvbSBcIkByZXBvL3NoYWRjbi11aS9saWIvdXRpbHNcIjtcbmltcG9ydCB7IFggfSBmcm9tIFwibHVjaWRlLXJlYWN0XCI7XG5pbXBvcnQgeyBBbmltYXRlUHJlc2VuY2UsIG1vdGlvbiwgdXNlUmVkdWNlZE1vdGlvbiB9IGZyb20gXCJtb3Rpb24vcmVhY3RcIjtcbmltcG9ydCB7XG4gIEFsZXJ0RGlhbG9nIGFzIEFsZXJ0RGlhbG9nUmFkaXgsXG4gIERpYWxvZyBhcyBEaWFsb2dSYWRpeCxcbn0gZnJvbSBcInJhZGl4LXVpXCI7XG5pbXBvcnQgeyB1c2VDYWxsYmFjaywgdXNlRWZmZWN0LCB1c2VSZWYsIHVzZVN0YXRlIH0gZnJvbSBcInJlYWN0XCI7XG5cbi8qIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqL1xuLyogIFNoYXJlZCBhbmltYXRpb24gY29uc3RhbnRzICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICovXG4vKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi9cblxuY29uc3QgU1BSSU5HX1BBTkVMID0ge1xuICB0eXBlOiBcInNwcmluZ1wiIGFzIGNvbnN0LFxuICBkdXJhdGlvbjogMC4yNSxcbiAgYm91bmNlOiAwLjA1LFxufTtcblxuY29uc3QgQkFDS0RST1BfRFVSQVRJT04gPSAwLjI7XG5cbmNvbnN0IFNUQUdHRVJfREVMQVkgPSAwLjA2O1xuXG4vKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi9cbi8qICBUeXBlcyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKi9cbi8qIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqL1xuXG5leHBvcnQgaW50ZXJmYWNlIERpYWxvZ1Byb3BzIHtcbiAgLyoqIERpYWxvZyBjb250ZW50ICovXG4gIGNoaWxkcmVuPzogUmVhY3QuUmVhY3ROb2RlO1xuICAvKiogQWRkaXRpb25hbCBDU1MgY2xhc3MgbmFtZXMgZm9yIHRoZSBjb250ZW50ICovXG4gIGNsYXNzTmFtZT86IHN0cmluZztcbiAgLyoqIERlc2NyaXB0aW9uIGRpc3BsYXllZCBiZWxvdyB0aGUgdGl0bGUgKi9cbiAgZGVzY3JpcHRpb24/OiBzdHJpbmc7XG4gIC8qKiBGb290ZXIgY29udGVudCAqL1xuICBmb290ZXI/OiBSZWFjdC5SZWFjdE5vZGU7XG4gIC8qKiBDYWxsYmFjayB3aGVuIHRoZSBvcGVuIHN0YXRlIGNoYW5nZXMgKi9cbiAgb25PcGVuQ2hhbmdlPzogKG9wZW46IGJvb2xlYW4pID0+IHZvaWQ7XG4gIC8qKiBXaGV0aGVyIHRoZSBkaWFsb2cgaXMgb3BlbiAqL1xuICBvcGVuPzogYm9vbGVhbjtcbiAgLyoqIFdoZXRoZXIgdG8gc2hvdyB0aGUgY2xvc2UgYnV0dG9uICovXG4gIHNob3dDbG9zZUJ1dHRvbj86IGJvb2xlYW47XG4gIC8qKiBUaXRsZSBkaXNwbGF5ZWQgaW4gdGhlIGRpYWxvZyBoZWFkZXIgKi9cbiAgdGl0bGU/OiBzdHJpbmc7XG4gIC8qKiBUcmlnZ2VyIGVsZW1lbnQgdGhhdCBvcGVucyB0aGUgZGlhbG9nICovXG4gIHRyaWdnZXI/OiBSZWFjdC5SZWFjdE5vZGU7XG59XG5cbmV4cG9ydCBpbnRlcmZhY2UgQWxlcnREaWFsb2dQcm9wcyB7XG4gIC8qKiBBbGVydCBkaWFsb2cgY29udGVudCAqL1xuICBjaGlsZHJlbj86IFJlYWN0LlJlYWN0Tm9kZTtcbiAgLyoqIEFkZGl0aW9uYWwgQ1NTIGNsYXNzIG5hbWVzIGZvciB0aGUgY29udGVudCAqL1xuICBjbGFzc05hbWU/OiBzdHJpbmc7XG4gIC8qKiBEZXNjcmlwdGlvbiBkaXNwbGF5ZWQgYmVsb3cgdGhlIHRpdGxlICovXG4gIGRlc2NyaXB0aW9uPzogc3RyaW5nO1xuICAvKiogRm9vdGVyIGNvbnRlbnQgKHR5cGljYWxseSBBbGVydERpYWxvZ0FjdGlvbiArIEFsZXJ0RGlhbG9nQ2FuY2VsKSAqL1xuICBmb290ZXI/OiBSZWFjdC5SZWFjdE5vZGU7XG4gIC8qKiBDYWxsYmFjayB3aGVuIHRoZSBvcGVuIHN0YXRlIGNoYW5nZXMgKi9cbiAgb25PcGVuQ2hhbmdlPzogKG9wZW46IGJvb2xlYW4pID0+IHZvaWQ7XG4gIC8qKiBXaGV0aGVyIHRoZSBhbGVydCBkaWFsb2cgaXMgb3BlbiAqL1xuICBvcGVuPzogYm9vbGVhbjtcbiAgLyoqIFRpdGxlIGRpc3BsYXllZCBpbiB0aGUgYWxlcnQgZGlhbG9nIGhlYWRlciAqL1xuICB0aXRsZT86IHN0cmluZztcbiAgLyoqIFRyaWdnZXIgZWxlbWVudCB0aGF0IG9wZW5zIHRoZSBhbGVydCBkaWFsb2cgKi9cbiAgdHJpZ2dlcj86IFJlYWN0LlJlYWN0Tm9kZTtcbn1cblxuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG4vKiAgU3RhZ2dlciB3cmFwcGVyIOKAlCBhbmltYXRlcyBjaGlsZHJlbiBpbiBzZXF1ZW5jZSAgICAgICAgICAgICAgICAgICAqL1xuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG5cbmNvbnN0IFN0YWdnZXJDaGlsZCA9ICh7XG4gIGNoaWxkcmVuLFxuICBpbmRleCxcbiAgc2hvdWxkUmVkdWNlTW90aW9uLFxufToge1xuICBjaGlsZHJlbjogUmVhY3QuUmVhY3ROb2RlO1xuICBpbmRleDogbnVtYmVyO1xuICBzaG91bGRSZWR1Y2VNb3Rpb246IGJvb2xlYW4gfCBudWxsO1xufSkgPT4gKFxuICA8bW90aW9uLmRpdlxuICAgIGFuaW1hdGU9e1xuICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgID8geyBvcGFjaXR5OiAxIH1cbiAgICAgICAgOiB7IG9wYWNpdHk6IDEsIHRyYW5zZm9ybTogXCJ0cmFuc2xhdGVZKDBweClcIiB9XG4gICAgfVxuICAgIGV4aXQ9e1xuICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgID8geyBvcGFjaXR5OiAwLCB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwIH0gfVxuICAgICAgICA6IHtcbiAgICAgICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgICAgICB0cmFuc2Zvcm06IFwidHJhbnNsYXRlWSg0cHgpXCIsXG4gICAgICAgICAgICB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwLjEyIH0sXG4gICAgICAgICAgfVxuICAgIH1cbiAgICBpbml0aWFsPXtcbiAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICA/IHsgb3BhY2l0eTogMSB9XG4gICAgICAgIDogeyBvcGFjaXR5OiAwLCB0cmFuc2Zvcm06IFwidHJhbnNsYXRlWSg4cHgpXCIgfVxuICAgIH1cbiAgICB0cmFuc2l0aW9uPXtcbiAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICA/IHsgZHVyYXRpb246IDAgfVxuICAgICAgICA6IHtcbiAgICAgICAgICAgIHR5cGU6IFwic3ByaW5nXCIgYXMgY29uc3QsXG4gICAgICAgICAgICBkdXJhdGlvbjogMC4yNSxcbiAgICAgICAgICAgIGJvdW5jZTogMCxcbiAgICAgICAgICAgIGRlbGF5OiBpbmRleCAqIFNUQUdHRVJfREVMQVksXG4gICAgICAgICAgfVxuICAgIH1cbiAgPlxuICAgIHtjaGlsZHJlbn1cbiAgPC9tb3Rpb24uZGl2PlxuKTtcblxuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG4vKiAgQW5pbWF0ZWQgY2xvc2UgYnV0dG9uIHdpdGggcm90YXRlIG9uIGhvdmVyICAgICAgICAgICAgICAgICAgICAgICAgKi9cbi8qIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqL1xuXG5jb25zdCBBbmltYXRlZENsb3NlQnV0dG9uID0gKHtcbiAgb25DbGljayxcbiAgc2hvdWxkUmVkdWNlTW90aW9uLFxufToge1xuICBvbkNsaWNrOiAoKSA9PiB2b2lkO1xuICBzaG91bGRSZWR1Y2VNb3Rpb246IGJvb2xlYW4gfCBudWxsO1xufSkgPT4gKFxuICA8bW90aW9uLmJ1dHRvblxuICAgIGFyaWEtbGFiZWw9XCJDbG9zZSBkaWFsb2dcIlxuICAgIGNsYXNzTmFtZT1cImFic29sdXRlIHRvcC00IHJpZ2h0LTQgcm91bmRlZC14cyBvcGFjaXR5LTcwIHJpbmctb2Zmc2V0LWJhY2tncm91bmQgdHJhbnNpdGlvbi1vcGFjaXR5IGhvdmVyOm9wYWNpdHktMTAwIGZvY3VzOm91dGxpbmUtaGlkZGVuIGZvY3VzOnJpbmctMiBmb2N1czpyaW5nLXJpbmcgZm9jdXM6cmluZy1vZmZzZXQtMiBkaXNhYmxlZDpwb2ludGVyLWV2ZW50cy1ub25lXCJcbiAgICBvbkNsaWNrPXtvbkNsaWNrfVxuICAgIHRyYW5zaXRpb249e3sgZHVyYXRpb246IHNob3VsZFJlZHVjZU1vdGlvbiA/IDAgOiAwLjIgfX1cbiAgICB0eXBlPVwiYnV0dG9uXCJcbiAgICB3aGlsZUhvdmVyPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7fSA6IHsgcm90YXRlOiA5MCB9fVxuICA+XG4gICAgPFggYXJpYS1oaWRkZW49XCJ0cnVlXCIgY2xhc3NOYW1lPVwicG9pbnRlci1ldmVudHMtbm9uZSBzaXplLTQgc2hyaW5rLTBcIiAvPlxuICAgIDxzcGFuIGNsYXNzTmFtZT1cInNyLW9ubHlcIj5DbG9zZTwvc3Bhbj5cbiAgPC9tb3Rpb24uYnV0dG9uPlxuKTtcblxuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG4vKiAgRGlhbG9nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICovXG4vKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi9cblxuZXhwb3J0IGRlZmF1bHQgZnVuY3Rpb24gRGlhbG9nKHtcbiAgb3BlbixcbiAgb25PcGVuQ2hhbmdlLFxuICB0aXRsZSxcbiAgZGVzY3JpcHRpb24sXG4gIHNob3dDbG9zZUJ1dHRvbiA9IHRydWUsXG4gIGNsYXNzTmFtZSxcbiAgY2hpbGRyZW4sXG4gIHRyaWdnZXIsXG4gIGZvb3Rlcixcbn06IERpYWxvZ1Byb3BzKSB7XG4gIGNvbnN0IHNob3VsZFJlZHVjZU1vdGlvbiA9IHVzZVJlZHVjZWRNb3Rpb24oKTtcbiAgY29uc3QgW2ludGVybmFsT3Blbiwgc2V0SW50ZXJuYWxPcGVuXSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgY29uc3QgaXNDb250cm9sbGVkID0gb3BlbiAhPT0gdW5kZWZpbmVkO1xuICBjb25zdCBpc09wZW4gPSBpc0NvbnRyb2xsZWQgPyBvcGVuIDogaW50ZXJuYWxPcGVuO1xuXG4gIGNvbnN0IGhhbmRsZU9wZW5DaGFuZ2UgPSB1c2VDYWxsYmFjayhcbiAgICAobmV4dDogYm9vbGVhbikgPT4ge1xuICAgICAgaWYgKCFpc0NvbnRyb2xsZWQpIHtcbiAgICAgICAgc2V0SW50ZXJuYWxPcGVuKG5leHQpO1xuICAgICAgfVxuICAgICAgb25PcGVuQ2hhbmdlPy4obmV4dCk7XG4gICAgfSxcbiAgICBbaXNDb250cm9sbGVkLCBvbk9wZW5DaGFuZ2VdXG4gICk7XG5cbiAgLy8gVHJhY2sgbW91bnQgc3RhdGUgZm9yIEFuaW1hdGVQcmVzZW5jZSBleGl0IGFuaW1hdGlvbnNcbiAgY29uc3QgW3Nob3dDb250ZW50LCBzZXRTaG93Q29udGVudF0gPSB1c2VTdGF0ZShmYWxzZSk7XG4gIGNvbnN0IHByZXZPcGVuUmVmID0gdXNlUmVmKGZhbHNlKTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGlmIChpc09wZW4gJiYgIXByZXZPcGVuUmVmLmN1cnJlbnQpIHtcbiAgICAgIHNldFNob3dDb250ZW50KHRydWUpO1xuICAgIH1cbiAgICBwcmV2T3BlblJlZi5jdXJyZW50ID0gISFpc09wZW47XG4gIH0sIFtpc09wZW5dKTtcblxuICBjb25zdCBoYW5kbGVBbmltYXRpb25Db21wbGV0ZSA9IHVzZUNhbGxiYWNrKCgpID0+IHtcbiAgICBpZiAoIWlzT3Blbikge1xuICAgICAgc2V0U2hvd0NvbnRlbnQoZmFsc2UpO1xuICAgIH1cbiAgfSwgW2lzT3Blbl0pO1xuXG4gIHJldHVybiAoXG4gICAgPERpYWxvZ1JhZGl4LlJvb3RcbiAgICAgIG9uT3BlbkNoYW5nZT17aGFuZGxlT3BlbkNoYW5nZX1cbiAgICAgIG9wZW49e2lzT3BlbiB8fCBzaG93Q29udGVudH1cbiAgICA+XG4gICAgICB7dHJpZ2dlciAmJiA8RGlhbG9nVHJpZ2dlciBhc0NoaWxkPnt0cmlnZ2VyfTwvRGlhbG9nVHJpZ2dlcj59XG5cbiAgICAgIDxBbmltYXRlUHJlc2VuY2Ugb25FeGl0Q29tcGxldGU9eygpID0+IHNldFNob3dDb250ZW50KGZhbHNlKX0+XG4gICAgICAgIHtpc09wZW4gJiYgKFxuICAgICAgICAgIDxEaWFsb2dSYWRpeC5Qb3J0YWwgZm9yY2VNb3VudD5cbiAgICAgICAgICAgIHsvKiBCYWNrZHJvcCB3aXRoIGJsdXIgKyBvcGFjaXR5IGZhZGUgKi99XG4gICAgICAgICAgICA8RGlhbG9nUmFkaXguT3ZlcmxheSBhc0NoaWxkIGZvcmNlTW91bnQ+XG4gICAgICAgICAgICAgIDxtb3Rpb24uZGl2XG4gICAgICAgICAgICAgICAgYW5pbWF0ZT17eyBvcGFjaXR5OiAxIH19XG4gICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwiZml4ZWQgaW5zZXQtMCB6LTUwIGJnLWJsYWNrLzUwIGJhY2tkcm9wLWJsdXItc21cIlxuICAgICAgICAgICAgICAgIGRhdGEtc2xvdD1cImRpYWxvZy1vdmVybGF5XCJcbiAgICAgICAgICAgICAgICBleGl0PXt7IG9wYWNpdHk6IDAgfX1cbiAgICAgICAgICAgICAgICBpbml0aWFsPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IG9wYWNpdHk6IDEgfSA6IHsgb3BhY2l0eTogMCB9fVxuICAgICAgICAgICAgICAgIHRyYW5zaXRpb249e3tcbiAgICAgICAgICAgICAgICAgIGR1cmF0aW9uOiBzaG91bGRSZWR1Y2VNb3Rpb24gPyAwIDogQkFDS0RST1BfRFVSQVRJT04sXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDwvRGlhbG9nUmFkaXguT3ZlcmxheT5cblxuICAgICAgICAgICAgey8qIENvbnRlbnQgcGFuZWwg4oCUIHNwcmluZyBzY2FsZSArIHRyYW5zbGF0ZVkgZW50cmFuY2UgKi99XG4gICAgICAgICAgICA8RGlhbG9nUmFkaXguQ29udGVudCBhc0NoaWxkIGZvcmNlTW91bnQ+XG4gICAgICAgICAgICAgIDxtb3Rpb24uZGl2XG4gICAgICAgICAgICAgICAgYW5pbWF0ZT17XG4gICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb25cbiAgICAgICAgICAgICAgICAgICAgPyB7IG9wYWNpdHk6IDEgfVxuICAgICAgICAgICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wYWNpdHk6IDEsXG4gICAgICAgICAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IFwidHJhbnNsYXRlKC01MCUsIC01MCUpIHNjYWxlKDEpXCIsXG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICBjbGFzc05hbWU9e2NuKFxuICAgICAgICAgICAgICAgICAgXCJmaXhlZCB0b3AtWzUwJV0gbGVmdC1bNTAlXSB6LTUwIGdyaWQgdy1mdWxsIG1heC13LVtjYWxjKDEwMCUtMnJlbSldIGdhcC00IHJvdW5kZWQtbGcgYm9yZGVyIGJnLWJhY2tncm91bmQgcC02IHNoYWRvdy1sZyBzbTptYXgtdy1sZ1wiLFxuICAgICAgICAgICAgICAgICAgY2xhc3NOYW1lXG4gICAgICAgICAgICAgICAgKX1cbiAgICAgICAgICAgICAgICBkYXRhLXNsb3Q9XCJkaWFsb2ctY29udGVudFwiXG4gICAgICAgICAgICAgICAgZXhpdD17XG4gICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb25cbiAgICAgICAgICAgICAgICAgICAgPyB7IG9wYWNpdHk6IDAsIHRyYW5zaXRpb246IHsgZHVyYXRpb246IDAgfSB9XG4gICAgICAgICAgICAgICAgICAgIDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgICAgICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogXCJ0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMC45NSlcIixcbiAgICAgICAgICAgICAgICAgICAgICAgIHRyYW5zaXRpb246IHsgZHVyYXRpb246IDAuMTUgfSxcbiAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIGluaXRpYWw9e1xuICAgICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgICAgICAgICAgICAgID8ge1xuICAgICAgICAgICAgICAgICAgICAgICAgb3BhY2l0eTogMSxcbiAgICAgICAgICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogXCJ0cmFuc2xhdGUoLTUwJSwgLTUwJSkgc2NhbGUoMSlcIixcbiAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgICAgIDoge1xuICAgICAgICAgICAgICAgICAgICAgICAgb3BhY2l0eTogMCxcbiAgICAgICAgICAgICAgICAgICAgICAgIHRyYW5zZm9ybTogXCJ0cmFuc2xhdGUoLTUwJSwgLTQ4JSkgc2NhbGUoMC45NSlcIixcbiAgICAgICAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIG9uQW5pbWF0aW9uQ29tcGxldGU9e2hhbmRsZUFuaW1hdGlvbkNvbXBsZXRlfVxuICAgICAgICAgICAgICAgIHRyYW5zaXRpb249e3Nob3VsZFJlZHVjZU1vdGlvbiA/IHsgZHVyYXRpb246IDAgfSA6IFNQUklOR19QQU5FTH1cbiAgICAgICAgICAgICAgPlxuICAgICAgICAgICAgICAgIHsvKiBTdGFnZ2VyZWQgY29udGVudCBzZWN0aW9ucyAqL31cbiAgICAgICAgICAgICAgICB7KHRpdGxlIHx8IGRlc2NyaXB0aW9uKSAmJiAoXG4gICAgICAgICAgICAgICAgICA8U3RhZ2dlckNoaWxkXG4gICAgICAgICAgICAgICAgICAgIGluZGV4PXswfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgPERpYWxvZ0hlYWRlcj5cbiAgICAgICAgICAgICAgICAgICAgICB7dGl0bGUgJiYgPERpYWxvZ1RpdGxlPnt0aXRsZX08L0RpYWxvZ1RpdGxlPn1cbiAgICAgICAgICAgICAgICAgICAgICB7ZGVzY3JpcHRpb24gJiYgKFxuICAgICAgICAgICAgICAgICAgICAgICAgPERpYWxvZ0Rlc2NyaXB0aW9uPntkZXNjcmlwdGlvbn08L0RpYWxvZ0Rlc2NyaXB0aW9uPlxuICAgICAgICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgICAgIDwvRGlhbG9nSGVhZGVyPlxuICAgICAgICAgICAgICAgICAgPC9TdGFnZ2VyQ2hpbGQ+XG4gICAgICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgICAgIHtjaGlsZHJlbiAmJiAoXG4gICAgICAgICAgICAgICAgICA8U3RhZ2dlckNoaWxkXG4gICAgICAgICAgICAgICAgICAgIGluZGV4PXt0aXRsZSB8fCBkZXNjcmlwdGlvbiA/IDEgOiAwfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAge2NoaWxkcmVufVxuICAgICAgICAgICAgICAgICAgPC9TdGFnZ2VyQ2hpbGQ+XG4gICAgICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgICAgIHtmb290ZXIgJiYgKFxuICAgICAgICAgICAgICAgICAgPFN0YWdnZXJDaGlsZFxuICAgICAgICAgICAgICAgICAgICBpbmRleD17KHRpdGxlIHx8IGRlc2NyaXB0aW9uID8gMSA6IDApICsgKGNoaWxkcmVuID8gMSA6IDApfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgPERpYWxvZ0Zvb3Rlcj57Zm9vdGVyfTwvRGlhbG9nRm9vdGVyPlxuICAgICAgICAgICAgICAgICAgPC9TdGFnZ2VyQ2hpbGQ+XG4gICAgICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgICAgIHtzaG93Q2xvc2VCdXR0b24gJiYgKFxuICAgICAgICAgICAgICAgICAgPEFuaW1hdGVkQ2xvc2VCdXR0b25cbiAgICAgICAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gaGFuZGxlT3BlbkNoYW5nZShmYWxzZSl9XG4gICAgICAgICAgICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvbj17c2hvdWxkUmVkdWNlTW90aW9ufVxuICAgICAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgICA8L21vdGlvbi5kaXY+XG4gICAgICAgICAgICA8L0RpYWxvZ1JhZGl4LkNvbnRlbnQ+XG4gICAgICAgICAgPC9EaWFsb2dSYWRpeC5Qb3J0YWw+XG4gICAgICAgICl9XG4gICAgICA8L0FuaW1hdGVQcmVzZW5jZT5cbiAgICA8L0RpYWxvZ1JhZGl4LlJvb3Q+XG4gICk7XG59XG5cbi8qIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLSAqL1xuLyogIEFsZXJ0RGlhbG9nICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqL1xuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG5cbmV4cG9ydCBmdW5jdGlvbiBBbGVydERpYWxvZyh7XG4gIG9wZW4sXG4gIG9uT3BlbkNoYW5nZSxcbiAgdGl0bGUsXG4gIGRlc2NyaXB0aW9uLFxuICBjbGFzc05hbWUsXG4gIGNoaWxkcmVuLFxuICB0cmlnZ2VyLFxuICBmb290ZXIsXG59OiBBbGVydERpYWxvZ1Byb3BzKSB7XG4gIGNvbnN0IHNob3VsZFJlZHVjZU1vdGlvbiA9IHVzZVJlZHVjZWRNb3Rpb24oKTtcbiAgY29uc3QgW2ludGVybmFsT3Blbiwgc2V0SW50ZXJuYWxPcGVuXSA9IHVzZVN0YXRlKGZhbHNlKTtcbiAgY29uc3QgaXNDb250cm9sbGVkID0gb3BlbiAhPT0gdW5kZWZpbmVkO1xuICBjb25zdCBpc09wZW4gPSBpc0NvbnRyb2xsZWQgPyBvcGVuIDogaW50ZXJuYWxPcGVuO1xuXG4gIGNvbnN0IGhhbmRsZU9wZW5DaGFuZ2UgPSB1c2VDYWxsYmFjayhcbiAgICAobmV4dDogYm9vbGVhbikgPT4ge1xuICAgICAgaWYgKCFpc0NvbnRyb2xsZWQpIHtcbiAgICAgICAgc2V0SW50ZXJuYWxPcGVuKG5leHQpO1xuICAgICAgfVxuICAgICAgb25PcGVuQ2hhbmdlPy4obmV4dCk7XG4gICAgfSxcbiAgICBbaXNDb250cm9sbGVkLCBvbk9wZW5DaGFuZ2VdXG4gICk7XG5cbiAgY29uc3QgW3Nob3dDb250ZW50LCBzZXRTaG93Q29udGVudF0gPSB1c2VTdGF0ZShmYWxzZSk7XG4gIGNvbnN0IHByZXZPcGVuUmVmID0gdXNlUmVmKGZhbHNlKTtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGlmIChpc09wZW4gJiYgIXByZXZPcGVuUmVmLmN1cnJlbnQpIHtcbiAgICAgIHNldFNob3dDb250ZW50KHRydWUpO1xuICAgIH1cbiAgICBwcmV2T3BlblJlZi5jdXJyZW50ID0gISFpc09wZW47XG4gIH0sIFtpc09wZW5dKTtcblxuICBjb25zdCBoYW5kbGVBbmltYXRpb25Db21wbGV0ZSA9IHVzZUNhbGxiYWNrKCgpID0+IHtcbiAgICBpZiAoIWlzT3Blbikge1xuICAgICAgc2V0U2hvd0NvbnRlbnQoZmFsc2UpO1xuICAgIH1cbiAgfSwgW2lzT3Blbl0pO1xuXG4gIHJldHVybiAoXG4gICAgPEFsZXJ0RGlhbG9nUmFkaXguUm9vdFxuICAgICAgb25PcGVuQ2hhbmdlPXtoYW5kbGVPcGVuQ2hhbmdlfVxuICAgICAgb3Blbj17aXNPcGVuIHx8IHNob3dDb250ZW50fVxuICAgID5cbiAgICAgIHt0cmlnZ2VyICYmIDxBbGVydERpYWxvZ1RyaWdnZXIgYXNDaGlsZD57dHJpZ2dlcn08L0FsZXJ0RGlhbG9nVHJpZ2dlcj59XG5cbiAgICAgIDxBbmltYXRlUHJlc2VuY2Ugb25FeGl0Q29tcGxldGU9eygpID0+IHNldFNob3dDb250ZW50KGZhbHNlKX0+XG4gICAgICAgIHtpc09wZW4gJiYgKFxuICAgICAgICAgIDxBbGVydERpYWxvZ1JhZGl4LlBvcnRhbCBmb3JjZU1vdW50PlxuICAgICAgICAgICAgey8qIEJhY2tkcm9wICovfVxuICAgICAgICAgICAgPEFsZXJ0RGlhbG9nUmFkaXguT3ZlcmxheSBhc0NoaWxkIGZvcmNlTW91bnQ+XG4gICAgICAgICAgICAgIDxtb3Rpb24uZGl2XG4gICAgICAgICAgICAgICAgYW5pbWF0ZT17eyBvcGFjaXR5OiAxIH19XG4gICAgICAgICAgICAgICAgY2xhc3NOYW1lPVwiZml4ZWQgaW5zZXQtMCB6LTUwIGJnLWJsYWNrLzUwIGJhY2tkcm9wLWJsdXItc21cIlxuICAgICAgICAgICAgICAgIGRhdGEtc2xvdD1cImFsZXJ0LWRpYWxvZy1vdmVybGF5XCJcbiAgICAgICAgICAgICAgICBleGl0PXt7IG9wYWNpdHk6IDAgfX1cbiAgICAgICAgICAgICAgICBpbml0aWFsPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IG9wYWNpdHk6IDEgfSA6IHsgb3BhY2l0eTogMCB9fVxuICAgICAgICAgICAgICAgIHRyYW5zaXRpb249e3tcbiAgICAgICAgICAgICAgICAgIGR1cmF0aW9uOiBzaG91bGRSZWR1Y2VNb3Rpb24gPyAwIDogQkFDS0RST1BfRFVSQVRJT04sXG4gICAgICAgICAgICAgICAgfX1cbiAgICAgICAgICAgICAgLz5cbiAgICAgICAgICAgIDwvQWxlcnREaWFsb2dSYWRpeC5PdmVybGF5PlxuXG4gICAgICAgICAgICB7LyogQ29udGVudCBwYW5lbCAqL31cbiAgICAgICAgICAgIDxBbGVydERpYWxvZ1JhZGl4LkNvbnRlbnQgYXNDaGlsZCBmb3JjZU1vdW50PlxuICAgICAgICAgICAgICA8bW90aW9uLmRpdlxuICAgICAgICAgICAgICAgIGFuaW1hdGU9e1xuICAgICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgICAgICAgICAgICAgID8geyBvcGFjaXR5OiAxIH1cbiAgICAgICAgICAgICAgICAgICAgOiB7XG4gICAgICAgICAgICAgICAgICAgICAgICBvcGFjaXR5OiAxLFxuICAgICAgICAgICAgICAgICAgICAgICAgdHJhbnNmb3JtOiBcInRyYW5zbGF0ZSgtNTAlLCAtNTAlKSBzY2FsZSgxKVwiLFxuICAgICAgICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICB9XG4gICAgICAgICAgICAgICAgY2xhc3NOYW1lPXtjbihcbiAgICAgICAgICAgICAgICAgIFwiZml4ZWQgdG9wLVs1MCVdIGxlZnQtWzUwJV0gei01MCBncmlkIHctZnVsbCBtYXgtdy1bY2FsYygxMDAlLTJyZW0pXSBnYXAtNCByb3VuZGVkLWxnIGJvcmRlciBiZy1iYWNrZ3JvdW5kIHAtNiBzaGFkb3ctbGcgc206bWF4LXctbGdcIixcbiAgICAgICAgICAgICAgICAgIGNsYXNzTmFtZVxuICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgICAgZGF0YS1zbG90PVwiYWxlcnQtZGlhbG9nLWNvbnRlbnRcIlxuICAgICAgICAgICAgICAgIGV4aXQ9e1xuICAgICAgICAgICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgICAgICAgICAgICAgID8geyBvcGFjaXR5OiAwLCB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwIH0gfVxuICAgICAgICAgICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IFwidHJhbnNsYXRlKC01MCUsIC01MCUpIHNjYWxlKDAuOTUpXCIsXG4gICAgICAgICAgICAgICAgICAgICAgICB0cmFuc2l0aW9uOiB7IGR1cmF0aW9uOiAwLjE1IH0sXG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICBpbml0aWFsPXtcbiAgICAgICAgICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICAgICAgICAgICAgICA/IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wYWNpdHk6IDEsXG4gICAgICAgICAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IFwidHJhbnNsYXRlKC01MCUsIC01MCUpIHNjYWxlKDEpXCIsXG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICAgICAgICAgIG9wYWNpdHk6IDAsXG4gICAgICAgICAgICAgICAgICAgICAgICB0cmFuc2Zvcm06IFwidHJhbnNsYXRlKC01MCUsIC00OCUpIHNjYWxlKDAuOTUpXCIsXG4gICAgICAgICAgICAgICAgICAgICAgfVxuICAgICAgICAgICAgICAgIH1cbiAgICAgICAgICAgICAgICBvbkFuaW1hdGlvbkNvbXBsZXRlPXtoYW5kbGVBbmltYXRpb25Db21wbGV0ZX1cbiAgICAgICAgICAgICAgICB0cmFuc2l0aW9uPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IGR1cmF0aW9uOiAwIH0gOiBTUFJJTkdfUEFORUx9XG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICB7KHRpdGxlIHx8IGRlc2NyaXB0aW9uKSAmJiAoXG4gICAgICAgICAgICAgICAgICA8U3RhZ2dlckNoaWxkXG4gICAgICAgICAgICAgICAgICAgIGluZGV4PXswfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgPEFsZXJ0RGlhbG9nSGVhZGVyPlxuICAgICAgICAgICAgICAgICAgICAgIHt0aXRsZSAmJiA8QWxlcnREaWFsb2dUaXRsZT57dGl0bGV9PC9BbGVydERpYWxvZ1RpdGxlPn1cbiAgICAgICAgICAgICAgICAgICAgICB7ZGVzY3JpcHRpb24gJiYgKFxuICAgICAgICAgICAgICAgICAgICAgICAgPEFsZXJ0RGlhbG9nRGVzY3JpcHRpb24+XG4gICAgICAgICAgICAgICAgICAgICAgICAgIHtkZXNjcmlwdGlvbn1cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvQWxlcnREaWFsb2dEZXNjcmlwdGlvbj5cbiAgICAgICAgICAgICAgICAgICAgICApfVxuICAgICAgICAgICAgICAgICAgICA8L0FsZXJ0RGlhbG9nSGVhZGVyPlxuICAgICAgICAgICAgICAgICAgPC9TdGFnZ2VyQ2hpbGQ+XG4gICAgICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgICAgIHtjaGlsZHJlbiAmJiAoXG4gICAgICAgICAgICAgICAgICA8U3RhZ2dlckNoaWxkXG4gICAgICAgICAgICAgICAgICAgIGluZGV4PXt0aXRsZSB8fCBkZXNjcmlwdGlvbiA/IDEgOiAwfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAge2NoaWxkcmVufVxuICAgICAgICAgICAgICAgICAgPC9TdGFnZ2VyQ2hpbGQ+XG4gICAgICAgICAgICAgICAgKX1cblxuICAgICAgICAgICAgICAgIHtmb290ZXIgJiYgKFxuICAgICAgICAgICAgICAgICAgPFN0YWdnZXJDaGlsZFxuICAgICAgICAgICAgICAgICAgICBpbmRleD17KHRpdGxlIHx8IGRlc2NyaXB0aW9uID8gMSA6IDApICsgKGNoaWxkcmVuID8gMSA6IDApfVxuICAgICAgICAgICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb249e3Nob3VsZFJlZHVjZU1vdGlvbn1cbiAgICAgICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICAgICAgPEFsZXJ0RGlhbG9nRm9vdGVyPntmb290ZXJ9PC9BbGVydERpYWxvZ0Zvb3Rlcj5cbiAgICAgICAgICAgICAgICAgIDwvU3RhZ2dlckNoaWxkPlxuICAgICAgICAgICAgICAgICl9XG4gICAgICAgICAgICAgIDwvbW90aW9uLmRpdj5cbiAgICAgICAgICAgIDwvQWxlcnREaWFsb2dSYWRpeC5Db250ZW50PlxuICAgICAgICAgIDwvQWxlcnREaWFsb2dSYWRpeC5Qb3J0YWw+XG4gICAgICAgICl9XG4gICAgICA8L0FuaW1hdGVQcmVzZW5jZT5cbiAgICA8L0FsZXJ0RGlhbG9nUmFkaXguUm9vdD5cbiAgKTtcbn1cblxuLyogLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tICovXG4vKiAgUmUtZXhwb3J0cyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICovXG4vKiAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0gKi9cblxuZXhwb3J0IHtcbiAgQWxlcnREaWFsb2dBY3Rpb24sXG4gIEFsZXJ0RGlhbG9nQ2FuY2VsLFxuICBBbGVydERpYWxvZ0Rlc2NyaXB0aW9uLFxuICBBbGVydERpYWxvZ0Zvb3RlcixcbiAgQWxlcnREaWFsb2dIZWFkZXIsXG4gIEFsZXJ0RGlhbG9nVGl0bGUsXG4gIEFsZXJ0RGlhbG9nVHJpZ2dlcixcbiAgRGlhbG9nQ2xvc2UsXG4gIERpYWxvZ0Rlc2NyaXB0aW9uLFxuICBEaWFsb2dGb290ZXIsXG4gIERpYWxvZ0hlYWRlcixcbiAgRGlhbG9nVGl0bGUsXG4gIERpYWxvZ1RyaWdnZXIsXG59O1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9kaWFsb2cvaW5kZXgudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9kaWFsb2cvaW5kZXgudHN4IiwiL2NvbXBvbmVudHMvZGlhbG9nL2luZGV4LnRzeCIsW11d

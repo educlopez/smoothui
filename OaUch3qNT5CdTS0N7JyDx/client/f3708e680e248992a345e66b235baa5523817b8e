@@ -1,0 +1,48 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/form/index.tsx", {"importedNames":["default","FormControl","FormField","FormLabel","FormMessage"]});
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("Form", () => {
+  (0,__vite_ssr_import_1__.it)("renders without throwing", () => {
+    const { container } = (0,__vite_ssr_import_2__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.FormField), { name: "email", children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.FormLabel), { children: "Email" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+          lineNumber: 10,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.FormControl), { children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("input", { type: "email" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+          lineNumber: 12,
+          columnNumber: 13
+        }, this) }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+          lineNumber: 11,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.FormMessage), {}, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+          lineNumber: 14,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+        lineNumber: 9,
+        columnNumber: 9
+      }, this) }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/form/__tests__/form.test.tsx",
+        lineNumber: 8,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_1__.expect)(container).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBU1U7QUFUVjtBQUNBO0FBQ0E7Ozs7O0dBRUEsZ0NBQVMsUUFBUSxNQUFNO0FBQ3JCLCtCQUFHLDRCQUE0QixNQUFNO0FBQ25DLFVBQU0sRUFBRSxVQUFVLE9BQUk7QUFBQSxNQUNwQixvREFBQyxrQ0FDQyw4REFBQyxvQ0FBVSxNQUFLLFNBQ2Q7QUFBQSw0REFBQyxvQ0FBVSxxQkFBWDtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBQWdCO0FBQUEsUUFDaEIsb0RBQUMsc0NBQ0MsMkRBQUMsV0FBTSxNQUFLLFdBQVo7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUFvQixLQUR0QjtBQUFBO0FBQUE7QUFBQTtBQUFBLGVBRUE7QUFBQSxRQUNBLG9EQUFDLHdDQUFEO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBYTtBQUFBLFdBTGY7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQU1BLEtBUEY7QUFBQTtBQUFBO0FBQUE7QUFBQSxhQVFBO0FBQUEsSUFDRjtBQUNBLHFDQUFPLFNBQVMsRUFBRSxrQkFBa0I7QUFBQSxFQUN0QyxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiZm9ybS50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gXCJ2aXRlc3RcIjtcbmltcG9ydCB7IHJlbmRlciB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IEZvcm0sIHsgRm9ybUNvbnRyb2wsIEZvcm1GaWVsZCwgRm9ybUxhYmVsLCBGb3JtTWVzc2FnZSB9IGZyb20gXCIuLi9pbmRleFwiO1xuXG5kZXNjcmliZShcIkZvcm1cIiwgKCkgPT4ge1xuICBpdChcInJlbmRlcnMgd2l0aG91dCB0aHJvd2luZ1wiLCAoKSA9PiB7XG4gICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcihcbiAgICAgIDxGb3JtPlxuICAgICAgICA8Rm9ybUZpZWxkIG5hbWU9XCJlbWFpbFwiPlxuICAgICAgICAgIDxGb3JtTGFiZWw+RW1haWw8L0Zvcm1MYWJlbD5cbiAgICAgICAgICA8Rm9ybUNvbnRyb2w+XG4gICAgICAgICAgICA8aW5wdXQgdHlwZT1cImVtYWlsXCIgLz5cbiAgICAgICAgICA8L0Zvcm1Db250cm9sPlxuICAgICAgICAgIDxGb3JtTWVzc2FnZSAvPlxuICAgICAgICA8L0Zvcm1GaWVsZD5cbiAgICAgIDwvRm9ybT5cbiAgICApO1xuICAgIGV4cGVjdChjb250YWluZXIpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xufSk7XG4iXSwiZmlsZSI6Ii9jb21wb25lbnRzL2Zvcm0vX190ZXN0c19fL2Zvcm0udGVzdC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9mb3JtL19fdGVzdHNfXy9mb3JtLnRlc3QudHN4IiwiL2NvbXBvbmVudHMvZm9ybS9fX3Rlc3RzX18vZm9ybS50ZXN0LnRzeCIsW11d

@@ -1,0 +1,86 @@
+__vite_ssr_exportName__("CtaBanner", () => { try { return CtaBanner } catch {} });
+__vite_ssr_exportName__("default", () => { try { return __vite_ssr_export_default__ } catch {} });
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/components/smooth-button/index.tsx", {"importedNames":["default"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@11.18.2_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/motion/lib/react.mjs", {"importedNames":["motion","useReducedMotion"]});
+"use client";
+
+
+
+const SPRING = {
+  type: "spring",
+  duration: 0.25,
+  bounce: 0.1
+};
+function CtaBanner() {
+  const shouldReduceMotion = (0,__vite_ssr_import_2__.useReducedMotion)();
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("section", { "aria-labelledby": "cta-banner-heading", children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { className: "px-6 py-12", children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+    __vite_ssr_import_2__.motion.div,
+    {
+      className: "mx-auto max-w-4xl overflow-hidden rounded-2xl border bg-gradient-to-r from-primary/5 via-background to-primary/5 p-8 md:p-12",
+      initial: shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.97 },
+      transition: shouldReduceMotion ? { duration: 0 } : SPRING,
+      viewport: { once: true },
+      whileInView: shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 },
+      children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { className: "flex flex-col items-center justify-between gap-6 md:flex-row", children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("div", { children: [
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+            "h2",
+            {
+              className: "font-bold text-xl md:text-2xl",
+              id: "cta-banner-heading",
+              children: "Start building today"
+            },
+            void 0,
+            false,
+            {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+              lineNumber: 31,
+              columnNumber: 15
+            },
+            this
+          ),
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("p", { className: "mt-1 text-foreground/70 text-sm md:text-base", children: "Install any component with a single command." }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+            lineNumber: 37,
+            columnNumber: 15
+          }, this)
+        ] }, void 0, true, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+          lineNumber: 30,
+          columnNumber: 13
+        }, this),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_1__.default), { variant: "candy", children: "Get Started →" }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+          lineNumber: 41,
+          columnNumber: 13
+        }, this)
+      ] }, void 0, true, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+        lineNumber: 29,
+        columnNumber: 11
+      }, this)
+    },
+    void 0,
+    false,
+    {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+      lineNumber: 18,
+      columnNumber: 9
+    },
+    this
+  ) }, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+    lineNumber: 17,
+    columnNumber: 7
+  }, this) }, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/blocks/ctas/cta-3/index.tsx",
+    lineNumber: 16,
+    columnNumber: 5
+  }, this);
+};
+const __vite_ssr_export_default__ = CtaBanner;
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBQUEsQ0FBQTs7QUE4QmM7QUE1QmQ7QUFDQTs7Ozs7QUFFQSxNQUFNLFNBQVM7QUFBQSxFQUNiLE1BQU07QUFBQSxFQUNOLFVBQVU7QUFBQSxFQUNWLFFBQVE7QUFDVjtBQUVPLFNBQVMsWUFBWTtBQUMxQixRQUFNLHdCQUFxQix3Q0FBaUI7QUFFNUMsU0FDRSxpREFBQyxhQUFRLG1CQUFnQixzQkFDdkIsMkRBQUMsU0FBSSxXQUFVLGNBQ2I7QUFBQSxJQUFDLDZCQUFPO0FBQUEsSUFBUDtBQUFBLE1BQ0MsV0FBVTtBQUFBLE1BQ1YsU0FDRSxxQkFBcUIsRUFBRSxTQUFTLEVBQUUsSUFBSSxFQUFFLFNBQVMsR0FBRyxPQUFPLEtBQUs7QUFBQSxNQUVsRSxZQUFZLHFCQUFxQixFQUFFLFVBQVUsRUFBRSxJQUFJO0FBQUEsTUFDbkQsVUFBVSxFQUFFLE1BQU0sS0FBSztBQUFBLE1BQ3ZCLGFBQ0UscUJBQXFCLEVBQUUsU0FBUyxFQUFFLElBQUksRUFBRSxTQUFTLEdBQUcsT0FBTyxFQUFFO0FBQUEsTUFHL0QsMkRBQUMsU0FBSSxXQUFVLGdFQUNiO0FBQUEseURBQUMsU0FDQztBQUFBO0FBQUEsWUFBQztBQUFBO0FBQUEsY0FDQyxXQUFVO0FBQUEsY0FDVixJQUFHO0FBQUEsY0FDSjtBQUFBO0FBQUEsWUFIRDtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUEsVUFLQTtBQUFBLFVBQ0EsaURBQUMsT0FBRSxXQUFVLGdEQUErQyw0REFBNUQ7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFFQTtBQUFBLGFBVEY7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQVVBO0FBQUEsUUFDQSxvREFBQyxrQ0FBYSxTQUFRLFNBQVEsNkJBQTlCO0FBQUE7QUFBQTtBQUFBO0FBQUEsZUFBMkM7QUFBQSxXQVo3QztBQUFBO0FBQUE7QUFBQTtBQUFBLGFBYUE7QUFBQTtBQUFBLElBeEJGO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxFQXlCQSxLQTFCRjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBMkJBLEtBNUJGO0FBQUE7QUFBQTtBQUFBO0FBQUEsU0E2QkE7QUFFSjtBQUVBLG9DQUFlIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJpbmRleC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiXCJ1c2UgY2xpZW50XCI7XG5cbmltcG9ydCBTbW9vdGhCdXR0b24gZnJvbSBcIkByZXBvL3Ntb290aHVpL2NvbXBvbmVudHMvc21vb3RoLWJ1dHRvblwiO1xuaW1wb3J0IHsgbW90aW9uLCB1c2VSZWR1Y2VkTW90aW9uIH0gZnJvbSBcIm1vdGlvbi9yZWFjdFwiO1xuXG5jb25zdCBTUFJJTkcgPSB7XG4gIHR5cGU6IFwic3ByaW5nXCIgYXMgY29uc3QsXG4gIGR1cmF0aW9uOiAwLjI1LFxuICBib3VuY2U6IDAuMSxcbn07XG5cbmV4cG9ydCBmdW5jdGlvbiBDdGFCYW5uZXIoKSB7XG4gIGNvbnN0IHNob3VsZFJlZHVjZU1vdGlvbiA9IHVzZVJlZHVjZWRNb3Rpb24oKTtcblxuICByZXR1cm4gKFxuICAgIDxzZWN0aW9uIGFyaWEtbGFiZWxsZWRieT1cImN0YS1iYW5uZXItaGVhZGluZ1wiPlxuICAgICAgPGRpdiBjbGFzc05hbWU9XCJweC02IHB5LTEyXCI+XG4gICAgICAgIDxtb3Rpb24uZGl2XG4gICAgICAgICAgY2xhc3NOYW1lPVwibXgtYXV0byBtYXgtdy00eGwgb3ZlcmZsb3ctaGlkZGVuIHJvdW5kZWQtMnhsIGJvcmRlciBiZy1ncmFkaWVudC10by1yIGZyb20tcHJpbWFyeS81IHZpYS1iYWNrZ3JvdW5kIHRvLXByaW1hcnkvNSBwLTggbWQ6cC0xMlwiXG4gICAgICAgICAgaW5pdGlhbD17XG4gICAgICAgICAgICBzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IG9wYWNpdHk6IDEgfSA6IHsgb3BhY2l0eTogMCwgc2NhbGU6IDAuOTcgfVxuICAgICAgICAgIH1cbiAgICAgICAgICB0cmFuc2l0aW9uPXtzaG91bGRSZWR1Y2VNb3Rpb24gPyB7IGR1cmF0aW9uOiAwIH0gOiBTUFJJTkd9XG4gICAgICAgICAgdmlld3BvcnQ9e3sgb25jZTogdHJ1ZSB9fVxuICAgICAgICAgIHdoaWxlSW5WaWV3PXtcbiAgICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvbiA/IHsgb3BhY2l0eTogMSB9IDogeyBvcGFjaXR5OiAxLCBzY2FsZTogMSB9XG4gICAgICAgICAgfVxuICAgICAgICA+XG4gICAgICAgICAgPGRpdiBjbGFzc05hbWU9XCJmbGV4IGZsZXgtY29sIGl0ZW1zLWNlbnRlciBqdXN0aWZ5LWJldHdlZW4gZ2FwLTYgbWQ6ZmxleC1yb3dcIj5cbiAgICAgICAgICAgIDxkaXY+XG4gICAgICAgICAgICAgIDxoMlxuICAgICAgICAgICAgICAgIGNsYXNzTmFtZT1cImZvbnQtYm9sZCB0ZXh0LXhsIG1kOnRleHQtMnhsXCJcbiAgICAgICAgICAgICAgICBpZD1cImN0YS1iYW5uZXItaGVhZGluZ1wiXG4gICAgICAgICAgICAgID5cbiAgICAgICAgICAgICAgICBTdGFydCBidWlsZGluZyB0b2RheVxuICAgICAgICAgICAgICA8L2gyPlxuICAgICAgICAgICAgICA8cCBjbGFzc05hbWU9XCJtdC0xIHRleHQtZm9yZWdyb3VuZC83MCB0ZXh0LXNtIG1kOnRleHQtYmFzZVwiPlxuICAgICAgICAgICAgICAgIEluc3RhbGwgYW55IGNvbXBvbmVudCB3aXRoIGEgc2luZ2xlIGNvbW1hbmQuXG4gICAgICAgICAgICAgIDwvcD5cbiAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPFNtb290aEJ1dHRvbiB2YXJpYW50PVwiY2FuZHlcIj5HZXQgU3RhcnRlZCDihpI8L1Ntb290aEJ1dHRvbj5cbiAgICAgICAgICA8L2Rpdj5cbiAgICAgICAgPC9tb3Rpb24uZGl2PlxuICAgICAgPC9kaXY+XG4gICAgPC9zZWN0aW9uPlxuICApO1xufVxuXG5leHBvcnQgZGVmYXVsdCBDdGFCYW5uZXI7XG4iXSwiZmlsZSI6Ii9ibG9ja3MvY3Rhcy9jdGEtMy9pbmRleC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvYmxvY2tzL2N0YXMvY3RhLTMvaW5kZXgudHN4IiwiL2Jsb2Nrcy9jdGFzL2N0YS0zL2luZGV4LnRzeCIsW11d

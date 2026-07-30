@@ -1,0 +1,65 @@
+---
+title: Morph Surface
+description: Feedback dock that morphs from a compact pill into a panel and back, growing in place instead of opening a modal.
+icon: SquareDashedBottom
+dependencies:
+  - motion.dev
+  - cva.style
+installer: morph-surface
+---
+
+## Features
+
+- A compact dock that expands into a feedback panel in place
+- Spring layout transition on width, height and radius together
+- Success state before it returns to the dock
+- Click-outside and `Escape` both close it
+- `Cmd + Enter` submits
+
+## Growing in place
+
+Nothing is torn down and rebuilt: the dock and the panel are the same surface, and
+the layout spring interpolates between the two shapes. That is what separates it
+from a button that opens a modal — the control the user pressed is the thing that
+became the form, so there is no moment of wondering where the dock went.
+
+Because it grows from its own position, keep it out of layouts that would clip the
+expanded panel.
+
+## Renamed from `ai-input`
+
+This component used to be called `ai-input`, which was wrong twice over: it is not
+an input, and it has nothing to do with AI. Its default export has always been
+`MorphSurface`.
+
+The old name still resolves for one release, so existing installs keep working. If
+you are looking for a chat composer, that is
+[AI Prompt Input](/docs/components/ai-prompt-input).
+
+```tsx
+// Before
+import { MorphSurface } from "@/components/smoothui/ai-input";
+
+// Now
+import MorphSurface from "@/components/smoothui/morph-surface";
+```
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Escape` | Closes the feedback textarea and returns to the dock |
+| `Cmd + Enter` | Submits the feedback form |
+
+### Screen Reader
+
+The submit shortcut is shown with `<kbd>` elements, so the key combination is
+readable rather than implied by an icon.
+
+### Reduced Motion
+
+Respects `prefers-reduced-motion` via `useReducedMotion`. When reduced motion is
+preferred, the morph, fade and layout animations are all disabled — the panel
+simply appears at its final size.

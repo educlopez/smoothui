@@ -1,0 +1,110 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/smooth-button/index.tsx", {"importedNames":["default"]});
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("SmoothButton", () => {
+  (0,__vite_ssr_import_1__.it)("renders without throwing", () => {
+    const { getByRole } = (0,__vite_ssr_import_2__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { children: "Click me" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+      lineNumber: 7,
+      columnNumber: 34
+    }, this));
+    (0,__vite_ssr_import_1__.expect)(getByRole("button")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_1__.it)("renders every variant × color combination", () => {
+    const variants = [
+      "solid",
+      "soft",
+      "outline",
+      "ghost",
+      "link",
+      "candy"
+    ];
+    const colors = [
+      "accent",
+      "neutral",
+      "destructive",
+      "blue",
+      "amber",
+      "green"
+    ];
+    for (const variant of variants) {
+      for (const color of colors) {
+        const { getByRole, unmount } = (0,__vite_ssr_import_2__.render)(
+          /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { color, variant, children: [
+            variant,
+            "-",
+            color
+          ] }, void 0, true, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+            lineNumber: 31,
+            columnNumber: 11
+          }, this)
+        );
+        (0,__vite_ssr_import_1__.expect)(getByRole("button")).toBeInTheDocument();
+        unmount();
+      }
+    }
+  });
+  (0,__vite_ssr_import_1__.it)("preserves legacy variants for back-compat", () => {
+    for (const variant of ["default", "secondary", "destructive"]) {
+      const { getByRole, unmount } = (0,__vite_ssr_import_2__.render)(
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { variant, children: variant }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+          lineNumber: 44,
+          columnNumber: 9
+        }, this)
+      );
+      (0,__vite_ssr_import_1__.expect)(getByRole("button")).toBeInTheDocument();
+      unmount();
+    }
+  });
+  (0,__vite_ssr_import_1__.it)("sets aria-busy and disables interaction while loading", () => {
+    const { getByRole } = (0,__vite_ssr_import_2__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { loading: true, children: "Save" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+      lineNumber: 52,
+      columnNumber: 34
+    }, this));
+    const button = getByRole("button");
+    (0,__vite_ssr_import_1__.expect)(button).toHaveAttribute("aria-busy", "true");
+    (0,__vite_ssr_import_1__.expect)(button).toBeDisabled();
+  });
+  (0,__vite_ssr_import_1__.it)("renders prefix and suffix slots", () => {
+    const { getByTestId } = (0,__vite_ssr_import_2__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_3__.default),
+        {
+          prefix: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("span", { "data-testid": "prefix" }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+            lineNumber: 61,
+            columnNumber: 17
+          }, this),
+          suffix: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("span", { "data-testid": "suffix" }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+            lineNumber: 62,
+            columnNumber: 17
+          }, this),
+          children: "Label"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/smooth-button/__tests__/smooth-button.test.tsx",
+          lineNumber: 60,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    (0,__vite_ssr_import_1__.expect)(getByTestId("prefix")).toBeInTheDocument();
+    (0,__vite_ssr_import_1__.expect)(getByTestId("suffix")).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBTWlDO0FBTmpDO0FBQ0E7QUFDQTs7Ozs7R0FFQSxnQ0FBUyxnQkFBZ0IsTUFBTTtBQUM3QiwrQkFBRyw0QkFBNEIsTUFBTTtBQUNuQyxVQUFNLEVBQUUsVUFBVSxPQUFJLDhCQUFPLG9EQUFDLGtDQUFhLHdCQUFkO0FBQUE7QUFBQTtBQUFBO0FBQUEsV0FBc0IsQ0FBZTtBQUNsRSxxQ0FBTyxVQUFVLFFBQVEsQ0FBQyxFQUFFLGtCQUFrQjtBQUFBLEVBQ2hELENBQUM7QUFFRCwrQkFBRyw2Q0FBNkMsTUFBTTtBQUNwRCxVQUFNLFdBQVc7QUFBQSxNQUNmO0FBQUEsTUFDQTtBQUFBLE1BQ0E7QUFBQSxNQUNBO0FBQUEsTUFDQTtBQUFBLE1BQ0E7QUFBQSxJQUNGO0FBQ0EsVUFBTSxTQUFTO0FBQUEsTUFDYjtBQUFBLE1BQ0E7QUFBQSxNQUNBO0FBQUEsTUFDQTtBQUFBLE1BQ0E7QUFBQSxNQUNBO0FBQUEsSUFDRjtBQUNBLGVBQVcsV0FBVyxVQUFVO0FBQzlCLGlCQUFXLFNBQVMsUUFBUTtBQUMxQixjQUFNLEVBQUUsV0FBVyxRQUFRLE9BQUk7QUFBQSxVQUM3QixvREFBQyxrQ0FBYSxPQUFjLFNBQ3pCO0FBQUE7QUFBQSxZQUFRO0FBQUEsWUFBRTtBQUFBLGVBRGI7QUFBQTtBQUFBO0FBQUE7QUFBQSxpQkFFQTtBQUFBLFFBQ0Y7QUFDQSx5Q0FBTyxVQUFVLFFBQVEsQ0FBQyxFQUFFLGtCQUFrQjtBQUM5QyxnQkFBUTtBQUFBLE1BQ1Y7QUFBQSxJQUNGO0FBQUEsRUFDRixDQUFDO0FBRUQsK0JBQUcsNkNBQTZDLE1BQU07QUFDcEQsZUFBVyxXQUFXLENBQUMsV0FBVyxhQUFhLGFBQWEsR0FBWTtBQUN0RSxZQUFNLEVBQUUsV0FBVyxRQUFRLE9BQUk7QUFBQSxRQUM3QixvREFBQyxrQ0FBYSxTQUFtQixxQkFBakM7QUFBQTtBQUFBO0FBQUE7QUFBQSxlQUF5QztBQUFBLE1BQzNDO0FBQ0EsdUNBQU8sVUFBVSxRQUFRLENBQUMsRUFBRSxrQkFBa0I7QUFDOUMsY0FBUTtBQUFBLElBQ1Y7QUFBQSxFQUNGLENBQUM7QUFFRCwrQkFBRyx5REFBeUQsTUFBTTtBQUNoRSxVQUFNLEVBQUUsVUFBVSxPQUFJLDhCQUFPLG9EQUFDLGtDQUFhLFNBQU8sTUFBQyxvQkFBdEI7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUEwQixDQUFlO0FBQ3RFLFVBQU0sU0FBUyxVQUFVLFFBQVE7QUFDakMscUNBQU8sTUFBTSxFQUFFLGdCQUFnQixhQUFhLE1BQU07QUFDbEQscUNBQU8sTUFBTSxFQUFFLGFBQWE7QUFBQSxFQUM5QixDQUFDO0FBRUQsK0JBQUcsbUNBQW1DLE1BQU07QUFDMUMsVUFBTSxFQUFFLFlBQVksT0FBSTtBQUFBLE1BQ3RCO0FBQUEsV0FBQztBQUFBO0FBQUEsVUFDQyxRQUFRLGlEQUFDLFVBQUssZUFBWSxZQUFsQjtBQUFBO0FBQUE7QUFBQTtBQUFBLGlCQUEyQjtBQUFBLFVBQ25DLFFBQVEsaURBQUMsVUFBSyxlQUFZLFlBQWxCO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBQTJCO0FBQUEsVUFDcEM7QUFBQTtBQUFBLFFBSEQ7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBLE1BS0E7QUFBQSxJQUNGO0FBQ0EscUNBQU8sWUFBWSxRQUFRLENBQUMsRUFBRSxrQkFBa0I7QUFDaEQscUNBQU8sWUFBWSxRQUFRLENBQUMsRUFBRSxrQkFBa0I7QUFBQSxFQUNsRCxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsic21vb3RoLWJ1dHRvbi50ZXN0LnRzeCJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCB9IGZyb20gXCJ2aXRlc3RcIjtcbmltcG9ydCB7IHJlbmRlciB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IFNtb290aEJ1dHRvbiBmcm9tIFwiLi4vaW5kZXhcIjtcblxuZGVzY3JpYmUoXCJTbW9vdGhCdXR0b25cIiwgKCkgPT4ge1xuICBpdChcInJlbmRlcnMgd2l0aG91dCB0aHJvd2luZ1wiLCAoKSA9PiB7XG4gICAgY29uc3QgeyBnZXRCeVJvbGUgfSA9IHJlbmRlcig8U21vb3RoQnV0dG9uPkNsaWNrIG1lPC9TbW9vdGhCdXR0b24+KTtcbiAgICBleHBlY3QoZ2V0QnlSb2xlKFwiYnV0dG9uXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICB9KTtcblxuICBpdChcInJlbmRlcnMgZXZlcnkgdmFyaWFudCDDlyBjb2xvciBjb21iaW5hdGlvblwiLCAoKSA9PiB7XG4gICAgY29uc3QgdmFyaWFudHMgPSBbXG4gICAgICBcInNvbGlkXCIsXG4gICAgICBcInNvZnRcIixcbiAgICAgIFwib3V0bGluZVwiLFxuICAgICAgXCJnaG9zdFwiLFxuICAgICAgXCJsaW5rXCIsXG4gICAgICBcImNhbmR5XCIsXG4gICAgXSBhcyBjb25zdDtcbiAgICBjb25zdCBjb2xvcnMgPSBbXG4gICAgICBcImFjY2VudFwiLFxuICAgICAgXCJuZXV0cmFsXCIsXG4gICAgICBcImRlc3RydWN0aXZlXCIsXG4gICAgICBcImJsdWVcIixcbiAgICAgIFwiYW1iZXJcIixcbiAgICAgIFwiZ3JlZW5cIixcbiAgICBdIGFzIGNvbnN0O1xuICAgIGZvciAoY29uc3QgdmFyaWFudCBvZiB2YXJpYW50cykge1xuICAgICAgZm9yIChjb25zdCBjb2xvciBvZiBjb2xvcnMpIHtcbiAgICAgICAgY29uc3QgeyBnZXRCeVJvbGUsIHVubW91bnQgfSA9IHJlbmRlcihcbiAgICAgICAgICA8U21vb3RoQnV0dG9uIGNvbG9yPXtjb2xvcn0gdmFyaWFudD17dmFyaWFudH0+XG4gICAgICAgICAgICB7dmFyaWFudH0te2NvbG9yfVxuICAgICAgICAgIDwvU21vb3RoQnV0dG9uPlxuICAgICAgICApO1xuICAgICAgICBleHBlY3QoZ2V0QnlSb2xlKFwiYnV0dG9uXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgICAgICB1bm1vdW50KCk7XG4gICAgICB9XG4gICAgfVxuICB9KTtcblxuICBpdChcInByZXNlcnZlcyBsZWdhY3kgdmFyaWFudHMgZm9yIGJhY2stY29tcGF0XCIsICgpID0+IHtcbiAgICBmb3IgKGNvbnN0IHZhcmlhbnQgb2YgW1wiZGVmYXVsdFwiLCBcInNlY29uZGFyeVwiLCBcImRlc3RydWN0aXZlXCJdIGFzIGNvbnN0KSB7XG4gICAgICBjb25zdCB7IGdldEJ5Um9sZSwgdW5tb3VudCB9ID0gcmVuZGVyKFxuICAgICAgICA8U21vb3RoQnV0dG9uIHZhcmlhbnQ9e3ZhcmlhbnR9Pnt2YXJpYW50fTwvU21vb3RoQnV0dG9uPlxuICAgICAgKTtcbiAgICAgIGV4cGVjdChnZXRCeVJvbGUoXCJidXR0b25cIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgICB1bm1vdW50KCk7XG4gICAgfVxuICB9KTtcblxuICBpdChcInNldHMgYXJpYS1idXN5IGFuZCBkaXNhYmxlcyBpbnRlcmFjdGlvbiB3aGlsZSBsb2FkaW5nXCIsICgpID0+IHtcbiAgICBjb25zdCB7IGdldEJ5Um9sZSB9ID0gcmVuZGVyKDxTbW9vdGhCdXR0b24gbG9hZGluZz5TYXZlPC9TbW9vdGhCdXR0b24+KTtcbiAgICBjb25zdCBidXR0b24gPSBnZXRCeVJvbGUoXCJidXR0b25cIik7XG4gICAgZXhwZWN0KGJ1dHRvbikudG9IYXZlQXR0cmlidXRlKFwiYXJpYS1idXN5XCIsIFwidHJ1ZVwiKTtcbiAgICBleHBlY3QoYnV0dG9uKS50b0JlRGlzYWJsZWQoKTtcbiAgfSk7XG5cbiAgaXQoXCJyZW5kZXJzIHByZWZpeCBhbmQgc3VmZml4IHNsb3RzXCIsICgpID0+IHtcbiAgICBjb25zdCB7IGdldEJ5VGVzdElkIH0gPSByZW5kZXIoXG4gICAgICA8U21vb3RoQnV0dG9uXG4gICAgICAgIHByZWZpeD17PHNwYW4gZGF0YS10ZXN0aWQ9XCJwcmVmaXhcIiAvPn1cbiAgICAgICAgc3VmZml4PXs8c3BhbiBkYXRhLXRlc3RpZD1cInN1ZmZpeFwiIC8+fVxuICAgICAgPlxuICAgICAgICBMYWJlbFxuICAgICAgPC9TbW9vdGhCdXR0b24+XG4gICAgKTtcbiAgICBleHBlY3QoZ2V0QnlUZXN0SWQoXCJwcmVmaXhcIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KGdldEJ5VGVzdElkKFwic3VmZml4XCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICB9KTtcbn0pO1xuIl0sImZpbGUiOiIvY29tcG9uZW50cy9zbW9vdGgtYnV0dG9uL19fdGVzdHNfXy9zbW9vdGgtYnV0dG9uLnRlc3QudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9zbW9vdGgtYnV0dG9uL19fdGVzdHNfXy9zbW9vdGgtYnV0dG9uLnRlc3QudHN4IiwiL2NvbXBvbmVudHMvc21vb3RoLWJ1dHRvbi9fX3Rlc3RzX18vc21vb3RoLWJ1dHRvbi50ZXN0LnRzeCIsW11d

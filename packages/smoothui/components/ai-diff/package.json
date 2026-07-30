@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-diff",
+  "description": "Proposed code or data edit where added lines wipe in from the left and rejected lines collapse to nothing.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "diff",
+      "code",
+      "review",
+      "accept",
+      "reject"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "AI-proposed edit awaiting review",
+      "Tool call that rewrites a file",
+      "Any before/after the user must accept or reject"
+    ],
+    "compositionHints": [
+      "Accepting flashes the block once, then settles — no confetti",
+      "Rejecting collapses the lines to zero height so the space is reclaimed",
+      "Line numbers are optional; omit them for data rather than code"
+    ],
+    "hasReducedMotion": true
+  }
+}

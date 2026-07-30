@@ -1,0 +1,285 @@
+__vite_ssr_exportName__("ClipCornersButton", () => { try { return ClipCornersButton } catch {} });
+__vite_ssr_exportName__("default", () => { try { return __vite_ssr_export_default__ } catch {} });
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/components/smooth-button/index.tsx", {"importedNames":["default"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/motion@12.38.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/motion/dist/es/react.mjs", {"importedNames":["motion","useReducedMotion"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/index.js", {"importedNames":["useEffect","useState"]});
+"use client";
+
+
+
+
+function ClipCornersButton({
+  children,
+  className = "",
+  onClick
+}) {
+  const [isHovered, setIsHovered] = (0,__vite_ssr_import_3__.useState)(false);
+  const shouldReduceMotion = (0,__vite_ssr_import_2__.useReducedMotion)();
+  const [isHoverDevice, setIsHoverDevice] = (0,__vite_ssr_import_3__.useState)(false);
+  const move = -4;
+  (0,__vite_ssr_import_3__.useEffect)(() => {
+    const mediaQuery = window.matchMedia("(hover: hover) and (pointer: fine)");
+    setIsHoverDevice(mediaQuery.matches);
+    const handleChange = (e) => {
+      setIsHoverDevice(e.matches);
+    };
+    mediaQuery.addEventListener("change", handleChange);
+    return () => mediaQuery.removeEventListener("change", handleChange);
+  }, []);
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+    (0,__vite_ssr_import_1__.default),
+    {
+      className: `relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90 ${className}`,
+      onClick,
+      onMouseEnter: () => {
+        if (isHoverDevice) {
+          setIsHovered(true);
+        }
+      },
+      onMouseLeave: () => setIsHovered(false),
+      style: { borderRadius: 8 },
+      type: "button",
+      children: [
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+          __vite_ssr_import_2__.motion.div,
+          {
+            animate: shouldReduceMotion || !isHoverDevice ? {} : {
+              x: isHovered ? -move : 0,
+              y: isHovered ? -move : 0
+            },
+            className: "absolute top-1.5 left-1.5",
+            initial: false,
+            style: { width: 8, height: 8 },
+            transition: shouldReduceMotion ? { duration: 0 } : {
+              type: "spring",
+              stiffness: 400,
+              damping: 24,
+              duration: 0.2
+            },
+            children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              "svg",
+              {
+                "aria-label": "Top-left triangle",
+                className: "fill-background",
+                height: "8",
+                width: "8",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Top-left triangle" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 80,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("polygon", { fill: "currentColor", points: "0,0 8,0 0,8" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 81,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                lineNumber: 74,
+                columnNumber: 9
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+            lineNumber: 51,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+          __vite_ssr_import_2__.motion.div,
+          {
+            animate: shouldReduceMotion || !isHoverDevice ? {} : {
+              x: isHovered ? move : 0,
+              y: isHovered ? -move : 0
+            },
+            className: "absolute top-1.5 right-1.5",
+            initial: false,
+            style: { width: 8, height: 8 },
+            transition: shouldReduceMotion ? { duration: 0 } : {
+              type: "spring",
+              stiffness: 400,
+              damping: 24,
+              duration: 0.2
+            },
+            children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              "svg",
+              {
+                "aria-label": "Top-right triangle",
+                className: "fill-background",
+                height: "8",
+                width: "8",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Top-right triangle" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 114,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("polygon", { fill: "currentColor", points: "8,0 8,8 0,0" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 115,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                lineNumber: 108,
+                columnNumber: 9
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+            lineNumber: 85,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+          __vite_ssr_import_2__.motion.div,
+          {
+            animate: shouldReduceMotion || !isHoverDevice ? {} : {
+              x: isHovered ? -move : 0,
+              y: isHovered ? move : 0
+            },
+            className: "absolute bottom-1.5 left-1.5",
+            initial: false,
+            style: { width: 8, height: 8 },
+            transition: shouldReduceMotion ? { duration: 0 } : {
+              type: "spring",
+              stiffness: 400,
+              damping: 24,
+              duration: 0.2
+            },
+            children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              "svg",
+              {
+                "aria-label": "Bottom-left triangle",
+                className: "fill-background",
+                height: "8",
+                width: "8",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Bottom-left triangle" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 148,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("polygon", { fill: "currentColor", points: "0,8 8,8 0,0" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 149,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                lineNumber: 142,
+                columnNumber: 9
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+            lineNumber: 119,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+          __vite_ssr_import_2__.motion.div,
+          {
+            animate: shouldReduceMotion || !isHoverDevice ? {} : {
+              x: isHovered ? move : 0,
+              y: isHovered ? move : 0
+            },
+            className: "absolute right-1.5 bottom-1.5",
+            initial: false,
+            style: { width: 8, height: 8 },
+            transition: shouldReduceMotion ? { duration: 0 } : {
+              type: "spring",
+              stiffness: 400,
+              damping: 24,
+              duration: 0.2
+            },
+            children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+              "svg",
+              {
+                "aria-label": "Bottom-right triangle",
+                className: "fill-background",
+                height: "8",
+                width: "8",
+                children: [
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("title", { children: "Bottom-right triangle" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 182,
+                    columnNumber: 11
+                  }, this),
+                  /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("polygon", { fill: "currentColor", points: "8,8 0,8 8,0" }, void 0, false, {
+                    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                    lineNumber: 183,
+                    columnNumber: 11
+                  }, this)
+                ]
+              },
+              void 0,
+              true,
+              {
+                fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+                lineNumber: 176,
+                columnNumber: 9
+              },
+              this
+            )
+          },
+          void 0,
+          false,
+          {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+            lineNumber: 153,
+            columnNumber: 7
+          },
+          this
+        ),
+        /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("span", { className: "relative z-10 flex w-full select-none items-center justify-center", children }, void 0, false, {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+          lineNumber: 186,
+          columnNumber: 7
+        }, this)
+      ]
+    },
+    void 0,
+    true,
+    {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/clip-corners-button/index.tsx",
+      lineNumber: 38,
+      columnNumber: 5
+    },
+    this
+  );
+};
+const __vite_ssr_export_default__ = ClipCornersButton;
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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ZXgudHN4Il0sInNvdXJjZXNDb250ZW50IjpbIlwidXNlIGNsaWVudFwiO1xuXG5pbXBvcnQgU21vb3RoQnV0dG9uIGZyb20gXCJAcmVwby9zbW9vdGh1aS9jb21wb25lbnRzL3Ntb290aC1idXR0b25cIjtcbmltcG9ydCB7IG1vdGlvbiwgdXNlUmVkdWNlZE1vdGlvbiB9IGZyb20gXCJtb3Rpb24vcmVhY3RcIjtcbmltcG9ydCB7IHVzZUVmZmVjdCwgdXNlU3RhdGUgfSBmcm9tIFwicmVhY3RcIjtcblxuZXhwb3J0IGludGVyZmFjZSBDbGlwQ29ybmVyc0J1dHRvblByb3BzIHtcbiAgY2hpbGRyZW46IFJlYWN0LlJlYWN0Tm9kZTtcbiAgY2xhc3NOYW1lPzogc3RyaW5nO1xuICBvbkNsaWNrPzogKCkgPT4gdm9pZDtcbn1cblxuZXhwb3J0IGZ1bmN0aW9uIENsaXBDb3JuZXJzQnV0dG9uKHtcbiAgY2hpbGRyZW4sXG4gIGNsYXNzTmFtZSA9IFwiXCIsXG4gIG9uQ2xpY2ssXG59OiBDbGlwQ29ybmVyc0J1dHRvblByb3BzKSB7XG4gIGNvbnN0IFtpc0hvdmVyZWQsIHNldElzSG92ZXJlZF0gPSB1c2VTdGF0ZShmYWxzZSk7XG4gIGNvbnN0IHNob3VsZFJlZHVjZU1vdGlvbiA9IHVzZVJlZHVjZWRNb3Rpb24oKTtcbiAgY29uc3QgW2lzSG92ZXJEZXZpY2UsIHNldElzSG92ZXJEZXZpY2VdID0gdXNlU3RhdGUoZmFsc2UpO1xuXG4gIC8vIERpc3RhbmNlIHRyaWFuZ2xlcyBtb3ZlIG9uIGhvdmVyXG4gIGNvbnN0IG1vdmUgPSAtNDtcblxuICB1c2VFZmZlY3QoKCkgPT4ge1xuICAgIGNvbnN0IG1lZGlhUXVlcnkgPSB3aW5kb3cubWF0Y2hNZWRpYShcIihob3ZlcjogaG92ZXIpIGFuZCAocG9pbnRlcjogZmluZSlcIik7XG4gICAgc2V0SXNIb3ZlckRldmljZShtZWRpYVF1ZXJ5Lm1hdGNoZXMpO1xuXG4gICAgY29uc3QgaGFuZGxlQ2hhbmdlID0gKGU6IE1lZGlhUXVlcnlMaXN0RXZlbnQpID0+IHtcbiAgICAgIHNldElzSG92ZXJEZXZpY2UoZS5tYXRjaGVzKTtcbiAgICB9O1xuXG4gICAgbWVkaWFRdWVyeS5hZGRFdmVudExpc3RlbmVyKFwiY2hhbmdlXCIsIGhhbmRsZUNoYW5nZSk7XG4gICAgcmV0dXJuICgpID0+IG1lZGlhUXVlcnkucmVtb3ZlRXZlbnRMaXN0ZW5lcihcImNoYW5nZVwiLCBoYW5kbGVDaGFuZ2UpO1xuICB9LCBbXSk7XG5cbiAgcmV0dXJuIChcbiAgICA8U21vb3RoQnV0dG9uXG4gICAgICBjbGFzc05hbWU9e2ByZWxhdGl2ZSBvdmVyZmxvdy1oaWRkZW4gcm91bmRlZC1ub25lIGJvcmRlci1ub25lIGJnLWZvcmVncm91bmQgcHgtOCBweS00IGZvbnQtbW9ubyB0ZXh0LTJ4bCB0ZXh0LWJhY2tncm91bmQgaG92ZXI6YmctZm9yZWdyb3VuZC85MCAke2NsYXNzTmFtZX1gfVxuICAgICAgb25DbGljaz17b25DbGlja31cbiAgICAgIG9uTW91c2VFbnRlcj17KCkgPT4ge1xuICAgICAgICBpZiAoaXNIb3ZlckRldmljZSkge1xuICAgICAgICAgIHNldElzSG92ZXJlZCh0cnVlKTtcbiAgICAgICAgfVxuICAgICAgfX1cbiAgICAgIG9uTW91c2VMZWF2ZT17KCkgPT4gc2V0SXNIb3ZlcmVkKGZhbHNlKX1cbiAgICAgIHN0eWxlPXt7IGJvcmRlclJhZGl1czogOCB9fVxuICAgICAgdHlwZT1cImJ1dHRvblwiXG4gICAgPlxuICAgICAgey8qIFRvcC1sZWZ0IHRyaWFuZ2xlICovfVxuICAgICAgPG1vdGlvbi5kaXZcbiAgICAgICAgYW5pbWF0ZT17XG4gICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uIHx8ICFpc0hvdmVyRGV2aWNlXG4gICAgICAgICAgICA/IHt9XG4gICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICB4OiBpc0hvdmVyZWQgPyAtbW92ZSA6IDAsXG4gICAgICAgICAgICAgICAgeTogaXNIb3ZlcmVkID8gLW1vdmUgOiAwLFxuICAgICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgICAgY2xhc3NOYW1lPVwiYWJzb2x1dGUgdG9wLTEuNSBsZWZ0LTEuNVwiXG4gICAgICAgIGluaXRpYWw9e2ZhbHNlfVxuICAgICAgICBzdHlsZT17eyB3aWR0aDogOCwgaGVpZ2h0OiA4IH19XG4gICAgICAgIHRyYW5zaXRpb249e1xuICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICAgICAgPyB7IGR1cmF0aW9uOiAwIH1cbiAgICAgICAgICAgIDoge1xuICAgICAgICAgICAgICAgIHR5cGU6IFwic3ByaW5nXCIgYXMgY29uc3QsXG4gICAgICAgICAgICAgICAgc3RpZmZuZXNzOiA0MDAsXG4gICAgICAgICAgICAgICAgZGFtcGluZzogMjQsXG4gICAgICAgICAgICAgICAgZHVyYXRpb246IDAuMixcbiAgICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICA+XG4gICAgICAgIDxzdmdcbiAgICAgICAgICBhcmlhLWxhYmVsPVwiVG9wLWxlZnQgdHJpYW5nbGVcIlxuICAgICAgICAgIGNsYXNzTmFtZT1cImZpbGwtYmFja2dyb3VuZFwiXG4gICAgICAgICAgaGVpZ2h0PVwiOFwiXG4gICAgICAgICAgd2lkdGg9XCI4XCJcbiAgICAgICAgPlxuICAgICAgICAgIDx0aXRsZT5Ub3AtbGVmdCB0cmlhbmdsZTwvdGl0bGU+XG4gICAgICAgICAgPHBvbHlnb24gZmlsbD1cImN1cnJlbnRDb2xvclwiIHBvaW50cz1cIjAsMCA4LDAgMCw4XCIgLz5cbiAgICAgICAgPC9zdmc+XG4gICAgICA8L21vdGlvbi5kaXY+XG4gICAgICB7LyogVG9wLXJpZ2h0IHRyaWFuZ2xlICovfVxuICAgICAgPG1vdGlvbi5kaXZcbiAgICAgICAgYW5pbWF0ZT17XG4gICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uIHx8ICFpc0hvdmVyRGV2aWNlXG4gICAgICAgICAgICA/IHt9XG4gICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICB4OiBpc0hvdmVyZWQgPyBtb3ZlIDogMCxcbiAgICAgICAgICAgICAgICB5OiBpc0hvdmVyZWQgPyAtbW92ZSA6IDAsXG4gICAgICAgICAgICAgIH1cbiAgICAgICAgfVxuICAgICAgICBjbGFzc05hbWU9XCJhYnNvbHV0ZSB0b3AtMS41IHJpZ2h0LTEuNVwiXG4gICAgICAgIGluaXRpYWw9e2ZhbHNlfVxuICAgICAgICBzdHlsZT17eyB3aWR0aDogOCwgaGVpZ2h0OiA4IH19XG4gICAgICAgIHRyYW5zaXRpb249e1xuICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICAgICAgPyB7IGR1cmF0aW9uOiAwIH1cbiAgICAgICAgICAgIDoge1xuICAgICAgICAgICAgICAgIHR5cGU6IFwic3ByaW5nXCIgYXMgY29uc3QsXG4gICAgICAgICAgICAgICAgc3RpZmZuZXNzOiA0MDAsXG4gICAgICAgICAgICAgICAgZGFtcGluZzogMjQsXG4gICAgICAgICAgICAgICAgZHVyYXRpb246IDAuMixcbiAgICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICA+XG4gICAgICAgIDxzdmdcbiAgICAgICAgICBhcmlhLWxhYmVsPVwiVG9wLXJpZ2h0IHRyaWFuZ2xlXCJcbiAgICAgICAgICBjbGFzc05hbWU9XCJmaWxsLWJhY2tncm91bmRcIlxuICAgICAgICAgIGhlaWdodD1cIjhcIlxuICAgICAgICAgIHdpZHRoPVwiOFwiXG4gICAgICAgID5cbiAgICAgICAgICA8dGl0bGU+VG9wLXJpZ2h0IHRyaWFuZ2xlPC90aXRsZT5cbiAgICAgICAgICA8cG9seWdvbiBmaWxsPVwiY3VycmVudENvbG9yXCIgcG9pbnRzPVwiOCwwIDgsOCAwLDBcIiAvPlxuICAgICAgICA8L3N2Zz5cbiAgICAgIDwvbW90aW9uLmRpdj5cbiAgICAgIHsvKiBCb3R0b20tbGVmdCB0cmlhbmdsZSAqL31cbiAgICAgIDxtb3Rpb24uZGl2XG4gICAgICAgIGFuaW1hdGU9e1xuICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvbiB8fCAhaXNIb3ZlckRldmljZVxuICAgICAgICAgICAgPyB7fVxuICAgICAgICAgICAgOiB7XG4gICAgICAgICAgICAgICAgeDogaXNIb3ZlcmVkID8gLW1vdmUgOiAwLFxuICAgICAgICAgICAgICAgIHk6IGlzSG92ZXJlZCA/IG1vdmUgOiAwLFxuICAgICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgICAgY2xhc3NOYW1lPVwiYWJzb2x1dGUgYm90dG9tLTEuNSBsZWZ0LTEuNVwiXG4gICAgICAgIGluaXRpYWw9e2ZhbHNlfVxuICAgICAgICBzdHlsZT17eyB3aWR0aDogOCwgaGVpZ2h0OiA4IH19XG4gICAgICAgIHRyYW5zaXRpb249e1xuICAgICAgICAgIHNob3VsZFJlZHVjZU1vdGlvblxuICAgICAgICAgICAgPyB7IGR1cmF0aW9uOiAwIH1cbiAgICAgICAgICAgIDoge1xuICAgICAgICAgICAgICAgIHR5cGU6IFwic3ByaW5nXCIgYXMgY29uc3QsXG4gICAgICAgICAgICAgICAgc3RpZmZuZXNzOiA0MDAsXG4gICAgICAgICAgICAgICAgZGFtcGluZzogMjQsXG4gICAgICAgICAgICAgICAgZHVyYXRpb246IDAuMixcbiAgICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICA+XG4gICAgICAgIDxzdmdcbiAgICAgICAgICBhcmlhLWxhYmVsPVwiQm90dG9tLWxlZnQgdHJpYW5nbGVcIlxuICAgICAgICAgIGNsYXNzTmFtZT1cImZpbGwtYmFja2dyb3VuZFwiXG4gICAgICAgICAgaGVpZ2h0PVwiOFwiXG4gICAgICAgICAgd2lkdGg9XCI4XCJcbiAgICAgICAgPlxuICAgICAgICAgIDx0aXRsZT5Cb3R0b20tbGVmdCB0cmlhbmdsZTwvdGl0bGU+XG4gICAgICAgICAgPHBvbHlnb24gZmlsbD1cImN1cnJlbnRDb2xvclwiIHBvaW50cz1cIjAsOCA4LDggMCwwXCIgLz5cbiAgICAgICAgPC9zdmc+XG4gICAgICA8L21vdGlvbi5kaXY+XG4gICAgICB7LyogQm90dG9tLXJpZ2h0IHRyaWFuZ2xlICovfVxuICAgICAgPG1vdGlvbi5kaXZcbiAgICAgICAgYW5pbWF0ZT17XG4gICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uIHx8ICFpc0hvdmVyRGV2aWNlXG4gICAgICAgICAgICA/IHt9XG4gICAgICAgICAgICA6IHtcbiAgICAgICAgICAgICAgICB4OiBpc0hvdmVyZWQgPyBtb3ZlIDogMCxcbiAgICAgICAgICAgICAgICB5OiBpc0hvdmVyZWQgPyBtb3ZlIDogMCxcbiAgICAgICAgICAgICAgfVxuICAgICAgICB9XG4gICAgICAgIGNsYXNzTmFtZT1cImFic29sdXRlIHJpZ2h0LTEuNSBib3R0b20tMS41XCJcbiAgICAgICAgaW5pdGlhbD17ZmFsc2V9XG4gICAgICAgIHN0eWxlPXt7IHdpZHRoOiA4LCBoZWlnaHQ6IDggfX1cbiAgICAgICAgdHJhbnNpdGlvbj17XG4gICAgICAgICAgc2hvdWxkUmVkdWNlTW90aW9uXG4gICAgICAgICAgICA/IHsgZHVyYXRpb246IDAgfVxuICAgICAgICAgICAgOiB7XG4gICAgICAgICAgICAgICAgdHlwZTogXCJzcHJpbmdcIiBhcyBjb25zdCxcbiAgICAgICAgICAgICAgICBzdGlmZm5lc3M6IDQwMCxcbiAgICAgICAgICAgICAgICBkYW1waW5nOiAyNCxcbiAgICAgICAgICAgICAgICBkdXJhdGlvbjogMC4yLFxuICAgICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICAgID5cbiAgICAgICAgPHN2Z1xuICAgICAgICAgIGFyaWEtbGFiZWw9XCJCb3R0b20tcmlnaHQgdHJpYW5nbGVcIlxuICAgICAgICAgIGNsYXNzTmFtZT1cImZpbGwtYmFja2dyb3VuZFwiXG4gICAgICAgICAgaGVpZ2h0PVwiOFwiXG4gICAgICAgICAgd2lkdGg9XCI4XCJcbiAgICAgICAgPlxuICAgICAgICAgIDx0aXRsZT5Cb3R0b20tcmlnaHQgdHJpYW5nbGU8L3RpdGxlPlxuICAgICAgICAgIDxwb2x5Z29uIGZpbGw9XCJjdXJyZW50Q29sb3JcIiBwb2ludHM9XCI4LDggMCw4IDgsMFwiIC8+XG4gICAgICAgIDwvc3ZnPlxuICAgICAgPC9tb3Rpb24uZGl2PlxuICAgICAgPHNwYW4gY2xhc3NOYW1lPVwicmVsYXRpdmUgei0xMCBmbGV4IHctZnVsbCBzZWxlY3Qtbm9uZSBpdGVtcy1jZW50ZXIganVzdGlmeS1jZW50ZXJcIj5cbiAgICAgICAge2NoaWxkcmVufVxuICAgICAgPC9zcGFuPlxuICAgIDwvU21vb3RoQnV0dG9uPlxuICApO1xufVxuXG5leHBvcnQgZGVmYXVsdCBDbGlwQ29ybmVyc0J1dHRvbjtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvY2xpcC1jb3JuZXJzLWJ1dHRvbi9pbmRleC50c3gifQ==
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9jbGlwLWNvcm5lcnMtYnV0dG9uL2luZGV4LnRzeCIsIi9jb21wb25lbnRzL2NsaXAtY29ybmVycy1idXR0b24vaW5kZXgudHN4IixbXV0=

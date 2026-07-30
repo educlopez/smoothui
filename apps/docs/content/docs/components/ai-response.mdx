@@ -1,0 +1,64 @@
+---
+title: AI Response
+description: Streaming assistant text where words animate in as they arrive, with a caret that rides the last glyph and inline citation pills.
+icon: Sparkles
+dependencies: []
+installer: ai-response
+---
+
+## Features
+
+- Words fade and unblur in as they *arrive* — no fixed-rate typewriter
+- Only newly arrived words animate; already-painted text never re-animates
+- Caret sits inline, so it rides the last glyph with no measuring
+- `[1]` style markers become citation pills that pop in and link out
+
+## Arrival, not a timer
+
+The component remembers how many tokens it had on the previous render and only
+animates the ones past that mark. A timer-driven typewriter drifts out of step
+with the real stream and starts lying about how fast the model is answering —
+sometimes finishing its animation long after the response landed, sometimes still
+crawling when the model is done.
+
+Pass the growing string on every render:
+
+```tsx
+<AIResponse citations={citations} isStreaming={isStreaming} text={text} />
+```
+
+## Citations
+
+Write markers inline and hand over a matching array. The pill shows the index
+and carries the title as its tooltip.
+
+```tsx
+const text = "Attention is quadratic in sequence length [2].";
+const citations = [
+  { id: "2", index: 2, title: "Efficient Transformers", url: "https://…" },
+];
+```
+
+`url` is optional. Most retrieval runs over internal documents that have no
+public address, and a required field there only pushes people into inventing
+`example.com` links. Without a url the pill renders as plain text — no hover
+affordance, nothing to click and be disappointed by.
+
+```tsx
+const citations = [{ id: "1", index: 1, title: "Sales velocity export, Q2" }];
+```
+
+## Accessibility
+
+### Reduced Motion
+
+Uses `useReducedMotion`. Words appear instantly, the caret stops blinking and
+citation pills skip their entrance. The text is a plain paragraph throughout, so
+a screen reader is never fed a stream of individually announced words.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-response/index.tsx"
+  name="AIResponseProps"
+/>

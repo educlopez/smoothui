@@ -1,0 +1,45 @@
+---
+title: AI Suggestions
+description: Prompt suggestion chips that radiate in from the centre of the row rather than sweeping left to right.
+icon: Lightbulb
+dependencies: []
+installer: ai-suggestions
+---
+
+## Features
+
+- Centre-out stagger on mount
+- Chips reflow with a layout animation when the set changes
+- Press scales the chip down, then hands the label to your handler
+- Optional label above the row
+
+## Why centre-out
+
+A left-to-right sweep implies reading order, and reading order implies priority —
+that the first chip matters most. Suggestions are alternatives of equal weight.
+Radiating from the centre says so without a word.
+
+## Pair it with the composer
+
+A chip press should fill the composer, not send immediately. The suggestion is a
+starting point, and people almost always want to edit it:
+
+```tsx
+<AISuggestions
+  onSelect={(suggestion) => setDraft(suggestion.label)}
+  suggestions={starters}
+/>
+<AIPromptInput onValueChange={setDraft} value={draft} />
+```
+
+## Accessibility
+
+Chips are real buttons inside a list. Under reduced motion the stagger, the
+layout animation and the press scale are all disabled.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-suggestions/index.tsx"
+  name="AISuggestionsProps"
+/>

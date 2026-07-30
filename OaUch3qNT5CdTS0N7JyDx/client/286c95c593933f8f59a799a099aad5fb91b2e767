@@ -1,0 +1,183 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["Fragment","jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/@testing-library+user-event@14.6.1_@testing-library+dom@10.4.1/node_modules/@testing-library/user-event/dist/esm/index.js", {"importedNames":["default"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it","vi"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render","screen"]});
+const __vite_ssr_import_4__ = await __vite_ssr_import__("/components/dialog/index.tsx", {"importedNames":["default","AlertDialog","AlertDialogAction","AlertDialogCancel"]});
+
+
+
+
+
+(0,__vite_ssr_import_2__.describe)("Dialog interactions", () => {
+  (0,__vite_ssr_import_2__.it)("renders trigger and opens on click", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onOpenChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.default),
+        {
+          description: "Description",
+          onOpenChange,
+          title: "Test Dialog",
+          trigger: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("button", { type: "button", children: "Open" }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+            lineNumber: 20,
+            columnNumber: 18
+          }, this),
+          children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("p", { children: "Content" }, void 0, false, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+            lineNumber: 22,
+            columnNumber: 9
+          }, this)
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+          lineNumber: 16,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    const trigger = __vite_ssr_import_3__.screen.getByRole("button", { name: "Open" });
+    await user.click(trigger);
+    (0,__vite_ssr_import_2__.expect)(onOpenChange).toHaveBeenCalledWith(true);
+  });
+  (0,__vite_ssr_import_2__.it)("calls onOpenChange when Escape is pressed", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onOpenChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { onOpenChange, open: true, title: "Test", children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("p", { children: "Content" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 37,
+        columnNumber: 9
+      }, this) }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 36,
+        columnNumber: 7
+      }, this)
+    );
+    await user.keyboard("{Escape}");
+    (0,__vite_ssr_import_2__.expect)(onOpenChange).toHaveBeenCalledWith(false);
+  });
+  (0,__vite_ssr_import_2__.it)("renders title and description", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { description: "My Description", open: true, title: "My Title", children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("p", { children: "Body" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 48,
+        columnNumber: 9
+      }, this) }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 47,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("My Title")).toBeInTheDocument();
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByText("My Description")).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("renders footer content", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.default), { footer: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("button", { type: "button", children: "Save" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 58,
+        columnNumber: 23
+      }, this), open: true, title: "Test", children: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)("p", { children: "Content" }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 59,
+        columnNumber: 9
+      }, this) }, void 0, false, {
+        fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+        lineNumber: 58,
+        columnNumber: 7
+      }, this)
+    );
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("button", { name: "Save" })).toBeInTheDocument();
+  });
+});
+(0,__vite_ssr_import_2__.describe)("AlertDialog interactions", () => {
+  (0,__vite_ssr_import_2__.it)("renders action and cancel buttons", () => {
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.AlertDialog),
+        {
+          description: "Are you sure?",
+          footer: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_0__.Fragment), { children: [
+            /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.AlertDialogCancel), { children: "Cancel" }, void 0, false, {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+              lineNumber: 74,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.AlertDialogAction), { children: "Continue" }, void 0, false, {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+              lineNumber: 75,
+              columnNumber: 13
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+            lineNumber: 73,
+            columnNumber: 11
+          }, this),
+          open: true,
+          title: "Confirm"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+          lineNumber: 70,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    (0,__vite_ssr_import_2__.expect)(__vite_ssr_import_3__.screen.getByRole("button", { name: "Cancel" })).toBeInTheDocument();
+    (0,__vite_ssr_import_2__.expect)(
+      __vite_ssr_import_3__.screen.getByRole("button", { name: "Continue" })
+    ).toBeInTheDocument();
+  });
+  (0,__vite_ssr_import_2__.it)("calls onOpenChange when cancel is clicked", async () => {
+    const user = __vite_ssr_import_1__.default.setup();
+    const onOpenChange = __vite_ssr_import_2__.vi.fn();
+    (0,__vite_ssr_import_3__.render)(
+      /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(
+        (0,__vite_ssr_import_4__.AlertDialog),
+        {
+          footer: /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_0__.Fragment), { children: [
+            /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.AlertDialogCancel), { children: "Cancel" }, void 0, false, {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+              lineNumber: 97,
+              columnNumber: 13
+            }, this),
+            /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_4__.AlertDialogAction), { children: "OK" }, void 0, false, {
+              fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+              lineNumber: 98,
+              columnNumber: 13
+            }, this)
+          ] }, void 0, true, {
+            fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+            lineNumber: 96,
+            columnNumber: 11
+          }, this),
+          onOpenChange,
+          open: true,
+          title: "Confirm"
+        },
+        void 0,
+        false,
+        {
+          fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/dialog/__tests__/dialog.interaction.test.tsx",
+          lineNumber: 94,
+          columnNumber: 7
+        },
+        this
+      )
+    );
+    await user.click(__vite_ssr_import_3__.screen.getByRole("button", { name: "Cancel" }));
+    (0,__vite_ssr_import_2__.expect)(onOpenChange).toHaveBeenCalled();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,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VUFBVSxVQUFVLEVBQUUsTUFBTSxTQUFTLENBQUMsQ0FBQyxFQUFFLGtCQUFrQjtBQUN6RTtBQUFBLE1BQ0UsNkJBQU8sVUFBVSxVQUFVLEVBQUUsTUFBTSxXQUFXLENBQUM7QUFBQSxJQUNqRCxFQUFFLGtCQUFrQjtBQUFBLEVBQ3RCLENBQUM7QUFFRCwrQkFBRyw2Q0FBNkMsWUFBWTtBQUMxRCxVQUFNLE9BQU8sOEJBQVUsTUFBTTtBQUM3QixVQUFNLGVBQWUseUJBQUcsR0FBRztBQUUzQjtBQUFBLE1BQ0U7QUFBQSxXQUFDO0FBQUE7QUFBQSxVQUNDLFFBQ0UsdUZBQ0U7QUFBQSxnRUFBQyw0Q0FBa0Isc0JBQW5CO0FBQUE7QUFBQTtBQUFBO0FBQUEsbUJBQXlCO0FBQUEsWUFDekIsb0RBQUMsNENBQWtCLGtCQUFuQjtBQUFBO0FBQUE7QUFBQTtBQUFBLG1CQUFxQjtBQUFBLGVBRnZCO0FBQUE7QUFBQTtBQUFBO0FBQUEsaUJBR0E7QUFBQSxVQUVGO0FBQUEsVUFDQSxNQUFJO0FBQUEsVUFDSixPQUFNO0FBQUE7QUFBQSxRQVRSO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQSxNQVVBO0FBQUEsSUFDRjtBQUVBLFVBQU0sS0FBSyxNQUFNLDZCQUFPLFVBQVUsVUFBVSxFQUFFLE1BQU0sU0FBUyxDQUFDLENBQUM7QUFDL0QscUNBQU8sWUFBWSxFQUFFLGlCQUFpQjtBQUFBLEVBQ3hDLENBQUM7QUFDSCxDQUFDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJkaWFsb2cuaW50ZXJhY3Rpb24udGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHVzZXJFdmVudCBmcm9tIFwiQHRlc3RpbmctbGlicmFyeS91c2VyLWV2ZW50XCI7XG5pbXBvcnQgeyBkZXNjcmliZSwgZXhwZWN0LCBpdCwgdmkgfSBmcm9tIFwidml0ZXN0XCI7XG5pbXBvcnQgeyByZW5kZXIsIHNjcmVlbiB9IGZyb20gXCIuLi8uLi8uLi90ZXN0LXV0aWxzL3JlbmRlclwiO1xuaW1wb3J0IERpYWxvZywge1xuICBBbGVydERpYWxvZyxcbiAgQWxlcnREaWFsb2dBY3Rpb24sXG4gIEFsZXJ0RGlhbG9nQ2FuY2VsLFxufSBmcm9tIFwiLi4vaW5kZXhcIjtcblxuZGVzY3JpYmUoXCJEaWFsb2cgaW50ZXJhY3Rpb25zXCIsICgpID0+IHtcbiAgaXQoXCJyZW5kZXJzIHRyaWdnZXIgYW5kIG9wZW5zIG9uIGNsaWNrXCIsIGFzeW5jICgpID0+IHtcbiAgICBjb25zdCB1c2VyID0gdXNlckV2ZW50LnNldHVwKCk7XG4gICAgY29uc3Qgb25PcGVuQ2hhbmdlID0gdmkuZm4oKTtcblxuICAgIHJlbmRlcihcbiAgICAgIDxEaWFsb2dcbiAgICAgICAgZGVzY3JpcHRpb249XCJEZXNjcmlwdGlvblwiXG4gICAgICAgIG9uT3BlbkNoYW5nZT17b25PcGVuQ2hhbmdlfVxuICAgICAgICB0aXRsZT1cIlRlc3QgRGlhbG9nXCJcbiAgICAgICAgdHJpZ2dlcj17PGJ1dHRvbiB0eXBlPVwiYnV0dG9uXCI+T3BlbjwvYnV0dG9uPn1cbiAgICAgID5cbiAgICAgICAgPHA+Q29udGVudDwvcD5cbiAgICAgIDwvRGlhbG9nPlxuICAgICk7XG5cbiAgICBjb25zdCB0cmlnZ2VyID0gc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiLCB7IG5hbWU6IFwiT3BlblwiIH0pO1xuICAgIGF3YWl0IHVzZXIuY2xpY2sodHJpZ2dlcik7XG4gICAgZXhwZWN0KG9uT3BlbkNoYW5nZSkudG9IYXZlQmVlbkNhbGxlZFdpdGgodHJ1ZSk7XG4gIH0pO1xuXG4gIGl0KFwiY2FsbHMgb25PcGVuQ2hhbmdlIHdoZW4gRXNjYXBlIGlzIHByZXNzZWRcIiwgYXN5bmMgKCkgPT4ge1xuICAgIGNvbnN0IHVzZXIgPSB1c2VyRXZlbnQuc2V0dXAoKTtcbiAgICBjb25zdCBvbk9wZW5DaGFuZ2UgPSB2aS5mbigpO1xuXG4gICAgcmVuZGVyKFxuICAgICAgPERpYWxvZyBvbk9wZW5DaGFuZ2U9e29uT3BlbkNoYW5nZX0gb3BlbiB0aXRsZT1cIlRlc3RcIj5cbiAgICAgICAgPHA+Q29udGVudDwvcD5cbiAgICAgIDwvRGlhbG9nPlxuICAgICk7XG5cbiAgICBhd2FpdCB1c2VyLmtleWJvYXJkKFwie0VzY2FwZX1cIik7XG4gICAgZXhwZWN0KG9uT3BlbkNoYW5nZSkudG9IYXZlQmVlbkNhbGxlZFdpdGgoZmFsc2UpO1xuICB9KTtcblxuICBpdChcInJlbmRlcnMgdGl0bGUgYW5kIGRlc2NyaXB0aW9uXCIsICgpID0+IHtcbiAgICByZW5kZXIoXG4gICAgICA8RGlhbG9nIGRlc2NyaXB0aW9uPVwiTXkgRGVzY3JpcHRpb25cIiBvcGVuIHRpdGxlPVwiTXkgVGl0bGVcIj5cbiAgICAgICAgPHA+Qm9keTwvcD5cbiAgICAgIDwvRGlhbG9nPlxuICAgICk7XG5cbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5VGV4dChcIk15IFRpdGxlXCIpKS50b0JlSW5UaGVEb2N1bWVudCgpO1xuICAgIGV4cGVjdChzY3JlZW4uZ2V0QnlUZXh0KFwiTXkgRGVzY3JpcHRpb25cIikpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xuXG4gIGl0KFwicmVuZGVycyBmb290ZXIgY29udGVudFwiLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPERpYWxvZyBmb290ZXI9ezxidXR0b24gdHlwZT1cImJ1dHRvblwiPlNhdmU8L2J1dHRvbj59IG9wZW4gdGl0bGU9XCJUZXN0XCI+XG4gICAgICAgIDxwPkNvbnRlbnQ8L3A+XG4gICAgICA8L0RpYWxvZz5cbiAgICApO1xuXG4gICAgZXhwZWN0KHNjcmVlbi5nZXRCeVJvbGUoXCJidXR0b25cIiwgeyBuYW1lOiBcIlNhdmVcIiB9KSkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG59KTtcblxuZGVzY3JpYmUoXCJBbGVydERpYWxvZyBpbnRlcmFjdGlvbnNcIiwgKCkgPT4ge1xuICBpdChcInJlbmRlcnMgYWN0aW9uIGFuZCBjYW5jZWwgYnV0dG9uc1wiLCAoKSA9PiB7XG4gICAgcmVuZGVyKFxuICAgICAgPEFsZXJ0RGlhbG9nXG4gICAgICAgIGRlc2NyaXB0aW9uPVwiQXJlIHlvdSBzdXJlP1wiXG4gICAgICAgIGZvb3Rlcj17XG4gICAgICAgICAgPD5cbiAgICAgICAgICAgIDxBbGVydERpYWxvZ0NhbmNlbD5DYW5jZWw8L0FsZXJ0RGlhbG9nQ2FuY2VsPlxuICAgICAgICAgICAgPEFsZXJ0RGlhbG9nQWN0aW9uPkNvbnRpbnVlPC9BbGVydERpYWxvZ0FjdGlvbj5cbiAgICAgICAgICA8Lz5cbiAgICAgICAgfVxuICAgICAgICBvcGVuXG4gICAgICAgIHRpdGxlPVwiQ29uZmlybVwiXG4gICAgICAvPlxuICAgICk7XG5cbiAgICBleHBlY3Qoc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiLCB7IG5hbWU6IFwiQ2FuY2VsXCIgfSkpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gICAgZXhwZWN0KFxuICAgICAgc2NyZWVuLmdldEJ5Um9sZShcImJ1dHRvblwiLCB7IG5hbWU6IFwiQ29udGludWVcIiB9KVxuICAgICkudG9CZUluVGhlRG9jdW1lbnQoKTtcbiAgfSk7XG5cbiAgaXQoXCJjYWxscyBvbk9wZW5DaGFuZ2Ugd2hlbiBjYW5jZWwgaXMgY2xpY2tlZFwiLCBhc3luYyAoKSA9PiB7XG4gICAgY29uc3QgdXNlciA9IHVzZXJFdmVudC5zZXR1cCgpO1xuICAgIGNvbnN0IG9uT3BlbkNoYW5nZSA9IHZpLmZuKCk7XG5cbiAgICByZW5kZXIoXG4gICAgICA8QWxlcnREaWFsb2dcbiAgICAgICAgZm9vdGVyPXtcbiAgICAgICAgICA8PlxuICAgICAgICAgICAgPEFsZXJ0RGlhbG9nQ2FuY2VsPkNhbmNlbDwvQWxlcnREaWFsb2dDYW5jZWw+XG4gICAgICAgICAgICA8QWxlcnREaWFsb2dBY3Rpb24+T0s8L0FsZXJ0RGlhbG9nQWN0aW9uPlxuICAgICAgICAgIDwvPlxuICAgICAgICB9XG4gICAgICAgIG9uT3BlbkNoYW5nZT17b25PcGVuQ2hhbmdlfVxuICAgICAgICBvcGVuXG4gICAgICAgIHRpdGxlPVwiQ29uZmlybVwiXG4gICAgICAvPlxuICAgICk7XG5cbiAgICBhd2FpdCB1c2VyLmNsaWNrKHNjcmVlbi5nZXRCeVJvbGUoXCJidXR0b25cIiwgeyBuYW1lOiBcIkNhbmNlbFwiIH0pKTtcbiAgICBleHBlY3Qob25PcGVuQ2hhbmdlKS50b0hhdmVCZWVuQ2FsbGVkKCk7XG4gIH0pO1xufSk7XG4iXSwiZmlsZSI6Ii9jb21wb25lbnRzL2RpYWxvZy9fX3Rlc3RzX18vZGlhbG9nLmludGVyYWN0aW9uLnRlc3QudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9kaWFsb2cvX190ZXN0c19fL2RpYWxvZy5pbnRlcmFjdGlvbi50ZXN0LnRzeCIsIi9jb21wb25lbnRzL2RpYWxvZy9fX3Rlc3RzX18vZGlhbG9nLmludGVyYWN0aW9uLnRlc3QudHN4IixbXV0=

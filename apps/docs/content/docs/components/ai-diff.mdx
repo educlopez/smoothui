@@ -1,0 +1,61 @@
+---
+title: AI Diff
+description: Proposed code or data edit where added lines wipe in from the left and rejected lines collapse to nothing.
+icon: FileDiff
+dependencies: []
+installer: ai-diff
+---
+
+## Features
+
+- `added`, `removed` and `context` lines with optional line numbers
+- Added lines wipe in from the left with a clip path
+- Accept flashes the block once, then settles
+- Reject collapses the lines to zero height
+- Derived `+n / -n` summary in the header
+
+## A wipe, not a fade
+
+Added lines arrive with `clip-path: inset(0 100% 0 0)` opening to zero. A wipe
+has a direction, and direction is what tells you the line was *written* rather
+than having always been there. Context lines do not animate — they were already
+in the file, and animating them would misrepresent the change.
+
+## Accepting is not a celebration
+
+One tint flash over 350ms, then it settles. This is code review, not a level-up.
+Rejecting collapses the lines entirely, because a rejected edit should stop
+occupying the page.
+
+## Usage
+
+```tsx
+<AIDiff
+  lines={[
+    { number: 13, kind: "removed", content: "  return localStorage.token;" },
+    { number: 13, kind: "added", content: '  return cookies.get("session");' },
+  ]}
+  onAccept={apply}
+  onReject={discard}
+  title="src/auth.ts"
+/>
+```
+
+Omit `number` for tabular data rather than code.
+
+## Accessibility
+
+The decision is announced as text under the diff after the fact. Accept and
+reject are ordinary buttons, with reject first in the DOM so the safer action is
+reached sooner by keyboard.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: no wipe, no flash, and the collapse is instant.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-diff/index.tsx"
+  name="AIDiffProps"
+/>

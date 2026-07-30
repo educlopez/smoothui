@@ -484,10 +484,6 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
     Demo: dynamic(() => import("@docs/examples/ai-branch")),
   },
   {
-    slug: "ai-input",
-    Demo: dynamic(() => import("@docs/examples/ai-input")),
-  },
-  {
     slug: "animated-avatar-group",
     Demo: dynamic(() => import("@docs/examples/animated-avatar-group")),
   },
@@ -658,6 +654,10 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
   {
     slug: "magnetic-button",
     Demo: dynamic(() => import("@docs/examples/magnetic-button")),
+  },
+  {
+    slug: "morph-surface",
+    Demo: dynamic(() => import("@docs/examples/morph-surface")),
   },
   {
     slug: "notification-badge",

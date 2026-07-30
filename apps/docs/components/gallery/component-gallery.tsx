@@ -18,7 +18,6 @@ export type ComponentGalleryProps = {
 /* Demos whose natural width overflows a single grid cell (measured at the
    3-column layout). They span two columns so the preview isn't clipped. */
 const WIDE_SLUGS = new Set([
-  "ai-input",
   "animated-o-t-p-input",
   "animated-stepper",
   "apple-invites",
@@ -27,6 +26,7 @@ const WIDE_SLUGS = new Set([
   "exposure-slider",
   "infinite-slider",
   "magnetic-button",
+  "morph-surface",
   "pagination",
   "siri-orb",
 ]);

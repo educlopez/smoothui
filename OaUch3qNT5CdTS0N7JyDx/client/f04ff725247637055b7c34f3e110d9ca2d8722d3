@@ -1,0 +1,22 @@
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/vitest@4.1.7_@types+node@25.8.0_@vitest+coverage-v8@4.1.8_jsdom@29.1.1_@noble+hashes@1._a4270fe99be21e32ab08d0b21f7040f4/node_modules/vitest/dist/index.js", {"importedNames":["describe","expect","it"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/test-utils/render.tsx", {"importedNames":["render"]});
+const __vite_ssr_import_3__ = await __vite_ssr_import__("/components/animated-input/index.tsx", {"importedNames":["default"]});
+
+
+
+
+(0,__vite_ssr_import_1__.describe)("AnimatedInput", () => {
+  (0,__vite_ssr_import_1__.it)("renders without throwing", () => {
+    const { container } = (0,__vite_ssr_import_2__.render)(/* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_3__.default), { label: "Email" }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/animated-input/__tests__/animated-input.test.tsx",
+      lineNumber: 7,
+      columnNumber: 34
+    }, this));
+    (0,__vite_ssr_import_1__.expect)(container).toBeInTheDocument();
+  });
+});
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBTWlDO0FBTmpDO0FBQ0E7QUFDQTs7Ozs7R0FFQSxnQ0FBUyxpQkFBaUIsTUFBTTtBQUM5QiwrQkFBRyw0QkFBNEIsTUFBTTtBQUNuQyxVQUFNLEVBQUUsVUFBVSxPQUFJLDhCQUFPLG9EQUFDLGtDQUFjLE9BQU0sV0FBckI7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUE2QixDQUFFO0FBQzVELHFDQUFPLFNBQVMsRUFBRSxrQkFBa0I7QUFBQSxFQUN0QyxDQUFDO0FBQ0gsQ0FBQyIsIm5hbWVzIjpbXSwiaWdub3JlTGlzdCI6W10sInNvdXJjZXMiOlsiYW5pbWF0ZWQtaW5wdXQudGVzdC50c3giXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgZGVzY3JpYmUsIGV4cGVjdCwgaXQgfSBmcm9tIFwidml0ZXN0XCI7XG5pbXBvcnQgeyByZW5kZXIgfSBmcm9tIFwiLi4vLi4vLi4vdGVzdC11dGlscy9yZW5kZXJcIjtcbmltcG9ydCBBbmltYXRlZElucHV0IGZyb20gXCIuLi9pbmRleFwiO1xuXG5kZXNjcmliZShcIkFuaW1hdGVkSW5wdXRcIiwgKCkgPT4ge1xuICBpdChcInJlbmRlcnMgd2l0aG91dCB0aHJvd2luZ1wiLCAoKSA9PiB7XG4gICAgY29uc3QgeyBjb250YWluZXIgfSA9IHJlbmRlcig8QW5pbWF0ZWRJbnB1dCBsYWJlbD1cIkVtYWlsXCIgLz4pO1xuICAgIGV4cGVjdChjb250YWluZXIpLnRvQmVJblRoZURvY3VtZW50KCk7XG4gIH0pO1xufSk7XG4iXSwiZmlsZSI6Ii9jb21wb25lbnRzL2FuaW1hdGVkLWlucHV0L19fdGVzdHNfXy9hbmltYXRlZC1pbnB1dC50ZXN0LnRzeCJ9
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy9hbmltYXRlZC1pbnB1dC9fX3Rlc3RzX18vYW5pbWF0ZWQtaW5wdXQudGVzdC50c3giLCIvY29tcG9uZW50cy9hbmltYXRlZC1pbnB1dC9fX3Rlc3RzX18vYW5pbWF0ZWQtaW5wdXQudGVzdC50c3giLFtdXQ==

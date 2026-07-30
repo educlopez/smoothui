@@ -1,0 +1,42 @@
+{
+  "name": "@repo/ai-response",
+  "description": "Streaming assistant text where words animate in as they arrive, with a caret that rides the last glyph and inline citation pills.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "streaming",
+      "text",
+      "citations",
+      "chat",
+      "response"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Streaming answer in a chat thread",
+      "Answer with inline source citations",
+      "Any token-by-token text that should not read as a typewriter"
+    ],
+    "compositionHints": [
+      "Pass the growing text on every render — only new words animate",
+      "Mark citations inline as [1], [2] and pass a matching citations array",
+      "Set isStreaming to show the caret, clear it when the stream ends"
+    ],
+    "hasReducedMotion": true
+  }
+}

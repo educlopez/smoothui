@@ -9,12 +9,16 @@ import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import { GalleryPage } from "@docs/components/gallery";
 import { Installer } from "@docs/components/installer";
 import Divider from "@docs/components/landing/divider";
+import { FooterBody } from "@docs/components/landing/footer";
 import { LastModified } from "@docs/components/last-modified";
 import { OpenInV0Button } from "@docs/components/open-in-v0-button";
 import { PackageManagerTabs } from "@docs/components/package-manager-tabs";
 import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
-import { Preview } from "@docs/components/preview";
+import { loadPreview, Preview } from "@docs/components/preview";
+import { DocsBreadcrumb } from "@docs/components/preview/docs-breadcrumb";
+import { SplitDocsChrome } from "@docs/components/preview/split-docs-chrome";
+import { SplitPreviewShell } from "@docs/components/preview/split-shell";
 import { Reference } from "@docs/components/reference";
 import { SponsorsPageContent } from "@docs/components/sponsors-page-content";
 import { domain } from "@docs/lib/domain";
@@ -23,8 +27,10 @@ import {
   getComponentContributors,
 } from "@docs/lib/git-contributor";
 import { createMetadata } from "@docs/lib/metadata";
+import { getSectionNav } from "@docs/lib/section-nav";
 import { getPageImage, source } from "@docs/lib/source";
 import { typeGenerator } from "@docs/mdx-components";
+import { findNeighbour } from "fumadocs-core/page-tree";
 import type { TableOfContents } from "fumadocs-core/toc";
 import { AutoTypeTable } from "fumadocs-typescript/ui";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
@@ -37,9 +43,15 @@ import {
   DocsTitle,
 } from "fumadocs-ui/page";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const revalidate = false;
+
+// Same rewrites the old source accordion applied, so tabs show the paths a user
+// will actually have after installing.
+const SHADCN_SOURCE_IMPORT = /@repo\/shadcn-ui\//g;
+const REPO_SOURCE_IMPORT = /@repo\//g;
 
 // Wrapper component for AutoTypeTable with typeGenerator
 const AutoTypeTableWithGenerator = (
@@ -132,6 +144,16 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     };
   }
 
+  // Split is the default for component pages: one component, one stage. Block
+  // pages document several blocks at once and have no single `installer`, so they
+  // keep the stacked layout unless a page opts in with `splitPreview: true`.
+  const installer = page.data.installer;
+  const isSplit = Boolean(
+    installer && (page.data.splitPreview ?? type === "component")
+  );
+  const previewData =
+    isSplit && installer ? await loadPreview({ path: installer, type }) : null;
+
   const hasDependencies =
     Array.isArray(dependencies) && dependencies.length > 0;
   const hasReferences = Array.isArray(references) && references.length > 0;
@@ -148,86 +170,191 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
       </>
     ) : undefined;
 
+  const heading = (
+    <>
+      <DocsTitle>{page.data.title}</DocsTitle>
+      <DocsDescription className="mb-2 text-foreground/70 text-md">
+        {page.data.description}
+      </DocsDescription>
+    </>
+  );
+
+  const mdxBody = (
+    <MDX
+      components={{
+        ...defaultMdxComponents,
+        Tab,
+        Tabs,
+        // HTML `ref` attribute conflicts with `forwardRef`
+        pre: (preProps) => {
+          const { ref: _ref, ...restProps } = preProps;
+          return (
+            <CodeBlock {...restProps}>
+              <Pre>{restProps.children}</Pre>
+            </CodeBlock>
+          );
+        },
+        AutoTypeTable: AutoTypeTableWithGenerator,
+        Installer,
+        Preview,
+        PoweredBy,
+        Reference,
+        Contributor,
+        BodyText: BodyTextAsDiv,
+        FeatureCard,
+        FeatureCardHover,
+        Divider,
+        ChangelogEntry,
+        SponsorsPageContent,
+        GalleryPage,
+        PackageManagerTabs,
+      }}
+    />
+  );
+
+  const actionRow = (
+    <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
+      <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
+      <ViewOptions
+        githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
+        markdownUrl={`${page.url}.mdx`}
+      />
+      {registryUrl && <OpenInV0Button url={registryUrl} />}
+      {installer && (
+        <AddToKitButton size="sm" slug={installer} title={page.data.title} />
+      )}
+      {(componentName || lastModified) && (
+        <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
+          {componentName && <BundleSizeBadge slug={componentName} />}
+          {lastModified && <LastModified lastModified={lastModified} />}
+        </div>
+      )}
+    </div>
+  );
+
+  const neighbours = findNeighbour(source.pageTree, page.url);
+  const sectionNav = getSectionNav(source.pageTree, page.url);
+
+  const pageNav =
+    neighbours.previous || neighbours.next ? (
+      <nav className="not-prose mt-10 grid gap-3 border-t pt-6 sm:grid-cols-2">
+        {neighbours.previous ? (
+          <Link
+            className="flex flex-col gap-0.5 rounded-xl border p-3 transition-colors hover:bg-muted"
+            href={neighbours.previous.url}
+          >
+            <span className="text-muted-foreground text-xs">Previous</span>
+            <span className="font-medium text-sm">
+              {neighbours.previous.name}
+            </span>
+          </Link>
+        ) : (
+          <span />
+        )}
+        {neighbours.next && (
+          <Link
+            className="flex flex-col gap-0.5 rounded-xl border p-3 text-right transition-colors hover:bg-muted sm:items-end"
+            href={neighbours.next.url}
+          >
+            <span className="text-muted-foreground text-xs">Next</span>
+            <span className="font-medium text-sm">{neighbours.next.name}</span>
+          </Link>
+        )}
+      </nav>
+    ) : null;
+
+  const installSection = installer ? (
+    <>
+      <h2 id="installation">Installation</h2>
+      <Installer addToKit={false} packageName={installer} />
+    </>
+  ) : null;
+
   return (
     <>
       <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
       <DocsPage
-        className="max-w-[75rem]"
-        full={page.data.full ?? false}
+        className={isSplit ? undefined : "max-w-[75rem]"}
+        // Split pages render their own prev/next at the end of the reading
+        // column; Fumadocs' full-width one underneath would be the same links
+        // twice.
+        footer={isSplit ? { enabled: false } : undefined}
+        full={page.data.full ?? isSplit}
         tableOfContent={{
           style: "clerk",
           footer: footerContent,
         }}
         toc={updatedToc}
       >
-        <DocsTitle>{page.data.title}</DocsTitle>
-        <DocsDescription className="mb-2 text-foreground/70 text-md">
-          {page.data.description}
-        </DocsDescription>
-        <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
-          <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-          <ViewOptions
-            githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
-            markdownUrl={`${page.url}.mdx`}
-          />
-          {registryUrl && <OpenInV0Button url={registryUrl} />}
-          {page.data.installer && (
-            <AddToKitButton
-              size="sm"
-              slug={page.data.installer}
+        {isSplit && previewData && installer ? (
+          <DocsBody>
+            <SplitDocsChrome />
+            <SplitPreviewShell
+              files={[
+                // Named for what it is: the component\'s own file is in the list too,
+                // and two tabs called siri-orb.tsx helped nobody.
+                { code: previewData.parsedCode, name: "demo.tsx" },
+                ...previewData.sourceComponents.map((component) => ({
+                  code: component.source
+                    .replace(SHADCN_SOURCE_IMPORT, "@/")
+                    .replace(REPO_SOURCE_IMPORT, "@/components/smoothui/"),
+                  name: `${component.name}.tsx`,
+                })),
+              ]}
+              nav={
+                <DocsBreadcrumb
+                  section={sectionNav.title}
+                  title={page.data.title}
+                />
+              }
+              popOutHref={
+                type === "block"
+                  ? `/blocks/preview/${installer}`
+                  : `/preview/${installer}`
+              }
               title={page.data.title}
-            />
-          )}
-          {(componentName || lastModified) && (
-            <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
-              {componentName && <BundleSizeBadge slug={componentName} />}
-              {lastModified && <LastModified lastModified={lastModified} />}
-            </div>
-          )}
-        </div>
-        <DocsBody>
-          {page.data.installer && (
-            <>
-              <Preview path={page.data.installer} type={type} />
-              <h2 id="installation">Installation</h2>
-              <Installer addToKit={false} packageName={page.data.installer} />
-            </>
-          )}
-          <MDX
-            components={{
-              ...defaultMdxComponents,
-              Tab,
-              Tabs,
-              // HTML `ref` attribute conflicts with `forwardRef`
-              pre: (preProps) => {
-                const { ref: _ref, ...restProps } = preProps;
-                return (
-                  <CodeBlock {...restProps}>
-                    <Pre>{restProps.children}</Pre>
-                  </CodeBlock>
-                );
-              },
-              AutoTypeTable: AutoTypeTableWithGenerator,
-              Installer,
-              Preview,
-              PoweredBy,
-              Reference,
-              Contributor,
-              BodyText: BodyTextAsDiv,
-              FeatureCard,
-              FeatureCardHover,
-              Divider,
-              ChangelogEntry,
-              SponsorsPageContent,
-              GalleryPage,
-              PackageManagerTabs,
-            }}
-          />
-        </DocsBody>
+            >
+              {heading}
+              {actionRow}
+              {installSection}
+              {mdxBody}
+              {/* On a split page there is no TOC column, and this content used to
+                  live in its footer — contributors, dependencies and references
+                  would have vanished. It ends the reading column instead. */}
+              {footerContent && (
+                <div className="not-prose mt-10 flex flex-col gap-4 border-t pt-6">
+                  {footerContent}
+                </div>
+              )}
+              {pageNav}
+              {/* The site footer belongs at the end of the reading column here,
+                  not spanning the full width underneath the stage. The layout's
+                  own copy is suppressed by SplitDocsChrome. */}
+              <div className="not-prose mt-10 border-t pt-6">
+                <FooterBody />
+              </div>
+            </SplitPreviewShell>
+          </DocsBody>
+        ) : (
+          <>
+            {heading}
+            {actionRow}
+            <DocsBody>
+              {installer && (
+                <>
+                  <Preview path={installer} type={type} />
+                  {installSection}
+                </>
+              )}
+              {mdxBody}
+            </DocsBody>
+          </>
+        )}
       </DocsPage>
     </>
   );
 }
+
 export async function generateMetadata(
   props: PageProps<"/docs/[...slug]">
 ): Promise<Metadata> {

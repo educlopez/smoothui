@@ -1,0 +1,44 @@
+{
+  "name": "@repo/ai-orb-face",
+  "description": "Cartoon character orb whose expression carries the AI state — cursor-following gaze, natural blinks, thinking saccades, happy arcs and spiral eyes.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/ai-core": "workspace:*",
+    "@repo/shadcn-ui": "workspace:*",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "orb",
+      "ai",
+      "character",
+      "mascot",
+      "eyes",
+      "svg",
+      "playful"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Assistant mascot that reacts as the user works",
+      "Onboarding companion with readable moods",
+      "Playful alternative to a spinner or status badge"
+    ],
+    "compositionHints": [
+      "Expression carries the state — do not add a badge on top of it",
+      "Turn gaze off inside dense UI where many instances would be noise",
+      "Pass amplitude so the body breathes with the voice while listening"
+    ],
+    "hasReducedMotion": true
+  }
+}

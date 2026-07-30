@@ -1,0 +1,43 @@
+__vite_ssr_exportName__("ClientTweetCard", () => { try { return ClientTweetCard } catch {} });
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react@19.2.6/node_modules/react/jsx-dev-runtime.js", {"importedNames":["jsxDEV"]});
+const __vite_ssr_import_1__ = await __vite_ssr_import__("/@fs/Users/eduardocalvolopez/Developer/Personal/smoothui/node_modules/.pnpm/react-tweet@3.3.0_react-dom@19.2.6_react@19.2.6__react@19.2.6/node_modules/react-tweet/dist/index.client.js", {"importedNames":["useTweet"]});
+const __vite_ssr_import_2__ = await __vite_ssr_import__("/components/tweet-card/index.tsx", {"importedNames":["SmoothTweet","TweetNotFound","TweetSkeleton"]});
+"use client";
+
+
+
+const ClientTweetCard = ({
+  id,
+  apiUrl,
+  fallback = /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.TweetSkeleton), {}, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/tweet-card/client.tsx",
+    lineNumber: 16,
+    columnNumber: 14
+  }, this),
+  components,
+  fetchOptions,
+  onError,
+  ...props
+}) => {
+  const { data, error, isLoading } = (0,__vite_ssr_import_1__.useTweet)(id, apiUrl, fetchOptions);
+  if (isLoading) {
+    return fallback;
+  };
+  if (error || !data) {
+    const NotFound = components?.TweetNotFound || __vite_ssr_import_2__.TweetNotFound;
+    return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)(NotFound, { error: onError ? onError(error) : error }, void 0, false, {
+      fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/tweet-card/client.tsx",
+      lineNumber: 29,
+      columnNumber: 12
+    }, this);
+  };
+  return /* @__PURE__ */ (0,__vite_ssr_import_0__.jsxDEV)((0,__vite_ssr_import_2__.SmoothTweet), { tweet: data, ...props }, void 0, false, {
+    fileName: "/Users/eduardocalvolopez/Developer/Personal/smoothui/packages/smoothui/components/tweet-card/client.tsx",
+    lineNumber: 32,
+    columnNumber: 10
+  }, this);
+};
+//# sourceMappingSource=vite-generated
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJtYXBwaW5ncyI6IkFBQUEsQ0FBQTtBQWVhO0FBYmI7QUFFQTs7Ozs7QUFRTyxNQUFNLGtCQUFrQixDQUFDO0FBQUEsRUFDOUI7QUFBQSxFQUNBO0FBQUEsRUFDQSxXQUFXLG9EQUFDLDBDQUFEO0FBQUE7QUFBQTtBQUFBO0FBQUEsU0FBZTtBQUFBLEVBQzFCO0FBQUEsRUFDQTtBQUFBLEVBQ0E7QUFBQSxFQUNBLEdBQUc7QUFDTCxNQUE0QjtBQUMxQixRQUFNLEVBQUUsTUFBTSxPQUFPLFVBQVUsT0FBSSxnQ0FBUyxJQUFJLFFBQVEsWUFBWTtBQUVwRSxNQUFJLFdBQVc7QUFDYixXQUFPO0FBQUEsRUFDVDtBQUNBLE1BQUksU0FBUyxDQUFDLE1BQU07QUFDbEIsVUFBTSxXQUFXLFlBQVksaUJBQWlCO0FBQzlDLFdBQU8saURBQUMsWUFBUyxPQUFPLFVBQVUsUUFBUSxLQUFLLElBQUksU0FBNUM7QUFBQTtBQUFBO0FBQUE7QUFBQSxXQUFtRDtBQUFBLEVBQzVEO0FBRUEsU0FBTyxvREFBQyxzQ0FBWSxPQUFPLE1BQU8sR0FBRyxTQUE5QjtBQUFBO0FBQUE7QUFBQTtBQUFBLFNBQXFDO0FBQzlDIiwibmFtZXMiOltdLCJpZ25vcmVMaXN0IjpbXSwic291cmNlcyI6WyJjbGllbnQudHN4Il0sInNvdXJjZXNDb250ZW50IjpbIlwidXNlIGNsaWVudFwiO1xuXG5pbXBvcnQgeyB0eXBlIFR3ZWV0UHJvcHMsIHVzZVR3ZWV0IH0gZnJvbSBcInJlYWN0LXR3ZWV0XCI7XG5cbmltcG9ydCB7IFNtb290aFR3ZWV0LCBUd2VldE5vdEZvdW5kLCBUd2VldFNrZWxldG9uIH0gZnJvbSBcIi4vaW5kZXhcIjtcblxuZXhwb3J0IHR5cGUgQ2xpZW50VHdlZXRDYXJkUHJvcHMgPSBUd2VldFByb3BzICYge1xuICBjbGFzc05hbWU/OiBzdHJpbmc7XG4gIHVzZXJJbmZvUG9zaXRpb24/OiBcInRvcFwiIHwgXCJib3R0b21cIjtcbiAgYXZhdGFyUm91bmRlZD86IHN0cmluZztcbn07XG5cbmV4cG9ydCBjb25zdCBDbGllbnRUd2VldENhcmQgPSAoe1xuICBpZCxcbiAgYXBpVXJsLFxuICBmYWxsYmFjayA9IDxUd2VldFNrZWxldG9uIC8+LFxuICBjb21wb25lbnRzLFxuICBmZXRjaE9wdGlvbnMsXG4gIG9uRXJyb3IsXG4gIC4uLnByb3BzXG59OiBDbGllbnRUd2VldENhcmRQcm9wcykgPT4ge1xuICBjb25zdCB7IGRhdGEsIGVycm9yLCBpc0xvYWRpbmcgfSA9IHVzZVR3ZWV0KGlkLCBhcGlVcmwsIGZldGNoT3B0aW9ucyk7XG5cbiAgaWYgKGlzTG9hZGluZykge1xuICAgIHJldHVybiBmYWxsYmFjaztcbiAgfVxuICBpZiAoZXJyb3IgfHwgIWRhdGEpIHtcbiAgICBjb25zdCBOb3RGb3VuZCA9IGNvbXBvbmVudHM/LlR3ZWV0Tm90Rm91bmQgfHwgVHdlZXROb3RGb3VuZDtcbiAgICByZXR1cm4gPE5vdEZvdW5kIGVycm9yPXtvbkVycm9yID8gb25FcnJvcihlcnJvcikgOiBlcnJvcn0gLz47XG4gIH1cblxuICByZXR1cm4gPFNtb290aFR3ZWV0IHR3ZWV0PXtkYXRhfSB7Li4ucHJvcHN9IC8+O1xufTtcbiJdLCJmaWxlIjoiL2NvbXBvbmVudHMvdHdlZXQtY2FyZC9jbGllbnQudHN4In0=
+
+//# vitestCache=W3siZmlsZSI6IjEiLCJpZCI6IjEiLCJ1cmwiOiIyIiwiaW1wb3J0ZWRVcmxzIjoiMyIsIm1hcHBpbmdzIjpmYWxzZX0sIi9Vc2Vycy9lZHVhcmRvY2Fsdm9sb3Blei9EZXZlbG9wZXIvUGVyc29uYWwvc21vb3RodWkvcGFja2FnZXMvc21vb3RodWkvY29tcG9uZW50cy90d2VldC1jYXJkL2NsaWVudC50c3giLCIvY29tcG9uZW50cy90d2VldC1jYXJkL2NsaWVudC50c3giLFtdXQ==

@@ -395,6 +395,43 @@ const gatherSourceComponents = async ({
   return sourceComponents;
 };
 
+/**
+ * Everything a preview needs, read once on the server.
+ *
+ * Split out of `Preview` so the docs page can lay the same three pieces out
+ * differently — stacked in the MDX flow, or split with a sticky preview column —
+ * without reading and resolving the sources twice.
+ */
+export const loadPreview = async ({
+  path,
+  type = "component",
+}: Omit<PreviewProps, "className">) => {
+  const code = await readFile(
+    join(process.cwd(), "examples", `${path}.tsx`),
+    "utf-8"
+  );
+
+  const Component = await import(`../../examples/${path}.tsx`).then(
+    (module) => module.default
+  );
+
+  const parsedCode = code
+    .replace(REPO_SHADCN_IMPORT_REGEX, "@/")
+    .replace(REPO_SMOOTHUI_IMPORT_REGEX, "@/components/smoothui/")
+    .replace(REPO_ROOT_IMPORT_REGEX, "@/")
+    // Remove typography import
+    .replace(TYPOGRAPHY_IMPORT_REGEX, "");
+
+  const sourceComponents = await gatherSourceComponents({
+    code,
+    parsedCode,
+    path,
+    type,
+  });
+
+  return { Component, parsedCode, sourceComponents };
+};
+
 export const Preview = async ({
   path,
   className,

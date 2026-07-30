@@ -1,0 +1,52 @@
+---
+title: AI Conversation
+description: Thread scroll container that follows the bottom only while the reader is already there, offering a jump-to-latest pill when it stops.
+icon: MessagesSquare
+dependencies: []
+installer: ai-conversation
+---
+
+## Features
+
+- Follows the bottom while pinned, stops the moment the reader scrolls up
+- Jump-to-latest pill appears only when it is no longer following
+- Scrolls in a layout effect, so growth never flashes the old position
+- A `ResizeObserver` catches content that grows without the key changing
+- `overscroll-contain`, so the page behind never scrolls with it
+
+## The rule that matters
+
+Scrolling up during a stream is an explicit act — the reader wants to read
+something. Dragging them back down is the single most common way chat interfaces
+become unusable. This container follows the bottom **only while the reader is
+already within 48px of it**; past that it leaves them alone and offers the trip
+back as a pill.
+
+## Usage
+
+```tsx
+<AIConversation className="flex-1" contentKey={messages.length + streamed.length}>
+  {messages.map((message) => (
+    <AIMessage key={message.id} role={message.role}>
+      {message.text}
+    </AIMessage>
+  ))}
+</AIConversation>
+```
+
+`contentKey` should change whenever content grows — a message count plus the
+length of the streaming text is usually enough. Give the container a bounded
+height; it manages its own overflow.
+
+## Accessibility
+
+The pill is a labelled button. Under reduced motion the scroll is instant rather
+than smooth, and the pill appears without its spring — automatic smooth scrolling
+is exactly the kind of motion that triggers motion sickness.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-conversation/index.tsx"
+  name="AIConversationProps"
+/>
