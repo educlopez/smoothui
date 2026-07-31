@@ -357,7 +357,7 @@ export default function Select({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
@@ -406,30 +406,31 @@ export default function Select({
                 })()}
 
               {/* Grouped options */}
-              {groups &&
-                groups.map((group, groupIdx) => {
-                  const groupItems = group.options.map((opt) => {
-                    const idx = globalIndex;
-                    globalIndex += 1;
-                    return renderItem(opt, idx);
-                  });
+              {groups
+                ? groups.map((group, groupIdx) => {
+                    const groupItems = group.options.map((opt) => {
+                      const idx = globalIndex;
+                      globalIndex += 1;
+                      return renderItem(opt, idx);
+                    });
 
-                  return (
-                    <div key={group.label}>
-                      {groupIdx > 0 && (
-                        <div className="pointer-events-none -mx-1 my-1 h-px bg-border" />
-                      )}
-                      <div className="px-2 py-1.5 text-muted-foreground text-xs">
-                        {group.label}
+                    return (
+                      <div key={group.label}>
+                        {groupIdx > 0 && (
+                          <div className="pointer-events-none -mx-1 my-1 h-px bg-border" />
+                        )}
+                        <div className="px-2 py-1.5 text-muted-foreground text-xs">
+                          {group.label}
+                        </div>
+                        {groupItems}
                       </div>
-                      {groupItems}
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                : null}
             </div>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -441,7 +442,7 @@ export default function Select({
     <>
       <div className="relative inline-block w-full" ref={wrapperRef}>
         {/* Hidden native input for form submission */}
-        {name && (
+        {name ? (
           <input
             aria-hidden="true"
             name={name}
@@ -450,7 +451,7 @@ export default function Select({
             type="hidden"
             value={selectedValue}
           />
-        )}
+        ) : null}
 
         <button
           aria-expanded={isOpen}

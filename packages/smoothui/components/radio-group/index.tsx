@@ -98,6 +98,7 @@ export function RadioGroup({
       required={required}
       value={value}
     >
+      {/* biome-ignore lint/suspicious/noLeakedRender: both branches are ReactNode, which is exactly what a wrapper should render */}
       {shouldReduceMotion ? children : enhancedChildren}
     </RadioGroupPrimitive.Root>
   );
@@ -181,7 +182,7 @@ export function Radio({
           </RadioGroupPrimitive.Indicator>
         </RadioGroupPrimitive.Item>
       </motion.div>
-      {children && (
+      {children ? (
         <label
           className={cn(
             "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
@@ -191,7 +192,7 @@ export function Radio({
         >
           {children}
         </label>
-      )}
+      ) : null}
     </>
   );
 }

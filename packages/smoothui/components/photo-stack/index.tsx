@@ -110,21 +110,21 @@ export default function PhotoStack({
               draggable={false}
               src={photo.src}
             />
-            {(photo.name || photo.role) && (
+            {photo.name || photo.role ? (
               <figcaption
                 className={cn(
                   "absolute inset-x-0 bottom-0 flex flex-col gap-px bg-gradient-to-t from-black/60 to-transparent p-3.5 text-white transition-opacity",
                   !isFront && "opacity-0"
                 )}
               >
-                {photo.name && (
+                {photo.name ? (
                   <span className="font-semibold text-sm">{photo.name}</span>
-                )}
-                {photo.role && (
+                ) : null}
+                {photo.role ? (
                   <span className="text-xs opacity-85">{photo.role}</span>
-                )}
+                ) : null}
               </figcaption>
-            )}
+            ) : null}
             {pos > 0 && (
               <span
                 aria-hidden

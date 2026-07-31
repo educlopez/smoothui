@@ -3,13 +3,7 @@ import { SYMBOLS } from "../constants.js";
 
 export const S = SYMBOLS;
 
-export const dim = pc.dim;
-export const cyan = pc.cyan;
-export const green = pc.green;
-export const red = pc.red;
-export const yellow = pc.yellow;
-export const bold = pc.bold;
-export const gray = pc.gray;
+export const { dim, cyan, green, red, yellow, bold, gray } = pc;
 
 // ANSI 256-color grays for gradient (works on light and dark terminals)
 const GRAYS = [

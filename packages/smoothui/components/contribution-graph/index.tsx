@@ -84,7 +84,7 @@ const createDayData = (
   currentDate: Date,
   contributionData: ContributionData[]
 ): ContributionData => {
-  const dateString = currentDate.toISOString().split("T")[0];
+  const [dateString] = currentDate.toISOString().split("T");
   const existingData = contributionData.find((d) => d.date === dateString);
   return {
     count: existingData?.count ?? LEVEL_0,

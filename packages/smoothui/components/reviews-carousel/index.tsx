@@ -259,16 +259,16 @@ export default function ReviewsCarousel({
       </div>
 
       {/* Navigation buttons */}
-      {(showNavigation || showIndicators) && (
+      {showNavigation || showIndicators ? (
         <div className="absolute bottom-4 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2">
-          {showNavigation && (
+          {showNavigation ? (
             <NavigationButton
               direction="prev"
               disabled={activeIndex <= 0}
               onClick={goToPrevious}
             />
-          )}
-          {showIndicators && (
+          ) : null}
+          {showIndicators ? (
             <div className="flex items-center gap-2">
               {filteredReviews.map((review: Review, index: number) => (
                 <button
@@ -287,16 +287,16 @@ export default function ReviewsCarousel({
                 />
               ))}
             </div>
-          )}
-          {showNavigation && (
+          ) : null}
+          {showNavigation ? (
             <NavigationButton
               direction="next"
               disabled={activeIndex === maxIndex}
               onClick={goToNext}
             />
-          )}
+          ) : null}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

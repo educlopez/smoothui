@@ -152,12 +152,12 @@ export default function RichTooltip({
             }
           >
             {Title}
-            {description && (
+            {description ? (
               <p className="mt-3 max-w-xs text-balance text-base text-white/90 leading-relaxed">
                 {description}
               </p>
-            )}
-            {(meta || Action) && (
+            ) : null}
+            {meta || Action ? (
               <div className="mt-4 flex items-center justify-between gap-3">
                 {meta ? (
                   <span className="inline-flex items-center gap-1 rounded-full bg-white/10 px-3 py-1 text-white text-xs">
@@ -168,7 +168,7 @@ export default function RichTooltip({
                 )}
                 {Action}
               </div>
-            )}
+            ) : null}
 
             {/* Tail */}
             <PopoverArrow className="fill-black" />

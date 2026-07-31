@@ -95,7 +95,7 @@ export default function Phototab({
         style={{ pointerEvents: "auto" }}
       >
         <AnimatePresence>
-          {bgStyle && (
+          {bgStyle ? (
             <motion.span
               animate={{
                 height: bgStyle.height,
@@ -120,7 +120,7 @@ export default function Phototab({
                     }
               }
             />
-          )}
+          ) : null}
         </AnimatePresence>
         {tabs.map((tab, index) => (
           <TabsTrigger

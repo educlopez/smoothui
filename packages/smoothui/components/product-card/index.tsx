@@ -256,7 +256,7 @@ export default function ProductCard({
         />
 
         {/* Badge */}
-        {badge && (
+        {badge ? (
           <motion.span
             animate={
               shouldReduceMotion
@@ -281,7 +281,7 @@ export default function ProductCard({
           >
             {badge}
           </motion.span>
-        )}
+        ) : null}
 
         {/* Wishlist button */}
         <motion.button
@@ -321,7 +321,7 @@ export default function ProductCard({
             {currency}
             {price}
           </span>
-          {hasDiscount && (
+          {hasDiscount ? (
             <>
               <span className="text-muted-foreground text-sm line-through">
                 {currency}
@@ -331,7 +331,7 @@ export default function ProductCard({
                 -{discountPercent}%
               </span>
             </>
-          )}
+          ) : null}
         </div>
 
         <div className="mt-auto pt-2">

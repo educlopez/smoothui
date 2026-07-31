@@ -61,7 +61,7 @@ export default function SoftBlurIn({
                 }
           }
         >
-          {char === " " ? " " : char}
+          {char === " " ? " " : String(char)}
         </motion.span>
       ))}
     </span>

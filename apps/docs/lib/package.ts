@@ -250,7 +250,7 @@ export const getPackage = cache(async (packageName: string) => {
   // Add cross-item imports detected in the rewritten content
   // (@/components/smoothui/<name> covers components and the shared barrel)
   for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
-    const name = match[1];
+    const [, name] = match;
     if (name && name !== actualPackageName) {
       registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
     }

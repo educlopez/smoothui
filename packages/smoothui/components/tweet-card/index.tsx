@@ -183,62 +183,62 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
           Your browser does not support the video tag.
         </video>
       ) : null}
-      {hasPhotos &&
-        tweet.photos &&
-        (() => {
-          const { photos } = tweet;
-          return (
-            <div className="relative grid w-full gap-2">
-              {photos.length === 1 && (
-                <img
-                  alt={tweet.text}
-                  className="w-full rounded-xl border object-cover shadow-sm"
-                  draggable={false}
-                  height={photos[0].height}
-                  key={photos[0].url}
-                  src={photos[0].url}
-                  title={`Photo by ${tweet.user.name}`}
-                  width={photos[0].width}
-                />
-              )}
-              {photos.length === 2 && (
-                <div className="grid grid-cols-2 gap-2">
-                  {photos.map((photo) => (
-                    <img
-                      alt={tweet.text}
-                      className="w-full rounded-xl border object-cover shadow-sm"
-                      draggable={false}
-                      height={photo.height}
-                      key={photo.url}
-                      src={photo.url}
-                      title={`Photo by ${tweet.user.name}`}
-                      width={photo.width}
-                    />
-                  ))}
-                </div>
-              )}
-              {photos.length >= 3 && (
-                <div className="grid grid-cols-2 gap-2">
-                  {photos.slice(0, 4).map((photo, index) => (
-                    <img
-                      alt={tweet.text}
-                      className={cn(
-                        "w-full rounded-xl border object-cover shadow-sm",
-                        index === 0 && photos.length > 3 && "row-span-2"
-                      )}
-                      draggable={false}
-                      height={photo.height}
-                      key={photo.url}
-                      src={photo.url}
-                      title={`Photo by ${tweet.user.name}`}
-                      width={photo.width}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          );
-        })()}
+      {hasPhotos && tweet.photos
+        ? (() => {
+            const { photos } = tweet;
+            return (
+              <div className="relative grid w-full gap-2">
+                {photos.length === 1 && (
+                  <img
+                    alt={tweet.text}
+                    className="w-full rounded-xl border object-cover shadow-sm"
+                    draggable={false}
+                    height={photos[0].height}
+                    key={photos[0].url}
+                    src={photos[0].url}
+                    title={`Photo by ${tweet.user.name}`}
+                    width={photos[0].width}
+                  />
+                )}
+                {photos.length === 2 && (
+                  <div className="grid grid-cols-2 gap-2">
+                    {photos.map((photo) => (
+                      <img
+                        alt={tweet.text}
+                        className="w-full rounded-xl border object-cover shadow-sm"
+                        draggable={false}
+                        height={photo.height}
+                        key={photo.url}
+                        src={photo.url}
+                        title={`Photo by ${tweet.user.name}`}
+                        width={photo.width}
+                      />
+                    ))}
+                  </div>
+                )}
+                {photos.length >= 3 && (
+                  <div className="grid grid-cols-2 gap-2">
+                    {photos.slice(0, 4).map((photo, index) => (
+                      <img
+                        alt={tweet.text}
+                        className={cn(
+                          "w-full rounded-xl border object-cover shadow-sm",
+                          index === 0 && photos.length > 3 && "row-span-2"
+                        )}
+                        draggable={false}
+                        height={photo.height}
+                        key={photo.url}
+                        src={photo.url}
+                        title={`Photo by ${tweet.user.name}`}
+                        width={photo.width}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            );
+          })()
+        : null}
       {!(hasVideo || hasPhotos) && hasCardThumbnail && (
         <img
           alt={tweet.text}

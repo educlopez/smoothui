@@ -205,7 +205,7 @@ export default function SearchableDropdown({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
@@ -286,7 +286,7 @@ export default function SearchableDropdown({
                   value={searchQuery}
                 />
                 <AnimatePresence>
-                  {searchQuery && (
+                  {searchQuery ? (
                     <motion.button
                       animate={{ opacity: 1 }}
                       aria-label="Clear search"
@@ -303,7 +303,7 @@ export default function SearchableDropdown({
                     >
                       <X aria-hidden="true" className="h-4 w-4" />
                     </motion.button>
-                  )}
+                  ) : null}
                 </AnimatePresence>
               </motion.div>
             </div>
@@ -364,16 +364,16 @@ export default function SearchableDropdown({
                         onMouseEnter={() => setFocusedIndex(index)}
                         type="button"
                       >
-                        {item.icon && (
+                        {item.icon ? (
                           <span className="mr-3 shrink-0">{item.icon}</span>
-                        )}
+                        ) : null}
                         <div className="min-w-0 flex-1">
                           <span className="block truncate">{item.label}</span>
-                          {item.description && (
+                          {item.description ? (
                             <span className="block truncate text-muted-foreground text-xs">
                               {item.description}
                             </span>
-                          )}
+                          ) : null}
                         </div>
 
                         {selectedItem?.id === item.id && (
@@ -437,7 +437,7 @@ export default function SearchableDropdown({
             </ul>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -455,7 +455,7 @@ export default function SearchableDropdown({
           type="button"
         >
           <span className="block truncate">
-            {selectedItem ? selectedItem.label : label}
+            {String(selectedItem ? selectedItem.label : label)}
           </span>
           <motion.div
             animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}

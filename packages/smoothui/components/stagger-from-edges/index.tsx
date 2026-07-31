@@ -67,7 +67,7 @@ export default function StaggerFromEdges({
                   }
             }
           >
-            {char === " " ? " " : char}
+            {char === " " ? " " : String(char)}
           </motion.span>
         );
       })}

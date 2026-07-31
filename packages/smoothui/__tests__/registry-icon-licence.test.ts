@@ -63,7 +63,7 @@ describe("registry icon licensing", () => {
     for (const file of files) {
       const source = readFileSync(file, "utf-8");
       for (const match of source.matchAll(IMPORT_SOURCE_REGEX)) {
-        const specifier = match[1];
+        const [, specifier] = match;
         if (
           FORBIDDEN_ICON_PACKAGES.some(
             (pkg) => specifier === pkg || specifier.startsWith(`${pkg}/`)

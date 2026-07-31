@@ -66,7 +66,7 @@ export default function StaggerFromCenter({
                   }
             }
           >
-            {char === " " ? " " : char}
+            {char === " " ? " " : String(char)}
           </motion.span>
         );
       })}

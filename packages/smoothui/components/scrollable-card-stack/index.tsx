@@ -386,9 +386,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 style={{ height: `${cardHeight}px` }}
               >
                 {/* Scroll indicator */}
-                {isScrolling && isActive && (
+                {isScrolling && isActive ? (
                   <div className="absolute -top-1 left-1/2 h-1 w-8 -translate-x-1/2 rounded-full bg-brand opacity-75" />
-                )}
+                ) : null}
 
                 {/* Image Container - takes remaining space */}
                 <div className="relative w-full flex-1 overflow-hidden">

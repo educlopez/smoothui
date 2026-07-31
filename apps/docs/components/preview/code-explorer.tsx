@@ -384,16 +384,17 @@ const TreeBranch = ({
         )}
         <span className="truncate">{node.name}</span>
       </button>
-      {isOpen &&
-        node.children.map((child) => (
-          <TreeBranch
-            activeIndex={activeIndex}
-            depth={depth + 1}
-            key={child.name}
-            node={child}
-            onSelect={onSelect}
-          />
-        ))}
+      {isOpen
+        ? node.children.map((child) => (
+            <TreeBranch
+              activeIndex={activeIndex}
+              depth={depth + 1}
+              key={child.name}
+              node={child}
+              onSelect={onSelect}
+            />
+          ))
+        : null}
     </div>
   );
 };

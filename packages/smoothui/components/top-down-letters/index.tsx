@@ -57,7 +57,7 @@ export default function TopDownLetters({
                 }
           }
         >
-          {char === " " ? " " : char}
+          {char === " " ? " " : String(char)}
         </motion.span>
       ))}
     </span>

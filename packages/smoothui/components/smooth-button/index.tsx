@@ -201,7 +201,7 @@ function SmoothButton({
       {...props}
     >
       <AnimatePresence initial={false}>
-        {loading && (
+        {loading ? (
           <motion.span
             animate={{ marginRight: "0.5rem", opacity: 1, width: "1em" }}
             className="inline-flex shrink-0 items-center justify-center overflow-hidden"
@@ -220,7 +220,7 @@ function SmoothButton({
           >
             <Spinner />
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
       {prefix}
       {children}

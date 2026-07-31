@@ -299,7 +299,7 @@ export default function BasicDropdown({
           type="button"
         >
           <span className="block truncate">
-            {selectedItem ? selectedItem.label : label}
+            {String(selectedItem ? selectedItem.label : label)}
           </span>
           <motion.div
             animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}

@@ -57,7 +57,7 @@ export default function BottomUpLetters({
                 }
           }
         >
-          {char === " " ? " " : char}
+          {char === " " ? " " : String(char)}
         </motion.span>
       ))}
     </span>

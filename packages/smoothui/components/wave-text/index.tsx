@@ -44,7 +44,7 @@ const WaveText: React.FC<WaveTextProps> = ({
                 }
           }
         >
-          {char === " " ? "\u00A0" : char}
+          {char === " " ? "\u00A0" : String(char)}
         </motion.span>
       ))}
     </span>
