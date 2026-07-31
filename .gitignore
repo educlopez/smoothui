@@ -55,3 +55,8 @@ planning/
 node-compile-cache/
 skills-lock.json
 .claude/skills/
+
+# tsx writes its compile cache here when TMPDIR points at the repo.
+/tsx-*/
+# codegraph's daemon pid is machine-local state.
+.codegraph/daemon.pid
