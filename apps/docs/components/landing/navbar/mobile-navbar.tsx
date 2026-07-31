@@ -6,7 +6,6 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import {
   IconBoltFill24,
-  IconBookFill24,
   IconBoxFill24,
   IconColorPaletteFill24,
   IconCompassFill24,
@@ -214,10 +213,6 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               <Link className="mobile-navbar-link" href="/themes">
                 <IconColorPaletteFill24 size={16} />
                 Themes
-              </Link>
-              <Link className="mobile-navbar-link" href="/docs/guides">
-                <IconBookFill24 size={16} />
-                Docs
               </Link>
             </motion.div>
 

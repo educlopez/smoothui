@@ -12,7 +12,6 @@ import {
 import {
   IconArrowRightFill24,
   IconBoltFill24,
-  IconBookFill24,
   IconBoxFill24,
   IconColorPaletteFill24,
   IconCompassFill24,
@@ -240,11 +239,6 @@ export default function Navbar({ className }: NavbarProps) {
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/themes">
             <IconColorPaletteFill24 size={16} /> Themes
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/docs/guides">
-            <IconBookFill24 size={16} /> Docs
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>

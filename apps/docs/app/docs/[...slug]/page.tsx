@@ -7,7 +7,12 @@ import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
-import { BlocksGalleryPage, GalleryPage } from "@docs/components/gallery";
+import {
+  BlocksGalleryPage,
+  GalleryPage,
+  TemplateShowcase,
+  TemplatesGalleryPage,
+} from "@docs/components/gallery";
 import { Installer } from "@docs/components/installer";
 import Divider from "@docs/components/landing/divider";
 import { FooterBody } from "@docs/components/landing/footer";
@@ -158,9 +163,15 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // Split is the default for component pages: one component, one stage. A block
   // page documents several blocks at once, so it stays stacked — each preview
   // full width under the section that describes it, with its own controls.
+  //
+  // Templates opt out entirely: a whole surface does not fit in half a viewport,
+  // and its source is not what someone is deciding on. They get stills and a
+  // live preview instead.
   const installer = page.data.installer;
+  const isTemplate = page.data.info.path.startsWith("templates/");
+  const isTemplateDetail = isTemplate && page.slugs.length > 1;
   const isSplit = Boolean(
-    installer && (page.data.splitPreview ?? type === "component")
+    installer && !isTemplate && (page.data.splitPreview ?? type === "component")
   );
 
   const previewData =
@@ -176,13 +187,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // preview column off screen instead of scrolling inside the code pane.
   // The index galleries are wall-to-wall previews, same as a block page, so
   // they get the whole track rather than the reading-width cap.
-  const isGalleryIndex = isComponentOrBlock && page.slugs.length === 1;
+  const isGalleryIndex =
+    (isComponentOrBlock || isTemplate) && page.slugs.length === 1;
   let contentWidth = "min-w-0";
   if (!isSplit) {
     contentWidth =
       type === "block" || isGalleryIndex
         ? "min-w-0 max-w-none"
         : "min-w-0 max-w-[75rem]";
+    if (isTemplateDetail) {
+      // A template page is a page of screenshots, so it reads better at the
+      // width of one screenshot than stretched across the whole track.
+      contentWidth = "min-w-0 max-w-[64rem]";
+    }
   }
 
   // The install section is injected by the layout, not written in the MDX, so it
@@ -250,6 +267,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         SponsorsPageContent,
         GalleryPage,
         BlocksGallery: BlocksGalleryPage,
+        TemplatesGallery: TemplatesGalleryPage,
         PackageManagerTabs,
       }}
     />
@@ -376,7 +394,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 chrome: the catalogue starts collapsed and the crumb doubles as
                 its handle. These pages are wall-to-wall previews, so 240px of
                 permanent sidebar was coming straight out of them. */}
-            {isComponentOrBlock && (
+            {(isComponentOrBlock || isTemplate) && (
               <>
                 <SplitDocsChrome hideLayoutFooter={false} />
                 {/* Same geometry as the split pages: the row cancels the
@@ -413,7 +431,10 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             {heading}
             {actionRow}
             <DocsBody>
-              {installer && (
+              {isTemplateDetail && installer && (
+                <TemplateShowcase installer={installer} />
+              )}
+              {installer && !isTemplateDetail && (
                 <>
                   <Preview path={installer} type={type} />
                   {installSection}

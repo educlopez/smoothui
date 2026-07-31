@@ -38,6 +38,7 @@ const navigateColumn: FooterColumn = {
   links: [
     { label: "Components", href: "/docs/components" },
     { label: "Blocks", href: "/docs/blocks" },
+    { label: "Templates", href: "/docs/templates" },
     { label: "Dynamic Island", href: "/docs/components/dynamic-island" },
     { label: "AI Prompt Input", href: "/docs/components/ai-prompt-input" },
     { label: "Siri Orb", href: "/docs/components/siri-orb" },

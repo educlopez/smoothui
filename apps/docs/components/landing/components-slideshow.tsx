@@ -1,76 +1,26 @@
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
+import { GalleryPreview } from "@docs/components/gallery/gallery-preview";
 import Divider from "@docs/components/landing/divider";
 import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import dynamic from "next/dynamic";
 import Link from "next/link";
-import { createElement } from "react";
-
-// Lazy-load example components to reduce initial bundle size
-const AnimatedTags = dynamic(() => import("@docs/examples/animated-tags"));
-const DynamicIsland = dynamic(() => import("@docs/examples/dynamic-island"));
-const ImageMetadataPreview = dynamic(
-  () => import("@docs/examples/image-metadata-preview")
-);
-const NumberFlow = dynamic(() => import("@docs/examples/number-flow"));
-const Phototab = dynamic(() => import("@docs/examples/phototab"));
-const PowerOffSlide = dynamic(() => import("@docs/examples/power-off-slide"));
-const ScrollableCardStack = dynamic(
-  () => import("@docs/examples/scrollable-card-stack")
-);
-const SocialSelector = dynamic(() => import("@docs/examples/social-selector"));
-const UserAccountAvatar = dynamic(
-  () => import("@docs/examples/user-account-avatar")
-);
 
 type ShowcaseItem = {
-  component: React.ComponentType;
   name: string;
   slug: string;
-  /** Extra grid span classes for the bento layout. */
-  span?: string;
 };
 
-// Rows are arranged so each md row sums to 3 columns.
 const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
-  {
-    name: "Dynamic Island",
-    slug: "dynamic-island",
-    component: DynamicIsland,
-    span: "md:col-span-2",
-  },
-  { name: "Number Flow", slug: "number-flow", component: NumberFlow },
-  { name: "Phototab", slug: "phototab", component: Phototab },
-  {
-    name: "Social Selector",
-    slug: "social-selector",
-    component: SocialSelector,
-  },
-  {
-    name: "User Account Avatar",
-    slug: "user-account-avatar",
-    component: UserAccountAvatar,
-  },
-  {
-    name: "Scrollable Card Stack",
-    slug: "scrollable-card-stack",
-    component: ScrollableCardStack,
-    span: "md:col-span-2",
-  },
-  {
-    name: "Power Off Slide",
-    slug: "power-off-slide",
-    component: PowerOffSlide,
-  },
-  { name: "Animated Tags", slug: "animated-tags", component: AnimatedTags },
-  {
-    name: "Image Metadata Preview",
-    slug: "image-metadata-preview",
-    component: ImageMetadataPreview,
-    span: "md:col-span-2",
-  },
+  { name: "Dynamic Island", slug: "dynamic-island" },
+  { name: "Number Flow", slug: "number-flow" },
+  { name: "Phototab", slug: "phototab" },
+  { name: "Social Selector", slug: "social-selector" },
+  { name: "User Account Avatar", slug: "user-account-avatar" },
+  { name: "Scrollable Card Stack", slug: "scrollable-card-stack" },
+  { name: "Power Off Slide", slug: "power-off-slide" },
+  { name: "Animated Tags", slug: "animated-tags" },
+  { name: "Image Metadata Preview", slug: "image-metadata-preview" },
 ];
 
 export function ComponentsSlideshow() {
@@ -81,19 +31,26 @@ export function ComponentsSlideshow() {
         description="Real components from the registry — preview the motion, then install with one command."
         title="Components showcase"
       />
-      <div className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {SHOWCASE_COMPONENTS.map(({ name, slug, component, span }) => (
+      {/* The same masonry the docs galleries use: each preview is as tall as its
+          demo, so the hand-tuned column spans this section needed to avoid
+          cropping are no longer necessary. GalleryPreview also defers each demo
+          until it scrolls into view. */}
+      <div className="mt-16 columns-1 gap-4 md:columns-2 lg:columns-3">
+        {SHOWCASE_COMPONENTS.map(({ name, slug }) => (
           <div
-            className={cn(
-              "group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card",
-              span
-            )}
+            className="group relative mb-4 break-inside-avoid overflow-hidden rounded-xl border border-border bg-card"
             key={slug}
           >
-            <div className="relative flex h-[280px] items-center justify-center overflow-hidden bg-primary p-6 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[--dots-color:--alpha(var(--color-foreground)/5%)] before:[background-size:16px_16px]">
-              <div className="relative z-10 flex h-full w-full items-center justify-center">
-                {createElement(component)}
-              </div>
+            <div className="relative">
+              <GalleryPreview slug={slug} title={name} />
+              {/* Stretched over the preview, not wrapping it: demos contain
+                  their own links, and an anchor inside an anchor will not
+                  hydrate. */}
+              <Link
+                aria-label={`View ${name}`}
+                className="absolute inset-0 z-10"
+                href={`/docs/components/${slug}`}
+              />
             </div>
             <footer className="flex items-center justify-between gap-2 border-border/60 border-t px-4 py-2.5">
               <Link
