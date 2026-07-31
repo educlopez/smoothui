@@ -35,10 +35,9 @@ export default async function BlockPreviewPage({ params }: PageProps) {
             lands inside any screenshot taken of a block — including the cover art
             on the blocks index. It does not exist in production, so hiding it
             costs nothing there. */}
-        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static rule, no user input */}
-        <style
-          dangerouslySetInnerHTML={{ __html: "nextjs-portal{display:none}" }}
-        />
+        {/* A text child rather than `dangerouslySetInnerHTML`: React accepts one
+            for `<style>`, and there is nothing to sanitise in a constant. */}
+        <style>{"nextjs-portal{display:none}"}</style>
         <ColorSync />
         <BlockHeightSync blockId={blockId} />
         <BlockExample />
