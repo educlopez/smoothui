@@ -55,18 +55,22 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     }
   }, [shouldReduceMotion]);
 
-  const setEnabled = useCallback((value: boolean) => {
-    setEnabledState(value);
+  const updateEnabled = useCallback((next: boolean) => {
+    setEnabledState(next);
     try {
-      localStorage.setItem(STORAGE_KEY, value ? "on" : "off");
+      localStorage.setItem(STORAGE_KEY, next ? "on" : "off");
     } catch {
       // ignore
     }
   }, []);
 
   const value = useMemo(
-    () => ({ enabled: enabled && !suppressed, setEnabled, suppressed }),
-    [enabled, suppressed, setEnabled]
+    () => ({
+      enabled: enabled && !suppressed,
+      setEnabled: updateEnabled,
+      suppressed,
+    }),
+    [enabled, suppressed, updateEnabled]
   );
 
   return (

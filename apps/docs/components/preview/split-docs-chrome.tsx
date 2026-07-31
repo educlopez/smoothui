@@ -57,5 +57,3 @@ export const SplitDocsChrome = ({
 
   return null;
 };
-
-export default SplitDocsChrome;

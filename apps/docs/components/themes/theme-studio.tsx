@@ -804,9 +804,9 @@ function LazyDemo({ Demo }: { Demo: ComponentType }) {
 const BOARD_COLUMN_COUNT = 5;
 const BOARD_COLUMNS: (typeof DEMO_CARDS)[] = Array.from(
   { length: BOARD_COLUMN_COUNT },
-  (_, index) =>
+  (_, columnIndex) =>
     DEMO_CARDS.filter(
-      (_, cardIndex) => cardIndex % BOARD_COLUMN_COUNT === index
+      (_card, cardPosition) => cardPosition % BOARD_COLUMN_COUNT === columnIndex
     )
 );
 
@@ -934,8 +934,11 @@ function PreviewCanvas({
     const matches = DEMO_CARDS.filter(({ slug }) =>
       demoTitle(slug).toLowerCase().includes(normalizedQuery)
     );
-    return Array.from({ length: BOARD_COLUMN_COUNT }, (_, index) =>
-      matches.filter((_, cardIndex) => cardIndex % BOARD_COLUMN_COUNT === index)
+    return Array.from({ length: BOARD_COLUMN_COUNT }, (_, columnIndex) =>
+      matches.filter(
+        (_card, cardPosition) =>
+          cardPosition % BOARD_COLUMN_COUNT === columnIndex
+      )
     );
   }, [normalizedQuery]);
 

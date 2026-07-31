@@ -243,7 +243,7 @@ const collectRelativeSources = async ({
   let match = RELATIVE_IMPORT_REGEX.exec(source);
 
   while (match) {
-    const specifier = match[1];
+    const [, specifier] = match;
     importMatches.add(specifier);
     match = RELATIVE_IMPORT_REGEX.exec(source);
   }

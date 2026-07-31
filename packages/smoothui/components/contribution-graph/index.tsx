@@ -299,9 +299,9 @@ export function ContributionGraph({
                 </td>
 
                 {/* Day Cells */}
-                {Array.from({ length: WEEKS_IN_YEAR }, (_, w) => {
-                  const dayData = yearData[w * DAYS_IN_WEEK + dayIndex];
-                  const cellKey = `${dayData?.date ?? "empty"}-${w}-${dayIndex}`;
+                {Array.from({ length: WEEKS_IN_YEAR }, (_week, weekIndex) => {
+                  const dayData = yearData[weekIndex * DAYS_IN_WEEK + dayIndex];
+                  const cellKey = `${dayData?.date ?? "empty"}-${weekIndex}-${dayIndex}`;
                   if (!dayData?.date) {
                     return (
                       <td className="h-2.5 w-2.5 p-0" key={cellKey}>

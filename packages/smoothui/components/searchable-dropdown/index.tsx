@@ -56,10 +56,10 @@ export default function SearchableDropdown({
     // Early exit optimization: use for loop instead of filter for better performance
     for (let i = 0; i < itemsLength; i++) {
       const item = items[i];
-      const label = item.label.toLowerCase();
+      const itemLabel = item.label.toLowerCase();
       const description = item.description?.toLowerCase();
 
-      if (label.includes(query) || description?.includes(query)) {
+      if (itemLabel.includes(query) || description?.includes(query)) {
         results.push(item);
       }
     }

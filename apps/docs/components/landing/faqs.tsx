@@ -9,7 +9,6 @@ import {
   AccordionTrigger,
 } from "@repo/shadcn-ui/components/ui/accordion";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import Script from "next/script";
 
 const faqs = [
   {
@@ -68,13 +67,15 @@ const faqSchema = {
 export function FAQ() {
   return (
     <section className="relative w-full bg-background px-8 py-24">
-      <Script
+      {/* Plain <script> rather than next/script: `beforeInteractive` is only
+          honoured inside the root layout, and Next's own guidance for JSON-LD
+          is to render the tag directly. */}
+      <script
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data requires innerHTML
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(faqSchema),
         }}
         id="faq-schema"
-        strategy="beforeInteractive"
         type="application/ld+json"
       />
       <Divider />

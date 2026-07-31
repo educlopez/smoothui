@@ -272,9 +272,9 @@ export default function Select({
   // ---------------------------------------------------------------------------
 
   /** Render a single option item with stagger animation */
-  const renderItem = (opt: SelectOptionProps, globalIndex: number) => {
+  const renderItem = (opt: SelectOptionProps, itemIndex: number) => {
     const isSelected = opt.value === selectedValue;
-    const isFocused = globalIndex === focusedIndex;
+    const isFocused = itemIndex === focusedIndex;
 
     return (
       <motion.div
@@ -291,7 +291,7 @@ export default function Select({
             ? DURATION_INSTANT
             : {
                 ...SPRING_SNAPPY,
-                delay: globalIndex * STAGGER_DELAY,
+                delay: itemIndex * STAGGER_DELAY,
               }
         }
         whileHover={shouldReduceMotion ? {} : { x: ITEM_HOVER_X }}
@@ -309,7 +309,7 @@ export default function Select({
           )}
           disabled={opt.disabled}
           onClick={() => handleSelect(opt)}
-          onMouseEnter={() => setFocusedIndex(globalIndex)}
+          onMouseEnter={() => setFocusedIndex(itemIndex)}
           role="option"
           type="button"
         >

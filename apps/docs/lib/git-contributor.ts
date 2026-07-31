@@ -100,8 +100,7 @@ function parseLinkHeader(linkHeader: string | null): {
   for (const part of linkParts) {
     const match = part.match(LINK_HEADER_REGEX);
     if (match) {
-      const url = match[1];
-      const rel = match[2];
+      const [, url, rel] = match;
       if (rel === "next") {
         links.next = url;
       } else if (rel === "last") {

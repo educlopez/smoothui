@@ -46,7 +46,7 @@ function generateColorVariations(baseColor: string): ColorVariations {
         Number.parseFloat(parts[1]) - CHROMA_LIGHT_ADJUSTMENT,
         0
       );
-      const hue = parts[2];
+      const [, , hue] = parts;
       return `oklch(${lightness} ${chroma} ${hue})`;
     });
 
@@ -60,7 +60,7 @@ function generateColorVariations(baseColor: string): ColorVariations {
         Number.parseFloat(parts[1]) - CHROMA_LIGHTER_ADJUSTMENT,
         0
       );
-      const hue = parts[2];
+      const [, , hue] = parts;
       return `oklch(${lightness} ${chroma} ${hue})`;
     });
 

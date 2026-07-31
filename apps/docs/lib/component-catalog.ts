@@ -268,7 +268,7 @@ const listBlockDirs = async (): Promise<string[]> => {
 
 /** Infer block type from the directory name prefix */
 const inferBlockType = (name: string): BlockType => {
-  const prefix = name.split("-")[0];
+  const [prefix] = name.split("-");
   const mapping: Record<string, BlockType> = {
     faq: "other",
     footer: "footer",

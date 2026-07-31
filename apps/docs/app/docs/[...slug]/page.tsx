@@ -96,7 +96,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const MDX = page.data.body;
 
   // Access lastModified from page data (available when lastModifiedTime: 'git' is enabled)
-  const lastModified = (page.data as { lastModified?: number }).lastModified;
+  const { lastModified } = page.data as { lastModified?: number };
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
   const isComponentOrBlock =
