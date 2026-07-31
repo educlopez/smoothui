@@ -29,11 +29,16 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
     >
       {children}
       <FloatNav key="float-nav" />
-      {/* SEO footer inside the scroll flow, spanning the full grid width
-          so it lands at the bottom without breaking the 100dvh layout.
-          DocsFooter constrains its content to the main column band. */}
+      {/* SEO footer inside the scroll flow, spanning the full grid width so it
+          lands at the bottom without breaking the 100dvh layout. DocsFooter
+          constrains its content to the main column band.
+
+          The row is pinned to the last explicit grid line rather than left to
+          auto-placement: as a full-width item with no row of its own, the
+          browser dropped it into the first gap it fitted — above `main` — and on
+          narrow screens the whole footer rendered before the page content. */}
       <div
-        className="[grid-column:1/-1]"
+        className="[grid-column:1/-1] [grid-row-start:-1]"
         data-docs-seo-footer
         key="docs-footer"
       >

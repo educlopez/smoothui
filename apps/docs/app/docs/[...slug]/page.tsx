@@ -323,9 +323,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         // twice. The gallery indexes drop it too: a "next page" pointing at the
         // first category is noise under a grid that already links to all of
         // them.
-        footer={
-          isSplit || isGalleryIndex ? { enabled: false } : undefined
-        }
+        footer={isSplit || isGalleryIndex ? { enabled: false } : undefined}
         full={page.data.full ?? isSplit}
         tableOfContent={{
           style: "clerk",
@@ -386,7 +384,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                     navbar instead of travelling down on the first scroll, and
                     the content below it begins past the fade rather than opening
                     already smudged. */}
-                <div className="not-prose sticky top-[6.5rem] z-10 mb-6 flex items-center py-2 lg:-mt-14 lg:mb-36">
+                {/* Desktop only. The crumb doubles as the handle for a sidebar
+                    that is only collapsed on wide screens; on a phone the navbar
+                    already carries the drawer toggle, and showing both would
+                    offer the same sidebar twice. */}
+                <div className="not-prose sticky top-[6.5rem] z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
                   {/* The module only blurs; painting the page colour under the
                       mask is what makes the text dissolve instead of staying
                       legible-but-smudged. */}

@@ -23,6 +23,7 @@ import {
   IconTextFill24,
   IconUserFill24,
   IconWandSparkleFill24,
+  IconWindowCodeFill24,
 } from "nucleo-core-fill-24";
 import type React from "react";
 import { useState } from "react";
@@ -229,6 +230,13 @@ export default function Navbar({ className }: NavbarProps) {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
+        {/* Same icon the docs sidebar uses for the section, so the two
+            navigations agree on what Templates looks like. */}
+        <NavigationMenuItem>
+          <NavigationMenuLink className="trigger" href="/docs/templates">
+            <IconWindowCodeFill24 size={16} /> Templates
+          </NavigationMenuLink>
+        </NavigationMenuItem>
         <NavigationMenuItem>
           <NavigationMenuLink className="trigger" href="/themes">
             <IconColorPaletteFill24 size={16} /> Themes
