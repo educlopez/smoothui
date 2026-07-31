@@ -30,9 +30,9 @@ export function BlockHeightSync({ blockId }: BlockHeightSyncProps) {
 
       window.parent.postMessage(
         {
-          type: MESSAGE_TYPE,
           blockId,
           height,
+          type: MESSAGE_TYPE,
         },
         "*"
       );
@@ -82,9 +82,9 @@ export function BlockHeightSync({ blockId }: BlockHeightSyncProps) {
           });
 
     handleMutation?.observe(target, {
+      attributes: true,
       childList: true,
       subtree: true,
-      attributes: true,
     });
 
     return () => {

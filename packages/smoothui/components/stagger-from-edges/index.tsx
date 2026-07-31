@@ -46,13 +46,13 @@ export default function StaggerFromEdges({
         return (
           <motion.span
             animate={
-              play ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined
+              play ? { filter: "blur(0px)", opacity: 1, y: 0 } : undefined
             }
             aria-hidden="true"
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: 12, filter: "blur(3px)" }
+                : { filter: "blur(3px)", opacity: 0, y: 12 }
             }
             // biome-ignore lint/suspicious/noArrayIndexKey: characters have no stable id
             key={index}
@@ -61,8 +61,8 @@ export default function StaggerFromEdges({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    duration: DURATION_S,
                     delay: delay / MS + (distanceFromEdge * stagger) / MS,
+                    duration: DURATION_S,
                     ease: EASE,
                   }
             }

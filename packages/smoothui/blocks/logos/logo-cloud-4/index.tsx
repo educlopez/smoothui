@@ -26,14 +26,14 @@ export interface LogoGridProps {
 }
 
 const DEFAULT_LOGOS = [
-  { name: "Canpoy", logo: <Canpoy /> },
-  { name: "Canva", logo: <Canva /> },
-  { name: "Casetext", logo: <Casetext /> },
-  { name: "Strava", logo: <Strava /> },
-  { name: "Descript", logo: <Descript /> },
-  { name: "Duolingo", logo: <Duolingo /> },
-  { name: "Faire", logo: <Faire /> },
-  { name: "Clearbit", logo: <Clearbit /> },
+  { logo: <Canpoy />, name: "Canpoy" },
+  { logo: <Canva />, name: "Canva" },
+  { logo: <Casetext />, name: "Casetext" },
+  { logo: <Strava />, name: "Strava" },
+  { logo: <Descript />, name: "Descript" },
+  { logo: <Duolingo />, name: "Duolingo" },
+  { logo: <Faire />, name: "Faire" },
+  { logo: <Clearbit />, name: "Clearbit" },
 ];
 
 const COLUMN_CLASSES = {
@@ -76,9 +76,9 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              type: "spring" as const,
-              duration: 0.25,
               bounce: 0.05,
+              duration: 0.25,
+              type: "spring" as const,
             }
       }
     >
@@ -97,25 +97,25 @@ function LogoItem({ logo, isHoverDevice, shouldReduceMotion }: LogoItemProps) {
       <AnimatePresence>
         {isHovered && (
           <motion.div
-            animate={{ opacity: 1, x: "-50%", y: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1, x: "-50%", y: 0 }}
             className="pointer-events-none absolute -top-2 left-1/2 z-10 whitespace-nowrap rounded-md bg-foreground px-3 py-1.5 font-medium text-background text-sm shadow-lg"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, y: 4, scale: 0.95 }
+                : { opacity: 0, scale: 0.95, y: 4 }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1, x: "-50%", y: 0 }
-                : { opacity: 0, x: "-50%", y: 4, scale: 0.95 }
+                : { opacity: 0, scale: 0.95, x: "-50%", y: 4 }
             }
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring" as const,
-                    duration: 0.25,
                     bounce: 0.05,
+                    duration: 0.25,
+                    type: "spring" as const,
                   }
             }
           >

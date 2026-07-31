@@ -11,12 +11,12 @@ import GooeyPopover from "../index";
 
 const mockMatchMedia = (matches: boolean) => {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    addEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches,
     media: query,
     onchange: null,
-    addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
   }));
 };
 

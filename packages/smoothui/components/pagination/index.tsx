@@ -26,9 +26,9 @@ type PageItem = number | typeof ELLIPSIS;
 
 /** Spring for the sliding active indicator (like animated-tabs) */
 const SPRING_INDICATOR = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.05,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 /** Stagger delay per page button on initial render */

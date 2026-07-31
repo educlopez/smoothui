@@ -31,10 +31,16 @@ const blockCategoryMap: Record<string, string> = {
 
 // Map block names to their filesystem category folder
 const blockFolderMap: Record<string, string> = {
+  "cta-1": "ctas",
+  "cta-2": "ctas",
+  "cta-3": "ctas",
   "faq-1": "faqs",
   "faq-2": "faqs",
   "faq-3": "faqs",
   "faq-4": "faqs",
+  "features-1": "features",
+  "features-2": "features",
+  "features-3": "features",
   "footer-1": "footers",
   "footer-2": "footers",
   "footer-3": "footers",
@@ -59,12 +65,6 @@ const blockFolderMap: Record<string, string> = {
   "testimonials-1": "testimonials",
   "testimonials-2": "testimonials",
   "testimonials-3": "testimonials",
-  "cta-1": "ctas",
-  "cta-2": "ctas",
-  "cta-3": "ctas",
-  "features-1": "features",
-  "features-2": "features",
-  "features-3": "features",
 };
 
 // Blocks that should be excluded from RSS (like shared components)
@@ -275,7 +275,7 @@ function extractItemNameFromItem(content: string): {
   // Try block first (since blocks might be incorrectly categorized as components)
   const blockName = extractBlockName(url);
   if (blockName) {
-    return { type: "block", name: blockName };
+    return { name: blockName, type: "block" };
   }
 
   // Check if it's a component URL that actually points to a block
@@ -284,9 +284,9 @@ function extractItemNameFromItem(content: string): {
   if (componentName) {
     // Check if this component name is actually a block name
     if (Object.keys(blockCategoryMap).includes(componentName)) {
-      return { type: "block", name: componentName };
+      return { name: componentName, type: "block" };
     }
-    return { type: "component", name: componentName };
+    return { name: componentName, type: "component" };
   }
 
   return null;
@@ -337,8 +337,8 @@ async function fixPubDates(
   let match: RegExpExecArray | null = itemRegex.exec(rssXml);
   while (match !== null) {
     items.push({
-      fullMatch: match[0],
       content: match[1],
+      fullMatch: match[0],
       index: match.index,
     });
     match = itemRegex.exec(rssXml);
@@ -463,29 +463,29 @@ export async function GET() {
 
   const rssXml = await generateRegistryRssFeed({
     baseUrl,
-    componentsUrl: "docs/components",
     blocksUrl: "docs/blocks",
-    rss: {
-      title: "SmoothUI",
-      description:
-        "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
-      link: "https://smoothui.dev",
-      pubDateStrategy: "githubLastEdit",
-    },
-    registry: {
-      path: "r/registry.json",
-    },
+    componentsUrl: "docs/components",
     github: {
       owner,
       repo,
       token,
     },
+    registry: {
+      path: "r/registry.json",
+    },
+    rss: {
+      description:
+        "SmoothUI is a collection of beautifully designed components with smooth animations built with React, Tailwind CSS, and Motion",
+      link: "https://smoothui.dev",
+      pubDateStrategy: "githubLastEdit",
+      title: "SmoothUI",
+    },
   });
 
   if (!rssXml) {
     return new Response("RSS feed not available", {
-      status: 404,
       headers: { "Content-Type": "text/plain" },
+      status: 404,
     });
   }
 
@@ -501,9 +501,9 @@ export async function GET() {
 
   return new Response(fixedRssXml, {
     headers: {
-      "Content-Type": "application/rss+xml; charset=utf-8",
       "Cache-Control":
         "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400",
+      "Content-Type": "application/rss+xml; charset=utf-8",
     },
   });
 }

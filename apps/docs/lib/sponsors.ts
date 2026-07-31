@@ -28,13 +28,13 @@ export interface Sponsor {
 
 const sponsorsList: Sponsor[] = [
   {
-    name: "Sparkbites",
-    url: "https://sparkbites.dev/",
-    logo: "/sparkbites.png",
     description: "Inspiration directory for your next project",
-    isOwnProject: true,
-    tier: "own", // Own project
     enabled: true, // Set to false to disable
+    isOwnProject: true,
+    logo: "/sparkbites.png",
+    name: "Sparkbites",
+    tier: "own", // Own project
+    url: "https://sparkbites.dev/",
   },
 ];
 

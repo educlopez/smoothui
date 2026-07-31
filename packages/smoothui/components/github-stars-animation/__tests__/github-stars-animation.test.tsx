@@ -5,14 +5,14 @@ import Component, { type Stargazer } from "../index";
 
 const stargazers: Stargazer[] = [
   {
-    login: "octocat",
     avatar_url: "https://example.com/octocat.png",
     html_url: "https://github.com/octocat",
+    login: "octocat",
   },
   {
-    login: "hubot",
     avatar_url: "https://example.com/hubot.png",
     html_url: "https://github.com/hubot",
+    login: "hubot",
   },
 ];
 
@@ -105,12 +105,12 @@ describe("GithubStarsAnimation", () => {
     vi.stubGlobal(
       "fetch",
       vi.fn().mockResolvedValue({
-        ok: true,
         json: () =>
           Promise.resolve({
             stargazers,
             stars: 99,
           }),
+        ok: true,
       })
     );
 
@@ -125,13 +125,13 @@ describe("GithubStarsAnimation", () => {
       vi.fn((url: string) => {
         if (url.includes("/stargazers")) {
           return Promise.resolve({
-            ok: true,
             json: () => Promise.resolve(stargazers),
+            ok: true,
           });
         }
         return Promise.resolve({
-          ok: true,
           json: () => Promise.resolve({ stargazers_count: 7 }),
+          ok: true,
         });
       })
     );

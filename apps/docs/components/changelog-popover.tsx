@@ -117,9 +117,9 @@ export function ChangelogPopover() {
         <button
           aria-label="Changelog"
           className={buttonVariants({
+            className: "relative text-fd-muted-foreground",
             color: "ghost",
             size: "icon-sm",
-            className: "relative text-fd-muted-foreground",
           })}
           type="button"
         >

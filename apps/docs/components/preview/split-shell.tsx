@@ -39,8 +39,8 @@ type Pane = "info" | "source";
  */
 const VIEWPORT_WIDTH: Record<Viewport, string> = {
   desktop: "100%",
-  tablet: "768px",
   mobile: "390px",
+  tablet: "768px",
 };
 
 const VIEWPORTS: { icon: ReactNode; label: string; value: Viewport }[] = [

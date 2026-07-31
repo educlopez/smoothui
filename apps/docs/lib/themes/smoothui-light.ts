@@ -6,16 +6,28 @@ import type { ThemeRegistration } from "shiki";
  * Based on catppuccin-latte structure with SmoothUI brand colors
  */
 export const smoothuiLight: ThemeRegistration = {
-  name: "smoothui-light",
-  displayName: "SmoothUI Light",
-  type: "light",
   colors: {
     "editor.background": "#fafafa",
     "editor.foreground": "#4c4f69",
-    "editorLineNumber.foreground": "#9ca0b0",
-    "editorLineNumber.activeForeground": "#e87aa4",
-    "editor.selectionBackground": "#e87aa433",
     "editor.lineHighlightBackground": "#f5f5f5",
+    "editor.selectionBackground": "#e87aa433",
+    "editorLineNumber.activeForeground": "#e87aa4",
+    "editorLineNumber.foreground": "#9ca0b0",
+  },
+  displayName: "SmoothUI Light",
+  name: "smoothui-light",
+  semanticHighlighting: true,
+  semanticTokenColors: {
+    boolean: "#df8e1d",
+    "class:python": "#7287fd",
+    "class.builtin:python": "#8839ef",
+    enumMember: "#df8e1d",
+    "function.decorator:python": "#e87aa4",
+    heading: "#e87aa4",
+    number: "#df8e1d",
+    selfKeyword: "#8839ef",
+    "type.defaultLibrary:go": "#8839ef",
+    "variable.defaultLibrary": "#d66b96",
   },
   tokenColors: [
     // Base text and variables
@@ -36,7 +48,7 @@ export const smoothuiLight: ThemeRegistration = {
     // Comments
     {
       scope: ["comment", "punctuation.definition.comment"],
-      settings: { foreground: "#9ca0b0", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#9ca0b0" },
     },
     // Strings - SmoothUI brand pink
     {
@@ -102,7 +114,7 @@ export const smoothuiLight: ThemeRegistration = {
         "support.function.misc",
         "variable.function",
       ],
-      settings: { foreground: "#1e66f5", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#1e66f5" },
     },
     // Classes and structs - lavender
     {
@@ -113,12 +125,12 @@ export const smoothuiLight: ThemeRegistration = {
         "meta.function-call.constructor",
         "entity.name.struct",
       ],
-      settings: { foreground: "#7287fd", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#7287fd" },
     },
     // Enums
     {
       scope: "entity.name.enum",
-      settings: { foreground: "#7287fd", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#7287fd" },
     },
     // Enum members - orange
     {
@@ -141,7 +153,7 @@ export const smoothuiLight: ThemeRegistration = {
         "support.type",
         "entity.name.type",
       ],
-      settings: { foreground: "#7287fd", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#7287fd" },
     },
     // Decorators and annotations - pink
     {
@@ -157,7 +169,7 @@ export const smoothuiLight: ThemeRegistration = {
     // Parameters - darker pink/rose
     {
       scope: ["variable.parameter", "meta.function.parameters"],
-      settings: { foreground: "#d66b96", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#d66b96" },
     },
     // Built-in constants and functions - purple
     {
@@ -295,7 +307,7 @@ export const smoothuiLight: ThemeRegistration = {
     // TypeScript decorator - blue italic
     {
       scope: "punctuation.decorator.ts",
-      settings: { foreground: "#1e66f5", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#1e66f5" },
     },
     // Expression keywords - purple
     {
@@ -319,7 +331,7 @@ export const smoothuiLight: ThemeRegistration = {
         "variable.parameter.function.language.special.self.python",
         "variable.language.special.self.python",
       ],
-      settings: { foreground: "#8839ef", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#8839ef" },
     },
     // Python decorators - sky blue
     {
@@ -340,7 +352,7 @@ export const smoothuiLight: ThemeRegistration = {
         "entity.name.function.decorator.python",
         "punctuation.definition.decorator.python",
       ],
-      settings: { foreground: "#e87aa4", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#e87aa4" },
     },
     // Python format placeholders - lavender
     {
@@ -413,17 +425,17 @@ export const smoothuiLight: ThemeRegistration = {
     // Markdown bold - pink
     {
       scope: "markup.bold",
-      settings: { foreground: "#e87aa4", fontStyle: "bold" },
+      settings: { fontStyle: "bold", foreground: "#e87aa4" },
     },
     // Markdown italic - pink
     {
       scope: "markup.italic",
-      settings: { foreground: "#e87aa4", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#e87aa4" },
     },
     // Markdown strikethrough
     {
       scope: "markup.strikethrough",
-      settings: { foreground: "#6c6f85", fontStyle: "strikethrough" },
+      settings: { fontStyle: "strikethrough", foreground: "#6c6f85" },
     },
     // Markdown links - blue
     {
@@ -530,7 +542,7 @@ export const smoothuiLight: ThemeRegistration = {
         "punctuation.definition.comment.shebang.shell",
         "meta.shebang.shell",
       ],
-      settings: { foreground: "#e87aa4", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#e87aa4" },
     },
     // Rust storage types - pink
     {
@@ -561,12 +573,12 @@ export const smoothuiLight: ThemeRegistration = {
         "meta.macro.rust support.function.rust",
         "entity.name.function.macro.rust",
       ],
-      settings: { foreground: "#1e66f5", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#1e66f5" },
     },
     // Rust lifetimes - blue
     {
       scope: ["storage.modifier.lifetime.rust", "entity.name.type.lifetime"],
-      settings: { foreground: "#1e66f5", fontStyle: "italic" },
+      settings: { fontStyle: "italic", foreground: "#1e66f5" },
     },
     // Rust self - purple
     {
@@ -613,17 +625,5 @@ export const smoothuiLight: ThemeRegistration = {
       settings: { foreground: "#179299" },
     },
   ],
-  semanticHighlighting: true,
-  semanticTokenColors: {
-    boolean: "#df8e1d",
-    number: "#df8e1d",
-    enumMember: "#df8e1d",
-    "class:python": "#7287fd",
-    "class.builtin:python": "#8839ef",
-    "function.decorator:python": "#e87aa4",
-    selfKeyword: "#8839ef",
-    heading: "#e87aa4",
-    "variable.defaultLibrary": "#d66b96",
-    "type.defaultLibrary:go": "#8839ef",
-  },
+  type: "light",
 };

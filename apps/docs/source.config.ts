@@ -23,7 +23,18 @@ import { smoothuiDark, smoothuiLight } from "./lib/themes";
 
 export const docs = defineDocs({
   docs: {
+    postprocess: {
+      includeProcessedMarkdown: true,
+    },
     schema: frontmatterSchema.extend({
+      contributor: z
+        .object({
+          avatar: z.string().optional(),
+          name: z.string(),
+          url: z.string().optional(),
+        })
+        .optional(),
+      dependencies: z.array(z.string()).optional(),
       /**
        * `{{components}}`, `{{blocks}}`, `{{blockCategories}}` and
        * `{{templates}}` resolve to the generated counts. Frontmatter is parsed
@@ -31,27 +42,16 @@ export const docs = defineDocs({
        * the body can — and this is the text search engines show.
        */
       description: z.string().transform(substituteCounts).optional(),
-      dependencies: z.array(z.string()).optional(),
-      references: z.array(z.string()).optional(),
       installer: z.string().optional(),
       new: z.coerce.date().optional(),
+      references: z.array(z.string()).optional(),
       /**
        * Opt into the split layout: MDX scrolls on the left, the live preview
        * sticks on the right. Temporary — it exists so the layout can be judged on
        * one page before it becomes the default for every component and block.
        */
       splitPreview: z.boolean().optional(),
-      contributor: z
-        .object({
-          name: z.string(),
-          url: z.string().optional(),
-          avatar: z.string().optional(),
-        })
-        .optional(),
     }),
-    postprocess: {
-      includeProcessedMarkdown: true,
-    },
   },
   meta: {
     schema: metaSchema.extend({
@@ -63,33 +63,27 @@ export const docs = defineDocs({
 export const blog = defineDocs({
   dir: "content/blog",
   docs: {
-    schema: frontmatterSchema.extend({
-      description: z.string().transform(substituteCounts).optional(),
-      date: z.string(),
-      author: z.string().optional(),
-      image: z.string().optional(),
-    }),
     postprocess: {
       includeProcessedMarkdown: true,
     },
+    schema: frontmatterSchema.extend({
+      author: z.string().optional(),
+      date: z.string(),
+      description: z.string().transform(substituteCounts).optional(),
+      image: z.string().optional(),
+    }),
   },
 });
 
 export default defineConfig({
-  plugins: [
-    jsonSchema({
-      insert: true,
-    }),
-    lastModified(),
-  ],
   mdxOptions: {
     rehypeCodeOptions: {
-      lazy: true,
-      langs: ["ts", "js", "html", "tsx", "mdx", "css"],
       inline: "tailing-curly-colon",
+      langs: ["ts", "js", "html", "tsx", "mdx", "css"],
+      lazy: true,
       themes: {
-        light: smoothuiLight,
         dark: smoothuiDark,
+        light: smoothuiLight,
       },
       transformers: [
         ...(rehypeCodeDefaultOptions.transformers ?? []),
@@ -100,7 +94,6 @@ export default defineConfig({
               : createFileSystemTypesCache(),
         }),
         {
-          name: "@shikijs/transformers:remove-notation-escape",
           code(hast) {
             function replace(node: ElementContent): void {
               if (node.type === "text") {
@@ -115,9 +108,11 @@ export default defineConfig({
             replace(hast);
             return hast;
           },
+          name: "@shikijs/transformers:remove-notation-escape",
         },
       ],
     },
+    rehypePlugins: (v) => [rehypeKatex, ...v],
     remarkCodeTabOptions: {
       parseMdx: true,
     },
@@ -132,6 +127,11 @@ export default defineConfig({
       remarkAutoTypeTable,
       remarkTypeScriptToJavaScript,
     ],
-    rehypePlugins: (v) => [rehypeKatex, ...v],
   },
+  plugins: [
+    jsonSchema({
+      insert: true,
+    }),
+    lastModified(),
+  ],
 });

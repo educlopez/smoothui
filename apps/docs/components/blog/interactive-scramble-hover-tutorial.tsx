@@ -24,46 +24,66 @@ const CHARACTERS =
 
 const STEPS = [
   {
+    description: "Start with a simple button rendering a string.",
     id: "base",
     title: "Base Text",
-    description: "Start with a simple button rendering a string.",
   },
   {
-    id: "scramble",
-    title: "Scramble Function",
     description:
       "Write a pure function that replaces every character (except spaces) with a random one.",
+    id: "scramble",
+    title: "Scramble Function",
   },
   {
-    id: "interval",
-    title: "Interval Loop",
     description:
       "On hover, run setInterval to reshuffle the text every few milliseconds.",
+    id: "interval",
+    title: "Interval Loop",
   },
   {
-    id: "timeout",
-    title: "Stop & Restore",
     description:
       "Use setTimeout so the scramble lasts a fixed duration, then reset to the original text.",
+    id: "timeout",
+    title: "Stop & Restore",
   },
   {
-    id: "cleanup",
-    title: "Cleanup on Leave",
     description:
       "Clear timers when the pointer leaves so animations don't leak or overlap.",
+    id: "cleanup",
+    title: "Cleanup on Leave",
   },
   {
-    id: "accessibility",
-    title: "Accessibility",
     description:
       "Detect hover-capable devices and respect prefers-reduced-motion.",
+    id: "accessibility",
+    title: "Accessibility",
   },
 ] as const;
 
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
+  accessibility: `useEffect(() => {
+  const motion = matchMedia("(prefers-reduced-motion: reduce)");
+  const hover = matchMedia("(hover: hover) and (pointer: fine)");
+  setReduced(motion.matches);
+  setHasHover(hover.matches);
+}, []);
+
+const onEnter = reduced || !hasHover ? undefined : handleMouseEnter;`,
   base: "<button>{text}</button>",
+  cleanup: `const handleMouseLeave = () => {
+  clearInterval(intervalRef.current!);
+  clearTimeout(timeoutRef.current!);
+  setDisplay(text);
+};`,
+  interval: `const [display, setDisplay] = useState(text);
+
+const handleMouseEnter = () => {
+  intervalRef.current = setInterval(() => {
+    setDisplay(scrambleText(text));
+  }, 30);
+};`,
   scramble: `const CHARACTERS = "ABC...xyz0123!@#".split("");
 
 function scrambleText(original: string) {
@@ -74,13 +94,6 @@ function scrambleText(original: string) {
     )
     .join("");
 }`,
-  interval: `const [display, setDisplay] = useState(text);
-
-const handleMouseEnter = () => {
-  intervalRef.current = setInterval(() => {
-    setDisplay(scrambleText(text));
-  }, 30);
-};`,
   timeout: `const handleMouseEnter = () => {
   intervalRef.current = setInterval(() => {
     setDisplay(scrambleText(text));
@@ -91,19 +104,6 @@ const handleMouseEnter = () => {
     setDisplay(text); // snap back to original
   }, 600);
 };`,
-  cleanup: `const handleMouseLeave = () => {
-  clearInterval(intervalRef.current!);
-  clearTimeout(timeoutRef.current!);
-  setDisplay(text);
-};`,
-  accessibility: `useEffect(() => {
-  const motion = matchMedia("(prefers-reduced-motion: reduce)");
-  const hover = matchMedia("(hover: hover) and (pointer: fine)");
-  setReduced(motion.matches);
-  setHasHover(hover.matches);
-}, []);
-
-const onEnter = reduced || !hasHover ? undefined : handleMouseEnter;`,
 };
 
 interface InteractiveScrambleHoverTutorialProps {
@@ -148,7 +148,7 @@ export function InteractiveScrambleHoverTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
     for (const ref of stepRefs.current.values()) {
       observer.observe(ref);
@@ -246,8 +246,8 @@ export function InteractiveScrambleHoverTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />

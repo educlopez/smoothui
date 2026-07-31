@@ -13,9 +13,9 @@ import {
 } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 /**
  * How close to the bottom still counts as "at the bottom".
@@ -71,7 +71,7 @@ const AIConversation = ({
     // not worth throwing over — assigning scrollTop lands in the same place,
     // just without the smoothing.
     if (typeof viewport.scrollTo === "function") {
-      viewport.scrollTo({ top: viewport.scrollHeight, behavior });
+      viewport.scrollTo({ behavior, top: viewport.scrollHeight });
     } else {
       viewport.scrollTop = viewport.scrollHeight;
     }
@@ -113,18 +113,18 @@ const AIConversation = ({
       <AnimatePresence initial={false}>
         {!isPinned && (
           <motion.button
-            animate={{ opacity: 1, y: 0, scale: 1 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
             aria-label="Jump to latest"
             className="absolute inset-x-0 bottom-3 mx-auto flex w-fit cursor-pointer items-center gap-1.5 rounded-full border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-foreground text-xs shadow-sm backdrop-blur"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, y: 8, scale: 0.96 }
+                : { opacity: 0, scale: 0.96, y: 8 }
             }
             initial={
               shouldReduceMotion
-                ? { opacity: 1, y: 0, scale: 1 }
-                : { opacity: 0, y: 8, scale: 0.96 }
+                ? { opacity: 1, scale: 1, y: 0 }
+                : { opacity: 0, scale: 0.96, y: 8 }
             }
             onClick={() =>
               scrollToBottom(shouldReduceMotion ? "auto" : "smooth")

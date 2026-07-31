@@ -22,26 +22,26 @@ export function ArticleSchema({
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: title,
-    description,
-    datePublished: date,
-    dateModified: dateModified ?? date,
     author: author
       ? {
           "@type": "Person",
           name: author,
         }
       : undefined,
-    publisher: {
-      "@id": "https://smoothui.dev/#organization",
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://smoothui.dev${url}`,
-    },
+    dateModified: dateModified ?? date,
+    datePublished: date,
+    description,
+    headline: title,
     image:
       image ??
       `https://smoothui.dev/og/blog/${url.replace("/blog/", "")}/image.png`,
+    mainEntityOfPage: {
+      "@id": `https://smoothui.dev${url}`,
+      "@type": "WebPage",
+    },
+    publisher: {
+      "@id": "https://smoothui.dev/#organization",
+    },
   };
 
   return (

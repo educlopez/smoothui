@@ -33,15 +33,15 @@ export interface AnimatedStepperProps {
  * ───────────────────────────────────────────────────────── */
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const SPRING_BOUNCY = {
-  type: "spring" as const,
-  duration: 0.3,
   bounce: 0.2,
+  duration: 0.3,
+  type: "spring" as const,
 };
 
 function CheckIcon() {

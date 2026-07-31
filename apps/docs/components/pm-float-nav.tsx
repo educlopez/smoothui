@@ -71,7 +71,7 @@ export function PmFloatNav() {
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring", stiffness: 300, damping: 30 }
+                : { damping: 30, stiffness: 300, type: "spring" }
             }
           >
             {packageManagers.map((pm) => {

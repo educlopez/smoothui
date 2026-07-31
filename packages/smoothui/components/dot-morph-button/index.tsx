@@ -47,14 +47,14 @@ export function DotMorphButton({
         animate={
           shouldReduceMotion || !isHoverDevice || !isHovered
             ? {
-                width: 16,
-                height: 16,
                 borderRadius: 999,
+                height: 16,
+                width: 16,
               }
             : {
-                width: 12,
-                height: 28,
                 borderRadius: 999,
+                height: 28,
+                width: 12,
               }
         }
         className="flex items-center justify-center"
@@ -67,10 +67,10 @@ export function DotMorphButton({
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 600,
                 damping: 22,
                 duration: 0.25,
+                stiffness: 600,
+                type: "spring" as const,
               }
         }
       />

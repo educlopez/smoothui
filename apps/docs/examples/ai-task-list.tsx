@@ -20,10 +20,6 @@ const buildTasks = (progress: number): AITask[] => {
 
   return [
     {
-      id: "verify",
-      label: "Verify vendor records",
-      note: "12 suppliers",
-      status: statusAt(0),
       children: [
         {
           id: "verify-ids",
@@ -38,12 +34,12 @@ const buildTasks = (progress: number): AITask[] => {
           status: statusAt(0),
         },
       ],
+      id: "verify",
+      label: "Verify vendor records",
+      note: "12 suppliers",
+      status: statusAt(0),
     },
     {
-      id: "reorder",
-      label: "Build reorder task list",
-      note: "7 SKUs",
-      status: statusAt(1),
       children: [
         {
           id: "reorder-pos",
@@ -58,6 +54,10 @@ const buildTasks = (progress: number): AITask[] => {
           status: statusAt(1),
         },
       ],
+      id: "reorder",
+      label: "Build reorder task list",
+      note: "7 SKUs",
+      status: statusAt(1),
     },
     {
       id: "email",

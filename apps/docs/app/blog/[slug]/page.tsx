@@ -53,21 +53,21 @@ export default async function BlogPostPage({ params }: PageProps) {
             itemListElement: [
               {
                 "@type": "ListItem",
-                position: 1,
-                name: "Home",
                 item: "https://smoothui.dev",
+                name: "Home",
+                position: 1,
               },
               {
                 "@type": "ListItem",
-                position: 2,
-                name: "Blog",
                 item: "https://smoothui.dev/blog",
+                name: "Blog",
+                position: 2,
               },
               {
                 "@type": "ListItem",
-                position: 3,
-                name: post.data.title,
                 item: `https://smoothui.dev${post.url}`,
+                name: post.data.title,
+                position: 3,
               },
             ],
           }),
@@ -164,20 +164,20 @@ export async function generateMetadata({
   const image = getBlogPageImage(slug);
 
   return createMetadata({
-    title: post.data.title,
-    description: post.data.description,
     alternates: {
       canonical: `/blog/${slug}`,
     },
+    description: post.data.description,
     openGraph: {
+      authors: post.data.author ? [post.data.author as string] : undefined,
+      images: [{ height: 630, url: image.url, width: 1200 }],
+      publishedTime: post.data.date as string,
       type: "article",
       url: `/blog/${slug}`,
-      publishedTime: post.data.date as string,
-      authors: post.data.author ? [post.data.author as string] : undefined,
-      images: [{ url: image.url, width: 1200, height: 630 }],
     },
+    title: post.data.title,
     twitter: {
-      images: [{ url: image.url, width: 1200, height: 630 }],
+      images: [{ height: 630, url: image.url, width: 1200 }],
     },
   });
 }

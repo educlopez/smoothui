@@ -5,13 +5,13 @@ import AITaskList, { type AITask } from "../index";
 
 const TASKS: AITask[] = [
   {
-    id: "a",
-    label: "Verify records",
-    status: "done",
     children: [
       { id: "a1", label: "Match IDs", status: "done" },
       { id: "a2", label: "Flag stale", status: "running" },
     ],
+    id: "a",
+    label: "Verify records",
+    status: "done",
   },
   { id: "b", label: "Draft emails", status: "pending" },
 ];

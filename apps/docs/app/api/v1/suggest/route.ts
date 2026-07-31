@@ -79,15 +79,15 @@ const toSuggestion = (
   type: "component" | "block",
   score: number
 ): Suggestion => ({
-  type,
-  name: item.name,
-  displayName: item.displayName,
-  description: item.description,
   category: item.category,
-  relevanceScore: score,
-  installCommand: item.installCommand,
+  description: item.description,
+  displayName: item.displayName,
   docUrl: item.docUrl,
+  installCommand: item.installCommand,
+  name: item.name,
   registryUrl: item.registryUrl,
+  relevanceScore: score,
+  type,
 });
 
 export const GET = async (request: NextRequest): Promise<Response> => {

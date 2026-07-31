@@ -43,22 +43,22 @@ export default function DepthParallaxWords({
           <motion.span
             animate={
               play
-                ? { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }
+                ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
                 : undefined
             }
             aria-hidden="true"
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: 18, scale: 0.92, filter: "blur(3px)" }
+                : { filter: "blur(3px)", opacity: 0, scale: 0.92, y: 18 }
             }
             style={{ display: "inline-block", whiteSpace: "pre" }}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    duration: DURATION_S,
                     delay: delay / MS + (index * stagger) / MS,
+                    duration: DURATION_S,
                     ease: EASE,
                   }
             }

@@ -6,25 +6,25 @@ import PhotoStack, {
 
 const photos: PhotoStackPhoto[] = [
   {
-    id: "canyon",
-    src: "/images/figma/bg-9.webp",
     alt: "Desert canyon at sunset",
+    id: "canyon",
     name: "Desert Canyon",
     role: "Golden hour",
+    src: "/images/figma/bg-9.webp",
   },
   {
-    id: "palms",
-    src: "/images/figma/bg-11.webp",
     alt: "Palm grove in soft light",
+    id: "palms",
     name: "Palm Grove",
     role: "Summer haze",
+    src: "/images/figma/bg-11.webp",
   },
   {
-    id: "lights",
-    src: "/images/figma/bg-13.webp",
     alt: "City lights bokeh at night",
+    id: "lights",
     name: "City Lights",
     role: "After dark",
+    src: "/images/figma/bg-13.webp",
   },
 ];
 

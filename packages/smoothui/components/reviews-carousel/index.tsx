@@ -53,15 +53,15 @@ function ReviewCard({
   return (
     <motion.figure
       animate={{
-        y,
         scale,
         transition: {
-          type: "spring" as const,
-          stiffness: 250,
           damping: 20,
-          mass: 0.5,
           duration: 0.25,
+          mass: 0.5,
+          stiffness: 250,
+          type: "spring" as const,
         },
+        y,
       }}
       className={cn(
         "absolute left-1/2 w-[calc(100%-2rem)] max-w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-foreground/10 bg-background/80 p-4 shadow-lg backdrop-blur-md sm:p-6"
@@ -69,15 +69,15 @@ function ReviewCard({
       initial={false}
       style={{
         borderWidth: 1 / scale,
-        willChange: "opacity, filter, transform",
         filter: `blur(${blur}px)`,
         opacity,
-        transitionProperty: "opacity, filter",
-        transitionDuration: shouldReduceMotion ? "0ms" : "250ms",
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        zIndex: totalCards - index,
         pointerEvents: isActive ? "auto" : "none",
         top: "50%", // Centrar verticalmente
+        transitionDuration: shouldReduceMotion ? "0ms" : "250ms",
+        transitionProperty: "opacity, filter",
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        willChange: "opacity, filter, transform",
+        zIndex: totalCards - index,
       }}
     >
       <blockquote className="relative">

@@ -26,9 +26,9 @@ export const FONT_OPTIONS = [
 export type FontId = (typeof FONT_OPTIONS)[number]["id"];
 
 export const TINT_OPTIONS = [
-  { id: "neutral", label: "Neutral", hue: 0, chroma: 0 },
-  { id: "warm", label: "Warm", hue: 75, chroma: 0.009 },
-  { id: "cool", label: "Cool", hue: 255, chroma: 0.009 },
+  { chroma: 0, hue: 0, id: "neutral", label: "Neutral" },
+  { chroma: 0.009, hue: 75, id: "warm", label: "Warm" },
+  { chroma: 0.009, hue: 255, id: "cool", label: "Cool" },
 ] as const;
 
 export type TintId = (typeof TINT_OPTIONS)[number]["id"];
@@ -211,9 +211,9 @@ export const buildStudioCssVars = (
     state.accent
   );
   return {
-    theme: { "font-sans": fontStack(state.font) },
-    light: { ...light, radius: `${state.radius / PX_PER_REM}rem` },
     dark,
+    light: { ...light, radius: `${state.radius / PX_PER_REM}rem` },
+    theme: { "font-sans": fontStack(state.font) },
   };
 };
 
@@ -235,11 +235,11 @@ export const getCustomTheme = (itemName: string): RegistryItem | undefined => {
   const palette = THEME_PALETTES.find((entry) => entry.name === state.palette);
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: itemName,
-    type: "registry:theme",
-    title: `SmoothUI ${palette?.label ?? state.palette} (custom)`,
-    description: `Custom SmoothUI ${state.palette} theme from the Theme Studio: radius ${state.radius}px, accent ${state.accent >= 0 ? "+" : ""}${state.accent}, ${state.font} font, ${state.tint} neutrals.`,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
     cssVars,
+    description: `Custom SmoothUI ${state.palette} theme from the Theme Studio: radius ${state.radius}px, accent ${state.accent >= 0 ? "+" : ""}${state.accent}, ${state.font} font, ${state.tint} neutrals.`,
+    name: itemName,
+    title: `SmoothUI ${palette?.label ?? state.palette} (custom)`,
+    type: "registry:theme",
   };
 };

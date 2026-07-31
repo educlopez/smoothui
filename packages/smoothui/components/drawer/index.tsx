@@ -82,10 +82,10 @@ const StaggerChild = ({
       shouldReduceMotion
         ? { duration: 0 }
         : {
-            type: "spring" as const,
-            duration: 0.25,
             bounce: 0,
             delay: STAGGER_BASE_DELAY + index * STAGGER_CHILD_DELAY,
+            duration: 0.25,
+            type: "spring" as const,
           }
     }
   >
@@ -116,8 +116,8 @@ const AnimatedHandle = ({
         ? { duration: 0 }
         : {
             duration: 2,
-            repeat: Number.POSITIVE_INFINITY,
             ease: [0.645, 0.045, 0.355, 1],
+            repeat: Number.POSITIVE_INFINITY,
           }
     }
   />

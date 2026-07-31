@@ -5,8 +5,8 @@ import { render, screen, waitFor } from "../../../test-utils/render";
 import AppDownloadStack from "../index";
 
 const apps = [
-  { id: 1, name: "GitHub", icon: "https://example.com/github.png" },
-  { id: 2, name: "Figma", icon: "https://example.com/figma.png" },
+  { icon: "https://example.com/github.png", id: 1, name: "GitHub" },
+  { icon: "https://example.com/figma.png", id: 2, name: "Figma" },
 ];
 
 /** Fully controlled wrapper mirroring real-world usage of selectedApps + onChange. */

@@ -31,10 +31,10 @@ export function BlurMagic({
       ref={ref}
       style={
         {
-          "--stop": stop,
+          "--background": background,
           "--blur": blur,
           "--height": height,
-          "--background": background,
+          "--stop": stop,
           ...(debug && {
             outline: "2px solid var(--color-orange)",
           }),

@@ -31,9 +31,9 @@ import { useCallback, useEffect, useRef, useState } from "react";
 /* ------------------------------------------------------------------ */
 
 const SPRING_PANEL = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.05,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const BACKDROP_DURATION = 0.2;
@@ -121,10 +121,10 @@ const StaggerChild = ({
       shouldReduceMotion
         ? { duration: 0 }
         : {
-            type: "spring" as const,
-            duration: 0.25,
             bounce: 0,
             delay: index * STAGGER_DELAY,
+            duration: 0.25,
+            type: "spring" as const,
           }
     }
   >

@@ -4,22 +4,22 @@ import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import Select from "../index";
 
 const options = [
-  { value: "apple", label: "Apple" },
-  { value: "banana", label: "Banana" },
-  { value: "cherry", label: "Cherry" },
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
 ];
 
 const groups = [
   {
     label: "Citrus",
     options: [
-      { value: "lemon", label: "Lemon" },
-      { value: "lime", label: "Lime" },
+      { label: "Lemon", value: "lemon" },
+      { label: "Lime", value: "lime" },
     ],
   },
   {
     label: "Berries",
-    options: [{ value: "grape", label: "Grape", disabled: true }],
+    options: [{ disabled: true, label: "Grape", value: "grape" }],
   },
 ];
 

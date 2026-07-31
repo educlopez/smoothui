@@ -175,13 +175,13 @@ export default function JobListingComponent({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
-                      duration: 0.25,
                       bounce: 0.1,
+                      duration: 0.25,
                       layout: {
                         duration: 0.25,
                         ease: [0.645, 0.045, 0.355, 1],
                       },
+                      type: "spring" as const,
                     }
               }
             >
@@ -193,8 +193,8 @@ export default function JobListingComponent({
                       : `workItemLogo-${activeItem.company}`
                   }
                   style={{
-                    willChange: shouldReduceMotion ? "auto" : "transform",
                     flexShrink: 0,
+                    willChange: shouldReduceMotion ? "auto" : "transform",
                   }}
                 >
                   {activeItem.logo}
@@ -233,9 +233,9 @@ export default function JobListingComponent({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
+                        delay: 0.05,
                         duration: 0.2,
                         ease: [0.215, 0.61, 0.355, 1],
-                        delay: 0.05,
                       }
                 }
               >
@@ -268,13 +268,13 @@ export default function JobListingComponent({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
-                      duration: 0.25,
                       bounce: 0.1,
+                      duration: 0.25,
                       layout: {
                         duration: 0.25,
                         ease: [0.645, 0.045, 0.355, 1],
                       },
+                      type: "spring" as const,
                     }
               }
               whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
@@ -286,8 +286,8 @@ export default function JobListingComponent({
                     : `workItemLogo-${role.company}`
                 }
                 style={{
-                  willChange: shouldReduceMotion ? "auto" : "transform",
                   flexShrink: 0,
+                  willChange: shouldReduceMotion ? "auto" : "transform",
                 }}
               >
                 {role.logo}
@@ -310,10 +310,10 @@ export default function JobListingComponent({
               </div>
               <div
                 style={{
-                  position: "absolute",
-                  top: "100%",
                   opacity: 0,
                   pointerEvents: "none",
+                  position: "absolute",
+                  top: "100%",
                 }}
               >
                 {role.job_description}

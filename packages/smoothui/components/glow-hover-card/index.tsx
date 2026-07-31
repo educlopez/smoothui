@@ -50,7 +50,7 @@ export default function GlowHover({
     x: number;
     y: number;
     opacity: number;
-  }>({ x: 0, y: 0, opacity: 0 });
+  }>({ opacity: 0, x: 0, y: 0 });
   const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
@@ -66,9 +66,9 @@ export default function GlowHover({
       const y = e.clientY - rect.top;
 
       setMousePosition({
+        opacity: 1,
         x,
         y,
-        opacity: 1,
       });
     };
 
@@ -139,9 +139,9 @@ export default function GlowHover({
     // Sync on DOM mutations
     if (containerRef.current) {
       mutationObserver.observe(containerRef.current, {
+        attributes: true,
         childList: true,
         subtree: true,
-        attributes: true,
       });
     }
 
@@ -185,9 +185,9 @@ export default function GlowHover({
       // Use theme HSL colors
       const hsl = `${theme.hue}, ${theme.saturation}%, ${theme.lightness}%`;
       glowStyles = {
+        backgroundColor: `hsla(${hsl}, ${glowIntensity})`,
         borderColor: `hsla(${hsl}, 1)`,
         boxShadow: `0 0 0 1px inset hsl(${hsl}), 0 0 20px hsla(${hsl}, ${glowIntensity})`,
-        backgroundColor: `hsla(${hsl}, ${glowIntensity})`,
       };
     } else {
       // Use brand color from CSS variable (OKLCH format supports / opacity)
@@ -195,9 +195,9 @@ export default function GlowHover({
       // OKLCH format: oklch(L C H / opacity)
       const brandWithOpacity = `color-mix(in oklch, ${brandColor}, transparent ${(1 - glowIntensity) * 100}%)`;
       glowStyles = {
+        backgroundColor: brandWithOpacity,
         borderColor: brandColor,
         boxShadow: `0 0 0 1px inset ${brandColor}, 0 0 20px ${brandWithOpacity}`,
-        backgroundColor: brandWithOpacity,
       };
     }
 
@@ -209,8 +209,8 @@ export default function GlowHover({
 
     return cloneElement(element, {
       ...props,
-      style: mergedStyle,
       className: cn(existingClassName, "glow-overlay-item"),
+      style: mergedStyle,
       // biome-ignore lint/suspicious/noExplicitAny: cloneElement requires flexible typing
     } as any);
   };
@@ -251,11 +251,11 @@ export default function GlowHover({
           className="pointer-events-none absolute inset-0 select-none"
           ref={overlayRef}
           style={{
-            opacity: mousePosition.opacity,
             maskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
-            WebkitMaskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
+            opacity: mousePosition.opacity,
             transition:
               "opacity 200ms ease, mask-image 200ms ease, -webkit-mask-image 200ms ease",
+            WebkitMaskImage: `radial-gradient(${maskSize}px ${maskSize}px at ${mousePosition.x}px ${mousePosition.y}px, #000 1%, transparent 50%)`,
             willChange: "mask-image, opacity",
           }}
         >

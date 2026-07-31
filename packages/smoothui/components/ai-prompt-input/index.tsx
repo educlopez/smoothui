@@ -31,14 +31,14 @@ const MIN_ROWS = 1;
 const MAX_ROWS = 8;
 const COUNTER_VISIBLE_RATIO = 0.8;
 const SPRING_DEFAULT: Transition = {
-  type: "spring",
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring",
 };
 const SPRING_SNAPPY: Transition = {
-  type: "spring",
-  duration: 0.2,
   bounce: 0,
+  duration: 0.2,
+  type: "spring",
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const ATTACHMENT_STAGGER = 0.035;

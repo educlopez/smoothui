@@ -4,30 +4,30 @@ interface BreadcrumbSchemaProps {
 }
 
 const sectionLabels: Record<string, string> = {
-  components: "Components",
   blocks: "Blocks",
+  components: "Components",
   guides: "Guides",
 };
 
 export function BreadcrumbSchema({ slugs, title }: BreadcrumbSchemaProps) {
   const items: { name: string; item: string }[] = [
-    { name: "Home", item: "https://smoothui.dev" },
-    { name: "Docs", item: "https://smoothui.dev/docs" },
+    { item: "https://smoothui.dev", name: "Home" },
+    { item: "https://smoothui.dev/docs", name: "Docs" },
   ];
 
   if (slugs.length > 0) {
     const section = slugs[0];
     const label = sectionLabels[section] ?? section;
     items.push({
-      name: label,
       item: `https://smoothui.dev/docs/${section}`,
+      name: label,
     });
   }
 
   if (slugs.length > 1) {
     items.push({
-      name: title,
       item: `https://smoothui.dev/docs/${slugs.join("/")}`,
+      name: title,
     });
   }
 
@@ -36,9 +36,9 @@ export function BreadcrumbSchema({ slugs, title }: BreadcrumbSchemaProps) {
     "@type": "BreadcrumbList",
     itemListElement: items.map((entry, index) => ({
       "@type": "ListItem",
-      position: index + 1,
-      name: entry.name,
       item: entry.item,
+      name: entry.name,
+      position: index + 1,
     })),
   };
 

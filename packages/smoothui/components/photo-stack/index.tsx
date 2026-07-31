@@ -23,9 +23,9 @@ export interface PhotoStackProps {
 
 // Resting offset/scale per stack position (0 = front).
 const POSITIONS = [
-  { x: 0, y: 0, scale: 1 },
-  { x: 16, y: 12, scale: 0.95 },
-  { x: 32, y: 24, scale: 0.9 },
+  { scale: 1, x: 0, y: 0 },
+  { scale: 0.95, x: 16, y: 12 },
+  { scale: 0.9, x: 32, y: 24 },
 ];
 
 /**
@@ -61,7 +61,7 @@ export default function PhotoStack({
 
         return (
           <motion.div
-            animate={{ x: rest.x, y: rest.y, scale: rest.scale, rotate: 0 }}
+            animate={{ rotate: 0, scale: rest.scale, x: rest.x, y: rest.y }}
             aria-label={
               isFront ? `${photo.name ?? photo.alt} — next` : undefined
             }
@@ -93,14 +93,14 @@ export default function PhotoStack({
             }}
             role={isFront ? "button" : undefined}
             style={{
-              zIndex: photos.length - pos,
               cursor: isFront ? "grab" : "default",
+              zIndex: photos.length - pos,
             }}
             tabIndex={isFront ? 0 : -1}
             transition={
               reduceMotion
                 ? { duration: 0 }
-                : { type: "spring", stiffness: 320, damping: 30 }
+                : { damping: 30, stiffness: 320, type: "spring" }
             }
             whileDrag={{ cursor: "grabbing" }}
           >

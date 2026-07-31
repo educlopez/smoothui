@@ -97,8 +97,8 @@ const AIOrbFace = ({
   const rightLid = useAnimationControls();
   const bodyControls = useAnimationControls();
 
-  const gazeX = useSpring(0, { stiffness: 220, damping: 26 });
-  const gazeY = useSpring(0, { stiffness: 220, damping: 26 });
+  const gazeX = useSpring(0, { damping: 26, stiffness: 220 });
+  const gazeY = useSpring(0, { damping: 26, stiffness: 220 });
 
   const resolvedSize = typeof size === "number" ? `${size}px` : size;
 
@@ -268,11 +268,11 @@ const AIOrbFace = ({
     }
     bodyControls.start(
       {
-        y: [0, 3, -9, 0, -3, 0],
-        scaleY: [1, 0.9, 1.08, 0.95, 1.02, 1],
         scaleX: [1, 1.08, 0.94, 1.04, 0.99, 1],
+        scaleY: [1, 0.9, 1.08, 0.95, 1.02, 1],
+        y: [0, 3, -9, 0, -3, 0],
       },
-      { duration: 0.85, times: [0, 0.12, 0.4, 0.62, 0.82, 1], ease: EASE_OUT }
+      { duration: 0.85, ease: EASE_OUT, times: [0, 0.12, 0.4, 0.62, 0.82, 1] }
     );
   }, [bodyControls, isHappy, shouldReduceMotion]);
 
@@ -313,14 +313,14 @@ const AIOrbFace = ({
         initial={{ scaleY: 1 }}
         rx={Math.min(EYE_RADIUS, height / 2)}
         style={{
+          transformOrigin: `${x + EYE_WIDTH / 2}px ${y + height / 2}px`,
           x: gazeX,
           y: gazeY,
-          transformOrigin: `${x + EYE_WIDTH / 2}px ${y + height / 2}px`,
         }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { type: "spring", duration: 0.25, bounce: 0.1 }
+            : { bounce: 0.1, duration: 0.25, type: "spring" }
         }
         width={EYE_WIDTH}
         x={x}
@@ -344,7 +344,7 @@ const AIOrbFace = ({
         transition={
           shouldReduceMotion
             ? { duration: 0 }
-            : { duration: 0.3, ease: EASE_OUT, delay: side === -1 ? 0 : 0.06 }
+            : { delay: side === -1 ? 0 : 0.06, duration: 0.3, ease: EASE_OUT }
         }
       />
     );
@@ -359,9 +359,9 @@ const AIOrbFace = ({
       strokeLinecap="round"
       strokeWidth={3}
       style={{
+        scale: 1.5,
         x: CENTER + side * EYE_OFFSET,
         y: EYE_Y + EYE_HEIGHT / 2,
-        scale: 1.5,
       }}
       transition={{
         duration: 2.4,
@@ -448,9 +448,9 @@ const AIOrbFace = ({
       ref={svgRef}
       role={ariaLabel ? "img" : undefined}
       style={{
-        width: resolvedSize,
-        height: resolvedSize,
         filter: `saturate(${stateMotion.saturation})`,
+        height: resolvedSize,
+        width: resolvedSize,
       }}
       viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`}
     >

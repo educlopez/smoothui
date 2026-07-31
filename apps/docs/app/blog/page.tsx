@@ -6,15 +6,15 @@ import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = createMetadata({
-  title: "React Animation Tutorials & Guides",
-  description:
-    "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
   alternates: {
     canonical: "/blog",
   },
+  description:
+    "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
   openGraph: {
     url: "/blog",
   },
+  title: "React Animation Tutorials & Guides",
 });
 
 const AUTHOR_AVATAR =

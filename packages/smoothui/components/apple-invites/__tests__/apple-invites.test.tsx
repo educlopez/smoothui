@@ -5,15 +5,15 @@ import AppleInvites, { type Event } from "../index";
 const events: Event[] = [
   {
     id: 1,
-    title: "Launch party",
-    location: "Madrid",
     image: "https://example.com/a.jpg",
+    location: "Madrid",
+    title: "Launch party",
   },
   {
     id: 2,
-    title: "Demo day",
-    location: "Barcelona",
     image: "https://example.com/b.jpg",
+    location: "Barcelona",
+    title: "Demo day",
   },
 ];
 

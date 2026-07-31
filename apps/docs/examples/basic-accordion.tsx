@@ -5,8 +5,6 @@ import BasicAccordion from "@repo/smoothui/components/basic-accordion";
 const Example = () => {
   const accordionItems = [
     {
-      id: 1,
-      title: "What is SmoothUI?",
       content: (
         <div className="space-y-2">
           <p className="text-gray-600 dark:text-gray-300">
@@ -19,10 +17,10 @@ const Example = () => {
           </p>
         </div>
       ),
+      id: 1,
+      title: "What is SmoothUI?",
     },
     {
-      id: 2,
-      title: "How do I install SmoothUI?",
       content: (
         <div className="space-y-2">
           <p className="text-gray-600 dark:text-gray-300">
@@ -33,10 +31,10 @@ const Example = () => {
           </code>
         </div>
       ),
+      id: 2,
+      title: "How do I install SmoothUI?",
     },
     {
-      id: 3,
-      title: "Can I customize the components?",
       content: (
         <div className="space-y-2">
           <p className="text-gray-600 dark:text-gray-300">
@@ -49,6 +47,8 @@ const Example = () => {
           </p>
         </div>
       ),
+      id: 3,
+      title: "Can I customize the components?",
     },
   ];
 

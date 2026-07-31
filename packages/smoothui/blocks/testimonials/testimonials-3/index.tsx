@@ -46,7 +46,7 @@ export function TestimonialsStars() {
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: 0.2 }
+                : { delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
             }
           >
             {testimonials.map((testimonial, index) => (
@@ -63,17 +63,17 @@ export function TestimonialsStars() {
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
+                        delay: index * 0.15,
                         duration: 0.5,
                         ease: [0.22, 1, 0.36, 1],
-                        delay: index * 0.15,
                       }
                 }
                 whileHover={
                   shouldReduceMotion
                     ? {}
                     : {
-                        y: -4,
                         transition: { duration: 0.2, ease: [0.22, 1, 0.36, 1] },
+                        y: -4,
                       }
                 }
               >
@@ -93,8 +93,8 @@ export function TestimonialsStars() {
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.4,
                           delay: index * 0.15 + 0.2,
+                          duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }
                   }
@@ -116,8 +116,8 @@ export function TestimonialsStars() {
                         shouldReduceMotion
                           ? { duration: 0 }
                           : {
-                              duration: 0.3,
                               delay: index * 0.15 + 0.2 + i * 0.05,
+                              duration: 0.3,
                               ease: [0.68, -0.55, 0.265, 1.55],
                             }
                       }
@@ -146,8 +146,8 @@ export function TestimonialsStars() {
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.4,
                           delay: index * 0.15 + 0.4,
+                          duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }
                   }
@@ -167,8 +167,8 @@ export function TestimonialsStars() {
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.3,
                           delay: index * 0.15 + 0.5,
+                          duration: 0.3,
                           ease: [0.22, 1, 0.36, 1],
                         }
                   }

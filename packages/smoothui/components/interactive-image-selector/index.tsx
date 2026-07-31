@@ -137,13 +137,13 @@ export default function InteractiveImageSelector({
             shouldReduceMotion || !isResetting
               ? {}
               : {
-                  scale: [RESET_SCALE_START, RESET_SCALE_PEAK, RESET_SCALE_END],
                   rotate: [
                     RESET_ROTATE_START,
                     RESET_ROTATE_POSITIVE,
                     RESET_ROTATE_NEGATIVE,
                     RESET_ROTATE_START,
                   ],
+                  scale: [RESET_SCALE_START, RESET_SCALE_PEAK, RESET_SCALE_END],
                 }
           }
           aria-label="Reset selection"
@@ -166,16 +166,16 @@ export default function InteractiveImageSelector({
           animate={
             isSelecting
               ? {
-                  scale: [
-                    SELECT_SCALE_START,
-                    SELECT_SCALE_PEAK,
-                    SELECT_SCALE_END,
-                  ],
                   rotate: [
                     SELECT_ROTATE_START,
                     SELECT_ROTATE_NEGATIVE,
                     SELECT_ROTATE_POSITIVE,
                     SELECT_ROTATE_START,
+                  ],
+                  scale: [
+                    SELECT_SCALE_START,
+                    SELECT_SCALE_PEAK,
+                    SELECT_SCALE_END,
                   ],
                 }
               : {}
@@ -219,9 +219,6 @@ export default function InteractiveImageSelector({
             <motion.div
               animate={{
                 opacity: 1,
-                scale: isResetting
-                  ? [ITEM_SCALE_START, ITEM_SCALE_MIN, ITEM_SCALE_END]
-                  : 1,
                 rotate: isResetting
                   ? [
                       ITEM_ROTATE_START,
@@ -230,6 +227,9 @@ export default function InteractiveImageSelector({
                       ITEM_ROTATE_START,
                     ]
                   : 0,
+                scale: isResetting
+                  ? [ITEM_SCALE_START, ITEM_SCALE_MIN, ITEM_SCALE_END]
+                  : 1,
               }}
               className="relative aspect-square cursor-pointer"
               exit={{ opacity: 0, scale: 0.8 }}
@@ -238,10 +238,10 @@ export default function InteractiveImageSelector({
               layout
               onClick={() => handleImageClick(img.id)}
               transition={{
-                type: "spring" as const,
-                stiffness: 300,
                 damping: 25,
                 duration: isResetting ? RESET_ANIMATION_DURATION : undefined,
+                stiffness: 300,
+                type: "spring" as const,
               }}
             >
               <img

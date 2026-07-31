@@ -20,50 +20,58 @@ const SmoothUIIsotype = () => (
 
 const STEPS = [
   {
-    id: "static",
-    title: "Static Number",
     description:
       "Start by rendering a number with tabular-nums so digits stay aligned.",
+    id: "static",
+    title: "Static Number",
   },
   {
-    id: "digits",
-    title: "Split into Digits",
     description:
       "Convert the value to a string and animate each character independently.",
+    id: "digits",
+    title: "Split into Digits",
   },
   {
-    id: "presence",
-    title: "Animate Per Digit",
     description:
       "Use AnimatePresence keyed by the character so each digit can enter and exit.",
+    id: "presence",
+    title: "Animate Per Digit",
   },
   {
-    id: "direction",
-    title: "Direction-Aware",
     description:
       "Slide up when the value increases, slide down when it decreases.",
+    id: "direction",
+    title: "Direction-Aware",
   },
   {
+    description: "A quick spring with low bounce keeps the motion crisp.",
     id: "spring",
     title: "Spring Timing",
-    description: "A quick spring with low bounce keeps the motion crisp.",
   },
   {
+    description: "Fall back to an instant swap when users prefer less motion.",
     id: "accessibility",
     title: "Reduced Motion",
-    description: "Fall back to an instant swap when users prefer less motion.",
   },
 ] as const;
 
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
-  static: `<span className="tabular-nums">{value}</span>`,
+  accessibility: `const shouldReduceMotion = useReducedMotion();
+
+transition={shouldReduceMotion
+  ? { duration: 0 }
+  : { type: "spring", duration: 0.3, bounce: 0.1 }}`,
   digits: `const digits = value.toString().split("");
 
 <span className="tabular-nums">
   {digits.map((d, i) => <span key={i}>{d}</span>)}
 </span>`,
+  direction: `const direction = value > previous ? 1 : -1;
+
+initial={{ y: 12 * direction, opacity: 0 }}
+exit={{ y: -12 * direction, opacity: 0 }}`,
   presence: `<AnimatePresence mode="popLayout" initial={false}>
   <motion.span
     key={digit + index}
@@ -74,20 +82,12 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     {digit}
   </motion.span>
 </AnimatePresence>`,
-  direction: `const direction = value > previous ? 1 : -1;
-
-initial={{ y: 12 * direction, opacity: 0 }}
-exit={{ y: -12 * direction, opacity: 0 }}`,
   spring: `transition={{
   type: "spring",
   duration: 0.3,
   bounce: 0.1,
 }}`,
-  accessibility: `const shouldReduceMotion = useReducedMotion();
-
-transition={shouldReduceMotion
-  ? { duration: 0 }
-  : { type: "spring", duration: 0.3, bounce: 0.1 }}`,
+  static: `<span className="tabular-nums">{value}</span>`,
 };
 
 interface InteractiveNumberFlowTutorialProps {
@@ -133,7 +133,7 @@ export function InteractiveNumberFlowTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
     for (const ref of stepRefs.current.values()) {
       observer.observe(ref);
@@ -164,7 +164,7 @@ export function InteractiveNumberFlowTutorial({
   const transition = effectiveReduced
     ? { duration: 0 }
     : useSpring
-      ? { type: "spring" as const, duration: 0.3, bounce: 0.1 }
+      ? { bounce: 0.1, duration: 0.3, type: "spring" as const }
       : { duration: 0.2 };
 
   const digits = value.toString().split("");
@@ -208,8 +208,8 @@ export function InteractiveNumberFlowTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />
@@ -244,15 +244,15 @@ export function InteractiveNumberFlowTutorial({
                         >
                           <AnimatePresence initial={false} mode="popLayout">
                             <motion.span
-                              animate={{ y: 0, opacity: 1 }}
+                              animate={{ opacity: 1, y: 0 }}
                               className="absolute inset-0 flex items-center justify-center"
                               exit={{
-                                y: -18 * direction,
                                 opacity: 0,
+                                y: -18 * direction,
                               }}
                               initial={{
-                                y: 18 * direction,
                                 opacity: 0,
+                                y: 18 * direction,
                               }}
                               key={`${digit}-${index}-${value}`}
                               transition={transition}

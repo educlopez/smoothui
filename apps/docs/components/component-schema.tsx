@@ -36,51 +36,51 @@ export function ComponentSchema({
   const sourceCode = installer
     ? {
         "@type": "SoftwareSourceCode",
-        name: title,
-        description,
         codeRepository: "https://github.com/educlopez/smoothui",
+        description,
+        license: "https://opensource.org/licenses/MIT",
+        name: title,
         programmingLanguage: {
           "@type": "ComputerLanguage",
           name: "TypeScript",
         },
         runtimePlatform: "React",
-        license: "https://opensource.org/licenses/MIT",
-        url: pageUrl,
         // The registry item is the installable artefact behind the article.
         targetProduct: {
           "@type": "SoftwareApplication",
-          name: `SmoothUI ${title}`,
           applicationCategory: "DeveloperApplication",
-          operatingSystem: "Any",
           installUrl: `${BASE_URL}/r/${installer}.json`,
-          softwareRequirements:
-            dependencies && dependencies.length > 0
-              ? dependencies.join(", ")
-              : undefined,
+          name: `SmoothUI ${title}`,
           offers: {
             "@type": "Offer",
             price: "0",
             priceCurrency: "USD",
           },
+          operatingSystem: "Any",
+          softwareRequirements:
+            dependencies && dependencies.length > 0
+              ? dependencies.join(", ")
+              : undefined,
         },
+        url: pageUrl,
       }
     : undefined;
 
   const schema = {
     "@context": "https://schema.org",
     "@type": "TechArticle",
-    headline: title,
-    description,
-    url: pageUrl,
-    isPartOf: { "@id": `${BASE_URL}/#website` },
-    author: { "@id": `${BASE_URL}/#organization` },
-    publisher: { "@id": `${BASE_URL}/#organization` },
-    proficiencyLevel: "Beginner",
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": pageUrl,
-    },
     about: sourceCode,
+    author: { "@id": `${BASE_URL}/#organization` },
+    description,
+    headline: title,
+    isPartOf: { "@id": `${BASE_URL}/#website` },
+    mainEntityOfPage: {
+      "@id": pageUrl,
+      "@type": "WebPage",
+    },
+    proficiencyLevel: "Beginner",
+    publisher: { "@id": `${BASE_URL}/#organization` },
+    url: pageUrl,
   };
 
   // A plain <script> rather than next/script: next/script injects after

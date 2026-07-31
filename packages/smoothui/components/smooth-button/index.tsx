@@ -26,59 +26,59 @@ import { useEffect, useRef } from "react";
 const smoothButtonVariants = cva(
   "relative inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-medium outline-none ring-offset-background transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.97] disabled:pointer-events-none disabled:opacity-50 motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
+    defaultVariants: {
+      shape: "default",
+      size: "default",
+      variant: "default",
+    },
     variants: {
+      color: {
+        accent:
+          "[--btn-fg:#fff] [--btn-hover:var(--color-brand-secondary)] [--btn:var(--color-brand)]",
+        amber:
+          "[--btn-fg:var(--color-amber-fg)] [--btn-hover:var(--color-amber-hover)] [--btn:var(--color-amber)]",
+        blue: "[--btn-fg:var(--color-blue-fg)] [--btn-hover:var(--color-blue-hover)] [--btn:var(--color-blue)]",
+        destructive:
+          "[--btn-fg:#fff] [--btn-hover:color-mix(in_oklab,var(--color-destructive)_85%,black)] [--btn:var(--color-destructive)]",
+        green:
+          "[--btn-fg:var(--color-green-fg)] [--btn-hover:var(--color-green-hover)] [--btn:var(--color-green)]",
+        neutral:
+          "[--btn-fg:var(--color-background)] [--btn-hover:var(--color-smooth-900)] [--btn:var(--color-foreground)]",
+      },
+      shape: {
+        default: "",
+        pill: "rounded-full!",
+        square: "rounded-none!",
+      },
+      size: {
+        default: "h-10 gap-2 rounded-md px-4 py-2 text-sm [&_svg]:size-4",
+        icon: "size-10 rounded-md [&_svg]:size-4",
+        "icon-lg": "size-11 rounded-lg [&_svg]:size-5",
+        "icon-sm": "size-9 rounded-md [&_svg]:size-4",
+        lg: "h-11 gap-2 rounded-lg px-8 text-base [&_svg]:size-5",
+        sm: "h-9 gap-1.5 rounded-md px-3 text-sm [&_svg]:size-4",
+        xs: "h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg]:size-3.5",
+      },
       variant: {
-        // --- new decoupled system (consume --btn / --btn-hover / --btn-fg) ---
-        solid:
-          "bg-[var(--btn,var(--color-foreground))] text-[var(--btn-fg,var(--color-background))] shadow-xs hover:bg-[var(--btn-hover,var(--color-smooth-900))]",
-        soft: "bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_12%,transparent)] text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_18%,transparent)]",
-        outline:
-          "border border-transparent bg-background text-[var(--btn,var(--color-foreground))] shadow-black/15 shadow-sm ring-1 ring-foreground/10 hover:bg-primary dark:ring-foreground/15",
-        ghost:
-          "text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_10%,transparent)]",
-        link: "text-[var(--btn,var(--color-foreground))] underline-offset-4 hover:underline",
         candy:
           "border-[0.5px] border-white/25 bg-gradient-to-b from-[var(--btn,var(--color-brand))] to-[var(--btn-hover,var(--color-brand-secondary))] text-[var(--btn-fg,#fff)] text-shadow-sm shadow-black/20 shadow-md ring-1 ring-[color-mix(in_oklab,var(--color-foreground)_15%,var(--btn,var(--color-brand)))] hover:from-[var(--btn-hover,var(--color-brand-secondary))] hover:to-[var(--btn-hover,var(--color-brand-secondary))] [&_svg]:drop-shadow-sm",
         // --- legacy (preserved verbatim, ignore `color`) ---
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
-        secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         destructive:
           "bg-gradient-to-b from-[#FD4B4E] to-destructive text-shadow-sm text-white shadow-[0px_1px_2px_rgba(0,0,0,0.4),0px_0px_0px_1px_#F61418,inset_0px_0.75px_0px_rgba(255,255,255,0.2)] hover:from-destructive hover:to-destructive",
+        ghost:
+          "text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_10%,transparent)]",
+        link: "text-[var(--btn,var(--color-foreground))] underline-offset-4 hover:underline",
+        outline:
+          "border border-transparent bg-background text-[var(--btn,var(--color-foreground))] shadow-black/15 shadow-sm ring-1 ring-foreground/10 hover:bg-primary dark:ring-foreground/15",
+        secondary:
+          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
+        soft: "bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_12%,transparent)] text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_18%,transparent)]",
+        // --- new decoupled system (consume --btn / --btn-hover / --btn-fg) ---
+        solid:
+          "bg-[var(--btn,var(--color-foreground))] text-[var(--btn-fg,var(--color-background))] shadow-xs hover:bg-[var(--btn-hover,var(--color-smooth-900))]",
       },
-      color: {
-        accent:
-          "[--btn-fg:#fff] [--btn-hover:var(--color-brand-secondary)] [--btn:var(--color-brand)]",
-        neutral:
-          "[--btn-fg:var(--color-background)] [--btn-hover:var(--color-smooth-900)] [--btn:var(--color-foreground)]",
-        destructive:
-          "[--btn-fg:#fff] [--btn-hover:color-mix(in_oklab,var(--color-destructive)_85%,black)] [--btn:var(--color-destructive)]",
-        blue: "[--btn-fg:var(--color-blue-fg)] [--btn-hover:var(--color-blue-hover)] [--btn:var(--color-blue)]",
-        amber:
-          "[--btn-fg:var(--color-amber-fg)] [--btn-hover:var(--color-amber-hover)] [--btn:var(--color-amber)]",
-        green:
-          "[--btn-fg:var(--color-green-fg)] [--btn-hover:var(--color-green-hover)] [--btn:var(--color-green)]",
-      },
-      size: {
-        xs: "h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg]:size-3.5",
-        sm: "h-9 gap-1.5 rounded-md px-3 text-sm [&_svg]:size-4",
-        default: "h-10 gap-2 rounded-md px-4 py-2 text-sm [&_svg]:size-4",
-        lg: "h-11 gap-2 rounded-lg px-8 text-base [&_svg]:size-5",
-        icon: "size-10 rounded-md [&_svg]:size-4",
-        "icon-sm": "size-9 rounded-md [&_svg]:size-4",
-        "icon-lg": "size-11 rounded-lg [&_svg]:size-5",
-      },
-      shape: {
-        default: "",
-        square: "rounded-none!",
-        pill: "rounded-full!",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-      size: "default",
-      shape: "default",
     },
   }
 );
@@ -169,7 +169,7 @@ function SmoothButton({
   }, [forcePress, shouldReduceMotion]);
 
   const classes = cn(
-    smoothButtonVariants({ variant, color, size, shape, className })
+    smoothButtonVariants({ className, color, shape, size, variant })
   );
 
   // asChild defers all rendering to the consumer's element — slots/loading
@@ -203,19 +203,19 @@ function SmoothButton({
       <AnimatePresence initial={false}>
         {loading && (
           <motion.span
-            animate={{ width: "1em", opacity: 1, marginRight: "0.5rem" }}
+            animate={{ marginRight: "0.5rem", opacity: 1, width: "1em" }}
             className="inline-flex shrink-0 items-center justify-center overflow-hidden"
-            exit={{ width: 0, opacity: 0, marginRight: 0 }}
+            exit={{ marginRight: 0, opacity: 0, width: 0 }}
             initial={
               shouldReduceMotion
-                ? { width: "1em", opacity: 1, marginRight: "0.5rem" }
-                : { width: 0, opacity: 0, marginRight: 0 }
+                ? { marginRight: "0.5rem", opacity: 1, width: "1em" }
+                : { marginRight: 0, opacity: 0, width: 0 }
             }
             key="spinner"
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring", duration: 0.25, bounce: 0.1 }
+                : { bounce: 0.1, duration: 0.25, type: "spring" }
             }
           >
             <Spinner />

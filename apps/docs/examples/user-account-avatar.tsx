@@ -8,22 +8,22 @@ import { getImageKitUrl } from "@smoothui/data";
 import { useEffect, useState } from "react";
 
 const demoUser: UserData = {
-  name: "Jane Doe",
-  email: "jane@example.com",
   avatar: getImageKitUrl(
     "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
     {
-      width: 96,
+      format: "auto",
       height: 96,
       quality: 85,
-      format: "auto",
+      width: 96,
     }
   ),
+  email: "jane@example.com",
+  name: "Jane Doe",
 };
 
 const demoOrders: Order[] = [
-  { id: "ORD100", date: "2024-06-01", status: "delivered", progress: 100 },
-  { id: "ORD101", date: "2024-06-10", status: "shipped", progress: 60 },
+  { date: "2024-06-01", id: "ORD100", progress: 100, status: "delivered" },
+  { date: "2024-06-10", id: "ORD101", progress: 60, status: "shipped" },
 ];
 
 const UserAccountAvatarDemo = () => {

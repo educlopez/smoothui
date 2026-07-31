@@ -6,31 +6,31 @@ import { BgLines } from "./landing/bg-lines";
 const featureCardVariants = cva(
   "frame-box relative grid grid-cols-[4px_1fr] items-start gap-2 rounded-md bg-linear-to-br from-background via-background px-3 py-2.5",
   {
-    variants: {
-      variant: {
-        info: "to-brand/10",
-        warning: "to-yellow-500/10",
-        error: "to-red-500/10",
-        success: "to-green-500/10",
-      },
-    },
     defaultVariants: {
       variant: "info",
+    },
+    variants: {
+      variant: {
+        error: "to-red-500/10",
+        info: "to-brand/10",
+        success: "to-green-500/10",
+        warning: "to-yellow-500/10",
+      },
     },
   }
 );
 
 const featureCardBarVariants = cva("h-full w-1 rounded-full bg-linear-to-b", {
-  variants: {
-    variant: {
-      info: "from-brand/0 via-brand to-brand/0",
-      warning: "from-yellow-500/0 via-yellow-500 to-yellow-600/0",
-      error: "from-red-500/0 via-red-500 to-red-600/0",
-      success: "from-green-500/0 via-green-500 to-green-600/0",
-    },
-  },
   defaultVariants: {
     variant: "info",
+  },
+  variants: {
+    variant: {
+      error: "from-red-500/0 via-red-500 to-red-600/0",
+      info: "from-brand/0 via-brand to-brand/0",
+      success: "from-green-500/0 via-green-500 to-green-600/0",
+      warning: "from-yellow-500/0 via-yellow-500 to-yellow-600/0",
+    },
   },
 });
 

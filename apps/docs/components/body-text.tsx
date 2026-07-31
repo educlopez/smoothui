@@ -3,21 +3,21 @@ import { cva, type VariantProps } from "class-variance-authority";
 import type { HTMLAttributes, Ref } from "react";
 
 const bodyTextVariants = cva("text-foreground/70 leading-relaxed", {
-  variants: {
-    size: {
-      sm: "text-sm",
-      base: "text-base",
-      lg: "text-lg",
-    },
-    weight: {
-      normal: "font-normal",
-      medium: "font-medium",
-      semibold: "font-semibold",
-    },
-  },
   defaultVariants: {
     size: "sm",
     weight: "normal",
+  },
+  variants: {
+    size: {
+      base: "text-base",
+      lg: "text-lg",
+      sm: "text-sm",
+    },
+    weight: {
+      medium: "font-medium",
+      normal: "font-normal",
+      semibold: "font-semibold",
+    },
   },
 });
 
@@ -43,7 +43,7 @@ export function BodyText({
   const Element = Component as "p" | "div" | "span";
   return (
     <Element
-      className={cn(bodyTextVariants({ size, weight, className }))}
+      className={cn(bodyTextVariants({ className, size, weight }))}
       ref={ref}
       {...(props as HTMLAttributes<HTMLParagraphElement>)}
     />

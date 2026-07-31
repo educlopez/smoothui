@@ -5,14 +5,13 @@ import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const features = [
   {
-    title: "Lightning Fast",
     description:
       "Optimized for performance with minimal bundle size and efficient rendering.",
     icon: (
@@ -31,9 +30,9 @@ const features = [
         />
       </svg>
     ),
+    title: "Lightning Fast",
   },
   {
-    title: "Accessible",
     description:
       "Built with ARIA attributes, keyboard navigation, and reduced motion support.",
     icon: (
@@ -52,9 +51,9 @@ const features = [
         />
       </svg>
     ),
+    title: "Accessible",
   },
   {
-    title: "Customizable",
     description:
       "Fully customizable with Tailwind CSS classes and design tokens.",
     icon: (
@@ -73,9 +72,9 @@ const features = [
         />
       </svg>
     ),
+    title: "Customizable",
   },
   {
-    title: "TypeScript First",
     description:
       "Full TypeScript support with exported types for all component props.",
     icon: (
@@ -94,9 +93,9 @@ const features = [
         />
       </svg>
     ),
+    title: "TypeScript First",
   },
   {
-    title: "Animated",
     description:
       "Smooth spring animations powered by Motion with configurable easing.",
     icon: (
@@ -115,9 +114,9 @@ const features = [
         />
       </svg>
     ),
+    title: "Animated",
   },
   {
-    title: "Open Source",
     description:
       "Free and open source. Install via the shadcn registry with one command.",
     icon: (
@@ -136,6 +135,7 @@ const features = [
         />
       </svg>
     ),
+    title: "Open Source",
   },
 ];
 
@@ -183,7 +183,7 @@ export function FeaturesGrid() {
                     ? { duration: 0 }
                     : { ...SPRING, delay: index * 0.05 }
                 }
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ margin: "-100px", once: true }}
                 whileHover={
                   isHoverDevice && !shouldReduceMotion ? { y: -4 } : undefined
                 }

@@ -5,7 +5,7 @@ import AIApproval, { type AIApprovalOption } from "../index";
 
 const OPTIONS: AIApprovalOption[] = [
   { id: "keep", label: "Keep the draft" },
-  { id: "delete", label: "Delete everything", destructive: true },
+  { destructive: true, id: "delete", label: "Delete everything" },
 ];
 
 describe("AIApproval", () => {

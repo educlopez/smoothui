@@ -32,39 +32,39 @@ const SmoothUIIsotype = () => (
 // Step definitions for the tutorial
 const STEPS = [
   {
+    description: "Start with a simple avatar button as the trigger element.",
     id: "avatar",
     title: "Avatar Trigger",
-    description: "Start with a simple avatar button as the trigger element.",
   },
   {
+    description: "Wrap the avatar with Radix UI's Popover for accessibility.",
     id: "popover",
     title: "Popover Container",
-    description: "Wrap the avatar with Radix UI's Popover for accessibility.",
   },
   {
+    description: "Add interactive section buttons with state management.",
     id: "buttons",
     title: "Section Buttons",
-    description: "Add interactive section buttons with state management.",
   },
   {
+    description: "Add spring animations for smooth expansion effects.",
     id: "animation",
     title: "Spring Animation",
-    description: "Add spring animations for smooth expansion effects.",
   },
   {
+    description: "Add blur transition for a materializing effect.",
     id: "blur",
     title: "Blur Effect",
-    description: "Add blur transition for a materializing effect.",
   },
   {
+    description: "Animate progress bars with spring physics.",
     id: "progress",
     title: "Progress Bars",
-    description: "Animate progress bars with spring physics.",
   },
   {
+    description: "The final component with all features combined.",
     id: "complete",
     title: "Complete",
-    description: "The final component with all features combined.",
   },
 ] as const;
 
@@ -80,28 +80,38 @@ const AVATAR_URL =
 
 // Mock data
 const mockUser = {
-  name: "Jane Doe",
-  email: "jane@example.com",
   avatar: AVATAR_URL,
+  email: "jane@example.com",
+  name: "Jane Doe",
 };
 
 const mockOrders = [
   {
-    id: "ORD001",
     date: "2025-01-15",
-    status: "delivered" as const,
+    id: "ORD001",
     progress: 100,
+    status: "delivered" as const,
   },
   {
-    id: "ORD002",
     date: "2025-01-20",
-    status: "shipped" as const,
+    id: "ORD002",
     progress: 66,
+    status: "shipped" as const,
   },
 ];
 
 // Code snippets for each step
 const CODE_SNIPPETS: Record<StepId, string> = {
+  animation: `<motion.div
+  initial={{ opacity: 0, height: 0 }}
+  animate={{ opacity: 1, height: "auto" }}
+  exit={{ opacity: 0, height: 0 }}
+  transition={{
+    type: "spring",
+    duration: 0.25,
+    bounce: 0  // No overshoot for professional feel
+  }}
+>`,
   avatar: `<button className="cursor-pointer rounded-full border">
   <img
     src={user.avatar}
@@ -111,6 +121,31 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     height={48}
   />
 </button>`,
+  blur: `initial={{
+  opacity: 0,
+  height: 0,
+  filter: "blur(10px)"
+}}
+animate={{
+  opacity: 1,
+  height: "auto",
+  filter: "blur(0px)"
+}}`,
+  buttons: `const [activeSection, setActiveSection] =
+  useState<string | null>(null);
+
+const handleClick = (section: string) => {
+  setActiveSection(
+    activeSection === section ? null : section
+  );
+};`,
+  complete: `// The complete component includes:
+✓ Accessible Radix UI popover
+✓ Spring animations with no bounce
+✓ Blur transition effect
+✓ Animated progress bars
+✓ Reduced motion support
+✓ Keyboard accessibility`,
   popover: `import { Popover, PopoverTrigger, PopoverContent }
   from "@/components/ui/popover";
 
@@ -122,34 +157,6 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     {/* Popover content */}
   </PopoverContent>
 </Popover>`,
-  buttons: `const [activeSection, setActiveSection] =
-  useState<string | null>(null);
-
-const handleClick = (section: string) => {
-  setActiveSection(
-    activeSection === section ? null : section
-  );
-};`,
-  animation: `<motion.div
-  initial={{ opacity: 0, height: 0 }}
-  animate={{ opacity: 1, height: "auto" }}
-  exit={{ opacity: 0, height: 0 }}
-  transition={{
-    type: "spring",
-    duration: 0.25,
-    bounce: 0  // No overshoot for professional feel
-  }}
->`,
-  blur: `initial={{
-  opacity: 0,
-  height: 0,
-  filter: "blur(10px)"
-}}
-animate={{
-  opacity: 1,
-  height: "auto",
-  filter: "blur(0px)"
-}}`,
   progress: `<motion.div
   initial={{ width: 0 }}
   animate={{ width: \`\${progress}%\` }}
@@ -160,13 +167,6 @@ animate={{
     duration: 0.4
   }}
 />`,
-  complete: `// The complete component includes:
-✓ Accessible Radix UI popover
-✓ Spring animations with no bounce
-✓ Blur transition effect
-✓ Animated progress bars
-✓ Reduced motion support
-✓ Keyboard accessibility`,
 };
 
 export function InteractiveAvatarTutorial({
@@ -201,7 +201,7 @@ export function InteractiveAvatarTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
 
     for (const ref of stepRefs.current.values()) {
@@ -292,8 +292,8 @@ export function InteractiveAvatarTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />
@@ -382,7 +382,7 @@ export function InteractiveAvatarTutorial({
                       transition={
                         shouldReduceMotion
                           ? { duration: 0 }
-                          : { type: "spring", duration: 0.25, bounce: 0 }
+                          : { bounce: 0, duration: 0.25, type: "spring" }
                       }
                     >
                       <div className="flex flex-col divide-y divide-border">
@@ -406,48 +406,48 @@ export function InteractiveAvatarTutorial({
                                 <motion.div
                                   animate={
                                     shouldReduceMotion
-                                      ? { opacity: 1, height: "auto" }
+                                      ? { height: "auto", opacity: 1 }
                                       : {
-                                          opacity: 1,
-                                          height: "auto",
                                           filter: showBlur
                                             ? "blur(0px)"
                                             : undefined,
+                                          height: "auto",
+                                          opacity: 1,
                                         }
                                   }
                                   exit={
                                     shouldReduceMotion
                                       ? {
-                                          opacity: 0,
                                           height: 0,
+                                          opacity: 0,
                                           transition: { duration: 0 },
                                         }
                                       : {
-                                          opacity: 0,
-                                          height: 0,
                                           filter: showBlur
                                             ? "blur(10px)"
                                             : undefined,
+                                          height: 0,
+                                          opacity: 0,
                                         }
                                   }
                                   initial={
                                     shouldReduceMotion
-                                      ? { opacity: 0, height: 0 }
+                                      ? { height: 0, opacity: 0 }
                                       : {
-                                          opacity: 0,
-                                          height: 0,
                                           filter: showBlur
                                             ? "blur(10px)"
                                             : undefined,
+                                          height: 0,
+                                          opacity: 0,
                                         }
                                   }
                                   transition={
                                     shouldReduceMotion
                                       ? { duration: 0 }
                                       : {
-                                          type: "spring",
-                                          duration: 0.25,
                                           bounce: 0,
+                                          duration: 0.25,
+                                          type: "spring",
                                         }
                                   }
                                 >
@@ -500,48 +500,48 @@ export function InteractiveAvatarTutorial({
                                 <motion.div
                                   animate={
                                     shouldReduceMotion
-                                      ? { opacity: 1, height: "auto" }
+                                      ? { height: "auto", opacity: 1 }
                                       : {
-                                          opacity: 1,
-                                          height: "auto",
                                           filter: showBlur
                                             ? "blur(0px)"
                                             : undefined,
+                                          height: "auto",
+                                          opacity: 1,
                                         }
                                   }
                                   exit={
                                     shouldReduceMotion
                                       ? {
-                                          opacity: 0,
                                           height: 0,
+                                          opacity: 0,
                                           transition: { duration: 0 },
                                         }
                                       : {
-                                          opacity: 0,
-                                          height: 0,
                                           filter: showBlur
                                             ? "blur(10px)"
                                             : undefined,
+                                          height: 0,
+                                          opacity: 0,
                                         }
                                   }
                                   initial={
                                     shouldReduceMotion
-                                      ? { opacity: 0, height: 0 }
+                                      ? { height: 0, opacity: 0 }
                                       : {
-                                          opacity: 0,
-                                          height: 0,
                                           filter: showBlur
                                             ? "blur(10px)"
                                             : undefined,
+                                          height: 0,
+                                          opacity: 0,
                                         }
                                   }
                                   transition={
                                     shouldReduceMotion
                                       ? { duration: 0 }
                                       : {
-                                          type: "spring",
-                                          duration: 0.25,
                                           bounce: 0,
+                                          duration: 0.25,
+                                          type: "spring",
                                         }
                                   }
                                 >
@@ -589,10 +589,10 @@ export function InteractiveAvatarTutorial({
                                                     shouldReduceMotion
                                                       ? { duration: 0 }
                                                       : {
-                                                          type: "spring",
-                                                          stiffness: 300,
                                                           damping: 30,
                                                           duration: 0.4,
+                                                          stiffness: 300,
+                                                          type: "spring",
                                                         }
                                                   }
                                                 />

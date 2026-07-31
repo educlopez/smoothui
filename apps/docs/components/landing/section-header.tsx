@@ -22,17 +22,17 @@ export function SectionHeader({
   const transition = (delay: number) =>
     shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
+      : { bounce: 0.1, delay, duration: 0.3, type: "spring" as const };
 
   const fadeUp = (delay: number) => ({
     initial: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 0, transform: "translateY(10px)" },
+    transition: transition(delay),
+    viewport: { amount: 0.5, once: true } as const,
     whileInView: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 1, transform: "translateY(0px)" },
-    transition: transition(delay),
-    viewport: { once: true, amount: 0.5 } as const,
   });
 
   const isCenter = align === "center";

@@ -16,11 +16,11 @@ const MIN_PROGRESS_VALUE = 0;
 const MAX_PROGRESS_VALUE = 100;
 
 const SPRING = {
-  type: "spring" as const,
   damping: 10,
+  duration: 0.25,
   mass: 0.75,
   stiffness: 100,
-  duration: 0.25,
+  type: "spring" as const,
 };
 
 export default function AnimatedProgressBar({

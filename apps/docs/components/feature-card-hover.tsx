@@ -49,8 +49,8 @@ export function FeatureCardHover({
     >
       <motion.div
         animate={{
-          y: isHovered ? TITLE_OFFSET_Y : 0,
           opacity: isHovered ? 0 : 1,
+          y: isHovered ? TITLE_OFFSET_Y : 0,
         }}
         className="absolute inset-0 flex items-center justify-center"
         transition={{
@@ -62,15 +62,15 @@ export function FeatureCardHover({
       </motion.div>
       <motion.div
         animate={{
-          y: isHovered ? 0 : DESCRIPTION_OFFSET_Y,
-          opacity: isHovered ? 1 : 0,
           filter: isHovered ? NO_BLUR : BLUR_AMOUNT,
+          opacity: isHovered ? 1 : 0,
+          y: isHovered ? 0 : DESCRIPTION_OFFSET_Y,
         }}
         className="absolute inset-0 flex items-center justify-center px-4"
         initial={{
-          y: DESCRIPTION_OFFSET_Y,
-          opacity: 0,
           filter: BLUR_AMOUNT,
+          opacity: 0,
+          y: DESCRIPTION_OFFSET_Y,
         }}
         transition={{
           duration: CONTENT_TRANSITION_DURATION,

@@ -5,27 +5,27 @@ import Combobox from "@repo/smoothui/components/combobox";
 import { useState } from "react";
 
 const frameworks: ComboboxOption[] = [
-  { value: "nextjs", label: "Next.js" },
-  { value: "remix", label: "Remix" },
-  { value: "astro", label: "Astro" },
-  { value: "nuxt", label: "Nuxt" },
-  { value: "sveltekit", label: "SvelteKit" },
-  { value: "gatsby", label: "Gatsby" },
-  { value: "solidstart", label: "SolidStart" },
-  { value: "angular", label: "Angular" },
+  { label: "Next.js", value: "nextjs" },
+  { label: "Remix", value: "remix" },
+  { label: "Astro", value: "astro" },
+  { label: "Nuxt", value: "nuxt" },
+  { label: "SvelteKit", value: "sveltekit" },
+  { label: "Gatsby", value: "gatsby" },
+  { label: "SolidStart", value: "solidstart" },
+  { label: "Angular", value: "angular" },
 ];
 
 const allLanguages: ComboboxOption[] = [
-  { value: "typescript", label: "TypeScript" },
-  { value: "javascript", label: "JavaScript" },
-  { value: "python", label: "Python" },
-  { value: "rust", label: "Rust" },
-  { value: "go", label: "Go" },
-  { value: "swift", label: "Swift" },
-  { value: "kotlin", label: "Kotlin" },
-  { value: "ruby", label: "Ruby" },
-  { value: "java", label: "Java" },
-  { value: "csharp", label: "C#" },
+  { label: "TypeScript", value: "typescript" },
+  { label: "JavaScript", value: "javascript" },
+  { label: "Python", value: "python" },
+  { label: "Rust", value: "rust" },
+  { label: "Go", value: "go" },
+  { label: "Swift", value: "swift" },
+  { label: "Kotlin", value: "kotlin" },
+  { label: "Ruby", value: "ruby" },
+  { label: "Java", value: "java" },
+  { label: "C#", value: "csharp" },
 ];
 
 const simulateSearch = (query: string): Promise<ComboboxOption[]> =>

@@ -127,27 +127,27 @@ export default function RichTooltip({
             animate={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" }
+                : { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
             }
             className="relative rounded-2xl border border-white/10 bg-black px-4 py-3 text-white shadow-xl"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }
+                : { filter: "blur(8px)", opacity: 0, scale: 0.95, y: 5 }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, scale: 0.95, y: 5, filter: "blur(8px)" }
+                : { filter: "blur(8px)", opacity: 0, scale: 0.95, y: 5 }
             }
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring" as const,
-                    stiffness: 500,
                     damping: 30,
                     duration: 0.2,
+                    stiffness: 500,
+                    type: "spring" as const,
                   }
             }
           >

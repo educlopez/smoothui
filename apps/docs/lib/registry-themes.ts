@@ -18,44 +18,44 @@ export interface ThemePalette {
 
 export const THEME_PALETTES: ThemePalette[] = [
   {
+    label: "Candy",
     name: "candy",
     presetCode: "b3gmgq",
-    label: "Candy",
     primary: "oklch(0.72 0.2 352.53)",
     secondary: "oklch(0.66 0.21 354.31)",
   },
   {
+    label: "Indigo",
     name: "indigo",
     presetCode: "b2pzIe",
-    label: "Indigo",
     primary: "oklch(0.65 0.22 300.21)",
     secondary: "oklch(0.54 0.23 286.53)",
   },
   {
+    label: "Blue",
     name: "blue",
     presetCode: "b1PzeK",
-    label: "Blue",
     primary: "oklch(0.67 0.17 257.78)",
     secondary: "oklch(0.59 0.21 258.02)",
   },
   {
+    label: "Red",
     name: "red",
     presetCode: "b4Fywy",
-    label: "Red",
     primary: "oklch(0.67 0.21 24.28)",
     secondary: "oklch(0.62 0.25 28.23)",
   },
   {
+    label: "Orange",
     name: "orange",
     presetCode: "b3PBYm",
-    label: "Orange",
     primary: "oklch(0.75 0.17 47.65)",
     secondary: "oklch(0.68 0.21 40.59)",
   },
   {
+    label: "Green",
     name: "green",
     presetCode: "b2YOAa",
-    label: "Green",
     primary: "oklch(0.70 0.15 162.48)",
     secondary: "oklch(0.60 0.13 163.23)",
   },
@@ -102,38 +102,38 @@ const buildModeVars = (
   input: string,
   destructive: string
 ): Record<string, string> => ({
-  background: scale[50],
-  foreground: scale[1000],
-  card: scale[50],
-  "card-foreground": scale[1000],
-  popover: scale[50],
-  "popover-foreground": scale[1000],
-  primary: scale[100],
-  "primary-foreground": scale[950],
-  secondary: scale[200],
-  "secondary-foreground": scale[900],
-  muted: scale[200],
-  "muted-foreground": scale[800],
   accent: primary,
   "accent-foreground": WHITE,
-  destructive,
+  background: scale[50],
   // Dividers are decorative (WCAG-exempt); keep them subtle. Control
   // boundaries that need 3:1 live in `input`, not here.
   border: scale[300],
-  input,
-  ring: primary,
+  card: scale[50],
+  "card-foreground": scale[1000],
   "chart-1": primary,
   "chart-2": secondary,
   "chart-3": scale[800],
   "chart-4": scale[600],
   "chart-5": scale[400],
+  destructive,
+  foreground: scale[1000],
+  input,
+  muted: scale[200],
+  "muted-foreground": scale[800],
+  popover: scale[50],
+  "popover-foreground": scale[1000],
+  primary: scale[100],
+  "primary-foreground": scale[950],
+  ring: primary,
+  secondary: scale[200],
+  "secondary-foreground": scale[900],
   sidebar: scale[100],
-  "sidebar-foreground": scale[1000],
-  "sidebar-primary": primary,
-  "sidebar-primary-foreground": WHITE,
   "sidebar-accent": scale[200],
   "sidebar-accent-foreground": scale[900],
   "sidebar-border": scale[400],
+  "sidebar-foreground": scale[1000],
+  "sidebar-primary": primary,
+  "sidebar-primary-foreground": WHITE,
   "sidebar-ring": primary,
 });
 
@@ -153,16 +153,15 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: itemName,
-    type: "registry:theme",
-    title: `SmoothUI ${palette.label}`,
-    description: `SmoothUI ${palette.label} theme: smooth neutral scale with a ${palette.label.toLowerCase()} accent, light and dark mode included.`,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
     cssVars: {
-      theme: {
-        // SmoothUI brand font; falls back gracefully when Inter isn't loaded.
-        "font-sans": "Inter, sans-serif",
-      },
+      dark: buildModeVars(
+        DARK_SCALE,
+        palette.primary,
+        palette.secondary,
+        DARK_SCALE[700],
+        "oklch(0.704 0.191 22.216)"
+      ),
       light: {
         ...buildModeVars(
           LIGHT_SCALE,
@@ -173,13 +172,14 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
         ),
         radius: "0.625rem",
       },
-      dark: buildModeVars(
-        DARK_SCALE,
-        palette.primary,
-        palette.secondary,
-        DARK_SCALE[700],
-        "oklch(0.704 0.191 22.216)"
-      ),
+      theme: {
+        // SmoothUI brand font; falls back gracefully when Inter isn't loaded.
+        "font-sans": "Inter, sans-serif",
+      },
     },
+    description: `SmoothUI ${palette.label} theme: smooth neutral scale with a ${palette.label.toLowerCase()} accent, light and dark mode included.`,
+    name: itemName,
+    title: `SmoothUI ${palette.label}`,
+    type: "registry:theme",
   };
 };

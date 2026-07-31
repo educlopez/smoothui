@@ -4,9 +4,9 @@ import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion, useReducedMotion } from "motion/react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 export function CtaCentered() {

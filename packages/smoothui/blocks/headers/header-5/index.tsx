@@ -4,9 +4,9 @@ import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion, useReducedMotion } from "motion/react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 export function HeroSpotlight() {
@@ -49,9 +49,9 @@ export function HeroSpotlight() {
               className="absolute h-1 w-1 rounded-full bg-white/20"
               key={`particle-${i}`}
               style={{
+                animation: `pulse ${2 + (i % 3)}s ease-in-out infinite ${(i % 5) * 0.5}s`,
                 left: `${(i * 37 + 13) % 100}%`,
                 top: `${(i * 53 + 7) % 100}%`,
-                animation: `pulse ${2 + (i % 3)}s ease-in-out infinite ${(i % 5) * 0.5}s`,
               }}
             />
           ))}

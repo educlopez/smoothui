@@ -54,7 +54,7 @@ const AnimatedAvatarGroup = ({
 
   const springTransition = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0.1 };
+    : { bounce: 0.1, duration: 0.25, type: "spring" as const };
 
   return (
     <motion.div
@@ -86,8 +86,8 @@ const AnimatedAvatarGroup = ({
             }
             src={avatar.src}
             style={{
-              width: size,
               height: size,
+              width: size,
             }}
             transition={{
               ...springTransition,
@@ -107,9 +107,9 @@ const AnimatedAvatarGroup = ({
             className="relative"
             key={avatar.src}
             style={{
-              zIndex: visibleAvatars.length - index,
-              width: size,
               height: size,
+              width: size,
+              zIndex: visibleAvatars.length - index,
             }}
             transition={{
               ...springTransition,
@@ -119,8 +119,8 @@ const AnimatedAvatarGroup = ({
             <div
               className="rounded-full border-2 border-background"
               style={{
-                width: size,
                 height: size,
+                width: size,
               }}
             >
               {avatar.href ? (
@@ -150,8 +150,8 @@ const AnimatedAvatarGroup = ({
           }
           className="relative flex items-center justify-center rounded-full border-2 border-background bg-muted"
           style={{
-            width: size,
             height: size,
+            width: size,
             zIndex: 0,
           }}
           transition={{

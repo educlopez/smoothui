@@ -49,12 +49,12 @@ export async function add(
           break;
         }
       }
-      return { value: name, label: name, category };
+      return { category, label: name, value: name };
     });
 
     const selected = await searchMultiselect({
-      message: "Select components to install:",
       items,
+      message: "Select components to install:",
     });
 
     if (!selected || selected.length === 0) {
@@ -137,9 +137,9 @@ export async function add(
         const action = await select({
           message: `File exists: ${filename}`,
           options: [
-            { value: "overwrite", label: "Overwrite" },
-            { value: "skip", label: "Skip" },
-            { value: "all", label: "Overwrite all" },
+            { label: "Overwrite", value: "overwrite" },
+            { label: "Skip", value: "skip" },
+            { label: "Overwrite all", value: "all" },
           ],
         });
 

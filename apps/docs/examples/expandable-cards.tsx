@@ -12,68 +12,68 @@ const ExpandableCardsDemo = () => {
 
   const demoCards: Card[] = [
     {
-      id: 1,
-      title: "Summer Opening",
-      image: getImageKitUrl("/images/summer-opening.webp", {
-        width: 600,
-        quality: 80,
-        format: "auto",
-      }),
-      content:
-        "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
       author: {
+        image: getAvatarUrl(people[0]?.avatar || "", 96),
         name: people[0]?.name || "Eduardo Calvo",
         role: people[0]?.role || "CEO & Founder",
-        image: getAvatarUrl(people[0]?.avatar || "", 96),
       },
+      content:
+        "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
+      id: 1,
+      image: getImageKitUrl("/images/summer-opening.webp", {
+        format: "auto",
+        quality: 80,
+        width: 600,
+      }),
+      title: "Summer Opening",
     },
     {
-      id: 2,
-      title: "Fashion",
-      image: getImageKitUrl("/images/fashion.webp", {
-        width: 600,
-        quality: 80,
-        format: "auto",
-      }),
-      content:
-        "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
       author: {
+        image: getAvatarUrl(people[1]?.avatar || "", 96),
         name: people[1]?.name || "Sarah Chen",
         role: people[1]?.role || "Head of Design",
-        image: getAvatarUrl(people[1]?.avatar || "", 96),
       },
+      content:
+        "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
+      id: 2,
+      image: getImageKitUrl("/images/fashion.webp", {
+        format: "auto",
+        quality: 80,
+        width: 600,
+      }),
+      title: "Fashion",
     },
     {
-      id: 3,
-      title: "Gallery Art",
-      image: getImageKitUrl("/images/galleryart.webp", {
-        width: 600,
-        quality: 80,
-        format: "auto",
-      }),
-      content:
-        "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
       author: {
+        image: getAvatarUrl(people[2]?.avatar || "", 96),
         name: people[2]?.name || "Marcus Johnson",
         role: people[2]?.role || "Lead Developer",
-        image: getAvatarUrl(people[2]?.avatar || "", 96),
       },
+      content:
+        "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
+      id: 3,
+      image: getImageKitUrl("/images/galleryart.webp", {
+        format: "auto",
+        quality: 80,
+        width: 600,
+      }),
+      title: "Gallery Art",
     },
     {
-      id: 4,
-      title: "Dreams",
-      image: getImageKitUrl("/images/dreams.webp", {
-        width: 600,
-        quality: 80,
-        format: "auto",
-      }),
-      content:
-        "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
       author: {
+        image: getAvatarUrl(people[3]?.avatar || "", 96),
         name: people[3]?.name || "Emily Rodriguez",
         role: people[3]?.role || "Product Manager",
-        image: getAvatarUrl(people[3]?.avatar || "", 96),
       },
+      content:
+        "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
+      id: 4,
+      image: getImageKitUrl("/images/dreams.webp", {
+        format: "auto",
+        quality: 80,
+        width: 600,
+      }),
+      title: "Dreams",
     },
   ];
 

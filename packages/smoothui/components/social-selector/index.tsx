@@ -66,21 +66,21 @@ const ICON_GAP = 16;
 
 const defaultPlatforms: Platform[] = [
   {
-    name: "X",
     domain: "x.com",
     icon: <XIcon className="h-5 w-5" />,
+    name: "X",
     url: "https://x.com/educalvolpz",
   },
   {
-    name: "Bluesky",
     domain: "bsky.app",
     icon: <BskyIcon className="h-5 w-5" />,
+    name: "Bluesky",
     url: "https://bsky.app/profile/educalvolpz.bsky.social",
   },
   {
-    name: "Threads",
     domain: "threads.net",
     icon: <ThreadsIcon className="h-5 w-5" />,
+    name: "Threads",
     url: "https://threads.net/@educalvolpz",
   },
 ];
@@ -152,10 +152,10 @@ export default function SocialSelector({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
-                      stiffness: 500,
                       damping: 30,
                       duration: 0.25,
+                      stiffness: 500,
+                      type: "spring" as const,
                     }
               }
             />
@@ -168,18 +168,18 @@ export default function SocialSelector({
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 1, y: 0, filter: "blur(0px)" }
+                  : { filter: "blur(0px)", opacity: 1, y: 0 }
               }
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
-                  : { opacity: 0, y: -10, filter: "blur(5px)" }
+                  : { filter: "blur(5px)", opacity: 0, y: -10 }
               }
               href={selectedPlatform.url}
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 0, y: 10, filter: "blur(5px)" }
+                  : { filter: "blur(5px)", opacity: 0, y: 10 }
               }
               key={selectedPlatform.domain}
               rel="noopener noreferrer"

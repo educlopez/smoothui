@@ -32,17 +32,17 @@ export function FooterSimple({
   companyName = "Smoothui",
   description = "Build beautiful UIs, effortlessly.",
   links = {
-    product: [
-      { name: "Features", url: "#features" },
-      { name: "Pricing", url: "#pricing" },
-      { name: "Documentation", url: "#docs" },
-      { name: "API", url: "#api" },
-    ],
     company: [
       { name: "About", url: "#about" },
       { name: "Blog", url: "#blog" },
       { name: "Careers", url: "#careers" },
       { name: "Contact", url: "#contact" },
+    ],
+    product: [
+      { name: "Features", url: "#features" },
+      { name: "Pricing", url: "#pricing" },
+      { name: "Documentation", url: "#docs" },
+      { name: "API", url: "#api" },
     ],
     support: [
       { name: "Help Center", url: "#help" },
@@ -52,10 +52,10 @@ export function FooterSimple({
     ],
   },
   social = {
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
     discord: "https://discord.com",
+    github: "https://github.com",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
   },
   copyright = "© 2024 Smoothui. All rights reserved.",
 }: FooterSimpleProps) {
@@ -90,8 +90,8 @@ export function FooterSimple({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      duration: ANIMATION_DURATION,
                       delay: DELAY_INCREMENT,
+                      duration: ANIMATION_DURATION,
                     }
               }
               viewport={{ once: true }}
@@ -213,7 +213,7 @@ export function FooterSimple({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_PRODUCT }
+                    : { delay: DELAY_PRODUCT, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -249,7 +249,7 @@ export function FooterSimple({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_COMPANY }
+                    : { delay: DELAY_COMPANY, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -285,7 +285,7 @@ export function FooterSimple({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_SUPPORT }
+                    : { delay: DELAY_SUPPORT, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -320,7 +320,7 @@ export function FooterSimple({
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { duration: ANIMATION_DURATION, delay: DELAY_COPYRIGHT }
+              : { delay: DELAY_COPYRIGHT, duration: ANIMATION_DURATION }
           }
           viewport={{ once: true }}
           whileInView={

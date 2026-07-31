@@ -88,11 +88,11 @@ const Book = ({
             "dark:shadow-[rgba(0,0,0,0.05)_0px_1.8px_3.6px,rgba(0,0,0,0.08)_0px_10.8px_21.6px,rgba(0,0,0,0.1)_0px_-0.9px_inset,rgba(255,255,255,0.1)_0px_1.8px_1.8px_inset,rgba(0,0,0,0.1)_3.6px_0px_3.6px_inset]"
           )}
           style={{
-            width: bookWidth,
-            height: "100%",
-            borderRadius: BOOK_BORDER_RADIUS,
             background:
               variant === "simple" ? color : "var(--color-fd-background)",
+            borderRadius: BOOK_BORDER_RADIUS,
+            height: "100%",
+            width: bookWidth,
           }}
         >
           {variant === "stripe" ? (
@@ -129,9 +129,9 @@ const Book = ({
           )}
           style={{
             height: "calc(100% - 6px)",
-            width: `calc(${BOOK_DEPTH} - 2px)`,
             top: "3px",
             transform: `translateX(calc(${bookWidth} - ${BOOK_DEPTH} / 2 - 3px)) rotateY(90deg) translateX(calc(${BOOK_DEPTH} / 2))`,
+            width: `calc(${BOOK_DEPTH} - 2px)`,
           }}
         />
 
@@ -140,12 +140,12 @@ const Book = ({
           aria-hidden
           className="pointer-events-none absolute left-0"
           style={{
-            width: bookWidth,
-            height: "100%",
-            borderRadius: BOOK_BORDER_RADIUS,
-            transform: `translateZ(calc(-1 * ${BOOK_DEPTH}))`,
             backgroundColor:
               variant === "simple" ? color : "var(--color-fd-background)",
+            borderRadius: BOOK_BORDER_RADIUS,
+            height: "100%",
+            transform: `translateZ(calc(-1 * ${BOOK_DEPTH}))`,
+            width: bookWidth,
           }}
         />
       </div>
@@ -199,15 +199,15 @@ const StripeContent = ({
       <div
         className="flex w-full flex-col justify-between [container-type:inline-size]"
         style={{
-          padding: "6.1%",
           gap: `${(24 / DEFAULT_WIDTH) * width}px`,
+          padding: "6.1%",
         }}
       >
         <span
           className="text-balance font-semibold leading-[1.25em] tracking-[-0.02em]"
           style={{
-            fontSize: "10.5cqw",
             color: "var(--book-text-color)",
+            fontSize: "10.5cqw",
           }}
         >
           {title}
@@ -243,15 +243,15 @@ const SimpleContent = ({
     <div
       className="flex w-full flex-col justify-between [container-type:inline-size]"
       style={{
-        padding: "6.1%",
         gap: `${(16 / DEFAULT_WIDTH) * width}px`,
+        padding: "6.1%",
       }}
     >
       <span
         className="text-balance font-semibold leading-[1.25em] tracking-[-0.02em]"
         style={{
-          fontSize: "12cqw",
           color: "var(--book-text-color)",
+          fontSize: "12cqw",
         }}
       >
         {title}

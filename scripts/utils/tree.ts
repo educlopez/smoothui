@@ -30,7 +30,7 @@ export async function resolveTree(
     }
   }
 
-  return { component, children };
+  return { children, component };
 }
 
 export function flattenTree(node: TreeNode): RegistryItem[] {

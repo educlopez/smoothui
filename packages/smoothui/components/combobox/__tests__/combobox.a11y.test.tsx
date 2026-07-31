@@ -4,9 +4,9 @@ import { render } from "../../../test-utils/render";
 import Combobox from "../index";
 
 const options = [
-  { value: "react", label: "React" },
-  { value: "vue", label: "Vue" },
-  { value: "angular", label: "Angular" },
+  { label: "React", value: "react" },
+  { label: "Vue", value: "vue" },
+  { label: "Angular", value: "angular" },
 ];
 
 describe("Combobox a11y", () => {

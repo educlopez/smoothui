@@ -94,10 +94,10 @@ const BunIcon = ({ colored }: { colored?: boolean }) => (
 );
 
 export const packageManagers = [
-  { id: "pnpm", icon: PnpmIcon },
-  { id: "npm", icon: NpmIcon },
-  { id: "yarn", icon: YarnIcon },
-  { id: "bun", icon: BunIcon },
+  { icon: PnpmIcon, id: "pnpm" },
+  { icon: NpmIcon, id: "npm" },
+  { icon: YarnIcon, id: "yarn" },
+  { icon: BunIcon, id: "bun" },
 ] as const;
 
 type PackageManager = (typeof packageManagers)[number]["id"];
@@ -117,7 +117,7 @@ export const PackageManagerTabs = ({
 }: PackageManagerTabsProps) => {
   const [activePm, setActivePm] = usePackageManager();
 
-  const commands: Record<PackageManager, string> = { pnpm, npm, yarn, bun };
+  const commands: Record<PackageManager, string> = { bun, npm, pnpm, yarn };
   const currentCommand = commands[activePm];
 
   return (

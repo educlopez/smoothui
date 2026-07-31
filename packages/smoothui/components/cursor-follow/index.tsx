@@ -35,8 +35,8 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
   // Motion values for smooth follow
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 350, damping: 40 });
-  const springY = useSpring(y, { stiffness: 350, damping: 40 });
+  const springX = useSpring(x, { damping: 40, stiffness: 350 });
+  const springY = useSpring(y, { damping: 40, stiffness: 350 });
 
   // Calculate bubble width and height
   const bubbleWidth = cursorText
@@ -96,7 +96,7 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
       onMouseOut={handleMouseOut}
       onMouseOver={handleMouseOver}
       role="application"
-      style={{ minHeight: 300, cursor: "none" }}
+      style={{ cursor: "none", minHeight: 300 }}
       // biome-ignore lint/a11y/noNoninteractiveTabindex: Interactive cursor tracking widget requires focus
       tabIndex={0}
     >
@@ -127,39 +127,39 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
           animate={
             cursorText
               ? {
-                  width: bubbleWidth,
-                  height: 40,
-                  borderRadius: 20,
                   background: "var(--color-brand, #6366f1)",
+                  borderRadius: 20,
                   color: "#fff",
+                  height: 40,
+                  minHeight: 32,
+                  minWidth: 40,
                   paddingLeft: 16,
                   paddingRight: 16,
-                  minWidth: 40,
-                  minHeight: 32,
                   scale: 1.1,
+                  width: bubbleWidth,
                 }
               : {
-                  width: CIRCLE_SIZE,
-                  height: CIRCLE_SIZE,
-                  borderRadius: 999,
                   background: "var(--color-brand, #6366f1)",
+                  borderRadius: 999,
                   color: "#fff",
+                  height: CIRCLE_SIZE,
+                  minHeight: CIRCLE_SIZE,
+                  minWidth: CIRCLE_SIZE,
                   paddingLeft: 0,
                   paddingRight: 0,
-                  minWidth: CIRCLE_SIZE,
-                  minHeight: CIRCLE_SIZE,
                   scale: 1,
+                  width: CIRCLE_SIZE,
                 }
           }
           className="flex items-center justify-center font-medium text-xs shadow-lg"
           layout
           style={{
-            display: "flex",
             alignItems: "center",
+            boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
+            display: "flex",
             justifyContent: "center",
             position: "relative",
             zIndex: 1,
-            boxShadow: "0 2px 8px 0 rgba(0,0,0,0.10)",
           }}
           transition={
             shouldReduceMotion
@@ -169,21 +169,21 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
         >
           {cursorText && (
             <motion.span
-              animate={{ opacity: 1, filter: "blur(0px)" }}
-              exit={{ opacity: 0, filter: "blur(8px)" }}
-              initial={{ opacity: 0, filter: "blur(8px)" }}
+              animate={{ filter: "blur(0px)", opacity: 1 }}
+              exit={{ filter: "blur(8px)", opacity: 0 }}
+              initial={{ filter: "blur(8px)", opacity: 0 }}
               style={{
+                color: "#fff",
+                textAlign: "center",
                 whiteSpace: "nowrap",
                 width: "100%",
-                textAlign: "center",
-                color: "#fff",
               }}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      duration: 0.2,
                       delay: 0.05,
+                      duration: 0.2,
                       ease: [0.645, 0.045, 0.355, 1],
                     }
               }
@@ -197,15 +197,15 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
           <span
             ref={measureRef}
             style={{
-              position: "absolute",
-              visibility: "hidden",
-              pointerEvents: "none",
-              whiteSpace: "nowrap",
+              fontFamily: "inherit",
               fontSize: "0.75rem",
               fontWeight: 500,
               paddingLeft: 16,
               paddingRight: 16,
-              fontFamily: "inherit",
+              pointerEvents: "none",
+              position: "absolute",
+              visibility: "hidden",
+              whiteSpace: "nowrap",
             }}
           >
             {pendingText || cursorText}

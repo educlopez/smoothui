@@ -50,7 +50,7 @@ export function LogoContextMenuProvider({ children }: { children: ReactNode }) {
 
   return (
     <LogoContextMenuContext.Provider
-      value={{ isOpen, position, openMenu, closeMenu }}
+      value={{ closeMenu, isOpen, openMenu, position }}
     >
       {children}
       <LogoContextMenuPopup />
@@ -198,7 +198,7 @@ function LogoContextMenuPopup() {
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring", duration: 0.2, bounce: 0 }
+              : { bounce: 0, duration: 0.2, type: "spring" }
           }
         >
           {/* Pronunciation Section */}

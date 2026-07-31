@@ -122,7 +122,7 @@ export const FilterBar = ({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring", duration: 0.25, bounce: 0.1 }
+                  : { bounce: 0.1, duration: 0.25, type: "spring" }
               }
               type="button"
               whileTap={shouldReduceMotion ? undefined : { scale: 0.95 }}

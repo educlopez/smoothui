@@ -43,14 +43,14 @@ export function HeroShowcase({
     },
   },
   reviews = {
-    count: 200,
-    rating: 5.0,
     avatars: getAllPeople()
       .slice(0, 5)
       .map((person) => ({
-        src: getAvatarUrl(person.avatar, 90),
         alt: `${person.name} avatar`,
+        src: getAvatarUrl(person.avatar, 90),
       })),
+    count: 200,
+    rating: 5.0,
   },
 }: HeroShowcaseProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -62,18 +62,18 @@ export function HeroShowcase({
           animate={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 1, scale: 1, filter: "blur(0px)" }
+              : { filter: "blur(0px)", opacity: 1, scale: 1 }
           }
           className="relative overflow-hidden bg-gradient-to-b from-background to-muted"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, scale: 1.04, filter: "blur(12px)" }
+              : { filter: "blur(12px)", opacity: 0, scale: 1.04 }
           }
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring" as const, bounce: 0.32, duration: 0.9 }
+              : { bounce: 0.32, duration: 0.9, type: "spring" as const }
           }
         >
           <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:gap-20">
@@ -104,9 +104,9 @@ export function HeroShowcase({
                       key={`${avatar.src}-${index}`}
                       style={{ display: "inline-block" }}
                       transition={{
-                        type: "spring" as const,
-                        stiffness: 300,
                         damping: 20,
+                        stiffness: 300,
+                        type: "spring" as const,
                       }}
                       whileHover={shouldReduceMotion ? {} : { y: -8 }}
                     >
@@ -160,9 +160,9 @@ export function HeroShowcase({
                 draggable={false}
                 height={1842}
                 src={getImageKitUrl("/images/hero-example_xertaz.png", {
-                  width: 1200,
-                  quality: 85,
                   format: "auto",
+                  quality: 85,
+                  width: 1200,
                 })}
                 width={2880}
               />

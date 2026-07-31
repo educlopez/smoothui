@@ -43,25 +43,25 @@ export default function ShortSlideRight({
       <AnimatePresence mode="wait">
         <motion.span
           animate={
-            shouldReduceMotion ? { opacity: 1 } : { x: 0, filter: "blur(0px)" }
+            shouldReduceMotion ? { opacity: 1 } : { filter: "blur(0px)", x: 0 }
           }
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
               : {
-                  opacity: 0,
-                  x: 12,
                   filter: "blur(1px)",
+                  opacity: 0,
                   transition: { duration: 0.32, ease: EXIT_EASE },
+                  x: 12,
                 }
           }
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { x: -24, filter: "blur(1.2px)" }
+              : { filter: "blur(1.2px)", x: -24 }
           }
           key={index}
-          style={{ display: "inline-flex", gap: "0.25em", flexWrap: "nowrap" }}
+          style={{ display: "inline-flex", flexWrap: "nowrap", gap: "0.25em" }}
           transition={
             shouldReduceMotion
               ? { duration: 0 }
@@ -78,7 +78,7 @@ export default function ShortSlideRight({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.21, delay: i * 0.092, ease: ENTER_EASE }
+                  : { delay: i * 0.092, duration: 0.21, ease: ENTER_EASE }
               }
             >
               {word}

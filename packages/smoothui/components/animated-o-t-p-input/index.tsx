@@ -135,8 +135,8 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
           ? { opacity: 1 }
           : {
               opacity: 1,
-              y: 0,
               scale: isFilled ? SCALE_FILLED : 1,
+              y: 0,
             }
       }
       className={cn(
@@ -154,8 +154,8 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              duration: ANIMATION_DURATION_STANDARD,
               delay: index * STAGGER_DELAY,
+              duration: ANIMATION_DURATION_STANDARD,
               ease: EASE_OUT_QUINT,
               scale: {
                 duration: ANIMATION_DURATION_MEDIUM,
@@ -192,18 +192,18 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
             animate={
               shouldReduceMotion
                 ? { opacity: 1, scale: 1 }
-                : { opacity: 1, scale: 1, rotateY: 0 }
+                : { opacity: 1, rotateY: 0, scale: 1 }
             }
             className="font-medium"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, scale: 0.5, rotateY: 90 }
+                : { opacity: 0, rotateY: 90, scale: 0.5 }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1, scale: 1 }
-                : { opacity: 0, scale: 0.5, rotateY: -90 }
+                : { opacity: 0, rotateY: -90, scale: 0.5 }
             }
             key={char}
             transition={
@@ -233,8 +233,8 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
             className="h-4 w-px bg-foreground"
             transition={{
               duration: 1,
-              repeat: Number.POSITIVE_INFINITY,
               ease: [0.645, 0.045, 0.355, 1],
+              repeat: Number.POSITIVE_INFINITY,
             }}
           />
         </motion.div>
@@ -258,8 +258,8 @@ function AnimatedInputOTPSeparator() {
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              duration: ANIMATION_DURATION_LONG,
               delay: SEPARATOR_DELAY,
+              duration: ANIMATION_DURATION_LONG,
               ease: EASE_OUT_QUINT,
             }
       }

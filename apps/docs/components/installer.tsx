@@ -139,10 +139,10 @@ const BunIcon = ({ colored }: { colored?: boolean }) => (
 );
 
 const packageManagers = [
-  { id: "pnpm", icon: PnpmIcon },
-  { id: "npm", icon: NpmIcon },
-  { id: "yarn", icon: YarnIcon },
-  { id: "bun", icon: BunIcon },
+  { icon: PnpmIcon, id: "pnpm" },
+  { icon: NpmIcon, id: "npm" },
+  { icon: YarnIcon, id: "yarn" },
+  { icon: BunIcon, id: "bun" },
 ] as const;
 type PackageManager = (typeof packageManagers)[number]["id"];
 
@@ -155,10 +155,10 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
   const smoothuiCommand = `npx smoothui-cli add ${packageName}`;
 
   const shadcnCommands: Record<PackageManager, string> = {
-    pnpm: `pnpm dlx shadcn add @smoothui/${packageName}`,
-    npm: `npx shadcn@latest add @smoothui/${packageName}`,
-    yarn: `yarn dlx shadcn add @smoothui/${packageName}`,
     bun: `bunx shadcn add @smoothui/${packageName}`,
+    npm: `npx shadcn@latest add @smoothui/${packageName}`,
+    pnpm: `pnpm dlx shadcn add @smoothui/${packageName}`,
+    yarn: `yarn dlx shadcn add @smoothui/${packageName}`,
   };
 
   return (

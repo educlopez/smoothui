@@ -11,10 +11,10 @@ describe("AIToolCall", () => {
 
   it("exposes the status as text, since colour and motion carry it visually", () => {
     const labels: Record<AIToolCallStatus, string> = {
+      error: "Failed",
       pending: "Queued",
       running: "Running",
       success: "Done",
-      error: "Failed",
     };
     for (const [status, label] of Object.entries(labels)) {
       const { container } = render(

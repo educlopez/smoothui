@@ -88,10 +88,10 @@ export default function BasicAccordion({
                   ? { duration: 0 }
                   : {
                       height: {
-                        type: "spring" as const,
-                        stiffness: 500,
                         damping: 40,
                         duration: 0.25,
+                        stiffness: 500,
+                        type: "spring" as const,
                       },
                       opacity: { duration: 0.2 },
                     }

@@ -43,38 +43,38 @@ import { MobileNavbar } from "./mobile-navbar";
 
 // Preview components data
 const componentPreviews = {
-  text: {
-    title: "Text Components",
-    icon: <IconTextFill24 size={20} />,
-    section: "text",
-  },
   basic: {
-    title: "Basic Components",
     icon: <IconLayersFill24 size={20} />,
     section: "basic",
+    title: "Basic Components",
   },
   components: {
-    title: "UI Components",
     icon: <IconGrid2Fill24 size={20} />,
     section: "components",
+    title: "UI Components",
+  },
+  text: {
+    icon: <IconTextFill24 size={20} />,
+    section: "text",
+    title: "Text Components",
   },
 };
 
 const blockPreviews = {
   hero: {
-    title: "Hero Blocks",
     icon: <IconSparkleFill24 size={20} />,
     section: "hero",
+    title: "Hero Blocks",
   },
   pricing: {
-    title: "Pricing Blocks",
     icon: <IconBoxFill24 size={20} />,
     section: "pricing",
+    title: "Pricing Blocks",
   },
   testimonial: {
-    title: "Testimonial Blocks",
     icon: <IconUserFill24 size={20} />,
     section: "testimonial",
+    title: "Testimonial Blocks",
   },
 };
 

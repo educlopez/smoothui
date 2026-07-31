@@ -30,16 +30,16 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
 const KIT_ICON: Record<string, typeof IconLayersFill24> = {
-  landing: IconRocketFill24,
-  ios: IconMobile2Fill24,
   dashboard: IconChartBarTrendUpFill24,
+  ios: IconMobile2Fill24,
+  landing: IconRocketFill24,
 };
 
 const PM_PREFIX: Record<PackageManager, string> = {
-  pnpm: "pnpm dlx shadcn add",
-  npm: "npx shadcn@latest add",
-  yarn: "yarn dlx shadcn add",
   bun: "bunx shadcn add",
+  npm: "npx shadcn@latest add",
+  pnpm: "pnpm dlx shadcn add",
+  yarn: "yarn dlx shadcn add",
 };
 
 const FOCUSABLE_SELECTOR =
@@ -197,17 +197,17 @@ export function KitFloatNav() {
                   }
                 />
                 <motion.div
-                  animate={{ y: 0, opacity: 1 }}
+                  animate={{ opacity: 1, y: 0 }}
                   aria-label="Install bundle"
                   aria-modal="true"
                   className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex max-h-[80vh] w-[calc(100%-2rem)] max-w-2xl flex-col overflow-hidden rounded-2xl border bg-background shadow-xl outline-none"
                   exit={
                     reduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
-                      : { y: "100%", opacity: 0 }
+                      : { opacity: 0, y: "100%" }
                   }
                   initial={
-                    reduceMotion ? { opacity: 0 } : { y: "100%", opacity: 0 }
+                    reduceMotion ? { opacity: 0 } : { opacity: 0, y: "100%" }
                   }
                   key="kit-panel"
                   ref={dialogRef}
@@ -216,7 +216,7 @@ export function KitFloatNav() {
                   transition={
                     reduceMotion
                       ? { duration: 0 }
-                      : { type: "spring", duration: 0.4, bounce: 0.1 }
+                      : { bounce: 0.1, duration: 0.4, type: "spring" }
                   }
                 >
                   <div className="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-muted" />
@@ -328,9 +328,9 @@ export function KitFloatNav() {
                             aria-hidden="true"
                             className="relative flex size-36 items-center justify-center"
                             style={{
-                              WebkitMaskImage:
-                                "radial-gradient(circle at center, black 30%, transparent 75%)",
                               maskImage:
+                                "radial-gradient(circle at center, black 30%, transparent 75%)",
+                              WebkitMaskImage:
                                 "radial-gradient(circle at center, black 30%, transparent 75%)",
                             }}
                           >

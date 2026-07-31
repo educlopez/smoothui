@@ -3,8 +3,8 @@ import { render } from "../../../test-utils/render";
 import GlowHover, { type GlowHoverItem } from "../index";
 
 const items: GlowHoverItem[] = [
-  { id: "one", element: <div>One</div> },
-  { id: "two", element: <div>Two</div> },
+  { element: <div>One</div>, id: "one" },
+  { element: <div>Two</div>, id: "two" },
 ];
 
 describe("GlowHoverCard", () => {

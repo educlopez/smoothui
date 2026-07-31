@@ -26,9 +26,9 @@ interface StatsCardsProps {
 
 const iconMap = {
   DollarSign,
-  Users,
-  Star,
   Smartphone,
+  Star,
+  Users,
 };
 
 export function StatsCards({
@@ -36,32 +36,32 @@ export function StatsCards({
   description = "Track your success with these important numbers",
   stats = [
     {
-      value: "2.5M",
-      label: "Revenue",
       description: "Annual recurring revenue",
       icon: "DollarSign",
-      trend: { value: "+12%", direction: "up" },
+      label: "Revenue",
+      trend: { direction: "up", value: "+12%" },
+      value: "2.5M",
     },
     {
-      value: "45K",
-      label: "Customers",
       description: "Happy customers worldwide",
       icon: "Users",
-      trend: { value: "+8%", direction: "up" },
+      label: "Customers",
+      trend: { direction: "up", value: "+8%" },
+      value: "45K",
     },
     {
-      value: "98%",
-      label: "Satisfaction",
       description: "Customer satisfaction rate",
       icon: "Star",
-      trend: { value: "+2%", direction: "up" },
+      label: "Satisfaction",
+      trend: { direction: "up", value: "+2%" },
+      value: "98%",
     },
     {
-      value: "1.2M",
-      label: "Downloads",
       description: "Total app downloads",
       icon: "Smartphone",
-      trend: { value: "+15%", direction: "up" },
+      label: "Downloads",
+      trend: { direction: "up", value: "+15%" },
+      value: "1.2M",
     },
   ],
 }: StatsCardsProps) {
@@ -100,24 +100,24 @@ export function StatsCards({
                   return { opacity: 1 };
                 }
                 return isInView
-                  ? { opacity: 1, y: 0, scale: 1 }
-                  : { opacity: 0, y: 30, scale: 0.9 };
+                  ? { opacity: 1, scale: 1, y: 0 }
+                  : { opacity: 0, scale: 0.9, y: 30 };
               })()}
               className="group relative overflow-hidden rounded-2xl border border-border bg-gradient-to-br from-background to-background/50 p-6 transition-all hover:scale-105 hover:border-brand hover:shadow-xl"
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 0, y: 30, scale: 0.9 }
+                  : { opacity: 0, scale: 0.9, y: 30 }
               }
               key={stat.label}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      duration: 0.6,
                       delay: index * STAGGER_DELAY,
-                      type: "spring" as const,
+                      duration: 0.6,
                       stiffness: 100,
+                      type: "spring" as const,
                     }
               }
             >
@@ -141,10 +141,10 @@ export function StatsCards({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        duration: 0.6,
                         delay: index * STAGGER_DELAY + ICON_STAGGER_OFFSET,
-                        type: "spring" as const,
+                        duration: 0.6,
                         stiffness: 200,
+                        type: "spring" as const,
                       }
                 }
               >
@@ -170,10 +170,10 @@ export function StatsCards({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        duration: 0.8,
                         delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                        type: "spring" as const,
+                        duration: 0.8,
                         stiffness: 200,
+                        type: "spring" as const,
                       }
                 }
               >
@@ -215,8 +215,8 @@ export function StatsCards({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.4,
                           delay: index * STAGGER_DELAY + TREND_STAGGER_OFFSET,
+                          duration: 0.4,
                         }
                   }
                 >

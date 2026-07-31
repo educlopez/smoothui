@@ -57,13 +57,13 @@ export default function AnimatedInput({
     }
     if (isFloating) {
       return {
-        y: -24,
-        scale: 0.85,
-        color: "var(--color-brand)",
         borderColor: "var(--color-brand)",
+        color: "var(--color-brand)",
+        scale: 0.85,
+        y: -24,
       };
     }
-    return { y: 0, scale: 1, color: "#6b7280" };
+    return { color: "#6b7280", scale: 1, y: 0 };
   };
 
   const getLabelStyle = () => {
@@ -72,14 +72,14 @@ export default function AnimatedInput({
     }
     if (isFloating) {
       return {
-        transform: "translateY(-24px) scale(0.85)",
-        color: "var(--color-brand)",
         borderColor: "var(--color-brand)",
+        color: "var(--color-brand)",
+        transform: "translateY(-24px) scale(0.85)",
       };
     }
     return {
-      transform: "translateY(0) scale(1)",
       color: "#6b7280",
+      transform: "translateY(0) scale(1)",
     };
   };
 

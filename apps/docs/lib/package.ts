@@ -203,12 +203,12 @@ export const getPackage = cache(async (packageName: string) => {
     const content = await readFile(filePath, "utf-8");
 
     files.push({
-      type: fileType,
-      path: file.name,
       content: rewriteWorkspaceImports(content),
+      path: file.name,
       target: isData
         ? `lib/smoothui-data/${file.name}`
         : `components/smoothui/${actualPackageName}/${file.name}`,
+      type: fileType,
     });
   }
 
@@ -335,16 +335,16 @@ export const getPackage = cache(async (packageName: string) => {
 
   const response: RegistryItem = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: actualPackageName,
-    type,
-    title: toTitleCase(actualPackageName),
-    description: packageJson.description,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
-    dependencies,
-    devDependencies,
-    registryDependencies: Array.from(registryDependencies),
-    files,
     css,
+    dependencies,
+    description: packageJson.description,
+    devDependencies,
+    files,
+    name: actualPackageName,
+    registryDependencies: Array.from(registryDependencies),
+    title: toTitleCase(actualPackageName),
+    type,
   };
 
   return response;

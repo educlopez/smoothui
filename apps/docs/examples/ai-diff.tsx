@@ -4,16 +4,16 @@ import AIDiff, { type AIDiffLine } from "@repo/smoothui/components/ai-diff";
 import { useState } from "react";
 
 const LINES: AIDiffLine[] = [
-  { number: 12, kind: "context", content: "export function getToken() {" },
-  { number: 13, kind: "removed", content: "  return localStorage.token;" },
-  { number: 13, kind: "added", content: '  const t = cookies.get("session");' },
+  { content: "export function getToken() {", kind: "context", number: 12 },
+  { content: "  return localStorage.token;", kind: "removed", number: 13 },
+  { content: '  const t = cookies.get("session");', kind: "added", number: 13 },
   {
-    number: 14,
-    kind: "added",
     content: '  if (!t) throw new Error("no session");',
+    kind: "added",
+    number: 14,
   },
-  { number: 15, kind: "added", content: "  return t;" },
-  { number: 16, kind: "context", content: "}" },
+  { content: "  return t;", kind: "added", number: 15 },
+  { content: "}", kind: "context", number: 16 },
 ];
 
 const Example = () => {

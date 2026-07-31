@@ -31,7 +31,7 @@ export interface ExposureSliderProps {
 }
 
 const NOTCH_WIDTH = 13; // px per notch (3px notch + 10px gap)
-const SPRING_CONFIG = { stiffness: 300, damping: 30, mass: 0.5 };
+const SPRING_CONFIG = { damping: 30, mass: 0.5, stiffness: 300 };
 
 const DEFAULT_ACCENT = "var(--color-brand, oklch(0.65 0.25 12))";
 
@@ -154,13 +154,13 @@ const ExposureSlider = ({
           onPointerDown={handlePointerDown}
           ref={containerRef}
           style={{
-            touchAction: "pan-y",
             padding: `0 calc(50% - ${NOTCH_WIDTH / 2}px)`,
+            touchAction: "pan-y",
           }}
         >
           <motion.ul
             className="relative m-0 flex h-full list-none items-center p-0"
-            style={{ x, marginLeft: -centerIndex * NOTCH_WIDTH }}
+            style={{ marginLeft: -centerIndex * NOTCH_WIDTH, x }}
           >
             {items.map((i) => (
               <Notch centerIndex={centerIndex} index={i} key={i} x={x} />
@@ -206,11 +206,11 @@ const Notch = ({
         <motion.div
           className="rounded-sm"
           style={{
-            width: 3,
-            height: 40,
             backgroundColor: bg,
             clipPath,
+            height: 40,
             opacity,
+            width: 3,
             willChange: "clip-path, opacity",
           }}
         />
@@ -269,8 +269,8 @@ const ProgressCircle = ({
           strokeWidth="3"
           style={{
             transform: "rotate(-90deg)",
-            transformOrigin: "50% 50%",
             transformBox: "fill-box",
+            transformOrigin: "50% 50%",
           }}
         />
         {/* Negative indicator */}
@@ -286,8 +286,8 @@ const ProgressCircle = ({
           strokeWidth="3"
           style={{
             transform: "scaleX(-1) rotate(-90deg)",
-            transformOrigin: "50% 50%",
             transformBox: "fill-box",
+            transformOrigin: "50% 50%",
           }}
         />
       </svg>

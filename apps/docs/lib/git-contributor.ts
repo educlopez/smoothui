@@ -242,11 +242,11 @@ function extractContributors(commits: CommitItem[]): ContributorInfo[] {
     const avatar = githubUser?.avatar_url;
 
     const contributor: ContributorInfo = {
-      name: commitAuthor.name,
+      avatar: avatar ?? undefined,
       email: commitAuthor.email,
+      name: commitAuthor.name,
       url,
       username,
-      avatar: avatar ?? undefined,
     };
 
     contributorsMap.set(key, contributor);
@@ -293,12 +293,12 @@ async function getGitHubContributors(
 
     while (hasMorePages && page <= maxPages) {
       const { commits, hasMore } = await fetchCommitsPage({
-        owner,
-        repo,
         filePath,
+        headers,
+        owner,
         page,
         perPage,
-        headers,
+        repo,
       });
 
       allCommits.push(...commits);

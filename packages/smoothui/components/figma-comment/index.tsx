@@ -49,10 +49,10 @@ export default function FigmaComment({
   avatarUrl = getImageKitUrl(
     "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
     {
-      width: 48,
+      format: "auto",
       height: 48,
       quality: 85,
-      format: "auto",
+      width: 48,
     }
   ),
   avatarAlt = "Avatar",
@@ -115,8 +115,8 @@ export default function FigmaComment({
           shouldReduceMotion
             ? {}
             : {
-                width: isOpen ? width : CLOSED_SIZE,
                 height: isOpen ? contentHeight : CLOSED_SIZE,
+                width: isOpen ? width : CLOSED_SIZE,
               }
         }
         className="absolute bottom-0 left-0 cursor-pointer overflow-hidden rounded-2xl rounded-bl-none bg-background shadow-[0px_0px_0.5px_0px_rgba(0,0,0,0.18),0px_3px_8px_0px_rgba(0,0,0,0.1),0px_1px_3px_0px_rgba(0,0,0,0.1)]"
@@ -125,8 +125,8 @@ export default function FigmaComment({
         style={
           shouldReduceMotion
             ? {
-                width: isOpen ? width : CLOSED_SIZE,
                 height: isOpen ? contentHeight : CLOSED_SIZE,
+                width: isOpen ? width : CLOSED_SIZE,
               }
             : undefined
         }
@@ -134,12 +134,12 @@ export default function FigmaComment({
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 550,
                 damping: 45,
-                mass: 0.7,
                 delay: isOpen ? 0 : CONTAINER_CLOSE_DELAY,
                 duration: 0.25,
+                mass: 0.7,
+                stiffness: 550,
+                type: "spring" as const,
               }
         }
       >
@@ -166,10 +166,10 @@ export default function FigmaComment({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  type: "spring" as const,
-                  stiffness: 300,
                   damping: 25,
                   duration: 0.25,
+                  stiffness: 300,
+                  type: "spring" as const,
                 }
           }
         >
@@ -184,10 +184,10 @@ export default function FigmaComment({
           className="pointer-events-none absolute"
           ref={contentRef}
           style={{
-            width: `${width}px`,
-            top: "-9999px",
             left: 0,
             position: "absolute",
+            top: "-9999px",
+            width: `${width}px`,
           }}
         >
           <div className="flex flex-col items-start gap-0.5 py-3 pr-4 pl-11">
@@ -215,8 +215,8 @@ export default function FigmaComment({
                 shouldReduceMotion
                   ? { opacity: 1 }
                   : {
-                      opacity: 1,
                       filter: "blur(0px)",
+                      opacity: 1,
                     }
               }
               className="absolute inset-0 flex flex-col items-start gap-0.5 py-3 pr-4 pl-11"
@@ -224,16 +224,16 @@ export default function FigmaComment({
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
                   : {
-                      opacity: 0,
                       filter: `blur(${String(EXIT_BLUR_PX)}px)`,
+                      opacity: 0,
                     }
               }
               initial={
                 shouldReduceMotion
                   ? { opacity: 0 }
                   : {
-                      opacity: 0,
                       filter: `blur(${String(INITIAL_BLUR_PX)}px)`,
+                      opacity: 0,
                     }
               }
               style={{
@@ -243,15 +243,15 @@ export default function FigmaComment({
                 (shouldReduceMotion
                   ? { duration: 0 }
                   : (isExiting: boolean) => ({
-                      opacity: {
-                        duration: 0.25,
-                        ease: BLUR_EASE,
-                        delay: isExiting ? 0 : CONTENT_DELAY,
-                      },
                       filter: {
+                        delay: isExiting ? 0 : CONTENT_DELAY,
                         duration: 0.25,
                         ease: BLUR_EASE,
+                      },
+                      opacity: {
                         delay: isExiting ? 0 : CONTENT_DELAY,
+                        duration: 0.25,
+                        ease: BLUR_EASE,
                       },
                     })) as import("motion/react").Transition
               }

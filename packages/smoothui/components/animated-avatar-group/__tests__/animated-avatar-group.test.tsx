@@ -7,8 +7,8 @@ describe("AnimatedAvatarGroup", () => {
     const { container } = render(
       <AnimatedAvatarGroup
         avatars={[
-          { src: "https://example.com/avatar1.png", alt: "User 1" },
-          { src: "https://example.com/avatar2.png", alt: "User 2" },
+          { alt: "User 1", src: "https://example.com/avatar1.png" },
+          { alt: "User 2", src: "https://example.com/avatar2.png" },
         ]}
       />
     );

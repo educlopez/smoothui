@@ -108,17 +108,17 @@ function InteractiveGrid() {
       aria-hidden="true"
       className="pointer-events-none absolute inset-0 z-0"
       ref={containerRef}
-      style={{ width: "100%", height: "100%" }}
+      style={{ height: "100%", width: "100%" }}
     >
       <div
         className={styles.mainGrid}
         style={
           {
+            "--grid-cell-size": `${CELL_SIZE}px`,
             gridTemplateColumns: `repeat(${grid.columns}, 1fr)`,
             gridTemplateRows: `repeat(${grid.rows}, 1fr)`,
-            "--grid-cell-size": `${CELL_SIZE}px`,
-            width: "100%",
             height: "100%",
+            width: "100%",
           } as React.CSSProperties
         }
       >

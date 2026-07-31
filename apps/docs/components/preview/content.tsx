@@ -25,8 +25,8 @@ export type PreviewSize = "desktop" | "tablet" | "mobile";
 // be passed as "%" strings or the panel constraints collapse and lock.
 const SIZE_TO_PERCENT: Record<PreviewSize, string> = {
   desktop: "100%",
-  tablet: "60%",
   mobile: "30%",
+  tablet: "60%",
 };
 
 const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
@@ -110,8 +110,8 @@ export const PreviewContent = ({
     if (iframeRef.current?.contentWindow) {
       iframeRef.current.contentWindow.postMessage(
         {
-          type: HEIGHT_REQUEST_MESSAGE_TYPE,
           blockId: blockIdRef.current,
+          type: HEIGHT_REQUEST_MESSAGE_TYPE,
         },
         "*"
       );
@@ -216,11 +216,11 @@ export const PreviewContent = ({
               style={{
                 backgroundColor: "hsl(var(--background))",
                 border: 0,
-                minHeight: `${IFRAME_MIN_HEIGHT_REM}rem`,
                 height: `${Math.max(
                   blockHeight,
                   BLOCK_PREVIEW_MIN_HEIGHT_PX
                 )}px`,
+                minHeight: `${IFRAME_MIN_HEIGHT_REM}rem`,
               }}
               title={`${blockPath ?? "block"} preview`}
             />

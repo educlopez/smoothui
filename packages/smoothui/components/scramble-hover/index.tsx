@@ -100,13 +100,13 @@ const ScrambleHover: React.FC<ScrambleHoverProps> = ({
       onMouseEnter={isHoverDevice ? handleMouseEnter : undefined}
       onMouseLeave={handleMouseLeave}
       style={{
-        cursor: "pointer",
-        display: "inline-block",
         background: "none",
         border: "none",
-        padding: 0,
-        font: "inherit",
         color: "inherit",
+        cursor: "pointer",
+        display: "inline-block",
+        font: "inherit",
+        padding: 0,
         textAlign: "inherit",
       }}
       type="button"

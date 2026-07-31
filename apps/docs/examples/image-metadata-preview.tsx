@@ -4,10 +4,10 @@ import ImageMetadataPreview from "@repo/smoothui/components/image-metadata-previ
 
 const Example = () => {
   const sampleMetadata = {
-    created: "2024-01-15",
-    updated: "2024-01-20",
     by: "John Doe",
+    created: "2024-01-15",
     source: "https://example.com/source",
+    updated: "2024-01-20",
   };
 
   const handleShare = () => {

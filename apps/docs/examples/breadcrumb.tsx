@@ -3,9 +3,9 @@
 import Breadcrumb from "@repo/smoothui/components/breadcrumb";
 
 const items = [
-  { label: "Home", href: "#" },
-  { label: "Docs", href: "#" },
-  { label: "Components", href: "#" },
+  { href: "#", label: "Home" },
+  { href: "#", label: "Docs" },
+  { href: "#", label: "Components" },
   { label: "Breadcrumb" },
 ];
 
@@ -16,17 +16,17 @@ export default function BreadcrumbDemo() {
 
       <Breadcrumb
         items={[
-          { label: "Dashboard", href: "#" },
-          { label: "Settings", href: "#" },
+          { href: "#", label: "Dashboard" },
+          { href: "#", label: "Settings" },
           { label: "Profile" },
         ]}
       />
 
       <Breadcrumb
         items={[
-          { label: "Products", href: "#" },
-          { label: "Electronics", href: "#" },
-          { label: "Phones", href: "#" },
+          { href: "#", label: "Products" },
+          { href: "#", label: "Electronics" },
+          { href: "#", label: "Phones" },
           { label: "iPhone 16 Pro" },
         ]}
         separator={<span className="text-muted-foreground">/</span>}

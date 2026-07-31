@@ -5,24 +5,24 @@ import ScrollableCardStack from "../index";
 
 const buildItems = (count: number) =>
   Array.from({ length: count }, (_, i) => ({
-    id: `${i + 1}`,
-    name: `User ${i + 1}`,
-    handle: `@user${i + 1}`,
     avatar: `/avatar-${i + 1}.jpg`,
-    image: `/image-${i + 1}.jpg`,
+    handle: `@user${i + 1}`,
     href: `#user-${i + 1}`,
+    id: `${i + 1}`,
+    image: `/image-${i + 1}.jpg`,
+    name: `User ${i + 1}`,
   }));
 
 const mockMatchMedia = (matches: boolean) => {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    addEventListener: vi.fn(),
+    addListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches,
     media: query,
     onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
+    removeListener: vi.fn(),
   }));
 };
 

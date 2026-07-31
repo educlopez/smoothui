@@ -16,48 +16,48 @@ import { useMemo } from "react";
 
 const quotes = [
   {
-    text: "I have a feeling we're not in Kansas anymore.",
     source: "The Wizard of Oz (1939)",
+    text: "I have a feeling we're not in Kansas anymore.",
   },
   {
-    text: "Game over, man! Game over!",
     source: "Aliens (1986)",
+    text: "Game over, man! Game over!",
   },
   {
-    text: "We're gonna need a bigger boat.",
     source: "Jaws (1975)",
+    text: "We're gonna need a bigger boat.",
   },
   {
-    text: "Don't panic.",
     source: "The Hitchhiker's Guide to the Galaxy (2005)",
+    text: "Don't panic.",
   },
   {
-    text: "Roads? Where we're going, we don't need roads.",
     source: "Back to the Future (1985)",
+    text: "Roads? Where we're going, we don't need roads.",
   },
   {
-    text: "I'm gonna make him an offer he can't refuse.",
     source: "The Godfather (1972)",
+    text: "I'm gonna make him an offer he can't refuse.",
   },
   {
-    text: "Houston, we have a problem.",
     source: "Apollo 13 (1995)",
+    text: "Houston, we have a problem.",
   },
   {
-    text: "May the Force be with you.",
     source: "Star Wars (1977)",
+    text: "May the Force be with you.",
   },
   {
-    text: "You shall not pass!",
     source: "The Lord of the Rings: The Fellowship of the Ring (2001)",
+    text: "You shall not pass!",
   },
   {
-    text: "Life finds a way.",
     source: "Jurassic Park (1993)",
+    text: "Life finds a way.",
   },
   {
-    text: "Why so serious?",
     source: "The Dark Knight (2008)",
+    text: "Why so serious?",
   },
 ] as const;
 
@@ -85,8 +85,8 @@ export default function NotFound() {
   const containerMotion = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 24 },
         animate: { opacity: 1, y: 0 },
+        initial: { opacity: 0, y: 24 },
         transition: { duration: CONTAINER_DURATION, ease: CONTAINER_EASE },
       };
 

@@ -4,10 +4,10 @@ import { render } from "../../../test-utils/render";
 import AIDiff, { type AIDiffLine } from "../index";
 
 const LINES: AIDiffLine[] = [
-  { number: 1, kind: "context", content: "unchanged" },
-  { number: 2, kind: "removed", content: "old line" },
-  { number: 2, kind: "added", content: "new line" },
-  { number: 3, kind: "added", content: "another new line" },
+  { content: "unchanged", kind: "context", number: 1 },
+  { content: "old line", kind: "removed", number: 2 },
+  { content: "new line", kind: "added", number: 2 },
+  { content: "another new line", kind: "added", number: 3 },
 ];
 
 describe("AIDiff", () => {

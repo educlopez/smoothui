@@ -59,10 +59,10 @@ export function MorphSurface() {
 
   const context = React.useMemo(
     () => ({
+      closeFeedback,
+      openFeedback,
       showFeedback,
       success,
-      openFeedback,
-      closeFeedback,
     }),
     [showFeedback, success, openFeedback, closeFeedback]
   );
@@ -71,8 +71,8 @@ export function MorphSurface() {
     <div
       className="flex items-center justify-center"
       style={{
-        width: FEEDBACK_WIDTH,
         height: FEEDBACK_HEIGHT,
+        width: FEEDBACK_WIDTH,
       }}
     >
       <motion.div
@@ -80,11 +80,11 @@ export function MorphSurface() {
           shouldReduceMotion
             ? {}
             : {
-                width: showFeedback ? FEEDBACK_WIDTH : "auto",
-                height: showFeedback ? FEEDBACK_HEIGHT : DOCK_HEIGHT,
                 borderRadius: showFeedback
                   ? FEEDBACK_BORDER_RADIUS
                   : DOCK_BORDER_RADIUS,
+                height: showFeedback ? FEEDBACK_HEIGHT : DOCK_HEIGHT,
+                width: showFeedback ? FEEDBACK_WIDTH : "auto",
               }
         }
         className={cx(
@@ -97,12 +97,12 @@ export function MorphSurface() {
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: SPRING_STIFFNESS / SPEED,
                 damping: SPRING_DAMPING,
-                mass: SPRING_MASS,
                 delay: showFeedback ? 0 : CLOSE_DELAY,
                 duration: 0.25,
+                mass: SPRING_MASS,
+                stiffness: SPRING_STIFFNESS / SPEED,
+                type: "spring" as const,
               }
         }
       >
@@ -206,9 +206,9 @@ function Feedback({
       className="absolute bottom-0"
       onSubmit={onSubmit}
       style={{
-        width: FEEDBACK_WIDTH,
         height: FEEDBACK_HEIGHT,
         pointerEvents: showFeedback ? "all" : "none",
+        width: FEEDBACK_WIDTH,
       }}
     >
       <AnimatePresence>
@@ -226,11 +226,11 @@ function Feedback({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring" as const,
-                    stiffness: SPRING_STIFFNESS / SPEED,
                     damping: SPRING_DAMPING,
-                    mass: SPRING_MASS,
                     duration: 0.25,
+                    mass: SPRING_MASS,
+                    stiffness: SPRING_STIFFNESS / SPEED,
+                    type: "spring" as const,
                   }
             }
           >

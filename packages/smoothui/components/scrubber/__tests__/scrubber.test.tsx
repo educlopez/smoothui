@@ -4,15 +4,15 @@ import Scrubber from "../index";
 
 const mockTrackRect = (track: Element) => {
   vi.spyOn(track, "getBoundingClientRect").mockReturnValue({
+    bottom: 36,
+    height: 36,
     left: 0,
     right: 200,
+    toJSON: () => ({}),
     top: 0,
-    bottom: 36,
     width: 200,
-    height: 36,
     x: 0,
     y: 0,
-    toJSON: () => ({}),
   });
 };
 

@@ -5,40 +5,40 @@ import { Dog, Map as MapIcon, User } from "lucide-react";
 // Placeholder images (replace with your own if available)
 const Images = [
   getImageKitUrl("/images/girl-summer.webp", {
-    width: 600,
+    format: "auto",
     height: 300,
     quality: 80,
-    format: "auto",
+    width: 600,
   }),
   getImageKitUrl("/images/dog-white.webp", {
-    width: 600,
+    format: "auto",
     height: 300,
     quality: 80,
-    format: "auto",
+    width: 600,
   }),
   getImageKitUrl("/images/surf.webp", {
-    width: 600,
+    format: "auto",
     height: 300,
     quality: 80,
-    format: "auto",
+    width: 600,
   }),
 ];
 
 const tabs: PhototabTab[] = [
   {
-    name: "one",
-    image: Images[0],
     icon: <User />,
+    image: Images[0],
+    name: "one",
   },
   {
-    name: "two",
-    image: Images[1],
     icon: <Dog />,
+    image: Images[1],
+    name: "two",
   },
   {
-    name: "three",
-    image: Images[2],
     icon: <MapIcon />,
+    image: Images[2],
+    name: "three",
   },
 ];
 

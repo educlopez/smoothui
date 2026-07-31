@@ -27,34 +27,34 @@ const themeInstallCommand = (paletteName: string) =>
 
 const PALETTES = [
   {
-    name: "Candy",
     candy: "oklch(0.72 0.2 352.53)",
     candySecondary: "oklch(0.66 0.21 354.31)",
+    name: "Candy",
   },
   {
-    name: "Indigo",
     candy: "oklch(0.65 0.22 300.21)",
     candySecondary: "oklch(0.54 0.23 286.53)",
+    name: "Indigo",
   },
   {
-    name: "Blue",
     candy: "oklch(0.67 0.17 257.78)",
     candySecondary: "oklch(0.59 0.21 258.02)",
+    name: "Blue",
   },
   {
-    name: "Red",
     candy: "oklch(0.67 0.21 24.28)",
     candySecondary: "oklch(0.62 0.25 28.23)",
+    name: "Red",
   },
   {
-    name: "Orange",
     candy: "oklch(0.75 0.17 47.65)",
     candySecondary: "oklch(0.68 0.21 40.59)",
+    name: "Orange",
   },
   {
-    name: "Green",
     candy: "oklch(0.70 0.15 162.48)",
     candySecondary: "oklch(0.60 0.13 163.23)",
+    name: "Green",
   },
 ];
 
@@ -208,7 +208,7 @@ export function ColorPickerFloatNav() {
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring", stiffness: 300, damping: 30 }
+                : { damping: 30, stiffness: 300, type: "spring" }
             }
           >
             <div className="mb-2 flex flex-row gap-3">
@@ -262,7 +262,7 @@ export function ColorPickerFloatNav() {
                           transition={
                             shouldReduceMotion
                               ? { duration: 0 }
-                              : { type: "spring", stiffness: 400, damping: 30 }
+                              : { damping: 30, stiffness: 400, type: "spring" }
                           }
                         >
                           <span className="rounded-full bg-white/40 p-0.5">

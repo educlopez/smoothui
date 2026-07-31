@@ -62,9 +62,9 @@ const DRIFT_BASE_SECONDS = 12;
 const BREATHE_SCALE = [1, 1.035, 1];
 const BREATHE_SECONDS = 5.5;
 const SPRING_DEFAULT: Transition = {
-  type: "spring",
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring",
 };
 
 export interface SiriOrbProps {
@@ -203,15 +203,15 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
 
   const getRootAnimate = (): TargetAndTransition => {
     if (shouldReduceMotion) {
-      return { x: 0, scale: 1 };
+      return { scale: 1, x: 0 };
     }
     if (state === "error") {
-      return { x: ERROR_SHAKE_KEYFRAMES, scale: 1 };
+      return { scale: 1, x: ERROR_SHAKE_KEYFRAMES };
     }
     if (stateMotion.motif === "breathe") {
-      return { x: 0, scale: BREATHE_SCALE };
+      return { scale: BREATHE_SCALE, x: 0 };
     }
-    return { x: 0, scale: 1 };
+    return { scale: 1, x: 0 };
   };
 
   const getRootTransition = (): Transition => {
@@ -239,9 +239,9 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
       className={cn("relative", className)}
       style={
         {
-          width: size,
-          height: size,
           "--orb-size": size,
+          height: size,
+          width: size,
         } as MotionStyle
       }
       transition={getRootTransition()}
@@ -251,9 +251,9 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
         animate={{ opacity: stateMotion.glow * GLOW_MAX_OPACITY }}
         className="absolute rounded-full"
         style={{
-          inset: "-12%",
-          filter: `blur(calc(var(--orb-size) * ${GLOW_BLUR_RATIO}))`,
           background: `radial-gradient(circle at 50% 50%, ${glowColor} 0%, transparent 64%)`,
+          filter: `blur(calc(var(--orb-size) * ${GLOW_BLUR_RATIO}))`,
+          inset: "-12%",
         }}
         transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
       />
@@ -262,26 +262,26 @@ const SiriOrb: React.FC<SiriOrbProps> = ({
         className="siri-orb"
         style={
           {
-            width: "100%",
-            height: "100%",
-            scale: reactiveScale,
-            // Saturation and hue only affect the gradient disc. Applying them
-            // to the whole component would desaturate the semantic accent too,
-            // and `error` would lose the very red that identifies it.
-            filter: `saturate(${stateMotion.saturation}) hue-rotate(${stateMotion.hueRotate}deg)`,
+            "--animation-duration": `${loopDuration}s`,
             "--bg": finalColors.bg,
+            "--blur-amount": reactiveBlur,
             "--c1": finalColors.c1,
             "--c2": finalColors.c2,
             "--c3": finalColors.c3,
             "--c4": finalColors.c4,
-            "--animation-duration": `${loopDuration}s`,
-            "--blur-amount": reactiveBlur,
             "--contrast-amount": finalContrast,
             "--dot-size": `${dotSize}px`,
-            "--shadow-spread": `${shadowSpread}px`,
+            "--drift-duration": `${driftDuration}s`,
             "--mask-radius": maskRadius,
             "--rim": `${rim}px`,
-            "--drift-duration": `${driftDuration}s`,
+            "--shadow-spread": `${shadowSpread}px`,
+            // Saturation and hue only affect the gradient disc. Applying them
+            // to the whole component would desaturate the semantic accent too,
+            // and `error` would lose the very red that identifies it.
+            filter: `saturate(${stateMotion.saturation}) hue-rotate(${stateMotion.hueRotate}deg)`,
+            height: "100%",
+            scale: reactiveScale,
+            width: "100%",
           } as MotionStyle
         }
       >

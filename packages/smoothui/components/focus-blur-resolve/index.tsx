@@ -38,21 +38,21 @@ export default function FocusBlurResolve({
     <span aria-label={children} className={className} ref={ref}>
       <motion.span
         animate={
-          play ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 } : undefined
+          play ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 } : undefined
         }
         aria-hidden="true"
         initial={
           shouldReduceMotion
-            ? { opacity: 1, y: 0, filter: "blur(0px)", scale: 1 }
-            : { opacity: 0, y: 14, filter: "blur(14px)", scale: 1.01 }
+            ? { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }
+            : { filter: "blur(14px)", opacity: 0, scale: 1.01, y: 14 }
         }
         style={{ display: "inline-block" }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                duration: DURATION_S,
                 delay: delay / MS,
+                duration: DURATION_S,
                 ease: EASE,
               }
         }

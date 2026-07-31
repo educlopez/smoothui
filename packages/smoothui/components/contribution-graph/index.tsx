@@ -87,8 +87,8 @@ const createDayData = (
   const dateString = currentDate.toISOString().split("T")[0];
   const existingData = contributionData.find((d) => d.date === dateString);
   return {
-    date: dateString,
     count: existingData?.count ?? LEVEL_0,
+    date: dateString,
     level: existingData?.level ?? LEVEL_0,
   };
 };
@@ -137,16 +137,16 @@ const calculateMonthHeaders = (targetYear: number) => {
       if (
         currentMonth !== -1 &&
         shouldShowMonthHeader({
-          currentYear,
-          targetYear,
           currentMonth,
+          currentYear,
           startDateDay: startDate.getDay(),
+          targetYear,
           weekCount,
         })
       ) {
         headers.push({
-          month: MONTHS[currentMonth],
           colspan: weekCount,
+          month: MONTHS[currentMonth],
           startWeek: monthStartWeek,
         });
       }
@@ -163,16 +163,16 @@ const calculateMonthHeaders = (targetYear: number) => {
   if (
     currentMonth !== -1 &&
     shouldShowMonthHeader({
-      currentYear,
-      targetYear,
       currentMonth,
+      currentYear,
       startDateDay: startDate.getDay(),
+      targetYear,
       weekCount,
     })
   ) {
     headers.push({
-      month: MONTHS[currentMonth],
       colspan: weekCount,
+      month: MONTHS[currentMonth],
       startWeek: monthStartWeek,
     });
   }
@@ -215,8 +215,8 @@ export function ContributionGraph({
         } else {
           // Add empty day for alignment
           days.push({
-            date: "",
             count: LEVEL_0,
+            date: "",
             level: LEVEL_0,
           });
         }
@@ -246,10 +246,10 @@ export function ContributionGraph({
     }
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
       weekday: "long",
       year: "numeric",
-      month: "long",
-      day: "numeric",
     });
   };
 

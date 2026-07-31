@@ -18,69 +18,69 @@ export interface FaqCategorizedProps {
 
 const defaultCategories = [
   {
-    name: "Getting Started",
     faqs: [
       {
-        question: "How do I set up SmoothUI in my project?",
         answer:
           "Setting up SmoothUI is straightforward. Install the package using npm or pnpm, then import the components you need. Our CLI tool can also help scaffold components directly into your project with the right dependencies.",
+        question: "How do I set up SmoothUI in my project?",
       },
       {
-        question: "What are the minimum requirements?",
         answer:
           "SmoothUI requires React 18 or later, Next.js 13+, and Node.js 18+. You'll also need Tailwind CSS configured in your project. All modern browsers are supported.",
+        question: "What are the minimum requirements?",
       },
       {
-        question: "How do I add my first component?",
         answer:
           "Use our CLI command `npx shadcn@latest add @smoothui/component-name` to add any component. This will install the component with all its dependencies and place it in your components directory.",
+        question: "How do I add my first component?",
       },
     ],
+    name: "Getting Started",
   },
   {
-    name: "Billing",
     faqs: [
       {
-        question: "Is SmoothUI free to use?",
         answer:
           "Yes, SmoothUI is completely free and open source under the MIT license. You can use it in personal and commercial projects without any cost or attribution requirements.",
+        question: "Is SmoothUI free to use?",
       },
       {
-        question: "Do you offer refunds?",
         answer:
           "Since SmoothUI is free, there are no purchases to refund. For any premium services or support packages we may offer in the future, our refund policy will be clearly stated.",
+        question: "Do you offer refunds?",
       },
       {
-        question: "What payment methods do you accept?",
         answer:
           "Currently, all components are free. If we introduce premium features, we'll support major credit cards, PayPal, and other popular payment methods through our secure payment processor.",
+        question: "What payment methods do you accept?",
       },
     ],
+    name: "Billing",
   },
   {
-    name: "Technical",
     faqs: [
       {
-        question: "Which browsers are supported?",
         answer:
           "SmoothUI supports all modern browsers including Chrome, Firefox, Safari, and Edge. We test across the latest versions and one version back for each browser to ensure compatibility.",
+        question: "Which browsers are supported?",
       },
       {
-        question: "How does SmoothUI affect performance?",
         answer:
           "Components are optimized for performance with tree-shaking support, minimal bundle size, and hardware-accelerated animations. We only animate transform and opacity properties to ensure 60fps animations.",
+        question: "How does SmoothUI affect performance?",
       },
       {
-        question: "Is TypeScript supported?",
         answer:
           "Absolutely! SmoothUI is built with TypeScript and provides full type definitions for all components. You get autocomplete, type checking, and inline documentation in supported editors.",
+        question: "Is TypeScript supported?",
       },
       {
-        question: "Can I customize component styles?",
         answer:
           "Yes, all components use Tailwind CSS and CSS variables for styling. You can override styles using className props, customize the design tokens, or modify the component source directly.",
+        question: "Can I customize component styles?",
       },
     ],
+    name: "Technical",
   },
 ];
 
@@ -95,11 +95,11 @@ export function FaqCategorized({
 
   const springTransition = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0.05 };
+    : { bounce: 0.05, duration: 0.25, type: "spring" as const };
 
   const contentTransition = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0 };
+    : { bounce: 0, duration: 0.25, type: "spring" as const };
 
   const handleCategoryChange = (index: number) => {
     setActiveCategory(index);

@@ -13,19 +13,19 @@ export const getSkill = cache(async (): Promise<RegistryItem> => {
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: SKILL_ITEM_NAME,
-    type: "registry:item",
-    title: "SmoothUI Skill",
+    author: "Eduardo Calvo <educlopez93@gmail.com>",
     description:
       "Teaches AI coding assistants how to install SmoothUI components, blocks, and themes, and how to follow SmoothUI animation conventions.",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
     files: [
       {
-        path: "SKILL.md",
-        type: "registry:file",
         content,
+        path: "SKILL.md",
         target: ".claude/skills/smoothui/SKILL.md",
+        type: "registry:file",
       },
     ],
+    name: SKILL_ITEM_NAME,
+    title: "SmoothUI Skill",
+    type: "registry:item",
   };
 });

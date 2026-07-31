@@ -59,7 +59,7 @@ export function TeamGrid({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.6, delay: index * STAGGER_DELAY }
+                  : { delay: index * STAGGER_DELAY, duration: 0.6 }
               }
             >
               <motion.div
@@ -67,7 +67,7 @@ export function TeamGrid({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { type: "spring" as const, stiffness: 300, damping: 20 }
+                    : { damping: 20, stiffness: 300, type: "spring" as const }
                 }
                 whileHover={shouldReduceMotion ? {} : { scale: 1.02 }}
               >
@@ -77,7 +77,7 @@ export function TeamGrid({
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring" as const, stiffness: 300, damping: 20 }
+                      : { damping: 20, stiffness: 300, type: "spring" as const }
                   }
                   whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                 >

@@ -269,10 +269,10 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       const zIndex = items.length - index;
 
       return {
-        y,
-        scale,
-        opacity,
         blur,
+        opacity,
+        scale,
+        y,
         zIndex,
       };
     },
@@ -316,9 +316,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 shouldReduceMotion
                   ? { x: "-50%" }
                   : {
-                      y: `calc(-50% + ${transform.y}px)`,
                       scale: transform.scale,
                       x: "-50%",
+                      y: `calc(-50% + ${transform.y}px)`,
                     }
               }
               aria-hidden={!isActive}
@@ -331,34 +331,34 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               onMouseEnter={() => isActive && setHoveredIndex(i)}
               onMouseLeave={() => setHoveredIndex(null)}
               style={{
+                // Dynamic border width based on scale - from reference code
+                borderWidth: `${2 / transform.scale}px`,
+                filter: `blur(${transform.blur}px)`,
                 height: `${cardHeight}px`,
-                zIndex: transform.zIndex,
+                opacity: transform.opacity,
                 pointerEvents: isActive ? "auto" : "none",
                 transformOrigin: "center center",
-                willChange: shouldReduceMotion
-                  ? undefined
-                  : "opacity, filter, transform",
-                filter: `blur(${transform.blur}px)`,
-                opacity: transform.opacity,
+                transitionDuration: shouldReduceMotion ? "0ms" : "200ms",
                 transitionProperty: shouldReduceMotion
                   ? "none"
                   : "opacity, filter",
-                transitionDuration: shouldReduceMotion ? "0ms" : "200ms",
                 transitionTimingFunction:
                   "cubic-bezier(0.645, 0.045, 0.355, 1)",
-                // Dynamic border width based on scale - from reference code
-                borderWidth: `${2 / transform.scale}px`,
+                willChange: shouldReduceMotion
+                  ? undefined
+                  : "opacity, filter, transform",
+                zIndex: transform.zIndex,
               }}
               tabIndex={isActive ? 0 : -1}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
-                      stiffness: 250,
                       damping: 20,
-                      mass: 0.5,
                       duration: 0.25,
+                      mass: 0.5,
+                      stiffness: 250,
+                      type: "spring" as const,
                     }
               }
               whileHover={
@@ -367,11 +367,11 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   : {
                       scale: transform.scale * HOVER_SCALE_MULTIPLIER,
                       transition: {
-                        type: "spring" as const,
-                        stiffness: 250,
                         damping: 20,
-                        mass: 0.5,
                         duration: 0.25,
+                        mass: 0.5,
+                        stiffness: 250,
+                        type: "spring" as const,
                       },
                     }
               }
@@ -403,9 +403,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZjNmNGY2Ii8+PC9zdmc+"
                     style={{
                       filter: "blur(32px)",
+                      pointerEvents: "none",
                       scale: "1.2",
                       zIndex: 1,
-                      pointerEvents: "none",
                     }}
                     width={10}
                   />
@@ -418,9 +418,9 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     height={cardHeight}
                     src={item.image}
                     style={{
-                      zIndex: 2,
                       pointerEvents: "none",
                       userSelect: "none",
+                      zIndex: 2,
                     }}
                     width={400}
                   />
@@ -488,10 +488,10 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               }}
               role="tab"
               transition={{
-                type: "spring" as const,
-                stiffness: 250,
                 damping: 20,
                 mass: 0.5,
+                stiffness: 250,
+                type: "spring" as const,
               }}
               type="button"
               whileHover={{ scale: 1.2 }}

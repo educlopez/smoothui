@@ -15,8 +15,8 @@ export const PreviewCode = ({ code, language }: PreviewCodeProps) => (
       lang={language}
       options={{
         themes: {
-          light: "catppuccin-latte",
           dark: "catppuccin-mocha",
+          light: "catppuccin-latte",
         },
       }}
     />

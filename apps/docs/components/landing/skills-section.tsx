@@ -14,13 +14,13 @@ export function SkillsSection() {
     initial: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 0, transform: "translateY(16px)" },
+    transition: shouldReduceMotion
+      ? { duration: 0 }
+      : { bounce: 0.1, delay, duration: 0.35, type: "spring" as const },
+    viewport: { amount: 0.3, once: true },
     whileInView: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 1, transform: "translateY(0px)" },
-    transition: shouldReduceMotion
-      ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.35, bounce: 0.1, delay },
-    viewport: { once: true, amount: 0.3 },
   });
 
   return (

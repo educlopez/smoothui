@@ -52,7 +52,7 @@ async function main(): Promise<void> {
         }
       }
 
-      await add(componentArgs, { path, force });
+      await add(componentArgs, { force, path });
       return;
     }
 

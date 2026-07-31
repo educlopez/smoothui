@@ -142,23 +142,23 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     // Get creator (first contributor or from frontmatter)
     if (contributorFromFrontmatter) {
       creator = {
+        avatar: contributorFromFrontmatter.avatar,
         name: contributorFromFrontmatter.name,
         url: contributorFromFrontmatter.url,
-        avatar: contributorFromFrontmatter.avatar,
       };
     } else if (allContributors.length > 0) {
       const firstContributor = allContributors[0];
       creator = {
+        avatar: firstContributor.avatar,
         name: firstContributor.name,
         url: firstContributor.url,
-        avatar: firstContributor.avatar,
       };
     }
   } else if (contributorFromFrontmatter) {
     creator = {
+      avatar: contributorFromFrontmatter.avatar,
       name: contributorFromFrontmatter.name,
       url: contributorFromFrontmatter.url,
-      avatar: contributorFromFrontmatter.avatar,
     };
   }
 
@@ -270,8 +270,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <MDX
       components={{
         ...defaultMdxComponents,
-        Tab,
-        Tabs,
+        AutoTypeTable: AutoTypeTableWithGenerator,
+        BlocksGallery: BlocksGalleryPage,
+        BodyText: BodyTextAsDiv,
+        ChangelogEntry,
+        Contributor,
+        Divider,
+        FeatureCard,
+        FeatureCardHover,
+        GalleryPage,
+        Installer,
+        PackageManagerTabs,
+        PoweredBy,
+        Preview,
         // HTML `ref` attribute conflicts with `forwardRef`
         pre: (preProps) => {
           const { ref: _ref, ...restProps } = preProps;
@@ -281,22 +292,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             </CodeBlock>
           );
         },
-        AutoTypeTable: AutoTypeTableWithGenerator,
-        Installer,
-        Preview,
-        PoweredBy,
         Reference,
-        Contributor,
-        BodyText: BodyTextAsDiv,
-        FeatureCard,
-        FeatureCardHover,
-        Divider,
-        ChangelogEntry,
         SponsorsPageContent,
-        GalleryPage,
-        BlocksGallery: BlocksGalleryPage,
+        Tab,
+        Tabs,
         TemplatesGallery: TemplatesGalleryPage,
-        PackageManagerTabs,
       }}
     />
   );
@@ -381,8 +381,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         footer={isSplit || isGalleryIndex ? { enabled: false } : undefined}
         full={page.data.full ?? isSplit}
         tableOfContent={{
-          style: "clerk",
           footer: footerContent,
+          style: "clerk",
         }}
         toc={updatedToc}
       >
@@ -544,23 +544,23 @@ export async function generateMetadata(
     `${page.data.title} — an animated React ${kind} for shadcn/ui, built with Motion and Tailwind CSS. Copy, paste, and ship.`;
 
   const image = {
+    height: 630,
     url: getPageImage(page).url,
     width: 1200,
-    height: 630,
   };
 
   const pageUrl = `/docs/${page.slugs.join("/")}`;
 
   return createMetadata({
-    title: page.data.title,
-    description,
     alternates: {
       canonical: pageUrl,
     },
+    description,
     openGraph: {
-      url: pageUrl,
       images: [image],
+      url: pageUrl,
     },
+    title: page.data.title,
     twitter: {
       images: [image],
     },

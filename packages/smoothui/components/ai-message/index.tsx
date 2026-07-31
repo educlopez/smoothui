@@ -116,46 +116,46 @@ const AIMessage = ({
   const actions = [
     copyText
       ? {
+          active: hasCopied,
+          icon: hasCopied ? Check : Copy,
           key: "copy",
           label: hasCopied ? "Copied" : "Copy",
-          icon: hasCopied ? Check : Copy,
           onClick: copy,
-          active: hasCopied,
         }
       : null,
     onRetry
       ? {
+          active: false,
+          icon: RotateCcw,
           key: "retry",
           label: "Retry",
-          icon: RotateCcw,
           onClick: onRetry,
-          active: false,
         }
       : null,
     // Voting on your own message makes no sense, so the feedback pair is
     // assistant-only even when the consumer passes `onVote` for the thread.
     onVote && !isUser
       ? {
+          active: vote === "up",
+          icon: ThumbsUp,
           key: "up",
           label: "Good response",
-          icon: ThumbsUp,
           onClick: () => {
             setVote("up");
             onVote("up");
           },
-          active: vote === "up",
         }
       : null,
     onVote && !isUser
       ? {
+          active: vote === "down",
+          icon: ThumbsDown,
           key: "down",
           label: "Bad response",
-          icon: ThumbsDown,
           onClick: () => {
             setVote("down");
             onVote("down");
           },
-          active: vote === "down",
         }
       : null,
   ].filter((action): action is NonNullable<typeof action> => action !== null);

@@ -17,12 +17,12 @@ import { type ReactNode, useMemo, useState } from "react";
 
 const BOUNCE_VARIANTS = {
   idle: 0.5,
+  "idle-ring": 0.5,
+  "idle-timer": 0.3,
   "ring-idle": 0.5,
-  "timer-ring": 0.35,
   "ring-timer": 0.35,
   "timer-idle": 0.3,
-  "idle-timer": 0.3,
-  "idle-ring": 0.5,
+  "timer-ring": 0.35,
 } as const;
 
 const DEFAULT_BOUNCE = 0.5;
@@ -241,41 +241,41 @@ export default function DynamicIsland({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  type: "spring" as const,
                   bounce:
                     BOUNCE_VARIANTS[
                       variantKey as keyof typeof BOUNCE_VARIANTS
                     ] ?? DEFAULT_BOUNCE,
                   duration: 0.25,
+                  type: "spring" as const,
                 }
           }
         >
           <motion.div
             animate={
               shouldReduceMotion
-                ? { scale: 1, opacity: 1 }
+                ? { opacity: 1, scale: 1 }
                 : {
-                    scale: 1,
-                    opacity: 1,
                     filter: "blur(0px)",
+                    opacity: 1,
                     originX: 0.5,
                     originY: 0.5,
+                    scale: 1,
                     transition: { delay: 0.05 },
                   }
             }
             initial={{
-              scale: 0.9,
-              opacity: 0,
               filter: "blur(5px)",
+              opacity: 0,
               originX: 0.5,
               originY: 0.5,
+              scale: 0.9,
             }}
             key={view}
             transition={{
-              type: "spring" as const,
               bounce:
                 BOUNCE_VARIANTS[variantKey as keyof typeof BOUNCE_VARIANTS] ??
                 DEFAULT_BOUNCE,
+              type: "spring" as const,
             }}
           >
             {content}
@@ -284,11 +284,11 @@ export default function DynamicIsland({
 
         <div className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 justify-center gap-1 rounded-full border bg-background p-1">
           {[
-            { key: "idle", icon: <CloudLightning className="size-3" /> },
-            { key: "ring", icon: <Phone className="size-3" /> },
-            { key: "timer", icon: <TimerIcon className="size-3" /> },
-            { key: "notification", icon: <Bell className="size-3" /> },
-            { key: "music", icon: <Music2 className="size-3" /> },
+            { icon: <CloudLightning className="size-3" />, key: "idle" },
+            { icon: <Phone className="size-3" />, key: "ring" },
+            { icon: <TimerIcon className="size-3" />, key: "timer" },
+            { icon: <Bell className="size-3" />, key: "notification" },
+            { icon: <Music2 className="size-3" />, key: "music" },
           ].map(({ key, icon }) => (
             <button
               aria-label={key}

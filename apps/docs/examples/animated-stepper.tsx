@@ -6,8 +6,6 @@ import { useState } from "react";
 
 const steps = [
   {
-    label: "Account",
-    description: "Create your account",
     content: (
       <div className="rounded-lg border bg-muted/30 p-6">
         <h3 className="mb-2 font-medium">Account Details</h3>
@@ -16,10 +14,10 @@ const steps = [
         </p>
       </div>
     ),
+    description: "Create your account",
+    label: "Account",
   },
   {
-    label: "Profile",
-    description: "Set up your profile",
     content: (
       <div className="rounded-lg border bg-muted/30 p-6">
         <h3 className="mb-2 font-medium">Profile Information</h3>
@@ -28,10 +26,10 @@ const steps = [
         </p>
       </div>
     ),
+    description: "Set up your profile",
+    label: "Profile",
   },
   {
-    label: "Preferences",
-    description: "Choose your preferences",
     content: (
       <div className="rounded-lg border bg-muted/30 p-6">
         <h3 className="mb-2 font-medium">Preferences</h3>
@@ -40,10 +38,10 @@ const steps = [
         </p>
       </div>
     ),
+    description: "Choose your preferences",
+    label: "Preferences",
   },
   {
-    label: "Complete",
-    description: "You're all set",
     content: (
       <div className="rounded-lg border bg-muted/30 p-6">
         <h3 className="mb-2 font-medium">All Done!</h3>
@@ -52,6 +50,8 @@ const steps = [
         </p>
       </div>
     ),
+    description: "You're all set",
+    label: "Complete",
   },
 ];
 

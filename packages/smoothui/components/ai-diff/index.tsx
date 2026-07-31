@@ -5,9 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const LINE_STAGGER = 0.02;
@@ -36,8 +36,8 @@ export type AIDiffProps = {
 
 const PREFIX: Record<AIDiffLineKind, string> = {
   added: "+",
-  removed: "-",
   context: " ",
+  removed: "-",
 };
 
 /**
@@ -151,9 +151,9 @@ const AIDiff = ({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
+                          delay: index * LINE_STAGGER,
                           duration: WIPE_DURATION,
                           ease: EASE_OUT,
-                          delay: index * LINE_STAGGER,
                         }
                   }
                 >

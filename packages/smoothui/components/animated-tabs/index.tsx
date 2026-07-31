@@ -15,9 +15,9 @@ export interface AnimatedTabsProps {
 }
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.05,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 export default function AnimatedTabs({

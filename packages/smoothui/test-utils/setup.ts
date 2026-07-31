@@ -3,17 +3,17 @@ import "vitest-axe/extend-expect";
 
 // Polyfill matchMedia for jsdom
 Object.defineProperty(window, "matchMedia", {
-  writable: true,
   value: (query: string) => ({
+    addEventListener: () => {},
+    addListener: () => {},
+    dispatchEvent: () => false,
     matches: false,
     media: query,
     onchange: null,
-    addListener: () => {},
-    removeListener: () => {},
-    addEventListener: () => {},
     removeEventListener: () => {},
-    dispatchEvent: () => false,
+    removeListener: () => {},
   }),
+  writable: true,
 });
 
 // Polyfill ResizeObserver for jsdom

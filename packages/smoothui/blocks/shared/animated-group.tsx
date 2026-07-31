@@ -41,15 +41,6 @@ const defaultItemVariants: Variants = {
 };
 
 const presetVariants: Record<PresetType, Variants> = {
-  fade: {},
-  slide: {
-    hidden: { y: 20 },
-    visible: { y: 0 },
-  },
-  scale: {
-    hidden: { scale: 0.8 },
-    visible: { scale: 1 },
-  },
   blur: {
     hidden: { filter: "blur(4px)" },
     visible: { filter: "blur(0px)" },
@@ -58,39 +49,48 @@ const presetVariants: Record<PresetType, Variants> = {
     hidden: { filter: "blur(4px)", y: 20 },
     visible: { filter: "blur(0px)", y: 0 },
   },
-  zoom: {
-    hidden: { scale: 0.5 },
+  bounce: {
+    hidden: { y: -50 },
     visible: {
-      scale: 1,
-      transition: { type: "spring" as const, stiffness: 300, damping: 20 },
+      transition: { damping: 10, stiffness: 400, type: "spring" as const },
+      y: 0,
     },
   },
+  fade: {},
   flip: {
     hidden: { rotateX: -90 },
     visible: {
       rotateX: 0,
-      transition: { type: "spring" as const, stiffness: 300, damping: 20 },
-    },
-  },
-  bounce: {
-    hidden: { y: -50 },
-    visible: {
-      y: 0,
-      transition: { type: "spring" as const, stiffness: 400, damping: 10 },
+      transition: { damping: 20, stiffness: 300, type: "spring" as const },
     },
   },
   rotate: {
     hidden: { rotate: -180 },
     visible: {
       rotate: 0,
-      transition: { type: "spring" as const, stiffness: 200, damping: 15 },
+      transition: { damping: 15, stiffness: 200, type: "spring" as const },
     },
+  },
+  scale: {
+    hidden: { scale: 0.8 },
+    visible: { scale: 1 },
+  },
+  slide: {
+    hidden: { y: 20 },
+    visible: { y: 0 },
   },
   swing: {
     hidden: { rotate: -10 },
     visible: {
       rotate: 0,
-      transition: { type: "spring" as const, stiffness: 300, damping: 8 },
+      transition: { damping: 8, stiffness: 300, type: "spring" as const },
+    },
+  },
+  zoom: {
+    hidden: { scale: 0.5 },
+    visible: {
+      scale: 1,
+      transition: { damping: 20, stiffness: 300, type: "spring" as const },
     },
   },
 };
@@ -121,8 +121,8 @@ function AnimatedGroup({
   const shouldReduceMotion = useReducedMotion();
 
   const selectedVariants = {
-    item: addDefaultVariants(preset ? presetVariants[preset] : {}),
     container: addDefaultVariants(defaultContainerVariants),
+    item: addDefaultVariants(preset ? presetVariants[preset] : {}),
   };
   const containerVariants = shouldReduceMotion
     ? reducedContainerVariants

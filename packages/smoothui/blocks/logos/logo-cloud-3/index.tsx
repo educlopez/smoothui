@@ -25,20 +25,20 @@ export interface LogoMarqueeProps {
 }
 
 const DEFAULT_LOGOS = [
-  { name: "Canpoy", logo: <Canpoy /> },
-  { name: "Canva", logo: <Canva /> },
-  { name: "Casetext", logo: <Casetext /> },
-  { name: "Strava", logo: <Strava /> },
-  { name: "Descript", logo: <Descript /> },
-  { name: "Duolingo", logo: <Duolingo /> },
-  { name: "Faire", logo: <Faire /> },
-  { name: "Clearbit", logo: <Clearbit /> },
+  { logo: <Canpoy />, name: "Canpoy" },
+  { logo: <Canva />, name: "Canva" },
+  { logo: <Casetext />, name: "Casetext" },
+  { logo: <Strava />, name: "Strava" },
+  { logo: <Descript />, name: "Descript" },
+  { logo: <Duolingo />, name: "Duolingo" },
+  { logo: <Faire />, name: "Faire" },
+  { logo: <Clearbit />, name: "Clearbit" },
 ];
 
 const SPEED_MAP = {
-  slow: "60s",
-  normal: "40s",
   fast: "20s",
+  normal: "40s",
+  slow: "60s",
 };
 
 export function LogoMarquee({
@@ -102,8 +102,8 @@ export function LogoMarquee({
             className="marquee-track flex w-max"
             style={
               {
-                "--marquee-duration": animationDuration,
                 "--marquee-direction": animationDirection,
+                "--marquee-duration": animationDuration,
                 "--marquee-pause-on-hover": pauseOnHover ? "paused" : "running",
               } as React.CSSProperties
             }

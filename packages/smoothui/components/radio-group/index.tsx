@@ -45,9 +45,9 @@ export interface RadioProps {
 
 /** Spring for the selection dot — playful bounce per CLAUDE.md (0.2-0.3 for playful interactions) */
 const SPRING_DOT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.2,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 /** Stagger delay per radio item on initial render */

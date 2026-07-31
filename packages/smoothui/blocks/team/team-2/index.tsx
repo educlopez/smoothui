@@ -168,7 +168,7 @@ export function TeamCarousel({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { type: "spring" as const, stiffness: 300, damping: 30 }
+                    : { damping: 30, stiffness: 300, type: "spring" as const }
                 }
               >
                 {members.map((member, index) => (
@@ -187,7 +187,7 @@ export function TeamCarousel({
                       transition={
                         shouldReduceMotion
                           ? { duration: 0 }
-                          : { duration: 0.5, delay: index * STAGGER_DELAY }
+                          : { delay: index * STAGGER_DELAY, duration: 0.5 }
                       }
                       viewport={{ once: true }}
                       whileInView={

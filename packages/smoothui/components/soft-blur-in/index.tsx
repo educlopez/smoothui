@@ -41,12 +41,12 @@ export default function SoftBlurIn({
     <span aria-label={children} className={className} ref={ref}>
       {characters.map((char, index) => (
         <motion.span
-          animate={play ? { opacity: 1, y: 0, filter: "blur(0px)" } : undefined}
+          animate={play ? { filter: "blur(0px)", opacity: 1, y: 0 } : undefined}
           aria-hidden="true"
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, y: 16, filter: "blur(12px)" }
+              : { filter: "blur(12px)", opacity: 0, y: 16 }
           }
           // biome-ignore lint/suspicious/noArrayIndexKey: characters have no stable id
           key={index}
@@ -55,8 +55,8 @@ export default function SoftBlurIn({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  duration: DURATION_S,
                   delay: delay / MS + (index * stagger) / MS,
+                  duration: DURATION_S,
                   ease: EASE,
                 }
           }

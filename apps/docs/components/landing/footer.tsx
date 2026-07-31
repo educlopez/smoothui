@@ -34,49 +34,49 @@ interface FooterColumn {
 // ---------------------------------------------------------------------------
 
 const navigateColumn: FooterColumn = {
-  title: "Navigate",
   links: [
-    { label: "Components", href: "/docs/components" },
-    { label: "Blocks", href: "/docs/blocks" },
-    { label: "Templates", href: "/docs/templates" },
-    { label: "Dynamic Island", href: "/docs/components/dynamic-island" },
-    { label: "AI Prompt Input", href: "/docs/components/ai-prompt-input" },
-    { label: "Siri Orb", href: "/docs/components/siri-orb" },
-    { label: "Infinite Slider", href: "/docs/components/infinite-slider" },
+    { href: "/docs/components", label: "Components" },
+    { href: "/docs/blocks", label: "Blocks" },
+    { href: "/docs/templates", label: "Templates" },
+    { href: "/docs/components/dynamic-island", label: "Dynamic Island" },
+    { href: "/docs/components/ai-prompt-input", label: "AI Prompt Input" },
+    { href: "/docs/components/siri-orb", label: "Siri Orb" },
+    { href: "/docs/components/infinite-slider", label: "Infinite Slider" },
   ],
+  title: "Navigate",
 };
 
 const developColumn: FooterColumn = {
-  title: "Develop",
   links: [
-    { label: "Getting Started", href: "/docs/guides/getting-started" },
-    { label: "Installation", href: "/docs/guides/installation" },
-    { label: "Animations", href: "/docs/guides/animation-best-practices" },
-    { label: "Accessibility", href: "/docs/guides/accessibility" },
-    { label: "Changelog", href: "/docs/guides/changelog" },
+    { href: "/docs/guides/getting-started", label: "Getting Started" },
+    { href: "/docs/guides/installation", label: "Installation" },
+    { href: "/docs/guides/animation-best-practices", label: "Animations" },
+    { href: "/docs/guides/accessibility", label: "Accessibility" },
+    { href: "/docs/guides/changelog", label: "Changelog" },
   ],
+  title: "Develop",
 };
 
 const connectColumn: FooterColumn = {
-  title: "By the maker",
   links: [
-    { label: "sparkbites.dev", href: "https://sparkbites.dev", external: true },
-    { label: "codevator.dev", href: "https://codevator.dev", external: true },
-    { label: "thegridcn.com", href: "https://thegridcn.com", external: true },
+    { external: true, href: "https://sparkbites.dev", label: "sparkbites.dev" },
+    { external: true, href: "https://codevator.dev", label: "codevator.dev" },
+    { external: true, href: "https://thegridcn.com", label: "thegridcn.com" },
     {
-      label: "ui-craft",
-      href: "https://skills.smoothui.dev",
       external: true,
+      href: "https://skills.smoothui.dev",
+      label: "ui-craft",
     },
   ],
+  title: "By the maker",
 };
 
 const techStack = [
-  { name: "React", icon: ReactLogo, className: "size-4" },
-  { name: "Tailwind CSS", icon: TailwindLogo, className: "h-3.5 w-auto" },
-  { name: "shadcn/ui", icon: ShadcnLogo, className: "size-4" },
-  { name: "Motion", icon: MotionLogo, className: "h-3.5 w-auto" },
-  { name: "GSAP", icon: GsapLogo, className: "h-3.5 w-auto" },
+  { className: "size-4", icon: ReactLogo, name: "React" },
+  { className: "h-3.5 w-auto", icon: TailwindLogo, name: "Tailwind CSS" },
+  { className: "size-4", icon: ShadcnLogo, name: "shadcn/ui" },
+  { className: "h-3.5 w-auto", icon: MotionLogo, name: "Motion" },
+  { className: "h-3.5 w-auto", icon: GsapLogo, name: "GSAP" },
 ];
 
 // ---------------------------------------------------------------------------
@@ -301,7 +301,7 @@ export default function Footer() {
                 ? { duration: 0 }
                 : { duration: 0.5, ease: ENTER_EASE }
             }
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ margin: "-100px", once: true }}
             whileInView={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
             }

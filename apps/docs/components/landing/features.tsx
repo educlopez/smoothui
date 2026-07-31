@@ -8,9 +8,9 @@ import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 import Image from "next/image";
 
 const lead = {
-  title: "Smooth animations",
   description:
     "Every component ships with motion built in — powered by Motion and GSAP, tuned for spring physics, and fully reduced-motion aware.",
+  title: "Smooth animations",
 };
 
 const cardBase =

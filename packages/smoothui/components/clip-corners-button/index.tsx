@@ -59,15 +59,15 @@ export function ClipCornersButton({
         }
         className="absolute top-1.5 left-1.5"
         initial={false}
-        style={{ width: 8, height: 8 }}
+        style={{ height: 8, width: 8 }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 400,
                 damping: 24,
                 duration: 0.2,
+                stiffness: 400,
+                type: "spring" as const,
               }
         }
       >
@@ -93,15 +93,15 @@ export function ClipCornersButton({
         }
         className="absolute top-1.5 right-1.5"
         initial={false}
-        style={{ width: 8, height: 8 }}
+        style={{ height: 8, width: 8 }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 400,
                 damping: 24,
                 duration: 0.2,
+                stiffness: 400,
+                type: "spring" as const,
               }
         }
       >
@@ -127,15 +127,15 @@ export function ClipCornersButton({
         }
         className="absolute bottom-1.5 left-1.5"
         initial={false}
-        style={{ width: 8, height: 8 }}
+        style={{ height: 8, width: 8 }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 400,
                 damping: 24,
                 duration: 0.2,
+                stiffness: 400,
+                type: "spring" as const,
               }
         }
       >
@@ -161,15 +161,15 @@ export function ClipCornersButton({
         }
         className="absolute right-1.5 bottom-1.5"
         initial={false}
-        style={{ width: 8, height: 8 }}
+        style={{ height: 8, width: 8 }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                type: "spring" as const,
-                stiffness: 400,
                 damping: 24,
                 duration: 0.2,
+                stiffness: 400,
+                type: "spring" as const,
               }
         }
       >

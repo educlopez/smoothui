@@ -130,10 +130,10 @@ export function useOptimizedGif({
   const src = shouldLoad && isVisible && isLoaded ? gifUrl : placeholderUrl;
 
   return {
-    shouldLoad,
-    isVisible,
     isLoaded,
-    src,
+    isVisible,
     ref: elementRef,
+    shouldLoad,
+    src,
   };
 }

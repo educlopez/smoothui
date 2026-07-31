@@ -66,13 +66,13 @@ const countProps = async (dir: string): Promise<number> => {
 
 /** Default metadata for components missing the smoothui field */
 const DEFAULT_META: SmoothUIPackageMeta = {
-  category: "other",
-  tags: [],
-  complexity: "moderate",
   animationType: "spring",
-  useCases: [],
+  category: "other",
+  complexity: "moderate",
   compositionHints: [],
   hasReducedMotion: false,
+  tags: [],
+  useCases: [],
 };
 
 // ---------------------------------------------------------------------------
@@ -169,22 +169,22 @@ const buildComponentMeta = async (
   const propsCount = await countProps(dir);
 
   return {
-    name,
-    displayName: toPascalCase(name),
-    description: (pkg.description as string) ?? "",
+    animationType: meta.animationType,
     category: meta.category,
+    complexity: meta.complexity,
+    compositionHints: meta.compositionHints,
+    dependencies: filteredDeps,
+    description: (pkg.description as string) ?? "",
+    displayName: toPascalCase(name),
+    docUrl: `${BASE_URL}/docs/components/${name}`,
+    hasReducedMotion: meta.hasReducedMotion,
+    installCommand: `npx shadcn@latest add ${BASE_URL}/r/${name}.json`,
+    name,
+    propsCount,
+    registryDependencies: registryDeps,
+    registryUrl: `${BASE_URL}/r/${name}.json`,
     tags: meta.tags,
     useCases: meta.useCases,
-    compositionHints: meta.compositionHints,
-    complexity: meta.complexity,
-    animationType: meta.animationType,
-    dependencies: filteredDeps,
-    registryDependencies: registryDeps,
-    hasReducedMotion: meta.hasReducedMotion,
-    propsCount,
-    installCommand: `npx shadcn@latest add ${BASE_URL}/r/${name}.json`,
-    docUrl: `${BASE_URL}/docs/components/${name}`,
-    registryUrl: `${BASE_URL}/r/${name}.json`,
   };
 };
 
@@ -270,15 +270,15 @@ const listBlockDirs = async (): Promise<string[]> => {
 const inferBlockType = (name: string): BlockType => {
   const prefix = name.split("-")[0];
   const mapping: Record<string, BlockType> = {
+    faq: "other",
+    footer: "footer",
     header: "header",
     hero: "hero",
-    footer: "footer",
-    pricing: "pricing",
-    testimonials: "testimonials",
-    team: "other",
-    stats: "other",
-    faq: "other",
     logo: "other",
+    pricing: "pricing",
+    stats: "other",
+    team: "other",
+    testimonials: "testimonials",
   };
   return mapping[prefix] ?? "other";
 };
@@ -346,23 +346,23 @@ const buildBlockMeta = async (
   const components = await detectBlockComponents(dir);
 
   return {
-    name,
-    displayName: toPascalCase(name),
-    description: (pkg.description as string) ?? "",
-    blockType: inferBlockType(name),
-    components,
-    category: meta.category,
-    tags: meta.tags,
-    useCases: meta.useCases,
-    complexity: meta.complexity,
     animationType: meta.animationType,
+    blockType: inferBlockType(name),
+    category: meta.category,
+    complexity: meta.complexity,
+    components,
     dependencies: filteredDeps,
-    hasReducedMotion: meta.hasReducedMotion,
-    installCommand: `npx shadcn@latest add ${BASE_URL}/r/${name}.json`,
+    description: (pkg.description as string) ?? "",
+    displayName: toPascalCase(name),
     docUrl: docPage
       ? `${BASE_URL}/docs/blocks/${docPage}`
       : `${BASE_URL}/docs/blocks`,
+    hasReducedMotion: meta.hasReducedMotion,
+    installCommand: `npx shadcn@latest add ${BASE_URL}/r/${name}.json`,
+    name,
     registryUrl: `${BASE_URL}/r/${name}.json`,
+    tags: meta.tags,
+    useCases: meta.useCases,
   };
 };
 

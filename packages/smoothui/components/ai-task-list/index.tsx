@@ -5,9 +5,9 @@ import { motion, useReducedMotion } from "motion/react";
 import { Fragment } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_IN_OUT = [0.645, 0.045, 0.355, 1] as const;
 const CHECK_PATH = "M 3.5 7.5 L 6 10 L 10.5 4.5";
@@ -68,8 +68,8 @@ const TaskBox = ({
       >
         <motion.rect
           animate={{
-            stroke: boxStroke(status),
             fillOpacity: isDone ? 0.12 : 0,
+            stroke: boxStroke(status),
           }}
           fill={isFailed ? DANGER_COLOR : SUCCESS_COLOR}
           height={12}

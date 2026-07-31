@@ -56,7 +56,7 @@ export default function AnimatedToggleDemo() {
 
       <AnimatedToggle
         checked={checked}
-        icons={{ on: <SunIcon />, off: <MoonIcon /> }}
+        icons={{ off: <MoonIcon />, on: <SunIcon /> }}
         label="Theme toggle"
         onChange={setChecked}
         size="lg"

@@ -203,9 +203,9 @@ export default function SwitchboardCard({
         <div
           className="grid h-full w-full"
           style={{
+            gap: `min(1px, calc(100% / ${columns} / 10))`,
             gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
             gridTemplateRows: `repeat(${rows}, minmax(0, 1fr))`,
-            gap: `min(1px, calc(100% / ${columns} / 10))`,
             maxHeight: "81px",
             transitionDuration: `${transitionDuration}ms`,
           }}
@@ -317,10 +317,10 @@ function LightBulb({
           className="absolute inset-0 rounded-full"
           style={{
             ...transitionStyle,
-            opacity: 1,
             backgroundColor: "var(--color-brand)",
             boxShadow:
               "0 0 2px 1px color-mix(in oklch, var(--color-brand), transparent 60%), 0 0 4px 1.5px color-mix(in oklch, var(--color-brand), transparent 75%)",
+            opacity: 1,
           }}
         />
       )}
@@ -331,10 +331,10 @@ function LightBulb({
           className="absolute inset-0 rounded-full"
           style={{
             ...transitionStyle,
-            opacity: 1,
             backgroundColor: "var(--color-brand)",
             boxShadow:
               "0 0 2px 1px color-mix(in oklch, var(--color-brand), transparent 40%), 0 0 4px 1.5px color-mix(in oklch, var(--color-brand), transparent 65%), 0 0 6px 2px color-mix(in oklch, var(--color-brand), transparent 80%)",
+            opacity: 1,
           }}
         />
       )}

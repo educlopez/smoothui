@@ -85,64 +85,6 @@ export type AIStateMotion = {
  *   what moves, not by how fast it moves.
  */
 export const AI_STATE_MOTION: Record<AIState, AIStateMotion> = {
-  idle: {
-    accent: null,
-    glow: 0.15,
-    hueRotate: 0,
-    intensity: 0.3,
-    motif: "breathe",
-    pulseSeconds: 4.5,
-    reactivity: 0,
-    saturation: 0.75,
-    scale: 0.94,
-    speed: 0.6,
-    tumble: 0.012,
-    turbulence: 0.14,
-  },
-  listening: {
-    accent: null,
-    glow: 0.6,
-    hueRotate: 0,
-    intensity: 0.75,
-    motif: "receive",
-    pulseSeconds: 1.6,
-    reactivity: 1,
-    saturation: 1.05,
-    scale: 1.06,
-    speed: 1,
-    tumble: 0.03,
-    turbulence: 0.42,
-  },
-  thinking: {
-    accent: null,
-    glow: 0.35,
-    hueRotate: 18,
-    intensity: 1,
-    motif: "scan",
-    pulseSeconds: 1.1,
-    reactivity: 0.15,
-    saturation: 1,
-    scale: 1,
-    speed: 2.4,
-    // High churn, unchanged silhouette: the work is visible without the orb
-    // growing and unsettling the layout around it.
-    tumble: 0.14,
-    turbulence: 0.95,
-  },
-  streaming: {
-    accent: null,
-    glow: 0.45,
-    hueRotate: -10,
-    intensity: 0.6,
-    motif: "pulse",
-    pulseSeconds: 1.25,
-    reactivity: 0.6,
-    saturation: 1,
-    scale: 1.02,
-    speed: 1.4,
-    tumble: 0.06,
-    turbulence: 0.5,
-  },
   done: {
     accent: "success",
     glow: 0.7,
@@ -174,12 +116,70 @@ export const AI_STATE_MOTION: Record<AIState, AIStateMotion> = {
     tumble: 0,
     turbulence: 0.55,
   },
+  idle: {
+    accent: null,
+    glow: 0.15,
+    hueRotate: 0,
+    intensity: 0.3,
+    motif: "breathe",
+    pulseSeconds: 4.5,
+    reactivity: 0,
+    saturation: 0.75,
+    scale: 0.94,
+    speed: 0.6,
+    tumble: 0.012,
+    turbulence: 0.14,
+  },
+  listening: {
+    accent: null,
+    glow: 0.6,
+    hueRotate: 0,
+    intensity: 0.75,
+    motif: "receive",
+    pulseSeconds: 1.6,
+    reactivity: 1,
+    saturation: 1.05,
+    scale: 1.06,
+    speed: 1,
+    tumble: 0.03,
+    turbulence: 0.42,
+  },
+  streaming: {
+    accent: null,
+    glow: 0.45,
+    hueRotate: -10,
+    intensity: 0.6,
+    motif: "pulse",
+    pulseSeconds: 1.25,
+    reactivity: 0.6,
+    saturation: 1,
+    scale: 1.02,
+    speed: 1.4,
+    tumble: 0.06,
+    turbulence: 0.5,
+  },
+  thinking: {
+    accent: null,
+    glow: 0.35,
+    hueRotate: 18,
+    intensity: 1,
+    motif: "scan",
+    pulseSeconds: 1.1,
+    reactivity: 0.15,
+    saturation: 1,
+    scale: 1,
+    speed: 2.4,
+    // High churn, unchanged silhouette: the work is visible without the orb
+    // growing and unsettling the layout around it.
+    tumble: 0.14,
+    turbulence: 0.95,
+  },
 };
 
 /** Semantic accents. Deliberately not tokens — orbs render outside a theme. */
 export const AI_ACCENT_COLORS: Record<"success" | "danger", string> = {
-  success: "oklch(72% 0.17 150)",
   danger: "oklch(63% 0.21 25)",
+  success: "oklch(72% 0.17 150)",
 };
 
 /**
@@ -363,7 +363,7 @@ export const useAudioAmplitude = (
     amplitude.set(previous + (target - previous) * (1 - factor));
   });
 
-  return { amplitude, status, start, stop };
+  return { amplitude, start, status, stop };
 };
 
 /**

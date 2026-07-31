@@ -41,22 +41,22 @@ export default function SharedAxisX({
       <AnimatePresence mode="wait">
         <motion.span
           animate={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, x: 0 }
           }
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
               : {
                   opacity: 0,
-                  x: -20,
                   scale: 0.98,
                   transition: { duration: 0.36, ease: EXIT_EASE },
+                  x: -20,
                 }
           }
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, x: 24, scale: 0.98 }
+              : { opacity: 0, scale: 0.98, x: 24 }
           }
           key={index}
           style={{ display: "inline-block" }}

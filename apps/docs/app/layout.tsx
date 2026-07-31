@@ -18,14 +18,11 @@ const enableVercelAnalytics =
 const SOCIAL_DESCRIPTION = `Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. ${COMPONENT_COUNT} free components for modern UIs.`;
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://smoothui.dev"),
-  title: {
-    default:
-      "SmoothUI - Animated React Components for shadcn/ui | Motion & Tailwind",
-    template: "%s | SmoothUI",
-  },
   description:
     "Animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable with Tailwind CSS.",
+  icons: {
+    shortcut: "/favicon.ico",
+  },
   keywords: [
     "react components",
     "tailwindcss ui",
@@ -39,50 +36,53 @@ export const metadata: Metadata = {
     "dark mode components",
     "shadcn alternative",
   ],
+  metadataBase: new URL("https://smoothui.dev"),
   openGraph: {
-    title: "SmoothUI - Animated React Components for shadcn/ui",
     description: SOCIAL_DESCRIPTION,
-    url: "https://smoothui.dev",
-    siteName: "SmoothUI",
     images: [
       {
-        width: 1200,
+        alt: "SmoothUI Cover",
         height: 630,
         url: "https://smoothui.dev/og-optimized.webp",
-        alt: "SmoothUI Cover",
+        width: 1200,
       },
     ],
     locale: "en_US",
+    siteName: "SmoothUI",
+    title: "SmoothUI - Animated React Components for shadcn/ui",
     type: "website",
+    url: "https://smoothui.dev",
+  },
+  robots: {
+    follow: true,
+    googleBot: {
+      follow: true,
+      index: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+    index: true,
+  },
+  title: {
+    default:
+      "SmoothUI - Animated React Components for shadcn/ui | Motion & Tailwind",
+    template: "%s | SmoothUI",
   },
   twitter: {
-    title: "SmoothUI - Animated React Components for shadcn/ui",
-    description: SOCIAL_DESCRIPTION,
     card: "summary_large_image",
+    creator: "@educalvolpz",
+    description: SOCIAL_DESCRIPTION,
     images: [
       {
-        width: 1200,
+        alt: "SmoothUI Cover",
         height: 630,
         url: "https://smoothui.dev/og-optimized.webp",
-        alt: "SmoothUI Cover",
+        width: 1200,
       },
     ],
     site: "@educalvolpz",
-    creator: "@educalvolpz",
-  },
-  icons: {
-    shortcut: "/favicon.ico",
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
+    title: "SmoothUI - Animated React Components for shadcn/ui",
   },
 };
 

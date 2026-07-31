@@ -82,7 +82,7 @@ export function TestimonialsGrid() {
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { duration: 0.3, delay: 0.4 }
+                        : { delay: 0.4, duration: 0.3 }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
@@ -105,7 +105,7 @@ export function TestimonialsGrid() {
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { duration: 0.3, delay: 0.4 }
+                        : { delay: 0.4, duration: 0.3 }
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
@@ -204,9 +204,9 @@ export function TestimonialsGrid() {
                                     shouldReduceMotion
                                       ? { duration: 0 }
                                       : {
+                                          delay: wordIndex * 0.02,
                                           duration: 0.2,
                                           ease: "easeInOut",
-                                          delay: wordIndex * 0.02,
                                         }
                                   }
                                 >
@@ -229,7 +229,7 @@ export function TestimonialsGrid() {
                             transition={
                               shouldReduceMotion
                                 ? { duration: 0 }
-                                : { duration: 0.3, delay: 0.2 }
+                                : { delay: 0.2, duration: 0.3 }
                             }
                           >
                             <Avatar className="size-8 border border-transparent shadow ring-1 ring-foreground/10">

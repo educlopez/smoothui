@@ -18,25 +18,25 @@ interface TransitionDemoFrameProps {
 
 const states = [
   {
-    id: "dashboard",
-    eyebrow: "Dashboard",
-    title: "Revenue is ready to review.",
-    description: "A quiet frame for state changes inside product surfaces.",
-    primary: "$42.8k",
-    secondary: "+12.4%",
-    rows: ["MRR", "Activation", "Retention"],
     bars: [72, 48, 84],
+    description: "A quiet frame for state changes inside product surfaces.",
+    eyebrow: "Dashboard",
+    id: "dashboard",
+    primary: "$42.8k",
+    rows: ["MRR", "Activation", "Retention"],
+    secondary: "+12.4%",
+    title: "Revenue is ready to review.",
   },
   {
-    id: "landing",
-    eyebrow: "Landing",
-    title: "The section has been published.",
+    bars: [58, 76, 39],
     description:
       "A minimal marketing block with just enough structure to read through the shader.",
+    eyebrow: "Landing",
+    id: "landing",
     primary: "18.2k",
-    secondary: "visitors",
     rows: ["Hero", "Pricing", "Proof"],
-    bars: [58, 76, 39],
+    secondary: "visitors",
+    title: "The section has been published.",
   },
 ] as const;
 
@@ -49,9 +49,6 @@ export function TransitionDemoFrame({
   const current = states[index];
 
   return renderTransition({
-    className:
-      "min-h-[420px] w-full rounded-none border-0 bg-background text-foreground shadow-none sm:rounded-2xl sm:border sm:shadow-custom",
-    transitionKey: current.id,
     children: (
       <div className="relative min-h-[420px] overflow-hidden bg-background p-4 text-foreground sm:p-6">
         <div className="mx-auto flex min-h-[372px] w-full max-w-[720px] flex-col overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-sm">
@@ -131,5 +128,8 @@ export function TransitionDemoFrame({
         </div>
       </div>
     ),
+    className:
+      "min-h-[420px] w-full rounded-none border-0 bg-background text-foreground shadow-none sm:rounded-2xl sm:border sm:shadow-custom",
+    transitionKey: current.id,
   });
 }

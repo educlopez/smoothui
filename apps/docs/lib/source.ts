@@ -5,8 +5,8 @@ import { blog, docs } from "@/.source/server";
 // See https://fumadocs.dev/docs/headless/source-api for more info
 export const source = loader({
   baseUrl: "/docs",
-  source: docs.toFumadocsSource(),
   plugins: [nucleoIconsPlugin()],
+  source: docs.toFumadocsSource(),
 });
 
 export const blogSource = loader({
@@ -49,8 +49,8 @@ export function getReadingTime(content: string): number {
 export function formatDate(dateString: string): string {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 }
