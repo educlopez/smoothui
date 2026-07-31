@@ -1,0 +1,26 @@
+# Mirrors the shared gates in educlopez/github-actions-workflows.
+#
+# This repo is public and that one is private, and GitHub does not let a public
+# repo call a reusable workflow from a private repo — the run fails before any
+# job starts. So the steps live here. Keep them in sync with the shared repo.
+
+name: Semantic PR Title
+
+on:
+  pull_request:
+    types: [opened, edited, reopened, synchronize, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  validate:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    steps:
+      - name: 📝 Lint PR title against Conventional Commits
+        uses: amannn/action-semantic-pull-request@v5.5.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
