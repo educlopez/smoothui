@@ -1,0 +1,13 @@
+# Known findings, reviewed and accepted. Each line is a gitleaks fingerprint:
+#   <commit>:<file>:<rule>:<line>
+#
+# These four are JWTs inside lummi.ai image-render URLs, in a demo component
+# added on 2025-01-31 and since deleted. They are third-party stock-image
+# tokens, not credentials to anything of ours, and this repository was already
+# public when they landed — so there is nothing to rotate. They are pinned here
+# rather than rewritten out of history, which would break every existing clone
+# and fork.
+6e7ac96be4f2b6963ab7c7c16b51e8b09578cc2e:src/app/doc/_components/ui/ExpandableCards.tsx:jwt:24
+6e7ac96be4f2b6963ab7c7c16b51e8b09578cc2e:src/app/doc/_components/ui/ExpandableCards.tsx:jwt:36
+6e7ac96be4f2b6963ab7c7c16b51e8b09578cc2e:src/app/doc/_components/ui/ExpandableCards.tsx:jwt:48
+6e7ac96be4f2b6963ab7c7c16b51e8b09578cc2e:src/app/doc/_components/ui/ExpandableCards.tsx:jwt:60
