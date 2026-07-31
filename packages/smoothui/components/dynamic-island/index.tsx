@@ -42,7 +42,7 @@ const DefaultIdle = () => {
       <AnimatePresence mode="wait">
         <motion.div
           animate={{ opacity: 1, scale: 1 }}
-          className="text-foreground"
+          className="text-white"
           exit={{ opacity: 0, scale: 0.8 }}
           initial={{ opacity: 0, scale: 0.8 }}
           key="storm"
@@ -72,7 +72,7 @@ const DefaultIdle = () => {
 
 // Ring Component
 const DefaultRing = () => (
-  <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-foreground">
+  <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-white">
     <Phone className="h-5 w-5 text-green-500" />
     <div className="flex-1">
       <p className="pointer-events-none font-medium text-sm text-white">
@@ -98,7 +98,7 @@ const DefaultTimer = () => {
   }, []);
 
   return (
-    <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-foreground">
+    <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-white">
       <TimerIcon className="h-5 w-5 text-amber-500" />
       <div className="flex-1">
         <p className="pointer-events-none font-medium text-sm text-white">
@@ -119,7 +119,7 @@ const DefaultTimer = () => {
 
 // Notification Component
 const Notification = () => (
-  <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-foreground">
+  <div className="flex w-64 items-center gap-3 overflow-hidden px-4 py-2 text-white">
     <Bell className="h-5 w-5 text-yellow-400" />
     <div className="flex-1">
       <p className="pointer-events-none font-medium text-sm text-white">
@@ -139,7 +139,7 @@ const Notification = () => (
 const MusicPlayer = () => {
   const [playing, setPlaying] = useState(true);
   return (
-    <div className="flex w-72 items-center gap-3 overflow-hidden px-4 py-2 text-foreground">
+    <div className="flex w-72 items-center gap-3 overflow-hidden px-4 py-2 text-white">
       <Music2 className="h-5 w-5 text-pink-500" />
       <div className="min-w-0 flex-1">
         <p className="pointer-events-none truncate font-medium text-sm text-white">
