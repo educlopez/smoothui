@@ -60,3 +60,10 @@ skills-lock.json
 /tsx-*/
 # codegraph's daemon pid is machine-local state.
 .codegraph/daemon.pid
+
+# Working notes: audits, plans, references written while building something.
+# Useful to keep on disk, not part of the repo's history.
+/.notes/
+
+# Local agent and tool configuration, per machine.
+/.codex/
