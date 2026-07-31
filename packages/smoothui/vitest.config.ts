@@ -10,6 +10,10 @@ const reactDomPath = path.resolve(
 );
 
 export default defineConfig({
+  // Without this, Vite writes its transform cache to a folder named after a
+  // random 21-character id at the repo root, which is both unignorable by glob
+  // and easy to commit by accident — 7.5MB of it once did.
+  cacheDir: path.resolve(import.meta.dirname, "node_modules/.vite"),
   esbuild: {
     jsx: "automatic",
   },
