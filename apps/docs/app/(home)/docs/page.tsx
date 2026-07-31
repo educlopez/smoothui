@@ -4,6 +4,11 @@ import Link, { type LinkProps } from "next/link";
 import { IconBooksFill24, IconPencilFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = {
+  // Without these, this page inherited the root layout's title and description
+  // verbatim, so / and /docs were duplicates of each other.
+  title: "Documentation",
+  description:
+    "Guides, component reference and blocks for SmoothUI. Start with installation, then browse every animated React component.",
   alternates: {
     canonical: "/docs",
   },
