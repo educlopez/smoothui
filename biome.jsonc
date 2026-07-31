@@ -5,6 +5,16 @@
     "ultracite/biome/react",
     "ultracite/biome/next"
   ],
+  "assist": {
+    "actions": {
+      "source": {
+        // Biome 2.5.6 DROPS JSX attributes while sorting them — in two sibling
+        // repos it silently removed a prop and glued a component name to the
+        // next attribute. Never turn this on.
+        "useSortedAttributes": "off"
+      }
+    }
+  },
   "files": {
     "includes": [
       "**/*",
