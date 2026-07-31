@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.6.0](https://github.com/educlopez/smoothui/compare/v3.5.0...v3.6.0) (2026-07-31)
+
+
+### Features
+
+* **docs:** rebuild how components, blocks and templates are presented ([ec48807](https://github.com/educlopez/smoothui/commit/ec488079952f04e1bf90e000f28e706add7d50d8))
+* **docs:** split preview layout, templates section and AI component expansion ([cefd728](https://github.com/educlopez/smoothui/commit/cefd7285acdd4184da3f777824d4450d230de528))
+* **templates:** sell the template, and make it work on a phone ([9851bc1](https://github.com/educlopez/smoothui/commit/9851bc1befe862a7fc010b85fab06f0dfd6b0a52))
+
+
+### Bug Fixes
+
+* **smoothui:** annotate createStubGl return type to avoid non-portable inference (TS2742) ([a395d5b](https://github.com/educlopez/smoothui/commit/a395d5b704651ac73ebc5a0de5eb0e65bb5d2923))
+* **ui:** visible ink and working cursors across components and blocks ([19f957d](https://github.com/educlopez/smoothui/commit/19f957d0928390eeb6a3dc49310ec4c0feb86621))
+
 ## [3.5.0](https://github.com/educlopez/smoothui/compare/v3.4.1...v3.5.0) (2026-07-12)
 
 
