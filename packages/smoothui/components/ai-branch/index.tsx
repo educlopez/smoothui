@@ -24,14 +24,14 @@ interface AIBranchContextType {
  * `ai-branch` feeling like it came from a different library than `ai-message`.
  */
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const SPRING_SNAPPY = {
-  type: "spring" as const,
-  duration: 0.2,
   bounce: 0,
+  duration: 0.2,
+  type: "spring" as const,
 };
 
 const AIBranchContext = createContext<AIBranchContextType | null>(null);
@@ -76,12 +76,12 @@ export const AIBranch = ({
   };
 
   const contextValue: AIBranchContextType = {
-    currentBranch,
-    totalBranches: branches.length,
-    goToPrevious,
-    goToNext,
     branches,
+    currentBranch,
+    goToNext,
+    goToPrevious,
     setBranches,
+    totalBranches: branches.length,
   };
 
   return (
@@ -119,9 +119,9 @@ export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
         shouldReduceMotion
           ? { opacity: index === currentBranch ? 1 : 0 }
           : {
+              display: index === currentBranch ? "block" : "none",
               opacity: index === currentBranch ? 1 : 0,
               y: index === currentBranch ? 0 : 10,
-              display: index === currentBranch ? "block" : "none",
             }
       }
       className={cn(
@@ -297,7 +297,7 @@ export function LegacyAiBranch({
   return (
     <div className={cn("w-full max-w-2xl", className)}>
       {/* Active Branch Display */}
-      {activeBranch && (
+      {activeBranch ? (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="mb-4 space-y-4"
@@ -407,7 +407,7 @@ export function LegacyAiBranch({
             </div>
           </div>
         </motion.div>
-      )}
+      ) : null}
     </div>
   );
 }

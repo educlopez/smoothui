@@ -5,46 +5,46 @@ import { Globe, Monitor, Smartphone, Tablet, Tv, Watch } from "lucide-react";
 
 const devices = [
   {
-    id: 1,
-    label: "Desktop",
     description: "Windows, Mac, Linux",
     icon: <Monitor className="h-4 w-4" />,
+    id: 1,
+    label: "Desktop",
   },
   {
-    id: 2,
-    label: "Laptop",
     description: "Portable computer",
     icon: <Monitor className="h-4 w-4" />,
+    id: 2,
+    label: "Laptop",
   },
   {
-    id: 3,
-    label: "Tablet",
     description: "iPad, Android tablets",
     icon: <Tablet className="h-4 w-4" />,
+    id: 3,
+    label: "Tablet",
   },
   {
-    id: 4,
-    label: "Smartphone",
     description: "iPhone, Android phones",
     icon: <Smartphone className="h-4 w-4" />,
+    id: 4,
+    label: "Smartphone",
   },
   {
-    id: 5,
-    label: "Smart TV",
     description: "Connected television",
     icon: <Tv className="h-4 w-4" />,
+    id: 5,
+    label: "Smart TV",
   },
   {
-    id: 6,
-    label: "Smartwatch",
     description: "Wearable device",
     icon: <Watch className="h-4 w-4" />,
+    id: 6,
+    label: "Smartwatch",
   },
   {
-    id: 7,
-    label: "Web Browser",
     description: "Any platform",
     icon: <Globe className="h-4 w-4" />,
+    id: 7,
+    label: "Web Browser",
   },
 ];
 

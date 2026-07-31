@@ -217,7 +217,7 @@ export const PreviewShell = ({
             </ToggleGroup>
           )}
 
-          {blockPath && (
+          {blockPath ? (
             <>
               <Separator
                 className="mx-0.5 hidden h-5 sm:block"
@@ -287,13 +287,13 @@ export const PreviewShell = ({
                   packages, so a single "Open in v0" at the top could only ever
                   point at one of them — and pointed at the page slug, which is
                   not a registry item at all. */}
-              {registryUrl && (
+              {registryUrl ? (
                 <OpenInV0Button className="h-7 px-2" url={registryUrl} />
-              )}
+              ) : null}
             </>
-          )}
+          ) : null}
 
-          {popOutHref && (
+          {popOutHref ? (
             <Button
               asChild
               className="size-8 p-0"
@@ -305,7 +305,7 @@ export const PreviewShell = ({
                 <SquareArrowOutUpRight aria-hidden="true" size={15} />
               </Link>
             </Button>
-          )}
+          ) : null}
         </div>
       </div>
 

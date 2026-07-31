@@ -7,8 +7,8 @@ describe("Breadcrumb", () => {
     const { container } = render(
       <Breadcrumb
         items={[
-          { label: "Home", href: "/" },
-          { label: "Docs", href: "/docs" },
+          { href: "/", label: "Home" },
+          { href: "/docs", label: "Docs" },
           { label: "Current" },
         ]}
       />

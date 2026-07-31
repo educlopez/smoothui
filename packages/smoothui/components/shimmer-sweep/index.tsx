@@ -37,20 +37,20 @@ const ShimmerSweep = ({
   return (
     <span aria-label={children} className={className} ref={ref}>
       <motion.span
-        animate={play ? { opacity: 1, x: 0, filter: "blur(0px)" } : undefined}
+        animate={play ? { filter: "blur(0px)", opacity: 1, x: 0 } : undefined}
         aria-hidden="true"
         initial={
           shouldReduceMotion
-            ? { opacity: 1, x: 0, filter: "blur(0px)" }
-            : { opacity: 0, x: -22, filter: "blur(8px)" }
+            ? { filter: "blur(0px)", opacity: 1, x: 0 }
+            : { filter: "blur(8px)", opacity: 0, x: -22 }
         }
         style={{ display: "inline-block" }}
         transition={
           shouldReduceMotion
             ? { duration: 0 }
             : {
-                duration: DURATION_S,
                 delay: delay / MS,
+                duration: DURATION_S,
                 ease: EASE,
               }
         }

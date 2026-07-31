@@ -36,15 +36,15 @@ const WaveText: React.FC<WaveTextProps> = ({
             shouldReduceMotion
               ? { duration: 0 }
               : {
-                  repeat: Number.POSITIVE_INFINITY,
-                  duration,
                   delay: i * staggerDelay,
+                  duration,
                   ease: [0.37, 0, 0.63, 1],
+                  repeat: Number.POSITIVE_INFINITY,
                   times: [0, 0.25, 0.5, 0.75, 1],
                 }
           }
         >
-          {char === " " ? "\u00A0" : char}
+          {char === " " ? "\u00A0" : String(char)}
         </motion.span>
       ))}
     </span>

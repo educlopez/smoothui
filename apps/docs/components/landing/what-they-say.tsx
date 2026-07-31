@@ -36,26 +36,26 @@ const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
 // Center feature card per page (crossfades).
 const CENTERS: { image: string; data: Testimonial }[] = [
   {
-    image: "/scenes/testimonial-1.jpg",
     data: {
+      handle: "@orcdev",
       id: "orcdev",
       name: "OrcDev",
-      handle: "@orcdev",
-      tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
       quote:
         "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
+      tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
     },
+    image: "/scenes/testimonial-1.jpg",
   },
   {
-    image: "/scenes/testimonial-2.jpg",
     data: {
+      handle: "@jaykosai",
       id: "jaykosai",
       name: "jeth.eth",
-      handle: "@jaykosai",
-      tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
       quote:
         "All I can say is 🙌🔥 — planning to build something crazy with it.",
+      tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
     },
+    image: "/scenes/testimonial-2.jpg",
   },
 ];
 
@@ -67,52 +67,52 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
   {
     activePage: 0,
     data: {
+      handle: "@Lucas_Moveset",
       id: "lucas",
       name: "Lucas",
-      handle: "@Lucas_Moveset",
-      tweetUrl: "https://x.com/Lucas_Moveset/status/1990155654019887348",
       quote:
         "Great resource! UI libraries like SmoothUI simplify your workflow and boost your design aesthetic.",
+      tweetUrl: "https://x.com/Lucas_Moveset/status/1990155654019887348",
     },
   },
   {
     activePage: 1,
     data: {
+      handle: "@Potato___Dragon",
       id: "potato",
       name: "Potato Dragon",
-      handle: "@Potato___Dragon",
-      tweetUrl: "https://x.com/Potato___Dragon/status/1980544421121970512",
       quote:
         "I really liked the buttons on SmoothUI — that clickable kind of animation. Can you share it?",
+      tweetUrl: "https://x.com/Potato___Dragon/status/1980544421121970512",
     },
   },
   // right column: top, bottom
   {
     activePage: 1,
     data: {
+      handle: "@openhunts",
       id: "openhunts",
       name: "openhunts",
-      handle: "@openhunts",
-      tweetUrl: "https://x.com/openhunts/status/1980911462030950489",
       quote: "I love this UI component from @educalvolpz!",
+      tweetUrl: "https://x.com/openhunts/status/1980911462030950489",
     },
   },
   {
     activePage: 0,
     data: {
+      handle: "@PeteCapeCod",
       id: "pete",
       name: "Peter Cruckshank",
-      handle: "@PeteCapeCod",
-      tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
       quote: "Checked out SmoothUI — some great stuff! 👏 Great job 👍",
+      tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
     },
   },
 ];
 
 const PAGE_COUNT = CENTERS.length;
 
-const headerSpring = { type: "spring" as const, duration: 0.35, bounce: 0.1 };
-const morphSpring = { type: "spring" as const, duration: 0.55, bounce: 0.14 };
+const headerSpring = { bounce: 0.1, duration: 0.35, type: "spring" as const };
+const morphSpring = { bounce: 0.14, duration: 0.55, type: "spring" as const };
 const fadeTween = { duration: 0.25, ease: [0.23, 1, 0.32, 1] as const };
 
 const PlainCard = ({
@@ -273,7 +273,7 @@ export function WhatTheySay() {
                   : { opacity: 0, transform: "translateY(12px)" }
               }
               transition={shouldReduceMotion ? { duration: 0 } : headerSpring}
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ amount: 0.5, once: true }}
               whileInView={
                 shouldReduceMotion
                   ? { opacity: 1 }
@@ -294,7 +294,7 @@ export function WhatTheySay() {
                   ? { duration: 0 }
                   : { ...headerSpring, delay: 0.1 }
               }
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ amount: 0.5, once: true }}
               whileInView={
                 shouldReduceMotion
                   ? { opacity: 1 }

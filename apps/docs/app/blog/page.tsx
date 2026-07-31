@@ -6,15 +6,15 @@ import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = createMetadata({
-  title: "React Animation Tutorials & Guides",
-  description:
-    "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
   alternates: {
     canonical: "/blog",
   },
+  description:
+    "Tutorials, tips, and case studies on building beautiful animated React components with SmoothUI and Tailwind CSS.",
   openGraph: {
     url: "/blog",
   },
+  title: "React Animation Tutorials & Guides",
 });
 
 const AUTHOR_AVATAR =
@@ -114,9 +114,9 @@ export default async function BlogPage() {
                   {featured.data.description}
                 </p>
                 <div className="mt-auto flex items-end justify-between gap-2 pt-4">
-                  {featured.data.author && (
+                  {featured.data.author ? (
                     <AuthorBadge name={featured.data.author as string} />
-                  )}
+                  ) : null}
                   <ReadLink title={featured.data.title} />
                 </div>
               </Link>
@@ -147,9 +147,9 @@ export default async function BlogPage() {
                       </p>
                     </div>
                     <div className="mt-auto flex items-end justify-between gap-2 pt-6">
-                      {post.data.author && (
+                      {post.data.author ? (
                         <AuthorBadge name={post.data.author as string} />
-                      )}
+                      ) : null}
                       <ReadLink title={post.data.title} />
                     </div>
                   </Link>

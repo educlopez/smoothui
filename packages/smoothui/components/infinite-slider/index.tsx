@@ -60,8 +60,8 @@ export default function InfiniteSlider({
       const transitionDuration = remainingDistance / currentSpeed;
 
       controls = animate(translation, [translation.get(), to], {
-        ease: "linear",
         duration: transitionDuration,
+        ease: "linear",
         onComplete: () => {
           setIsTransitioning(false);
           setKey((prevKey) => prevKey + 1);
@@ -69,14 +69,14 @@ export default function InfiniteSlider({
       });
     } else {
       controls = animate(translation, [from, to], {
-        ease: "linear",
         duration,
-        repeat: Number.POSITIVE_INFINITY,
-        repeatType: "loop",
-        repeatDelay: 0,
+        ease: "linear",
         onRepeat: () => {
           translation.set(from);
         },
+        repeat: Number.POSITIVE_INFINITY,
+        repeatDelay: 0,
+        repeatType: "loop",
       });
     }
 
@@ -95,13 +95,13 @@ export default function InfiniteSlider({
 
   const hoverProps = speedOnHover
     ? {
-        onHoverStart: () => {
-          setIsTransitioning(true);
-          setCurrentSpeed(speedOnHover);
-        },
         onHoverEnd: () => {
           setIsTransitioning(true);
           setCurrentSpeed(speed);
+        },
+        onHoverStart: () => {
+          setIsTransitioning(true);
+          setCurrentSpeed(speedOnHover);
         },
       }
     : {};
@@ -115,8 +115,8 @@ export default function InfiniteSlider({
           ...(direction === "horizontal"
             ? { x: translation }
             : { y: translation }),
-          gap: `${gap}px`,
           flexDirection: direction === "horizontal" ? "row" : "column",
+          gap: `${gap}px`,
         }}
         {...hoverProps}
       >

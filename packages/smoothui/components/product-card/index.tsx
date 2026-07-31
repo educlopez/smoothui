@@ -28,15 +28,15 @@ export interface ProductCardProps {
  * ───────────────────────────────────────────────────────── */
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const SPRING_BOUNCY = {
-  type: "spring" as const,
-  duration: 0.3,
   bounce: 0.2,
+  duration: 0.3,
+  type: "spring" as const,
 };
 
 const STAR_PATH =
@@ -226,7 +226,7 @@ export default function ProductCard({
       }
       role="article"
       transition={shouldReduceMotion ? { duration: 0 } : SPRING}
-      viewport={{ once: true, margin: "-50px" }}
+      viewport={{ margin: "-50px", once: true }}
       whileInView={
         shouldReduceMotion
           ? { opacity: 1 }
@@ -256,7 +256,7 @@ export default function ProductCard({
         />
 
         {/* Badge */}
-        {badge && (
+        {badge ? (
           <motion.span
             animate={
               shouldReduceMotion
@@ -281,7 +281,7 @@ export default function ProductCard({
           >
             {badge}
           </motion.span>
-        )}
+        ) : null}
 
         {/* Wishlist button */}
         <motion.button
@@ -321,7 +321,7 @@ export default function ProductCard({
             {currency}
             {price}
           </span>
-          {hasDiscount && (
+          {hasDiscount ? (
             <>
               <span className="text-muted-foreground text-sm line-through">
                 {currency}
@@ -331,7 +331,7 @@ export default function ProductCard({
                 -{discountPercent}%
               </span>
             </>
-          )}
+          ) : null}
         </div>
 
         <div className="mt-auto pt-2">

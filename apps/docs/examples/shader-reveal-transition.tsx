@@ -20,13 +20,13 @@ const VARIANTS: { label: string; value: ShaderRevealVariant }[] = [
 
 const STATES = [
   {
-    id: "dashboard",
     eyebrow: "Dashboard",
+    id: "dashboard",
     title: "Revenue is ready to review.",
   },
   {
-    id: "landing",
     eyebrow: "Landing",
+    id: "landing",
     title: "The section has been published.",
   },
 ] as const;

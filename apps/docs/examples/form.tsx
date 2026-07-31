@@ -14,10 +14,10 @@ import type React from "react";
 import { useState } from "react";
 
 const subjectOptions = [
-  { value: "general", label: "General inquiry" },
-  { value: "support", label: "Technical support" },
-  { value: "sales", label: "Sales" },
-  { value: "feedback", label: "Feedback" },
+  { label: "General inquiry", value: "general" },
+  { label: "Technical support", value: "support" },
+  { label: "Sales", value: "sales" },
+  { label: "Feedback", value: "feedback" },
 ];
 
 type FormData = {
@@ -50,10 +50,10 @@ function validate(data: FormData): FormErrors {
 
 export default function FormDemo() {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    subject: "",
     acceptTerms: false,
+    email: "",
+    name: "",
+    subject: "",
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
@@ -81,10 +81,10 @@ export default function FormDemo() {
           onClick={() => {
             setSubmitted(false);
             setFormData({
-              name: "",
-              email: "",
-              subject: "",
               acceptTerms: false,
+              email: "",
+              name: "",
+              subject: "",
             });
             setErrors({});
           }}

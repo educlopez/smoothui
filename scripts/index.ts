@@ -3,7 +3,7 @@ import { list } from "./commands/list.js";
 import { error, header } from "./utils/colors.js";
 
 const args = process.argv.slice(2);
-const command = args[0];
+const [command] = args;
 
 function printHelp(): void {
   header();
@@ -52,7 +52,7 @@ async function main(): Promise<void> {
         }
       }
 
-      await add(componentArgs, { path, force });
+      await add(componentArgs, { force, path });
       return;
     }
 

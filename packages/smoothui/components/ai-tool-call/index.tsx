@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const BADGE_VIEWBOX = 24;
@@ -36,10 +36,10 @@ export type AIToolCallProps = {
 };
 
 const STATUS_LABEL: Record<AIToolCallStatus, string> = {
+  error: "Failed",
   pending: "Queued",
   running: "Running",
   success: "Done",
-  error: "Failed",
 };
 
 /**
@@ -91,11 +91,11 @@ const AIToolCallBadge = ({
         >
           <motion.circle
             animate={{
+              stroke: ringColor,
               // Running opens a gap in the ring; everything else closes it.
               strokeDasharray: isRunning ? "0.68 0.32" : "1 0",
               strokeOpacity:
                 isPending && !shouldReduceMotion ? [0.35, 1, 0.35] : 1,
-              stroke: ringColor,
             }}
             cx={BADGE_CENTER}
             cy={BADGE_CENTER}
@@ -105,10 +105,10 @@ const AIToolCallBadge = ({
             strokeLinecap="round"
             strokeWidth={2}
             transition={{
-              strokeDasharray: shouldReduceMotion
+              stroke: shouldReduceMotion
                 ? { duration: 0 }
                 : { duration: 0.25, ease: EASE_OUT },
-              stroke: shouldReduceMotion
+              strokeDasharray: shouldReduceMotion
                 ? { duration: 0 }
                 : { duration: 0.25, ease: EASE_OUT },
               strokeOpacity: shouldReduceMotion
@@ -124,14 +124,14 @@ const AIToolCallBadge = ({
         <AnimatePresence initial={false}>
           {status === "success" && (
             <motion.path
-              animate={{ pathLength: 1, opacity: 1 }}
+              animate={{ opacity: 1, pathLength: 1 }}
               d={CHECK_PATH}
               exit={{ opacity: 0, transition: { duration: 0.1 } }}
               fill="none"
               initial={
                 shouldReduceMotion
-                  ? { pathLength: 1, opacity: 1 }
-                  : { pathLength: 0, opacity: 1 }
+                  ? { opacity: 1, pathLength: 1 }
+                  : { opacity: 1, pathLength: 0 }
               }
               key="check"
               stroke={ringColor}
@@ -148,14 +148,14 @@ const AIToolCallBadge = ({
           {status === "error" &&
             CROSS_PATHS.map((path, index) => (
               <motion.path
-                animate={{ pathLength: 1, opacity: 1 }}
+                animate={{ opacity: 1, pathLength: 1 }}
                 d={path}
                 exit={{ opacity: 0, transition: { duration: 0.1 } }}
                 fill="none"
                 initial={
                   shouldReduceMotion
-                    ? { pathLength: 1, opacity: 1 }
-                    : { pathLength: 0, opacity: 1 }
+                    ? { opacity: 1, pathLength: 1 }
+                    : { opacity: 1, pathLength: 0 }
                 }
                 key={path}
                 stroke={ringColor}
@@ -164,7 +164,7 @@ const AIToolCallBadge = ({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.16, ease: EASE_OUT, delay: index * 0.06 }
+                    : { delay: index * 0.06, duration: 0.16, ease: EASE_OUT }
                 }
               />
             ))}
@@ -218,11 +218,11 @@ const AIToolCall = ({
           </span>
         </span>
 
-        {summary && (
+        {summary ? (
           <span className="shrink-0 text-muted-foreground text-xs">
             {summary}
           </span>
-        )}
+        ) : null}
         <span className="sr-only">{STATUS_LABEL[status]}</span>
 
         {hasDetail && (
@@ -237,7 +237,7 @@ const AIToolCall = ({
       </button>
 
       <AnimatePresence initial={false}>
-        {isOpen && hasDetail && (
+        {isOpen && hasDetail ? (
           <motion.div
             animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
@@ -261,7 +261,7 @@ const AIToolCall = ({
             }
           >
             <div className="space-y-2 border-border border-t px-3 py-2.5 text-xs">
-              {args && (
+              {args ? (
                 <div>
                   <p className="mb-1 text-[10px] text-muted-foreground uppercase tracking-wide">
                     Arguments
@@ -270,8 +270,8 @@ const AIToolCall = ({
                     {args}
                   </div>
                 </div>
-              )}
-              {result && (
+              ) : null}
+              {result ? (
                 <div>
                   <p className="mb-1 text-[10px] text-muted-foreground uppercase tracking-wide">
                     Result
@@ -280,10 +280,10 @@ const AIToolCall = ({
                     {result}
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

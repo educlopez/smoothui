@@ -189,7 +189,7 @@ export default function Combobox({
           />
           <CommandList>
             <AnimatePresence>
-              {loading && (
+              {loading ? (
                 <motion.div
                   animate={{ opacity: 1 }}
                   className="flex items-center justify-center py-4"
@@ -206,7 +206,7 @@ export default function Combobox({
                     Loading…
                   </span>
                 </motion.div>
-              )}
+              ) : null}
             </AnimatePresence>
 
             {!loading && <CommandEmpty>{emptyText}</CommandEmpty>}

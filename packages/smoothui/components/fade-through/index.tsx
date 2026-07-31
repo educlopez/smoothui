@@ -48,18 +48,18 @@ export default function FadeThrough({
     >
       <AnimatePresence mode="wait">
         <motion.span
-          animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
+          animate={{ filter: "blur(0px)", opacity: 1, scale: 1, y: 0 }}
           exit={{
-            opacity: 0,
-            y: -4,
-            scale: 1,
             filter: "blur(0px)",
+            opacity: 0,
+            scale: 1,
             transition: { duration: EXIT_DURATION_S, ease: EXIT_EASE },
+            y: -4,
           }}
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, y: 6, scale: 0.99, filter: "blur(2px)" }
+              : { filter: "blur(2px)", opacity: 0, scale: 0.99, y: 6 }
           }
           key={index}
           style={{ display: "inline-block" }}

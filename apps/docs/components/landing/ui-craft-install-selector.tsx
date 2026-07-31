@@ -24,23 +24,23 @@ import { useEffect, useRef, useState } from "react";
 
 const INSTALL_METHODS = [
   {
-    id: "brew",
-    label: "brew",
     command: "brew install --cask educlopez/tap/ui-craft",
     followUp: "Then run ui-craft install",
     Icon: BrewInstallIcon,
+    id: "brew",
+    label: "brew",
   },
   {
-    id: "npx",
-    label: "npx",
     command: "npx skills add educlopez/ui-craft",
     Icon: NpxInstallIcon,
+    id: "npx",
+    label: "npx",
   },
   {
-    id: "claude",
-    label: "Claude",
     command: "/plugin install ui-craft",
     Icon: ClaudeInstallIcon,
+    id: "claude",
+    label: "Claude",
   },
 ] as const;
 
@@ -207,7 +207,7 @@ export function UiCraftInstallSelector({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { type: "spring", stiffness: 500, damping: 28 }
+                    : { damping: 28, stiffness: 500, type: "spring" }
                 }
               >
                 <IconCheckFill24 className="size-4 text-brand-lighter" />

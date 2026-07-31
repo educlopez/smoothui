@@ -26,55 +26,57 @@ const SmoothUIIsotype = () => (
 
 const STEPS = [
   {
+    description: "Start with a plain button — no motion, no tracking.",
     id: "button",
     title: "Base Button",
-    description: "Start with a plain button — no motion, no tracking.",
   },
   {
-    id: "track",
-    title: "Track the Cursor",
     description:
       "Measure the distance from the button center to the pointer on mouse move.",
+    id: "track",
+    title: "Track the Cursor",
   },
   {
-    id: "pull",
-    title: "Pull Towards the Cursor",
     description:
       "Translate the button proportionally, with a strength factor so it only drifts slightly.",
+    id: "pull",
+    title: "Pull Towards the Cursor",
   },
   {
-    id: "radius",
-    title: "Radius Falloff",
     description:
       "Only react within a radius. The further from center, the weaker the pull.",
+    id: "radius",
+    title: "Radius Falloff",
   },
   {
-    id: "spring",
-    title: "Spring Return",
     description:
       "Wrap the x/y values in useSpring so movement — and the release — feels organic.",
+    id: "spring",
+    title: "Spring Return",
   },
   {
-    id: "accessibility",
-    title: "Accessibility",
     description:
       "Disable the effect on touch devices and when the user prefers reduced motion.",
+    id: "accessibility",
+    title: "Accessibility",
   },
 ] as const;
 
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
+  accessibility: `const shouldReduceMotion = useReducedMotion();
+const [isHoverDevice, setIsHoverDevice] = useState(false);
+
+useEffect(() => {
+  const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
+  setIsHoverDevice(mq.matches);
+}, []);
+
+const disabled = shouldReduceMotion || !isHoverDevice;`,
   button: `<button className="cursor-pointer rounded-md bg-primary px-6 py-2 text-primary-foreground">
   Hover me
 </button>`,
-  track: `const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-  const rect = buttonRef.current!.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  const dx = e.clientX - centerX;
-  const dy = e.clientY - centerY;
-};`,
   pull: `// strength = 0.3 means the button drifts 30% of the distance
 x.set(dx * strength);
 y.set(dy * strength);
@@ -101,15 +103,13 @@ const handleMouseLeave = () => {
   x.set(0);
   y.set(0);
 };`,
-  accessibility: `const shouldReduceMotion = useReducedMotion();
-const [isHoverDevice, setIsHoverDevice] = useState(false);
-
-useEffect(() => {
-  const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-  setIsHoverDevice(mq.matches);
-}, []);
-
-const disabled = shouldReduceMotion || !isHoverDevice;`,
+  track: `const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+  const rect = buttonRef.current!.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  const dx = e.clientX - centerX;
+  const dy = e.clientY - centerY;
+};`,
 };
 
 interface InteractiveMagneticButtonTutorialProps {
@@ -134,8 +134,8 @@ export function InteractiveMagneticButtonTutorial({
   const strength = 0.4;
   const radius = 140;
 
-  const rawX = useSpring(0, { duration: 0.4, bounce: 0.1 });
-  const rawY = useSpring(0, { duration: 0.4, bounce: 0.1 });
+  const rawX = useSpring(0, { bounce: 0.1, duration: 0.4 });
+  const rawY = useSpring(0, { bounce: 0.1, duration: 0.4 });
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -149,7 +149,7 @@ export function InteractiveMagneticButtonTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
     for (const ref of stepRefs.current.values()) {
       observer.observe(ref);
@@ -255,8 +255,8 @@ export function InteractiveMagneticButtonTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />

@@ -57,9 +57,9 @@ export const GET = async (request: NextRequest): Promise<Response> => {
 
   const response: BlockListResponse = {
     data,
-    total,
     page,
     pageSize,
+    total,
     totalPages,
   };
 

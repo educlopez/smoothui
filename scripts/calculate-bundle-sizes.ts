@@ -86,15 +86,6 @@ const calculateComponentSize = async (
 
   try {
     const result = await build({
-      entryPoints: [entryPoint],
-      bundle: true,
-      write: false,
-      format: "esm",
-      minify: true,
-      platform: "browser",
-      target: "es2020",
-      jsx: "automatic",
-      external: externals,
       // Resolve workspace @repo/* packages by looking in the packages dir
       alias: {
         "@repo/shadcn-ui": join(
@@ -112,12 +103,21 @@ const calculateComponentSize = async (
           "utils.ts"
         ),
       },
-      // Allow resolving from the component's own directory and the monorepo
-      resolveExtensions: [".tsx", ".ts", ".jsx", ".js"],
+      bundle: true,
+      entryPoints: [entryPoint],
+      external: externals,
+      format: "esm",
+      jsx: "automatic",
       loader: {
         ".css": "empty",
       },
       logLevel: "silent",
+      minify: true,
+      platform: "browser",
+      // Allow resolving from the component's own directory and the monorepo
+      resolveExtensions: [".tsx", ".ts", ".jsx", ".js"],
+      target: "es2020",
+      write: false,
     });
 
     const outputCode = result.outputFiles[0]?.contents;
@@ -129,7 +129,7 @@ const calculateComponentSize = async (
     const minifiedSize = outputCode.length;
     const gzippedSize = gzipSync(outputCode, { level: 9 }).length;
 
-    return { minified: minifiedSize, gzipped: gzippedSize };
+    return { gzipped: gzippedSize, minified: minifiedSize };
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
     console.warn(`  Failed to bundle ${componentName}: ${message}`);
@@ -144,8 +144,8 @@ const main = async () => {
   console.log(`Found ${componentDirs.length} component directories.\n`);
 
   const manifest: BundleSizeManifest = {
-    generatedAt: new Date().toISOString(),
     components: {},
+    generatedAt: new Date().toISOString(),
   };
 
   let successCount = 0;

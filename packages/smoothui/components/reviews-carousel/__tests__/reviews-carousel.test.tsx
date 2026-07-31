@@ -7,8 +7,8 @@ describe("ReviewsCarousel", () => {
     const { container } = render(
       <ReviewsCarousel
         reviews={[
-          { id: "1", body: "Great!", author: "Alice", title: "Review 1" },
-          { id: "2", body: "Nice!", author: "Bob", title: "Review 2" },
+          { author: "Alice", body: "Great!", id: "1", title: "Review 1" },
+          { author: "Bob", body: "Nice!", id: "2", title: "Review 2" },
         ]}
       />
     );

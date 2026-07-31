@@ -35,11 +35,11 @@ export default function ScaleDownFade({
 
   return (
     <motion.span
-      animate={play ? { opacity: 1, y: 0, scale: 1 } : undefined}
+      animate={play ? { opacity: 1, scale: 1, y: 0 } : undefined}
       aria-label={children}
       className={className}
       initial={
-        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 8, scale: 1.04 }
+        shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 1.04, y: 8 }
       }
       ref={ref}
       style={{ display: "inline-block" }}
@@ -47,8 +47,8 @@ export default function ScaleDownFade({
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              duration: DURATION_S,
               delay: delay / MS,
+              duration: DURATION_S,
               ease: EASE,
             }
       }

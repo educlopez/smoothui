@@ -17,19 +17,19 @@ export interface ToastProps {
 }
 
 const toastIcons = {
-  success: <CheckCircle className="h-5 w-5 text-emerald-500" />,
   error: <XCircle className="h-5 w-5 text-red-500" />,
-  warning: <AlertCircle className="h-5 w-5 text-amber-500" />,
   info: <Info className="h-5 w-5 text-blue-500" />,
+  success: <CheckCircle className="h-5 w-5 text-emerald-500" />,
+  warning: <AlertCircle className="h-5 w-5 text-amber-500" />,
 };
 
 const toastClasses = {
+  error: "border-red-100 bg-red-50 dark:border-red-900 dark:bg-red-950",
+  info: "border-blue-100 bg-blue-50 dark:border-blue-900 dark:bg-blue-950",
   success:
     "border-emerald-100 bg-emerald-50 dark:border-emerald-900 dark:bg-emerald-950",
-  error: "border-red-100 bg-red-50 dark:border-red-900 dark:bg-red-950",
   warning:
     "border-amber-100 bg-amber-50 dark:border-amber-900 dark:bg-amber-950",
-  info: "border-blue-100 bg-blue-50 dark:border-blue-900 dark:bg-blue-950",
 };
 
 export default function BasicToast({
@@ -68,10 +68,10 @@ export default function BasicToast({
 
   const toastContent = (
     <AnimatePresence>
-      {visible && (
+      {visible ? (
         <motion.div
           animate={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0, scale: 1 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, x: 0 }
           }
           className={`fixed top-4 right-4 z-50 flex w-80 items-center gap-3 rounded-lg border p-4 shadow-lg ${toastClasses[type]} ${className}`}
           exit={
@@ -79,20 +79,20 @@ export default function BasicToast({
               ? { opacity: 0, transition: { duration: 0 } }
               : {
                   opacity: 0,
-                  x: 50,
                   scale: 0.8,
                   transition: { duration: 0.15 },
+                  x: 50,
                 }
           }
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, x: 50, scale: 0.8 }
+              : { opacity: 0, scale: 0.8, x: 50 }
           }
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring" as const, bounce: 0.1, duration: 0.25 }
+              : { bounce: 0.1, duration: 0.25, type: "spring" as const }
           }
         >
           <div className="flex-shrink-0">{toastIcons[type]}</div>
@@ -108,7 +108,7 @@ export default function BasicToast({
             <X className="h-4 w-4" />
           </button>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -159,14 +159,14 @@ export function ToastDemo() {
       </div>
 
       <AnimatePresence>
-        {showToast && (
+        {showToast ? (
           <BasicToast
             duration={3000}
             message={`This is a ${toastType} message example!`}
             onClose={() => setShowToast(false)}
             type={toastType}
           />
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

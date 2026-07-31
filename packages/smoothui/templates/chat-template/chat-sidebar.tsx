@@ -288,7 +288,7 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
         )}
       </button>
 
-      {isOpen && (
+      {isOpen ? (
         <div
           className="absolute bottom-full left-0 z-10 mb-2 w-52 origin-bottom-left overflow-hidden rounded-xl border border-border/60 bg-background p-1 shadow-black/10 shadow-lg"
           role="menu"
@@ -313,7 +313,7 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
             label="Sign out"
           />
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

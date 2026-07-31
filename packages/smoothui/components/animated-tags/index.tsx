@@ -51,21 +51,21 @@ export default function AnimatedTags({
                   shouldReduceMotion
                     ? { opacity: 1 }
                     : {
-                        y: 0,
-                        opacity: 1,
                         filter: "blur(0px)",
+                        opacity: 1,
+                        y: 0,
                       }
                 }
                 className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md border bg-primary px-2 py-1 text-primary-foreground group-hover:bg-primary group-hover:text-foreground"
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0, transition: { duration: 0 } }
-                    : { y: 20, opacity: 0, filter: "blur(4px)" }
+                    : { filter: "blur(4px)", opacity: 0, y: 20 }
                 }
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1 }
-                    : { y: 20, opacity: 0, filter: "blur(4px)" }
+                    : { filter: "blur(4px)", opacity: 0, y: 20 }
                 }
                 key={tag}
                 layout
@@ -73,7 +73,7 @@ export default function AnimatedTags({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.25, bounce: 0, type: "spring" as const }
+                    : { bounce: 0, duration: 0.25, type: "spring" as const }
                 }
               >
                 {tag}{" "}
@@ -94,21 +94,21 @@ export default function AnimatedTags({
                 shouldReduceMotion
                   ? { opacity: 1 }
                   : {
-                      y: 0,
-                      opacity: 1,
                       filter: "blur(0px)",
+                      opacity: 1,
+                      y: 0,
                     }
               }
               className="group flex cursor-pointer flex-row items-center justify-center gap-2 rounded-md border bg-background px-2 py-1 text-primary-foreground"
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
-                  : { y: -20, opacity: 0, filter: "blur(4px)" }
+                  : { filter: "blur(4px)", opacity: 0, y: -20 }
               }
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { y: -20, opacity: 0, filter: "blur(4px)" }
+                  : { filter: "blur(4px)", opacity: 0, y: -20 }
               }
               key={tag}
               layout
@@ -116,7 +116,7 @@ export default function AnimatedTags({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.25, bounce: 0, type: "spring" as const }
+                  : { bounce: 0, duration: 0.25, type: "spring" as const }
               }
             >
               {tag}{" "}

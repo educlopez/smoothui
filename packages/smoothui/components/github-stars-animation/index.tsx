@@ -52,8 +52,8 @@ export default function GitHubStarsAnimation({
   const shouldReduceMotion = useReducedMotion();
 
   const countSpring = useSpring(0, {
-    stiffness: 100,
     damping: 30,
+    stiffness: 100,
   });
 
   // Fetch stargazers and star count
@@ -234,8 +234,8 @@ export default function GitHubStarsAnimation({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      duration: TRANSITION_DURATION,
                       delay: index * STAGGER_DELAY,
+                      duration: TRANSITION_DURATION,
                       ease: EASE_OUT_CUBIC,
                     }
               }

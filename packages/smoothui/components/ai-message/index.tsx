@@ -116,46 +116,46 @@ const AIMessage = ({
   const actions = [
     copyText
       ? {
+          active: hasCopied,
+          icon: hasCopied ? Check : Copy,
           key: "copy",
           label: hasCopied ? "Copied" : "Copy",
-          icon: hasCopied ? Check : Copy,
           onClick: copy,
-          active: hasCopied,
         }
       : null,
     onRetry
       ? {
+          active: false,
+          icon: RotateCcw,
           key: "retry",
           label: "Retry",
-          icon: RotateCcw,
           onClick: onRetry,
-          active: false,
         }
       : null,
     // Voting on your own message makes no sense, so the feedback pair is
     // assistant-only even when the consumer passes `onVote` for the thread.
     onVote && !isUser
       ? {
+          active: vote === "up",
+          icon: ThumbsUp,
           key: "up",
           label: "Good response",
-          icon: ThumbsUp,
           onClick: () => {
             setVote("up");
             onVote("up");
           },
-          active: vote === "up",
         }
       : null,
     onVote && !isUser
       ? {
+          active: vote === "down",
+          icon: ThumbsDown,
           key: "down",
           label: "Bad response",
-          icon: ThumbsDown,
           onClick: () => {
             setVote("down");
             onVote("down");
           },
-          active: vote === "down",
         }
       : null,
   ].filter((action): action is NonNullable<typeof action> => action !== null);
@@ -173,7 +173,7 @@ const AIMessage = ({
       {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a static, local stylesheet with no interpolation */}
       <style dangerouslySetInnerHTML={{ __html: ACTION_STYLES }} />
 
-      {avatar && <div className="mt-0.5 shrink-0">{avatar}</div>}
+      {avatar ? <div className="mt-0.5 shrink-0">{avatar}</div> : null}
 
       <div className={cn("flex min-w-0 flex-col gap-1", isUser && "items-end")}>
         <div
@@ -199,11 +199,11 @@ const AIMessage = ({
               user. Putting the (always-mounted, invisible) action slots before
               it pushed it toward the middle of the row, where it read as
               floating in nothing. */}
-          {timestamp && (
+          {timestamp ? (
             <span className="text-muted-foreground text-xs tabular-nums">
               {timestamp}
             </span>
-          )}
+          ) : null}
 
           {/* Always mounted, only faded — mounting the row on hover changed its
               height, so every message below jumped as the pointer moved down a

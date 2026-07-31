@@ -38,8 +38,8 @@ const getExampleComponent = (slug: string): ComponentType => {
         default: () => null,
       })),
     {
-      ssr: false,
       loading: () => <PreviewSkeleton />,
+      ssr: false,
     }
   );
 

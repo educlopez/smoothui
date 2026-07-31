@@ -51,5 +51,3 @@ export const DocsBreadcrumb = ({ section, title }: DocsBreadcrumbProps) => {
     </nav>
   );
 };
-
-export default DocsBreadcrumb;

@@ -31,14 +31,14 @@ const MIN_ROWS = 1;
 const MAX_ROWS = 8;
 const COUNTER_VISIBLE_RATIO = 0.8;
 const SPRING_DEFAULT: Transition = {
-  type: "spring",
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring",
 };
 const SPRING_SNAPPY: Transition = {
-  type: "spring",
-  duration: 0.2,
   bounce: 0,
+  duration: 0.2,
+  type: "spring",
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const ATTACHMENT_STAGGER = 0.035;
@@ -247,7 +247,7 @@ const AIPromptInput = ({
                     {formatSize(attachment.size)}
                   </span>
                 )}
-                {onRemoveAttachment && (
+                {onRemoveAttachment ? (
                   <button
                     aria-label={`Remove ${attachment.name}`}
                     className="cursor-pointer rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -256,7 +256,7 @@ const AIPromptInput = ({
                   >
                     <X aria-hidden="true" size={12} />
                   </button>
-                )}
+                ) : null}
               </motion.li>
             ))}
           </motion.ul>
@@ -278,7 +278,7 @@ const AIPromptInput = ({
 
       <div className="flex items-center justify-between gap-2 px-2 pb-2">
         <div className="flex min-w-0 items-center gap-1">
-          {onAttach && (
+          {onAttach ? (
             <button
               aria-label="Attach a file"
               className="cursor-pointer rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
@@ -288,13 +288,13 @@ const AIPromptInput = ({
             >
               <Paperclip aria-hidden="true" size={16} />
             </button>
-          )}
+          ) : null}
           {children}
         </div>
 
         <div className="flex items-center gap-2">
           <AnimatePresence initial={false}>
-            {counterVisible && (
+            {counterVisible ? (
               <motion.span
                 animate={{ opacity: 1, y: 0 }}
                 className={cn(
@@ -317,7 +317,7 @@ const AIPromptInput = ({
               >
                 {draft.length}/{maxLength}
               </motion.span>
-            )}
+            ) : null}
           </AnimatePresence>
 
           <AIPromptSubmit

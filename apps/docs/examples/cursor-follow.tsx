@@ -7,21 +7,21 @@ import Image from "next/image";
 const images = [
   {
     id: 1,
-    src: getImageKitUrl("/images/personchair.webp", {
-      width: 384,
-      quality: 80,
-      format: "auto",
-    }),
     label: "Portrait of a person sitting in a chair",
+    src: getImageKitUrl("/images/personchair.webp", {
+      format: "auto",
+      quality: 80,
+      width: 384,
+    }),
   },
   {
     id: 2,
-    src: getImageKitUrl("/images/youngman.webp", {
-      width: 384,
-      quality: 80,
-      format: "auto",
-    }),
     label: "A young man with curly hair",
+    src: getImageKitUrl("/images/youngman.webp", {
+      format: "auto",
+      quality: 80,
+      width: 384,
+    }),
   },
 ];
 

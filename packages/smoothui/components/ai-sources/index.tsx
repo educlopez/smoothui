@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useId, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 /** Favicons shown in the collapsed stack before the "+n" chip. */
@@ -54,7 +54,7 @@ const hostOf = (url: string): string => {
 const Favicon = ({ size, source }: { size: number; source: AISource }) => (
   <span
     className="flex items-center justify-center overflow-hidden rounded-full border border-border bg-background text-muted-foreground"
-    style={{ width: size, height: size }}
+    style={{ height: size, width: size }}
   >
     {source.favicon ? (
       // Sized here so any mark fits: an `<img>` from a logo service, or a repo
@@ -139,7 +139,7 @@ const AISources = ({
       </button>
 
       <AnimatePresence initial={false}>
-        {isOpen && (
+        {isOpen ? (
           <motion.ul
             animate={{ height: "auto", opacity: 1 }}
             className="mt-1 list-none overflow-hidden"
@@ -205,7 +205,7 @@ const AISources = ({
               </motion.li>
             ))}
           </motion.ul>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

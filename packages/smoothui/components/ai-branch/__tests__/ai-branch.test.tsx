@@ -12,25 +12,25 @@ import AiBranch, {
 
 const branches = [
   {
-    id: "1",
-    userMessage: "Hello",
     aiResponse: "Hi there",
-    timestamp: new Date(),
+    id: "1",
     isActive: true,
+    timestamp: new Date(),
+    userMessage: "Hello",
   },
   {
-    id: "2",
-    userMessage: "How are you?",
     aiResponse: "I'm good",
-    timestamp: new Date(),
+    id: "2",
     isActive: false,
+    timestamp: new Date(),
+    userMessage: "How are you?",
   },
   {
-    id: "3",
-    userMessage: "Bye",
     aiResponse: "See you",
-    timestamp: new Date(),
+    id: "3",
     isActive: false,
+    timestamp: new Date(),
+    userMessage: "Bye",
   },
 ];
 

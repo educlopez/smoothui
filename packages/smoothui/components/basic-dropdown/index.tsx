@@ -33,7 +33,7 @@ export default function BasicDropdown({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = useState({ left: 0, top: 0, width: 0 });
   const shouldReduceMotion = useReducedMotion();
 
   const handleItemSelect = (item: DropdownItem) => {
@@ -46,8 +46,8 @@ export default function BasicDropdown({
     if (!isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.bottom + DROPDOWN_OFFSET,
         left: rect.left,
+        top: rect.bottom + DROPDOWN_OFFSET,
         width: rect.width,
       });
     }
@@ -64,8 +64,8 @@ export default function BasicDropdown({
       if (buttonRef.current) {
         const rect = buttonRef.current.getBoundingClientRect();
         setPosition({
-          top: rect.bottom + DROPDOWN_OFFSET,
           left: rect.left,
+          top: rect.bottom + DROPDOWN_OFFSET,
           width: rect.width,
         });
       }
@@ -156,13 +156,13 @@ export default function BasicDropdown({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 1, y: 0, scaleY: 1 }
+                : { opacity: 1, scaleY: 1, y: 0 }
             }
             className="fixed z-50 origin-top rounded-lg border bg-background shadow-lg"
             exit={
@@ -170,25 +170,25 @@ export default function BasicDropdown({
                 ? { opacity: 0, transition: { duration: 0 } }
                 : {
                     opacity: 0,
-                    y: -10,
                     scaleY: 0.8,
                     transition: { duration: 0.15 },
+                    y: -10,
                   }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: -10, scaleY: 0.8 }
+                : { opacity: 0, scaleY: 0.8, y: -10 }
             }
             style={{
-              top: `${position.top}px`,
               left: `${position.left}px`,
+              top: `${position.top}px`,
               width: `${position.width}px`,
             }}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring" as const, bounce: 0.1, duration: 0.25 }
+                : { bounce: 0.1, duration: 0.25, type: "spring" as const }
             }
           >
             <ul
@@ -219,10 +219,10 @@ export default function BasicDropdown({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          type: "spring" as const,
-                          stiffness: 300,
                           damping: 30,
                           duration: 0.2,
+                          stiffness: 300,
+                          type: "spring" as const,
                         }
                   }
                   whileHover={shouldReduceMotion ? {} : { x: 5 }}
@@ -238,7 +238,9 @@ export default function BasicDropdown({
                     onMouseEnter={() => setFocusedIndex(index)}
                     type="button"
                   >
-                    {item.icon && <span className="mr-2">{item.icon}</span>}
+                    {item.icon ? (
+                      <span className="mr-2">{item.icon}</span>
+                    ) : null}
                     {item.label}
 
                     {selectedItem?.id === item.id && (
@@ -250,10 +252,10 @@ export default function BasicDropdown({
                           shouldReduceMotion
                             ? { duration: 0 }
                             : {
-                                type: "spring" as const,
-                                stiffness: 300,
                                 damping: 20,
                                 duration: 0.2,
+                                stiffness: 300,
+                                type: "spring" as const,
                               }
                         }
                       >
@@ -279,7 +281,7 @@ export default function BasicDropdown({
             </ul>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -297,7 +299,7 @@ export default function BasicDropdown({
           type="button"
         >
           <span className="block truncate">
-            {selectedItem ? selectedItem.label : label}
+            {String(selectedItem ? selectedItem.label : label)}
           </span>
           <motion.div
             animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}

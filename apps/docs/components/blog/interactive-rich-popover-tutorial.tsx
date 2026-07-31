@@ -32,36 +32,36 @@ const SmoothUIIsotype = () => (
 // Step definitions for the tutorial
 const STEPS = [
   {
-    id: "trigger",
-    title: "Trigger Element",
     description:
       "Start with an inline trigger that opens the popover on click.",
+    id: "trigger",
+    title: "Trigger Element",
   },
   {
-    id: "content",
-    title: "Rich Content",
     description:
       "Structure the popover with icon, title, description, and metadata.",
+    id: "content",
+    title: "Rich Content",
   },
   {
+    description: "Add scale and opacity animation for smooth appearance.",
     id: "animation",
     title: "Entry Animation",
-    description: "Add scale and opacity animation for smooth appearance.",
   },
   {
+    description: "Add blur transition for a materializing glass effect.",
     id: "blur",
     title: "Blur Effect",
-    description: "Add blur transition for a materializing glass effect.",
   },
   {
+    description: "Use spring animation for natural, responsive movement.",
     id: "spring",
     title: "Spring Physics",
-    description: "Use spring animation for natural, responsive movement.",
   },
   {
+    description: "The final component with all features combined.",
     id: "complete",
     title: "Complete",
-    description: "The final component with all features combined.",
   },
 ] as const;
 
@@ -73,32 +73,6 @@ interface InteractiveRichPopoverTutorialProps {
 
 // Code snippets for each step
 const CODE_SNIPPETS: Record<StepId, string> = {
-  trigger: `<Popover>
-  <PopoverTrigger asChild>
-    <button className="cursor-pointer text-brand underline">
-      hover or click me
-    </button>
-  </PopoverTrigger>
-  <PopoverContent>
-    {/* Popover content */}
-  </PopoverContent>
-</Popover>`,
-  content: `<PopoverContent className="w-80 rounded-2xl bg-black p-4">
-  <div className="flex gap-3">
-    <div className="size-10 rounded-lg bg-red-600">
-      <YouTubeIcon />
-    </div>
-    <div className="flex-1">
-      <h3 className="font-semibold text-white">
-        Video Title
-        <IconExternalLinkFill24 className="ml-1 inline" />
-      </h3>
-      <p className="text-white/70 text-sm">
-        Description text here...
-      </p>
-    </div>
-  </div>
-</PopoverContent>`,
   animation: `<motion.div
   initial={{ opacity: 0, scale: 0.95, y: 5 }}
   animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -118,12 +92,6 @@ animate={{
   y: 0,
   filter: "blur(0px)"
 }}`,
-  spring: `transition={{
-  type: "spring",
-  stiffness: 500,  // Quick response
-  damping: 30,     // Smooth settling
-  duration: 0.2    // Fast but visible
-}}`,
   complete: `// The complete component includes:
 ✓ Scale + opacity animation
 ✓ Blur materializing effect
@@ -131,6 +99,38 @@ animate={{
 ✓ Rich content structure
 ✓ Reduced motion support
 ✓ Dark theme aesthetic`,
+  content: `<PopoverContent className="w-80 rounded-2xl bg-black p-4">
+  <div className="flex gap-3">
+    <div className="size-10 rounded-lg bg-red-600">
+      <YouTubeIcon />
+    </div>
+    <div className="flex-1">
+      <h3 className="font-semibold text-white">
+        Video Title
+        <IconExternalLinkFill24 className="ml-1 inline" />
+      </h3>
+      <p className="text-white/70 text-sm">
+        Description text here...
+      </p>
+    </div>
+  </div>
+</PopoverContent>`,
+  spring: `transition={{
+  type: "spring",
+  stiffness: 500,  // Quick response
+  damping: 30,     // Smooth settling
+  duration: 0.2    // Fast but visible
+}}`,
+  trigger: `<Popover>
+  <PopoverTrigger asChild>
+    <button className="cursor-pointer text-brand underline">
+      hover or click me
+    </button>
+  </PopoverTrigger>
+  <PopoverContent>
+    {/* Popover content */}
+  </PopoverContent>
+</Popover>`,
 };
 
 // Helper function to get transition config
@@ -143,10 +143,10 @@ const getTransition = (
   }
   if (showSpring) {
     return {
-      type: "spring" as const,
-      stiffness: 500,
       damping: 30,
       duration: 0.2,
+      stiffness: 500,
+      type: "spring" as const,
     };
   }
   return { duration: 0.2 };
@@ -190,7 +190,7 @@ export function InteractiveRichPopoverTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
 
     for (const ref of stepRefs.current.values()) {
@@ -267,8 +267,8 @@ export function InteractiveRichPopoverTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />
@@ -335,10 +335,10 @@ export function InteractiveRichPopoverTutorial({
                       animate={
                         showAnimation && !shouldReduceMotion
                           ? {
+                              filter: showBlur ? "blur(0px)" : undefined,
                               opacity: 1,
                               scale: 1,
                               y: 0,
-                              filter: showBlur ? "blur(0px)" : undefined,
                             }
                           : { opacity: 1 }
                       }
@@ -346,10 +346,10 @@ export function InteractiveRichPopoverTutorial({
                       initial={
                         showAnimation && !shouldReduceMotion
                           ? {
+                              filter: showBlur ? "blur(8px)" : undefined,
                               opacity: 0,
                               scale: 0.95,
                               y: 5,
-                              filter: showBlur ? "blur(8px)" : undefined,
                             }
                           : { opacity: 1 }
                       }

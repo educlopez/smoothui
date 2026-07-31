@@ -4,14 +4,14 @@ import Link, { type LinkProps } from "next/link";
 import { IconBooksFill24, IconPencilFill24 } from "nucleo-core-fill-24";
 
 export const metadata: Metadata = {
-  // Without these, this page inherited the root layout's title and description
-  // verbatim, so / and /docs were duplicates of each other.
-  title: "Documentation",
-  description:
-    "Guides, component reference and blocks for SmoothUI. Start with installation, then browse every animated React component.",
   alternates: {
     canonical: "/docs",
   },
+  description:
+    "Guides, component reference and blocks for SmoothUI. Start with installation, then browse every animated React component.",
+  // Without these, this page inherited the root layout's title and description
+  // verbatim, so / and /docs were duplicates of each other.
+  title: "Documentation",
 };
 
 export default function DocsPage() {
@@ -26,22 +26,22 @@ export default function DocsPage() {
       <div className="mt-8 grid grid-cols-1 gap-4 text-start md:grid-cols-3">
         {[
           {
-            name: "Documentation",
             description: "The guides for SmoothUI.",
-            icon: <IconBooksFill24 className="size-full" />,
             href: "/docs/guides",
+            icon: <IconBooksFill24 className="size-full" />,
+            name: "Documentation",
           },
           {
-            name: "Components",
             description: "The library of SmoothUI components.",
-            icon: <IconPencilFill24 className="size-full" />,
             href: "/docs/components",
+            icon: <IconPencilFill24 className="size-full" />,
+            name: "Components",
           },
           {
-            name: "Blocks",
             description: "The library of SmoothUI blocks.",
-            icon: <IconPencilFill24 className="size-full" />,
             href: "/docs/blocks",
+            icon: <IconPencilFill24 className="size-full" />,
+            name: "Blocks",
           },
         ].map((item) => (
           <Item

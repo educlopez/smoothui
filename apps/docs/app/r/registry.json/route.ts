@@ -10,9 +10,9 @@ export const revalidate = false;
 
 export const GET = async () => {
   const response: Registry = {
-    name: "SmoothUI Registry",
     homepage: "https://smoothui.dev/",
     items: [],
+    name: "SmoothUI Registry",
   };
 
   const allPackageNames = await getAllPackageNames();

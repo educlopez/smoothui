@@ -3,15 +3,15 @@ import { createMetadata } from "@docs/lib/metadata";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = createMetadata({
-  title: "Themes — SmoothUI",
-  description:
-    "Installable SmoothUI color themes for shadcn projects. Six palettes with light and dark mode, applied with a single CLI command.",
   alternates: {
     canonical: "/themes",
   },
+  description:
+    "Installable SmoothUI color themes for shadcn projects. Six palettes with light and dark mode, applied with a single CLI command.",
   openGraph: {
     url: "/themes",
   },
+  title: "Themes — SmoothUI",
 });
 
 export default function ThemesPage() {

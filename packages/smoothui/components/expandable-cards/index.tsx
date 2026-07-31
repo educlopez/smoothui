@@ -44,8 +44,8 @@ export default function ExpandableCards({
 
   useEffect(() => {
     if (scrollRef.current) {
-      const scrollWidth = scrollRef.current.scrollWidth;
-      const clientWidth = scrollRef.current.clientWidth;
+      const { scrollWidth } = scrollRef.current;
+      const { clientWidth } = scrollRef.current;
       scrollRef.current.scrollLeft = (scrollWidth - clientWidth) / 2;
     }
   }, []);
@@ -83,8 +83,8 @@ export default function ExpandableCards({
         className="scrollbar-hide mx-auto flex overflow-x-auto pt-4 pb-8"
         ref={scrollRef}
         style={{
-          scrollSnapType: "x mandatory",
           scrollPaddingLeft: "20%",
+          scrollSnapType: "x mandatory",
         }}
       >
         {cards.map((card) => (
@@ -152,19 +152,19 @@ export default function ExpandableCards({
                 <motion.div
                   animate={
                     shouldReduceMotion
-                      ? { width: "300px", opacity: 1 }
-                      : { width: "300px", opacity: 1, filter: "blur(0px)" }
+                      ? { opacity: 1, width: "300px" }
+                      : { filter: "blur(0px)", opacity: 1, width: "300px" }
                   }
                   className="absolute top-0 right-0 h-full bg-background"
                   exit={
                     shouldReduceMotion
-                      ? { width: 0, opacity: 0 }
-                      : { width: 0, opacity: 0, filter: "blur(5px)" }
+                      ? { opacity: 0, width: 0 }
+                      : { filter: "blur(5px)", opacity: 0, width: 0 }
                   }
                   initial={
                     shouldReduceMotion
-                      ? { width: 0, opacity: 0 }
-                      : { width: 0, opacity: 0, filter: "blur(5px)" }
+                      ? { opacity: 0, width: 0 }
+                      : { filter: "blur(5px)", opacity: 0, width: 0 }
                   }
                   transition={
                     shouldReduceMotion
@@ -172,7 +172,7 @@ export default function ExpandableCards({
                       : {
                           duration: 0.25,
                           ease: EASE_OUT_QUINT,
-                          opacity: { duration: 0.2, delay: 0.1 },
+                          opacity: { delay: 0.1, duration: 0.2 },
                         }
                   }
                 >
@@ -180,18 +180,18 @@ export default function ExpandableCards({
                     animate={
                       shouldReduceMotion
                         ? { opacity: 1, x: 0 }
-                        : { opacity: 1, x: 0, filter: "blur(0px)" }
+                        : { filter: "blur(0px)", opacity: 1, x: 0 }
                     }
                     className="flex h-full flex-col justify-between p-8"
                     exit={
                       shouldReduceMotion
                         ? { opacity: 0, x: 20 }
-                        : { opacity: 0, x: 20, filter: "blur(5px)" }
+                        : { filter: "blur(5px)", opacity: 0, x: 20 }
                     }
                     initial={
                       shouldReduceMotion
                         ? { opacity: 0, x: 20 }
-                        : { opacity: 0, x: 20, filter: "blur(5px)" }
+                        : { filter: "blur(5px)", opacity: 0, x: 20 }
                     }
                     transition={
                       shouldReduceMotion
@@ -202,7 +202,7 @@ export default function ExpandableCards({
                     <p className="text-primary-foreground text-sm">
                       {card.content}
                     </p>
-                    {card.author && (
+                    {card.author ? (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="h-12 w-12 overflow-hidden rounded-full border bg-primary">
                           <img
@@ -223,7 +223,7 @@ export default function ExpandableCards({
                           </p>
                         </div>
                       </div>
-                    )}
+                    ) : null}
                   </motion.div>
                 </motion.div>
               )}

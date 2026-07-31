@@ -74,12 +74,12 @@ export default function ShortSlideDown({
   const visibleWords = shouldReduceMotion ? words : words.slice(0, wordCount);
   const restingAnimate = shouldReduceMotion
     ? { opacity: 1 }
-    : { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" };
+    : { filter: "blur(0px)", opacity: 1, scale: 1, y: 0 };
   const exitAnimate = {
-    opacity: 0,
-    y: 10,
     filter: "blur(1.2px)",
+    opacity: 0,
     transition: { duration: 0.32, ease: EXIT_EASE },
+    y: 10,
   };
 
   return (
@@ -95,7 +95,7 @@ export default function ShortSlideDown({
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: -28, scale: 0.992, filter: "blur(2.4px)" }
+                : { filter: "blur(2.4px)", opacity: 0, scale: 0.992, y: -28 }
             }
             // biome-ignore lint/suspicious/noArrayIndexKey: word position is the stable identity within a phrase
             key={`${phraseIndex}-${i}`}

@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useEffect, useId, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const TRAVEL_PX = 24;
@@ -125,7 +125,7 @@ const AIArtifact = ({
           </div>
         )}
 
-        {copyText && (
+        {copyText ? (
           <button
             aria-label={hasCopied ? "Copied" : "Copy"}
             className={cn(
@@ -144,7 +144,7 @@ const AIArtifact = ({
               <Copy aria-hidden="true" size={13} />
             )}
           </button>
-        )}
+        ) : null}
       </div>
 
       <div className="relative overflow-hidden">

@@ -8,31 +8,31 @@ const items: DropdownMenuItemConfig[] = [
   {
     key: "profile",
     label: "Profile",
-    shortcut: "\u2318P",
     onSelect: () => {},
+    shortcut: "\u2318P",
   },
   {
     key: "settings",
     label: "Settings",
-    shortcut: "\u2318,",
     onSelect: () => {},
+    shortcut: "\u2318,",
   },
-  { key: "sep-1", separator: true, label: "" },
+  { key: "sep-1", label: "", separator: true },
   {
-    key: "team",
-    label: "Team",
     children: [
       { key: "invite", label: "Invite Members", onSelect: () => {} },
       { key: "manage", label: "Manage Team", onSelect: () => {} },
     ],
+    key: "team",
+    label: "Team",
   },
-  { key: "sep-2", separator: true, label: "" },
+  { key: "sep-2", label: "", separator: true },
   {
     key: "logout",
     label: "Log Out",
+    onSelect: () => {},
     shortcut: "\u2318Q",
     variant: "destructive",
-    onSelect: () => {},
   },
 ];
 

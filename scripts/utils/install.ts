@@ -67,7 +67,7 @@ export const writeComponent = async (
     written.push(filePath);
   }
 
-  return { written, skipped };
+  return { skipped, written };
 };
 
 export const installDependencies = (
@@ -80,10 +80,10 @@ export const installDependencies = (
   // Install regular dependencies
   if (deps.length > 0) {
     const commands: Record<typeof packageManager, string[]> = {
+      bun: ["bun", "add", ...deps],
       npm: ["npm", "install", ...deps],
       pnpm: ["pnpm", "add", ...deps],
       yarn: ["yarn", "add", ...deps],
-      bun: ["bun", "add", ...deps],
     };
 
     const [cmd, ...args] = commands[packageManager];
@@ -99,10 +99,10 @@ export const installDependencies = (
   // Install dev dependencies
   if (devDeps.length > 0) {
     const devCommands: Record<typeof packageManager, string[]> = {
+      bun: ["bun", "add", "-d", ...devDeps],
       npm: ["npm", "install", "-D", ...devDeps],
       pnpm: ["pnpm", "add", "-D", ...devDeps],
       yarn: ["yarn", "add", "-D", ...devDeps],
-      bun: ["bun", "add", "-d", ...devDeps],
     };
 
     const [cmd, ...args] = devCommands[packageManager];

@@ -74,44 +74,44 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: url("/"),
       changeFrequency: "monthly",
       priority: 1,
+      url: url("/"),
     },
     {
-      url: url("/docs"),
       changeFrequency: "monthly",
       priority: 0.8,
+      url: url("/docs"),
     },
     ...source.getPages().flatMap((page) => {
       const { lastModified } = page.data;
 
       return {
-        url: url(page.url),
-        lastModified: lastModified ? new Date(lastModified) : undefined,
         changeFrequency: "weekly",
+        lastModified: lastModified ? new Date(lastModified) : undefined,
         priority: getPriority(page.url),
+        url: url(page.url),
       } as MetadataRoute.Sitemap[number];
     }),
     {
-      url: url("/blog"),
       changeFrequency: "weekly",
       priority: 0.7,
+      url: url("/blog"),
     },
     {
-      url: url("/themes"),
       changeFrequency: "monthly",
       priority: 0.6,
+      url: url("/themes"),
     },
     ...blogSource.getPages().map(
       (post) =>
         ({
-          url: url(post.url),
+          changeFrequency: "monthly",
           lastModified: post.data.date
             ? new Date(post.data.date as string)
             : undefined,
-          changeFrequency: "monthly",
           priority: 0.6,
+          url: url(post.url),
         }) as MetadataRoute.Sitemap[number]
     ),
   ];

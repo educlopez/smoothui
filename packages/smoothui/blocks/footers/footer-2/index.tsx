@@ -42,25 +42,31 @@ export function FooterComplex({
   companyName = "Smoothui",
   description = "Build beautiful UIs, effortlessly. The modern way to create stunning interfaces with smooth animations.",
   newsletter = {
-    title: "Stay updated",
+    buttonText: "Subscribe",
     description: "Get the latest news and updates delivered to your inbox.",
     placeholder: "Enter your email",
-    buttonText: "Subscribe",
+    title: "Stay updated",
   },
   links = {
-    product: [
-      { name: "Features", url: "#features" },
-      { name: "Pricing", url: "#pricing" },
-      { name: "Documentation", url: "#docs" },
-      { name: "API Reference", url: "#api" },
-      { name: "Changelog", url: "#changelog" },
-    ],
     company: [
       { name: "About Us", url: "#about" },
       { name: "Blog", url: "#blog" },
       { name: "Careers", url: "#careers" },
       { name: "Press Kit", url: "#press" },
       { name: "Contact", url: "#contact" },
+    ],
+    legal: [
+      { name: "Privacy Policy", url: "#privacy" },
+      { name: "Terms of Service", url: "#terms" },
+      { name: "Cookie Policy", url: "#cookies" },
+      { name: "GDPR", url: "#gdpr" },
+    ],
+    product: [
+      { name: "Features", url: "#features" },
+      { name: "Pricing", url: "#pricing" },
+      { name: "Documentation", url: "#docs" },
+      { name: "API Reference", url: "#api" },
+      { name: "Changelog", url: "#changelog" },
     ],
     support: [
       { name: "Help Center", url: "#help" },
@@ -69,18 +75,12 @@ export function FooterComplex({
       { name: "Security", url: "#security" },
       { name: "Bug Reports", url: "#bugs" },
     ],
-    legal: [
-      { name: "Privacy Policy", url: "#privacy" },
-      { name: "Terms of Service", url: "#terms" },
-      { name: "Cookie Policy", url: "#cookies" },
-      { name: "GDPR", url: "#gdpr" },
-    ],
   },
   social = {
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-    github: "https://github.com",
     discord: "https://discord.com",
+    github: "https://github.com",
+    linkedin: "https://linkedin.com",
+    twitter: "https://twitter.com",
     youtube: "https://youtube.com",
   },
   copyright = "© 2024 Smoothui. All rights reserved.",
@@ -117,7 +117,7 @@ export function FooterComplex({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: ANIMATION_DURATION, delay: DELAY_INCREMENT }
+                  : { delay: DELAY_INCREMENT, duration: ANIMATION_DURATION }
               }
               viewport={{ once: true }}
               whileInView={
@@ -153,7 +153,7 @@ export function FooterComplex({
 
               {/* Social Links */}
               <div className="flex gap-4">
-                {social.twitter && (
+                {social.twitter ? (
                   <motion.a
                     aria-label="Twitter"
                     className="text-foreground/60 transition-colors hover:text-brand"
@@ -173,8 +173,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">Twitter</span>
                   </motion.a>
-                )}
-                {social.linkedin && (
+                ) : null}
+                {social.linkedin ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.linkedin}
@@ -193,8 +193,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">LinkedIn</span>
                   </motion.a>
-                )}
-                {social.github && (
+                ) : null}
+                {social.github ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.github}
@@ -213,8 +213,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">GitHub</span>
                   </motion.a>
-                )}
-                {social.discord && (
+                ) : null}
+                {social.discord ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.discord}
@@ -233,8 +233,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">Discord</span>
                   </motion.a>
-                )}
-                {social.youtube && (
+                ) : null}
+                {social.youtube ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.youtube}
@@ -253,14 +253,14 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">YouTube</span>
                   </motion.a>
-                )}
+                ) : null}
               </div>
             </motion.div>
           </div>
 
           {/* Links Grid */}
           <div className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-4">
-            {links.product && (
+            {links.product ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -271,7 +271,7 @@ export function FooterComplex({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_PRODUCT }
+                    : { delay: DELAY_PRODUCT, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -294,9 +294,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.company && (
+            {links.company ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -307,7 +307,7 @@ export function FooterComplex({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_COMPANY }
+                    : { delay: DELAY_COMPANY, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -330,9 +330,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.support && (
+            {links.support ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -343,7 +343,7 @@ export function FooterComplex({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_SUPPORT }
+                    : { delay: DELAY_SUPPORT, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -366,9 +366,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.legal && (
+            {links.legal ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -379,7 +379,7 @@ export function FooterComplex({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: ANIMATION_DURATION, delay: DELAY_LEGAL }
+                    : { delay: DELAY_LEGAL, duration: ANIMATION_DURATION }
                 }
                 viewport={{ once: true }}
                 whileInView={
@@ -402,7 +402,7 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
           </div>
         </motion.div>
 
@@ -412,8 +412,8 @@ export function FooterComplex({
           className="mt-12 border-border border-t pt-8 text-center"
           initial={{ opacity: 0, y: 20 }}
           transition={{
-            duration: ANIMATION_DURATION,
             delay: DELAY_COPYRIGHT,
+            duration: ANIMATION_DURATION,
           }}
           viewport={{ once: true }}
           whileInView={{ opacity: 1, y: 0 }}

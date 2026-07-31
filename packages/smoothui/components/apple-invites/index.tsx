@@ -15,11 +15,11 @@ export interface ResponsiveSize {
 }
 
 const breakpoints = {
-  sm: 640,
-  md: 768,
-  lg: 1024,
-  xl: 1280,
   "2xl": 1536,
+  lg: 1024,
+  md: 768,
+  sm: 640,
+  xl: 1280,
 } as const;
 
 const DEFAULT_CARD_WIDTH = 240;
@@ -195,54 +195,54 @@ export default function AppleInvites({
   const variants = useMemo(
     () => ({
       center: {
-        x: "-50%",
+        opacity: 1,
         rotate: 0,
         scale: 1,
-        opacity: 1,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              damping: 30,
+              duration: 0.25,
+              stiffness: 300,
+              type: "spring" as const,
+            },
+        x: "-50%",
         zIndex: 3,
-        transition: shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring" as const,
-              stiffness: 300,
-              damping: 30,
-              duration: 0.25,
-            },
-      },
-      left: {
-        x: "-130%",
-        rotate: -12,
-        scale: 0.9,
-        opacity: 0.8,
-        zIndex: 2,
-        transition: shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring" as const,
-              stiffness: 300,
-              damping: 30,
-              duration: 0.25,
-            },
-      },
-      right: {
-        x: "30%",
-        rotate: 12,
-        scale: 0.9,
-        opacity: 0.8,
-        zIndex: 2,
-        transition: shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring" as const,
-              stiffness: 300,
-              damping: 30,
-              duration: 0.25,
-            },
       },
       hidden: {
         opacity: 0,
-        zIndex: 1,
         transition: shouldReduceMotion ? { duration: 0 } : { duration: 0.3 },
+        zIndex: 1,
+      },
+      left: {
+        opacity: 0.8,
+        rotate: -12,
+        scale: 0.9,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              damping: 30,
+              duration: 0.25,
+              stiffness: 300,
+              type: "spring" as const,
+            },
+        x: "-130%",
+        zIndex: 2,
+      },
+      right: {
+        opacity: 0.8,
+        rotate: 12,
+        scale: 0.9,
+        transition: shouldReduceMotion
+          ? { duration: 0 }
+          : {
+              damping: 30,
+              duration: 0.25,
+              stiffness: 300,
+              type: "spring" as const,
+            },
+        x: "30%",
+        zIndex: 2,
       },
     }),
     [shouldReduceMotion]
@@ -408,8 +408,8 @@ export default function AppleInvites({
             initial="hidden"
             key={event.id}
             style={{
-              width: responsiveWidth,
               height: responsiveHeight,
+              width: responsiveWidth,
             }}
             variants={variants}
           >
@@ -419,19 +419,19 @@ export default function AppleInvites({
               <div
                 className="absolute z-3"
                 style={{
-                  top: `${badgeTop}px`,
                   left: `${badgeLeft}px`,
+                  top: `${badgeTop}px`,
                 }}
               >
                 <span
                   className="flex flex-row items-center rounded-full bg-black/30 font-medium text-white backdrop-blur-xl"
                   style={{
                     fontSize: `${badgeFontSize}px`,
+                    gap: `${badgeGap}px`,
+                    paddingBottom: `${badgePaddingY}px`,
                     paddingLeft: `${badgePaddingX}px`,
                     paddingRight: `${badgePaddingX}px`,
                     paddingTop: `${badgePaddingY}px`,
-                    paddingBottom: `${badgePaddingY}px`,
-                    gap: `${badgeGap}px`,
                   }}
                 >
                   <Crown size={badgeIconSize} />
@@ -447,8 +447,8 @@ export default function AppleInvites({
                 <div
                   className="mx-auto flex items-center justify-center"
                   style={{
-                    marginBottom: `${avatarMarginBottom}px`,
                     gap: `${avatarGap}px`,
+                    marginBottom: `${avatarMarginBottom}px`,
                   }}
                 >
                   {event.participants?.map((participant, idx) => (
@@ -460,14 +460,14 @@ export default function AppleInvites({
                       key={`participant-${participant.avatar}-${idx}`}
                       src={participant.avatar}
                       style={{
-                        width: `${avatarSize}px`,
                         height: `${avatarSize}px`,
+                        width: `${avatarSize}px`,
                       }}
                       width={avatarSize}
                     />
                   ))}
                 </div>
-                {event.title && (
+                {event.title ? (
                   <p
                     className="wrap-break-word text-center font-bold"
                     style={{
@@ -478,8 +478,8 @@ export default function AppleInvites({
                   >
                     {event.title}
                   </p>
-                )}
-                {event.subtitle && (
+                ) : null}
+                {event.subtitle ? (
                   <p
                     className="wrap-break-word text-center opacity-90"
                     style={{
@@ -489,7 +489,7 @@ export default function AppleInvites({
                   >
                     {event.subtitle}
                   </p>
-                )}
+                ) : null}
                 <p
                   className="wrap-break-word text-center opacity-90"
                   style={{

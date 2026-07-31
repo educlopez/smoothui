@@ -16,17 +16,17 @@ function McpIllustration() {
   const bubbleTransition = (delay: number) =>
     shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.3, bounce: 0.1, delay };
+      : { bounce: 0.1, delay, duration: 0.3, type: "spring" as const };
 
   const lift = (delay: number) => ({
     initial: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 0, transform: "translateY(8px)" },
+    transition: bubbleTransition(delay),
+    viewport: { amount: 0.4, once: true },
     whileInView: shouldReduceMotion
       ? { opacity: 1 }
       : { opacity: 1, transform: "translateY(0px)" },
-    transition: bubbleTransition(delay),
-    viewport: { once: true, amount: 0.4 },
   });
 
   const steps = [
@@ -95,7 +95,7 @@ function ApiIllustration() {
   const lineTransition = (delay: number) =>
     shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.25, bounce: 0.1, delay };
+      : { bounce: 0.1, delay, duration: 0.25, type: "spring" as const };
 
   return (
     <div aria-hidden className="self-end">
@@ -107,7 +107,7 @@ function ApiIllustration() {
             : { opacity: 0, transform: "scale(0.96)" }
         }
         transition={lineTransition(0.05)}
-        viewport={{ once: true, amount: 0.5 }}
+        viewport={{ amount: 0.5, once: true }}
         whileInView={
           shouldReduceMotion
             ? { opacity: 1 }
@@ -126,26 +126,26 @@ function ApiIllustration() {
         <div className="space-y-1.5 font-mono text-xs">
           {[
             {
-              text: '{ "results": [',
               className: "text-foreground/40",
               delay: 0.15,
+              text: '{ "results": [',
             },
             {
+              className: "pl-4 text-foreground/60",
+              delay: 0.25,
               text: (
                 <>
                   {"{"} &quot;name&quot;: &quot;
                   <span className="text-brand">animated-tabs</span>&quot;,
                 </>
               ),
-              className: "pl-4 text-foreground/60",
-              delay: 0.25,
             },
             {
-              text: '"score": 0.95 }',
               className: "pl-6 text-foreground/40",
               delay: 0.35,
+              text: '"score": 0.95 }',
             },
-            { text: "] }", className: "text-foreground/40", delay: 0.4 },
+            { className: "text-foreground/40", delay: 0.4, text: "] }" },
           ].map((line, i) => (
             <motion.div
               className={line.className}
@@ -156,7 +156,7 @@ function ApiIllustration() {
               }
               key={i}
               transition={lineTransition(line.delay)}
-              viewport={{ once: true, amount: 0.5 }}
+              viewport={{ amount: 0.5, once: true }}
               whileInView={
                 shouldReduceMotion
                   ? { opacity: 1 }
@@ -178,7 +178,7 @@ function LlmsIllustration() {
   const itemTransition = (delay: number) =>
     shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.25, bounce: 0.1, delay };
+      : { bounce: 0.1, delay, duration: 0.25, type: "spring" as const };
 
   return (
     <div aria-hidden className="relative w-full select-none self-end">
@@ -192,7 +192,7 @@ function LlmsIllustration() {
           }
           style={{ transformOrigin: "top" }}
           transition={itemTransition(0)}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ amount: 0.5, once: true }}
           whileInView={
             shouldReduceMotion
               ? { opacity: 0.25 }
@@ -207,7 +207,7 @@ function LlmsIllustration() {
               : { opacity: 0, transform: "translateX(-8px)" }
           }
           transition={itemTransition(0.1)}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ amount: 0.5, once: true }}
           whileInView={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -227,7 +227,7 @@ function LlmsIllustration() {
               : { opacity: 0, transform: "translateX(-8px)" }
           }
           transition={itemTransition(0.2)}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ amount: 0.5, once: true }}
           whileInView={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -248,7 +248,7 @@ function LlmsIllustration() {
               : { opacity: 0, transform: "translateX(-8px)" }
           }
           transition={itemTransition(0.3)}
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ amount: 0.5, once: true }}
           whileInView={
             shouldReduceMotion
               ? { opacity: 1 }
@@ -267,25 +267,25 @@ function LlmsIllustration() {
 
 const aiFeatures = [
   {
-    label: "MCP Server",
-    illustration: McpIllustration,
-    title: "AI agents, meet your components",
     description:
       "The shadcn MCP server works out of the box. AI assistants discover, search, and install any component.",
+    illustration: McpIllustration,
+    label: "MCP Server",
+    title: "AI agents, meet your components",
   },
   {
-    label: "REST API",
-    illustration: ApiIllustration,
-    title: "Programmatic access to everything",
     description:
       "Public API with search, suggest, and source code retrieval. No auth required. OpenAPI spec included.",
+    illustration: ApiIllustration,
+    label: "REST API",
+    title: "Programmatic access to everything",
   },
   {
-    label: "llms.txt",
-    illustration: LlmsIllustration,
-    title: "Machine-readable catalog",
     description:
       "Structured component data for LLM context windows and RAG pipelines. JSON and plain text formats.",
+    illustration: LlmsIllustration,
+    label: "llms.txt",
+    title: "Machine-readable catalog",
   },
 ];
 
@@ -371,9 +371,9 @@ export function AISection() {
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring", duration: 0.25, bounce: 0.1, delay: 0.5 }
+              : { bounce: 0.1, delay: 0.5, duration: 0.25, type: "spring" }
           }
-          viewport={{ once: true, amount: 0.5 }}
+          viewport={{ amount: 0.5, once: true }}
           whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
         >
           <Button

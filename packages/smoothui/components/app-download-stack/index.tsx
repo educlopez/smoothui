@@ -43,24 +43,24 @@ const CHECKMARK_TRANSITION_DURATION = 0.3;
 
 const defaultApps: AppData[] = [
   {
+    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/9c9721583ecba33e59ebcebdca2248fd_Mmr12FRh5V.png",
     id: 1,
     name: "GitHub",
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/9c9721583ecba33e59ebcebdca2248fd_Mmr12FRh5V.png",
   },
   {
+    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/b47f43e02f04563447fa90d4ff6c8943_9KzW5GTggQ.png",
     id: 2,
     name: "Canary",
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/b47f43e02f04563447fa90d4ff6c8943_9KzW5GTggQ.png",
   },
   {
+    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/f0b9cdefa67b57eeb080278c2f6984cc_sCqUJBg6Qq.png",
     id: 3,
     name: "Figma",
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/f0b9cdefa67b57eeb080278c2f6984cc_sCqUJBg6Qq.png",
   },
   {
+    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/178c7b02003c933e6b5afe98bbee595b_low_res_Arc_Browser.png",
     id: 4,
     name: "Arc",
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/178c7b02003c933e6b5afe98bbee595b_low_res_Arc_Browser.png",
   },
 ];
 
@@ -114,12 +114,12 @@ export default function AppDownloadStack({
     }
     if (!shouldReduceMotion) {
       shineControls.start({
-        x: ["0%", "100%"],
         transition: {
           duration: 1,
-          repeat: Number.POSITIVE_INFINITY,
           ease: "linear",
+          repeat: Number.POSITIVE_INFINITY,
         },
+        x: ["0%", "100%"],
       });
     }
     setTimeout(() => {
@@ -152,6 +152,34 @@ export default function AppDownloadStack({
   const stackVariants = useMemo(
     // biome-ignore lint/suspicious/noExplicitAny: Variants type requires flexible return
     (): Record<string, (i: number) => any> => ({
+      float: (i: number) =>
+        shouldReduceMotion
+          ? { y: 0 }
+          : {
+              transition: {
+                y: {
+                  delay: i * FLOAT_DELAY_MULTIPLIER,
+                  duration: FLOAT_DURATION,
+                  ease: [0.645, 0.045, 0.355, 1],
+                  repeat: Number.POSITIVE_INFINITY,
+                },
+              },
+              y: [0, -FLOAT_AMPLITUDE, 0],
+            },
+      hover: (i: number) =>
+        shouldReduceMotion
+          ? {
+              rotate: 0,
+              x: 0,
+              y: 0,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            }
+          : {
+              rotate: 0,
+              x: i * HOVER_X_MULTIPLIER,
+              y: -i * HOVER_Y_MULTIPLIER,
+              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
+            },
       initial: (i: number) =>
         shouldReduceMotion
           ? {
@@ -171,34 +199,6 @@ export default function AppDownloadStack({
                   : TRANSLATION_MULTIPLIER * (i + 1),
               y: 0,
               zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
-            },
-      hover: (i: number) =>
-        shouldReduceMotion
-          ? {
-              rotate: 0,
-              x: 0,
-              y: 0,
-              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
-            }
-          : {
-              rotate: 0,
-              x: i * HOVER_X_MULTIPLIER,
-              y: -i * HOVER_Y_MULTIPLIER,
-              zIndex: BASE_Z_INDEX - i * Z_INDEX_STEP,
-            },
-      float: (i: number) =>
-        shouldReduceMotion
-          ? { y: 0 }
-          : {
-              y: [0, -FLOAT_AMPLITUDE, 0],
-              transition: {
-                y: {
-                  repeat: Number.POSITIVE_INFINITY,
-                  duration: FLOAT_DURATION,
-                  ease: [0.645, 0.045, 0.355, 1],
-                  delay: i * FLOAT_DELAY_MULTIPLIER,
-                },
-              },
             },
     }),
     [shouldReduceMotion]
@@ -421,7 +421,7 @@ export default function AppDownloadStack({
             </motion.div>
           )}
 
-          {downloadComplete && (
+          {downloadComplete ? (
             <motion.div
               animate={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
@@ -442,7 +442,7 @@ export default function AppDownloadStack({
                 Download Complete!
               </span>
             </motion.div>
-          )}
+          ) : null}
         </AnimatePresence>
       </motion.div>
     </div>

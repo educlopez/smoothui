@@ -24,15 +24,15 @@ export interface AnimatedFileUploadProps {
  * ───────────────────────────────────────────────────────── */
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const SPRING_BOUNCY = {
-  type: "spring" as const,
-  duration: 0.3,
   bounce: 0.2,
+  duration: 0.3,
+  type: "spring" as const,
 };
 
 function formatFileSize(bytes: number): string {
@@ -177,7 +177,6 @@ export default function AnimatedFileUpload({
     (e: React.DragEvent) => {
       e.preventDefault();
       if (disabled) {
-        return;
       }
     },
     [disabled]
@@ -276,12 +275,12 @@ export default function AnimatedFileUpload({
         </AnimatePresence>
         <p className="mt-1 text-muted-foreground text-xs">
           {accept ? accept.replace(/,/g, ", ") : "Any file type"}
-          {maxSize && ` \u2022 Max ${formatFileSize(maxSize)}`}
+          {maxSize ? ` \u2022 Max ${formatFileSize(maxSize)}` : null}
         </p>
       </motion.div>
 
       <AnimatePresence>
-        {error && (
+        {error ? (
           <motion.p
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className="text-destructive text-sm"
@@ -296,7 +295,7 @@ export default function AnimatedFileUpload({
           >
             {error}
           </motion.p>
-        )}
+        ) : null}
       </AnimatePresence>
 
       {files.length > 0 && (
@@ -307,7 +306,7 @@ export default function AnimatedFileUpload({
                 animate={
                   shouldReduceMotion
                     ? { opacity: 1 }
-                    : { opacity: 1, x: 0, scale: 1 }
+                    : { opacity: 1, scale: 1, x: 0 }
                 }
                 className="flex items-center gap-3 rounded-md border bg-muted/50 px-3 py-2"
                 exit={
@@ -315,15 +314,15 @@ export default function AnimatedFileUpload({
                     ? { opacity: 0, transition: { duration: 0 } }
                     : {
                         opacity: 0,
-                        x: 24,
                         scale: 0.95,
                         transition: { duration: 0.15 },
+                        x: 24,
                       }
                 }
                 initial={
                   shouldReduceMotion
                     ? { opacity: 0 }
-                    : { opacity: 0, x: -16, scale: 0.95 }
+                    : { opacity: 0, scale: 0.95, x: -16 }
                 }
                 key={`${file.name}-${file.size}-${file.lastModified}`}
                 layout={!shouldReduceMotion}

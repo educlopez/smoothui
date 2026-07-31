@@ -8,8 +8,8 @@ describe("Combobox", () => {
       <Combobox
         aria-label="Test combobox"
         options={[
-          { value: "a", label: "Option A" },
-          { value: "b", label: "Option B" },
+          { label: "Option A", value: "a" },
+          { label: "Option B", value: "b" },
         ]}
       />
     );

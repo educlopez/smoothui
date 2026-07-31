@@ -51,8 +51,8 @@ export default function SpringScaleIn({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    duration: DURATION_S,
                     delay: delay / MS + (index * stagger) / MS,
+                    duration: DURATION_S,
                     ease: EASE,
                   }
             }

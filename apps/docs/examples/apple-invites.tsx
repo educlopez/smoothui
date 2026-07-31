@@ -9,56 +9,56 @@ const AVATAR_SIZE = 72;
 
 const demoEvents: Event[] = [
   {
-    id: 1,
-    title: "Yoga",
-    subtitle: "Sat, June 14, 6:00 AM",
-    location: "Central Park",
-    image: "/images/figma/bg-11.webp",
     badge: "Hosting",
+    id: 1,
+    image: "/images/figma/bg-11.webp",
+    location: "Central Park",
     participants: [
       {
         avatar: getAvatarUrl(getAllPeople()[0]?.avatar || "", AVATAR_SIZE),
       },
     ],
+    subtitle: "Sat, June 14, 6:00 AM",
+    title: "Yoga",
   },
   {
-    id: 2,
-    title: "Tyler Turns 3!",
-    subtitle: "Sat, June 14, 3:00 PM",
-    location: "Central Park",
-    image: "/images/figma/bg-9.webp",
     badge: "Going",
+    id: 2,
+    image: "/images/figma/bg-9.webp",
+    location: "Central Park",
     participants: [
       {
         avatar: getAvatarUrl(getAllPeople()[1]?.avatar || "", AVATAR_SIZE),
       },
     ],
+    subtitle: "Sat, June 14, 3:00 PM",
+    title: "Tyler Turns 3!",
   },
   {
-    id: 3,
-    title: "Golf party",
-    subtitle: "Sun, April 15, 9:00 AM",
-    location: "Golf Park",
-    image: "/images/figma/bg-5.webp",
     badge: "Going",
+    id: 3,
+    image: "/images/figma/bg-5.webp",
+    location: "Golf Park",
     participants: [
       {
         avatar: getAvatarUrl(getAllPeople()[2]?.avatar || "", AVATAR_SIZE),
       },
     ],
+    subtitle: "Sun, April 15, 9:00 AM",
+    title: "Golf party",
   },
   {
-    id: 4,
-    title: "Movie Night",
-    subtitle: "Fri, June 20, 8:00 PM",
-    location: "Cine Town",
-    image: "/images/figma/bg-13.webp",
     badge: "Interested",
+    id: 4,
+    image: "/images/figma/bg-13.webp",
+    location: "Cine Town",
     participants: [
       {
         avatar: getAvatarUrl(getAllPeople()[3]?.avatar || "", AVATAR_SIZE),
       },
     ],
+    subtitle: "Fri, June 20, 8:00 PM",
+    title: "Movie Night",
   },
 ];
 
@@ -67,9 +67,9 @@ const Example = () => (
     <AppleInvites
       cardWidth={{
         base: 100,
-        sm: 140,
-        md: 180,
         lg: 220,
+        md: 180,
+        sm: 140,
         xl: 260,
       }}
       events={demoEvents}

@@ -259,9 +259,9 @@ export function PricingModern() {
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
+                          delay: CARD_ANIMATION_DELAY,
                           duration: 0.3,
                           ease: [0.22, 1, 0.36, 1],
-                          delay: CARD_ANIMATION_DELAY,
                         }
                   }
                 >
@@ -348,9 +348,9 @@ export function PricingModern() {
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
+                          delay: CARD_ANIMATION_DELAY * 2,
                           duration: 0.3,
                           ease: [0.22, 1, 0.36, 1],
-                          delay: CARD_ANIMATION_DELAY * 2,
                         }
                   }
                 >

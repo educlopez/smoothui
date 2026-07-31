@@ -7,9 +7,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const menuItems = [
-  { id: "features", name: "Features", href: "#link" },
-  { id: "pricing", name: "Pricing", href: "#link" },
-  { id: "about", name: "About", href: "#link" },
+  { href: "#link", id: "features", name: "Features" },
+  { href: "#link", id: "pricing", name: "Pricing" },
+  { href: "#link", id: "about", name: "About" },
 ];
 
 // Animation constants
@@ -159,23 +159,23 @@ export const HeroHeader = () => {
               </div>
 
               <AnimatePresence>
-                {menuState && (
+                {menuState ? (
                   <motion.div
                     animate={
                       shouldReduceMotion
                         ? { opacity: 1 }
-                        : { opacity: 1, y: 0, scale: SCALE_MAX }
+                        : { opacity: 1, scale: SCALE_MAX, y: 0 }
                     }
                     className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent"
                     exit={
                       shouldReduceMotion
                         ? { opacity: 0, transition: { duration: 0 } }
-                        : { opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }
+                        : { opacity: 0, scale: 0.95, y: TRANSLATE_Y_OFFSET }
                     }
                     initial={
                       shouldReduceMotion
                         ? { opacity: 1 }
-                        : { opacity: 0, y: TRANSLATE_Y_OFFSET, scale: 0.95 }
+                        : { opacity: 0, scale: 0.95, y: TRANSLATE_Y_OFFSET }
                     }
                     transition={
                       shouldReduceMotion
@@ -263,7 +263,7 @@ export const HeroHeader = () => {
                       </SmoothButton>
                     </motion.div>
                   </motion.div>
-                )}
+                ) : null}
               </AnimatePresence>
             </div>
           </div>

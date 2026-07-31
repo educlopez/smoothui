@@ -10,16 +10,16 @@
 
 /** Default spring for most UI animations */
 export const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 /** Snappy spring for quick, no-overshoot transitions */
 export const SPRING_SNAPPY = {
-  type: "spring" as const,
-  duration: 0.2,
   bounce: 0,
+  duration: 0.2,
+  type: "spring" as const,
 };
 
 /** Ease-out curve for entering elements — cubic-bezier(.23, 1, .32, 1) */
@@ -33,10 +33,10 @@ export const DURATION_INSTANT = { duration: 0 };
 
 /** Standard animation durations (seconds) */
 export const DURATION = {
-  fast: 0.15,
-  default: 0.25,
-  slow: 0.3,
   complex: 0.4,
+  default: 0.25,
+  fast: 0.15,
+  slow: 0.3,
 } as const;
 
 export type SpringConfig = typeof SPRING_DEFAULT;

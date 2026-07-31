@@ -6,7 +6,7 @@ describe("Phototab", () => {
   it("renders without throwing", () => {
     const { container } = render(
       <Phototab
-        tabs={[{ name: "Tab 1", icon: <span>icon</span>, image: "/test.jpg" }]}
+        tabs={[{ icon: <span>icon</span>, image: "/test.jpg", name: "Tab 1" }]}
       />
     );
     expect(container).toBeInTheDocument();

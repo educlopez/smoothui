@@ -162,7 +162,7 @@ const EmptyState = ({ hasFilters, onClearFilters }: EmptyStateProps) => (
         ? "Try adjusting your filters or search query."
         : "No components are available yet."}
     </p>
-    {hasFilters && (
+    {hasFilters ? (
       <SmoothButton
         className="mt-4"
         onClick={onClearFilters}
@@ -171,6 +171,6 @@ const EmptyState = ({ hasFilters, onClearFilters }: EmptyStateProps) => (
       >
         Clear filters
       </SmoothButton>
-    )}
+    ) : null}
   </div>
 );

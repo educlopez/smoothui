@@ -143,7 +143,7 @@ const Scrubber = ({
 
   const springConfig = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0.1 };
+    : { bounce: 0.1, duration: 0.25, type: "spring" as const };
 
   return (
     <div className={cn("relative w-full select-none", className)}>
@@ -162,8 +162,8 @@ const Scrubber = ({
         ref={trackRef}
         role="slider"
         style={{
-          height: 36,
           borderRadius: 8,
+          height: 36,
           touchAction: "none",
         }}
         tabIndex={0}
@@ -173,10 +173,10 @@ const Scrubber = ({
           className="pointer-events-none absolute inset-y-0 left-0 bg-foreground/14"
           style={{
             borderRadius: 8,
-            width: `${percentage}%`,
             transition: isDragging
               ? "none"
               : "width 150ms cubic-bezier(0.23, 1, 0.32, 1)",
+            width: `${percentage}%`,
           }}
         />
 
@@ -190,11 +190,11 @@ const Scrubber = ({
                   className="absolute top-1/2 bg-foreground/25"
                   key={pos}
                   style={{
-                    left: `${pos}%`,
-                    width: 1,
-                    height: 6,
                     borderRadius: 999,
+                    height: 6,
+                    left: `${pos}%`,
                     transform: "translateX(-50%) translateY(-50%)",
+                    width: 1,
                   }}
                 />
               );
@@ -206,14 +206,14 @@ const Scrubber = ({
         <div
           className="pointer-events-none absolute"
           style={{
-            top: "50%",
             left: `${percentage}%`,
-            transform: "translateX(-50%) translateY(-50%)",
             marginLeft: -5,
-            zIndex: 3,
+            top: "50%",
+            transform: "translateX(-50%) translateY(-50%)",
             transition: isDragging
               ? "none"
               : "left 150ms cubic-bezier(0.23, 1, 0.32, 1)",
+            zIndex: 3,
           }}
         >
           <motion.div
@@ -224,9 +224,9 @@ const Scrubber = ({
             }}
             className="bg-foreground/90"
             style={{
-              width: 4,
-              height: 22,
               borderRadius: 999,
+              height: 22,
+              width: 4,
             }}
             transition={springConfig}
           />
@@ -248,11 +248,11 @@ const Scrubber = ({
         <div
           className="pointer-events-none absolute top-1/2 right-2.5 -translate-y-1/2 text-foreground"
           style={{
-            zIndex: 4,
             fontFamily: "ui-monospace, monospace",
-            fontVariantNumeric: "tabular-nums",
             fontSize: 13,
+            fontVariantNumeric: "tabular-nums",
             fontWeight: 500,
+            zIndex: 4,
           }}
         >
           {value.toFixed(decimals)}

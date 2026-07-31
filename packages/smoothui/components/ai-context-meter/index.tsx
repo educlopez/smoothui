@@ -5,9 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const VIEWBOX = 32;
@@ -124,8 +124,8 @@ const AIContextMeter = ({
               fraction — no circumference arithmetic to get wrong. */}
           <motion.circle
             animate={{
-              strokeDasharray: `${fraction} ${1 - fraction}`,
               stroke: color,
+              strokeDasharray: `${fraction} ${1 - fraction}`,
             }}
             cx={CENTER}
             cy={CENTER}
@@ -144,7 +144,7 @@ const AIContextMeter = ({
       </button>
 
       <AnimatePresence>
-        {isOpen && hasBreakdown && (
+        {isOpen && hasBreakdown ? (
           <motion.div
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="absolute bottom-full left-0 z-50 mb-1.5 w-56 rounded-xl border border-border bg-background p-2.5 shadow-lg"
@@ -181,7 +181,7 @@ const AIContextMeter = ({
               ))}
             </ul>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

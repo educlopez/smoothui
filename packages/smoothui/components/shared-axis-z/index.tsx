@@ -43,22 +43,22 @@ export default function SharedAxisZ({
           animate={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 1, scale: 1, filter: "blur(0px)" }
+              : { filter: "blur(0px)", opacity: 1, scale: 1 }
           }
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
               : {
+                  filter: "blur(1px)",
                   opacity: 0,
                   scale: 1.06,
-                  filter: "blur(1px)",
                   transition: { duration: 0.36, ease: EXIT_EASE },
                 }
           }
           initial={
             shouldReduceMotion
               ? { opacity: 1 }
-              : { opacity: 0, scale: 0.9, filter: "blur(2px)" }
+              : { filter: "blur(2px)", opacity: 0, scale: 0.9 }
           }
           key={index}
           style={{ display: "inline-block" }}

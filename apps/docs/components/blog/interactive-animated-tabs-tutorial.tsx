@@ -20,76 +20,45 @@ const SmoothUIIsotype = () => (
 
 const STEPS = [
   {
-    id: "markup",
-    title: "Semantic Markup",
     description:
       "Start with role=tablist + role=tab so keyboard users and screen readers work out of the box.",
+    id: "markup",
+    title: "Semantic Markup",
   },
   {
+    description: "Track which tab is active and style it differently.",
     id: "state",
     title: "Active State",
-    description: "Track which tab is active and style it differently.",
   },
   {
-    id: "indicator",
-    title: "Shared Indicator",
     description:
       "Add a motion.span with a shared layoutId inside the active tab — Motion handles the slide for you.",
+    id: "indicator",
+    title: "Shared Indicator",
   },
   {
-    id: "spring",
-    title: "Spring Transition",
     description:
       "Use a snappy spring (bounce ≤ 0.1) so the indicator feels tight, not floaty.",
+    id: "spring",
+    title: "Spring Transition",
   },
   {
-    id: "keyboard",
-    title: "Keyboard Navigation",
     description:
       "Handle Arrow keys, Home and End. Move focus to the newly active tab.",
+    id: "keyboard",
+    title: "Keyboard Navigation",
   },
   {
-    id: "accessibility",
-    title: "Reduced Motion",
     description:
       "Skip the spring entirely when the user has prefers-reduced-motion set.",
+    id: "accessibility",
+    title: "Reduced Motion",
   },
 ] as const;
 
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
-  markup: `<div role="tablist">
-  {tabs.map((tab) => (
-    <button key={tab.id} role="tab" aria-selected={active === tab.id}>
-      {tab.label}
-    </button>
-  ))}
-</div>`,
-  state: `const [active, setActive] = useState(tabs[0].id);
-
-<button
-  role="tab"
-  aria-selected={active === tab.id}
-  className={active === tab.id ? "text-foreground" : "text-muted-foreground"}
-  onClick={() => setActive(tab.id)}
->`,
-  indicator: `{active === tab.id && (
-  <motion.span
-    layoutId="tabs-indicator"
-    className="absolute inset-0 rounded-full bg-background shadow-sm"
-  />
-)}`,
-  spring: `<motion.span
-  layoutId="tabs-indicator"
-  transition={{ type: "spring", duration: 0.25, bounce: 0.05 }}
-/>`,
-  keyboard: `const onKeyDown = (e: KeyboardEvent, i: number) => {
-  if (e.key === "ArrowRight") setActive(tabs[(i + 1) % tabs.length].id);
-  if (e.key === "ArrowLeft") setActive(tabs[(i - 1 + tabs.length) % tabs.length].id);
-  if (e.key === "Home") setActive(tabs[0].id);
-  if (e.key === "End") setActive(tabs[tabs.length - 1].id);
-};`,
   accessibility: `const shouldReduceMotion = useReducedMotion();
 
 <motion.span
@@ -98,6 +67,37 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     ? { duration: 0 }
     : { type: "spring", duration: 0.25, bounce: 0.05 }}
 />`,
+  indicator: `{active === tab.id && (
+  <motion.span
+    layoutId="tabs-indicator"
+    className="absolute inset-0 rounded-full bg-background shadow-sm"
+  />
+)}`,
+  keyboard: `const onKeyDown = (e: KeyboardEvent, i: number) => {
+  if (e.key === "ArrowRight") setActive(tabs[(i + 1) % tabs.length].id);
+  if (e.key === "ArrowLeft") setActive(tabs[(i - 1 + tabs.length) % tabs.length].id);
+  if (e.key === "Home") setActive(tabs[0].id);
+  if (e.key === "End") setActive(tabs[tabs.length - 1].id);
+};`,
+  markup: `<div role="tablist">
+  {tabs.map((tab) => (
+    <button key={tab.id} role="tab" aria-selected={active === tab.id}>
+      {tab.label}
+    </button>
+  ))}
+</div>`,
+  spring: `<motion.span
+  layoutId="tabs-indicator"
+  transition={{ type: "spring", duration: 0.25, bounce: 0.05 }}
+/>`,
+  state: `const [active, setActive] = useState(tabs[0].id);
+
+<button
+  role="tab"
+  aria-selected={active === tab.id}
+  className={active === tab.id ? "text-foreground" : "text-muted-foreground"}
+  onClick={() => setActive(tab.id)}
+>`,
 };
 
 const TABS = [
@@ -137,7 +137,7 @@ export function InteractiveAnimatedTabsTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
     for (const ref of stepRefs.current.values()) {
       observer.observe(ref);
@@ -205,8 +205,8 @@ export function InteractiveAnimatedTabsTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />
@@ -249,7 +249,7 @@ export function InteractiveAnimatedTabsTutorial({
                       role="tab"
                       type="button"
                     >
-                      {showIndicator && isActive && (
+                      {showIndicator && isActive ? (
                         <motion.span
                           className="absolute inset-0 -z-10 rounded-full border border-border bg-background shadow-sm"
                           layoutId="tutorial-tabs-indicator"
@@ -258,14 +258,14 @@ export function InteractiveAnimatedTabsTutorial({
                               ? { duration: 0 }
                               : useSpring
                                 ? {
-                                    type: "spring",
-                                    duration: 0.25,
                                     bounce: 0.05,
+                                    duration: 0.25,
+                                    type: "spring",
                                   }
                                 : { duration: 0.2 }
                           }
                         />
-                      )}
+                      ) : null}
                       {tab.label}
                     </button>
                   );

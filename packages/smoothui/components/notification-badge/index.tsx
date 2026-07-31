@@ -18,17 +18,17 @@ export interface NotificationBadgeProps {
 }
 
 const statusColors = {
-  online: "bg-emerald-500",
-  offline: "bg-gray-400",
-  busy: "bg-red-500",
   away: "bg-amber-500",
+  busy: "bg-red-500",
+  offline: "bg-gray-400",
+  online: "bg-emerald-500",
 };
 
 const positionClasses = {
-  "top-right": "-top-1 -right-1",
-  "top-left": "-top-1 -left-1",
-  "bottom-right": "-bottom-1 -right-1",
   "bottom-left": "-bottom-1 -left-1",
+  "bottom-right": "-bottom-1 -right-1",
+  "top-left": "-top-1 -left-1",
+  "top-right": "-top-1 -right-1",
 };
 
 const AnimatedCount = ({
@@ -56,12 +56,12 @@ const AnimatedCount = ({
     <span className="relative overflow-hidden font-medium leading-none">
       <AnimatePresence initial={false} mode="popLayout">
         <motion.span
-          animate={{ y: 0, opacity: 1 }}
+          animate={{ opacity: 1, y: 0 }}
           className="inline-block"
-          exit={{ y: direction * -12, opacity: 0 }}
-          initial={{ y: direction * 12, opacity: 0 }}
+          exit={{ opacity: 0, y: direction * -12 }}
+          initial={{ opacity: 0, y: direction * 12 }}
           key={value}
-          transition={{ type: "spring" as const, duration: 0.3, bounce: 0.1 }}
+          transition={{ bounce: 0.1, duration: 0.3, type: "spring" as const }}
         >
           {displayValue}
         </motion.span>
@@ -118,7 +118,7 @@ const NotificationBadge = ({
 
   const badgeElement = (
     <AnimatePresence mode="wait">
-      {isVisible && (
+      {isVisible ? (
         <motion.span
           animate={{ opacity: 1, scale: 1 }}
           className={cn(
@@ -140,7 +140,7 @@ const NotificationBadge = ({
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { type: "spring" as const, duration: 0.25, bounce: 0.2 }
+              : { bounce: 0.2, duration: 0.25, type: "spring" as const }
           }
         >
           {variant === "count" && (
@@ -161,7 +161,7 @@ const NotificationBadge = ({
             />
           )}
         </motion.span>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 

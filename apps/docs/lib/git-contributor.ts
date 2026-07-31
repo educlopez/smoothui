@@ -100,8 +100,7 @@ function parseLinkHeader(linkHeader: string | null): {
   for (const part of linkParts) {
     const match = part.match(LINK_HEADER_REGEX);
     if (match) {
-      const url = match[1];
-      const rel = match[2];
+      const [, url, rel] = match;
       if (rel === "next") {
         links.next = url;
       } else if (rel === "last") {
@@ -242,11 +241,11 @@ function extractContributors(commits: CommitItem[]): ContributorInfo[] {
     const avatar = githubUser?.avatar_url;
 
     const contributor: ContributorInfo = {
-      name: commitAuthor.name,
+      avatar: avatar ?? undefined,
       email: commitAuthor.email,
+      name: commitAuthor.name,
       url,
       username,
-      avatar: avatar ?? undefined,
     };
 
     contributorsMap.set(key, contributor);
@@ -293,12 +292,12 @@ async function getGitHubContributors(
 
     while (hasMorePages && page <= maxPages) {
       const { commits, hasMore } = await fetchCommitsPage({
-        owner,
-        repo,
         filePath,
+        headers,
+        owner,
         page,
         perPage,
-        headers,
+        repo,
       });
 
       allCommits.push(...commits);

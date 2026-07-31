@@ -147,8 +147,8 @@ export const parseSmoothUIMeta = (raw: unknown): ParseResult => {
 
   if (raw === null || raw === undefined || typeof raw !== "object") {
     return {
-      success: false,
       errors: [{ field: "smoothui", message: "Must be a non-null object" }],
+      success: false,
     };
   }
 
@@ -211,19 +211,19 @@ export const parseSmoothUIMeta = (raw: unknown): ParseResult => {
   }
 
   if (errors.length > 0) {
-    return { success: false, errors };
+    return { errors, success: false };
   }
 
   return {
-    success: true,
     data: {
-      category: obj.category as ComponentCategory,
-      tags: obj.tags as string[],
-      complexity: obj.complexity as Complexity,
       animationType: obj.animationType as AnimationType,
-      useCases: obj.useCases as string[],
+      category: obj.category as ComponentCategory,
+      complexity: obj.complexity as Complexity,
       compositionHints: obj.compositionHints as string[],
       hasReducedMotion: obj.hasReducedMotion as boolean,
+      tags: obj.tags as string[],
+      useCases: obj.useCases as string[],
     },
+    success: true,
   };
 };

@@ -4,9 +4,9 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       {
-        userAgent: "*",
         allow: "/",
         disallow: ["/api/", "/og/", "/blocks/preview/"],
+        userAgent: "*",
       },
     ],
     sitemap: "https://smoothui.dev/sitemap.xml",

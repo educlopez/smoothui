@@ -66,7 +66,7 @@ const tokenize = (text: string, citations: AIResponseCitation[]): Token[] =>
       }
       const index = Number(match[1]);
       const citation = citations.find((entry) => entry.index === index);
-      return citation ? { value, citation } : { value };
+      return citation ? { citation, value } : { value };
     });
 
 /**
@@ -132,11 +132,11 @@ const AIResponse = ({
 
         return (
           <motion.span
-            animate={{ opacity: 1, filter: "blur(0px)", y: 0 }}
+            animate={{ filter: "blur(0px)", opacity: 1, y: 0 }}
             className="inline-block"
             initial={
               isNew && !shouldReduceMotion
-                ? { opacity: 0, filter: `blur(${WORD_BLUR_PX}px)`, y: 2 }
+                ? { filter: `blur(${WORD_BLUR_PX}px)`, opacity: 0, y: 2 }
                 : false
             }
             key={key}
@@ -150,9 +150,9 @@ const AIResponse = ({
           </motion.span>
         );
       })}
-      {isStreaming && (
+      {isStreaming ? (
         <AIResponseCaret shouldReduceMotion={shouldReduceMotion} />
-      )}
+      ) : null}
     </p>
   );
 };
@@ -198,7 +198,7 @@ const AIResponseCitationPill = ({
     title: citation.title,
     transition: shouldReduceMotion
       ? { duration: 0 }
-      : { type: "spring" as const, duration: 0.25, bounce: 0.1 },
+      : { bounce: 0.1, duration: 0.25, type: "spring" as const },
   };
 
   // An internal document has nowhere to go, so it is not dressed up as a link —

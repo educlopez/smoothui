@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const CHOICE_STAGGER = 0.03;
@@ -75,11 +75,11 @@ const AIApproval = ({
     >
       <motion.div layout={!shouldReduceMotion}>
         <p className="font-medium text-foreground text-sm">{question}</p>
-        {children && (
+        {children ? (
           <div className="mt-1 text-muted-foreground text-xs leading-relaxed">
             {children}
           </div>
-        )}
+        ) : null}
       </motion.div>
 
       <div className="mt-3">
@@ -105,11 +105,11 @@ const AIApproval = ({
                 <Check aria-hidden="true" size={14} />
               </span>
               <span className="font-medium">{chosen.label}</span>
-              {chosen.detail && (
+              {chosen.detail ? (
                 <span className="ml-auto text-xs opacity-70">
                   {chosen.detail}
                 </span>
-              )}
+              ) : null}
             </motion.div>
           ) : (
             <motion.div
@@ -151,11 +151,11 @@ const AIApproval = ({
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.99 }}
                 >
                   <span className="font-medium">{option.label}</span>
-                  {option.detail && (
+                  {option.detail ? (
                     <span className="ml-auto text-muted-foreground text-xs">
                       {option.detail}
                     </span>
-                  )}
+                  ) : null}
                 </motion.button>
               ))}
             </motion.div>

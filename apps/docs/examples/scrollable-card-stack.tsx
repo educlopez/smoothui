@@ -8,63 +8,63 @@ export default function ScrollableCardStackDemo() {
 
   const cardData = [
     {
-      id: "siriorb",
-      name: people[0]?.name || "Edu Calvo",
-      handle: "@educalvolpz",
       avatar: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
         {
-          width: 80,
+          format: "auto",
           height: 80,
           quality: 85,
-          format: "auto",
+          width: 80,
         }
       ), // Keep educlopez as requested
-      image: "/images/figma/bg-5.webp",
+      handle: "@educalvolpz",
       href: "https://x.com/educalvolpz",
+      id: "siriorb",
+      image: "/images/figma/bg-5.webp",
+      name: people[0]?.name || "Edu Calvo",
     },
     {
-      id: "richpopover",
-      name: people[1]?.name || "Sarah Chen",
+      avatar: getAvatarUrl(people[1]?.avatar || "", 40),
       handle: `@${
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
-      avatar: getAvatarUrl(people[1]?.avatar || "", 40),
+      href: `https://x.com/${
+        people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
+      }`,
+      id: "richpopover",
       image: getImageKitUrl(
         "https://ik.imagekit.io/16u211libb/smoothui/girl-nature.webp?updatedAt=1764932272804",
         {
-          width: 600,
-          quality: 80,
           format: "auto",
+          quality: 80,
+          width: 600,
         }
       ),
-      href: `https://x.com/${
-        people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
-      }`,
+      name: people[1]?.name || "Sarah Chen",
     },
     {
-      id: "sparkbites",
-      name: people[2]?.name || "Marcus Johnson",
-      handle: `@${
-        people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
-      }`,
       avatar: getAvatarUrl(people[2]?.avatar || "", 40),
-      image: "/images/figma/bg-8.webp",
+      handle: `@${
+        people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
+      }`,
       href: `https://x.com/${
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
+      id: "sparkbites",
+      image: "/images/figma/bg-8.webp",
+      name: people[2]?.name || "Marcus Johnson",
     },
     {
-      id: "svgl",
-      name: people[3]?.name || "Emily Rodriguez",
+      avatar: getAvatarUrl(people[3]?.avatar || "", 40),
       handle: `@${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
-      avatar: getAvatarUrl(people[3]?.avatar || "", 40),
-      image: "/images/figma/bg-1.webp",
       href: `https://x.com/${
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
+      id: "svgl",
+      image: "/images/figma/bg-1.webp",
+      name: people[3]?.name || "Emily Rodriguez",
     },
   ];
 

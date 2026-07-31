@@ -5,9 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const STAGGER_SECONDS = 0.045;
 
@@ -57,11 +57,11 @@ const AISuggestions = ({
 
   return (
     <div className={cn("flex w-full flex-col gap-2", className)}>
-      {label && (
+      {label ? (
         <p className="text-muted-foreground text-xs uppercase tracking-wide">
           {label}
         </p>
-      )}
+      ) : null}
 
       <ul className="flex list-none flex-wrap gap-2">
         <AnimatePresence initial>

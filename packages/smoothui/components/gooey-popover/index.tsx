@@ -147,22 +147,22 @@ export default function GooeyPopover({
       if (isOpen) {
         setIsVisible(true);
         gsap.set(unfilteredTarget, {
-          width: contentWidth,
-          height: contentHeight,
           borderRadius: CONTENT_BORDER_RADIUS,
+          height: contentHeight,
+          opacity: 1,
+          width: contentWidth,
           x: contentLeft,
           y: translateY,
-          opacity: 1,
         });
         gsap.set(innerTarget, { opacity: 1, y: 0 });
       } else {
         gsap.set(unfilteredTarget, {
-          width: triggerSize,
-          height: triggerSize,
           borderRadius: triggerRadius,
+          height: triggerSize,
+          opacity: 0,
+          width: triggerSize,
           x: 0,
           y: 0,
-          opacity: 0,
         });
         gsap.set(innerTarget, { opacity: 0, y: 0 });
         setIsVisible(false);
@@ -175,12 +175,12 @@ export default function GooeyPopover({
 
       // Start both content shapes as circles at trigger position
       const startProps = {
-        width: triggerSize,
-        height: triggerSize,
         borderRadius: triggerRadius,
+        height: triggerSize,
+        opacity: 1,
+        width: triggerSize,
         x: 0,
         y: 0,
-        opacity: 1,
       };
       if (filteredTarget) {
         gsap.set(filteredTarget, startProps);
@@ -196,13 +196,13 @@ export default function GooeyPopover({
         tl.to(
           filteredTarget,
           {
-            width: contentWidth,
-            height: contentHeight,
             borderRadius: 0,
-            x: contentLeft,
-            y: translateY,
             duration: speed,
             ease: "power1.in",
+            height: contentHeight,
+            width: contentWidth,
+            x: contentLeft,
+            y: translateY,
           },
           0
         );
@@ -212,13 +212,13 @@ export default function GooeyPopover({
       tl.to(
         unfilteredTarget,
         {
-          width: contentWidth,
-          height: contentHeight,
           borderRadius: CONTENT_BORDER_RADIUS,
-          x: contentLeft,
-          y: translateY,
           duration: speed,
           ease: "power1.in",
+          height: contentHeight,
+          width: contentWidth,
+          x: contentLeft,
+          y: translateY,
         },
         0
       );
@@ -227,10 +227,10 @@ export default function GooeyPopover({
       tl.to(
         innerTarget,
         {
-          opacity: 1,
-          y: 0,
           duration: speed * 0.75,
           ease: "power1.out",
+          opacity: 1,
+          y: 0,
         },
         speed * 0.575
       );
@@ -245,10 +245,10 @@ export default function GooeyPopover({
       });
 
       tl.to(innerTarget, {
-        opacity: 0,
-        y: 8,
         duration: speed * 0.4,
         ease: "power1.in",
+        opacity: 0,
+        y: 8,
       });
 
       // Shape morph back: rectangle → circle
@@ -256,13 +256,13 @@ export default function GooeyPopover({
       tl.to(
         targets,
         {
-          width: triggerSize,
-          height: triggerSize,
           borderRadius: triggerRadius,
-          x: 0,
-          y: 0,
           duration: speed,
           ease: "power1.in",
+          height: triggerSize,
+          width: triggerSize,
+          x: 0,
+          y: 0,
         },
         speed * 0.2
       );
@@ -271,9 +271,9 @@ export default function GooeyPopover({
       tl.to(
         targets,
         {
-          opacity: 0,
           duration: speed * 0.3,
           ease: "power1.in",
+          opacity: 0,
         },
         `-=${speed * 0.3}`
       );
@@ -321,7 +321,7 @@ export default function GooeyPopover({
       <svg
         aria-hidden="true"
         className="absolute"
-        style={{ width: 0, height: 0 }}
+        style={{ height: 0, width: 0 }}
       >
         <defs>
           <filter id={filterId}>
@@ -347,11 +347,11 @@ export default function GooeyPopover({
         className="pointer-events-none absolute"
         ref={measureRef}
         style={{
-          width: contentWidth,
+          left: -9999,
           position: "absolute",
           top: -9999,
-          left: -9999,
           visibility: "hidden",
+          width: contentWidth,
         }}
       >
         <div className={cn("p-4", contentClassName)}>{children}</div>
@@ -368,10 +368,10 @@ export default function GooeyPopover({
           <div
             className={cn("absolute rounded-full", bgClassName)}
             style={{
-              width: triggerSize,
               height: triggerSize,
-              top: 0,
               left: 0,
+              top: 0,
+              width: triggerSize,
             }}
           />
 
@@ -380,12 +380,12 @@ export default function GooeyPopover({
             className={cn("absolute", bgClassName)}
             ref={filteredContentRef}
             style={{
-              top: 0,
-              left: 0,
-              width: triggerSize,
-              height: triggerSize,
               borderRadius: triggerRadius,
+              height: triggerSize,
+              left: 0,
               opacity: 0,
+              top: 0,
+              width: triggerSize,
             }}
           />
         </div>
@@ -401,8 +401,8 @@ export default function GooeyPopover({
         )}
         onClick={() => setIsOpen(!isOpen)}
         style={{
-          width: triggerSize,
           height: triggerSize,
+          width: triggerSize,
         }}
         type="button"
       >
@@ -410,7 +410,7 @@ export default function GooeyPopover({
       </button>
 
       {/* Unfiltered content panel (z-10, clean edges, actual text) */}
-      {(isOpen || isVisible) && (
+      {isOpen || isVisible ? (
         <div
           className={cn(
             "absolute z-10 overflow-hidden text-white",
@@ -419,12 +419,12 @@ export default function GooeyPopover({
           ref={unfilteredContentRef}
           role="dialog"
           style={{
-            top: 0,
-            left: 0,
-            width: triggerSize,
-            height: triggerSize,
             borderRadius: triggerRadius,
+            height: triggerSize,
+            left: 0,
             opacity: 0,
+            top: 0,
+            width: triggerSize,
           }}
         >
           <div
@@ -435,7 +435,7 @@ export default function GooeyPopover({
             {children}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

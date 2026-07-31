@@ -71,10 +71,10 @@ export default function Phototab({
       const listRect = listRef.current.getBoundingClientRect();
       const triggerRect = trigger.getBoundingClientRect();
       setBgStyle({
+        height: triggerRect.height,
         left: triggerRect.left - listRect.left,
         top: triggerRect.top - listRect.top,
         width: triggerRect.width,
-        height: triggerRect.height,
       });
     } else {
       setBgStyle(null);
@@ -95,14 +95,14 @@ export default function Phototab({
         style={{ pointerEvents: "auto" }}
       >
         <AnimatePresence>
-          {bgStyle && (
+          {bgStyle ? (
             <motion.span
               animate={{
-                opacity: 1,
+                height: bgStyle.height,
                 left: bgStyle.left,
+                opacity: 1,
                 top: bgStyle.top,
                 width: bgStyle.width,
-                height: bgStyle.height,
               }}
               className="absolute z-0 rounded-full bg-primary transition-colors"
               exit={{ opacity: 0 }}
@@ -113,14 +113,14 @@ export default function Phototab({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
-                      stiffness: 400,
                       damping: 40,
                       duration: 0.25,
+                      stiffness: 400,
+                      type: "spring" as const,
                     }
               }
             />
-          )}
+          ) : null}
         </AnimatePresence>
         {tabs.map((tab, index) => (
           <TabsTrigger

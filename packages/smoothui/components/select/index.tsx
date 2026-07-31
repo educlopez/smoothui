@@ -95,7 +95,7 @@ export default function Select({
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue ?? "");
   const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = useState({ left: 0, top: 0, width: 0 });
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -153,8 +153,8 @@ export default function Select({
     if (!isOpen && triggerRef.current) {
       const rect = triggerRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.bottom + DROPDOWN_OFFSET,
         left: rect.left,
+        top: rect.bottom + DROPDOWN_OFFSET,
         width: rect.width,
       });
     }
@@ -175,8 +175,8 @@ export default function Select({
       if (triggerRef.current) {
         const rect = triggerRef.current.getBoundingClientRect();
         setPosition({
-          top: rect.bottom + DROPDOWN_OFFSET,
           left: rect.left,
+          top: rect.bottom + DROPDOWN_OFFSET,
           width: rect.width,
         });
       }
@@ -272,9 +272,9 @@ export default function Select({
   // ---------------------------------------------------------------------------
 
   /** Render a single option item with stagger animation */
-  const renderItem = (opt: SelectOptionProps, globalIndex: number) => {
+  const renderItem = (opt: SelectOptionProps, itemIndex: number) => {
     const isSelected = opt.value === selectedValue;
-    const isFocused = globalIndex === focusedIndex;
+    const isFocused = itemIndex === focusedIndex;
 
     return (
       <motion.div
@@ -291,7 +291,7 @@ export default function Select({
             ? DURATION_INSTANT
             : {
                 ...SPRING_SNAPPY,
-                delay: globalIndex * STAGGER_DELAY,
+                delay: itemIndex * STAGGER_DELAY,
               }
         }
         whileHover={shouldReduceMotion ? {} : { x: ITEM_HOVER_X }}
@@ -309,7 +309,7 @@ export default function Select({
           )}
           disabled={opt.disabled}
           onClick={() => handleSelect(opt)}
-          onMouseEnter={() => setFocusedIndex(globalIndex)}
+          onMouseEnter={() => setFocusedIndex(itemIndex)}
           role="option"
           type="button"
         >
@@ -320,21 +320,21 @@ export default function Select({
             <AnimatePresence>
               {isSelected && (
                 <motion.span
-                  animate={shouldReduceMotion ? {} : { scale: 1, opacity: 1 }}
+                  animate={shouldReduceMotion ? {} : { opacity: 1, scale: 1 }}
                   exit={
                     shouldReduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
-                      : { scale: 0, opacity: 0 }
+                      : { opacity: 0, scale: 0 }
                   }
-                  initial={shouldReduceMotion ? {} : { scale: 0, opacity: 0 }}
+                  initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0 }}
                   transition={
                     shouldReduceMotion
                       ? DURATION_INSTANT
                       : {
-                          type: "spring" as const,
-                          stiffness: 300,
                           damping: 20,
                           duration: 0.2,
+                          stiffness: 300,
+                          type: "spring" as const,
                         }
                   }
                 >
@@ -357,7 +357,7 @@ export default function Select({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
@@ -375,8 +375,8 @@ export default function Select({
                 : {
                     opacity: 0,
                     scale: 0.95,
-                    y: -4,
                     transition: { duration: 0.15 },
+                    y: -4,
                   }
             }
             initial={
@@ -386,8 +386,8 @@ export default function Select({
             }
             role="listbox"
             style={{
-              top: `${position.top}px`,
               left: `${position.left}px`,
+              top: `${position.top}px`,
               width: `${position.width}px`,
             }}
             transition={shouldReduceMotion ? DURATION_INSTANT : SPRING_DEFAULT}
@@ -406,30 +406,31 @@ export default function Select({
                 })()}
 
               {/* Grouped options */}
-              {groups &&
-                groups.map((group, groupIdx) => {
-                  const groupItems = group.options.map((opt) => {
-                    const idx = globalIndex;
-                    globalIndex += 1;
-                    return renderItem(opt, idx);
-                  });
+              {groups
+                ? groups.map((group, groupIdx) => {
+                    const groupItems = group.options.map((opt) => {
+                      const idx = globalIndex;
+                      globalIndex += 1;
+                      return renderItem(opt, idx);
+                    });
 
-                  return (
-                    <div key={group.label}>
-                      {groupIdx > 0 && (
-                        <div className="pointer-events-none -mx-1 my-1 h-px bg-border" />
-                      )}
-                      <div className="px-2 py-1.5 text-muted-foreground text-xs">
-                        {group.label}
+                    return (
+                      <div key={group.label}>
+                        {groupIdx > 0 && (
+                          <div className="pointer-events-none -mx-1 my-1 h-px bg-border" />
+                        )}
+                        <div className="px-2 py-1.5 text-muted-foreground text-xs">
+                          {group.label}
+                        </div>
+                        {groupItems}
                       </div>
-                      {groupItems}
-                    </div>
-                  );
-                })}
+                    );
+                  })
+                : null}
             </div>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -441,7 +442,7 @@ export default function Select({
     <>
       <div className="relative inline-block w-full" ref={wrapperRef}>
         {/* Hidden native input for form submission */}
-        {name && (
+        {name ? (
           <input
             aria-hidden="true"
             name={name}
@@ -450,7 +451,7 @@ export default function Select({
             type="hidden"
             value={selectedValue}
           />
-        )}
+        ) : null}
 
         <button
           aria-expanded={isOpen}
@@ -486,7 +487,7 @@ export default function Select({
             transition={
               shouldReduceMotion
                 ? DURATION_INSTANT
-                : { type: "spring" as const, duration: 0.25, bounce: 0.05 }
+                : { bounce: 0.05, duration: 0.25, type: "spring" as const }
             }
           >
             <ChevronDown className="size-4 opacity-50" />

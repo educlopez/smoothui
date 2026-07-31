@@ -153,7 +153,7 @@ export function KitProvider({ children }: { children: ReactNode }) {
     const shared = parseKitParam(window.location.search);
 
     if (shared.length > 0) {
-      dispatch({ type: "hydrate", items: shared });
+      dispatch({ items: shared, type: "hydrate" });
       applySharedTheme(params.get("theme"));
       const url = new URL(window.location.href);
       url.searchParams.delete("kit");
@@ -161,15 +161,15 @@ export function KitProvider({ children }: { children: ReactNode }) {
       window.history.replaceState({}, "", url);
     } else {
       dispatch({
-        type: "hydrate",
         items: parse(localStorage.getItem(STORAGE_KEY)),
+        type: "hydrate",
       });
     }
     setHasHydrated(true);
 
     const onStorage = (e: StorageEvent) => {
       if (e.key === STORAGE_KEY) {
-        dispatch({ type: "hydrate", items: parse(e.newValue) });
+        dispatch({ items: parse(e.newValue), type: "hydrate" });
       }
     };
     window.addEventListener("storage", onStorage);
@@ -187,25 +187,29 @@ export function KitProvider({ children }: { children: ReactNode }) {
 
   const value = useMemo<KitContextValue>(
     () => ({
-      items,
-      count: items.length,
-      message,
-      has: (slug) => items.some((i) => i.slug === slug),
       add: (item) => {
-        dispatch({ type: "add", item });
+        dispatch({ item, type: "add" });
         setMessage(`${item.title} added to bundle`);
       },
       addMany: (next) => {
-        dispatch({ type: "addMany", items: next });
+        dispatch({ items: next, type: "addMany" });
         setMessage(
           next.length === 1
             ? `${next[0].title} added to bundle`
             : `${next.length} components added to bundle`
         );
       },
+      clear: () => {
+        dispatch({ type: "clear" });
+        setMessage("Bundle cleared");
+      },
+      count: items.length,
+      has: (slug) => items.some((i) => i.slug === slug),
+      items,
+      message,
       remove: (slug) => {
         const removed = items.find((i) => i.slug === slug);
-        dispatch({ type: "remove", slug });
+        dispatch({ slug, type: "remove" });
         setMessage(
           removed
             ? `${removed.title} removed from bundle`
@@ -213,7 +217,7 @@ export function KitProvider({ children }: { children: ReactNode }) {
         );
       },
       removeMany: (slugs) => {
-        dispatch({ type: "removeMany", slugs });
+        dispatch({ slugs, type: "removeMany" });
         setMessage(
           slugs.length === 1
             ? "1 component removed from bundle"
@@ -222,16 +226,12 @@ export function KitProvider({ children }: { children: ReactNode }) {
       },
       toggle: (item) => {
         const exists = items.some((i) => i.slug === item.slug);
-        dispatch({ type: "toggle", item });
+        dispatch({ item, type: "toggle" });
         setMessage(
           exists
             ? `${item.title} removed from bundle`
             : `${item.title} added to bundle`
         );
-      },
-      clear: () => {
-        dispatch({ type: "clear" });
-        setMessage("Bundle cleared");
       },
     }),
     [items, message]

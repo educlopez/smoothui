@@ -4,43 +4,33 @@ export const smoothUISchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
       "@id": "https://smoothui.dev/#organization",
-      name: "SmoothUI",
-      url: "https://smoothui.dev",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://smoothui.dev/logo-smoothui.svg",
-      },
+      "@type": "Organization",
       description: `Beautiful animated React components with smooth Motion and GSAP animations. Drop-in shadcn/ui compatible, fully customizable. ${COMPONENT_COUNT} free components with Tailwind CSS for modern UIs.`,
       founder: {
         "@type": "Person",
         name: "Eduardo Calvo",
         sameAs: ["https://twitter.com/educalvolpz"],
       },
+      logo: {
+        "@type": "ImageObject",
+        url: "https://smoothui.dev/logo-smoothui.svg",
+      },
+      name: "SmoothUI",
       sameAs: [
         "https://twitter.com/educalvolpz",
         "https://github.com/educlopez/smoothui",
       ],
+      url: "https://smoothui.dev",
     },
     {
-      "@type": "SoftwareApplication",
       "@id": "https://smoothui.dev/#software",
-      name: "SmoothUI",
+      "@type": "SoftwareApplication",
       applicationCategory: "DeveloperApplication",
-      operatingSystem: "Any",
-      description: `A React component library featuring ${COMPONENT_COUNT} animated UI components with smooth Motion and GSAP animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.`,
-      url: "https://smoothui.dev",
       author: {
         "@id": "https://smoothui.dev/#organization",
       },
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-      },
-      programmingLanguage: ["TypeScript", "JavaScript"],
-      runtimePlatform: "React",
+      description: `A React component library featuring ${COMPONENT_COUNT} animated UI components with smooth Motion and GSAP animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.`,
       keywords: [
         "react components",
         "tailwindcss ui",
@@ -54,23 +44,33 @@ export const smoothUISchema = {
         "animated ui components",
         "dark mode components",
       ],
+      name: "SmoothUI",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+      operatingSystem: "Any",
+      programmingLanguage: ["TypeScript", "JavaScript"],
+      runtimePlatform: "React",
+      url: "https://smoothui.dev",
     },
     {
-      "@type": "WebSite",
       "@id": "https://smoothui.dev/#website",
+      "@type": "WebSite",
       name: "SmoothUI",
-      url: "https://smoothui.dev",
-      publisher: {
-        "@id": "https://smoothui.dev/#organization",
-      },
       potentialAction: {
         "@type": "SearchAction",
+        "query-input": "required name=search_term",
         target: {
           "@type": "EntryPoint",
           urlTemplate: "https://smoothui.dev/docs/components?q={search_term}",
         },
-        "query-input": "required name=search_term",
       },
+      publisher: {
+        "@id": "https://smoothui.dev/#organization",
+      },
+      url: "https://smoothui.dev",
     },
   ],
 };

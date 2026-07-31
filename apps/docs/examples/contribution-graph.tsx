@@ -22,8 +22,8 @@ const generateSampleData = (year: number): ContributionData[] => {
     const level = count === 0 ? 0 : Math.min(4, Math.ceil(count / 4));
 
     data.push({
-      date: date.toISOString().split("T")[0],
       count,
+      date: date.toISOString().split("T")[0],
       level,
     });
   }

@@ -4,9 +4,9 @@ import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import SearchableDropdown from "../index";
 
 const items = [
-  { id: "1", label: "Apple", description: "A red fruit" },
-  { id: "2", label: "Banana", description: "A yellow fruit" },
-  { id: "3", label: "Cherry", description: "A small fruit" },
+  { description: "A red fruit", id: "1", label: "Apple" },
+  { description: "A yellow fruit", id: "2", label: "Banana" },
+  { description: "A small fruit", id: "3", label: "Cherry" },
 ];
 
 describe("SearchableDropdown", () => {

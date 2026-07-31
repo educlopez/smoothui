@@ -52,7 +52,7 @@ export default function SharedAxisY({
                   ? { opacity: 0, transition: { duration: 0 } }
                   : {
                       opacity: 0,
-                      transition: { duration: 0, delay: i * STAGGER_S },
+                      transition: { delay: i * STAGGER_S, duration: 0 },
                     }
               }
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
@@ -62,7 +62,7 @@ export default function SharedAxisY({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0, delay: i * STAGGER_S }
+                  : { delay: i * STAGGER_S, duration: 0 }
               }
             >
               {word}

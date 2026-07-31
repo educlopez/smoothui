@@ -8,8 +8,8 @@ export interface GenerateProps {
 
 export function getImageResponseOptions(): ImageResponseOptions {
   return {
-    width: 1200,
     height: 630,
+    width: 1200,
   };
 }
 
@@ -17,21 +17,21 @@ export function generate({ title, description }: GenerateProps) {
   return (
     <div
       style={{
+        backgroundColor: "#171717",
         display: "flex",
         flexDirection: "column",
-        width: "100%",
         height: "100%",
-        backgroundColor: "#171717",
-        padding: "80px",
         justifyContent: "space-between",
+        padding: "80px",
+        width: "100%",
       }}
     >
       <div
         style={{
+          color: "#ffffff",
           display: "flex",
           fontSize: "40px",
           fontWeight: 700,
-          color: "#ffffff",
           textTransform: "uppercase",
         }}
       >
@@ -47,26 +47,26 @@ export function generate({ title, description }: GenerateProps) {
       >
         <h1
           style={{
+            color: "#ffffff",
             fontSize: "64px",
             fontWeight: 700,
-            color: "#ffffff",
-            margin: 0,
             lineHeight: 1.2,
+            margin: 0,
           }}
         >
           {title}
         </h1>
-        {description && (
+        {description ? (
           <p
             style={{
-              fontSize: "28px",
               color: "rgba(255, 255, 255, 0.8)",
+              fontSize: "28px",
               margin: 0,
             }}
           >
             {description}
           </p>
-        )}
+        ) : null}
       </div>
     </div>
   );

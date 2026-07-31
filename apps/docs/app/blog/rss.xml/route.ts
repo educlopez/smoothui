@@ -38,8 +38,8 @@ export function GET() {
 
   return new Response(xml, {
     headers: {
-      "Content-Type": "application/xml",
       "Cache-Control": "s-maxage=3600, stale-while-revalidate",
+      "Content-Type": "application/xml",
     },
   });
 }

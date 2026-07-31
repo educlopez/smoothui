@@ -84,11 +84,11 @@ const createDayData = (
   currentDate: Date,
   contributionData: ContributionData[]
 ): ContributionData => {
-  const dateString = currentDate.toISOString().split("T")[0];
+  const [dateString] = currentDate.toISOString().split("T");
   const existingData = contributionData.find((d) => d.date === dateString);
   return {
-    date: dateString,
     count: existingData?.count ?? LEVEL_0,
+    date: dateString,
     level: existingData?.level ?? LEVEL_0,
   };
 };
@@ -137,16 +137,16 @@ const calculateMonthHeaders = (targetYear: number) => {
       if (
         currentMonth !== -1 &&
         shouldShowMonthHeader({
-          currentYear,
-          targetYear,
           currentMonth,
+          currentYear,
           startDateDay: startDate.getDay(),
+          targetYear,
           weekCount,
         })
       ) {
         headers.push({
-          month: MONTHS[currentMonth],
           colspan: weekCount,
+          month: MONTHS[currentMonth],
           startWeek: monthStartWeek,
         });
       }
@@ -163,16 +163,16 @@ const calculateMonthHeaders = (targetYear: number) => {
   if (
     currentMonth !== -1 &&
     shouldShowMonthHeader({
-      currentYear,
-      targetYear,
       currentMonth,
+      currentYear,
       startDateDay: startDate.getDay(),
+      targetYear,
       weekCount,
     })
   ) {
     headers.push({
-      month: MONTHS[currentMonth],
       colspan: weekCount,
+      month: MONTHS[currentMonth],
       startWeek: monthStartWeek,
     });
   }
@@ -215,8 +215,8 @@ export function ContributionGraph({
         } else {
           // Add empty day for alignment
           days.push({
-            date: "",
             count: LEVEL_0,
+            date: "",
             level: LEVEL_0,
           });
         }
@@ -246,10 +246,10 @@ export function ContributionGraph({
     }
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "long",
       weekday: "long",
       year: "numeric",
-      month: "long",
-      day: "numeric",
     });
   };
 
@@ -299,9 +299,9 @@ export function ContributionGraph({
                 </td>
 
                 {/* Day Cells */}
-                {Array.from({ length: WEEKS_IN_YEAR }, (_, w) => {
-                  const dayData = yearData[w * DAYS_IN_WEEK + dayIndex];
-                  const cellKey = `${dayData?.date ?? "empty"}-${w}-${dayIndex}`;
+                {Array.from({ length: WEEKS_IN_YEAR }, (_week, weekIndex) => {
+                  const dayData = yearData[weekIndex * DAYS_IN_WEEK + dayIndex];
+                  const cellKey = `${dayData?.date ?? "empty"}-${weekIndex}-${dayIndex}`;
                   if (!dayData?.date) {
                     return (
                       <td className="h-2.5 w-2.5 p-0" key={cellKey}>
@@ -338,7 +338,7 @@ export function ContributionGraph({
       </div>
 
       {/* Tooltip */}
-      {showTooltips && hoveredDay && (
+      {showTooltips && hoveredDay ? (
         <motion.div
           animate={
             shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
@@ -365,10 +365,10 @@ export function ContributionGraph({
             {formatDate(hoveredDay.date)}
           </div>
         </motion.div>
-      )}
+      ) : null}
 
       {/* Legend */}
-      {showLegend && (
+      {showLegend ? (
         <div className="mt-4 flex items-center justify-between text-foreground/70 text-xs">
           <span>Less</span>
           <div className="flex items-center gap-1">
@@ -381,7 +381,7 @@ export function ContributionGraph({
           </div>
           <span>More</span>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

@@ -27,34 +27,34 @@ export function FaqsAccordion({
   description = "Find answers to common questions about our product and services",
   faqs = [
     {
-      question: "What is Smoothui?",
       answer:
         "Smoothui is a modern UI component library that provides beautiful, animated components for building stunning user interfaces. It includes pre-built components with smooth animations and customizable themes.",
+      question: "What is Smoothui?",
     },
     {
-      question: "How do I get started?",
       answer:
         "Getting started is easy! Simply install the package via npm or yarn, import the components you need, and start building. We provide comprehensive documentation and examples to help you get up and running quickly.",
+      question: "How do I get started?",
     },
     {
-      question: "Is it free to use?",
       answer:
         "Yes! Smoothui is completely free and open source. You can use it in both personal and commercial projects without any restrictions. We believe in making beautiful UI components accessible to everyone.",
+      question: "Is it free to use?",
     },
     {
-      question: "Can I customize the components?",
       answer:
         "Absolutely! All components are fully customizable. You can modify colors, spacing, animations, and more using CSS variables or by extending the component classes. We also provide a theming system for easy customization.",
+      question: "Can I customize the components?",
     },
     {
-      question: "What frameworks are supported?",
       answer:
         "Currently, Smoothui supports React and Next.js. We're working on expanding support to other popular frameworks like Vue, Svelte, and Angular in the coming months.",
+      question: "What frameworks are supported?",
     },
     {
-      question: "How often do you release updates?",
       answer:
         "We release updates regularly, typically every 2-3 weeks. This includes new components, bug fixes, performance improvements, and new features. You can follow our changelog to stay updated on the latest releases.",
+      question: "How often do you release updates?",
     },
   ],
 }: FaqsAccordionProps) {
@@ -111,8 +111,8 @@ export function FaqsAccordion({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      duration: ANIMATION_DURATION,
                       delay: index * STAGGER_DELAY,
+                      duration: ANIMATION_DURATION,
                     }
               }
               viewport={{ once: true }}
@@ -206,8 +206,8 @@ export function FaqsAccordion({
                         shouldReduceMotion
                           ? { duration: 0 }
                           : {
-                              duration: ANIMATION_DURATION,
                               delay: CONTENT_DELAY,
+                              duration: ANIMATION_DURATION,
                             }
                       }
                     >

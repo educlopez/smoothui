@@ -5,6 +5,16 @@
     "ultracite/biome/react",
     "ultracite/biome/next"
   ],
+  "assist": {
+    "actions": {
+      "source": {
+        // Biome 2.5.6 DROPS JSX attributes while sorting them — in two sibling
+        // repos it silently removed a prop and glued a component name to the
+        // next attribute. Never turn this on.
+        "useSortedAttributes": "off"
+      }
+    }
+  },
   "files": {
     "includes": [
       "**/*",
@@ -45,6 +55,11 @@
       "performance": {
         // Barrel files needed for package exports
         "noBarrelFile": "off",
+        // Inline handlers inside .map() are how the demos wire dozens of
+        // controls; hoisting each one would mean a component per row
+        "noJsxPropsBind": "off",
+        // Registry and doc scripts walk sources one file at a time on purpose
+        "noAwaitInLoops": "warn",
         // Component library uses <img> for portability across frameworks
         "noImgElement": "warn",
         // Namespace imports needed in some cases
@@ -54,6 +69,9 @@
       "suspicious": {
         // Static arrays can use index keys safely
         "noArrayIndexKey": "warn",
+        // Flags `if (!ref.current)` guards as always truthy: it does not model
+        // mutable refs, and dropping those guards breaks the component
+        "noUnnecessaryConditions": "off",
         // alert() is used in example components
         "noAlert": "warn",
         // Empty blocks are common in mocks and no-op callbacks
@@ -79,6 +97,8 @@
       "style": {
         // Allow nested ternaries for concise conditional logic
         "noNestedTernary": "warn",
+        // Classic for loops over animation frames and character indices
+        "noIncrementDecrement": "off",
         // Allow explicit return in arrow functions for readability
         "useConsistentArrowReturn": "warn",
         // Prefer `type` but don't block on pre-existing interfaces
@@ -93,6 +113,16 @@
   },
   "overrides": [
     {
+      // The preview loader pulls these in with `import(...).then(m => m.default)`,
+      // so the default export is the entry point, not a redundancy
+      "includes": ["apps/docs/examples/**"],
+      "linter": {
+        "rules": {
+          "complexity": { "noRedundantDefaultExport": "off" }
+        }
+      }
+    },
+    {
       // Component library uses <img> for portability across frameworks
       "includes": ["packages/**"],
       "linter": {
@@ -102,6 +132,12 @@
           },
           "correctness": {
             "useImageSize": "off"
+          },
+          "complexity": {
+            // These files are copied verbatim into consumer projects through
+            // the registry, so the named + default export pair is the surface
+            // people already import
+            "noRedundantDefaultExport": "off"
           }
         }
       }

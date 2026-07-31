@@ -104,11 +104,11 @@ const patternGroups: { label: string; patterns: PresetPattern[] }[] = [
 const colors = ["white", "blue", "red", "green", "amber"] as const;
 
 const colorValues: Record<string, string> = {
-  white: "#f5f5f4",
-  red: "#f87171",
+  amber: "#fbbf24",
   blue: "#38bdf8",
   green: "#4ade80",
-  amber: "#fbbf24",
+  red: "#f87171",
+  white: "#f5f5f4",
 };
 
 const modes = ["stagger", "pulse", "sequence"] as const;
@@ -221,7 +221,7 @@ export default function GridLoaderDemo() {
       {typeof document !== "undefined" &&
         createPortal(
           <AnimatePresence>
-            {open && (
+            {open ? (
               <>
                 <motion.div
                   animate={{ opacity: 1 }}
@@ -244,7 +244,7 @@ export default function GridLoaderDemo() {
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring", duration: 0.5, bounce: 0.05 }
+                      : { bounce: 0.05, duration: 0.5, type: "spring" }
                   }
                 >
                   <div className="flex items-center justify-between border-smooth-300 border-b px-4 py-3">
@@ -302,15 +302,15 @@ export default function GridLoaderDemo() {
                             onMouseEnter={() => setHoveredColor(idx)}
                             onMouseLeave={() => setHoveredColor(null)}
                             style={{
-                              width: 24,
-                              height: 24,
                               background: colorValues[color],
+                              height: 24,
                               opacity:
                                 idx === colorIndex
                                   ? 1
                                   : hoveredColor === idx
                                     ? 1
                                     : 0.45,
+                              width: 24,
                             }}
                             type="button"
                           />
@@ -323,9 +323,9 @@ export default function GridLoaderDemo() {
                       className="flex items-center bg-smooth-200"
                       style={{
                         borderRadius: 8,
+                        gap: 4,
                         minHeight: 36,
                         padding: "0 4px",
-                        gap: 4,
                       }}
                     >
                       {modes.map((mode, idx) => (
@@ -339,8 +339,8 @@ export default function GridLoaderDemo() {
                           onClick={() => setModeIndex(idx)}
                           style={{
                             borderRadius: 8,
-                            height: 28,
                             fontSize: 13,
+                            height: 28,
                           }}
                           type="button"
                         >
@@ -368,8 +368,8 @@ export default function GridLoaderDemo() {
                         className="flex bg-foreground/[0.06]"
                         style={{
                           borderRadius: 8,
-                          padding: 3,
                           gap: 2,
+                          padding: 3,
                         }}
                       >
                         <button
@@ -381,9 +381,9 @@ export default function GridLoaderDemo() {
                           onClick={() => setRounded(false)}
                           style={{
                             borderRadius: 6,
-                            padding: "3px 10px",
                             fontSize: 12,
                             fontWeight: 500,
+                            padding: "3px 10px",
                           }}
                           type="button"
                         >
@@ -398,9 +398,9 @@ export default function GridLoaderDemo() {
                           onClick={() => setRounded(true)}
                           style={{
                             borderRadius: 6,
-                            padding: "3px 10px",
                             fontSize: 12,
                             fontWeight: 500,
+                            padding: "3px 10px",
                           }}
                           type="button"
                         >
@@ -474,7 +474,7 @@ export default function GridLoaderDemo() {
                   </div>
                 </motion.div>
               </>
-            )}
+            ) : null}
           </AnimatePresence>,
           document.body
         )}

@@ -27,29 +27,29 @@ const createMockContext = (): MockContext2D => ({
   clearRect: vi.fn(),
   clip: vi.fn(),
   fillRect: vi.fn(),
+  fillStyle: "",
+  globalCompositeOperation: "",
+  lineWidth: 0,
   restore: vi.fn(),
   save: vi.fn(),
   scale: vi.fn(),
-  stroke: vi.fn(),
-  translate: vi.fn(),
-  fillStyle: "",
   shadowBlur: 0,
   shadowColor: "",
+  stroke: vi.fn(),
   strokeStyle: "",
-  lineWidth: 0,
-  globalCompositeOperation: "",
+  translate: vi.fn(),
 });
 
 const mockMatchMedia = (matches: boolean) => {
   window.matchMedia = vi.fn().mockImplementation((query: string) => ({
+    addEventListener: vi.fn(),
+    addListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches,
     media: query,
     onchange: null,
-    addListener: vi.fn(),
-    removeListener: vi.fn(),
-    addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
+    removeListener: vi.fn(),
   }));
 };
 

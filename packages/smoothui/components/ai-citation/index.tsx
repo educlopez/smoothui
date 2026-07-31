@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 /** Grace period so the pointer can cross the gap between pill and card. */
 const CLOSE_DELAY_MS = 120;
@@ -117,7 +117,7 @@ const AICitation = ({
       </a>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.span
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="absolute bottom-full left-1/2 z-50 mb-1.5 block rounded-xl border border-border bg-background p-3 text-left align-baseline shadow-lg"
@@ -133,11 +133,11 @@ const AICitation = ({
                 : { opacity: 0, scale: 0.94, y: 4 }
             }
             style={{
-              width: CARD_WIDTH_PX,
               // Origin at the bottom centre — where the pill is — so the card
               // grows out of the marker instead of appearing over it.
               transformOrigin: "bottom center",
               translateX: "-50%",
+              width: CARD_WIDTH_PX,
             }}
             transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
           >
@@ -159,13 +159,13 @@ const AICitation = ({
               {title}
             </span>
 
-            {description && (
+            {description ? (
               <span className="mt-1 block text-muted-foreground text-xs leading-relaxed">
                 {description}
               </span>
-            )}
+            ) : null}
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
     </span>
   );

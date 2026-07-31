@@ -47,8 +47,8 @@ export default function MicroScaleFade({
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              duration: DURATION_S,
               delay: delay / MS,
+              duration: DURATION_S,
               ease: EASE,
             }
       }

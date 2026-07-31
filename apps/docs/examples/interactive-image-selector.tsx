@@ -10,55 +10,55 @@ const demoImages: ImageData[] = [
   {
     id: 1,
     src: getImageKitUrl("/images/womanorange.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
   {
     id: 2,
     src: getImageKitUrl("/images/girl-nature.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
   {
     id: 3,
     src: getImageKitUrl("/images/metrowoman.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
   {
     id: 4,
     src: getImageKitUrl("/images/designerworking.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
   {
     id: 5,
     src: getImageKitUrl("/images/girlglass.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
   {
     id: 6,
     src: getImageKitUrl("/images/manup.webp", {
-      width: 400,
+      format: "auto",
       height: 400,
       quality: 80,
-      format: "auto",
+      width: 400,
     }),
   },
 ];
@@ -77,11 +77,11 @@ const InteractiveImageSelectorDemo = () => {
 
   return (
     <>
-      {notification && (
+      {notification ? (
         <div className="absolute top-4 right-4 z-50 rounded-lg border bg-background px-4 py-2 text-sm shadow-lg">
           {notification}
         </div>
-      )}
+      ) : null}
       <InteractiveImageSelector
         images={images}
         onChange={setSelected}

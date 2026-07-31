@@ -6,7 +6,6 @@ import GlowHover from "@repo/smoothui/components/glow-hover-card";
 export default function GlowHoverCardDemo() {
   const items: GlowHoverItem[] = [
     {
-      id: "design",
       // No theme - will use brand color
       element: (
         <div className="grid min-w-[200px] max-w-[280px] flex-1 grid-rows-[auto_auto_1fr] items-start gap-4 rounded-2xl border border-foreground/20 bg-background p-5 text-foreground">
@@ -37,9 +36,9 @@ export default function GlowHoverCardDemo() {
           </div>
         </div>
       ),
+      id: "design",
     },
     {
-      id: "components",
       // No theme - will use brand color
       element: (
         <div className="grid min-w-[200px] max-w-[280px] flex-1 grid-rows-[auto_auto_1fr] items-start gap-4 rounded-2xl border border-foreground/20 bg-background p-5 text-foreground">
@@ -70,9 +69,9 @@ export default function GlowHoverCardDemo() {
           </div>
         </div>
       ),
+      id: "components",
     },
     {
-      id: "animations",
       // No theme - will use brand color
       element: (
         <div className="grid min-w-[200px] max-w-[280px] flex-1 grid-rows-[auto_auto_1fr] items-start gap-4 rounded-2xl border border-foreground/20 bg-background p-5 text-foreground">
@@ -103,6 +102,7 @@ export default function GlowHoverCardDemo() {
           </div>
         </div>
       ),
+      id: "animations",
     },
   ];
 

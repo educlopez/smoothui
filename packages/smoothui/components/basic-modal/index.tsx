@@ -15,11 +15,11 @@ export interface BasicModalProps {
 }
 
 const modalSizes = {
-  sm: "max-w-sm",
-  md: "max-w-md",
-  lg: "max-w-lg",
-  xl: "max-w-xl",
   full: "max-w-4xl",
+  lg: "max-w-lg",
+  md: "max-w-md",
+  sm: "max-w-sm",
+  xl: "max-w-xl",
 };
 
 export default function BasicModal({
@@ -80,7 +80,7 @@ export default function BasicModal({
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           )
         );
-        const firstElement = focusableElements[0];
+        const [firstElement] = focusableElements;
         const lastElement = focusableElements.at(-1);
 
         if (e.shiftKey) {
@@ -106,7 +106,7 @@ export default function BasicModal({
 
   const modalContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <>
           {/* Backdrop */}
           <motion.div
@@ -132,7 +132,7 @@ export default function BasicModal({
             transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
           >
             <motion.div
-              animate={shouldReduceMotion ? {} : { scale: 1, y: 0, opacity: 1 }}
+              animate={shouldReduceMotion ? {} : { opacity: 1, scale: 1, y: 0 }}
               aria-labelledby={titleId}
               aria-modal="true"
               className={`${modalSizes[size]} relative mx-auto w-full rounded-xl border bg-primary p-4 shadow-xl sm:p-6`}
@@ -140,16 +140,16 @@ export default function BasicModal({
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
                   : {
-                      scale: 0.95,
-                      y: 10,
                       opacity: 0,
+                      scale: 0.95,
                       transition: { duration: 0.15 },
+                      y: 10,
                     }
               }
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { scale: 0.95, y: 10, opacity: 0 }
+                  : { opacity: 0, scale: 0.95, y: 10 }
               }
               ref={modalRef}
               role="dialog"
@@ -157,20 +157,20 @@ export default function BasicModal({
                 shouldReduceMotion
                   ? { duration: 0 }
                   : {
-                      type: "spring" as const,
                       damping: 25,
-                      stiffness: 300,
                       duration: 0.25,
+                      stiffness: 300,
+                      type: "spring" as const,
                     }
               }
             >
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
-                {title && (
+                {title ? (
                   <h3 className="font-medium text-xl leading-6" id={titleId}>
                     {title}
                   </h3>
-                )}
+                ) : null}
                 <motion.button
                   aria-label="Close modal"
                   className="ml-auto min-h-[44px] min-w-[44px] cursor-pointer rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -189,7 +189,7 @@ export default function BasicModal({
             </motion.div>
           </motion.div>
         </>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 

@@ -76,24 +76,24 @@ export default function ButtonCopy({
             animate={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 1, y: 0, filter: "blur(0px)" }
+                : { filter: "blur(0px)", opacity: 1, y: 0 }
             }
             className="flex w-full items-center justify-center"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, y: 25, filter: "blur(10px)" }
+                : { filter: "blur(10px)", opacity: 0, y: 25 }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: -25, filter: "blur(10px)" }
+                : { filter: "blur(10px)", opacity: 0, y: -25 }
             }
             key={buttonState}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring" as const, duration: 0.25, bounce: 0 }
+                : { bounce: 0, duration: 0.25, type: "spring" as const }
             }
           >
             {icons[buttonState]}

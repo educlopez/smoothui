@@ -160,23 +160,23 @@ export function Hero() {
 
                 <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
                   {[
-                    { name: "React", icon: ReactLogo, className: "size-6" },
+                    { className: "size-6", icon: ReactLogo, name: "React" },
                     {
-                      name: "Tailwind CSS",
-                      icon: TailwindLogo,
                       className: "h-5 w-auto",
+                      icon: TailwindLogo,
+                      name: "Tailwind CSS",
                     },
                     {
-                      name: "shadcn/ui",
-                      icon: ShadcnLogo,
                       className: "size-6",
+                      icon: ShadcnLogo,
+                      name: "shadcn/ui",
                     },
                     {
-                      name: "Motion",
-                      icon: MotionLogo,
                       className: "h-4 w-auto",
+                      icon: MotionLogo,
+                      name: "Motion",
                     },
-                    { name: "GSAP", icon: GsapLogo, className: "h-4 w-auto" },
+                    { className: "h-4 w-auto", icon: GsapLogo, name: "GSAP" },
                   ].map((tech) => (
                     <Tooltip key={tech.name}>
                       <TooltipTrigger asChild>
@@ -205,7 +205,7 @@ export function Hero() {
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.35, delay: 0.2, ease: EASE_OUT_QUAD }
+                  : { delay: 0.2, duration: 0.35, ease: EASE_OUT_QUAD }
               }
             >
               <div className="grid grid-cols-2 gap-4">

@@ -61,7 +61,7 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
     return NextResponse.json(pkg);
   } catch (error) {
     return NextResponse.json(
-      { error: "Failed to get package", details: error },
+      { details: error, error: "Failed to get package" },
       { status: 500 }
     );
   }

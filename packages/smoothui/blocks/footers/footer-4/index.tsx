@@ -20,25 +20,25 @@ export interface FooterMinimalProps {
 }
 
 const defaultLinks = [
-  { label: "Privacy", href: "#privacy" },
-  { label: "Terms", href: "#terms" },
-  { label: "Contact", href: "#contact" },
+  { href: "#privacy", label: "Privacy" },
+  { href: "#terms", label: "Terms" },
+  { href: "#contact", label: "Contact" },
 ];
 
 const defaultSocialLinks = [
   {
-    icon: <Twitter className="h-5 w-5" />,
     href: "https://twitter.com",
+    icon: <Twitter className="h-5 w-5" />,
     label: "Twitter",
   },
   {
-    icon: <Github className="h-5 w-5" />,
     href: "https://github.com",
+    icon: <Github className="h-5 w-5" />,
     label: "GitHub",
   },
   {
-    icon: <Linkedin className="h-5 w-5" />,
     href: "https://linkedin.com",
+    icon: <Linkedin className="h-5 w-5" />,
     label: "LinkedIn",
   },
 ];
@@ -54,21 +54,21 @@ export const FooterMinimal = ({
   const getAnimationProps = () => {
     if (shouldReduceMotion) {
       return {
-        initial: { opacity: 1 },
         animate: { opacity: 1 },
+        initial: { opacity: 1 },
         transition: { duration: 0 },
       };
     }
 
     return {
       initial: { opacity: 0, y: 10 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true },
       transition: {
-        type: "spring" as const,
-        duration: ANIMATION_DURATION,
         bounce: 0.1,
+        duration: ANIMATION_DURATION,
+        type: "spring" as const,
       },
+      viewport: { once: true },
+      whileInView: { opacity: 1, y: 0 },
     };
   };
 

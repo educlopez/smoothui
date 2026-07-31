@@ -128,31 +128,163 @@ export interface GridLoaderProps {
 
 // Preset patterns as 3x3 matrices
 const PATTERNS: Record<PresetPattern, GridMatrix> = {
-  // Solo (single cell)
-  "solo-center": [
+  border: [
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+  ],
+  breathing: [
     [0, 0, 0],
     [0, 1, 0],
     [0, 0, 0],
   ],
-  "solo-tl": [
-    [1, 0, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
-  "solo-tr": [
-    [0, 0, 1],
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
-  "solo-bl": [
-    [0, 0, 0],
-    [0, 0, 0],
+  chaos: [
+    [1, 0, 1],
+    [0, 1, 0],
     [1, 0, 0],
   ],
-  "solo-br": [
+
+  // Patterns
+  checkerboard: [
+    [1, 0, 1],
+    [0, 1, 0],
+    [1, 0, 1],
+  ],
+  corners: [
+    [1, 0, 1],
     [0, 0, 0],
+    [1, 0, 1],
+  ],
+
+  // Corners
+  "corners-only": [
+    [1, 0, 1],
+    [0, 0, 0],
+    [1, 0, 1],
+  ],
+  "corners-sync": [
+    [1, 0, 1],
+    [0, 0, 0],
+    [1, 0, 1],
+  ],
+
+  // Shapes
+  cross: [
+    [0, 1, 0],
+    [1, 1, 1],
+    [0, 1, 0],
+  ],
+  "diagonal-bl": [
+    [0, 0, 0],
+    [1, 1, 0],
+    [1, 1, 0],
+  ],
+  "diagonal-br": [
+    [0, 0, 0],
+    [0, 1, 1],
+    [0, 1, 1],
+  ],
+
+  // Diagonal quadrants
+  "diagonal-tl": [
+    [1, 1, 0],
+    [1, 1, 0],
+    [0, 0, 0],
+  ],
+  "diagonal-tr": [
+    [0, 1, 1],
+    [0, 1, 1],
+    [0, 0, 0],
+  ],
+  diamond: [
+    [0, 1, 0],
+    [1, 0, 1],
+    [0, 1, 0],
+  ],
+  "duo-diag": [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+
+  // Duo (two cells)
+  "duo-h": [
+    [0, 0, 0],
+    [1, 1, 0],
+    [0, 0, 0],
+  ],
+  "duo-v": [
+    [0, 1, 0],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+
+  // Edge
+  "edge-cw": [
+    [1, 1, 1],
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
+
+  // Frame
+  frame: [
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+  ],
+  "frame-sync": [
+    [1, 1, 1],
+    [1, 0, 1],
+    [1, 1, 1],
+  ],
+  heartbeat: [
+    [0, 1, 0],
+    [1, 1, 1],
+    [0, 1, 0],
+  ],
+  "L-bl": [
+    [0, 0, 0],
+    [1, 0, 0],
+    [1, 1, 0],
+  ],
+  "L-br": [
     [0, 0, 0],
     [0, 0, 1],
+    [0, 1, 1],
+  ],
+
+  // L-shapes
+  "L-tl": [
+    [1, 1, 0],
+    [1, 0, 0],
+    [0, 0, 0],
+  ],
+  "L-tr": [
+    [0, 1, 1],
+    [0, 0, 1],
+    [0, 0, 0],
+  ],
+
+  // Diagonals
+  "line-diag-1": [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1],
+  ],
+  "line-diag-2": [
+    [0, 0, 1],
+    [0, 1, 0],
+    [1, 0, 0],
+  ],
+  "line-h-bot": [
+    [0, 0, 0],
+    [0, 0, 0],
+    [1, 1, 1],
+  ],
+  "line-h-mid": [
+    [0, 0, 0],
+    [1, 1, 1],
+    [0, 0, 0],
   ],
 
   // Horizontal lines
@@ -160,16 +292,6 @@ const PATTERNS: Record<PresetPattern, GridMatrix> = {
     [1, 1, 1],
     [0, 0, 0],
     [0, 0, 0],
-  ],
-  "line-h-mid": [
-    [0, 0, 0],
-    [1, 1, 1],
-    [0, 0, 0],
-  ],
-  "line-h-bot": [
-    [0, 0, 0],
-    [0, 0, 0],
-    [1, 1, 1],
   ],
 
   // Vertical lines
@@ -188,34 +310,10 @@ const PATTERNS: Record<PresetPattern, GridMatrix> = {
     [0, 0, 1],
     [0, 0, 1],
   ],
-
-  // Diagonals
-  "line-diag-1": [
-    [1, 0, 0],
+  "plus-full": [
     [0, 1, 0],
-    [0, 0, 1],
-  ],
-  "line-diag-2": [
-    [0, 0, 1],
+    [1, 1, 1],
     [0, 1, 0],
-    [1, 0, 0],
-  ],
-
-  // Corners
-  "corners-only": [
-    [1, 0, 1],
-    [0, 0, 0],
-    [1, 0, 1],
-  ],
-  "corners-sync": [
-    [1, 0, 1],
-    [0, 0, 0],
-    [1, 0, 1],
-  ],
-  corners: [
-    [1, 0, 1],
-    [0, 0, 0],
-    [1, 0, 1],
   ],
 
   // Plus
@@ -224,83 +322,77 @@ const PATTERNS: Record<PresetPattern, GridMatrix> = {
     [1, 0, 1],
     [0, 1, 0],
   ],
-  "plus-full": [
-    [0, 1, 0],
-    [1, 1, 1],
-    [0, 1, 0],
-  ],
 
-  // L-shapes
-  "L-tl": [
-    [1, 1, 0],
-    [1, 0, 0],
-    [0, 0, 0],
-  ],
-  "L-tr": [
-    [0, 1, 1],
-    [0, 0, 1],
-    [0, 0, 0],
-  ],
-  "L-bl": [
-    [0, 0, 0],
-    [1, 0, 0],
-    [1, 1, 0],
-  ],
-  "L-br": [
-    [0, 0, 0],
-    [0, 0, 1],
-    [0, 1, 1],
-  ],
-
-  // T-shapes
-  "T-top": [
-    [1, 1, 1],
-    [0, 1, 0],
-    [0, 0, 0],
-  ],
-  "T-bot": [
-    [0, 0, 0],
-    [0, 1, 0],
-    [1, 1, 1],
-  ],
-  "T-left": [
-    [1, 0, 0],
-    [1, 1, 0],
-    [1, 0, 0],
-  ],
-  "T-right": [
-    [0, 0, 1],
-    [0, 1, 1],
-    [0, 0, 1],
-  ],
-
-  // Duo (two cells)
-  "duo-h": [
-    [0, 0, 0],
-    [1, 1, 0],
-    [0, 0, 0],
-  ],
-  "duo-v": [
+  // Rain
+  rain: [
     [0, 1, 0],
     [0, 1, 0],
     [0, 0, 0],
   ],
-  "duo-diag": [
-    [1, 0, 0],
+  "rain-rev": [
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 1, 0],
+  ],
+  "ripple-in": [
+    [0, 0, 0],
     [0, 1, 0],
     [0, 0, 0],
   ],
 
-  // Frame
-  frame: [
+  // Ripple
+  "ripple-out": [
     [1, 1, 1],
     [1, 0, 1],
     [1, 1, 1],
   ],
-  "frame-sync": [
+  "rows-alt": [
     [1, 1, 1],
+    [0, 0, 0],
+    [1, 1, 1],
+  ],
+
+  // Snake
+  snake: [
+    [1, 1, 0],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+  "snake-rev": [
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 1, 1],
+  ],
+  "solo-bl": [
+    [0, 0, 0],
+    [0, 0, 0],
+    [1, 0, 0],
+  ],
+  "solo-br": [
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 1],
+  ],
+  // Solo (single cell)
+  "solo-center": [
+    [0, 0, 0],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+  "solo-tl": [
+    [1, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
+  "solo-tr": [
+    [0, 0, 1],
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
+  sparkle: [
     [1, 0, 1],
-    [1, 1, 1],
+    [0, 1, 0],
+    [1, 0, 1],
   ],
 
   // Sparse
@@ -319,6 +411,69 @@ const PATTERNS: Record<PresetPattern, GridMatrix> = {
     [0, 1, 0],
     [1, 0, 0],
   ],
+  "spiral-ccw": [
+    [1, 1, 1],
+    [1, 0, 0],
+    [1, 0, 0],
+  ],
+
+  // Spirals
+  "spiral-cw": [
+    [1, 1, 1],
+    [0, 0, 1],
+    [0, 0, 1],
+  ],
+
+  // Stripes
+  "stripes-h": [
+    [1, 1, 1],
+    [0, 0, 0],
+    [1, 1, 1],
+  ],
+  "stripes-v": [
+    [1, 0, 1],
+    [1, 0, 1],
+    [1, 0, 1],
+  ],
+  "T-bot": [
+    [0, 0, 0],
+    [0, 1, 0],
+    [1, 1, 1],
+  ],
+  "T-left": [
+    [1, 0, 0],
+    [1, 1, 0],
+    [1, 0, 0],
+  ],
+  "T-right": [
+    [0, 0, 1],
+    [0, 1, 1],
+    [0, 0, 1],
+  ],
+
+  // T-shapes
+  "T-top": [
+    [1, 1, 1],
+    [0, 1, 0],
+    [0, 0, 0],
+  ],
+  twinkle: [
+    [1, 0, 0],
+    [0, 0, 1],
+    [0, 1, 0],
+  ],
+
+  // Effects
+  waterfall: [
+    [1, 1, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+  ],
+  "wave-bt": [
+    [0, 0, 0],
+    [1, 1, 1],
+    [1, 1, 1],
+  ],
 
   // Waves
   "wave-lr": [
@@ -336,190 +491,35 @@ const PATTERNS: Record<PresetPattern, GridMatrix> = {
     [1, 1, 1],
     [0, 0, 0],
   ],
-  "wave-bt": [
-    [0, 0, 0],
-    [1, 1, 1],
-    [1, 1, 1],
-  ],
-
-  // Diagonal quadrants
-  "diagonal-tl": [
-    [1, 1, 0],
-    [1, 1, 0],
-    [0, 0, 0],
-  ],
-  "diagonal-tr": [
-    [0, 1, 1],
-    [0, 1, 1],
-    [0, 0, 0],
-  ],
-  "diagonal-bl": [
-    [0, 0, 0],
-    [1, 1, 0],
-    [1, 1, 0],
-  ],
-  "diagonal-br": [
-    [0, 0, 0],
-    [0, 1, 1],
-    [0, 1, 1],
-  ],
-
-  // Ripple
-  "ripple-out": [
-    [1, 1, 1],
-    [1, 0, 1],
-    [1, 1, 1],
-  ],
-  "ripple-in": [
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 0, 0],
-  ],
-
-  // Shapes
-  cross: [
-    [0, 1, 0],
-    [1, 1, 1],
-    [0, 1, 0],
-  ],
   "x-shape": [
     [1, 0, 1],
     [0, 1, 0],
     [1, 0, 1],
   ],
-  diamond: [
-    [0, 1, 0],
-    [1, 0, 1],
-    [0, 1, 0],
-  ],
-
-  // Stripes
-  "stripes-h": [
-    [1, 1, 1],
-    [0, 0, 0],
-    [1, 1, 1],
-  ],
-  "stripes-v": [
-    [1, 0, 1],
-    [1, 0, 1],
-    [1, 0, 1],
-  ],
-
-  // Patterns
-  checkerboard: [
-    [1, 0, 1],
-    [0, 1, 0],
-    [1, 0, 1],
-  ],
-  "rows-alt": [
-    [1, 1, 1],
-    [0, 0, 0],
-    [1, 1, 1],
-  ],
-
-  // Spirals
-  "spiral-cw": [
-    [1, 1, 1],
-    [0, 0, 1],
-    [0, 0, 1],
-  ],
-  "spiral-ccw": [
-    [1, 1, 1],
-    [1, 0, 0],
-    [1, 0, 0],
-  ],
-
-  // Snake
-  snake: [
-    [1, 1, 0],
-    [0, 1, 0],
-    [0, 0, 0],
-  ],
-  "snake-rev": [
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 1, 1],
-  ],
-
-  // Rain
-  rain: [
-    [0, 1, 0],
-    [0, 1, 0],
-    [0, 0, 0],
-  ],
-  "rain-rev": [
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 1, 0],
-  ],
-
-  // Effects
-  waterfall: [
-    [1, 1, 0],
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
-  breathing: [
-    [0, 0, 0],
-    [0, 1, 0],
-    [0, 0, 0],
-  ],
-  heartbeat: [
-    [0, 1, 0],
-    [1, 1, 1],
-    [0, 1, 0],
-  ],
-  twinkle: [
-    [1, 0, 0],
-    [0, 0, 1],
-    [0, 1, 0],
-  ],
-  sparkle: [
-    [1, 0, 1],
-    [0, 1, 0],
-    [1, 0, 1],
-  ],
-  chaos: [
-    [1, 0, 1],
-    [0, 1, 0],
-    [1, 0, 0],
-  ],
-
-  // Edge
-  "edge-cw": [
-    [1, 1, 1],
-    [0, 0, 0],
-    [0, 0, 0],
-  ],
-  border: [
-    [1, 1, 1],
-    [1, 0, 1],
-    [1, 1, 1],
-  ],
 };
 
 // Color presets
 const COLORS: Record<string, string> = {
-  white: "#f5f5f4",
-  red: "#f87171",
+  amber: "#fbbf24",
   blue: "#38bdf8",
   green: "#4ade80",
-  amber: "#fbbf24",
+  red: "#f87171",
+  white: "#f5f5f4",
 };
 
 // Size presets in pixels
 const SIZES: Record<string, number> = {
-  sm: 24,
-  md: 32,
   lg: 48,
+  md: 32,
+  sm: 24,
   xl: 64,
 };
 
 // Speed presets in milliseconds
 const SPEEDS: Record<string, number> = {
-  slow: 1500,
-  normal: 800,
   fast: 400,
+  normal: 800,
+  slow: 1500,
 };
 
 // Helper to resolve pattern to GridMatrix
@@ -583,8 +583,8 @@ const GridCell = ({
     return (
       <div
         style={{
-          width: cellSize,
           height: cellSize,
+          width: cellSize,
         }}
       />
     );
@@ -595,8 +595,6 @@ const GridCell = ({
     return (
       <div
         style={{
-          width: cellSize,
-          height: cellSize,
           backgroundColor: color,
           borderRadius,
           boxShadow: `
@@ -604,6 +602,8 @@ const GridCell = ({
             0 0 ${glowSize * 0.6}px ${color}40,
             0 0 ${glowSize * 1.2}px ${color}20
           `,
+          height: cellSize,
+          width: cellSize,
         }}
       />
     );
@@ -623,8 +623,6 @@ const GridCell = ({
     <motion.div
       animate={mode === "stagger" ? staggerAnimation : pulseAnimation}
       style={{
-        width: cellSize,
-        height: cellSize,
         backgroundColor: color,
         borderRadius,
         boxShadow: `
@@ -632,12 +630,14 @@ const GridCell = ({
           0 0 ${glowSize * 0.6}px ${color}40,
           0 0 ${glowSize * 1.2}px ${color}20
         `,
+        height: cellSize,
+        width: cellSize,
       }}
       transition={{
-        duration: cycleDuration / 1000,
-        repeat: Number.POSITIVE_INFINITY,
-        ease: [0.645, 0.045, 0.355, 1],
         delay: mode === "stagger" ? animationDelay : 0,
+        duration: cycleDuration / 1000,
+        ease: [0.645, 0.045, 0.355, 1],
+        repeat: Number.POSITIVE_INFINITY,
         times: mode === "stagger" ? [0, 0.2, 0.8, 1] : undefined,
       }}
     />
@@ -726,10 +726,10 @@ const GridLoader = ({
       aria-label="Loading"
       className={cn("grid grid-cols-3", className)}
       style={{
-        width: sizeInPx,
-        height: sizeInPx,
-        gap: gapSize,
         filter: blur ? `blur(${blur}px)` : undefined,
+        gap: gapSize,
+        height: sizeInPx,
+        width: sizeInPx,
       }}
     >
       {cells.map((active, idx) => (

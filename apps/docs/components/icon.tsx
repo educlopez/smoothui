@@ -35,10 +35,10 @@ export function Icon({ className }: { className?: string }) {
   // an `animate` prop re-fires the keyframes on every mousemove re-render.
   const svgControls = useAnimationControls();
 
-  const leftEyeX = useSpring(0, { stiffness: 250, damping: 40 });
-  const leftEyeY = useSpring(0, { stiffness: 250, damping: 40 });
-  const rightEyeX = useSpring(0, { stiffness: 250, damping: 40 });
-  const rightEyeY = useSpring(0, { stiffness: 250, damping: 40 });
+  const leftEyeX = useSpring(0, { damping: 40, stiffness: 250 });
+  const leftEyeY = useSpring(0, { damping: 40, stiffness: 250 });
+  const rightEyeX = useSpring(0, { damping: 40, stiffness: 250 });
+  const rightEyeY = useSpring(0, { damping: 40, stiffness: 250 });
 
   const mouthX = useTransform(
     [leftEyeX, rightEyeX],
@@ -235,15 +235,15 @@ export function Icon({ className }: { className?: string }) {
     }
     svgControls.start(
       {
-        y: [0, 8, -36, 0, -11, 0],
-        scaleY: [1, 0.84, 1.14, 0.9, 1.04, 1],
-        scaleX: [1, 1.14, 0.9, 1.08, 0.98, 1],
         rotate: [0, 0, -3, 3, -1, 0],
+        scaleX: [1, 1.14, 0.9, 1.08, 0.98, 1],
+        scaleY: [1, 0.84, 1.14, 0.9, 1.04, 1],
+        y: [0, 8, -36, 0, -11, 0],
       },
       {
         duration: 0.95,
-        times: [0, 0.12, 0.4, 0.62, 0.82, 1],
         ease: EASE_OUT,
+        times: [0, 0.12, 0.4, 0.62, 0.82, 1],
       }
     );
   }, [petted, svgControls, shouldReduceMotion]);
@@ -258,7 +258,7 @@ export function Icon({ className }: { className?: string }) {
         rotate: [0, -13, 11, -10, 8, -5, 4, 0],
         x: [0, -8, 7, -6, 4, -2, 2, 0],
       },
-      { duration: 1.05, repeat: 1, ease: [0.45, 0, 0.55, 1] }
+      { duration: 1.05, ease: [0.45, 0, 0.55, 1], repeat: 1 }
     );
     return () => {
       svgControls.start({ rotate: 0, x: 0 }, { duration: 0.2 });
@@ -357,9 +357,9 @@ export function Icon({ className }: { className?: string }) {
             height="157"
             rx="18"
             style={{
+              transformOrigin: `${leftEyeCenter.x}px ${leftEyeCenter.y}px`,
               x: leftEyeX,
               y: leftEyeY,
-              transformOrigin: `${leftEyeCenter.x}px ${leftEyeCenter.y}px`,
             }}
             transition={{ duration: 0.08 }}
             width="50"
@@ -373,9 +373,9 @@ export function Icon({ className }: { className?: string }) {
             height="157"
             rx="18"
             style={{
+              transformOrigin: `${rightEyeCenter.x}px ${rightEyeCenter.y}px`,
               x: rightEyeX,
               y: rightEyeY,
-              transformOrigin: `${rightEyeCenter.x}px ${rightEyeCenter.y}px`,
             }}
             transition={{ duration: 0.08 }}
             width="50"
@@ -386,7 +386,7 @@ export function Icon({ className }: { className?: string }) {
       )}
 
       {/* Happy arc eyes (petted) */}
-      {petted && (
+      {petted ? (
         <>
           <motion.path
             animate={{ pathLength: 1 }}
@@ -408,13 +408,13 @@ export function Icon({ className }: { className?: string }) {
             stroke="black"
             strokeLinecap="round"
             strokeWidth={40}
-            transition={{ duration: 0.4, ease: EASE_OUT, delay: 0.08 }}
+            transition={{ delay: 0.08, duration: 0.4, ease: EASE_OUT }}
           />
         </>
-      )}
+      ) : null}
 
       {/* Dizzy spiral eyes */}
-      {dizzy && (
+      {dizzy ? (
         <>
           <motion.path
             animate={{ rotate: 360 }}
@@ -425,11 +425,11 @@ export function Icon({ className }: { className?: string }) {
             strokeLinecap="round"
             strokeWidth={11}
             style={{
+              scale: 2,
               x: leftEyeCenter.x,
               y: leftEyeCenter.y,
-              scale: 2,
             }}
-            transition={{ duration: 1.1, repeat: 1, ease: "linear" }}
+            transition={{ duration: 1.1, ease: "linear", repeat: 1 }}
           />
           <motion.path
             animate={{ rotate: -360 }}
@@ -440,14 +440,14 @@ export function Icon({ className }: { className?: string }) {
             strokeLinecap="round"
             strokeWidth={11}
             style={{
+              scale: 2,
               x: rightEyeCenter.x,
               y: rightEyeCenter.y,
-              scale: 2,
             }}
-            transition={{ duration: 1.1, repeat: 1, ease: "linear" }}
+            transition={{ duration: 1.1, ease: "linear", repeat: 1 }}
           />
         </>
-      )}
+      ) : null}
     </motion.svg>
   );
 }

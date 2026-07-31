@@ -43,18 +43,18 @@ export default function ShineText({
       animate={{ backgroundPositionX: ["150%", "-150%"] }}
       className={className}
       style={{
+        backgroundClip: "text",
         backgroundImage: `linear-gradient(110deg, ${baseColor} 40%, ${shineColor} 50%, ${baseColor} 60%)`,
         backgroundSize: "250% 100%",
-        WebkitBackgroundClip: "text",
-        backgroundClip: "text",
         color: "transparent",
+        WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
       }}
       transition={{
         duration,
+        ease: "linear",
         repeat: Number.POSITIVE_INFINITY,
         repeatDelay,
-        ease: "linear",
       }}
     >
       {children}

@@ -46,7 +46,7 @@ function generateColorVariations(baseColor: string): ColorVariations {
         Number.parseFloat(parts[1]) - CHROMA_LIGHT_ADJUSTMENT,
         0
       );
-      const hue = parts[2];
+      const [, , hue] = parts;
       return `oklch(${lightness} ${chroma} ${hue})`;
     });
 
@@ -60,7 +60,7 @@ function generateColorVariations(baseColor: string): ColorVariations {
         Number.parseFloat(parts[1]) - CHROMA_LIGHTER_ADJUSTMENT,
         0
       );
-      const hue = parts[2];
+      const [, , hue] = parts;
       return `oklch(${lightness} ${chroma} ${hue})`;
     });
 
@@ -103,7 +103,7 @@ export function applyColorPalette(
   }
 
   const palette = generateColorPalette(primaryColor, secondaryColor);
-  const body = document.body;
+  const { body } = document;
 
   body.style.setProperty("--color-brand", palette.primary);
   body.style.setProperty("--color-fd-primary", palette.primary);
@@ -127,7 +127,7 @@ export function resetColorPalette() {
     return;
   }
 
-  const body = document.body;
+  const { body } = document;
   const variablesToRemove = [
     "--color-brand",
     "--color-fd-primary",

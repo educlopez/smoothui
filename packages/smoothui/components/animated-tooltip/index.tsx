@@ -21,32 +21,32 @@ export interface AnimatedTooltipProps {
 }
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const placementStyles: Record<AnimatedTooltipPlacement, string> = {
-  top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
   bottom: "top-full left-1/2 -translate-x-1/2 mt-2",
   left: "right-full top-1/2 -translate-y-1/2 mr-2",
   right: "left-full top-1/2 -translate-y-1/2 ml-2",
+  top: "bottom-full left-1/2 -translate-x-1/2 mb-2",
 };
 
 const arrowStyles: Record<AnimatedTooltipPlacement, string> = {
-  top: "top-full left-1/2 -translate-x-1/2 border-t-foreground border-x-transparent border-b-transparent",
   bottom:
     "bottom-full left-1/2 -translate-x-1/2 border-b-foreground border-x-transparent border-t-transparent",
   left: "left-full top-1/2 -translate-y-1/2 border-l-foreground border-y-transparent border-r-transparent",
   right:
     "right-full top-1/2 -translate-y-1/2 border-r-foreground border-y-transparent border-l-transparent",
+  top: "top-full left-1/2 -translate-x-1/2 border-t-foreground border-x-transparent border-b-transparent",
 };
 
 const arrowBorderSize: Record<AnimatedTooltipPlacement, string> = {
-  top: "border-4",
   bottom: "border-4",
   left: "border-4",
   right: "border-4",
+  top: "border-4",
 };
 
 const getInitialTransform = (
@@ -133,7 +133,7 @@ const AnimatedTooltip = ({
       </span>
 
       <AnimatePresence>
-        {isVisible && (
+        {isVisible ? (
           <motion.span
             animate={
               shouldReduceMotion
@@ -168,7 +168,7 @@ const AnimatedTooltip = ({
               )}
             />
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
     </span>
   );

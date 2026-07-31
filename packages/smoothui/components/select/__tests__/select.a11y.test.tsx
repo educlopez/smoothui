@@ -4,9 +4,9 @@ import { render } from "../../../test-utils/render";
 import Select from "../index";
 
 const options = [
-  { value: "apple", label: "Apple" },
-  { value: "banana", label: "Banana" },
-  { value: "cherry", label: "Cherry" },
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
 ];
 
 describe("Select a11y", () => {

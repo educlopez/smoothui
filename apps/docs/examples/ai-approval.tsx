@@ -14,8 +14,8 @@ const Example = () => {
           // Demo only.
         }}
         options={[
-          { id: "three", label: "Three flavours", detail: "core line" },
-          { id: "five", label: "Five flavours", detail: "full case" },
+          { detail: "core line", id: "three", label: "Three flavours" },
+          { detail: "full case", id: "five", label: "Five flavours" },
           { id: "one", label: "Just one hero" },
         ]}
         question="How many flavours should we launch?"
@@ -27,7 +27,7 @@ const Example = () => {
         key={`destructive-${runId}`}
         options={[
           { id: "keep", label: "Keep the draft" },
-          { id: "delete", label: "Delete all 412 rows", destructive: true },
+          { destructive: true, id: "delete", label: "Delete all 412 rows" },
         ]}
         question="Clear the staging table before the import?"
       />

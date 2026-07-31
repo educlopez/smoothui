@@ -38,5 +38,5 @@ export function useCopyToClipboard({
     );
   };
 
-  return { isCopied, copyToClipboard };
+  return { copyToClipboard, isCopied };
 }

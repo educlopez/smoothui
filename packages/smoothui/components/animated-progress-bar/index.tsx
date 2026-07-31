@@ -16,11 +16,11 @@ const MIN_PROGRESS_VALUE = 0;
 const MAX_PROGRESS_VALUE = 100;
 
 const SPRING = {
-  type: "spring" as const,
   damping: 10,
+  duration: 0.25,
   mass: 0.75,
   stiffness: 100,
-  duration: 0.25,
+  type: "spring" as const,
 };
 
 export default function AnimatedProgressBar({
@@ -35,11 +35,11 @@ export default function AnimatedProgressBar({
 
   return (
     <div className={`w-full ${className}`}>
-      {label && (
+      {label ? (
         <div className={`mb-1 font-medium text-sm ${labelClassName}`}>
           {label}
         </div>
-      )}
+      ) : null}
       <div className="relative h-3 w-full overflow-hidden rounded border bg-background">
         <motion.div
           animate={{

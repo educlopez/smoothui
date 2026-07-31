@@ -117,19 +117,19 @@ export function ChangelogPopover() {
         <button
           aria-label="Changelog"
           className={buttonVariants({
+            className: "relative text-fd-muted-foreground",
             color: "ghost",
             size: "icon-sm",
-            className: "relative text-fd-muted-foreground",
           })}
           type="button"
         >
           <BellIcon />
-          {hasUnread && (
+          {hasUnread ? (
             <span
               aria-hidden="true"
               className="absolute top-0.5 right-0.5 size-1.5 rounded-full bg-brand"
             />
-          )}
+          ) : null}
         </button>
       </PopoverTrigger>
       <PopoverContent

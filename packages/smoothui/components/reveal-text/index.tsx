@@ -13,10 +13,10 @@ const REVEAL_ANIMATION_DURATION_S = 0.25;
 const MILLISECONDS_TO_SECONDS = 1000;
 
 const directionVariants = {
-  up: { y: 24, opacity: 0 },
-  down: { y: -24, opacity: 0 },
-  left: { x: 24, opacity: 0 },
-  right: { x: -24, opacity: 0 },
+  down: { opacity: 0, y: -24 },
+  left: { opacity: 0, x: 24 },
+  right: { opacity: 0, x: -24 },
+  up: { opacity: 0, y: 24 },
 };
 
 const RevealText: React.FC<RevealTextProps> = ({
@@ -36,7 +36,7 @@ const RevealText: React.FC<RevealTextProps> = ({
       animate={
         shouldReduceMotion || !animate
           ? { opacity: 1 }
-          : { x: 0, y: 0, opacity: 1 }
+          : { opacity: 1, x: 0, y: 0 }
       }
       className={className}
       initial={
@@ -48,8 +48,8 @@ const RevealText: React.FC<RevealTextProps> = ({
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              duration: REVEAL_ANIMATION_DURATION_S,
               delay: delay / MILLISECONDS_TO_SECONDS,
+              duration: REVEAL_ANIMATION_DURATION_S,
             }
       }
     >

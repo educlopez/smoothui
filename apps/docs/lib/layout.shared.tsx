@@ -18,8 +18,8 @@ export function baseOptions(): BaseLayoutProps {
     // (bottom pill) to avoid a duplicate control in the top nav.
     slots: {
       searchTrigger: {
-        sm: NavSearchTriggerSm,
         full: FullSearchTrigger,
+        sm: NavSearchTriggerSm,
       },
       themeSwitch: NavDesktopActions,
     },

@@ -54,7 +54,7 @@ export function AnimatedOTPInputDemo() {
             />
           </div>
 
-          {isComplete && (
+          {isComplete ? (
             <motion.div
               animate={{ opacity: 1, y: 0 }}
               className="space-y-4 text-center"
@@ -75,7 +75,7 @@ export function AnimatedOTPInputDemo() {
                 </div>
               )}
             </motion.div>
-          )}
+          ) : null}
 
           <div className="flex justify-center">
             <SmoothButton

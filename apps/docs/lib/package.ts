@@ -203,12 +203,12 @@ export const getPackage = cache(async (packageName: string) => {
     const content = await readFile(filePath, "utf-8");
 
     files.push({
-      type: fileType,
-      path: file.name,
       content: rewriteWorkspaceImports(content),
+      path: file.name,
       target: isData
         ? `lib/smoothui-data/${file.name}`
         : `components/smoothui/${actualPackageName}/${file.name}`,
+      type: fileType,
     });
   }
 
@@ -250,7 +250,7 @@ export const getPackage = cache(async (packageName: string) => {
   // Add cross-item imports detected in the rewritten content
   // (@/components/smoothui/<name> covers components and the shared barrel)
   for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
-    const name = match[1];
+    const [, name] = match;
     if (name && name !== actualPackageName) {
       registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
     }
@@ -288,7 +288,7 @@ export const getPackage = cache(async (packageName: string) => {
           return;
         }
 
-        const selector = rule.selector;
+        const { selector } = rule;
         const ruleObj: Record<string, string> = {};
 
         // Process all declarations
@@ -311,7 +311,7 @@ export const getPackage = cache(async (packageName: string) => {
         }
 
         mediaRule.walkRules((rule) => {
-          const selector = rule.selector;
+          const { selector } = rule;
           const mediaObj: Record<string, string> = {};
 
           rule.walkDecls((decl) => {
@@ -335,16 +335,16 @@ export const getPackage = cache(async (packageName: string) => {
 
   const response: RegistryItem = {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    name: actualPackageName,
-    type,
-    title: toTitleCase(actualPackageName),
-    description: packageJson.description,
     author: "Eduardo Calvo <educlopez93@gmail.com>",
-    dependencies,
-    devDependencies,
-    registryDependencies: Array.from(registryDependencies),
-    files,
     css,
+    dependencies,
+    description: packageJson.description,
+    devDependencies,
+    files,
+    name: actualPackageName,
+    registryDependencies: Array.from(registryDependencies),
+    title: toTitleCase(actualPackageName),
+    type,
   };
 
   return response;

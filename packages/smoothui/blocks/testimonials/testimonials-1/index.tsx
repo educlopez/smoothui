@@ -14,9 +14,9 @@ const BORDER_RADIUS_INACTIVE = 999;
 const MILLISECONDS_TO_SECONDS = 1000;
 
 const testimonials = getTestimonials(TESTIMONIAL_COUNT).map((testimonial) => ({
-  quote: testimonial.content || "",
   avatar: testimonial.avatar,
   name: testimonial.name,
+  quote: testimonial.content || "",
   role: testimonial.role,
 }));
 
@@ -59,7 +59,7 @@ export function TestimonialsSimple() {
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring" as const, duration: 0.5 }
+                  : { duration: 0.5, type: "spring" as const }
               }
             >
               &ldquo;{testimonials[index].quote}&rdquo;
@@ -72,24 +72,24 @@ export function TestimonialsSimple() {
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 1, filter: "blur(0px)" }
+                  : { filter: "blur(0px)", opacity: 1 }
               }
               className="flex items-center gap-4"
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
-                  : { opacity: 0, filter: "blur(8px)" }
+                  : { filter: "blur(8px)", opacity: 0 }
               }
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 0, filter: "blur(8px)" }
+                  : { filter: "blur(8px)", opacity: 0 }
               }
               key={index}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring" as const, duration: 0.5 }
+                  : { duration: 0.5, type: "spring" as const }
               }
             >
               <img
@@ -121,18 +121,18 @@ export function TestimonialsSimple() {
                 animate={
                   shouldReduceMotion
                     ? {
-                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
-                        height: CIRCLE_SIZE,
                         borderRadius: isActive
                           ? BORDER_RADIUS_ACTIVE
                           : BORDER_RADIUS_INACTIVE,
+                        height: CIRCLE_SIZE,
+                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
                       }
                     : {
-                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
-                        height: CIRCLE_SIZE,
                         borderRadius: isActive
                           ? BORDER_RADIUS_ACTIVE
                           : BORDER_RADIUS_INACTIVE,
+                        height: CIRCLE_SIZE,
+                        width: isActive ? BAR_WIDTH : CIRCLE_SIZE,
                       }
                 }
                 className="relative block overflow-hidden bg-foreground/10"
@@ -140,18 +140,18 @@ export function TestimonialsSimple() {
                 key={`testimonial-${testimonial.name}-${i}`}
                 layout={!shouldReduceMotion}
                 style={{
-                  minWidth: CIRCLE_SIZE,
-                  maxWidth: BAR_WIDTH,
                   border: "none",
+                  maxWidth: BAR_WIDTH,
+                  minWidth: CIRCLE_SIZE,
                 }}
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        type: "spring" as const,
-                        stiffness: 300,
                         damping: 30,
                         duration: 0.4,
+                        stiffness: 300,
+                        type: "spring" as const,
                       }
                 }
               >

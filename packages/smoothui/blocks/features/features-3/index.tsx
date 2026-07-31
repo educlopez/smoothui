@@ -5,44 +5,44 @@ import { getImageKitUrl } from "@smoothui/data";
 import { motion, useReducedMotion } from "motion/react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const features = [
   {
-    title: "Intuitive Design",
     description:
       "Every component is designed with usability in mind. Clean interfaces that your users will love from the first interaction.",
     image: getImageKitUrl("/images/designerworking.webp", {
-      width: 800,
-      quality: 85,
       format: "auto",
+      quality: 85,
+      width: 800,
     }),
     imageAlt: "Designer working on user interface",
+    title: "Intuitive Design",
   },
   {
-    title: "Blazing Performance",
     description:
       "Optimized animations that only use transform and opacity. Hardware-accelerated rendering for butter-smooth 60fps experiences.",
     image: getImageKitUrl("/images/hero-smoothui.png", {
-      width: 800,
-      quality: 85,
       format: "auto",
+      quality: 85,
+      width: 800,
     }),
     imageAlt: "SmoothUI component showcase",
+    title: "Blazing Performance",
   },
   {
-    title: "Developer Experience",
     description:
       "Full TypeScript support, comprehensive documentation, and one-command installation via the shadcn registry.",
     image: getImageKitUrl("/images/hero-example_xertaz.png", {
-      width: 800,
-      quality: 85,
       format: "auto",
+      quality: 85,
+      width: 800,
     }),
     imageAlt: "Code example with TypeScript support",
+    title: "Developer Experience",
   },
 ];
 
@@ -85,7 +85,7 @@ export function FeaturesAlternating() {
                         : { opacity: 0, x: slideDirection }
                     }
                     transition={shouldReduceMotion ? { duration: 0 } : SPRING}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ margin: "-100px", once: true }}
                     whileInView={
                       shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }
@@ -104,7 +104,7 @@ export function FeaturesAlternating() {
                         : { opacity: 0, x: -slideDirection }
                     }
                     transition={shouldReduceMotion ? { duration: 0 } : SPRING}
-                    viewport={{ once: true, margin: "-100px" }}
+                    viewport={{ margin: "-100px", once: true }}
                     whileInView={
                       shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
                     }

@@ -42,10 +42,10 @@ const fetchGitHubRepo = cache(async (owner: string, repo: string) => {
     console.error(
       `GitHub API error: ${response.status} ${response.statusText}`,
       {
+        errorMessage,
+        hasToken: Boolean(token),
         owner,
         repo,
-        hasToken: Boolean(token),
-        errorMessage,
       }
     );
 
@@ -71,9 +71,9 @@ export async function GET(request: Request) {
     const data = await fetchGitHubRepo(owner, repo);
 
     return NextResponse.json({
-      stars: data.stargazers_count,
       forks: data.forks_count,
       name: data.full_name,
+      stars: data.stargazers_count,
       url: data.html_url,
     });
   } catch (error) {
@@ -81,8 +81,8 @@ export async function GET(request: Request) {
     console.error("Unexpected error fetching GitHub data:", error);
     return NextResponse.json(
       {
-        error: "Failed to fetch GitHub data",
         details: error instanceof Error ? error.message : "Unknown error",
+        error: "Failed to fetch GitHub data",
       },
       { status: 500 }
     );

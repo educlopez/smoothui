@@ -39,52 +39,52 @@ const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
 
 const blockCategories = [
   {
-    title: "Hero",
-    href: "/docs/blocks/hero",
     blockCount: 4,
+    href: "/docs/blocks/hero",
     preview: HeroPreview,
+    title: "Hero",
   },
   {
-    title: "Pricing",
+    blockCount: 3,
     href: "/docs/blocks/pricing",
-    blockCount: 3,
     preview: PricingPreview,
+    title: "Pricing",
   },
   {
-    title: "Testimonial",
-    href: "/docs/blocks/testimonial",
     blockCount: 3,
+    href: "/docs/blocks/testimonial",
     preview: TestimonialPreview,
+    title: "Testimonial",
   },
   {
-    title: "FAQs",
+    blockCount: 2,
     href: "/docs/blocks/faqs",
-    blockCount: 2,
     preview: FAQPreview,
+    title: "FAQs",
   },
   {
-    title: "Footer",
+    blockCount: 2,
     href: "/docs/blocks/footer",
-    blockCount: 2,
     preview: FooterPreview,
+    title: "Footer",
   },
   {
-    title: "Logo Clouds",
+    blockCount: 2,
     href: "/docs/blocks/logo-clouds",
-    blockCount: 2,
     preview: LogoCloudPreview,
+    title: "Logo Clouds",
   },
   {
-    title: "Stats",
+    blockCount: 2,
     href: "/docs/blocks/stats",
-    blockCount: 2,
     preview: StatsPreview,
+    title: "Stats",
   },
   {
-    title: "Team Sections",
-    href: "/docs/blocks/team-sections",
     blockCount: 2,
+    href: "/docs/blocks/team-sections",
     preview: TeamPreview,
+    title: "Team Sections",
   },
 ];
 
@@ -118,10 +118,10 @@ function HeroPreview() {
           draggable={false}
           height={160}
           src={getImageKitUrl("/images/hero-example_xertaz.png", {
-            width: 160,
+            format: "auto",
             height: 160,
             quality: 75,
-            format: "auto",
+            width: 160,
           })}
           width={160}
         />
@@ -131,9 +131,9 @@ function HeroPreview() {
 }
 
 const PRICING_PLANS = [
-  { name: "Free", base: 0, hover: 5, popular: false },
-  { name: "Pro", base: 19, hover: 24, popular: true },
-  { name: "Scale", base: 29, hover: 34, popular: false },
+  { base: 0, hover: 5, name: "Free", popular: false },
+  { base: 19, hover: 24, name: "Pro", popular: true },
+  { base: 29, hover: 34, name: "Scale", popular: false },
 ];
 
 function PricingPreview() {
@@ -157,11 +157,11 @@ function PricingPreview() {
             transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
             whileHover={{ scale: 1.02, y: -2 }}
           >
-            {plan.popular && (
+            {plan.popular ? (
               <span className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white">
                 Popular
               </span>
-            )}
+            ) : null}
             <span className="font-medium text-[9px] text-foreground/70">
               {plan.name}
             </span>
@@ -201,8 +201,8 @@ function TestimonialPreview() {
   const quote = TESTIMONIAL_QUOTES[currentIndex % TESTIMONIAL_QUOTES.length];
 
   const slide = {
-    enter: { opacity: 0, transform: "translateY(6px)" },
     center: { opacity: 1, transform: "translateY(0px)" },
+    enter: { opacity: 0, transform: "translateY(6px)" },
     exit: { opacity: 0, transform: "translateY(-6px)" },
   };
 
@@ -260,13 +260,13 @@ function TestimonialPreview() {
 
 function FAQPreview() {
   const chevronVariants = {
-    open: { rotate: 180 },
     closed: { rotate: 0 },
+    open: { rotate: 180 },
   };
 
   const contentVariants = {
-    open: { opacity: 1, height: "auto", marginTop: "0.25rem" },
-    closed: { opacity: 0, height: 0, marginTop: 0 },
+    closed: { height: 0, marginTop: 0, opacity: 0 },
+    open: { height: "auto", marginTop: "0.25rem", opacity: 1 },
   };
 
   return (
@@ -392,8 +392,8 @@ function LogoCloudPreview() {
   ];
 
   const logoVariants = {
-    rest: { scale: 1, opacity: 0.6 },
-    hover: { scale: 1.08, opacity: 1 },
+    hover: { opacity: 1, scale: 1.08 },
+    rest: { opacity: 0.6, scale: 1 },
   };
 
   const createBlurMask = (
@@ -412,9 +412,9 @@ function LogoCloudPreview() {
         className="pointer-events-none absolute inset-0 rounded-[inherit]"
         key={`${direction}-${blur}`}
         style={{
+          backdropFilter: `blur(${blur}px)`,
           maskImage: `linear-gradient(${gradientDirection}, rgba(255, 255, 255, 0) ${startPercent}%, rgba(255, 255, 255, 1) ${midPercent}%, rgba(255, 255, 255, 1) ${endPercent}%, rgba(255, 255, 255, 0) ${finalPercent}%)`,
           WebkitMaskImage: `linear-gradient(${gradientDirection}, rgba(255, 255, 255, 0) ${startPercent}%, rgba(255, 255, 255, 1) ${midPercent}%, rgba(255, 255, 255, 1) ${endPercent}%, rgba(255, 255, 255, 0) ${finalPercent}%)`,
-          backdropFilter: `blur(${blur}px)`,
         }}
       />
     );
@@ -560,8 +560,8 @@ export function BlockCategories() {
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        duration: 0.3,
                         delay: index * 0.05,
+                        duration: 0.3,
                         ease: EASE_OUT_QUAD,
                       }
                 }

@@ -39,8 +39,8 @@ type Pane = "info" | "source";
  */
 const VIEWPORT_WIDTH: Record<Viewport, string> = {
   desktop: "100%",
-  tablet: "768px",
   mobile: "390px",
+  tablet: "768px",
 };
 
 const VIEWPORTS: { icon: ReactNode; label: string; value: Viewport }[] = [
@@ -244,13 +244,13 @@ export const SplitPreviewShell = ({
                   full-height panel the code stopped halfway and left the rest of
                   the box empty. Let it fill and scroll on its own. */}
               <div className="code-explorer-lines min-h-0 w-full min-w-0 flex-1 overflow-auto rounded-b-lg border bg-background [&>div]:h-full [&_.fd-scroll-container]:h-full [&_.fd-scroll-container]:max-h-none! [&_figure]:h-full [&_figure]:bg-background! [&_pre]:min-h-full [&_pre]:bg-background!">
-                {file && (
+                {file ? (
                   <PreviewCode
                     code={file.code}
                     filename={file.path}
                     language={languageOf(file.path)}
                   />
-                )}
+                ) : null}
               </div>
             </div>
           )}

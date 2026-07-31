@@ -4,31 +4,31 @@ import Select from "@repo/smoothui/components/select";
 import { useState } from "react";
 
 const fruits = [
-  { value: "apple", label: "Apple" },
-  { value: "banana", label: "Banana" },
-  { value: "cherry", label: "Cherry" },
-  { value: "grape", label: "Grape" },
-  { value: "mango", label: "Mango" },
-  { value: "orange", label: "Orange" },
-  { value: "peach", label: "Peach" },
-  { value: "strawberry", label: "Strawberry" },
+  { label: "Apple", value: "apple" },
+  { label: "Banana", value: "banana" },
+  { label: "Cherry", value: "cherry" },
+  { label: "Grape", value: "grape" },
+  { label: "Mango", value: "mango" },
+  { label: "Orange", value: "orange" },
+  { label: "Peach", value: "peach" },
+  { label: "Strawberry", value: "strawberry" },
 ];
 
 const groupedOptions = [
   {
     label: "Fruits",
     options: [
-      { value: "apple", label: "Apple" },
-      { value: "banana", label: "Banana" },
-      { value: "cherry", label: "Cherry" },
+      { label: "Apple", value: "apple" },
+      { label: "Banana", value: "banana" },
+      { label: "Cherry", value: "cherry" },
     ],
   },
   {
     label: "Vegetables",
     options: [
-      { value: "carrot", label: "Carrot" },
-      { value: "broccoli", label: "Broccoli" },
-      { value: "spinach", label: "Spinach" },
+      { label: "Carrot", value: "carrot" },
+      { label: "Broccoli", value: "broccoli" },
+      { label: "Spinach", value: "spinach" },
     ],
   },
 ];
@@ -47,9 +47,9 @@ export default function SelectDemo() {
           placeholder="Choose a fruit"
           value={value}
         />
-        {value && (
+        {value ? (
           <p className="text-muted-foreground text-sm">Selected: {value}</p>
-        )}
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">

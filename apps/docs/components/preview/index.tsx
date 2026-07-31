@@ -36,9 +36,9 @@ const SHADCN_UI_IMPORT_REGEX = /@repo\/shadcn-ui\/components\/ui\/([\w-]+)/g;
 
 // Map component names (PascalCase) to file names (kebab-case)
 const COMPONENT_NAME_MAP: Record<string, string> = {
-  HeroHeader: "hero-header",
-  AnimatedText: "animated-text",
   AnimatedGroup: "animated-group",
+  AnimatedText: "animated-text",
+  HeroHeader: "hero-header",
 };
 
 async function addSharedComponents(
@@ -161,7 +161,7 @@ const readFirstExisting = async (filePaths: string[]) => {
     const source = await readOptionalFile(filePath);
 
     if (source) {
-      return { source, path: filePath };
+      return { path: filePath, source };
     }
   }
 
@@ -243,7 +243,7 @@ const collectRelativeSources = async ({
   let match = RELATIVE_IMPORT_REGEX.exec(source);
 
   while (match) {
-    const specifier = match[1];
+    const [, specifier] = match;
     importMatches.add(specifier);
     match = RELATIVE_IMPORT_REGEX.exec(source);
   }
@@ -285,12 +285,12 @@ const collectRelativeSources = async ({
     });
 
     await collectRelativeSources({
+      addSourceComponent,
       baseDir,
       filePath: resolvedPath,
+      processedFilePaths,
       rootName,
       source: resolvedSource,
-      addSourceComponent,
-      processedFilePaths,
     });
   }
 };
@@ -353,12 +353,12 @@ const gatherSourceComponents = async ({
         target: toInstallTarget(sourcePath),
       });
       await collectRelativeSources({
+        addSourceComponent,
         baseDir: dirname(sourcePath),
         filePath: sourcePath,
+        processedFilePaths,
         rootName: component,
         source,
-        addSourceComponent,
-        processedFilePaths,
       });
     }
   }
@@ -425,12 +425,12 @@ const gatherSourceComponents = async ({
         target: toInstallTarget(componentPath),
       });
       await collectRelativeSources({
+        addSourceComponent,
         baseDir: dirname(componentPath),
         filePath: componentPath,
+        processedFilePaths,
         rootName: component,
         source,
-        addSourceComponent,
-        processedFilePaths,
       });
     }
   }
@@ -455,12 +455,12 @@ const gatherSourceComponents = async ({
         target: toInstallTarget(blockFilePath),
       });
       await collectRelativeSources({
+        addSourceComponent,
         baseDir: dirname(blockFilePath),
         filePath: blockFilePath,
+        processedFilePaths,
         rootName: path,
         source: blockSource,
-        addSourceComponent,
-        processedFilePaths,
       });
       await addSharedComponents(blockSource, sourceComponents);
     }

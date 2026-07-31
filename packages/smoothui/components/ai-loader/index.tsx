@@ -45,10 +45,10 @@ const Dots = ({ reduced }: { reduced: boolean }) => (
           reduced
             ? { duration: 0 }
             : {
+                delay: (index * AI_LOADER_CYCLE_SECONDS) / (DOT_COUNT * 2),
                 duration: AI_LOADER_CYCLE_SECONDS,
                 ease: EASE_IN_OUT,
                 repeat: Number.POSITIVE_INFINITY,
-                delay: (index * AI_LOADER_CYCLE_SECONDS) / (DOT_COUNT * 2),
               }
         }
       />
@@ -88,11 +88,11 @@ const Grid = ({ reduced }: { reduced: boolean }) => (
           reduced
             ? { duration: 0 }
             : {
+                delay:
+                  ((GRID_DELAYS[index] ?? 0) * AI_LOADER_CYCLE_SECONDS) / 8,
                 duration: AI_LOADER_CYCLE_SECONDS,
                 ease: EASE_IN_OUT,
                 repeat: Number.POSITIVE_INFINITY,
-                delay:
-                  ((GRID_DELAYS[index] ?? 0) * AI_LOADER_CYCLE_SECONDS) / 8,
               }
         }
       />
@@ -147,11 +147,11 @@ const AILoader = ({
       )}
       role="status"
     >
-      {label && <span>{label}</span>}
+      {label ? <span>{label}</span> : null}
       {variant === "dots" && <Dots reduced={reduced} />}
       {variant === "bar" && <Bar reduced={reduced} />}
       {variant === "grid" && <Grid reduced={reduced} />}
-      {showElapsed && <Elapsed />}
+      {showElapsed ? <Elapsed /> : null}
       <span className="sr-only">{label ?? "Loading"}</span>
     </span>
   );

@@ -74,12 +74,12 @@ export default function KineticCenterBuild({
   const visibleWords = shouldReduceMotion ? words : words.slice(0, wordCount);
   const restingAnimate = shouldReduceMotion
     ? { opacity: 1 }
-    : { opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" };
+    : { filter: "blur(0px)", opacity: 1, scale: 1, x: 0, y: 0 };
   const exitAnimate = {
-    opacity: 0,
-    y: -6,
     filter: "blur(2.5px)",
+    opacity: 0,
     transition: { duration: 0.26, ease: EXIT_EASE },
+    y: -6,
   };
 
   return (
@@ -96,11 +96,11 @@ export default function KineticCenterBuild({
               shouldReduceMotion
                 ? { opacity: 1 }
                 : {
+                    filter: "blur(3.5px)",
                     opacity: 0,
+                    scale: 0.992,
                     x: 88,
                     y: 6,
-                    scale: 0.992,
-                    filter: "blur(3.5px)",
                   }
             }
             // biome-ignore lint/suspicious/noArrayIndexKey: word position is the stable identity within a phrase

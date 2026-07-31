@@ -97,7 +97,7 @@ export default function ImageMetadataPreview({
                 animate={
                   shouldReduceMotion
                     ? { opacity: 1 }
-                    : { opacity: 1, filter: "blur(0px)" }
+                    : { filter: "blur(0px)", opacity: 1 }
                 }
                 aria-label="Open Metadata Preview"
                 className={`min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
@@ -106,7 +106,7 @@ export default function ImageMetadataPreview({
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1 }
-                    : { opacity: 0, filter: "blur(4px)" }
+                    : { filter: "blur(4px)", opacity: 0 }
                 }
                 onClick={handleClickOpen}
                 style={{ borderRadius: 100 }}
@@ -125,20 +125,20 @@ export default function ImageMetadataPreview({
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 1, filter: "blur(0px)" }
+                  : { filter: "blur(0px)", opacity: 1 }
               }
               className="absolute bottom-0 w-full cursor-pointer gap-4 border bg-background p-5 shadow-xs"
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 0, filter: "blur(4px)" }
+                  : { filter: "blur(4px)", opacity: 0 }
               }
               onClick={handleClickClose}
               style={{ borderRadius: 20 }}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { type: "spring" as const, duration: 0.25, bounce: 0 }
+                  : { bounce: 0, duration: 0.25, type: "spring" as const }
               }
             >
               <div className="flex flex-col items-start" ref={elementRef}>

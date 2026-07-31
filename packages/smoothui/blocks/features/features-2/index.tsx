@@ -4,43 +4,43 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const features = [
   {
-    title: "Smart Analytics",
+    accent: true,
     description:
       "Real-time analytics dashboard with customizable metrics and beautiful visualizations.",
+    span: "col-span-2 row-span-2",
+    title: "Smart Analytics",
     // The lead cell of a bento is two columns by two rows. Without something to
     // look at, that is a quarter of the section spent on two lines of text.
     visual: "analytics" as const,
-    span: "col-span-2 row-span-2",
-    accent: true,
   },
   {
-    title: "Team Collaboration",
     description:
       "Work together in real-time with built-in commenting and sharing.",
     span: "col-span-1",
+    title: "Team Collaboration",
   },
   {
-    title: "API First",
     description: "RESTful API with comprehensive documentation and SDKs.",
     span: "col-span-1",
+    title: "API First",
   },
   {
-    title: "Global CDN",
     description: "Lightning-fast delivery from edge locations worldwide.",
     span: "col-span-1",
+    title: "Global CDN",
   },
   {
-    title: "Security",
     description:
       "Enterprise-grade security with SOC 2 compliance and encryption.",
     span: "col-span-1",
+    title: "Security",
   },
 ];
 
@@ -104,7 +104,7 @@ const AnalyticsPanel = () => {
                 ? { duration: 0 }
                 : { ...SPRING, delay: index * BAR_STAGGER }
             }
-            viewport={{ once: true, margin: "-80px" }}
+            viewport={{ margin: "-80px", once: true }}
             whileInView={{ scaleY: 1 }}
           />
         ))}
@@ -152,7 +152,7 @@ export function FeaturesBento() {
                     ? { duration: 0 }
                     : { ...SPRING, delay: index * 0.05 }
                 }
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ margin: "-100px", once: true }}
                 whileInView={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
                 }

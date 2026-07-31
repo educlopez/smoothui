@@ -103,9 +103,9 @@ const generateGrid = (hash: number): Cell[][] => {
     grid[y] = [];
     for (let x = 0; x < GRID_SIZE; x++) {
       grid[y][x] = {
+        brightness: 0.3 + rng() * 0.7,
         colorIndex: Math.floor(rng() * 3),
         phase: rng() * Math.PI * 2,
-        brightness: 0.3 + rng() * 0.7,
         sparklePhase: rng() * Math.PI * 2,
       };
     }
@@ -273,7 +273,7 @@ const AgentAvatar = ({
       className={cn("rounded-full", className)}
       ref={canvasRef}
       role="img"
-      style={{ width: size, height: size }}
+      style={{ height: size, width: size }}
       {...props}
     />
   );

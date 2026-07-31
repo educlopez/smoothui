@@ -78,7 +78,7 @@ export const detectAlias = (): string => {
 };
 
 export const detectConfig = (): ProjectConfig => ({
-  componentPath: detectComponentPath() || "components/ui",
   alias: detectAlias(),
+  componentPath: detectComponentPath() || "components/ui",
   packageManager: detectPackageManager(),
 });

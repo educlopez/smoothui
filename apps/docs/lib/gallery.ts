@@ -89,14 +89,14 @@ export const getGalleryComponents = (): GalleryComponentMeta[] => {
     const size = getBundleSize(slug);
 
     components.push({
+      bundleSize: size ?? undefined,
+      category,
+      description: page.data.description ?? "A SmoothUI component",
+      href: page.url,
+      icon: page.data.icon as string | undefined,
+      installer: page.data.installer as string | undefined,
       slug,
       title: page.data.title,
-      description: page.data.description ?? "A SmoothUI component",
-      icon: page.data.icon as string | undefined,
-      category,
-      installer: page.data.installer as string | undefined,
-      href: page.url,
-      bundleSize: size ?? undefined,
     });
   }
 

@@ -33,9 +33,9 @@ export function HeroProduct({
     url: "#link",
   },
   imageSrc = getImageKitUrl("/images/hero-smoothui.png", {
-    width: 1200,
-    quality: 85,
     format: "auto",
+    quality: 85,
+    width: 1200,
   }),
   imageAlt = "SmoothUI desktop application interface",
 }: HeroProductProps) {
@@ -69,19 +69,19 @@ export function HeroProduct({
                   animate={
                     shouldReduceMotion
                       ? { opacity: 1 }
-                      : { opacity: 1, y: 0, scale: 1 }
+                      : { opacity: 1, scale: 1, y: 0 }
                   }
                   initial={
                     shouldReduceMotion
                       ? { opacity: 1 }
-                      : { opacity: 0, y: 20, scale: 0.9 }
+                      : { opacity: 0, scale: 0.9, y: 20 }
                   }
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.6,
                           delay: 0.1,
+                          duration: 0.6,
                           ease: [0.25, 0.46, 0.45, 0.94],
                         }
                   }
@@ -151,17 +151,17 @@ export function HeroProduct({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          duration: 0.6,
                           delay: 0.4,
+                          duration: 0.6,
                           ease: [0.25, 0.46, 0.45, 0.94],
                         }
                   }
                 >
                   <motion.div
                     transition={{
-                      type: "spring" as const,
-                      stiffness: 400,
                       damping: 10,
+                      stiffness: 400,
+                      type: "spring" as const,
                     }}
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
@@ -177,9 +177,9 @@ export function HeroProduct({
 
                   <motion.div
                     transition={{
-                      type: "spring" as const,
-                      stiffness: 400,
                       damping: 10,
+                      stiffness: 400,
+                      type: "spring" as const,
                     }}
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
@@ -198,12 +198,12 @@ export function HeroProduct({
 
             {/* Image section with parallax-like animation */}
             <motion.div
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
               className="relative"
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, scale: 0.95, y: 40 }}
               transition={{
-                duration: 0.8,
                 delay: 0.6,
+                duration: 0.8,
                 ease: [0.25, 0.46, 0.45, 0.94],
               }}
             >
@@ -211,16 +211,16 @@ export function HeroProduct({
                 <motion.div
                   className="mt-12 md:mt-16"
                   transition={{
-                    type: "spring" as const,
-                    stiffness: 300,
                     damping: 20,
+                    stiffness: 300,
+                    type: "spring" as const,
                   }}
                   whileHover={
                     shouldReduceMotion
                       ? {}
                       : {
-                          scale: 1.02,
                           rotateY: 2,
+                          scale: 1.02,
                         }
                   }
                 >
@@ -252,8 +252,8 @@ export function HeroProduct({
                         shouldReduceMotion
                           ? { duration: 0 }
                           : {
-                              duration: 1.2,
                               delay: 0.8,
+                              duration: 1.2,
                               ease: [0.25, 0.46, 0.45, 0.94],
                             }
                       }

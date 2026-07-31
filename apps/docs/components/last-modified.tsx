@@ -11,9 +11,9 @@ export interface LastModifiedProps {
 export function LastModified({ lastModified, className }: LastModifiedProps) {
   const date = new Date(lastModified);
   const formattedDate = date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
     day: "numeric",
+    month: "long",
+    year: "numeric",
   });
 
   return (

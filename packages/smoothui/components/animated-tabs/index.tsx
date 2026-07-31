@@ -15,9 +15,9 @@ export interface AnimatedTabsProps {
 }
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.05,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 export default function AnimatedTabs({
@@ -153,7 +153,9 @@ export default function AnimatedTabs({
                 transition={shouldReduceMotion ? { duration: 0 } : SPRING}
               />
             )}
-            {tab.icon && <span className="relative z-10">{tab.icon}</span>}
+            {tab.icon ? (
+              <span className="relative z-10">{tab.icon}</span>
+            ) : null}
             <span className="relative z-10">{tab.label}</span>
           </button>
         );

@@ -5,9 +5,9 @@ import { getImageKitUrl } from "@smoothui/data";
 import { motion, useReducedMotion } from "motion/react";
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 export function CtaSplit() {
@@ -64,9 +64,9 @@ export function CtaSplit() {
                 className="h-auto w-full object-cover"
                 draggable={false}
                 src={getImageKitUrl("/images/hero-smoothui.png", {
-                  width: 800,
-                  quality: 85,
                   format: "auto",
+                  quality: 85,
+                  width: 800,
                 })}
               />
             </div>

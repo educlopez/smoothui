@@ -22,34 +22,34 @@ const SmoothUIIsotype = () => (
 // Step definitions for the tutorial
 const STEPS = [
   {
+    description: "Start with a row of icon buttons for each social platform.",
     id: "buttons",
     title: "Platform Buttons",
-    description: "Start with a row of icon buttons for each social platform.",
   },
   {
+    description: "Add an animated background that follows the selected button.",
     id: "indicator",
     title: "Sliding Indicator",
-    description: "Add an animated background that follows the selected button.",
   },
   {
+    description: "Use spring animation for natural, snappy movement.",
     id: "spring",
     title: "Spring Physics",
-    description: "Use spring animation for natural, snappy movement.",
   },
   {
+    description: "Show the platform link with animated transitions.",
     id: "link",
     title: "Dynamic Link",
-    description: "Show the platform link with animated transitions.",
   },
   {
+    description: "Add blur effect for depth when switching platforms.",
     id: "blur",
     title: "Blur Transition",
-    description: "Add blur effect for depth when switching platforms.",
   },
   {
+    description: "The final component with all features combined.",
     id: "complete",
     title: "Complete",
-    description: "The final component with all features combined.",
   },
 ] as const;
 
@@ -61,48 +61,6 @@ interface InteractiveSocialSelectorTutorialProps {
 
 // Code snippets for each step
 const CODE_SNIPPETS: Record<StepId, string> = {
-  buttons: `<div className="flex gap-4">
-  {platforms.map((platform) => (
-    <button
-      key={platform.name}
-      onClick={() => setSelected(platform)}
-      className="cursor-pointer size-9 rounded-full"
-    >
-      <platform.icon className="size-5" />
-    </button>
-  ))}
-</div>`,
-  indicator: `<div className="relative flex gap-4">
-  {/* Animated background indicator */}
-  <motion.div
-    className="absolute size-9 rounded-full bg-primary"
-    animate={{ x: selectedIndex * (36 + 16) }}
-  />
-  {/* Platform buttons */}
-  {platforms.map((platform) => (
-    <button ...>{platform.icon}</button>
-  ))}
-</div>`,
-  spring: `<motion.div
-  animate={{ x: selectedIndex * (36 + 16) }}
-  transition={{
-    type: "spring",
-    stiffness: 500,  // Snappy response
-    damping: 30,     // Prevents oscillation
-    duration: 0.25
-  }}
-/>`,
-  link: `<AnimatePresence mode="wait">
-  <motion.a
-    key={platform.domain}
-    href={platform.url}
-    initial={{ opacity: 0, y: 10 }}
-    animate={{ opacity: 1, y: 0 }}
-    exit={{ opacity: 0, y: -10 }}
-  >
-    @{username} on {platform.domain}
-  </motion.a>
-</AnimatePresence>`,
   blur: `initial={{
   opacity: 0,
   y: 10,
@@ -118,12 +76,54 @@ exit={{
   y: -10,
   filter: "blur(5px)"
 }}`,
+  buttons: `<div className="flex gap-4">
+  {platforms.map((platform) => (
+    <button
+      key={platform.name}
+      onClick={() => setSelected(platform)}
+      className="cursor-pointer size-9 rounded-full"
+    >
+      <platform.icon className="size-5" />
+    </button>
+  ))}
+</div>`,
   complete: `// The complete component includes:
 ✓ Animated sliding indicator
 ✓ Spring physics (stiffness: 500)
 ✓ Blur transitions on link change
 ✓ Reduced motion support
 ✓ Controlled/uncontrolled modes`,
+  indicator: `<div className="relative flex gap-4">
+  {/* Animated background indicator */}
+  <motion.div
+    className="absolute size-9 rounded-full bg-primary"
+    animate={{ x: selectedIndex * (36 + 16) }}
+  />
+  {/* Platform buttons */}
+  {platforms.map((platform) => (
+    <button ...>{platform.icon}</button>
+  ))}
+</div>`,
+  link: `<AnimatePresence mode="wait">
+  <motion.a
+    key={platform.domain}
+    href={platform.url}
+    initial={{ opacity: 0, y: 10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -10 }}
+  >
+    @{username} on {platform.domain}
+  </motion.a>
+</AnimatePresence>`,
+  spring: `<motion.div
+  animate={{ x: selectedIndex * (36 + 16) }}
+  transition={{
+    type: "spring",
+    stiffness: 500,  // Snappy response
+    damping: 30,     // Prevents oscillation
+    duration: 0.25
+  }}
+/>`,
 };
 
 // Platform icons
@@ -146,17 +146,17 @@ const ThreadsIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const PLATFORMS = [
-  { name: "X", domain: "x.com", icon: XIcon, url: "https://x.com/educalvolpz" },
+  { domain: "x.com", icon: XIcon, name: "X", url: "https://x.com/educalvolpz" },
   {
-    name: "Bluesky",
     domain: "bsky.app",
     icon: BlueskyIcon,
+    name: "Bluesky",
     url: "https://bsky.app/profile/educalvolpz",
   },
   {
-    name: "Threads",
     domain: "threads.net",
     icon: ThreadsIcon,
+    name: "Threads",
     url: "https://threads.net/@educalvolpz",
   },
 ];
@@ -195,7 +195,7 @@ export function InteractiveSocialSelectorTutorial({
           }
         }
       },
-      { threshold: 0.5, rootMargin: "-20% 0px -20% 0px" }
+      { rootMargin: "-20% 0px -20% 0px", threshold: 0.5 }
     );
 
     for (const ref of stepRefs.current.values()) {
@@ -276,8 +276,8 @@ export function InteractiveSocialSelectorTutorial({
                     lang="tsx"
                     options={{
                       themes: {
-                        light: "catppuccin-latte",
                         dark: "catppuccin-mocha",
+                        light: "catppuccin-latte",
                       },
                     }}
                   />
@@ -340,10 +340,10 @@ export function InteractiveSocialSelectorTutorial({
                     transition={
                       showSpring && !shouldReduceMotion
                         ? {
-                            type: "spring",
-                            stiffness: 500,
                             damping: 30,
                             duration: 0.25,
+                            stiffness: 500,
+                            type: "spring",
                           }
                         : { duration: 0 }
                     }
@@ -376,9 +376,9 @@ export function InteractiveSocialSelectorTutorial({
                       shouldReduceMotion
                         ? { opacity: 1 }
                         : {
+                            filter: showBlur ? "blur(0px)" : undefined,
                             opacity: 1,
                             y: 0,
-                            filter: showBlur ? "blur(0px)" : undefined,
                           }
                     }
                     className="font-medium text-foreground text-sm"
@@ -386,9 +386,9 @@ export function InteractiveSocialSelectorTutorial({
                       shouldReduceMotion
                         ? { opacity: 0, transition: { duration: 0 } }
                         : {
+                            filter: showBlur ? "blur(5px)" : undefined,
                             opacity: 0,
                             y: -10,
-                            filter: showBlur ? "blur(5px)" : undefined,
                           }
                     }
                     href={selectedPlatform.url}
@@ -396,9 +396,9 @@ export function InteractiveSocialSelectorTutorial({
                       shouldReduceMotion
                         ? { opacity: 0 }
                         : {
+                            filter: showBlur ? "blur(5px)" : undefined,
                             opacity: 0,
                             y: 10,
-                            filter: showBlur ? "blur(5px)" : undefined,
                           }
                     }
                     key={selectedPlatform.domain}
@@ -407,7 +407,7 @@ export function InteractiveSocialSelectorTutorial({
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring", duration: 0.25, bounce: 0 }
+                        : { bounce: 0, duration: 0.25, type: "spring" }
                     }
                   >
                     @educalvolpz on{" "}

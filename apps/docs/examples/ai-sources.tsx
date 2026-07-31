@@ -20,35 +20,35 @@ const BrandMark = ({ domain }: { domain: string }) => (
 
 const SOURCES: AISource[] = [
   {
-    id: "1",
     favicon: <BrandMark domain="canva.com" />,
+    id: "1",
+    snippet: "Tokens shipped as a single package, versioned with the product.",
     title: "How Canva scaled its design system to 100+ engineers",
     url: "https://canva.com/engineering",
-    snippet: "Tokens shipped as a single package, versioned with the product.",
   },
   {
-    id: "2",
     favicon: <BrandMark domain="strava.com" />,
+    id: "2",
+    snippet: "One motion spec across iOS, Android and web.",
     title: "Rebuilding the Strava design language",
     url: "https://strava.com/engineering",
-    snippet: "One motion spec across iOS, Android and web.",
   },
   {
-    id: "3",
     favicon: <BrandMark domain="duolingo.com" />,
+    id: "3",
+    snippet: "Every animation budgeted against a 60fps frame.",
     title: "Duolingo on animation performance",
     url: "https://blog.duolingo.com",
-    snippet: "Every animation budgeted against a 60fps frame.",
   },
   {
-    id: "4",
     favicon: <BrandMark domain="ramp.com" />,
+    id: "4",
     title: "Ramp on component API design",
     url: "https://ramp.com/blog",
   },
   {
-    id: "5",
     favicon: <BrandMark domain="linear.app" />,
+    id: "5",
     title: "How Linear thinks about interface latency",
     url: "https://linear.app/blog",
   },

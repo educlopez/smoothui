@@ -45,9 +45,9 @@ export interface RadioProps {
 
 /** Spring for the selection dot — playful bounce per CLAUDE.md (0.2-0.3 for playful interactions) */
 const SPRING_DOT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.2,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 /** Stagger delay per radio item on initial render */
@@ -98,6 +98,7 @@ export function RadioGroup({
       required={required}
       value={value}
     >
+      {/* biome-ignore lint/suspicious/noLeakedRender: both branches are ReactNode, which is exactly what a wrapper should render */}
       {shouldReduceMotion ? children : enhancedChildren}
     </RadioGroupPrimitive.Root>
   );
@@ -181,7 +182,7 @@ export function Radio({
           </RadioGroupPrimitive.Indicator>
         </RadioGroupPrimitive.Item>
       </motion.div>
-      {children && (
+      {children ? (
         <label
           className={cn(
             "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
@@ -191,7 +192,7 @@ export function Radio({
         >
           {children}
         </label>
-      )}
+      ) : null}
     </>
   );
 }

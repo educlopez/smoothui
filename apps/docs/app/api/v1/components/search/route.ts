@@ -120,11 +120,11 @@ export const GET = async (request: NextRequest): Promise<Response> => {
       ...r.component,
       relevanceScore: r.score,
     })),
-    total: results.length,
-    query: query || undefined,
     filters: {
       ...(category ? { category } : {}),
       ...(tagsParam ? { tags: tagsParam } : {}),
     },
+    query: query || undefined,
+    total: results.length,
   });
 };

@@ -96,7 +96,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const MDX = page.data.body;
 
   // Access lastModified from page data (available when lastModifiedTime: 'git' is enabled)
-  const lastModified = (page.data as { lastModified?: number }).lastModified;
+  const { lastModified } = page.data as { lastModified?: number };
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
   const isComponentOrBlock =
@@ -117,8 +117,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     ? `${domain}/r/${componentName}.json`
     : null;
 
-  const dependencies = page.data.dependencies;
-  const references = page.data.references;
+  const { dependencies } = page.data;
+  const { references } = page.data;
   const contributorFromFrontmatter = page.data.contributor;
 
   // Get all contributors from GitHub API (automatic, similar to lastModified)
@@ -142,23 +142,23 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     // Get creator (first contributor or from frontmatter)
     if (contributorFromFrontmatter) {
       creator = {
+        avatar: contributorFromFrontmatter.avatar,
         name: contributorFromFrontmatter.name,
         url: contributorFromFrontmatter.url,
-        avatar: contributorFromFrontmatter.avatar,
       };
     } else if (allContributors.length > 0) {
-      const firstContributor = allContributors[0];
+      const [firstContributor] = allContributors;
       creator = {
+        avatar: firstContributor.avatar,
         name: firstContributor.name,
         url: firstContributor.url,
-        avatar: firstContributor.avatar,
       };
     }
   } else if (contributorFromFrontmatter) {
     creator = {
+      avatar: contributorFromFrontmatter.avatar,
       name: contributorFromFrontmatter.name,
       url: contributorFromFrontmatter.url,
-      avatar: contributorFromFrontmatter.avatar,
     };
   }
 
@@ -169,7 +169,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // Templates opt out entirely: a whole surface does not fit in half a viewport,
   // and its source is not what someone is deciding on. They get stills and a
   // live preview instead.
-  const installer = page.data.installer;
+  const { installer } = page.data;
   const isTemplate = page.data.info.path.startsWith("templates/");
   const isTemplateDetail = isTemplate && page.slugs.length > 1;
   const isSplit = Boolean(
@@ -249,11 +249,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const footerContent =
     hasDependencies || hasReferences || hasContributor ? (
       <>
-        {hasContributor && creator && (
+        {hasContributor && creator ? (
           <Contributor contributors={allContributors} creator={creator} />
-        )}
-        {hasDependencies && <PoweredBy packages={dependencies} />}
-        {hasReferences && <Reference sources={references} />}
+        ) : null}
+        {hasDependencies ? <PoweredBy packages={dependencies} /> : null}
+        {hasReferences ? <Reference sources={references} /> : null}
       </>
     ) : undefined;
 
@@ -270,8 +270,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <MDX
       components={{
         ...defaultMdxComponents,
-        Tab,
-        Tabs,
+        AutoTypeTable: AutoTypeTableWithGenerator,
+        BlocksGallery: BlocksGalleryPage,
+        BodyText: BodyTextAsDiv,
+        ChangelogEntry,
+        Contributor,
+        Divider,
+        FeatureCard,
+        FeatureCardHover,
+        GalleryPage,
+        Installer,
+        PackageManagerTabs,
+        PoweredBy,
+        Preview,
         // HTML `ref` attribute conflicts with `forwardRef`
         pre: (preProps) => {
           const { ref: _ref, ...restProps } = preProps;
@@ -281,22 +292,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             </CodeBlock>
           );
         },
-        AutoTypeTable: AutoTypeTableWithGenerator,
-        Installer,
-        Preview,
-        PoweredBy,
         Reference,
-        Contributor,
-        BodyText: BodyTextAsDiv,
-        FeatureCard,
-        FeatureCardHover,
-        Divider,
-        ChangelogEntry,
         SponsorsPageContent,
-        GalleryPage,
-        BlocksGallery: BlocksGalleryPage,
+        Tab,
+        Tabs,
         TemplatesGallery: TemplatesGalleryPage,
-        PackageManagerTabs,
       }}
     />
   );
@@ -308,16 +308,16 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
         markdownUrl={`${page.url}.mdx`}
       />
-      {registryUrl && <OpenInV0Button url={registryUrl} />}
-      {installer && (
+      {registryUrl ? <OpenInV0Button url={registryUrl} /> : null}
+      {installer ? (
         <AddToKitButton size="sm" slug={installer} title={page.data.title} />
-      )}
-      {(componentName || lastModified) && (
+      ) : null}
+      {componentName || lastModified ? (
         <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
-          {componentName && <BundleSizeBadge slug={componentName} />}
-          {lastModified && <LastModified lastModified={lastModified} />}
+          {componentName ? <BundleSizeBadge slug={componentName} /> : null}
+          {lastModified ? <LastModified lastModified={lastModified} /> : null}
         </div>
-      )}
+      ) : null}
     </div>
   );
 
@@ -340,7 +340,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         ) : (
           <span />
         )}
-        {neighbours.next && (
+        {neighbours.next ? (
           <Link
             className="flex flex-col gap-0.5 rounded-xl border p-3 text-right transition-colors hover:bg-muted sm:items-end"
             href={neighbours.next.url}
@@ -348,7 +348,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             <span className="text-muted-foreground text-xs">Next</span>
             <span className="font-medium text-sm">{neighbours.next.name}</span>
           </Link>
-        )}
+        ) : null}
       </nav>
     ) : null;
 
@@ -381,8 +381,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         footer={isSplit || isGalleryIndex ? { enabled: false } : undefined}
         full={page.data.full ?? isSplit}
         tableOfContent={{
-          style: "clerk",
           footer: footerContent,
+          style: "clerk",
         }}
         toc={updatedToc}
       >
@@ -411,11 +411,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
               {/* On a split page there is no TOC column, and this content used to
                   live in its footer — contributors, dependencies and references
                   would have vanished. It ends the reading column instead. */}
-              {footerContent && (
+              {footerContent ? (
                 <div className="not-prose mt-10 flex flex-col gap-4 border-t pt-6">
                   {footerContent}
                 </div>
-              )}
+              ) : null}
               {pageNav}
               {/* The site footer belongs at the end of the reading column here,
                   not spanning the full width underneath the stage. The layout's
@@ -431,7 +431,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 chrome: the catalogue starts collapsed and the crumb doubles as
                 its handle. These pages are wall-to-wall previews, so 240px of
                 permanent sidebar was coming straight out of them. */}
-            {(isComponentOrBlock || isTemplate) && (
+            {isComponentOrBlock || isTemplate ? (
               <>
                 <SplitDocsChrome hideLayoutFooter={false} />
                 {/* Same geometry as the split pages: the row cancels the
@@ -464,7 +464,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                   />
                 </div>
               </>
-            )}
+            ) : null}
             {/* A template page carries its own header — name, actions and the
                 screens — so the docs title block and the copy/open row would be
                 a second, weaker version of it. */}
@@ -475,7 +475,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                   lines behind everything, and a rule down each edge of the
                   column. Fixed rather than absolute so the stripes do not stop
                   where the article stops. */}
-              {isTemplateDetail && (
+              {isTemplateDetail ? (
                 <>
                   <div className="pointer-events-none fixed inset-0 -z-20 bg-primary" />
                   <BgLines className="fixed inset-0 -z-10 max-w-none!" />
@@ -485,8 +485,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                     orientation="vertical"
                   />
                 </>
-              )}
-              {isTemplateDetail && installer && (
+              ) : null}
+              {isTemplateDetail && installer ? (
                 <TemplateShowcase
                   description={page.data.description ?? ""}
                   installer={installer}
@@ -502,7 +502,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                       : undefined
                   }
                 />
-              )}
+              ) : null}
               {installer && !isTemplateDetail && (
                 <>
                   <Preview path={installer} type={type} />
@@ -532,7 +532,7 @@ export async function generateMetadata(
 
   // Per-page fallback so pages without a frontmatter description don't all share
   // one generic (thin/duplicate) meta description.
-  const section = slug[0];
+  const [section] = slug;
   const kind =
     section === "blocks"
       ? "block"
@@ -544,23 +544,23 @@ export async function generateMetadata(
     `${page.data.title} — an animated React ${kind} for shadcn/ui, built with Motion and Tailwind CSS. Copy, paste, and ship.`;
 
   const image = {
+    height: 630,
     url: getPageImage(page).url,
     width: 1200,
-    height: 630,
   };
 
   const pageUrl = `/docs/${page.slugs.join("/")}`;
 
   return createMetadata({
-    title: page.data.title,
-    description,
     alternates: {
       canonical: pageUrl,
     },
+    description,
     openGraph: {
-      url: pageUrl,
       images: [image],
+      url: pageUrl,
     },
+    title: page.data.title,
     twitter: {
       images: [image],
     },

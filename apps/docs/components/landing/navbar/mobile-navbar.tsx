@@ -84,23 +84,23 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
       </div>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
             animate={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 1, y: 0, scale: 1 }
+                : { opacity: 1, scale: 1, y: 0 }
             }
             className="mobile-navbar-menu"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, y: -10, scale: 0.95 }
+                : { opacity: 0, scale: 0.95, y: -10 }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 0 }
-                : { opacity: 0, y: -10, scale: 0.95 }
+                : { opacity: 0, scale: 0.95, y: -10 }
             }
             ref={menuRef}
             transition={
@@ -275,7 +275,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               <GithubStars />
             </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

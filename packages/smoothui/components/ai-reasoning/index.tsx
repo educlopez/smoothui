@@ -6,9 +6,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useEffect, useRef, useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 /**
@@ -116,9 +116,9 @@ const AIReasoning = ({
           <span
             className="bg-[length:200%_100%] bg-clip-text text-transparent"
             style={{
+              animation: `ai-reasoning-shimmer ${SHIMMER_SECONDS}s linear infinite`,
               backgroundImage:
                 "linear-gradient(90deg, currentColor 0%, currentColor 35%, color-mix(in oklab, currentColor 25%, transparent) 50%, currentColor 65%, currentColor 100%)",
-              animation: `ai-reasoning-shimmer ${SHIMMER_SECONDS}s linear infinite`,
             }}
           >
             {summary}
@@ -136,7 +136,7 @@ const AIReasoning = ({
       `}</style>
 
       <AnimatePresence initial={false}>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
             animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
@@ -165,7 +165,7 @@ const AIReasoning = ({
               {children}
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

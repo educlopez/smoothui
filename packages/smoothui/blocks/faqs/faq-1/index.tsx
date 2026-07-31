@@ -30,20 +30,20 @@ const INITIAL_Y_OFFSET = 20;
 const EXIT_Y_OFFSET = -20;
 
 const iconMap = {
-  Clock,
-  WalletCards,
-  ShoppingBag,
-  Globe,
-  Scale,
   Activity,
+  Clock,
   DollarSign,
-  Lock,
-  Undo2,
   Download,
-  Settings,
+  Globe,
   HelpCircle,
+  Lock,
   MessageCircle,
+  Scale,
+  Settings,
+  ShoppingBag,
+  Undo2,
   Users,
+  WalletCards,
   Zap,
 };
 
@@ -66,76 +66,76 @@ export function FaqsGrid({
   description = "Discover quick and comprehensive answers to common questions about our platform, services, and features.",
   categories = [
     {
-      name: "General",
-      id: "general",
       faqs: [
         {
-          question: "How do I install Smoothui?",
           answer:
             "You can install Smoothui using npm or yarn. Run `npm install smoothui` or `yarn add smoothui` in your project directory. It's completely free and open source.",
           icon: "Download",
+          question: "How do I install Smoothui?",
         },
         {
-          question: "What are the system requirements?",
           answer:
             "Smoothui works with React 16.8+ and supports all modern browsers. No additional dependencies are required beyond React and Tailwind CSS.",
           icon: "Settings",
+          question: "What are the system requirements?",
         },
         {
-          question: "Is Smoothui free to use?",
           answer:
             "Yes! Smoothui is completely free and open source. You can start using it immediately without any trial limitations or hidden costs.",
           icon: "Zap",
+          question: "Is Smoothui free to use?",
         },
       ],
+      id: "general",
+      name: "General",
     },
     {
-      name: "Components",
-      id: "components",
       faqs: [
         {
-          question: "How many components are included?",
           answer:
             "Smoothui includes over 50+ pre-built components including buttons, forms, navigation, modals, animations, and more. New components are added regularly.",
           icon: "HelpCircle",
+          question: "How many components are included?",
         },
         {
-          question: "Can I customize the styling?",
           answer:
             "Absolutely! All components are fully customizable using CSS variables, Tailwind classes, or custom CSS. You have complete control over the appearance.",
           icon: "Settings",
+          question: "Can I customize the styling?",
         },
         {
-          question: "Are the components accessible?",
           answer:
             "Yes, all components follow WCAG guidelines and include proper ARIA attributes for screen readers and keyboard navigation. Accessibility is a top priority.",
           icon: "Users",
+          question: "Are the components accessible?",
         },
       ],
+      id: "components",
+      name: "Components",
     },
     {
-      name: "Support",
-      id: "support",
       faqs: [
         {
-          question: "How can I get help?",
           answer:
             "You can reach out to our community on Discord, GitHub discussions, or email our support team directly. We're here to help you succeed.",
           icon: "MessageCircle",
+          question: "How can I get help?",
         },
         {
-          question: "Do you offer custom development?",
           answer:
             "Yes, we offer custom component development and consulting services for enterprise clients. Contact us to discuss your specific needs.",
           icon: "Users",
+          question: "Do you offer custom development?",
         },
         {
-          question: "What's your response time?",
           answer:
             "We typically respond to support requests within 24 hours during business days. For urgent issues, please mark them as high priority.",
           icon: "Clock",
+          question: "What's your response time?",
         },
       ],
+      id: "support",
+      name: "Support",
     },
   ],
 }: FaqsGridProps) {
@@ -178,9 +178,9 @@ export function FaqsGrid({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring" as const,
-                            stiffness: SPRING_STIFFNESS,
                             damping: SPRING_DAMPING,
+                            stiffness: SPRING_STIFFNESS,
+                            type: "spring" as const,
                           }
                     }
                   />
@@ -238,8 +238,8 @@ export function FaqsGrid({
                           shouldReduceMotion
                             ? { duration: 0 }
                             : {
-                                duration: 0.4,
                                 delay: faqIndex * FAQ_STAGGER_DELAY,
+                                duration: 0.4,
                               }
                         }
                       >

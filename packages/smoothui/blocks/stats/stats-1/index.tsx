@@ -21,24 +21,24 @@ export function StatsGrid({
   description = "See how we're making a difference across the globe",
   stats = [
     {
-      value: "10M+",
-      label: "Active Users",
       description: "Growing every day",
+      label: "Active Users",
+      value: "10M+",
     },
     {
-      value: "99.9%",
-      label: "Uptime",
       description: "Reliable service",
+      label: "Uptime",
+      value: "99.9%",
     },
     {
-      value: "150+",
-      label: "Countries",
       description: "Worldwide reach",
+      label: "Countries",
+      value: "150+",
     },
     {
-      value: "24/7",
-      label: "Support",
       description: "Always here to help",
+      label: "Support",
+      value: "24/7",
     },
   ],
 }: StatsGridProps) {
@@ -85,7 +85,7 @@ export function StatsGrid({
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
-                  : { duration: 0.6, delay: index * STAGGER_DELAY }
+                  : { delay: index * STAGGER_DELAY, duration: 0.6 }
               }
             >
               <motion.div
@@ -101,10 +101,10 @@ export function StatsGrid({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        duration: 0.8,
                         delay: index * STAGGER_DELAY + VALUE_DELAY_OFFSET,
-                        type: "spring" as const,
+                        duration: 0.8,
                         stiffness: 200,
+                        type: "spring" as const,
                       }
                 }
               >
@@ -113,9 +113,9 @@ export function StatsGrid({
               <h3 className="mb-2 font-semibold text-foreground text-lg">
                 {stat.label}
               </h3>
-              {stat.description && (
+              {stat.description ? (
                 <p className="text-foreground/70 text-sm">{stat.description}</p>
-              )}
+              ) : null}
               {/* Hover effect background */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100"

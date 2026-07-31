@@ -35,61 +35,61 @@ export interface FooterMegaProps {
 
 const defaultColumns = [
   {
+    links: [
+      { href: "#features", label: "Features" },
+      { href: "#pricing", label: "Pricing" },
+      { href: "#changelog", label: "Changelog" },
+      { href: "#docs", label: "Documentation" },
+    ],
     title: "Product",
-    links: [
-      { label: "Features", href: "#features" },
-      { label: "Pricing", href: "#pricing" },
-      { label: "Changelog", href: "#changelog" },
-      { label: "Documentation", href: "#docs" },
-    ],
   },
   {
+    links: [
+      { href: "#about", label: "About" },
+      { href: "#blog", label: "Blog" },
+      { href: "#careers", label: "Careers" },
+      { href: "#contact", label: "Contact" },
+    ],
     title: "Company",
-    links: [
-      { label: "About", href: "#about" },
-      { label: "Blog", href: "#blog" },
-      { label: "Careers", href: "#careers" },
-      { label: "Contact", href: "#contact" },
-    ],
   },
   {
+    links: [
+      { href: "#community", label: "Community" },
+      { href: "#github", label: "GitHub" },
+      { href: "#discord", label: "Discord" },
+      { href: "#help", label: "Help Center" },
+    ],
     title: "Resources",
-    links: [
-      { label: "Community", href: "#community" },
-      { label: "GitHub", href: "#github" },
-      { label: "Discord", href: "#discord" },
-      { label: "Help Center", href: "#help" },
-    ],
   },
   {
-    title: "Legal",
     links: [
-      { label: "Privacy Policy", href: "#privacy" },
-      { label: "Terms of Service", href: "#terms" },
-      { label: "Cookie Policy", href: "#cookies" },
+      { href: "#privacy", label: "Privacy Policy" },
+      { href: "#terms", label: "Terms of Service" },
+      { href: "#cookies", label: "Cookie Policy" },
     ],
+    title: "Legal",
   },
 ];
 
 const defaultSocialLinks = [
   {
-    icon: <Twitter className="h-5 w-5" />,
     href: "https://twitter.com",
+    icon: <Twitter className="h-5 w-5" />,
     label: "Twitter",
   },
   {
-    icon: <Github className="h-5 w-5" />,
     href: "https://github.com",
+    icon: <Github className="h-5 w-5" />,
     label: "GitHub",
   },
   {
-    icon: <Linkedin className="h-5 w-5" />,
     href: "https://linkedin.com",
+    icon: <Linkedin className="h-5 w-5" />,
     label: "LinkedIn",
   },
   {
-    icon: <Youtube className="h-5 w-5" />,
     href: "https://youtube.com",
+    icon: <Youtube className="h-5 w-5" />,
     label: "YouTube",
   },
 ];
@@ -99,10 +99,10 @@ export const FooterMega = ({
   description = "Beautiful animated React components for building modern user interfaces with smooth animations and delightful interactions.",
   columns = defaultColumns,
   newsletter = {
-    title: "Subscribe to our newsletter",
+    buttonText: "Subscribe",
     description: "Get the latest updates and news delivered to your inbox.",
     placeholder: "Enter your email",
-    buttonText: "Subscribe",
+    title: "Subscribe to our newsletter",
   },
   socialLinks = defaultSocialLinks,
   copyright = "© 2024 SmoothUI. All rights reserved.",
@@ -112,22 +112,22 @@ export const FooterMega = ({
   const getAnimationProps = (delay = 0) => {
     if (shouldReduceMotion) {
       return {
-        initial: { opacity: 1 },
         animate: { opacity: 1 },
+        initial: { opacity: 1 },
         transition: { duration: 0 },
       };
     }
 
     return {
       initial: { opacity: 0, y: 20 },
-      whileInView: { opacity: 1, y: 0 },
-      viewport: { once: true },
       transition: {
-        type: "spring" as const,
-        duration: ANIMATION_DURATION,
         bounce: 0.1,
         delay,
+        duration: ANIMATION_DURATION,
+        type: "spring" as const,
       },
+      viewport: { once: true },
+      whileInView: { opacity: 1, y: 0 },
     };
   };
 

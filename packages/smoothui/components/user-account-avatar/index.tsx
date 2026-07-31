@@ -32,8 +32,8 @@ export interface UserAccountAvatarProps {
 }
 
 const mockOrders: Order[] = [
-  { id: "ORD001", date: "2023-03-15", status: "delivered", progress: 100 },
-  { id: "ORD002", date: "2023-03-20", status: "shipped", progress: 66 },
+  { date: "2023-03-15", id: "ORD001", progress: 100, status: "delivered" },
+  { date: "2023-03-20", id: "ORD002", progress: 66, status: "shipped" },
 ];
 
 export default function UserAccountAvatar({
@@ -56,8 +56,8 @@ export default function UserAccountAvatar({
     const formData = new FormData(e.currentTarget);
     const updatedUser = {
       ...userData,
-      name: formData.get("name") as string,
       email: formData.get("email") as string,
+      name: formData.get("name") as string,
     };
     setUserData(updatedUser);
     if (onProfileSave) {
@@ -150,10 +150,10 @@ export default function UserAccountAvatar({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
-                          type: "spring" as const,
-                          stiffness: 300,
                           damping: 30,
                           duration: 0.4,
+                          stiffness: 300,
+                          type: "spring" as const,
                         }
                   }
                 />
@@ -206,7 +206,7 @@ export default function UserAccountAvatar({
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
-                : { type: "spring" as const, duration: 0.25, bounce: 0 }
+                : { bounce: 0, duration: 0.25, type: "spring" as const }
             }
           >
             <div
@@ -238,27 +238,27 @@ export default function UserAccountAvatar({
                   <motion.div
                     animate={
                       shouldReduceMotion
-                        ? { opacity: 1, height: "auto" }
+                        ? { height: "auto", opacity: 1 }
                         : {
-                            opacity: 1,
-                            height: "auto",
                             filter: "blur(0px)",
+                            height: "auto",
+                            opacity: 1,
                           }
                     }
                     exit={
                       shouldReduceMotion
-                        ? { opacity: 0, height: 0, transition: { duration: 0 } }
-                        : { opacity: 0, height: 0, filter: "blur(10px)" }
+                        ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                        : { filter: "blur(10px)", height: 0, opacity: 0 }
                     }
                     initial={
                       shouldReduceMotion
-                        ? { opacity: 0, height: 0 }
-                        : { opacity: 0, height: 0, filter: "blur(10px)" }
+                        ? { height: 0, opacity: 0 }
+                        : { filter: "blur(10px)", height: 0, opacity: 0 }
                     }
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring" as const, duration: 0.25, bounce: 0 }
+                        : { bounce: 0, duration: 0.25, type: "spring" as const }
                     }
                   >
                     {renderEditProfile()}
@@ -290,27 +290,27 @@ export default function UserAccountAvatar({
                   <motion.div
                     animate={
                       shouldReduceMotion
-                        ? { opacity: 1, height: "auto" }
+                        ? { height: "auto", opacity: 1 }
                         : {
-                            opacity: 1,
-                            height: "auto",
                             filter: "blur(0px)",
+                            height: "auto",
+                            opacity: 1,
                           }
                     }
                     exit={
                       shouldReduceMotion
-                        ? { opacity: 0, height: 0, transition: { duration: 0 } }
-                        : { opacity: 0, height: 0, filter: "blur(10px)" }
+                        ? { height: 0, opacity: 0, transition: { duration: 0 } }
+                        : { filter: "blur(10px)", height: 0, opacity: 0 }
                     }
                     initial={
                       shouldReduceMotion
-                        ? { opacity: 0, height: 0 }
-                        : { opacity: 0, height: 0, filter: "blur(10px)" }
+                        ? { height: 0, opacity: 0 }
+                        : { filter: "blur(10px)", height: 0, opacity: 0 }
                     }
                     transition={
                       shouldReduceMotion
                         ? { duration: 0 }
-                        : { type: "spring" as const, duration: 0.25, bounce: 0 }
+                        : { bounce: 0, duration: 0.25, type: "spring" as const }
                     }
                   >
                     {renderLastOrders()}

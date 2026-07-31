@@ -8,9 +8,9 @@ export type StarterKit = {
 
 export const STARTER_KITS: StarterKit[] = [
   {
+    description: "Hero-ready motion and flair",
     id: "landing",
     label: "Landing page",
-    description: "Hero-ready motion and flair",
     slugs: [
       "scramble-hover",
       "number-flow",
@@ -21,9 +21,9 @@ export const STARTER_KITS: StarterKit[] = [
     ],
   },
   {
+    description: "Apple-style interactions",
     id: "ios",
     label: "iOS feel",
-    description: "Apple-style interactions",
     slugs: [
       "dynamic-island",
       "apple-invites",
@@ -33,9 +33,9 @@ export const STARTER_KITS: StarterKit[] = [
     ],
   },
   {
+    description: "Data display and inputs",
     id: "dashboard",
     label: "Dashboard",
-    description: "Data display and inputs",
     slugs: [
       "number-flow",
       "price-flow",

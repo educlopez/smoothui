@@ -7,8 +7,8 @@ describe("ExpandableCards", () => {
     const { container } = render(
       <ExpandableCards
         cards={[
-          { id: 1, title: "Card 1", image: "/test.jpg", content: "Content 1" },
-          { id: 2, title: "Card 2", image: "/test.jpg", content: "Content 2" },
+          { content: "Content 1", id: 1, image: "/test.jpg", title: "Card 1" },
+          { content: "Content 2", id: 2, image: "/test.jpg", title: "Card 2" },
         ]}
       />
     );

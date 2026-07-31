@@ -51,7 +51,7 @@ export function useOptimizedGif({
 
       // Check if device is on a slow connection
       const nav = navigator as NavigatorExtended;
-      const connection = nav.connection;
+      const { connection } = nav;
       const isSlowConnection =
         connection &&
         (connection.effectiveType === "slow-2g" ||
@@ -130,10 +130,10 @@ export function useOptimizedGif({
   const src = shouldLoad && isVisible && isLoaded ? gifUrl : placeholderUrl;
 
   return {
-    shouldLoad,
-    isVisible,
     isLoaded,
-    src,
+    isVisible,
     ref: elementRef,
+    shouldLoad,
+    src,
   };
 }

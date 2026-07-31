@@ -99,8 +99,8 @@ interface FormFieldContextValue {
 
 const FormContext = createContext<FormContextValue>({
   errors: {},
-  submitCount: 0,
   prevErrors: {},
+  submitCount: 0,
 });
 const FormFieldContext = createContext<FormFieldContextValue | null>(null);
 
@@ -130,7 +130,7 @@ export default function Form({
   const [prevErrors, setPrevErrors] = useState<FormErrors>({});
 
   const ctxValue = useMemo(
-    () => ({ errors, submitCount, prevErrors }),
+    () => ({ errors, prevErrors, submitCount }),
     [errors, submitCount, prevErrors]
   );
 
@@ -191,15 +191,15 @@ export function FormField({ name, className, children }: FormFieldProps) {
 
   const ctxValue = useMemo(
     () => ({
-      name,
-      id,
       error,
-      formItemId: `${id}-form-item`,
-      formDescriptionId: `${id}-form-item-description`,
-      formMessageId: `${id}-form-item-message`,
       fieldIndex: fieldIndexRef.current ?? 0,
-      submitCount,
+      formDescriptionId: `${id}-form-item-description`,
+      formItemId: `${id}-form-item`,
+      formMessageId: `${id}-form-item-message`,
+      id,
+      name,
       prevError,
+      submitCount,
     }),
     [name, id, error, submitCount, prevError]
   );
@@ -322,11 +322,11 @@ export function FormControl({
       transition={shouldReduceMotion ? DURATION_INSTANT : SPRING_SNAPPY}
     >
       {cloneChildWithA11y(children, {
-        id: formItemId,
         "aria-describedby": error
           ? `${formDescriptionId} ${formMessageId}`
           : formDescriptionId,
         "aria-invalid": error ? true : undefined,
+        id: formItemId,
       })}
     </motion.div>
   );
@@ -423,10 +423,10 @@ export function FormMessage({ className, children }: FormMessageProps) {
               shouldReduceMotion
                 ? DURATION_INSTANT
                 : {
-                    type: "spring" as const,
-                    stiffness: 300,
                     damping: 20,
                     duration: 0.25,
+                    stiffness: 300,
+                    type: "spring" as const,
                   }
             }
           >
@@ -437,11 +437,11 @@ export function FormMessage({ className, children }: FormMessageProps) {
                 shouldReduceMotion
                   ? DURATION_INSTANT
                   : {
-                      type: "spring" as const,
-                      stiffness: 400,
                       damping: 15,
-                      duration: 0.2,
                       delay: 0.05,
+                      duration: 0.2,
+                      stiffness: 400,
+                      type: "spring" as const,
                     }
               }
             >

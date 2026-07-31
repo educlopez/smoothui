@@ -88,9 +88,9 @@ export const GET = async (request: NextRequest): Promise<Response> => {
 
   const response: ComponentListResponse = {
     data,
-    total,
     page,
     pageSize,
+    total,
     totalPages,
   };
 

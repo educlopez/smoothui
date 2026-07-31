@@ -476,284 +476,284 @@ const demoTitle = (slug: string): string =>
 // what scrolls into view.
 const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
   {
-    slug: "agent-avatar",
     Demo: dynamic(() => import("@docs/examples/agent-avatar")),
+    slug: "agent-avatar",
   },
   {
-    slug: "ai-branch",
     Demo: dynamic(() => import("@docs/examples/ai-branch")),
+    slug: "ai-branch",
   },
   {
-    slug: "animated-avatar-group",
     Demo: dynamic(() => import("@docs/examples/animated-avatar-group")),
+    slug: "animated-avatar-group",
   },
   {
-    slug: "animated-file-upload",
     Demo: dynamic(() => import("@docs/examples/animated-file-upload")),
+    slug: "animated-file-upload",
   },
   {
-    slug: "animated-input",
     Demo: dynamic(() => import("@docs/examples/animated-input")),
+    slug: "animated-input",
   },
   {
-    slug: "animated-o-t-p-input",
     Demo: dynamic(() => import("@docs/examples/animated-o-t-p-input")),
+    slug: "animated-o-t-p-input",
   },
   {
-    slug: "animated-progress-bar",
     Demo: dynamic(() => import("@docs/examples/animated-progress-bar")),
+    slug: "animated-progress-bar",
   },
   {
-    slug: "animated-stepper",
     Demo: dynamic(() => import("@docs/examples/animated-stepper")),
+    slug: "animated-stepper",
   },
   {
-    slug: "animated-tabs",
     Demo: dynamic(() => import("@docs/examples/animated-tabs")),
+    slug: "animated-tabs",
   },
   {
-    slug: "animated-tags",
     Demo: dynamic(() => import("@docs/examples/animated-tags")),
+    slug: "animated-tags",
   },
   {
-    slug: "animated-toggle",
     Demo: dynamic(() => import("@docs/examples/animated-toggle")),
+    slug: "animated-toggle",
   },
   {
-    slug: "animated-tooltip",
     Demo: dynamic(() => import("@docs/examples/animated-tooltip")),
+    slug: "animated-tooltip",
   },
   {
-    slug: "app-download-stack",
     Demo: dynamic(() => import("@docs/examples/app-download-stack")),
+    slug: "app-download-stack",
   },
   {
-    slug: "apple-invites",
     Demo: dynamic(() => import("@docs/examples/apple-invites")),
+    slug: "apple-invites",
   },
   {
-    slug: "basic-accordion",
     Demo: dynamic(() => import("@docs/examples/basic-accordion")),
+    slug: "basic-accordion",
   },
   {
-    slug: "basic-dropdown",
     Demo: dynamic(() => import("@docs/examples/basic-dropdown")),
+    slug: "basic-dropdown",
   },
   {
-    slug: "basic-modal",
     Demo: dynamic(() => import("@docs/examples/basic-modal")),
+    slug: "basic-modal",
   },
   {
-    slug: "basic-toast",
     Demo: dynamic(() => import("@docs/examples/basic-toast")),
+    slug: "basic-toast",
   },
   {
-    slug: "book",
     Demo: dynamic(() => import("@docs/examples/book")),
+    slug: "book",
   },
   {
-    slug: "breadcrumb",
     Demo: dynamic(() => import("@docs/examples/breadcrumb")),
+    slug: "breadcrumb",
   },
   {
-    slug: "button-copy",
     Demo: dynamic(() => import("@docs/examples/button-copy")),
+    slug: "button-copy",
   },
   {
-    slug: "checkbox",
     Demo: dynamic(() => import("@docs/examples/checkbox")),
+    slug: "checkbox",
   },
   {
-    slug: "clip-corners-button",
     Demo: dynamic(() => import("@docs/examples/clip-corners-button")),
+    slug: "clip-corners-button",
   },
   {
-    slug: "combobox",
     Demo: dynamic(() => import("@docs/examples/combobox")),
+    slug: "combobox",
   },
   {
-    slug: "context-menu",
     Demo: dynamic(() => import("@docs/examples/context-menu")),
+    slug: "context-menu",
   },
   {
-    slug: "contribution-graph",
     Demo: dynamic(() => import("@docs/examples/contribution-graph")),
+    slug: "contribution-graph",
   },
   {
-    slug: "cursor-follow",
     Demo: dynamic(() => import("@docs/examples/cursor-follow")),
+    slug: "cursor-follow",
   },
   {
-    slug: "dialog",
     Demo: dynamic(() => import("@docs/examples/dialog")),
+    slug: "dialog",
   },
   {
-    slug: "dot-morph-button",
     Demo: dynamic(() => import("@docs/examples/dot-morph-button")),
+    slug: "dot-morph-button",
   },
   {
-    slug: "drawer",
     Demo: dynamic(() => import("@docs/examples/drawer")),
+    slug: "drawer",
   },
   {
-    slug: "dropdown-menu",
     Demo: dynamic(() => import("@docs/examples/dropdown-menu")),
+    slug: "dropdown-menu",
   },
   {
-    slug: "dynamic-island",
     Demo: dynamic(() => import("@docs/examples/dynamic-island")),
+    slug: "dynamic-island",
   },
   {
-    slug: "expandable-cards",
     Demo: dynamic(() => import("@docs/examples/expandable-cards")),
+    slug: "expandable-cards",
   },
   {
-    slug: "exposure-slider",
     Demo: dynamic(() => import("@docs/examples/exposure-slider")),
+    slug: "exposure-slider",
   },
   {
-    slug: "figma-comment",
     Demo: dynamic(() => import("@docs/examples/figma-comment")),
+    slug: "figma-comment",
   },
   {
-    slug: "form",
     Demo: dynamic(() => import("@docs/examples/form")),
+    slug: "form",
   },
   {
-    slug: "github-stars-animation",
     Demo: dynamic(() => import("@docs/examples/github-stars-animation")),
+    slug: "github-stars-animation",
   },
   {
-    slug: "glow-hover-card",
     Demo: dynamic(() => import("@docs/examples/glow-hover-card")),
+    slug: "glow-hover-card",
   },
   {
-    slug: "gooey-popover",
     Demo: dynamic(() => import("@docs/examples/gooey-popover")),
+    slug: "gooey-popover",
   },
   {
-    slug: "grid-loader",
     Demo: dynamic(() => import("@docs/examples/grid-loader")),
+    slug: "grid-loader",
   },
   {
-    slug: "image-metadata-preview",
     Demo: dynamic(() => import("@docs/examples/image-metadata-preview")),
+    slug: "image-metadata-preview",
   },
   {
-    slug: "infinite-slider",
     Demo: dynamic(() => import("@docs/examples/infinite-slider")),
+    slug: "infinite-slider",
   },
   {
-    slug: "interactive-image-selector",
     Demo: dynamic(() => import("@docs/examples/interactive-image-selector")),
+    slug: "interactive-image-selector",
   },
   {
-    slug: "job-listing-component",
     Demo: dynamic(() => import("@docs/examples/job-listing-component")),
+    slug: "job-listing-component",
   },
   {
-    slug: "magnetic-button",
     Demo: dynamic(() => import("@docs/examples/magnetic-button")),
+    slug: "magnetic-button",
   },
   {
-    slug: "morph-surface",
     Demo: dynamic(() => import("@docs/examples/morph-surface")),
+    slug: "morph-surface",
   },
   {
-    slug: "notification-badge",
     Demo: dynamic(() => import("@docs/examples/notification-badge")),
+    slug: "notification-badge",
   },
   {
-    slug: "number-flow",
     Demo: dynamic(() => import("@docs/examples/number-flow")),
+    slug: "number-flow",
   },
   {
-    slug: "pagination",
     Demo: dynamic(() => import("@docs/examples/pagination")),
+    slug: "pagination",
   },
   {
-    slug: "phototab",
     Demo: dynamic(() => import("@docs/examples/phototab")),
+    slug: "phototab",
   },
   {
-    slug: "power-off-slide",
     Demo: dynamic(() => import("@docs/examples/power-off-slide")),
+    slug: "power-off-slide",
   },
   {
-    slug: "price-flow",
     Demo: dynamic(() => import("@docs/examples/price-flow")),
+    slug: "price-flow",
   },
   {
-    slug: "product-card",
     Demo: dynamic(() => import("@docs/examples/product-card")),
+    slug: "product-card",
   },
   {
-    slug: "radio-group",
     Demo: dynamic(() => import("@docs/examples/radio-group")),
+    slug: "radio-group",
   },
   {
-    slug: "reveal-text",
     Demo: dynamic(() => import("@docs/examples/reveal-text")),
+    slug: "reveal-text",
   },
   {
-    slug: "reviews-carousel",
     Demo: dynamic(() => import("@docs/examples/reviews-carousel")),
+    slug: "reviews-carousel",
   },
   {
-    slug: "rich-popover",
     Demo: dynamic(() => import("@docs/examples/rich-popover")),
+    slug: "rich-popover",
   },
   {
-    slug: "scramble-hover",
     Demo: dynamic(() => import("@docs/examples/scramble-hover")),
+    slug: "scramble-hover",
   },
   {
-    slug: "scrollable-card-stack",
     Demo: dynamic(() => import("@docs/examples/scrollable-card-stack")),
+    slug: "scrollable-card-stack",
   },
   {
-    slug: "scrubber",
     Demo: dynamic(() => import("@docs/examples/scrubber")),
+    slug: "scrubber",
   },
   {
-    slug: "searchable-dropdown",
     Demo: dynamic(() => import("@docs/examples/searchable-dropdown")),
+    slug: "searchable-dropdown",
   },
   {
-    slug: "select",
     Demo: dynamic(() => import("@docs/examples/select")),
+    slug: "select",
   },
   {
-    slug: "siri-orb",
     Demo: dynamic(() => import("@docs/examples/siri-orb")),
+    slug: "siri-orb",
   },
   {
-    slug: "skeleton-loader",
     Demo: dynamic(() => import("@docs/examples/skeleton-loader")),
+    slug: "skeleton-loader",
   },
   {
-    slug: "smooth-button",
     Demo: dynamic(() => import("@docs/examples/smooth-button")),
+    slug: "smooth-button",
   },
   {
-    slug: "social-selector",
     Demo: dynamic(() => import("@docs/examples/social-selector")),
+    slug: "social-selector",
   },
   {
-    slug: "switchboard-card",
     Demo: dynamic(() => import("@docs/examples/switchboard-card")),
+    slug: "switchboard-card",
   },
   {
-    slug: "typewriter-text",
     Demo: dynamic(() => import("@docs/examples/typewriter-text")),
+    slug: "typewriter-text",
   },
   {
-    slug: "user-account-avatar",
     Demo: dynamic(() => import("@docs/examples/user-account-avatar")),
+    slug: "user-account-avatar",
   },
   {
-    slug: "wave-text",
     Demo: dynamic(() => import("@docs/examples/wave-text")),
+    slug: "wave-text",
   },
 ];
 
@@ -804,9 +804,9 @@ function LazyDemo({ Demo }: { Demo: ComponentType }) {
 const BOARD_COLUMN_COUNT = 5;
 const BOARD_COLUMNS: (typeof DEMO_CARDS)[] = Array.from(
   { length: BOARD_COLUMN_COUNT },
-  (_, index) =>
+  (_, columnIndex) =>
     DEMO_CARDS.filter(
-      (_, cardIndex) => cardIndex % BOARD_COLUMN_COUNT === index
+      (_card, cardPosition) => cardPosition % BOARD_COLUMN_COUNT === columnIndex
     )
 );
 
@@ -852,7 +852,7 @@ function PreviewCanvas({
     [palette, mode, state]
   );
   const panRef = useRef<HTMLDivElement>(null);
-  const panState = useRef({ active: false, x: 0, y: 0, left: 0, top: 0 });
+  const panState = useRef({ active: false, left: 0, top: 0, x: 0, y: 0 });
   const [panning, setPanning] = useState(false);
 
   // Start centered on the board so the user can pan in any direction
@@ -893,10 +893,10 @@ function PreviewCanvas({
     }
     panState.current = {
       active: true,
-      x: event.clientX,
-      y: event.clientY,
       left: el.scrollLeft,
       top: el.scrollTop,
+      x: event.clientX,
+      y: event.clientY,
     };
   }
 
@@ -934,8 +934,11 @@ function PreviewCanvas({
     const matches = DEMO_CARDS.filter(({ slug }) =>
       demoTitle(slug).toLowerCase().includes(normalizedQuery)
     );
-    return Array.from({ length: BOARD_COLUMN_COUNT }, (_, index) =>
-      matches.filter((_, cardIndex) => cardIndex % BOARD_COLUMN_COUNT === index)
+    return Array.from({ length: BOARD_COLUMN_COUNT }, (_, columnIndex) =>
+      matches.filter(
+        (_card, cardPosition) =>
+          cardPosition % BOARD_COLUMN_COUNT === columnIndex
+      )
     );
   }, [normalizedQuery]);
 

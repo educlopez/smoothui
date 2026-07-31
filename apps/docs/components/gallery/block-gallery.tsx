@@ -78,7 +78,7 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
                   }
             }
           >
-            {cover && (
+            {cover ? (
               <Image
                 alt=""
                 className="w-full"
@@ -86,7 +86,7 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
                 sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
                 src={cover}
               />
-            )}
+            ) : null}
             {/* Spans, not a heading: the docs stylesheet sizes every `h2` on the
                 page and would blow the card title up to article scale. The link
                 already carries the full accessible name. */}

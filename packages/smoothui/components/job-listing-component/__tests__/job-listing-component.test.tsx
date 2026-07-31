@@ -5,13 +5,13 @@ import JobListingComponent, { type Job } from "../index";
 const jobs: Job[] = [
   {
     company: "SmoothUI",
-    title: "Frontend Engineer",
     job_description: "Build animated UIs.",
     job_time: "Full-time",
     location: "Remote",
     logo: <span>S</span>,
     remote: "Yes",
     salary: "100k",
+    title: "Frontend Engineer",
   },
 ];
 

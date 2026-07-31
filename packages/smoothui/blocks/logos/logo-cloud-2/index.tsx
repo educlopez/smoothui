@@ -34,14 +34,14 @@ export function LogoCloudAnimated({
   title = "Trusted by the world's most innovative teams",
   description = "Join thousands of developers and designers who are already building with Smoothui",
   logos = [
-    { name: "Canpoy", logo: Canpoy, url: "https://canpoy.com" },
-    { name: "Canva", logo: Canva, url: "https://canva.com" },
-    { name: "Casetext", logo: Casetext, url: "https://casetext.com" },
-    { name: "Strava", logo: Strava, url: "https://strava.com" },
-    { name: "Descript", logo: Descript, url: "https://descript.com" },
-    { name: "Duolingo", logo: Duolingo, url: "https://duolingo.com" },
-    { name: "Faire", logo: Faire, url: "https://faire.com" },
-    { name: "Clearbit", logo: Clearbit, url: "https://clearbit.com" },
+    { logo: Canpoy, name: "Canpoy", url: "https://canpoy.com" },
+    { logo: Canva, name: "Canva", url: "https://canva.com" },
+    { logo: Casetext, name: "Casetext", url: "https://casetext.com" },
+    { logo: Strava, name: "Strava", url: "https://strava.com" },
+    { logo: Descript, name: "Descript", url: "https://descript.com" },
+    { logo: Duolingo, name: "Duolingo", url: "https://duolingo.com" },
+    { logo: Faire, name: "Faire", url: "https://faire.com" },
+    { logo: Clearbit, name: "Clearbit", url: "https://clearbit.com" },
   ],
 }: LogoCloudAnimatedProps) {
   const shouldReduceMotion = useReducedMotion();
@@ -81,10 +81,10 @@ export function LogoCloudAnimated({
                 ? { duration: 0 }
                 : {
                     x: {
-                      repeat: Number.POSITIVE_INFINITY,
-                      repeatType: "loop",
                       duration: ANIMATION_DURATION,
                       ease: "linear",
+                      repeat: Number.POSITIVE_INFINITY,
+                      repeatType: "loop",
                     },
                   }
             }
@@ -110,8 +110,8 @@ export function LogoCloudAnimated({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        duration: 0.4,
                         delay: index * STAGGER_DELAY,
+                        duration: 0.4,
                       }
                 }
               >
@@ -120,12 +120,12 @@ export function LogoCloudAnimated({
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring" as const, stiffness: SPRING_STIFFNESS }
+                      : { stiffness: SPRING_STIFFNESS, type: "spring" as const }
                   }
                   whileHover={
                     shouldReduceMotion
                       ? {}
-                      : { scale: HOVER_SCALE, rotate: HOVER_ROTATE }
+                      : { rotate: HOVER_ROTATE, scale: HOVER_SCALE }
                   }
                 >
                   <logo.logo />
@@ -152,7 +152,7 @@ export function LogoCloudAnimated({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.4, delay: index * STAGGER_DELAY }
+                    : { delay: index * STAGGER_DELAY, duration: 0.4 }
                 }
               >
                 <motion.div
@@ -160,12 +160,12 @@ export function LogoCloudAnimated({
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring" as const, stiffness: SPRING_STIFFNESS }
+                      : { stiffness: SPRING_STIFFNESS, type: "spring" as const }
                   }
                   whileHover={
                     shouldReduceMotion
                       ? {}
-                      : { scale: HOVER_SCALE, rotate: HOVER_ROTATE }
+                      : { rotate: HOVER_ROTATE, scale: HOVER_SCALE }
                   }
                 >
                   <logo.logo />
@@ -192,7 +192,7 @@ export function LogoCloudAnimated({
                 transition={
                   shouldReduceMotion
                     ? { duration: 0 }
-                    : { duration: 0.4, delay: index * STAGGER_DELAY }
+                    : { delay: index * STAGGER_DELAY, duration: 0.4 }
                 }
               >
                 <motion.div
@@ -200,12 +200,12 @@ export function LogoCloudAnimated({
                   transition={
                     shouldReduceMotion
                       ? { duration: 0 }
-                      : { type: "spring" as const, stiffness: SPRING_STIFFNESS }
+                      : { stiffness: SPRING_STIFFNESS, type: "spring" as const }
                   }
                   whileHover={
                     shouldReduceMotion
                       ? {}
-                      : { scale: HOVER_SCALE, rotate: HOVER_ROTATE }
+                      : { rotate: HOVER_ROTATE, scale: HOVER_SCALE }
                   }
                 >
                   <logo.logo />

@@ -12,10 +12,10 @@ export default function FigmaCommentDemo() {
         avatarUrl={getImageKitUrl(
           "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
           {
-            width: 48,
+            format: "auto",
             height: 48,
             quality: 85,
-            format: "auto",
+            width: 48,
           }
         )}
         message="What happens if we adjust this to handle a light and dark mode? I'm not sure if we're ready to handle..."

@@ -39,7 +39,7 @@ export default function SearchableDropdown({
   const buttonRef = useRef<HTMLButtonElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [position, setPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [position, setPosition] = useState({ left: 0, top: 0, width: 0 });
   const shouldReduceMotion = useReducedMotion();
 
   const filteredItems = useMemo(() => {
@@ -56,10 +56,10 @@ export default function SearchableDropdown({
     // Early exit optimization: use for loop instead of filter for better performance
     for (let i = 0; i < itemsLength; i++) {
       const item = items[i];
-      const label = item.label.toLowerCase();
+      const itemLabel = item.label.toLowerCase();
       const description = item.description?.toLowerCase();
 
-      if (label.includes(query) || description?.includes(query)) {
+      if (itemLabel.includes(query) || description?.includes(query)) {
         results.push(item);
       }
     }
@@ -83,8 +83,8 @@ export default function SearchableDropdown({
     if (!isOpen && buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
       setPosition({
-        top: rect.bottom + 4,
         left: rect.left,
+        top: rect.bottom + 4,
         width: rect.width,
       });
     }
@@ -106,8 +106,8 @@ export default function SearchableDropdown({
       if (buttonRef.current) {
         const rect = buttonRef.current.getBoundingClientRect();
         setPosition({
-          top: rect.bottom + 4,
           left: rect.left,
+          top: rect.bottom + 4,
           width: rect.width,
         });
       }
@@ -205,13 +205,13 @@ export default function SearchableDropdown({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 1, y: 0, scaleY: 1 }
+                : { opacity: 1, scaleY: 1, y: 0 }
             }
             className="fixed z-50 origin-top overflow-hidden rounded-lg border bg-background/95 shadow-lg backdrop-blur-md"
             exit={
@@ -219,30 +219,30 @@ export default function SearchableDropdown({
                 ? { opacity: 0, transition: { duration: 0 } }
                 : {
                     opacity: 0,
-                    y: -10,
                     scaleY: 0.8,
                     transition: { duration: 0.15 },
+                    y: -10,
                   }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, y: -10, scaleY: 0.8 }
+                : { opacity: 0, scaleY: 0.8, y: -10 }
             }
             style={{
-              top: `${position.top}px`,
               left: `${position.left}px`,
+              top: `${position.top}px`,
               width: `${position.width}px`,
             }}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring" as const,
-                    stiffness: 400,
                     damping: 30,
-                    mass: 0.8,
                     duration: 0.25,
+                    mass: 0.8,
+                    stiffness: 400,
+                    type: "spring" as const,
                   }
             }
           >
@@ -260,11 +260,11 @@ export default function SearchableDropdown({
                   shouldReduceMotion
                     ? { duration: 0 }
                     : {
-                        type: "spring" as const,
-                        stiffness: 400,
                         damping: 25,
                         delay: 0.05,
                         duration: 0.2,
+                        stiffness: 400,
+                        type: "spring" as const,
                       }
                 }
               >
@@ -286,7 +286,7 @@ export default function SearchableDropdown({
                   value={searchQuery}
                 />
                 <AnimatePresence>
-                  {searchQuery && (
+                  {searchQuery ? (
                     <motion.button
                       animate={{ opacity: 1 }}
                       aria-label="Clear search"
@@ -295,15 +295,15 @@ export default function SearchableDropdown({
                       initial={{ opacity: 0 }}
                       onClick={handleClearSearch}
                       transition={{
-                        type: "spring" as const,
-                        stiffness: 400,
                         damping: 25,
+                        stiffness: 400,
+                        type: "spring" as const,
                       }}
                       type="button"
                     >
                       <X aria-hidden="true" className="h-4 w-4" />
                     </motion.button>
-                  )}
+                  ) : null}
                 </AnimatePresence>
               </motion.div>
             </div>
@@ -321,7 +321,7 @@ export default function SearchableDropdown({
                       animate={
                         shouldReduceMotion
                           ? { opacity: 1 }
-                          : { opacity: 1, x: 0, filter: "blur(0px)" }
+                          : { filter: "blur(0px)", opacity: 1, x: 0 }
                       }
                       aria-selected={
                         selectedItem?.id === item.id || index === focusedIndex
@@ -330,12 +330,12 @@ export default function SearchableDropdown({
                       exit={
                         shouldReduceMotion
                           ? { opacity: 0, transition: { duration: 0 } }
-                          : { opacity: 0, x: -10, filter: "blur(4px)" }
+                          : { filter: "blur(4px)", opacity: 0, x: -10 }
                       }
                       initial={
                         shouldReduceMotion
                           ? { opacity: 1 }
-                          : { opacity: 0, x: -10, filter: "blur(4px)" }
+                          : { filter: "blur(4px)", opacity: 0, x: -10 }
                       }
                       key={item.id}
                       layout
@@ -344,12 +344,12 @@ export default function SearchableDropdown({
                         shouldReduceMotion
                           ? { duration: 0 }
                           : {
-                              type: "spring" as const,
-                              stiffness: 400,
                               damping: 28,
-                              mass: 0.6,
                               delay: index * 0.02,
                               duration: 0.2,
+                              mass: 0.6,
+                              stiffness: 400,
+                              type: "spring" as const,
                             }
                       }
                     >
@@ -364,16 +364,16 @@ export default function SearchableDropdown({
                         onMouseEnter={() => setFocusedIndex(index)}
                         type="button"
                       >
-                        {item.icon && (
+                        {item.icon ? (
                           <span className="mr-3 shrink-0">{item.icon}</span>
-                        )}
+                        ) : null}
                         <div className="min-w-0 flex-1">
                           <span className="block truncate">{item.label}</span>
-                          {item.description && (
+                          {item.description ? (
                             <span className="block truncate text-muted-foreground text-xs">
                               {item.description}
                             </span>
-                          )}
+                          ) : null}
                         </div>
 
                         {selectedItem?.id === item.id && (
@@ -385,11 +385,11 @@ export default function SearchableDropdown({
                               shouldReduceMotion
                                 ? { duration: 0 }
                                 : {
-                                    type: "spring" as const,
-                                    stiffness: 400,
                                     damping: 25,
-                                    mass: 0.5,
                                     duration: 0.2,
+                                    mass: 0.5,
+                                    stiffness: 400,
+                                    type: "spring" as const,
                                   }
                             }
                           >
@@ -423,10 +423,10 @@ export default function SearchableDropdown({
                       shouldReduceMotion
                         ? { duration: 0 }
                         : {
-                            type: "spring" as const,
-                            stiffness: 400,
                             damping: 25,
                             duration: 0.2,
+                            stiffness: 400,
+                            type: "spring" as const,
                           }
                     }
                   >
@@ -437,7 +437,7 @@ export default function SearchableDropdown({
             </ul>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -455,7 +455,7 @@ export default function SearchableDropdown({
           type="button"
         >
           <span className="block truncate">
-            {selectedItem ? selectedItem.label : label}
+            {String(selectedItem ? selectedItem.label : label)}
           </span>
           <motion.div
             animate={{ rotate: isOpen ? ROTATION_ANGLE_OPEN : 0 }}
@@ -463,10 +463,10 @@ export default function SearchableDropdown({
               shouldReduceMotion
                 ? { duration: 0 }
                 : {
-                    type: "spring" as const,
-                    stiffness: 400,
                     damping: 25,
                     duration: 0.2,
+                    stiffness: 400,
+                    type: "spring" as const,
                   }
             }
           >

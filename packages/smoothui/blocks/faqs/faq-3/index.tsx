@@ -17,34 +17,34 @@ export interface FaqSearchableProps {
 
 const defaultFaqs = [
   {
-    question: "How do I get started with SmoothUI?",
     answer:
       "Getting started is easy! Simply install the package via npm or pnpm, import the components you need, and start building. We provide comprehensive documentation and examples to help you get up and running quickly.",
+    question: "How do I get started with SmoothUI?",
   },
   {
-    question: "Is SmoothUI free to use?",
     answer:
       "Yes! SmoothUI is completely free and open source. You can use it in both personal and commercial projects without any restrictions. We believe in making beautiful UI components accessible to everyone.",
+    question: "Is SmoothUI free to use?",
   },
   {
-    question: "What are the system requirements?",
     answer:
       "SmoothUI requires React 18 or later and works with Next.js 13+. You'll also need Node.js 18+ and a modern browser that supports CSS animations and transforms.",
+    question: "What are the system requirements?",
   },
   {
-    question: "Can I customize the animations?",
     answer:
       "Absolutely! All animations are fully customizable. You can modify timing, easing, and effects using Motion (Framer Motion) props. We also respect the prefers-reduced-motion setting for accessibility.",
+    question: "Can I customize the animations?",
   },
   {
-    question: "How do I report bugs or issues?",
     answer:
       "You can report bugs by opening an issue on our GitHub repository. Please include a detailed description, steps to reproduce, and your environment details. We actively monitor and respond to issues.",
+    question: "How do I report bugs or issues?",
   },
   {
-    question: "Is there enterprise support available?",
     answer:
       "Yes, we offer enterprise support packages that include priority bug fixes, dedicated support channels, custom component development, and SLA guarantees. Contact us for more information.",
+    question: "Is there enterprise support available?",
   },
 ];
 
@@ -77,11 +77,11 @@ export function FaqSearchable({
 
   const springTransition = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0.05 };
+    : { bounce: 0.05, duration: 0.25, type: "spring" as const };
 
   const contentTransition = shouldReduceMotion
     ? { duration: 0 }
-    : { type: "spring" as const, duration: 0.25, bounce: 0 };
+    : { bounce: 0, duration: 0.25, type: "spring" as const };
 
   return (
     <section className="py-20">
@@ -156,7 +156,7 @@ export function FaqSearchable({
                     animate={
                       shouldReduceMotion
                         ? { opacity: 1 }
-                        : { opacity: 1, y: 0, scale: 1 }
+                        : { opacity: 1, scale: 1, y: 0 }
                     }
                     className="group overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
                     exit={
@@ -167,7 +167,7 @@ export function FaqSearchable({
                     initial={
                       shouldReduceMotion
                         ? { opacity: 1 }
-                        : { opacity: 0, y: 20, scale: 0.95 }
+                        : { opacity: 0, scale: 0.95, y: 20 }
                     }
                     key={faq.question}
                     layout={!shouldReduceMotion}

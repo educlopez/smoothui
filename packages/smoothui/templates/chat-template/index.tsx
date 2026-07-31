@@ -10,7 +10,7 @@ import ChatThread from "./chat-thread";
 const NEW_CHAT_ID = "__new__";
 
 /** No overshoot: a drawer that bounces past its edge reads as a bug. */
-const DRAWER_SPRING = { type: "spring" as const, duration: 0.3, bounce: 0 };
+const DRAWER_SPRING = { bounce: 0, duration: 0.3, type: "spring" as const };
 const SCRIM_FADE = { duration: 0.2 };
 
 export type ChatTemplateProps = {
@@ -77,7 +77,7 @@ const ChatTemplate = ({
           key, and without one it never runs the enter or the exit — the panel
           just sat parked off-screen. */}
       <AnimatePresence>
-        {isDrawerOpen && (
+        {isDrawerOpen ? (
           <>
             <motion.button
               animate={{ opacity: 1 }}
@@ -115,7 +115,7 @@ const ChatTemplate = ({
               />
             </motion.div>
           </>
-        )}
+        ) : null}
       </AnimatePresence>
 
       <ChatThread

@@ -7,9 +7,9 @@ describe("UserAccountAvatar", () => {
     const { container } = render(
       <UserAccountAvatar
         user={{
-          name: "Test User",
-          email: "test@example.com",
           avatar: "/avatar.jpg",
+          email: "test@example.com",
+          name: "Test User",
         }}
       />
     );

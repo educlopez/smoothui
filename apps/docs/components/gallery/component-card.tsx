@@ -23,7 +23,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
       transition={
         shouldReduceMotion
           ? { duration: 0 }
-          : { type: "spring", duration: 0.25, bounce: 0.1 }
+          : { bounce: 0.1, duration: 0.25, type: "spring" }
       }
     >
       {/* Not a wrapper around the preview: demos contain their own links, and
@@ -44,7 +44,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
         >
           {component.title}
         </Link>
-        {component.installer && (
+        {component.installer ? (
           <div className="flex shrink-0 items-center gap-1.5">
             <AddToKitButton
               size="xs"
@@ -53,7 +53,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             />
             <InstallCopyButton slug={component.installer} />
           </div>
-        )}
+        ) : null}
       </footer>
     </motion.div>
   );

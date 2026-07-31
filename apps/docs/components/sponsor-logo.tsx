@@ -27,7 +27,7 @@ export function SponsorLogo({
     return (
       <div
         className={`inline-flex shrink-0 items-center justify-center ${className}`}
-        style={{ width, height, ...style }}
+        style={{ height, width, ...style }}
       >
         <SVGComponent
           className="h-full w-full"

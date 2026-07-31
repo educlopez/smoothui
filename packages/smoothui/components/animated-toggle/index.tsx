@@ -31,29 +31,29 @@ export interface AnimatedToggleProps {
 }
 
 const SPRING = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 
 const SIZES = {
-  sm: {
-    track: "w-9 h-5",
-    thumb: "size-4",
-    thumbTranslate: 16,
-    icon: "size-2.5",
-  },
-  md: {
-    track: "w-11 h-6",
-    thumb: "size-5",
-    thumbTranslate: 20,
-    icon: "size-3",
-  },
   lg: {
-    track: "w-[52px] h-7",
+    icon: "size-3.5",
     thumb: "size-6",
     thumbTranslate: 24,
-    icon: "size-3.5",
+    track: "w-[52px] h-7",
+  },
+  md: {
+    icon: "size-3",
+    thumb: "size-5",
+    thumbTranslate: 20,
+    track: "w-11 h-6",
+  },
+  sm: {
+    icon: "size-2.5",
+    thumb: "size-4",
+    thumbTranslate: 16,
+    track: "w-9 h-5",
   },
 };
 
@@ -136,8 +136,8 @@ const AnimatedToggle = ({
                 x: getThumbTransform(),
               }
             : {
-                x: getThumbTransform(),
                 borderRadius: getThumbBorderRadius(),
+                x: getThumbTransform(),
               }
         }
         className={cn(
@@ -156,7 +156,7 @@ const AnimatedToggle = ({
               animate={
                 shouldReduceMotion
                   ? { opacity: 1 }
-                  : { opacity: 1, scale: 1, rotate: 0 }
+                  : { opacity: 1, rotate: 0, scale: 1 }
               }
               className={cn(
                 "flex items-center justify-center text-muted-foreground",
@@ -165,12 +165,12 @@ const AnimatedToggle = ({
               exit={
                 shouldReduceMotion
                   ? { opacity: 0, transition: { duration: 0 } }
-                  : { opacity: 0, scale: 0.5, rotate: -90 }
+                  : { opacity: 0, rotate: -90, scale: 0.5 }
               }
               initial={
                 shouldReduceMotion
                   ? { opacity: 0 }
-                  : { opacity: 0, scale: 0.5, rotate: 90 }
+                  : { opacity: 0, rotate: 90, scale: 0.5 }
               }
               key={checked ? "on" : "off"}
               transition={shouldReduceMotion ? { duration: 0 } : SPRING}

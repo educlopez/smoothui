@@ -5,9 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
 const SPRING_DEFAULT = {
-  type: "spring" as const,
-  duration: 0.25,
   bounce: 0.1,
+  duration: 0.25,
+  type: "spring" as const,
 };
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const LINE_STAGGER = 0.02;
@@ -36,8 +36,8 @@ export type AIDiffProps = {
 
 const PREFIX: Record<AIDiffLineKind, string> = {
   added: "+",
-  removed: "-",
   context: " ",
+  removed: "-",
 };
 
 /**
@@ -103,11 +103,11 @@ const AIDiff = ({
       }
     >
       <div className="flex items-center gap-2 border-border border-b px-3 py-2">
-        {title && (
+        {title ? (
           <span className="min-w-0 truncate font-mono text-foreground text-xs">
             {title}
           </span>
-        )}
+        ) : null}
         <span className="ml-auto flex shrink-0 items-center gap-1.5 text-xs tabular-nums">
           <span className="text-[oklch(58%_0.17_150)]">+{added}</span>
           <span className="text-destructive">-{removed}</span>
@@ -151,9 +151,9 @@ const AIDiff = ({
                     shouldReduceMotion
                       ? { duration: 0 }
                       : {
+                          delay: index * LINE_STAGGER,
                           duration: WIPE_DURATION,
                           ease: EASE_OUT,
-                          delay: index * LINE_STAGGER,
                         }
                   }
                 >
@@ -184,7 +184,7 @@ const AIDiff = ({
 
       {(onAccept || onReject) && !decision && (
         <div className="flex items-center justify-end gap-2 border-border border-t px-3 py-2">
-          {onReject && (
+          {onReject ? (
             <button
               className="cursor-pointer rounded-lg px-2.5 py-1 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
               onClick={reject}
@@ -192,8 +192,8 @@ const AIDiff = ({
             >
               Reject
             </button>
-          )}
-          {onAccept && (
+          ) : null}
+          {onAccept ? (
             <button
               className="cursor-pointer rounded-lg bg-foreground px-2.5 py-1 text-background text-xs"
               onClick={accept}
@@ -201,11 +201,11 @@ const AIDiff = ({
             >
               Accept
             </button>
-          )}
+          ) : null}
         </div>
       )}
 
-      {decision && (
+      {decision ? (
         <motion.p
           animate={{ opacity: 1 }}
           className="border-border border-t px-3 py-2 text-muted-foreground text-xs capitalize"
@@ -218,7 +218,7 @@ const AIDiff = ({
         >
           {decision}
         </motion.p>
-      )}
+      ) : null}
     </motion.div>
   );
 };
