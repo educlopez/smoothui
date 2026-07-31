@@ -267,11 +267,11 @@ export default function AnimatedStepper({
                   >
                     {step.label}
                   </p>
-                  {step.description && (
+                  {step.description ? (
                     <p className="text-muted-foreground text-xs">
                       {step.description}
                     </p>
-                  )}
+                  ) : null}
                 </div>
               )}
 
@@ -285,11 +285,11 @@ export default function AnimatedStepper({
                   >
                     {step.label}
                   </p>
-                  {step.description && (
+                  {step.description ? (
                     <p className="text-muted-foreground text-xs">
                       {step.description}
                     </p>
-                  )}
+                  ) : null}
                 </div>
               )}
 

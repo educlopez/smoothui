@@ -92,7 +92,7 @@ export default function DropdownMenu({
       return (
         <DropdownMenuSub key={item.key}>
           <DropdownMenuSubTrigger disabled={item.disabled}>
-            {item.icon && <span className="mr-2">{item.icon}</span>}
+            {item.icon ? <span className="mr-2">{item.icon}</span> : null}
             {item.label}
           </DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
@@ -120,11 +120,11 @@ export default function DropdownMenu({
           onSelect={item.onSelect}
           variant={item.variant}
         >
-          {item.icon && <span className="mr-2">{item.icon}</span>}
+          {item.icon ? <span className="mr-2">{item.icon}</span> : null}
           {item.label}
-          {item.shortcut && (
+          {item.shortcut ? (
             <DropdownMenuShortcut>{item.shortcut}</DropdownMenuShortcut>
-          )}
+          ) : null}
         </DropdownMenuItem>
       </motion.div>
     );

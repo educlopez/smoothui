@@ -117,7 +117,7 @@ const AICitation = ({
       </a>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.span
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="absolute bottom-full left-1/2 z-50 mb-1.5 block rounded-xl border border-border bg-background p-3 text-left align-baseline shadow-lg"
@@ -159,13 +159,13 @@ const AICitation = ({
               {title}
             </span>
 
-            {description && (
+            {description ? (
               <span className="mt-1 block text-muted-foreground text-xs leading-relaxed">
                 {description}
               </span>
-            )}
+            ) : null}
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
     </span>
   );

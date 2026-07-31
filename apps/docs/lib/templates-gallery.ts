@@ -24,7 +24,7 @@ export const getTemplates = (): TemplateMeta[] => {
     }
 
     const slug = page.slugs.at(-1);
-    const installer = page.data.installer;
+    const { installer } = page.data;
 
     if (!(slug && installer) || page.slugs.length < 2) {
       continue;

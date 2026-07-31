@@ -421,7 +421,7 @@ export default function AppDownloadStack({
             </motion.div>
           )}
 
-          {downloadComplete && (
+          {downloadComplete ? (
             <motion.div
               animate={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
@@ -442,7 +442,7 @@ export default function AppDownloadStack({
                 Download Complete!
               </span>
             </motion.div>
-          )}
+          ) : null}
         </AnimatePresence>
       </motion.div>
     </div>

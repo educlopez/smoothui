@@ -201,7 +201,7 @@ export const ChatThread = ({
       <header className="flex items-center gap-3 border-border/60 border-b px-4 py-2.5">
         {/* The only way into the conversation list on a phone, where the sidebar
             has no column of its own. */}
-        {onOpenSidebar && (
+        {onOpenSidebar ? (
           <button
             aria-label="Open conversations"
             className="-ml-1 flex cursor-pointer items-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
@@ -210,7 +210,7 @@ export const ChatThread = ({
           >
             <PanelLeftOpen aria-hidden="true" size={16} />
           </button>
-        )}
+        ) : null}
         <h2 className="min-w-0 flex-1 truncate font-medium text-sm">{title}</h2>
         <AIContextMeter
           breakdown={breakdown}
@@ -370,13 +370,13 @@ const ChatTurnView = ({
         timestamp={turn.timestamp}
       >
         <div className="flex flex-col gap-3">
-          {turn.reasoning && (
+          {turn.reasoning ? (
             <AIReasoning collapseWhenDone duration={4}>
               {turn.reasoning}
             </AIReasoning>
-          )}
+          ) : null}
 
-          {turn.tool && (
+          {turn.tool ? (
             <AIToolCall
               args={<code>{turn.tool.args}</code>}
               name={turn.tool.name}
@@ -384,17 +384,17 @@ const ChatTurnView = ({
               status="success"
               summary={turn.tool.summary}
             />
-          )}
+          ) : null}
 
-          {turn.tasks && (
+          {turn.tasks ? (
             <AITaskList label={turn.tasks.label} tasks={turn.tasks.tasks} />
-          )}
+          ) : null}
 
-          {turn.diff && (
+          {turn.diff ? (
             <AIDiff lines={turn.diff.lines} title={turn.diff.title} />
-          )}
+          ) : null}
 
-          {turn.artifact && (
+          {turn.artifact ? (
             <AIArtifact
               code={
                 <pre className="whitespace-pre-wrap">{turn.artifact.code}</pre>
@@ -403,17 +403,17 @@ const ChatTurnView = ({
               preview={<SummerBannerPreview />}
               title={turn.artifact.title}
             />
-          )}
+          ) : null}
 
-          {turn.text && (
+          {turn.text ? (
             <AIResponse citations={turn.citations} text={turn.text} />
-          )}
+          ) : null}
 
-          {turn.sources && <AISources sources={turn.sources} />}
+          {turn.sources ? <AISources sources={turn.sources} /> : null}
         </div>
       </AIMessage>
 
-      {turn.approval && (
+      {turn.approval ? (
         <AIApproval
           onDecide={() => {
             // Demo only.
@@ -421,15 +421,15 @@ const ChatTurnView = ({
           options={turn.approval.options}
           question={turn.approval.question}
         />
-      )}
+      ) : null}
 
-      {turn.suggestions && (
+      {turn.suggestions ? (
         <AISuggestions
           label="Follow-ups"
           onSelect={(suggestion) => onSuggestion(suggestion.label)}
           suggestions={turn.suggestions}
         />
-      )}
+      ) : null}
     </div>
   );
 };
@@ -497,7 +497,7 @@ const ModelPicker = ({
         <ChevronDown aria-hidden="true" size={12} />
       </button>
 
-      {isOpen && (
+      {isOpen ? (
         <div
           className="absolute bottom-full left-0 z-10 mb-2 w-52 overflow-hidden rounded-xl border border-border/60 bg-background p-1 shadow-black/10 shadow-lg"
           role="menu"
@@ -525,7 +525,7 @@ const ModelPicker = ({
             </button>
           ))}
         </div>
-      )}
+      ) : null}
     </div>
   );
 };

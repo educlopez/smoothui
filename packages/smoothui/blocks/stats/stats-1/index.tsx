@@ -113,9 +113,9 @@ export function StatsGrid({
               <h3 className="mb-2 font-semibold text-foreground text-lg">
                 {stat.label}
               </h3>
-              {stat.description && (
+              {stat.description ? (
                 <p className="text-foreground/70 text-sm">{stat.description}</p>
-              )}
+              ) : null}
               {/* Hover effect background */}
               <motion.div
                 className="absolute inset-0 bg-gradient-to-br from-brand/5 to-transparent opacity-0 group-hover:opacity-100"

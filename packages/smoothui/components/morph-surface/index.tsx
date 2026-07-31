@@ -212,7 +212,7 @@ function Feedback({
       }}
     >
       <AnimatePresence>
-        {showFeedback && (
+        {showFeedback ? (
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="flex h-full flex-col p-1"
@@ -257,10 +257,10 @@ function Feedback({
               spellCheck={false}
             />
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
       <AnimatePresence>
-        {showFeedback && (
+        {showFeedback ? (
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
             className="absolute top-2 left-3"
@@ -281,7 +281,7 @@ function Feedback({
               size="24px"
             />
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </form>
   );

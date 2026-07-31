@@ -194,11 +194,11 @@ export function LoadingDots({
           </g>
         </g>
       </svg>
-      {showText && (
+      {showText ? (
         <p className="animate-pulse font-medium text-foreground text-sm">
           {funnyMessages[messageIndex]}
         </p>
-      )}
+      ) : null}
     </div>
   );
 }

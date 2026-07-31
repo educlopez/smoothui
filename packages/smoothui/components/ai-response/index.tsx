@@ -150,9 +150,9 @@ const AIResponse = ({
           </motion.span>
         );
       })}
-      {isStreaming && (
+      {isStreaming ? (
         <AIResponseCaret shouldReduceMotion={shouldReduceMotion} />
-      )}
+      ) : null}
     </p>
   );
 };

@@ -43,11 +43,11 @@ const AppDownloadStackDemo = () => {
 
   return (
     <>
-      {notification && (
+      {notification ? (
         <div className="absolute top-4 right-4 z-50 rounded-lg border bg-background px-4 py-2 text-sm shadow-lg">
           {notification}
         </div>
-      )}
+      ) : null}
       <AppDownloadStack
         apps={demoApps}
         isExpanded={expanded}

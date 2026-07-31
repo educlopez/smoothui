@@ -212,7 +212,7 @@ const StripeContent = ({
         >
           {title}
         </span>
-        {logo && <div>{logo}</div>}
+        {logo ? <div>{logo}</div> : null}
       </div>
     </div>
   </>
@@ -256,7 +256,7 @@ const SimpleContent = ({
       >
         {title}
       </span>
-      {logo && <div>{logo}</div>}
+      {logo ? <div>{logo}</div> : null}
     </div>
   </div>
 );

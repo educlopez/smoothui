@@ -68,7 +68,7 @@ export default function BasicToast({
 
   const toastContent = (
     <AnimatePresence>
-      {visible && (
+      {visible ? (
         <motion.div
           animate={
             shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, x: 0 }
@@ -108,7 +108,7 @@ export default function BasicToast({
             <X className="h-4 w-4" />
           </button>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 
@@ -159,14 +159,14 @@ export function ToastDemo() {
       </div>
 
       <AnimatePresence>
-        {showToast && (
+        {showToast ? (
           <BasicToast
             duration={3000}
             message={`This is a ${toastType} message example!`}
             onClose={() => setShowToast(false)}
             type={toastType}
           />
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

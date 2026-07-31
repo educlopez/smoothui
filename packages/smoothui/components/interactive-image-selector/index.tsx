@@ -265,7 +265,7 @@ export default function InteractiveImageSelector({
         </AnimatePresence>
       </motion.div>
       <AnimatePresence>
-        {isSelecting && (
+        {isSelecting ? (
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className="absolute right-2 bottom-0 left-1/2 z-10 flex w-2/3 -translate-x-1/2 items-center justify-between rounded-full bg-background/20 p-4 bg-blend-luminosity backdrop-blur-md"
@@ -298,7 +298,7 @@ export default function InteractiveImageSelector({
               <Trash2 size={24} />
             </button>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

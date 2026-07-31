@@ -221,7 +221,7 @@ export default function GridLoaderDemo() {
       {typeof document !== "undefined" &&
         createPortal(
           <AnimatePresence>
-            {open && (
+            {open ? (
               <>
                 <motion.div
                   animate={{ opacity: 1 }}
@@ -474,7 +474,7 @@ export default function GridLoaderDemo() {
                   </div>
                 </motion.div>
               </>
-            )}
+            ) : null}
           </AnimatePresence>,
           document.body
         )}

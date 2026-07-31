@@ -168,7 +168,7 @@ export default function Drawer({
       }}
       open={vaulOpen}
     >
-      {trigger && <DrawerTrigger asChild>{trigger}</DrawerTrigger>}
+      {trigger ? <DrawerTrigger asChild>{trigger}</DrawerTrigger> : null}
 
       {/*
         We render DrawerContent so vaul's drag gestures still work, but we
@@ -191,7 +191,7 @@ export default function Drawer({
         )}
 
         <AnimatePresence onExitComplete={handleExitComplete}>
-          {open && (
+          {open ? (
             <motion.div
               animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
               exit={
@@ -205,38 +205,38 @@ export default function Drawer({
               }}
             >
               {/* Staggered header */}
-              {(title || description) && (
+              {title || description ? (
                 <StaggerChild index={0} shouldReduceMotion={shouldReduceMotion}>
                   <DrawerHeader>
-                    {title && <DrawerTitle>{title}</DrawerTitle>}
-                    {description && (
+                    {title ? <DrawerTitle>{title}</DrawerTitle> : null}
+                    {description ? (
                       <DrawerDescription>{description}</DrawerDescription>
-                    )}
+                    ) : null}
                   </DrawerHeader>
                 </StaggerChild>
-              )}
+              ) : null}
 
               {/* Staggered body */}
-              {children && (
+              {children ? (
                 <StaggerChild
                   index={title || description ? 1 : 0}
                   shouldReduceMotion={shouldReduceMotion}
                 >
                   <div className="px-4">{children}</div>
                 </StaggerChild>
-              )}
+              ) : null}
 
               {/* Staggered footer */}
-              {footer && (
+              {footer ? (
                 <StaggerChild
                   index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                   shouldReduceMotion={shouldReduceMotion}
                 >
                   <DrawerFooter>{footer}</DrawerFooter>
                 </StaggerChild>
-              )}
+              ) : null}
             </motion.div>
-          )}
+          ) : null}
         </AnimatePresence>
       </DrawerContent>
     </DrawerPrimitive>

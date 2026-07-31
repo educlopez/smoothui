@@ -218,11 +218,11 @@ const AIToolCall = ({
           </span>
         </span>
 
-        {summary && (
+        {summary ? (
           <span className="shrink-0 text-muted-foreground text-xs">
             {summary}
           </span>
-        )}
+        ) : null}
         <span className="sr-only">{STATUS_LABEL[status]}</span>
 
         {hasDetail && (
@@ -237,7 +237,7 @@ const AIToolCall = ({
       </button>
 
       <AnimatePresence initial={false}>
-        {isOpen && hasDetail && (
+        {isOpen && hasDetail ? (
           <motion.div
             animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
@@ -261,7 +261,7 @@ const AIToolCall = ({
             }
           >
             <div className="space-y-2 border-border border-t px-3 py-2.5 text-xs">
-              {args && (
+              {args ? (
                 <div>
                   <p className="mb-1 text-[10px] text-muted-foreground uppercase tracking-wide">
                     Arguments
@@ -270,8 +270,8 @@ const AIToolCall = ({
                     {args}
                   </div>
                 </div>
-              )}
-              {result && (
+              ) : null}
+              {result ? (
                 <div>
                   <p className="mb-1 text-[10px] text-muted-foreground uppercase tracking-wide">
                     Result
@@ -280,10 +280,10 @@ const AIToolCall = ({
                     {result}
                   </div>
                 </div>
-              )}
+              ) : null}
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

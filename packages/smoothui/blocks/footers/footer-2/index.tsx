@@ -153,7 +153,7 @@ export function FooterComplex({
 
               {/* Social Links */}
               <div className="flex gap-4">
-                {social.twitter && (
+                {social.twitter ? (
                   <motion.a
                     aria-label="Twitter"
                     className="text-foreground/60 transition-colors hover:text-brand"
@@ -173,8 +173,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">Twitter</span>
                   </motion.a>
-                )}
-                {social.linkedin && (
+                ) : null}
+                {social.linkedin ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.linkedin}
@@ -193,8 +193,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">LinkedIn</span>
                   </motion.a>
-                )}
-                {social.github && (
+                ) : null}
+                {social.github ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.github}
@@ -213,8 +213,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">GitHub</span>
                   </motion.a>
-                )}
-                {social.discord && (
+                ) : null}
+                {social.discord ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.discord}
@@ -233,8 +233,8 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">Discord</span>
                   </motion.a>
-                )}
-                {social.youtube && (
+                ) : null}
+                {social.youtube ? (
                   <motion.a
                     className="text-foreground/60 transition-colors hover:text-brand"
                     href={social.youtube}
@@ -253,14 +253,14 @@ export function FooterComplex({
                     </svg>
                     <span className="sr-only">YouTube</span>
                   </motion.a>
-                )}
+                ) : null}
               </div>
             </motion.div>
           </div>
 
           {/* Links Grid */}
           <div className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-4">
-            {links.product && (
+            {links.product ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -294,9 +294,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.company && (
+            {links.company ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -330,9 +330,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.support && (
+            {links.support ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -366,9 +366,9 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
 
-            {links.legal && (
+            {links.legal ? (
               <motion.div
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
@@ -402,7 +402,7 @@ export function FooterComplex({
                   ))}
                 </ul>
               </motion.div>
-            )}
+            ) : null}
           </div>
         </motion.div>
 

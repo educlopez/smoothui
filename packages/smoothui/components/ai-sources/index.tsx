@@ -139,7 +139,7 @@ const AISources = ({
       </button>
 
       <AnimatePresence initial={false}>
-        {isOpen && (
+        {isOpen ? (
           <motion.ul
             animate={{ height: "auto", opacity: 1 }}
             className="mt-1 list-none overflow-hidden"
@@ -205,7 +205,7 @@ const AISources = ({
               </motion.li>
             ))}
           </motion.ul>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

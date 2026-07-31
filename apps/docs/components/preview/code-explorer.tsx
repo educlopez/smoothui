@@ -277,7 +277,7 @@ export const CodeExplorer = ({
                 <Copy aria-hidden="true" size={14} />
               )}
             </ToolbarIcon>
-            {installCommand && (
+            {installCommand ? (
               <ToolbarIcon
                 label="Copy install command"
                 onClick={() => copy(installCommand, "cli")}
@@ -292,7 +292,7 @@ export const CodeExplorer = ({
                   <Terminal aria-hidden="true" size={14} />
                 )}
               </ToolbarIcon>
-            )}
+            ) : null}
           </div>
         </div>
 
@@ -315,13 +315,13 @@ export const CodeExplorer = ({
             "[&>div]:h-full"
           )}
         >
-          {active && (
+          {active ? (
             <PreviewCode
               code={active.code}
               filename={fileName}
               language={languageOf(active.path)}
             />
-          )}
+          ) : null}
         </div>
       </div>
     </div>

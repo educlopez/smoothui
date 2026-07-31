@@ -187,7 +187,7 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
       }
     >
       <AnimatePresence mode="wait">
-        {char && (
+        {char ? (
           <motion.span
             animate={
               shouldReduceMotion
@@ -217,7 +217,7 @@ function AnimatedInputOTPSlot({ index, className }: AnimatedInputOTPSlotProps) {
           >
             {char}
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
 
       {hasFakeCaret && !shouldReduceMotion && (

@@ -147,11 +147,11 @@ const AILoader = ({
       )}
       role="status"
     >
-      {label && <span>{label}</span>}
+      {label ? <span>{label}</span> : null}
       {variant === "dots" && <Dots reduced={reduced} />}
       {variant === "bar" && <Bar reduced={reduced} />}
       {variant === "grid" && <Grid reduced={reduced} />}
-      {showElapsed && <Elapsed />}
+      {showElapsed ? <Elapsed /> : null}
       <span className="sr-only">{label ?? "Loading"}</span>
     </span>
   );

@@ -56,7 +56,7 @@ export function generate({ title, description }: GenerateProps) {
         >
           {title}
         </h1>
-        {description && (
+        {description ? (
           <p
             style={{
               color: "rgba(255, 255, 255, 0.8)",
@@ -66,7 +66,7 @@ export function generate({ title, description }: GenerateProps) {
           >
             {description}
           </p>
-        )}
+        ) : null}
       </div>
     </div>
   );

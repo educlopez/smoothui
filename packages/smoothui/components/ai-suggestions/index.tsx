@@ -57,11 +57,11 @@ const AISuggestions = ({
 
   return (
     <div className={cn("flex w-full flex-col gap-2", className)}>
-      {label && (
+      {label ? (
         <p className="text-muted-foreground text-xs uppercase tracking-wide">
           {label}
         </p>
-      )}
+      ) : null}
 
       <ul className="flex list-none flex-wrap gap-2">
         <AnimatePresence initial>

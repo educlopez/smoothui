@@ -157,11 +157,11 @@ function PricingPreview() {
             transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
             whileHover={{ scale: 1.02, y: -2 }}
           >
-            {plan.popular && (
+            {plan.popular ? (
               <span className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white">
                 Popular
               </span>
-            )}
+            ) : null}
             <span className="font-medium text-[9px] text-foreground/70">
               {plan.name}
             </span>

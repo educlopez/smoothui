@@ -53,14 +53,14 @@ const Example = () => {
         </SmoothButton>
       </div>
 
-      {showToast && (
+      {showToast ? (
         <BasicToast
           duration={3000}
           message={`This is a ${toastType} message example!`}
           onClose={() => setShowToast(false)}
           type={toastType}
         />
-      )}
+      ) : null}
     </div>
   );
 };

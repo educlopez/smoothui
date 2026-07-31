@@ -69,7 +69,7 @@ export async function GET(_req: Request, { params }: RouteParams) {
         >
           {post.data.title}
         </h1>
-        {post.data.description && (
+        {post.data.description ? (
           <p
             style={{
               color: "rgba(255, 255, 255, 0.7)",
@@ -79,7 +79,7 @@ export async function GET(_req: Request, { params }: RouteParams) {
           >
             {post.data.description}
           </p>
-        )}
+        ) : null}
       </div>
     </div>,
     {

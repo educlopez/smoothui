@@ -105,17 +105,17 @@ export function TeamGrid({
                 {/* Role */}
                 <p className="text-base/7 text-foreground/70">{member.role}</p>
                 {/* Location */}
-                {member.location && (
+                {member.location ? (
                   <p className="text-foreground/70 text-sm/6">
                     {member.location}
                   </p>
-                )}
+                ) : null}
                 {/* Bio */}
-                {member.bio && (
+                {member.bio ? (
                   <p className="mt-2 text-foreground/70 text-sm">
                     {member.bio}
                   </p>
-                )}
+                ) : null}
               </motion.div>
             </motion.li>
           ))}

@@ -338,7 +338,7 @@ export function ContributionGraph({
       </div>
 
       {/* Tooltip */}
-      {showTooltips && hoveredDay && (
+      {showTooltips && hoveredDay ? (
         <motion.div
           animate={
             shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
@@ -365,10 +365,10 @@ export function ContributionGraph({
             {formatDate(hoveredDay.date)}
           </div>
         </motion.div>
-      )}
+      ) : null}
 
       {/* Legend */}
-      {showLegend && (
+      {showLegend ? (
         <div className="mt-4 flex items-center justify-between text-foreground/70 text-xs">
           <span>Less</span>
           <div className="flex items-center gap-1">
@@ -381,7 +381,7 @@ export function ContributionGraph({
           </div>
           <span>More</span>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

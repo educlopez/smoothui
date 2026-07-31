@@ -50,7 +50,7 @@ export function SectionHeader({
       >
         {title}
       </motion.h2>
-      {description && (
+      {description ? (
         <motion.p
           className={cn(
             "mt-4 text-balance text-primary-foreground transition",
@@ -60,7 +60,7 @@ export function SectionHeader({
         >
           {description}
         </motion.p>
-      )}
+      ) : null}
     </div>
   );
 }

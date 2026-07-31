@@ -132,12 +132,12 @@ const ExposureSlider = ({
       }
     >
       {/* Progress circle */}
-      {showIndicator && (
+      {showIndicator ? (
         <ProgressCircle
           displayValue={displayValue}
           normalizedValue={normalizedValue}
         />
-      )}
+      ) : null}
 
       {/* Ticker slider */}
       <div

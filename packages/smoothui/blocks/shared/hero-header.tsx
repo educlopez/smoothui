@@ -159,7 +159,7 @@ export const HeroHeader = () => {
               </div>
 
               <AnimatePresence>
-                {menuState && (
+                {menuState ? (
                   <motion.div
                     animate={
                       shouldReduceMotion
@@ -263,7 +263,7 @@ export const HeroHeader = () => {
                       </SmoothButton>
                     </motion.div>
                   </motion.div>
-                )}
+                ) : null}
               </AnimatePresence>
             </div>
           </div>

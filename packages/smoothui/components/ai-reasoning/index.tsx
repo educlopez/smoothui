@@ -136,7 +136,7 @@ const AIReasoning = ({
       `}</style>
 
       <AnimatePresence initial={false}>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
             animate={{ height: "auto", opacity: 1 }}
             className="overflow-hidden"
@@ -165,7 +165,7 @@ const AIReasoning = ({
               {children}
             </div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

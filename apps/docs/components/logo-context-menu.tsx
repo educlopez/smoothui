@@ -172,7 +172,7 @@ function LogoContextMenuPopup() {
 
   return createPortal(
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <motion.div
           animate={
             shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
@@ -248,7 +248,7 @@ function LogoContextMenuPopup() {
             </button>
           </div>
         </motion.div>
-      )}
+      ) : null}
     </AnimatePresence>,
     document.body
   );

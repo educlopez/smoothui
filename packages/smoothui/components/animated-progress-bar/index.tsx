@@ -35,11 +35,11 @@ export default function AnimatedProgressBar({
 
   return (
     <div className={`w-full ${className}`}>
-      {label && (
+      {label ? (
         <div className={`mb-1 font-medium text-sm ${labelClassName}`}>
           {label}
         </div>
-      )}
+      ) : null}
       <div className="relative h-3 w-full overflow-hidden rounded border bg-background">
         <motion.div
           animate={{

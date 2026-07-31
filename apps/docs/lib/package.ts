@@ -288,7 +288,7 @@ export const getPackage = cache(async (packageName: string) => {
           return;
         }
 
-        const selector = rule.selector;
+        const { selector } = rule;
         const ruleObj: Record<string, string> = {};
 
         // Process all declarations
@@ -311,7 +311,7 @@ export const getPackage = cache(async (packageName: string) => {
         }
 
         mediaRule.walkRules((rule) => {
-          const selector = rule.selector;
+          const { selector } = rule;
           const mediaObj: Record<string, string> = {};
 
           rule.walkDecls((decl) => {

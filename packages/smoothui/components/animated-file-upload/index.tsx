@@ -275,12 +275,12 @@ export default function AnimatedFileUpload({
         </AnimatePresence>
         <p className="mt-1 text-muted-foreground text-xs">
           {accept ? accept.replace(/,/g, ", ") : "Any file type"}
-          {maxSize && ` \u2022 Max ${formatFileSize(maxSize)}`}
+          {maxSize ? ` \u2022 Max ${formatFileSize(maxSize)}` : null}
         </p>
       </motion.div>
 
       <AnimatePresence>
-        {error && (
+        {error ? (
           <motion.p
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
             className="text-destructive text-sm"
@@ -295,7 +295,7 @@ export default function AnimatedFileUpload({
           >
             {error}
           </motion.p>
-        )}
+        ) : null}
       </AnimatePresence>
 
       {files.length > 0 && (

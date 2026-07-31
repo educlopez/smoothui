@@ -78,11 +78,11 @@ export function GithubStars({
               {data.stars.toLocaleString()}
             </span>
           </span>
-          {showForks && (
+          {showForks ? (
             <span className="text-foreground/60 text-xs tabular-nums">
               {data.forks.toLocaleString()} forks
             </span>
-          )}
+          ) : null}
         </>
       )}
     </Link>

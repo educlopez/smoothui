@@ -85,14 +85,14 @@ export default function AnimatedInput({
 
   return (
     <div className={`relative flex items-center ${className}`}>
-      {icon && (
+      {icon ? (
         <span
           aria-hidden="true"
           className="absolute top-1/2 left-3 -translate-y-1/2"
         >
           {icon}
         </span>
-      )}
+      ) : null}
       <input
         aria-label={label}
         className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}

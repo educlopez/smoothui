@@ -77,7 +77,7 @@ const ChatTemplate = ({
           key, and without one it never runs the enter or the exit — the panel
           just sat parked off-screen. */}
       <AnimatePresence>
-        {isDrawerOpen && (
+        {isDrawerOpen ? (
           <>
             <motion.button
               animate={{ opacity: 1 }}
@@ -115,7 +115,7 @@ const ChatTemplate = ({
               />
             </motion.div>
           </>
-        )}
+        ) : null}
       </AnimatePresence>
 
       <ChatThread

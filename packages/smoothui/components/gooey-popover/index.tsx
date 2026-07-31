@@ -410,7 +410,7 @@ export default function GooeyPopover({
       </button>
 
       {/* Unfiltered content panel (z-10, clean edges, actual text) */}
-      {(isOpen || isVisible) && (
+      {isOpen || isVisible ? (
         <div
           className={cn(
             "absolute z-10 overflow-hidden text-white",
@@ -435,7 +435,7 @@ export default function GooeyPopover({
             {children}
           </div>
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

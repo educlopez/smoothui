@@ -125,7 +125,7 @@ const AIArtifact = ({
           </div>
         )}
 
-        {copyText && (
+        {copyText ? (
           <button
             aria-label={hasCopied ? "Copied" : "Copy"}
             className={cn(
@@ -144,7 +144,7 @@ const AIArtifact = ({
               <Copy aria-hidden="true" size={13} />
             )}
           </button>
-        )}
+        ) : null}
       </div>
 
       <div className="relative overflow-hidden">

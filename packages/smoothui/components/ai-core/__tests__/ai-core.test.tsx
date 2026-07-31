@@ -33,7 +33,7 @@ describe("AI_STATE_MOTION", () => {
   });
 
   it("churns hardest while thinking, without growing", () => {
-    const thinking = AI_STATE_MOTION.thinking;
+    const { thinking } = AI_STATE_MOTION;
     for (const state of ALL_STATES) {
       expect(thinking.turbulence).toBeGreaterThanOrEqual(
         AI_STATE_MOTION[state].turbulence

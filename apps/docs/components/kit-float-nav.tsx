@@ -104,7 +104,7 @@ export function KitFloatNav() {
         e.preventDefault();
         return;
       }
-      const first = focusable[0];
+      const [first] = focusable;
       const last = focusable.at(-1);
       if (!(first && last)) {
         return;
@@ -183,7 +183,7 @@ export function KitFloatNav() {
       {mounted &&
         createPortal(
           <AnimatePresence>
-            {open && (
+            {open ? (
               <>
                 <motion.div
                   animate={{ opacity: 1 }}
@@ -252,7 +252,7 @@ export function KitFloatNav() {
                         />
                       </button>
                       <AnimatePresence initial={false}>
-                        {kitsOpen && (
+                        {kitsOpen ? (
                           <motion.div
                             animate={{ height: "auto", opacity: 1 }}
                             className="overflow-hidden"
@@ -316,7 +316,7 @@ export function KitFloatNav() {
                               })}
                             </div>
                           </motion.div>
-                        )}
+                        ) : null}
                       </AnimatePresence>
                     </section>
 
@@ -412,11 +412,11 @@ export function KitFloatNav() {
                         <span className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
                           Install command
                         </span>
-                        {siteTheme && (
+                        {siteTheme ? (
                           <span className="text-muted-foreground text-xs">
                             incl. {siteTheme} theme
                           </span>
-                        )}
+                        ) : null}
                       </div>
                       <div className="flex items-center gap-2 rounded-md border border-border bg-muted/40 py-2 pr-1 pl-3">
                         <code className="flex-1 overflow-x-auto whitespace-nowrap font-mono text-foreground text-xs">
@@ -468,7 +468,7 @@ export function KitFloatNav() {
                   )}
                 </motion.div>
               </>
-            )}
+            ) : null}
           </AnimatePresence>,
           document.body
         )}

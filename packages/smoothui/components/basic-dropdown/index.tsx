@@ -156,7 +156,7 @@ export default function BasicDropdown({
 
   const dropdownContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <div ref={portalRef}>
           <motion.div
             animate={
@@ -238,7 +238,9 @@ export default function BasicDropdown({
                     onMouseEnter={() => setFocusedIndex(index)}
                     type="button"
                   >
-                    {item.icon && <span className="mr-2">{item.icon}</span>}
+                    {item.icon ? (
+                      <span className="mr-2">{item.icon}</span>
+                    ) : null}
                     {item.label}
 
                     {selectedItem?.id === item.id && (
@@ -279,7 +281,7 @@ export default function BasicDropdown({
             </ul>
           </motion.div>
         </div>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 

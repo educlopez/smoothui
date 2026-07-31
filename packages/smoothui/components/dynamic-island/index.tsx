@@ -52,7 +52,7 @@ const DefaultIdle = () => {
       </AnimatePresence>
 
       <AnimatePresence>
-        {showTemp && (
+        {showTemp ? (
           <motion.div
             animate={{ opacity: 1, width: "auto" }}
             className="flex items-center gap-1 overflow-hidden text-white"
@@ -64,7 +64,7 @@ const DefaultIdle = () => {
               12°C
             </span>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </motion.div>
   );

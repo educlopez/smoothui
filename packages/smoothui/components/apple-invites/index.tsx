@@ -467,7 +467,7 @@ export default function AppleInvites({
                     />
                   ))}
                 </div>
-                {event.title && (
+                {event.title ? (
                   <p
                     className="wrap-break-word text-center font-bold"
                     style={{
@@ -478,8 +478,8 @@ export default function AppleInvites({
                   >
                     {event.title}
                   </p>
-                )}
-                {event.subtitle && (
+                ) : null}
+                {event.subtitle ? (
                   <p
                     className="wrap-break-word text-center opacity-90"
                     style={{
@@ -489,7 +489,7 @@ export default function AppleInvites({
                   >
                     {event.subtitle}
                   </p>
-                )}
+                ) : null}
                 <p
                   className="wrap-break-word text-center opacity-90"
                   style={{

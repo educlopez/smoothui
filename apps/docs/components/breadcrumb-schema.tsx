@@ -16,7 +16,7 @@ export function BreadcrumbSchema({ slugs, title }: BreadcrumbSchemaProps) {
   ];
 
   if (slugs.length > 0) {
-    const section = slugs[0];
+    const [section] = slugs;
     const label = sectionLabels[section] ?? section;
     items.push({
       item: `https://smoothui.dev/docs/${section}`,

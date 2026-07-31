@@ -173,7 +173,7 @@ const AIMessage = ({
       {/* biome-ignore lint/security/noDangerouslySetInnerHtml: a static, local stylesheet with no interpolation */}
       <style dangerouslySetInnerHTML={{ __html: ACTION_STYLES }} />
 
-      {avatar && <div className="mt-0.5 shrink-0">{avatar}</div>}
+      {avatar ? <div className="mt-0.5 shrink-0">{avatar}</div> : null}
 
       <div className={cn("flex min-w-0 flex-col gap-1", isUser && "items-end")}>
         <div
@@ -199,11 +199,11 @@ const AIMessage = ({
               user. Putting the (always-mounted, invisible) action slots before
               it pushed it toward the middle of the row, where it read as
               floating in nothing. */}
-          {timestamp && (
+          {timestamp ? (
             <span className="text-muted-foreground text-xs tabular-nums">
               {timestamp}
             </span>
-          )}
+          ) : null}
 
           {/* Always mounted, only faded — mounting the row on hover changed its
               height, so every message below jumped as the pointer moved down a

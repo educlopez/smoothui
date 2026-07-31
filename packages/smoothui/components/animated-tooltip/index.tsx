@@ -133,7 +133,7 @@ const AnimatedTooltip = ({
       </span>
 
       <AnimatePresence>
-        {isVisible && (
+        {isVisible ? (
           <motion.span
             animate={
               shouldReduceMotion
@@ -168,7 +168,7 @@ const AnimatedTooltip = ({
               )}
             />
           </motion.span>
-        )}
+        ) : null}
       </AnimatePresence>
     </span>
   );

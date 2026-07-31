@@ -137,19 +137,19 @@ export function HeroShowcase({
                 className="flex w-full flex-col justify-center gap-2 sm:flex-row lg:justify-start"
                 preset="slide"
               >
-                {buttons.primary && (
+                {buttons.primary ? (
                   <Button asChild className="w-full sm:w-auto" variant="candy">
                     <a href={buttons.primary.url}>{buttons.primary.text}</a>
                   </Button>
-                )}
-                {buttons.secondary && (
+                ) : null}
+                {buttons.secondary ? (
                   <Button asChild variant="outline">
                     <a href={buttons.secondary.url}>
                       {buttons.secondary.text}
                       <ArrowDownRight className="size-4" />
                     </a>
                   </Button>
-                )}
+                ) : null}
               </AnimatedGroup>
             </AnimatedGroup>
             {/* Imagen completamente estática para que el blend mode funcione perfecto */}

@@ -209,7 +209,7 @@ export default function FigmaComment({
 
         {/* Content - visible when open */}
         <AnimatePresence>
-          {isOpen && (
+          {isOpen ? (
             <motion.div
               animate={
                 shouldReduceMotion
@@ -270,7 +270,7 @@ export default function FigmaComment({
                 {message}
               </p>
             </motion.div>
-          )}
+          ) : null}
         </AnimatePresence>
       </motion.div>
     </div>

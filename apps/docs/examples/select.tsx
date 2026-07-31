@@ -47,9 +47,9 @@ export default function SelectDemo() {
           placeholder="Choose a fruit"
           value={value}
         />
-        {value && (
+        {value ? (
           <p className="text-muted-foreground text-sm">Selected: {value}</p>
-        )}
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">

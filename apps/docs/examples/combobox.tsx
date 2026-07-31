@@ -54,9 +54,9 @@ export default function ComboboxDemo() {
           searchPlaceholder="Search frameworks…"
           value={framework}
         />
-        {framework && (
+        {framework ? (
           <p className="text-muted-foreground text-sm">Selected: {framework}</p>
-        )}
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">
@@ -71,9 +71,9 @@ export default function ComboboxDemo() {
           searchPlaceholder="Type to search…"
           value={language}
         />
-        {language && (
+        {language ? (
           <p className="text-muted-foreground text-sm">Selected: {language}</p>
-        )}
+        ) : null}
       </div>
 
       <div className="flex flex-col gap-2">

@@ -249,7 +249,7 @@ export function InteractiveAnimatedTabsTutorial({
                       role="tab"
                       type="button"
                     >
-                      {showIndicator && isActive && (
+                      {showIndicator && isActive ? (
                         <motion.span
                           className="absolute inset-0 -z-10 rounded-full border border-border bg-background shadow-sm"
                           layoutId="tutorial-tabs-indicator"
@@ -265,7 +265,7 @@ export function InteractiveAnimatedTabsTutorial({
                                 : { duration: 0.2 }
                           }
                         />
-                      )}
+                      ) : null}
                       {tab.label}
                     </button>
                   );

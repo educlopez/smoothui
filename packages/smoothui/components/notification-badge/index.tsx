@@ -118,7 +118,7 @@ const NotificationBadge = ({
 
   const badgeElement = (
     <AnimatePresence mode="wait">
-      {isVisible && (
+      {isVisible ? (
         <motion.span
           animate={{ opacity: 1, scale: 1 }}
           className={cn(
@@ -161,7 +161,7 @@ const NotificationBadge = ({
             />
           )}
         </motion.span>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 

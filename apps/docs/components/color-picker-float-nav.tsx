@@ -184,7 +184,7 @@ export function ColorPickerFloatNav() {
         />
       </button>
       <AnimatePresence>
-        {show && (
+        {show ? (
           <motion.div
             animate={
               shouldReduceMotion
@@ -332,7 +332,7 @@ export function ColorPickerFloatNav() {
               <IconArrowRightFill24 className="h-3 w-3" />
             </a>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

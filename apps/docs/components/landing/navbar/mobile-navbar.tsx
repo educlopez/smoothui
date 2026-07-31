@@ -84,7 +84,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
       </div>
 
       <AnimatePresence>
-        {isOpen && (
+        {isOpen ? (
           <motion.div
             animate={
               shouldReduceMotion
@@ -275,7 +275,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               <GithubStars />
             </motion.div>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

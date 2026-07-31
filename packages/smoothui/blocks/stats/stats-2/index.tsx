@@ -186,14 +186,14 @@ export function StatsCards({
               </h3>
 
               {/* Description */}
-              {stat.description && (
+              {stat.description ? (
                 <p className="mb-3 text-foreground/70 text-xs">
                   {stat.description}
                 </p>
-              )}
+              ) : null}
 
               {/* Trend */}
-              {stat.trend && (
+              {stat.trend ? (
                 <motion.div
                   animate={(() => {
                     if (shouldReduceMotion) {
@@ -225,7 +225,7 @@ export function StatsCards({
                   </span>
                   {stat.trend.value}
                 </motion.div>
-              )}
+              ) : null}
 
               {/* Hover effect background */}
               <motion.div

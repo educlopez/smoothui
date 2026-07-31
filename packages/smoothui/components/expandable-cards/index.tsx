@@ -44,8 +44,8 @@ export default function ExpandableCards({
 
   useEffect(() => {
     if (scrollRef.current) {
-      const scrollWidth = scrollRef.current.scrollWidth;
-      const clientWidth = scrollRef.current.clientWidth;
+      const { scrollWidth } = scrollRef.current;
+      const { clientWidth } = scrollRef.current;
       scrollRef.current.scrollLeft = (scrollWidth - clientWidth) / 2;
     }
   }, []);
@@ -202,7 +202,7 @@ export default function ExpandableCards({
                     <p className="text-primary-foreground text-sm">
                       {card.content}
                     </p>
-                    {card.author && (
+                    {card.author ? (
                       <div className="mt-4 flex items-center gap-3">
                         <div className="h-12 w-12 overflow-hidden rounded-full border bg-primary">
                           <img
@@ -223,7 +223,7 @@ export default function ExpandableCards({
                           </p>
                         </div>
                       </div>
-                    )}
+                    ) : null}
                   </motion.div>
                 </motion.div>
               )}

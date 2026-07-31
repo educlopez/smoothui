@@ -150,11 +150,11 @@ const TaskRow = ({
           {task.label}
         </span>
 
-        {task.note && (
+        {task.note ? (
           <span className="shrink-0 text-muted-foreground text-xs tabular-nums">
             {task.note}
           </span>
-        )}
+        ) : null}
 
         {isRunning && !shouldReduceMotion && (
           // A travelling underline under the active row only. One moving thing

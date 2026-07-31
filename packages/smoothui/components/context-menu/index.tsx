@@ -72,7 +72,7 @@ export default function ContextMenu({
       return (
         <ContextMenuSub key={item.key}>
           <ContextMenuSubTrigger disabled={item.disabled}>
-            {item.icon && <span className="mr-2">{item.icon}</span>}
+            {item.icon ? <span className="mr-2">{item.icon}</span> : null}
             {item.label}
           </ContextMenuSubTrigger>
           <ContextMenuSubContent>
@@ -100,11 +100,11 @@ export default function ContextMenu({
           onSelect={item.onSelect}
           variant={item.variant}
         >
-          {item.icon && <span className="mr-2">{item.icon}</span>}
+          {item.icon ? <span className="mr-2">{item.icon}</span> : null}
           {item.label}
-          {item.shortcut && (
+          {item.shortcut ? (
             <ContextMenuShortcut>{item.shortcut}</ContextMenuShortcut>
-          )}
+          ) : null}
         </ContextMenuItem>
       </motion.div>
     );

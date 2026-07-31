@@ -44,7 +44,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
         >
           {component.title}
         </Link>
-        {component.installer && (
+        {component.installer ? (
           <div className="flex shrink-0 items-center gap-1.5">
             <AddToKitButton
               size="xs"
@@ -53,7 +53,7 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
             />
             <InstallCopyButton slug={component.installer} />
           </div>
-        )}
+        ) : null}
       </footer>
     </motion.div>
   );

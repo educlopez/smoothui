@@ -144,7 +144,7 @@ const AIContextMeter = ({
       </button>
 
       <AnimatePresence>
-        {isOpen && hasBreakdown && (
+        {isOpen && hasBreakdown ? (
           <motion.div
             animate={{ opacity: 1, scale: 1, y: 0 }}
             className="absolute bottom-full left-0 z-50 mb-1.5 w-56 rounded-xl border border-border bg-background p-2.5 shadow-lg"
@@ -181,7 +181,7 @@ const AIContextMeter = ({
               ))}
             </ul>
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

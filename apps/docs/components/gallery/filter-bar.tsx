@@ -87,7 +87,7 @@ export const FilterBar = ({
           type="text"
           value={localSearch}
         />
-        {localSearch && (
+        {localSearch ? (
           <button
             aria-label="Clear search"
             className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-muted-foreground hover:text-foreground"
@@ -96,7 +96,7 @@ export const FilterBar = ({
           >
             <IconXmarkFill24 className="h-4 w-4" />
           </button>
-        )}
+        ) : null}
       </div>
 
       {/* Category pills */}

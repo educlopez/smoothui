@@ -104,11 +104,11 @@ export const TemplateShowcase = ({
             </Button>
             <AddToKitButton slug={installer} title={title} />
           </div>
-          {updatedAt && (
+          {updatedAt ? (
             <p className="mt-3 text-muted-foreground text-xs">
               Last updated {updatedAt}
             </p>
-          )}
+          ) : null}
         </div>
       </header>
 

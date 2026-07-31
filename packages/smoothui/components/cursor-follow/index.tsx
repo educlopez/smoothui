@@ -167,7 +167,7 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
               : { duration: 0.25, ease: [0.645, 0.045, 0.355, 1] }
           }
         >
-          {cursorText && (
+          {cursorText ? (
             <motion.span
               animate={{ filter: "blur(0px)", opacity: 1 }}
               exit={{ filter: "blur(8px)", opacity: 0 }}
@@ -190,10 +190,10 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
             >
               {cursorText}
             </motion.span>
-          )}
+          ) : null}
         </motion.div>
         {/* Hidden span for pre-measuring text width */}
-        {(pendingText || cursorText) && (
+        {pendingText || cursorText ? (
           <span
             ref={measureRef}
             style={{
@@ -210,7 +210,7 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
           >
             {pendingText || cursorText}
           </span>
-        )}
+        ) : null}
       </motion.div>
     </div>
   );

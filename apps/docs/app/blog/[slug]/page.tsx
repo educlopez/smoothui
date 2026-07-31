@@ -97,7 +97,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               {post.data.description}
             </p>
             <div className="flex items-center gap-3 text-foreground/60 text-sm">
-              {post.data.author && (
+              {post.data.author ? (
                 <div className="flex items-center gap-2">
                   <img
                     alt={post.data.author as string}
@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: PageProps) {
                     {post.data.author as string}
                   </span>
                 </div>
-              )}
+              ) : null}
               <span>·</span>
               <time dateTime={post.data.date as string}>
                 {formatDate(post.data.date as string)}

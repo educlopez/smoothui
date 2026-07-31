@@ -386,7 +386,7 @@ export function Icon({ className }: { className?: string }) {
       )}
 
       {/* Happy arc eyes (petted) */}
-      {petted && (
+      {petted ? (
         <>
           <motion.path
             animate={{ pathLength: 1 }}
@@ -411,10 +411,10 @@ export function Icon({ className }: { className?: string }) {
             transition={{ delay: 0.08, duration: 0.4, ease: EASE_OUT }}
           />
         </>
-      )}
+      ) : null}
 
       {/* Dizzy spiral eyes */}
-      {dizzy && (
+      {dizzy ? (
         <>
           <motion.path
             animate={{ rotate: 360 }}
@@ -447,7 +447,7 @@ export function Icon({ className }: { className?: string }) {
             transition={{ duration: 1.1, ease: "linear", repeat: 1 }}
           />
         </>
-      )}
+      ) : null}
     </motion.svg>
   );
 }

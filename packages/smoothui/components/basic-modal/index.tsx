@@ -80,7 +80,7 @@ export default function BasicModal({
             'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
           )
         );
-        const firstElement = focusableElements[0];
+        const [firstElement] = focusableElements;
         const lastElement = focusableElements.at(-1);
 
         if (e.shiftKey) {
@@ -106,7 +106,7 @@ export default function BasicModal({
 
   const modalContent = (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen ? (
         <>
           {/* Backdrop */}
           <motion.div
@@ -166,11 +166,11 @@ export default function BasicModal({
             >
               {/* Header */}
               <div className="mb-4 flex items-center justify-between">
-                {title && (
+                {title ? (
                   <h3 className="font-medium text-xl leading-6" id={titleId}>
                     {title}
                   </h3>
-                )}
+                ) : null}
                 <motion.button
                   aria-label="Close modal"
                   className="ml-auto min-h-[44px] min-w-[44px] cursor-pointer rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
@@ -189,7 +189,7 @@ export default function BasicModal({
             </motion.div>
           </motion.div>
         </>
-      )}
+      ) : null}
     </AnimatePresence>
   );
 

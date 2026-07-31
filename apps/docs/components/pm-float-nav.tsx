@@ -45,11 +45,11 @@ export function PmFloatNav() {
         onClick={() => setOpen((v) => !v)}
         type="button"
       >
-        {CurrentIcon && <CurrentIcon colored />}
+        {CurrentIcon ? <CurrentIcon colored /> : null}
         <span className="hidden font-medium text-sm sm:inline">{activePm}</span>
       </button>
       <AnimatePresence>
-        {open && (
+        {open ? (
           <motion.div
             animate={
               shouldReduceMotion
@@ -99,7 +99,7 @@ export function PmFloatNav() {
               );
             })}
           </motion.div>
-        )}
+        ) : null}
       </AnimatePresence>
     </div>
   );

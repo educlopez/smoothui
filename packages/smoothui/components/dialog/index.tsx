@@ -208,10 +208,10 @@ export default function Dialog({
       onOpenChange={handleOpenChange}
       open={isOpen || showContent}
     >
-      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
+      {trigger ? <DialogTrigger asChild>{trigger}</DialogTrigger> : null}
 
       <AnimatePresence onExitComplete={() => setShowContent(false)}>
-        {isOpen && (
+        {isOpen ? (
           <DialogRadix.Portal forceMount>
             {/* Backdrop with blur + opacity fade */}
             <DialogRadix.Overlay asChild forceMount>
@@ -267,48 +267,48 @@ export default function Dialog({
                 transition={shouldReduceMotion ? { duration: 0 } : SPRING_PANEL}
               >
                 {/* Staggered content sections */}
-                {(title || description) && (
+                {title || description ? (
                   <StaggerChild
                     index={0}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <DialogHeader>
-                      {title && <DialogTitle>{title}</DialogTitle>}
-                      {description && (
+                      {title ? <DialogTitle>{title}</DialogTitle> : null}
+                      {description ? (
                         <DialogDescription>{description}</DialogDescription>
-                      )}
+                      ) : null}
                     </DialogHeader>
                   </StaggerChild>
-                )}
+                ) : null}
 
-                {children && (
+                {children ? (
                   <StaggerChild
                     index={title || description ? 1 : 0}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     {children}
                   </StaggerChild>
-                )}
+                ) : null}
 
-                {footer && (
+                {footer ? (
                   <StaggerChild
                     index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <DialogFooter>{footer}</DialogFooter>
                   </StaggerChild>
-                )}
+                ) : null}
 
-                {showCloseButton && (
+                {showCloseButton ? (
                   <AnimatedCloseButton
                     onClick={() => handleOpenChange(false)}
                     shouldReduceMotion={shouldReduceMotion}
                   />
-                )}
+                ) : null}
               </motion.div>
             </DialogRadix.Content>
           </DialogRadix.Portal>
-        )}
+        ) : null}
       </AnimatePresence>
     </DialogRadix.Root>
   );
@@ -364,10 +364,12 @@ export function AlertDialog({
       onOpenChange={handleOpenChange}
       open={isOpen || showContent}
     >
-      {trigger && <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>}
+      {trigger ? (
+        <AlertDialogTrigger asChild>{trigger}</AlertDialogTrigger>
+      ) : null}
 
       <AnimatePresence onExitComplete={() => setShowContent(false)}>
-        {isOpen && (
+        {isOpen ? (
           <AlertDialogRadix.Portal forceMount>
             {/* Backdrop */}
             <AlertDialogRadix.Overlay asChild forceMount>
@@ -422,43 +424,45 @@ export function AlertDialog({
                 onAnimationComplete={handleAnimationComplete}
                 transition={shouldReduceMotion ? { duration: 0 } : SPRING_PANEL}
               >
-                {(title || description) && (
+                {title || description ? (
                   <StaggerChild
                     index={0}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <AlertDialogHeader>
-                      {title && <AlertDialogTitle>{title}</AlertDialogTitle>}
-                      {description && (
+                      {title ? (
+                        <AlertDialogTitle>{title}</AlertDialogTitle>
+                      ) : null}
+                      {description ? (
                         <AlertDialogDescription>
                           {description}
                         </AlertDialogDescription>
-                      )}
+                      ) : null}
                     </AlertDialogHeader>
                   </StaggerChild>
-                )}
+                ) : null}
 
-                {children && (
+                {children ? (
                   <StaggerChild
                     index={title || description ? 1 : 0}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     {children}
                   </StaggerChild>
-                )}
+                ) : null}
 
-                {footer && (
+                {footer ? (
                   <StaggerChild
                     index={(title || description ? 1 : 0) + (children ? 1 : 0)}
                     shouldReduceMotion={shouldReduceMotion}
                   >
                     <AlertDialogFooter>{footer}</AlertDialogFooter>
                   </StaggerChild>
-                )}
+                ) : null}
               </motion.div>
             </AlertDialogRadix.Content>
           </AlertDialogRadix.Portal>
-        )}
+        ) : null}
       </AnimatePresence>
     </AlertDialogRadix.Root>
   );

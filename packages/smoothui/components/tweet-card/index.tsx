@@ -170,7 +170,7 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
 
   return (
     <div className="flex w-full flex-col gap-2">
-      {hasVideo && tweet.video && (
+      {hasVideo && tweet.video ? (
         <video
           autoPlay
           className="w-full rounded-xl border shadow-sm"
@@ -182,11 +182,11 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
           <source src={tweet.video.variants[0].src} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-      )}
+      ) : null}
       {hasPhotos &&
         tweet.photos &&
         (() => {
-          const photos = tweet.photos;
+          const { photos } = tweet;
           return (
             <div className="relative grid w-full gap-2">
               {photos.length === 1 && (

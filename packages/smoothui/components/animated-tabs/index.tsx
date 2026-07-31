@@ -153,7 +153,9 @@ export default function AnimatedTabs({
                 transition={shouldReduceMotion ? { duration: 0 } : SPRING}
               />
             )}
-            {tab.icon && <span className="relative z-10">{tab.icon}</span>}
+            {tab.icon ? (
+              <span className="relative z-10">{tab.icon}</span>
+            ) : null}
             <span className="relative z-10">{tab.label}</span>
           </button>
         );

@@ -297,7 +297,7 @@ export function LegacyAiBranch({
   return (
     <div className={cn("w-full max-w-2xl", className)}>
       {/* Active Branch Display */}
-      {activeBranch && (
+      {activeBranch ? (
         <motion.div
           animate={{ opacity: 1, y: 0 }}
           className="mb-4 space-y-4"
@@ -407,7 +407,7 @@ export function LegacyAiBranch({
             </div>
           </div>
         </motion.div>
-      )}
+      ) : null}
     </div>
   );
 }
