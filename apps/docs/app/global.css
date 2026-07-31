@@ -437,3 +437,16 @@
     cursor: pointer;
   }
 }
+
+/* The navbar's sidebar collapse trigger, desktop only.
+   The catalogue already has two ways in that read better: the breadcrumb on
+   component, block and index pages, and the pointer reaching the left edge. A
+   third control in the navbar meant the same sidebar was offered twice, and it
+   was the one nobody used. The phone button stays — there it is the only way in,
+   and it lives in a `md:hidden` container so this rule leaves it alone. */
+@media (min-width: 768px) {
+  #nd-subnav [aria-label="Collapse Sidebar"],
+  #nd-subnav [aria-label="Expand Sidebar"] {
+    display: none;
+  }
+}
