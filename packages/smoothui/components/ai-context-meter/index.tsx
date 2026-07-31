@@ -97,7 +97,7 @@ const AIContextMeter = ({
       <button
         aria-expanded={hasBreakdown ? isOpen : undefined}
         aria-label={`Context window ${percent}% used, ${formatTokens(used)} of ${formatTokens(limit)} tokens`}
-        className="flex items-center gap-1.5 rounded-lg px-1 py-0.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
+        className="flex cursor-pointer items-center gap-1.5 rounded-lg px-1 py-0.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
         disabled={!hasBreakdown}
         onBlur={() => setIsOpen(false)}
         onClick={() => setIsOpen((current) => !current)}

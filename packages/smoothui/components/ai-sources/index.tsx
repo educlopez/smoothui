@@ -96,7 +96,7 @@ const AISources = ({
     <div className={cn("w-full", className)}>
       <button
         aria-expanded={isOpen}
-        className="flex items-center gap-2 rounded-lg py-1 text-muted-foreground text-sm transition-colors hover:text-foreground"
+        className="flex cursor-pointer items-center gap-2 rounded-lg py-1 text-muted-foreground text-sm transition-colors hover:text-foreground"
         onBlur={() => setIsHovered(false)}
         onClick={() => setIsOpen((current) => !current)}
         onFocus={() => setIsHovered(true)}

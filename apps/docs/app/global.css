@@ -426,3 +426,14 @@
   counter-increment: line;
   opacity: 0.4;
 }
+
+/* Tailwind v4 dropped `cursor: pointer` from Preflight, so a `<button>` shows
+   the arrow unless every call site says otherwise. Our own components declare
+   it, but the chrome that comes from Fumadocs cannot — this covers it, and
+   anything added later, in one place. Disabled controls keep the default. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
+}

@@ -42,7 +42,7 @@ const Skeleton = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cn("rounded-md bg-primary/10", className)} {...props} />
+  <div className={cn("rounded-md bg-muted", className)} {...props} />
 );
 
 export const TweetSkeleton = ({

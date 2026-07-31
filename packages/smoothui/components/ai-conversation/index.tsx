@@ -115,7 +115,7 @@ const AIConversation = ({
           <motion.button
             animate={{ opacity: 1, y: 0, scale: 1 }}
             aria-label="Jump to latest"
-            className="absolute inset-x-0 bottom-3 mx-auto flex w-fit items-center gap-1.5 rounded-full border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-foreground text-xs shadow-sm backdrop-blur"
+            className="absolute inset-x-0 bottom-3 mx-auto flex w-fit cursor-pointer items-center gap-1.5 rounded-full border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-foreground text-xs shadow-sm backdrop-blur"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }

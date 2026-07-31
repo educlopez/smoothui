@@ -82,7 +82,7 @@ function UploadIcon({ isDragOver }: { isDragOver: boolean }) {
         aria-hidden="true"
         className={cn(
           "mb-3 h-10 w-10 transition-colors duration-200",
-          isDragOver ? "text-primary" : "text-muted-foreground"
+          isDragOver ? "text-foreground" : "text-muted-foreground"
         )}
         fill="none"
         stroke="currentColor"

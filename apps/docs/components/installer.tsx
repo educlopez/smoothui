@@ -168,7 +168,7 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
         <div className="flex items-center gap-1">
           <button
             className={cn(
-              "flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
+              "flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
               activeTab === "smoothui"
                 ? "border-border bg-background text-foreground shadow-sm"
                 : "border-transparent text-muted-foreground hover:text-foreground"
@@ -181,7 +181,7 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
           </button>
           <button
             className={cn(
-              "flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
+              "flex cursor-pointer items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium text-sm transition-all",
               activeTab === "shadcn"
                 ? "border-border bg-background text-foreground shadow-sm"
                 : "border-transparent text-muted-foreground hover:text-foreground"
@@ -209,7 +209,7 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
               return (
                 <button
                   className={cn(
-                    "flex items-center gap-1 rounded border px-2 py-1 font-medium text-xs transition-all",
+                    "flex cursor-pointer items-center gap-1 rounded border px-2 py-1 font-medium text-xs transition-all",
                     isActive
                       ? "border-border bg-background text-foreground shadow-sm"
                       : "border-transparent text-muted-foreground hover:text-foreground"

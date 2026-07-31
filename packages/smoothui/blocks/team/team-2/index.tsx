@@ -103,7 +103,7 @@ export function TeamCarousel({
           {/* Navigation Buttons */}
           <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
             <motion.button
-              className="static top-1/2 -left-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+              className="static top-1/2 -left-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
               disabled={currentIndex === 0 || isTransitioning}
               onClick={prevSlide}
               type="button"
@@ -129,7 +129,7 @@ export function TeamCarousel({
               <span className="sr-only">Previous slide</span>
             </motion.button>
             <motion.button
-              className="static top-1/2 -right-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+              className="static top-1/2 -right-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
               disabled={
                 currentIndex >= members.length - CARDS_PER_VIEW ||
                 isTransitioning

@@ -274,14 +274,14 @@ export function InteractiveNumberFlowTutorial({
 
               <div className="flex gap-2">
                 <button
-                  className="rounded-md border border-border bg-muted px-3 py-1.5 font-medium text-sm hover:bg-muted/70"
+                  className="cursor-pointer rounded-md border border-border bg-muted px-3 py-1.5 font-medium text-sm hover:bg-muted/70"
                   onClick={() => setValue((v) => Math.max(0, v - 7))}
                   type="button"
                 >
                   − 7
                 </button>
                 <button
-                  className="rounded-md border border-border bg-muted px-3 py-1.5 font-medium text-sm hover:bg-muted/70"
+                  className="cursor-pointer rounded-md border border-border bg-muted px-3 py-1.5 font-medium text-sm hover:bg-muted/70"
                   onClick={() => setValue((v) => v + 7)}
                   type="button"
                 >

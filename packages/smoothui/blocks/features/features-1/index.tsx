@@ -191,7 +191,7 @@ export function FeaturesGrid() {
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                 }
               >
-                <div className="mb-4 inline-flex rounded-lg bg-primary/10 p-2.5 text-primary">
+                <div className="mb-4 inline-flex rounded-lg bg-foreground/5 p-2.5 text-foreground">
                   {feature.icon}
                 </div>
                 <h3 className="mb-2 font-semibold text-foreground">

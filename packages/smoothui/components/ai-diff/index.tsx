@@ -186,7 +186,7 @@ const AIDiff = ({
         <div className="flex items-center justify-end gap-2 border-border border-t px-3 py-2">
           {onReject && (
             <button
-              className="rounded-lg px-2.5 py-1 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
+              className="cursor-pointer rounded-lg px-2.5 py-1 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
               onClick={reject}
               type="button"
             >
@@ -195,7 +195,7 @@ const AIDiff = ({
           )}
           {onAccept && (
             <button
-              className="rounded-lg bg-foreground px-2.5 py-1 text-background text-xs"
+              className="cursor-pointer rounded-lg bg-foreground px-2.5 py-1 text-background text-xs"
               onClick={accept}
               type="button"
             >

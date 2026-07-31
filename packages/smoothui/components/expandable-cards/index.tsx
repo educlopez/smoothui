@@ -94,7 +94,7 @@ export default function ExpandableCards({
             }}
             aria-label={`${card.title} card${selectedCard === card.id ? ", expanded" : ""}`}
             aria-selected={selectedCard === card.id}
-            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${cardClassName}`}
+            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${cardClassName}`}
             data-card-id={card.id}
             key={card.id}
             layout
@@ -134,7 +134,7 @@ export default function ExpandableCards({
                 <div className="flex items-center gap-2">
                   <button
                     aria-label={`Play video: ${card.title}`}
-                    className="ease flex h-12 min-h-[44px] w-12 min-w-[44px] items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 hover:scale-110 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                    className="ease flex h-12 min-h-[44px] w-12 min-w-[44px] items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     onClick={(e) => {
                       e.stopPropagation();
                       // Handle play action

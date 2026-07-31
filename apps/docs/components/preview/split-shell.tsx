@@ -226,7 +226,7 @@ export const SplitPreviewShell = ({
                   <button
                     aria-pressed={index === activeFile}
                     className={cn(
-                      "flex shrink-0 items-center gap-1.5 rounded-t-md px-3 py-1.5 font-mono text-xs transition-colors",
+                      "flex shrink-0 cursor-pointer items-center gap-1.5 rounded-t-md px-3 py-1.5 font-mono text-xs transition-colors",
                       index === activeFile
                         ? "bg-background text-foreground"
                         : "text-muted-foreground hover:text-foreground"
@@ -403,7 +403,7 @@ const PaneTab = ({
   <button
     aria-pressed={isActive}
     className={cn(
-      "flex items-center gap-1.5 rounded-lg px-2 py-1 text-sm transition-colors",
+      "flex cursor-pointer items-center gap-1.5 rounded-lg px-2 py-1 text-sm transition-colors",
       isActive
         ? "text-foreground"
         : "text-muted-foreground/70 hover:text-foreground"

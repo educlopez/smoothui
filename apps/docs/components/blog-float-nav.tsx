@@ -18,7 +18,7 @@ function ThemeSwitch() {
   return (
     <button
       aria-label="Theme Switcher"
-      className="float-trigger h-auto w-auto p-2!"
+      className="float-trigger h-auto w-auto cursor-pointer p-2!"
       onClick={toggleTheme}
       type="button"
     >
@@ -37,7 +37,7 @@ function SearchButton() {
   return (
     <button
       aria-label="Search"
-      className="float-trigger h-auto w-auto p-2!"
+      className="float-trigger h-auto w-auto cursor-pointer p-2!"
       onClick={() => setOpenSearch(true)}
       type="button"
     >

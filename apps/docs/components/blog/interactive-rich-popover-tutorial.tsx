@@ -75,7 +75,7 @@ interface InteractiveRichPopoverTutorialProps {
 const CODE_SNIPPETS: Record<StepId, string> = {
   trigger: `<Popover>
   <PopoverTrigger asChild>
-    <button className="text-brand underline">
+    <button className="cursor-pointer text-brand underline">
       hover or click me
     </button>
   </PopoverTrigger>
@@ -387,7 +387,7 @@ export function InteractiveRichPopoverTutorial({
                                 <span>12:34</span>
                               </div>
                               <button
-                                className="flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 font-medium text-black text-xs transition-colors hover:bg-white/90"
+                                className="flex cursor-pointer items-center gap-1.5 rounded-md bg-white px-3 py-1.5 font-medium text-black text-xs transition-colors hover:bg-white/90"
                                 type="button"
                               >
                                 <IconMediaPlayFill24 className="size-3.5" />

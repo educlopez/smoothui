@@ -35,7 +35,7 @@ export function AddToKitButton({
       }
       aria-pressed={inKit}
       className={cn(
-        "inline-flex shrink-0 items-center justify-center gap-1.5 rounded-md border border-transparent bg-background font-medium shadow-black/15 shadow-sm ring-1 ring-foreground/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:ring-foreground/15",
+        "inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-transparent bg-background font-medium shadow-black/15 shadow-sm ring-1 ring-foreground/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:ring-foreground/15",
         size === "sm" && "h-9 px-3 text-sm [&_svg]:size-4",
         size === "xs" && "h-7 px-2.5 text-xs [&_svg]:size-3.5",
         iconOnly && size === "sm" && "w-9 px-0",

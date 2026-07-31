@@ -130,7 +130,7 @@ const AIApproval = ({
                 <motion.button
                   animate={{ opacity: 1, y: 0 }}
                   className={cn(
-                    "flex w-full items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors",
+                    "flex w-full cursor-pointer items-center gap-2 rounded-lg border px-3 py-2 text-left text-sm transition-colors",
                     option.destructive
                       ? "border-destructive/30 text-destructive hover:bg-destructive/10"
                       : "border-border text-foreground hover:bg-muted"

@@ -95,7 +95,7 @@ const AIReasoning = ({
     <div className={cn("w-full", className)}>
       <button
         aria-expanded={isOpen}
-        className="group flex w-full items-center gap-1.5 rounded-lg py-1 text-left text-muted-foreground text-sm transition-colors hover:text-foreground"
+        className="group flex w-full cursor-pointer items-center gap-1.5 rounded-lg py-1 text-left text-muted-foreground text-sm transition-colors hover:text-foreground"
         onClick={() => {
           setIsUserControlled(true);
           setIsOpen((current) => !current);

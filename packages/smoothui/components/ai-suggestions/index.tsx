@@ -90,7 +90,7 @@ const AISuggestions = ({
               }
             >
               <motion.button
-                className="rounded-full border border-border bg-background px-3 py-1.5 text-left text-foreground text-sm transition-colors hover:border-foreground/30 hover:bg-muted"
+                className="cursor-pointer rounded-full border border-border bg-background px-3 py-1.5 text-left text-foreground text-sm transition-colors hover:border-foreground/30 hover:bg-muted"
                 onClick={() => onSelect?.(suggestion)}
                 transition={
                   shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT

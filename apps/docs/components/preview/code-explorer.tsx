@@ -348,7 +348,7 @@ const TreeBranch = ({
       <button
         aria-current={isActive ? "true" : undefined}
         className={cn(
-          "flex w-full items-center gap-1.5 py-1 pr-2 text-left font-mono text-xs transition-colors",
+          "flex w-full cursor-pointer items-center gap-1.5 py-1 pr-2 text-left font-mono text-xs transition-colors",
           isActive
             ? "bg-foreground/5 text-foreground"
             : "text-muted-foreground hover:text-foreground"
@@ -367,7 +367,7 @@ const TreeBranch = ({
     <div>
       <button
         aria-expanded={isOpen}
-        className="flex w-full items-center gap-1.5 py-1 pr-2 text-left font-mono text-muted-foreground/80 text-xs transition-colors hover:text-foreground"
+        className="flex w-full cursor-pointer items-center gap-1.5 py-1 pr-2 text-left font-mono text-muted-foreground/80 text-xs transition-colors hover:text-foreground"
         onClick={() => setIsOpen((open) => !open)}
         style={{ paddingLeft: padding }}
         type="button"
@@ -408,7 +408,7 @@ const ToolbarIcon = ({
   onClick: () => void;
 }) => (
   <button
-    className="flex size-7 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    className="flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
     onClick={onClick}
     title={label}
     type="button"

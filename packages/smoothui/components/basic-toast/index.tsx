@@ -98,7 +98,7 @@ export default function BasicToast({
           <div className="flex-shrink-0">{toastIcons[type]}</div>
           <p className="flex-1 text-sm">{message}</p>
           <button
-            className="flex-shrink-0 rounded-full p-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
+            className="flex-shrink-0 cursor-pointer rounded-full p-1 transition-colors hover:bg-black/5 dark:hover:bg-white/10"
             onClick={() => {
               setVisible(false);
               onClose?.();
@@ -129,28 +129,28 @@ export function ToastDemo() {
     <div className="flex flex-col gap-4 p-4">
       <div className="flex flex-wrap gap-2">
         <button
-          className="rounded-md bg-emerald-500 px-3 py-1.5 text-sm text-white hover:bg-emerald-600"
+          className="cursor-pointer rounded-md bg-emerald-500 px-3 py-1.5 text-sm text-white hover:bg-emerald-600"
           onClick={() => handleShowToast("success")}
           type="button"
         >
           Success Toast
         </button>
         <button
-          className="rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
+          className="cursor-pointer rounded-md bg-red-500 px-3 py-1.5 text-sm text-white hover:bg-red-600"
           onClick={() => handleShowToast("error")}
           type="button"
         >
           Error Toast
         </button>
         <button
-          className="rounded-md bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600"
+          className="cursor-pointer rounded-md bg-amber-500 px-3 py-1.5 text-sm text-white hover:bg-amber-600"
           onClick={() => handleShowToast("warning")}
           type="button"
         >
           Warning Toast
         </button>
         <button
-          className="rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600"
+          className="cursor-pointer rounded-md bg-blue-500 px-3 py-1.5 text-sm text-white hover:bg-blue-600"
           onClick={() => handleShowToast("info")}
           type="button"
         >

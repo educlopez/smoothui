@@ -121,7 +121,7 @@ export function FaqsAccordion({
               }
             >
               <motion.button
-                className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-background/50"
+                className="flex w-full cursor-pointer items-center justify-between p-6 text-left transition-colors hover:bg-background/50"
                 onClick={() => toggleAccordion(index)}
                 type="button"
                 whileHover={shouldReduceMotion ? {} : { scale: HOVER_SCALE }}

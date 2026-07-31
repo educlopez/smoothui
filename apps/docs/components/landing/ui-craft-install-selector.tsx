@@ -188,7 +188,7 @@ export function UiCraftInstallSelector({
 
         <button
           aria-label="Copy install command"
-          className="group relative flex size-8 shrink-0 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          className="group relative flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
           onClick={copy}
           type="button"
         >

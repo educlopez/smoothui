@@ -97,7 +97,7 @@ const AIArtifact = ({
               <button
                 aria-selected={pane === candidate}
                 className={cn(
-                  "relative rounded-md px-2 py-1 text-xs capitalize transition-colors",
+                  "relative cursor-pointer rounded-md px-2 py-1 text-xs capitalize transition-colors",
                   pane === candidate
                     ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
@@ -129,7 +129,7 @@ const AIArtifact = ({
           <button
             aria-label={hasCopied ? "Copied" : "Copy"}
             className={cn(
-              "rounded-md p-1.5 transition-colors",
+              "cursor-pointer rounded-md p-1.5 transition-colors",
               available.length > 1 ? "" : "ml-auto",
               hasCopied
                 ? "text-foreground"

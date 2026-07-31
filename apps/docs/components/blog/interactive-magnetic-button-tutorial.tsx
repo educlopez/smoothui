@@ -65,7 +65,7 @@ const STEPS = [
 type StepId = (typeof STEPS)[number]["id"];
 
 const CODE_SNIPPETS: Record<StepId, string> = {
-  button: `<button className="rounded-md bg-primary px-6 py-2 text-primary-foreground">
+  button: `<button className="cursor-pointer rounded-md bg-primary px-6 py-2 text-primary-foreground">
   Hover me
 </button>`,
   track: `const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
@@ -293,7 +293,7 @@ export function InteractiveMagneticButtonTutorial({
                 }
               >
                 <button
-                  className="rounded-md bg-primary px-6 py-2 font-medium text-primary-foreground text-sm shadow-sm"
+                  className="cursor-pointer rounded-md bg-primary px-6 py-2 font-medium text-primary-foreground text-sm shadow-sm"
                   ref={buttonRef}
                   type="button"
                 >

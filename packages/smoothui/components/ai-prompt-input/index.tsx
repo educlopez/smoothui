@@ -250,7 +250,7 @@ const AIPromptInput = ({
                 {onRemoveAttachment && (
                   <button
                     aria-label={`Remove ${attachment.name}`}
-                    className="rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="cursor-pointer rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                     onClick={() => onRemoveAttachment(attachment.id)}
                     type="button"
                   >
@@ -281,7 +281,7 @@ const AIPromptInput = ({
           {onAttach && (
             <button
               aria-label="Attach a file"
-              className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="cursor-pointer rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
               disabled={disabled}
               onClick={onAttach}
               type="button"

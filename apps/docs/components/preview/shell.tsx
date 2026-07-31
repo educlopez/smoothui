@@ -243,7 +243,7 @@ export const PreviewShell = ({
                   />
                 </div>
                 <button
-                  className="flex items-center gap-2 rounded-md py-1 pr-1 pl-1.5 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground"
+                  className="flex cursor-pointer items-center gap-2 rounded-md py-1 pr-1 pl-1.5 font-mono text-muted-foreground text-xs transition-colors hover:text-foreground"
                   onClick={copyInstall}
                   title={`Copy ${installCommand(cli, packageManager, blockPath)}`}
                   type="button"
@@ -349,7 +349,7 @@ const CliTab = ({
   <button
     aria-pressed={isActive}
     className={cn(
-      "flex size-6 items-center justify-center rounded-md transition-colors",
+      "flex size-6 cursor-pointer items-center justify-center rounded-md transition-colors",
       isActive
         ? "bg-muted text-foreground"
         : "text-muted-foreground/60 hover:text-foreground"
@@ -375,7 +375,7 @@ const ViewTab = ({
   <button
     aria-pressed={isActive}
     className={cn(
-      "rounded-md px-3 py-1 font-medium text-sm transition-colors",
+      "cursor-pointer rounded-md px-3 py-1 font-medium text-sm transition-colors",
       isActive
         ? "bg-background text-foreground shadow-black/5 shadow-sm"
         : "text-muted-foreground hover:text-foreground"

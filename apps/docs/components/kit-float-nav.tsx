@@ -158,7 +158,7 @@ export function KitFloatNav() {
     <>
       <button
         aria-label={`Open install bundle (${count} selected)`}
-        className="float-trigger flex h-auto w-auto items-center gap-1.5 p-2!"
+        className="float-trigger flex h-auto w-auto cursor-pointer items-center gap-1.5 p-2!"
         onClick={() => setOpen(true)}
         ref={triggerRef}
         type="button"
@@ -236,7 +236,7 @@ export function KitFloatNav() {
                     <section className="border-t">
                       <button
                         aria-expanded={kitsOpen}
-                        className="flex w-full items-center justify-between gap-2 p-4"
+                        className="flex w-full cursor-pointer items-center justify-between gap-2 p-4"
                         onClick={() => setKitsOpen((o) => !o)}
                         type="button"
                       >
@@ -273,7 +273,7 @@ export function KitFloatNav() {
                                   <button
                                     aria-pressed={active}
                                     className={cn(
-                                      "flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-left transition-colors",
+                                      "flex cursor-pointer items-center justify-between gap-2 rounded-md border px-3 py-2 text-left transition-colors",
                                       active
                                         ? "border-brand/40 bg-brand/5"
                                         : "border-border hover:bg-muted"
@@ -391,7 +391,7 @@ export function KitFloatNav() {
                                 </span>
                                 <button
                                   aria-label={`Remove ${item.title} from bundle`}
-                                  className="grid size-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                                  className="grid size-6 shrink-0 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                                   onClick={() => remove(item.slug)}
                                   type="button"
                                 >
@@ -441,7 +441,7 @@ export function KitFloatNav() {
                       </div>
                       <div className="mt-3 flex items-center justify-between">
                         <button
-                          className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-muted"
+                          className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-muted"
                           onClick={() => {
                             track("bundle_share", { count });
                             navigator.clipboard.writeText(shareUrl);
@@ -453,7 +453,7 @@ export function KitFloatNav() {
                           Copy share link
                         </button>
                         <button
-                          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-destructive"
+                          className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-destructive"
                           onClick={() => {
                             track("bundle_clear", { count });
                             clear();

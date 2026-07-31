@@ -39,7 +39,7 @@ export const DocsBreadcrumb = ({ section, title }: DocsBreadcrumbProps) => {
       {/* Icon and section name are one control: the crumb *is* the handle, so
           there is nothing to aim at separately. */}
       <button
-        className="-ml-1.5 flex items-center gap-1.5 rounded-lg px-1.5 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        className="-ml-1.5 flex cursor-pointer items-center gap-1.5 rounded-lg px-1.5 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
         onClick={revealSidebar}
         type="button"
       >

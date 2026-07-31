@@ -264,7 +264,7 @@ function StudioSidebar({
         <div className="flex items-center gap-0.5">
           <button
             aria-label="Center board"
-            className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+            className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
             onClick={onCenter}
             title="Center board"
             type="button"
@@ -273,7 +273,7 @@ function StudioSidebar({
           </button>
           <button
             aria-label="Shuffle theme"
-            className="rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
+            className="cursor-pointer rounded-md p-1 text-muted-foreground transition-colors hover:text-foreground"
             onClick={handleShuffle}
             title="Shuffle theme"
             type="button"
@@ -320,7 +320,7 @@ function StudioSidebar({
           <button
             aria-pressed={mode === entry}
             className={cn(
-              "flex h-7 flex-1 items-center justify-center gap-1.5 rounded-md font-medium text-[13px] capitalize transition-all",
+              "flex h-7 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md font-medium text-[13px] capitalize transition-all",
               mode === entry
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -344,7 +344,7 @@ function StudioSidebar({
           <button
             aria-pressed={font === option.id}
             className={cn(
-              "flex h-7 flex-1 items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              "flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px] transition-all",
               font === option.id
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -364,7 +364,7 @@ function StudioSidebar({
           <button
             aria-pressed={tint === option.id}
             className={cn(
-              "flex h-7 flex-1 items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              "flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px] transition-all",
               tint === option.id
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -406,7 +406,7 @@ function StudioSidebar({
         </span>
         <div className="flex flex-col gap-0.5 rounded-lg bg-smooth-200 p-1">
           <button
-            className="flex items-center justify-between gap-2 rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
+            className="flex cursor-pointer items-center justify-between gap-2 rounded-md px-2 py-1.5 font-mono text-[13px] text-foreground transition-colors hover:bg-foreground/5"
             onClick={() => presetCopy.copy(presetCode)}
             type="button"
           >
@@ -418,7 +418,7 @@ function StudioSidebar({
             )}
           </button>
           <button
-            className="flex items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
+            className="flex cursor-pointer items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
             onClick={() =>
               linkCopy.copy(
                 `${window.location.origin}/themes?preset=${presetCode}`
@@ -816,7 +816,7 @@ function CopyInstallButton({ slug }: { slug: string }) {
   return (
     <button
       aria-label={`Copy install command for ${demoTitle(slug)}`}
-      className="grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
+      className="grid size-7 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted/70 hover:text-foreground"
       onClick={() => copy(componentInstallCommand(slug))}
       title={componentInstallCommand(slug)}
       type="button"

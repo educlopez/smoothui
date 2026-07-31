@@ -173,7 +173,7 @@ export default function BasicModal({
                 )}
                 <motion.button
                   aria-label="Close modal"
-                  className="ml-auto min-h-[44px] min-w-[44px] rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  className="ml-auto min-h-[44px] min-w-[44px] cursor-pointer rounded-full p-2 transition-colors hover:bg-secondary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   onClick={onClose}
                   ref={closeButtonRef}
                   transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}

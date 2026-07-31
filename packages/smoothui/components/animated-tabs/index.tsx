@@ -91,7 +91,7 @@ export default function AnimatedTabs({
 
   const getTabStyles = (isActive: boolean) =>
     cn(
-      "relative z-10 flex items-center justify-center gap-2 px-4 py-2 font-medium text-sm transition-colors",
+      "relative z-10 flex cursor-pointer items-center justify-center gap-2 px-4 py-2 font-medium text-sm transition-colors",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
       variant === "underline" && [
         "rounded-t-md",

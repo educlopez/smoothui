@@ -116,7 +116,7 @@ export function Hero() {
 
                 <button
                   aria-label="Copy install command"
-                  className="group flex w-fit max-w-full items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2 font-mono text-foreground/80 text-sm transition-colors hover:border-brand/40"
+                  className="group flex w-fit max-w-full cursor-pointer items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2 font-mono text-foreground/80 text-sm transition-colors hover:border-brand/40"
                   onClick={copyInstall}
                   type="button"
                 >

@@ -44,7 +44,7 @@ export function ShareButtons({ url, title }: ShareButtonsProps) {
       </a>
       <button
         aria-label="Copy link"
-        className="rounded-md p-2 text-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
+        className="cursor-pointer rounded-md p-2 text-foreground/60 transition-colors hover:bg-accent hover:text-foreground"
         onClick={copyToClipboard}
         type="button"
       >

@@ -217,7 +217,7 @@ const AIMessage = ({
                 aria-label={action.label}
                 aria-pressed={action.active}
                 className={cn(
-                  "ai-message-action rounded-lg p-1.5",
+                  "ai-message-action cursor-pointer rounded-lg p-1.5",
                   isUser ? "ai-message-action-user" : "ai-message-action-agent",
                   action.active
                     ? "text-foreground"

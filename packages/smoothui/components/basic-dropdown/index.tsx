@@ -229,7 +229,7 @@ export default function BasicDropdown({
                 >
                   <button
                     aria-label={item.label}
-                    className={`flex min-h-[44px] w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                    className={`flex min-h-[44px] w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                       selectedItem?.id === item.id
                         ? "font-medium text-brand"
                         : ""
@@ -290,7 +290,7 @@ export default function BasicDropdown({
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label={selectedItem ? `${label}: ${selectedItem.label}` : label}
-          className="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="flex min-h-[44px] w-full cursor-pointer items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           id="dropdown-button"
           onClick={handleToggle}
           ref={buttonRef}

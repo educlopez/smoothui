@@ -202,7 +202,7 @@ const AIToolCall = ({
     >
       <button
         aria-expanded={hasDetail ? isOpen : undefined}
-        className="flex w-full items-center gap-2.5 px-3 py-2 text-left"
+        className="flex w-full cursor-pointer items-center gap-2.5 px-3 py-2 text-left"
         disabled={!hasDetail}
         onClick={() => setIsOpen((current) => !current)}
         type="button"

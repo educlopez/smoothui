@@ -52,7 +52,7 @@ export default function BasicAccordion({
             <button
               aria-controls={`accordion-content-${item.id}`}
               aria-expanded={isExpanded}
-              className="flex min-h-[44px] w-full items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+              className="flex min-h-[44px] w-full cursor-pointer items-center justify-between gap-2 bg-background px-4 py-3 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
               id={`accordion-header-${item.id}`}
               onClick={() => toggleItem(item.id)}
               type="button"

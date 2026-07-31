@@ -181,7 +181,7 @@ export const AIBranchPrevious = ({
     <motion.button
       aria-label="Previous branch"
       className={cn(
-        "size-7 shrink-0 rounded-full text-muted-foreground transition-colors",
+        "size-7 shrink-0 cursor-pointer rounded-full text-muted-foreground transition-colors",
         "hover:bg-muted hover:text-foreground",
         "disabled:pointer-events-none disabled:opacity-50",
         "flex items-center justify-center",
@@ -212,7 +212,7 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
     <motion.button
       aria-label="Next branch"
       className={cn(
-        "size-7 shrink-0 rounded-full text-muted-foreground transition-colors",
+        "size-7 shrink-0 cursor-pointer rounded-full text-muted-foreground transition-colors",
         "hover:bg-muted hover:text-foreground",
         "disabled:pointer-events-none disabled:opacity-50",
         "flex items-center justify-center",
@@ -319,7 +319,7 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Copy message"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       "flex items-center justify-center"
                     )}
@@ -336,7 +336,7 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Edit message"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       "flex items-center justify-center"
                     )}
@@ -353,7 +353,7 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Previous branch"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       "disabled:pointer-events-none disabled:opacity-50",
                       "flex items-center justify-center"
@@ -377,7 +377,7 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Next branch"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
                       "hover:bg-muted hover:text-foreground",
                       "disabled:pointer-events-none disabled:opacity-50",
                       "flex items-center justify-center"

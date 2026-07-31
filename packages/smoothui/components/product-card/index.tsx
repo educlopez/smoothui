@@ -291,7 +291,7 @@ export default function ProductCard({
               : `Add ${title} to wishlist`
           }
           className={cn(
-            "absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-background/80 backdrop-blur-sm",
+            "absolute top-3 right-3 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-background/80 backdrop-blur-sm",
             "transition-colors duration-150",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
             isHoverDevice ? "opacity-0 group-hover:opacity-100" : "opacity-100"
