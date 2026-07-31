@@ -87,11 +87,54 @@ const BLOCKS_DIR = join(PACKAGES_DIR, "smoothui", "blocks");
 // Component catalog
 // ---------------------------------------------------------------------------
 
-/** List all component directory names (excluding hidden/non-component dirs) */
+const MDX_EXTENSION = /\.mdx$/;
+const INSTALLER_FIELD = /^installer:\s*(\S+)\s*$/m;
+
+/**
+ * Registry names that have a documentation page, which is what "public" means.
+ *
+ * Keyed on the `installer` frontmatter rather than the filename, because the two
+ * can differ: `accordion.mdx` documents the `basic-accordion` package. Matching
+ * on filenames alone drops that component from the catalogue.
+ */
+const listDocumentedComponents = async (): Promise<Set<string>> => {
+  const componentsDir = join(process.cwd(), "content", "docs", "components");
+  const files = (await readdir(componentsDir)).filter(
+    (file) => file.endsWith(".mdx") && file !== "index.mdx"
+  );
+
+  const names = await Promise.all(
+    files.map(async (file) => {
+      const body = await readFile(join(componentsDir, file), "utf-8");
+
+      return INSTALLER_FIELD.exec(body)?.[1] ?? file.replace(MDX_EXTENSION, "");
+    })
+  );
+
+  return new Set(names);
+};
+
+/**
+ * Component directories that are actually part of the public catalogue.
+ *
+ * A package directory is not the same thing as a component: `ai-core` is shared
+ * internal state, and `ai-input` is a deprecation shim for the `morph-surface`
+ * rename. Both were being advertised in llms.txt and /api/v1 as installable
+ * components, which points an agent at a package with no documentation — and at
+ * a deprecated alias. Having a doc page is the definition of public, and it also
+ * keeps this count in step with the one the marketing copy uses.
+ */
 const listComponentDirs = async (): Promise<string[]> => {
-  const entries = await readdir(COMPONENTS_DIR, { withFileTypes: true });
+  const [entries, documented] = await Promise.all([
+    readdir(COMPONENTS_DIR, { withFileTypes: true }),
+    listDocumentedComponents(),
+  ]);
+
   return entries
-    .filter((e) => e.isDirectory() && !e.name.startsWith("."))
+    .filter(
+      (e) =>
+        e.isDirectory() && !e.name.startsWith(".") && documented.has(e.name)
+    )
     .map((e) => e.name);
 };
 
@@ -163,14 +206,64 @@ export const getComponentCatalog = cache(async (): Promise<ComponentMeta[]> => {
 // Block catalog
 // ---------------------------------------------------------------------------
 
-/** List all block directory names (excluding shared/hidden dirs) */
+const PREVIEW_TAG = /<Preview\s+path="([^"]+)"/g;
+
+/**
+ * Which documentation page each block appears on.
+ *
+ * Blocks are documented per category, and the category directory name does not
+ * match the page slug (`ctas/` is documented in `cta.mdx`), so the mapping is
+ * read from the `<Preview>` tags instead of guessed.
+ */
+const listBlockDocPages = async (): Promise<Map<string, string>> => {
+  const blocksDir = join(process.cwd(), "content", "docs", "blocks");
+  const files = (await readdir(blocksDir)).filter(
+    (file) => file.endsWith(".mdx") && file !== "index.mdx"
+  );
+  const pages = new Map<string, string>();
+
+  await Promise.all(
+    files.map(async (file) => {
+      const body = await readFile(join(blocksDir, file), "utf-8");
+      const slug = file.replace(MDX_EXTENSION, "");
+
+      for (const match of body.matchAll(PREVIEW_TAG)) {
+        pages.set(match[1], slug);
+      }
+    })
+  );
+
+  return pages;
+};
+
+/**
+ * Every block, as a `<category>/<block>` path.
+ *
+ * Blocks live one level deeper than components — `blocks/pricing/pricing-1/` —
+ * so reading only the top level found category directories, none of which has a
+ * package.json. Every block was therefore dropped, and `/api/v1/blocks` and the
+ * Blocks section of llms.txt have been advertising zero blocks.
+ */
 const listBlockDirs = async (): Promise<string[]> => {
-  const entries = await readdir(BLOCKS_DIR, { withFileTypes: true });
-  return entries
-    .filter(
-      (e) => e.isDirectory() && !e.name.startsWith(".") && e.name !== "shared"
-    )
-    .map((e) => e.name);
+  const categories = (
+    await readdir(BLOCKS_DIR, { withFileTypes: true })
+  ).filter(
+    (e) => e.isDirectory() && !e.name.startsWith(".") && e.name !== "shared"
+  );
+
+  const nested = await Promise.all(
+    categories.map(async (category) => {
+      const entries = await readdir(join(BLOCKS_DIR, category.name), {
+        withFileTypes: true,
+      });
+
+      return entries
+        .filter((e) => e.isDirectory() && !e.name.startsWith("."))
+        .map((e) => join(category.name, e.name));
+    })
+  );
+
+  return nested.flat();
 };
 
 /** Infer block type from the directory name prefix */
@@ -221,10 +314,24 @@ const detectBlockComponents = async (dir: string): Promise<string[]> => {
 /**
  * Build a fully enriched `BlockMeta` from a block directory.
  */
-const buildBlockMeta = async (name: string): Promise<BlockMeta | null> => {
-  const dir = join(BLOCKS_DIR, name);
+const buildBlockMeta = async (
+  relativePath: string,
+  docPages: Map<string, string>
+): Promise<BlockMeta | null> => {
+  const dir = join(BLOCKS_DIR, relativePath);
   const pkg = await readPackageJson(dir);
   if (!pkg) {
+    return null;
+  }
+
+  // The registry serves blocks by their leaf name, not by category path.
+  const name = relativePath.split("/").at(-1) as string;
+  const docPage = docPages.get(name);
+
+  // Same rule as components: a block is public once it is documented. `header-6`
+  // ships in the package and is served by the registry, but no page previews it,
+  // so advertising it would point an agent at something with no documentation.
+  if (!docPage) {
     return null;
   }
 
@@ -252,7 +359,9 @@ const buildBlockMeta = async (name: string): Promise<BlockMeta | null> => {
     dependencies: filteredDeps,
     hasReducedMotion: meta.hasReducedMotion,
     installCommand: `npx shadcn@latest add ${BASE_URL}/r/${name}.json`,
-    docUrl: `${BASE_URL}/docs/blocks/${name}`,
+    docUrl: docPage
+      ? `${BASE_URL}/docs/blocks/${docPage}`
+      : `${BASE_URL}/docs/blocks`,
     registryUrl: `${BASE_URL}/r/${name}.json`,
   };
 };
@@ -261,8 +370,13 @@ const buildBlockMeta = async (name: string): Promise<BlockMeta | null> => {
  * Get the full block catalog. Cached per-request via `React.cache()`.
  */
 export const getBlockCatalog = cache(async (): Promise<BlockMeta[]> => {
-  const dirs = await listBlockDirs();
-  const results = await Promise.all(dirs.map(buildBlockMeta));
+  const [dirs, docPages] = await Promise.all([
+    listBlockDirs(),
+    listBlockDocPages(),
+  ]);
+  const results = await Promise.all(
+    dirs.map((dir) => buildBlockMeta(dir, docPages))
+  );
 
   return results
     .filter((r): r is BlockMeta => r !== null)

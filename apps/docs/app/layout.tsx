@@ -101,6 +101,10 @@ export default function Layout({ children }: LayoutProps<"/">) {
           title="SmoothUI Blog"
           type="application/rss+xml"
         />
+        {/* Advertise the LLM-facing catalogue. The files existed but nothing
+            pointed at them, so an agent had to guess the convention. */}
+        <link href="/llms.txt" rel="alternate" type="text/plain" />
+        <link href="/llms-full.txt" rel="alternate" type="text/plain" />
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
