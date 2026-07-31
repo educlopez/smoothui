@@ -31,6 +31,14 @@ export default async function BlockPreviewPage({ params }: PageProps) {
 
     return (
       <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">
+        {/* The dev overlay is a fixed element in the corner of this page, so it
+            lands inside any screenshot taken of a block — including the cover art
+            on the blocks index. It does not exist in production, so hiding it
+            costs nothing there. */}
+        {/* biome-ignore lint/security/noDangerouslySetInnerHtml: static rule, no user input */}
+        <style
+          dangerouslySetInnerHTML={{ __html: "nextjs-portal{display:none}" }}
+        />
         <ColorSync />
         <BlockHeightSync blockId={blockId} />
         <BlockExample />

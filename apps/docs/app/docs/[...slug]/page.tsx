@@ -7,7 +7,7 @@ import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
-import { GalleryPage } from "@docs/components/gallery";
+import { BlocksGalleryPage, GalleryPage } from "@docs/components/gallery";
 import { Installer } from "@docs/components/installer";
 import Divider from "@docs/components/landing/divider";
 import { FooterBody } from "@docs/components/landing/footer";
@@ -174,10 +174,15 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // `min-width: auto` and sizes itself to its widest content. One long Tailwind
   // class string in a source file stretched it to ~3900px, which pushed the
   // preview column off screen instead of scrolling inside the code pane.
+  // The index galleries are wall-to-wall previews, same as a block page, so
+  // they get the whole track rather than the reading-width cap.
+  const isGalleryIndex = isComponentOrBlock && page.slugs.length === 1;
   let contentWidth = "min-w-0";
   if (!isSplit) {
     contentWidth =
-      type === "block" ? "min-w-0 max-w-none" : "min-w-0 max-w-[75rem]";
+      type === "block" || isGalleryIndex
+        ? "min-w-0 max-w-none"
+        : "min-w-0 max-w-[75rem]";
   }
 
   // The install section is injected by the layout, not written in the MDX, so it
@@ -244,6 +249,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         ChangelogEntry,
         SponsorsPageContent,
         GalleryPage,
+        BlocksGallery: BlocksGalleryPage,
         PackageManagerTabs,
       }}
     />
@@ -314,8 +320,12 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         className={contentWidth}
         // Split pages render their own prev/next at the end of the reading
         // column; Fumadocs' full-width one underneath would be the same links
-        // twice.
-        footer={isSplit ? { enabled: false } : undefined}
+        // twice. The gallery indexes drop it too: a "next page" pointing at the
+        // first category is noise under a grid that already links to all of
+        // them.
+        footer={
+          isSplit || isGalleryIndex ? { enabled: false } : undefined
+        }
         full={page.data.full ?? isSplit}
         tableOfContent={{
           style: "clerk",
@@ -364,11 +374,11 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
           </DocsBody>
         ) : (
           <>
-            {/* Block pages borrow the split pages' chrome: the catalogue starts
-                collapsed and the crumb doubles as its handle. A block is a
-                full-width page section, so 240px of permanent sidebar was coming
-                straight out of the preview. */}
-            {type === "block" && (
+            {/* Blocks and the two index galleries borrow the split pages'
+                chrome: the catalogue starts collapsed and the crumb doubles as
+                its handle. These pages are wall-to-wall previews, so 240px of
+                permanent sidebar was coming straight out of them. */}
+            {isComponentOrBlock && (
               <>
                 <SplitDocsChrome hideLayoutFooter={false} />
                 {/* Same geometry as the split pages: the row cancels the

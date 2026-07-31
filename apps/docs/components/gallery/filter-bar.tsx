@@ -90,7 +90,7 @@ export const FilterBar = ({
         {localSearch && (
           <button
             aria-label="Clear search"
-            className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+            className="absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer text-muted-foreground hover:text-foreground"
             onClick={clearSearch}
             type="button"
           >
@@ -112,7 +112,7 @@ export const FilterBar = ({
             <motion.button
               aria-pressed={isActive}
               className={cn(
-                "relative rounded-full border px-3 py-1.5 font-medium text-sm transition-colors",
+                "relative cursor-pointer rounded-full border px-3 py-1.5 font-medium text-sm transition-colors",
                 isActive
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-background text-muted-foreground hover:border-primary/50 hover:text-foreground"

@@ -15,22 +15,6 @@ export type ComponentGalleryProps = {
   categories: string[];
 };
 
-/* Demos whose natural width overflows a single grid cell (measured at the
-   3-column layout). They span two columns so the preview isn't clipped. */
-const WIDE_SLUGS = new Set([
-  "animated-o-t-p-input",
-  "animated-stepper",
-  "apple-invites",
-  "contribution-graph",
-  "expandable-cards",
-  "exposure-slider",
-  "infinite-slider",
-  "magnetic-button",
-  "morph-surface",
-  "pagination",
-  "siri-orb",
-]);
-
 export const ComponentGallery = ({
   components,
   categories,
@@ -120,22 +104,19 @@ export const ComponentGallery = ({
 
       {/* Grid */}
       {filteredComponents.length > 0 ? (
+        // A masonry, not a grid: each preview is as tall as its demo, so equal
+        // rows would crop the tall ones and pad the short ones. CSS columns
+        // keep it to markup — nothing is measured or positioned in JS.
         <div
           className={cn(
-            "grid grid-flow-dense gap-4",
-            "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4"
+            "columns-1 gap-4 sm:columns-2 lg:columns-3 2xl:columns-4"
           )}
           role="list"
         >
           <AnimatePresence mode="popLayout">
             {filteredComponents.map((component) => (
               <motion.div
-                className={cn(
-                  (WIDE_SLUGS.has(component.slug) ||
-                    component.category === "Transitions") &&
-                    "sm:col-span-2",
-                  component.slug === "expandable-cards" && "lg:col-span-3"
-                )}
+                className="mb-4 break-inside-avoid"
                 exit={
                   shouldReduceMotion
                     ? { opacity: 0, transition: { duration: 0 } }

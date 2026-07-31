@@ -26,13 +26,17 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
           : { type: "spring", duration: 0.25, bounce: 0.1 }
       }
     >
-      <Link
-        aria-label={`View ${component.title} component`}
-        className="relative block"
-        href={component.href}
-      >
+      {/* Not a wrapper around the preview: demos contain their own links, and
+          an anchor inside an anchor is invalid HTML that React refuses to
+          hydrate. The overlay sits above the preview and below the footer. */}
+      <div className="relative">
         <GalleryPreview slug={component.slug} title={component.title} />
-      </Link>
+        <Link
+          aria-label={`View ${component.title} component`}
+          className="absolute inset-0 z-10"
+          href={component.href}
+        />
+      </div>
       <footer className="flex items-center justify-between gap-2 border-border/60 border-t px-4 py-2.5">
         <Link
           className="truncate font-medium text-foreground text-sm transition-colors hover:text-brand"
