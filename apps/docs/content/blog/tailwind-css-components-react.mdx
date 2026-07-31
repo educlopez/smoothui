@@ -5,6 +5,8 @@ date: "2026-04-16"
 author: "Eduardo Calvo"
 ---
 
+import { BLOCK_COUNT, COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
 import { Installer } from "@docs/components/installer";
 
 Tailwind CSS changed how we style React apps. Instead of writing CSS files, you compose utility classes directly in your JSX. But building a full UI from utilities alone is slow — you need components. This guide covers the **best free Tailwind CSS component libraries for React** in 2026, from headless primitives to fully animated UI kits.
@@ -102,7 +104,7 @@ This is where most libraries leave a gap. shadcn gives you solid static componen
 
 ### SmoothUI
 
-**73+ animated React components** built with Motion (Framer Motion), Tailwind CSS v4, and React 19. Fully shadcn-compatible — uses the same registry system, same `cn()` utility, same copy-paste model.
+**{COMPONENT_COUNT} animated React components** built with Motion (Framer Motion), Tailwind CSS v4, and React 19. Fully shadcn-compatible — uses the same registry system, same `cn()` utility, same copy-paste model.
 
 What sets it apart:
 
@@ -110,7 +112,7 @@ What sets it apart:
 - **Accessibility enforced** — all components check `useReducedMotion`
 - **shadcn registry** — install with the same CLI you already use
 - **Interactive tutorials** — [blog posts](/blog) walk through building each component step by step
-- **40+ pre-built blocks** — hero sections, pricing tables, testimonials, footers
+- **{BLOCK_COUNT} pre-built blocks** — hero sections, pricing tables, testimonials, footers
 
 Install any component:
 
@@ -213,4 +215,4 @@ All libraries mentioned above support Tailwind v4 except DaisyUI (which requires
 
 The Tailwind component ecosystem in 2026 is mature enough that you shouldn't build common UI patterns from scratch. Use shadcn/ui as your foundation, add SmoothUI for animations and interactivity, and reach for specialized libraries (Tremor, Flowbite) when you need domain-specific components.
 
-Browse the [SmoothUI component library](https://smoothui.dev/docs/components) to see all 73+ animated components, or start with the [installation guide](https://smoothui.dev/docs/guides/getting-started).
+Browse the [SmoothUI component library](https://smoothui.dev/docs/components) to see all {COMPONENT_COUNT} animated components, or start with the [installation guide](https://smoothui.dev/docs/guides/getting-started).

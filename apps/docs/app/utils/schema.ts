@@ -1,3 +1,5 @@
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
 export const smoothUISchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -10,8 +12,7 @@ export const smoothUISchema = {
         "@type": "ImageObject",
         url: "https://smoothui.dev/logo-smoothui.svg",
       },
-      description:
-        "Beautiful animated React components with smooth Motion and GSAP animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components with Tailwind CSS for modern UIs.",
+      description: `Beautiful animated React components with smooth Motion and GSAP animations. Drop-in shadcn/ui compatible, fully customizable. ${COMPONENT_COUNT} free components with Tailwind CSS for modern UIs.`,
       founder: {
         "@type": "Person",
         name: "Eduardo Calvo",
@@ -28,8 +29,7 @@ export const smoothUISchema = {
       name: "SmoothUI",
       applicationCategory: "DeveloperApplication",
       operatingSystem: "Any",
-      description:
-        "A React component library featuring 50+ animated UI components with smooth Motion and GSAP animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.",
+      description: `A React component library featuring ${COMPONENT_COUNT} animated UI components with smooth Motion and GSAP animations. Compatible with shadcn/ui, built with Tailwind CSS v4 and TypeScript.`,
       url: "https://smoothui.dev",
       author: {
         "@id": "https://smoothui.dev/#organization",

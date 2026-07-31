@@ -6,6 +6,8 @@ author: "Eduardo Calvo"
 image: "/blog/framer-motion-tutorial.webp"
 ---
 
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
 import { Installer } from "@docs/components/installer";
 
 Motion (formerly Framer Motion) is the most widely used animation library in the React ecosystem. It powers the animations in Vercel's dashboard, Linear, Raycast, and thousands of production apps. This tutorial takes you from zero to production-ready animations — covering the core API, spring physics, gestures, layout transitions, scroll-triggered effects, and accessibility.
@@ -271,7 +273,7 @@ When `prefers-reduced-motion: reduce` is set:
 - **Set `duration: 0`** — the transition happens instantly
 - **Skip transform animations** — no y-offset, scale, or rotation
 
-Every component in [SmoothUI](https://smoothui.dev) follows this pattern. The library enforces `useReducedMotion` checks across all 73+ components, so you don't have to remember it yourself.
+Every component in [SmoothUI](https://smoothui.dev) follows this pattern. The library enforces `useReducedMotion` checks across all {COMPONENT_COUNT} components, so you don't have to remember it yourself.
 
 ## Performance best practices
 
@@ -284,7 +286,7 @@ Every component in [SmoothUI](https://smoothui.dev) follows this pattern. The li
 
 ## Skip the boilerplate
 
-If you're building a React app with Tailwind CSS and want polished animations without writing them from scratch, [SmoothUI](https://smoothui.dev) provides 73+ production-ready components built on Motion. Every component uses springs, respects reduced motion, and installs via the shadcn registry:
+If you're building a React app with Tailwind CSS and want polished animations without writing them from scratch, [SmoothUI](https://smoothui.dev) provides {COMPONENT_COUNT} production-ready components built on Motion. Every component uses springs, respects reduced motion, and installs via the shadcn registry:
 
 ```bash
 npx shadcn@latest add "https://smoothui.dev/r/animated-tabs.json"

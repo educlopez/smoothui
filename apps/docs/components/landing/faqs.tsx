@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { BLOCK_COUNT, COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import {
   Accordion,
   AccordionContent,
@@ -13,8 +14,7 @@ import Script from "next/script";
 const faqs = [
   {
     question: "Is SmoothUI free to use?",
-    answer:
-      "Yes, SmoothUI is completely free and open source under the MIT license. You can use all 50+ animated React components in personal and commercial projects without any cost. There are no premium tiers or hidden fees - every component, block, and animation is available to everyone.",
+    answer: `Yes, SmoothUI is completely free and open source under the MIT license. You can use all ${COMPONENT_COUNT} animated React components in personal and commercial projects without any cost. There are no premium tiers or hidden fees - every component, block, and animation is available to everyone.`,
   },
   {
     question: "What is SmoothUI?",
@@ -28,8 +28,7 @@ const faqs = [
   },
   {
     question: "What features does SmoothUI offer?",
-    answer:
-      "SmoothUI offers 50+ components including smooth animations powered by Motion (Framer Motion) and GSAP, responsive design that works on all devices, TypeScript support with full type definitions, easy customization with Tailwind CSS utility classes, built-in dark mode support, and accessibility features including reduced motion support. Components range from animated buttons and cards to complex interactive elements like Dynamic Island and expandable cards.",
+    answer: `SmoothUI offers ${COMPONENT_COUNT} components and ${BLOCK_COUNT} blocks including smooth animations powered by Motion (Framer Motion) and GSAP, responsive design that works on all devices, TypeScript support with full type definitions, easy customization with Tailwind CSS utility classes, built-in dark mode support, and accessibility features including reduced motion support. Components range from animated buttons and cards to complex interactive elements like Dynamic Island and expandable cards.`,
   },
   {
     question: "How do I install SmoothUI components?",
