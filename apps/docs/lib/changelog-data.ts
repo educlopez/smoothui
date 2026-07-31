@@ -9,6 +9,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    id: "3.6.0",
+    version: "3.6.0",
+    title: "AI Components, Templates & Rebuilt Docs",
+    description:
+      "Twenty AI components and the first template, installable in one command. Component pages pin the preview beside the docs; block and template pages were rebuilt around what you actually came to do.",
+    date: "Jul 31, 2026",
+    href: "/docs/guides/changelog",
+  },
+  {
     id: "3.5.0",
     version: "3.5.0",
     title: "Theme Studio, Installable Themes & Accessibility",

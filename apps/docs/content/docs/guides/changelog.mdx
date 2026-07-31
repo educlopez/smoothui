@@ -8,6 +8,38 @@ description: View the release notes and updates for SmoothUI. Stay up to date wi
 > [GitHub Releases](https://github.com/educlopez/smoothui/releases) or
 > [`CHANGELOG.md`](https://github.com/educlopez/smoothui/blob/main/CHANGELOG.md).
 
+## 3.6.0
+
+<ChangelogEntry date="Jul 31, 2026" version="3.6.0" title="AI Components, Templates & Rebuilt Docs">
+
+### AI components
+
+- Twenty new components for agent surfaces: `ai-message`, `ai-response`, `ai-reasoning`, `ai-tool-call`, `ai-task-list`, `ai-diff`, `ai-artifact`, `ai-approval`, `ai-sources`, `ai-suggestions`, `ai-context-meter`, `ai-loader`, `ai-prompt-input`, `ai-conversation` and `ai-core`
+- A shared **`AIState` contract** (`idle` -> `listening` -> `thinking` -> `streaming` -> `done` -> `error`) that every one of them reads, so a whole surface can be driven from one piece of state
+- **`siri-orb`**: layered conic gradients animated through a registered `--angle` property, reacting to real microphone loudness
+
+### Templates
+
+- New **[Templates](/docs/templates)** section: a whole product surface installed in one command, with every component it composes pulled in as a registry dependency
+- **[Chat Template](/docs/templates/chat)** - sidebar, transcript and composer, with a scripted agent that exercises every AI component. No model, no network call, no API key
+- Template pages lead with a live preview and screenshots rather than source, and list what installing gives you, read from the registry so it cannot drift
+
+### Docs, rebuilt
+
+- **Component pages** split: the documentation scrolls, the component stays pinned beside it in an iframe, so the viewport switcher shows what a phone would actually show
+- **Block pages** keep every control on the block it belongs to (Preview/Code, viewport, install command, add to bundle, Open in v0) because a page documenting five heroes cannot answer "the code of which one?"
+- **Masonry indexes** for components and blocks, each card as tall as its own demo
+- A **file tree** beside the source on block pages, keyed by the path each file lands at after installing
+
+### Fixes worth knowing about
+
+- `text-primary` was invisible ink in both themes: `primary` is a surface here, not an accent. It affected an icon chip, a bento highlight, two link variants, a skeleton, and **ten focus rings across six components**
+- Buttons had no pointer cursor after Tailwind v4 dropped it from Preflight
+- Block sources never resolved in the docs, so no block ever showed its own code
+- The chat template on a phone: the composer was cut off, the orb avatar was clipped, and there was no way to change conversation
+
+</ChangelogEntry>
+
 ## 3.5.0
 
 <ChangelogEntry date="Jun 11, 2026" version="3.5.0" title="Theme Studio, Installable Themes & Accessibility">
