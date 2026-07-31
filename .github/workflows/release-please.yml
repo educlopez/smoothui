@@ -29,9 +29,13 @@ jobs:
       # `--auto` rather than a straight merge: with no required checks on main it
       # merges immediately, and the day branch protection arrives it waits for
       # the checks instead of needing to be rewritten.
+      #
+      # The number is parsed in the shell, not with `fromJSON` in `env`: Actions
+      # evaluates a step's whole template before deciding whether to run it, so
+      # `fromJSON("")` on a push that releases nothing failed the job outright.
       - name: Auto-merge the release PR
         if: steps.release.outputs.pr
-        run: gh pr merge --auto --merge "$PR_NUMBER"
+        run: gh pr merge --auto --merge "$(jq -r .number <<<"$PR_JSON")"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PR_NUMBER: ${{ fromJSON(steps.release.outputs.pr).number }}
+          PR_JSON: ${{ steps.release.outputs.pr }}
