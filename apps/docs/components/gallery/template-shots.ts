@@ -1,6 +1,7 @@
 import type { StaticImageData } from "next/image";
 
 import chatDesktop from "./shots/chat-template-desktop.webp";
+import chatMobile from "./shots/chat-template-mobile.webp";
 
 export type TemplateShot = {
   alt: string;
@@ -18,12 +19,10 @@ export type TemplateShot = {
  * stills of the real thing plus a live preview, not a wall of source. Reading a
  * chat app's source to decide whether you want it is the wrong order.
  *
- * There is no phone shot yet, and deliberately so: headless Chrome ignores a
- * window narrower than roughly 500px and lays the page out wider before cropping
- * the image, so every capture came out looking clipped. The template is fine at
- * that width — measured in a real 419px viewport, nothing overflows — but a
- * screenshot that says otherwise is worse than none. Take that one from a real
- * browser at a narrow viewport.
+ * The phone shot is taken from a real browser, not headless: headless Chrome
+ * ignores a window narrower than roughly 500px and lays the page out wider before
+ * cropping the image, so every capture came out looking clipped when the template
+ * was fine. Load the preview route in a 390px iframe and crop that region.
  */
 export const TEMPLATE_SHOTS: Record<string, TemplateShot[]> = {
   "chat-template": [
@@ -31,6 +30,12 @@ export const TEMPLATE_SHOTS: Record<string, TemplateShot[]> = {
       alt: "Chat template on a desktop viewport, with the conversation sidebar open",
       caption: "Sidebar, transcript and composer on a desktop viewport",
       image: chatDesktop,
+    },
+    {
+      alt: "Chat template on a phone, with the conversation list behind a header button",
+      caption: "The same surface at 390px",
+      image: chatMobile,
+      narrow: true,
     },
   ],
 };
