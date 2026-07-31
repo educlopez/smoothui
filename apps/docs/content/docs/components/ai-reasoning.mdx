@@ -1,0 +1,49 @@
+---
+title: AI Reasoning
+description: Collapsible reasoning trace that shimmers only while the model works, reports how long it took, then gets out of the way.
+icon: Brain
+dependencies: []
+installer: ai-reasoning
+---
+
+## Features
+
+- Collapses itself once the trace finishes — with a beat first, not a snap
+- Times itself, or takes a `duration` you already measured
+- Shimmer on the summary line **only while streaming**
+- A manual open or close hands control back to the reader for good
+- Height spring on expand, with the content fading slightly faster
+
+## The shimmer has to mean something
+
+A permanently shimmering label is decoration. Here it exists only while
+`isStreaming` is true, so the shimmer *is* the "still working" signal. When the
+trace ends the line settles to `Thought for 4.2s`.
+
+## Why it collapses itself
+
+A reasoning trace is scaffolding: interesting while it happens, clutter once the
+answer has landed. `collapseWhenDone` is on by default and waits ~600ms before
+closing, because snapping shut the instant the trace ends feels like the content
+was yanked away mid-read. Turn it off when the reasoning is the content.
+
+## Usage
+
+```tsx
+<AIReasoning isStreaming={phase === "thinking"}>
+  {trace}
+</AIReasoning>
+```
+
+## Accessibility
+
+The trigger is a real `button` with `aria-expanded`. Under reduced motion the
+chevron, the shimmer and the height spring are all disabled — the panel simply
+appears or disappears.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-reasoning/index.tsx"
+  name="AIReasoningProps"
+/>

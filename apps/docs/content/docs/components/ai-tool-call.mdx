@@ -1,0 +1,61 @@
+---
+title: AI Tool Call
+description: Collapsible tool invocation whose status badge is one ring that evolves — breathing, spinning, then drawing a check or a cross.
+icon: Wrench
+dependencies: []
+installer: ai-tool-call
+---
+
+## Features
+
+- Four statuses: `pending`, `running`, `success`, `error`
+- One ring carries all of them — it never unmounts
+- Collapsed to a single line by default; expands to arguments and result
+- Without `args` or `result` it renders as a plain, non-expandable status row
+- Height spring on expand, with the content fading slightly faster
+
+## One object, not four icons
+
+The badge is a single ring that changes behaviour:
+
+| Status | What the ring does |
+| --- | --- |
+| `pending` | Breathes — stroke opacity cycles |
+| `running` | Opens a gap in itself and spins |
+| `success` | Closes, turns green, draws a check inside |
+| `error` | Closes, turns red, draws a cross inside |
+
+Because the ring is never removed from the DOM, the eye tracks one object through
+the whole lifecycle. Swapping four separate icons reads as four unrelated things
+appearing, and it is the reason most tool rows feel noisy.
+
+## Usage
+
+```tsx
+<AIToolCall
+  args={<code>{JSON.stringify(call.args)}</code>}
+  name={call.name}
+  result={<pre>{call.result}</pre>}
+  status={call.status}
+  summary="3 sources"
+/>
+```
+
+## Accessibility
+
+The status is exposed to screen readers as text (`Queued`, `Running`, `Done`,
+`Failed`) since colour and motion carry it visually. The row is a button with
+`aria-expanded` only when there is something to expand, and it is disabled when
+there is not.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: the ring stops spinning and breathing, and the check and
+cross appear fully drawn.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-tool-call/index.tsx"
+  name="AIToolCallProps"
+/>

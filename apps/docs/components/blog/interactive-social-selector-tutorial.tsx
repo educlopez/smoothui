@@ -66,7 +66,7 @@ const CODE_SNIPPETS: Record<StepId, string> = {
     <button
       key={platform.name}
       onClick={() => setSelected(platform)}
-      className="size-9 rounded-full"
+      className="cursor-pointer size-9 rounded-full"
     >
       <platform.icon className="size-5" />
     </button>
@@ -354,7 +354,7 @@ export function InteractiveSocialSelectorTutorial({
                 {PLATFORMS.map((platform) => (
                   <button
                     className={cn(
-                      "relative z-10 flex size-9 items-center justify-center rounded-full transition-colors",
+                      "relative z-10 flex size-9 cursor-pointer items-center justify-center rounded-full transition-colors",
                       selectedPlatform.name === platform.name
                         ? "text-primary-foreground"
                         : "text-muted-foreground hover:bg-muted"

@@ -19,7 +19,7 @@ function ThemeSwitch() {
   return (
     <button
       aria-label="Theme Switcher"
-      className="float-trigger grid h-11! w-11! place-items-center p-0!"
+      className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
       onClick={toggleTheme}
       type="button"
     >
@@ -53,7 +53,7 @@ function SoundToggle() {
     <button
       aria-label={enabled ? "Mute interface sounds" : "Enable interface sounds"}
       aria-pressed={enabled}
-      className="float-trigger grid h-11! w-11! place-items-center p-0!"
+      className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
       onClick={toggle}
       type="button"
     >

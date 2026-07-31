@@ -1,0 +1,47 @@
+---
+title: AI Citation
+description: Inline citation pill that opens an origin-aware source card, anchored to the pill it came from.
+icon: Quote
+dependencies: []
+installer: ai-citation
+---
+
+## Features
+
+- Inline superscript pill that is also a real link
+- Card with host, favicon, title and an excerpt
+- Opens on hover **and** on focus; closes on Escape
+- Short grace period on leave, so the pointer can cross the gap
+- `aria-describedby` wires the card to the pill while it is open
+
+## The card grows out of the pill
+
+`transform-origin: bottom center` puts the growth right where the marker is, so
+the card expands out of the thing you pointed at. A card that fades in centred
+over the text makes you re-find your place in the sentence afterwards.
+
+## Hover is not enough
+
+A hover-only preview is unreachable by keyboard and unusable on touch. This one
+opens on focus too, and the pill remains a plain link — so the fallback for any
+input method that cannot hover is simply following it.
+
+## Relationship to AI Response
+
+[AI Response](/docs/components/ai-response) ships a minimal inline pill for `[n]`
+markers, with no preview. Use this component when the sources deserve a peek
+before the reader commits to leaving the page.
+
+## Accessibility
+
+### Reduced Motion
+
+Uses `useReducedMotion`: the card appears and disappears without the spring or
+the scale.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-citation/index.tsx"
+  name="AICitationProps"
+/>

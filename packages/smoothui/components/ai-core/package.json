@@ -1,0 +1,41 @@
+{
+  "name": "@repo/ai-core",
+  "description": "Shared AI state contract, per-state motion presets and microphone amplitude hooks for SmoothUI AI components.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "state",
+      "audio",
+      "amplitude",
+      "hook",
+      "primitive"
+    ],
+    "complexity": "simple",
+    "animationType": "none",
+    "useCases": [
+      "Share one AI state contract across an entire interface",
+      "Drive orbs and inputs from real microphone loudness",
+      "Simulate a speech envelope for demos without mic permissions"
+    ],
+    "compositionHints": [
+      "Installed automatically as a dependency of other AI components",
+      "Pass the same AIState to every AI component on a screen",
+      "Prefer the MotionValue amplitude so audio never re-renders React"
+    ],
+    "hasReducedMotion": false
+  }
+}

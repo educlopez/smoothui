@@ -1,0 +1,66 @@
+---
+title: AI Task List
+description: Live agent plan with nested steps, a drawn checkmark on completion and a travelling underline on whatever is running.
+icon: ListChecks
+dependencies: []
+installer: ai-task-list
+---
+
+## Features
+
+- Four statuses: `pending`, `running`, `done`, `failed`
+- One level of nested sub-steps
+- The checkmark **draws itself** rather than fading in
+- A travelling underline marks the running row, and only that row
+- Completed rows settle down a pixel and lose contrast
+- Header counts derive from the data
+
+## One moving thing at a time
+
+Only the running row animates. Completed rows go quiet — a pixel down, a little
+less contrast — so the live step is the only thing asking for attention. A list
+where every row shimmers tells you nothing about which one is actually working.
+
+## Counts that cannot lie
+
+The `3/7` in the header is computed from the tasks, including nested ones. A
+count passed in as a prop drifts from the rows the first time a step is added
+somewhere else, and a summary that disagrees with what is on screen destroys
+trust in the whole panel.
+
+## Usage
+
+```tsx
+<AITaskList
+  label="Reorder run"
+  tasks={[
+    {
+      id: "verify",
+      label: "Verify vendor records",
+      note: "12 suppliers",
+      status: "done",
+      children: [
+        { id: "ids", label: "Match tax IDs", note: "12/12", status: "done" },
+      ],
+    },
+    { id: "draft", label: "Draft supplier emails", status: "running" },
+  ]}
+/>
+```
+
+## Accessibility
+
+Status is carried by the drawn mark and by colour, and the note text is available
+to screen readers. The boxes are decorative SVG; the label is the content.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: the checkmark appears fully drawn, the underline is not
+rendered at all, and completed rows do not shift.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-task-list/index.tsx"
+  name="AITaskListProps"
+/>

@@ -41,7 +41,7 @@ export function PmFloatNav() {
     <div className="relative" ref={ref}>
       <button
         aria-label={`Package manager: ${activePm}`}
-        className="float-trigger flex h-auto w-auto items-center gap-1.5 p-2!"
+        className="float-trigger flex h-auto w-auto cursor-pointer items-center gap-1.5 p-2!"
         onClick={() => setOpen((v) => !v)}
         type="button"
       >
@@ -80,7 +80,7 @@ export function PmFloatNav() {
               return (
                 <button
                   className={cn(
-                    "flex items-center gap-2 rounded-md px-2.5 py-1.5 text-left font-medium text-sm transition-colors",
+                    "flex cursor-pointer items-center gap-2 rounded-md px-2.5 py-1.5 text-left font-medium text-sm transition-colors",
                     active
                       ? "bg-muted text-foreground"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"

@@ -1,0 +1,78 @@
+---
+title: AI Sources
+description: Favicon stack that fans out on hover and expands into a source list, each favicon morphing into its own row.
+icon: Library
+dependencies: []
+installer: ai-sources
+---
+
+## Features
+
+- Collapsed to a stack of overlapping favicons with a `+n` overflow chip
+- Hovering fans the stack apart; opening moves each favicon into its row
+- Takes a real isotype as a node, so a brand's own SVG goes straight in
+- Falls back to a neutral globe, never to a letter standing in for a logo
+- Rows link out with `target="_blank"` and `rel="noopener noreferrer"`
+
+## The favicon travels
+
+Opening the list does not fade one set of icons out and another in. Both use the
+same `layoutId`, so the icon the eye was already tracking is the icon that lands
+in the row. That continuity is the difference between "a list appeared" and "the
+thing I was looking at unfolded".
+
+The fan on hover is a separate, smaller hint: it says *this is a set*, before you
+commit to opening it.
+
+## Provenance should be available, not loud
+
+Collapsed by default. Sources matter enormously when someone doubts an answer and
+not at all the rest of the time, which is exactly what a disclosure is for.
+
+## Pass a real mark, not a placeholder
+
+`favicon` is a `ReactNode`, not a URL, so anything renders: a logo service, a
+brand's own SVG, a local asset. The component never fetches on your behalf.
+
+```tsx
+const BrandMark = ({ domain }: { domain: string }) => (
+  <img alt="" src={`https://img.logo.dev/${domain}?size=36&retina=true`} />
+);
+
+<AISources
+  sources={[
+    {
+      id: "1",
+      favicon: <BrandMark domain="canva.com" />,
+      title: "How Canva scaled its design system",
+      url: "https://canva.com/engineering",
+    },
+  ]}
+/>;
+```
+
+What it will never do is render an initial in a circle. A one-letter badge
+dressed up as a logo is a placeholder that shipped, and it tells the reader
+nothing about where the answer came from. With no `favicon` it draws a neutral
+globe, which is at least honest about not knowing.
+
+For inline references to the same sources, see
+[AI Citation](/docs/components/ai-citation).
+
+## Accessibility
+
+The trigger is a button with `aria-expanded`. The fan also triggers on focus, so
+the hint is not pointer-only. Favicons are decorative and carry empty alt text —
+the title and host are the real content.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: no fan, no height spring, no row stagger, and the shared
+layout transition resolves instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-sources/index.tsx"
+  name="AISourcesProps"
+/>

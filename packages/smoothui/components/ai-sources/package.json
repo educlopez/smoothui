@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-sources",
+  "description": "Favicon stack that fans out on hover and expands into a source list, with each favicon morphing into its row.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "sources",
+      "citations",
+      "rag",
+      "favicons",
+      "list"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Sources behind a generated answer",
+      "Retrieved chunks in a RAG interface",
+      "Compact provenance row under a message"
+    ],
+    "compositionHints": [
+      "The favicon morphs into its row via a shared layout id — do not re-key it",
+      "Collapsed by default; provenance should be available, not loud",
+      "Pair with ai-citation for inline references to the same sources"
+    ],
+    "hasReducedMotion": true
+  }
+}

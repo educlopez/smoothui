@@ -178,7 +178,7 @@ export function FaqSearchable({
                   >
                     <button
                       aria-expanded={isOpen}
-                      className="flex w-full items-center justify-between p-5 text-left transition-colors hover:bg-background/50"
+                      className="flex w-full cursor-pointer items-center justify-between p-5 text-left transition-colors hover:bg-background/50"
                       onClick={() => toggleAccordion(originalIndex)}
                       type="button"
                     >

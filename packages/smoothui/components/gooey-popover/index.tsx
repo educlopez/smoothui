@@ -396,7 +396,7 @@ export default function GooeyPopover({
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         className={cn(
-          "relative z-10 flex items-center justify-center rounded-full text-white transition-colors",
+          "relative z-10 flex cursor-pointer items-center justify-center rounded-full text-white transition-colors",
           bgClassName
         )}
         onClick={() => setIsOpen(!isOpen)}

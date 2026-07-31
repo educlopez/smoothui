@@ -1,0 +1,45 @@
+{
+  "name": "@repo/ai-prompt-input",
+  "description": "AI prompt composer with autogrowing textarea, attachment chips and a send-to-stop path morph.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/ai-core": "workspace:*",
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "chat",
+      "input",
+      "textarea",
+      "composer",
+      "prompt",
+      "form"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Chat composer for an assistant or agent",
+      "Prompt box with attachments and a model picker slot",
+      "Stop control while a response is streaming"
+    ],
+    "compositionHints": [
+      "Pass state=\"streaming\" to turn submit into stop",
+      "Render model pickers and mode toggles as children — they land in the toolbar",
+      "Pair with ai-orb-aura for an ambient presence indicator"
+    ],
+    "hasReducedMotion": true
+  }
+}

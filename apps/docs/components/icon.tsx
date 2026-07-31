@@ -53,6 +53,16 @@ export function Icon({ className }: { className?: string }) {
   const rightEyeCenter = { x: 277, y: 301 };
   const eyeRadius = 18;
 
+  // A blink spans several awaits, so the icon can unmount mid-blink. Animation
+  // controls throw if they are driven after unmount, so every leg checks first.
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  }, []);
+
   // A natural blink: snap shut, ease back open. Sometimes a quick double.
   const blink = useCallback(
     async (double = false) => {
@@ -60,10 +70,16 @@ export function Icon({ className }: { className?: string }) {
       const open = { scaleY: 1 };
       const closeT = { duration: 0.07, ease: EASE_IN };
       const openT = { duration: 0.16, ease: EASE_OUT };
+      if (!mountedRef.current) {
+        return;
+      }
       await Promise.all([
         leftEyeControls.start(close, closeT),
         rightEyeControls.start(close, closeT),
       ]);
+      if (!mountedRef.current) {
+        return;
+      }
       await Promise.all([
         leftEyeControls.start(open, double ? closeT : openT),
         rightEyeControls.start(open, double ? closeT : openT),

@@ -12,6 +12,10 @@ import {
 } from "react";
 
 export type GalleryPreviewProps = {
+  /** Tallest the card may grow before the demo is cropped instead. */
+  maxHeight?: number;
+  /** Shortest the card may be, so a one-line demo still reads as a card. */
+  minHeight?: number;
   slug: string;
   title: string;
 };
@@ -99,14 +103,25 @@ class ErrorBoundaryWrapper extends Component<
 const BASE_SCALE = 0.75;
 const MIN_SCALE = 0.45;
 const SETTLE_DELAY_MS = 600;
+const DEFAULT_MIN_HEIGHT = 200;
+const DEFAULT_MAX_HEIGHT = 360;
 
-export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
+export const GalleryPreview = ({
+  maxHeight = DEFAULT_MAX_HEIGHT,
+  minHeight = DEFAULT_MIN_HEIGHT,
+  slug,
+  title,
+}: GalleryPreviewProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [scale, setScale] = useState(BASE_SCALE);
+  // The card is as tall as the demo actually is once scaled to the column, which
+  // is what makes the grid a masonry instead of a wall of identical boxes: a
+  // logo cloud is a strip, a hero is a page.
+  const [height, setHeight] = useState(minHeight);
 
   useEffect(() => {
     if (!isVisible) {
@@ -119,14 +134,14 @@ export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
     }
     const compute = () => {
       const availW = frame.clientWidth;
-      const availH = frame.clientHeight;
       const w = stage.scrollWidth;
       const h = stage.scrollHeight;
-      if (!(availW && availH && w && h)) {
+      if (!(availW && w && h)) {
         return;
       }
-      const fit = Math.min(availW / w, availH / h, BASE_SCALE);
-      setScale(Math.max(MIN_SCALE, fit));
+      const fit = Math.max(MIN_SCALE, Math.min(availW / w, BASE_SCALE));
+      setScale(fit);
+      setHeight(Math.round(Math.min(Math.max(h * fit, minHeight), maxHeight)));
     };
     compute();
     const observer = new ResizeObserver(compute);
@@ -137,7 +152,7 @@ export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
       observer.disconnect();
       clearTimeout(settle);
     };
-  }, [isVisible]);
+  }, [isVisible, maxHeight, minHeight]);
 
   useEffect(() => {
     const element = containerRef.current;
@@ -168,7 +183,7 @@ export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
     <div
       aria-label={`Preview of ${title}`}
       className={cn(
-        "relative h-[280px] w-full overflow-hidden bg-primary p-6",
+        "relative w-full overflow-hidden bg-primary p-6",
         // contain:paint clips fixed/portal-less absolute demo content and
         // caps its z-index so previews never paint over the sticky nav.
         "isolate [contain:layout_paint]",
@@ -176,6 +191,7 @@ export const GalleryPreview = ({ slug, title }: GalleryPreviewProps) => {
         "pointer-events-none select-none"
       )}
       ref={containerRef}
+      style={{ height }}
     >
       {isVisible && ExampleComponent ? (
         <div

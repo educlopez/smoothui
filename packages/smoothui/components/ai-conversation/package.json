@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-conversation",
+  "description": "Thread scroll container that follows the bottom only while the reader is already there, offering a jump-to-latest pill when it stops.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "chat",
+      "scroll",
+      "conversation",
+      "stick-to-bottom",
+      "thread"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Scroll container for a chat thread",
+      "Streaming transcript that must not fight the reader",
+      "Agent log that grows while being read"
+    ],
+    "compositionHints": [
+      "Pass contentKey so it knows when content grew",
+      "Scrolling up during a stream is respected — it stops following",
+      "Give it a bounded height; it manages its own overflow"
+    ],
+    "hasReducedMotion": true
+  }
+}

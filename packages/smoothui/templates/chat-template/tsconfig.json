@@ -1,0 +1,14 @@
+{
+  "extends": "@repo/typescript-config/nextjs.json",
+  "compilerOptions": {
+    "paths": {
+      "@repo/*": ["./../../*"],
+      "@repo/smoothui/components/*": ["./../../components/*"],
+      "@/components/*": ["./../../../shadcn-ui/components/*"],
+      "@/lib/*": ["./../../../shadcn-ui/lib/*"]
+    },
+    "strictNullChecks": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

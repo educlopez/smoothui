@@ -8,31 +8,30 @@ import {
   AIBranchPrevious,
   AIBranchSelector,
 } from "@repo/smoothui/components/ai-branch";
+import AIMessage from "@repo/smoothui/components/ai-message";
+import SiriOrb from "@repo/smoothui/components/siri-orb";
 
+/**
+ * The branches hold real `AIMessage`s rather than hand-rolled bubbles, so the
+ * two components share one design by construction instead of by copy-paste.
+ */
 const Example = () => (
   <AIBranch defaultBranch={0}>
     <AIBranchMessages>
       <div className="space-y-4">
-        {/* User Message */}
-        <div className="flex justify-end">
-          <div className="max-w-[80%] rounded-lg bg-brand p-3 text-white">
-            <p className="text-sm">
-              How do I implement authentication in Next.js?
-            </p>
-          </div>
-        </div>
+        <AIMessage from="user">
+          How do I implement authentication in Next.js?
+        </AIMessage>
 
-        {/* AI Response */}
-        <div className="flex justify-start">
-          <div className="max-w-[80%] rounded-lg border border-brand/30 bg-brand/10 p-3">
-            <p className="text-gray-900 text-sm dark:text-gray-100">
-              Here are several approaches for implementing authentication in
-              Next.js...
-            </p>
-          </div>
-        </div>
+        <AIMessage
+          avatar={<SiriOrb size="26px" state="done" />}
+          copyText="Here are several approaches for implementing authentication in Next.js…"
+          from="assistant"
+        >
+          Here are several approaches for implementing authentication in
+          Next.js…
+        </AIMessage>
 
-        {/* Branch Selector */}
         <AIBranchSelector from="assistant">
           <AIBranchPrevious />
           <AIBranchPage />
@@ -41,25 +40,18 @@ const Example = () => (
       </div>
 
       <div className="space-y-4">
-        {/* Alternative User Message */}
-        <div className="flex justify-end">
-          <div className="max-w-[80%] rounded-lg bg-brand p-3 text-white">
-            <p className="text-sm">
-              What about using NextAuth.js specifically?
-            </p>
-          </div>
-        </div>
+        <AIMessage from="user">
+          What about using NextAuth.js specifically?
+        </AIMessage>
 
-        {/* Alternative AI Response */}
-        <div className="flex justify-start">
-          <div className="max-w-[80%] rounded-lg border border-brand/30 bg-brand/10 p-3">
-            <p className="text-gray-900 text-sm dark:text-gray-100">
-              NextAuth.js is an excellent choice! Here's how to set it up...
-            </p>
-          </div>
-        </div>
+        <AIMessage
+          avatar={<SiriOrb size="26px" state="done" />}
+          copyText="NextAuth.js is an excellent choice. Here's how to set it up…"
+          from="assistant"
+        >
+          NextAuth.js is an excellent choice. Here's how to set it up…
+        </AIMessage>
 
-        {/* Branch Selector */}
         <AIBranchSelector from="assistant">
           <AIBranchPrevious />
           <AIBranchPage />

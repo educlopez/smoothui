@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-suggestions",
+  "description": "Prompt suggestion chips that radiate in from the centre of the row rather than sweeping left to right.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "chat",
+      "suggestions",
+      "chips",
+      "prompt",
+      "empty-state"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Empty state of a chat with starter prompts",
+      "Follow-up questions after an answer",
+      "Quick actions offered mid-conversation"
+    ],
+    "compositionHints": [
+      "Centre-out stagger says the options are equal weight, not ranked",
+      "Pair with ai-prompt-input so a chip fills the composer",
+      "Chips reflow with a layout animation when the set changes"
+    ],
+    "hasReducedMotion": true
+  }
+}

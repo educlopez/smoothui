@@ -74,7 +74,7 @@ export default function ImageMetadataPreview({
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
           <button
             aria-label="Share"
-            className={`min-h-[44px] min-w-[44px] rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+            className={`min-h-[44px] min-w-[44px] rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
               isHoverDevice ? "hover:bg-muted" : ""
             }`}
             disabled={!onShare}
@@ -85,7 +85,7 @@ export default function ImageMetadataPreview({
           </button>
           <button
             aria-label="Connect"
-            className="min-h-[44px] cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50"
+            className="min-h-[44px] cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
             disabled
             type="button"
           >
@@ -100,7 +100,7 @@ export default function ImageMetadataPreview({
                     : { opacity: 1, filter: "blur(0px)" }
                 }
                 aria-label="Open Metadata Preview"
-                className={`min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                className={`min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                   isHoverDevice ? "hover:bg-muted" : ""
                 }`}
                 initial={
@@ -150,7 +150,7 @@ export default function ImageMetadataPreview({
 
                   <button
                     aria-label="Close metadata preview"
-                    className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                    className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                       isHoverDevice ? "hover:bg-muted" : ""
                     }`}
                     onClick={(e) => {

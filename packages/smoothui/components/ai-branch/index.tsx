@@ -15,6 +15,25 @@ interface AIBranchContextType {
   totalBranches: number;
 }
 
+/**
+ * The same two springs every other AI component uses.
+ *
+ * This file predates that vocabulary and had eight hand-tuned
+ * `stiffness`/`damping` pairs — several of which also passed `duration`, which
+ * Motion ignores once stiffness is present. Sharing the tokens is what stops
+ * `ai-branch` feeling like it came from a different library than `ai-message`.
+ */
+const SPRING_DEFAULT = {
+  type: "spring" as const,
+  duration: 0.25,
+  bounce: 0.1,
+};
+const SPRING_SNAPPY = {
+  type: "spring" as const,
+  duration: 0.2,
+  bounce: 0,
+};
+
 const AIBranchContext = createContext<AIBranchContextType | null>(null);
 
 const useAIBranch = () => {
@@ -111,16 +130,7 @@ export const AIBranchMessages = ({ children }: AIBranchMessagesProps) => {
       )}
       initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
       key={`branch-${index}-${currentBranch}`}
-      transition={
-        shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              duration: 0.25,
-              type: "spring" as const,
-              stiffness: 300,
-              damping: 30,
-            }
-      }
+      transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
     >
       {branch}
     </motion.div>
@@ -171,24 +181,15 @@ export const AIBranchPrevious = ({
     <motion.button
       aria-label="Previous branch"
       className={cn(
-        "size-7 shrink-0 rounded-full text-muted-foreground transition-colors",
-        "hover:bg-accent hover:text-foreground",
+        "size-7 shrink-0 cursor-pointer rounded-full text-muted-foreground transition-colors",
+        "hover:bg-muted hover:text-foreground",
         "disabled:pointer-events-none disabled:opacity-50",
         "flex items-center justify-center",
         className
       )}
       disabled={totalBranches <= 1}
       onClick={goToPrevious}
-      transition={
-        shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring" as const,
-              stiffness: 400,
-              damping: 25,
-              duration: 0.2,
-            }
-      }
+      transition={shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY}
       type="button"
       whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
       whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
@@ -211,24 +212,15 @@ export const AIBranchNext = ({ className, children }: AIBranchNextProps) => {
     <motion.button
       aria-label="Next branch"
       className={cn(
-        "size-7 shrink-0 rounded-full text-muted-foreground transition-colors",
-        "hover:bg-accent hover:text-foreground",
+        "size-7 shrink-0 cursor-pointer rounded-full text-muted-foreground transition-colors",
+        "hover:bg-muted hover:text-foreground",
         "disabled:pointer-events-none disabled:opacity-50",
         "flex items-center justify-center",
         className
       )}
       disabled={totalBranches <= 1}
       onClick={goToNext}
-      transition={
-        shouldReduceMotion
-          ? { duration: 0 }
-          : {
-              type: "spring" as const,
-              stiffness: 400,
-              damping: 25,
-              duration: 0.2,
-            }
-      }
+      transition={shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY}
       type="button"
       whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
       whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
@@ -310,18 +302,15 @@ export function LegacyAiBranch({
           animate={{ opacity: 1, y: 0 }}
           className="mb-4 space-y-4"
           initial={{ opacity: 0, y: 10 }}
-          transition={{
-            duration: 0.3,
-            type: "spring" as const,
-            stiffness: 300,
-            damping: 30,
-          }}
+          transition={SPRING_DEFAULT}
         >
           {/* User Message with Branch Navigation */}
           <div className="flex justify-end">
             <div className="flex flex-col items-end gap-2">
-              <div className="max-w-full rounded-lg bg-brand p-3 text-white">
-                <p className="text-sm">{activeBranch.userMessage}</p>
+              <div className="max-w-full rounded-2xl rounded-br-md bg-foreground px-3.5 py-2.5 text-background">
+                <p className="text-sm leading-relaxed">
+                  {activeBranch.userMessage}
+                </p>
               </div>
 
               {/* Branch Navigation Controls */}
@@ -330,19 +319,12 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Copy message"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
-                      "hover:bg-accent hover:text-white",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
+                      "hover:bg-muted hover:text-foreground",
                       "flex items-center justify-center"
                     )}
                     transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : {
-                            type: "spring" as const,
-                            stiffness: 400,
-                            damping: 25,
-                            duration: 0.2,
-                          }
+                      shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -354,19 +336,12 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Edit message"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
-                      "hover:bg-accent hover:text-white",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
+                      "hover:bg-muted hover:text-foreground",
                       "flex items-center justify-center"
                     )}
                     transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : {
-                            type: "spring" as const,
-                            stiffness: 400,
-                            damping: 25,
-                            duration: 0.2,
-                          }
+                      shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -378,22 +353,15 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Previous branch"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
-                      "hover:bg-accent hover:text-white",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
+                      "hover:bg-muted hover:text-foreground",
                       "disabled:pointer-events-none disabled:opacity-50",
                       "flex items-center justify-center"
                     )}
                     disabled={branches.length <= 1}
                     onClick={goToPrevious}
                     transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : {
-                            type: "spring" as const,
-                            stiffness: 400,
-                            damping: 25,
-                            duration: 0.2,
-                          }
+                      shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -409,22 +377,15 @@ export function LegacyAiBranch({
                   <motion.button
                     aria-label="Next branch"
                     className={cn(
-                      "size-6 shrink-0 rounded text-foreground/70 transition-colors",
-                      "hover:bg-accent hover:text-white",
+                      "size-6 shrink-0 cursor-pointer rounded text-foreground/70 transition-colors",
+                      "hover:bg-muted hover:text-foreground",
                       "disabled:pointer-events-none disabled:opacity-50",
                       "flex items-center justify-center"
                     )}
                     disabled={branches.length <= 1}
                     onClick={goToNext}
                     transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : {
-                            type: "spring" as const,
-                            stiffness: 400,
-                            damping: 25,
-                            duration: 0.2,
-                          }
+                      shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
                     }
                     type="button"
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
@@ -439,8 +400,8 @@ export function LegacyAiBranch({
 
           {/* AI Response */}
           <div className="flex justify-start">
-            <div className="max-w-[80%] rounded-lg border border-brand/30 bg-brand/10 p-3">
-              <p className="text-gray-900 text-sm dark:text-gray-100">
+            <div className="max-w-[80%] rounded-2xl rounded-bl-md bg-muted px-3.5 py-2.5">
+              <p className="text-foreground text-sm leading-relaxed">
                 {activeBranch.aiResponse}
               </p>
             </div>

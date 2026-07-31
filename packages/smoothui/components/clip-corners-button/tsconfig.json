@@ -4,6 +4,11 @@
     "baseUrl": ".",
     "paths": {
       "@repo/*": ["../*"],
+      // A sibling is imported as @repo/smoothui/components/<name>, the specifier
+      // the docs app and the package root both understand. From inside a component
+      // package @repo/* already means ../*, so that alias would land two levels
+      // too deep without this entry.
+      "@repo/smoothui/components/*": ["../*"],
       "@/components/*": ["../shadcn-ui/components/*"],
       "@/lib/*": ["../shadcn-ui/lib/*"]
     },

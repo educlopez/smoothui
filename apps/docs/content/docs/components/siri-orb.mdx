@@ -1,6 +1,6 @@
 ---
 title: Siri Orb
-description: Animated Siri-style audio visualizer orb with reactive wave animations and glowing effects. Built with Motion for smooth, customizable AI assistant UIs.
+description: Animated Siri-style orb built from layered conic gradients. Reads the shared AI state contract and reacts to real microphone loudness.
 icon: Waves
 dependencies: []
 installer: siri-orb
@@ -8,16 +8,63 @@ installer: siri-orb
 
 ## Features
 
-- Animated waves and glow
-- Reacts to input levels
-- Smooth looping
-- Easy to style
+- Six layered conic gradients animated through a registered `--angle` property
+- Reads the shared `AIState` contract (`idle`, `listening`, `thinking`, `streaming`, `done`, `error`)
+- Reacts to a live `amplitude` signal: loud audio tightens the gradient, which reads as the orb focusing
+- Size-aware blur, contrast, dot size and mask radius, so it holds up from 16px to hero scale
+- Fully customisable palette
+
+## The state contract
+
+| State | What the orb does |
+| --- | --- |
+| `idle` | Slow rotation, slightly desaturated |
+| `listening` | Grows, fully reactive to amplitude |
+| `thinking` | Rotation speeds up 2.2× with **no size change**, so the layout stays calm |
+| `streaming` | Gentle pulse in sync with output |
+| `done` | One settle overshoot |
+| `error` | Desaturates and shakes once, under 200ms |
+
+## Real audio reactivity
+
+`amplitude` accepts a plain number or the `MotionValue` returned by `useAudioAmplitude`.
+Prefer the `MotionValue`: it updates outside React, so a 60fps audio signal never triggers
+a re-render.
+
+```tsx
+"use client";
+
+import { useAudioAmplitude } from "@/components/smoothui/ai-core";
+import SiriOrb from "@/components/smoothui/siri-orb";
+
+export const VoiceButton = () => {
+  const { amplitude, status, start, stop } = useAudioAmplitude();
+  const isActive = status === "active";
+
+  return (
+    <button onClick={() => (isActive ? stop() : start())} type="button">
+      <SiriOrb
+        amplitude={amplitude}
+        size="96px"
+        state={isActive ? "listening" : "idle"}
+      />
+    </button>
+  );
+};
+```
+
+When a permission prompt would be hostile — docs, marketing pages, previews — use
+`useSimulatedAmplitude(state)` instead. It produces a speech-like envelope whose energy
+follows the current state, so the reactive behaviour is visible without asking for
+anything.
 
 ## Accessibility
 
 ### Reduced Motion
 
-Respects the `prefers-reduced-motion` media query via a CSS `@media` rule. When enabled, the orb's rotation animation is paused and displays a static gradient. This is a purely decorative component with no interactive or semantic content.
+Uses `useReducedMotion` alongside a CSS `@media (prefers-reduced-motion: reduce)` rule.
+When enabled, rotation pauses, amplitude reactivity is disabled and state changes apply
+instantly. This is a purely decorative component with no interactive or semantic content.
 
 ## Props
 

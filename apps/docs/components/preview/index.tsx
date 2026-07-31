@@ -1,6 +1,8 @@
 import { readFile } from "node:fs/promises";
 import { dirname, extname, join, relative, resolve } from "node:path";
 
+import { domain } from "@docs/lib/domain";
+
 import { PreviewRender } from "./render";
 import { PreviewShell } from "./shell";
 
@@ -10,8 +12,10 @@ interface PreviewProps {
   type?: "component" | "block";
 }
 
+// Blocks reach the shared folder from different depths — `../shared` from a
+// group, `../../shared` from inside a block — so the hop count has to be open.
 const SHARED_IMPORT_REGEX =
-  /import\s+\{([^}]+)\}\s+from\s+["']\.\.\/shared["']/;
+  /import\s+\{([^}]+)\}\s+from\s+["'](?:\.\.\/)+shared["']/;
 const REPO_SHADCN_IMPORT_REGEX = /@repo\/shadcn-ui\//g;
 const REPO_SMOOTHUI_IMPORT_REGEX = /@repo\/smoothui\//g;
 const REPO_ROOT_IMPORT_REGEX = /@repo\//g;
@@ -19,8 +23,16 @@ const TYPOGRAPHY_IMPORT_REGEX =
   /^import\s+["']@\/components\/ui\/smoothui\/typography["'];?\n?/gm;
 const REPO_COMPONENT_IMPORT_REGEX = /@repo\/smoothui\/components\/([^'"`]+)/g;
 const LOCAL_COMPONENT_IMPORT_REGEX = /@\/components\/ui\/smoothui\/([^'"`]+)/g;
-const BLOCK_IMPORT_REGEX = /@repo\/smoothui\/blocks\/([^'"`/]+)/g;
+// Blocks are grouped on disk — `blocks/headers/header-1` — so the capture has to
+// keep the slash. Stopping at the first one resolved every hero to
+// `blocks/headers/index.tsx`, which does not exist, and the source silently came
+// back empty.
+const BLOCK_IMPORT_REGEX = /@repo\/smoothui\/blocks\/([^'"`]+)/g;
+// Templates were missing from this list entirely, so a template's own source —
+// and therefore every component it composes — never resolved.
+const TEMPLATE_IMPORT_REGEX = /@repo\/smoothui\/templates\/([^'"`]+)/g;
 const FILE_EXTENSION_REGEX = /\.(tsx|ts|jsx|js)$/;
+const SHADCN_UI_IMPORT_REGEX = /@repo\/shadcn-ui\/components\/ui\/([\w-]+)/g;
 
 // Map component names (PascalCase) to file names (kebab-case)
 const COMPONENT_NAME_MAP: Record<string, string> = {
@@ -31,7 +43,7 @@ const COMPONENT_NAME_MAP: Record<string, string> = {
 
 async function addSharedComponents(
   blockSource: string,
-  sourceComponents: { name: string; source: string }[]
+  sourceComponents: SourceComponent[]
 ) {
   const sharedImportMatch = blockSource.match(SHARED_IMPORT_REGEX);
 
@@ -48,24 +60,19 @@ async function addSharedComponents(
     const fileName = COMPONENT_NAME_MAP[component] || component.toLowerCase();
 
     try {
-      const sharedSource = await readFile(
-        join(
-          process.cwd(),
-          "..",
-          "..",
-          "packages",
-          "smoothui",
-          "blocks",
-          "shared",
-          `${fileName}.tsx`
-        ),
-        "utf-8"
+      const sharedPath = join(
+        SMOOTHUI_ROOT,
+        "blocks",
+        "shared",
+        `${fileName}.tsx`
       );
+      const sharedSource = await readFile(sharedPath, "utf-8");
 
       if (!sourceComponents.some((s) => s.name === `shared/${fileName}`)) {
         sourceComponents.push({
           name: `shared/${fileName}`,
           source: sharedSource,
+          target: toInstallTarget(sharedPath),
         });
       }
     } catch {
@@ -77,7 +84,36 @@ async function addSharedComponents(
 interface SourceComponent {
   name: string;
   source: string;
+  /** Where the registry writes this file, e.g. `components/smoothui/header-1/index.tsx`. */
+  target: string;
 }
+
+/**
+ * Repo path → the path the file lands at after installing.
+ *
+ * Mirrors `lib/package.ts`, which targets every package at
+ * `components/smoothui/<package>/`. Blocks are grouped a level deeper on disk
+ * (`blocks/headers/header-1`), and the group is a repo detail that does not
+ * survive installation, so it is dropped.
+ */
+const toInstallTarget = (absolutePath: string) => {
+  if (absolutePath.startsWith(SHADCN_UI_ROOT)) {
+    return relative(SHADCN_UI_ROOT, absolutePath).replace(/\\/g, "/");
+  }
+
+  const segments = relative(SMOOTHUI_ROOT, absolutePath)
+    .replace(/\\/g, "/")
+    .split("/");
+
+  // Drop the `blocks`/`components` root, then the group folder blocks add.
+  const withoutRoot = segments.slice(1);
+  const withoutGroup =
+    segments[0] === "blocks" && withoutRoot.length > 2
+      ? withoutRoot.slice(1)
+      : withoutRoot;
+
+  return `components/smoothui/${withoutGroup.join("/")}`;
+};
 
 interface GatherSourceArgs {
   code: string;
@@ -113,8 +149,12 @@ const readOptionalFile = async (filePath: string) => {
 const RELATIVE_IMPORT_REGEX =
   /import\s+(?:type\s+)?(?:[\w*\s{},$]+from\s+)?["'](\.[^"']+)["']/g;
 
-const RELATIVE_SOURCE_EXTENSIONS = [".tsx", ".ts", ".jsx", ".js"];
+// `.css` belongs here: a block that imports a CSS module does not work without
+// it, so leaving it out of the tree hid a file the user has to copy.
+const RELATIVE_SOURCE_EXTENSIONS = [".tsx", ".ts", ".jsx", ".js", ".css"];
 const SOURCE_EXTENSION_REGEX = /\.(tsx|ts|jsx|js)$/;
+const SMOOTHUI_ROOT = join(process.cwd(), "..", "..", "packages", "smoothui");
+const SHADCN_UI_ROOT = join(process.cwd(), "..", "..", "packages", "shadcn-ui");
 
 const readFirstExisting = async (filePaths: string[]) => {
   for (const filePath of filePaths) {
@@ -194,7 +234,7 @@ const collectRelativeSources = async ({
   addSourceComponent: (
     name: string,
     source: string,
-    options?: { prepend?: boolean }
+    options?: { prepend?: boolean; target?: string }
   ) => void;
   processedFilePaths: Set<string>;
 }) => {
@@ -224,19 +264,25 @@ const collectRelativeSources = async ({
       continue;
     }
 
-    const relativePath = relative(baseDir, resolvedPath);
-
-    if (relativePath.startsWith("..")) {
+    // A block reaching `../../shared` used to be dropped for leaving its own
+    // folder, which is exactly the file the user is most likely to be missing.
+    // The bound that matters is the workspace, not the package.
+    if (!resolvedPath.startsWith(SMOOTHUI_ROOT)) {
       continue;
     }
 
     processedFilePaths.add(resolvedPath);
 
-    const displayName = `${rootName}/${removeExtension(
-      relativePath.replace(/\\/g, "/")
-    )}`;
+    const relativePath = relative(baseDir, resolvedPath).replace(/\\/g, "/");
+    const displayName = relativePath.startsWith("..")
+      ? removeExtension(
+          relative(SMOOTHUI_ROOT, resolvedPath).replace(/\\/g, "/")
+        )
+      : `${rootName}/${removeExtension(relativePath)}`;
 
-    addSourceComponent(displayName, resolvedSource);
+    addSourceComponent(displayName, resolvedSource, {
+      target: toInstallTarget(resolvedPath),
+    });
 
     await collectRelativeSources({
       baseDir,
@@ -260,18 +306,24 @@ const gatherSourceComponents = async ({
   const addSourceComponent = (
     name: string,
     source: string,
-    options: { prepend?: boolean } = {}
+    options: { prepend?: boolean; target?: string } = {}
   ) => {
     if (sourceComponents.some((component) => component.name === name)) {
       return;
     }
 
+    const entry = {
+      name,
+      source,
+      target: options.target ?? `components/smoothui/${name}/index.tsx`,
+    };
+
     if (options.prepend) {
-      sourceComponents.unshift({ name, source });
+      sourceComponents.unshift(entry);
       return;
     }
 
-    sourceComponents.push({ name, source });
+    sourceComponents.push(entry);
   };
 
   const repoComponentNames = extractImportNames(
@@ -297,7 +349,9 @@ const gatherSourceComponents = async ({
     if (resolvedSource) {
       const { source, path: sourcePath } = resolvedSource;
       processedFilePaths.add(sourcePath);
-      addSourceComponent(component, source);
+      addSourceComponent(component, source, {
+        target: toInstallTarget(sourcePath),
+      });
       await collectRelativeSources({
         baseDir: dirname(sourcePath),
         filePath: sourcePath,
@@ -309,24 +363,39 @@ const gatherSourceComponents = async ({
     }
   }
 
-  const blockNames = extractImportNames(parsedCode, BLOCK_IMPORT_REGEX);
+  // Matched against the original source, not the rewritten one: `parsedCode` has
+  // already turned `@repo/smoothui/…` into `@/components/smoothui/…`, so this
+  // pattern could never match it and every block came back without its source.
+  const blockNames = extractImportNames(code, BLOCK_IMPORT_REGEX);
 
   for (const blockName of blockNames) {
-    const source = await readOptionalFile(
-      join(
-        process.cwd(),
-        "..",
-        "..",
-        "packages",
-        "smoothui",
-        "blocks",
-        blockName,
-        "index.tsx"
-      )
+    const blockPath = join(
+      process.cwd(),
+      "..",
+      "..",
+      "packages",
+      "smoothui",
+      "blocks",
+      blockName,
+      "index.tsx"
     );
+    const source = await readOptionalFile(blockPath);
 
     if (source) {
-      addSourceComponent(blockName, source);
+      processedFilePaths.add(blockPath);
+      // The group is how the repo files them, not what the block is called.
+      addSourceComponent(blockName.split("/").pop() ?? blockName, source, {
+        target: toInstallTarget(blockPath),
+      });
+      await collectRelativeSources({
+        addSourceComponent,
+        baseDir: dirname(blockPath),
+        filePath: blockPath,
+        processedFilePaths,
+        rootName: blockName,
+        source,
+      });
+      await addSharedComponents(source, sourceComponents);
     }
   }
 
@@ -352,7 +421,9 @@ const gatherSourceComponents = async ({
 
     if (source) {
       processedFilePaths.add(componentPath);
-      addSourceComponent(component, source);
+      addSourceComponent(component, source, {
+        target: toInstallTarget(componentPath),
+      });
       await collectRelativeSources({
         baseDir: dirname(componentPath),
         filePath: componentPath,
@@ -379,7 +450,10 @@ const gatherSourceComponents = async ({
 
     if (blockSource) {
       processedFilePaths.add(blockFilePath);
-      addSourceComponent(path, blockSource, { prepend: true });
+      addSourceComponent(path, blockSource, {
+        prepend: true,
+        target: toInstallTarget(blockFilePath),
+      });
       await collectRelativeSources({
         baseDir: dirname(blockFilePath),
         filePath: blockFilePath,
@@ -392,7 +466,114 @@ const gatherSourceComponents = async ({
     }
   }
 
+  const templateNames = extractImportNames(code, TEMPLATE_IMPORT_REGEX);
+
+  for (const templateName of templateNames) {
+    const templatePath = join(
+      SMOOTHUI_ROOT,
+      "templates",
+      templateName,
+      "index.tsx"
+    );
+    const source = await readOptionalFile(templatePath);
+
+    if (!source) {
+      continue;
+    }
+
+    processedFilePaths.add(templatePath);
+    addSourceComponent(templateName, source, {
+      target: toInstallTarget(templatePath),
+    });
+    await collectRelativeSources({
+      addSourceComponent,
+      baseDir: dirname(templatePath),
+      filePath: templatePath,
+      processedFilePaths,
+      rootName: templateName,
+      source,
+    });
+
+    // A template composes registry components by their workspace path, so the
+    // list has to be gathered from the template's files, not from the example
+    // that renders it.
+    const composed = extractImportNames(
+      [source, ...sourceComponents.map((entry) => entry.source)].join("\n"),
+      REPO_COMPONENT_IMPORT_REGEX
+    ).map(stripExtension);
+
+    for (const component of composed) {
+      const basePath = join(SMOOTHUI_ROOT, "components", component);
+      const resolved = await readFirstExisting([
+        `${basePath}.tsx`,
+        join(basePath, "index.tsx"),
+      ]);
+
+      if (resolved) {
+        processedFilePaths.add(resolved.path);
+        addSourceComponent(component, resolved.source, {
+          target: toInstallTarget(resolved.path),
+        });
+      }
+    }
+  }
+
+  // shadcn primitives last: a block's Button and Card are files the user needs
+  // too, and the tree was showing our source while silently dropping theirs.
+  const shadcnNames = extractImportNames(
+    [code, ...sourceComponents.map((component) => component.source)].join("\n"),
+    SHADCN_UI_IMPORT_REGEX
+  );
+
+  for (const name of shadcnNames) {
+    const uiPath = join(SHADCN_UI_ROOT, "components", "ui", `${name}.tsx`);
+    const source = await readOptionalFile(uiPath);
+
+    if (source) {
+      addSourceComponent(`ui/${name}`, source, {
+        target: toInstallTarget(uiPath),
+      });
+    }
+  }
+
   return sourceComponents;
+};
+
+/**
+ * Everything a preview needs, read once on the server.
+ *
+ * Split out of `Preview` so the docs page can lay the same three pieces out
+ * differently — stacked in the MDX flow, or split with a sticky preview column —
+ * without reading and resolving the sources twice.
+ */
+export const loadPreview = async ({
+  path,
+  type = "component",
+}: Omit<PreviewProps, "className">) => {
+  const code = await readFile(
+    join(process.cwd(), "examples", `${path}.tsx`),
+    "utf-8"
+  );
+
+  const Component = await import(`../../examples/${path}.tsx`).then(
+    (module) => module.default
+  );
+
+  const parsedCode = code
+    .replace(REPO_SHADCN_IMPORT_REGEX, "@/")
+    .replace(REPO_SMOOTHUI_IMPORT_REGEX, "@/components/smoothui/")
+    .replace(REPO_ROOT_IMPORT_REGEX, "@/")
+    // Remove typography import
+    .replace(TYPOGRAPHY_IMPORT_REGEX, "");
+
+  const sourceComponents = await gatherSourceComponents({
+    code,
+    parsedCode,
+    path,
+    type,
+  });
+
+  return { Component, parsedCode, sourceComponents };
 };
 
 export const Preview = async ({
@@ -428,6 +609,7 @@ export const Preview = async ({
       blockPath={type === "block" ? path : undefined}
       className={className}
       parsedCode={parsedCode}
+      registryUrl={type === "block" ? `${domain}/r/${path}.json` : undefined}
       sourceComponents={sourceComponents}
       type={type}
     >

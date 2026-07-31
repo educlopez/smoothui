@@ -4,7 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@repo/ai-core": "workspace:*",
     "@repo/shadcn-ui": "workspace:*",
+    "motion": "^12.23.25",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
@@ -23,7 +25,9 @@
       "animated",
       "glow",
       "css",
-      "decorative"
+      "audio",
+      "reactive",
+      "voice"
     ],
     "complexity": "moderate",
     "animationType": "tween",
@@ -33,9 +37,10 @@
       "Decorative animated orb for loading or presence states"
     ],
     "compositionHints": [
-      "Use inside ai-input for AI visual indicator",
+      "Drive the state prop from the same AIState as the rest of the screen",
+      "Feed amplitude from useAudioAmplitude for real voice reactivity",
       "Pair with agent-avatar for AI presence displays"
     ],
-    "hasReducedMotion": false
+    "hasReducedMotion": true
   }
 }

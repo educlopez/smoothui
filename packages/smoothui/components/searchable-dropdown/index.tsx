@@ -274,7 +274,7 @@ export default function SearchableDropdown({
                   aria-controls="dropdown-items"
                   aria-expanded={isOpen}
                   aria-label="Search dropdown items"
-                  className="w-full rounded-md border bg-transparent py-2 pr-8 pl-9 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                  className="w-full rounded-md border bg-transparent py-2 pr-8 pl-9 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setFocusedIndex(-1);
@@ -290,7 +290,7 @@ export default function SearchableDropdown({
                     <motion.button
                       animate={{ opacity: 1 }}
                       aria-label="Clear search"
-                      className="absolute top-1/2 right-2 min-h-[44px] min-w-[44px] -translate-y-1/2 rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+                      className="absolute top-1/2 right-2 min-h-[44px] min-w-[44px] -translate-y-1/2 rounded-full p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                       exit={{ opacity: 0 }}
                       initial={{ opacity: 0 }}
                       onClick={handleClearSearch}
@@ -355,7 +355,7 @@ export default function SearchableDropdown({
                     >
                       <button
                         aria-label={`${item.label}${item.description ? `, ${item.description}` : ""}`}
-                        className={`flex min-h-[44px] w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${
+                        className={`flex min-h-[44px] w-full items-center px-4 py-2 text-left text-sm transition-colors hover:bg-muted focus-visible:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
                           selectedItem?.id === item.id
                             ? "font-medium text-brand"
                             : ""
@@ -448,7 +448,7 @@ export default function SearchableDropdown({
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label={selectedItem ? `${label}: ${selectedItem.label}` : label}
-          className="flex min-h-[44px] w-full items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          className="flex min-h-[44px] w-full cursor-pointer items-center justify-between gap-2 rounded-lg border bg-background px-4 py-2 text-left transition-colors hover:bg-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
           id="dropdown-button"
           onClick={handleToggle}
           ref={buttonRef}

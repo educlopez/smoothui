@@ -1,0 +1,45 @@
+---
+title: Templates
+description: "Whole product surfaces installed in one command. Every SmoothUI component already composed, animated and wired — swap the fake data for your API."
+full: true
+---
+
+<TemplatesGallery />
+
+## What a template is
+
+A **component** is one piece. A **block** is one section. A **template** is a whole
+surface: layout, navigation, state and the interaction between all of it.
+
+Templates install exactly like anything else in the registry, and they pull in
+every component they use as a dependency:
+
+```bash
+npx shadcn@latest add @smoothui/chat-template
+```
+
+Everything lands under `components/smoothui/`, in your project, editable. There is
+no runtime package to update and nothing hidden behind an import.
+
+## What is simulated, and what is not
+
+Templates ship with **no backend**. State machines, streaming, tool calls and
+approvals are all scripted locally, so the surface behaves like the real thing the
+moment you install it — and so you can see every state without an API key.
+
+The seams are marked. In the chat template every reply lives in `chat-data.ts`,
+and the composer's submit handler is the single place you point at your own
+endpoint.
+
+## Content is real
+
+No lorem ipsum, no lettered circles standing in for logos, no grey boxes standing
+in for images. Avatars are photographs, artifacts render the actual artifact.
+Whatever you see is what the component does with real content.
+
+<Cards>
+  <Card title="Chat" href="/docs/templates/chat" description="ChatGPT-style surface: sidebar, transcript, composer" />
+  <Card title="Components" href="/docs/components" description="The individual pieces templates are built from" />
+  <Card title="Blocks" href="/docs/blocks" description="Single sections for marketing pages" />
+  <Card title="Installation" href="/docs/guides/installation" description="Set the registry up first" />
+</Cards>

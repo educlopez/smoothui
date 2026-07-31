@@ -11,6 +11,7 @@ import { STARTER_KITS } from "@docs/lib/starter-kits";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
 import { track } from "@vercel/analytics";
+import { Package, PackageOpen } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconChartBarTrendUpFill24,
@@ -157,12 +158,14 @@ export function KitFloatNav() {
     <>
       <button
         aria-label={`Open install bundle (${count} selected)`}
-        className="float-trigger flex h-auto w-auto items-center gap-1.5 p-2!"
+        className="float-trigger flex h-auto w-auto cursor-pointer items-center gap-1.5 p-2!"
         onClick={() => setOpen(true)}
         ref={triggerRef}
         type="button"
       >
-        <IconLayersFill24 size={20} />
+        {/* A box, matching the "add to bundle" button on every preview:
+            you fill a package, you do not stack layers. */}
+        <Package aria-hidden="true" size={19} />
         <span className="hidden font-medium text-sm sm:inline">Bundle</span>
         {count > 0 && (
           <span className="grid min-w-5 place-items-center rounded-full bg-brand px-1.5 py-0.5 font-semibold text-[11px] text-white">
@@ -233,7 +236,7 @@ export function KitFloatNav() {
                     <section className="border-t">
                       <button
                         aria-expanded={kitsOpen}
-                        className="flex w-full items-center justify-between gap-2 p-4"
+                        className="flex w-full cursor-pointer items-center justify-between gap-2 p-4"
                         onClick={() => setKitsOpen((o) => !o)}
                         type="button"
                       >
@@ -270,7 +273,7 @@ export function KitFloatNav() {
                                   <button
                                     aria-pressed={active}
                                     className={cn(
-                                      "flex items-center justify-between gap-2 rounded-md border px-3 py-2 text-left transition-colors",
+                                      "flex cursor-pointer items-center justify-between gap-2 rounded-md border px-3 py-2 text-left transition-colors",
                                       active
                                         ? "border-brand/40 bg-brand/5"
                                         : "border-border hover:bg-muted"
@@ -358,7 +361,10 @@ export function KitFloatNav() {
                               />
                             </svg>
                             <div className="relative flex size-14 items-center justify-center rounded-xl border border-border bg-background text-foreground shadow-sm">
-                              <IconLayersFill24 className="size-6" />
+                              <PackageOpen
+                                aria-hidden="true"
+                                className="size-6"
+                              />
                             </div>
                           </div>
                           <h3 className="mt-3 font-semibold text-foreground text-sm">
@@ -385,7 +391,7 @@ export function KitFloatNav() {
                                 </span>
                                 <button
                                   aria-label={`Remove ${item.title} from bundle`}
-                                  className="grid size-6 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                                  className="grid size-6 shrink-0 cursor-pointer place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                                   onClick={() => remove(item.slug)}
                                   type="button"
                                 >
@@ -435,7 +441,7 @@ export function KitFloatNav() {
                       </div>
                       <div className="mt-3 flex items-center justify-between">
                         <button
-                          className="inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-muted"
+                          className="inline-flex cursor-pointer items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 font-medium text-foreground text-xs transition-colors hover:bg-muted"
                           onClick={() => {
                             track("bundle_share", { count });
                             navigator.clipboard.writeText(shareUrl);
@@ -447,7 +453,7 @@ export function KitFloatNav() {
                           Copy share link
                         </button>
                         <button
-                          className="inline-flex items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-destructive"
+                          className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-destructive"
                           onClick={() => {
                             track("bundle_clear", { count });
                             clear();

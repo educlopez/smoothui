@@ -33,7 +33,7 @@
       "Visual identity for automated systems"
     ],
     "compositionHints": [
-      "Pair with ai-input for a complete AI chat interface",
+      "Pair with ai-prompt-input for a complete AI chat interface",
       "Use alongside ai-branch for conversation displays"
     ],
     "hasReducedMotion": true

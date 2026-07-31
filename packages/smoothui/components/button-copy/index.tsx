@@ -66,7 +66,7 @@ export default function ButtonCopy({
       <button
         aria-label={ariaLabels[buttonState]}
         aria-live="polite"
-        className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
+        className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
         disabled={buttonState !== "idle" || disabled}
         onClick={handleClick}
         type="button"

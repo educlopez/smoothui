@@ -8,6 +8,7 @@
 @source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/smoothui/templates/**/*.{js,jsx,ts,tsx}";
 
 @theme inline {
   --font-body: var(--font-inter);
@@ -403,4 +404,36 @@
 }
 #nd-sidebar [data-radix-scroll-area-viewport] > div {
   padding-top: 0 !important;
+}
+
+/* Line numbers for the code explorer.
+   Shiki already wraps every line in `.line`, so a CSS counter numbers them
+   without re-parsing the highlighted output or shipping a transformer. */
+.code-explorer-lines code {
+  counter-reset: line;
+}
+
+.code-explorer-lines .line::before {
+  display: inline-block;
+  width: 2rem;
+  margin-right: 1rem;
+  color: var(--color-muted-foreground);
+  text-align: right;
+  /* Chrome puts generated content on the clipboard, so a hand-selected copy
+     would come back with a line number glued to every line. */
+  user-select: none;
+  content: counter(line);
+  counter-increment: line;
+  opacity: 0.4;
+}
+
+/* Tailwind v4 dropped `cursor: pointer` from Preflight, so a `<button>` shows
+   the arrow unless every call site says otherwise. Our own components declare
+   it, but the chrome that comes from Fumadocs cannot — this covers it, and
+   anything added later, in one place. Disabled controls keep the default. */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
 }

@@ -145,7 +145,7 @@ const AnimatedCloseButton = ({
 }) => (
   <motion.button
     aria-label="Close dialog"
-    className="absolute top-4 right-4 rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
+    className="absolute top-4 right-4 cursor-pointer rounded-xs opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none"
     onClick={onClick}
     transition={{ duration: shouldReduceMotion ? 0 : 0.2 }}
     type="button"

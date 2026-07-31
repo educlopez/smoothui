@@ -1,0 +1,48 @@
+---
+title: AI Loader
+description: Family of AI waiting indicators — dots, sweep bar and pixel grid — sharing one cycle length, with an optional elapsed counter.
+icon: LoaderCircle
+dependencies: []
+installer: ai-loader
+---
+
+## Features
+
+- Three variants: `dots`, `bar`, `grid`
+- All of them share one exported cycle length, so mixing them stays in sync
+- Optional live elapsed counter for waits that run long
+- `role="status"` with a polite live region and a screen-reader label
+
+## Why one shared cycle
+
+Two loaders on the same screen running at different tempos read as two unrelated
+things loading. `AI_LOADER_CYCLE_SECONDS` is exported so a page can align other
+ambient motion to the same beat.
+
+```tsx
+import AILoader, {
+  AI_LOADER_CYCLE_SECONDS,
+} from "@/components/smoothui/ai-loader";
+```
+
+## Never a fake percentage
+
+The `bar` variant sweeps; it does not fill. Showing determinate progress for a
+wait of unknown length is the one thing a loader must not do — it promises a
+finish time nobody knows. When a wait can run past a couple of seconds, prefer
+`showElapsed`: real elapsed time is honest and still reassuring.
+
+## Accessibility
+
+### Reduced Motion
+
+Uses `useReducedMotion`. All three variants hold a static, legible state instead
+of animating; the elapsed counter keeps running, since it is information rather
+than decoration.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-loader/index.tsx"
+  name="AILoaderProps"
+/>

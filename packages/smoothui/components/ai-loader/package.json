@@ -1,0 +1,42 @@
+{
+  "name": "@repo/ai-loader",
+  "description": "Family of AI waiting indicators — dots, sweep bar and pixel grid — sharing one cycle length, with an optional elapsed counter.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "loader",
+      "spinner",
+      "thinking",
+      "progress",
+      "chat"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Waiting indicator while a model is working",
+      "Inline indicator inside a message list",
+      "Long-running agent step with an elapsed counter"
+    ],
+    "compositionHints": [
+      "All variants share one cycle, so mixing them stays in sync",
+      "Never fakes determinate progress for an unknown wait",
+      "Use showElapsed for waits that can run past a couple of seconds"
+    ],
+    "hasReducedMotion": true
+  }
+}

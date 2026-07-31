@@ -1,0 +1,94 @@
+---
+title: AI Message
+description: Chat message bubble whose action row slides out of the bubble's own edge, revealed on hover and on focus.
+icon: MessageCircle
+dependencies: []
+installer: ai-message
+---
+
+## Features
+
+- `user` and `assistant` authors with mirrored bubble geometry
+- Copy, retry and up/down feedback actions, all optional
+- Copy flips to a check and scales once, then resets itself
+- Avatar slot for an orb or an image
+- Timestamp with tabular figures, so a column of them does not jitter
+
+## Why `from` and not `role`
+
+`role` is an ARIA attribute. A component prop with the same name misleads readers
+and trips accessibility linters, which see `role="user"` and reject it as an
+invalid ARIA role. The author is `from`.
+
+## The meta row: timestamp first, then actions
+
+The timestamp is fixed content, so it stays pinned to the edge the bubble is
+anchored to — left for the assistant, right for the user. The action slots sit
+beside it, on the inward side. Putting the (invisible) slots ahead of it pushed
+the timestamp toward the middle of the row, where it read as floating in nothing.
+
+## Origin-aware actions
+
+Each action slides out of the side the bubble is anchored to — leftwards for the
+assistant, rightwards for the user — so the row reads as belonging to that
+message rather than fading in from nowhere.
+
+## `bubble={false}` for rich assistant turns
+
+An assistant turn that carries reasoning traces, tool calls, diffs or artifacts is
+already a stack of surfaces. Wrapping that in a tinted bubble reads as a box inside
+a box, which is why ChatGPT-style clients bubble the user and leave the assistant
+bare. Turn the skin off and keep the row, the avatar slot and the action reveal.
+
+## No voting on your own message
+
+`onVote` is honoured on assistant messages only. The feedback pair never renders
+on a user message, because you do not rate what you just wrote. `copyText` and
+`onRetry` still work on both.
+
+## Revealed on hover *and* focus, with no layout shift
+
+The actions are **always mounted** and only faded, so the row reserves its height
+whether or not they are visible. Mounting them on hover changes the row's height,
+which makes every message below jump as the pointer travels down a thread — the
+single most irritating thing a message list can do.
+
+The reveal is plain CSS on the message's own root class — not a motion `animate`
+target and not Tailwind's shared `group`, so a `group` ancestor elsewhere on the
+page cannot light up every row at once, and the row cannot get stuck
+half-revealed if a pointer event is missed.
+
+Being always mounted also means they stay focusable, so a keyboard user tabs
+straight to them and `:focus-within` reveals them. A hover-only control row is
+unreachable by keyboard, and tab order never shifts as the pointer moves.
+
+## Usage
+
+```tsx
+<AIMessage
+  avatar={<SiriOrb size="26px" state={state} />}
+  copyText={answer}
+  onRetry={retry}
+  onVote={vote}
+  from="assistant"
+  timestamp="14:32"
+>
+  {answer}
+</AIMessage>
+```
+
+Pass an orb as the avatar and drive it from the same `AIState` as the rest of the
+screen — the message and the presence indicator then move as one surface.
+
+## Accessibility
+
+Every action is labelled, and the feedback buttons expose `aria-pressed`. A
+blocked clipboard is swallowed rather than thrown, since a failed copy is not
+worth interrupting a conversation over.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-message/index.tsx"
+  name="AIMessageProps"
+/>

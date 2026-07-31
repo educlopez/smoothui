@@ -1,6 +1,6 @@
 "use client";
 
-import { MorphSurface } from "@repo/smoothui/components/ai-input";
+import MorphSurface from "@repo/smoothui/components/morph-surface";
 
 const Example = () => (
   <div className="flex min-h-[300px] items-center justify-center">

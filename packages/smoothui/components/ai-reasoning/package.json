@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-reasoning",
+  "description": "Collapsible AI reasoning trace that shimmers only while the model works, reports how long it took and gets out of the way.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "reasoning",
+      "thinking",
+      "collapsible",
+      "chat",
+      "trace"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Chain-of-thought trace above an answer",
+      "Agent step log that should not dominate the layout",
+      "Any disclosure that becomes clutter once resolved"
+    ],
+    "compositionHints": [
+      "Pass isStreaming so the shimmer means work, not decoration",
+      "Leave collapseWhenDone on unless the trace is the main content",
+      "A manual open or close stops the component deciding for the user"
+    ],
+    "hasReducedMotion": true
+  }
+}

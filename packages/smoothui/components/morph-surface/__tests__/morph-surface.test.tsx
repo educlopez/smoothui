@@ -1,10 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { render } from "../../../test-utils/render";
-import AiInput from "../index";
+import MorphSurface from "../index";
 
-describe("AiInput", () => {
+describe("MorphSurface", () => {
   it("renders without throwing", () => {
-    const { container } = render(<AiInput />);
+    const { container } = render(<MorphSurface />);
     expect(container).toBeInTheDocument();
   });
 });

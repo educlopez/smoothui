@@ -1,0 +1,54 @@
+---
+title: AI Approval
+description: Human-in-the-loop approval card where the chosen option expands to fill the card while the alternatives collapse away.
+icon: ShieldCheck
+dependencies: []
+installer: ai-approval
+---
+
+## Features
+
+- Question, optional context, and a list of options
+- Options stagger in; the chosen one replaces them in a single spring
+- `destructive` marks the dangerous option and tints it accordingly
+- `resolvedId` renders it already-decided, for replaying a transcript
+- Decides once — further clicks are ignored
+
+## A decision should look decided
+
+Choosing does not tick a radio button. The chosen option expands to fill the card
+and the alternatives collapse out of existence. Leaving rejected options sitting
+there greyed out invites a second look at something that has already happened,
+and quietly suggests the choice can be taken back.
+
+## Usage
+
+```tsx
+<AIApproval
+  onDecide={(option) => resumeAgent(option.id)}
+  options={[
+    { id: "keep", label: "Keep the draft" },
+    { id: "delete", label: "Delete all 412 rows", destructive: true },
+  ]}
+  question="Clear the staging table before the import?"
+>
+  This cannot be undone from the app.
+</AIApproval>
+```
+
+## Accessibility
+
+Options are real buttons in document order. The resolved state stays in the DOM
+as text, so a screen reader reaching the card later still learns what was chosen.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: no stagger, no layout spring, no scale — the card simply
+shows its resolved state.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-approval/index.tsx"
+  name="AIApprovalProps"
+/>

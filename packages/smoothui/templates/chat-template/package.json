@@ -1,0 +1,59 @@
+{
+  "name": "@repo/chat-template",
+  "description": "Full ChatGPT-style chat surface — sidebar, transcript and composer — wired to a simulated agent so every AI component is on screen.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/ai-approval": "workspace:*",
+    "@repo/ai-artifact": "workspace:*",
+    "@repo/ai-context-meter": "workspace:*",
+    "@repo/ai-conversation": "workspace:*",
+    "@repo/ai-core": "workspace:*",
+    "@repo/ai-diff": "workspace:*",
+    "@repo/ai-loader": "workspace:*",
+    "@repo/ai-message": "workspace:*",
+    "@repo/ai-prompt-input": "workspace:*",
+    "@repo/ai-reasoning": "workspace:*",
+    "@repo/ai-response": "workspace:*",
+    "@repo/ai-sources": "workspace:*",
+    "@repo/ai-suggestions": "workspace:*",
+    "@repo/ai-task-list": "workspace:*",
+    "@repo/ai-tool-call": "workspace:*",
+    "@repo/shadcn-ui": "workspace:*",
+    "@repo/siri-orb": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "template",
+      "chat",
+      "ai",
+      "assistant",
+      "sidebar",
+      "transcript"
+    ],
+    "complexity": "advanced",
+    "animationType": "spring",
+    "useCases": [
+      "Starting point for an AI chat product",
+      "Showcase of the whole SmoothUI AI set in one surface",
+      "Simulated agent demo with no backend"
+    ],
+    "compositionHints": [
+      "Replace the scripted stages in chat-data.ts with your own request",
+      "Assistant turns are a bag of optional parts — add a field, add a branch",
+      "Give the wrapper a fixed height: the template fills its container"
+    ],
+    "hasReducedMotion": true
+  }
+}

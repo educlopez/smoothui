@@ -1,5 +1,13 @@
 {
   "extends": "@repo/typescript-config/react-library.json",
+  "compilerOptions": {
+    "paths": {
+      "@repo/*": ["./../*"],
+      "@repo/smoothui/components/*": ["./../*"],
+      "@/components/*": ["./../shadcn-ui/components/*"],
+      "@/lib/*": ["./../shadcn-ui/lib/*"]
+    }
+  },
   "include": ["."],
   "exclude": ["node_modules", "dist"]
 }

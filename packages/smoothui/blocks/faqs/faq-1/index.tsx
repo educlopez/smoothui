@@ -157,7 +157,7 @@ export function FaqsGrid({
           <div className="flex flex-wrap gap-2 border-border border-b">
             {categories.map((category, index) => (
               <motion.button
-                className={`relative rounded-t-lg px-4 py-2 font-medium text-sm transition-all duration-200 ${
+                className={`relative cursor-pointer rounded-t-lg px-4 py-2 font-medium text-sm transition-all duration-200 ${
                   activeTab === index
                     ? "bg-background text-brand"
                     : "border-transparent text-muted-foreground hover:border-border/50 hover:text-foreground"

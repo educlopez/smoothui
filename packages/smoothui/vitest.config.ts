@@ -10,6 +10,10 @@ const reactDomPath = path.resolve(
 );
 
 export default defineConfig({
+  // Without this, Vite writes its transform cache to a folder named after a
+  // random 21-character id at the repo root, which is both unignorable by glob
+  // and easy to commit by accident — 7.5MB of it once did.
+  cacheDir: path.resolve(import.meta.dirname, "node_modules/.vite"),
   esbuild: {
     jsx: "automatic",
   },
@@ -19,6 +23,9 @@ export default defineConfig({
     include: [
       "components/**/__tests__/**/*.test.{ts,tsx}",
       "blocks/**/__tests__/**/*.test.{ts,tsx}",
+      "templates/**/__tests__/**/*.test.{ts,tsx}",
+      // Package-wide guards that belong to no single component.
+      "__tests__/**/*.test.{ts,tsx}",
     ],
     globals: true,
     server: {
@@ -30,7 +37,14 @@ export default defineConfig({
     },
     coverage: {
       provider: "v8",
-      include: ["components/**", "blocks/**", "hooks/**", "utils/**", "lib/**"],
+      include: [
+        "components/**",
+        "blocks/**",
+        "templates/**",
+        "hooks/**",
+        "utils/**",
+        "lib/**",
+      ],
       exclude: ["**/__tests__/**", "**/*.d.ts"],
       reporter: ["json-summary", "lcov"],
       // Regression gate just below the current baseline (2026-07):

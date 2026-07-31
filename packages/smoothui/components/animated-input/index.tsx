@@ -95,7 +95,7 @@ export default function AnimatedInput({
       )}
       <input
         aria-label={label}
-        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}
+        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}
         disabled={disabled}
         id={inputId}
         onBlur={() => setIsFocused(false)}

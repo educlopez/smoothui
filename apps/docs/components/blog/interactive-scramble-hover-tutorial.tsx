@@ -269,7 +269,7 @@ export function InteractiveScrambleHoverTutorial({
             </div>
             <div className="flex min-h-[350px] items-center justify-center bg-background p-8">
               <button
-                className="rounded-md bg-muted px-6 py-3 font-mono font-semibold text-foreground text-lg tabular-nums"
+                className="cursor-pointer rounded-md bg-muted px-6 py-3 font-mono font-semibold text-foreground text-lg tabular-nums"
                 onBlur={handleLeave}
                 onFocus={handleEnter}
                 onMouseEnter={handleEnter}

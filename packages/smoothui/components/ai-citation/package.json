@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-citation",
+  "description": "Inline citation pill that opens an origin-aware source card, anchored to the pill it came from.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "citation",
+      "popover",
+      "hover-card",
+      "sources",
+      "inline"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Inline reference inside generated prose",
+      "Footnote-style source preview",
+      "Any inline marker that needs a peek at its target"
+    ],
+    "compositionHints": [
+      "The card grows from the pill, so the pointer never loses the thread",
+      "Opens on hover and on focus, and closes on Escape",
+      "ai-response ships a minimal pill; use this one when you want previews"
+    ],
+    "hasReducedMotion": true
+  }
+}

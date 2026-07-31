@@ -62,7 +62,7 @@ describe("truncate", () => {
 describe("TweetSkeleton", () => {
   it("renders the skeleton placeholders", () => {
     const { container } = render(<TweetSkeleton />);
-    expect(container.querySelectorAll(".bg-primary\\/10").length).toBe(3);
+    expect(container.querySelectorAll(".bg-muted").length).toBe(3);
   });
 });
 

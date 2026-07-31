@@ -35,7 +35,7 @@
       "Build multi-turn conversation UIs with edit/regenerate support"
     ],
     "compositionHints": [
-      "Combine with ai-input for a full chat experience",
+      "Combine with ai-prompt-input for a full chat experience",
       "Use agent-avatar for AI message avatars"
     ],
     "hasReducedMotion": true

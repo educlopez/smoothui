@@ -6,7 +6,6 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import {
   IconBoltFill24,
-  IconBookFill24,
   IconBoxFill24,
   IconColorPaletteFill24,
   IconCompassFill24,
@@ -18,6 +17,7 @@ import {
   IconTextFill24,
   IconUserFill24,
   IconWandSparkleFill24,
+  IconWindowCodeFill24,
   IconXmarkFill24,
 } from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
@@ -206,13 +206,13 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                   : { delay: 0.15, duration: 0.2 }
               }
             >
+              <Link className="mobile-navbar-link" href="/docs/templates">
+                <IconWindowCodeFill24 size={16} />
+                Templates
+              </Link>
               <Link className="mobile-navbar-link" href="/themes">
                 <IconColorPaletteFill24 size={16} />
                 Themes
-              </Link>
-              <Link className="mobile-navbar-link" href="/docs/guides">
-                <IconBookFill24 size={16} />
-                Docs
               </Link>
             </motion.div>
 

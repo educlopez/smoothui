@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-artifact",
+  "description": "Generated-artifact frame whose preview and code panes swap along a shared axis rather than cross-fading.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "artifact",
+      "tabs",
+      "preview",
+      "code",
+      "canvas"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Generated component with preview and source",
+      "Chart or document produced mid-conversation",
+      "Any output that has both a rendered and a raw form"
+    ],
+    "compositionHints": [
+      "Panes travel along one axis, so the swap has a direction and a memory",
+      "The indicator is a shared layout element, not two styled tabs",
+      "Give the frame a title so the artifact is nameable in conversation"
+    ],
+    "hasReducedMotion": true
+  }
+}

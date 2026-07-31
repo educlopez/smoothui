@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-context-meter",
+  "description": "Context window meter whose ring fills and shifts hue at the warning threshold, never changing size.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "context",
+      "tokens",
+      "meter",
+      "usage",
+      "ring"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Context window usage next to a composer",
+      "Token budget indicator in a settings row",
+      "Any quota that has a soft warning band"
+    ],
+    "compositionHints": [
+      "Crossing the threshold changes hue, not size — growth would imply progress",
+      "Figures are tabular so the number never jitters as it counts",
+      "Pass a breakdown to explain what is filling the window"
+    ],
+    "hasReducedMotion": true
+  }
+}

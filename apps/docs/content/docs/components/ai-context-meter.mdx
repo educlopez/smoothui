@@ -1,0 +1,61 @@
+---
+title: AI Context Meter
+description: Context window meter whose ring fills and shifts hue at the warning threshold, never changing size.
+icon: Gauge
+dependencies: []
+installer: ai-context-meter
+---
+
+## Features
+
+- Ring fills as a fraction, with tabular `used/limit` figures beside it
+- Hue shifts at a configurable warning and danger threshold
+- Optional breakdown popover explaining what is filling the window
+- Compact token formatting: `48k`, `1.2M`
+- The full state is in the button's `aria-label`
+
+## Hue, not size
+
+Crossing a threshold changes the colour and nothing else. Growing the ring at the
+warning point would read as *progress* — as something filling up nicely — which
+is the opposite of the message. The geometry stays put and the colour does the
+talking.
+
+## pathLength does the maths
+
+The fill is `strokeDasharray: "${fraction} ${1 - fraction}"` on a circle with
+`pathLength={1}`. No circumference arithmetic, so changing the radius never
+breaks the fill.
+
+## Usage
+
+```tsx
+<AIContextMeter
+  breakdown={[
+    { label: "System prompt", tokens: 1800 },
+    { label: "Attached files", tokens: 48_000 },
+  ]}
+  limit={200_000}
+  used={used}
+/>
+```
+
+Thresholds default to 80% and 95%; override with `warningAt` and `dangerAt`.
+
+## Accessibility
+
+The ring is decorative. The button carries the whole state as text — percentage,
+tokens used and the limit — because colour alone cannot report a quota. Without a
+breakdown the button is disabled rather than being a control that does nothing.
+
+### Reduced Motion
+
+Uses `useReducedMotion`: the ring jumps to its value and the popover appears
+without a spring.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ai-context-meter/index.tsx"
+  name="AIContextMeterProps"
+/>

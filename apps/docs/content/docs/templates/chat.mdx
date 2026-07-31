@@ -1,0 +1,86 @@
+---
+title: Chat Template
+description: A full ChatGPT-style chat surface — sidebar, transcript and composer — with a simulated agent that exercises every SmoothUI AI component.
+icon: MessagesSquare
+dependencies: []
+installer: chat-template
+new: 2026-07-30
+full: true
+---
+
+A complete chat product: conversation sidebar, a transcript that replays reasoning,
+tool calls, plans, diffs, artifacts and approvals, and a composer that streams a
+scripted answer back. No model, no network call, no API key.
+
+The template's AI components come with it as registry dependencies — installing it
+installs `ai-message`, `ai-response`, `ai-reasoning`, `ai-tool-call`,
+`ai-task-list`, `ai-diff`, `ai-artifact`, `ai-approval`, `ai-sources`,
+`ai-suggestions`, `ai-context-meter`, `ai-loader`, `ai-prompt-input`,
+`ai-conversation`, `ai-core` and `siri-orb`.
+
+## Usage
+
+```tsx
+import ChatTemplate from "@/components/smoothui/chat-template";
+
+export default function Page() {
+  // A chat app owns the viewport. The template fills whatever box you give it,
+  // and its panes scroll internally — the page itself never scrolls.
+  return (
+    <main className="h-dvh">
+      <ChatTemplate />
+    </main>
+  );
+}
+```
+
+## What is on screen
+
+| Part | Component |
+| --- | --- |
+| Presence and avatars | `siri-orb`, driven by the shared `AIState` |
+| Transcript scrolling | `ai-conversation` — follows the bottom, releases on scroll up |
+| Turns | `ai-message` — actions revealed on hover and focus, no layout shift |
+| Thinking trace | `ai-reasoning` — collapses once the answer lands |
+| Tool calls | `ai-tool-call` — pending, running, success, error |
+| Plans | `ai-task-list` — nested steps with derived counts |
+| Code changes | `ai-diff` — accept and reject |
+| Produced files | `ai-artifact` — preview and code panes |
+| Human gates | `ai-approval` — including a destructive option |
+| Streaming prose | `ai-response` — word-level reveal with citation pills |
+| What it read | `ai-sources` |
+| Follow-ups | `ai-suggestions` |
+| Window pressure | `ai-context-meter`, which fills as the thread grows |
+| Waiting | `ai-loader` with a live elapsed counter |
+| Input | `ai-prompt-input` — submit turns into stop while streaming |
+
+## Wiring it to a real model
+
+Three seams, all in your copy of the files:
+
+1. **`chat-thread.tsx` → `send()`** — replace the two `setTimeout` stages with your
+   request. The phases (`thinking` → `tool` → `streaming`) map onto what a real
+   agent stream reports.
+2. **`chat-thread.tsx` → the streaming effect** — feed `setStreamed` from your
+   token stream instead of the interval.
+3. **`chat-data.ts`** — delete `SIMULATED_REPLY` and the seeded conversations, and
+   load your own transcripts into the same `ChatTurn` shape.
+
+An assistant turn is a bag of optional parts rather than a blob of markdown,
+because that is what an agent turn is. Adding a new part means adding one field to
+`ChatTurn` and one branch in `ChatTurnView` — which is also how this template grows
+as more AI components land.
+
+## Accessibility
+
+The sidebar list marks the open conversation with `aria-current="page"`. Message
+actions stay focusable at all times, so they are reachable by keyboard rather than
+hover-only. The scroll container is a labelled region, and every animation in the
+tree honours `prefers-reduced-motion`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/templates/chat-template/index.tsx"
+  name="ChatTemplateProps"
+/>

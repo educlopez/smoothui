@@ -102,7 +102,7 @@ const mockOrders = [
 
 // Code snippets for each step
 const CODE_SNIPPETS: Record<StepId, string> = {
-  avatar: `<button className="rounded-full border">
+  avatar: `<button className="cursor-pointer rounded-full border">
   <img
     src={user.avatar}
     alt="Avatar"
@@ -473,7 +473,7 @@ export function InteractiveAvatarTutorial({
                                       />
                                     </div>
                                     <button
-                                      className="mt-2 rounded-md bg-brand px-4 py-2.5 font-semibold text-sm text-white"
+                                      className="mt-2 cursor-pointer rounded-md bg-brand px-4 py-2.5 font-semibold text-sm text-white"
                                       type="button"
                                     >
                                       Save Changes
@@ -607,7 +607,7 @@ export function InteractiveAvatarTutorial({
                                             </div>
                                           </div>
                                           <button
-                                            className="flex shrink-0 items-center justify-center rounded-md border bg-background p-2"
+                                            className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border bg-background p-2"
                                             type="button"
                                           >
                                             <IconEyeFill24

@@ -470,7 +470,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               aria-label={`Go to card ${i + 1} of ${items.length}`}
               aria-selected={i === currentIndex}
               className={cn(
-                "h-2 w-2 rounded-full transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-brand focus:ring-offset-1",
+                "h-2 w-2 cursor-pointer rounded-full transition-all duration-200 focus:outline-none focus:ring-1 focus:ring-brand focus:ring-offset-1",
                 i === currentIndex
                   ? "scale-125 bg-brand"
                   : "bg-gray-300 hover:bg-gray-400"

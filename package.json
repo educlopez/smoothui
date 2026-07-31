@@ -46,6 +46,7 @@
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
     "clean": "git clean -xdf node_modules",
     "calculate-sizes": "npx tsx scripts/calculate-bundle-sizes.ts",
+    "calculate-new": "npx tsx scripts/calculate-new-components.ts",
     "prepare": "husky"
   },
   "devDependencies": {

@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ai-task-list",
+  "description": "Live agent plan with nested steps, a drawn checkmark on completion and a travelling underline on whatever is running.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "tasks",
+      "plan",
+      "agent",
+      "checklist",
+      "progress"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Live agent plan with nested steps",
+      "Multi-step tool run with per-step status",
+      "To-do list an agent ticks off as it works"
+    ],
+    "compositionHints": [
+      "Only the running step animates; completed steps settle and go quiet",
+      "Nest children one level for sub-steps",
+      "Counts come from the data, so the header never disagrees with the rows"
+    ],
+    "hasReducedMotion": true
+  }
+}
