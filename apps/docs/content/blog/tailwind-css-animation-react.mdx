@@ -5,6 +5,8 @@ date: "2026-04-16"
 author: "Eduardo Calvo"
 ---
 
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
 import { Installer } from "@docs/components/installer";
 
 Tailwind CSS ships with animation utilities out of the box — `animate-spin`, `animate-pulse`, `animate-bounce`, `transition-all`. For simple hover states and loading indicators, that's enough. But the moment you need spring physics, exit animations, gesture detection, or scroll-triggered reveals, you need to level up.
@@ -243,7 +245,7 @@ For most React + Tailwind projects:
 
 1. **Start with Tailwind utilities** — hover states, focus rings, color transitions
 2. **Add Motion when you need it** — enter/exit animations, springs, gestures, scroll triggers
-3. **Use pre-built components for common patterns** — [SmoothUI](https://smoothui.dev) provides 73+ animated components that combine Tailwind styling with Motion animations, all shadcn-compatible
+3. **Use pre-built components for common patterns** — [SmoothUI](https://smoothui.dev) provides {COMPONENT_COUNT} animated components that combine Tailwind styling with Motion animations, all shadcn-compatible
 
 ```bash
 npx shadcn@latest add "https://smoothui.dev/r/animated-tabs.json"

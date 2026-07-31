@@ -9,6 +9,7 @@ import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import ExpandableCardsDemo from "@docs/examples/expandable-cards";
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import {
   Tooltip,
   TooltipContent,
@@ -88,8 +89,8 @@ export function Hero() {
                 </h1>
 
                 <p className="max-w-lg text-balance text-foreground/70 text-lg leading-relaxed md:text-xl">
-                  50+ drop-in components for your shadcn/ui project — one
-                  command, Motion-powered, fully typed.
+                  {COMPONENT_COUNT} drop-in components for your shadcn/ui
+                  project — one command, Motion-powered, fully typed.
                 </p>
               </div>
 

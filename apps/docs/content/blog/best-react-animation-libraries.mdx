@@ -6,6 +6,8 @@ author: "Eduardo Calvo"
 image: "/blog/best-react-animation-libraries.webp"
 ---
 
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
 import { Installer } from "@docs/components/installer";
 
 Choosing the right animation library for your React project can make or break the user experience. Too heavy, and your bundle bloats. Too minimal, and you're writing raw CSS keyframes for every micro-interaction. This guide compares the **most popular React animation libraries in 2026** so you can pick the right tool — or skip the decision entirely with a pre-built component library.
@@ -132,7 +134,7 @@ A completely different category: Remotion renders React components as MP4/WebM v
 
 If you've read this far and your real question is "I just need animated buttons, tabs, modals, and cards that look good" — you don't need to pick a library and build from scratch.
 
-[SmoothUI](https://smoothui.dev) provides **73+ production-ready animated components** built with Motion, React 19, and Tailwind CSS v4. Every component:
+[SmoothUI](https://smoothui.dev) provides **{COMPONENT_COUNT} production-ready animated components** built with Motion, React 19, and Tailwind CSS v4. Every component:
 
 - Uses spring physics with `bounce ≤ 0.1` for tight, professional motion
 - Respects `prefers-reduced-motion` via `useReducedMotion`
@@ -180,4 +182,4 @@ Regardless of which library you choose:
 
 ## Conclusion
 
-For most React projects in 2026, **Motion** is the default choice — it has the best balance of power, API ergonomics, and ecosystem support. If you want to skip the boilerplate and ship polished animations immediately, **SmoothUI** gives you 73+ components built on Motion with proper accessibility, spring physics, and Tailwind integration out of the box.
+For most React projects in 2026, **Motion** is the default choice — it has the best balance of power, API ergonomics, and ecosystem support. If you want to skip the boilerplate and ship polished animations immediately, **SmoothUI** gives you {COMPONENT_COUNT} components built on Motion with proper accessibility, spring physics, and Tailwind integration out of the box.

@@ -115,6 +115,13 @@ jobs:
         working-directory: apps/docs
         run: npx tsx scripts/verify-registry.mts
 
+      # The counts are committed so client components and MDX frontmatter can
+      # import them. Checked like a lockfile, so marketing copy cannot silently
+      # drift from the catalogue again.
+      - name: Verify component/block counts are current
+        working-directory: apps/docs
+        run: npx tsx scripts/generate-counts.mts --check
+
   build:
     name: Build
     runs-on: ubuntu-latest

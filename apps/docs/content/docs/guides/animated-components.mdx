@@ -1,9 +1,10 @@
 ---
 title: Animated React Components
-description: 50+ animated React components built with Motion (Framer Motion) and GSAP. Smooth hover effects, transitions, and interactive UI.
+description: "{{components}} animated React components built with Motion (Framer Motion) and GSAP. Smooth hover effects, transitions, and interactive UI."
 ---
 
 import { Accordion, Accordions } from 'fumadocs-ui/components/accordion';
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 
 ## Motion & GSAP-Powered React Components
 
@@ -12,7 +13,7 @@ SmoothUI provides a comprehensive collection of **animated React components** po
 <div className="grid gap-4 md:grid-cols-3">
 
 <FeatureCardHover
-  title="50+ Components"
+  title={`${COMPONENT_COUNT} Components`}
   description="Buttons, cards, inputs, text effects, and more - all with built-in animations."
   gradient="from-purple-400 via-pink-400 to-orange-400"
 />
@@ -124,7 +125,7 @@ Or browse all components:
   href="/docs/components"
   title="All Components"
 >
-  Explore the complete collection of 50+ animated components.
+  Explore the complete collection of {COMPONENT_COUNT} animated components.
 </Card>
 
 <Card

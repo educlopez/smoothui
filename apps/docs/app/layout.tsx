@@ -1,4 +1,5 @@
 import { SoundProvider } from "@docs/components/sound-provider";
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import { KitProvider } from "@docs/lib/kit-context";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -10,6 +11,11 @@ import { smoothUISchema } from "./utils/schema";
 
 const enableVercelAnalytics =
   process.env.NEXT_PUBLIC_ENABLE_VERCEL_ANALYTICS !== "false";
+
+// The component count is the most persuasive number we have, so it comes from
+// the generated counts rather than a figure typed once and left to rot — this
+// description said "50+" while the real number was 130.
+const SOCIAL_DESCRIPTION = `Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. ${COMPONENT_COUNT} free components for modern UIs.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://smoothui.dev"),
@@ -35,8 +41,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "SmoothUI - Animated React Components for shadcn/ui",
-    description:
-      "Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components for modern UIs.",
+    description: SOCIAL_DESCRIPTION,
     url: "https://smoothui.dev",
     siteName: "SmoothUI",
     images: [
@@ -52,8 +57,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     title: "SmoothUI - Animated React Components for shadcn/ui",
-    description:
-      "Beautiful animated React components with smooth Motion animations. Drop-in shadcn/ui compatible, fully customizable. 50+ free components for modern UIs.",
+    description: SOCIAL_DESCRIPTION,
     card: "summary_large_image",
     images: [
       {
@@ -97,6 +101,10 @@ export default function Layout({ children }: LayoutProps<"/">) {
           title="SmoothUI Blog"
           type="application/rss+xml"
         />
+        {/* Advertise the LLM-facing catalogue. The files existed but nothing
+            pointed at them, so an agent had to guess the convention. */}
+        <link href="/llms.txt" rel="alternate" type="text/plain" />
+        <link href="/llms-full.txt" rel="alternate" type="text/plain" />
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}

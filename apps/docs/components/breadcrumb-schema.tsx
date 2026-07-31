@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 interface BreadcrumbSchemaProps {
   slugs: string[];
   title: string;
@@ -44,8 +42,12 @@ export function BreadcrumbSchema({ slugs, title }: BreadcrumbSchemaProps) {
     })),
   };
 
+  // A plain <script> rather than next/script: next/script injects after
+  // hydration, so the JSON-LD is absent from the server HTML — which is all that
+  // many crawlers, and most LLM fetchers, ever read. JSON-LD is inert data, so
+  // there is nothing to defer.
   return (
-    <Script
+    <script
       // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data requires innerHTML
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       id="breadcrumb-schema"

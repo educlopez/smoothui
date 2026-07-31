@@ -18,11 +18,19 @@ import type { ElementContent } from "hast";
 import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import { z } from "zod";
+import { substituteCounts } from "./lib/count-tokens";
 import { smoothuiDark, smoothuiLight } from "./lib/themes";
 
 export const docs = defineDocs({
   docs: {
     schema: frontmatterSchema.extend({
+      /**
+       * `{{components}}`, `{{blocks}}`, `{{blockCategories}}` and
+       * `{{templates}}` resolve to the generated counts. Frontmatter is parsed
+       * before any JS runs, so a description cannot import the constant the way
+       * the body can — and this is the text search engines show.
+       */
+      description: z.string().transform(substituteCounts).optional(),
       dependencies: z.array(z.string()).optional(),
       references: z.array(z.string()).optional(),
       installer: z.string().optional(),
@@ -56,6 +64,7 @@ export const blog = defineDocs({
   dir: "content/blog",
   docs: {
     schema: frontmatterSchema.extend({
+      description: z.string().transform(substituteCounts).optional(),
       date: z.string(),
       author: z.string().optional(),
       image: z.string().optional(),
