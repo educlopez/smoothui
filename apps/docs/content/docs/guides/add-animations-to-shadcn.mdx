@@ -1,0 +1,170 @@
+---
+title: How to Add Animations to shadcn/ui
+description: Three ways to animate a shadcn/ui project — CSS transitions, hand-rolled Motion, or pre-animated components. When to use each, with the durations, easings and reduced-motion rules that make motion feel right.
+icon: Sparkles
+---
+
+import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+
+Your shadcn/ui app works. Forms validate, dialogs open, the dark mode is fine — and the whole thing feels inert next to Linear or Vercel. That gap is motion, and shadcn/ui deliberately leaves it to you: it ships accessible primitives, not an opinion about how they should move.
+
+This guide covers the three ways to close that gap, when each is the right call, and the rules that separate motion that feels expensive from motion that feels cheap.
+
+## Which route is yours
+
+| Route | Best for | Cost |
+|---|---|---|
+| **CSS transitions** | Hover states, colour changes, simple fades | Minutes. No dependency. |
+| **Hand-rolled Motion** | One or two signature interactions you want full control over | Hours per interaction, plus learning spring physics |
+| **Pre-animated components** | Breadth — you want the whole app to feel considered | One command per component |
+
+Most projects end up using all three. Reach for CSS first: if a transition on `opacity` and `transform` does the job, a JavaScript animation library is weight you do not need.
+
+## Route 1 — CSS transitions
+
+For interaction states, a plain Tailwind transition is usually the right answer and needs nothing installed:
+
+```tsx
+<button className="transition-colors duration-150 ease-out hover:bg-accent">
+  Hover me
+</button>
+```
+
+```tsx
+// Scale and fade on hover — both compositor-friendly properties
+<div className="opacity-80 transition duration-200 ease-out hover:scale-[1.02] hover:opacity-100">
+  Card
+</div>
+```
+
+If your project has `tw-animate-css` — shadcn's init adds it for Tailwind v4 projects, and it is what powers the `data-[state=open]:animate-in` classes on shadcn's own dialogs — you also get enter and exit keyframes for free:
+
+```tsx
+<div className="animate-in fade-in slide-in-from-bottom-2 duration-200">
+  Appears on mount
+</div>
+```
+
+**Where CSS runs out:** it cannot do real spring physics, it cannot animate an element that has already unmounted, and it cannot animate layout changes (`flex-direction`, `justify-content`, an element moving from one list to another). Those are the cases that justify a library.
+
+## Route 2 — Hand-rolled Motion
+
+Install [Motion](https://motion.dev) (formerly Framer Motion):
+
+```bash
+npm install motion
+```
+
+The mechanics are easy. The decisions are the hard part, and they are what make motion feel professional rather than bolted on.
+
+### Duration: shorter than you think
+
+Aim for **0.2–0.25s** for standard UI. Up to 0.3s for something complex, 0.4s at the absolute most. Anything slower reads as sluggish because the user is waiting on your animation to finish before they can act.
+
+### Easing: never use a string
+
+```tsx
+// Wrong — vague, and usually too slow at the start
+transition={{ ease: "easeInOut" }}
+
+// Right — entering elements decelerate into place
+transition={{ duration: 0.25, ease: [0.23, 1, 0.32, 1] }}
+```
+
+Use `ease-out` curves for elements arriving, `ease-in-out` for elements moving between two positions, and avoid `ease-in` for anything the user is waiting on — it feels like lag.
+
+### Springs: keep the bounce low
+
+```tsx
+transition={{ type: "spring", duration: 0.25, bounce: 0.1 }}
+```
+
+Bounce at or below `0.1` for interface elements. Save `0.2–0.3` for playful or drag interactions, where overshoot is the point. A dialog that wobbles open looks broken, not lively.
+
+### Animate only `transform` and `opacity`
+
+These two are the only properties the browser can animate on the compositor, off the main thread. Animating `width`, `height`, `top` or `margin` forces layout on every frame and drops you below 60fps. Move things with `transform`, not `left`.
+
+### Handle `prefers-reduced-motion` — this is not optional
+
+Roughly one in three people who enable this setting do so because motion makes them physically unwell. Ignoring it turns your polish into an accessibility failure:
+
+```tsx
+import { motion, useReducedMotion } from "motion/react";
+
+export function Card() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <motion.div
+      animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring", duration: 0.25, bounce: 0.1 }
+      }
+    >
+      Content
+    </motion.div>
+  );
+}
+```
+
+Reduced motion means **gentler, not none**. Keep opacity and colour changes; drop the movement.
+
+<Callout type="warn">
+  Reduced motion is the rule that gets skipped most often, and it is the one with
+  real consequences. If you write your own animated components, make this the
+  first thing you add, not the last.
+</Callout>
+
+## Route 3 — Pre-animated components
+
+SmoothUI is {COMPONENT_COUNT} components that already follow every rule above, installed through the shadcn registry you already use:
+
+```bash
+npx shadcn@latest add @smoothui/magnetic-button
+```
+
+<Preview path="magnetic-button" />
+
+The code is copied into your project, exactly like a shadcn component — same `cn()` utility, same tokens, same full ownership. It is not a dependency and there is no wrapper to fight.
+
+<Installer addToKit={false} packageName="magnetic-button" />
+
+This route makes sense when you want breadth. Getting one interaction right by hand is a good use of an afternoon; getting forty right is a project.
+
+## What not to do
+
+- **Animating layout properties.** `width`, `height` and `top` cause layout thrash. Use `transform`.
+- **String easings.** `"easeInOut"` is imprecise and usually too slow. Use `cubic-bezier` values.
+- **Durations over 0.4s** on anything interactive. It reads as lag, not elegance.
+- **Hover animations without checking for hover.** On touch devices a hover effect fires on tap and sticks. Gate it behind `matchMedia("(hover: hover) and (pointer: fine)")`.
+- **Skipping `prefers-reduced-motion`.** See above.
+- **Animating everything.** Motion should direct attention. If it is everywhere, it directs nothing.
+
+## Where to go next
+
+<Cards>
+  <Card
+    href="/docs/guides/animation-best-practices"
+    title="Animation Best Practices"
+    description="The full set of rules, with the reasoning behind each one."
+  />
+  <Card
+    href="/docs/components"
+    title="Browse components"
+    description="Every component, with a live preview and its source."
+  />
+  <Card
+    href="/docs/guides/shadcn-alternative"
+    title="SmoothUI vs shadcn/ui"
+    description="How the two fit together, and which to reach for when."
+  />
+  <Card
+    href="/blog"
+    title="Build them yourself"
+    description="Interactive tutorials that deconstruct each component step by step."
+  />
+</Cards>
