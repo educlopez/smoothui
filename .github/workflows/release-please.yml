@@ -12,7 +12,26 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      - id: release
+        uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      # The release PR is generated: it carries no code, only CHANGELOG.md and a
+      # version number, so a human merging it never adds information. Merging it
+      # by hand is what kept it stale at 3.5.1 while main had moved on.
+      #
+      # Enabled here rather than in a `pull_request` workflow on purpose: a PR
+      # opened by Actions with GITHUB_TOKEN does not trigger workflow runs, so
+      # such a job would never fire.
+      #
+      # `--auto` rather than a straight merge: with no required checks on main it
+      # merges immediately, and the day branch protection arrives it waits for
+      # the checks instead of needing to be rewritten.
+      - name: Auto-merge the release PR
+        if: steps.release.outputs.pr
+        run: gh pr merge --auto --merge "$PR_NUMBER"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ fromJSON(steps.release.outputs.pr).number }}
