@@ -4,6 +4,7 @@ import { BodyText } from "@docs/components/body-text";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
+import { ComponentSchema } from "@docs/components/component-schema";
 import { Contributor } from "@docs/components/contributor";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
@@ -361,6 +362,15 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   return (
     <>
       <BreadcrumbSchema slugs={page.slugs} title={page.data.title} />
+      {/* The pages that earn the traffic had nothing describing what they are —
+          only the site-wide graph and the breadcrumb. */}
+      <ComponentSchema
+        dependencies={dependencies}
+        description={page.data.description ?? ""}
+        installer={installer ?? undefined}
+        slugs={page.slugs}
+        title={page.data.title}
+      />
       <DocsPage
         className={contentWidth}
         // Split pages render their own prev/next at the end of the reading

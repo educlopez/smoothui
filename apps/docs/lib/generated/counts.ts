@@ -5,7 +5,7 @@
 export const COMPONENT_COUNT = 130;
 
 /** Individual blocks — every <Preview> across the block category pages. */
-export const BLOCK_COUNT = 33;
+export const BLOCK_COUNT = 34;
 
 /** Block categories: pricing, headers, footers, … */
 export const BLOCK_CATEGORY_COUNT = 10;
