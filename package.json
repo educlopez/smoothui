@@ -37,6 +37,7 @@
     "postpublish": "cp README.github.md README.md && rm README.github.md",
     "build": "turbo build",
     "dev": "turbo dev",
+    "lint": "ultracite check",
     "check": "ultracite check",
     "fix": "ultracite fix",
     "test": "turbo test",
