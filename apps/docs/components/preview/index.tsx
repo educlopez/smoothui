@@ -28,6 +28,9 @@ const LOCAL_COMPONENT_IMPORT_REGEX = /@\/components\/ui\/smoothui\/([^'"`]+)/g;
 // `blocks/headers/index.tsx`, which does not exist, and the source silently came
 // back empty.
 const BLOCK_IMPORT_REGEX = /@repo\/smoothui\/blocks\/([^'"`]+)/g;
+// Templates were missing from this list entirely, so a template's own source —
+// and therefore every component it composes — never resolved.
+const TEMPLATE_IMPORT_REGEX = /@repo\/smoothui\/templates\/([^'"`]+)/g;
 const FILE_EXTENSION_REGEX = /\.(tsx|ts|jsx|js)$/;
 const SHADCN_UI_IMPORT_REGEX = /@repo\/shadcn-ui\/components\/ui\/([\w-]+)/g;
 
@@ -460,6 +463,58 @@ const gatherSourceComponents = async ({
         processedFilePaths,
       });
       await addSharedComponents(blockSource, sourceComponents);
+    }
+  }
+
+  const templateNames = extractImportNames(code, TEMPLATE_IMPORT_REGEX);
+
+  for (const templateName of templateNames) {
+    const templatePath = join(
+      SMOOTHUI_ROOT,
+      "templates",
+      templateName,
+      "index.tsx"
+    );
+    const source = await readOptionalFile(templatePath);
+
+    if (!source) {
+      continue;
+    }
+
+    processedFilePaths.add(templatePath);
+    addSourceComponent(templateName, source, {
+      target: toInstallTarget(templatePath),
+    });
+    await collectRelativeSources({
+      addSourceComponent,
+      baseDir: dirname(templatePath),
+      filePath: templatePath,
+      processedFilePaths,
+      rootName: templateName,
+      source,
+    });
+
+    // A template composes registry components by their workspace path, so the
+    // list has to be gathered from the template's files, not from the example
+    // that renders it.
+    const composed = extractImportNames(
+      [source, ...sourceComponents.map((entry) => entry.source)].join("\n"),
+      REPO_COMPONENT_IMPORT_REGEX
+    ).map(stripExtension);
+
+    for (const component of composed) {
+      const basePath = join(SMOOTHUI_ROOT, "components", component);
+      const resolved = await readFirstExisting([
+        `${basePath}.tsx`,
+        join(basePath, "index.tsx"),
+      ]);
+
+      if (resolved) {
+        processedFilePaths.add(resolved.path);
+        addSourceComponent(component, resolved.source, {
+          target: toInstallTarget(resolved.path),
+        });
+      }
     }
   }
 

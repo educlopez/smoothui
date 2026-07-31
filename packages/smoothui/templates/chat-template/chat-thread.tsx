@@ -19,7 +19,7 @@ import AISuggestions from "@repo/smoothui/components/ai-suggestions";
 import AITaskList from "@repo/smoothui/components/ai-task-list";
 import AIToolCall from "@repo/smoothui/components/ai-tool-call";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
-import { ChevronDown, Paperclip } from "lucide-react";
+import { ChevronDown, PanelLeftOpen, Paperclip } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   ATTACHABLE_FILES,
@@ -46,11 +46,18 @@ const formatClock = (date: Date) =>
 
 export type ChatThreadProps = {
   className?: string;
+  /** Opens the conversation list on narrow screens, where it has no column. */
+  onOpenSidebar?: () => void;
   title: string;
   turns: ChatTurn[];
 };
 
-export const ChatThread = ({ className, title, turns }: ChatThreadProps) => {
+export const ChatThread = ({
+  className,
+  onOpenSidebar,
+  title,
+  turns,
+}: ChatThreadProps) => {
   const [localTurns, setLocalTurns] = useState<ChatTurn[]>([]);
   const [phase, setPhase] = useState<LivePhase>("idle");
   const [streamed, setStreamed] = useState("");
@@ -192,6 +199,18 @@ export const ChatThread = ({ className, title, turns }: ChatThreadProps) => {
   return (
     <section className={cn("flex min-w-0 flex-1 flex-col", className)}>
       <header className="flex items-center gap-3 border-border/60 border-b px-4 py-2.5">
+        {/* The only way into the conversation list on a phone, where the sidebar
+            has no column of its own. */}
+        {onOpenSidebar && (
+          <button
+            aria-label="Open conversations"
+            className="-ml-1 flex cursor-pointer items-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+            onClick={onOpenSidebar}
+            type="button"
+          >
+            <PanelLeftOpen aria-hidden="true" size={16} />
+          </button>
+        )}
         <h2 className="min-w-0 flex-1 truncate font-medium text-sm">{title}</h2>
         <AIContextMeter
           breakdown={breakdown}
@@ -204,7 +223,10 @@ export const ChatThread = ({ className, title, turns }: ChatThreadProps) => {
         className="flex-1 px-4"
         contentKey={`${allTurns.length}-${streamed.length}-${phase}`}
       >
-        <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col gap-5 py-5">
+        {/* `px-2`, not decoration: the scroller clips at its padding box, and the
+              orb avatar sat flush against that edge — its glow extends past its
+              own 26px box, so the left of it was being shaved off. */}
+        <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col gap-5 px-2 py-5">
           {allTurns.length === 0 && (
             <div className="flex flex-1 flex-col items-center justify-center gap-4 py-10 text-center">
               <SiriOrb size="64px" state="idle" />

@@ -14,6 +14,7 @@ import {
   TemplatesGalleryPage,
 } from "@docs/components/gallery";
 import { Installer } from "@docs/components/installer";
+import { BgLines } from "@docs/components/landing/bg-lines";
 import Divider from "@docs/components/landing/divider";
 import { FooterBody } from "@docs/components/landing/footer";
 import { LastModified } from "@docs/components/last-modified";
@@ -177,6 +178,22 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const previewData =
     isSplit && installer ? await loadPreview({ path: installer, type }) : null;
 
+  // What a template installs alongside itself, resolved the same way the registry
+  // resolves it — so the list on the page cannot drift from what you actually get.
+  const templateData =
+    isTemplateDetail && installer
+      ? await loadPreview({ path: installer, type: "block" })
+      : null;
+  const templateDependencies = templateData
+    ? [
+        ...new Set(
+          templateData.sourceComponents
+            .map((component) => component.name)
+            .filter((name) => !name.includes("/") && name !== installer)
+        ),
+      ].sort()
+    : [];
+
   // Blocks are full-width page sections. Capping the article at 1200px showed
   // every hero at a width nobody ships one at, which is the whole reason to be
   // looking at a preview.
@@ -196,9 +213,19 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         ? "min-w-0 max-w-none"
         : "min-w-0 max-w-[75rem]";
     if (isTemplateDetail) {
-      // A template page is a page of screenshots, so it reads better at the
-      // width of one screenshot than stretched across the whole track.
-      contentWidth = "min-w-0 max-w-[64rem]";
+      // A template page is a page of screenshots, so it reads at the width of
+      // one screenshot, centred — not stretched across the whole track the way
+      // a catalogue of previews wants to be.
+      // The landing's measurements: `max-w-7xl`, centred, with a vertical rule
+      // down each edge. A template page is a shop page, so it belongs to that
+      // family rather than to the docs reading column.
+      //
+      // `!` on purpose: `full: true` pages are un-capped by an unlayered rule in
+      // global.css, which beats a layered utility.
+      // `bg-background` on the column is what makes the decoration read as a
+      // gutter: the striped layer behind covers the whole track, and the column
+      // masks it over its own width.
+      contentWidth = "relative mx-auto min-w-0 max-w-7xl! bg-background";
     }
   }
 
@@ -428,11 +455,43 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 </div>
               </>
             )}
-            {heading}
-            {actionRow}
+            {/* A template page carries its own header — name, actions and the
+                screens — so the docs title block and the copy/open row would be
+                a second, weaker version of it. */}
+            {!isTemplateDetail && heading}
+            {!isTemplateDetail && actionRow}
             <DocsBody>
+              {/* The landing's gutters: the surface tone plus its diagonal
+                  lines behind everything, and a rule down each edge of the
+                  column. Fixed rather than absolute so the stripes do not stop
+                  where the article stops. */}
+              {isTemplateDetail && (
+                <>
+                  <div className="pointer-events-none fixed inset-0 -z-20 bg-primary" />
+                  <BgLines className="fixed inset-0 -z-10 max-w-none!" />
+                  <Divider orientation="vertical" />
+                  <Divider
+                    className="right-auto left-0"
+                    orientation="vertical"
+                  />
+                </>
+              )}
               {isTemplateDetail && installer && (
-                <TemplateShowcase installer={installer} />
+                <TemplateShowcase
+                  description={page.data.description ?? ""}
+                  installer={installer}
+                  registryDependencies={templateDependencies}
+                  title={page.data.title}
+                  updatedAt={
+                    lastModified
+                      ? new Date(lastModified).toLocaleDateString("en-US", {
+                          day: "numeric",
+                          month: "short",
+                          year: "numeric",
+                        })
+                      : undefined
+                  }
+                />
               )}
               {installer && !isTemplateDetail && (
                 <>
