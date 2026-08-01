@@ -67,3 +67,7 @@ skills-lock.json
 
 # Local agent and tool configuration, per machine.
 /.codex/
+
+# Scratch project written by apps/docs/scripts/verify-install.mts
+.install-check/
+apps/docs/.install-check/

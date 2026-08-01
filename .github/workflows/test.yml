@@ -128,6 +128,12 @@ jobs:
         working-directory: apps/docs
         run: npx tsx scripts/verify-registry.mts
 
+      # Compiles what the registry actually serves, which structural checks
+      # cannot do. shadcn/ui scaffolds a real app for the same reason.
+      - name: Verify registry output compiles when installed
+        working-directory: apps/docs
+        run: npx tsx scripts/verify-install.mts
+
       # The counts are committed so client components and MDX frontmatter can
       # import them. Checked like a lockfile, so marketing copy cannot silently
       # drift from the catalogue again.
