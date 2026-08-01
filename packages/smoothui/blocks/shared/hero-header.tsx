@@ -50,11 +50,19 @@ export const HeroHeader = () => {
                   <span className="sr-only">SmoothUI</span>
                   <img
                     alt="SmoothUI logo"
-                    className={cn("h-6 w-auto", "dark:filter", "dark:invert")}
+                    className={cn("h-6 w-auto", "dark:hidden")}
                     draggable={false}
-                    height={28}
-                    src="/logo-smoothui.svg"
-                    width={140}
+                    height={120}
+                    src="/brand/logo-smoothui-light-1000w.png"
+                    width={609}
+                  />
+                  <img
+                    alt="SmoothUI logo"
+                    className={cn("hidden h-6 w-auto", "dark:block")}
+                    draggable={false}
+                    height={120}
+                    src="/brand/logo-smoothui-dark-1000w.png"
+                    width={609}
                   />
                 </a>
 
