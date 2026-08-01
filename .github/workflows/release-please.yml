@@ -28,14 +28,30 @@ jobs:
       #
       # `--auto` rather than a straight merge: with no required checks on main it
       # merges immediately, and the day branch protection arrives it waits for
-      # the checks instead of needing to be rewritten.
+      # the checks instead of needing to be rewritten. It falls back to a direct
+      # merge because GitHub refuses to arm auto-merge on a PR that is already in
+      # clean status, which is exactly what an unprotected main produces.
+      #
+      # Caveat worth knowing before adding branch protection: CI and Secret Scan
+      # on this PR finish with conclusion `action_required` and never actually
+      # run, because it is opened by github-actions[bot]. That leaves the PR
+      # permanently `UNSTABLE` even with every other check green. Harmless while
+      # nothing is a required check; make them required and this stalls, and the
+      # release PR would have to be opened with a PAT for its checks to run.
       #
       # The number is parsed in the shell, not with `fromJSON` in `env`: Actions
       # evaluates a step's whole template before deciding whether to run it, so
       # `fromJSON("")` on a push that releases nothing failed the job outright.
+      #
+      # `--repo` is required: this job deliberately never checks out, so there is
+      # no .git for gh to infer the repository from and it exits 1 with
+      # "failed to run git: fatal: not a git repository".
       - name: Auto-merge the release PR
         if: steps.release.outputs.pr
-        run: gh pr merge --auto --merge "$(jq -r .number <<<"$PR_JSON")"
+        run: |
+          pr="$(jq -r .number <<<"$PR_JSON")"
+          gh pr merge --auto --merge --repo "$GITHUB_REPOSITORY" "$pr" \
+            || gh pr merge --merge --repo "$GITHUB_REPOSITORY" "$pr"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_JSON: ${{ steps.release.outputs.pr }}
