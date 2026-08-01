@@ -54,8 +54,7 @@ const Book = ({
         // CSS custom properties for internal use
         ["--book-width" as string]: bookWidth,
         ["--book-color" as string]: color,
-        ["--book-text-color" as string]:
-          textColor || "var(--color-fd-foreground)",
+        ["--book-text-color" as string]: textColor || "var(--color-foreground)",
         ["--book-depth" as string]: BOOK_DEPTH,
         ["--book-border-radius" as string]: BOOK_BORDER_RADIUS,
         ["--bg-shadow" as string]: BG_SHADOW,
@@ -89,7 +88,7 @@ const Book = ({
           )}
           style={{
             background:
-              variant === "simple" ? color : "var(--color-fd-background)",
+              variant === "simple" ? color : "var(--color-background)",
             borderRadius: BOOK_BORDER_RADIUS,
             height: "100%",
             width: bookWidth,
@@ -141,7 +140,7 @@ const Book = ({
           className="pointer-events-none absolute left-0"
           style={{
             backgroundColor:
-              variant === "simple" ? color : "var(--color-fd-background)",
+              variant === "simple" ? color : "var(--color-background)",
             borderRadius: BOOK_BORDER_RADIUS,
             height: "100%",
             transform: `translateZ(calc(-1 * ${BOOK_DEPTH}))`,

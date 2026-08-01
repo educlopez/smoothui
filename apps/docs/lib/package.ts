@@ -4,6 +4,7 @@ import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
 import { cache } from "react";
 import type { RegistryItem } from "shadcn/schema";
+import { collectUsedTokens, TOKENS_ITEM_NAME } from "./registry-tokens";
 
 // Regex patterns for detecting imports (hoisted for performance)
 const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
@@ -284,6 +285,13 @@ export const getPackage = cache(async (packageName: string) => {
 
   if (!isData && SMOOTHUI_DATA_IMPORT_REGEX.test(allContent)) {
     registryDependencies.add(`${REGISTRY_URL}/data.json`);
+  }
+
+  // SmoothUI-only tokens (`brand`, the `smooth-*` ramp, the button colour
+  // families) exist nowhere in a plain shadcn project, so anything referencing
+  // one has to pull the tokens item in alongside itself.
+  if (collectUsedTokens(allContent).length > 0) {
+    registryDependencies.add(`${REGISTRY_URL}/${TOKENS_ITEM_NAME}.json`);
   }
 
   const css: RegistryItem["css"] = {};
