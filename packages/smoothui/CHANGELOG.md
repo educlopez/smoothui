@@ -1,5 +1,23 @@
 # Changelog
 
+## [3.7.0](https://github.com/educlopez/smoothui/compare/v3.6.0...v3.7.0) (2026-08-01)
+
+
+### Features
+
+* **blocks:** use brand logo PNGs in the hero header ([c3ec403](https://github.com/educlopez/smoothui/commit/c3ec4039fb6a946fe172896f27d449be34bae4b1))
+* **registry:** ship SmoothUI design tokens as an installable item ([793bb11](https://github.com/educlopez/smoothui/commit/793bb1129f22079c09ec9aeac18f037a84ac15c9))
+
+
+### Bug Fixes
+
+* **blocks:** correct the @repo/* tsconfig paths mapping ([38dcbaa](https://github.com/educlopez/smoothui/commit/38dcbaab2c1486ce5d1f3500a01115287dbe2693))
+* **blocks:** correct the @repo/* tsconfig paths mapping ([23acc9c](https://github.com/educlopez/smoothui/commit/23acc9c2c74700078a10153b22997075f1288276))
+* **brand:** correct SmoothUI wordmark casing and add PNG brand assets ([f804186](https://github.com/educlopez/smoothui/commit/f804186b79e0bc27fc03e443cff12369145de89c))
+* **components:** replace colour tokens that resolve to nothing ([0d7be54](https://github.com/educlopez/smoothui/commit/0d7be545c9e97cc4f046759c4f88d734c8405365))
+* **smoothui:** make Dynamic Island content readable in light mode ([f950e07](https://github.com/educlopez/smoothui/commit/f950e07fc184c1dcb52221c1a6d55fd3067c2a84))
+* **smoothui:** make Dynamic Island content readable in light mode ([414f301](https://github.com/educlopez/smoothui/commit/414f301a50b432be0f7d55e45e44b4f0535da021))
+
 ## [3.6.0](https://github.com/educlopez/smoothui/compare/v3.5.0...v3.6.0) (2026-07-31)
 
 
