@@ -26,18 +26,21 @@ jobs:
       # opened by Actions with GITHUB_TOKEN does not trigger workflow runs, so
       # such a job would never fire.
       #
-      # `--auto` rather than a straight merge: with no required checks on main it
-      # merges immediately, and the day branch protection arrives it waits for
-      # the checks instead of needing to be rewritten. It falls back to a direct
-      # merge because GitHub refuses to arm auto-merge on a PR that is already in
-      # clean status, which is exactly what an unprotected main produces.
+      # The direct merge is the path that actually runs. `--auto` is tried first
+      # only so that the day branch protection arrives this waits for checks
+      # rather than needing a rewrite, but on this repo it always refuses with
       #
-      # Caveat worth knowing before adding branch protection: CI and Secret Scan
-      # on this PR finish with conclusion `action_required` and never actually
-      # run, because it is opened by github-actions[bot]. That leaves the PR
-      # permanently `UNSTABLE` even with every other check green. Harmless while
-      # nothing is a required check; make them required and this stalls, and the
-      # release PR would have to be opened with a PAT for its checks to run.
+      #     Pull request is in unstable status (enablePullRequestAutoMerge)
+      #
+      # because CI and Secret Scan on the release PR finish with conclusion
+      # `action_required` and never actually run: the PR is opened by
+      # github-actions[bot], and approving a concluded run through the API is a
+      # no-op. So the PR sits at UNSTABLE forever even with every other check
+      # green, auto-merge cannot be armed, and the fallback merges it.
+      #
+      # Harmless while nothing on main is a required check. Make them required
+      # and both halves fail — loudly, which is the point — and the real fix is
+      # to open the release PR with a PAT so its own checks run.
       #
       # The number is parsed in the shell, not with `fromJSON` in `env`: Actions
       # evaluates a step's whole template before deciding whether to run it, so
