@@ -2,7 +2,11 @@
   "extends": "@repo/typescript-config/react-library.json",
   "compilerOptions": {
     "outDir": "./dist",
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "baseUrl": ".",
+    "paths": {
+      "@repo/*": ["../../../*"]
+    }
   },
   "include": ["."],
   "exclude": ["node_modules", "dist"]
