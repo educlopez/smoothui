@@ -183,8 +183,21 @@ export const getPackage = cache(async (packageName: string) => {
         (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
   );
 
+  // CSS modules are consumed as a module (`import styles from "./x.module.css"`),
+  // so they have to ship as real files next to the component. Only global CSS
+  // gets folded into the registry `css` field, which the walk below builds from
+  // `@layer` at-rules — a module has none, so folding one in would silently drop
+  // every rule and leave the installed component importing a file that is not
+  // there.
+  const cssModuleFiles = packageFiles.filter(
+    (file) => file.isFile() && file.name.endsWith(".module.css")
+  );
+
   const cssFiles = packageFiles.filter(
-    (file) => file.isFile() && file.name.endsWith(".css")
+    (file) =>
+      file.isFile() &&
+      file.name.endsWith(".css") &&
+      !file.name.endsWith(".module.css")
   );
 
   let fileType: RegistryItem["type"] = "registry:ui";
@@ -211,6 +224,19 @@ export const getPackage = cache(async (packageName: string) => {
       type: fileType,
     });
   }
+
+  // Relative to the component dir, so the `./x.module.css` import in the source
+  // keeps resolving once installed.
+  files.push(
+    ...(await Promise.all(
+      cssModuleFiles.map(async (file) => ({
+        content: await readFile(join(packageDir, file.name), "utf-8"),
+        path: file.name,
+        target: `components/smoothui/${actualPackageName}/${file.name}`,
+        type: fileType,
+      }))
+    ))
+  );
 
   // Detect shadcn-ui dependencies from @/components/ui imports
   const shadcnDependencies =
