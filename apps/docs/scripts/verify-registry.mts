@@ -7,10 +7,19 @@
 //    for months while the registry folded every .css into the `css` field and
 //    shipped neither, so both blocks failed to build the moment anyone
 //    installed them.
+// 4. Every SmoothUI-only colour token an item reads must be declared by the
+//    tokens item, and the item must depend on it. Otherwise the token resolves
+//    to nothing in the installer's project.
 import { registryItemSchema } from "shadcn/schema";
 import { getAllPackageNames, getPackage } from "../lib/package";
 import { getSkill, SKILL_ITEM_NAME } from "../lib/registry-skill";
 import { getAllThemeNames, getTheme } from "../lib/registry-themes";
+import {
+  collectUsedTokens,
+  DECLARED_TOKENS,
+  getTokensItem,
+  TOKENS_ITEM_NAME,
+} from "../lib/registry-tokens";
 
 // Match workspace specifiers only inside import/export/require statements so
 // doc comments mentioning package names don't trip the check.
@@ -36,10 +45,58 @@ const resolutionCandidates = (specifier: string): string[] => {
   ];
 };
 
+// Raw `var(--color-x)` reads in shipped content. Anything that is not a stock
+// shadcn token has to be declared by the tokens item, or it resolves to nothing
+// in the installer's project.
+const COLOR_VAR_REGEX = /var\(\s*--color-([a-z0-9-]+)\s*[,)]/g;
+
+// Defined by `shadcn init` in every project, so they need no help from us.
+const SHADCN_TOKENS = new Set([
+  "accent",
+  "accent-foreground",
+  "background",
+  "border",
+  "card",
+  "card-foreground",
+  "destructive",
+  "destructive-foreground",
+  "foreground",
+  "input",
+  "muted",
+  "muted-foreground",
+  "popover",
+  "popover-foreground",
+  "primary",
+  "primary-foreground",
+  "ring",
+  "secondary",
+  "secondary-foreground",
+  ...[1, 2, 3, 4, 5].map((n) => `chart-${n}`),
+  ...[
+    "",
+    "-foreground",
+    "-primary",
+    "-primary-foreground",
+    "-accent",
+    "-accent-foreground",
+    "-border",
+    "-ring",
+  ].map((suffix) => `sidebar${suffix}`),
+  // Tailwind's own palette and keywords, not design tokens.
+  "white",
+  "black",
+  "transparent",
+  "current",
+]);
+
+const declared = new Set(DECLARED_TOKENS);
+
 const names = await getAllPackageNames();
 let leaks = 0;
 let schemaErrors = 0;
 let unresolved = 0;
+let undeclaredTokens = 0;
+let missingTokenDeps = 0;
 
 const validateSchema = (name: string, item: unknown) => {
   const result = registryItemSchema.safeParse(item);
@@ -82,9 +139,33 @@ for (const name of names) {
           );
         }
       }
+
+      for (const [, token] of line.matchAll(COLOR_VAR_REGEX)) {
+        if (!(SHADCN_TOKENS.has(token) || declared.has(token))) {
+          undeclaredTokens++;
+          console.log(
+            `UNDECLARED-TOKEN ${name} ${file.path}:${i + 1} reads --color-${token}, which neither shadcn nor the tokens item defines`
+          );
+        }
+      }
     }
   }
+
+  const allContent = (item.files ?? []).map((file) => file.content).join("\n");
+  const tokensDep = `/${TOKENS_ITEM_NAME}.json`;
+  const dependsOnTokens = (item.registryDependencies ?? []).some((dep) =>
+    dep.endsWith(tokensDep)
+  );
+
+  if (collectUsedTokens(allContent).length > 0 && !dependsOnTokens) {
+    missingTokenDeps++;
+    console.log(
+      `MISSING-TOKENS-DEP ${name} uses SmoothUI tokens but does not depend on ${TOKENS_ITEM_NAME}.json`
+    );
+  }
 }
+
+validateSchema(TOKENS_ITEM_NAME, getTokensItem());
 
 const themeNames = getAllThemeNames();
 for (const themeName of themeNames) {
@@ -94,6 +175,10 @@ for (const themeName of themeNames) {
 validateSchema(SKILL_ITEM_NAME, await getSkill());
 
 console.log(
-  `Items: ${names.length} packages + ${themeNames.length} themes + skill, leaks: ${leaks}, schema errors: ${schemaErrors}, unresolved sibling imports: ${unresolved}`
+  `Items: ${names.length} packages + ${themeNames.length} themes + tokens + skill, leaks: ${leaks}, schema errors: ${schemaErrors}, unresolved sibling imports: ${unresolved}, undeclared tokens: ${undeclaredTokens}, missing token deps: ${missingTokenDeps}`
 );
-process.exit(leaks || schemaErrors || unresolved ? 1 : 0);
+process.exit(
+  leaks || schemaErrors || unresolved || undeclaredTokens || missingTokenDeps
+    ? 1
+    : 0
+);
