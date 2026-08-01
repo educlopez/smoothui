@@ -5,6 +5,7 @@ import {
 } from "@docs/lib/package";
 import { getSkill, SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
 import { getAllThemeNames, getTheme } from "@docs/lib/registry-themes";
+import { getTokensItem, TOKENS_ITEM_NAME } from "@docs/lib/registry-tokens";
 import { getCustomTheme } from "@docs/lib/studio-preset";
 import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
@@ -45,6 +46,10 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
 
   if (shortName === SKILL_ITEM_NAME) {
     return NextResponse.json(await getSkill());
+  }
+
+  if (shortName === TOKENS_ITEM_NAME) {
+    return NextResponse.json(getTokensItem());
   }
 
   try {
