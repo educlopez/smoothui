@@ -10,14 +10,14 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize, ready_for_review]
 
-permissions:
-  contents: read
-  pull-requests: read
+permissions: {}
 
 jobs:
   validate:
     name: Validate PR title
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read # Read the PR title to validate it
     if: github.event.pull_request.draft == false
     steps:
       - name: 📝 Lint PR title against Conventional Commits
