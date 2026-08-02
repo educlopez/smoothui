@@ -38,16 +38,20 @@ interface Occurrence extends Pin {
 // this returns 403 on an ordinary developer machine, so a token is not optional.
 // gh is already set up for anyone working on this repo; the env vars are there
 // for CI, should this ever run there.
-const readToken = (): string | undefined => {
-  if (process.env.GITHUB_TOKEN || process.env.GH_TOKEN) {
-    return process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+const readToken = (): string | null => {
+  const fromEnv = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  if (fromEnv) {
+    return fromEnv;
   }
   try {
     return execFileSync("gh", ["auth", "token"], {
       encoding: "utf8",
       stdio: ["ignore", "pipe", "ignore"],
     }).trim();
-  } catch {}
+  } catch {
+    // gh missing or logged out — the caller reports this rather than guessing.
+    return null;
+  }
 };
 
 const token = readToken();
