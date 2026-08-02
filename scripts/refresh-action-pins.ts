@@ -13,6 +13,7 @@
 //
 // `update` follows the tag each pin already carries — it never jumps you to a
 // new major. Moving from v4 to v7 is a decision, so it stays manual.
+import { execFileSync } from "node:child_process";
 import { readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 
@@ -33,11 +34,28 @@ interface Occurrence extends Pin {
   file: string;
 }
 
+// Unauthenticated calls to the GitHub API are rate limited hard enough that
+// this returns 403 on an ordinary developer machine, so a token is not optional.
+// gh is already set up for anyone working on this repo; the env vars are there
+// for CI, should this ever run there.
+const readToken = (): string | undefined => {
+  if (process.env.GITHUB_TOKEN || process.env.GH_TOKEN) {
+    return process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  }
+  try {
+    return execFileSync("gh", ["auth", "token"], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {}
+};
+
+const token = readToken();
 const headers: Record<string, string> = {
   accept: "application/vnd.github+json",
 };
-if (process.env.GITHUB_TOKEN) {
-  headers.authorization = `Bearer ${process.env.GITHUB_TOKEN}`;
+if (token) {
+  headers.authorization = `Bearer ${token}`;
 }
 
 const api = async <T>(path: string): Promise<T | null> => {
@@ -106,6 +124,7 @@ const main = async () => {
   }
 
   let moved = 0;
+  let unresolved = 0;
 
   // One API round trip per action@tag, however many files reference it.
   const targets = [
@@ -127,6 +146,7 @@ const main = async () => {
       latest !== pin.tag && latest !== "?" ? `  (latest ${latest})` : "";
 
     if (!current) {
+      unresolved++;
       console.log(`?  ${pin.action}@${pin.tag} — could not resolve${behind}`);
       continue;
     }
@@ -163,6 +183,19 @@ const main = async () => {
         );
       }
     }
+  }
+
+  // Never report an all-clear off the back of calls that did not happen: a
+  // check that passes because it could not reach the API is worse than none.
+  if (unresolved > 0) {
+    console.log(
+      `\nCould not resolve ${unresolved} of ${resolved.length} pins — nothing was verified.` +
+        (token
+          ? ""
+          : " No token found: set GITHUB_TOKEN or run `gh auth login`.")
+    );
+    process.exitCode = 1;
+    return;
   }
 
   if (moved === 0) {
