@@ -4,13 +4,16 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: write
-  pull-requests: write
+# Deny by default and let the job ask for what it needs, so a second job added
+# here later does not silently inherit write access.
+permissions: {}
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Create the release commit, tag and GitHub release
+      pull-requests: write # Open and update the release PR
     steps:
       - id: release
         uses: googleapis/release-please-action@v4
@@ -18,43 +21,26 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
-      # The release PR is generated: it carries no code, only CHANGELOG.md and a
-      # version number, so a human merging it never adds information. Merging it
-      # by hand is what kept it stale at 3.5.1 while main had moved on.
+      # The release PR is merged by hand, on purpose. This is what shadcn/ui
+      # does: the version bump and changelog are the last chance to look at what
+      # is about to be published, and that review is worth more than the clicks
+      # it costs.
       #
-      # Enabled here rather than in a `pull_request` workflow on purpose: a PR
-      # opened by Actions with GITHUB_TOKEN does not trigger workflow runs, so
-      # such a job would never fire.
+      # Auto-merging it was tried and removed. It could never work here anyway:
+      # CI and Secret Scan on the release PR finish with conclusion
+      # `action_required` and never run, because the PR is opened by
+      # github-actions[bot], so the PR sits at UNSTABLE forever and
+      # `gh pr merge --auto` refuses with "Pull request is in unstable status".
+      # Only a blind unconditional merge got it through, which is precisely the
+      # thing worth not doing to a published release.
       #
-      # The direct merge is the path that actually runs. `--auto` is tried first
-      # only so that the day branch protection arrives this waits for checks
-      # rather than needing a rewrite, but on this repo it always refuses with
-      #
-      #     Pull request is in unstable status (enablePullRequestAutoMerge)
-      #
-      # because CI and Secret Scan on the release PR finish with conclusion
-      # `action_required` and never actually run: the PR is opened by
-      # github-actions[bot], and approving a concluded run through the API is a
-      # no-op. So the PR sits at UNSTABLE forever even with every other check
-      # green, auto-merge cannot be armed, and the fallback merges it.
-      #
-      # Harmless while nothing on main is a required check. Make them required
-      # and both halves fail — loudly, which is the point — and the real fix is
-      # to open the release PR with a PAT so its own checks run.
-      #
-      # The number is parsed in the shell, not with `fromJSON` in `env`: Actions
-      # evaluates a step's whole template before deciding whether to run it, so
-      # `fromJSON("")` on a push that releases nothing failed the job outright.
-      #
-      # `--repo` is required: this job deliberately never checks out, so there is
-      # no .git for gh to infer the repository from and it exits 1 with
-      # "failed to run git: fatal: not a git repository".
-      - name: Auto-merge the release PR
+      # The risk this trades into is forgetting: an unmerged release PR is what
+      # once left the package stale at 3.5.1 while main had moved on. It is
+      # visible in the PR list, so the fix is to look there before saying a fix
+      # has shipped.
+      - name: Report the pending release PR
         if: steps.release.outputs.pr
         run: |
-          pr="$(jq -r .number <<<"$PR_JSON")"
-          gh pr merge --auto --merge --repo "$GITHUB_REPOSITORY" "$pr" \
-            || gh pr merge --merge --repo "$GITHUB_REPOSITORY" "$pr"
+          echo "::notice title=Release PR ready::$(jq -r '"#\(.number) \(.title)"' <<<"$PR_JSON") — merge it to publish."
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_JSON: ${{ steps.release.outputs.pr }}

@@ -10,6 +10,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Deny by default and let each job ask for what it needs, the way astro, tailwind
+# and hono set theirs up. Every job here only reads the checkout, so nothing has
+# to escalate.
+permissions: {}
+
 # nucleo-core-fill-24 runs a license-check preinstall (allowlisted in
 # pnpm-workspace.yaml allowBuilds) that fails without this key.
 env:
@@ -19,6 +24,8 @@ jobs:
   lockfile-audit:
     name: Lockfile Audit
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -48,6 +55,8 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -70,6 +79,8 @@ jobs:
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -92,6 +103,8 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -115,6 +128,12 @@ jobs:
         working-directory: apps/docs
         run: npx tsx scripts/verify-registry.mts
 
+      # Compiles what the registry actually serves, which structural checks
+      # cannot do. shadcn/ui scaffolds a real app for the same reason.
+      - name: Verify registry output compiles when installed
+        working-directory: apps/docs
+        run: npx tsx scripts/verify-install.mts
+
       # The counts are committed so client components and MDX frontmatter can
       # import them. Checked like a lockfile, so marketing copy cannot silently
       # drift from the catalogue again.
@@ -125,6 +144,8 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    permissions:
+      contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@v4
