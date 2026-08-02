@@ -7,7 +7,7 @@
     "counts": "tsx scripts/generate-counts.mts",
     "dev": "next dev --turbopack",
     "start": "next start",
-    "typecheck": "fumadocs-mdx && next typegen && tsc --noEmit"
+    "typecheck": "fumadocs-mdx && _FUMADOCS_MDX=1 next typegen && tsc --noEmit"
   },
   "dependencies": {
     "@next/bundle-analyzer": "^16.0.7",
