@@ -8,27 +8,43 @@ import { verifyCliPackage } from "./verify-cli-package.js";
 const VERSION = "1.2.3";
 const BUNDLED_VERSION_ERROR = /bundled CLI version/i;
 const RELEASE_TAG_ERROR = /release tag/i;
+const MISSING_FILE_ERROR = /unexpected npm package files/i;
+const EXECUTABLE_ERROR = /not executable/i;
 
-const createPackedFixture = (bundleVersion = VERSION) => {
+interface PackedFixtureOptions {
+  bundleVersion?: string;
+  executable?: boolean;
+  includeLicense?: boolean;
+}
+
+const createPackedFixture = ({
+  bundleVersion = VERSION,
+  executable = true,
+  includeLicense = true,
+}: PackedFixtureOptions = {}) => {
   const root = mkdtempSync(path.join(tmpdir(), "smoothui-cli-pack-test-"));
   const packageDirectory = path.join(root, "package-source");
   const artifactDirectory = path.join(root, "artifacts");
   mkdirSync(path.join(packageDirectory, "dist"), { recursive: true });
   mkdirSync(artifactDirectory);
 
-  writeFileSync(path.join(packageDirectory, "LICENSE"), "MIT\n");
+  if (includeLicense) {
+    writeFileSync(path.join(packageDirectory, "LICENSE"), "MIT\n");
+  }
   writeFileSync(path.join(packageDirectory, "README.md"), "# smoothui-cli\n");
   writeFileSync(
     path.join(packageDirectory, "dist/index.js"),
     `#!/usr/bin/env node\nconst version = ${JSON.stringify(bundleVersion)};\nif (process.argv.includes("--version")) console.log(version);\nelse console.log("Usage: npx smoothui <command> [options]");\n`
   );
-  chmodSync(path.join(packageDirectory, "dist/index.js"), 0o755);
+  if (executable) {
+    chmodSync(path.join(packageDirectory, "dist/index.js"), 0o755);
+  }
 
   const packageJson = {
-    bin: {
-      smoothui: "dist/index.js",
-      "smoothui-cli": "dist/index.js",
-    },
+    bin: Object.fromEntries([
+      ["smoothui-cli", "dist/index.js"],
+      ["smoothui", "dist/index.js"],
+    ]),
     engines: { node: ">=22.13.0" },
     files: ["dist/index.js", "README.md", "LICENSE"],
     name: "smoothui-cli",
@@ -68,7 +84,7 @@ const createPackedFixture = (bundleVersion = VERSION) => {
 };
 
 describe("verifyCliPackage", () => {
-  it("accepts the exact npm tarball and smoke-runs its bundled CLI", () => {
+  it("accepts a reversed bin key order and smoke-runs the bundled CLI", () => {
     const fixture = createPackedFixture();
 
     const verified = verifyCliPackage({
@@ -87,7 +103,7 @@ describe("verifyCliPackage", () => {
   });
 
   it("rejects a tarball whose bundled version is stale", () => {
-    const fixture = createPackedFixture("1.2.2");
+    const fixture = createPackedFixture({ bundleVersion: "1.2.2" });
 
     expect(() =>
       verifyCliPackage({
@@ -106,5 +122,27 @@ describe("verifyCliPackage", () => {
         expectedTag: "cli-v9.9.9",
       })
     ).toThrow(RELEASE_TAG_ERROR);
+  });
+
+  it("rejects a tarball with a missing packaged file", () => {
+    const fixture = createPackedFixture({ includeLicense: false });
+
+    expect(() =>
+      verifyCliPackage({
+        ...fixture,
+        expectedTag: `cli-v${VERSION}`,
+      })
+    ).toThrow(MISSING_FILE_ERROR);
+  });
+
+  it("rejects a tarball whose CLI entry is not executable", () => {
+    const fixture = createPackedFixture({ executable: false });
+
+    expect(() =>
+      verifyCliPackage({
+        ...fixture,
+        expectedTag: `cli-v${VERSION}`,
+      })
+    ).toThrow(EXECUTABLE_ERROR);
   });
 });

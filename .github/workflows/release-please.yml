@@ -16,6 +16,8 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # release-please-action documents that the root component (path `.`) also
+    # emits these flat outputs. Only non-root paths use `<path>--...` names.
     outputs:
       cli_release_created: ${{ steps.release.outputs.release_created }}
       cli_tag_name: ${{ steps.release.outputs.tag_name }}
@@ -113,7 +115,7 @@ jobs:
         run: |
           pnpm exec vitest run --config vitest.risk.config.ts scripts
           pnpm typecheck:cli
-          pnpm exec ultracite check scripts/index.ts scripts/utils/colors.ts scripts/pack-cli.mts scripts/prepare-cli-package.mts scripts/verify-cli-package.ts scripts/verify-cli-package.test.ts tsup.config.ts
+          pnpm exec ultracite check scripts tsup.config.ts
 
       - name: Build CLI once
         run: pnpm build:cli

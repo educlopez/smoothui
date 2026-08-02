@@ -1,3 +1,4 @@
+import { deepStrictEqual } from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { mkdtempSync, readFileSync, rmSync } from "node:fs";
@@ -61,11 +62,7 @@ const assertEqual = (
   expected: unknown,
   message: string
 ): void => {
-  if (JSON.stringify(actual) !== JSON.stringify(expected)) {
-    throw new Error(
-      `${message}: expected ${JSON.stringify(expected)}, received ${JSON.stringify(actual)}`
-    );
-  }
+  deepStrictEqual(actual, expected, message);
 };
 
 const readJson = <Value>(filePath: string): Value =>

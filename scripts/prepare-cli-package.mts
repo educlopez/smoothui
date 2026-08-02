@@ -36,10 +36,22 @@ export const prepareCliPackage = (rootDirectory = process.cwd()): string => {
     path.join(rootDirectory, "package.json")
   );
   const distributionEntry = path.join(rootDirectory, DISTRIBUTION_ENTRY);
+  const npmReadme = path.join(rootDirectory, "README.npm.md");
+  const license = path.join(rootDirectory, "LICENSE");
 
   if (!existsSync(distributionEntry)) {
     throw new Error(
       `Missing ${DISTRIBUTION_ENTRY}; run "pnpm build:cli" before packaging.`
+    );
+  }
+  if (!existsSync(npmReadme)) {
+    throw new Error(
+      "Missing README.npm.md; the npm package requires its dedicated README."
+    );
+  }
+  if (!existsSync(license)) {
+    throw new Error(
+      "Missing LICENSE; the npm package must include its license."
     );
   }
 
@@ -52,14 +64,8 @@ export const prepareCliPackage = (rootDirectory = process.cwd()): string => {
     path.join(stageDirectory, DISTRIBUTION_ENTRY)
   );
   chmodSync(path.join(stageDirectory, DISTRIBUTION_ENTRY), 0o755);
-  copyFileSync(
-    path.join(rootDirectory, "README.npm.md"),
-    path.join(stageDirectory, "README.md")
-  );
-  copyFileSync(
-    path.join(rootDirectory, "LICENSE"),
-    path.join(stageDirectory, "LICENSE")
-  );
+  copyFileSync(npmReadme, path.join(stageDirectory, "README.md"));
+  copyFileSync(license, path.join(stageDirectory, "LICENSE"));
 
   const publishPackageJson = {
     author: sourcePackageJson.author,
