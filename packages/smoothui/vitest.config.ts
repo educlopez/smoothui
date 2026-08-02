@@ -37,17 +37,17 @@ export default defineConfig({
     coverage: {
       exclude: ["**/__tests__/**", "**/*.d.ts"],
       include: [
-        "components/**",
-        "blocks/**",
-        "templates/**",
-        "hooks/**",
-        "utils/**",
-        "lib/**",
+        "components/**/*.{ts,tsx}",
+        "blocks/**/*.{ts,tsx}",
+        "templates/**/*.{ts,tsx}",
+        "hooks/**/*.{ts,tsx}",
+        "utils/**/*.{ts,tsx}",
+        "lib/**/*.{ts,tsx}",
       ],
       provider: "v8",
       reporter: ["json-summary", "lcov"],
-      // Regression gate just below the current baseline (2026-07):
-      // lines 75.9, statements 75.5, functions 67.0, branches 53.3.
+      // Conservative gate below the measured TS/TSX baseline (2026-08):
+      // lines 73.77, statements 73.34, functions 64.60, branches 53.50.
       thresholds: {
         branches: 48,
         functions: 62,
@@ -61,6 +61,9 @@ export default defineConfig({
       "components/**/__tests__/**/*.test.{ts,tsx}",
       "blocks/**/__tests__/**/*.test.{ts,tsx}",
       "templates/**/__tests__/**/*.test.{ts,tsx}",
+      "hooks/**/__tests__/**/*.test.{ts,tsx}",
+      "utils/**/__tests__/**/*.test.{ts,tsx}",
+      "lib/**/__tests__/**/*.test.{ts,tsx}",
       // Package-wide guards that belong to no single component.
       "__tests__/**/*.test.{ts,tsx}",
     ],

@@ -4,6 +4,10 @@ on:
   push:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 # Deny by default and let the job ask for what it needs, so a second job added
 # here later does not silently inherit write access.
 permissions: {}
@@ -11,6 +15,7 @@ permissions: {}
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: write # Create the release commit, tag and GitHub release
       pull-requests: write # Open and update the release PR

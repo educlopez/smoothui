@@ -10,12 +10,17 @@ on:
   pull_request:
     types: [opened, edited, reopened, synchronize, ready_for_review]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 permissions: {}
 
 jobs:
   validate:
     name: Validate PR title
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       pull-requests: read # Read the PR title to validate it
     if: github.event.pull_request.draft == false
