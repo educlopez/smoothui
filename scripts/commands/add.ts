@@ -179,15 +179,17 @@ export async function add(
       loadingSpinner.stop(`Installed: ${allDeps.join(", ")}`);
     } else {
       loadingSpinner.stop("Failed to install dependencies");
+      const runtimeCommand =
+        config.packageManager === "npm"
+          ? "npm install"
+          : `${config.packageManager} add`;
       if (dependencies.length > 0) {
-        bar(
-          `Run manually: ${config.packageManager} add ${dependencies.join(" ")}`
-        );
+        bar(`Run manually: ${runtimeCommand} ${dependencies.join(" ")}`);
       }
       if (devDependencies.length > 0) {
         const devFlag = config.packageManager === "bun" ? "-d" : "-D";
         bar(
-          `Run manually: ${config.packageManager} add ${devFlag} ${devDependencies.join(" ")}`
+          `Run manually: ${runtimeCommand} ${devFlag} ${devDependencies.join(" ")}`
         );
       }
     }

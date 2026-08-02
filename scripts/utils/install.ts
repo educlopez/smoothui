@@ -1,6 +1,22 @@
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { dirname, isAbsolute, relative, resolve } from "node:path";
+import {
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  readFileSync,
+  realpathSync,
+  type Stats,
+  writeFileSync,
+} from "node:fs";
+import {
+  dirname,
+  isAbsolute,
+  join,
+  parse,
+  relative,
+  resolve,
+  sep,
+} from "node:path";
 import type { ProjectConfig, RegistryItem } from "../types.js";
 
 export const transformImports = (content: string, alias: string): string => {
@@ -14,6 +30,102 @@ export const transformImports = (content: string, alias: string): string => {
 };
 
 export const fileExists = (filePath: string): boolean => existsSync(filePath);
+
+const throwUnsafeSymlink = (registryPath: string, diskPath: string): never => {
+  throw new Error(
+    `Invalid registry file path "${registryPath}": symbolic link is not allowed at ${diskPath}`
+  );
+};
+
+const isMissingPathError = (error: unknown): boolean =>
+  error instanceof Error && "code" in error && error.code === "ENOENT";
+
+const tryLstat = (diskPath: string): Stats | null => {
+  try {
+    return lstatSync(diskPath);
+  } catch (error) {
+    if (isMissingPathError(error)) {
+      return null;
+    }
+    throw error;
+  }
+};
+
+const assertDirectoryEntry = (
+  status: Stats,
+  diskPath: string,
+  registryPath: string
+): void => {
+  if (status.isSymbolicLink()) {
+    throwUnsafeSymlink(registryPath, diskPath);
+  }
+  if (!status.isDirectory()) {
+    throw new Error(
+      `Invalid registry file path "${registryPath}": expected a directory at ${diskPath}`
+    );
+  }
+};
+
+const ensureSafeDirectoryPath = (
+  absoluteDirectory: string,
+  registryPath: string
+): void => {
+  const { root } = parse(absoluteDirectory);
+  let currentDirectory = root;
+  const segments = relative(root, absoluteDirectory).split(sep).filter(Boolean);
+
+  for (const segment of segments) {
+    currentDirectory = join(currentDirectory, segment);
+    let status = tryLstat(currentDirectory);
+    if (status === null) {
+      mkdirSync(currentDirectory);
+      status = tryLstat(currentDirectory);
+      if (status === null) {
+        throw new Error(
+          `Unable to create registry target directory at ${currentDirectory}`
+        );
+      }
+    }
+    assertDirectoryEntry(status, currentDirectory, registryPath);
+  }
+};
+
+const assertCanonicalContainment = (
+  targetRoot: string,
+  targetDirectory: string,
+  registryPath: string
+): void => {
+  const canonicalRoot = realpathSync(targetRoot);
+  const canonicalDirectory = realpathSync(targetDirectory);
+  const canonicalRelativePath = relative(canonicalRoot, canonicalDirectory);
+  if (
+    canonicalRelativePath.startsWith("..") ||
+    isAbsolute(canonicalRelativePath)
+  ) {
+    throw new Error(
+      `Invalid registry file path "${registryPath}": resolved directory escapes the component root`
+    );
+  }
+};
+
+const assertSafeTargetFile = (
+  targetPath: string,
+  registryPath: string
+): boolean => {
+  const status = tryLstat(targetPath);
+  if (status === null) {
+    return false;
+  }
+  if (status.isSymbolicLink()) {
+    throwUnsafeSymlink(registryPath, targetPath);
+  }
+  if (!status.isFile()) {
+    throw new Error(
+      `Invalid registry file path "${registryPath}": expected a regular file at ${targetPath}`
+    );
+  }
+  return true;
+};
 
 export const writeComponent = async (
   item: RegistryItem,
@@ -42,13 +154,16 @@ export const writeComponent = async (
 
     const targetDir = dirname(targetPath);
 
-    // Ensure directory exists
-    if (!existsSync(targetDir)) {
-      mkdirSync(targetDir, { recursive: true });
-    }
+    // Create one segment at a time and reject symlinked ancestors. A lexical
+    // containment check alone is insufficient because a registry path can
+    // traverse an in-root symlink that points outside the component directory.
+    ensureSafeDirectoryPath(targetRoot, filePath);
+    ensureSafeDirectoryPath(targetDir, filePath);
+    assertCanonicalContainment(targetRoot, targetDir, filePath);
+    const targetExists = assertSafeTargetFile(targetPath, filePath);
 
     // Check if file exists
-    if (existsSync(targetPath) && !shouldOverwriteAll) {
+    if (targetExists && !shouldOverwriteAll) {
       const action = await promptOverwrite(filePath);
 
       if (action === "skip") {
@@ -63,6 +178,10 @@ export const writeComponent = async (
 
     // Transform and write content
     const content = transformImports(file.content, config.alias);
+    ensureSafeDirectoryPath(targetRoot, filePath);
+    ensureSafeDirectoryPath(targetDir, filePath);
+    assertCanonicalContainment(targetRoot, targetDir, filePath);
+    assertSafeTargetFile(targetPath, filePath);
     writeFileSync(targetPath, content, "utf-8");
     written.push(filePath);
   }

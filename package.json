@@ -40,7 +40,9 @@
     "lint": "ultracite check",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "test": "turbo test",
+    "test": "pnpm test:risk && turbo test",
+    "test:browser": "playwright test",
+    "test:risk": "vitest run --config vitest.risk.config.ts",
     "typecheck": "turbo typecheck",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
@@ -57,6 +59,7 @@
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.6",
     "@biomejs/biome": "2.5.6",
+    "@playwright/test": "^1.62.1",
     "@smoothui/data": "workspace:*",
     "@types/node": "^25.6.0",
     "esbuild": "^0.27.7",
@@ -67,10 +70,11 @@
     "turbo": "^2.8.3",
     "typescript": "^5.9.3",
     "ultracite": "^7.9.4",
+    "vitest": "4.1.8",
     "zod": "^4.3.6"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13.0"
   },
   "packageManager": "pnpm@11.1.2",
   "type": "module",
