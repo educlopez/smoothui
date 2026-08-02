@@ -8,6 +8,8 @@ export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
 } as const;
 
+const MIN_PAGE = 1;
+
 const normalizePositiveInteger = (
   value: string | null,
   fallback: number
@@ -21,7 +23,7 @@ const normalizePositiveInteger = (
     return fallback;
   }
 
-  return Math.max(1, parsed);
+  return Math.max(MIN_PAGE, parsed);
 };
 
 /** Parse tolerant, finite pagination metadata shared by catalog endpoints. */
@@ -30,7 +32,7 @@ export const parsePagination = (
   defaultPageSize: number,
   maxPageSize: number
 ): { page: number; pageSize: number } => ({
-  page: normalizePositiveInteger(searchParams.get("page"), 1),
+  page: normalizePositiveInteger(searchParams.get("page"), MIN_PAGE),
   pageSize: Math.min(
     maxPageSize,
     normalizePositiveInteger(searchParams.get("pageSize"), defaultPageSize)

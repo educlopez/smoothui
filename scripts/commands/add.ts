@@ -4,7 +4,11 @@ import { searchMultiselect } from "../prompts/search-multiselect.js";
 import type { RegistryItem } from "../types.js";
 import { active, bar, done, error, header, success } from "../utils/colors.js";
 import { detectConfig } from "../utils/detect.js";
-import { installDependencies, writeComponent } from "../utils/install.js";
+import {
+  buildInstallCommand,
+  installDependencies,
+  writeComponent,
+} from "../utils/install.js";
 import { getAvailableComponents } from "../utils/registry.js";
 import {
   collectNpmDeps,
@@ -179,17 +183,14 @@ export async function add(
       loadingSpinner.stop(`Installed: ${allDeps.join(", ")}`);
     } else {
       loadingSpinner.stop("Failed to install dependencies");
-      const runtimeCommand =
-        config.packageManager === "npm"
-          ? "npm install"
-          : `${config.packageManager} add`;
       if (dependencies.length > 0) {
-        bar(`Run manually: ${runtimeCommand} ${dependencies.join(" ")}`);
+        bar(
+          `Run manually: ${buildInstallCommand(dependencies, config.packageManager).join(" ")}`
+        );
       }
       if (devDependencies.length > 0) {
-        const devFlag = config.packageManager === "bun" ? "-d" : "-D";
         bar(
-          `Run manually: ${runtimeCommand} ${devFlag} ${devDependencies.join(" ")}`
+          `Run manually: ${buildInstallCommand(devDependencies, config.packageManager, true).join(" ")}`
         );
       }
     }

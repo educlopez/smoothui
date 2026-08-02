@@ -1,4 +1,5 @@
 import {
+  linkSync,
   mkdirSync,
   mkdtempSync,
   readFileSync,
@@ -12,9 +13,29 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { ProjectConfig, RegistryItem } from "../types.js";
 
 const processMocks = vi.hoisted(() => ({ spawnSync: vi.fn() }));
+const filesystemMocks = vi.hoisted(() => ({
+  beforeOpen: null as (() => void) | null,
+  closedDescriptors: [] as number[],
+}));
 const SYMBOLIC_LINK_ERROR = /symbolic link/i;
+const HARD_LINK_ERROR = /hard link/i;
 
 vi.mock("node:child_process", () => ({ spawnSync: processMocks.spawnSync }));
+vi.mock("node:fs", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("node:fs")>();
+  return {
+    ...actual,
+    closeSync: ((descriptor: number) => {
+      filesystemMocks.closedDescriptors.push(descriptor);
+      return actual.closeSync(descriptor);
+    }) as typeof actual.closeSync,
+    openSync: ((...args: unknown[]) => {
+      filesystemMocks.beforeOpen?.();
+      filesystemMocks.beforeOpen = null;
+      return Reflect.apply(actual.openSync, actual, args);
+    }) as typeof actual.openSync,
+  };
+});
 
 import { installDependencies, writeComponent } from "./install.js";
 
@@ -38,6 +59,8 @@ describe("component installation", () => {
     testDirectory = mkdtempSync(join(tmpdir(), "smoothui-install-"));
     process.chdir(testDirectory);
     processMocks.spawnSync.mockReset();
+    filesystemMocks.beforeOpen = null;
+    filesystemMocks.closedDescriptors.length = 0;
   });
 
   afterEach(() => {
@@ -246,6 +269,79 @@ describe("component installation", () => {
     expect(() =>
       readFileSync(join(outsideDirectory, "components/ui/escaped.ts"), "utf8")
     ).toThrow();
+  });
+
+  it("does not follow a target swapped to a symlink at open time", async () => {
+    const targetRoot = join(testDirectory, config.componentPath);
+    const targetPath = join(targetRoot, "race.ts");
+    const outsidePath = join(testDirectory, "outside-race.ts");
+    mkdirSync(targetRoot, { recursive: true });
+    writeFileSync(targetPath, "safe original", "utf8");
+    writeFileSync(outsidePath, "outside original", "utf8");
+    filesystemMocks.beforeOpen = () => {
+      rmSync(targetPath);
+      symlinkSync(outsidePath, targetPath);
+    };
+
+    await expect(
+      writeComponent(
+        component([
+          { content: "unsafe", path: "race.ts", type: "registry:ui" },
+        ]),
+        config,
+        true,
+        vi.fn()
+      )
+    ).rejects.toThrow();
+    expect(readFileSync(outsidePath, "utf8")).toBe("outside original");
+  });
+
+  it("rejects an existing target hard-linked to an external file", async () => {
+    const targetRoot = join(testDirectory, config.componentPath);
+    const targetPath = join(targetRoot, "hard-linked.ts");
+    const outsidePath = join(testDirectory, "outside-hard-link.ts");
+    mkdirSync(targetRoot, { recursive: true });
+    writeFileSync(outsidePath, "outside original", "utf8");
+    linkSync(outsidePath, targetPath);
+
+    await expect(
+      writeComponent(
+        component([
+          { content: "unsafe", path: "hard-linked.ts", type: "registry:ui" },
+        ]),
+        config,
+        true,
+        vi.fn()
+      )
+    ).rejects.toThrow(HARD_LINK_ERROR);
+    expect(readFileSync(outsidePath, "utf8")).toBe("outside original");
+  });
+
+  it("closes the descriptor when hard-link validation fails after opening", async () => {
+    const targetRoot = join(testDirectory, config.componentPath);
+    const targetPath = join(targetRoot, "hard-link-race.ts");
+    mkdirSync(targetRoot, { recursive: true });
+    writeFileSync(targetPath, "safe original", "utf8");
+    filesystemMocks.beforeOpen = () => {
+      linkSync(targetPath, join(targetRoot, "hard-link-alias.ts"));
+    };
+
+    await expect(
+      writeComponent(
+        component([
+          {
+            content: "unsafe",
+            path: "hard-link-race.ts",
+            type: "registry:ui",
+          },
+        ]),
+        config,
+        true,
+        vi.fn()
+      )
+    ).rejects.toThrow(HARD_LINK_ERROR);
+    expect(filesystemMocks.closedDescriptors).toHaveLength(1);
+    expect(readFileSync(targetPath, "utf8")).toBe("safe original");
   });
 
   it.each([

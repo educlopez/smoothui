@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import type { RegistryItem, TreeNode } from "../types.js";
 
 const mocks = vi.hoisted(() => ({
@@ -41,10 +41,14 @@ vi.mock("../utils/colors.js", () => ({
 }));
 
 vi.mock("../utils/detect.js", () => ({ detectConfig: mocks.detectConfig }));
-vi.mock("../utils/install.js", () => ({
-  installDependencies: mocks.installDependencies,
-  writeComponent: mocks.writeComponent,
-}));
+vi.mock("../utils/install.js", async (importOriginal) => {
+  const actual = await importOriginal<typeof import("../utils/install.js")>();
+  return {
+    ...actual,
+    installDependencies: mocks.installDependencies,
+    writeComponent: mocks.writeComponent,
+  };
+});
 vi.mock("../utils/registry.js", () => ({
   getAvailableComponents: mocks.getAvailableComponents,
 }));
@@ -84,6 +88,10 @@ describe("add command", () => {
     mocks.confirm.mockResolvedValue(true);
     mocks.installDependencies.mockReturnValue(true);
     mocks.writeComponent.mockResolvedValue({ skipped: [], written: [] });
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it("stops cleanly when the interactive picker is cancelled", async () => {

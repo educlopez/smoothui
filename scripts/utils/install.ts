@@ -1,8 +1,13 @@
 import { spawnSync } from "node:child_process";
 import {
+  closeSync,
+  constants,
   existsSync,
+  fstatSync,
+  ftruncateSync,
   lstatSync,
   mkdirSync,
+  openSync,
   readFileSync,
   realpathSync,
   type Stats,
@@ -35,6 +40,18 @@ const throwUnsafeSymlink = (registryPath: string, diskPath: string): never => {
   throw new Error(
     `Invalid registry file path "${registryPath}": symbolic link is not allowed at ${diskPath}`
   );
+};
+
+const assertSingleLinkTarget = (
+  status: Stats,
+  registryPath: string,
+  diskPath: string
+): void => {
+  if (status.nlink !== 1) {
+    throw new Error(
+      `Refused to write registry file "${registryPath}": target with multiple hard links is not allowed at ${diskPath}`
+    );
+  }
 };
 
 const isMissingPathError = (error: unknown): boolean =>
@@ -124,7 +141,105 @@ const assertSafeTargetFile = (
       `Invalid registry file path "${registryPath}": expected a regular file at ${targetPath}`
     );
   }
+  assertSingleLinkTarget(status, registryPath, targetPath);
   return true;
+};
+
+const assertSafeWriteTarget = (
+  targetRoot: string,
+  targetDirectory: string,
+  targetPath: string,
+  registryPath: string
+): boolean => {
+  ensureSafeDirectoryPath(targetRoot, registryPath);
+  ensureSafeDirectoryPath(targetDirectory, registryPath);
+  assertCanonicalContainment(targetRoot, targetDirectory, registryPath);
+  return assertSafeTargetFile(targetPath, registryPath);
+};
+
+const assertOpenedTargetIsSafe = (
+  descriptor: number,
+  targetRoot: string,
+  targetPath: string,
+  registryPath: string
+): void => {
+  const pathStatus = tryLstat(targetPath);
+  if (pathStatus === null) {
+    throw new Error(
+      `Refused to write registry file "${registryPath}": target changed while opening`
+    );
+  }
+  if (pathStatus.isSymbolicLink()) {
+    throwUnsafeSymlink(registryPath, targetPath);
+  }
+  if (!pathStatus.isFile()) {
+    throw new Error(
+      `Refused to write registry file "${registryPath}": opened target is not a regular file`
+    );
+  }
+  assertSingleLinkTarget(pathStatus, registryPath, targetPath);
+
+  const descriptorStatus = fstatSync(descriptor);
+  assertSingleLinkTarget(descriptorStatus, registryPath, targetPath);
+  if (
+    descriptorStatus.dev !== pathStatus.dev ||
+    descriptorStatus.ino !== pathStatus.ino
+  ) {
+    throw new Error(
+      `Refused to write registry file "${registryPath}": target changed while opening`
+    );
+  }
+
+  const canonicalRoot = realpathSync(targetRoot);
+  const canonicalTarget = realpathSync(targetPath);
+  const canonicalRelativePath = relative(canonicalRoot, canonicalTarget);
+  if (
+    canonicalRelativePath.startsWith("..") ||
+    isAbsolute(canonicalRelativePath)
+  ) {
+    throw new Error(
+      `Refused to write registry file "${registryPath}": opened target escapes the component root`
+    );
+  }
+};
+
+const writeTargetFile = (
+  targetRoot: string,
+  targetPath: string,
+  registryPath: string,
+  content: string,
+  targetExists: boolean
+): void => {
+  const noFollowFlag =
+    typeof constants.O_NOFOLLOW === "number" ? constants.O_NOFOLLOW : 0;
+  // biome-ignore lint/suspicious/noBitwiseOperators: Node filesystem flags are bit masks.
+  const createFlags = targetExists ? 0 : constants.O_CREAT | constants.O_EXCL;
+  // biome-ignore lint/suspicious/noBitwiseOperators: Node filesystem flags are bit masks.
+  const openFlags = constants.O_WRONLY | noFollowFlag | createFlags;
+  const descriptor = openSync(targetPath, openFlags, 0o666);
+
+  try {
+    // On platforms without O_NOFOLLOW, opening is still non-destructive until
+    // the descriptor and path identity have been compared. O_EXCL protects the
+    // create case; existing files are truncated only after this validation.
+    assertOpenedTargetIsSafe(descriptor, targetRoot, targetPath, registryPath);
+    ftruncateSync(descriptor, 0);
+    writeFileSync(descriptor, content, "utf-8");
+  } finally {
+    closeSync(descriptor);
+  }
+};
+
+export const buildInstallCommand = (
+  packages: string[],
+  packageManager: ProjectConfig["packageManager"],
+  development = false
+): [string, ...string[]] => {
+  const command = packageManager === "npm" ? "install" : "add";
+  const developmentFlag = packageManager === "bun" ? "-d" : "-D";
+  return development
+    ? [packageManager, command, developmentFlag, ...packages]
+    : [packageManager, command, ...packages];
 };
 
 export const writeComponent = async (
@@ -157,10 +272,12 @@ export const writeComponent = async (
     // Create one segment at a time and reject symlinked ancestors. A lexical
     // containment check alone is insufficient because a registry path can
     // traverse an in-root symlink that points outside the component directory.
-    ensureSafeDirectoryPath(targetRoot, filePath);
-    ensureSafeDirectoryPath(targetDir, filePath);
-    assertCanonicalContainment(targetRoot, targetDir, filePath);
-    const targetExists = assertSafeTargetFile(targetPath, filePath);
+    const targetExists = assertSafeWriteTarget(
+      targetRoot,
+      targetDir,
+      targetPath,
+      filePath
+    );
 
     // Check if file exists
     if (targetExists && !shouldOverwriteAll) {
@@ -178,11 +295,18 @@ export const writeComponent = async (
 
     // Transform and write content
     const content = transformImports(file.content, config.alias);
-    ensureSafeDirectoryPath(targetRoot, filePath);
-    ensureSafeDirectoryPath(targetDir, filePath);
-    assertCanonicalContainment(targetRoot, targetDir, filePath);
-    assertSafeTargetFile(targetPath, filePath);
-    writeFileSync(targetPath, content, "utf-8");
+    const targetStillExists = assertSafeWriteTarget(
+      targetRoot,
+      targetDir,
+      targetPath,
+      filePath
+    );
+    if (targetStillExists !== targetExists) {
+      throw new Error(
+        `Refused to write registry file "${filePath}": target changed during installation`
+      );
+    }
+    writeTargetFile(targetRoot, targetPath, filePath, content, targetExists);
     written.push(filePath);
   }
 
@@ -198,14 +322,7 @@ export const installDependencies = (
 
   // Install regular dependencies
   if (deps.length > 0) {
-    const commands: Record<typeof packageManager, string[]> = {
-      bun: ["bun", "add", ...deps],
-      npm: ["npm", "install", ...deps],
-      pnpm: ["pnpm", "add", ...deps],
-      yarn: ["yarn", "add", ...deps],
-    };
-
-    const [cmd, ...args] = commands[packageManager];
+    const [cmd, ...args] = buildInstallCommand(deps, packageManager);
     const result = spawnSync(cmd, args, {
       stdio: "pipe",
     });
@@ -217,14 +334,7 @@ export const installDependencies = (
 
   // Install dev dependencies
   if (devDeps.length > 0) {
-    const devCommands: Record<typeof packageManager, string[]> = {
-      bun: ["bun", "add", "-d", ...devDeps],
-      npm: ["npm", "install", "-D", ...devDeps],
-      pnpm: ["pnpm", "add", "-D", ...devDeps],
-      yarn: ["yarn", "add", "-D", ...devDeps],
-    };
-
-    const [cmd, ...args] = devCommands[packageManager];
+    const [cmd, ...args] = buildInstallCommand(devDeps, packageManager, true);
     const result = spawnSync(cmd, args, {
       stdio: "pipe",
     });
