@@ -19,6 +19,33 @@
     { "type": "chore", "section": "Chores", "hidden": true }
   ],
   "packages": {
+    ".": {
+      "package-name": "smoothui-cli",
+      "component": "cli",
+      "include-component-in-tag": true,
+      "exclude-paths": [
+        ".agents/**",
+        ".claude/**",
+        ".codex/**",
+        ".cursor/**",
+        ".github/**",
+        ".husky/**",
+        ".notes/**",
+        ".opencode/**",
+        ".ui-craft/**",
+        ".vscode/**",
+        "apps/**",
+        "packages/**",
+        "sdd/**",
+        "tests/browser/**",
+        "AGENTS.md",
+        "ANIMATION_IMPROVEMENTS.md",
+        "CLAUDE.md",
+        "CONTRIBUTING.md",
+        "README.md",
+        "playwright.config.ts"
+      ]
+    },
     "packages/smoothui": {
       "package-name": "smoothui"
     }

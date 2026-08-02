@@ -28,14 +28,10 @@
     "smoothui": "dist/index.js",
     "smoothui-cli": "dist/index.js"
   },
-  "files": [
-    "dist/index.js",
-    "README.md"
-  ],
   "scripts": {
-    "prepublishOnly": "cp README.md README.github.md && cp README.npm.md README.md",
-    "postpublish": "cp README.github.md README.md && rm README.github.md",
+    "prepublishOnly": "node -e \"throw new Error('Publish the verified tarball from pnpm pack:cli instead of the repository root')\"",
     "build": "turbo build",
+    "build:cli": "tsup --config tsup.config.ts",
     "dev": "turbo dev",
     "lint": "ultracite check",
     "check": "ultracite check",
@@ -44,6 +40,7 @@
     "test:browser": "playwright test",
     "test:risk": "vitest run --config vitest.risk.config.ts",
     "typecheck": "turbo typecheck",
+    "typecheck:cli": "tsc --project tsconfig.cli.json",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
@@ -54,7 +51,9 @@
     "actions:update": "pnpm exec tsx scripts/refresh-action-pins.ts --write",
     "lockfile:check": "ruby scripts/validate-lockfile.rb",
     "lockfile:test": "ruby scripts/validate-lockfile.test.rb",
-    "prepare": "husky"
+    "pack:cli": "tsx scripts/pack-cli.mts",
+    "prepare": "husky",
+    "verify:cli-package": "tsx scripts/verify-cli-package.ts"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.6",

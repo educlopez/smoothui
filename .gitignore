@@ -73,3 +73,4 @@ skills-lock.json
 # Scratch project written by apps/docs/scripts/verify-install.mts
 .install-check/
 apps/docs/.install-check/
+.release/

@@ -1,6 +1,6 @@
 import { add } from "./commands/add.js";
 import { list } from "./commands/list.js";
-import { error, header } from "./utils/colors.js";
+import { CLI_VERSION, error, header } from "./utils/colors.js";
 
 const args = process.argv.slice(2);
 const [command] = args;
@@ -20,6 +20,7 @@ function printHelp(): void {
   );
   console.log("  --json                Output as JSON (list command)");
   console.log("  --help                Show this help message");
+  console.log("  --version             Show the installed CLI version");
   console.log();
   console.log("Examples:");
   console.log("  npx smoothui add siri-orb");
@@ -30,6 +31,11 @@ function printHelp(): void {
 
 async function main(): Promise<void> {
   try {
+    if (command === "--version" || command === "-v") {
+      console.log(CLI_VERSION);
+      return;
+    }
+
     if (!command || command === "--help" || command === "-h") {
       printHelp();
       return;

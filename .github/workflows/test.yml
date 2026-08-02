@@ -97,7 +97,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Typecheck
-        run: pnpm typecheck
+        run: |
+          pnpm typecheck
+          pnpm typecheck:cli
 
   test:
     name: Test
@@ -216,5 +218,21 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Verify CLI
-        run: pnpm exec tsup && node dist/index.js list --json
+      - name: Build, verify, and smoke-test the packed CLI
+        # This is the locally built, integrity-verified tarball from the prior
+        # commands, not an ad-hoc registry dependency.
+        # zizmor: ignore[adhoc-packages]
+        run: |
+          CLI_VERSION=$(node -p "require('./package.json').version")
+          pnpm build:cli
+          TARBALL=$(pnpm exec tsx scripts/pack-cli.mts)
+          test -f "$TARBALL"
+          pnpm verify:cli-package -- \
+            --pack-json .release/cli-pack.json \
+            --artifact-dir .release/artifacts \
+            --source-package package.json \
+            --expected-tag "cli-v$CLI_VERSION"
+          SMOKE_DIRECTORY=$(mktemp -d)
+          npm install --prefix "$SMOKE_DIRECTORY" --ignore-scripts --no-audit --no-fund "$TARBALL"
+          "$SMOKE_DIRECTORY/node_modules/.bin/smoothui" --help | grep -F "Usage: npx smoothui <command> [options]"
+          test "$("$SMOKE_DIRECTORY/node_modules/.bin/smoothui" --version)" = "$CLI_VERSION"
