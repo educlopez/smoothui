@@ -26,17 +26,28 @@ const require = createRequire(import.meta.url);
 const VERSION_RANGE_REGEX = /(?<=.)@[^@]*$/;
 const TS_ERROR_REGEX = /error TS\d+/;
 
-// Resolved from apps/docs and nowhere else, because that is the only thing tsc
-// will see from the scratch project. Checking wider roots marks a package
-// resolvable that then fails to compile.
-const RESOLVE_ROOTS = [join(import.meta.dirname, "..")];
+const DOCS_ROOT = join(import.meta.dirname, "..");
+const PACKAGES_ROOT = join(import.meta.dirname, "../../../packages");
 
-const isResolvable = (specifier: string): boolean => {
+// Every component and block is its own pnpm workspace package, so a dependency
+// like react-tweet or gsap is installed under that package rather than hoisted.
+// Resolving only from apps/docs therefore reports plenty of installed packages
+// as missing. Resolve from the item's own directory too, and hand tsc a path
+// mapping so it can follow — otherwise the item is skipped for a dependency that
+// is sitting right there.
+const resolveFrom = (specifier: string, roots: string[]): string | null => {
   try {
-    require.resolve(specifier, { paths: RESOLVE_ROOTS });
-    return true;
+    const manifest = require.resolve(`${specifier}/package.json`, {
+      paths: roots,
+    });
+    return dirname(manifest);
   } catch {
-    return false;
+    try {
+      // Some packages do not export ./package.json; fall back to the entry.
+      return dirname(require.resolve(specifier, { paths: roots }));
+    } catch {
+      return null;
+    }
   }
 };
 
@@ -104,6 +115,7 @@ const main = async () => {
   let written = 0;
   let items = 0;
   const skipped: string[] = [];
+  const extraPaths: Record<string, string[]> = {};
 
   try {
     for (const [path, contents] of Object.entries(STUBS)) {
@@ -111,25 +123,35 @@ const main = async () => {
       mkdirSync(dirname(target), { recursive: true });
       writeFileSync(target, contents);
     }
-    writeFileSync(
-      join(project, "tsconfig.json"),
-      JSON.stringify(TSCONFIG, null, 2)
-    );
 
     for (const name of await getAllPackageNames()) {
       const item = await getPackage(name);
       if (!item.files?.length) {
         continue;
       }
-      // An item whose declared npm dependencies are not installed anywhere in
-      // the workspace is skipped rather than stubbed: a shorthand ambient
-      // declaration turns their types into `any`, which silently downgrades the
-      // very errors this exists to find, and on a component that imports types
-      // rather than values it invents new ones. Better to check less and mean
-      // it, and say out loud what was skipped.
-      const missing = (item.dependencies ?? [])
-        .map((dep) => dep.replace(VERSION_RANGE_REGEX, ""))
-        .filter((dep) => !isResolvable(dep));
+      // An item whose declared npm dependencies cannot be found at all is
+      // skipped rather than stubbed: a shorthand ambient declaration turns their
+      // types into `any`, which silently downgrades the very errors this exists
+      // to find, and on a component that imports types rather than values it
+      // invents new ones. Better to check less and mean it, and say out loud
+      // what was skipped.
+      const itemDir = join(PACKAGES_ROOT, name);
+      const missing: string[] = [];
+
+      for (const dep of (item.dependencies ?? []).map((entry) =>
+        entry.replace(VERSION_RANGE_REGEX, "")
+      )) {
+        if (resolveFrom(dep, [DOCS_ROOT])) {
+          continue;
+        }
+        const local = resolveFrom(dep, [itemDir]);
+        if (local) {
+          extraPaths[dep] = [local];
+          extraPaths[`${dep}/*`] = [join(local, "*")];
+        } else {
+          missing.push(dep);
+        }
+      }
 
       if (missing.length > 0) {
         skipped.push(`${name} (${missing.join(", ")})`);
@@ -146,6 +168,21 @@ const main = async () => {
         written++;
       }
     }
+
+    writeFileSync(
+      join(project, "tsconfig.json"),
+      JSON.stringify(
+        {
+          ...TSCONFIG,
+          compilerOptions: {
+            ...TSCONFIG.compilerOptions,
+            paths: { ...TSCONFIG.compilerOptions.paths, ...extraPaths },
+          },
+        },
+        null,
+        2
+      )
+    );
 
     // shadcn's own components arrive through registryDependencies and are not in
     // this scratch project. A shorthand ambient declaration types every import
