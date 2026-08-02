@@ -34,22 +34,26 @@ overrides:
   rollup: ">=4.59.0"
   minimatch: ">=10.2.3"
   ajv: ">=8.18.0"
-  hono: ">=4.12.18"
+  hono: ">=4.12.25"
   "@hono/node-server": ">=1.19.13"
-  fast-uri: ">=3.1.2"
+  "ajv>fast-uri": "3.1.4"
   ip-address: ">=10.1.1"
-  "postcss@<8.5.10": ">=8.5.10"
+  postcss: ">=8.5.18"
   body-parser: ">=2.2.1"
-  js-yaml: ">=4.1.1"
+  js-yaml: "4.3.0"
   "@octokit/request": ">=8.4.1"
   "@octokit/plugin-paginate-rest": ">=9.2.2"
   "@octokit/request-error": ">=5.1.1"
   picomatch: ">=4.0.4"
   path-to-regexp: ">=8.4.0"
-  brace-expansion: ">=5.0.5"
+  brace-expansion: ">=5.0.8"
   yaml: ">=2.8.3"
-  vite: ">=7.3.2"
+  vite: ">=7.3.5"
   lodash-es: ">=4.18.0"
+  # Temporary exception: the advisory requires Sharp >=0.35.0, while Next
+  # 16.2.x still declares ^0.34.5. Keep this scoped until Next widens its range.
+  "next>sharp": "0.35.3"
+  "webpack-bundle-analyzer>ws": "7.5.11"
 
 # SECURITY: supply-chain hardening (npm-security-best-practices)
 minimumReleaseAge: 2880

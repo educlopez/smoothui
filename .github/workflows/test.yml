@@ -24,42 +24,46 @@ jobs:
   lockfile-audit:
     name: Lockfile Audit
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     permissions:
       contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
-      # Supply-chain gate: pnpm-lock.yaml must only resolve from the registry
-      # over HTTPS with integrity hashes. lockfile-lint does not support pnpm
-      # lockfiles, so we assert the invariants directly. Package integrity
-      # (SHA-512) and lockfile/manifest drift are already enforced by the
-      # `pnpm install --frozen-lockfile` step in the other jobs.
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install lockfile validator
+        run: pnpm install --frozen-lockfile --ignore-scripts
+
+      # Parse the lockfile instead of matching serialized key order. Package
+      # integrity and manifest drift are enforced by the frozen install.
       - name: Validate pnpm-lock.yaml (HTTPS-only, no exotic sources)
-        run: |
-          set -euo pipefail
-          fail=0
-          if grep -nE 'resolution:.*http://' pnpm-lock.yaml; then
-            echo "::error::Insecure http:// resolution found in pnpm-lock.yaml"
-            fail=1
-          fi
-          if grep -nE 'resolution:[[:space:]]*\{[[:space:]]*(tarball|git|directory):' pnpm-lock.yaml; then
-            echo "::error::Exotic (git/tarball/directory) resolution found in pnpm-lock.yaml"
-            fail=1
-          fi
-          if [ "$fail" -eq 0 ]; then
-            echo "pnpm-lock.yaml OK: registry-only, HTTPS, no git/tarball sources."
-          fi
-          exit "$fail"
+        run: pnpm lockfile:check
+
+      - name: Test lockfile validator regressions
+        run: pnpm lockfile:test
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -79,11 +83,14 @@ jobs:
   typecheck:
     name: Typecheck
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     permissions:
       contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -103,11 +110,14 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     permissions:
       contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
@@ -126,29 +136,32 @@ jobs:
 
       - name: Verify registry output (no workspace import leaks)
         working-directory: apps/docs
-        run: npx tsx scripts/verify-registry.mts
+        run: pnpm exec tsx scripts/verify-registry.mts
 
       # Compiles what the registry actually serves, which structural checks
       # cannot do. shadcn/ui scaffolds a real app for the same reason.
       - name: Verify registry output compiles when installed
         working-directory: apps/docs
-        run: npx tsx scripts/verify-install.mts
+        run: pnpm exec tsx scripts/verify-install.mts
 
       # The counts are committed so client components and MDX frontmatter can
       # import them. Checked like a lockfile, so marketing copy cannot silently
       # drift from the catalogue again.
       - name: Verify component/block counts are current
         working-directory: apps/docs
-        run: npx tsx scripts/generate-counts.mts --check
+        run: pnpm exec tsx scripts/generate-counts.mts --check
 
   build:
     name: Build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read # Required by actions/checkout
     steps:
       - name: Checkout
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
 
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4

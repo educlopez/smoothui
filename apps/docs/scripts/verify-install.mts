@@ -26,15 +26,13 @@ const require = createRequire(import.meta.url);
 const VERSION_RANGE_REGEX = /(?<=.)@[^@]*$/;
 const TS_ERROR_REGEX = /error TS\d+/;
 
-const DOCS_ROOT = join(import.meta.dirname, "..");
 const PACKAGES_ROOT = join(import.meta.dirname, "../../../packages");
 
 // Every component and block is its own pnpm workspace package, so a dependency
 // like react-tweet or gsap is installed under that package rather than hoisted.
-// Resolving only from apps/docs therefore reports plenty of installed packages
-// as missing. Resolve from the item's own directory too, and hand tsc a path
-// mapping so it can follow — otherwise the item is skipped for a dependency that
-// is sitting right there.
+// Resolve from the item's own directory and hand tsc a path mapping so it can
+// follow. Resolving from apps/docs is not reliable here: tsx can see packages in
+// pnpm's virtual store that the scratch project's plain tsc cannot import.
 const resolveFrom = (specifier: string, roots: string[]): string | null => {
   try {
     const manifest = require.resolve(`${specifier}/package.json`, {
@@ -141,9 +139,6 @@ const main = async () => {
       for (const dep of (item.dependencies ?? []).map((entry) =>
         entry.replace(VERSION_RANGE_REGEX, "")
       )) {
-        if (resolveFrom(dep, [DOCS_ROOT])) {
-          continue;
-        }
         const local = resolveFrom(dep, [itemDir]);
         if (local) {
           extraPaths[dep] = [local];
@@ -195,12 +190,15 @@ const main = async () => {
 
     console.log(`Wrote ${written} files from ${items} items`);
     if (skipped.length > 0) {
-      console.log(
+      console.error(
         `Skipped ${skipped.length} items whose deps are not installed in the workspace:`
       );
       for (const entry of skipped) {
-        console.log(`  ${entry}`);
+        console.error(`  ${entry}`);
       }
+      throw new Error(
+        "Install verification must cover every registry item with files"
+      );
     }
 
     const tsc = join(REPO_ROOT, "node_modules/.bin/tsc");

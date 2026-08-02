@@ -46,10 +46,12 @@
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
     "clean": "git clean -xdf node_modules",
-    "calculate-sizes": "npx tsx scripts/calculate-bundle-sizes.ts",
-    "calculate-new": "npx tsx scripts/calculate-new-components.ts",
-    "actions:check": "npx tsx scripts/refresh-action-pins.ts",
-    "actions:update": "npx tsx scripts/refresh-action-pins.ts --write",
+    "calculate-sizes": "pnpm exec tsx scripts/calculate-bundle-sizes.ts",
+    "calculate-new": "pnpm exec tsx scripts/calculate-new-components.ts",
+    "actions:check": "pnpm exec tsx scripts/refresh-action-pins.ts",
+    "actions:update": "pnpm exec tsx scripts/refresh-action-pins.ts --write",
+    "lockfile:check": "pnpm exec tsx scripts/validate-lockfile.ts",
+    "lockfile:test": "pnpm exec tsx --test scripts/validate-lockfile.test.ts",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -61,9 +63,11 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
     "tsup": "^8.5.1",
+    "tsx": "4.23.1",
     "turbo": "^2.8.3",
     "typescript": "^5.9.3",
     "ultracite": "^7.9.4",
+    "yaml": "2.9.0",
     "zod": "^4.3.6"
   },
   "engines": {
