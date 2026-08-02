@@ -104,12 +104,27 @@ const run = (command: string, args: string[], cwd: string): RunResult => {
       success: true,
     };
   } catch (error) {
-    const failure = error as { stdout?: string; stderr?: string };
+    const failure = error as {
+      message?: string;
+      stderr?: string;
+      stdout?: string;
+    };
+    const output = `${failure.stdout ?? ""}${failure.stderr ?? ""}`;
     return {
-      output: `${failure.stdout ?? ""}${failure.stderr ?? ""}`,
+      output: output || (failure.message ?? "Command failed with no output"),
       success: false,
     };
   }
+};
+
+const compareCodePoints = (left: string, right: string): number => {
+  if (left < right) {
+    return -1;
+  }
+  if (left > right) {
+    return 1;
+  }
+  return 0;
 };
 
 // Scratch project lives inside apps/docs, not in tmp, so ordinary node
@@ -201,7 +216,7 @@ const main = async () => {
     }
 
     const packageNames = await getAllPackageNames();
-    packageNames.sort((left, right) => left.localeCompare(right));
+    packageNames.sort(compareCodePoints);
 
     for (const name of packageNames) {
       const item = await getPackage(name);
@@ -327,8 +342,9 @@ const main = async () => {
     }
 
     if (failedGroups > 0) {
+      const groupLabel = failedGroups === 1 ? "group" : "groups";
       console.log(
-        `\nInstall typecheck FAILED: ${errorCount} TypeScript errors across ${failedGroups} groups`
+        `\nInstall typecheck FAILED: ${failedGroups} ${groupLabel} failed (${errorCount} TypeScript errors parsed)`
       );
       process.exitCode = 1;
       return;
