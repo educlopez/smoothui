@@ -25,6 +25,7 @@ const require = createRequire(import.meta.url);
 // Strips a version range from a dependency spec: "is-even@3.0.0" -> "is-even".
 const VERSION_RANGE_REGEX = /(?<=.)@[^@]*$/;
 const TS_ERROR_REGEX = /error TS\d+/;
+const TYPECHECKED_FILE_REGEX = /\.[cm]?[jt]sx?$/;
 
 const PACKAGES_ROOT = join(import.meta.dirname, "../../../packages");
 
@@ -87,16 +88,27 @@ const STUBS = {
     'export const cn = (...inputs: unknown[]): string =>\n  inputs.filter(Boolean).join(" ");\n',
 };
 
-const run = (command: string, args: string[], cwd: string): string => {
+interface RunResult {
+  output: string;
+  success: boolean;
+}
+
+const run = (command: string, args: string[], cwd: string): RunResult => {
   try {
-    return execFileSync(command, args, {
-      cwd,
-      encoding: "utf8",
-      stdio: "pipe",
-    });
+    return {
+      output: execFileSync(command, args, {
+        cwd,
+        encoding: "utf8",
+        stdio: "pipe",
+      }),
+      success: true,
+    };
   } catch (error) {
     const failure = error as { stdout?: string; stderr?: string };
-    return `${failure.stdout ?? ""}${failure.stderr ?? ""}`;
+    return {
+      output: `${failure.stdout ?? ""}${failure.stderr ?? ""}`,
+      success: false,
+    };
   }
 };
 
@@ -106,6 +118,72 @@ const run = (command: string, args: string[], cwd: string): string => {
 // or lucide-react, and apps/docs is the only workspace carrying all of them.
 const PROJECT = join(import.meta.dirname, "..", ".install-check");
 
+interface PathMapping {
+  item: string;
+  target: string;
+}
+
+interface TypecheckGroup {
+  files: Set<string>;
+  items: string[];
+  mappings: Map<string, PathMapping>;
+}
+
+const addPathMapping = (
+  mappings: Map<string, PathMapping>,
+  pattern: string,
+  target: string,
+  item: string
+): void => {
+  const existing = mappings.get(pattern);
+  if (existing && existing.target !== target) {
+    throw new Error(
+      `Conflicting path mapping for "${pattern}": ` +
+        `"${existing.item}" resolves to "${existing.target}", ` +
+        `but "${item}" resolves to "${target}"`
+    );
+  }
+  if (!existing) {
+    mappings.set(pattern, { item, target });
+  }
+};
+
+const mappingsAreCompatible = (
+  left: Map<string, PathMapping>,
+  right: Map<string, PathMapping>
+): boolean => {
+  for (const [pattern, mapping] of right) {
+    const existing = left.get(pattern);
+    if (existing && existing.target !== mapping.target) {
+      return false;
+    }
+  }
+  return true;
+};
+
+const assignTypecheckGroup = (
+  groups: TypecheckGroup[],
+  item: string,
+  files: string[],
+  mappings: Map<string, PathMapping>
+): void => {
+  let group = groups.find((candidate) =>
+    mappingsAreCompatible(candidate.mappings, mappings)
+  );
+  if (!group) {
+    group = { files: new Set(), items: [], mappings: new Map() };
+    groups.push(group);
+  }
+
+  for (const [pattern, mapping] of mappings) {
+    addPathMapping(group.mappings, pattern, mapping.target, item);
+  }
+  for (const file of files) {
+    group.files.add(file);
+  }
+  group.items.push(item);
+};
+
 const main = async () => {
   const project = PROJECT;
   rmSync(project, { force: true, recursive: true });
@@ -113,7 +191,7 @@ const main = async () => {
   let written = 0;
   let items = 0;
   const skipped: string[] = [];
-  const extraPaths: Record<string, string[]> = {};
+  const typecheckGroups: TypecheckGroup[] = [];
 
   try {
     for (const [path, contents] of Object.entries(STUBS)) {
@@ -122,7 +200,10 @@ const main = async () => {
       writeFileSync(target, contents);
     }
 
-    for (const name of await getAllPackageNames()) {
+    const packageNames = await getAllPackageNames();
+    packageNames.sort((left, right) => left.localeCompare(right));
+
+    for (const name of packageNames) {
       const item = await getPackage(name);
       if (!item.files?.length) {
         continue;
@@ -134,15 +215,18 @@ const main = async () => {
       // invents new ones. Better to check less and mean it, and say out loud
       // what was skipped.
       const itemDir = join(PACKAGES_ROOT, name);
+      const itemFiles: string[] = [];
+      const itemMappings = new Map<string, PathMapping>();
       const missing: string[] = [];
 
-      for (const dep of (item.dependencies ?? []).map((entry) =>
-        entry.replace(VERSION_RANGE_REGEX, "")
-      )) {
+      const dependencies = (item.dependencies ?? [])
+        .map((entry) => entry.replace(VERSION_RANGE_REGEX, ""))
+        .sort();
+      for (const dep of dependencies) {
         const local = resolveFrom(dep, [itemDir]);
         if (local) {
-          extraPaths[dep] = [local];
-          extraPaths[`${dep}/*`] = [join(local, "*")];
+          addPathMapping(itemMappings, dep, local, name);
+          addPathMapping(itemMappings, `${dep}/*`, join(local, "*"), name);
         } else {
           missing.push(dep);
         }
@@ -160,24 +244,13 @@ const main = async () => {
         const target = join(project, "src", file.target ?? file.path);
         mkdirSync(dirname(target), { recursive: true });
         writeFileSync(target, file.content ?? "");
+        if (TYPECHECKED_FILE_REGEX.test(target)) {
+          itemFiles.push(join("src", file.target ?? file.path));
+        }
         written++;
       }
+      assignTypecheckGroup(typecheckGroups, name, itemFiles, itemMappings);
     }
-
-    writeFileSync(
-      join(project, "tsconfig.json"),
-      JSON.stringify(
-        {
-          ...TSCONFIG,
-          compilerOptions: {
-            ...TSCONFIG.compilerOptions,
-            paths: { ...TSCONFIG.compilerOptions.paths, ...extraPaths },
-          },
-        },
-        null,
-        2
-      )
-    );
 
     // shadcn's own components arrive through registryDependencies and are not in
     // this scratch project. A shorthand ambient declaration types every import
@@ -201,16 +274,64 @@ const main = async () => {
       );
     }
 
+    console.log(
+      `Typechecking ${items} items in ${typecheckGroups.length} dependency-compatible groups`
+    );
     const tsc = join(REPO_ROOT, "node_modules/.bin/tsc");
-    const output = run(tsc, ["--noEmit", "-p", "tsconfig.json"], project);
-    const errors = output
-      .split("\n")
-      .filter((line) => TS_ERROR_REGEX.test(line));
+    let errorCount = 0;
+    let failedGroups = 0;
+    for (const [index, group] of typecheckGroups.entries()) {
+      const configName = `tsconfig.group-${index + 1}.json`;
+      writeFileSync(
+        join(project, configName),
+        JSON.stringify(
+          {
+            compilerOptions: {
+              ...TSCONFIG.compilerOptions,
+              paths: {
+                ...TSCONFIG.compilerOptions.paths,
+                ...Object.fromEntries(
+                  [...group.mappings.entries()].map(([pattern, mapping]) => [
+                    pattern,
+                    [mapping.target],
+                  ])
+                ),
+              },
+            },
+            files: [
+              "src/globals.d.ts",
+              "src/lib/utils.ts",
+              "src/ambient.d.ts",
+              ...group.files,
+            ],
+          },
+          null,
+          2
+        )
+      );
 
-    if (errors.length > 0) {
-      console.log(errors.slice(0, 40).join("\n"));
-      console.log(`\nInstall typecheck FAILED: ${errors.length} errors`);
-      process.exit(1);
+      const result = run(tsc, ["--noEmit", "-p", configName], project);
+      const errors = result.output
+        .split("\n")
+        .filter((line) => TS_ERROR_REGEX.test(line));
+      errorCount += errors.length;
+      if (!result.success) {
+        failedGroups++;
+        console.log(`\nGroup ${index + 1} FAILED (${group.items.join(", ")}):`);
+        console.log(
+          (errors.length > 0 ? errors : result.output.split("\n"))
+            .slice(0, 40)
+            .join("\n")
+        );
+      }
+    }
+
+    if (failedGroups > 0) {
+      console.log(
+        `\nInstall typecheck FAILED: ${errorCount} TypeScript errors across ${failedGroups} groups`
+      );
+      process.exitCode = 1;
+      return;
     }
 
     console.log("Install typecheck clean");

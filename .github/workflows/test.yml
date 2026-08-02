@@ -33,28 +33,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 22
-          cache: pnpm
-
-      - name: Install lockfile validator
-        run: pnpm install --frozen-lockfile --ignore-scripts
-
-      # Parse the lockfile instead of matching serialized key order. Package
-      # integrity and manifest drift are enforced by the frozen install.
-      - name: Validate pnpm-lock.yaml (HTTPS-only, no exotic sources)
-        run: pnpm lockfile:check
-
+      # ubuntu-latest includes trusted system Ruby and Psych. These steps use
+      # only that stdlib: no package or code from the candidate lock is loaded.
       - name: Test lockfile validator regressions
-        run: pnpm lockfile:test
+        run: ruby scripts/validate-lockfile.test.rb
+
+      # This must run before any candidate dependencies are installed or
+      # executed. The validator uses only the runner's trusted Ruby/Psych stdlib.
+      - name: Validate pnpm-lock.yaml (HTTPS-only, no exotic sources)
+        run: ruby scripts/validate-lockfile.rb
 
   lint:
     name: Lint
+    needs: lockfile-audit
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -82,6 +73,7 @@ jobs:
 
   typecheck:
     name: Typecheck
+    needs: lockfile-audit
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
@@ -109,6 +101,7 @@ jobs:
 
   test:
     name: Test
+    needs: lockfile-audit
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
@@ -153,6 +146,7 @@ jobs:
 
   build:
     name: Build
+    needs: lockfile-audit
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:

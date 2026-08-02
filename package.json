@@ -50,8 +50,8 @@
     "calculate-new": "pnpm exec tsx scripts/calculate-new-components.ts",
     "actions:check": "pnpm exec tsx scripts/refresh-action-pins.ts",
     "actions:update": "pnpm exec tsx scripts/refresh-action-pins.ts --write",
-    "lockfile:check": "pnpm exec tsx scripts/validate-lockfile.ts",
-    "lockfile:test": "pnpm exec tsx --test scripts/validate-lockfile.test.ts",
+    "lockfile:check": "ruby scripts/validate-lockfile.rb",
+    "lockfile:test": "ruby scripts/validate-lockfile.test.rb",
     "prepare": "husky"
   },
   "devDependencies": {
@@ -67,7 +67,6 @@
     "turbo": "^2.8.3",
     "typescript": "^5.9.3",
     "ultracite": "^7.9.4",
-    "yaml": "2.9.0",
     "zod": "^4.3.6"
   },
   "engines": {

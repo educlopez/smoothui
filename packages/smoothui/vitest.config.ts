@@ -61,6 +61,9 @@ export default defineConfig({
       "components/**/__tests__/**/*.test.{ts,tsx}",
       "blocks/**/__tests__/**/*.test.{ts,tsx}",
       "templates/**/__tests__/**/*.test.{ts,tsx}",
+      "hooks/**/__tests__/**/*.test.{ts,tsx}",
+      "utils/**/__tests__/**/*.test.{ts,tsx}",
+      "lib/**/__tests__/**/*.test.{ts,tsx}",
       // Package-wide guards that belong to no single component.
       "__tests__/**/*.test.{ts,tsx}",
     ],
