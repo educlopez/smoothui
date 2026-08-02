@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.7.1](https://github.com/educlopez/smoothui/compare/v3.7.0...v3.7.1) (2026-08-02)
+
+
+### Bug Fixes
+
+* **ci:** harden supply-chain checks ([7026e1a](https://github.com/educlopez/smoothui/commit/7026e1ac205266fff3f50881697c687af944cc9f))
+* **ci:** harden supply-chain checks ([0f75904](https://github.com/educlopez/smoothui/commit/0f759047eb3cb20860d1a4b374322390b3c8a467))
+* **ci:** secure pre-install validation ([a961592](https://github.com/educlopez/smoothui/commit/a961592dfdca8bc54abf7990410d7b44b8f0ce7e))
+
 ## [3.7.0](https://github.com/educlopez/smoothui/compare/v3.6.0...v3.7.0) (2026-08-01)
 
 
