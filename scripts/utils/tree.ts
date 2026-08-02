@@ -75,6 +75,13 @@ export function collectNpmDeps(items: RegistryItem[]): {
     }
   }
 
+  // If packages disagree about where a dependency belongs, install it once as
+  // a runtime dependency. Keeping it in both sets makes package managers run
+  // two conflicting commands and leaves the final manifest order-dependent.
+  for (const dep of deps) {
+    devDeps.delete(dep);
+  }
+
   return {
     dependencies: [...deps],
     devDependencies: [...devDeps],

@@ -38,7 +38,10 @@ const items: DropdownMenuItemConfig[] = [
 
 export default function DropdownMenuDemo() {
   return (
-    <div className="flex w-full items-center justify-center p-8">
+    <div className="flex w-full flex-col items-center justify-center gap-4 p-8">
+      <p className="text-muted-foreground text-sm">
+        Click outside the menu to close it.
+      </p>
       <DropdownMenu items={items}>
         <SmoothButton type="button" variant="outline">
           Open Menu

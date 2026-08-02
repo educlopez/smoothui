@@ -8,6 +8,37 @@ export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
 } as const;
 
+const MIN_PAGE = 1;
+
+const normalizePositiveInteger = (
+  value: string | null,
+  fallback: number
+): number => {
+  if (value === null) {
+    return fallback;
+  }
+
+  const parsed = Number(value);
+  if (!(Number.isFinite(parsed) && Number.isInteger(parsed))) {
+    return fallback;
+  }
+
+  return Math.max(MIN_PAGE, parsed);
+};
+
+/** Parse tolerant, finite pagination metadata shared by catalog endpoints. */
+export const parsePagination = (
+  searchParams: URLSearchParams,
+  defaultPageSize: number,
+  maxPageSize: number
+): { page: number; pageSize: number } => ({
+  page: normalizePositiveInteger(searchParams.get("page"), MIN_PAGE),
+  pageSize: Math.min(
+    maxPageSize,
+    normalizePositiveInteger(searchParams.get("pageSize"), defaultPageSize)
+  ),
+});
+
 /** Return a JSON response with CORS headers */
 export const jsonResponse = <T>(data: T, status = 200): NextResponse =>
   NextResponse.json(data, { headers: corsHeaders, status });
