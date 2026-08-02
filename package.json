@@ -48,6 +48,8 @@
     "clean": "git clean -xdf node_modules",
     "calculate-sizes": "npx tsx scripts/calculate-bundle-sizes.ts",
     "calculate-new": "npx tsx scripts/calculate-new-components.ts",
+    "actions:check": "npx tsx scripts/refresh-action-pins.ts",
+    "actions:update": "npx tsx scripts/refresh-action-pins.ts --write",
     "prepare": "husky"
   },
   "devDependencies": {
