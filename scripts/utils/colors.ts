@@ -1,6 +1,8 @@
 import pc from "picocolors";
 import { SYMBOLS } from "../constants.js";
 
+declare const __CLI_VERSION__: string;
+
 export const S = SYMBOLS;
 
 export const { dim, cyan, green, red, yellow, bold, gray } = pc;
@@ -26,8 +28,10 @@ const LOGO = [
   "╚══════╝╚═╝     ╚═╝ ╚═════╝  ╚═════╝    ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═╝",
 ];
 
-// Version from package.json (injected at build time or read dynamically)
-const VERSION = "1.1.1";
+export const CLI_VERSION =
+  typeof __CLI_VERSION__ === "string"
+    ? __CLI_VERSION__
+    : (process.env.npm_package_version ?? "0.0.0-dev");
 
 export function step(symbol: string, message: string): void {
   console.log(`${symbol}  ${message}`);
@@ -63,6 +67,6 @@ export function header(): void {
 
   // Print version below
   console.log();
-  console.log(`  ${dim(`v${VERSION}`)}`);
+  console.log(`  ${dim(`v${CLI_VERSION}`)}`);
   console.log();
 }

@@ -16,6 +16,10 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    outputs:
+      cli_release_created: ${{ steps.release.outputs.release_created }}
+      cli_tag_name: ${{ steps.release.outputs.tag_name }}
+      cli_release_sha: ${{ steps.release.outputs.sha }}
     permissions:
       contents: write # Create the release commit, tag and GitHub release
       pull-requests: write # Open and update the release PR
@@ -49,3 +53,108 @@ jobs:
           echo "::notice title=Release PR ready::$(jq -r '"#\(.number) \(.title)"' <<<"$PR_JSON") — merge it to publish."
         env:
           PR_JSON: ${{ steps.release.outputs.pr }}
+
+  publish-cli:
+    name: Publish smoothui-cli
+    needs: release-please
+    if: needs.release-please.outputs.cli_release_created == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: npm-cli
+    permissions:
+      contents: read
+      id-token: write # npm Trusted Publishing and provenance
+    steps:
+      - name: Checkout the exact CLI release tag
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ needs.release-please.outputs.cli_tag_name }}
+          persist-credentials: false
+
+      - name: Verify the checked-out release commit
+        env:
+          EXPECTED_RELEASE_SHA: ${{ needs.release-please.outputs.cli_release_sha }}
+        run: test "$(git rev-parse HEAD)" = "$EXPECTED_RELEASE_SHA"
+
+      # Use only the runner's trusted Ruby/Psych stdlib before executing code
+      # from the candidate dependency graph.
+      - name: Test lockfile validator regressions
+        run: ruby scripts/validate-lockfile.test.rb
+
+      - name: Validate pnpm-lock.yaml before install
+        run: ruby scripts/validate-lockfile.rb
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 11.1.2
+          run_install: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Pin the Trusted Publishing npm client
+        # npm 11.5.1 is the minimum OIDC-capable publisher and is exact-pinned.
+        # zizmor: ignore[adhoc-packages]
+        run: |
+          npm install --global npm@11.5.1 --ignore-scripts
+          test "$(npm --version)" = "11.5.1"
+          test "$(pnpm --version)" = "11.1.2"
+
+      # A filtered install avoids executing unrelated app lifecycle scripts and
+      # therefore does not expose NUCLEO_LICENSE_KEY to this publisher.
+      - name: Install CLI dependencies
+        run: pnpm install --frozen-lockfile --filter smoothui-cli...
+
+      - name: Validate CLI package logic
+        run: |
+          pnpm exec vitest run --config vitest.risk.config.ts scripts
+          pnpm typecheck:cli
+          pnpm exec ultracite check scripts/index.ts scripts/utils/colors.ts scripts/pack-cli.mts scripts/prepare-cli-package.mts scripts/verify-cli-package.ts scripts/verify-cli-package.test.ts tsup.config.ts
+
+      - name: Build CLI once
+        run: pnpm build:cli
+
+      - name: Pack and verify the release tarball
+        env:
+          EXPECTED_TAG: ${{ needs.release-please.outputs.cli_tag_name }}
+        run: |
+          pnpm pack:cli
+          pnpm verify:cli-package -- \
+            --pack-json .release/cli-pack.json \
+            --artifact-dir .release/artifacts \
+            --source-package package.json \
+            --expected-tag "$EXPECTED_TAG"
+
+      - id: tarball
+        name: Resolve the verified tarball
+        run: |
+          TARBALL=".release/artifacts/$(node -e "const [entry] = JSON.parse(require('node:fs').readFileSync('.release/cli-pack.json', 'utf8')); process.stdout.write(entry.filename)")"
+          test -f "$TARBALL"
+          echo "path=$TARBALL" >> "$GITHUB_OUTPUT"
+
+      - name: Refuse to republish an existing npm version
+        env:
+          TARBALL: ${{ steps.tarball.outputs.path }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          set +e
+          VIEW_OUTPUT=$(npm view "smoothui-cli@$VERSION" version --json 2>&1)
+          VIEW_STATUS=$?
+          set -e
+          if [ "$VIEW_STATUS" -eq 0 ]; then
+            echo "::error title=Version already published::smoothui-cli@$VERSION already exists; refusing to republish $TARBALL."
+            exit 1
+          fi
+          if ! grep -q "E404" <<<"$VIEW_OUTPUT"; then
+            echo "::error title=npm registry check failed::$VIEW_OUTPUT"
+            exit "$VIEW_STATUS"
+          fi
+
+      - name: Publish the exact verified tarball with provenance
+        env:
+          TARBALL: ${{ steps.tarball.outputs.path }}
+        run: npm publish "$TARBALL" --access public --provenance
