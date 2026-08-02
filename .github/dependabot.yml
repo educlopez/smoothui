@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  # Actions are pinned to commit SHAs, which is what makes a moved tag harmless.
+  # The cost of pinning is that nothing updates on its own any more, so without
+  # this the pins quietly rot and the trade is a bad one: a tag that cannot move
+  # in exchange for a version that never gets a security fix. Dependabot rewrites
+  # both the SHA and the trailing `# v4` comment.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"
+    groups:
+      # One PR for the lot: these move rarely and reviewing them together is
+      # less work than five separate bumps.
+      actions:
+        patterns:
+          - "*"
