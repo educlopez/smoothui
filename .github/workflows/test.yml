@@ -223,14 +223,10 @@ jobs:
         # commands, not an ad-hoc registry dependency.
         # zizmor: ignore[adhoc-packages]
         run: |
-          CLI_VERSION=$(node -p "require('./package.json').version")
-          pnpm build:cli
-          TARBALL=$(pnpm exec tsx scripts/pack-cli.mts)
+          CLI_VERSION=$(node -p "require('./packages/cli/package.json').version")
+          TARBALL=$(pnpm --dir packages/cli exec tsx scripts/pack-cli.mts)
           test -f "$TARBALL"
           pnpm verify:cli-package -- \
-            --pack-json .release/cli-pack.json \
-            --artifact-dir .release/artifacts \
-            --source-package package.json \
             --expected-tag "cli-v$CLI_VERSION"
           SMOKE_DIRECTORY=$(mktemp -d)
           npm install --prefix "$SMOKE_DIRECTORY" --ignore-scripts --no-audit --no-fund "$TARBALL"

@@ -1,37 +1,9 @@
 {
-  "name": "smoothui-cli",
-  "version": "1.1.1",
-  "author": "educalvolpz",
-  "description": "CLI to install SmoothUI components - beautifully designed React components with smooth animations",
-  "private": false,
-  "license": "MIT",
-  "keywords": [
-    "cli",
-    "components",
-    "ui",
-    "react",
-    "tailwindcss",
-    "motion",
-    "framer-motion",
-    "shadcn",
-    "animations"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/educlopez/smoothui.git"
-  },
-  "homepage": "https://smoothui.dev",
-  "bugs": {
-    "url": "https://github.com/educlopez/smoothui/issues"
-  },
-  "bin": {
-    "smoothui": "dist/index.js",
-    "smoothui-cli": "dist/index.js"
-  },
+  "name": "smoothui-monorepo",
+  "private": true,
   "scripts": {
-    "prepublishOnly": "node -e \"throw new Error('Publish the verified tarball from pnpm pack:cli instead of the repository root')\"",
     "build": "turbo build",
-    "build:cli": "tsup --config tsup.config.ts",
+    "build:cli": "pnpm --filter smoothui-cli build",
     "dev": "turbo dev",
     "lint": "ultracite check",
     "check": "ultracite check",
@@ -40,7 +12,7 @@
     "test:browser": "playwright test",
     "test:risk": "vitest run --config vitest.risk.config.ts",
     "typecheck": "turbo typecheck",
-    "typecheck:cli": "tsc --project tsconfig.cli.json",
+    "typecheck:cli": "pnpm --filter smoothui-cli typecheck",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
@@ -51,9 +23,9 @@
     "actions:update": "pnpm exec tsx scripts/refresh-action-pins.ts --write",
     "lockfile:check": "ruby scripts/validate-lockfile.rb",
     "lockfile:test": "ruby scripts/validate-lockfile.test.rb",
-    "pack:cli": "tsx scripts/pack-cli.mts",
+    "pack:cli": "pnpm --filter smoothui-cli pack:release",
     "prepare": "husky",
-    "verify:cli-package": "tsx scripts/verify-cli-package.ts"
+    "verify:cli-package": "pnpm --filter smoothui-cli verify:package -- --pack-json .release/cli-pack.json --artifact-dir .release/artifacts --source-package package.json"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.6",
@@ -84,9 +56,5 @@
     "*.{json,css,md,mdx}": [
       "biome format --write --no-errors-on-unmatched"
     ]
-  },
-  "dependencies": {
-    "@clack/prompts": "^0.11.0",
-    "picocolors": "^1.1.1"
   }
 }
