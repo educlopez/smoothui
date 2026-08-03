@@ -21,6 +21,23 @@ const ROOT_CLI_INPUTS = new Set([
   "tsup.config.ts",
 ]);
 
+const CLI_SCRIPT_DIRECTORIES = [
+  "scripts/commands/",
+  "scripts/prompts/",
+  "scripts/utils/",
+];
+
+const CLI_SCRIPT_FILES = new Set([
+  "scripts/constants.ts",
+  "scripts/index.ts",
+  "scripts/pack-cli.mts",
+  "scripts/prepare-cli-package.mts",
+  "scripts/prepare-cli-package.test.ts",
+  "scripts/types.ts",
+  "scripts/verify-cli-package.test.ts",
+  "scripts/verify-cli-package.ts",
+]);
+
 const CLI_SENTINELS = [
   "scripts/commands/add.ts",
   "scripts/commands/list.ts",
@@ -58,6 +75,10 @@ const matchesExcludePath = (filePath: string, pattern: string): boolean => {
 const isExcluded = (filePath: string): boolean =>
   excludePaths.some((pattern) => matchesExcludePath(filePath, pattern));
 
+const isCliScript = (filePath: string): boolean =>
+  CLI_SCRIPT_FILES.has(filePath) ||
+  CLI_SCRIPT_DIRECTORIES.some((directory) => filePath.startsWith(directory));
+
 describe("CLI release scope", () => {
   it("uses auditable exact-file or subtree exclusions", () => {
     for (const pattern of excludePaths) {
@@ -86,11 +107,11 @@ describe("CLI release scope", () => {
       .filter(Boolean);
 
     const unclassifiedFiles = trackedFiles.filter((filePath) => {
-      const isCliScript =
-        filePath.startsWith("scripts/") && !isExcluded(filePath);
+      const isIncludedCliScript =
+        isCliScript(filePath) && !isExcluded(filePath);
       return !(
         ROOT_CLI_INPUTS.has(filePath) ||
-        isCliScript ||
+        isIncludedCliScript ||
         isExcluded(filePath)
       );
     });
