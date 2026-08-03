@@ -11,7 +11,11 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["scripts/**/*.test.ts", "apps/docs/app/api/v1/**/*.test.ts"],
+    include: [
+      "scripts/**/*.test.ts",
+      "packages/cli/**/*.test.ts",
+      "apps/docs/app/api/v1/**/*.test.ts",
+    ],
     restoreMocks: true,
   },
 });

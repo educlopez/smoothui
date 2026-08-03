@@ -20,6 +20,7 @@ interface PackageJson {
   keywords?: unknown;
   license?: unknown;
   name?: unknown;
+  publishConfig?: unknown;
   repository?: unknown;
   type?: unknown;
   version?: unknown;
@@ -36,7 +37,7 @@ export const prepareCliPackage = (rootDirectory = process.cwd()): string => {
     path.join(rootDirectory, "package.json")
   );
   const distributionEntry = path.join(rootDirectory, DISTRIBUTION_ENTRY);
-  const npmReadme = path.join(rootDirectory, "README.npm.md");
+  const npmReadme = path.join(rootDirectory, "README.md");
   const license = path.join(rootDirectory, "LICENSE");
 
   if (!existsSync(distributionEntry)) {
@@ -46,7 +47,7 @@ export const prepareCliPackage = (rootDirectory = process.cwd()): string => {
   }
   if (!existsSync(npmReadme)) {
     throw new Error(
-      "Missing README.npm.md; the npm package requires its dedicated README."
+      "Missing README.md; the npm package requires its dedicated README."
     );
   }
   if (!existsSync(license)) {
@@ -78,6 +79,7 @@ export const prepareCliPackage = (rootDirectory = process.cwd()): string => {
     keywords: sourcePackageJson.keywords,
     license: sourcePackageJson.license,
     name: sourcePackageJson.name,
+    publishConfig: sourcePackageJson.publishConfig,
     repository: sourcePackageJson.repository,
     type: sourcePackageJson.type,
     version: sourcePackageJson.version,

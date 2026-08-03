@@ -1,0 +1,63 @@
+{
+  "name": "smoothui-cli",
+  "version": "1.1.1",
+  "author": "educalvolpz",
+  "description": "CLI to install SmoothUI components - beautifully designed React components with smooth animations",
+  "license": "MIT",
+  "keywords": [
+    "cli",
+    "components",
+    "ui",
+    "react",
+    "tailwindcss",
+    "motion",
+    "framer-motion",
+    "shadcn",
+    "animations"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/educlopez/smoothui.git",
+    "directory": "packages/cli"
+  },
+  "homepage": "https://smoothui.dev",
+  "bugs": {
+    "url": "https://github.com/educlopez/smoothui/issues"
+  },
+  "bin": {
+    "smoothui": "dist/index.js",
+    "smoothui-cli": "dist/index.js"
+  },
+  "files": [
+    "dist/index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsup --config tsup.config.ts",
+    "pack:release": "tsx scripts/pack-cli.mts",
+    "prepublishOnly": "node -e \"throw new Error('Publish the verified tarball from pnpm pack:release instead of the package workspace')\"",
+    "typecheck": "tsc --project tsconfig.json",
+    "verify:package": "tsx scripts/verify-cli-package.ts"
+  },
+  "dependencies": {
+    "@clack/prompts": "^0.11.0",
+    "picocolors": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.0",
+    "tsup": "^8.5.1",
+    "tsx": "4.23.1",
+    "typescript": "^5.9.3",
+    "ultracite": "^7.9.4",
+    "vitest": "4.1.8"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "type": "module"
+}
