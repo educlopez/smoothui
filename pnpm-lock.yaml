@@ -4351,15 +4351,18 @@ importers:
 
   packages/smoothui/components/image-generation-panel:
     dependencies:
+      '@repo/ai-core':
+        specifier: workspace:*
+        version: link:../ai-core
       '@repo/ai-loader':
         specifier: workspace:*
         version: link:../ai-loader
+      '@repo/ai-prompt-input':
+        specifier: workspace:*
+        version: link:../ai-prompt-input
       '@repo/shadcn-ui':
         specifier: workspace:*
         version: link:../../../shadcn-ui
-      '@repo/smooth-button':
-        specifier: workspace:*
-        version: link:../smooth-button
       lucide-react:
         specifier: ^0.545.0
         version: 0.545.0(react@19.2.6)
