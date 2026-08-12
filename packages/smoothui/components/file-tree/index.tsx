@@ -215,8 +215,16 @@ const FileTreeRow = ({
       </div>
 
       {hasChildren ? (
+        // The subtree stays mounted so the height can animate, which would
+        // otherwise leave collapsed children exposed as reachable `treeitem`s:
+        // `height: 0` hides them visually but not from assistive tech, so a
+        // screen reader walking the DOM meets rows the widget considers hidden.
+        // `aria-hidden` + `inert` take them out of both the a11y tree and the
+        // tab order while collapsed, without giving up the animation.
         <motion.div
           animate={{ height }}
+          aria-hidden={isOpen ? undefined : "true"}
+          inert={isOpen ? undefined : true}
           initial={false}
           onAnimationComplete={() => {
             if (isOpen) {

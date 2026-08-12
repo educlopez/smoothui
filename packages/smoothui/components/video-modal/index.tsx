@@ -341,7 +341,12 @@ const VideoModal = ({
       video.removeEventListener("loadedmetadata", handleLoadedMetadata);
       video.removeEventListener("volumechange", handleVolumeChange);
     };
-  }, []);
+    // The <video> only exists once the portal has mounted and the modal is
+    // open, both of which land a render after this effect first runs. With an
+    // empty dependency array it found a null ref and never re-ran, so the
+    // control bar's play state, mute state and scrub position never tracked
+    // actual playback.
+  }, [mounted, isOpen]);
 
   useEffect(() => {
     const handleFullscreenChange = () =>
@@ -518,6 +523,7 @@ const VideoModal = ({
                       shouldReduceMotion ? { duration: 0 } : SPRING_PANEL
                     }
                   >
+                    {/* biome-ignore lint/a11y/useMediaCaption: the rule only recognises an unconditional <track> literal, so it cannot see the mapped tracks below. Satisfying it with an extra always-present <track> shipped one bogus empty caption track per video, which is worse than this suppression. */}
                     <video
                       className="block max-h-[80vh] w-full"
                       controls={!showCustomControls}
@@ -526,18 +532,19 @@ const VideoModal = ({
                       ref={videoRef}
                       src={src}
                     >
-                      {captions.length > 0
-                        ? captions.map((caption) => (
-                            <track
-                              kind="captions"
-                              label={caption.label}
-                              key={caption.srcLang}
-                              src={caption.src}
-                              srcLang={caption.srcLang}
-                            />
-                          ))
-                        : null}
-                      <track kind="captions" />
+                      {captions.length > 0 ? (
+                        captions.map((caption) => (
+                          <track
+                            key={caption.srcLang}
+                            kind="captions"
+                            label={caption.label}
+                            src={caption.src}
+                            srcLang={caption.srcLang}
+                          />
+                        ))
+                      ) : (
+                        <track kind="captions" />
+                      )}
                     </video>
 
                     {showCustomControls ? (
