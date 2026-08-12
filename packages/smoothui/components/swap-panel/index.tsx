@@ -387,11 +387,11 @@ export default function SwapPanel({
 
       <SmoothButton
         className="mt-3 w-full rounded-xl font-semibold"
-        color="accent"
         disabled={isBusy}
         loading={status === "submitting"}
         onClick={onSubmit}
-        variant="solid"
+        // `candy` is the house primary, matching the CTA and footer blocks.
+        variant="candy"
       >
         {actionLabel}
       </SmoothButton>

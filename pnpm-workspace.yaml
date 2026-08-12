@@ -34,13 +34,20 @@ overrides:
   rollup: ">=4.59.0"
   minimatch: ">=10.2.3"
   ajv: ">=8.18.0"
-  hono: ">=4.12.25"
+  hono: ">=4.12.34"
   "@hono/node-server": ">=1.19.13"
-  "ajv>fast-uri": "3.1.4"
-  ip-address: ">=10.1.1"
+  # Advisory floors, each capped below the next major. A security floor exists
+  # to raise a patch level, not to smuggle a breaking change past review: an
+  # uncapped `undici: ">=7.29.0"` resolved to 8.x and broke jsdom 29, which
+  # requires undici 7. Lift a cap deliberately, never as a side effect.
+  fast-uri: ">=3.1.5 <4"
+  ip-address: ">=10.3.1 <11"
   postcss: ">=8.5.18"
-  body-parser: ">=2.2.1"
-  js-yaml: "4.3.0"
+  body-parser: ">=2.3.0 <3"
+  js-yaml: ">=4.3.1 <5"
+  undici: ">=7.29.0 <8"
+  "@babel/core": ">=7.29.6 <8"
+  esbuild: ">=0.28.1 <0.29"
   "@octokit/request": ">=8.4.1"
   "@octokit/plugin-paginate-rest": ">=9.2.2"
   "@octokit/request-error": ">=5.1.1"
@@ -48,7 +55,11 @@ overrides:
   path-to-regexp: ">=8.4.0"
   brace-expansion: ">=5.0.8"
   yaml: ">=2.8.3"
-  vite: ">=7.3.5"
+  # Advisory floor is 7.3.5. Capped below 8 on purpose: vite only enters as a
+  # peer of vitest 4.1.8 and fumadocs-mdx, and a major jump is not something a
+  # security floor should smuggle in. Lift the cap deliberately, with the test
+  # suite as the check.
+  vite: ">=7.3.6 <8"
   lodash-es: ">=4.18.0"
   # Temporary exception: the advisory requires Sharp >=0.35.0, while Next
   # 16.2.x still declares ^0.34.5. Keep this scoped until Next widens its range.
