@@ -1,0 +1,43 @@
+{
+  "name": "@repo/unlock-face-id",
+  "description": "An UnlockFaceId component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "face-id",
+      "unlock",
+      "scan",
+      "status",
+      "spring",
+      "svg",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "iOS-style scan-to-unlock micro-interaction for gated content",
+      "Onboarding step that simulates biometric confirmation",
+      "Status feedback for a scan/verify action with retry on error"
+    ],
+    "compositionHints": [
+      "Reveal a card, form, or settings panel as the `children` unlocked on success",
+      "Pair with a modal or drawer that gates access behind the scan state"
+    ],
+    "hasReducedMotion": true
+  }
+}

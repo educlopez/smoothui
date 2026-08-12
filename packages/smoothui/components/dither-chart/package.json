@@ -1,0 +1,43 @@
+{
+  "name": "@repo/dither-chart",
+  "description": "A DitherChart component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "chart",
+      "canvas",
+      "dither",
+      "bayer",
+      "retro",
+      "pixel",
+      "data-visualization",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "tween",
+    "useCases": [
+      "Retro pixel-art micro charts inside dashboard cards",
+      "Dithered sparklines and gauges for terminal-style UIs",
+      "Low-fi data visualisation for marketing or changelog pages"
+    ],
+    "compositionHints": [
+      "Drop inside a card or stat tile as a compact metric visual",
+      "Pair several variants in a grid for a dashboard summary row"
+    ],
+    "hasReducedMotion": true
+  }
+}

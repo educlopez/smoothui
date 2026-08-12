@@ -1,0 +1,43 @@
+{
+  "name": "@repo/dock",
+  "description": "A Dock component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "navigation",
+    "tags": [
+      "dock",
+      "navigation",
+      "macos",
+      "magnify",
+      "toolbar",
+      "spring",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "spring",
+    "useCases": [
+      "macOS-style application launcher dock",
+      "Bottom navigation bar with magnifying hover effect",
+      "Icon toolbar with cursor-tracking magnification"
+    ],
+    "compositionHints": [
+      "Pass lucide-react icons as the icon field of each item",
+      "Use orientation=\"vertical\" for a side-docked launcher"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "@repo/aurora-curtain",
+  "description": "An AuroraCurtain background component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "background",
+    "tags": [
+      "background",
+      "aurora",
+      "webgl",
+      "shader",
+      "gradient",
+      "ambient",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "shader",
+    "useCases": [
+      "Hero section with drifting northern-lights ribbons behind the headline",
+      "Ambient section background for landing pages and pricing panels",
+      "Auth or waitlist card sitting on a soft animated light curtain"
+    ],
+    "compositionHints": [
+      "Wrap hero copy or a card so it renders above the curtain",
+      "Pair with gravity-stars for a layered night-sky backdrop"
+    ],
+    "hasReducedMotion": true
+  }
+}

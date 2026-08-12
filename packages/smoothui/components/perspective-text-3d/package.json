@@ -1,0 +1,42 @@
+{
+  "name": "@repo/perspective-text-3d",
+  "description": "A PerspectiveText3D text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "3d",
+      "perspective",
+      "depth",
+      "scroll",
+      "pointer",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Hero headlines with depth-stacked lines that tilt on scroll",
+      "Pointer-reactive 3D word planes for feature sections",
+      "Static tilted title cards for editorial layouts"
+    ],
+    "compositionHints": [
+      "Pass `container` when the effect should track a scrollable ancestor rather than the window",
+      "Keep `depth` modest (24-56px) so separated lines stay legible"
+    ],
+    "hasReducedMotion": true
+  }
+}

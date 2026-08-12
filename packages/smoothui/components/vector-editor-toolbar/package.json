@@ -1,0 +1,45 @@
+{
+  "name": "@repo/vector-editor-toolbar",
+  "description": "A Figma-style floating vector toolbar with tool selection, nested flyouts and a contextual properties bar.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "editor",
+    "tags": [
+      "toolbar",
+      "vector",
+      "editor",
+      "figma",
+      "flyout",
+      "keyboard",
+      "draggable",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Floating tool selector for a canvas or vector editor",
+      "Toolbar with nested tool variants revealed via long-press or caret",
+      "Contextual properties bar that expands per selected tool"
+    ],
+    "compositionHints": [
+      "Pass `properties` to reveal a contextual row for the active tool, omit it to collapse",
+      "Set `floating` to make the toolbar draggable within its parent container",
+      "Use `orientation` to switch between a horizontal and vertical layout"
+    ],
+    "hasReducedMotion": true
+  }
+}

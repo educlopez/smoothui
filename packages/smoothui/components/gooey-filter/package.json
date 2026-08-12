@@ -1,0 +1,40 @@
+{
+  "name": "@repo/gooey-filter",
+  "description": "A GooeyFilter component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "gooey",
+      "svg-filter",
+      "blob",
+      "merge",
+      "utility",
+      "wrapper"
+    ],
+    "complexity": "simple",
+    "animationType": "none",
+    "useCases": [
+      "Merge overlapping shapes into a single liquid blob",
+      "Wrap a group of dots or badges so they gooey-merge on overlap",
+      "Reusable SVG goo filter for any custom blob/liquid effect"
+    ],
+    "compositionHints": [
+      "Wrap any children that should visually merge together",
+      "Use useGooeyFilterId to apply the same filter to elements you render yourself"
+    ],
+    "hasReducedMotion": false
+  }
+}

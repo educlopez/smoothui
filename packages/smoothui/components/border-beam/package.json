@@ -1,0 +1,43 @@
+{
+  "name": "@repo/border-beam",
+  "description": "A BorderBeam component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "border",
+      "beam",
+      "glow",
+      "offset-path",
+      "squircle",
+      "outline",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Highlight a pricing card or featured plan with a travelling light",
+      "Draw attention to an AI input box while a response streams",
+      "Frame a CTA or badge with an animated gradient outline"
+    ],
+    "compositionHints": [
+      "Wrap any card, button or input — the beam adapts to the measured box",
+      "Match radius to the wrapped element, or use squircle for iOS-style corners",
+      "Set active={isLoading} to use the beam as a progress affordance"
+    ],
+    "hasReducedMotion": true
+  }
+}

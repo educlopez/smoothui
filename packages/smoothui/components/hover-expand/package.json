@@ -1,0 +1,42 @@
+{
+  "name": "@repo/hover-expand",
+  "description": "A HoverExpand component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "gallery",
+      "accordion",
+      "hover",
+      "expand",
+      "flex",
+      "image",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Accordion-style image gallery that expands on hover or focus",
+      "Category picker with expanding preview panels",
+      "Portfolio showcase with keyboard-navigable panels"
+    ],
+    "compositionHints": [
+      "Feed image items with title/description for the gallery",
+      "Use vertical orientation for sidebar-style panel pickers"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -51,6 +51,12 @@ export type AIPromptAttachment = {
 };
 
 export type AIPromptInputProps = {
+  /**
+   * Accessible name for the field. Without it the placeholder is the only thing
+   * naming the textarea, which is fine on its own but not when the composer is
+   * embedded in a larger surface that needs to say what the prompt is *for*.
+   */
+  "aria-label"?: string;
   /** Files already attached to the draft. */
   attachments?: AIPromptAttachment[];
   /** Extra controls rendered on the left of the toolbar — model pickers etc. */
@@ -93,6 +99,7 @@ const formatSize = (bytes: number): string => {
  * reflows mid-keystroke.
  */
 const AIPromptInput = ({
+  "aria-label": ariaLabel,
   attachments = [],
   children,
   className,
@@ -264,6 +271,7 @@ const AIPromptInput = ({
       </AnimatePresence>
 
       <textarea
+        aria-label={ariaLabel}
         className="max-h-64 w-full resize-none bg-transparent px-4 pt-3 pb-2 text-sm outline-none placeholder:text-muted-foreground"
         disabled={disabled}
         onBlur={() => setIsFocused(false)}

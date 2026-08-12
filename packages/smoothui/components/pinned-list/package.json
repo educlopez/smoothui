@@ -1,0 +1,42 @@
+{
+  "name": "@repo/pinned-list",
+  "description": "A list where selected items pin to the top and animate out of the flow into a pinned section.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.555.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "list",
+      "pin",
+      "layout",
+      "shared-layout",
+      "keyboard",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Pin important conversations, files or tasks to the top of a list",
+      "Favorites section that separates from the main list",
+      "Priority inbox where starred items float to a pinned group"
+    ],
+    "compositionHints": [
+      "Use with animated-list for the unpinned section's entrance animation",
+      "Pair with animated-avatar-group inside a custom renderItem"
+    ],
+    "hasReducedMotion": true
+  }
+}

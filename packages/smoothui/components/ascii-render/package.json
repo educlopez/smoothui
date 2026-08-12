@@ -1,0 +1,43 @@
+{
+  "name": "@repo/ascii-render",
+  "description": "An AsciiRender component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "media",
+    "tags": [
+      "ascii",
+      "canvas",
+      "video",
+      "image",
+      "terminal",
+      "retro",
+      "luminance",
+      "text"
+    ],
+    "complexity": "advanced",
+    "animationType": "tween",
+    "useCases": [
+      "ASCII hero treatment for a landing page image",
+      "Terminal-styled video loop in a developer marketing section",
+      "Retro avatar or product shot rendered as characters"
+    ],
+    "compositionHints": [
+      "Pair with typewriter-text for a full terminal scene",
+      "Use inside scrollable-card-stack for an ASCII gallery"
+    ],
+    "hasReducedMotion": true
+  }
+}

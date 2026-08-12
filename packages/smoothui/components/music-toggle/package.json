@@ -1,0 +1,43 @@
+{
+  "name": "@repo/music-toggle",
+  "description": "A play/pause control shaped like a spinning record, with a live waveform and seekable progress ring.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "audio",
+      "music",
+      "player",
+      "record",
+      "waveform",
+      "progress",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Mini music player control with spinning cover art",
+      "Podcast or audio-track play/pause toggle with waveform feedback",
+      "Seekable progress indicator styled as a vinyl record"
+    ],
+    "compositionHints": [
+      "Pair with a track list built from tweet-card or job-listing-component patterns",
+      "Use scrubber for a full-width alternative seek control"
+    ],
+    "hasReducedMotion": true
+  }
+}

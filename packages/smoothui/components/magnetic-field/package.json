@@ -1,0 +1,43 @@
+{
+  "name": "@repo/magnetic-field",
+  "description": "A MagneticField component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "magnetic",
+      "field",
+      "pointer",
+      "spring",
+      "physics",
+      "orbit",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Grid of icons or tags that get pulled toward the cursor",
+      "Playful nav or tag cloud that orbits around the pointer",
+      "Repel effect for scattering decorative shapes away from the cursor"
+    ],
+    "compositionHints": [
+      "Mark participating elements with `data-magnetic` inside `children`",
+      "Use `items` when the participants need to be data-driven"
+    ],
+    "hasReducedMotion": true
+  }
+}

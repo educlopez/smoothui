@@ -1,0 +1,42 @@
+{
+  "name": "@repo/cursor-image-trail",
+  "description": "A CursorImageTrail component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "cursor",
+      "trail",
+      "images",
+      "pointer",
+      "gallery",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "tween",
+    "useCases": [
+      "Portfolio hero with images spawning along the pointer path",
+      "Creative case-study section with a cursor-driven image trail",
+      "Playful section divider that reacts to pointer velocity"
+    ],
+    "compositionHints": [
+      "Wrap any hero or section content to bind the trail to that area",
+      "Pair with hover-image-list for a full portfolio index page"
+    ],
+    "hasReducedMotion": true
+  }
+}

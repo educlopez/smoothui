@@ -1,0 +1,42 @@
+{
+  "name": "@repo/pixel-brush-canvas",
+  "description": "A PixelBrushCanvas component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "media",
+    "tags": [
+      "canvas",
+      "pixel-art",
+      "drawing",
+      "brush",
+      "keyboard",
+      "accessible",
+      "creative"
+    ],
+    "complexity": "complex",
+    "animationType": "canvas",
+    "useCases": [
+      "Pixel-art avatar or sprite editor",
+      "Keyboard-operable drawing surface for design tools",
+      "Retro-style creative playground embedded in a product"
+    ],
+    "compositionHints": [
+      "Expose the ref API to wire external toolbars, save/export buttons or undo controls",
+      "Pair with a swatch picker component if `showTools` is disabled for a custom UI"
+    ],
+    "hasReducedMotion": true
+  }
+}

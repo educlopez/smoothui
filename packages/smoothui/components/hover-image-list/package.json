@@ -1,0 +1,44 @@
+{
+  "name": "@repo/hover-image-list",
+  "description": "A HoverImageList component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "navigation",
+    "tags": [
+      "list",
+      "image",
+      "hover",
+      "preview",
+      "portfolio",
+      "index",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "spring",
+    "useCases": [
+      "Portfolio index page where hovering a project row reveals its cover image",
+      "Editorial article list with an image preview that follows the cursor",
+      "Keyboard-accessible link list with a pinned image preview on focus"
+    ],
+    "compositionHints": [
+      "Pair with cursor-image-trail for a full portfolio landing page",
+      "Use inside a two-column layout with the list on one side"
+    ],
+    "hasReducedMotion": true
+  }
+}

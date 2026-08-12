@@ -1,0 +1,51 @@
+{
+  "name": "@repo/image-generation-panel",
+  "description": "A text-to-image generation console \u2014 prompt and settings up top, a full-width 2x2 batch resolving from low-res mosaic to sharp below.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/ai-core": "workspace:*",
+    "@repo/ai-loader": "workspace:*",
+    "@repo/ai-prompt-input": "workspace:*",
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "ai",
+    "tags": [
+      "ai",
+      "image",
+      "generation",
+      "prompt",
+      "grid",
+      "progressive",
+      "reveal",
+      "mosaic"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Text-to-image generation panel for an AI product",
+      "Prompt composer with style presets and a result grid",
+      "Any surface that queues work and reveals tiles as they complete"
+    ],
+    "compositionHints": [
+      "Leave status undefined to let the panel run its own state machine around onGenerate",
+      "Drive progress from 0 to 1 while the batch renders \u2014 every tile derives its own staggered resolve from it",
+      "Set images as soon as generation starts, not at the end, so tiles fill progressively",
+      "Pass a tiny preview (16-48px) per image for the blocky first pass",
+      "Set typing to replay a prompt into the field with a caret",
+      "Pass onCancel to turn the composer's send control into a stop button while a batch renders"
+    ],
+    "hasReducedMotion": true
+  }
+}

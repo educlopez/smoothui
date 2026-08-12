@@ -1,0 +1,41 @@
+{
+  "name": "@repo/text-morph",
+  "description": "A TextMorph text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "morph",
+      "diff",
+      "layout",
+      "transition",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Swapping labels, counters or status text without a jarring cut",
+      "Live-updating headlines where only part of the string changes",
+      "Word or character diff transitions between two strings"
+    ],
+    "compositionHints": [
+      "Pass a new `text` value to trigger the morph — the component owns no state",
+      "Use `mode=\"words\"` for longer phrases, `mode=\"characters\"` for short labels"
+    ],
+    "hasReducedMotion": true
+  }
+}
