@@ -1,5 +1,6 @@
 import { waitFor } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import Component, { type Stargazer } from "../index";
 
@@ -33,6 +34,12 @@ describe("GithubStarsAnimation", () => {
   afterEach(() => {
     vi.restoreAllMocks();
     vi.unstubAllGlobals();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<Component />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it("renders without throwing", () => {

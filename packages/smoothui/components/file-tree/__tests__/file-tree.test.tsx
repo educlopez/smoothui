@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import FileTree, { type FileTreeItem } from "../index";
 
@@ -22,6 +23,12 @@ const getRow = (name: string) =>
   screen.getByText(name).closest('[role="treeitem"]') as HTMLElement;
 
 describe("FileTree", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<FileTree items={flatItems} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(<FileTree items={flatItems} />);
     expect(container).toBeInTheDocument();

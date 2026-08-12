@@ -1,5 +1,6 @@
 import { useReducedMotion } from "motion/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import {
   flushFrames,
@@ -15,6 +16,16 @@ vi.mock("motion/react", async (importOriginal) => {
 });
 
 describe("ApertureBlurTransition", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <ApertureBlurTransition transitionKey="draft">
+        Draft saved
+      </ApertureBlurTransition>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   beforeEach(() => {
     installWebglMock();
   });

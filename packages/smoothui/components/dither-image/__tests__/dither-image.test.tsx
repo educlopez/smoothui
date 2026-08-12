@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   installCanvas2DMock,
@@ -19,6 +20,12 @@ const GRID_WIDTH = WIDTH / PIXEL_SIZE;
 const GRID_HEIGHT = HEIGHT / PIXEL_SIZE;
 
 describe("DitherImage", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<DitherImage alt="A photo" src={SRC} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(<DitherImage alt="A photo" src={SRC} />);
     expect(container).toBeInTheDocument();

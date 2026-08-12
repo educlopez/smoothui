@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import WalletCard, { type WalletAccount, type WalletMember } from "../index";
 
@@ -34,5 +35,13 @@ describe("WalletCard", () => {
   it("renders the hidden-balance variant without throwing", () => {
     const { container } = render(<WalletCard accounts={accounts} hidden />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <WalletCard accounts={accounts} members={members} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

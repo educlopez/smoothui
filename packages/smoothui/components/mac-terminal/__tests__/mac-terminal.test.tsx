@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { act, fireEvent, render, screen } from "../../../test-utils/render";
 import MacTerminal, { type TerminalLine } from "../index";
 
@@ -160,5 +161,15 @@ describe("MacTerminal", () => {
     expect(
       screen.getByText("Click or press Enter to run this session")
     ).toBeInTheDocument();
+  });
+});
+
+describe("MacTerminal accessibility", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <MacTerminal autoPlay={false} lines={lines} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

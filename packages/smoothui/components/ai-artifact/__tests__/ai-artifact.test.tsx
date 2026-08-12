@@ -1,9 +1,18 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIArtifact from "../index";
 
 describe("AIArtifact", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIArtifact code="source" preview={<p>rendered</p>} title="utils.ts" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("names the artifact", () => {
     render(<AIArtifact preview={<p>rendered</p>} title="utils.ts" />);
     expect(screen.getByText("utils.ts")).toBeInTheDocument();

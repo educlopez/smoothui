@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import SocialHoverCard, { type SocialProfile } from "../index";
 
@@ -18,5 +19,11 @@ describe("SocialHoverCard", () => {
   it("renders in the loading state", () => {
     const { container } = render(<SocialHoverCard loading profile={profile} />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<SocialHoverCard profile={profile} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

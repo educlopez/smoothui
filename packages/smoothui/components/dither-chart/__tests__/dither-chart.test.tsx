@@ -137,11 +137,25 @@ describe("DitherChart draw pass", () => {
     const initialDraws = buffer.putImageData.mock.calls.length;
     expect(initialDraws).toBeGreaterThan(0);
 
-    flushFrames(4);
+    flushFrames(2);
     expect(buffer.putImageData.mock.calls.length).toBeGreaterThan(initialDraws);
 
     // The draw-in lasts 900ms; past that the loop must not reschedule.
-    runFramesFor(1200);
+    //
+    // Stepped coarsely on purpose. Every frame redraws the whole chart, and the
+    // last thing `draw` does is blit the low-res buffer over the full 320x180
+    // canvas — which the Canvas2D fake services by stamping all 57,600 pixels
+    // one at a time. That put ~75 full-surface repaints (1200ms at the default
+    // 16ms step) behind this one assertion and made it the slowest test in the
+    // file by an order of magnitude, close enough to the 5s budget that a busy
+    // machine could tip it over.
+    //
+    // Nothing is skipped by stepping in 300ms: the loop's stop condition is
+    // `elapsed >= DRAW_IN_DURATION_MS`, a clock comparison, not a frame count.
+    // Four coarse frames cross 900ms exactly as 75 fine ones do, and the
+    // assertion — that the loop stops rescheduling once past the draw-in — is
+    // unchanged.
+    runFramesFor(1200, { stepMs: 300 });
     expect(pendingFrameCount()).toBe(0);
   });
 

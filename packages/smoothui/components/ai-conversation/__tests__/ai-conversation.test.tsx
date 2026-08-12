@@ -1,8 +1,19 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIConversation from "../index";
 
 describe("AIConversation", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIConversation>
+        <p>message</p>
+      </AIConversation>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders its children", () => {
     const { container } = render(
       <AIConversation>

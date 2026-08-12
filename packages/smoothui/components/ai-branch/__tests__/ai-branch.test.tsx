@@ -1,5 +1,6 @@
 import { fireEvent } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AiBranch, {
   AIBranch,
@@ -35,6 +36,14 @@ const branches = [
 ];
 
 describe("AiBranch (legacy)", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AiBranch branches={branches} onBranchSelect={() => {}} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <AiBranch branches={branches.slice(0, 1)} onBranchSelect={() => {}} />

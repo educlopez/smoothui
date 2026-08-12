@@ -1,5 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import ShortSlideDown from "../index";
 
@@ -109,5 +110,12 @@ describe("ShortSlideDown with reduced motion", () => {
 
     expect(screen.getByText("Goodbye")).toBeInTheDocument();
     expect(screen.getByText("now")).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    vi.useRealTimers();
+    const { container } = render(<ShortSlideDown phrases={["Hello World"]} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

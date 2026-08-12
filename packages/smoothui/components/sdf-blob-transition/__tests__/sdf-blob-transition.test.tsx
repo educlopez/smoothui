@@ -1,5 +1,6 @@
 import { useReducedMotion } from "motion/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import {
   flushFrames,
@@ -155,4 +156,12 @@ describe("SdfBlobTransition", () => {
       expect(onRest).toHaveBeenCalledTimes(1);
     });
   }
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <SdfBlobTransition transitionKey="draft">Draft saved</SdfBlobTransition>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });

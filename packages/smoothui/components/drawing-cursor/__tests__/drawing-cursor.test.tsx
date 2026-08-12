@@ -1,5 +1,6 @@
 import { createRef } from "react";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   flushFrame,
@@ -15,6 +16,16 @@ import DrawingCursor, { type DrawingCursorHandle } from "../index";
 const SIZE = 200;
 
 describe("DrawingCursor", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <DrawingCursor>
+        <p>Draw over this area</p>
+      </DrawingCursor>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <DrawingCursor>

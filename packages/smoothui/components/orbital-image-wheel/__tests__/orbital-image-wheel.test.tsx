@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { act, fireEvent, render, screen } from "../../../test-utils/render";
 import OrbitalImageWheel, { type OrbitalImageWheelItem } from "../index";
 
@@ -289,5 +290,15 @@ describe("OrbitalImageWheel", () => {
       "aria-current",
       "true"
     );
+  });
+});
+
+describe("OrbitalImageWheel accessibility", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <OrbitalImageWheel autoRotate={false} items={items} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

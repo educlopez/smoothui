@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import SwapPanel, { type SwapToken } from "../index";
 
@@ -50,5 +51,21 @@ describe("SwapPanel", () => {
       />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <SwapPanel
+        amount="1"
+        from={from}
+        onAmountChange={vi.fn()}
+        onFlip={vi.fn()}
+        onSubmit={vi.fn()}
+        status="idle"
+        to={to}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

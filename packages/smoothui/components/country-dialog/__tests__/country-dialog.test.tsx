@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import CountryDialog, { type Country, type CountryDialogProps } from "../index";
 
@@ -48,6 +49,20 @@ const CountryDialogHarness = ({
 };
 
 describe("CountryDialog", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <CountryDialog
+        countries={countries}
+        groupBy
+        onOpenChange={vi.fn()}
+        onValueChange={vi.fn()}
+        open
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing when closed", () => {
     const { container } = render(
       <CountryDialog

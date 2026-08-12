@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { useReducedMotion } from "motion/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import {
   fireEvent,
   render,
@@ -377,5 +378,21 @@ describe("VideoModal", () => {
       expect(tracks[index]).toHaveAttribute("srclang", caption.srcLang);
       expect(tracks[index]).toHaveAttribute("label", caption.label);
     }
+  });
+
+  it("has no accessibility violations when closed", async () => {
+    const { container } = render(
+      <VideoModal src="https://example.com/video.mp4" title="Demo video" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it("has no accessibility violations when open", async () => {
+    const { container } = render(
+      <VideoModal open src="https://example.com/video.mp4" title="Demo video" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

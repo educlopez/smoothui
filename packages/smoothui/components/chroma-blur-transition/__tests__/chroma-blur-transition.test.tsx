@@ -1,5 +1,6 @@
 import { useReducedMotion } from "motion/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import {
   flushFrames,
@@ -22,6 +23,16 @@ describe("ChromaBlurTransition", () => {
   afterEach(() => {
     uninstallWebglMock();
     vi.mocked(useReducedMotion).mockReturnValue(false);
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <ChromaBlurTransition transitionKey="draft">
+        Draft saved
+      </ChromaBlurTransition>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it("renders the active content", () => {

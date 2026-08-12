@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import ScrollProgress from "../index";
 
@@ -16,5 +17,11 @@ describe("ScrollProgress", () => {
   it("renders the segments variant without throwing", () => {
     const { container } = render(<ScrollProgress variant="segments" />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<ScrollProgress showLabel />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

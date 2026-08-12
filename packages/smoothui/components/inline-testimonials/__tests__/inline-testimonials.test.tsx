@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import InlineTestimonials, { type Testimonial } from "../index";
 
@@ -33,5 +34,16 @@ describe("InlineTestimonials", () => {
       />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <InlineTestimonials
+        testimonials={testimonials}
+        text="Loved by {{t1}} and many more."
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

@@ -1,9 +1,20 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIMessage from "../index";
 
 describe("AIMessage", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIMessage copyText="x" timestamp="14:32">
+        Hello
+      </AIMessage>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders its content and timestamp", () => {
     render(<AIMessage timestamp="14:32">Hello</AIMessage>);
     expect(screen.getByText("Hello")).toBeInTheDocument();

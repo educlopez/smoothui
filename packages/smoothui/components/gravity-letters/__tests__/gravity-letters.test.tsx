@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render } from "../../../test-utils/render";
 import GravityLetters from "../index";
 
@@ -71,6 +72,12 @@ describe("GravityLetters", () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<GravityLetters text="Hello" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it("renders without throwing", () => {

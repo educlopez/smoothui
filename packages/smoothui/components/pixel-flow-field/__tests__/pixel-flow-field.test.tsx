@@ -7,6 +7,7 @@ import {
   expect,
   it,
 } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   type FakeCanvas2DContext,
@@ -55,6 +56,12 @@ describe("PixelFlowField", () => {
   it("renders with a circle shape and custom text", () => {
     const { container } = render(<PixelFlowField shape="circle" text="flow" />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<PixelFlowField>Content</PixelFlowField>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
 
