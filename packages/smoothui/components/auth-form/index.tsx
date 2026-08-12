@@ -331,12 +331,14 @@ const AuthSubmitButton = ({
 }: AuthSubmitButtonProps) => (
   <SmoothButton
     className="mt-1 w-full overflow-hidden font-semibold text-sm"
-    color="accent"
     disabled={disabled}
     loading={status === "submitting"}
     size="lg"
     type="submit"
-    variant="solid"
+    // `candy` is the house primary — it is what every CTA and footer block
+    // uses. Its gradient, hairline border and text shadow also give the white
+    // label real separation from the brand pink, which a flat fill does not.
+    variant="candy"
   >
     <AnimatePresence initial={false} mode="wait">
       {getSubmitButtonContent(status, isSignUp, shouldReduceMotion)}
