@@ -1,0 +1,83 @@
+---
+title: Folder Reveal
+description: A folder built from a real folder silhouette — raised tab, shaded front flap, inner well — that fans its contents out on hover or click.
+icon: FolderOpen
+dependencies:
+  - motion.dev
+installer: folder-reveal
+---
+
+## Features
+
+- **A folder silhouette, not a rounded rectangle.** The back panel is a single SVG path with the raised **tab** on the top-left — the one detail that makes the shape read as a folder — so the diagonal and the rounded joins stay crisp at any size.
+- **Two shaded planes.** The front flap sits a consistent lightness step above the back panel, with a soft top-edge highlight, so the two faces read as separate surfaces catching light differently.
+- **An inner well.** A soft inset shadow where the papers sit gives the folder real depth instead of a flat fill.
+- **A contact shadow that grows.** The drop shadow under the folder widens and deepens as it opens, so the object reads as lifting.
+- **Cards peek, then fan.** Closed, the top card peeks above the flap so the folder reads as full. Open, the cards fan with rotation and a vertical lift, staggered 35ms apart. The flap always overlaps them so the illusion holds.
+- **Colour treatments.** `manila` by default, plus `brand`, `blue`, `green` and `slate`, authored in `oklch` so each variant keeps one hue across its own ramp.
+- **Folder proportions.** Real folders are wider than tall — the component derives height from `size` using a fixed aspect ratio rather than rendering a square.
+- Hover or click trigger modes, with full controlled `open`/`onOpenChange` support. Hover is gated behind `matchMedia("(hover: hover) and (pointer: fine)")` so a tap on a touch device does not fire a false hover.
+- Keyboard accessible even in hover mode via focus/blur.
+
+## Item content
+
+Cards are rendered padding-free so a thumbnail can bleed to the edge. Supply your own layout as `content`:
+
+```tsx
+const items: FolderRevealItem[] = [
+  {
+    content: (
+      <div className="flex h-full flex-col">
+        <div className="flex-1 p-2.5">{/* thumbnail */}</div>
+        <div className="border-foreground/10 border-t px-2.5 py-1.5">
+          <p className="text-[10px] font-medium">Invoice Q1.pdf</p>
+          <p className="text-[9px] text-muted-foreground tabular-nums">248 KB</p>
+        </div>
+      </div>
+    ),
+    id: "inv-q1",
+  },
+];
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Front flap button | Reflects whether the folder is currently open |
+| `aria-label` | Front flap button | Names the folder (e.g., "Invoices") |
+| `aria-hidden` | Item cards wrapper | Hidden from assistive tech while the folder is closed |
+| `aria-hidden="true"` | Back panel, tab label, well, shadow | Hides the decorative folder construction from assistive technology |
+
+### Screen Reader
+
+- The front flap is a real `<button>`, so its expanded/collapsed state is announced automatically via `aria-expanded`.
+- Item cards are only exposed to assistive technology once the folder is open.
+- The tab label is rendered decoratively and duplicated into the button's `aria-label`, so the folder name is announced exactly once.
+
+### Keyboard
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus to the folder trigger |
+| `Enter` / `Space` | Toggles the folder open/closed when `trigger="hover"` (click mode uses native button activation) |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, cards appear in place without fanning out, the flap does not tilt (`rotateX`), the 3D perspective is dropped, and the closed-state cards are all shown rather than animating a peek.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/folder-reveal/index.tsx"
+  name="FolderRevealProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/folder-reveal/index.tsx"
+  name="FolderRevealItem"
+/>
+
+`color` accepts `"manila" | "brand" | "blue" | "green" | "slate"`, and `trigger` accepts `"hover" | "click"`.

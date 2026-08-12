@@ -1,0 +1,65 @@
+---
+title: Theme Toggle
+description: A light/dark/system theme switch with four genuinely different treatments — a carved sun-moon morph, a segmented pill, a sky-to-night switch and a lit orb.
+icon: SunMoon
+dependencies:
+  - motion.dev
+installer: theme-toggle
+---
+
+## Features
+
+Four variants that are deliberately built from different primitives, so they never look like the same grey pill:
+
+- **`sun-moon`** — a single filled disc carved by a masking circle that slides across it. The disc radius, the mask radius and the mask position all animate together, so the sun grows into a crescent instead of crossfading two icons. Eight rays retract into the disc with a stagger while the whole ray group rotates. In three-way mode the mask becomes a huge circle whose edge lands exactly on the centre line, leaving a half-lit disc with rays only on the lit side.
+- **`pill`** — a segmented control with icons *and* labels. The active thumb is a `layoutId` element with real elevation (drop shadow plus a hairline ring), so it physically travels between segments, and each icon shifts to its own hue as the thumb lands under it (amber for light, indigo for dark).
+- **`switch`** — a real track-and-knob switch. The track cross-fades a sky gradient into a night gradient, has an inset shadow for depth, and fades in tiny stars on the dark end. The knob is a gradient sphere with a specular highlight and a layered shadow; it travels on a spring while the icon inside rotates through the transition.
+- **`orb`** — a lit sphere: radial-gradient body, a specular highlight that travels across the surface as the theme changes, craters that fade in on the dark side, an inset terminator shadow and a soft coloured bloom cast beneath it.
+
+Plus:
+
+- Binary mode (`showSystem={false}`) and three-way mode (`showSystem`, the default) for every variant
+- Controlled and uncontrolled modes via `theme` / `defaultTheme` / `onThemeChange`
+- Three sizes (`sm` / `md` / `lg`) that scale the glyph, the orb, the knob and the segments together
+- Guards against hydration mismatches by skipping transitions until the component has mounted on the client
+- **Does not** write to `document.documentElement` or `localStorage` — it only reports the chosen value through `onThemeChange`. Wire that callback up to your own theme provider (e.g. `next-themes`) to actually apply the theme
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+`pill` and `switch` expose their options directly as a `role="radiogroup"` of radio buttons (the `switch` places invisible full-height radio hit areas over the track). `sun-moon` and `orb` are single-shape controls, so they render one `<button>` that cycles to the next option and announces the change through a polite live region.
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` / `Enter` | Activates the focused control — selects a radio, or advances the cycling button |
+| `Arrow Left` / `Arrow Up` | Moves to the previous option |
+| `Arrow Right` / `Arrow Down` | Moves to the next option |
+| `Home` / `End` | Jumps to the first / last option (`pill` and `switch`) |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="radiogroup"` | Container | Identifies the `pill` / `switch` option set |
+| `role="radio"` / `aria-checked` | Each option | Exposes each theme option's selection state |
+| `aria-pressed` | Cycling button | Exposes the on/off state of `sun-moon` / `orb` in binary mode |
+| `aria-label` | Button(s) | Names the option, or — for the cycling button — the current theme and the one it will switch to |
+| `aria-live="polite"` | Status text | Announces the newly selected theme after any change |
+
+### Screen Reader
+
+- Every decorative layer (mask, rays, glow, thumb, stars, knob highlight, orb bloom, craters, specular) is `aria-hidden` and non-focusable.
+- Every interactive element is a real `<button>`, so pressed/checked state is announced automatically.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the mask morph, ray retraction, thumb travel, knob spring, icon rotation, star fade, specular travel and bloom colour change all resolve instantly with no transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/theme-toggle/index.tsx"
+  name="ThemeToggleProps"
+/>

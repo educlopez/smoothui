@@ -1,0 +1,44 @@
+---
+title: SVG Draw On Scroll
+description: An SVG path that draws itself as you scroll, optionally with a marker riding the tip.
+icon: PenTool
+dependencies:
+  - motion.dev
+installer: svg-draw-on-scroll
+---
+
+## Features
+
+- Draws one path, or several in sequence, using Motion's normalised `pathLength`
+- Optional marker that rides the drawn tip, positioned from the path's own geometry via `getPointAtLength` and the SVG's live transform matrix — so it stays on the stroke at any `viewBox`, not just one that happens to match the rendered box in CSS pixels
+- Works against the window or any scrollable ancestor via the `container` prop
+- Optional `once` mode that keeps the line drawn instead of undrawing on scroll-up
+- Only animates `pathLength` (stroke geometry) and the marker's `transform` — no layout thrashing
+- The marker re-syncs on resize, so it stays anchored when the SVG is laid out at a new size
+- Full `prefers-reduced-motion` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | `<svg>` | Marks the decorative line drawing as hidden from assistive technology |
+| `aria-hidden="true"` | Marker wrapper | Marks the decorative tip marker as hidden from assistive technology |
+
+### Screen Reader
+
+- The drawing is treated as decorative by default (`aria-hidden="true"` on the `<svg>`). If your path conveys real information, wrap the component with your own visible or visually-hidden text description.
+- The marker never receives focus and is excluded from the accessibility tree.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, every path renders fully drawn immediately and the marker is parked at the end of the path.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/svg-draw-on-scroll/index.tsx"
+  name="SvgDrawOnScrollProps"
+/>
+

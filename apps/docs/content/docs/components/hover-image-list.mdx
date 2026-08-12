@@ -1,0 +1,51 @@
+---
+title: Hover Image List
+description: A portfolio-style index list where hovering or focusing a row reveals its image near the cursor.
+icon: GalleryHorizontalEnd
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: hover-image-list
+---
+
+## Features
+
+- Real `<a>`/`<button>` rows inside a semantic `<ul>` — fully navigable and clickable
+- Preview image crossfades with a slight scale as the active row changes
+- Optional spring-based cursor following, with a subtle skew derived from pointer velocity
+- Keyboard focus reveals the same preview, pinned to a fixed position instead of following the pointer
+- Decorative preview layer is `aria-hidden` and never intercepts pointer or focus events
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Image preview layer | Hides the decorative preview from assistive technologies |
+
+### Screen Reader
+
+- Rows are real `<a>` or `<button>` elements, so they are announced and operable like any other link or button.
+- The image preview is purely decorative and `aria-hidden`; it never becomes the accessible content for a row.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the preview appears with a plain opacity change only — no cursor following, no skew, and no scale animation.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/hover-image-list/index.tsx"
+  name="HoverImageListProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/hover-image-list/index.tsx"
+  name="HoverImageListItem"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/hover-image-list/index.tsx"
+  name="HoverImageListRevealMode"
+/>

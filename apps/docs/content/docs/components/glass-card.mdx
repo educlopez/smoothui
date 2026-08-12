@@ -1,0 +1,59 @@
+---
+title: Glass Card
+description: A liquid-glass pane whose rim visibly bends the backdrop behind it, with a pointer-tracked specular sweep, an inner highlight line and a real drop shadow.
+icon: Droplet
+dependencies:
+  - motion.dev
+installer: glass-card
+---
+
+## Features
+
+- **Refractive rim** — an SVG `feTurbulence` + `feDisplacementMap` filter runs inside the rim's `backdrop-filter`, clipped to a ring by `mask-composite`, so only the edge distorts what sits behind it. The frosted body is inset by `rimWidth` so the rim samples the raw backdrop instead of the already-blurred body.
+- **Chromatic edge** — cyan on one side of the ring, magenta on the other; it offsets with the pointer, so the bend shifts as you move across the pane.
+- **Specular sweep** — a bright highlight rides the top edge and a soft pool follows the cursor, both spring-smoothed and critically damped so light settles instead of wobbling.
+- **Depth** — an inset highlight line along the top edge, a subtle darkening toward the bottom, and a layered drop shadow so the pane floats above its backdrop.
+- **`refraction={0}`** keeps the rim and drops the bend, which is the honest before/after comparison.
+
+## Usage notes
+
+- **Glass needs something worth refracting.** Over a flat surface a `backdrop-filter` is invisible. Place the pane over a photo, a saturated gradient, or a hard light/dark edge — the demo overlaps all three.
+- **Content is yours to make legible.** The pane tints and blurs but does not scrim: give text on top a weight and a `text-shadow` that survive a busy backdrop, as the demo does. Because the backdrop drives the contrast rather than the theme, the same pane reads in light and dark.
+- **Displacement is a Chromium enhancement.** Only Chromium composites an SVG filter reference inside `backdrop-filter`. The component probes `CSS.supports` once and, where it is unsupported, ships the rim with its blur, saturation and chromatic offset and drops only the turbulent bend — the declaration is never invalidated.
+- `rimWidth` is the prop that decides whether this reads as glass or as a border. Below ~8px the refraction has nowhere to happen.
+- **The rim is deliberately kept near-sharp** — roughly a tenth of `blur`. Frost the rim as heavily as the body and the displacement is smeared away, which is exactly how a real refractive edge stops reading as one. Raise `blur` for a milkier body; the rim scales down with it on purpose.
+
+## Performance
+
+Only `transform` and `opacity` animate. The pointer drives springs on the light layers, so the displacement filter is evaluated from the `refraction` prop and never re-rendered per frame; the ring mask keeps the filtered region a thin band rather than the whole pane.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Filter SVG, frosted body, refractive rim, chromatic edge, specular layers, bottom shade, highlight line | Hides every decorative layer from assistive technologies |
+| `focusable="false"` | Filter SVG | Keeps the offscreen filter definition out of the tab order |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| <kbd>Tab</kbd> | Moves focus through interactive `children` placed inside the pane; the pane shell itself is not a focus stop |
+
+### Screen Reader
+
+- Every visual layer is decorative and `aria-hidden`, and all of them are `pointer-events: none` or non-interactive, so only `children` reach assistive technology.
+- No positive `tabIndex` values are used.
+
+### Reduced Motion
+
+The component respects `prefers-reduced-motion` via `useReducedMotion`. When reduced motion is preferred — or on devices that do not match `(hover: hover) and (pointer: fine)` — no pointer listeners are attached, the springs stay at rest, and the hover lift is dropped. The glass, its rim and its highlights remain fully rendered; only the movement goes away.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/glass-card/index.tsx"
+  name="GlassCardProps"
+/>

@@ -1,0 +1,60 @@
+---
+title: Breakpoint Indicator
+description: A dev-only badge that displays the active Tailwind breakpoint and current viewport size while you build.
+icon: Ruler
+dependencies:
+  - motion.dev
+installer: breakpoint-indicator
+---
+
+## Features
+
+- Shows the currently active breakpoint name and, optionally, the live viewport size
+- Tracks `document.documentElement` with a `ResizeObserver`, batching updates to a single animation frame instead of firing on every pixel
+- Optional ruler that visualizes the distance to the next breakpoint
+- The breakpoint label animates with a subtle roll transition when it changes; the size readout updates instantly with no animation
+- Toggle visibility with a keyboard hotkey (default `⌘/Ctrl + B`); the state persists across reloads in `localStorage`
+- Fully customizable breakpoint list, position, and hotkey
+
+<Callout type="warn">
+  This is a **development-only** tool. It defaults to `enabled={process.env.NODE_ENV !== "production"}`,
+  but make sure it's tree-shaken or explicitly gated out of production bundles — don't ship it to real users.
+</Callout>
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="status"` | Root badge | Identifies the element as a live status indicator |
+| `aria-live="polite"` | Root badge | Announces breakpoint changes without interrupting the user |
+| `aria-label` | Root badge | Describes the active breakpoint name and current viewport size |
+| `aria-hidden="true"` | Ruler bar | Hides the purely decorative visual ruler from assistive technology |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `⌘ + B` / `Ctrl + B` (configurable via `hotkey`) | Toggles the badge's visibility |
+
+### Screen Reader
+
+- The badge is a `role="status"` region with `aria-live="polite"`, so its `aria-label` is announced whenever the breakpoint changes, without needing focus.
+- The ruler is decorative and marked `aria-hidden`; the same distance-to-next-breakpoint information is not currently duplicated in the label, since it is a secondary, visual-only affordance.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the breakpoint label switches instantly with no roll transition. The viewport size readout never animates, with or without reduced motion.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/breakpoint-indicator/index.tsx"
+  name="BreakpointIndicatorProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/breakpoint-indicator/index.tsx"
+  name="Breakpoint"
+/>

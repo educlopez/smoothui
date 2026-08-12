@@ -1,0 +1,97 @@
+---
+title: Image Generation Panel
+description: A text-to-image generation console — a prompt composer plus a batch of tiles resolving from low-res mosaic to sharp under a travelling scan sweep.
+icon: ImagePlus
+dependencies: []
+installer: image-generation-panel
+---
+
+## Features
+
+- The composer **is** [AI Prompt Input](/docs/components/ai-prompt-input) — the same chat-style field the rest of the library uses, so the prompt bar auto-grows, submits on `Enter`, breaks the line on `Shift+Enter` and carries its send control inside the field
+- Each tile starts as a **pixelated, blurred mosaic of its own result** and sharpens as `progress` climbs — a still frame already reads as "images are being generated"
+- A bright scan band sweeps down every unfinished tile: a crisp leading edge with a soft bloom and a gradient trail behind it, blended over the image so it glows where it crosses
+- Tiles are staggered so they finish at different times, like a real generator, with a live per-tile percentage
+- Hover or focus a finished tile for download, variations and select actions
+- Runs its own `queued` → `generating` → `done` / `error` cycle around `onGenerate` when `status` is left uncontrolled
+- Style presets, aspect-ratio selector and seed readout sit on their own row under the field, so the composer itself stays a plain prompt bar
+- Composes `AIPromptInput` for the composer and `AILoader` for the busy indicator
+- Give it `onCancel` and the send control becomes a stop button for as long as the batch is rendering
+- Batch progress bar along the panel's bottom edge, plus an inline error state with Retry
+- `chrome` and `composerPlacement` scale the panel down to just an image and an input bar without touching the rest of the API
+
+## Usage notes
+
+The reveal only works if you feed it the two things it needs:
+
+1. **Set `images` when generation *starts*, not when it finishes.** The tiles are what shows progress; handing them over at the end leaves you with a grey grid followed by a pop.
+2. **Give each image a `preview`** — a 16–48px version of `src`. That is what gets rendered pixelated as the first pass. Without it the panel falls back to blurring the full-size image, which reads as "loading" rather than "generating".
+
+`typing` replays the prompt into the field with a blinking caret, which is what the demo above does. It does not swap the field for a fake one: the real textarea keeps owning the layout and the auto-grow, its glyphs just go transparent so a read-only pass can draw the caret. Leave it off for real input.
+
+Without `onCancel` the composer locks while a batch renders — the send control has nothing useful to do, and a field you can keep typing into while the request is already in flight is a lie. Pass `onCancel` and it becomes a stop button instead.
+
+### Stripping the chrome
+
+The panel ships as a full console, but the reveal is the part worth showing. Set
+`chrome="minimal"` to drop the header, the footer and the batch progress rail and
+to hide the seed readout, and `composerPlacement="bottom"` to sit the input bar
+under the tiles. Pair those with `count={1}` — which switches the grid to a single
+column — plus `presets={[]}` and `aspectRatios={[]}` and you get one large image
+generating above one input bar, which is exactly what the demo above runs. None of
+this removes API: every prop still works, the chrome just stops rendering.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-live="polite"` + `role="status"` | Status announcer | Announces queued, generating (with percent), done, and error transitions |
+| `role="alert"` | Error banner | Interrupts to report a failed generation |
+| `aria-pressed` | Preset chips, aspect-ratio segments | Reports which style presets and which ratio are currently applied |
+| `aria-label` | Aspect-ratio segments | Names each segment in full ("Aspect ratio 16:9"), since "16:9" alone is not self-describing out of context |
+| `aria-label` | Prompt textarea | Names the field, which carries a placeholder rather than a visible label |
+| `aria-hidden="true"` | Replay overlay and caret | Hides the read-only `typing` pass, since the textarea beneath it already carries the same text |
+| `aria-label` | Tile download / variations / select controls | Names every icon-only control with the image it acts on |
+| `aria-hidden="true"` | Mosaic pass, scan line, tile progress bar, icons | Hides purely decorative layers from assistive technology |
+
+### Keyboard
+
+| Key | Effect |
+|-----|--------|
+| `Enter` (without `Shift`) in the prompt field | Triggers generation, same as the send button |
+| `Shift+Enter` in the prompt field | Inserts a newline instead of submitting |
+| `Tab` | Moves through the prompt field, the send button, preset chips, ratio segments, and — once a tile has resolved — that tile's download, variations and select controls |
+
+Tile actions are hidden with `opacity`, not removed, and the overlay is revealed by `group-focus-within` — so tabbing into a tile's controls makes them visible instead of leaving a keyboard user acting on something they cannot see. Each icon control carries a `40px` hit area via a bleeding pseudo-element.
+
+### Screen Reader
+
+Status changes are announced through a single `aria-live="polite"` region rather than by re-reading the whole grid, so a screen reader user hears "Generating 4 images, 40 percent" without the tiles being re-announced. Only the sharp pass carries the `alt` text; the mosaic pass beneath it is `aria-hidden`, so the same image is never announced twice.
+
+### Reduced Motion
+
+Uses `useReducedMotion`. When reduced motion is preferred: every tile renders fully resolved as soon as an image exists (no mosaic ramp, no blur, no focus pull), the scan line and skeleton shimmer never render, the caret stops blinking, and tile entrances and the ratio indicator cut instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/image-generation-panel/index.tsx"
+  name="ImageGenerationPanelProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/image-generation-panel/index.tsx"
+  name="ImageGenerationImage"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/image-generation-panel/index.tsx"
+  name="ImageGenerationPreset"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/image-generation-panel/index.tsx"
+  name="ImageGenerationAspectRatio"
+/>

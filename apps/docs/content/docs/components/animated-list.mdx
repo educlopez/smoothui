@@ -1,0 +1,56 @@
+---
+title: Animated List
+description: A list that animates additions, removals and reordering, with an optional auto-feed mode that reveals items one at a time.
+icon: List
+dependencies:
+  - motion.dev
+installer: animated-list
+---
+
+## Features
+
+- Smooth spring animations for additions, removals and reordering via `AnimatePresence` and `layout`
+- Optional auto-feed mode that reveals items one at a time on an interval
+- Older items visually recede (fade and scale back) as the list fills up
+- `maxVisible` caps the rendered window; items beyond it exit gracefully
+- Pause the feed on hover so users can read at their own pace
+- Optional per-item click handler with a real `<button>` for accessibility
+- Fully respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-live="polite"` | List container | Announces new entries as they are added, once |
+| `type="button"` | Row button (when `onItemClick` is set) | Prevents implicit form submission |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between clickable rows |
+| `Enter` / `Space` | Activates the focused row when `onItemClick` is set |
+
+### Screen Reader
+
+- The list is a semantic `<ul>` with `<li>` rows, so assistive technology announces it as a list with its item count.
+- `aria-live="polite"` on the container means new feed entries are announced without interrupting the user.
+- Rows with `onItemClick` render as real `<button>` elements, so they are reachable and operable via keyboard.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, items appear and disappear with an instant opacity change, no scale or vertical movement, and no stagger delay. The feed interval itself keeps working, it just reveals items without motion.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/animated-list/index.tsx"
+  name="AnimatedListProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/animated-list/index.tsx"
+  name="AnimatedListItem"
+/>

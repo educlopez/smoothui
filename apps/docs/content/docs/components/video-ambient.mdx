@@ -1,0 +1,76 @@
+---
+title: Video Ambient
+description: A video with a two-pass Ambilight-style glow sampled live from its own frames, with a CORS-safe static fallback.
+icon: MonitorPlay
+dependencies:
+  - motion.dev
+installer: video-ambient
+---
+
+## Features
+
+- Two glow passes from one 24×14 grab: an inner glow hugging the player, and a much larger, softer, more saturated bloom behind it
+- The glow tracks the scene — cut to a different shot and the whole surrounding surface changes colour
+- `gain` composites the sampled frame onto itself with `lighter`, so the glow reads as emitted light instead of a colour wash — this is the difference between a lamp and a tinted filter
+- `saturation` pushes the bloom past the source's own colour, the way a real Ambilight does
+- No pixel data is ever read back, so the effect keeps working against sources with no CORS headers
+- Falls back to a blurred poster, or a theme-coloured gradient, if `drawImage` itself is blocked
+- Sampling is a throttled `requestAnimationFrame` loop that stops when the video pauses, scrolls off screen, or the tab is hidden
+- `glow` turns the whole effect off, which makes an A/B toggle a one-liner
+
+## Usage notes
+
+- **Give it a dark surface, and give it room.** The bloom scales to roughly twice the player's box, so a tight wrapper clips the effect and a light background leaves nothing for it to read against — an ambient light needs somewhere dim to spill into. Treat that dark surface as the component's own canvas, bleeding to the edges of whatever region it occupies, rather than as a card floating inside a lighter one.
+- **Playback state is read from the element**, not assumed — a video already playing when the component mounts still drives the loop, and a rejected autoplay leaves the controls to the user.
+- `sampleRate` defaults to 12/s. Four `drawImage` calls into a 24×14 canvas is negligible, but the CSS blur behind them is not free — lower it for a background loop.
+- **A poster is optional but recommended.** Until the first frame is sampled the glow falls back to a blurred poster, or a theme-coloured radial gradient when there is none. The demo omits it on purpose, so you can see that fallback.
+- **Push `saturation`, not `gain`, for more colour.** `gain` adds luminance, so on bright footage it drives the bloom toward white and the surrounding surface washes out. `saturation` adds chroma without that cost. The demo runs `saturation={2.2}` against `gain={1.15}` for exactly this reason — the gain is lower than it would be on flatter footage, because this source already carries its own light.
+- **Tune `scale` and `blur` to the space you have, not to taste.** Together they decide how far the bloom reaches: the outer pass renders at `scale × 1.55` with `blur × 1.9`. The demo runs `scale={1.45}` and `blur={46}` because it has a full dark surface to spread across; on a smaller or lighter surface, pull both down until the falloff finishes before it reaches whatever sits next to the player.
+- **Colour anything sitting on that surface against the surface, not against the theme.** A dark canvas that stays dark in light mode will turn theme-driven text and controls dark-on-dark. The demo's own controls are painted in white alphas for exactly that reason, and the glow toggle sets `--btn` inline rather than taking `color="neutral"`, which resolves to the theme foreground.
+- **It has to be a real `<video>` element.** The glow is sampled with `drawImage(video, …)`, and an `<iframe>` is not a video element — a YouTube or Vimeo embed cannot be sampled at all, so the effect would simply never appear. Point `src` at an MP4 you control, or at a freely licensed file you may hot-link.
+- **Cross-origin is fine.** The component only ever *writes* to the canvas, never `getImageData`, so a source without CORS headers taints the canvas without breaking the effect.
+
+## About the demo footage
+
+The demo hot-links [Vibrant Abstract Colorful Waves Animation](https://www.pexels.com/video/vibrant-abstract-colorful-waves-animation-35567433/) by Nicola Narracci, under the **Pexels License**, at **1920×1080**. The file is linked rather than committed: it is someone else's work, and a multi-megabyte binary does not belong in a component library.
+
+It was chosen by measurement rather than by eye, because a clip that looks colourful on screen can still average out to near-black — and the average is the only thing the glow ever sees. Every candidate was decoded, each sampled frame collapsed to a single pixel, and scored:
+
+| | this clip | the 854×480 clip it replaces |
+|---|---|---|
+| Mean saturation | **0.648** | 0.341 |
+| Mean value | **0.799** | 0.644 |
+| Hue travel | **95.6°/s** | 78.2°/s |
+| Luminance flicker | **0.171/s** | 0.220/s |
+| Near-black frames | **0%** | 0% |
+| Near-grey frames | **0%** | 9% |
+
+Nearly twice the chroma, no washed-out stretches, and *less* luminance flicker despite more hue travel — so the surround repaints continuously without strobing. If you swap the source, score yours the same way: mean saturation and hue travel are what make the effect visible, and a dark or desaturated clip produces no glow no matter how good it looks playing.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | `<video>` | Describes the video content, since it carries no visible caption of its own |
+| `aria-hidden="true"` | Glow canvases, fallback poster/gradient | Hides every purely decorative layer from assistive technology |
+
+### Keyboard
+
+Native `<video>` keyboard behaviour applies. Set `controls` to `true` to expose the browser's own transport controls, which are fully keyboard-operable.
+
+### Screen Reader
+
+The glow layers never carry content of their own — they are `aria-hidden` and `pointer-events: none` regardless of which pass is active, so a screen reader only ever encounters the labelled video element.
+
+### Reduced Motion
+
+Uses `useReducedMotion`. When reduced motion is preferred: `autoPlay` is ignored so the video never starts on its own, and the glow samples a single frame once and stops — the colour field stays, it just never moves.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/video-ambient/index.tsx"
+  name="VideoAmbientProps"
+/>

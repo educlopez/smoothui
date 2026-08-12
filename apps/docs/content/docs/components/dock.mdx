@@ -1,0 +1,90 @@
+---
+title: Dock
+description: A macOS-style dock whose icons magnify along a cosine curve, grow upward out of the bar, and bounce when launched.
+icon: AppWindow
+dependencies:
+  - motion.dev
+installer: dock
+---
+
+## Features
+
+- **Cosine magnification.** Scale falls off along a raised-cosine curve, so the two or three tiles either side of the cursor visibly grow before the wave dies out. A linear ramp is what makes most docks look like only the hovered icon reacts.
+- **Exact push.** Tile positions come from the integral of that curve, so every icon displaces its neighbours by precisely the space its own growth needs — no overlap, no drift.
+- **Bottom-anchored.** Icons scale from their bottom edge (outer edge when vertical) and grow out of the bar instead of expanding in both directions.
+- **No layout jump.** The magnified height is reserved up front and the row is measured in a fixed resting-coordinate frame, so the component's box never resizes as you sweep across it.
+- **macOS touches.** A label tooltip rides above the magnified tile, a running-app dot sits under active items, and clicking launches a bounce.
+- Horizontal or vertical via `orientation`; items can be buttons (`onSelect`) or links (`href`).
+- Roving-tabindex keyboard navigation, and focusing an item magnifies it just like hovering.
+
+## Anatomy
+
+`icon` is rendered at the full tile size, so pass a filled tile rather than a bare glyph when you want coloured app icons:
+
+```tsx
+<Dock
+  items={[
+    {
+      active: true,
+      icon: (
+        <span className="flex size-full items-center justify-center rounded-[26%] bg-blue text-white">
+          <Mail className="size-5" />
+        </span>
+      ),
+      id: "mail",
+      label: "Mail",
+    },
+  ]}
+/>
+```
+
+## Tuning the feel
+
+| Prop | Effect |
+|------|--------|
+| `distance` | Radius of cursor influence. Around **3x the item pitch** (`baseSize + gap`) is the sweet spot — smaller and only the hovered icon moves, larger and the whole row swells as one. |
+| `magnification` | Scale of the tile under the cursor. `1.4`–`1.6` reads as macOS; past `1.8` the row starts to feel rubbery. |
+| `baseSize` / `gap` | Resting tile size and spacing. The magnification maths is derived from both, so the push always matches the geometry. |
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Application dock"` | `<nav>` | Names the dock landmark for assistive technology |
+| `role="toolbar"` | `<ul>` | Identifies the dock as a toolbar of related controls |
+| `aria-orientation` | `<ul>` | Reflects the current `orientation` prop |
+| `aria-label` | each item | Announces the item's `label`, suffixed with `(running)` when `active` |
+| `tabIndex` | each item | Roving tabindex — only the focused item is `0`, the rest are `-1` |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` / `Shift+Tab` | Moves focus into and out of the dock |
+| `Arrow Right` / `Arrow Down` | Moves focus to the next item (wraps) |
+| `Arrow Left` / `Arrow Up` | Moves focus to the previous item (wraps) |
+| `Home` / `End` | Jumps to the first or last item |
+| `Enter` / `Space` | Activates the focused item and plays the launch bounce |
+
+### Screen Reader
+
+- Each dock item is a real `<button>` or `<a>`, so it is announced as an interactive control with its label.
+- The tooltip, running dot, and the bar itself are `aria-hidden` — they only restate what the accessible name already carries.
+
+### Reduced Motion
+
+With `prefers-reduced-motion` enabled, magnification is switched off entirely (every tile stays at `baseSize`), the launch bounce and the press scale are skipped, and tooltips appear instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dock/index.tsx"
+  name="DockProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dock/index.tsx"
+  name="DockItem"
+/>

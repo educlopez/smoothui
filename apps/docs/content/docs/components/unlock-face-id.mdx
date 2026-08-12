@@ -1,0 +1,68 @@
+---
+title: Unlock Face ID
+description: An iOS-style Face ID glyph — four corner brackets plus a schematic face — that draws in, sweeps a scan line, and springs into a checkmark on success.
+icon: ScanFace
+dependencies:
+  - motion.dev
+installer: unlock-face-id
+---
+
+## Scope
+
+This is a **visual-only** component. It does not perform any biometric capture,
+camera access, or authentication — there is no face detection, no permissions
+requested, and no data collected. `status`, `onScan`, and `onComplete` are
+plain UI hooks meant to be wired to your own (real) auth logic. Treat it as a
+skeuomorphic loading/success/error state machine, not a security feature.
+
+## The glyph
+
+The mark follows Apple's Face ID icon rather than a generic smiley:
+
+- A rounded-square frame built from **four corner brackets only** — no full outline — with a clear gap along the middle of every edge
+- Inside it, a small centred schematic face with generous padding: two short vertical eye strokes, a nose formed by a vertical stroke that turns right at the bottom, and a shallow smile with small upward ticks at each end
+- One uniform stroke width with round caps and joins, monochrome throughout, so the brackets and the face read as a single mark
+
+## Features
+
+- The four brackets draw in first with a stagger, then the face strokes draw with `pathLength`
+- A brand-tinted scan band with a crisp leading line sweeps up and down inside a clipped, rounded frame while `status` is `"scanning"`
+- On success the whole glyph springs out and a checkmark springs in, drawing itself with `pathLength`
+- Error turns the strokes destructive-red and shakes the glyph once
+- Gated content passed as `children` sits blurred and dimmed while locked, then resolves to sharp on unlock
+- Controlled (`status` prop) or uncontrolled (internal state driven by `onScan` / `onComplete`) usage
+- `role="status"` + `aria-live="polite"` announcing every state in words
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute                   | Element                | Purpose                                                        |
+| ---------------------------- | ----------------------- | ---------------------------------------------------------------- |
+| `aria-label`                 | Trigger `<button>`      | Names the action for assistive technology                       |
+| `aria-busy`                  | Trigger `<button>`      | Announces the scanning state as busy                            |
+| `aria-describedby`           | Trigger `<button>`      | Links the button to the live status message                     |
+| `role="status"` + `aria-live="polite"` | Status paragraph | Announces idle/scanning/success/error changes without interrupting |
+
+### Screen Reader
+
+- The trigger is a real `<button>`, fully keyboard operable and focusable, and it is disabled while scanning or once unlocked so it cannot be re-fired.
+- Every status transition is announced in plain words ("Ready to scan.",
+  "Scanning face…", "Identity confirmed. Unlocked.", or the custom
+  `errorMessage`) via the `role="status"` live region.
+- The SVG is `aria-hidden`, so the brackets, face strokes, scan band and check are never read out as redundant graphic internals — the button's `aria-label` carries the meaning.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from
+Motion. When reduced motion is preferred: the bracket and face strokes render
+fully drawn with no stagger, the scan band is not rendered at all, the shake on
+error is skipped, the face-to-check swap resolves instantly, and the gated
+content snaps between blurred and sharp with no transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/unlock-face-id/index.tsx"
+  name="UnlockFaceIdProps"
+/>

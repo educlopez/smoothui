@@ -1,0 +1,50 @@
+---
+title: Emboss Surface
+description: A realistic embossed, debossed, plaster or metal-stamped material for text, icons and shapes.
+icon: Stamp
+dependencies:
+  - motion.dev
+installer: emboss-surface
+---
+
+## Features
+
+- Four material recipes — `emboss`, `deboss`, `plaster` and `metal-stamp`
+- Highlight and shade layers derived from `lightAngle`, `depth` and `softness`, so a single angle drives the whole relief
+- `plaster` swaps the shadow stack for an SVG `feSpecularLighting` filter with a matching `feDistantLight`
+- `metal-stamp` adds hard zero-blur layers plus a `drop-shadow` pass so icons and SVG shapes take the same strike
+- Polymorphic `as` prop — emboss a heading, a `span`, a button wrapper or any element
+- `interactive` couples the light angle to the pointer by writing CSS custom properties directly, with no React re-render per move
+- Colours are derived with `color-mix`, so the relief tracks whatever theme token you pass to `color`
+
+## Usage notes
+
+- `lightAngle` is measured in degrees where `0` is light from the right and `90` is light from directly above. The default of `135` puts the light in the upper left, matching the convention most UI shadows use.
+- `depth` is expressed in pixels and `softness` runs from `0` (a hard die edge) to `1` (a diffuse plaster falloff).
+- `color` defaults to the `background` theme token. Pass any CSS colour — including another token — and the highlight and shade are mixed from it.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Filter `<svg>` | Hides the zero-sized SVG that only carries the `plaster` filter definition |
+
+### Screen Reader
+
+- The relief is entirely presentational: it lives in `box-shadow`, `text-shadow` and `filter`, so the rendered text stays real text and is announced normally.
+- The `as` prop keeps semantics in your hands — render `as="h2"` for a heading and the element is exposed with the correct role and level.
+- The filter `<svg>` is `aria-hidden`, zero-sized and `pointer-events: none`, so it never enters the accessibility tree or the tab order.
+- Keep enough contrast between `color` and the surrounding surface; relief alone must never be the only signal that something is interactive.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the pointer listeners for `interactive` are never attached and the light angle stays fixed at the `lightAngle` you passed. The `box-shadow` transition is also removed, so any change applies instantly. The same static behaviour applies on devices that do not match `(hover: hover) and (pointer: fine)`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/emboss-surface/index.tsx"
+  name="EmbossSurfaceProps"
+/>

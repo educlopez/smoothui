@@ -1,0 +1,61 @@
+---
+title: Video Modal
+description: A video thumbnail that morphs into a full accessible player inside a modal, with a custom keyboard-operable control bar.
+icon: PlayCircle
+dependencies:
+  - motion.dev
+installer: video-modal
+---
+
+## Features
+
+- Thumbnail and modal frame share one `layoutId`, so opening reads as the same rectangle growing into place
+- Custom control bar: play/pause, a `role="slider"` scrub bar, mute, time display, fullscreen
+- Native `controls` fallback when `showCustomControls` is `false`
+- Optional `<track>` captions per language
+- Body scroll locks while open, video pauses on close and when the tab is hidden
+- Works controlled (`open` / `onOpenChange`) or uncontrolled
+- Composes [Smooth Button](/docs/components/smooth-button) for the play, mute, fullscreen and close controls
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-modal="true"` | Modal panel | Marks the panel as a modal dialog for assistive technology |
+| `role="dialog"` | Modal panel | Identifies the panel as a dialog |
+| `aria-label` | Modal panel, close button, play/pause, mute, fullscreen | Names the dialog and every icon-only control |
+| `role="slider"` | Scrub bar | Exposes the seek position as an adjustable range |
+| `aria-valuemin` / `aria-valuemax` / `aria-valuenow` / `aria-valuetext` | Scrub bar | Reports current playback position in seconds and as formatted text |
+| `aria-hidden="true"` | Closed-state thumbnail (while open) | Hides the invisible morph source from assistive technology while the modal is open |
+
+### Keyboard
+
+| Key | Effect |
+|-----|--------|
+| `Enter` / `Space` | Opens the modal from the thumbnail |
+| `Escape` | Closes the modal and returns focus to the thumbnail |
+| `Tab` / `Shift+Tab` | Cycles through the controls inside the modal; focus is trapped until it closes |
+| `←` / `→` on the scrub bar | Seeks 5 seconds backward or forward |
+| `Home` / `End` on the scrub bar | Jumps to the start or end of the video |
+
+### Screen Reader
+
+Opening the modal moves focus into the panel; closing it returns focus to the thumbnail that opened it. The thumbnail is marked `aria-hidden` and removed from the tab order while the modal is open, so a screen reader never announces the invisible morph source underneath it. Every icon-only button carries an `aria-label` that reflects its current state (`Play`/`Pause`, `Mute`/`Unmute`, `Enter fullscreen`/`Exit fullscreen`).
+
+### Reduced Motion
+
+Uses `useReducedMotion`. When reduced motion is preferred: the shared `layoutId` morph is disabled (the modal simply appears), all transitions drop to `duration: 0`, and `autoPlayOnOpen` is ignored — the video never starts on its own.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/video-modal/index.tsx"
+  name="VideoModalProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/video-modal/index.tsx"
+  name="VideoModalCaption"
+/>

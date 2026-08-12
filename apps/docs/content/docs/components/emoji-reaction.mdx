@@ -1,0 +1,69 @@
+---
+title: Emoji Reaction
+description: A reaction bar with particle bursts, a rolling odometer count, and a hover/focus emoji picker.
+icon: SmilePlus
+dependencies:
+  - motion.dev
+  - lucide-react
+installer: emoji-reaction
+---
+
+## Features
+
+- Real `<button>` elements with `aria-pressed` and descriptive labels like "Like, 12 reactions"
+- Emoji springs up with a genuine overshoot on select, and the pill answers the press with a scale
+- Deterministic, seeded particle burst on selection — no per-render randomness — made of an expanding ring plus dots that clean themselves up when the ring finishes
+- Direction-aware odometer count: digits roll up when the count rises and down when it falls, driven entirely by the `count` you pass in
+- Optional emoji picker popover that scales from its trigger's bottom edge and staggers its emoji in
+- The picker's open region includes the gap above the trigger and closes on a short delay, so travelling from trigger to popover never makes it flicker
+- Hovering the picker never steals keyboard focus — only a click or an arrow key moves focus into the menu
+- `defaultPickerOpen` renders the popover already open, for docs and screenshots
+- `allowMultiple` toggles between checkbox-style (independent) and radio-style (mutually exclusive) reactions
+- Fully respects `prefers-reduced-motion`
+
+## Usage guidance
+
+`EmojiReaction` is fully controlled: it renders exactly what `reactions` describes and never mutates its own count or `reacted` state. Update your state inside `onReact(id, nextReacted)` — increment/decrement `count` and flip `reacted` yourself, then pass the new array back in. When `showPicker` is enabled and the visitor picks an emoji that already exists in the bar, that reaction is toggled on through the normal path, so the `allowMultiple` rule still applies. Pick an emoji that isn't in your `reactions` yet and `onReact` is called with the emoji itself as the `id`, so you can append a brand-new reaction to your list.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` + `aria-label="Reactions"` | Bar container | Groups the reaction buttons for assistive tech |
+| `aria-pressed` | Each reaction button | Exposes the toggled/selected state |
+| `aria-label` | Each reaction button | Announces e.g. "Like, 12 reactions" |
+| `aria-hidden="true"` | Emoji glyph, burst particles, odometer digits | Hides purely decorative/redundant visuals (the count is already in the button's label) |
+| `aria-haspopup="menu"` / `aria-expanded` / `aria-controls` | Picker trigger | Describes the popover relationship |
+| `role="menu"` / `role="menuitem"` | Picker popover | Marks the popover as a navigable menu |
+
+### Screen Reader
+
+- Each reaction's accessible name already includes the live count, so the visual odometer digits and emoji glyph are `aria-hidden` to avoid double announcements.
+- The picker popover uses a roving `tabIndex` (`0`/`-1`) with `role="menu"`/`role="menuitem"`, and closing it returns focus to the trigger button.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred: burst particles never render, the count swaps instantly instead of rolling, the emoji doesn't spring on selection, and the picker popover fades at `duration: 0` instead of scaling in.
+
+### Keyboard
+
+| Key | Context | Action |
+|-----|---------|--------|
+| `Enter` / `Space` | Reaction button, picker trigger | Activates the button |
+| `ArrowDown` / `ArrowUp` | Picker trigger | Opens the picker and focuses the first emoji |
+| `ArrowLeft` / `ArrowRight` / `ArrowUp` / `ArrowDown` | Picker popover open | Moves focus between emoji options |
+| `Escape` | Picker popover open | Closes the popover and returns focus to the trigger |
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/emoji-reaction/index.tsx"
+  name="EmojiReactionProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/emoji-reaction/index.tsx"
+  name="EmojiReactionItem"
+/>

@@ -1,0 +1,90 @@
+---
+title: Arcade Pixel
+description: A retro pixel-art display that renders sprites or text through a built-in 5x7 font, with a full CRT treatment, phosphor bloom, and reveal animations including a scrolling marquee.
+icon: Gamepad2
+dependencies:
+  - motion.dev
+installer: arcade-pixel
+---
+
+## Features
+
+- Renders `sprite` (a 2D array of palette indices) or `text` through a built-in `PIXEL_FONT_5X7` map — `sprite` wins when both are given
+- Built-in 5x7 pixel font covers A-Z, 0-9, space, `.` `,` `:` `*` `!` `?` `-`, with unknown characters falling back to a blank cell
+- Ships `ARCADE_SPRITES` with `alien` / `alienAlt` (the two frames of a space-invader style marcher), `heart`, and `arrow`, so the sprite path is usable without hand-authoring a grid
+- Sprite rows accept a digit per cell, not just `#`, so a sprite can address any palette index and be multi-colour
+- Five reveal animations: `none`, `type` (character-by-character, each glyph landing with a white flash), `wipe` (continuous column sweep), `blink`, and `marquee` (endless horizontal scroll for messages wider than the display)
+- `columns` fixes the display width in pixel cells, so a long message scrolls through a board of a known size instead of stretching it
+- Lit pixels are emissive: a single blurred self-composite in `lighter` mode bleeds phosphor glow out of every lit cell for the cost of one draw call, where a per-pixel `shadowBlur` would cost one blur per cell
+- An unlit dot matrix sits behind the message, phase-locked to the marquee offset so the dots and the glyphs always share the same sub-cell grid
+- `crt` adds the cabinet treatment — curved vignette, chromatic fringing at the edges, a slow rolling band, and a faint flicker — and `scanlines` adds drifting scanlines; both are CSS layers over the canvas, never per-frame canvas work
+- `palette` entries may be `var(--token)` references: `fillStyle` cannot resolve custom properties, so they are read off the live element before the first paint
+- Backing store honours `devicePixelRatio` capped at 2 and resizes via `ResizeObserver`
+- Render loop pauses off-screen (`IntersectionObserver`) and when the tab is hidden (`visibilitychange`), and is fully torn down on unmount
+
+## Usage
+
+```tsx
+import ArcadePixel, { ARCADE_SPRITES } from "@/components/smoothui/ui/arcade-pixel";
+
+// A scrolling arcade marquee on a fixed-width board.
+<ArcadePixel
+  animate="marquee"
+  columns={80}
+  crt
+  glow={0.75}
+  palette={["transparent", "oklch(0.8 0.24 145)"]}
+  pixelSize={8}
+  scanlines
+  text="HIGH SCORE 1250400 - INSERT COIN "
+/>
+
+// A built-in sprite. Swap `alien` / `alienAlt` on a timer to animate it.
+<ArcadePixel glow={0.7} pixelSize={11} scanlines sprite={ARCADE_SPRITES.alien} />;
+```
+
+### Palettes
+
+Index 0 is the background and is normally `transparent`; every other index is a
+colour the font (`1`) or a sprite cell (any digit) can address. Authoring the
+ramp in `oklch` keeps a phosphor honest: hold the hue fixed end to end so the
+ramp brightens without drifting, and let chroma peak mid-ramp before falling off
+as the core goes white-hot.
+
+```tsx
+const greenPhosphor = [
+  "transparent",
+  "oklch(0.7 0.21 145)",
+  "oklch(0.8 0.24 145)",
+  "oklch(0.88 0.2 145)",
+  "oklch(0.95 0.09 145)",
+];
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Overlay wrapper | One wrapper around the canvas and every CRT layer removes the whole decorative stack from the accessibility tree, rather than marking the `<canvas>` itself |
+| `sr-only` | Visually hidden label | Exposes the source `text` (or a generic "pixel art" description for sprites) to screen readers |
+
+### Keyboard
+
+Not applicable — decorative/presentational canvas, no interactive controls in the component itself.
+
+### Screen Reader
+
+The canvas and its CSS overlays sit inside a single `aria-hidden` wrapper, so none of the rendered pixel art is exposed directly. A visually-hidden (`sr-only`) element carries the equivalent text — either the `text` prop's value or the generic label "pixel art" when a custom `sprite` is used — so screen reader users get a meaningful description instead of silence or noise.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is active, the component renders the final frame once and never starts a `requestAnimationFrame` loop — no `type`, `wipe`, `blink`, or `marquee` animation plays, regardless of the `animate` prop. The moving CRT layers (the rolling band, the scanline drift, and the flicker) are dropped too; the static vignette, fringing, and scanline pattern remain, since they carry the look without carrying motion.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/arcade-pixel/index.tsx"
+  name="ArcadePixelProps"
+/>

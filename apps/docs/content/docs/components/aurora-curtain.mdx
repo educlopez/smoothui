@@ -1,0 +1,92 @@
+---
+title: Aurora Curtain
+description: Northern-lights ribbons drifting behind your content, rendered as a single WebGL2 fragment shader with a CSS gradient fallback.
+icon: Waves
+dependencies:
+  - motion.dev
+installer: aurora-curtain
+---
+
+## Features
+
+- Up to 8 ribbons in one WebGL2 fragment shader — one draw call, zero extra DOM
+- Each ribbon varies in width and softness **along its own length**, pinching towards both ends, so it folds and meanders instead of sliding across as a rigid bar
+- A bright narrow core wrapped in a wide soft halo, plus a vertical falloff that thins the light out as it climbs, the way a real aurora does
+- `noise` is a 0-1 film-grain strength, re-seeded every frame and applied across the whole surface — not a static overlay
+- Colours default to your Tailwind theme tokens, so light and dark both work without configuration
+- `direction` flips the light flow between rising and falling
+- `paused` freezes the curtain on its current frame at any time
+- Automatic CSS radial-gradient fallback when WebGL2 is unavailable
+- Decorative by construction: `aria-hidden`, `pointer-events: none`, children always render above
+
+## Usage
+
+```tsx
+import AuroraCurtain from "@/components/smoothui/ui/aurora-curtain";
+
+<AuroraCurtain bands={5} className="rounded-2xl" direction="down" noise={0.7}>
+  <div className="flex min-h-[460px] flex-col justify-end p-8">
+    <h1>Northern lights that cost one draw call.</h1>
+  </div>
+</AuroraCurtain>;
+```
+
+The curtain is absolutely positioned inside its own wrapper, so give that wrapper a resolvable height — either an explicit one or, as above, content whose flow provides it.
+
+### Grain strength
+
+`noise` takes a number from `0` to `1`. It is not a switch on a fixed amount:
+
+| Value | Reads as |
+|-------|----------|
+| `0` | Clean — the grain branch is skipped entirely |
+| `0.35` | Fine, barely-there texture |
+| `0.7` | Clearly filmic |
+| `1` | Heavy film stock |
+
+The grain modulates the light where there is light, then lays a symmetric veil over the whole surface: positive grain adds light, negative grain adds coverage without colour and darkens the backdrop through the premultiplied blend. Because both halves are present, empty areas get texture too instead of staying glassy. The hash is re-seeded from a frame counter every frame, so the pattern is reborn each time rather than sitting on the screen like dust on the glass.
+
+`noise={true}` is still accepted as a shorthand for `0.6`, and `false` for `0`.
+
+## Performance
+
+**What it costs.** One full-screen quad per frame. Each ribbon costs a three-octave meander for its path, one extra octave of wobble, and two two-octave lookups for its width and its striations — eight value-noise samples per ribbon per pixel. The slow brightness swell is two sines rather than another octave, and the grain is two hashes rather than a third. Cost scales with `bands` × pixel count, never with DOM size. The backing store honours `devicePixelRatio` capped at 2, so a 3× display still renders at 2×. Keep `bands` at 4-6 for hero-sized surfaces; 7-8 is best reserved for small panels.
+
+**When it pauses.** The render loop is not a permanent `requestAnimationFrame` subscription:
+
+- An `IntersectionObserver` stops the loop the moment the curtain scrolls off-screen and restarts it on the way back.
+- A `visibilitychange` listener stops the loop when the tab is hidden.
+- Setting `paused` stops the loop and leaves the last frame on screen.
+- A `ResizeObserver` re-sizes the backing store only when the element actually changes size — no per-frame `getBoundingClientRect`.
+
+All imperative state lives in the controller, not in React state, so nothing re-renders per frame. Props are pushed in through a single settings object.
+
+On unmount the animation frame is cancelled, the buffer and program are deleted, and the context is released through `WEBGL_lose_context`.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Canvas wrapper | Removes the purely decorative curtain from the accessibility tree |
+| `aria-hidden="true"` | Gradient fallback | Same treatment when WebGL2 is unavailable |
+
+### Screen Reader
+
+The canvas wrapper and the gradient fallback are both `aria-hidden` and carry `pointer-events: none`, so they are never announced and never intercept clicks. Children are rendered in a separate stacking layer above the background and stay fully readable, focusable, and interactive.
+
+### Contrast
+
+The curtain is bright by design, so text over it needs help. Put a scrim between the two — a gradient from the panel's own background colour up to transparent — and keep the foreground at a perceptual lightness of `0.75` or above over a dark panel. Never chase contrast by saturating the ribbons further.
+
+### Reduced Motion
+
+The component reads `prefers-reduced-motion` through `useReducedMotion` from Motion. When motion is reduced, **no `requestAnimationFrame` loop is ever started** — the shader is drawn exactly once, grain included, and the result stays on screen as a still image. Changing props redraws that single frame; it never resumes animating.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/aurora-curtain/index.tsx"
+  name="AuroraCurtainProps"
+/>

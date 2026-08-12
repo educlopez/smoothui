@@ -1,0 +1,60 @@
+---
+title: Animated Number Input
+description: A numeric field where digits roll on change and the value can be scrubbed horizontally or stepped with the keyboard.
+icon: Hash
+dependencies:
+  - motion.dev
+installer: animated-number-input
+---
+
+## Features
+
+- Real `<input inputMode="decimal">` overlaid on a rendered digit strip, so typing, text selection and browser autofill keep working
+- Only the digits that actually changed roll vertically; the sign, separators and prefix/suffix cross-fade instead
+- Horizontal pointer scrub to change the value, using pointer capture and an `ew-resize` cursor
+- Full keyboard stepping: Arrow Up/Down (±step), Shift (×10), Alt (÷10), Page Up/Down, and Home/End to jump to min/max
+- Optional +/- stepper buttons
+- `Intl.NumberFormatOptions` support via `format`, plus dedicated `precision`, `prefix` and `suffix` props
+- Invalid typed input sets `aria-invalid` and shakes once instead of silently failing
+- Controlled and uncontrolled modes
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow Up` / `Arrow Down` | Increase or decrease the value by `step` |
+| `Shift + Arrow Up/Down` | Increase or decrease by `step × 10` |
+| `Alt + Arrow Up/Down` | Increase or decrease by `step ÷ 10` |
+| `Page Up` / `Page Down` | Increase or decrease by `step × 10` |
+| `Home` / `End` | Jump to `min` / `max` (when finite) |
+| `Enter` | Commit the currently typed text |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="spinbutton"` | Input | Identifies the control as a numeric stepper |
+| `aria-valuenow` / `aria-valuemin` / `aria-valuemax` | Input | Exposes the current value and its bounds |
+| `aria-valuetext` | Input | Exposes the formatted (prefixed/suffixed) value |
+| `aria-invalid` | Input | Set when the typed text fails to parse into a number |
+| `aria-label` | Input | Falls back to "Number input" when no `label` is provided |
+| `<label htmlFor>` | Label | Associates the visible label with the input |
+
+### Screen Reader
+
+- The visual digit strip is `aria-hidden`; screen readers only ever read the real input's value via `aria-valuetext`.
+- The stepper buttons carry explicit `aria-label`s ("Increase value" / "Decrease value") and are disabled at the bounds.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, digits and prefix/suffix swap instantly (no roll or cross-fade) and the invalid-input shake is skipped entirely.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/animated-number-input/index.tsx"
+  name="AnimatedNumberInputProps"
+/>

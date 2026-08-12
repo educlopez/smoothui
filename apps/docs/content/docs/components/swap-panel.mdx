@@ -1,0 +1,67 @@
+---
+title: Swap Panel
+description: A token or currency swap form with a flip button, live-updating quote, and an animated output figure.
+icon: ArrowLeftRight
+dependencies:
+  - motion.dev
+installer: swap-panel
+---
+
+## Features
+
+- Flip button that swaps the "you pay" / "you receive" rows with a layout animation
+- Output figure rolls in with a spring transition whenever the quote updates
+- Shimmer loading state scoped to the output row only, never a full-panel spinner
+- Countdown ring that visualizes an expiring quote
+- Inline balance, fee, price impact, and slippage readouts formatted with `Intl.NumberFormat`
+- Composes [Smooth Button](/docs/components/smooth-button) for the token chips, the flip control and the submit action
+- Reduced motion support throughout
+
+## Scope
+
+This component is presentation only. It performs no network calls, integrates with no wallet or crypto SDK, and never handles real balances, private keys, or signing. Every number shown — balances, rates, fees, quotes — comes directly from props supplied by the consumer, who is responsible for sourcing real data and wiring up the actual swap logic.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-live="polite"` | Output figure container | Announces the updated receive amount when a quote resolves |
+| `role="alert"` | Error message | Announces validation/quote errors immediately |
+| `aria-label` | Flip button, token chips | Describes the flip action and the currently selected token |
+| `aria-hidden="true"` | Shimmer overlay, countdown ring, decorative icons | Hides purely decorative elements from assistive technology |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Moves focus through the amount input, token chips, flip button, and primary action |
+| `Enter` / `Space` | Activates the focused button (flip, token chip, Max, submit) |
+
+### Screen Reader
+
+- The amount input has a real `<label>` tied via `htmlFor`/`id`, with `inputMode="decimal"`.
+- The receive figure is tied to its heading via `aria-labelledby` and wrapped in an `aria-live="polite"` region so quote changes are announced without moving focus.
+- Errors use `role="alert"` so they are announced immediately.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled (checked via `useReducedMotion` from Motion), the flip rotation, row layout animation, and output roll all switch to `duration: 0`. The shimmer sweep is replaced with a static muted block, and the countdown ring updates without a CSS transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/swap-panel/index.tsx"
+  name="SwapPanelProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/swap-panel/index.tsx"
+  name="SwapToken"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/swap-panel/index.tsx"
+  name="SwapQuote"
+/>

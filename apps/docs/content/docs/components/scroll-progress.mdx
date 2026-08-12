@@ -1,0 +1,58 @@
+---
+title: Scroll Progress
+description: A reading-progress indicator with bar, ring, number and segmented variants.
+icon: Gauge
+dependencies:
+  - motion.dev
+installer: scroll-progress
+---
+
+## Features
+
+- Four variants — bar, ring, number and segments — all four can share one scroll container
+- Tracks the window's scroll, or any scrollable ancestor via the `container` prop
+- Bar variant has a real track and slides a full-width fill with `translateX` (never `width`), so it stays compositor-only and its rounded cap and gradient are never distorted; the leading-edge glow is a stop in the fill's own gradient, so it is flush with the bar and cannot drift off it
+- Ring variant uses Motion's normalised `pathLength` for the stroke sweep, over a matching track circle, with the percentage set in its centre (`showLabel`)
+- The percentage is one typographic unit — tabular figures with the `%` sized as a fraction of them on a shared baseline — optically centred in the ring rather than merely centred by geometry
+- Segments variant gives each pill its own slice of the range and springs it open, so they fill strictly one after another
+- `position` uses `sticky`, not `fixed`, so it stays safely contained inside constrained layouts — or `inline` to opt out of stickiness and place the indicator in your own header or footer bar
+- Full `prefers-reduced-motion` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="progressbar"` | Root element | Identifies the indicator as a progress meter |
+| `aria-valuemin` | Root element | Always `0` |
+| `aria-valuemax` | Root element | Always `100` |
+| `aria-valuenow` | Root element | Current read percentage, rounded to the nearest integer |
+| `aria-label` | Root element | `"Reading progress"` |
+
+### Screen Reader
+
+- The root element exposes `role="progressbar"` with live `aria-valuenow`, so assistive technology can announce reading progress independent of the visual variant chosen.
+- The `showLabel` prop additionally renders a visible percentage (ring, segments) or an `sr-only` one (bar) for sighted or screen-reader users who want an explicit number.
+- The ring's `<svg>` is `aria-hidden`; the value is exposed once, on the root `progressbar`, so it is never announced twice.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the value updates directly from scroll with no spring smoothing — the indicator still tracks scroll position exactly, since that is its entire purpose, but never overshoots or eases. The segments variant drops its per-pill spring for the same reason.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/scroll-progress/index.tsx"
+  name="ScrollProgressProps"
+/>
+
+<Callout type="warn">
+  When you pass `container`, that element needs a **definite height** — `h-[440px]`,
+  `h-dvh`, a grid track, anything resolvable — plus `overflow-y-auto`. A
+  percentage height such as `h-full` resolves to `auto` against a parent that
+  sizes itself to its content, at which point the container grows to fit
+  everything inside it, never scrolls, and every indicator sits frozen at 0%.
+  Nothing errors; the progress simply never moves.
+</Callout>
+

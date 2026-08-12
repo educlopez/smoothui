@@ -1,0 +1,111 @@
+---
+title: Vector Editor Toolbar
+description: A Figma-style floating vector toolbar with tool selection, nested flyouts and a contextual properties panel that never pushes the tools around.
+icon: PenTool
+dependencies:
+  - motion.dev
+  - lucide-react
+installer: vector-editor-toolbar
+---
+
+## Features
+
+- Controlled or uncontrolled active tool, matching a top-level tool or a nested flyout item
+- A `layoutId` pill travels to the selected tool. It is a sibling of the button inside a fixed 36px cell, not a child of it, so it is always exactly cell-sized no matter which tool is active
+- Tools with `items` are marked by a corner triangle and keep the same 36px footprint as every other tool, so adding a flyout never knocks the icon grid out of rhythm
+- Three ways into a flyout: long-press the tool, click the corner triangle, or click a tool that is already active. From the keyboard, `ArrowDown` (horizontal) or `ArrowRight` (vertical)
+- Flyouts are centred under their trigger, carry a caret pointing back at it, and scale from that edge via `transform-origin` rather than from their own centre
+- The active cell adopts the icon and label of the variant last chosen from its flyout
+- The contextual properties panel floats below (or beside) the toolbar in its own layer, so revealing and hiding it never moves the tools and nothing is ever clipped
+- Single-key shortcuts bound on `document`, automatically ignored while typing in an input, textarea, select, or contenteditable element
+- Optional `floating` mode pins the toolbar near the top of its positioned ancestor and makes it draggable. The overlay is click-through, so a canvas underneath stays fully interactive
+- Horizontal or vertical orientation
+- Full reduced-motion support
+
+## Usage
+
+The toolbar reports the active tool and nothing else — the surface it drives owns
+its own state. Wire `onToolChange` to whatever the tool is supposed to do, and
+pass `properties` for the row that belongs to the current tool.
+
+```tsx
+import VectorEditorToolbar from "@/components/smoothui/ui/vector-editor-toolbar";
+
+const [activeTool, setActiveTool] = useState("select");
+
+<div className="relative h-[440px]">
+  <svg className="absolute inset-0 h-full w-full" onPointerDown={draw} />
+  <VectorEditorToolbar
+    activeTool={activeTool}
+    floating
+    onToolChange={setActiveTool}
+    properties={activeTool.startsWith("shape") ? <ShapeProperties /> : undefined}
+    tools={tools}
+  />
+</div>;
+```
+
+Nested items are selected by their own id, so `activeTool` can be
+`"shape-ellipse"` rather than `"shape"` — the pill still resolves to the parent
+cell, and that cell borrows the ellipse icon.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="toolbar"` | Toolbar container | Identifies the group as a toolbar for assistive technology |
+| `aria-orientation` | Toolbar container | Communicates horizontal or vertical layout |
+| `aria-label="Vector editor tools"` | Toolbar container | Gives the toolbar an accessible name |
+| `aria-label` | Every tool and flyout item button | Announces the tool's name since buttons are icon-only |
+| `aria-pressed` | Every tool and flyout item button | Announces whether that tool is the current selection |
+| `aria-haspopup="menu"` / `aria-expanded` | Tool buttons with nested items | Announces that the tool reveals a flyout and whether it is open |
+| `aria-label` | Corner triangle button | Named after its tool (e.g. "Pen options") rather than hidden, since a control that does something should not be removed from the tree |
+| `aria-label` | Flyout panel | Names the flyout after its parent tool (e.g. "Pen options") |
+
+### Keyboard
+
+| Key | Context | Action |
+|-----|---------|--------|
+| `ArrowRight` / `ArrowLeft` | Horizontal toolbar | Moves roving focus between tools |
+| `ArrowDown` / `ArrowUp` | Vertical toolbar | Moves roving focus between tools |
+| `ArrowDown` (horizontal) / `ArrowRight` (vertical) | Focused tool with nested items | Opens the flyout and focuses its first item |
+| `ArrowDown` / `ArrowUp` | Open flyout | Moves focus between flyout items |
+| `Enter` / `Space` | Focused tool or flyout item | Selects it |
+| `Escape` | Open flyout | Closes it and returns focus to the tool that opened it |
+| Single letter (e.g. `V`, `P`, `R`) | Anywhere outside editable fields | Selects the matching tool or flyout item, when `shortcutsEnabled` is true |
+
+### Screen Reader
+
+- Every tool and flyout item is a real `<button>` with a descriptive `aria-label`, so icon-only controls are still announced by name.
+- `aria-pressed` reflects the current selection on both the top-level tool and, when applicable, the nested item that is active.
+- The toolbar uses roving `tabIndex` (`0` on the current tool, `-1` on the rest), so a single `Tab` press moves in and out of the whole toolbar instead of stopping on every button.
+- The corner triangle is kept out of the tab order but is not `aria-hidden`: it has a name and it acts, and the same flyout is reachable from the tool button itself with an arrow key.
+- The toolbar is fully operable from the keyboard. A canvas it drives is a separate concern — pointer-driven drawing surfaces need their own keyboard story, which the example does not attempt.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred:
+
+- The active-tool pill appears instantly at its new position instead of travelling with a spring.
+- Flyouts and the properties panel appear and disappear instantly instead of animating scale, offset, and opacity.
+- The press-scale on tool buttons is dropped via `motion-reduce` utilities.
+- Dragging the floating toolbar is unaffected, since it is direct user manipulation rather than an automated animation.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/vector-editor-toolbar/index.tsx"
+  name="VectorEditorToolbarProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/vector-editor-toolbar/index.tsx"
+  name="VectorTool"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/vector-editor-toolbar/index.tsx"
+  name="VectorToolItem"
+/>
