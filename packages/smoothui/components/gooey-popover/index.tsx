@@ -19,6 +19,11 @@ const CONTENT_BORDER_RADIUS = 18;
 export type GooeyPopoverProps = {
   children: React.ReactNode;
   trigger?: React.ReactNode;
+  /**
+   * Accessible name for the trigger. Required when `trigger` renders no text
+   * of its own; the default plus icon falls back to "Open popover".
+   */
+  triggerLabel?: string;
   triggerSize?: number;
   isOpen?: boolean;
   onOpenChange?: (open: boolean) => void;
@@ -34,6 +39,7 @@ export type GooeyPopoverProps = {
 export default function GooeyPopover({
   children,
   trigger,
+  triggerLabel,
   triggerSize = DEFAULT_TRIGGER_SIZE,
   isOpen: controlledIsOpen,
   onOpenChange,
@@ -300,6 +306,7 @@ export default function GooeyPopover({
 
   const defaultTriggerIcon = (
     <svg
+      aria-hidden="true"
       fill="none"
       height={20}
       stroke="currentColor"
@@ -395,6 +402,7 @@ export default function GooeyPopover({
       <button
         aria-expanded={isOpen}
         aria-haspopup="dialog"
+        aria-label={triggerLabel ?? (trigger ? undefined : "Open popover")}
         className={cn(
           "relative z-10 flex cursor-pointer items-center justify-center rounded-full text-white transition-colors",
           bgClassName

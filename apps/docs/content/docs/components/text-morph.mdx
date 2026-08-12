@@ -24,12 +24,12 @@ installer: text-morph
 
 | Attribute | Element | Purpose |
 |-----------|---------|---------|
-| `aria-label` | Wrapper element | Exposes the full, intact string once to assistive technology |
+| `class="sr-only"` | Visually hidden text node | Exposes the full, intact string once to assistive technology |
 | `aria-hidden="true"` | Per-token spans | Hides the fragmented, animated tokens from screen readers |
 
 ### Screen Reader
 
-- The wrapper carries `aria-label={text}`, so screen readers announce the current string as a single, coherent phrase.
+- The wrapper renders the current string once as visually hidden text, so screen readers announce it as a single, coherent phrase. An `aria-label` would not work here: it is prohibited on the generic roles that the default `as="span"` (and `as="div"`) produce, so assistive technology would drop it and — with every token `aria-hidden` — announce nothing at all.
 - The animated character or word spans underneath are `aria-hidden`, so nothing is read out twice or letter-by-letter.
 - The text remains selectable in the DOM at all times.
 

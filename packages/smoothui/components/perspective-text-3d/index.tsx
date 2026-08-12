@@ -137,11 +137,13 @@ export default function PerspectiveText3D({
 
   return (
     <div
-      aria-label={content}
       className={cn("inline-block", className)}
       ref={wrapperRef}
       style={{ perspective }}
     >
+      {/* Every segment below is aria-hidden, so the readable copy lives here.
+          An aria-label on this plain div would be dropped by assistive tech. */}
+      <span className="sr-only">{content}</span>
       <motion.div
         animate={planeAnimate}
         initial={planeInitial}

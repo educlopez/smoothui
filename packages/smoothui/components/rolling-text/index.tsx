@@ -171,11 +171,13 @@ export default function RollingText({
 
   return (
     <span
-      aria-label={text}
       className={className}
       onPointerEnter={handlePointerEnter}
       ref={containerRef}
     >
+      {/* Every glyph below is aria-hidden, so the readable copy lives here. An
+          aria-label on this plain span would be dropped by assistive tech. */}
+      <span className="sr-only">{text}</span>
       {characters.map((character, characterIndex) =>
         character.isWhitespace ? (
           <span
