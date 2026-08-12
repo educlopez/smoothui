@@ -1,0 +1,65 @@
+---
+title: Duration Picker
+description: A duration input with hours, minutes and seconds segments that support scrubbing, typing and full keyboard control.
+icon: Clock
+dependencies:
+  - motion.dev
+installer: duration-picker
+---
+
+## Features
+
+- Segmented hours / minutes / seconds input, configurable via `units`
+- Controlled and uncontrolled value in seconds
+- Horizontal pointer drag to scrub any segment up or down
+- Full keyboard control: arrow keys, Shift for ×10 steps, Page Up/Down, Home/End
+- Direct digit typing with auto-advance and carry into the next unit
+- Odometer-style digit roll animation on change
+- `formatDuration` helper exported for formatting a duration elsewhere in your app
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` | Picker container | Groups the unit segments as one control |
+| `aria-labelledby` / `aria-label` | Picker container | Associates the visible label, or provides a fallback name |
+| `role="spinbutton"` | Each unit segment | Identifies the segment as an adjustable numeric control |
+| `aria-valuenow` | Each unit segment | Current value of that unit |
+| `aria-valuemin` / `aria-valuemax` | Each unit segment | Valid range for that unit given its position |
+| `aria-valuetext` | Each unit segment | Human-readable value, e.g. "23 minutes" |
+| `aria-disabled` | Each unit segment | Reflects the `disabled` prop |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Arrow Up` / `Arrow Down` | Increase/decrease the focused segment by `step` |
+| `Shift + Arrow Up/Down` | Increase/decrease by `step × 10` |
+| `Page Up` / `Page Down` | Increase/decrease by a larger step |
+| `Home` / `End` | Jump the focused segment to its minimum/maximum |
+| `Arrow Left` / `Arrow Right` | Move focus to the previous/next segment |
+| `0`-`9` | Type a value directly; a second digit commits and advances focus |
+
+### Screen Reader
+
+- Each segment announces its unit, current value and range as a standard spinbutton.
+- The picker container exposes a single accessible name via `aria-labelledby` (when `label` is set) or a fallback `aria-label`.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, the digit roll animation is skipped entirely — digits update instantly with no transform or opacity transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/duration-picker/index.tsx"
+  name="DurationPickerProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/duration-picker/index.tsx"
+  name="DurationUnit"
+/>

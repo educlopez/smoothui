@@ -1,0 +1,54 @@
+---
+title: SVG Clip Mask
+description: Reveal any children through a custom SVG shape mask that can morph continuously, on scroll, or on hover.
+icon: Crop
+dependencies:
+  - motion.dev
+installer: svg-clip-mask
+---
+
+## Features
+
+- Four presets — blob, arch, diamond and wave — plus a fully custom path
+- Uses `clipPathUnits="objectBoundingBox"` so the shape always scales with its box
+- Three animated modes — a continuous ambient morph loop, a scroll-stepped morph, and a hover morph — plus a static "none"
+- Only animates the mask's `d` attribute, which is the mask itself — no layout-affecting properties change
+- Full `prefers-reduced-motion` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Hidden `<svg>`/`<clipPath>` definition | Hides the invisible mask-definition markup from assistive technology |
+
+### Screen Reader
+
+- The mask machinery lives in a zero-size, `aria-hidden` `<svg>` — it is never announced.
+- `children` render in a normal, visible `<div>` and remain fully readable and reachable regardless of the current mask shape or animation state.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the mask renders as the first path with no morphing and no scroll coupling — content is always visible through a static shape.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/svg-clip-mask/index.tsx"
+  name="SvgClipMaskProps"
+/>
+
+<Callout type="warn">
+  `animate="morph"`, `animate="scroll"` and `animate="hover"` all step between
+  the entries in `morphPaths`, so they need **at least two** paths to do
+  anything. Given one path — or none, falling back to the `shape` preset — there
+  is nothing to step to and the mask renders static with no error. If a mode
+  looks like it is doing nothing, check `morphPaths` first.
+
+  Every path must also share the same command structure — the same sequence of
+  `M`/`L`/`C`/`Z` and the same number of points — because browsers interpolate
+  matching parameters positionally. Mismatched structures snap between shapes
+  instead of morphing.
+</Callout>
+

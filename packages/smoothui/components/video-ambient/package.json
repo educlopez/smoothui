@@ -1,0 +1,44 @@
+{
+  "name": "@repo/video-ambient",
+  "description": "A video with a two-pass Ambilight-style glow sampled live from its own frames, with a CORS-safe static fallback.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "video",
+      "ambient",
+      "glow",
+      "ambilight",
+      "bloom",
+      "canvas",
+      "media"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Hero video with a colour-matched ambient bloom behind it",
+      "Product or trailer embed that feels less boxed-in than a plain player",
+      "Background video that should tint the surrounding surface"
+    ],
+    "compositionHints": [
+      "Give the wrapper a dark, generously padded surface \u2014 the bloom deliberately spills far past the video box",
+      "Raise gain above 1 so the glow reads as emitted light rather than a colour wash; raise saturation so it bleeds more colour than the source",
+      "Pass a poster so the pre-sample and CORS-blocked fallbacks still look intentional",
+      "Lower sampleRate, or set glow to false, on long-running background loops"
+    ],
+    "hasReducedMotion": true
+  }
+}

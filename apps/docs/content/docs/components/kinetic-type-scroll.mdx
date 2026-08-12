@@ -1,0 +1,61 @@
+---
+title: Kinetic Type Scroll
+description: Editorial kinetic typography driven by scroll — words scale, track and shift weight as the section scrolls, so the phrase breathes.
+icon: Waves
+dependencies:
+  - motion.dev
+installer: kinetic-type-scroll
+---
+
+## Features
+
+- Each word maps its own slice of scroll progress to a scale, lift, opacity, tracking (letter-spacing) and weight curve
+- Windows overlap and the wave is centred in the range with head- and tail-room, so the crest travels through the phrase while it is parked in view rather than as it leaves
+- Curves are smoothed with `useSpring` so the phrase reads as a continuous wave rather than a snap
+- Configurable `scaleRange`, `liftRange`, `dimRange`, `trackingRange`, `weightRange`, `stagger`, and Motion `offset` (defaults to `["start 0.9", "end 0.45"]`)
+- Must be driven by a scrollable container, passed via the `container` ref — give that container `position: relative` so Motion can resolve the target's offsets against it
+- Respects `prefers-reduced-motion` by rendering the phrase statically at its peak weight
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Wrapper element | Exposes the full phrase once to assistive technology |
+| `aria-hidden="true"` | Per-word spans | Hides the animated words from screen readers |
+
+### Screen Reader
+
+- The wrapper carries `aria-label={words.join(" ")}`, announcing the full phrase as one string.
+- Each word span underneath is `aria-hidden`, so the scroll-driven fragments are never read individually.
+- The text remains selectable in the DOM at all times.
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, every word renders statically at the top of `weightRange` with no scale, no lift and no dimming — the phrase simply reads at full strength, with no scroll listeners and no springs.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/kinetic-type-scroll/index.tsx"
+  name="KineticTypeScrollProps"
+/>
+
+<Callout type="warn">
+  The `container` element needs a **definite height** — `h-[440px]`, `h-dvh`, a
+  grid track — plus `overflow-y-auto`. A percentage height like `h-full` resolves
+  to `auto` against a content-sized parent, so the container grows to fit the
+  phrase and never scrolls, leaving every word parked at the low end of its
+  range. Give the phrase roughly 2.5–3× the container's height of content to
+  travel through, and place it high enough to be legible at rest — a phrase
+  centred inside a very tall spacer starts below the fold, which reads as an
+  empty box rather than as something waiting to be scrolled.
+</Callout>
+
+<Callout type="info">
+  `weightRange` only produces a visible effect when the active font is a
+  variable font that exposes the `wght` axis. On static fonts,
+  `font-variation-settings` is applied but has no effect. The font on this site
+  (Inter) is variable, so the weight axis is live in the demo above.
+</Callout>

@@ -1,0 +1,97 @@
+---
+title: Gravity Stars
+description: A depth-sorted starfield of soft glowing stars that twinkle, drift with parallax, link into constellations, and swirl around your pointer.
+icon: Orbit
+dependencies:
+  - motion.dev
+installer: gravity-stars
+---
+
+## Features
+
+- Stars are **stamped glow sprites**, not flat rectangles — a radial gradient from a hot core into a wide, low-alpha halo is painted once into an offscreen canvas and blitted per star with `drawImage`, scaled and alpha-modulated
+- **Depth**: every star carries a z value that drives its size, brightness, halo width, drift speed and how far the gravity well reaches it. Near stars are big, bright and parallax fast; far ones are small, dim and nearly static
+- **Twinkle** with an independent phase and rate per star, so the field never pulses in unison
+- **Tinted, not grey**: `tint` spreads stars across five sprites between a cool blue-white (`oklch(0.92 0.028 255)`) and a warm amber (`oklch(0.92 0.055 75)`) at constant lightness, centre-weighted so most stars stay near the base colour. That small hue spread is what makes it read as a sky
+- **Constellation links** whose alpha falls off with distance *and* with endpoint depth, drawn sub-pixel to 1px and never at full opacity
+- **Gravitational pointer**: softened inverse-square attraction with a tangential term, so stars accelerate in, swirl past and are flung back out carrying momentum, then bleed it off through velocity damping
+- Colours resolved from live CSS custom properties, so `--color-foreground` follows the active theme
+- Deterministic seeded layout — identical on server and client, no `Math.random()` during render
+- `paused` freezes the field on its current frame
+- Automatic dotted-background fallback when Canvas2D is unavailable
+
+## Usage
+
+```tsx
+import GravityStars from "@/components/smoothui/ui/gravity-stars";
+
+<GravityStars
+  className="h-[26rem] w-full rounded-3xl bg-[oklch(0.145_0.014_264)]"
+  connectDistance={120}
+  count={240}
+  tint={0.65}
+>
+  <div className="flex h-full flex-col justify-center px-12">
+    <h1 className="text-balance font-semibold text-5xl tracking-tight">
+      The whole sky leans towards your cursor.
+    </h1>
+  </div>
+</GravityStars>;
+```
+
+The wrapper needs a **resolvable height**. It positions the canvas at `inset-0`, so give it an explicit height (`h-[26rem]`), a height from a parent, or content tall enough to establish one — `h-full` inside an auto-height parent collapses to nothing.
+
+## Performance
+
+**The budget.** This is a `requestAnimationFrame` loop on the main thread; it cannot be composited away. The target is 8ms per frame so it still holds at 120Hz, not just the 16.7ms of 60Hz.
+
+**Physics** is one linear pass over typed arrays that are allocated once at construction, never per frame. No object churn, no garbage.
+
+**Links are the expensive part** — naively O(n²). Stars are counting-sorted into a uniform grid whose cell equals `connectDistance`, and each star only tests its own cell plus four *forward* neighbours, so every pair is examined exactly once. That turns the pass into O(n·k) where k is the average local density. The practical consequence: raising `count` from 120 to 480 costs roughly four times the work, not sixteen. `count` is hard-clamped to **600**; a further cap of 8 links per star bounds the segment buffer at 4,800 segments.
+
+**Drawing is batched.** Segments are bucketed into six alpha bands and each band is emitted as a single `beginPath()`/`stroke()` pair, so a frame issues six strokes regardless of how many links exist — one `stroke()` per pair would exhaust the budget by itself. Stars are `drawImage` blits of a pre-baked 128px sprite; the gradient is never rebuilt inside the loop, and `shadowBlur` is avoided entirely because it costs far more per draw.
+
+**Measured shape of the cost** (per frame, mid-range laptop, 900×420 surface): at `count={240}` with `connectDistance={120}` the physics pass and the grid sort are each well under 0.5ms and the link pass sits around 1ms, leaving the blits as the dominant term. At `count={480}` with `connectDistance={165}` — the dense preset — the link pass roughly triples as local density rises, which is the setting to watch if you push both dials up together. Halve `glow` before you halve `count`: a smaller halo shrinks every blit's fill area.
+
+Backing store resolution honours `devicePixelRatio` **capped at 2**, and below a 640px-wide container the pool is trimmed to 60% of `count`.
+
+**When it pauses.** The loop stops rather than idling:
+
+- An `IntersectionObserver` stops it when the field scrolls out of view.
+- A `visibilitychange` listener stops it when the tab is hidden.
+- Setting `paused` stops it and leaves the last frame on screen.
+- A `ResizeObserver` handles resizing; positions are rescaled proportionally instead of being reseeded, and the measured box is floored at 1px so a zero-height first measure cannot produce `NaN` positions or divide by zero in the grid.
+
+Frame deltas are clamped, so returning to a backgrounded tab never produces a physics explosion. On unmount the frame is cancelled, pointer listeners and both observers are removed, and the canvas plus every sprite backing store is collapsed.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Canvas wrapper | Removes the purely decorative starfield layer from the accessibility tree. The attribute sits on the wrapper, never on the `<canvas>` itself |
+| `aria-hidden="true"` | Dotted fallback | Same treatment when Canvas2D is unavailable |
+
+### Screen Reader
+
+The starfield layer is `aria-hidden` with `pointer-events: none`. Pointer tracking lives on the outer wrapper, so nested links and buttons keep their own hit targets. Screen readers encounter only the children.
+
+### Contrast
+
+The field is decorative and sits behind your content, so contrast is yours to hold. Over a dark surface (L ≤ 0.25 in oklch) headline text needs L ≥ 0.75 to clear APCA |Lc| 60; the example pairs an `oklch(0.145 0.014 264)` sky with `oklch(0.97 0.005 265)` text. A vignette that darkens the edges buys extra margin without touching the type. Never recover contrast by saturating — the gap lives in lightness.
+
+### Pointer, not hover
+
+Gravity is driven by `pointermove`/`pointerleave`, so it answers a dragged finger as well as a mouse. No behaviour is gated behind `:hover` alone.
+
+### Reduced Motion
+
+With `prefers-reduced-motion` active the stars are drawn **once at their seeded positions, with no `requestAnimationFrame` loop started at all**. Velocities stay at zero, twinkle is frozen at each star's seeded phase — which still leaves a varied, pleasant field rather than a uniform grid — and pointer listeners are never attached, so nothing reacts to the cursor. Constellation links are still drawn; they are simply static.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/gravity-stars/index.tsx"
+  name="GravityStarsProps"
+/>

@@ -1,0 +1,56 @@
+---
+title: Music Toggle
+description: A play/pause control shaped like a spinning record, with a live waveform and a seekable progress ring.
+icon: Disc3
+dependencies:
+  - motion.dev
+installer: music-toggle
+---
+
+## Features
+
+- Cover art spins continuously while playing and pauses in place (never resets) when paused
+- Play icon morphs into a pause icon with a spring rotate/scale transition
+- Waveform bars animate `scaleY` on a deterministic per-bar phase — no `Math.random()` is used, heights and timing are seeded from the bar index
+- A `pathLength`-style progress ring around the record doubles as a `role="slider"` for keyboard seeking
+- Optional `src` lets the component own an `<audio>` element; without it, the component is purely visual and the caller drives `playing`
+- Never autoplays: the underlying `<audio>` element is only played or paused in response to a `playing` change made **after** the initial mount, and its `muted` property is never touched
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` / `Enter` | Toggles play/pause (native `<button>` behavior) |
+| `Arrow Right` / `Arrow Up` | Seeks forward, when `onSeek` is provided |
+| `Arrow Left` / `Arrow Down` | Seeks backward, when `onSeek` is provided |
+| `Home` / `End` | Jumps to the start / end of the track |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-pressed` | Play/pause button | Reflects the current playing state |
+| `aria-label` | Play/pause button | Reads "Play"/"Pause" plus the track title and artist |
+| `role="slider"` | Progress ring | Exposes the seek control to assistive technology |
+| `aria-valuenow` / `aria-valuemin` / `aria-valuemax` | Progress ring | Exposes playback position as a 0–100 percentage |
+| `aria-hidden="true"` | Cover art, waveform | Hides purely decorative visuals |
+
+### Screen Reader
+
+- The play/pause button is a real `<button>`, so it is announced with its role, pressed state and label out of the box.
+- The waveform bars are `aria-hidden`; they carry no information not already exposed by the play/pause state.
+- The seek ring is only focusable (`tabIndex={0}`) when `onSeek` is supplied — otherwise it is skipped by keyboard navigation.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the cover art stops rotating, the waveform bars stop animating, and the play/pause icon swaps instantly instead of morphing.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/music-toggle/index.tsx"
+  name="MusicToggleProps"
+/>

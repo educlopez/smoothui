@@ -1,0 +1,45 @@
+{
+  "name": "@repo/auth-form",
+  "description": "A presentation-only sign-in / sign-up form that reveals fields progressively and stays fully accessible.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "forms",
+    "tags": [
+      "auth",
+      "sign-in",
+      "sign-up",
+      "form",
+      "progressive-disclosure",
+      "password",
+      "accessible",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Sign-in and sign-up pages with progressive field disclosure",
+      "Auth modals that morph between sign-in and sign-up",
+      "Password creation flows with live requirement feedback"
+    ],
+    "compositionHints": [
+      "Wire onSubmit to your own auth call — this component never authenticates",
+      "Pass status and error/fieldErrors from your form library or server response",
+      "Use with SmoothButton or custom footer content for legal text"
+    ],
+    "hasReducedMotion": true
+  }
+}

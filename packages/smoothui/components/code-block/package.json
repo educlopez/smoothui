@@ -1,0 +1,42 @@
+{
+  "name": "@repo/code-block",
+  "description": "A CodeBlock component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "content",
+    "tags": [
+      "code",
+      "syntax-highlighting",
+      "copy",
+      "typing",
+      "terminal",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "tween",
+    "useCases": [
+      "Documentation and blog post code snippets",
+      "Landing page feature showcase with a typing code demo",
+      "Terminal/installation command display with copy button"
+    ],
+    "compositionHints": [
+      "Pair with file-tree to preview the selected file's contents",
+      "Use the typing mode inside a hero section for a live-coding feel"
+    ],
+    "hasReducedMotion": true
+  }
+}

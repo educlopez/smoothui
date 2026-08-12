@@ -1,0 +1,68 @@
+---
+title: Social Hover Card
+description: A profile hover card — an avatar or handle trigger that expands into a rich preview with stats, bio and a follow action.
+icon: UserRound
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: social-hover-card
+---
+
+## Features
+
+- Opens on hover (with a configurable `openDelay`) on hover-capable pointers, and on focus or click otherwise
+- `placement="auto"` measures available viewport space and flips between top and bottom
+- The card scales up from a `transform-origin` derived from its resolved placement
+- Numeric stats roll up from zero when the card opens
+- The follow button morphs its label between "Follow" and "Following" with a width `layout` animation
+- Works controlled (`following` / `onFollowChange`) or uncontrolled
+- `loading` renders a skeleton card in place of real content
+- Fully respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Trigger | Reflects whether the preview card is open |
+| `aria-haspopup="dialog"` | Trigger | Announces that activating it opens a dialog-like preview |
+| `role="dialog"` | Card | Applied only when the card was opened via focus, since it is then focus-reachable |
+| `aria-label` | Card | Names the dialog as "`{name}` profile preview" when it has the dialog role |
+| `aria-pressed` | Follow button | Reflects the current follow state |
+| `aria-label="Verified account"` | Verified badge | Announces the verified badge to assistive technology |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus to the trigger, then into the card's follow button |
+| `Enter` / `Space` | Activates the trigger (on non-hover-capable pointers) or the follow button |
+| `Escape` | Closes the card and returns focus to the trigger |
+
+### Screen Reader
+
+- The trigger is a real `<button>` with `aria-expanded` and `aria-haspopup`, so its state is announced without relying on visual cues.
+- The card only takes the `dialog` role when it was opened through keyboard focus, since a hover-triggered preview is not focus-trapped and should not be announced as a modal.
+- Stat values are rendered as plain text nodes, so the animated count-up does not interfere with the final announced value.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the card fades in with opacity only (no scale), and stat numbers render their final value immediately instead of rolling up.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/social-hover-card/index.tsx"
+  name="SocialHoverCardProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/social-hover-card/index.tsx"
+  name="SocialProfile"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/social-hover-card/index.tsx"
+  name="SocialProfileStat"
+/>

@@ -2,7 +2,7 @@
 // Run `pnpm counts` in apps/docs after adding a component, block or template.
 
 /** Documented components, one per page under /docs/components. */
-export const COMPONENT_COUNT = 130;
+export const COMPONENT_COUNT = 197;
 
 /** Individual blocks — every <Preview> across the block category pages. */
 export const BLOCK_COUNT = 34;

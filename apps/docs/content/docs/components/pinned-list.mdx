@@ -1,0 +1,75 @@
+---
+title: Pinned List
+description: A list where selected items pin to the top and animate out of the flow into a dedicated pinned section.
+icon: Pin
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: pinned-list
+---
+
+## Features
+
+Four springs, each tuned for its own job, so pinning reads as a physical launch rather than a rigid reflow:
+
+- **The launch** — pinning moves the row into the pinned group through a shared `layoutId` on a spring with real overshoot (`bounce: 0.3`), so the row visibly arrives rather than sliding to a stop
+- **The landing pop** — the row compresses to `0.985` and settles back in two decaying steps as it lands in the pinned group, on an inner wrapper so the pop never fights the layout projection. It squashes rather than inflates on purpose: a row that grows past `1` pushes outside the list, and the list almost always sits in a scroller, so an inflating pop gets sliced off exactly when it is biggest
+- **The pin** — the icon rotates 45° and fills on its own, snappier spring (`bounce: 0.32`, `0.2s`), ahead of the row it belongs to
+- **The gap** — the rows closing the gap underneath each get a small incremental layout delay, so the group settles one row after another instead of moving as one block
+
+Plus:
+
+- Pinned rows are marked structurally rather than with a fill: the surface lifts on a real shadow with a crisper edge, a short accent rail grows on the leading edge, and the pin itself carries the colour — unpinned rows sit flat and transparent underneath
+- Every row keeps a 4px halo inside the list, so the landing rebound, the launch overshoot and the focus ring all stay clear of whatever clips the list
+- Works controlled (`pinnedIds` / `onPinnedChange`) or uncontrolled
+- `maxPinned` caps how many items can be pinned at once
+- Optional `renderItem` for fully custom row content
+- The row itself is the control: it carries the roving tabindex, so `Arrow`, `Home`, `End` and `P` always reach a row that actually holds focus
+- Pinned and unpinned rows live in one list, so pinning reorders a row inside its parent rather than tearing it out of one list and rebuilding it in another — and focus stays on the row that moved
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="button"` | Row | The whole row is the pin control, so there is one tab stop and one keyboard target per row |
+| `aria-pressed` | Row | Reflects whether the row is currently pinned |
+| `aria-label="Pin / Unpin {title}"` | Row | Names the action and its target for assistive technology, flipping with the pinned state |
+| `aria-disabled` | Row | Indicates the pin action is unavailable once `maxPinned` is reached |
+| `aria-label` | List | Names the list, from the `label` prop |
+| `aria-hidden="true"` | Divider, pin icon | Hides the purely visual separator and the pin glyph from assistive technology |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus into the list, landing on the last focused row (the first row initially) |
+| `ArrowDown` / `ArrowRight` | Moves focus to the next row, wrapping at the end |
+| `ArrowUp` / `ArrowLeft` | Moves focus to the previous row, wrapping at the start |
+| `Home` / `End` | Moves focus to the first / last row |
+| `P` | Toggles pin on the focused row |
+| `Enter` / `Space` | Toggles pin on the focused row |
+
+### Screen Reader
+
+- Every row is a labelled, pressable control, so the pinned state is announced without relying on the icon rotation alone.
+- Rows render inside one semantic `<ul>` named by `label`, and reordering a row keeps its position in the list announcement consistent with what is on screen.
+- When there are no pinned items, an `emptyPinnedMessage` row is rendered at the top of the list.
+- Focus returns to the acted-on row after it moves between the pinned and unpinned groups, so a keyboard user never loses their place.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, layout animation is switched off entirely so rows cut straight to their final position, and the landing pop, the staggered gap close and the pin rotation all resolve instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pinned-list/index.tsx"
+  name="PinnedListProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pinned-list/index.tsx"
+  name="PinnedListItem"
+/>

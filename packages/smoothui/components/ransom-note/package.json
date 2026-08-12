@@ -1,0 +1,42 @@
+{
+  "name": "@repo/ransom-note",
+  "description": "A RansomNote component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "ransom-note",
+      "typography",
+      "playful",
+      "seeded-random",
+      "deterministic",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Playful heading that looks cut out of magazine letters",
+      "404 or empty state message with a hand-made, ransom-note feel",
+      "Callout or badge text that stands out with mixed fonts and rotations"
+    ],
+    "compositionHints": [
+      "Use as a standalone headline, sized via className with a font-size utility",
+      "Pair with a plain sr-only-safe surrounding heading for extra emphasis"
+    ],
+    "hasReducedMotion": true
+  }
+}

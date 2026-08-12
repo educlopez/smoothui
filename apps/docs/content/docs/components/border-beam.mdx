@@ -1,0 +1,54 @@
+---
+title: Border Beam
+description: A soft light comet that travels along an element's border, curving through every corner because it is a stroked dash on the outline path itself.
+icon: Frame
+dependencies:
+  - motion.dev
+installer: border-beam
+---
+
+## Features
+
+- The comet **is** the border: every segment is a `stroke-dasharray` dash on the same SVG outline `<path>`, so it is curved by construction and can never leave the shape — nothing is translated or rotated along the path
+- Only `stroke-dashoffset` animates, on a path normalised with `pathLength={1}`, so the dash slides *through* a corner instead of pivoting across it
+- The tail is four dashes sharing one head: each successive layer is longer and fainter, so alpha accumulates towards the head and the exposed far end reads as the tip of the trail
+- The halo is a single blurred dash stroked in a **lighter** tint of the beam colour, mixed towards white in `oklab`. Blurring a dark stroke produces a shadow, not a glow, so no layer is ever allowed to be darker than the beam
+- On dark surfaces the halo composites with `mix-blend-mode: plus-lighter`, so the blur adds light instead of laying haze over the card; on light surfaces it composites normally, where an additive glow would wash out to nothing
+- The ring is a plain hairline in `--color-border`, decoupled from `colorFrom`/`colorTo` — those two only ever colour the beam, so they are free to be as bright as a glow needs
+- `radius` accepts a pixel value or `"squircle"` for continuous, Apple-style corners with no constant-radius arc at all
+- Any number of `beams`, which are phase offsets of the same normalised offset, so they stay evenly spaced at any `duration`
+- `reverse` runs the offset the other way and flips which end of the dash leads, so the comet still travels head-first
+- `pauseOnHover` freezes the animation frame loop, only on hover-capable, fine-pointer devices
+- An `IntersectionObserver` skips every style write while the element is scrolled out of view
+- `active` lets you drive the beam from loading or focus state
+- Auto-measures with a `ResizeObserver`, so the path re-derives on layout change
+
+## Notes
+
+`radius="squircle"` draws the ring and the travel path as a continuous curve, but it does not clip the wrapper — a rectangular background on the same element would show square corners behind a squircle ring. Either leave the wrapper transparent, or clip the surface yourself (the [Squircle](/docs/components/squircle) component does exactly that).
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Border ring SVG | Hides the decorative gradient outline from assistive technologies |
+| `aria-hidden="true"` | Comet dashes | Hides the travelling lights from assistive technologies |
+
+### Screen Reader
+
+- The whole SVG overlay is `aria-hidden` and `pointer-events: none`, so it never intercepts clicks nor reaches the accessibility tree.
+- The wrapper adds no role or semantics: `children` keep whatever roles, labels and focus order they already had.
+- When you use the beam as a loading affordance, expose that state separately (for example `aria-busy` or a live region) — motion alone is not announced.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, no comet dashes are rendered and no frame loop starts; the border falls back to the same gradient stroke at full opacity, so the element keeps its highlighted look without any travel.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/border-beam/index.tsx"
+  name="BorderBeamProps"
+/>

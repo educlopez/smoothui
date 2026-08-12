@@ -1,0 +1,40 @@
+---
+title: Tilt Card
+description: A 3D pointer-tilt card with an optional glare highlight and depth-based parallax for nested content.
+icon: Box
+dependencies:
+  - motion.dev
+installer: tilt-card
+---
+
+## Features
+
+- Pointer position drives `rotateX`/`rotateY` via motion values, smoothed with a spring
+- Optional glare highlight that follows the cursor using `useMotionTemplate`
+- Optional parallax: any nested element with `data-tilt-depth="0..1"` translates proportionally to its depth
+- Responds to keyboard focus on a nested focusable element with a subtle fixed tilt, so the effect is not hover-only
+- Touch and non-hover devices, and `prefers-reduced-motion`, render completely flat with no glare and no pointer/focus listeners attached
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Glare overlay | Hides the decorative glare layer from assistive technology |
+
+### Screen Reader
+
+- `TiltCard` only wraps `children` — it adds no roles or focus traps of its own, so any interactive content you place inside (links, buttons) keeps its native semantics.
+- The tilt-on-focus behavior listens for focus bubbling from a nested focusable element rather than adding a redundant tab stop on the card itself.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, or the device lacks fine hover/pointer support, `TiltCard` never sets rotation, scale, or glare values and does not attach pointer or focus listeners at all — the card renders completely flat.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/tilt-card/index.tsx"
+  name="TiltCardProps"
+/>

@@ -1,0 +1,43 @@
+{
+  "name": "@repo/emboss-surface",
+  "description": "An EmbossSurface component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "emboss",
+      "deboss",
+      "letterpress",
+      "skeuomorphic",
+      "shadow",
+      "material",
+      "svg-filter",
+      "texture"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Letterpress headings on a tinted surface",
+      "Debossed keycaps, badges and stamped labels",
+      "Plaster or metal-stamp treatment for logos and icons"
+    ],
+    "compositionHints": [
+      "Use as=\"h2\" to emboss headings directly",
+      "Nest around clip-corners-button for a stamped control"
+    ],
+    "hasReducedMotion": true
+  }
+}

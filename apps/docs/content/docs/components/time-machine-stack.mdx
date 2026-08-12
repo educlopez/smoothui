@@ -1,0 +1,66 @@
+---
+title: Time Machine Stack
+description: A macOS Time Machine style stack of panels receding into depth, with one item focused at the front and full keyboard, wheel, and drag navigation.
+icon: SquareStack
+dependencies:
+  - motion.dev
+installer: time-machine-stack
+---
+
+## Features
+
+- Panels recede into a 3D perspective stack through scale, vertical offset and z-translation — never through opacity. Every panel is fully opaque and backed by a solid surface, so it occludes the one behind it, which is what makes a stack read as a stack rather than as overlapping ghosts
+- Opacity is spent only where it describes something real: the single panel entering or leaving the visible window. Panels inside the window always resolve to exactly `1`, so an interrupted step can never strand one half-faded
+- Fills its container in both axes, so the focused panel can be a full-size card rather than a thumbnail
+- Reserves headroom for the receding panels and anchors every panel to the bottom edge, so the depth is always visible behind the front one
+- Direction-aware enter/exit: travelling forward the front panel flies past the viewer, travelling back it falls in from the front
+- Navigate with trackpad/mouse wheel, Arrow Up / Down, Home / End, or vertical drag
+- The wheel is handed back to the page at either end of the stack, so it never traps the document scroll
+- Fully controlled or uncontrolled `index`
+- Items beyond `visibleCount` are unmounted, not just visually hidden
+- Smooth spring transitions as panels enter and leave the visible window, driven by a single `transform` string so the depth animation stays on the compositor
+- Accessible listbox semantics with a live region announcing position
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="listbox"` | Stack container | Identifies the stack as a single-selection listbox |
+| `aria-activedescendant` | Stack container | Points to the id of the front-most (selected) panel |
+| `role="option"` | Each panel | Identifies each panel as a selectable option |
+| `aria-selected` | Each panel | Marks the front panel as the current selection |
+| `aria-label="Time machine stack"` | Stack container | Gives the widget a descriptive name |
+| `aria-live="polite"` | Visually-hidden status text | Announces "Item N of M" whenever the front panel changes |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| <kbd>Arrow Down</kbd> | Move to the next (deeper) item |
+| <kbd>Arrow Up</kbd> | Move to the previous item |
+| <kbd>Home</kbd> | Jump to the newest (first) item |
+| <kbd>End</kbd> | Jump to the oldest (last) item |
+| <kbd>Tab</kbd> | Move focus to/from the stack container |
+
+### Screen Reader
+
+- The stack container is focusable (`tabIndex={0}`) and exposes `role="listbox"` with `aria-activedescendant` so screen readers announce the currently focused option.
+- A visually-hidden `aria-live="polite"` region announces "Item N of M" every time navigation changes the front-most item.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the 3D depth (scale, vertical offset, and z-translation) is removed and panels cross-fade instantly between states instead of animating through the stack.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/time-machine-stack/index.tsx"
+  name="TimeMachineStackProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/time-machine-stack/index.tsx"
+  name="TimeMachineStackItem"
+/>

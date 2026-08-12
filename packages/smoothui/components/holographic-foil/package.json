@@ -1,0 +1,43 @@
+{
+  "name": "@repo/holographic-foil",
+  "description": "A HolographicFoil component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "holographic",
+      "foil",
+      "iridescent",
+      "trading-card",
+      "tilt",
+      "gradient",
+      "pointer",
+      "interactive"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Trading card or collectible with iridescent foil finish",
+      "Premium pricing tier card with holographic sheen",
+      "Product hero image with pointer-driven prismatic light"
+    ],
+    "compositionHints": [
+      "Wrap tilt-card or any content card to add a foil pass",
+      "Pair with photo-stack for a collectible card gallery"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,0 +1,72 @@
+---
+title: Motion Loader
+description: One loader component with twelve animated variants — orbit, newton cradle, pendulum, hourglass and more — all resolution independent and driven by transform and opacity only.
+icon: LoaderCircle
+dependencies:
+  - motion.dev
+installer: motion-loader
+---
+
+## Features
+
+- Twelve loaders from a single install, switched with the `variant` prop
+- Every variant animates `transform` and `opacity` only — no layout thrash, no paint-heavy properties
+- Resolution independent: SVG or scaled elements derived from a single `size` prop
+- Colour comes from `currentColor` by default, so a loader inherits the surrounding text colour; `color` overrides it
+- `speed` multiplier to tune the loop without touching the component
+- Announced as a live status region with a configurable `label`
+
+## Variants
+
+| Variant | Description | Animated properties |
+|---------|-------------|---------------------|
+| `orbit` | A dot circling a faint track ring | `rotate` |
+| `newton-cradle` | Five hanging balls, outer ones swinging in turn | `rotate` |
+| `pendulum` | Single arm swinging with an ease-in-out arc | `rotate` |
+| `hourglass` | Hourglass glyph flipping every half cycle | `rotate` |
+| `morph-ring` | Two counter-rotating dashed arcs with a scale pulse | `rotate`, `scale` |
+| `square-snake` | A square travelling the four corners of a 2×2 grid | `x`, `y` |
+| `comet` | A head dot with a fading four-dot tail sweeping the circle | `rotate` |
+| `radar` | A conic sweep rotating inside a circular mask | `rotate` |
+| `cube-flip` | A square flipping across both axes in perspective | `rotateX`, `rotateY` |
+| `wave-bars` | Five bars scaling vertically with a stagger | `scaleY` |
+| `breathing-glow` | A blurred halo breathing around a solid core | `scale`, `opacity` |
+| `dot-ring` | Eight dots fading in sequence around a circle | `opacity` |
+
+The full list is exported as `MOTION_LOADER_VARIANTS`:
+
+```tsx
+import MotionLoader, {
+  MOTION_LOADER_VARIANTS,
+} from "@repo/smoothui/components/motion-loader";
+
+<MotionLoader variant="orbit" size={40} label="Loading results" />;
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="status"` | Loader wrapper | Marks the loader as a status region so assistive technologies observe it |
+| `aria-live="polite"` | Loader wrapper | Announces the loading state without interrupting the user |
+| `aria-label` | Loader wrapper | Names the region from the `label` prop |
+| `sr-only` text node | Inside the wrapper | Gives the live region announceable text content |
+
+### Screen Reader
+
+- The loader is a labelled live region: mounting it announces the `label` politely, and unmounting it silences the region.
+- Give each loader a specific label (`"Loading results"`, `"Saving changes"`) rather than the generic default when several can appear on the same screen.
+- The loader is not focusable and adds nothing to the tab order.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, every variant renders a single static frame — no `animate` or `transition` props are passed, so nothing loops. The wrapper still exposes `role="status"`, `aria-live="polite"` and the label, so the loading state remains fully announced.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/motion-loader/index.tsx"
+  name="MotionLoaderProps"
+/>

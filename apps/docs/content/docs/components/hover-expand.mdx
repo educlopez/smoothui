@@ -1,0 +1,56 @@
+---
+title: Hover Expand
+description: An accordion-style gallery where panels expand on hover or focus and collapse the rest, with a rotating label in collapsed state.
+icon: Columns3
+dependencies:
+  - motion.dev
+installer: hover-expand
+---
+
+## Features
+
+- Flex-basis/flex-grow driven expansion animated with Motion
+- Horizontal or vertical orientation, with labels rotating vertical when collapsed in horizontal mode
+- Each panel is a real, focusable `<button>` — focus expands it
+- Tap-to-expand on touch/non-hover devices instead of relying on hover
+- Controlled `activeIndex`/`onActiveIndexChange` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` | Panel container | Groups the panels as a single widget |
+| `aria-label` | Panel container | Names the widget "Expandable image panels" |
+| `aria-label` | Each panel button | Names the panel by its title |
+| `aria-pressed` | Each panel button | Indicates whether the panel is currently expanded |
+
+### Screen Reader
+
+- Each panel is a native `<button>`, so its expanded state is exposed via `aria-pressed` and its label via `aria-label`.
+- Panel titles and descriptions remain in the DOM at all times; only their visual rotation/opacity changes.
+
+### Keyboard
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between panels in document order |
+| `ArrowRight` / `ArrowDown` | Moves focus (and expansion) to the next panel |
+| `ArrowLeft` / `ArrowUp` | Moves focus (and expansion) to the previous panel |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the flex-grow change is instant with no spring easing, and labels do not rotate or animate their opacity.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/hover-expand/index.tsx"
+  name="HoverExpandProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/hover-expand/index.tsx"
+  name="HoverExpandItem"
+/>

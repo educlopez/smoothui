@@ -1,0 +1,60 @@
+---
+title: Scroll Image Reveal
+description: An image revealed by an animated mask as it scrolls into view, with a counter-parallax on the image itself.
+icon: Image
+dependencies:
+  - motion.dev
+installer: scroll-image-reveal
+---
+
+## Features
+
+- Five mask styles — wipe, curtain, circle, blinds and scale
+- Independent counter-parallax travel on the image itself
+- The mask is applied to the frame, never the image, so a clip always lines up with the frame's edges
+- The image is overscanned by the parallax distance on both edges, so the travel can never drag a strip of background into view
+- The `scale` mask settles *down* from a slight overscan instead of growing from smaller than the frame, so no gap ever opens at the sides
+- Driven by `motion/react`'s `useScroll` with a spring for organic easing
+- Works against the window or any scrollable ancestor via the `container` prop
+- Optional `once` mode that never re-hides the image after it has revealed
+- Only animates `clip-path`, `mask-image`, `opacity`, `scale` and `transform` — all compositor-friendly
+- Full `prefers-reduced-motion` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `alt` | `img` | Required accessible description, always rendered regardless of animation state |
+
+### Screen Reader
+
+- The image is a standard `<img>` with the required `alt` text — screen readers announce it immediately, independent of scroll position or mask progress.
+- No content is hidden from assistive technology; only the visual reveal is animated.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the image renders fully visible immediately — no clip-path mask, no mask-image, no scale-in and no parallax travel are applied, and the parallax overscan collapses to zero so the image sits flush in its frame.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/scroll-image-reveal/index.tsx"
+  name="ScrollImageRevealProps"
+/>
+
+<Callout type="warn">
+  Two things to get right when you pass `container`:
+
+  1. **Give it a definite height** — `h-[440px]`, `h-dvh`, a grid track — plus
+     `overflow-y-auto`. A percentage height like `h-full` resolves to `auto`
+     against a content-sized parent, so the container grows to fit every frame
+     at once and no reveal ever runs.
+  2. **Do not wrap the frames in a positioned element.** Progress is resolved by
+     walking `offsetParent` from the frame up to the scroll container, so a
+     `relative` div between the two — added for a gradient overlay, say — ends
+     that walk early and the frames report zero progress wherever they actually
+     are. Position overlays against an ancestor *outside* the scroller instead.
+</Callout>
+

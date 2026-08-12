@@ -1,0 +1,45 @@
+---
+title: Text Morph
+description: Morphs one string into another by diffing tokens — shared characters slide to their new position, removed ones shrink out, added ones pop in.
+icon: Wand2
+dependencies:
+  - motion.dev
+installer: text-morph
+---
+
+## Features
+
+- Character or word-level diffing between the previous and current `text`
+- Shared tokens keep their identity and slide via layout animation instead of re-animating
+- Removed tokens shrink out, added tokens spring in
+- The surrounding wrapper width animates smoothly so nearby content never jumps
+- Exiting tokens resolve against the component's own box, so they always animate out in place instead of escaping to a corner of the page
+- Per-token stagger is capped, so a long sentence morphs as briskly as a short label
+- Exits are shorter than entrances, so removed tokens clear out of the way instead of trailing behind
+- Respects `prefers-reduced-motion` with an instant swap
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Wrapper element | Exposes the full, intact string once to assistive technology |
+| `aria-hidden="true"` | Per-token spans | Hides the fragmented, animated tokens from screen readers |
+
+### Screen Reader
+
+- The wrapper carries `aria-label={text}`, so screen readers announce the current string as a single, coherent phrase.
+- The animated character or word spans underneath are `aria-hidden`, so nothing is read out twice or letter-by-letter.
+- The text remains selectable in the DOM at all times.
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the component renders the final string directly with no token splitting, no layout animation, and no spring transitions.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/text-morph/index.tsx"
+  name="TextMorphProps"
+/>

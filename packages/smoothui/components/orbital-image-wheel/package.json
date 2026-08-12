@@ -1,0 +1,42 @@
+{
+  "name": "@repo/orbital-image-wheel",
+  "description": "An OrbitalImageWheel component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "media",
+    "tags": [
+      "carousel",
+      "wheel",
+      "orbit",
+      "drag",
+      "images",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "momentum",
+    "useCases": [
+      "Circular gallery of team members, products or logos",
+      "Draggable image carousel with momentum and auto-rotation",
+      "Ferris-wheel style showcase of media items"
+    ],
+    "compositionHints": [
+      "Provide square images for consistent thumbnails",
+      "Use activeId to sync the highlighted item with external UI"
+    ],
+    "hasReducedMotion": true
+  }
+}

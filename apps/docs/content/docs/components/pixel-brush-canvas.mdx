@@ -1,0 +1,63 @@
+---
+title: Pixel Brush Canvas
+description: A pixel-art drawing surface with pencil, eraser, fill, line and rectangle brushes — fully operable from the keyboard.
+icon: Paintbrush
+dependencies:
+  - motion.dev
+installer: pixel-brush-canvas
+---
+
+## Features
+
+- Pencil, eraser, iterative flood-fill, line and rectangle brushes
+- Pixel state stored in a typed `Uint8Array`; strokes redraw only the dirty region instead of the whole canvas
+- Undo stack capped at a fixed depth (`MAX_UNDO_STEPS`), backed by pixel-buffer snapshots
+- Fully keyboard-operable: move a focus cursor, paint, switch tools and undo without a pointer
+- Imperative `ref` API (`clear`, `undo`, `toDataURL`, `getPixels`) for wiring external toolbars
+- Backing store capped at 2x device pixel ratio for crisp but bounded-cost rendering
+- No idle animation on the canvas — only the surrounding tool palette animates, and it respects reduced motion
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="application"` | Canvas wrapper | Marks the region as a custom keyboard-driven widget with its own key bindings |
+| `aria-label="Pixel art drawing canvas"` | Canvas wrapper | Gives the application region an accessible name |
+| `aria-live="polite"` | Hidden live region inside the wrapper | Announces the focused cell and paint results without interrupting |
+| `aria-label` | Color swatch buttons | Identifies each swatch by position and color value |
+| `aria-pressed` | Color swatch buttons | Reflects whether that color is currently selected |
+| `aria-label` | Brush tool buttons | Names the tool and its keyboard shortcut, when it has one |
+| `aria-pressed` | Brush tool buttons | Reflects whether that brush is currently active |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Arrow Up / Down / Left / Right` | Move the focus cursor one cell at a time, clamped to the grid bounds |
+| `Space` | Paint at the focus cursor with the current brush and color. For Line/Rectangle, the first press sets an anchor and the second press commits the shape |
+| `B` | Switch to the pencil brush |
+| `E` | Switch to the eraser brush |
+| `G` | Switch to the fill (bucket) brush |
+| `Cmd/Ctrl + Z` | Undo the last committed stroke, fill, line, rectangle or clear |
+
+### Screen Reader
+
+A visually hidden `aria-live="polite"` region inside the canvas wrapper announces the focus cursor's column and row plus the resulting color every time the cursor moves or a paint action completes (for example, "Column 4, row 2. Color: #ef4444." or "Anchor set at column 3, row 5. Move and press space again to finish."). This keeps non-visual users oriented on the grid without needing to see the canvas.
+
+### Reduced Motion
+
+The canvas itself never animates — pixel painting is an immediate, one-frame redraw of only the affected region, with no transitions to disable. The tool palette (color swatch selection ring, hover/focus color transitions) uses `useReducedMotion` from Motion: when reduced motion is preferred, the selection indicator appears instantly with a `duration: 0` transition instead of springing in.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pixel-brush-canvas/index.tsx"
+  name="PixelBrushCanvasProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pixel-brush-canvas/index.tsx"
+  name="PixelBrushCanvasHandle"
+/>

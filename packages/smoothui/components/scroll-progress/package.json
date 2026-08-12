@@ -1,0 +1,42 @@
+{
+  "name": "@repo/scroll-progress",
+  "description": "A reading-progress indicator with bar, ring, number and segmented variants.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "scroll",
+      "progress",
+      "reading",
+      "indicator",
+      "bar",
+      "ring",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "scroll",
+    "useCases": [
+      "Top-of-article reading progress bar for long-form content",
+      "Ring or number indicator for a documentation sidebar",
+      "Segmented progress for multi-step scrollytelling sections"
+    ],
+    "compositionHints": [
+      "Point container at the same scrollable box as scroll-image-reveal or svg-draw-on-scroll for a coordinated feel",
+      "Use the number or ring variant inside a sticky sidebar"
+    ],
+    "hasReducedMotion": true
+  }
+}

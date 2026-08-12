@@ -1,0 +1,43 @@
+{
+  "name": "@repo/dither-image",
+  "description": "A DitherImage component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "media",
+    "tags": [
+      "dither",
+      "bayer",
+      "atkinson",
+      "floyd-steinberg",
+      "canvas",
+      "retro",
+      "pixel",
+      "image"
+    ],
+    "complexity": "advanced",
+    "animationType": "tween",
+    "useCases": [
+      "Retro one-bit treatment for editorial or blog imagery",
+      "Duotone brand imagery generated at runtime from theme tokens",
+      "Progressive dither pass that resolves as the image scrolls into view"
+    ],
+    "compositionHints": [
+      "Pair with hover-expand for a dithered gallery",
+      "Use inside expandable-cards to keep media weight low"
+    ],
+    "hasReducedMotion": true
+  }
+}

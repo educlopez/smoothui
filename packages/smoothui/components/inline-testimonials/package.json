@@ -1,0 +1,42 @@
+{
+  "name": "@repo/inline-testimonials",
+  "description": "Testimonial quotes woven into a paragraph that expand inline on hover or focus.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.555.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "content",
+    "tags": [
+      "testimonials",
+      "inline",
+      "popover",
+      "quote",
+      "social-proof",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Editorial copy that credits named collaborators with expandable quotes",
+      "About page paragraph weaving in customer testimonials",
+      "Case study narrative with contextual social proof"
+    ],
+    "compositionHints": [
+      "Use with reviews-carousel for a dedicated testimonials section",
+      "Pair with social-hover-card for author bios on the same page"
+    ],
+    "hasReducedMotion": true
+  }
+}

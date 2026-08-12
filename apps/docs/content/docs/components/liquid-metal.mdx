@@ -1,0 +1,54 @@
+---
+title: Liquid Metal
+description: An animated liquid-chrome material rendered with a domain-warped WebGL2 shader, with pointer-reactive flow and a text-clipped mode.
+icon: Droplets
+dependencies:
+  - motion.dev
+installer: liquid-metal
+---
+
+## Features
+
+- Real-time WebGL2 fragment shader: fractal Brownian motion → domain warp → fake reflective normals
+- Four palettes: `chrome`, `gold`, `mercury` and `oil` (iridescent)
+- Pointer pushes the flow field, eased frame by frame so it never snaps
+- `maskText` clips the material to your type via `background-clip: text`
+- `speed`, `distortion` and `paused` are live — changing them never rebuilds the GL context
+- Rendering pauses automatically when the surface scrolls out of view
+- Device pixel ratio aware (capped at 2×) with `WEBGL_lose_context` teardown on unmount
+- Graceful fallback to a static CSS conic gradient in the same palette when WebGL2 is unavailable
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Shader canvas | Hides the decorative metal surface from assistive technologies |
+| `aria-hidden="true"` | CSS fallback layer | Hides the static gradient stand-in from assistive technologies |
+
+### Screen Reader
+
+- The canvas (and its CSS fallback) carry no semantics and are marked `aria-hidden`, so screen readers only announce the `children` you pass.
+- In `maskText` mode the text stays real text in the DOM — it is painted through a clipped background, never rasterised — so it remains selectable, searchable and announced normally.
+- Make sure content layered over the surface keeps sufficient contrast; the shader is decorative and should never be the only carrier of meaning.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, no WebGL context is created at all: the box renders the static CSS conic gradient, `maskText` renders a fixed gradient with no sweep, and no `requestAnimationFrame` loop is started. The same happens when the element leaves the viewport or when `paused` is set.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/liquid-metal/index.tsx"
+  name="LiquidMetalProps"
+/>
+
+### Variants
+
+| Variant | Look |
+|---------|------|
+| `chrome` | Cool polished steel with hard specular highlights (default) |
+| `gold` | Warm brushed gold with deep amber shadows |
+| `mercury` | High-contrast silver, closest to a mirror |
+| `oil` | Iridescent oil-slick sheen driven by a cosine palette |

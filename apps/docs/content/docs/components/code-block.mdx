@@ -1,0 +1,57 @@
+---
+title: Code Block
+description: An animated code block with copy-to-clipboard, line highlighting and a typing reveal mode, built on a lightweight tokeniser.
+icon: Code2
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: code-block
+new: 2026-08-10
+---
+
+## Features
+
+- Lightweight regex-based tokeniser for `js`, `ts`, `tsx`, `json`, `bash` and `css`
+- Copy-to-clipboard button with a check-mark swap and `aria-live` confirmation
+- Line highlighting with a brand-tinted background and left bar
+- Optional typing reveal mode driven by a single `requestAnimationFrame` loop, starting on mount or when scrolled into view
+- Line numbers that stay unselectable so copying only grabs real code
+- Content renders in a real `<pre><code>`, so it stays selectable and copyable even without JavaScript
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Copy button | Announces "Copy code" or "Copied to clipboard" depending on state |
+| `aria-live="polite"` | Hidden status span inside the copy button | Announces the copy confirmation to screen readers |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Focuses the copy button when `copyable` is enabled |
+| `Enter` / `Space` | Activates the focused copy button |
+
+### Screen Reader
+
+- The code itself lives in a semantic `<pre><code>` element, so screen readers and browser "find on page" can read and locate it normally.
+- Line numbers are marked `select-none` so they are excluded from copied text, and they are purely decorative for sighted scanning.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, typing mode renders the full code instantly instead of animating character-by-character, and the copy button's icon swap happens without a scale/opacity transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/code-block/index.tsx"
+  name="CodeBlockProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/code-block/index.tsx"
+  name="CodeBlockLanguage"
+/>

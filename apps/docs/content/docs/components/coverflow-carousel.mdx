@@ -1,0 +1,56 @@
+---
+title: Coverflow Carousel
+description: A 3D perspective carousel with drag/swipe, keyboard navigation, autoplay, and an inverted rotation mode for side slides.
+icon: GalleryHorizontal
+dependencies:
+  - motion.dev
+installer: coverflow-carousel
+---
+
+## Features
+
+- Pure transform math (`rotateY`, `translateZ`, `scale`, `zIndex`) — no carousel library
+- Draggable/swipeable with a velocity-based commit threshold
+- Optional `inverted` mode that flips the rotation direction of side slides
+- Autoplay that pauses on hover, focus, and when the tab is hidden
+- Controlled `index`/`onIndexChange` support and optional looping
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="region"` | Carousel container | Identifies the carousel as a distinct region |
+| `aria-roledescription="carousel"` | Carousel container | Describes the widget type to assistive tech |
+| `aria-hidden` | Off-screen slides | Hides non-active slides from assistive technology |
+| `aria-label` | Previous/Next buttons | Names each navigation control |
+
+### Screen Reader
+
+- A visually hidden live region (`aria-live="polite"`) announces "Slide N of M" whenever the active slide changes.
+- Only the active slide is exposed to assistive technology; the rest are `aria-hidden`.
+
+### Keyboard
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus into the carousel region |
+| `ArrowLeft` | Goes to the previous slide |
+| `ArrowRight` | Goes to the next slide |
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the 3D rotation and depth are removed in favor of a simple cross-fade between flat slides, dragging is disabled, and autoplay is turned off.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/coverflow-carousel/index.tsx"
+  name="CoverflowCarouselProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/coverflow-carousel/index.tsx"
+  name="CoverflowCarouselItem"
+/>

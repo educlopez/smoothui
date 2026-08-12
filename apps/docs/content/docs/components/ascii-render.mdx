@@ -1,0 +1,69 @@
+---
+title: ASCII Render
+description: Render an image or a video as live ASCII characters, sampled through a canvas and painted into a single pre element.
+icon: Binary
+dependencies:
+  - motion.dev
+installer: ascii-render
+---
+
+## Features
+
+- Works with both `image` and `video` sources through the same luminance pipeline
+- The frame is sampled into an offscreen canvas exactly `columns` wide, so the cost scales with the character grid, not the source resolution
+- Each frame is assembled as **one string** and written to a single `<pre>` — never one DOM node per character
+- `color="source"` keeps the glyphs but tints them with the frame using `background-clip: text` and the sampled canvas, so colour costs no extra DOM
+- Custom `charset` ramps ordered dense to sparse, plus `invert` to flip the mapping
+- `fps` throttles video sampling, and an `IntersectionObserver` stops the loop and pauses the video when the component scrolls out of view
+- `paused` freezes the current frame without tearing down the renderer
+- Graceful degradation: a tainted canvas, a decode error or a blocked autoplay leaves the original media visible
+
+## Usage notes
+
+- The source must allow cross-origin reads. The media element requests it with `crossOrigin="anonymous"`; if the canvas ends up tainted the `getImageData` call throws and the component falls back to showing the media directly.
+- `columns` is clamped to `8`–`240`. Rows are derived from the source aspect ratio and a `0.5` character aspect correction, so glyph cells stay roughly square.
+- Videos are rendered `muted`, `loop` and `playsInline` so browsers allow autoplay. `fps` is clamped to `1`–`60`.
+
+```tsx
+<AsciiRender
+  alt="Product demo loop"
+  color="mono"
+  columns={100}
+  fps={24}
+  source={{ src: "/media/demo.mp4", type: "video" }}
+/>
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | `<pre>` | Stops screen readers from reading thousands of punctuation glyphs |
+| `aria-hidden="true"` | `<video>` / `<img>` | Marks the sampled media as decorative — it only exists as a pixel source and as the visual fallback |
+| `alt=""` | Source `<img>` | Explicitly decorative, since the real description lives in the text alternative |
+| `class="sr-only"` | Text alternative | Exposes `alt` as the accessible description of the rendered result |
+
+### Screen Reader
+
+- The ASCII output is `aria-hidden` and `select-none`. Without this, a screen reader would announce every glyph in the grid — thousands of meaningless characters per frame.
+- The `alt` you pass is rendered into a visually hidden `<span>`, so assistive technology gets exactly one clear description of what the render depicts.
+- The pause control in the example is a real `<button>` with a text label, reachable by keyboard and operable with Enter and Space.
+- Nothing in the component uses a positive `tabIndex`, and the decorative layers are not focusable.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, video sources are never played and no `requestAnimationFrame` loop is started — a single frame is sampled and left on screen. The same one-shot path is used for image sources, for `paused`, and whenever the component is scrolled out of the viewport.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ascii-render/index.tsx"
+  name="AsciiRenderProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ascii-render/index.tsx"
+  name="AsciiRenderSource"
+/>

@@ -1,0 +1,41 @@
+{
+  "name": "@repo/animated-list",
+  "description": "A list that animates additions, removals and reordering, with an optional auto-feed mode.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "list",
+      "feed",
+      "notifications",
+      "reorder",
+      "layout",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Live notification feed that reveals items one at a time",
+      "Activity log with additions, removals and reordering",
+      "Leaderboard-style list where older entries recede visually"
+    ],
+    "compositionHints": [
+      "Use with animated-avatar-group inside each list item",
+      "Pair with pinned-list when some entries need to stay on top"
+    ],
+    "hasReducedMotion": true
+  }
+}

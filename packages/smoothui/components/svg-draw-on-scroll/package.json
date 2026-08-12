@@ -1,0 +1,42 @@
+{
+  "name": "@repo/svg-draw-on-scroll",
+  "description": "An SVG path that draws itself as you scroll, optionally with a marker riding the tip.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "svg",
+      "scroll",
+      "draw",
+      "path",
+      "line",
+      "marker",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "scroll",
+    "useCases": [
+      "Route or timeline illustrations that draw in as you scroll",
+      "Signature or underline flourishes tied to reading progress",
+      "Diagram connectors that draw sequentially across multiple paths"
+    ],
+    "compositionHints": [
+      "Pair with scroll-progress for a combined line-drawing + percentage indicator",
+      "Feed multiple paths to draw a route step by step"
+    ],
+    "hasReducedMotion": true
+  }
+}

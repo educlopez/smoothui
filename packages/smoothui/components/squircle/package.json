@@ -1,0 +1,40 @@
+{
+  "name": "@repo/squircle",
+  "description": "A Squircle component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "squircle",
+      "corner-smoothing",
+      "superellipse",
+      "shape",
+      "utility",
+      "wrapper"
+    ],
+    "complexity": "moderate",
+    "animationType": "none",
+    "useCases": [
+      "Apple-style corner smoothing for app icons and tiles",
+      "Rounded avatar or thumbnail with a softer, smoother corner curve",
+      "Any surface that should read as a squircle instead of a plain rounded rect"
+    ],
+    "compositionHints": [
+      "Wrap any element; children fill the squircle like a normal container",
+      "Combine with tilt-card for a squircle-shaped 3D tilt surface"
+    ],
+    "hasReducedMotion": false
+  }
+}

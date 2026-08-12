@@ -1,0 +1,53 @@
+---
+title: Progressive Blur
+description: A gradient blur built from stacked backdrop-filter layers, each masked by a shifted gradient, so the blur ramps smoothly instead of cutting off at a hard edge.
+icon: Aperture
+dependencies:
+  - motion.dev
+installer: progressive-blur
+---
+
+## Features
+
+- Stacked layers where every step doubles the blur radius and is masked by a gradient shifted one band further
+- Five ramp directions: `top`, `bottom`, `left`, `right` and `radial`
+- `layers` between 2 and 12 — more layers means a smoother, more expensive ramp
+- `intensity` dials the whole veil down without touching the blur radii
+- Pure CSS: `backdrop-filter` plus `mask-image`, with no `requestAnimationFrame` and no scroll listeners
+- Optional mount fade-in that turns instant under reduced motion
+- Optional `children` layer that stays interactive above the decorative stack
+
+## Component notes
+
+The blur stack is rendered as an **absolutely positioned overlay**: it needs a
+positioned ancestor (`relative`, usually with `overflow-hidden`). The stack is
+`pointer-events: none` and `aria-hidden="true"`, so it never intercepts clicks,
+never traps focus and never reaches the accessibility tree — content underneath
+stays fully scrollable and selectable. Anything passed as `children` is rendered
+in a separate sibling layer that re-enables pointer events, so labels or buttons
+placed on top of the ramp keep working.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Blur layer stack | Hides the purely decorative blur ramp from assistive technologies |
+
+### Screen Reader
+
+- The stack is decorative only: it is `aria-hidden` and `pointer-events: none`, so screen reader users get the underlying content unchanged.
+- Because the blur is visual, never let it be the only cue that content continues — pair it with a real scroll container so keyboard and screen reader users can still reach everything.
+- Text that sits under the strongest layers becomes unreadable by design; keep anything meaningful outside the ramp or inside `children`.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. The blur itself is static and always safe, but when reduced motion is preferred the optional mount fade-in is skipped entirely: the stack is painted at full opacity on the first frame with no opacity transition.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/progressive-blur/index.tsx"
+  name="ProgressiveBlurProps"
+/>
