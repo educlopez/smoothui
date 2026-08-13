@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import TimeMachineStack, { type TimeMachineStackItem } from "../index";
 
@@ -16,5 +17,11 @@ describe("TimeMachineStack", () => {
   it("renders with a controlled index", () => {
     const { container } = render(<TimeMachineStack index={1} items={items} />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<TimeMachineStack items={items} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

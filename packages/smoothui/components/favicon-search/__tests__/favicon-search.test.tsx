@@ -1,5 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import FaviconSearch, { type FaviconSearchResult } from "../index";
 
@@ -18,6 +19,12 @@ const results: FaviconSearchResult[] = [
 ];
 
 describe("FaviconSearch", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<FaviconSearch results={results} />);
+    const axeResults = await axe(container);
+    expect(axeResults).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(<FaviconSearch results={results} />);
     expect(container).toBeInTheDocument();

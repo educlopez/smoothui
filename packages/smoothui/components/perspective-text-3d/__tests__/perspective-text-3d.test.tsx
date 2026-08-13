@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import PerspectiveText3D from "../index";
 
@@ -19,5 +20,13 @@ describe("PerspectiveText3D", () => {
       />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <PerspectiveText3D text="Hello depth world" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

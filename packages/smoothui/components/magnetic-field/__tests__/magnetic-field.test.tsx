@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import MagneticField from "../index";
 
@@ -267,5 +268,17 @@ describe("MagneticField", () => {
     expect(button.style.transform).toBe(
       "translate3d(0px, 0px, 0) rotate(0deg)"
     );
+  });
+});
+
+describe("MagneticField accessibility", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <MagneticField>
+        <button type="button">Item</button>
+      </MagneticField>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

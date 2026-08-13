@@ -273,9 +273,9 @@ const DockIcon = ({
   };
 
   return (
-    <motion.li
+    <motion.div
       className={cn(
-        "absolute list-none",
+        "absolute",
         isHorizontal ? "bottom-0 left-0" : "top-0 right-0"
       )}
       onPointerEnter={onPointerEnter}
@@ -344,7 +344,7 @@ const DockIcon = ({
           )}
         />
       ) : null}
-    </motion.li>
+    </motion.div>
   );
 };
 
@@ -563,7 +563,7 @@ export default function Dock({
           }
         />
 
-        <ul
+        <div
           aria-orientation={orientation}
           className="absolute inset-0"
           role="toolbar"
@@ -590,7 +590,7 @@ export default function Dock({
               tabIndex={index === focusedIndex ? 0 : -1}
             />
           ))}
-        </ul>
+        </div>
       </div>
     </nav>
   );

@@ -1,5 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AISuggestions from "../index";
 
@@ -10,6 +11,14 @@ const SUGGESTIONS = [
 ];
 
 describe("AISuggestions", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AISuggestions label="Follow-ups" suggestions={SUGGESTIONS} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders one button per suggestion inside a list", () => {
     const { container } = render(<AISuggestions suggestions={SUGGESTIONS} />);
     expect(container.querySelectorAll("li")).toHaveLength(3);

@@ -1,5 +1,6 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIApproval, { type AIApprovalOption } from "../index";
 
@@ -9,6 +10,14 @@ const OPTIONS: AIApprovalOption[] = [
 ];
 
 describe("AIApproval", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIApproval options={OPTIONS} question="Proceed?" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders the question and every option", () => {
     render(<AIApproval options={OPTIONS} question="Proceed?" />);
     expect(screen.getByText("Proceed?")).toBeInTheDocument();

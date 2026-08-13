@@ -1,6 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { useState } from "react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render, screen, waitFor, within } from "../../../test-utils/render";
 import EmojiReaction, {
   type EmojiReactionItem,
@@ -50,6 +51,19 @@ const ControlledEmojiReaction = ({
 };
 
 describe("EmojiReaction", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <EmojiReaction
+        reactions={[
+          { count: 3, emoji: "🎉", id: "party", label: "Party" },
+          { emoji: "🔥", id: "fire", label: "Fire", reacted: true },
+        ]}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <EmojiReaction

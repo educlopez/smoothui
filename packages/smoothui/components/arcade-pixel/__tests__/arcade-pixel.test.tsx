@@ -171,7 +171,20 @@ describe("ArcadePixel painting", () => {
 
   it("never settles a looping animation", () => {
     setup({ animate: "marquee", loop: true, text: "SCROLL" });
-    runFramesFor(3000);
+
+    // Stepped coarsely on purpose — this was by far the most expensive test in
+    // the file. A marquee repaints every lit cell *and* blooms the phosphor by
+    // blitting the canvas over itself, which the Canvas2D fake services by
+    // stamping all 240x120 pixels one at a time; at the default 16ms step,
+    // 3000ms meant ~188 of those full-surface repaints for a single assertion.
+    //
+    // The simulated span stays at 3000ms, which is what carries the meaning:
+    // "SCROLL" is 36 columns plus an 8-column tail at 16 columns/second, so the
+    // marquee wraps once inside the window and a non-looping animation would
+    // have settled well before it ends. Only the sampling rate drops. Marquee
+    // offset is derived from elapsed time rather than from a frame counter, so
+    // coarser frames land the message in the same places, just fewer of them.
+    runFramesFor(3000, { stepMs: 150 });
     expect(pendingFrameCount()).toBeGreaterThan(0);
   });
 

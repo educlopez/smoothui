@@ -197,7 +197,6 @@ export default function KineticTypeScroll({
 
   return (
     <div
-      aria-label={words.join(" ")}
       className={cn(
         // Gaps are in `em` and sized to clear the peak scale: `scale` is a
         // transform, so a magnified word overflows its layout box and a fixed
@@ -208,6 +207,9 @@ export default function KineticTypeScroll({
       )}
       ref={wrapperRef}
     >
+      {/* Every glyph below is aria-hidden, so the readable copy lives here. An
+          aria-label on this plain div would be dropped by assistive tech. */}
+      <span className="sr-only">{words.join(" ")}</span>
       {words.map((word, index) => (
         <KineticWord
           dimRange={dimRange}

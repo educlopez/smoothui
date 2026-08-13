@@ -1,9 +1,22 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIContextMeter from "../index";
 
 describe("AIContextMeter", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIContextMeter
+        breakdown={[{ label: "System prompt", tokens: 1800 }]}
+        limit={200_000}
+        used={48_000}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("formats tokens compactly", () => {
     render(<AIContextMeter limit={200_000} used={48_000} />);
     expect(screen.getByRole("button")).toHaveTextContent("48k/200k");

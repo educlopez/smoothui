@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import RollingText from "../index";
 
@@ -13,5 +14,11 @@ describe("RollingText", () => {
       <RollingText direction="down" text="Smooth" />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<RollingText text="Smooth" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

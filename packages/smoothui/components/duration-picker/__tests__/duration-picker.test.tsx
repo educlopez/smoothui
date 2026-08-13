@@ -1,8 +1,15 @@
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import DurationPicker, { formatDuration } from "../index";
 
 describe("DurationPicker", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<DurationPicker />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(<DurationPicker />);
     expect(container).toBeInTheDocument();

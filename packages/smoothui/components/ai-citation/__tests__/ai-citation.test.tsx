@@ -1,5 +1,6 @@
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AICitation from "../index";
 
@@ -11,6 +12,12 @@ const PROPS = {
 };
 
 describe("AICitation", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AICitation {...PROPS} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders the pill as a real link", () => {
     render(<AICitation {...PROPS} />);
     const link = screen.getByRole("link", { name: "1" });

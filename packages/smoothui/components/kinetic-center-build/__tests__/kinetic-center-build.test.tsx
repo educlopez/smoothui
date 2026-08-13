@@ -1,5 +1,6 @@
 import { act, screen } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import KineticCenterBuild from "../index";
 
@@ -109,5 +110,15 @@ describe("KineticCenterBuild with reduced motion", () => {
 
     expect(screen.getByText("Goodbye")).toBeInTheDocument();
     expect(screen.getByText("now")).toBeInTheDocument();
+  });
+});
+
+describe("KineticCenterBuild accessibility", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <KineticCenterBuild phrases={["Hello World"]} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

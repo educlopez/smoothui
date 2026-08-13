@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, type Mock } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   type FakeCanvas2DContext,
@@ -19,6 +20,16 @@ const SPRITE_LEVELS = 5;
 const COUNT = 40;
 
 describe("GravityStars", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <GravityStars>
+        <p>Content above the starfield</p>
+      </GravityStars>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <GravityStars>

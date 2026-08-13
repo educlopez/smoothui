@@ -219,6 +219,22 @@ export default function AnimatedFileUpload({
 
   return (
     <div className={cn("w-full space-y-3", className)}>
+      {/* The dropzone below is the control: it owns the accessible name and the
+          keyboard activation. This input is only ever clicked through the ref,
+          so it sits outside the dropzone and out of the accessibility tree —
+          nested inside it, it was an unlabelled field within another control. */}
+      <input
+        accept={accept}
+        aria-hidden="true"
+        className="sr-only"
+        disabled={disabled}
+        multiple={multiple}
+        onChange={handleInputChange}
+        ref={inputRef}
+        tabIndex={-1}
+        type="file"
+      />
+
       <motion.div
         animate={
           shouldReduceMotion
@@ -247,16 +263,6 @@ export default function AnimatedFileUpload({
         tabIndex={disabled ? -1 : 0}
         transition={shouldReduceMotion ? { duration: 0 } : SPRING}
       >
-        <input
-          accept={accept}
-          className="sr-only"
-          disabled={disabled}
-          multiple={multiple}
-          onChange={handleInputChange}
-          ref={inputRef}
-          type="file"
-        />
-
         <UploadIcon isDragOver={isDragOver} />
 
         <AnimatePresence initial={false} mode="wait">

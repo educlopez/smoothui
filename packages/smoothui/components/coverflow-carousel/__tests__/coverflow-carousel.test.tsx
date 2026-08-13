@@ -1,8 +1,23 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import CoverflowCarousel from "../index";
 
 describe("CoverflowCarousel", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <CoverflowCarousel
+        items={[
+          { id: "1", image: "https://example.com/one.png" },
+          { id: "2", image: "https://example.com/two.png" },
+          { content: "Third slide", id: "3" },
+        ]}
+      />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <CoverflowCarousel

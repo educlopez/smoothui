@@ -1,6 +1,7 @@
 import { fireEvent } from "@testing-library/react";
 import type { Tweet } from "react-tweet/api";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import {
   SmoothTweet,
@@ -110,6 +111,12 @@ describe("SmoothTweet", () => {
       "noopener,noreferrer"
     );
     openSpy.mockRestore();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<SmoothTweet tweet={baseTweet} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
 

@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import type { AIState } from "../../ai-core";
 import AIOrbFace from "../index";
@@ -17,6 +18,14 @@ const countEyeRects = (container: HTMLElement) =>
   [...container.querySelectorAll("rect")].length;
 
 describe("AIOrbFace", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIOrbFace aria-label="Assistant is thinking" state="thinking" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders in every state without throwing", () => {
     for (const state of ALL_STATES) {
       const { container } = render(<AIOrbFace state={state} />);

@@ -92,24 +92,13 @@ export default function ExpandableCards({
             animate={{
               width: selectedCard === card.id ? "500px" : "200px",
             }}
-            aria-label={`${card.title} card${selectedCard === card.id ? ", expanded" : ""}`}
-            aria-selected={selectedCard === card.id}
-            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${cardClassName}`}
+            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg ${cardClassName}`}
             data-card-id={card.id}
             key={card.id}
             layout
-            onClick={() => handleCardClick(card.id)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
-                handleCardClick(card.id);
-              }
-            }}
-            role="button"
             style={{
               scrollSnapAlign: "start",
             }}
-            tabIndex={0}
             transition={
               shouldReduceMotion
                 ? { duration: 0 }
@@ -130,8 +119,19 @@ export default function ExpandableCards({
               />
               <div className="absolute inset-0 bg-black/20" />
               <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
-                <h2 className="font-bold text-2xl">{card.title}</h2>
-                <div className="flex items-center gap-2">
+                <h2 className="font-bold text-2xl">
+                  {/* The `after` overlay makes the whole card face clickable
+                      without nesting the play button inside another control. */}
+                  <button
+                    aria-expanded={selectedCard === card.id}
+                    className="rounded-sm text-left after:absolute after:inset-0 after:content-[''] focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    onClick={() => handleCardClick(card.id)}
+                    type="button"
+                  >
+                    {card.title}
+                  </button>
+                </h2>
+                <div className="relative flex items-center gap-2">
                   <button
                     aria-label={`Play video: ${card.title}`}
                     className="ease flex h-12 min-h-[44px] w-12 min-w-[44px] items-center justify-center rounded-full bg-background/30 backdrop-blur-sm transition-transform duration-200 hover:scale-110 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"

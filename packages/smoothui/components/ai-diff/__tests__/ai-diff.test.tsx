@@ -1,5 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIDiff, { type AIDiffLine } from "../index";
 
@@ -11,6 +12,14 @@ const LINES: AIDiffLine[] = [
 ];
 
 describe("AIDiff", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIDiff lines={LINES} onAccept={vi.fn()} onReject={vi.fn()} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders every line with its prefix", () => {
     render(<AIDiff lines={LINES} />);
     expect(screen.getByText("old line")).toBeInTheDocument();

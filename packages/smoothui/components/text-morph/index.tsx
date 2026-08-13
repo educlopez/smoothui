@@ -100,7 +100,15 @@ export default function TextMorph({
   }
 
   return (
-    <Tag aria-label={text} className={className}>
+    <Tag className={className}>
+      {/*
+       * The intact string is exposed as visually hidden text rather than an
+       * `aria-label` on the wrapper: `aria-label` is prohibited on the generic
+       * roles the default `as="span"` (and `as="div"`) produce, so screen
+       * readers dropped it — and with every token marked `aria-hidden`, the
+       * component announced nothing at all.
+       */}
+      <span className="sr-only">{text}</span>
       <motion.span
         className={cn("relative inline-flex flex-wrap", ALIGN_CLASS[align])}
         layout

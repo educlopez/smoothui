@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { act, fireEvent, render } from "../../../test-utils/render";
 import CursorImageTrail, { type CursorTrailImage } from "../index";
 
@@ -111,6 +112,16 @@ describe("CursorImageTrail", () => {
   afterEach(() => {
     vi.unstubAllGlobals();
     vi.restoreAllMocks();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <CursorImageTrail images={images} poolSize={2}>
+        <p>Hover area</p>
+      </CursorImageTrail>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it("renders without throwing", () => {

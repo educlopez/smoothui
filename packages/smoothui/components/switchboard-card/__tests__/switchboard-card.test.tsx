@@ -1,5 +1,6 @@
 import { act, fireEvent } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import SwitchboardCard from "../index";
 
@@ -112,5 +113,13 @@ describe("SwitchboardCard", () => {
       const mediumLights = container.querySelectorAll('[data-state="medium"]');
       expect(mediumLights.length).toBeGreaterThan(0);
     });
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <SwitchboardCard subtitle="Subtitle" title="Test" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

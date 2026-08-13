@@ -1,9 +1,16 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIPromptInput from "../index";
 
 describe("AIPromptInput", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AIPromptInput placeholder="Ask anything…" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders the placeholder", () => {
     render(<AIPromptInput placeholder="Ask anything…" />);
     expect(screen.getByPlaceholderText("Ask anything…")).toBeInTheDocument();

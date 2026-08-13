@@ -1,5 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import VectorEditorToolbar, { type VectorTool } from "../index";
 
@@ -241,5 +242,11 @@ describe("VectorEditorToolbar", () => {
     await user.keyboard("v");
 
     expect(onToolChange).not.toHaveBeenCalled();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<VectorEditorToolbar tools={TOOLS} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

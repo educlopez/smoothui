@@ -1,5 +1,6 @@
 import { createRef } from "react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   installCanvas2DMock,
@@ -28,6 +29,12 @@ describe("PixelBrushCanvas", () => {
   it("renders with the grid overlay and no tools without throwing", () => {
     const { container } = render(<PixelBrushCanvas grid showTools={false} />);
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<PixelBrushCanvas />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });
 

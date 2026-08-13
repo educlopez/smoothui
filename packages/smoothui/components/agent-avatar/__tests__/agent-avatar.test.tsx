@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AgentAvatar from "../index";
 
@@ -54,6 +55,12 @@ const mockMatchMedia = (matches: boolean) => {
 };
 
 describe("AgentAvatar", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AgentAvatar seed="test-seed" />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   let mockCtx: MockContext2D;
   let rafCallbacks: FrameRequestCallback[];
 

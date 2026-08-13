@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import {
   type Canvas2DMock,
   flushFrames,
@@ -45,6 +46,14 @@ describe("AsciiRender", () => {
 });
 
 describe("AsciiRender sampling", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AsciiRender alt="A photo" columns={COLUMNS} source={IMAGE_SOURCE} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   let canvas2d: Canvas2DMock;
 
   beforeEach(() => {

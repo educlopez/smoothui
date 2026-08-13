@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import ThemeToggle from "../index";
 
@@ -18,5 +19,11 @@ describe("ThemeToggle", () => {
       <ThemeToggle showSystem={false} variant="switch" />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<ThemeToggle />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

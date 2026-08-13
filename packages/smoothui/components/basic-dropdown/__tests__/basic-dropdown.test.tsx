@@ -1,5 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import BasicDropdown from "../index";
 
@@ -10,6 +11,14 @@ const items = [
 ];
 
 describe("BasicDropdown", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <BasicDropdown items={items} label="Select option" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <BasicDropdown items={items} label="Select option" />

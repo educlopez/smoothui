@@ -4,7 +4,7 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import type React from "react";
-import { Children, cloneElement, isValidElement } from "react";
+import { Children, cloneElement, isValidElement, useId } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface RadioGroupProps {
@@ -115,6 +115,12 @@ export function Radio({
   const shouldReduceMotion = useReducedMotion();
   const staggerDelay =
     _staggerIndex === undefined ? 0 : _staggerIndex * STAGGER_DELAY;
+  // Radix renders the item as a <button role="radio"> with no inner text, so
+  // its only accessible name is the sibling <label>. Without a generated
+  // fallback the label's htmlFor pointed nowhere whenever the consumer omitted
+  // `id`, leaving the control nameless.
+  const generatedId = useId();
+  const radioId = id ?? generatedId;
 
   const wrapper = (content: React.ReactNode) => {
     if (shouldReduceMotion || _staggerIndex === undefined) {
@@ -149,7 +155,7 @@ export function Radio({
           )}
           data-slot="radio-group-item"
           disabled={disabled}
-          id={id}
+          id={radioId}
           value={value}
         >
           <RadioGroupPrimitive.Indicator
@@ -188,7 +194,7 @@ export function Radio({
             "font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
             disabled && "cursor-not-allowed opacity-70"
           )}
-          htmlFor={id}
+          htmlFor={radioId}
         >
           {children}
         </label>
