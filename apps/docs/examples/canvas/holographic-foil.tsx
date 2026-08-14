@@ -15,7 +15,8 @@ const CARD = sceneById("moon-tarot");
 
 const HolographicFoilCanvasDemo = () => (
   <HolographicFoil
-    className="w-[190px] overflow-hidden rounded-xl"
+    className="w-[190px]"
+    foilOver
     glare={0.6}
     intensity={0.78}
     pattern="prism"

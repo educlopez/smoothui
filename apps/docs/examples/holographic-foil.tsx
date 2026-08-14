@@ -32,7 +32,8 @@ const HolographicFoilDemo = () => {
   return (
     <div className="flex w-full flex-col items-center gap-6 py-2">
       <HolographicFoil
-        className="w-60 overflow-hidden rounded-xl shadow-[0_26px_50px_-18px_oklch(0_0_0/0.55)]"
+        className="w-60 shadow-[0_26px_50px_-18px_oklch(0_0_0/0.55)]"
+        foilOver
         glare={0.55}
         intensity={intensity}
         pattern={pattern}
