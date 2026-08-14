@@ -16,6 +16,18 @@
     "./smoothui-schema": {
       "types": "./smoothui-schema.ts",
       "default": "./smoothui-schema.ts"
+    },
+    "./people": {
+      "types": "./people.ts",
+      "default": "./people.ts"
+    },
+    "./app-icons": {
+      "types": "./app-icons.ts",
+      "default": "./app-icons.ts"
+    },
+    "./scenes": {
+      "types": "./scenes.ts",
+      "default": "./scenes.ts"
     }
   },
   "scripts": {
