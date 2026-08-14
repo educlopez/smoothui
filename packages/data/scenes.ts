@@ -197,9 +197,27 @@ export const portraits: Scene[] = [
   },
 ];
 
+/**
+ * Card art, for demos where the component is a finish applied over a printed
+ * face — holographic foil above all. The artwork carries the whole card, so a
+ * demo needs no fake name, HP or rarity block built around it.
+ */
+const CARD_BASE = "https://ik.imagekit.io/16u211libb/smoothui/cards";
+
+export const cards: Scene[] = [
+  {
+    alt: "Tarot card back: a moon phase wheel in gold and white on deep indigo",
+    id: "moon-tarot",
+    kind: "photo",
+    src: `${CARD_BASE}/moon-tarot.webp`,
+    tone: "dark",
+  },
+];
+
 export const sceneById = (id: string): Scene | undefined =>
   scenes.find((item) => item.id === id) ??
-  portraits.find((item) => item.id === id);
+  portraits.find((item) => item.id === id) ??
+  cards.find((item) => item.id === id);
 
 /** Everything of one kind, for a demo that only wants photos or only texture. */
 export const scenesOfKind = (kind: Scene["kind"]): Scene[] =>

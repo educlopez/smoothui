@@ -1,39 +1,35 @@
 "use client";
 
 import HolographicFoil from "@repo/smoothui/components/holographic-foil";
+import { sceneById } from "@smoothui/data/scenes";
 
 /**
- * A collectible card, which is the thing holo foil is actually for. The tilt is
- * off — the pointer belongs to the canvas here — so the only motion is the idle
- * sheen sweep, which loops on its own.
+ * A printed card with foil over it, which is what holo foil is actually for.
+ * The tilt is off — the pointer belongs to the canvas here — so the only motion
+ * is the idle sheen sweep, which loops on its own.
+ *
+ * The card face carries the whole tile, so there is no name plate or serial
+ * strip built around it competing with the finish.
  */
+const CARD = sceneById("moon-tarot");
+
 const HolographicFoilCanvasDemo = () => (
   <HolographicFoil
-    className="w-[240px]"
+    className="w-[190px] overflow-hidden rounded-xl"
     glare={0.6}
     intensity={0.78}
     pattern="prism"
     sheenSpeed={1.1}
     tilt={false}
   >
-    <div className="flex flex-col gap-3 p-3">
-      <img
-        alt="Rain-lit street at night"
-        className="h-[152px] w-full rounded-xl object-cover opacity-90"
-        src="https://ik.imagekit.io/16u211libb/smoothui/backgrounds/foil-landscape.jpg?tr=w-480,f-auto"
-      />
-      <div className="flex items-end justify-between gap-2 px-1 pb-1">
-        <div className="min-w-0">
-          <p className="truncate font-semibold text-sm text-white tracking-tight">
-            Nightfall
-          </p>
-          <p className="truncate text-white/60 text-xs">Series 04 · Holo</p>
-        </div>
-        <span className="shrink-0 rounded-full bg-white/12 px-2 py-0.5 font-medium text-[10px] text-white/85">
-          012 / 250
-        </span>
-      </div>
-    </div>
+    <img
+      alt={CARD?.alt ?? ""}
+      className="block w-full select-none"
+      draggable={false}
+      height={676}
+      src={`${CARD?.src}?tr=w-380,f-auto`}
+      width={380}
+    />
   </HolographicFoil>
 );
 
