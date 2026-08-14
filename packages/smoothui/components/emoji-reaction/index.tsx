@@ -2,7 +2,12 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { SmilePlus } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useAnimate,
+  useReducedMotion,
+} from "motion/react";
 import {
   type KeyboardEvent,
   useCallback,
@@ -64,6 +69,7 @@ const CLOSE_DELAY_MS = 140;
 const STAGGER_S = 0.03;
 const PRESS_SCALE = 0.97;
 const POP_SCALE = 0.7;
+const POP_OFFSET_PX = 2;
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const LCG_MULTIPLIER = 1_664_525;
 const LCG_INCREMENT = 1_013_904_223;
@@ -281,7 +287,7 @@ const ReactionButton = ({
   size,
 }: ReactionButtonProps) => {
   const [burstId, setBurstId] = useState<number | null>(null);
-  const [popKey, setPopKey] = useState(0);
+  const [emojiScope, animateEmoji] = useAnimate<HTMLSpanElement>();
   const seedRef = useRef(0);
   const count = reaction.count ?? 0;
   const reacted = Boolean(reaction.reacted);
@@ -292,7 +298,16 @@ const ReactionButton = ({
     if (!nextReacted) {
       return;
     }
-    setPopKey((key) => key + 1);
+    // The pop is driven imperatively so a press animates the one emoji
+    // element that already exists. Remounting it on every press (via a
+    // changing `key`) left the previous node stranded in the DOM.
+    if (!shouldReduceMotion && emojiScope.current) {
+      animateEmoji(
+        emojiScope.current,
+        { scale: [POP_SCALE, 1], y: [POP_OFFSET_PX, 0] },
+        POP_SPRING
+      );
+    }
     if (burst && !shouldReduceMotion) {
       seedRef.current += 1;
       setBurstId(seedRef.current);
@@ -327,24 +342,17 @@ const ReactionButton = ({
       whileTap={shouldReduceMotion ? undefined : { scale: PRESS_SCALE }}
     >
       <span className="relative inline-flex items-center justify-center">
-        <motion.span
-          animate={{ scale: 1, y: 0 }}
+        <span
           aria-hidden="true"
           className={cn("block leading-none", EMOJI_CLASSES[size])}
-          initial={
-            popKey === 0 || shouldReduceMotion
-              ? false
-              : { scale: POP_SCALE, y: 2 }
-          }
-          key={popKey}
-          transition={shouldReduceMotion ? INSTANT : POP_SPRING}
+          ref={emojiScope}
         >
           {reaction.emoji}
-        </motion.span>
+        </span>
         {burstId === null ? null : (
           <BurstLayer
             count={burstCount}
-            key={burstId}
+            key={`burst-${burstId}`}
             onComplete={handleBurstComplete}
             seed={burstId}
           />

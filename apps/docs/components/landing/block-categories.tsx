@@ -530,9 +530,9 @@ export function BlockCategories() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative bg-background px-8 py-24 transition">
+    <section className="relative bg-background py-24 transition">
       <Divider />
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto w-full max-w-7xl px-8">
         <SectionHeader
           description={
             <>

@@ -85,107 +85,111 @@ const WindowChrome = ({ label }: { label: string }) => (
 
 export function Features() {
   return (
-    <section className="relative bg-background px-8 py-24 transition">
+    <section className="relative bg-background py-24 transition">
       <Divider />
-      <SectionHeader
-        description="Built on the foundations you already love, with the polish you've been wishing for."
-        title={
-          <>
-            Why choose Smooth<span className="text-brand">UI</span>?
-          </>
-        }
-      />
-      <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-        {/* Lead — live component marquee over a saturated blurred photo */}
-        <div
-          className={cn(
-            cardBase,
-            "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
-          )}
-        >
-          <Image
-            alt=""
-            aria-hidden
-            className="object-cover"
-            draggable={false}
-            fill
-            sizes="(max-width: 768px) 100vw, 420px"
-            src="/scenes/why-choose.webp"
-            unoptimized
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
-          <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-            <InfiniteSlider gap={12} speed={32}>
-              {SHOWCASE_ROW_A.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </InfiniteSlider>
-            <InfiniteSlider gap={12} reverse speed={32}>
-              {SHOWCASE_ROW_B.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </InfiniteSlider>
-          </div>
-          <div className="relative p-6">
-            <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
-              {lead.title}
-            </h3>
-            <p className="max-w-md text-sm text-white/80">{lead.description}</p>
-          </div>
-        </div>
-
-        {/* Modern React — a real code snippet */}
-        <div className={cn(cardBase, "lg:col-span-2")}>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="orb.tsx" />
-            <pre className="overflow-x-auto p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
-              <code>{REACT_SNIPPET}</code>
-            </pre>
-          </div>
-          <CardHeading
-            description="Server Components, TypeScript and hooks throughout — built for React 19."
-            icon={ReactLogo}
-            title="Modern React"
-          />
-        </div>
-
-        {/* Tailwind v4 — real token / utility chips */}
-        <div className={cardBase}>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="globals.css" />
-            <div className="flex flex-wrap gap-1.5 p-3">
-              {TOKEN_CHIPS.map((token) => (
-                <span
-                  className="rounded-md border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground"
-                  key={token}
-                >
-                  {token}
-                </span>
-              ))}
+      <div className="mx-auto w-full max-w-7xl px-8">
+        <SectionHeader
+          description="Built on the foundations you already love, with the polish you've been wishing for."
+          title={
+            <>
+              Why choose Smooth<span className="text-brand">UI</span>?
+            </>
+          }
+        />
+        <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+          {/* Lead — live component marquee over a saturated blurred photo */}
+          <div
+            className={cn(
+              cardBase,
+              "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
+            )}
+          >
+            <Image
+              alt=""
+              aria-hidden
+              className="object-cover"
+              draggable={false}
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              src="/scenes/why-choose.webp"
+              unoptimized
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
+            <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+              <InfiniteSlider gap={12} speed={32}>
+                {SHOWCASE_ROW_A.map((name) => (
+                  <Pill key={name}>{name}</Pill>
+                ))}
+              </InfiniteSlider>
+              <InfiniteSlider gap={12} reverse speed={32}>
+                {SHOWCASE_ROW_B.map((name) => (
+                  <Pill key={name}>{name}</Pill>
+                ))}
+              </InfiniteSlider>
+            </div>
+            <div className="relative p-6">
+              <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
+                {lead.title}
+              </h3>
+              <p className="max-w-md text-sm text-white/80">
+                {lead.description}
+              </p>
             </div>
           </div>
-          <CardHeading
-            description="The latest utility-first engine, with a unified token spine."
-            icon={TailwindLogo}
-            title="Tailwind CSS v4"
-          />
-        </div>
 
-        {/* shadcn — the real install command */}
-        <div className={cardBase}>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="Terminal" />
-            <div className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed">
-              <span className="select-none text-muted-foreground">$ </span>
-              <span className="text-foreground/80">npx shadcn add </span>
-              <span className="text-brand">@smoothui/siri-orb</span>
+          {/* Modern React — a real code snippet */}
+          <div className={cn(cardBase, "lg:col-span-2")}>
+            <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+              <WindowChrome label="orb.tsx" />
+              <pre className="overflow-x-auto p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
+                <code>{REACT_SNIPPET}</code>
+              </pre>
             </div>
+            <CardHeading
+              description="Server Components, TypeScript and hooks throughout — built for React 19."
+              icon={ReactLogo}
+              title="Modern React"
+            />
           </div>
-          <CardHeading
-            description="Drops into any shadcn project — same patterns, one command."
-            icon={ShadcnLogo}
-            title="shadcn compatible"
-          />
+
+          {/* Tailwind v4 — real token / utility chips */}
+          <div className={cardBase}>
+            <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+              <WindowChrome label="globals.css" />
+              <div className="flex flex-wrap gap-1.5 p-3">
+                {TOKEN_CHIPS.map((token) => (
+                  <span
+                    className="rounded-md border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground"
+                    key={token}
+                  >
+                    {token}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <CardHeading
+              description="The latest utility-first engine, with a unified token spine."
+              icon={TailwindLogo}
+              title="Tailwind CSS v4"
+            />
+          </div>
+
+          {/* shadcn — the real install command */}
+          <div className={cardBase}>
+            <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
+              <WindowChrome label="Terminal" />
+              <div className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed">
+                <span className="select-none text-muted-foreground">$ </span>
+                <span className="text-foreground/80">npx shadcn add </span>
+                <span className="text-brand">@smoothui/siri-orb</span>
+              </div>
+            </div>
+            <CardHeading
+              description="Drops into any shadcn project — same patterns, one command."
+              icon={ShadcnLogo}
+              title="shadcn compatible"
+            />
+          </div>
         </div>
       </div>
     </section>

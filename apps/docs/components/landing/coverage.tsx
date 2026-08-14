@@ -29,9 +29,9 @@ const COVERAGE: { label: string; url: string }[] = [
 
 export function Coverage() {
   return (
-    <section className="relative bg-background px-8 py-20 transition">
+    <section className="relative bg-background py-20 transition">
       <Divider />
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto w-full max-w-3xl px-8 text-center">
         <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
           Featured across the community
         </h2>

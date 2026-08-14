@@ -296,9 +296,9 @@ export function AISection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative bg-background px-8 py-40 transition">
+    <section className="relative bg-background py-40 transition">
       <Divider />
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl px-8">
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
           title="Built for AI-assisted development"
