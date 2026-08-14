@@ -3,20 +3,22 @@
 import DitherImage, {
   type DitherAlgorithm,
 } from "@repo/smoothui/components/dither-image";
+import { sceneById } from "@smoothui/data/scenes";
 
 interface Sample {
   algorithm: DitherAlgorithm;
-  alt: string;
   caption: string;
   levels: number;
   pixelSize: number;
   seed: string;
 }
 
+/** One photograph across every algorithm, so the algorithm is the variable. */
+const SAMPLE_SCENE = sceneById("golden-ridge");
+
 const SAMPLES: Sample[] = [
   {
     algorithm: "bayer",
-    alt: "Mountain ridge at dawn",
     caption: "Bayer 8×8 · 2 levels",
     levels: 2,
     pixelSize: 3,
@@ -24,7 +26,6 @@ const SAMPLES: Sample[] = [
   },
   {
     algorithm: "atkinson",
-    alt: "Empty coastal road",
     caption: "Atkinson · 2 levels",
     levels: 2,
     pixelSize: 3,
@@ -32,7 +33,6 @@ const SAMPLES: Sample[] = [
   },
   {
     algorithm: "floyd-steinberg",
-    alt: "Dense forest canopy",
     caption: "Floyd–Steinberg · 4 levels",
     levels: 4,
     pixelSize: 2,
@@ -40,7 +40,6 @@ const SAMPLES: Sample[] = [
   },
   {
     algorithm: "threshold",
-    alt: "Brutalist concrete facade",
     caption: "Threshold · 2 levels",
     levels: 2,
     pixelSize: 4,
@@ -59,12 +58,12 @@ const DitherImageDemo = () => (
         <figure className="flex flex-col gap-2" key={sample.seed}>
           <DitherImage
             algorithm={sample.algorithm}
-            alt={sample.alt}
+            alt={SAMPLE_SCENE?.alt ?? ""}
             className="border border-foreground/20"
             height={SAMPLE_HEIGHT}
             levels={sample.levels}
             pixelSize={sample.pixelSize}
-            src={`https://picsum.photos/seed/${sample.seed}/640/440`}
+            src={`${SAMPLE_SCENE?.src}?tr=w-640,h-440,f-auto`}
             width={SAMPLE_WIDTH}
           />
           <figcaption className="text-muted-foreground text-xs">
@@ -78,13 +77,13 @@ const DitherImageDemo = () => (
       <figure className="flex flex-col gap-2">
         <DitherImage
           algorithm="floyd-steinberg"
-          alt="City skyline at night, rendered with a four colour ramp"
+          alt="A pale dune crest in deep shadow, on a four-stop palette"
           className="border border-foreground/20"
           height={SAMPLE_HEIGHT}
           levels={4}
           palette={DUOTONE_PALETTE}
           pixelSize={3}
-          src="https://picsum.photos/seed/dither-palette/640/440"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-640,h-440,f-auto"
           width={SAMPLE_WIDTH}
         />
         <figcaption className="text-muted-foreground text-xs">
@@ -95,13 +94,13 @@ const DitherImageDemo = () => (
       <figure className="flex flex-col gap-2">
         <DitherImage
           algorithm="bayer"
-          alt="Sand dunes seen from above"
+          alt="Blue mountain ridges receding into night"
           className="border border-foreground/20"
           height={SAMPLE_HEIGHT}
           levels={3}
           pixelSize={3}
           progressive
-          src="https://picsum.photos/seed/dither-progressive/640/440"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-640,h-440,f-auto"
           width={SAMPLE_WIDTH}
         />
         <figcaption className="text-muted-foreground text-xs">

@@ -67,7 +67,7 @@ const HolographicFoilDemo = () => {
             <img
               alt="Dawnmane card artwork"
               className="size-full object-cover opacity-[0.74]"
-              src="https://picsum.photos/id/1074/640/480"
+              src="https://ik.imagekit.io/16u211libb/smoothui/backgrounds/foil-portrait.jpg?tr=w-640,f-auto"
             />
           </div>
 

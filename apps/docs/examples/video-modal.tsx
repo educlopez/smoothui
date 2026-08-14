@@ -16,7 +16,7 @@ export default function VideoModalDemo() {
             srcLang: "en",
           },
         ]}
-        poster="https://picsum.photos/seed/video-modal/1280/720"
+        poster="https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-1280,h-720,f-auto"
         src={SAMPLE_VIDEO_SRC}
         thumbnailAspect="16/9"
         title="Bigger Blazes — product trailer"

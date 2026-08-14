@@ -5,29 +5,34 @@ import CoverflowCarousel from "@repo/smoothui/components/coverflow-carousel";
 
 const items: CoverflowCarouselItem[] = [
   {
-    alt: "Misty mountain range at sunrise",
+    alt: "A mountainside catching low golden light",
     id: "slide-1",
-    image: "https://picsum.photos/seed/coverflow-1/600/500",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "Winding coastal road along cliffs",
+    alt: "Blue ridges receding into the night",
     id: "slide-2",
-    image: "https://picsum.photos/seed/coverflow-2/600/500",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "Dense green forest canopy",
+    alt: "A watercolour grove fading into white",
     id: "slide-3",
-    image: "https://picsum.photos/seed/coverflow-3/600/500",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "City skyline at dusk",
+    alt: "A canyon under a churning violet sky",
     id: "slide-4",
-    image: "https://picsum.photos/seed/coverflow-4/600/500",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/nebula-canyon.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "Desert dunes under a clear sky",
+    alt: "A pale dune crest in deep shadow",
     id: "slide-5",
-    image: "https://picsum.photos/seed/coverflow-5/600/500",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-600,h-500,f-auto",
   },
 ];
 

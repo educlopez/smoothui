@@ -6,7 +6,7 @@ const products = [
   {
     badge: "Sale",
     image:
-      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop",
+      "https://ik.imagekit.io/16u211libb/smoothui/products/sneaker.jpg?tr=w-600,h-600,f-auto",
     originalPrice: 179,
     price: 129,
     rating: 4.5,
@@ -15,7 +15,7 @@ const products = [
   {
     badge: "New",
     image:
-      "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=600&h=600&fit=crop",
+      "https://ik.imagekit.io/16u211libb/smoothui/products/headphones.jpg?tr=w-600,h-600,f-auto",
     price: 89,
     rating: 5,
     title: "Luxury Perfume",

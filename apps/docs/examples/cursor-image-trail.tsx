@@ -4,28 +4,28 @@ import CursorImageTrail from "@repo/smoothui/components/cursor-image-trail";
 
 const trailImages = [
   {
-    alt: "Mountain landscape at sunset",
-    src: "https://picsum.photos/seed/trail-1/300/300",
+    alt: "A mountainside catching low golden light",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "Close-up of a leaf",
-    src: "https://picsum.photos/seed/trail-2/300/300",
+    alt: "A watercolour grove fading into white",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "City skyline at night",
-    src: "https://picsum.photos/seed/trail-3/300/300",
+    alt: "A wildflower meadow under towering cumulus",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "Ocean waves from above",
-    src: "https://picsum.photos/seed/trail-4/300/300",
+    alt: "Pale blue silk folding in slow waves",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/silk-waves.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "Desert dunes texture",
-    src: "https://picsum.photos/seed/trail-5/300/300",
+    alt: "A pale dune crest in deep shadow",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "Forest path in autumn",
-    src: "https://picsum.photos/seed/trail-6/300/300",
+    alt: "A vast moon rising over a wooded valley",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/moonrise-valley.webp?tr=w-300,h-300,f-auto",
   },
 ];
 

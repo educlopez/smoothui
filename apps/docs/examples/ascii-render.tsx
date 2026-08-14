@@ -6,12 +6,12 @@ import AsciiRender, {
 import { useState } from "react";
 
 const PORTRAIT: AsciiRenderSource = {
-  src: "https://picsum.photos/seed/ascii-portrait/720/720",
+  src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-720,h-720,f-auto",
   type: "image",
 };
 
 const LANDSCAPE: AsciiRenderSource = {
-  src: "https://picsum.photos/seed/ascii-landscape/960/540",
+  src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-960,h-540,f-auto",
   type: "image",
 };
 

@@ -108,9 +108,9 @@ export default function ScrollProgressDemo() {
       >
         <article className="flex flex-col gap-6 px-5 pt-2 pb-8">
           <img
-            alt="Long-exposure photograph of light trails curving through a city street"
+            alt="A soft lilac bloom on near-white"
             className="h-44 w-full rounded-xl object-cover"
-            src="https://picsum.photos/seed/scroll-progress-hero/1200/500"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/lilac-bloom.webp?tr=w-1200,h-500,f-auto"
           />
           <p className="text-base text-foreground/80 leading-relaxed">
             Animation is the part of an interface that most often gets added

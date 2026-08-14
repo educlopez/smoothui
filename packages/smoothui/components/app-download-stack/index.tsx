@@ -41,27 +41,18 @@ const STAGGER_DELAY_MULTIPLIER = 0.1;
 const TRANSITION_DURATION = 0.3;
 const CHECKMARK_TRANSITION_DURATION = 0.3;
 
+/**
+ * Placeholder icons only — pass your own `apps` in anything you ship. URLs are
+ * literal rather than imported from `@smoothui/data` so the component stays
+ * self-contained when the registry copies it into someone else's project.
+ */
+const ICON_BASE = "https://ik.imagekit.io/16u211libb/smoothui/app-icons";
+
 const defaultApps: AppData[] = [
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/9c9721583ecba33e59ebcebdca2248fd_Mmr12FRh5V.png",
-    id: 1,
-    name: "GitHub",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/b47f43e02f04563447fa90d4ff6c8943_9KzW5GTggQ.png",
-    id: 2,
-    name: "Canary",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/f0b9cdefa67b57eeb080278c2f6984cc_sCqUJBg6Qq.png",
-    id: 3,
-    name: "Figma",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/178c7b02003c933e6b5afe98bbee595b_low_res_Arc_Browser.png",
-    id: 4,
-    name: "Arc",
-  },
+  { icon: `${ICON_BASE}/safari.png?tr=w-128`, id: 1, name: "Safari" },
+  { icon: `${ICON_BASE}/photos.png?tr=w-128`, id: 2, name: "Photos" },
+  { icon: `${ICON_BASE}/podcasts.png?tr=w-128`, id: 3, name: "Podcasts" },
+  { icon: `${ICON_BASE}/calendar.png?tr=w-128`, id: 4, name: "Calendar" },
 ];
 
 export default function AppDownloadStack({
