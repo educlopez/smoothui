@@ -1,5 +1,6 @@
 "use client";
 
+import { PHOTO_TABS, sceneSrc } from "@docs/examples/shared/demo-fixtures";
 import type { PhototabTab } from "@repo/smoothui/components/phototab";
 import Phototab from "@repo/smoothui/components/phototab";
 import { Mountain, TreePine, Waves } from "lucide-react";
@@ -9,28 +10,15 @@ import { preload } from "react-dom";
 
 /** Long enough to look at the photograph before it changes. */
 const SWITCH_MS = 2600;
+const ICONS = [<Mountain key="m" />, <Waves key="w" />, <TreePine key="t" />];
+
 const FRAME = 240;
 
-const tabs: PhototabTab[] = [
-  {
-    icon: <Mountain />,
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-600,h-600,f-auto",
-    name: "Ridge line",
-  },
-  {
-    icon: <Waves />,
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/lake-camp.webp?tr=w-600,h-600,f-auto",
-    name: "Lake shore",
-  },
-  {
-    icon: <TreePine />,
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-600,h-600,f-auto",
-    name: "Pale grove",
-  },
-];
+const tabs: PhototabTab[] = PHOTO_TABS.map((tab, index) => ({
+  icon: ICONS[index],
+  image: sceneSrc(tab.scene, "w-600,h-600"),
+  name: tab.name,
+}));
 
 /**
  * The glass tab bar normally waits below the frame until the photo is hovered,

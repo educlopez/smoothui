@@ -1,9 +1,12 @@
 "use client";
 
+import {
+  STACK_CAST,
+  STACK_SCENES,
+  sceneSrc,
+} from "@docs/examples/shared/demo-fixtures";
 import ScrollableCardStack from "@repo/smoothui/components/scrollable-card-stack";
 import { founder } from "@smoothui/data";
-import { somePeople } from "@smoothui/data/people";
-import { sceneById } from "@smoothui/data/scenes";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
 
@@ -11,39 +14,23 @@ import { useEffect, useRef } from "react";
 const ADVANCE_MS = 2000;
 const CARD_HEIGHT = 150;
 
-const photo = (id: string) => `${sceneById(id)?.src}?tr=w-600,h-380,f-auto`;
-const face = (person: { avatar: string }) =>
-  `${person.avatar}?tr=w-80,h-80,f-auto`;
-
-// Two of the cast plus the real account. The invented pair link to example.com
-// rather than to x.com handles they do not own.
-const [second, third] = somePeople(2, 12);
-
 const items = [
   {
     avatar: `${founder.avatar}&tr=w-80,h-80,f-auto`,
     handle: "@educalvolpz",
     href: founder.social.twitter,
-    id: "ridge",
-    image: photo("blue-ridge-night"),
+    id: STACK_SCENES[0],
+    image: sceneSrc(STACK_SCENES[0], "w-600,h-380"),
     name: founder.name,
   },
-  {
-    avatar: face(second),
-    handle: second.handle,
-    href: `https://example.com/${second.handle.replace("@", "")}`,
-    id: "harbour",
-    image: photo("lake-camp"),
-    name: second.name,
-  },
-  {
-    avatar: face(third),
-    handle: third.handle,
-    href: `https://example.com/${third.handle.replace("@", "")}`,
-    id: "dunes",
-    image: photo("dune-shadow"),
-    name: third.name,
-  },
+  ...STACK_CAST.slice(0, 2).map((person, index) => ({
+    avatar: `${person.avatar}?tr=w-80,h-80,f-auto`,
+    handle: person.handle,
+    href: `https://example.com/${person.handle.replace("@", "")}`,
+    id: STACK_SCENES[index + 1],
+    image: sceneSrc(STACK_SCENES[index + 1], "w-600,h-380"),
+    name: person.name,
+  })),
 ];
 
 /**

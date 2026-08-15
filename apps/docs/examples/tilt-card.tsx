@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  sceneAlt,
+  sceneSrc,
+  TILT_CARD,
+  TILT_SCENE,
+} from "@docs/examples/shared/demo-fixtures";
 import TiltCard from "@repo/smoothui/components/tilt-card";
 
 export default function TiltCardDemo() {
@@ -53,6 +59,44 @@ export default function TiltCardDemo() {
           <h3 className="font-semibold text-foreground text-sm">No glare</h3>
           <p className="mt-2 text-muted-foreground text-xs leading-relaxed">
             A subtler tilt-only variant without the glare overlay.
+          </p>
+        </div>
+      </TiltCard>
+
+      {/* The same card the landing canvas shows, so clicking that tile opens a
+          page where you can find what you clicked. */}
+      <TiltCard
+        className="w-64 overflow-hidden rounded-2xl shadow-[0_22px_50px_-26px_rgb(0_0_0/0.65)]"
+        glareOpacity={0.32}
+        maxTilt={16}
+        parallax
+        perspective={800}
+        scale={1.04}
+      >
+        <div className="relative h-40 w-full overflow-hidden">
+          <img
+            alt={sceneAlt(TILT_SCENE)}
+            className="h-full w-full scale-110 object-cover"
+            data-tilt-depth="0.18"
+            draggable={false}
+            height={320}
+            src={sceneSrc(TILT_SCENE, "w-480,h-320")}
+            width={480}
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 bg-[linear-gradient(to_top,oklch(0.16_0.02_264/0.88),oklch(0.16_0.02_264/0.1)_62%)]"
+          />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 p-4" data-tilt-depth="0.55">
+          <p className="font-medium text-[10px] text-white/65 uppercase tracking-[0.16em]">
+            {TILT_CARD.eyebrow}
+          </p>
+          <p className="font-semibold text-[17px] text-white leading-tight">
+            {TILT_CARD.title}
+          </p>
+          <p className="text-[11px] text-white/70 tabular-nums">
+            {TILT_CARD.meta}
           </p>
         </div>
       </TiltCard>

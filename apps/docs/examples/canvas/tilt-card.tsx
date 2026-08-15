@@ -1,5 +1,10 @@
 "use client";
 
+import {
+  sceneAlt,
+  sceneSrc,
+  TILT_SCENE,
+} from "@docs/examples/shared/demo-fixtures";
 import TiltCard from "@repo/smoothui/components/tilt-card";
 import { useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
@@ -69,11 +74,13 @@ const TiltCardCanvasDemo = () => {
       >
         <div className="relative h-[152px] w-full overflow-hidden">
           <img
-            alt="Warm ember bands over a plum ground"
+            alt={sceneAlt(TILT_SCENE)}
             className="h-full w-full scale-110 object-cover"
             data-tilt-depth="0.18"
             draggable={false}
-            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/ember-drift-warm.webp?tr=w-480,h-320,f-auto"
+            height={320}
+            src={sceneSrc(TILT_SCENE, "w-480,h-320")}
+            width={480}
           />
           <div
             aria-hidden="true"
