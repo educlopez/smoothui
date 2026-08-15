@@ -1,9 +1,6 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
-import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
 import { BLOCK_COUNT, COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import {
   Accordion,
@@ -11,7 +8,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@repo/shadcn-ui/components/ui/accordion";
-import { cn } from "@repo/shadcn-ui/lib/utils";
 
 const faqs = [
   {
@@ -69,10 +65,7 @@ const faqSchema = {
 
 export function FAQ() {
   return (
-    <section className="relative w-full bg-background px-8 py-24">
-      {/* Plain <script> rather than next/script: `beforeInteractive` is only
-          honoured inside the root layout, and Next's own guidance for JSON-LD
-          is to render the tag directly. */}
+    <section className="relative w-full bg-background px-8 py-28 md:py-36">
       <script
         // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data requires innerHTML
         dangerouslySetInnerHTML={{
@@ -81,45 +74,48 @@ export function FAQ() {
         id="faq-schema"
         type="application/ld+json"
       />
-      <LandingAtmosphere />
-      <Divider />
-      <ChapterEyebrow index="08" label="Notes" />
-      <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
-        Frequently Asked Questions
-      </h2>
-      <ClipRevealGroup className="mx-auto mt-16 max-w-3xl space-y-4">
-        <Accordion
-          className="-space-y-1"
-          collapsible
-          data-orientation="vertical"
-          type="single"
-        >
-          {faqs.map((faq, index) => (
-            <AccordionItem
-              className={cn(
-                "peer rounded-xl border-b border-none px-6 py-1 last:border-b-0 data-[state=open]:border-none data-[state=open]:bg-card data-[state=open]:shadow-sm data-[state=open]:ring-1 data-[state=open]:ring-foreground/5"
-              )}
-              data-reveal
-              key={faq.question}
-              value={`item-${index}`}
-            >
-              <AccordionTrigger
-                className={cn(
-                  "flex flex-1 cursor-pointer items-start justify-between gap-4 rounded-none border-b py-4 text-left font-medium text-base outline-none transition-none hover:no-underline focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[state=open]:border-transparent [&[data-state=open]>svg]:rotate-180"
-                )}
+      <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <EditorialKicker
+            className="text-muted-foreground"
+            index="08"
+            label="Notes"
+          />
+          <h2 className="mt-6 font-display text-5xl text-foreground leading-[0.92] tracking-tight md:text-7xl">
+            Frequently asked
+            <br />
+            <em>questions.</em>
+          </h2>
+        </div>
+        <div className="md:col-span-7">
+          <Accordion
+            className="border-border border-t"
+            collapsible
+            data-orientation="vertical"
+            type="single"
+          >
+            {faqs.map((faq, index) => (
+              <AccordionItem
+                className="border-border border-b border-none px-0 last:border-b-0"
+                key={faq.question}
+                value={`item-${index}`}
               >
-                <span className="flex items-start gap-3">
-                  <span className="mt-0.5 font-mono text-[11px] text-muted-foreground tabular-nums">
-                    {String(index + 1).padStart(2, "0")}
+                <AccordionTrigger className="cursor-pointer items-start py-5 text-left font-medium text-base hover:no-underline">
+                  <span className="flex items-start gap-4">
+                    <span className="mt-1 font-meta text-[11px] text-muted-foreground tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    {faq.question}
                   </span>
-                  {faq.question}
-                </span>
-              </AccordionTrigger>
-              <AccordionContent>{faq.answer}</AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </ClipRevealGroup>
+                </AccordionTrigger>
+                <AccordionContent className="pl-10 text-foreground/70 leading-relaxed">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </div>
     </section>
   );
 }

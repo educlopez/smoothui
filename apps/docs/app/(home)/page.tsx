@@ -35,9 +35,11 @@ export default function Home() {
     <>
       <Hero />
       <SocialProof />
-      <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
-        <ComponentsSlideshow />
-      </Suspense>
+      <div className="relative mx-auto w-full max-w-7xl">
+        <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
+          <ComponentsSlideshow />
+        </Suspense>
+      </div>
       <Features />
       <BlockCategories />
       <AISection />

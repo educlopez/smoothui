@@ -1,326 +1,108 @@
 "use client";
 
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
-import { ClipReveal } from "@docs/components/landing/motion/clip-reveal";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
+import { ScrollFilm } from "@docs/components/landing/motion/scroll-film";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import Image from "next/image";
 import {
   IconChevronLeftFill24,
   IconChevronRightFill24,
 } from "nucleo-core-fill-24";
 import { useState } from "react";
-import Divider from "./divider";
 
-type Testimonial = {
+interface Testimonial {
+  handle: string;
   id: string;
   name: string;
-  handle: string;
   quote: string;
   tweetUrl: string;
-};
+}
 
-const username = (handle: string) => handle.replace(/^@/, "");
-const avatarUrl = (handle: string) =>
-  `https://unavatar.io/x/${username(handle)}`;
-
-const Avatar = ({ data, size }: { data: Testimonial; size: number }) => (
-  <Image
-    alt={data.name}
-    className="shrink-0 rounded-full object-cover"
-    draggable={false}
-    height={size}
-    src={avatarUrl(data.handle)}
-    width={size}
-  />
-);
-
-// Center feature card per page (crossfades).
-const CENTERS: { image: string; data: Testimonial }[] = [
+const VOICES: Testimonial[] = [
   {
-    data: {
-      handle: "@orcdev",
-      id: "orcdev",
-      name: "OrcDev",
-      quote:
-        "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
-      tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
-    },
-    image: "/scenes/testimonial-1.jpg",
+    handle: "@orcdev",
+    id: "orcdev",
+    name: "OrcDev",
+    quote:
+      "Love your project Edu! Keep it up — can't wait to see what you cook next.",
+    tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
   },
   {
-    data: {
-      handle: "@jaykosai",
-      id: "jaykosai",
-      name: "jeth.eth",
-      quote:
-        "All I can say is 🙌🔥 — planning to build something crazy with it.",
-      tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
-    },
-    image: "/scenes/testimonial-2.jpg",
-  },
-];
-
-// Four side slots. Each holds one testimonial and is a card on its activePage,
-// otherwise a small square. The two slots in a column swap card/square on page
-// change — the ElevenLabs morph.
-const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
-  // left column: top, bottom
-  {
-    activePage: 0,
-    data: {
-      handle: "@Lucas_Moveset",
-      id: "lucas",
-      name: "Lucas",
-      quote:
-        "Great resource! UI libraries like SmoothUI simplify your workflow and boost your design aesthetic.",
-      tweetUrl: "https://x.com/Lucas_Moveset/status/1990155654019887348",
-    },
+    handle: "@jaykosai",
+    id: "jaykosai",
+    name: "jeth.eth",
+    quote: "All I can say is 🙌 — planning to build something crazy with it.",
+    tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
   },
   {
-    activePage: 1,
-    data: {
-      handle: "@Potato___Dragon",
-      id: "potato",
-      name: "Potato Dragon",
-      quote:
-        "I really liked the buttons on SmoothUI — that clickable kind of animation. Can you share it?",
-      tweetUrl: "https://x.com/Potato___Dragon/status/1980544421121970512",
-    },
-  },
-  // right column: top, bottom
-  {
-    activePage: 1,
-    data: {
-      handle: "@openhunts",
-      id: "openhunts",
-      name: "openhunts",
-      quote: "I love this UI component from @educalvolpz!",
-      tweetUrl: "https://x.com/openhunts/status/1980911462030950489",
-    },
+    handle: "@Lucas_Moveset",
+    id: "lucas",
+    name: "Lucas",
+    quote:
+      "UI libraries like SmoothUI simplify your workflow and boost your design aesthetic.",
+    tweetUrl: "https://x.com/Lucas_Moveset/status/1990155654019887348",
   },
   {
-    activePage: 0,
-    data: {
-      handle: "@PeteCapeCod",
-      id: "pete",
-      name: "Peter Cruckshank",
-      quote: "Checked out SmoothUI — some great stuff! 👏 Great job 👍",
-      tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
-    },
+    handle: "@Potato___Dragon",
+    id: "potato",
+    name: "Potato Dragon",
+    quote:
+      "I really liked the buttons on SmoothUI — that clickable kind of animation.",
+    tweetUrl: "https://x.com/Potato___Dragon/status/1980544421121970512",
+  },
+  {
+    handle: "@openhunts",
+    id: "openhunts",
+    name: "openhunts",
+    quote: "I love this UI component from @educalvolpz.",
+    tweetUrl: "https://x.com/openhunts/status/1980911462030950489",
+  },
+  {
+    handle: "@PeteCapeCod",
+    id: "pete",
+    name: "Peter Cruckshank",
+    quote: "Checked out SmoothUI — some great stuff. Great job.",
+    tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
   },
 ];
-
-const PAGE_COUNT = CENTERS.length;
-
-const headerSpring = { bounce: 0.1, duration: 0.35, type: "spring" as const };
-const morphSpring = { bounce: 0.14, duration: 0.55, type: "spring" as const };
-const fadeTween = { duration: 0.25, ease: [0.23, 1, 0.32, 1] as const };
-
-const PlainCard = ({
-  data,
-  compact,
-}: {
-  data: Testimonial;
-  compact?: boolean;
-}) => (
-  <a
-    className="landing-paper flex h-full flex-col justify-between overflow-hidden rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
-    href={data.tweetUrl}
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    <p
-      className={cn(
-        "text-balance text-foreground/90 text-sm leading-relaxed",
-        compact && "line-clamp-4"
-      )}
-    >
-      {data.quote}
-    </p>
-    <div className="mt-3 flex items-center gap-2">
-      <Avatar data={data} size={28} />
-      <div className="leading-tight">
-        <div className="font-medium text-foreground text-xs">{data.name}</div>
-        <div className="text-[11px] text-muted-foreground">{data.handle}</div>
-      </div>
-    </div>
-  </a>
-);
-
-const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
-  <a
-    className="relative flex h-full flex-col justify-end overflow-hidden rounded-2xl p-6 text-white transition-[filter] hover:brightness-105"
-    href={data.tweetUrl}
-    rel="noopener noreferrer"
-    target="_blank"
-  >
-    <Image
-      alt=""
-      aria-hidden
-      className="object-cover"
-      draggable={false}
-      fill
-      sizes="(max-width: 768px) 100vw, 360px"
-      src={image}
-      unoptimized
-    />
-    {/* legibility scrim over the photo */}
-    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
-    <p className="relative text-balance font-medium text-lg leading-snug drop-shadow-sm">
-      {data.quote}
-    </p>
-    <div className="relative mt-5 flex items-center gap-2.5">
-      <Avatar data={data} size={32} />
-      <div className="leading-tight">
-        <div className="font-medium text-sm">{data.name}</div>
-        <div className="text-sm opacity-80">{data.handle}</div>
-      </div>
-    </div>
-  </a>
-);
-
-const SideTile = ({
-  slot,
-  active,
-  reduce,
-  align,
-}: {
-  slot: { data: Testimonial };
-  active: boolean;
-  reduce: boolean | null;
-  align: "start" | "end";
-}) => (
-  <motion.div
-    className={cn(
-      "relative min-h-0 overflow-hidden rounded-2xl",
-      active
-        ? "w-full flex-[1.7]"
-        : cn(
-            "aspect-square flex-1",
-            align === "end" ? "self-end" : "self-start"
-          )
-    )}
-    layout
-    transition={reduce ? { duration: 0 } : morphSpring}
-  >
-    <AnimatePresence initial={false}>
-      {active ? (
-        <motion.div
-          animate={{ opacity: 1 }}
-          className="absolute inset-0"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          key="card"
-          transition={reduce ? { duration: 0 } : fadeTween}
-        >
-          <PlainCard compact data={slot.data} />
-        </motion.div>
-      ) : (
-        <motion.div
-          animate={{ opacity: 1 }}
-          className="absolute inset-0 rounded-2xl bg-smooth-200/60"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          key="square"
-          transition={reduce ? { duration: 0 } : fadeTween}
-        />
-      )}
-    </AnimatePresence>
-  </motion.div>
-);
 
 export function WhatTheySay() {
   const [page, setPage] = useState(0);
-  const shouldReduceMotion = useReducedMotion();
+  const active = VOICES[page];
 
   const goTo = (delta: number) =>
-    setPage((current) => (current + delta + PAGE_COUNT) % PAGE_COUNT);
-
-  const center = CENTERS[page];
-  const [lt, lb, rt, rb] = SIDE_SLOTS;
-  const mobileSlots = SIDE_SLOTS.filter((s) => s.activePage === page);
-
-  const arrowClass =
-    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary";
-
-  const renderCenter = (
-    <div className="relative size-full">
-      <AnimatePresence initial={false} mode="popLayout">
-        <motion.div
-          animate={{ opacity: 1 }}
-          className="absolute inset-0"
-          exit={{ opacity: 0 }}
-          initial={{ opacity: 0 }}
-          key={page}
-          transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
-        >
-          <FeatureCard data={center.data} image={center.image} />
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  );
+    setPage((current) => (current + delta + VOICES.length) % VOICES.length);
 
   return (
-    <section className="relative w-full bg-background px-8 py-24">
-      <LandingAtmosphere />
-      <Divider />
-      <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex flex-col items-center gap-6 text-center">
-          <div className="max-w-2xl">
-            <ChapterEyebrow index="06" label="Voices" />
-            <motion.h2
-              className="text-balance font-semibold font-title text-3xl text-foreground"
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "translateY(12px)" }
-              }
-              transition={shouldReduceMotion ? { duration: 0 } : headerSpring}
-              viewport={{ amount: 0.5, once: true }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "translateY(0px)" }
-              }
-            >
-              What they say about us
-            </motion.h2>
-            <motion.p
-              className="mt-4 text-foreground/70 text-lg"
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "translateY(12px)" }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { ...headerSpring, delay: 0.1 }
-              }
-              viewport={{ amount: 0.5, once: true }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "translateY(0px)" }
-              }
-            >
-              See what developers and designers are saying about SmoothUI.
-            </motion.p>
-          </div>
-          <div className="flex shrink-0 items-center gap-2">
+    <section className="relative min-h-[100svh] overflow-hidden">
+      <ScrollFilm poster="/scenes/testimonial-1.jpg" src="/films/voices.mp4" />
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-end gap-12 px-8 py-20 md:grid-cols-12 md:px-12 md:py-24">
+        <div className="md:col-span-8">
+          <EditorialKicker index="06" label="Voices" />
+          <blockquote className="mt-6 max-w-3xl font-display text-4xl text-white leading-[1.05] tracking-tight md:text-6xl">
+            {active.quote}
+          </blockquote>
+          <a
+            className="mt-8 inline-block font-meta text-[11px] text-white/70 uppercase tracking-[0.18em] transition-colors hover:text-white"
+            href={active.tweetUrl}
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            {active.name}
+            <span className="mx-2 text-white/30">/</span>
+            {active.handle}
+          </a>
+          <div className="mt-8 flex items-center gap-2">
             <button
-              aria-label="Previous testimonials"
-              className={arrowClass}
+              aria-label="Previous testimonial"
+              className="flex size-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10"
               onClick={() => goTo(-1)}
               type="button"
             >
               <IconChevronLeftFill24 className="size-4" />
             </button>
             <button
-              aria-label="Next testimonials"
-              className={arrowClass}
+              aria-label="Next testimonial"
+              className="flex size-10 items-center justify-center rounded-full border border-white/30 text-white transition-colors hover:bg-white/10"
               onClick={() => goTo(1)}
               type="button"
             >
@@ -328,60 +110,35 @@ export function WhatTheySay() {
             </button>
           </div>
         </div>
-
-        {/* Desktop: morphing card / square columns around a crossfading center */}
-        <ClipReveal className="hidden items-stretch justify-center gap-3 md:flex">
-          <div className="flex w-[210px] flex-col gap-3">
-            <SideTile
-              active={lt.activePage === page}
-              align="end"
-              reduce={shouldReduceMotion}
-              slot={lt}
-            />
-            <SideTile
-              active={lb.activePage === page}
-              align="end"
-              reduce={shouldReduceMotion}
-              slot={lb}
-            />
-          </div>
-          <div className="h-80 w-[360px] shrink-0">{renderCenter}</div>
-          <div className="flex w-[210px] flex-col gap-3">
-            <SideTile
-              active={rt.activePage === page}
-              align="start"
-              reduce={shouldReduceMotion}
-              slot={rt}
-            />
-            <SideTile
-              active={rb.activePage === page}
-              align="start"
-              reduce={shouldReduceMotion}
-              slot={rb}
-            />
-          </div>
-        </ClipReveal>
-
-        {/* Mobile: simple stacked fade of the active page's three cards */}
-        <ClipReveal className="md:hidden">
-          <AnimatePresence initial={false} mode="popLayout">
-            <motion.div
-              animate={{ opacity: 1 }}
-              className="flex flex-col gap-4"
-              exit={{ opacity: 0 }}
-              initial={{ opacity: 0 }}
-              key={page}
-              transition={shouldReduceMotion ? { duration: 0 } : fadeTween}
-            >
-              <div className="h-72">
-                <FeatureCard data={center.data} image={center.image} />
-              </div>
-              {mobileSlots.map((slot) => (
-                <PlainCard data={slot.data} key={slot.data.id} />
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </ClipReveal>
+        <aside className="border-white/20 border-t pt-8 md:col-span-4 md:border-t-0 md:border-l md:pt-0 md:pl-10">
+          <p className="font-meta text-[10px] text-white/50 uppercase tracking-[0.2em]">
+            Index
+          </p>
+          <ol className="mt-6 space-y-4">
+            {VOICES.map((voice, index) => {
+              const isActive = index === page;
+              return (
+                <li key={voice.id}>
+                  <button
+                    className={cn(
+                      "flex w-full cursor-pointer items-baseline gap-3 text-left font-meta text-[11px] uppercase tracking-[0.16em] transition-colors",
+                      isActive
+                        ? "text-white"
+                        : "text-white/45 hover:text-white/80"
+                    )}
+                    onClick={() => setPage(index)}
+                    type="button"
+                  >
+                    <span className="tabular-nums">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{voice.name}</span>
+                  </button>
+                </li>
+              );
+            })}
+          </ol>
+        </aside>
       </div>
     </section>
   );

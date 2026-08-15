@@ -6,9 +6,7 @@ import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
-import { ClipReveal } from "@docs/components/landing/motion/clip-reveal";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
 import { Button } from "@docs/components/smoothbutton";
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
@@ -161,18 +159,22 @@ function CtaCard() {
       <SmoothLogoMark className="pointer-events-none absolute inset-0 size-full translate-y-3/4 opacity-50" />
 
       <div className="relative text-center">
-        <ChapterEyebrow index="10" label="Afterlight" />
+        <EditorialKicker
+          className="justify-center text-muted-foreground"
+          index="10"
+          label="Afterlight"
+        />
         {hasSponsors ? (
           <>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
+            <div className="mt-6 mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
               <IconHeartFill24
                 aria-hidden
                 className="size-3.5 fill-brand text-brand"
               />
               <span className="text-foreground">Thank you to our sponsors</span>
             </div>
-            <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
-              Backed by great people
+            <h2 className="text-balance font-display text-4xl text-foreground leading-[0.95] md:text-5xl">
+              Backed by <em>great people</em>
             </h2>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-8">
               {externalSponsors.map((sponsor) => (
@@ -196,15 +198,15 @@ function CtaCard() {
           </>
         ) : (
           <>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
+            <div className="mt-6 mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
               <span aria-hidden className="relative flex size-2">
                 <span className="absolute inset-0 inline-flex size-full animate-ping rounded-full bg-brand/60 opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-brand" />
               </span>
               <span className="text-foreground">Open source & free</span>
             </div>
-            <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
-              Support <span className="text-brand">SmoothUI</span>
+            <h2 className="text-balance font-display text-4xl text-foreground leading-[0.95] md:text-5xl">
+              Support <em>SmoothUI</em>
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-balance text-muted-foreground">
               Help keep SmoothUI free and actively maintained. Every sponsor
@@ -290,11 +292,8 @@ export default function Footer() {
         aria-label="Support SmoothUI"
         className="relative bg-linear-to-b from-50% from-background to-50% to-muted/60 pt-16 md:pt-24"
       >
-        <LandingAtmosphere />
         <div className="relative mx-auto max-w-5xl px-6">
-          <ClipReveal>
-            <CtaCard />
-          </ClipReveal>
+          <CtaCard />
         </div>
       </section>
 

@@ -1,10 +1,6 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
-import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
-import { WordReveal } from "@docs/components/landing/motion/word-reveal";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
 
 const COVERAGE: { label: string; url: string }[] = [
   {
@@ -33,38 +29,31 @@ const COVERAGE: { label: string; url: string }[] = [
 
 export function Coverage() {
   return (
-    <section className="relative bg-background px-8 py-20 transition">
-      <LandingAtmosphere />
-      <Divider />
-      <div className="relative mx-auto max-w-3xl text-center">
-        <ChapterEyebrow index="07" label="Coverage" />
-        <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
-          Featured across the community
-        </h2>
-
-        <blockquote className="mt-5 text-balance font-semibold font-title text-foreground text-xl tracking-tight md:text-2xl">
-          <span aria-hidden>&ldquo;</span>
-          <WordReveal text="SmoothUI is a game-changer for frontend developers looking for polished UI components with motion-powered interactivity." />
-          <span aria-hidden>&rdquo;</span>
+    <section className="relative bg-background px-8 py-28 md:py-36">
+      <div className="mx-auto max-w-4xl">
+        <EditorialKicker
+          className="text-muted-foreground"
+          index="07"
+          label="Coverage"
+        />
+        <blockquote className="mt-8 font-display text-4xl text-foreground leading-[1.1] tracking-tight md:text-6xl">
+          SmoothUI is a game-changer for frontend developers looking for
+          polished UI components with motion-powered interactivity.
         </blockquote>
-
         <a
-          className="mt-3 inline-block text-muted-foreground text-sm transition-colors hover:text-brand"
+          className="mt-8 inline-block font-meta text-[11px] text-muted-foreground uppercase tracking-[0.18em] transition-colors hover:text-foreground"
           href={COVERAGE[0].url}
           rel="noopener noreferrer"
           target="_blank"
         >
-          — Shikhil Saxena, Peerlist
+          Shikhil Saxena
+          <span className="mx-2 text-border">/</span>
+          Peerlist
         </a>
-
-        <ClipRevealGroup
-          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
-          stagger={0.04}
-        >
+        <div className="mt-14 flex flex-wrap items-center gap-x-6 gap-y-3 border-border border-t pt-8">
           {COVERAGE.map((item) => (
             <a
-              className="font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
-              data-reveal
+              className="font-meta text-[11px] text-muted-foreground uppercase tracking-[0.16em] transition-colors hover:text-foreground"
               href={item.url}
               key={item.label}
               rel="noopener noreferrer"
@@ -73,7 +62,7 @@ export function Coverage() {
               {item.label}
             </a>
           ))}
-        </ClipRevealGroup>
+        </div>
       </div>
     </section>
   );

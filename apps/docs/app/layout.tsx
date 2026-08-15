@@ -6,7 +6,13 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import "./global.css";
-import { inter, plusJakartaSans, poppins } from "./fonts";
+import {
+  ibmPlexMono,
+  instrumentSerif,
+  inter,
+  plusJakartaSans,
+  poppins,
+} from "./fonts";
 import { smoothUISchema } from "./utils/schema";
 
 const enableVercelAnalytics =
@@ -89,7 +95,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html
-      className={`${inter.className} ${inter.variable} ${poppins.variable} ${plusJakartaSans.variable}`}
+      className={`${inter.className} ${inter.variable} ${poppins.variable} ${plusJakartaSans.variable} ${instrumentSerif.variable} ${ibmPlexMono.variable}`}
       lang="en"
       suppressHydrationWarning
     >

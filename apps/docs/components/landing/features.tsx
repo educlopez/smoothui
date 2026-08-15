@@ -1,217 +1,50 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
-import { ReactLogo } from "@docs/components/landing/logos/react-logo";
-import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
-import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
-import { PointerLean } from "@docs/components/landing/motion/pointer-lean";
-import { SectionHeader } from "@docs/components/landing/section-header";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
-import Image from "next/image";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
+import { EditorialRail } from "@docs/components/landing/motion/editorial-rail";
+import { ScrollFilm } from "@docs/components/landing/motion/scroll-film";
 
-const lead = {
-  description:
-    "Every component ships with motion built in — powered by Motion and GSAP, tuned for spring physics, and fully reduced-motion aware.",
-  title: "Smooth animations",
-};
-
-const cardBase =
-  "landing-paper group relative flex flex-col overflow-hidden rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
-
-const SHOWCASE_ROW_A = [
-  "Siri Orb",
-  "Dynamic Island",
-  "Number Flow",
-  "Apple Invites",
-  "Scramble Hover",
-];
-
-const SHOWCASE_ROW_B = [
-  "Wave Text",
-  "Grid Loader",
-  "Social Selector",
-  "Image Metadata",
-  "Power Off Slide",
-];
-
-const TOKEN_CHIPS = [
-  "bg-brand",
-  "rounded-2xl",
-  "--radius",
-  "oklch()",
-  "text-balance",
-  "@theme",
-];
-
-const REACT_SNIPPET = `export function Orb() {
-  const ref = useRef(null)
-  return <SiriOrb ref={ref} />
-}`;
-
-const Pill = ({ children }: { children: string }) => (
-  <span className="flex shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-background px-3 py-1.5 text-foreground/70 text-sm">
-    {children}
-  </span>
-);
-
-const CardHeading = ({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: React.ComponentType<{ className?: string }>;
-  title: string;
-  description: string;
-}) => (
-  <>
-    <div className="flex items-center gap-2">
-      <Icon className="size-4" />
-      <h3 className="font-semibold text-foreground text-lg tracking-tight">
-        {title}
-      </h3>
-    </div>
-    <p className="mt-1.5 text-muted-foreground text-sm">{description}</p>
-  </>
-);
-
-const WindowChrome = ({ label }: { label: string }) => (
-  <div className="flex items-center gap-1.5 border-border border-b px-3 py-2">
-    <span className="size-2 rounded-full bg-smooth-400" />
-    <span className="size-2 rounded-full bg-smooth-400" />
-    <span className="size-2 rounded-full bg-smooth-400" />
-    <span className="ml-1.5 font-mono text-[10px] text-muted-foreground">
-      {label}
-    </span>
-  </div>
-);
+const FOUNDATIONS = [
+  {
+    body: "Server Components, TypeScript and hooks — built for React 19.",
+    index: "01",
+    title: "Modern React",
+  },
+  {
+    body: "Utility-first engine with a unified token spine.",
+    index: "02",
+    title: "Tailwind CSS v4",
+  },
+  {
+    body: "Drops into any shadcn project. Same patterns, one command.",
+    index: "03",
+    title: "shadcn compatible",
+  },
+] as const;
 
 export function Features() {
   return (
-    <section className="relative bg-background px-8 py-24 transition">
-      <LandingAtmosphere />
-      <Divider />
-      <SectionHeader
-        chapterIndex="02"
-        chapterLabel="Foundations"
-        description="Built on the foundations you already love, with the polish you've been wishing for."
-        title={
-          <>
-            Why choose Smooth<span className="text-brand">UI</span>?
-          </>
-        }
-      />
-      <ClipRevealGroup className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
-        {/* Lead — live component marquee over a saturated blurred photo */}
-        <PointerLean
-          className={cn(
-            cardBase,
-            "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
-          )}
-        >
-          <div className="relative flex h-full min-h-full flex-col" data-reveal>
-            <Image
-              alt=""
-              aria-hidden
-              className="object-cover"
-              draggable={false}
-              fill
-              sizes="(max-width: 768px) 100vw, 420px"
-              src="/scenes/why-choose.webp"
-              unoptimized
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
-            <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-              <InfiniteSlider gap={12} speed={32}>
-                {SHOWCASE_ROW_A.map((name) => (
-                  <Pill key={name}>{name}</Pill>
-                ))}
-              </InfiniteSlider>
-              <InfiniteSlider gap={12} reverse speed={32}>
-                {SHOWCASE_ROW_B.map((name) => (
-                  <Pill key={name}>{name}</Pill>
-                ))}
-              </InfiniteSlider>
-            </div>
-            <div className="relative p-6">
-              <span className="mb-2 block font-mono text-[11px] text-white/60 uppercase tracking-[0.16em]">
-                01
-              </span>
-              <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
-                {lead.title}
-              </h3>
-              <p className="max-w-md text-sm text-white/80">
-                {lead.description}
-              </p>
-            </div>
-          </div>
-        </PointerLean>
-
-        {/* Modern React — a real code snippet */}
-        <div className={cn(cardBase, "lg:col-span-2")} data-reveal>
-          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
-            02
-          </span>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="orb.tsx" />
-            <pre className="overflow-x-auto p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
-              <code>{REACT_SNIPPET}</code>
-            </pre>
-          </div>
-          <CardHeading
-            description="Server Components, TypeScript and hooks throughout — built for React 19."
-            icon={ReactLogo}
-            title="Modern React"
-          />
+    <section className="relative min-h-[100svh] overflow-hidden">
+      <ScrollFilm poster="/scenes/why-choose.webp" src="/films/motion.mp4" />
+      <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-end gap-12 px-8 py-20 md:grid-cols-12 md:px-12 md:py-24">
+        <div className="md:col-span-7">
+          <EditorialKicker index="02" label="Foundations" />
+          <h2 className="mt-6 max-w-xl font-display text-5xl text-white leading-[0.92] tracking-tight md:text-7xl">
+            Motion is
+            <br />
+            the <em>product.</em>
+          </h2>
+          <p className="mt-6 max-w-md text-pretty text-base text-white/80 leading-relaxed md:text-lg">
+            Every component ships with motion built in — Motion and GSAP, tuned
+            for spring physics, fully reduced-motion aware.
+          </p>
         </div>
-
-        {/* Tailwind v4 — real token / utility chips */}
-        <div className={cardBase} data-reveal>
-          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
-            03
-          </span>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="globals.css" />
-            <div className="flex flex-wrap gap-1.5 p-3">
-              {TOKEN_CHIPS.map((token) => (
-                <span
-                  className="rounded-md border border-border bg-muted px-2 py-1 font-mono text-[10px] text-muted-foreground"
-                  key={token}
-                >
-                  {token}
-                </span>
-              ))}
-            </div>
-          </div>
-          <CardHeading
-            description="The latest utility-first engine, with a unified token spine."
-            icon={TailwindLogo}
-            title="Tailwind CSS v4"
-          />
-        </div>
-
-        {/* shadcn — the real install command */}
-        <div className={cardBase} data-reveal>
-          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
-            04
-          </span>
-          <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
-            <WindowChrome label="Terminal" />
-            <div className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed">
-              <span className="select-none text-muted-foreground">$ </span>
-              <span className="text-foreground/80">npx shadcn add </span>
-              <span className="text-brand">@smoothui/siri-orb</span>
-            </div>
-          </div>
-          <CardHeading
-            description="Drops into any shadcn project — same patterns, one command."
-            icon={ShadcnLogo}
-            title="shadcn compatible"
-          />
-        </div>
-      </ClipRevealGroup>
+        <EditorialRail
+          className="md:col-span-5"
+          heading="Stack"
+          items={FOUNDATIONS}
+        />
+      </div>
     </section>
   );
 }

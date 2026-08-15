@@ -1,11 +1,7 @@
 "use client";
 
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
-import Divider from "@docs/components/landing/divider";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
-import { PointerLean } from "@docs/components/landing/motion/pointer-lean";
-import { SectionHeader } from "@docs/components/landing/section-header";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
 import { Button } from "@docs/components/smoothbutton";
 import {
   Canpoy,
@@ -531,49 +527,46 @@ function TeamPreview() {
 
 export function BlockCategories() {
   return (
-    <section className="relative bg-background px-8 py-24 transition">
-      <LandingAtmosphere />
-      <Divider />
+    <section className="relative bg-background px-8 py-28 md:py-36">
       <div className="mx-auto max-w-7xl">
-        <SectionHeader
-          chapterIndex="03"
-          chapterLabel="Blocks"
-          description={
-            <>
-              <span className="font-medium text-foreground">Customizable</span>{" "}
-              blocks that seamlessly{" "}
-              <span className="font-medium text-foreground">adapt</span> to your
-              project needs
-            </>
-          }
-          title="Elevate your design with premium blocks"
+        <EditorialKicker
+          className="text-muted-foreground"
+          index="03"
+          label="Blocks"
         />
+        <h2 className="mt-6 max-w-3xl font-display text-5xl text-foreground leading-[0.92] tracking-tight md:text-7xl">
+          Elevate your design
+          <br />
+          <em>with premium blocks.</em>
+        </h2>
+        <p className="mt-5 max-w-lg text-pretty text-foreground/70 leading-relaxed">
+          Customizable blocks that seamlessly adapt to your project needs.
+        </p>
 
         <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
-          <ClipRevealGroup className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
-            {blockCategories.map((category) => (
-              <div data-reveal key={category.title}>
-                <PointerLean>
-                  <Link className="relative block" href={category.href}>
-                    <div className="w-full overflow-hidden">
-                      <div className="landing-paper frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
-                        <category.preview />
-                      </div>
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
+            {blockCategories.map((category, index) => (
+              <div key={category.title}>
+                <Link className="relative block" href={category.href}>
+                  <div className="w-full overflow-hidden">
+                    <div className="landing-paper frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
+                      <category.preview />
                     </div>
-                    <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
-                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
-                        <span className="size-1.5 rounded-full bg-brand" />
-                        {category.title}
-                      </span>
-                      <span className="text-foreground/50 text-xs">
-                        {category.blockCount} Blocks
-                      </span>
-                    </div>
-                  </Link>
-                </PointerLean>
+                  </div>
+                  <div className="mt-3 flex items-center gap-3 md:mt-4">
+                    <span className="font-meta text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+                      {String(index + 1).padStart(2, "0")}
+                      <span className="mx-2 text-border">/</span>
+                      {category.title}
+                    </span>
+                    <span className="font-meta text-[11px] text-foreground/40 uppercase tracking-[0.14em]">
+                      {category.blockCount} blocks
+                    </span>
+                  </div>
+                </Link>
               </div>
             ))}
-          </ClipRevealGroup>
+          </div>
 
           <Button
             asChild

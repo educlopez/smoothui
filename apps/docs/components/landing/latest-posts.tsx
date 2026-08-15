@@ -1,7 +1,5 @@
 import { LatestPostsGrid } from "@docs/components/landing/latest-posts-grid";
-import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
-import { SectionHeader } from "@docs/components/landing/section-header";
-import { Button } from "@docs/components/smoothbutton";
+import { EditorialKicker } from "@docs/components/landing/motion/editorial-kicker";
 import { blogSource, getReadingTime } from "@docs/lib/source";
 import Link from "next/link";
 
@@ -31,39 +29,33 @@ export async function LatestPosts() {
   );
 
   return (
-    <section className="relative bg-background px-8 py-24 transition">
-      <LandingAtmosphere />
-      <SectionHeader
-        chapterIndex="09"
-        chapterLabel="Journal"
-        description="Tutorials, deep dives and case studies on building beautifully animated React components."
-        title="From the blog"
-      />
-
-      <LatestPostsGrid posts={withMeta} />
-
-      <div className="mx-auto mt-8 flex justify-center">
-        <Button asChild size="lg" variant="candy">
-          <Link href="/blog">
-            <span className="flex items-center gap-1">
-              <span>View all posts</span>
-            </span>
-            <svg
-              aria-hidden="true"
-              className="-mx-1.5 size-5 shrink-0 text-white/72"
-              fill="none"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M8.333 13.333 11.667 10 8.333 6.667"
-                stroke="currentColor"
-                strokeLinecap="square"
-                strokeWidth="1.25"
-              />
-            </svg>
+    <section className="relative bg-background px-8 py-28 md:py-36">
+      <div className="mx-auto grid max-w-7xl gap-16 md:grid-cols-12">
+        <div className="md:col-span-5">
+          <EditorialKicker
+            className="text-muted-foreground"
+            index="09"
+            label="Journal"
+          />
+          <h2 className="mt-6 font-display text-5xl text-foreground leading-[0.92] tracking-tight md:text-7xl">
+            From the
+            <br />
+            <em>blog.</em>
+          </h2>
+          <p className="mt-5 max-w-sm text-pretty text-foreground/70 leading-relaxed">
+            Tutorials, deep dives and case studies on building beautifully
+            animated React components.
+          </p>
+          <Link
+            className="mt-8 inline-flex font-meta text-[11px] text-muted-foreground uppercase tracking-[0.18em] transition-colors hover:text-foreground"
+            href="/blog"
+          >
+            View all posts
           </Link>
-        </Button>
+        </div>
+        <div className="md:col-span-7">
+          <LatestPostsGrid posts={withMeta} />
+        </div>
       </div>
     </section>
   );
