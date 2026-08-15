@@ -1,6 +1,8 @@
+"use client";
+
+import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
 import { GithubStars } from "@docs/components/landing/navbar/github-stars";
 
-// A slim credibility bar right under the hero — avatar stack + GitHub stars.
 const FACES = [
   "orcdev",
   "jaykosai",
@@ -13,8 +15,12 @@ const FACES = [
 export function SocialProof() {
   return (
     <section className="bg-background px-8 py-8 transition">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-        <div className="flex items-center gap-3">
+      <ClipRevealGroup
+        className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6"
+        selector="[data-reveal]"
+        stagger={0.05}
+      >
+        <div className="flex items-center gap-3" data-reveal>
           <div className="flex -space-x-2">
             {FACES.map((handle) => (
               <img
@@ -35,8 +41,10 @@ export function SocialProof() {
           </span>
         </div>
         <span aria-hidden className="hidden h-4 w-px bg-border sm:block" />
-        <GithubStars />
-      </div>
+        <div data-reveal>
+          <GithubStars />
+        </div>
+      </ClipRevealGroup>
     </section>
   );
 }

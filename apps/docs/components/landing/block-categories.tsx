@@ -2,6 +2,9 @@
 
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import Divider from "@docs/components/landing/divider";
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
+import { PointerLean } from "@docs/components/landing/motion/pointer-lean";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import {
@@ -21,7 +24,7 @@ import {
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
 import PriceFlow from "@repo/smoothui/components/price-flow";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -527,13 +530,14 @@ function TeamPreview() {
 }
 
 export function BlockCategories() {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <section className="relative bg-background px-8 py-24 transition">
+      <LandingAtmosphere />
       <Divider />
       <div className="mx-auto max-w-7xl">
         <SectionHeader
+          chapterIndex="03"
+          chapterLabel="Blocks"
           description={
             <>
               <span className="font-medium text-foreground">Customizable</span>{" "}
@@ -546,45 +550,30 @@ export function BlockCategories() {
         />
 
         <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
-            {blockCategories.map((category, index) => (
-              <motion.div
-                animate={
-                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-                }
-                initial={
-                  shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-                }
-                key={category.title}
-                transition={
-                  shouldReduceMotion
-                    ? { duration: 0 }
-                    : {
-                        delay: index * 0.05,
-                        duration: 0.3,
-                        ease: EASE_OUT_QUAD,
-                      }
-                }
-              >
-                <Link className="relative block" href={category.href}>
-                  <div className="w-full overflow-hidden">
-                    <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
-                      <category.preview />
+          <ClipRevealGroup className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
+            {blockCategories.map((category) => (
+              <div data-reveal key={category.title}>
+                <PointerLean>
+                  <Link className="relative block" href={category.href}>
+                    <div className="w-full overflow-hidden">
+                      <div className="landing-paper frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
+                        <category.preview />
+                      </div>
                     </div>
-                  </div>
-                  <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
-                      <span className="size-1.5 rounded-full bg-brand" />
-                      {category.title}
-                    </span>
-                    <span className="text-foreground/50 text-xs">
-                      {category.blockCount} Blocks
-                    </span>
-                  </div>
-                </Link>
-              </motion.div>
+                    <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
+                      <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
+                        <span className="size-1.5 rounded-full bg-brand" />
+                        {category.title}
+                      </span>
+                      <span className="text-foreground/50 text-xs">
+                        {category.blockCount} Blocks
+                      </span>
+                    </div>
+                  </Link>
+                </PointerLean>
+              </div>
             ))}
-          </div>
+          </ClipRevealGroup>
 
           <Button
             asChild

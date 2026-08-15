@@ -151,6 +151,51 @@
   @apply bg-primary inset-ring-background border inset-ring-2 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(var(--dots-color)_1px,transparent_1px)] before:[background-size:16px_16px] before:[--dots-color:--alpha(var(--color-foreground)/5%)];
 }
 
+/* Landing atmosphere — original grain / vignette, not copied from references. */
+.landing-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='landingNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23landingNoise)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+  mix-blend-mode: overlay;
+  opacity: 0.045;
+}
+
+.landing-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 42%,
+    color-mix(in oklch, var(--color-background) 42%, transparent) 100%
+  );
+}
+
+.landing-vignette-dark {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 38%,
+    rgb(0 0 0 / 28%) 100%
+  );
+}
+
+.landing-paper {
+  isolation: isolate;
+}
+
+.landing-paper::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paperNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23paperNoise)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  mix-blend-mode: multiply;
+  opacity: 0.035;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-grain {
+    opacity: 0.02;
+  }
+}
+
 /* Price Flow Animations */
 @keyframes slide-out-up {
   0% {

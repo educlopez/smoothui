@@ -6,11 +6,13 @@ import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
+import { ClipReveal } from "@docs/components/landing/motion/clip-reveal";
 import { Button } from "@docs/components/smoothbutton";
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { IconArrowUpRightFill24, IconHeartFill24 } from "nucleo-core-fill-24";
 
@@ -159,6 +161,7 @@ function CtaCard() {
       <SmoothLogoMark className="pointer-events-none absolute inset-0 size-full translate-y-3/4 opacity-50" />
 
       <div className="relative text-center">
+        <ChapterEyebrow index="10" label="Afterlight" />
         {hasSponsors ? (
           <>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
@@ -279,11 +282,7 @@ function LinkColumn({ column }: { column: FooterColumn }) {
 // Footer body
 // ---------------------------------------------------------------------------
 
-const ENTER_EASE = [0.23, 1, 0.32, 1] as const;
-
 export default function Footer() {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <div className="relative z-30">
       {/* CTA bridge — top half page bg, bottom half footer bg */}
@@ -291,23 +290,11 @@ export default function Footer() {
         aria-label="Support SmoothUI"
         className="relative bg-linear-to-b from-50% from-background to-50% to-muted/60 pt-16 md:pt-24"
       >
+        <LandingAtmosphere />
         <div className="relative mx-auto max-w-5xl px-6">
-          <motion.div
-            initial={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-            }
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.5, ease: ENTER_EASE }
-            }
-            viewport={{ margin: "-100px", once: true }}
-            whileInView={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-            }
-          >
+          <ClipReveal>
             <CtaCard />
-          </motion.div>
+          </ClipReveal>
         </div>
       </section>
 

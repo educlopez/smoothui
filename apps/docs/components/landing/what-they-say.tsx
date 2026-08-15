@@ -1,5 +1,8 @@
 "use client";
 
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
+import { ClipReveal } from "@docs/components/landing/motion/clip-reveal";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -123,7 +126,7 @@ const PlainCard = ({
   compact?: boolean;
 }) => (
   <a
-    className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
+    className="landing-paper flex h-full flex-col justify-between overflow-hidden rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
     href={data.tweetUrl}
     rel="noopener noreferrer"
     target="_blank"
@@ -261,10 +264,12 @@ export function WhatTheySay() {
 
   return (
     <section className="relative w-full bg-background px-8 py-24">
+      <LandingAtmosphere />
       <Divider />
       <div className="mx-auto max-w-6xl">
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
+            <ChapterEyebrow index="06" label="Voices" />
             <motion.h2
               className="text-balance font-semibold font-title text-3xl text-foreground"
               initial={
@@ -325,7 +330,7 @@ export function WhatTheySay() {
         </div>
 
         {/* Desktop: morphing card / square columns around a crossfading center */}
-        <div className="hidden items-stretch justify-center gap-3 md:flex">
+        <ClipReveal className="hidden items-stretch justify-center gap-3 md:flex">
           <div className="flex w-[210px] flex-col gap-3">
             <SideTile
               active={lt.activePage === page}
@@ -355,10 +360,10 @@ export function WhatTheySay() {
               slot={rb}
             />
           </div>
-        </div>
+        </ClipReveal>
 
         {/* Mobile: simple stacked fade of the active page's three cards */}
-        <div className="md:hidden">
+        <ClipReveal className="md:hidden">
           <AnimatePresence initial={false} mode="popLayout">
             <motion.div
               animate={{ opacity: 1 }}
@@ -376,7 +381,7 @@ export function WhatTheySay() {
               ))}
             </motion.div>
           </AnimatePresence>
-        </div>
+        </ClipReveal>
       </div>
     </section>
   );

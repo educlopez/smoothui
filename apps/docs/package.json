@@ -10,6 +10,7 @@
     "typecheck": "fumadocs-mdx && _FUMADOCS_MDX=1 next typegen && tsc --noEmit"
   },
   "dependencies": {
+    "@gsap/react": "^2.1.2",
     "@next/bundle-analyzer": "^16.0.7",
     "@orama/core": "^1.2.13",
     "@orama/orama": "^3.1.16",
@@ -29,6 +30,7 @@
     "fumadocs-typescript": "^5.2.6",
     "fumadocs-ui": "^16.8.11",
     "glob": "^13.0.6",
+    "gsap": "^3.13.0",
     "jszip": "^3.10.1",
     "katex": "^0.16.25",
     "lucide-react": "^0.555.0",

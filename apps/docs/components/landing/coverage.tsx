@@ -1,7 +1,11 @@
-import Divider from "@docs/components/landing/divider";
+"use client";
 
-// Real, verified external mentions — coverage + directory listings. Not testimonials
-// (those stay X-only) and not "featured in" listicles we aren't actually in.
+import Divider from "@docs/components/landing/divider";
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
+import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
+import { WordReveal } from "@docs/components/landing/motion/word-reveal";
+
 const COVERAGE: { label: string; url: string }[] = [
   {
     label: "Peerlist",
@@ -30,15 +34,18 @@ const COVERAGE: { label: string; url: string }[] = [
 export function Coverage() {
   return (
     <section className="relative bg-background px-8 py-20 transition">
+      <LandingAtmosphere />
       <Divider />
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="relative mx-auto max-w-3xl text-center">
+        <ChapterEyebrow index="07" label="Coverage" />
         <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
           Featured across the community
         </h2>
 
         <blockquote className="mt-5 text-balance font-semibold font-title text-foreground text-xl tracking-tight md:text-2xl">
-          &ldquo;SmoothUI is a game-changer for frontend developers looking for
-          polished UI components with motion-powered interactivity.&rdquo;
+          <span aria-hidden>&ldquo;</span>
+          <WordReveal text="SmoothUI is a game-changer for frontend developers looking for polished UI components with motion-powered interactivity." />
+          <span aria-hidden>&rdquo;</span>
         </blockquote>
 
         <a
@@ -50,10 +57,14 @@ export function Coverage() {
           — Shikhil Saxena, Peerlist
         </a>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <ClipRevealGroup
+          className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3"
+          stagger={0.04}
+        >
           {COVERAGE.map((item) => (
             <a
               className="font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
+              data-reveal
               href={item.url}
               key={item.label}
               rel="noopener noreferrer"
@@ -62,7 +73,7 @@ export function Coverage() {
               {item.label}
             </a>
           ))}
-        </div>
+        </ClipRevealGroup>
       </div>
     </section>
   );

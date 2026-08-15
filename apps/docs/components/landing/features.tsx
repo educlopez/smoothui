@@ -1,7 +1,12 @@
+"use client";
+
 import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
+import { PointerLean } from "@docs/components/landing/motion/pointer-lean";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
@@ -14,7 +19,7 @@ const lead = {
 };
 
 const cardBase =
-  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+  "landing-paper group relative flex flex-col overflow-hidden rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
 
 const SHOWCASE_ROW_A = [
   "Siri Orb",
@@ -86,8 +91,11 @@ const WindowChrome = ({ label }: { label: string }) => (
 export function Features() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
+      <LandingAtmosphere />
       <Divider />
       <SectionHeader
+        chapterIndex="02"
+        chapterLabel="Foundations"
         description="Built on the foundations you already love, with the polish you've been wishing for."
         title={
           <>
@@ -95,47 +103,57 @@ export function Features() {
           </>
         }
       />
-      <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+      <ClipRevealGroup className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
         {/* Lead — live component marquee over a saturated blurred photo */}
-        <div
+        <PointerLean
           className={cn(
             cardBase,
             "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
           )}
         >
-          <Image
-            alt=""
-            aria-hidden
-            className="object-cover"
-            draggable={false}
-            fill
-            sizes="(max-width: 768px) 100vw, 420px"
-            src="/scenes/why-choose.webp"
-            unoptimized
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
-          <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-            <InfiniteSlider gap={12} speed={32}>
-              {SHOWCASE_ROW_A.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </InfiniteSlider>
-            <InfiniteSlider gap={12} reverse speed={32}>
-              {SHOWCASE_ROW_B.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </InfiniteSlider>
+          <div className="relative flex h-full min-h-full flex-col" data-reveal>
+            <Image
+              alt=""
+              aria-hidden
+              className="object-cover"
+              draggable={false}
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              src="/scenes/why-choose.webp"
+              unoptimized
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
+            <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+              <InfiniteSlider gap={12} speed={32}>
+                {SHOWCASE_ROW_A.map((name) => (
+                  <Pill key={name}>{name}</Pill>
+                ))}
+              </InfiniteSlider>
+              <InfiniteSlider gap={12} reverse speed={32}>
+                {SHOWCASE_ROW_B.map((name) => (
+                  <Pill key={name}>{name}</Pill>
+                ))}
+              </InfiniteSlider>
+            </div>
+            <div className="relative p-6">
+              <span className="mb-2 block font-mono text-[11px] text-white/60 uppercase tracking-[0.16em]">
+                01
+              </span>
+              <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
+                {lead.title}
+              </h3>
+              <p className="max-w-md text-sm text-white/80">
+                {lead.description}
+              </p>
+            </div>
           </div>
-          <div className="relative p-6">
-            <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
-              {lead.title}
-            </h3>
-            <p className="max-w-md text-sm text-white/80">{lead.description}</p>
-          </div>
-        </div>
+        </PointerLean>
 
         {/* Modern React — a real code snippet */}
-        <div className={cn(cardBase, "lg:col-span-2")}>
+        <div className={cn(cardBase, "lg:col-span-2")} data-reveal>
+          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+            02
+          </span>
           <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
             <WindowChrome label="orb.tsx" />
             <pre className="overflow-x-auto p-3 font-mono text-[11px] text-foreground/80 leading-relaxed">
@@ -150,7 +168,10 @@ export function Features() {
         </div>
 
         {/* Tailwind v4 — real token / utility chips */}
-        <div className={cardBase}>
+        <div className={cardBase} data-reveal>
+          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+            03
+          </span>
           <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
             <WindowChrome label="globals.css" />
             <div className="flex flex-wrap gap-1.5 p-3">
@@ -172,7 +193,10 @@ export function Features() {
         </div>
 
         {/* shadcn — the real install command */}
-        <div className={cardBase}>
+        <div className={cardBase} data-reveal>
+          <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+            04
+          </span>
           <div className="mb-4 overflow-hidden rounded-lg border border-border bg-background">
             <WindowChrome label="Terminal" />
             <div className="overflow-x-auto p-3 font-mono text-[11px] leading-relaxed">
@@ -187,7 +211,7 @@ export function Features() {
             title="shadcn compatible"
           />
         </div>
-      </div>
+      </ClipRevealGroup>
     </section>
   );
 }

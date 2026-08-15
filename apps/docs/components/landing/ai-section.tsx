@@ -1,6 +1,8 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { LandingAtmosphere } from "@docs/components/landing/motion/atmosphere";
+import { ClipRevealGroup } from "@docs/components/landing/motion/clip-reveal";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import { cn } from "@repo/shadcn-ui/lib/utils";
@@ -290,27 +292,31 @@ const aiFeatures = [
 ];
 
 const cardBase =
-  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+  "landing-paper group relative flex flex-col overflow-hidden rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
 
 export function AISection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <section className="relative bg-background px-8 py-40 transition">
+      <LandingAtmosphere />
       <Divider />
       <div className="mx-auto max-w-5xl">
         <SectionHeader
+          chapterIndex="04"
+          chapterLabel="Agents"
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
           title="Built for AI-assisted development"
         />
 
-        <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+        <ClipRevealGroup className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
           {/* MCP — lead pillar: agent-chat mockup over a saturated blurred photo */}
           <div
             className={cn(
               cardBase,
               "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
             )}
+            data-reveal
           >
             <Image
               alt=""
@@ -329,6 +335,9 @@ export function AISection() {
               </div>
             </div>
             <div className="relative p-6">
+              <span className="mb-2 block font-mono text-[11px] text-white/60 uppercase tracking-[0.16em]">
+                01
+              </span>
               <h3 className="font-semibold text-lg tracking-tight drop-shadow-sm">
                 {aiFeatures[0].title}
               </h3>
@@ -339,7 +348,10 @@ export function AISection() {
           </div>
 
           {/* REST API — the endpoint response artifact */}
-          <div className={cn(cardBase, "lg:col-span-2")}>
+          <div className={cn(cardBase, "lg:col-span-2")} data-reveal>
+            <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+              02
+            </span>
             <div className="mb-4 flex justify-center">
               <ApiIllustration />
             </div>
@@ -352,7 +364,10 @@ export function AISection() {
           </div>
 
           {/* llms.txt — the machine-readable catalog artifact */}
-          <div className={cn(cardBase, "lg:col-span-2")}>
+          <div className={cn(cardBase, "lg:col-span-2")} data-reveal>
+            <span className="mb-3 block font-mono text-[11px] text-muted-foreground uppercase tracking-[0.16em]">
+              03
+            </span>
             <div className="mb-4">
               <LlmsIllustration />
             </div>
@@ -363,7 +378,7 @@ export function AISection() {
               {aiFeatures[2].description}
             </p>
           </div>
-        </div>
+        </ClipRevealGroup>
 
         <motion.div
           className="mt-8 flex justify-center"

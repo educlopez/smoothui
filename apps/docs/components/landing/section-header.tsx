@@ -1,11 +1,14 @@
 "use client";
 
+import { ChapterEyebrow } from "@docs/components/landing/motion/chapter-eyebrow";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
 export interface SectionHeaderProps {
   align?: "center" | "left";
+  chapterIndex?: string;
+  chapterLabel?: string;
   className?: string;
   description?: ReactNode;
   title: ReactNode;
@@ -16,6 +19,8 @@ export function SectionHeader({
   description,
   className,
   align = "center",
+  chapterIndex,
+  chapterLabel,
 }: SectionHeaderProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -41,6 +46,13 @@ export function SectionHeader({
     <div
       className={cn("max-w-2xl", isCenter && "mx-auto text-center", className)}
     >
+      {chapterIndex && chapterLabel ? (
+        <ChapterEyebrow
+          align={align}
+          index={chapterIndex}
+          label={chapterLabel}
+        />
+      ) : null}
       <motion.h2
         className={cn(
           "text-balance font-semibold font-title text-3xl text-foreground transition md:text-4xl",
