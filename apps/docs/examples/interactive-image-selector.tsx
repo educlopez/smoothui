@@ -3,65 +3,18 @@
 import InteractiveImageSelector, {
   type ImageData,
 } from "@repo/smoothui/components/interactive-image-selector";
-import { getImageKitUrl } from "@smoothui/data";
+import { portraits } from "@smoothui/data/scenes";
 import { useEffect, useState } from "react";
 
-const demoImages: ImageData[] = [
-  {
-    id: 1,
-    src: getImageKitUrl("/images/womanorange.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-  {
-    id: 2,
-    src: getImageKitUrl("/images/girl-nature.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-  {
-    id: 3,
-    src: getImageKitUrl("/images/metrowoman.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-  {
-    id: 4,
-    src: getImageKitUrl("/images/designerworking.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-  {
-    id: 5,
-    src: getImageKitUrl("/images/girlglass.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-  {
-    id: 6,
-    src: getImageKitUrl("/images/manup.webp", {
-      format: "auto",
-      height: 400,
-      quality: 80,
-      width: 400,
-    }),
-  },
-];
+/**
+ * The five editorial portraits, rather than six loose files sitting outside the
+ * `smoothui/` namespace on ImageKit. A selector of faces reads as a set when the
+ * faces are lit and graded the same way.
+ */
+const demoImages: ImageData[] = portraits.map((portrait, index) => ({
+  id: index + 1,
+  src: `${portrait.src}?tr=w-400,h-400,q-80,f-auto`,
+}));
 
 const InteractiveImageSelectorDemo = () => {
   const [selected, setSelected] = useState<number[]>([]);

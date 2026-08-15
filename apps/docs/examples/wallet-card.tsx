@@ -6,8 +6,12 @@ import type {
   WalletMember,
 } from "@repo/smoothui/components/wallet-card";
 import WalletCard from "@repo/smoothui/components/wallet-card";
+import { somePeople } from "@smoothui/data/people";
 import { ArrowUpRight, Plus } from "lucide-react";
 import { useState } from "react";
+
+/** The wallet belongs to one person; the rest are who it is shared with. */
+const [OWNER, ...SHARED] = somePeople(7, 40);
 
 const accounts: WalletAccount[] = [
   {
@@ -16,7 +20,7 @@ const accounts: WalletAccount[] = [
     expiry: "08/29",
     gradient:
       "bg-[linear-gradient(145deg,oklch(0.5_0.13_268),oklch(0.25_0.08_268))]",
-    holder: "Ada Fontaine",
+    holder: OWNER.name,
     id: "everyday",
     label: "Everyday",
     last4: "4242",
@@ -28,7 +32,7 @@ const accounts: WalletAccount[] = [
     expiry: "02/31",
     gradient:
       "bg-[linear-gradient(145deg,oklch(0.52_0.11_158),oklch(0.26_0.06_158))]",
-    holder: "Ada Fontaine",
+    holder: OWNER.name,
     id: "savings",
     label: "Savings",
     last4: "1190",
@@ -40,7 +44,7 @@ const accounts: WalletAccount[] = [
     expiry: "11/28",
     gradient:
       "bg-[linear-gradient(145deg,oklch(0.62_0.13_62),oklch(0.32_0.08_48))]",
-    holder: "Ada Fontaine",
+    holder: OWNER.name,
     id: "travel",
     label: "Travel",
     last4: "0087",
@@ -52,7 +56,7 @@ const accounts: WalletAccount[] = [
     expiry: "05/30",
     gradient:
       "bg-[linear-gradient(145deg,oklch(0.4_0.02_264),oklch(0.18_0.01_264))]",
-    holder: "Ada Fontaine",
+    holder: OWNER.name,
     id: "reserve",
     label: "Reserve",
     last4: "7731",
@@ -60,14 +64,11 @@ const accounts: WalletAccount[] = [
   },
 ];
 
-const members: WalletMember[] = [
-  { id: "m1", name: "Ada Fontaine" },
-  { id: "m2", name: "Kenji Osei" },
-  { id: "m3", name: "Priya Nair" },
-  { id: "m4", name: "Lucas Meyer" },
-  { id: "m5", name: "Sofia Reyes" },
-  { id: "m6", name: "Tomas Ilic" },
-];
+const members: WalletMember[] = SHARED.map((person) => ({
+  avatar: `${person.avatar}?tr=w-64,h-64,f-auto`,
+  id: person.id,
+  name: person.name,
+}));
 
 export default function WalletCardDemo() {
   const [activeId, setActiveId] = useState("everyday");

@@ -6,25 +6,25 @@ import PhotoStack, {
 
 const photos: PhotoStackPhoto[] = [
   {
-    alt: "Desert canyon at sunset",
+    alt: "A rust-red mountain against a pale sky",
     id: "canyon",
-    name: "Desert Canyon",
+    name: "Rust Peak",
     role: "Golden hour",
-    src: "/images/figma/bg-9.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-640,h-800,f-auto",
   },
   {
-    alt: "Palm grove in soft light",
+    alt: "A mountainside catching low golden light",
     id: "palms",
-    name: "Palm Grove",
+    name: "Golden Ridge",
     role: "Summer haze",
-    src: "/images/figma/bg-11.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-640,h-800,f-auto",
   },
   {
-    alt: "City lights bokeh at night",
+    alt: "A vast moon rising over a wooded valley",
     id: "lights",
-    name: "City Lights",
+    name: "Moonrise",
     role: "After dark",
-    src: "/images/figma/bg-13.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/moonrise-valley.webp?tr=w-640,h-800,f-auto",
   },
 ];
 

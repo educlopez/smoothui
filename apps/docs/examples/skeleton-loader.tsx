@@ -2,8 +2,12 @@
 
 import Skeleton from "@repo/smoothui/components/skeleton-loader";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { somePeople } from "@smoothui/data/people";
 import Image from "next/image";
 import { useState } from "react";
+
+/** One face from the shared cast, so the skeleton resolves into a real person. */
+const [PERSON] = somePeople(1, 3);
 
 export default function SkeletonLoaderDemo() {
   const [loading, setLoading] = useState(true);
@@ -16,16 +20,16 @@ export default function SkeletonLoaderDemo() {
             alt="Surf"
             className="h-40 w-full object-cover"
             height={160}
-            src="/images/figma/bg-5.webp"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-480,f-auto"
             width={320}
           />
           <div className="p-4">
             <div className="flex items-center gap-3">
               <Image
-                alt="Avatar"
+                alt={PERSON.name}
                 className="size-12 rounded-full"
                 height={48}
-                src="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?tr=w-48,h-48"
+                src={`${PERSON.avatar}?tr=w-48,h-48,f-auto`}
                 width={48}
               />
               <div>

@@ -4,6 +4,7 @@ import ExpandableCards, {
   type Card,
 } from "@repo/smoothui/components/expandable-cards";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
+import { sceneById } from "@smoothui/data/scenes";
 import { useState } from "react";
 
 const ExpandableCardsDemo = () => {
@@ -20,12 +21,12 @@ const ExpandableCardsDemo = () => {
       content:
         "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
       id: 1,
-      image: getImageKitUrl("/images/summer-opening.webp", {
+      image: getImageKitUrl(`${sceneById("cloud-meadow")?.src}`, {
         format: "auto",
         quality: 80,
         width: 600,
       }),
-      title: "Summer Opening",
+      title: "Cloud Meadow",
     },
     {
       author: {
@@ -36,12 +37,12 @@ const ExpandableCardsDemo = () => {
       content:
         "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
       id: 2,
-      image: getImageKitUrl("/images/fashion.webp", {
+      image: getImageKitUrl(`${sceneById("prism-meadow")?.src}`, {
         format: "auto",
         quality: 80,
         width: 600,
       }),
-      title: "Fashion",
+      title: "Prism Meadow",
     },
     {
       author: {
@@ -52,12 +53,12 @@ const ExpandableCardsDemo = () => {
       content:
         "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
       id: 3,
-      image: getImageKitUrl("/images/galleryart.webp", {
+      image: getImageKitUrl(`${sceneById("nebula-canyon")?.src}`, {
         format: "auto",
         quality: 80,
         width: 600,
       }),
-      title: "Gallery Art",
+      title: "Nebula Canyon",
     },
     {
       author: {
@@ -68,12 +69,12 @@ const ExpandableCardsDemo = () => {
       content:
         "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
       id: 4,
-      image: getImageKitUrl("/images/dreams.webp", {
+      image: getImageKitUrl(`${sceneById("moonrise-valley")?.src}`, {
         format: "auto",
         quality: 80,
         width: 600,
       }),
-      title: "Dreams",
+      title: "Moonrise",
     },
   ];
 

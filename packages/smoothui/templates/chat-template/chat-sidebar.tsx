@@ -17,7 +17,7 @@ import type { ChatConversation } from "./chat-data";
 
 /** A real photograph, so the footer is a person and not a lettered circle. */
 const USER_AVATAR =
-  "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?tr=w-64,h-64";
+  "https://ik.imagekit.io/16u211libb/smoothui/people/aysha-becker.webp?tr=w-64,h-64,f-auto";
 
 export type ChatSidebarProps = {
   activeId: string;

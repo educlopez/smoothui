@@ -5,18 +5,18 @@ import UserAccountAvatar, {
   type UserData,
 } from "@repo/smoothui/components/user-account-avatar";
 import { getImageKitUrl } from "@smoothui/data";
+import { somePeople } from "@smoothui/data/people";
 import { useEffect, useState } from "react";
 
+const [PERSON] = somePeople(1, 7);
+
 const demoUser: UserData = {
-  avatar: getImageKitUrl(
-    "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
-    {
-      format: "auto",
-      height: 96,
-      quality: 85,
-      width: 96,
-    }
-  ),
+  avatar: getImageKitUrl(`${PERSON.avatar}`, {
+    format: "auto",
+    height: 96,
+    quality: 85,
+    width: 96,
+  }),
   email: "jane@example.com",
   name: "Jane Doe",
 };
