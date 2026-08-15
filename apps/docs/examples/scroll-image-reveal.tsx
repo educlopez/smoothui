@@ -2,6 +2,7 @@
 
 import type { ScrollImageRevealMask } from "@repo/smoothui/components/scroll-image-reveal";
 import ScrollImageReveal from "@repo/smoothui/components/scroll-image-reveal";
+import { sceneById } from "@smoothui/data/scenes";
 import { ArrowDown } from "lucide-react";
 import type { ComponentProps } from "react";
 import { useRef } from "react";
@@ -12,51 +13,57 @@ type Frame = {
   direction?: ComponentProps<typeof ScrollImageReveal>["direction"];
   id: string;
   mask: ScrollImageRevealMask;
+  scene: string;
   parallax?: number;
   title: string;
 };
 
 const FRAMES: Frame[] = [
   {
-    alt: "Ridge line of a mountain range emerging from low cloud at sunrise",
+    alt: "A mountainside catching low golden light",
     caption:
       "A single edge travels across the frame. The most literal reveal there is, and the one that survives being used twice on the same page.",
     id: "wipe",
     mask: "wipe",
+    scene: "golden-ridge",
     title: "Wipe",
   },
   {
-    alt: "Aerial view of a river cutting through farmland",
+    alt: "A wildflower meadow under towering cumulus",
     caption:
       "The mask opens from the top edge downward, so the image reads as arriving rather than uncovering. Best where the subject sits low in the crop.",
     direction: "down",
     id: "curtain",
     mask: "curtain",
+    scene: "cloud-meadow",
     title: "Curtain",
   },
   {
-    alt: "Close-up of a fern frond covered in early morning dew",
+    alt: "A watercolour grove fading into white",
     caption:
       "An expanding circle puts the centre of the frame first. It rewards a photograph with a real subject and punishes one without.",
     id: "circle",
     mask: "circle",
+    scene: "watercolor-grove",
     title: "Circle",
   },
   {
-    alt: "City skyline at dusk with lit office towers",
+    alt: "Blue mountain ridges receding into night",
     caption:
       "Forty-pixel bands widen in parallel. Mechanical, deliberate, and the only mask here that reads as an instrument rather than a curtain.",
     id: "blinds",
     mask: "blinds",
+    scene: "blue-ridge-night",
     title: "Blinds",
   },
   {
-    alt: "Wind-rippled desert dunes under a cloudless sky",
+    alt: "A single pale dune crest in deep shadow",
     caption:
       "Scale and opacity together, settling from a slight overscan down to its natural size. No hard edge anywhere — the quietest of the five.",
     id: "scale",
     mask: "scale",
     parallax: 40,
+    scene: "dune-shadow",
     title: "Scale",
   },
 ];
@@ -125,7 +132,7 @@ export default function ScrollImageRevealDemo() {
                 direction={frame.direction}
                 mask={frame.mask}
                 parallax={frame.parallax}
-                src={`https://picsum.photos/seed/scroll-image-reveal-${frame.id}/1400/900`}
+                src={`${sceneById(frame.scene)?.src}?tr=w-1400,h-900,f-auto`}
               />
               <figcaption className="max-w-xl text-muted-foreground text-sm leading-relaxed">
                 {frame.caption}

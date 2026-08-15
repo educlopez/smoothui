@@ -24,9 +24,9 @@ export function SkillsSection() {
   });
 
   return (
-    <section className="relative bg-background px-8 py-32 transition">
+    <section className="relative bg-background py-32 transition">
       <Divider />
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto w-full max-w-5xl px-8">
         <div className="relative isolate overflow-hidden rounded-3xl border border-border">
           <Image
             alt=""

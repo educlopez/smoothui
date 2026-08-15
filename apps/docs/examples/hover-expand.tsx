@@ -2,44 +2,48 @@
 
 import type { HoverExpandItem } from "@repo/smoothui/components/hover-expand";
 import HoverExpand from "@repo/smoothui/components/hover-expand";
+import { sceneById } from "@smoothui/data/scenes";
 
-const items: HoverExpandItem[] = [
+// Built from the scene dictionary so the alt text can never drift from the
+// picture — which is exactly what happened when the two were maintained apart.
+const ENTRIES = [
   {
-    alt: "Snow-capped peak against a blue sky",
     description: "High-altitude trails for experienced hikers.",
-    id: "mountains",
-    image: "https://picsum.photos/seed/hover-expand-1/500/700",
+    scene: "rust-peak",
     title: "Mountains",
   },
   {
-    alt: "Calm turquoise ocean water",
-    description: "Sandy beaches and warm coastal breeze.",
-    id: "ocean",
-    image: "https://picsum.photos/seed/hover-expand-2/500/700",
-    title: "Ocean",
+    description: "Still water, and a fire worth the walk in.",
+    scene: "lake-camp",
+    title: "Lake",
   },
   {
-    alt: "Tall trees in a quiet forest",
     description: "Shaded paths through old-growth woodland.",
-    id: "forest",
-    image: "https://picsum.photos/seed/hover-expand-3/500/700",
+    scene: "watercolor-grove",
     title: "Forest",
   },
   {
-    alt: "Golden desert dunes",
     description: "Wide open dunes under a clear horizon.",
-    id: "desert",
-    image: "https://picsum.photos/seed/hover-expand-4/500/700",
+    scene: "dune-shadow",
     title: "Desert",
   },
   {
-    alt: "City skyline lit up at night",
-    description: "Bright streets and busy skylines after dark.",
-    id: "city",
-    image: "https://picsum.photos/seed/hover-expand-5/500/700",
-    title: "City",
+    description: "A moon big enough to read by.",
+    scene: "moonrise-valley",
+    title: "Night",
   },
-];
+] as const;
+
+const items: HoverExpandItem[] = ENTRIES.map((entry) => {
+  const scene = sceneById(entry.scene);
+  return {
+    alt: scene?.alt ?? entry.title,
+    description: entry.description,
+    id: entry.scene,
+    image: `${scene?.src}?tr=w-500,h-700,f-auto`,
+    title: entry.title,
+  };
+});
 
 export default function HoverExpandDemo() {
   return (

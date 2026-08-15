@@ -260,9 +260,9 @@ export function WhatTheySay() {
   );
 
   return (
-    <section className="relative w-full bg-background px-8 py-24">
+    <section className="relative w-full bg-background py-24">
       <Divider />
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto w-full max-w-6xl px-8">
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
             <motion.h2

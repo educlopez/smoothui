@@ -6,6 +6,7 @@ import type {
 } from "@repo/smoothui/components/card-swipe-deck";
 import CardSwipeDeck from "@repo/smoothui/components/card-swipe-deck";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { sceneById } from "@smoothui/data/scenes";
 import { Heart, RotateCcw, X } from "lucide-react";
 import { useRef, useState } from "react";
 
@@ -15,20 +16,23 @@ const PROFILES = [
     id: "nova",
     location: "Lisbon · 4 km away",
     name: "Nova",
+    portrait: "sky-freckles",
     tags: ["Product design", "Film", "Cortado"],
   },
   {
     age: 31,
     id: "kai",
     location: "Porto · 12 km away",
-    name: "Kai",
+    name: "Kaia",
+    portrait: "warm-wall",
     tags: ["Frontend", "Bouldering", "Vinyl"],
   },
   {
     age: 24,
-    id: "rui",
+    id: "ines",
     location: "Lisbon · 2 km away",
-    name: "Rui",
+    name: "Inês",
+    portrait: "golden-hour",
     tags: ["Illustration", "Ceramics", "Jazz"],
   },
   {
@@ -36,6 +40,7 @@ const PROFILES = [
     id: "sage",
     location: "Braga · 38 km away",
     name: "Sage",
+    portrait: "windswept",
     tags: ["Motion", "Surfing", "Ramen"],
   },
   {
@@ -43,6 +48,7 @@ const PROFILES = [
     id: "mira",
     location: "Sintra · 21 km away",
     name: "Mira",
+    portrait: "open-sky",
     tags: ["Type design", "Trail running"],
   },
 ] as const;
@@ -53,7 +59,7 @@ const items: CardSwipeDeckItem[] = PROFILES.map((profile) => ({
       <img
         alt={`Portrait of ${profile.name}`}
         className="h-full w-full object-cover"
-        src={`https://picsum.photos/seed/smoothui-${profile.id}/600/760`}
+        src={`${sceneById(profile.portrait)?.src}?tr=w-600,h-760,f-auto`}
       />
       <div className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
       <div className="absolute inset-x-0 bottom-0 flex flex-col gap-2.5 p-5">

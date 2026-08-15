@@ -12,8 +12,8 @@ const FACES = [
 
 export function SocialProof() {
   return (
-    <section className="bg-background px-8 py-8 transition">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
+    <section className="bg-background py-8 transition">
+      <div className="mx-auto flex w-full max-w-7xl flex-col items-center justify-center gap-4 px-8 sm:flex-row sm:gap-6">
         <div className="flex items-center gap-3">
           <div className="flex -space-x-2">
             {FACES.map((handle) => (

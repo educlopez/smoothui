@@ -2,177 +2,45 @@
 
 import type { DockItem } from "@repo/smoothui/components/dock";
 import Dock from "@repo/smoothui/components/dock";
-import {
-  Aperture,
-  Calendar,
-  Compass,
-  Folder,
-  Mail,
-  MessageCircle,
-  Music,
-  Settings,
-  Sparkles,
-  Terminal,
-  Trash2,
-} from "lucide-react";
-import { type ReactNode, useState } from "react";
+import type { AppIcon } from "@smoothui/data/app-icons";
+import { appIconById, dockIcons } from "@smoothui/data/app-icons";
+import { useState } from "react";
 
-type TileProps = {
-  children: ReactNode;
-  from: string;
-  to: string;
-};
-
-const AppTile = ({ children, from, to }: TileProps) => (
-  <span
-    className="flex size-full items-center justify-center rounded-[26%] text-white shadow-black/25 shadow-sm ring-1 ring-white/25 ring-inset"
-    style={{ backgroundImage: `linear-gradient(to bottom, ${from}, ${to})` }}
-  >
-    {children}
-  </span>
+const appIcon = (app: AppIcon, size: number) => (
+  <img
+    alt=""
+    className="size-full rounded-[22%]"
+    draggable={false}
+    src={`${app.src}?tr=w-${size}`}
+  />
 );
-
-const ICON = "size-5";
-const SIDE_ICON = "size-4";
 
 export default function DockDemo() {
   const [openApp, setOpenApp] = useState("Finder");
 
-  const items: DockItem[] = [
-    {
-      active: true,
-      icon: (
-        <AppTile from="oklch(0.72 0.13 240)" to="oklch(0.56 0.16 250)">
-          <Folder className={ICON} />
-        </AppTile>
-      ),
-      id: "finder",
-      label: "Finder",
-      onSelect: () => setOpenApp("Finder"),
-    },
-    {
-      active: true,
-      icon: (
-        <AppTile from="oklch(0.74 0.14 205)" to="oklch(0.58 0.16 215)">
-          <Mail className={ICON} />
-        </AppTile>
-      ),
-      id: "mail",
-      label: "Mail",
-      onSelect: () => setOpenApp("Mail"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.76 0.16 150)" to="oklch(0.6 0.17 155)">
-          <MessageCircle className={ICON} />
-        </AppTile>
-      ),
-      id: "messages",
-      label: "Messages",
-      onSelect: () => setOpenApp("Messages"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.7 0.2 25)" to="oklch(0.55 0.21 20)">
-          <Calendar className={ICON} />
-        </AppTile>
-      ),
-      id: "calendar",
-      label: "Calendar",
-      onSelect: () => setOpenApp("Calendar"),
-    },
-    {
-      active: true,
-      icon: (
-        <AppTile from="oklch(0.74 0.19 352)" to="oklch(0.6 0.21 354)">
-          <Music className={ICON} />
-        </AppTile>
-      ),
-      id: "music",
-      label: "Music",
-      onSelect: () => setOpenApp("Music"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.82 0.16 80)" to="oklch(0.68 0.17 62)">
-          <Aperture className={ICON} />
-        </AppTile>
-      ),
-      id: "photos",
-      label: "Photos",
-      onSelect: () => setOpenApp("Photos"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.68 0.18 300)" to="oklch(0.53 0.19 295)">
-          <Sparkles className={ICON} />
-        </AppTile>
-      ),
-      id: "studio",
-      label: "Studio",
-      onSelect: () => setOpenApp("Studio"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.4 0.01 260)" to="oklch(0.24 0.01 260)">
-          <Terminal className={ICON} />
-        </AppTile>
-      ),
-      id: "terminal",
-      label: "Terminal",
-      onSelect: () => setOpenApp("Terminal"),
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.66 0.03 265)" to="oklch(0.5 0.03 265)">
-          <Settings className={ICON} />
-        </AppTile>
-      ),
-      id: "settings",
-      label: "System settings",
-      onSelect: () => setOpenApp("System settings"),
-    },
-  ];
+  const items: DockItem[] = dockIcons.map((app, index) => ({
+    // The first two read as "running" — a dock with nothing open looks staged.
+    active: index < 2,
+    icon: appIcon(app, 128),
+    id: app.id,
+    label: app.name,
+    onSelect: () => setOpenApp(app.name),
+  }));
 
   const sideItems: DockItem[] = [
-    {
-      active: true,
-      icon: (
-        <AppTile from="oklch(0.72 0.13 240)" to="oklch(0.56 0.16 250)">
-          <Folder className={SIDE_ICON} />
-        </AppTile>
-      ),
-      id: "files",
-      label: "Files",
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.74 0.14 205)" to="oklch(0.58 0.16 215)">
-          <Compass className={SIDE_ICON} />
-        </AppTile>
-      ),
-      id: "browser",
-      label: "Browser",
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.82 0.16 80)" to="oklch(0.68 0.17 62)">
-          <Aperture className={SIDE_ICON} />
-        </AppTile>
-      ),
-      id: "capture",
-      label: "Capture",
-    },
-    {
-      icon: (
-        <AppTile from="oklch(0.66 0.03 265)" to="oklch(0.5 0.03 265)">
-          <Trash2 className={SIDE_ICON} />
-        </AppTile>
-      ),
-      id: "bin",
-      label: "Bin",
-    },
-  ];
+    "safari",
+    "photos",
+    "screenshot",
+    "time-machine",
+  ]
+    .map((id) => appIconById(id))
+    .filter((app): app is AppIcon => app !== undefined)
+    .map((app, index) => ({
+      active: index === 0,
+      icon: appIcon(app, 96),
+      id: app.id,
+      label: app.name,
+    }));
 
   return (
     <div className="relative h-[420px] w-full overflow-hidden rounded-2xl border border-foreground/10">
@@ -180,7 +48,7 @@ export default function DockDemo() {
         alt="A green mountain ridge falling away under a heavy sky"
         className="absolute inset-0 size-full select-none object-cover"
         draggable={false}
-        src="https://picsum.photos/id/1018/2400/1400"
+        src="https://ik.imagekit.io/16u211libb/smoothui/backgrounds/mountain-ridge.jpg?tr=w-1600,f-auto"
       />
       {/* Scrim: darkest at the two edges the chrome sits on, so the menu bar
           and the dock keep their contrast whatever the photo is doing. */}

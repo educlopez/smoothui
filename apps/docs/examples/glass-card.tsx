@@ -15,7 +15,7 @@ import { useState } from "react";
 const PROGRESS = 42;
 
 const PHOTO =
-  "url(https://picsum.photos/seed/smoothui-glass/1200/800) center/cover no-repeat";
+  "url(https://ik.imagekit.io/16u211libb/smoothui/scenes/silk-waves.webp?tr=w-1200,h-800,f-auto) center/cover no-repeat";
 /** Saturated gradient over the right two thirds — the diagonal seam it forms
  * with the photo is the first hard edge the rim has to bend. */
 const VIVID =
@@ -60,7 +60,7 @@ const GlassCardDemo = () => {
           <div className="flex items-center gap-3">
             <div
               aria-hidden="true"
-              className="size-14 shrink-0 rounded-lg bg-[url(https://picsum.photos/seed/smoothui-cover/160/160)] bg-center bg-cover ring-1 ring-white/25 ring-inset"
+              className="size-14 shrink-0 rounded-lg bg-[url(https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-aurora.webp?tr=w-160,h-160,f-auto)] bg-center bg-cover ring-1 ring-white/25 ring-inset"
             />
             <div className="min-w-0 flex-1">
               <p

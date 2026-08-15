@@ -2,39 +2,43 @@
 
 import type { Testimonial } from "@repo/smoothui/components/inline-testimonials";
 import InlineTestimonials from "@repo/smoothui/components/inline-testimonials";
+import { somePeople } from "@smoothui/data/people";
 
-const TESTIMONIALS: Testimonial[] = [
+// Three of the shared cast, so these faces and job titles match wherever else
+// they turn up in the docs. The quotes belong to this demo's story, not to the
+// people, so they stay here rather than in the dictionary.
+const QUOTES = [
   {
-    avatar: "https://i.pravatar.cc/128?img=15",
-    id: "farah",
-    name: "Farah Nassar",
     quote:
       "We shipped the new dashboard three weeks early, and nobody had to touch the data layer to do it.",
     rating: 5,
-    role: "Head of Product, Lumen",
   },
   {
-    avatar: "https://i.pravatar.cc/128?img=26",
-    id: "kwame",
-    name: "Kwame Osei",
     quote:
       "The accessibility defaults meant our audit came back clean on the first try. Rare for a motion-heavy library.",
     rating: 5,
-    role: "Staff Engineer, Northwind",
   },
   {
-    avatar: "https://i.pravatar.cc/128?img=32",
-    id: "mei",
-    name: "Mei Tanaka",
     quote:
       "I reviewed 40 screens in an afternoon. Every transition already behaved the same way.",
     rating: 4,
-    role: "Design Lead, Lumen",
   },
 ];
 
-const STORY =
-  "The brief was small: make the dashboard feel fast. {{farah}} ruled out a rewrite, so the team replaced the interaction layer instead. {{kwame}} took the accessibility pass, and by the time {{mei}} reviewed it, only copy tweaks were left.";
+const CAST = somePeople(QUOTES.length, 20);
+
+const TESTIMONIALS: Testimonial[] = CAST.map((person, index) => ({
+  avatar: `${person.avatar}?tr=w-128,h-128,f-auto`,
+  id: person.id,
+  name: person.name,
+  quote: QUOTES[index].quote,
+  rating: QUOTES[index].rating,
+  role: `${person.role}, ${person.company}`,
+}));
+
+const [lead, engineer, reviewer] = CAST;
+
+const STORY = `The brief was small: make the dashboard feel fast. {{${lead.id}}} ruled out a rewrite, so the team replaced the interaction layer instead. {{${engineer.id}}} took the accessibility pass, and by the time {{${reviewer.id}}} reviewed it, only copy tweaks were left.`;
 
 export default function InlineTestimonialsDemo() {
   return (

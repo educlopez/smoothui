@@ -3,29 +3,35 @@
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import type { TimeMachineStackItem } from "@repo/smoothui/components/time-machine-stack";
 import TimeMachineStack from "@repo/smoothui/components/time-machine-stack";
+import { sceneById } from "@smoothui/data/scenes";
 import { useState } from "react";
 
+// Seven distinct shots: the stack is a photo history, and a history of the same
+// picture seven times is not one. Each `alt` describes its own image.
 const SHOTS = [
-  { alt: "Fog rolling over a forested ridge", id: "ridge" },
-  { alt: "An empty road cutting through desert scrub", id: "road" },
-  { alt: "Waves breaking against a dark rock shelf", id: "shore" },
-  { alt: "Snow-covered peaks above a still lake", id: "peaks" },
-  { alt: "City rooftops at dusk under low cloud", id: "rooftops" },
-  { alt: "Sunlight through a canopy of tall pines", id: "canopy" },
-  { alt: "A narrow canyon road in late afternoon light", id: "canyon" },
+  { id: "ridge", scene: "blue-ridge-night" },
+  { id: "peak", scene: "rust-peak" },
+  { id: "lake", scene: "lake-camp" },
+  { id: "moon", scene: "moonrise-valley" },
+  { id: "canyon", scene: "nebula-canyon" },
+  { id: "dune", scene: "dune-shadow" },
+  { id: "grove", scene: "watercolor-grove" },
 ] as const;
 
-const items: TimeMachineStackItem[] = SHOTS.map((shot) => ({
-  content: (
-    <img
-      alt={shot.alt}
-      className="h-full w-full select-none object-cover"
-      draggable={false}
-      src={`https://picsum.photos/seed/timemachine-${shot.id}/960/640`}
-    />
-  ),
-  id: shot.id,
-}));
+const items: TimeMachineStackItem[] = SHOTS.map((shot) => {
+  const scene = sceneById(shot.scene);
+  return {
+    content: (
+      <img
+        alt={scene?.alt ?? ""}
+        className="h-full w-full select-none object-cover"
+        draggable={false}
+        src={`${scene?.src}?tr=w-960,h-640,f-auto`}
+      />
+    ),
+    id: shot.id,
+  };
+});
 
 export default function TimeMachineStackDemo() {
   const [index, setIndex] = useState(0);

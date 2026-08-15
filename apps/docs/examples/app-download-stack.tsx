@@ -3,31 +3,28 @@
 import AppDownloadStack, {
   type AppData,
 } from "@repo/smoothui/components/app-download-stack";
+import { appIconById } from "@smoothui/data/app-icons";
 import { useEffect, useState } from "react";
 
-// TODO: No funciona
+// TODO: this demo was marked as not working before the icons were swapped. The
+// icons render and nothing throws, but the download interaction is unverified.
+
+// A creative-work starter set, so the stack reads as a considered bundle rather
+// than four unrelated apps.
 const demoApps: AppData[] = [
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/9c9721583ecba33e59ebcebdca2248fd_Mmr12FRh5V.png",
-    id: 1,
-    name: "GitHub",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/b47f43e02f04563447fa90d4ff6c8943_9KzW5GTggQ.png",
-    id: 2,
-    name: "Canary",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/f0b9cdefa67b57eeb080278c2f6984cc_sCqUJBg6Qq.png",
-    id: 3,
-    name: "Figma",
-  },
-  {
-    icon: "https://parsefiles.back4app.com/JPaQcFfEEQ1ePBxbf6wvzkPMEqKYHhPYv8boI1Rc/178c7b02003c933e6b5afe98bbee595b_low_res_Arc_Browser.png",
-    id: 4,
-    name: "Arc",
-  },
-];
+  "final-cut-pro-create-video",
+  "logic-pro-make-music",
+  "pixelmator-pro-edit-images",
+  "motion-animate-effects",
+  "compressor-encode-media",
+]
+  .map((id, index) => {
+    const app = appIconById(id);
+    return app
+      ? { icon: `${app.src}?tr=w-128`, id: index + 1, name: app.name }
+      : null;
+  })
+  .filter((app): app is AppData => app !== null);
 
 const AppDownloadStackDemo = () => {
   const [selected, setSelected] = useState<number[]>([]);

@@ -17,9 +17,9 @@ export default function ParallaxLayersDemo() {
     {
       content: (
         <img
-          alt="Distant mountain range under a pale morning sky"
+          alt="Blue mountain ridges receding into night"
           className="h-full w-full scale-125 object-cover"
-          src="https://picsum.photos/seed/parallax-layers-sky/1200/800"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-1200,h-800,f-auto"
         />
       ),
       depth: 0.15,
@@ -32,9 +32,9 @@ export default function ParallaxLayersDemo() {
       content: (
         <div className="absolute inset-x-0 -bottom-10 h-3/4">
           <img
-            alt="Forested foreground ridge"
+            alt="A single pale dune crest in deep shadow"
             className="h-full w-full scale-125 object-cover"
-            src="https://picsum.photos/seed/parallax-layers-ridge/1200/500"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-1200,h-500,f-auto"
           />
         </div>
       ),

@@ -4,6 +4,7 @@ import ImageGenerationPanel, {
   type ImageGenerationImage,
   type ImageGenerationStatus,
 } from "@repo/smoothui/components/image-generation-panel";
+import { sceneById } from "@smoothui/data/scenes";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
@@ -28,14 +29,25 @@ const HOLD_MS = 2600;
 /** Two decimals is all the resolve needs — it caps the ramp at ~100 renders. */
 const PROGRESS_QUANTUM = 100;
 
-const makeImage = (batch: number): ImageGenerationImage[] => [
-  {
-    alt: SCRIPTED_PROMPT,
-    id: `${batch}`,
-    preview: `https://picsum.photos/seed/lighthouse-${batch}/${PREVIEW_WIDTH}/${PREVIEW_HEIGHT}`,
-    src: `https://picsum.photos/seed/lighthouse-${batch}/${RESULT_WIDTH}/${RESULT_HEIGHT}`,
-  },
-];
+/** Cycled per run, so re-generating returns a different picture each time. */
+const RESULTS = [
+  sceneById("moonrise-valley"),
+  sceneById("golden-ridge"),
+  sceneById("nebula-canyon"),
+  sceneById("lake-camp"),
+].filter((scene): scene is NonNullable<typeof scene> => scene !== undefined);
+
+const makeImage = (batch: number): ImageGenerationImage[] => {
+  const scene = RESULTS[batch % RESULTS.length];
+  return [
+    {
+      alt: SCRIPTED_PROMPT,
+      id: `${batch}`,
+      preview: `${scene.src}?tr=w-${PREVIEW_WIDTH},h-${PREVIEW_HEIGHT},f-auto`,
+      src: `${scene.src}?tr=w-${RESULT_WIDTH},h-${RESULT_HEIGHT},f-auto`,
+    },
+  ];
+};
 
 export default function ImageGenerationPanelDemo() {
   const [prompt, setPrompt] = useState("");

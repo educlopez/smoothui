@@ -25,7 +25,8 @@
     "lockfile:test": "ruby scripts/validate-lockfile.test.rb",
     "pack:cli": "pnpm --filter smoothui-cli pack:release",
     "prepare": "husky",
-    "verify:cli-package": "pnpm --filter smoothui-cli verify:package -- --pack-json .release/cli-pack.json --artifact-dir .release/artifacts --source-package package.json"
+    "verify:cli-package": "pnpm --filter smoothui-cli verify:package -- --pack-json .release/cli-pack.json --artifact-dir .release/artifacts --source-package package.json",
+    "media:upload": "tsx scripts/upload-media.ts"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.6",

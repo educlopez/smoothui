@@ -2,6 +2,7 @@
 
 import type { AnimatedListItem } from "@repo/smoothui/components/animated-list";
 import AnimatedList from "@repo/smoothui/components/animated-list";
+import { somePeople } from "@smoothui/data/people";
 import { useState } from "react";
 
 type Activity = {
@@ -11,44 +12,23 @@ type Activity = {
   name: string;
 };
 
-const ACTIVITIES: Activity[] = [
-  {
-    avatar: "https://i.pravatar.cc/128?img=11",
-    id: "activity-1",
-    message: "starred the repository",
-    name: "Mira Solheim",
-  },
-  {
-    avatar: "https://i.pravatar.cc/128?img=22",
-    id: "activity-2",
-    message: "opened a pull request",
-    name: "Teo Kariba",
-  },
-  {
-    avatar: "https://i.pravatar.cc/128?img=33",
-    id: "activity-3",
-    message: "left a comment",
-    name: "Priya Chandran",
-  },
-  {
-    avatar: "https://i.pravatar.cc/128?img=44",
-    id: "activity-4",
-    message: "merged a branch",
-    name: "Owen Faasi",
-  },
-  {
-    avatar: "https://i.pravatar.cc/128?img=55",
-    id: "activity-5",
-    message: "deployed to production",
-    name: "Lucia Bergman",
-  },
-  {
-    avatar: "https://i.pravatar.cc/128?img=66",
-    id: "activity-6",
-    message: "created a new project",
-    name: "Devon Ashcroft",
-  },
+const MESSAGES = [
+  "starred the repository",
+  "opened a pull request",
+  "left a comment",
+  "merged a branch",
+  "deployed to production",
+  "created a new project",
 ];
+
+const ACTIVITIES: Activity[] = somePeople(MESSAGES.length, 60).map(
+  (person, index) => ({
+    avatar: `${person.avatar}?tr=w-128,h-128,f-auto`,
+    id: person.id,
+    message: MESSAGES[index],
+    name: person.name,
+  })
+);
 
 const buildItems = (): AnimatedListItem[] =>
   ACTIVITIES.map((activity) => ({

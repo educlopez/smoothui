@@ -27,6 +27,15 @@ export interface HolographicFoilProps {
   children: ReactNode;
   /** Extra classes for the card surface. */
   className?: string;
+  /**
+   * Lay the foil over the content instead of printing it underneath.
+   *
+   * The default suits a card you assemble here — bare stock and translucent
+   * artwork let the print show through from below. Turn this on when the child
+   * is one opaque image of a finished card face, which would otherwise hide the
+   * foil completely.
+   */
+  foilOver?: boolean;
   /** Strength of the highlight that passes over the content, `0` to `1`. */
   glare?: number;
   /** Foil strength, `0` (barely there) to `1` (full holo). */
@@ -91,6 +100,15 @@ const FOIL_MASK =
 
 const SHEEN_GRADIENT =
   "linear-gradient(102deg, transparent 0%, oklch(0.86 0.07 220 / 0.55) 34%, oklch(1 0 0 / 0.85) 50%, oklch(0.82 0.08 330 / 0.5) 66%, transparent 100%)";
+/**
+ * The sheen gradient is tilted, so its `transparent` stops run diagonally while
+ * the band it paints is a rectangle. Near the top the band's own left edge lands
+ * mid-gradient, and the box boundary shows up as a straight vertical cut
+ * travelling across the card. This fades the band's vertical edges so only the
+ * gradient decides where the sheen ends.
+ */
+const SHEEN_EDGE_FADE =
+  "linear-gradient(to right, transparent 0%, oklch(0 0 0) 22%, oklch(0 0 0) 78%, transparent 100%)";
 const GLARE_GRADIENT =
   "radial-gradient(closest-side, oklch(1 0 0 / 0.75), oklch(1 0 0 / 0.12) 55%, transparent 78%)";
 
@@ -152,6 +170,7 @@ const readOrientationApi = (): OrientationPermissionApi | undefined => {
 const HolographicFoil = ({
   children,
   className,
+  foilOver = false,
   glare = 0.5,
   intensity = 0.6,
   pattern = "prism",
@@ -300,6 +319,32 @@ const HolographicFoil = ({
   }, [pointerX, pointerY]);
 
   const isLive = tracksPointer || orientationActive;
+
+  /**
+   * The print itself. Placed either under or over the content depending on
+   * `foilOver`, which is the only thing that differs between the two modes.
+   */
+  const foilLayer = (
+    <motion.div
+      aria-hidden="true"
+      className="pointer-events-none absolute"
+      style={{
+        backgroundImage: material.background,
+        filter: isLive ? foilFilter : undefined,
+        inset: `-${FOIL_DRIFT * 2}%`,
+        maskImage: FOIL_MASK,
+        mixBlendMode: material.blend,
+        opacity: foilOpacity,
+        WebkitMaskImage: FOIL_MASK,
+        willChange: "transform",
+        x: isLive ? foilX : 0,
+        y: isLive ? foilY : 0,
+      }}
+    />
+  );
+
+  const foilUnder = foilOver ? null : foilLayer;
+  const foilAbove = foilOver ? foilLayer : null;
   const sheenDuration =
     SHEEN_BASE_DURATION_S / Math.max(MIN_SHEEN_SPEED, sheenSpeed);
   const showPermissionButton =
@@ -308,48 +353,39 @@ const HolographicFoil = ({
     orientationAccess === "prompt";
 
   return (
-    <div
+    // The tilt lives on the same element as the border, the stock colour and
+    // the clip, so the card turns as one rigid object. With the transform on an
+    // inner wrapper, this outer box stayed square while its contents leaned —
+    // a static window with a card moving behind it, which is very obvious once
+    // the child is a full-bleed image rather than a padded layout.
+    <motion.div
       className={cn(
         "relative isolate overflow-hidden rounded-2xl border border-white/10 bg-[oklch(0.17_0.015_274)] shadow-lg",
         className
       )}
       onPointerLeave={tracksPointer ? handlePointerLeave : undefined}
       onPointerMove={tracksPointer ? handlePointerMove : undefined}
+      style={
+        tilt && isLive
+          ? {
+              rotateX,
+              rotateY,
+              transformPerspective: PERSPECTIVE_PX,
+              transformStyle: "preserve-3d",
+            }
+          : undefined
+      }
     >
-      <motion.div
-        className="relative h-full"
-        style={
-          tilt && isLive
-            ? {
-                rotateX,
-                rotateY,
-                transformPerspective: PERSPECTIVE_PX,
-                transformStyle: "preserve-3d",
-              }
-            : undefined
-        }
-      >
+      <div className="relative h-full">
         {/* Layer order is DOM order, deliberately: no `z-index` anywhere, so no
             child creates a stacking context and content can blend with the foil
-            printed beneath it (an artwork can; a text scrim stays opaque). */}
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute"
-          style={{
-            backgroundImage: material.background,
-            filter: isLive ? foilFilter : undefined,
-            inset: `-${FOIL_DRIFT * 2}%`,
-            maskImage: FOIL_MASK,
-            mixBlendMode: material.blend,
-            opacity: foilOpacity,
-            WebkitMaskImage: FOIL_MASK,
-            willChange: "transform",
-            x: isLive ? foilX : 0,
-            y: isLive ? foilY : 0,
-          }}
-        />
+            (an artwork can; a text scrim stays opaque). Which side of the
+            content the print lands on is `foilOver`. */}
+        {foilUnder}
 
         <div className="relative h-full">{children}</div>
+
+        {foilAbove}
 
         {/* Restrained highlight pass over the content. */}
         <div
@@ -362,11 +398,13 @@ const HolographicFoil = ({
           >
             <motion.div
               animate={isLive ? { x: [SHEEN_FROM, SHEEN_TO] } : undefined}
-              className="absolute inset-y-0 left-0 w-1/2"
+              className="absolute inset-y-0 left-0 w-2/3"
               style={{
                 backgroundImage: SHEEN_GRADIENT,
+                maskImage: SHEEN_EDGE_FADE,
                 mixBlendMode: "soft-light",
                 opacity: glareLevel * SHEEN_OPACITY_RATIO,
+                WebkitMaskImage: SHEEN_EDGE_FADE,
                 willChange: "transform",
               }}
               transition={
@@ -396,7 +434,7 @@ const HolographicFoil = ({
             y: isLive ? glareY : 0,
           }}
         />
-      </motion.div>
+      </div>
 
       {showPermissionButton ? (
         <button
@@ -410,7 +448,7 @@ const HolographicFoil = ({
           Enable tilt
         </button>
       ) : null}
-    </div>
+    </motion.div>
   );
 };
 

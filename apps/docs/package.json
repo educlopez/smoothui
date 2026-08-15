@@ -29,6 +29,7 @@
     "fumadocs-typescript": "^5.2.6",
     "fumadocs-ui": "^16.8.11",
     "glob": "^13.0.6",
+    "gsap": "^3.15.0",
     "jszip": "^3.10.1",
     "katex": "^0.16.25",
     "lucide-react": "^0.555.0",

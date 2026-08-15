@@ -4,36 +4,40 @@ import HoverImageList from "@repo/smoothui/components/hover-image-list";
 
 const items = [
   {
-    alt: "Modern living room with warm lighting",
+    alt: "A mountainside catching low golden light",
     href: "#",
     id: "01",
-    image: "https://picsum.photos/seed/hover-list-1/640/480",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-640,h-480,f-auto",
     meta: "Interior — 2026",
-    title: "Quiet House",
+    title: "Golden Ridge",
   },
   {
-    alt: "Minimal concrete architecture",
+    alt: "A rust-red mountain against a pale sky",
     href: "#",
     id: "02",
-    image: "https://picsum.photos/seed/hover-list-2/640/480",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-640,h-480,f-auto",
     meta: "Architecture — 2025",
-    title: "Grey Block",
+    title: "Rust Peak",
   },
   {
-    alt: "Editorial fashion photography",
+    alt: "A watercolour grove fading into white",
     href: "#",
     id: "03",
-    image: "https://picsum.photos/seed/hover-list-3/640/480",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-640,h-480,f-auto",
     meta: "Editorial — 2025",
-    title: "Soft Focus",
+    title: "Pale Grove",
   },
   {
-    alt: "Product photography on a plain backdrop",
+    alt: "A pale dune crest in deep shadow",
     href: "#",
     id: "04",
-    image: "https://picsum.photos/seed/hover-list-4/640/480",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-640,h-480,f-auto",
     meta: "Product — 2024",
-    title: "Still Life",
+    title: "Dune Shadow",
   },
 ];
 
