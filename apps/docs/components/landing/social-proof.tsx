@@ -1,6 +1,7 @@
 "use client";
 
 import { GithubStars } from "@docs/components/landing/navbar/github-stars";
+import Image from "next/image";
 
 const FACES = [
   "orcdev",

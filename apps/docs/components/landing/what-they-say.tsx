@@ -73,7 +73,7 @@ export function WhatTheySay() {
     setPage((current) => (current + delta + VOICES.length) % VOICES.length);
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden">
+    <section className="relative min-h-[100svh]">
       <ScrollFilm poster="/scenes/testimonial-1.jpg" src="/films/voices.mp4" />
       <div className="relative z-10 mx-auto grid min-h-[100svh] max-w-7xl items-end gap-12 px-8 py-20 md:grid-cols-12 md:px-12 md:py-24">
         <div className="md:col-span-8">

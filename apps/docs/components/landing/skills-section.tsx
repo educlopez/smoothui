@@ -8,7 +8,7 @@ import { IconArrowUpRightFill24 } from "nucleo-core-fill-24";
 
 export function SkillsSection() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden">
+    <section className="relative min-h-[100svh]">
       <ScrollFilm poster="/scenes/skill-meadow.webp" src="/films/craft.mp4" />
       <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-end px-8 py-20 md:px-12 md:py-24">
         <EditorialKicker index="05" label="Craft" />

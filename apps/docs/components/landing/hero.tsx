@@ -51,7 +51,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-[100svh] overflow-hidden">
+    <section className="relative min-h-[100svh]">
       <ScrollFilm
         poster="/scenes/why-choose.webp"
         preload="auto"

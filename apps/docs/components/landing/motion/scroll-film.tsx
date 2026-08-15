@@ -1,13 +1,12 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { prefersReducedMotion } from "./constants";
-import { registerLandingGsap } from "./register";
 
-registerLandingGsap();
+gsap.registerPlugin(ScrollTrigger);
 
 interface ScrollFilmProps {
   className?: string;
@@ -27,35 +26,35 @@ export function ScrollFilm({
   const rootRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  useGSAP(
-    () => {
-      const root = rootRef.current;
-      const video = videoRef.current;
-      const section = root?.parentElement;
-      if (!(root && video && section)) {
+  useLayoutEffect(() => {
+    const root = rootRef.current;
+    const video = videoRef.current;
+    const section = root?.parentElement;
+    if (!(root && video && section)) {
+      return;
+    }
+
+    video.pause();
+
+    const seek = (progress: number) => {
+      if (!(video.duration && Number.isFinite(video.duration))) {
         return;
       }
+      video.currentTime = progress * video.duration * 0.98;
+    };
 
-      video.pause();
+    if (prefersReducedMotion()) {
+      seek(0);
+      return;
+    }
 
-      const seek = (progress: number) => {
-        if (!(video.duration && Number.isFinite(video.duration))) {
-          return;
-        }
-        video.currentTime = progress * video.duration * 0.98;
-      };
+    const compact = window.matchMedia("(max-width: 768px)").matches;
+    let pinEnd = "bottom top";
+    if (pin) {
+      pinEnd = compact ? "+=90%" : "+=160%";
+    }
 
-      if (prefersReducedMotion()) {
-        seek(0);
-        return;
-      }
-
-      const compact = window.matchMedia("(max-width: 768px)").matches;
-      let pinEnd = "bottom top";
-      if (pin) {
-        pinEnd = compact ? "+=90%" : "+=160%";
-      }
-
+    const ctx = gsap.context(() => {
       const trigger = ScrollTrigger.create({
         anticipatePin: 1,
         end: pinEnd,
@@ -63,7 +62,7 @@ export function ScrollFilm({
         onUpdate: (self) => {
           seek(self.progress);
         },
-        pin: pin ? section : false,
+        pin,
         pinSpacing: true,
         start: pin ? "top top" : "top bottom",
         trigger: section,
@@ -71,6 +70,7 @@ export function ScrollFilm({
 
       const onReady = () => {
         seek(trigger.progress);
+        ScrollTrigger.refresh();
       };
 
       if (video.readyState >= 1) {
@@ -78,9 +78,12 @@ export function ScrollFilm({
       } else {
         video.addEventListener("loadedmetadata", onReady, { once: true });
       }
-    },
-    { scope: rootRef }
-  );
+    }, root);
+
+    return () => {
+      ctx.revert();
+    };
+  }, [pin, src]);
 
   return (
     <div
