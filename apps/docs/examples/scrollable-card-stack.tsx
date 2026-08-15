@@ -2,25 +2,27 @@
 
 import ScrollableCardStack from "@repo/smoothui/components/scrollable-card-stack";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
+import { somePeople } from "@smoothui/data/people";
+import { sceneById } from "@smoothui/data/scenes";
+
+const CAST = somePeople(3, 5);
 
 export default function ScrollableCardStackDemo() {
   const people = getAllPeople();
 
   const cardData = [
     {
-      avatar: getImageKitUrl(
-        "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
-        {
-          format: "auto",
-          height: 80,
-          quality: 85,
-          width: 80,
-        }
-      ), // Keep educlopez as requested
+      avatar: getImageKitUrl(`${CAST[0].avatar}`, {
+        format: "auto",
+        height: 80,
+        quality: 85,
+        width: 80,
+      }), // Keep educlopez as requested
       handle: "@educalvolpz",
       href: "https://x.com/educalvolpz",
       id: "siriorb",
-      image: "/images/figma/bg-5.webp",
+      image:
+        "https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-600,h-380,f-auto",
       name: people[0]?.name || "Edu Calvo",
     },
     {
@@ -32,14 +34,11 @@ export default function ScrollableCardStackDemo() {
         people[1]?.name?.toLowerCase().replace(/\s+/g, "") || "sarahchen"
       }`,
       id: "richpopover",
-      image: getImageKitUrl(
-        "https://ik.imagekit.io/16u211libb/smoothui/girl-nature.webp?updatedAt=1764932272804",
-        {
-          format: "auto",
-          quality: 80,
-          width: 600,
-        }
-      ),
+      image: getImageKitUrl(`${sceneById("cloud-meadow")?.src}`, {
+        format: "auto",
+        quality: 80,
+        width: 600,
+      }),
       name: people[1]?.name || "Sarah Chen",
     },
     {
@@ -51,7 +50,8 @@ export default function ScrollableCardStackDemo() {
         people[2]?.name?.toLowerCase().replace(/\s+/g, "") || "marcusj"
       }`,
       id: "sparkbites",
-      image: "/images/figma/bg-8.webp",
+      image:
+        "https://ik.imagekit.io/16u211libb/smoothui/scenes/lake-camp.webp?tr=w-600,h-380,f-auto",
       name: people[2]?.name || "Marcus Johnson",
     },
     {
@@ -63,7 +63,8 @@ export default function ScrollableCardStackDemo() {
         people[3]?.name?.toLowerCase().replace(/\s+/g, "") || "emilyrodriguez"
       }`,
       id: "svgl",
-      image: "/images/figma/bg-1.webp",
+      image:
+        "https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-aurora.webp?tr=w-600,h-380,f-auto",
       name: people[3]?.name || "Emily Rodriguez",
     },
   ];

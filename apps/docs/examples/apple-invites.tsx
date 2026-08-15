@@ -11,7 +11,8 @@ const demoEvents: Event[] = [
   {
     badge: "Hosting",
     id: 1,
-    image: "/images/figma/bg-11.webp",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-400,h-640,f-auto",
     location: "Central Park",
     participants: [
       {
@@ -24,7 +25,8 @@ const demoEvents: Event[] = [
   {
     badge: "Going",
     id: 2,
-    image: "/images/figma/bg-9.webp",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-400,h-640,f-auto",
     location: "Central Park",
     participants: [
       {
@@ -37,7 +39,8 @@ const demoEvents: Event[] = [
   {
     badge: "Going",
     id: 3,
-    image: "/images/figma/bg-5.webp",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-400,h-640,f-auto",
     location: "Golf Park",
     participants: [
       {
@@ -50,7 +53,8 @@ const demoEvents: Event[] = [
   {
     badge: "Interested",
     id: 4,
-    image: "/images/figma/bg-13.webp",
+    image:
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/moonrise-valley.webp?tr=w-400,h-640,f-auto",
     location: "Cine Town",
     participants: [
       {

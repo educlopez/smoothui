@@ -14,7 +14,7 @@ const features = [
   {
     description:
       "Every component is designed with usability in mind. Clean interfaces that your users will love from the first interaction.",
-    image: getImageKitUrl("/images/designerworking.webp", {
+    image: getImageKitUrl("/smoothui/portraits/warm-wall.webp", {
       format: "auto",
       quality: 85,
       width: 800,

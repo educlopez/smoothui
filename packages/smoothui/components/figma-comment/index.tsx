@@ -47,7 +47,7 @@ export interface FigmaCommentProps {
 
 export default function FigmaComment({
   avatarUrl = getImageKitUrl(
-    "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631",
+    "https://ik.imagekit.io/16u211libb/smoothui/people/alec-whitten.webp",
     {
       format: "auto",
       height: 48,
@@ -55,9 +55,9 @@ export default function FigmaComment({
       width: 48,
     }
   ),
-  avatarAlt = "Avatar",
+  avatarAlt = "Alec Whitten",
   className,
-  authorName = "Edu Calvo",
+  authorName = "Alec Whitten",
   timestamp = "Just now",
   message = "What happens if we adjust this to handle a light and dark mode? I'm not sure if we're ready to handle...",
   width = 180,

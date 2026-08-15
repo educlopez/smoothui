@@ -20,7 +20,7 @@ const Example = () => {
         alt="Mountain landscape"
         description="Beautiful mountain landscape with snow-capped peaks"
         filename="desert-canyon.jpg"
-        imageSrc="/images/figma/bg-9.webp"
+        imageSrc="https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-800,f-auto"
         metadata={sampleMetadata}
         onShare={handleShare}
       />
