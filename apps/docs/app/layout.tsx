@@ -1,3 +1,4 @@
+import { ActivityBeacon } from "@docs/components/activity-beacon";
 import { SoundProvider } from "@docs/components/sound-provider";
 import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import { KitProvider } from "@docs/lib/kit-context";
@@ -113,6 +114,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
         />
       </head>
       <body className="flex min-h-screen flex-col">
+        <ActivityBeacon />
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>
