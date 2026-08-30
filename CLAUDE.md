@@ -293,3 +293,11 @@ The build process includes test running - builds depend on passing tests (see `t
    - Replace string easing with `cubic-bezier` values
    - Add hover device detection for hover animations
    - Update `ANIMATION_IMPROVEMENTS.md` with changes
+
+## Friction log
+
+Papercuts while developing this repo are GitHub issues labeled `friction`, not
+files in the tree. Load `.cursor/skills/friction-log/SKILL.md` when you hit one
+(policy: `docs/contributing/friction-log.md`). A daily Cursor agent
+([`educlopez/friction-log`](https://github.com/educlopez/friction-log))
+investigates them.
