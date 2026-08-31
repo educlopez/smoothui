@@ -22,15 +22,17 @@ concurrency:
   group: friction-log
   cancel-in-progress: false
 
+# The sweep reads issues over the API. It never checks out the repo, so
+# `contents` stays unset.
 permissions:
-  contents: read
   issues: read
 
 jobs:
   sweep:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
-      - uses: educlopez/friction-log@v1
+      - uses: educlopez/friction-log@bb972a83621af7ffa7d993f22791ba70dd4d2995 # v1.1.3
         with:
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
           force: ${{ github.event_name == 'workflow_dispatch' && inputs.force || false }}
