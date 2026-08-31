@@ -43,7 +43,11 @@ next-env.d.ts
 
 #cursorrules
 .cursorrules
-.cursor/
+.cursor/*
+!.cursor/skills/
+.cursor/skills/*
+# The friction-log skill is shared contributor tooling, not personal editor config.
+!.cursor/skills/friction-log/
 
 # others
 notes.md
