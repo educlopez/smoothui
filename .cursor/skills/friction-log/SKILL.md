@@ -24,7 +24,7 @@ file it before you forget.
 Search open issues first:
 
 ```bash
-gh issue list --repo educlopez/smoothui --label friction --state open
+gh issue list --repo educlopez/smoothui --label friction --state open --limit 200
 ```
 
 Comment on a match instead of opening a duplicate.

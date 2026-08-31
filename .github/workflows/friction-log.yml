@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: educlopez/friction-log@e84753719095cab0958ba7c7751dfe15ce1d1826 # v1.2.3
+      - uses: educlopez/friction-log@cda62c91e98ad1274585d7ef24a9bd4c5dffd2da # v1.2.4
         with:
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
           force: ${{ github.event_name == 'workflow_dispatch' && inputs.force || false }}
