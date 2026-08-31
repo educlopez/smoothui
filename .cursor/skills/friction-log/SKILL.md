@@ -24,7 +24,7 @@ file it before you forget.
 Search open issues first:
 
 ```bash
-gh issue list --repo educlopez/smoothui --label friction --state open --search "in:title Friction:"
+gh issue list --repo educlopez/smoothui --label friction --state open
 ```
 
 Comment on a match instead of opening a duplicate.
@@ -145,14 +145,12 @@ Instead, in this order:
 1. **Leave the issue open.** Never close an issue whose outcome you could not
    record. An open issue with no comment is a visible loose end; a closed one is
    an invisible one, and the next sweep will not revisit it.
-2. If the outcome was a fix, put it in the **pull request description** and say
-   there that the issue comment could not be posted and why.
-3. If there is no pull request — `already fixed`, `invalid`, or a standalone
-   `skip` — state the outcome and the missing permission in your **final message
-   for the run**, which stays readable in the agent transcript, and leave the
-   issue open for a person.
-
-Either way, report the missing capability as the finding it is.
+2. **Record the outcome wherever a person will find it**, whatever the outcome
+   was. If the run produced a pull request — including one you could not finish —
+   put it in that description. If it produced none, put it in your final message
+   for the run, which stays readable in the agent transcript.
+3. Name the missing permission in the same place. That is a finding about the
+   setup, not a footnote.
 
 
 After each listed issue, leave a short GitHub comment that states the outcome
