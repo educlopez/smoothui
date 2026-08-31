@@ -310,3 +310,10 @@ When you add a new component, the registry automatically picks it up from the co
 ## Questions?
 
 If you have questions, feel free to [open an issue](https://github.com/educlopez/smoothui/issues) on GitHub.
+
+## Friction log
+
+Repository papercuts — confusing docs, a script that needs a secret handshake, a
+type that lies — go in GitHub issues labeled `friction`, not in this file. See
+[docs/contributing/friction-log.md](docs/contributing/friction-log.md). Feature
+requests and bug reports about the published package stay ordinary issues.

@@ -1,0 +1,41 @@
+# Lists open `friction` issues and, when any are eligible, spawns one
+# Cursor Cloud Agent. Powered by educlopez/friction-log.
+
+name: Friction log
+
+on:
+  schedule:
+    # ~05:00–06:00 Europe/Madrid (GitHub cron is UTC-only)
+    - cron: '0 4 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: Scan only. Do not spawn an agent.
+        type: boolean
+        default: false
+      force:
+        description: Include issues marked skipped.
+        type: boolean
+        default: false
+
+concurrency:
+  group: friction-log
+  cancel-in-progress: false
+
+# The sweep reads issues over the API. It never checks out the repo, so
+# `contents` stays unset.
+permissions:
+  issues: read
+
+jobs:
+  sweep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: educlopez/friction-log@bb972a83621af7ffa7d993f22791ba70dd4d2995 # v1.1.3
+        with:
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+          force: ${{ github.event_name == 'workflow_dispatch' && inputs.force || false }}
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+          FRICTION_LOG_PAUSED: ${{ vars.FRICTION_LOG_PAUSED }}

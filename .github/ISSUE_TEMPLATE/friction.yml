@@ -1,0 +1,40 @@
+name: Friction
+description: Log a contributor or agent papercut while working in this repo
+title: 'Friction: '
+labels: [friction]
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Search open `friction` issues before filing. One papercut per issue.
+        This is for developing this repository, not a product feature request.
+        Omit secrets, tokens, and unrelated private content.
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened
+      description: What you were doing and what got in the way.
+    validations:
+      required: true
+  - type: textarea
+    id: wanted
+    attributes:
+      label: What you wanted
+      description: The expected path.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How to reproduce
+      description: Commands, files, or conditions a later agent can follow.
+    validations:
+      required: true
+  - type: textarea
+    id: cost
+    attributes:
+      label: Cost
+      description:
+        Time lost, how often this happens, who it hits, and the workaround.
+    validations:
+      required: true
