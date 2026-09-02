@@ -7,9 +7,11 @@ This is not a product feature request. File those as ordinary issues. This page
 is for developing `educlopez/smoothui`: confusing docs, a command that needs a secret
 handshake, a type that lies, a test that only fails locally.
 
-The policy lives here. Agents load
-[`.cursor/skills/friction-log/SKILL.md`](../../.cursor/skills/friction-log/SKILL.md)
-when they hit friction or when they are the daily investigator.
+The policy lives here. Agents that load skills on demand read the same policy
+from `.cursor/skills/friction-log/SKILL.md` or
+`.claude/skills/friction-log/SKILL.md`; agents that read a single root file get
+a pointer to this page from [`AGENTS.md`](../../AGENTS.md). Both skill copies
+and `AGENTS.md` are written by `friction-log init`.
 
 Canonical tooling: [`educlopez/friction-log`](https://github.com/educlopez/friction-log).
 
@@ -54,6 +56,21 @@ The investigator chooses one outcome per issue:
 A skip comment includes `<!-- friction-log:skipped -->`. Later daily runs ignore
 that issue until @educlopez comments (approve the recommendation, close it, or
 give a different approach).
+
+After a successful spawn the sweep comments
+`<!-- friction-log:claimed:YYYY-MM-DD -->` on each issue it handed to the
+agent, and later runs the same UTC day treat those issues as ineligible. A
+second investigator is therefore spawned only for work the first one never
+received. `--force` ignores claims entirely.
+
+Two limits are deliberate. A claim counts only when `github-actions[bot]` or an
+owner login wrote it — otherwise any commenter on a public repository could
+suppress the day's sweep. And only the issues actually listed in the prompt are
+claimed (at most 20); a longer backlog stays eligible so a later run picks it
+up instead of being silenced unread.
+
+When a claim write fails the sweep still finishes, and names those issue
+numbers in `result.unclaimed`. They can draw a second agent later that day.
 
 ## Operator controls
 
