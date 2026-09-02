@@ -122,14 +122,6 @@ Biome's linter will catch most issues automatically. Focus your attention on:
 
 Most formatting and common issues are automatically fixed by Biome. Run `pnpm dlx ultracite fix` before committing to ensure compliance.
 
-## Friction log
-
-Papercuts while developing this repo are GitHub issues labeled `friction`, not
-files in the tree. Load `.cursor/skills/friction-log/SKILL.md` when you hit one
-(policy: `docs/contributing/friction-log.md`). A daily Cursor agent
-([`educlopez/friction-log`](https://github.com/educlopez/friction-log))
-investigates them.
-
 <!-- friction-log:agents -->
 
 ## Friction log
