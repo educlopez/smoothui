@@ -13,7 +13,10 @@ const tabs: PhototabTab[] = PHOTO_TABS.map((tab, index) => ({
 export default function PhototabDemo() {
   return (
     <div className="mx-auto max-w-md">
-      <Phototab defaultTab="one" height={300} tabs={tabs} />
+      {/* No defaultTab on purpose: the component falls back to the first
+          tab's real name. A stale name here selects nothing and Radix then
+          mounts no panel at all — the demo renders without any photo. */}
+      <Phototab height={300} tabs={tabs} />
     </div>
   );
 }

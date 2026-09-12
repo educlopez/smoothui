@@ -12,6 +12,9 @@ import {
 } from "react";
 
 export type GalleryPreviewProps = {
+  /** Landing demos are live, unscaled and uncropped; gallery defaults stay inert. */
+  interactive?: boolean;
+  children?: ReactNode;
   /** Tallest the card may grow before the demo is cropped instead. */
   maxHeight?: number;
   /** Shortest the card may be, so a one-line demo still reads as a card. */
@@ -107,6 +110,8 @@ const DEFAULT_MIN_HEIGHT = 200;
 const DEFAULT_MAX_HEIGHT = 360;
 
 export const GalleryPreview = ({
+  interactive = false,
+  children,
   maxHeight = DEFAULT_MAX_HEIGHT,
   minHeight = DEFAULT_MIN_HEIGHT,
   slug,
@@ -124,7 +129,7 @@ export const GalleryPreview = ({
   const [height, setHeight] = useState(minHeight);
 
   useEffect(() => {
-    if (!isVisible) {
+    if (!isVisible || interactive) {
       return;
     }
     const frame = frameRef.current;
@@ -152,7 +157,7 @@ export const GalleryPreview = ({
       observer.disconnect();
       clearTimeout(settle);
     };
-  }, [isVisible, maxHeight, minHeight]);
+  }, [isVisible, interactive, maxHeight, minHeight]);
 
   useEffect(() => {
     const element = containerRef.current;
@@ -177,11 +182,38 @@ export const GalleryPreview = ({
     };
   }, []);
 
-  const ExampleComponent = isVisible ? getExampleComponent(slug) : null;
+  const ExampleComponent =
+    isVisible && !children ? getExampleComponent(slug) : null;
+
+  if (interactive) {
+    return (
+      <div
+        aria-label={`Preview of ${title}`}
+        role="group"
+        className="[&_[role=tablist]]:!translate-y-0 relative min-h-72 w-full rounded-xl bg-primary px-4 py-6"
+        ref={containerRef}
+      >
+        <div className="flex min-h-60 w-full items-center justify-center">
+          {isVisible ? (
+            <ErrorBoundaryWrapper onError={() => setHasError(true)}>
+              {hasError ? (
+                <PreviewFallback title={title} />
+              ) : (
+                (children ?? (ExampleComponent ? <ExampleComponent /> : null))
+              )}
+            </ErrorBoundaryWrapper>
+          ) : (
+            <PreviewSkeleton />
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
       aria-label={`Preview of ${title}`}
+      role="group"
       className={cn(
         "relative w-full overflow-hidden bg-primary p-6",
         // contain:paint clips fixed/portal-less absolute demo content and

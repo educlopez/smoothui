@@ -4,262 +4,156 @@ import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import AgentAvatar from "@repo/smoothui/components/agent-avatar";
+import { Braces, CornerDownLeft, FileCode, Search } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowRightFill24, IconSparkleFill24 } from "nucleo-core-fill-24";
+import { IconArrowRightFill24 } from "nucleo-core-fill-24";
+import { useState } from "react";
+import { BentoSegments } from "./bento-controls";
+
+const DEMO_STEPS = [
+  "Search the registry",
+  "Resolve dependencies",
+  "Prepare install command",
+];
 
 function McpIllustration() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const bubbleTransition = (delay: number) =>
-    shouldReduceMotion
-      ? { duration: 0 }
-      : { bounce: 0.1, delay, duration: 0.3, type: "spring" as const };
-
-  const lift = (delay: number) => ({
-    initial: shouldReduceMotion
-      ? { opacity: 1 }
-      : { opacity: 0, transform: "translateY(8px)" },
-    transition: bubbleTransition(delay),
-    viewport: { amount: 0.4, once: true },
-    whileInView: shouldReduceMotion
-      ? { opacity: 1 }
-      : { opacity: 1, transform: "translateY(0px)" },
-  });
-
-  const steps = [
-    "Search the registry",
-    "Resolve dependencies",
-    "Add @smoothui/siri-orb",
-  ];
-
+  const [step, setStep] = useState(0);
+  const reduced = useReducedMotion();
   return (
-    <div aria-hidden className="w-full space-y-2.5">
-      {/* User request — right */}
-      <motion.div
-        className="ml-auto w-fit max-w-[78%] rounded-2xl rounded-br-sm bg-brand px-3 py-1.5 text-white text-xs"
-        {...lift(0.05)}
-      >
-        Automate component installs
-      </motion.div>
-      {/* Skill card with steps */}
-      <motion.div
-        className="rounded-xl border border-border bg-background p-3 shadow-sm"
-        {...lift(0.15)}
-      >
-        <div className="flex items-center gap-2">
-          <div className="flex size-6 shrink-0 items-center justify-center rounded-lg bg-brand/10 text-brand">
-            <IconSparkleFill24 className="size-3.5" />
-          </div>
-          <div className="leading-tight">
-            <div className="font-medium text-foreground text-xs">
-              Install component
-            </div>
-            <div className="text-[10px] text-muted-foreground">
-              Skill · 3 steps
-            </div>
-          </div>
-        </div>
-        <div className="mt-2.5 space-y-1.5">
-          {steps.map((step, index) => (
-            <div className="flex items-center gap-2" key={step}>
-              <span className="flex size-4 shrink-0 items-center justify-center rounded-full bg-muted text-[9px] text-muted-foreground">
-                {index + 1}
-              </span>
-              <span className="text-[11px] text-foreground/70">{step}</span>
-            </div>
-          ))}
-        </div>
-      </motion.div>
-      {/* Agent confirmation — left, with avatar */}
-      <motion.div className="flex items-center gap-2" {...lift(0.3)}>
-        <AgentAvatar
-          animated
-          className="shrink-0 rounded-full"
-          seed="SmoothUI Agent"
-          size={20}
-        />
-        <span className="text-[11px] text-foreground/60">
-          Done — installed in your project.
-        </span>
-      </motion.div>
+    <div className="w-full space-y-3">
+      <span className="block text-[10px] text-muted-foreground uppercase tracking-wider">
+        Workflow preview
+      </span>
+      <div className="rounded-xl border border-border bg-background p-3">
+        {DEMO_STEPS.map((label, index) => (
+          <motion.button
+            aria-pressed={index === step}
+            onClick={() => setStep(index)}
+            onPointerEnter={() => setStep(index)}
+            onFocus={() => setStep(index)}
+            type="button"
+            className={`flex min-h-10 w-full items-center gap-2 rounded px-1 py-2 text-left text-xs focus-visible:outline-2 focus-visible:outline-ring ${index === step ? "bg-muted text-foreground" : "text-muted-foreground"}`}
+            key={label}
+            animate={{ x: index === step && !reduced ? 4 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            <span className="flex size-6 shrink-0 items-center justify-center rounded-lg border border-border bg-background font-mono">
+              {index < step ? "✓" : index + 1}
+            </span>
+            {label}
+          </motion.button>
+        ))}
+      </div>
+
+      <p className="text-[10px] text-muted-foreground">
+        Illustration only. No command is run.
+      </p>
     </div>
   );
 }
 
+const SAMPLE_RESULTS = {
+  interaction: ["animated-toggle", "number-flow"],
+  navigation: ["animated-tabs", "dynamic-island"],
+};
 function ApiIllustration() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const lineTransition = (delay: number) =>
-    shouldReduceMotion
-      ? { duration: 0 }
-      : { bounce: 0.1, delay, duration: 0.25, type: "spring" as const };
-
+  const [query, setQuery] = useState<keyof typeof SAMPLE_RESULTS>("navigation");
+  const reduced = useReducedMotion();
   return (
-    <div aria-hidden className="self-end">
-      <motion.div
-        className="space-y-2.5 rounded-2xl border border-border bg-background p-4"
-        initial={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 0, transform: "scale(0.96)" }
-        }
-        transition={lineTransition(0.05)}
-        viewport={{ amount: 0.5, once: true }}
-        whileInView={
-          shouldReduceMotion
-            ? { opacity: 1 }
-            : { opacity: 1, transform: "scale(1)" }
-        }
-      >
-        <div className="flex items-center justify-between text-sm">
-          <span className="rounded bg-brand/10 px-1.5 py-0.5 font-semibold text-[10px] text-brand">
-            GET
-          </span>
-          <span className="font-mono text-foreground/50 text-xs">
-            /api/v1/suggest
+    <div className="w-full min-w-0 rounded-xl border border-border/70 bg-muted/50 p-4 shadow-[inset_0_1px_3px_#00000004]">
+      <div className="mx-auto overflow-hidden rounded-xl border border-border bg-background shadow-[0_2px_3px_#00000004,0_12px_22px_-10px_#00000020]">
+        <div className="flex items-center gap-2 border-b px-3 py-3">
+          <Search size={14} className="text-muted-foreground" />
+          <span className="flex-1 text-xs">Find a component</span>
+          <span className="rounded border px-1 text-[9px] text-muted-foreground">
+            API sample
           </span>
         </div>
-        <div className="h-px bg-border" />
-        <div className="space-y-1.5 font-mono text-xs">
-          {[
-            {
-              className: "text-foreground/40",
-              delay: 0.15,
-              text: '{ "results": [',
-            },
-            {
-              className: "pl-4 text-foreground/60",
-              delay: 0.25,
-              text: (
-                <>
-                  {"{"} &quot;name&quot;: &quot;
-                  <span className="text-brand">animated-tabs</span>&quot;,
-                </>
-              ),
-            },
-            {
-              className: "pl-6 text-foreground/40",
-              delay: 0.35,
-              text: '"score": 0.95 }',
-            },
-            { className: "text-foreground/40", delay: 0.4, text: "] }" },
-          ].map((line, i) => (
+        <div className="p-2">
+          <BentoSegments
+            options={["navigation", "interaction"]}
+            value={query}
+            onChange={(value) => setQuery(value as keyof typeof SAMPLE_RESULTS)}
+            label="Example search query"
+          />
+        </div>
+        <div className="space-y-1 px-2 pb-2">
+          {SAMPLE_RESULTS[query].map((name, index) => (
             <motion.div
-              className={line.className}
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "translateX(-6px)" }
-              }
-              key={i}
-              transition={lineTransition(line.delay)}
-              viewport={{ amount: 0.5, once: true }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "translateX(0px)" }
-              }
+              key={name}
+              initial={{ opacity: reduced ? 1 : 0.6, y: reduced ? 0 : 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: reduced ? 0 : index * 0.035,
+                duration: reduced ? 0 : 0.18,
+              }}
+              className={`flex items-center gap-3 rounded-lg px-2 py-2.5 ${index === 0 ? "bg-muted/60" : ""}`}
             >
-              {line.text}
+              <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border/80 bg-background shadow-sm">
+                <Braces size={14} />
+              </span>
+              <div className="flex-1">
+                <p className="font-mono text-[11px]">{name}</p>
+                <p className="mt-0.5 text-[10px] text-muted-foreground">
+                  React component · {query}
+                </p>
+              </div>
+              {index === 0 ? (
+                <span className="size-1.5 rounded-full bg-brand" />
+              ) : null}
             </motion.div>
           ))}
         </div>
-      </motion.div>
+        <div className="flex justify-between border-t bg-muted/20 px-3 py-2 text-[9px] text-muted-foreground">
+          <span>2 matching components</span>
+          <span>GET /suggest</span>
+        </div>
+      </div>
     </div>
   );
 }
 
 function LlmsIllustration() {
-  const shouldReduceMotion = useReducedMotion();
-
-  const itemTransition = (delay: number) =>
-    shouldReduceMotion
-      ? { duration: 0 }
-      : { bounce: 0.1, delay, duration: 0.25, type: "spring" as const };
-
+  const [catalog, setCatalog] = useState<"components" | "blocks">("components");
   return (
-    <div aria-hidden className="relative w-full select-none self-end">
-      <div className="relative w-full space-y-2 py-4">
-        <motion.div
-          className="absolute inset-y-0 left-0 w-px bg-[length:1px_4px] bg-repeat-y opacity-25 [background-image:linear-gradient(180deg,var(--color-foreground)_1px,transparent_1px)]"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 0.25 }
-              : { opacity: 0, transform: "scaleY(0)" }
-          }
-          style={{ transformOrigin: "top" }}
-          transition={itemTransition(0)}
-          viewport={{ amount: 0.5, once: true }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 0.25 }
-              : { opacity: 0.25, transform: "scaleY(1)" }
-          }
+    <div className="rounded-xl border border-border/70 bg-muted/50 p-4 shadow-[inset_0_1px_3px_#00000004]">
+      <div className="rounded-xl border border-border bg-background p-3 shadow-[0_2px_3px_#00000004,0_12px_22px_-10px_#00000015]">
+        <div className="mb-3 flex items-center gap-2">
+          <FileCode size={14} />
+          <span className="flex-1 font-mono text-xs">llms.txt</span>
+          <span className="size-1.5 rounded-full bg-brand" />
+        </div>
+        <BentoSegments
+          options={["components", "blocks"]}
+          value={catalog}
+          onChange={(value) => setCatalog(value as "components" | "blocks")}
+          label="Catalog preview"
         />
-        <motion.div
-          className="pl-5"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateX(-8px)" }
-          }
-          transition={itemTransition(0.1)}
-          viewport={{ amount: 0.5, once: true }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateX(0px)" }
-          }
-        >
-          <div className="relative mt-0.5 inline-flex items-center gap-2 font-medium text-foreground text-sm before:absolute before:inset-y-0 before:-left-[22px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-foreground/40 before:bg-background before:ring before:ring-background">
-            <span className="text-foreground/40 text-xs">57</span>
-            Components
-          </div>
-        </motion.div>
-        <motion.div
-          className="-mx-5 flex rounded-xl border border-border bg-background py-1 pr-4 pl-2 text-xs"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateX(-8px)" }
-          }
-          transition={itemTransition(0.2)}
-          viewport={{ amount: 0.5, once: true }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateX(0px)" }
-          }
-        >
-          <div className="relative mt-0.5 ml-7 inline-flex items-center gap-2 font-medium text-sm before:absolute before:inset-y-0 before:-left-[19px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-foreground/40 before:bg-background before:ring before:ring-background">
-            <span className="text-brand">tags</span>
-            <span className="text-foreground/40">categories</span>
-            <span className="text-foreground/40">useCases</span>
-          </div>
-        </motion.div>
-        <motion.div
-          className="pl-5"
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, transform: "translateX(-8px)" }
-          }
-          transition={itemTransition(0.3)}
-          viewport={{ amount: 0.5, once: true }}
-          whileInView={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 1, transform: "translateX(0px)" }
-          }
-        >
-          <div className="relative mt-0.5 inline-flex items-center gap-2 font-medium text-foreground text-sm before:absolute before:inset-y-0 before:-left-[22px] before:my-auto before:size-[5px] before:rounded-full before:border before:border-foreground/40 before:bg-background before:ring before:ring-background">
-            <span className="text-foreground/40 text-xs">27</span>
-            Blocks
-          </div>
-        </motion.div>
+        <div className="mt-3 space-y-2 border-border border-l pl-3">
+          {(catalog === "components"
+            ? ["animated-tabs", "phototab"]
+            : ["hero", "pricing"]
+          ).map((name) => (
+            <div
+              key={name}
+              className="flex items-center gap-2 font-mono text-[11px]"
+            >
+              <CornerDownLeft
+                size={11}
+                className="rotate-180 text-muted-foreground"
+              />
+              {name}
+              <span className="ml-auto text-[9px] text-muted-foreground">
+                .tsx
+              </span>
+            </div>
+          ))}
+        </div>
+        <p className="mt-3 border-t pt-2 text-[9px] text-muted-foreground">
+          Typed source · dependencies · usage
+        </p>
       </div>
     </div>
   );
@@ -296,26 +190,26 @@ export function AISection() {
   const shouldReduceMotion = useReducedMotion();
 
   return (
-    <section className="relative bg-background py-40 transition">
+    <section className="relative bg-background px-8 py-40 transition">
       <Divider />
-      <div className="mx-auto w-full max-w-5xl px-8">
+      <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
           title="Built for AI-assisted development"
         />
 
-        <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2">
+        <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-2 lg:items-start">
           {/* MCP — lead pillar: agent-chat mockup over a saturated blurred photo */}
           <div
             className={cn(
               cardBase,
-              "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2"
+              "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-1 lg:row-span-2 lg:self-stretch"
             )}
           >
             <Image
               alt=""
               aria-hidden
-              className="object-cover"
+              className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
               draggable={false}
               fill
               sizes="(max-width: 768px) 100vw, 420px"
@@ -339,8 +233,8 @@ export function AISection() {
           </div>
 
           {/* REST API — the endpoint response artifact */}
-          <div className={cn(cardBase, "lg:col-span-2")}>
-            <div className="mb-4 flex justify-center">
+          <div className={cn(cardBase, "lg:col-span-1")}>
+            <div className="mb-5 flex justify-center">
               <ApiIllustration />
             </div>
             <h3 className="font-semibold text-foreground text-lg tracking-tight">
@@ -352,7 +246,7 @@ export function AISection() {
           </div>
 
           {/* llms.txt — the machine-readable catalog artifact */}
-          <div className={cn(cardBase, "lg:col-span-2")}>
+          <div className={cn(cardBase, "lg:col-span-1")}>
             <div className="mb-4">
               <LlmsIllustration />
             </div>

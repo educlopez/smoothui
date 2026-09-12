@@ -1,6 +1,7 @@
 "use client";
 
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
+import { MascotCompanion } from "@docs/components/mascot-companion";
 import { useInstallCli } from "@docs/hooks/use-install-cli";
 import { usePackageManager } from "@docs/hooks/use-package-manager";
 import { prettify } from "@docs/lib/kit-context";
@@ -162,9 +163,9 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
   };
 
   return (
-    <div className="overflow-hidden rounded-lg border border-border">
+    <div className="rounded-lg border border-border">
       {/* Main tabs header */}
-      <div className="flex flex-col gap-2 bg-muted/50 px-2 py-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
+      <div className="flex flex-col gap-2 rounded-t-lg bg-muted/50 px-2 py-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
         <div className="flex items-center gap-1">
           <button
             className={cn(
@@ -236,8 +237,19 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
       </div>
 
       {/* Code block */}
+      <div className="flex justify-end border-border border-t px-2">
+        <MascotCompanion
+          copyText={
+            activeTab === "smoothui"
+              ? smoothuiCommand
+              : shadcnCommands[activePm]
+          }
+          message="Yours now. Make it your own."
+        />
+      </div>
       <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none [&_figure]:border-0">
         <DynamicCodeBlock
+          codeblock={{ allowCopy: false }}
           code={
             activeTab === "smoothui"
               ? smoothuiCommand

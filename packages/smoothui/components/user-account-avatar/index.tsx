@@ -8,7 +8,7 @@ import {
 } from "@radix-ui/react-popover";
 import { Eye, Package, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 
 export interface UserData {
   avatar: string;
@@ -25,6 +25,8 @@ export interface Order {
 
 export interface UserAccountAvatarProps {
   className?: string;
+  /** Keep the popover in local document flow for embedded previews. */
+  inline?: boolean;
   onOrderView?: (orderId: string) => void;
   onProfileSave?: (user: UserData) => void;
   orders?: Order[];
@@ -42,6 +44,7 @@ export default function UserAccountAvatar({
   onProfileSave,
   onOrderView,
   className = "",
+  inline = false,
 }: UserAccountAvatarProps) {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [userData, setUserData] = useState<UserData>(user);
@@ -175,6 +178,7 @@ export default function UserAccountAvatar({
     </div>
   );
 
+  const Portal = inline ? Fragment : PopoverPortal;
   return (
     <PopoverRoot>
       <PopoverTrigger asChild>
@@ -192,7 +196,7 @@ export default function UserAccountAvatar({
           />
         </button>
       </PopoverTrigger>
-      <PopoverPortal>
+      <Portal>
         <PopoverContent
           className="z-50 w-64 overflow-hidden rounded-xl border bg-background shadow-xl"
           onOpenAutoFocus={(e) => e.preventDefault()}
@@ -320,7 +324,7 @@ export default function UserAccountAvatar({
             </div>
           </motion.div>
         </PopoverContent>
-      </PopoverPortal>
+      </Portal>
     </PopoverRoot>
   );
 }

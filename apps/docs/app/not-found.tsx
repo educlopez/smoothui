@@ -4,7 +4,6 @@ import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import { FloatNav } from "@docs/components/float-nav";
 import { Icon as SmoothUiIcon } from "@docs/components/icon";
 import { BgLines } from "@docs/components/landing/bg-lines";
-import Divider from "@docs/components/landing/divider";
 import Footer from "@docs/components/landing/footer";
 import Navbar from "@docs/components/landing/navbar/navbar";
 import { Button } from "@docs/components/smoothbutton";
@@ -102,8 +101,6 @@ export default function NotFound() {
           stop="50%"
         />
         <Navbar className="mx-auto w-full" />
-        <Divider orientation="vertical" />
-        <Divider className="right-auto left-0" orientation="vertical" />
         <section className="flex flex-col overflow-hidden">
           <div className="relative mx-auto flex w-full flex-1 flex-col items-center pt-32 pb-24 text-center">
             <motion.div

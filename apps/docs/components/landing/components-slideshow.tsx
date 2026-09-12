@@ -1,10 +1,9 @@
-import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { GalleryPreview } from "@docs/components/gallery/gallery-preview";
 import Divider from "@docs/components/landing/divider";
-import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import Link from "next/link";
+import { ShowcaseDemo } from "./showcase-demo";
 
 type ShowcaseItem = {
   name: string;
@@ -18,9 +17,12 @@ const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
   { name: "Social Selector", slug: "social-selector" },
   { name: "User Account Avatar", slug: "user-account-avatar" },
   { name: "Scrollable Card Stack", slug: "scrollable-card-stack" },
-  { name: "Power Off Slide", slug: "power-off-slide" },
+  { name: "Checkbox", slug: "checkbox" },
   { name: "Animated Tags", slug: "animated-tags" },
   { name: "Image Metadata Preview", slug: "image-metadata-preview" },
+  { name: "Animated Tabs", slug: "animated-tabs" },
+  { name: "Animated Toggle", slug: "animated-toggle" },
+  { name: "Exposure Slider", slug: "exposure-slider" },
 ];
 
 export function ComponentsSlideshow() {
@@ -31,39 +33,42 @@ export function ComponentsSlideshow() {
         description="Real components from the registry — preview the motion, then install with one command."
         title="Components showcase"
       />
-      {/* The same masonry the docs galleries use: each preview is as tall as its
-          demo, so the hand-tuned column spans this section needed to avoid
-          cropping are no longer necessary. GalleryPreview also defers each demo
-          until it scrolls into view. */}
       <div className="mt-16 columns-1 gap-4 md:columns-2 lg:columns-3">
         {SHOWCASE_COMPONENTS.map(({ name, slug }) => (
           <div
-            className="group relative mb-4 break-inside-avoid overflow-hidden rounded-xl border border-border bg-card"
+            className="group relative mb-4 break-inside-avoid rounded-xl border border-border bg-card focus-within:z-20 hover:z-20"
+            data-showcase={slug}
             key={slug}
           >
-            <div className="relative">
-              <GalleryPreview slug={slug} title={name} />
-              {/* Stretched over the preview, not wrapping it: demos contain
-                  their own links, and an anchor inside an anchor will not
-                  hydrate. */}
-              <Link
-                aria-label={`View ${name}`}
-                className="absolute inset-0 z-10"
-                href={`/docs/components/${slug}`}
-              />
-            </div>
-            <footer className="flex items-center justify-between gap-2 border-border/60 border-t px-4 py-2.5">
-              <Link
-                className="truncate font-medium text-foreground text-sm transition-colors hover:text-brand"
-                href={`/docs/components/${slug}`}
+            <GalleryPreview interactive slug={slug} title={name}>
+              {[
+                "dynamic-island",
+                "user-account-avatar",
+                "number-flow",
+                "image-metadata-preview",
+                "checkbox",
+              ].includes(slug) ? (
+                <ShowcaseDemo slug={slug} />
+              ) : null}
+            </GalleryPreview>
+            <Link
+              aria-label={`View ${name} documentation`}
+              className="absolute top-2 right-2 z-30 flex size-11 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm transition-opacity hover:bg-muted focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2 [@media(hover:hover)_and_(pointer:fine)]:opacity-0 [@media(hover:hover)_and_(pointer:fine)]:group-focus-within:opacity-100 [@media(hover:hover)_and_(pointer:fine)]:group-hover:opacity-100"
+              href={`/docs/components/${slug}`}
+            >
+              <svg
+                aria-hidden="true"
+                className="size-4"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.5"
+                viewBox="0 0 24 24"
               >
-                {name}
-              </Link>
-              <div className="flex shrink-0 items-center gap-1.5">
-                <AddToKitButton size="xs" slug={slug} title={name} />
-                <InstallCopyButton slug={slug} />
-              </div>
-            </footer>
+                <path d="M7 17 17 7M7 7h10v10" />
+              </svg>
+            </Link>
           </div>
         ))}
       </div>

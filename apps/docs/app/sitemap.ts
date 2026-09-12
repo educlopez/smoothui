@@ -101,7 +101,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       changeFrequency: "monthly",
       priority: 0.6,
-      url: url("/themes"),
+      url: url("/playground"),
     },
     ...blogSource.getPages().map(
       (post) =>

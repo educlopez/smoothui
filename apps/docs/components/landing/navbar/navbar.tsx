@@ -237,8 +237,8 @@ export default function Navbar({ className }: NavbarProps) {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/themes">
-            <IconColorPaletteFill24 size={16} /> Themes
+          <NavigationMenuLink className="trigger" href="/playground">
+            <IconColorPaletteFill24 size={16} /> Playground
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>

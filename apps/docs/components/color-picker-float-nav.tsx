@@ -326,9 +326,9 @@ export function ColorPickerFloatNav() {
             </div>
             <a
               className="mt-3 flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-foreground"
-              href="/themes"
+              href="/playground"
             >
-              Browse installable themes
+              Open Playground
               <IconArrowRightFill24 className="h-3 w-3" />
             </a>
           </motion.div>
