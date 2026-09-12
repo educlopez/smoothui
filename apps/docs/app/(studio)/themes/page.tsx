@@ -1,19 +1,21 @@
-import { ThemeStudio } from "@docs/components/themes/theme-studio";
-import { createMetadata } from "@docs/lib/metadata";
-import type { Metadata } from "next";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = createMetadata({
-  alternates: {
-    canonical: "/themes",
-  },
-  description:
-    "Installable SmoothUI color themes for shadcn projects. Six palettes with light and dark mode, applied with a single CLI command.",
-  openGraph: {
-    url: "/themes",
-  },
-  title: "Themes — SmoothUI",
-});
-
-export default function ThemesPage() {
-  return <ThemeStudio />;
+export default async function ThemesRedirect({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
+  const values = await searchParams;
+  const query = new URLSearchParams();
+  for (const [key, value] of Object.entries(values)) {
+    if (Array.isArray(value)) {
+      for (const item of value) {
+        query.append(key, item);
+      }
+    } else if (value !== undefined) {
+      query.set(key, value);
+    }
+  }
+  const suffix = query.toString();
+  redirect(`/playground${suffix ? `?${suffix}` : ""}`);
 }

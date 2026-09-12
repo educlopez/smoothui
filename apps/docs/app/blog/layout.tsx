@@ -1,7 +1,6 @@
 import { BlogFloatNav } from "@docs/components/blog-float-nav";
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import { BgLines } from "@docs/components/landing/bg-lines";
-import Divider from "@docs/components/landing/divider";
 import Footer from "@docs/components/landing/footer";
 import Navbar from "@docs/components/landing/navbar/navbar";
 
@@ -22,8 +21,6 @@ export default function BlogLayout({
           stop="50%"
         />
         <Navbar className="mx-auto max-w-7xl" />
-        <Divider orientation="vertical" />
-        <Divider className="right-auto left-0" orientation="vertical" />
         <section className="flex flex-col bg-background pt-24 pb-16">
           {children}
         </section>

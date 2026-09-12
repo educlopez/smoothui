@@ -1,0 +1,77 @@
+---
+title: Orb
+description: A configurable WebGL2 orb — a lit sphere with colour marbling inside it, mixed in OkLab, on a loop with no seam.
+icon: Circle
+dependencies:
+  - motion.dev
+installer: orb
+---
+
+## Features
+
+- Sphere impostor: the normal is derived per pixel from the distance to the centre, so a rim, a highlight and a shaded side can exist at all
+- Seamless by construction — every point walks a circle in a flow field that advances exactly one turn per loop, so the field returns to where it began with no crossfade
+- Colour mixed in **OkLab**: no muddy midpoint, each stop reproduces exactly, and the hue ripple is a real rotation in the a/b plane
+- Nested domain warp — marbled, ink-in-water flow rather than drifting blobs
+- Twenty-two props, from palette and blob size to refraction, iridescence and rim dispersion
+- `wobble` deforms the silhouette into a liquid drop; `glow` casts a halo that reaches zero before the canvas edge
+- Grain plus an always-on deband dither, stepped to 24 frames per loop so it animates without breaking the seam
+- Pauses when scrolled out of view, and when `prefers-reduced-motion` is set it draws one frame and stops
+- Device-pixel-content-box aware, capped at 2× DPR, with `WEBGL_lose_context` teardown
+
+## Why it does not look like a gradient circle
+
+A radial gradient has no surface, so light cannot behave like light on it: there
+is no side turned away, no edge catching the sky, and no highlight that stays
+put while the colour moves underneath. Deriving a normal costs one `sqrt` per
+pixel and buys all three.
+
+The second half is the loop. Offsetting the whole noise domain by one shared
+vector gives you a pulse — everything moves the same way at once. Giving every
+point its own circle, with neighbours starting at different angles, is what
+reads as swirling.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Shader canvas | The orb is decorative and carries no semantics |
+
+### Screen Reader
+
+Nothing is announced. Where the orb stands for a state — an assistant
+listening, a job running — put that state in text beside it. It should never be
+the only carrier of the meaning.
+
+### Reduced Motion
+
+Respects `prefers-reduced-motion`: one frame is drawn and no loop starts. The
+preference is watched live, so toggling it at the OS level takes effect without
+a reload.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/orb/index.tsx"
+  name="OrbProps"
+/>
+
+### Tuning
+
+| Prop | Low | High |
+|------|-----|------|
+| `blobScale` | many small cells, busy | one slow swell filling the sphere |
+| `flow` | nearly still | the field travels a long way each loop |
+| `turbulence` | smooth folds | curdled, marbled detail |
+| `rim` | matte | glass |
+| `specular` | soft | wet, polished |
+| `inner` | lit from outside only | lit from within, like a lamp |
+| `wobble` | a sphere | a liquid drop |
+| `aberration` | clean edge | a lens fringe at the rim |
+
+## Used by
+
+`ai-orb-face` renders its body with this component, so anything you can tune
+here you can pass through to the character.

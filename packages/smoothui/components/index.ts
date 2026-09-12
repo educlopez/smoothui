@@ -144,6 +144,7 @@ export {
 export { default as MusicToggle } from "./music-toggle";
 export { default as NotificationBadge } from "./notification-badge";
 export { default as NumberFlow } from "./number-flow";
+export { default as Orb } from "./orb";
 export { default as OrbitalImageWheel } from "./orbital-image-wheel";
 export { default as OrganicMergeTransition } from "./organic-merge-transition";
 export {

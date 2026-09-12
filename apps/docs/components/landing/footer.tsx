@@ -1,11 +1,11 @@
 "use client";
 
-import { Icon } from "@docs/components/icon";
 import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { MascotCompanion } from "@docs/components/mascot-companion";
 import { Button } from "@docs/components/smoothbutton";
 import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
@@ -291,7 +291,7 @@ export default function Footer() {
         aria-label="Support SmoothUI"
         className="relative bg-linear-to-b from-50% from-background to-50% to-muted/60 pt-16 md:pt-24"
       >
-        <div className="relative mx-auto max-w-5xl px-6">
+        <div className="relative mx-auto w-full max-w-7xl px-8">
           <motion.div
             initial={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
@@ -325,20 +325,11 @@ export default function Footer() {
 
 export function FooterBody() {
   return (
-    <div className="mx-auto max-w-5xl space-y-14 px-6">
+    <div className="mx-auto w-full max-w-7xl space-y-14 px-8">
       <div className="grid gap-12 md:grid-cols-5">
         {/* Brand column (spans 2) */}
         <div className="space-y-6 md:col-span-2 md:space-y-8">
-          <Link
-            aria-label="SmoothUI home"
-            className="inline-flex items-center gap-2 transition-opacity hover:opacity-80"
-            href="/"
-          >
-            <Icon className="h-6 w-auto" />
-            <span className="mt-0.5 select-none font-medium font-title text-foreground text-xl">
-              Smooth<span className="text-brand">UI</span>
-            </span>
-          </Link>
+          <MascotCompanion message="You made it. Now make something." />
           <p className="max-w-xs text-balance text-muted-foreground text-sm leading-relaxed">
             Animated React components with smooth Motion animations. Drop-in
             shadcn/ui compatible.

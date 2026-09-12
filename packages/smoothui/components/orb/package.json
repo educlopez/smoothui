@@ -1,0 +1,45 @@
+{
+  "name": "@repo/orb",
+  "description": "An Orb component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "background",
+    "tags": [
+      "webgl",
+      "shader",
+      "orb",
+      "sphere",
+      "oklab",
+      "iridescent",
+      "ai",
+      "voice",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "shader",
+    "useCases": [
+      "Assistant or voice-agent avatar that reads as a lit object",
+      "Hero focal point on a loop with no visible seam",
+      "Configurable brand orb \u2014 22 knobs from palette to dispersion"
+    ],
+    "compositionHints": [
+      "Used as the body of ai-orb-face",
+      "Set glow to 0 when the orb sits inside another shape",
+      "Two colours read as a material; four read as iridescent"
+    ],
+    "hasReducedMotion": true
+  }
+}

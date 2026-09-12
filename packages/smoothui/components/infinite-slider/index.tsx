@@ -15,6 +15,7 @@ export interface InfiniteSliderProps {
   className?: string;
   direction?: "horizontal" | "vertical";
   gap?: number;
+  paused?: boolean;
   reverse?: boolean;
   speed?: number;
   speedOnHover?: number;
@@ -24,6 +25,7 @@ export default function InfiniteSlider({
   children,
   gap = 16,
   speed = 100,
+  paused = false,
   speedOnHover,
   direction = "horizontal",
   reverse = false,
@@ -39,6 +41,11 @@ export default function InfiniteSlider({
   useEffect(() => {
     if (shouldReduceMotion) {
       translation.set(0);
+      return;
+    }
+
+    if (paused || currentSpeed <= 0) {
+      setIsTransitioning(true);
       return;
     }
 
@@ -82,6 +89,7 @@ export default function InfiniteSlider({
 
     return controls?.stop;
   }, [
+    paused,
     translation,
     currentSpeed,
     width,
@@ -93,18 +101,19 @@ export default function InfiniteSlider({
     shouldReduceMotion,
   ]);
 
-  const hoverProps = speedOnHover
-    ? {
-        onHoverEnd: () => {
-          setIsTransitioning(true);
-          setCurrentSpeed(speed);
-        },
-        onHoverStart: () => {
-          setIsTransitioning(true);
-          setCurrentSpeed(speedOnHover);
-        },
-      }
-    : {};
+  const hoverProps =
+    speedOnHover === undefined
+      ? {}
+      : {
+          onHoverEnd: () => {
+            setIsTransitioning(true);
+            setCurrentSpeed(speed);
+          },
+          onHoverStart: () => {
+            setIsTransitioning(true);
+            setCurrentSpeed(speedOnHover);
+          },
+        };
 
   return (
     <div className={cn("overflow-hidden", className)}>

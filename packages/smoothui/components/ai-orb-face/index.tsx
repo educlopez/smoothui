@@ -1,13 +1,15 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import Orb from "@repo/smoothui/components/orb";
 import {
+  type MotionValue,
   motion,
   useAnimationControls,
   useReducedMotion,
   useSpring,
 } from "motion/react";
-import { useCallback, useEffect, useId, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   type AIAmplitude,
   type AIState,
@@ -43,6 +45,109 @@ const SACCADE_TARGETS = [
   { x: 0.8, y: -0.9 },
 ] as const;
 
+/** Orb draws its sphere at this fraction of its box; the rest is glow room. */
+const ORB_SPHERE_FRACTION = 0.86;
+
+/** Amplitude buckets. Five steps is enough to see the interior stir. */
+const ENERGY_STEPS = 4;
+
+/**
+ * Amplitude as React state, quantised.
+ *
+ * Orb takes plain props, so the level has to cross into a render — and a motion
+ * value changes every frame, which would re-render the whole character sixty
+ * times a second to nudge one uniform. Rounding to a handful of buckets keeps
+ * the reaction visible while the component renders a few times per utterance.
+ */
+const useEnergyBucket = (value: MotionValue<number>) => {
+  const [bucket, setBucket] = useState(0);
+  useEffect(() => {
+    const read = (level: number) =>
+      setBucket(Math.round(level * ENERGY_STEPS) / ENERGY_STEPS);
+    read(value.get());
+    return value.on("change", read);
+  }, [value]);
+  return bucket;
+};
+
+/**
+ * An expression is two eyes, and an eye is a rounded capsule.
+ *
+ * Four numbers describe every face this character can pull: how tall the
+ * capsule is, how wide, how far it is rotated, and how far it sits from its
+ * resting line. Tall and narrow is neutral; short and wide is a closed, content
+ * eye; small is surprise; rotated inward is a scowl. Letting the two eyes carry
+ * different values is what buys wink, doubt and mischief for free.
+ *
+ * There is no mouth. A drawn mouth on a shader body reads as a sticker stuck
+ * onto it, and eyes alone are both more legible and more expressive — which is
+ * why every avatar system built this way ends up eyes-only.
+ */
+export interface EyeShape {
+  /** Vertical offset in viewBox units. Negative sits the eye higher. */
+  dy?: number;
+  /** Multiplier on the resting height. `0` is a shut eye. */
+  h: number;
+  /** Degrees. Positive tilts the inner corner down, which reads as a scowl. */
+  rotate?: number;
+  /** Multiplier on the resting width. */
+  w: number;
+}
+
+export interface Expression {
+  left: EyeShape;
+  right: EyeShape;
+}
+
+const EYE = (h: number, w = 1, rotate = 0, dy = 0): EyeShape => ({
+  dy,
+  h,
+  rotate,
+  w,
+});
+
+/** Mirrored: the same tilt on both eyes, pointing at each other. */
+const symmetric = (h: number, w = 1, rotate = 0, dy = 0): Expression => ({
+  left: EYE(h, w, rotate, dy),
+  right: EYE(h, w, -rotate, dy),
+});
+
+export const EXPRESSIONS = {
+  /** Wide. Paying attention. */
+  alert: symmetric(1.2, 1.05, 0, -1),
+  /** Eyes shut, curved down. Reads as content rather than asleep. */
+  content: symmetric(0.16, 1.25, 0, 2),
+  /** Both eyes tilted inward. */
+  cross: symmetric(0.85, 1, 18),
+  /** Flat dashes. Unimpressed. */
+  deadpan: symmetric(0.14, 1.35),
+  /** One eye narrowed. The face is not convinced. */
+  doubtful: { left: EYE(1, 1), right: EYE(0.45, 1.1, -14) },
+  /** Narrowed and level. Working on it. */
+  focused: symmetric(0.55, 1.05),
+  /** Resting. */
+  neutral: symmetric(1),
+  /** Small and high. Caught off guard. */
+  surprised: symmetric(0.5, 0.55, 0, -3),
+  /** One shut, one open. */
+  wink: { left: EYE(1, 1), right: EYE(0.12, 1.2, 0, 2) },
+} satisfies Record<string, Expression>;
+
+export type ExpressionName = keyof typeof EXPRESSIONS;
+
+/**
+ * The `state` prop keeps working; it now selects an expression instead of
+ * branching into a bespoke pair of shapes per state.
+ */
+const STATE_EXPRESSION: Record<string, ExpressionName> = {
+  done: "content",
+  error: "cross",
+  idle: "neutral",
+  listening: "alert",
+  streaming: "focused",
+  thinking: "doubtful",
+};
+
 export type AIOrbFaceProps = {
   /** Accessible label. Omit to keep the character decorative. */
   "aria-label"?: string;
@@ -58,11 +163,22 @@ export type AIOrbFaceProps = {
   /** Rendered size. Numbers are pixels. */
   size?: number | string;
   state?: AIState;
+  /**
+   * Set the face directly, ignoring `state`. Either a name from
+   * `EXPRESSIONS` or a pair of eye shapes of your own.
+   */
+  expression?: ExpressionName | Expression;
 };
 
+/**
+ * The two stops now feed Orb's palette rather than a two-stop gradient, and a
+ * palette needs range. The previous pair sat within eight points of lightness
+ * of each other, so the marbled interior had nothing to marble between and read
+ * as flat lilac. Saturated against near-white is what makes the flow visible.
+ */
 const DEFAULT_COLORS = {
-  body: "oklch(78% 0.14 280)",
-  bodyEdge: "oklch(70% 0.16 320)",
+  body: "oklch(72% 0.21 322)",
+  bodyEdge: "oklch(97% 0.02 322)",
   feature: "oklch(24% 0.03 280)",
 };
 
@@ -81,6 +197,7 @@ const AIOrbFace = ({
   className,
   colors,
   gaze = true,
+  expression,
   size = 128,
   state = "idle",
 }: AIOrbFaceProps) => {
@@ -91,8 +208,8 @@ const AIOrbFace = ({
 
   // Gradient ids must be unique per instance, or a second face on the page
   // silently repaints the first one's body.
-  const bodyGradientId = `${useId()}-body`;
   const svgRef = useRef<SVGSVGElement | null>(null);
+  const energy = useEnergyBucket(amplitudeValue);
   const leftLid = useAnimationControls();
   const rightLid = useAnimationControls();
   const bodyControls = useAnimationControls();
@@ -106,24 +223,20 @@ const AIOrbFace = ({
   const isThinking = state === "thinking";
   const isListening = state === "listening";
   const isBroken = state === "error";
-  const eyesOpen = !(isHappy || isBroken);
+  const eyesOpen = !isBroken;
 
-  // How open the eyes rest for this state.
-  //
-  // This drives the rect's `height`, never its `scaleY`. The blink owns scaleY
-  // outright — when both the squint and the blink wrote to scaleY they fought,
-  // and the eyes ended up stuck at whichever animation finished last.
-  const openScale = (() => {
-    if (isListening) {
-      return 1.15;
+  /**
+   * Explicit `expression` wins; otherwise the state picks one. A caller can
+   * also pass a pair of eye shapes that is not in the preset list at all.
+   */
+  const active: Expression = (() => {
+    if (typeof expression === "object") {
+      return expression;
     }
-    if (isThinking) {
-      return 0.62;
+    if (expression) {
+      return EXPRESSIONS[expression];
     }
-    if (state === "streaming") {
-      return 0.88;
-    }
-    return 1;
+    return EXPRESSIONS[STATE_EXPRESSION[state] ?? "neutral"];
   })();
 
   // A blink spans several awaits, so the component can unmount mid-blink — a
@@ -298,22 +411,31 @@ const AIOrbFace = ({
   }, [bodyControls, isListening]);
 
   const renderEye = (side: -1 | 1) => {
-    const x = CENTER + side * EYE_OFFSET - EYE_WIDTH / 2;
+    const shape = side === -1 ? active.left : active.right;
     const controls = side === -1 ? leftLid : rightLid;
-    const height = EYE_HEIGHT * openScale;
+
+    const width = EYE_WIDTH * shape.w;
+    const height = EYE_HEIGHT * shape.h;
+    const x = CENTER + side * EYE_OFFSET - width / 2;
     // Keep the eye centred as it opens and closes, so a squint reads as lids
     // meeting rather than the eye sliding up the face.
-    const y = EYE_Y + (EYE_HEIGHT - height) / 2;
+    const y = EYE_Y + (EYE_HEIGHT - height) / 2 + (shape.dy ?? 0);
+    const cx = x + width / 2;
+    const cy = y + height / 2;
 
     return (
       <motion.rect
         animate={controls}
         fill={finalColors.feature}
-        height={height}
+        height={Math.max(height, 0.5)}
         initial={{ scaleY: 1 }}
-        rx={Math.min(EYE_RADIUS, height / 2)}
+        // A capsule at any height: at full height this is a rounded bar, and as
+        // the eye shuts the radius follows it down into a lozenge instead of
+        // squashing a fixed corner into a rectangle.
+        rx={Math.min(EYE_RADIUS * shape.w, Math.max(height, 0.5) / 2)}
         style={{
-          transformOrigin: `${x + EYE_WIDTH / 2}px ${y + height / 2}px`,
+          rotate: shape.rotate ?? 0,
+          transformOrigin: `${cx}px ${cy}px`,
           x: gazeX,
           y: gazeY,
         }}
@@ -322,30 +444,9 @@ const AIOrbFace = ({
             ? { duration: 0 }
             : { bounce: 0.1, duration: 0.25, type: "spring" }
         }
-        width={EYE_WIDTH}
+        width={width}
         x={x}
         y={y}
-      />
-    );
-  };
-
-  const renderHappyEye = (side: -1 | 1) => {
-    const cx = CENTER + side * EYE_OFFSET;
-    const y = EYE_Y + EYE_HEIGHT / 2;
-    return (
-      <motion.path
-        animate={{ pathLength: 1 }}
-        d={`M${cx - 8} ${y + 3} Q${cx} ${y - 11} ${cx + 8} ${y + 3}`}
-        fill="none"
-        initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-        stroke={finalColors.feature}
-        strokeLinecap="round"
-        strokeWidth={7}
-        transition={
-          shouldReduceMotion
-            ? { duration: 0 }
-            : { delay: side === -1 ? 0 : 0.06, duration: 0.3, ease: EASE_OUT }
-        }
       />
     );
   };
@@ -371,115 +472,73 @@ const AIOrbFace = ({
     />
   );
 
-  const renderMouth = () => {
-    if (isHappy) {
-      return (
-        <motion.path
-          animate={{ pathLength: 1 }}
-          d={`M${CENTER - 11} 76 Q${CENTER} 88 ${CENTER + 11} 76`}
-          fill="none"
-          initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-          stroke={finalColors.feature}
-          strokeLinecap="round"
-          strokeWidth={5}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { duration: 0.32, ease: EASE_OUT }
-          }
-        />
-      );
-    }
-    if (isBroken) {
-      // A woozy wave, not a frown — it is confused, not scolding the user.
-      return (
-        <path
-          d={`M${CENTER - 12} 79 q6 -7 12 0 t12 0`}
-          fill="none"
-          stroke={finalColors.feature}
-          strokeLinecap="round"
-          strokeWidth={4}
-        />
-      );
-    }
-    if (isThinking) {
-      // Off-centre line: the universal "hmm".
-      return (
-        <motion.line
-          animate={{ x: [0, 3, 0] }}
-          stroke={finalColors.feature}
-          strokeLinecap="round"
-          strokeWidth={4}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : {
-                  duration: 2.4,
-                  ease: EASE_OUT,
-                  repeat: Number.POSITIVE_INFINITY,
-                }
-          }
-          x1={CENTER - 6}
-          x2={CENTER + 8}
-          y1={78}
-          y2={78}
-        />
-      );
-    }
-    return (
-      <line
-        stroke={finalColors.feature}
-        strokeLinecap="round"
-        strokeWidth={4}
-        x1={CENTER - 7}
-        x2={CENTER + 7}
-        y1={78}
-        y2={78}
-      />
-    );
-  };
+  // Orb draws its sphere at 86% of its own box, so the box is scaled up by
+  // that much to land the sphere exactly on the r=48 circle the face was drawn
+  // around. Both layers carry the same controls, so it breathes as one object.
+  const bodySpan = (96 / VIEWBOX / ORB_SPHERE_FRACTION) * 100;
+  const bodyInset = (100 - bodySpan) / 2;
 
   return (
-    <motion.svg
-      animate={bodyControls}
-      aria-hidden={ariaLabel ? undefined : true}
-      aria-label={ariaLabel}
-      className={cn("block overflow-visible", className)}
-      ref={svgRef}
-      role={ariaLabel ? "img" : undefined}
+    <div
+      className={cn("relative block", className)}
       style={{
         filter: `saturate(${stateMotion.saturation})`,
         height: resolvedSize,
         width: resolvedSize,
       }}
-      viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`}
     >
-      <title>{ariaLabel ?? "AI assistant character"}</title>
-      <defs>
-        <radialGradient cx="35%" cy="28%" id={bodyGradientId} r="80%">
-          <stop offset="0%" stopColor={finalColors.body} />
-          <stop offset="100%" stopColor={finalColors.bodyEdge} />
-        </radialGradient>
-      </defs>
+      <motion.div
+        animate={bodyControls}
+        className="absolute"
+        style={{
+          height: `${bodySpan}%`,
+          left: `${bodyInset}%`,
+          top: `${bodyInset}%`,
+          width: `${bodySpan}%`,
+        }}
+      >
+        {/* Painted understudy for the shader: on pages running many WebGL
+            surfaces the browser reclaims the oldest contexts, and a reclaimed
+            Orb leaves a blank canvas — which turned the character into a pair
+            of floating eyes. This circle sits exactly under the sphere so the
+            body survives losing its context. */}
+        <div
+          aria-hidden
+          className="absolute rounded-full"
+          style={{
+            background: `radial-gradient(circle at 34% 30%, ${finalColors.bodyEdge}, ${finalColors.body} 72%)`,
+            inset: `${(1 - ORB_SPHERE_FRACTION) * 50}%`,
+          }}
+        />
+        <Orb
+          className="size-full"
+          colors={[finalColors.body, finalColors.bodyEdge]}
+          // Speaking stirs the interior, so the character looks like it is
+          // doing something inside rather than only changing size.
+          flow={0.6 + energy * 0.36}
+          // The halo would spill past the silhouette the features sit against.
+          glow={0}
+          size="100%"
+          turbulence={0.4 + energy * 0.32}
+        />
+      </motion.div>
+      <motion.svg
+        animate={bodyControls}
+        aria-hidden={ariaLabel ? undefined : true}
+        aria-label={ariaLabel}
+        className="absolute inset-0 block size-full overflow-visible"
+        ref={svgRef}
+        role={ariaLabel ? "img" : undefined}
+        viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`}
+      >
+        <title>{ariaLabel ?? "AI assistant character"}</title>
 
-      <circle cx={CENTER} cy={CENTER} fill={`url(#${bodyGradientId})`} r={48} />
-      {/* One highlight is enough to make it a body rather than a flat disc. */}
-      <ellipse
-        cx={CENTER - 14}
-        cy={CENTER - 22}
-        fill="rgb(255 255 255 / 0.4)"
-        rx={13}
-        ry={8}
-      />
-
-      {eyesOpen && renderEye(-1)}
-      {eyesOpen && renderEye(1)}
-      {isHappy && renderHappyEye(-1)}
-      {isHappy && renderHappyEye(1)}
-      {isBroken && renderDizzyEye(-1)}
-      {isBroken && renderDizzyEye(1)}
-      {renderMouth()}
-    </motion.svg>
+        {isBroken ? null : renderEye(-1)}
+        {isBroken ? null : renderEye(1)}
+        {isBroken && renderDizzyEye(-1)}
+        {isBroken && renderDizzyEye(1)}
+      </motion.svg>
+    </div>
   );
 };
 
