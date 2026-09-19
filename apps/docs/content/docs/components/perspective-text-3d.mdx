@@ -1,0 +1,42 @@
+---
+title: Perspective Text 3D
+description: Text on a 3D plane that tilts and separates in depth — lines or words pushed along the Z axis, reacting to scroll progress or the pointer.
+icon: Layers3
+dependencies:
+  - motion.dev
+installer: perspective-text-3d
+---
+
+## Features
+
+- Splits content into `lines` or `words`, each pushed along the Z axis by `depth`
+- Three drivers: `scroll` (tied to a container's scroll progress), `pointer` (tracks the cursor), and `static` (a fixed tilt)
+- `transform-style: preserve-3d` plane with springed rotation for a smooth, physical feel
+- Scroll-driven rotation is smoothed with `useSpring` so it never feels twitchy
+- Respects `prefers-reduced-motion` by rendering flat, untransformed text
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Wrapper element | Exposes the full, intact string once to assistive technology |
+| `aria-hidden="true"` | Per-line/word planes | Hides the depth-separated fragments from screen readers |
+
+### Screen Reader
+
+- The wrapper carries `aria-label={content}`, announcing the full string as a single phrase.
+- Each line or word plane underneath is `aria-hidden`, so the 3D fragments are never read individually.
+- The text remains selectable in the DOM at all times.
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the component renders a flat paragraph with no perspective, no rotation, and no Z-axis separation — line breaks are preserved via `white-space: pre-line`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/perspective-text-3d/index.tsx"
+  name="PerspectiveText3DProps"
+/>

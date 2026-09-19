@@ -169,7 +169,11 @@ export const PreviewShell = ({
         // Nothing separates one block from the next any more — no heading, no
         // description — so the gap between the frames has to do that work.
         type === "block" && "my-8 h-auto",
-        type === "component" && "h-[32rem]",
+        // Not a fixed height: the demo decides. `min-h` only stops a one-line
+        // component from collapsing into a strip, and anything taller — or a
+        // demo with its own internal scroller — grows the frame instead of
+        // being cut off by it.
+        type === "component" && "h-auto min-h-[24rem]",
         className
       )}
     >
@@ -313,7 +317,9 @@ export const PreviewShell = ({
         <div
           className={cn(
             "bg-background",
-            type === "component" ? "h-[calc(100%-3.25rem)]" : "h-auto"
+            // `calc(100% - header)` only worked while the frame had a fixed
+            // height; against an auto-height frame it resolved to nothing.
+            type === "component" ? "min-h-[calc(24rem-3.25rem)]" : "h-auto"
           )}
         >
           <PreviewContent blockPath={blockPath} size={previewSize} type={type}>

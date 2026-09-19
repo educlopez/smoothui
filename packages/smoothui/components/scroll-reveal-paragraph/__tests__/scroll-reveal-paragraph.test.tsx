@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import ScrollRevealParagraph from "../index";
 
@@ -8,5 +9,13 @@ describe("ScrollRevealParagraph", () => {
       <ScrollRevealParagraph paragraph="This is a test paragraph." />
     );
     expect(container).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <ScrollRevealParagraph paragraph="This is a test paragraph." />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

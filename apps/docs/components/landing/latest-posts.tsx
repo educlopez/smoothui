@@ -33,7 +33,7 @@ export async function LatestPosts() {
         title="From the blog"
       />
 
-      <div className="mx-auto mt-16 grid max-w-6xl gap-4 md:grid-cols-3">
+      <div className="mx-auto mt-16 grid w-full max-w-7xl gap-4 md:grid-cols-3">
         {withMeta.map(({ post, readingTime }) => (
           <article className="group relative" key={post.url}>
             <Link

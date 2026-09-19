@@ -1,5 +1,7 @@
 "use client";
 
+import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
+
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -44,7 +46,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
         "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
       tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
     },
-    image: "/scenes/testimonial-1.jpg",
+    image: `${landingBackgrounds.testimonialFirst.src}?tr=w-800,f-auto`,
   },
   {
     data: {
@@ -55,7 +57,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
         "All I can say is 🙌🔥 — planning to build something crazy with it.",
       tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
     },
-    image: "/scenes/testimonial-2.jpg",
+    image: `${landingBackgrounds.testimonialSecond.src}?tr=w-800,f-auto`,
   },
 ];
 
@@ -160,10 +162,11 @@ const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
       draggable={false}
       fill
       sizes="(max-width: 768px) 100vw, 360px"
+      data-landing-background="testimonials"
       src={image}
       unoptimized
     />
-    {/* legibility scrim over the photo */}
+    {/* legibility scrim over the abstract artwork */}
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
     <p className="relative text-balance font-medium text-lg leading-snug drop-shadow-sm">
       {data.quote}
@@ -262,7 +265,7 @@ export function WhatTheySay() {
   return (
     <section className="relative w-full bg-background px-8 py-24">
       <Divider />
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto w-full max-w-7xl">
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
             <motion.h2

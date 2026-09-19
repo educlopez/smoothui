@@ -1,0 +1,41 @@
+{
+  "name": "@repo/kinetic-type-scroll",
+  "description": "A KineticTypeScroll text animation component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "text",
+    "tags": [
+      "text",
+      "kinetic",
+      "scroll",
+      "editorial",
+      "variable-font",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Editorial scroll-driven phrases that scale and breathe per word",
+      "Section headers in long-form scrolling stories",
+      "Variable-font showcases tying weight to scroll position"
+    ],
+    "compositionHints": [
+      "Must sit inside a scrollable container; pass its ref via `container`",
+      "Use a variable font for `weightRange` to have a visible effect"
+    ],
+    "hasReducedMotion": true
+  }
+}

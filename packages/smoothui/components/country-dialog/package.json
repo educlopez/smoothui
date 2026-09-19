@@ -1,0 +1,44 @@
+{
+  "name": "@repo/country-dialog",
+  "description": "A CountryDialog component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "dialog",
+      "country",
+      "picker",
+      "search",
+      "listbox",
+      "combobox",
+      "virtualized",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Phone number country/region code picker",
+      "Billing address country selector with search",
+      "Locale or shipping-region picker with recent selections"
+    ],
+    "compositionHints": [
+      "Pair with animated-input for a phone number field with a dial-code prefix",
+      "Use inside form for checkout or account settings flows"
+    ],
+    "hasReducedMotion": true
+  }
+}

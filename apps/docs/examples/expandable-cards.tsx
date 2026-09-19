@@ -1,82 +1,37 @@
 "use client";
 
+import {
+  INVITE_HOSTS,
+  INVITES,
+  inviteImage,
+} from "@docs/examples/shared/demo-fixtures";
 import ExpandableCards, {
   type Card,
 } from "@repo/smoothui/components/expandable-cards";
-import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
+import { getAvatarUrl } from "@smoothui/data";
 import { useState } from "react";
 
-const ExpandableCardsDemo = () => {
+const EVENT_DESCRIPTIONS = [
+  "Greet the morning with a relaxed outdoor yoga session, soft light and room to breathe. Bring a mat and meet the group at sunrise.",
+  "Share a slow evening around a beautifully set table. Seasonal dishes, warm candlelight and conversation are on the menu.",
+  "Meet by the water for an early surf session. Watch the first light cross the waves before heading out together.",
+  "Settle into an open-air screening after sunset. Bring a light layer and enjoy a film beneath the night sky.",
+];
+
+const demoCards: Card[] = INVITES.map((invite, index) => ({
+  author: {
+    image: getAvatarUrl(INVITE_HOSTS[index].avatar, 96),
+    name: INVITE_HOSTS[index].name,
+    role: "Event host",
+  },
+  content: EVENT_DESCRIPTIONS[index],
+  id: invite.id,
+  image: inviteImage(invite.scene, 600, 800),
+  title: invite.title,
+}));
+
+export default function ExpandableCardsDemo() {
   const [selected, setSelected] = useState<number | null>(null);
-  const people = getAllPeople();
-
-  const demoCards: Card[] = [
-    {
-      author: {
-        image: getAvatarUrl(people[0]?.avatar || "", 96),
-        name: people[0]?.name || "Eduardo Calvo",
-        role: people[0]?.role || "CEO & Founder",
-      },
-      content:
-        "Join us for the Summer Opening event, where we celebrate the start of a vibrant season filled with art and culture.",
-      id: 1,
-      image: getImageKitUrl("/images/summer-opening.webp", {
-        format: "auto",
-        quality: 80,
-        width: 600,
-      }),
-      title: "Summer Opening",
-    },
-    {
-      author: {
-        image: getAvatarUrl(people[1]?.avatar || "", 96),
-        name: people[1]?.name || "Sarah Chen",
-        role: people[1]?.role || "Head of Design",
-      },
-      content:
-        "Explore the latest trends in fashion at our exclusive showcase, featuring renowned designers and unique styles.",
-      id: 2,
-      image: getImageKitUrl("/images/fashion.webp", {
-        format: "auto",
-        quality: 80,
-        width: 600,
-      }),
-      title: "Fashion",
-    },
-    {
-      author: {
-        image: getAvatarUrl(people[2]?.avatar || "", 96),
-        name: people[2]?.name || "Marcus Johnson",
-        role: people[2]?.role || "Lead Developer",
-      },
-      content:
-        "Immerse yourself in the world of art at our gallery, showcasing stunning pieces from emerging and established artists.",
-      id: 3,
-      image: getImageKitUrl("/images/galleryart.webp", {
-        format: "auto",
-        quality: 80,
-        width: 600,
-      }),
-      title: "Gallery Art",
-    },
-    {
-      author: {
-        image: getAvatarUrl(people[3]?.avatar || "", 96),
-        name: people[3]?.name || "Emily Rodriguez",
-        role: people[3]?.role || "Product Manager",
-      },
-      content:
-        "Join us on a journey through dreams, exploring the subconscious and the art of dreaming.",
-      id: 4,
-      image: getImageKitUrl("/images/dreams.webp", {
-        format: "auto",
-        quality: 80,
-        width: 600,
-      }),
-      title: "Dreams",
-    },
-  ];
-
   return (
     <ExpandableCards
       cards={demoCards}
@@ -84,6 +39,4 @@ const ExpandableCardsDemo = () => {
       selectedCard={selected}
     />
   );
-};
-
-export default ExpandableCardsDemo;
+}

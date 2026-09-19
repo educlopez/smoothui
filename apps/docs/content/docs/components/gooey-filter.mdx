@@ -1,0 +1,59 @@
+---
+title: Gooey Filter
+description: An SVG goo filter wrapper that makes separate elements behave like one body of liquid — they fuse when they touch and stretch before they part.
+icon: Droplet
+installer: gooey-filter
+dependencies: []
+---
+
+## What it is for
+
+On its own the filter does nothing visible. It earns its place when **things move**: two shapes that pass near each other merge into one, and pull apart with a liquid bridge that thins and snaps. That is the whole effect, and it only reads as liquid while something is in motion.
+
+The three patterns worth reaching for:
+
+- **A fluid action button.** Child actions start hidden inside the trigger and separate out of it, un-merging as they travel. This is the classic use — the goo is what makes them look extruded from the button rather than teleported next to it.
+- **A merging loader.** Dots crossing the same point fuse and split, so the loader reads as liquid instead of mechanical.
+- **An elastic badge.** Drag a badge away from its host and the goo holds a bridge until it breaks, then springs home.
+
+Anywhere the shapes are static, skip the filter — it will cost you a full-element repaint for no visible gain.
+
+## Features
+
+- Wraps any children in a `feGaussianBlur` + `feColorMatrix` + `feComposite` filter that merges overlapping shapes while keeping the originals crisp (`operator="atop"`)
+- Unique filter `id` per instance via `useId`, so multiple filters can coexist on the same page
+- `strength` controls the blur radius, `contrast` sharpens the merged edge back up
+- `intensity` is a single shorthand that derives both `strength` and `contrast` when you don't need to tune them separately
+- `disabled` renders `children` with no filter at all — useful for a static/no-JS fallback, and for an A/B toggle while you tune values
+- Exposes `useGooeyFilterId()` for consumers who want to build their own filtered markup instead of using the wrapper
+- The definition `<svg>` is `aria-hidden` and visually hidden (0×0, absolute), so it never affects layout or screen readers
+
+## Usage notes
+
+- **Keep text and icons out of the filtered subtree.** The filter blurs everything inside it. Render the shapes in the filtered layer, and the labels or icons in an unfiltered layer stacked on top at the same coordinates.
+- The filter region defaults to slightly larger than the element's box, so keep the motion inside the wrapper's bounds or the goo will clip.
+- Safari and Firefox render SVG filters slightly softer/sharper than Chromium — tune `strength`/`contrast` per browser if you need pixel-perfect parity.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Filter definition `<svg>` | Hides the invisible filter-definition markup from assistive technology |
+
+### Screen Reader
+
+- The filter only changes how `children` are painted, not their DOM structure or semantics — screen readers see exactly what you pass in.
+- Because the merged shapes are decoration, mark them `aria-hidden` and put the real, focusable controls in the unfiltered layer above.
+
+### Reduced Motion
+
+The filter itself is static and has nothing to disable. The motion you pair it with does: gate it on `useReducedMotion` and let `disabled` fall back to plain, unfiltered shapes.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/gooey-filter/index.tsx"
+  name="GooeyFilterProps"
+/>

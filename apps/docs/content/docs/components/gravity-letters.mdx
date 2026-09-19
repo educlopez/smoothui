@@ -1,0 +1,49 @@
+---
+title: Gravity Letters
+description: Text whose letters detach and fall under gravity, pile up at the bottom, and can re-form on demand.
+icon: CaseSensitive
+dependencies:
+  - motion.dev
+installer: gravity-letters
+---
+
+## Features
+
+- Each letter's rest position is measured once with `getBoundingClientRect` and never recomputed during animation, only on resize
+- A single `requestAnimationFrame` loop integrates position, velocity, and angular velocity per letter and writes `transform` directly to refs — no React state per frame
+- Letters collide with the container floor and walls only, with configurable restitution (`bounce`) and `friction`
+- Staggered detachment (`stagger`) and a random horizontal `spread` impulse give the fall a natural, scattered feel
+- Four trigger modes: `hover`, `click`, `inView` (falls once when scrolled into view), and `manual` (fully controlled via `collapsed`/`onCollapsedChange`)
+- Re-forming springs every letter back to its measured origin
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Measurement layer and animated letter layer | Hides the decorative, per-letter spans from assistive technologies |
+| `role="button"` | Container (`trigger="click"` only) | Identifies the container as activatable when click-to-topple is enabled |
+| `aria-pressed` | Container (`trigger="click"` only) | Reflects whether the text is currently collapsed (fallen) |
+
+### Screen Reader
+
+- The full string is always present as real, visually-hidden (`sr-only`) text, independent of animation state, so screen readers always read the intended sentence.
+- The animated letter spans are `aria-hidden` and never become the accessible content.
+- For `trigger="hover"` and `trigger="click"`, the container is keyboard-focusable (`tabIndex={0}`); focusing it triggers the same effect as hovering, and `click` also responds to <kbd>Enter</kbd>/<kbd>Space</kbd>.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, letters never fall — the component renders the plain, fully readable text with no measurement layer, no physics loop, and no interaction handlers.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/gravity-letters/index.tsx"
+  name="GravityLettersProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/gravity-letters/index.tsx"
+  name="GravityLettersTrigger"
+/>

@@ -1,0 +1,59 @@
+---
+title: Holographic Foil
+description: A collectible-card foil print that shifts with pointer position or device tilt — four materials, each held to a narrow hue range so it reads as foil rather than a rainbow.
+icon: Sparkles
+dependencies:
+  - motion.dev
+installer: holographic-foil
+---
+
+## Features
+
+- **Four materials, not one rainbow.** `aurora` is blue → violet → cyan, `gold` is gold → amber → magenta, `oil` is a wide hue spread held at very low chroma, and `prism` is the fullest holo with its spectrum still capped. Each material declares its own hue travel (20–34°) and its own saturation multiplier, so tilting a card moves the foil *within* its material instead of cycling the colour wheel.
+- **Banded, not uniform.** The print is a repeating gradient of bands separated by transparent gaps, and a diagonal mask concentrates them into a travelling band. The foil pools and moves with the tilt rather than washing the whole surface.
+- **`intensity` is a real range.** It drives opacity, saturation and contrast together, from `0` (barely there, a hint of sheen) to `1` (full holo).
+- **Legible by construction.** The foil layer sits *under* `children`, so nothing full-strength ever lands on text. Above the content there is only a restrained highlight — a soft-light sheen at roughly a quarter strength and a soft pointer glare — enough to read as light crossing the card, never enough to tint the type.
+- Optional 3D tilt coupled to the same springs, and opt-in device orientation with a permission prompt that no-ops when denied.
+- Pure CSS layers driven by two motion values — no canvas, no WebGL, no extra dependencies.
+
+## Usage notes
+
+- **Give content a solid backing.** Because `children` render above the foil, a title bar or stat row on its own opaque surface stays perfectly readable while the foil shows through the card's frame, its margins and anything you leave transparent. The demo uses a near-black scrim for the text block and lets the foil own the frame.
+- **Let the artwork print on the foil.** The layers are ordered by DOM order with no `z-index` anywhere, so no child creates a stacking context and content can composite against the foil beneath it. Hold an image below full opacity — the demo uses `opacity-[0.74]` — and the foil reads through the art the way holo ink does, while the text scrim above it stays fully opaque and crisp.
+- **The format is what sells the foil.** What makes a card read as a collectible object rather than a tile is 5:7 card stock (`aspect-[5/7]`), a percentage padding that leaves bare stock around the print, a landscape art window with a hairline frame, and a stat block below it. Size it like a real card — the demo runs 208–240px wide — because foil banding on a thumbnail just looks like noise.
+- **Use your own art.** The demo builds card faces from generic stock photography on purpose. Do not drop in artwork or branding from a real trading-card game: those are copyrighted illustrations and registered marks, and this component ships in public documentation.
+- **Foil wants a dark surface.** The print is composited with `screen`, so the component ships a deep ink base. Override it with `className` only if the replacement is dark too — on a white surface `screen` has nothing to lighten.
+- Pointer tracking only runs on hover-capable devices. On touch, enable `useDeviceOrientation` to drive the same springs from the accelerometer.
+- `useDeviceOrientation` renders an "Enable tilt" button only on platforms that require an explicit grant (iOS Safari). Elsewhere the listener attaches directly; when permission is refused the card falls back to its static sheen.
+
+## Performance
+
+The foil, sheen and glare layers only translate — `transform` and `opacity` — and each is `pointer-events: none`. The idle sheen is a single looped transform on a half-width band, and the hue shift is one `hue-rotate` on one small layer, so the print stays composited rather than repainting the card.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Foil layer | Hides the decorative print from assistive technologies |
+| `aria-hidden="true"` | Sheen layer | Hides the decorative sweeping highlight |
+| `aria-hidden="true"` | Glare layer | Hides the decorative pointer specular |
+| `type="button"` | Permission button | Prevents implicit form submission when asking for motion permission |
+
+### Screen Reader
+
+- Every visual layer is `aria-hidden` and non-interactive, so screen readers only encounter the content you pass as `children`.
+- The permission control is a real `<button>`: it sits in the tab order, activates with Enter and Space, and carries a visible text label.
+- No positive `tabIndex` values are used.
+
+### Reduced Motion
+
+The component respects `prefers-reduced-motion` via `useReducedMotion`. When reduced motion is preferred, pointer listeners are never attached, the device-orientation listener and its permission prompt are skipped, the tilt transform is dropped, and the sheen transition falls back to `duration: 0` — leaving a static foil print at the requested `intensity`. The same static presentation is used on devices that do not match `(hover: hover) and (pointer: fine)`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/holographic-foil/index.tsx"
+  name="HolographicFoilProps"
+/>

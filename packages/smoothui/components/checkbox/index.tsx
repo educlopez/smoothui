@@ -6,6 +6,10 @@ import { Checkbox as CheckboxPrimitive } from "radix-ui";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface CheckboxProps {
+  /** Accessible name, for checkboxes without a visible `<label>` */
+  "aria-label"?: string;
+  /** ID of the element labelling the checkbox */
+  "aria-labelledby"?: string;
   /** Whether the checkbox is checked */
   checked?: boolean;
   /** Optional CSS class */
@@ -16,7 +20,7 @@ export interface CheckboxProps {
   id?: string;
   /** Whether the checkbox is in an indeterminate state */
   indeterminate?: boolean;
-  /** Accessible name for the checkbox */
+  /** Name attribute for form submission */
   name?: string;
   /** Callback when the checked state changes */
   onCheckedChange?: (checked: boolean) => void;
@@ -30,6 +34,8 @@ const CheckmarkPath = motion.path;
 const MotionSvg = motion.svg;
 
 export default function Checkbox({
+  "aria-label": ariaLabel,
+  "aria-labelledby": ariaLabelledBy,
   checked = false,
   indeterminate = false,
   onCheckedChange,
@@ -58,6 +64,8 @@ export default function Checkbox({
   return (
     <CheckboxPrimitive.Root
       aria-checked={indeterminate ? "mixed" : checked}
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
       checked={indeterminate ? "indeterminate" : checked}
       className={cn(
         "peer size-4 shrink-0 rounded-[4px] border border-input shadow-xs outline-none transition-shadow focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground data-[state=checked]:bg-foreground data-[state=indeterminate]:bg-foreground data-[state=unchecked]:bg-background data-[state=checked]:text-background data-[state=indeterminate]:text-background dark:data-[state=unchecked]:bg-input/30 dark:aria-invalid:ring-destructive/40",

@@ -1,0 +1,59 @@
+---
+title: Orbital Image Wheel
+description: A circle of images that rotates with drag momentum, auto-rotation, and keyboard stepping, highlighting the item at the top of the circle.
+icon: Orbit
+dependencies:
+  - motion.dev
+installer: orbital-image-wheel
+---
+
+## Features
+
+- Images arranged on a circle, positioned with trigonometry from a single `rotation` value
+- Drag to spin with momentum that decays naturally after release
+- Optional `snap` to settle on the nearest item after a drag or momentum
+- Optional continuous `autoRotate`, paused on hover, focus, and when the tab is hidden
+- `faceOutward` tilts each thumbnail to face away from the center
+- Fully controlled or uncontrolled `rotation`, plus an `activeId` override for the highlighted item
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="application"` | Wheel container | Marks the wheel as a custom interactive widget with its own keyboard/drag behavior |
+| `aria-label="Orbital image wheel"` | Wheel container | Gives the widget a descriptive name |
+| `aria-label` | Each thumbnail button | Announces the item's `label` or `alt` text |
+| `aria-current="true"` | Highlighted thumbnail | Marks the item currently at the top of the circle |
+| `aria-live="polite"` | Visually-hidden status text | Announces which item becomes highlighted |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| <kbd>Arrow Right</kbd> | Step forward by one item |
+| <kbd>Arrow Left</kbd> | Step backward by one item |
+| <kbd>Tab</kbd> | Move focus between thumbnail buttons |
+| <kbd>Enter</kbd> / <kbd>Space</kbd> | Activate a focused thumbnail, bringing it to the top |
+
+### Screen Reader
+
+- Every image is rendered inside a real `<button>` with an `aria-label`, so each item is independently focusable and announced.
+- The highlighted item is marked with `aria-current="true"`, and a visually-hidden live region announces the current selection as the wheel rotates.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, `autoRotate` never starts, drag release never applies momentum (rotation stops immediately), and keyboard/click stepping snaps instantly instead of tweening.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/orbital-image-wheel/index.tsx"
+  name="OrbitalImageWheelProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/orbital-image-wheel/index.tsx"
+  name="OrbitalImageWheelItem"
+/>

@@ -1,0 +1,57 @@
+---
+title: Expandable Navbar
+description: A navbar whose panel expands downward to reveal a mega-menu, morphing height and cross-fading content between sections.
+icon: PanelTopOpen
+dependencies:
+  - motion.dev
+installer: expandable-navbar
+---
+
+## Features
+
+- Panel expands downward with an animated, measured height
+- Cross-fades content with a direction-aware slide between sections
+- Controlled or uncontrolled open section
+- Opens on hover (configurable delay) or on click for touch devices
+- Closes on `Escape`, outside click, or focus leaving the navbar
+- Respects reduced motion preferences
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Expandable navigation"` | `<nav>` | Identifies the navbar as a navigation landmark |
+| `aria-expanded` | Trigger `<button>` | Indicates whether the item's panel is currently open |
+| `aria-controls` | Trigger `<button>` | Associates the trigger with its panel by id |
+| `role="region"` | Panel | Identifies the expanded content as a distinct region |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` / `Shift+Tab` | Moves focus between triggers; focusing a trigger opens its panel |
+| `Enter` / `Space` | Toggles the focused trigger's panel |
+| `Escape` | Closes the currently open panel |
+
+### Screen Reader
+
+- Each trigger is a real `<button>` with `aria-expanded` and `aria-controls`, so assistive technology can tell whether a panel is open and which panel it controls.
+- The expanded panel is marked `role="region"` so it is announced as a distinct content area.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the height morph and cross-fade become instant with no slide offset.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/expandable-navbar/index.tsx"
+  name="ExpandableNavbarProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/expandable-navbar/index.tsx"
+  name="ExpandableNavbarItem"
+/>

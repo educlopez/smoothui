@@ -78,3 +78,4 @@ skills-lock.json
 .install-check/
 apps/docs/.install-check/
 .release/
+.media-staging/

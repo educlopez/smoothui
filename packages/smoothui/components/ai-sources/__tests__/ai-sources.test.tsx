@@ -1,5 +1,6 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AISources, { type AISource } from "../index";
 
@@ -11,6 +12,12 @@ const SOURCES: AISource[] = [
 ];
 
 describe("AISources", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AISources defaultOpen sources={SOURCES} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("starts collapsed, because provenance should be available not loud", () => {
     render(<AISources sources={SOURCES} />);
     expect(screen.getByRole("button")).toHaveAttribute(

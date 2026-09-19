@@ -1,0 +1,64 @@
+---
+title: File Tree
+description: An animated, fully keyboard-navigable file tree with expand/collapse height animation and typeahead.
+icon: FolderTree
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: file-tree
+---
+
+## Features
+
+- Recursive `items` data structure with files and folders
+- Controlled and uncontrolled expanded state and selection
+- Height-animated expand/collapse with a rotating chevron
+- Optional vertical guide lines connecting nested levels (`showLines`)
+- Full keyboard navigation with roving tabindex and typeahead
+- Custom per-item icons and badges
+- Respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="tree"` | Root container | Identifies the widget as a tree |
+| `role="treeitem"` | Each row | Identifies a selectable/expandable node |
+| `role="group"` | Children wrapper | Groups a folder's nested items |
+| `aria-expanded` | Folder rows only | Whether the folder's children are visible |
+| `aria-level` | Each row | Depth of the node within the tree |
+| `aria-selected` | Each row | Whether the node is the current selection |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Arrow Down` / `Arrow Up` | Move focus to the next/previous visible node |
+| `Arrow Right` | Expand a collapsed folder, or move into its first child |
+| `Arrow Left` | Collapse an expanded folder, or move to its parent |
+| `Home` / `End` | Jump to the first/last visible node |
+| `Enter` / `Space` | Select the focused node |
+| Letter key | Jump to the next visible node starting with that letter |
+
+### Screen Reader
+
+- Only one node is in the tab sequence at a time (roving `tabindex`); arrow keys move a virtual focus that screen readers announce via `aria-level`, `aria-expanded` and `aria-selected`.
+- Nested children are wrapped in `role="group"` so their depth and relationship to the parent folder are announced correctly.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, folders expand and collapse instantly with no height transition, and the chevron snaps to its rotated state instead of animating.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/file-tree/index.tsx"
+  name="FileTreeProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/file-tree/index.tsx"
+  name="FileTreeItem"
+/>

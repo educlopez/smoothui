@@ -106,14 +106,14 @@ export function UiCraftInstallSelector({
 
   return (
     <div className={cn("flex flex-col items-center gap-2", className)}>
-      <div className="inline-flex max-w-[calc(100vw-4rem)] items-center gap-1 rounded-xl border border-white/25 bg-white/10 py-1.5 pr-1 pl-1.5 shadow-[0_1px_2px_oklch(0%_0_0/0.08)] backdrop-blur-md">
+      <div className="inline-flex max-w-full items-center gap-1 rounded-xl border border-border bg-muted/60 py-1.5 pr-1 pl-1.5 shadow-[0_1px_2px_oklch(0%_0_0/0.08)] backdrop-blur-md">
         <DropdownMenu>
-          <DropdownMenuTrigger className="inline-flex items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-sm text-white transition-colors hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40">
-            <MethodIcon className="text-white/80" icon={method.Icon} />
+          <DropdownMenuTrigger className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-foreground text-sm transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+            <MethodIcon className="text-muted-foreground" icon={method.Icon} />
             <span>{method.label}</span>
             <IconChevronDownFill24
               aria-hidden
-              className="size-3.5 text-white/70"
+              className="size-3.5 text-muted-foreground"
             />
           </DropdownMenuTrigger>
           <DropdownMenuContent
@@ -156,17 +156,17 @@ export function UiCraftInstallSelector({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <span aria-hidden className="my-1 w-px self-stretch bg-white/20" />
+        <span aria-hidden className="my-1 w-px self-stretch bg-border" />
 
         <span
           aria-hidden
-          className="select-none pl-1 font-mono text-sm text-white/60"
+          className="select-none pl-1 font-mono text-muted-foreground text-sm"
         >
           $
         </span>
 
         <span
-          className="relative block max-w-[min(100vw-12rem,28rem)] overflow-hidden"
+          className="relative block min-w-0 max-w-[min(100vw-12rem,28rem)] overflow-hidden"
           ref={wrapRef}
           style={
             shouldReduceMotion
@@ -181,14 +181,14 @@ export function UiCraftInstallSelector({
           >
             {method.command}
           </span>
-          <code className="block max-w-full overflow-x-auto whitespace-nowrap font-mono text-sm text-white [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <code className="block max-w-full overflow-x-auto whitespace-nowrap font-mono text-foreground text-sm [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {method.command}
           </code>
         </span>
 
         <button
           aria-label="Copy install command"
-          className="group relative flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+          className="group relative flex size-8 shrink-0 cursor-pointer items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted/60 hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           onClick={copy}
           type="button"
         >
@@ -234,7 +234,9 @@ export function UiCraftInstallSelector({
       </div>
 
       {"followUp" in method && method.followUp ? (
-        <p className="font-mono text-white/60 text-xs">{method.followUp}</p>
+        <p className="font-mono text-muted-foreground text-xs">
+          {method.followUp}
+        </p>
       ) : null}
     </div>
   );

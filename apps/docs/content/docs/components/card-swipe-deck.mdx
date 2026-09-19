@@ -1,0 +1,88 @@
+---
+title: Card Swipe Deck
+description: A Tinder-style deck you throw left or right, with a low rotation pivot, drag-driven LIKE/NOPE stamps, a colour wash, velocity-aware throws, and an imperative ref API.
+icon: Cards
+dependencies:
+  - motion.dev
+installer: card-swipe-deck
+---
+
+## Features
+
+- **Low rotation pivot.** The card rotates around a point below its bottom edge (`transform-origin: 50% 165%`), which is what makes the tilt read like a real card held in a hand rather than a box spinning around its centre.
+- **Drag-driven stamps.** Rotated outlined `LIKE` / `NOPE` badges sit in the top corners. Their opacity *and* scale are mapped straight off the drag distance with `useTransform`, so they bloom continuously under the finger instead of snapping in once a threshold is crossed.
+- **Colour wash.** The card tints toward green or red as you pull, using an edge gradient that strengthens in the direction of travel.
+- **Velocity-aware commit and real throw.** A fast flick commits even under the distance `threshold`. On commit, the card is thrown off-screen along the trajectory the finger was describing — the release velocity is handed to the spring as its initial velocity, so there is no seam between dragging and animating.
+- **Elastic snap-back.** Below threshold the card springs home with a little bounce, because the gesture carried momentum.
+- **The stack shifts forward.** As the top card leaves, every card behind it promotes one slot and the next card scales up — an extra card is mounted so the stack never visibly loses depth.
+- **Vertical give.** Dragging is two-axis with soft vertical constraints, so the throw has a real arc.
+- Imperative `ref` API (`swipeLeft()`, `swipeRight()`, `reset()`) via `useImperativeHandle`, using React 19's `ref` as a prop — no `forwardRef`.
+- Keyboard equivalents for every gesture, plus `onSwipe` and `onEmpty` callbacks.
+
+## Composition
+
+The deck exposes its gesture through a ref so you can drive it from anything. The demo wires `SmoothButton` pass / like / reset controls underneath the deck, which gives the gesture a click and keyboard equivalent for free:
+
+```tsx
+const deckRef = useRef<CardSwipeDeckHandle>(null);
+
+<CardSwipeDeck items={items} onSwipe={handleSwipe} ref={deckRef} />
+<SmoothButton color="destructive" onClick={() => deckRef.current?.swipeLeft()} variant="soft">
+  <X />
+</SmoothButton>
+<SmoothButton color="green" onClick={() => deckRef.current?.swipeRight()} variant="solid">
+  <Heart />
+</SmoothButton>
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="application"` | Deck container | Marks the deck as a custom interactive widget with its own keyboard/drag behavior |
+| `aria-label="Swipeable card deck"` | Deck container | Gives the widget a descriptive name |
+| `aria-hidden="true"` | Stamps and colour wash | Hides the decorative drag-progress layers from assistive technology |
+| `aria-live="polite"` | Visually-hidden status text | Announces how many cards remain after each swipe |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| <kbd>Arrow Left</kbd> | Swipe the top card left |
+| <kbd>Arrow Right</kbd> | Swipe the top card right |
+| <kbd>Enter</kbd> | Trigger the primary action (swipes the top card right) |
+| <kbd>Tab</kbd> | Move focus to/from the deck container |
+
+### Screen Reader
+
+- The deck container is focusable (`tabIndex={0}`) and exposes `role="application"` with a descriptive `aria-label`.
+- A visually-hidden `aria-live="polite"` region announces the remaining card count after every swipe, so the outcome of a drag or keypress is never silent.
+- The stamps and the colour wash are purely decorative drag feedback and are marked `aria-hidden`.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, swiped cards are removed immediately with no throw animation and no stack spring — they cut straight to the next state — while dragging, keyboard swiping, and the imperative `ref` API all continue to work.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/card-swipe-deck/index.tsx"
+  name="CardSwipeDeckProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/card-swipe-deck/index.tsx"
+  name="CardSwipeDeckItem"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/card-swipe-deck/index.tsx"
+  name="CardSwipeDeckLabels"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/card-swipe-deck/index.tsx"
+  name="CardSwipeDeckHandle"
+/>

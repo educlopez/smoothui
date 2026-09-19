@@ -38,6 +38,16 @@ export interface PhototabProps {
   tabTriggerClassName?: string;
 }
 
+const WHITESPACE = /\s+/g;
+
+/**
+ * Radix derives the trigger/panel element ids from the tab value, and an id may
+ * not contain whitespace — a multi-word tab name such as "Tab 1" produced an
+ * `aria-controls` that resolved to nothing, breaking the tab/panel pairing for
+ * assistive tech. Values are slugged so the generated ids stay valid.
+ */
+const toTabValue = (name: string) => name.replace(WHITESPACE, "-");
+
 export default function Phototab({
   tabs,
   defaultTab,
@@ -84,7 +94,7 @@ export default function Phototab({
   return (
     <TabsRoot
       className={`group relative aspect-square w-auto overflow-hidden ${className}`}
-      defaultValue={defaultTab || (tabs[0]?.name ?? "")}
+      defaultValue={toTabValue(defaultTab || (tabs[0]?.name ?? ""))}
       orientation="horizontal"
       style={{ height: `${height}px` }}
     >
@@ -136,7 +146,7 @@ export default function Phototab({
             ref={(el) => {
               triggersRef.current[index] = el;
             }}
-            value={tab.name}
+            value={toTabValue(tab.name)}
           >
             <span className="relative z-10 rounded-full focus:outline-none">
               {tab.icon}
@@ -146,7 +156,11 @@ export default function Phototab({
         ))}
       </TabsList>
       {tabs.map((tab) => (
-        <TabsContent className="h-full w-full" key={tab.name} value={tab.name}>
+        <TabsContent
+          className="h-full w-full"
+          key={tab.name}
+          value={toTabValue(tab.name)}
+        >
           <img
             alt={tab.name}
             className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}

@@ -1,0 +1,98 @@
+---
+title: Wallet Card
+description: A wallet of real credit-card objects — EMV chip, contactless glyph, card typography, pointer-tracked sheen — stacked with perspective like cards held in a hand.
+icon: Wallet
+dependencies:
+  - motion.dev
+installer: wallet-card
+---
+
+## Features
+
+- **Real card proportions.** Each card is `aspect-[1.586]` — the ISO/IEC 7810 ID-1 ratio every physical bank card uses — so it reads as a card object rather than a flattened box.
+- **An EMV chip drawn in SVG**, with its gold gradient and the full contact grid, plus a **contactless glyph** built from three nested arcs.
+- **Card typography.** `•••• •••• •••• 4242` in a tabular-figure font with card-appropriate letter-spacing, and `CARD HOLDER` / `VALID THRU` labels above their values at the small tracked sizes physical cards actually use.
+- **Network marks.** `visa`, `mastercard` (the two interlocking circles as real SVG), `amex`, or a neutral `generic` mark.
+- **Printed surface, not a flat gradient.** A fine SVG-turbulence grain layer sits over the card at low opacity in `mix-blend-overlay`, with a bright inset top edge for the card's lip.
+- **A specular highlight that tracks the pointer**, smoothed through `useSpring` so it has momentum instead of snapping to the cursor. Gated behind `matchMedia("(hover: hover) and (pointer: fine)")` and disabled under reduced motion.
+- **Layered drop shadows** — ambient plus direct — that deepen on the selected card.
+- **A stack that recedes with perspective.** Inactive cards tilt away on `rotateX` inside a 1400px perspective container, and selecting one lifts it toward the viewer on `translateZ` with a spring, rather than merely scaling it up.
+- **An intentional masked state.** Hiding the balance keeps the currency symbol and swaps the digits for a fixed run of dots at reduced opacity with wider tracking, so it reads as a deliberate choice rather than missing data. Each glyph still blurs in and out per character.
+- Keyboard-operable account switching with roving tabindex.
+- Money formatting via `Intl.NumberFormat`, including symbol extraction through `formatToParts` — no manual string math.
+- Reduced-motion support via `useReducedMotion`.
+
+## Scope
+
+This component is presentation only. It renders whatever `accounts`, `members`, `activeId`, and `hidden` values you pass in as props — there is no network call, no wallet or crypto SDK, and no handling of real balances, account numbers, or private keys. The card number is always masked to `last4`; the component has no field for a full PAN. Wire up `onActiveChange` and `onHiddenChange` to your own state and data source.
+
+## Composition
+
+Card surfaces are Tailwind classes on `gradient`, so you can style each card independently, and the `actions` slot takes any node — the demo passes `SmoothButton`:
+
+```tsx
+<WalletCard
+  accounts={accounts}
+  actions={
+    <div className="flex gap-2">
+      <SmoothButton prefix={<Plus />} shape="pill" size="sm" variant="outline">
+        Add money
+      </SmoothButton>
+      <SmoothButton color="accent" shape="pill" size="sm" variant="candy">
+        Send
+      </SmoothButton>
+    </div>
+  }
+/>
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="listbox"` | Card stack container | Identifies the stack as a single-select list |
+| `role="option"` + `aria-selected` | Each card | Marks the active account for assistive tech |
+| `aria-label` | Balance figure | Announces "Balance hidden" or the formatted amount instead of raw dot/character glyphs |
+| `aria-hidden="true"` | Chip, contactless glyph, network mark, grain, sheen | Hides the decorative card construction from assistive technology |
+| `role="img"` + `aria-label` | Avatar | Gives each member avatar an accessible name |
+| `aria-expanded` / `aria-controls` | Overflow "+N" button | Exposes the disclosure state and target list |
+| `aria-pressed` | Hide/show balance button | Reflects the current masking state |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Moves focus to the active card (roving tabindex — inactive cards are not tab stops) |
+| `Arrow Right` / `Arrow Down` | Moves to and activates the next card |
+| `Arrow Left` / `Arrow Up` | Moves to and activates the previous card |
+| `Enter` / `Space` | Activates the focused card, toggles the overflow disclosure, or triggers the hide/show button |
+
+### Screen Reader
+
+- The balance is exposed as a single accessible string via `aria-label` on its container, while the animated per-character glyphs are marked `aria-hidden`, so screen readers never read out dots or blur-in characters individually.
+- The hide/show toggle announces its state through `aria-pressed` and a text label that switches between "Hide balance" and "Show balance".
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is enabled, the stack flattens (no `rotateX` tilt, no `translateZ` lift, no perspective), the pointer-tracked sheen stops following the cursor and rests in its home position, and the balance blur mask and overflow disclosure switch to `duration: 0` — cards and balances update instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/wallet-card/index.tsx"
+  name="WalletCardProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/wallet-card/index.tsx"
+  name="WalletAccount"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/wallet-card/index.tsx"
+  name="WalletMember"
+/>
+
+`network` accepts `"visa" | "mastercard" | "amex" | "generic"`.

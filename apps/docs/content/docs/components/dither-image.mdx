@@ -1,0 +1,51 @@
+---
+title: Dither Image
+description: Dither any image at a chosen bit depth with Bayer, Atkinson, Floyd–Steinberg or plain threshold quantisation.
+icon: Blend
+dependencies:
+  - motion.dev
+installer: dither-image
+---
+
+## Features
+
+- Four kernels — ordered `bayer` 8×8, error-diffusing `atkinson` and `floyd-steinberg`, and a hard `threshold`
+- `levels` from `2` to `8` builds the tone ramp, so you get one-bit, tri-tone or eight-step results from the same source
+- `palette` accepts any list of CSS colours and is resampled across `levels`; leave it out and the ramp is derived from the `--color-foreground` and `--color-background` theme tokens, so it follows light and dark mode
+- Canvas 2D pipeline: the image is drawn downscaled to the `pixelSize` grid, quantised over `ImageData`, then upscaled with `imageSmoothingEnabled = false` for crisp blocks
+- `devicePixelRatio` aware backing store, capped at 2× so large images stay cheap
+- `progressive` wipes the dithered pass in when the image enters the viewport, driven by an `IntersectionObserver` that disconnects after the first hit
+- Graceful degradation: a cross-origin failure, a decode error or an unavailable 2D context leaves the plain `<img>` visible
+
+## Usage notes
+
+- The source must be served with permissive CORS headers. The component requests it with `crossOrigin="anonymous"`; if the canvas is tainted the `getImageData` call throws, the component switches to `fallback` and the untouched image stays on screen.
+- Error diffusion runs on luminance, so `palette` behaves as a tonal ramp ordered dark to light rather than as an arbitrary colour set.
+- Larger `pixelSize` values mean a smaller grid and a cheaper pass — `3` or `4` is a good default for hero imagery.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Dither `<canvas>` | Marks the rendered canvas as decorative so the result is never announced twice |
+| `alt` | Underlying `<img>` | Carries the accessible name for the image; required by the API |
+
+### Screen Reader
+
+- The real `<img>` element stays in the DOM underneath the canvas and carries your `alt`, so assistive technology gets a genuine image node with a proper accessible name instead of an unlabeled canvas.
+- The canvas sits on top purely as presentation and is `aria-hidden`, which also means the image is never announced twice.
+- Because the `<img>` is a real element rather than a background, it is also the visual fallback when dithering cannot run — no blank space and no broken layout.
+- Nothing in the component is focusable, and no positive `tabIndex` values are used.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, `progressive` is bypassed entirely: the `IntersectionObserver` is never created, the final dithered pass is shown immediately, and the reveal transition falls back to `duration: 0`. The dithering itself is a one-shot pass with no `requestAnimationFrame` loop, so nothing keeps running after the image is drawn.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dither-image/index.tsx"
+  name="DitherImageProps"
+/>

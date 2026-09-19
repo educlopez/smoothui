@@ -1,3 +1,4 @@
+import { blogCoverImage } from "@docs/lib/blog-cover";
 import Script from "next/script";
 
 interface ArticleSchemaProps {
@@ -17,7 +18,6 @@ export function ArticleSchema({
   dateModified,
   author,
   url,
-  image,
 }: ArticleSchemaProps) {
   const schema = {
     "@context": "https://schema.org",
@@ -32,9 +32,7 @@ export function ArticleSchema({
     datePublished: date,
     description,
     headline: title,
-    image:
-      image ??
-      `https://smoothui.dev/og/blog/${url.replace("/blog/", "")}/image.png`,
+    image: blogCoverImage(url),
     mainEntityOfPage: {
       "@id": `https://smoothui.dev${url}`,
       "@type": "WebPage",

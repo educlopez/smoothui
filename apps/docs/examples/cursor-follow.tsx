@@ -2,13 +2,14 @@
 
 import CursorFollow from "@repo/smoothui/components/cursor-follow";
 import { getImageKitUrl } from "@smoothui/data";
+import { castPeople } from "@smoothui/data/cast";
 import Image from "next/image";
 
 const images = [
   {
     id: 1,
-    label: "Portrait of a person sitting in a chair",
-    src: getImageKitUrl("/images/personchair.webp", {
+    label: castPeople[0].alt,
+    src: getImageKitUrl(`${castPeople[0].src}`, {
       format: "auto",
       quality: 80,
       width: 384,
@@ -16,8 +17,8 @@ const images = [
   },
   {
     id: 2,
-    label: "A young man with curly hair",
-    src: getImageKitUrl("/images/youngman.webp", {
+    label: castPeople[3].alt,
+    src: getImageKitUrl(`${castPeople[3].src}`, {
       format: "auto",
       quality: 80,
       width: 384,

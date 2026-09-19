@@ -2,8 +2,12 @@
 
 import Skeleton from "@repo/smoothui/components/skeleton-loader";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { somePeople } from "@smoothui/data/people";
 import Image from "next/image";
 import { useState } from "react";
+
+/** One face from the shared cast, so the skeleton resolves into a real person. */
+const [PERSON] = somePeople(1, 3);
 
 export default function SkeletonLoaderDemo() {
   const [loading, setLoading] = useState(true);
@@ -13,24 +17,24 @@ export default function SkeletonLoaderDemo() {
       <Skeleton className="rounded-xl" loading={loading}>
         <div className="w-[320px] overflow-hidden rounded-xl border bg-card">
           <Image
-            alt="Surf"
+            alt="Coral and lavender blurred color fields"
             className="h-40 w-full object-cover"
             height={160}
-            src="/images/figma/bg-5.webp"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-lavender.webp?tr=w-480,f-auto"
             width={320}
           />
           <div className="p-4">
             <div className="flex items-center gap-3">
               <Image
-                alt="Avatar"
+                alt={PERSON.name}
                 className="size-12 rounded-full"
                 height={48}
-                src="https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?tr=w-48,h-48"
+                src={`${PERSON.avatar}?tr=w-48,h-48,f-auto`}
                 width={48}
               />
               <div>
-                <p className="font-semibold">Edu Calvo</p>
-                <p className="text-muted-foreground text-sm">@educalvolpz</p>
+                <p className="font-semibold">{PERSON.name}</p>
+                <p className="text-muted-foreground text-sm">{PERSON.handle}</p>
               </div>
             </div>
             <p className="mt-3 text-muted-foreground text-sm">

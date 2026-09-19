@@ -1,0 +1,47 @@
+---
+title: Parallax Layers
+description: Multi-layer depth parallax for hero sections, with an optional pointer-driven layer of movement.
+icon: Layers
+dependencies:
+  - motion.dev
+installer: parallax-layers
+---
+
+## Features
+
+- Any number of layers, each with its own `depth` (0 to 1)
+- Vertical, horizontal, or combined scroll-driven movement
+- Optional pointer-driven parallax on hover-capable devices, springed independently from scroll
+- Works against the window or any scrollable ancestor via the `container` prop
+- Only animates `transform` (`x`/`y`) — compositor-friendly
+- Full `prefers-reduced-motion` support
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| — | — | The component adds no ARIA attributes of its own; each layer renders your `content` unchanged, so mark purely decorative layers with `aria-hidden="true"` yourself |
+
+### Screen Reader
+
+- Layer content is rendered in normal DOM order inside plain `<div>` wrappers — nothing is hidden or reordered for assistive technology.
+- Because layers commonly overlap visually, give any layer that conveys real information (headings, copy, controls) a higher depth value and keep decorative background layers marked `aria-hidden="true"` on their own content.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, every layer renders statically at its natural position — depth is ignored and pointer-driven movement is disabled entirely.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/parallax-layers/index.tsx"
+  name="ParallaxLayersProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/parallax-layers/index.tsx"
+  name="ParallaxLayer"
+/>
+

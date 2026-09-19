@@ -1,9 +1,16 @@
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AILoader, { AI_LOADER_CYCLE_SECONDS } from "../index";
 
 describe("AILoader", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AILoader />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("exports a shared cycle length so variants stay in sync", () => {
     expect(AI_LOADER_CYCLE_SECONDS).toBeGreaterThan(0);
   });

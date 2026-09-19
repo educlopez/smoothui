@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import Scrubber from "../index";
 
@@ -185,5 +186,13 @@ describe("Scrubber", () => {
     const { container } = render(<Scrubber ticks={0} />);
 
     expect(container.querySelectorAll(".bg-foreground\\/25").length).toBe(0);
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <Scrubber decimals={1} defaultValue={0.5} label="Opacity" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

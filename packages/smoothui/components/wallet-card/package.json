@@ -1,0 +1,43 @@
+{
+  "name": "@repo/wallet-card",
+  "description": "A WalletCard component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "data-display",
+    "tags": [
+      "wallet",
+      "card",
+      "balance",
+      "stack",
+      "avatar",
+      "finance-ui",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Stacked account cards with a reveal-on-demand balance",
+      "Shared wallet or family account switcher with member avatars",
+      "Presentation-only fintech dashboard hero card"
+    ],
+    "compositionHints": [
+      "Pass action buttons like \"Add money\" or \"Send\" via the actions prop",
+      "Pair with swap-panel for a combined wallet + swap dashboard section"
+    ],
+    "hasReducedMotion": true
+  }
+}

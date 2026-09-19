@@ -1,0 +1,43 @@
+{
+  "name": "@repo/tilt-card",
+  "description": "A TiltCard component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "card",
+      "tilt",
+      "3d",
+      "glare",
+      "parallax",
+      "pointer",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "3D pointer-tilt product or feature card with glare",
+      "Portfolio or pricing card with parallax depth on hover",
+      "Interactive showcase tile that reacts to cursor position"
+    ],
+    "compositionHints": [
+      "Wrap any card content; add data-tilt-depth=\"0..1\" to nested elements for parallax",
+      "Combine with squircle for a rounded, tilting surface"
+    ],
+    "hasReducedMotion": true
+  }
+}

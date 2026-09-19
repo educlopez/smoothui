@@ -1,0 +1,619 @@
+{
+  "source": "troupe/assets/{people,animals}/*.png",
+  "licenseEvidence": "troupe/SOURCES.md: Magnific generated owned output",
+  "genderSource": "troupe/src/catalog/people.ts, not appearance inference",
+  "assets": [
+    {
+      "id": "maya-solis",
+      "name": "Maya Solis",
+      "gender": "female",
+      "species": "human",
+      "role": "Product designer",
+      "category": "people",
+      "sha256": "94b3a1b985d39154ef7fd43292f9eccaa7923b9073b5ddc1327811d6bacda807"
+    },
+    {
+      "id": "hana-park",
+      "name": "Hana Park",
+      "gender": "female",
+      "species": "human",
+      "role": "Researcher",
+      "category": "people",
+      "sha256": "26ee01d3699e7cb9c957fa54dbdd33a458ade63afa809f19ed9cc88d2ecf53ae"
+    },
+    {
+      "id": "zara-ndiaye",
+      "name": "Zara Ndiaye",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "dd1a1cb92275dbb41ffbe073ff42161af73176a06ee1313bc40f42a0f3281a92"
+    },
+    {
+      "id": "luca-moretti",
+      "name": "Luca Moretti",
+      "gender": "male",
+      "species": "human",
+      "role": "Support lead",
+      "category": "people",
+      "sha256": "eca7d435a23a348f05fd3e6685450943e2b49e3aba43d00ea154f6d55b59ce46"
+    },
+    {
+      "id": "jun-park",
+      "name": "Jun Park",
+      "gender": "male",
+      "species": "human",
+      "role": "Data",
+      "category": "people",
+      "sha256": "5c032974fd91a8b71ceaac82402b0f17af4063c1402dba8d4963f1db96727a9e"
+    },
+    {
+      "id": "marcus-hale",
+      "name": "Marcus Hale",
+      "gender": "male",
+      "species": "human",
+      "role": "Founder",
+      "category": "people",
+      "sha256": "fb4504355ee85bb4906f36f01e0f774656173133a3d48fe7868cc8cfc7bfa496"
+    },
+    {
+      "id": "meera-kapoor",
+      "name": "Meera Kapoor",
+      "gender": "female",
+      "species": "human",
+      "role": "Counsel",
+      "category": "people",
+      "sha256": "4b3f95d6760b5426d8490395b102340dba8ab80aa4cd5a4f32462fe9eb8998ec"
+    },
+    {
+      "id": "niels-holm",
+      "name": "Niels Holm",
+      "gender": "male",
+      "species": "human",
+      "role": "Advisor",
+      "category": "people",
+      "sha256": "80f46e2eb1cc1245c72c7bb9336836672b782be8def5b7247edcb68a2f969bba"
+    },
+    {
+      "id": "leila-hassan",
+      "name": "Leila Hassan",
+      "gender": "female",
+      "species": "human",
+      "role": "Researcher",
+      "category": "people",
+      "sha256": "1e9417e0db8b1df23bf403122a92dd4dbfc6c71c9590761c6e5d6d030b208235"
+    },
+    {
+      "id": "diego-ramos",
+      "name": "Diego Ramos",
+      "gender": "male",
+      "species": "human",
+      "role": "Intern",
+      "category": "people",
+      "sha256": "a2df29ce22d71d53f06633cfbc91de1d5356d6a0eccb6156ba3141ea0807d43c"
+    },
+    {
+      "id": "ines-moreau",
+      "name": "In\u00e8s Moreau",
+      "gender": "female",
+      "species": "human",
+      "role": "Ops",
+      "category": "people",
+      "sha256": "b790592dbb6d6aedcd874497699323c570b7a4578fde29cd1eae717b1e9e0391"
+    },
+    {
+      "id": "arjun-mehta",
+      "name": "Arjun Mehta",
+      "gender": "male",
+      "species": "human",
+      "role": "PM",
+      "category": "people",
+      "sha256": "e043d803ca594ceadbd29aaf5129be128fb5f3cbd108829379b82f833e7ba79f"
+    },
+    {
+      "id": "camila-duarte",
+      "name": "Camila Duarte",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "b67d8aa7221f66af52e4f617ce45e9643e92c4dc5c128475e3f8244efe66dada"
+    },
+    {
+      "id": "sasha-kim",
+      "name": "Sasha Kim",
+      "gender": "nonbinary",
+      "species": "human",
+      "role": "Staff engineer",
+      "category": "people",
+      "sha256": "b469bc291f4ca045161d97d2cbf0711d866aa841165961b1c58a8f73bcf30ab3"
+    },
+    {
+      "id": "freya-lund",
+      "name": "Freya Lund",
+      "gender": "female",
+      "species": "human",
+      "role": "Product designer",
+      "category": "people",
+      "sha256": "9cef318cf58350ea1f9251ab373c316de6ff19baa20afeda3c950cfaac2efdba"
+    },
+    {
+      "id": "saoirse-flynn",
+      "name": "Saoirse Flynn",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "60a9a194f5a79d4900b9a50871a344e425868f9d46d91af6b39223e55ca09939"
+    },
+    {
+      "id": "rowan-obrien",
+      "name": "Rowan O'Brien",
+      "gender": "male",
+      "species": "human",
+      "role": "Support lead",
+      "category": "people",
+      "sha256": "05b80877412d926d03dae3c07de90053342d1b5b0b97855d872b1cd62ad8e68c"
+    },
+    {
+      "id": "erik-lindqvist",
+      "name": "Erik Lindqvist",
+      "gender": "male",
+      "species": "human",
+      "role": "Sales",
+      "category": "people",
+      "sha256": "4fd4de5480378a6d3f51ee5644f08a4b4917becfc04348351285f0b443e17b0b"
+    },
+    {
+      "id": "chloe-bennett",
+      "name": "Chloe Bennett",
+      "gender": "female",
+      "species": "human",
+      "role": "Intern",
+      "category": "people",
+      "sha256": "c3fc7509478e18f112c63d4909f0628eefc31bd917443566f1ad8bf376ba8214"
+    },
+    {
+      "id": "isla-reid",
+      "name": "Isla Reid",
+      "gender": "female",
+      "species": "human",
+      "role": "Ops",
+      "category": "people",
+      "sha256": "2b9697aeaa348b8346938fff647ad4582edcc638c02966088e46c3cb0d452437"
+    },
+    {
+      "id": "lars-bergman",
+      "name": "Lars Bergman",
+      "gender": "male",
+      "species": "human",
+      "role": "Data",
+      "category": "people",
+      "sha256": "a20eaabe0d9f6d462b42880a7e7ed90b377968a391411f4355b8651c6d77d2f3"
+    },
+    {
+      "id": "morgan-reed",
+      "name": "Morgan Reed",
+      "gender": "nonbinary",
+      "species": "human",
+      "role": "Researcher",
+      "category": "people",
+      "sha256": "c893648112250744a947fb727103594b0196363660d022af33496a5ba61d8156"
+    },
+    {
+      "id": "amina-osei",
+      "name": "Amina Osei",
+      "gender": "female",
+      "species": "human",
+      "role": "Ops",
+      "category": "people",
+      "sha256": "493ea9746d349c2a96991a0b1d5db5164e604fcdc5823a7309668085d4d016f0"
+    },
+    {
+      "id": "malik-johnson",
+      "name": "Malik Johnson",
+      "gender": "male",
+      "species": "human",
+      "role": "PM",
+      "category": "people",
+      "sha256": "0f58d55201728425cfdc5f896aa26a44f93fc280c3d6d662491eb7d40bc71bd0"
+    },
+    {
+      "id": "yuki-tanaka",
+      "name": "Yuki Tanaka",
+      "gender": "female",
+      "species": "human",
+      "role": "Advisor",
+      "category": "people",
+      "sha256": "57f99ac88d5184aeb4154f08b3e45757c1a330063abff24e8042afac890cadf3"
+    },
+    {
+      "id": "helen-frost",
+      "name": "Helen Frost",
+      "gender": "female",
+      "species": "human",
+      "role": "Counsel",
+      "category": "people",
+      "sha256": "adccb44777c50d26302ac2ac4ff482ce79ffd45483aae26e5ec41e13c1413e56"
+    },
+    {
+      "id": "bridget-cairns",
+      "name": "Bridget Cairns",
+      "gender": "female",
+      "species": "human",
+      "role": "Founder",
+      "category": "people",
+      "sha256": "4064c32750af367c082c33e0ac0afdc9134f03d25ac71279a171e08766370038"
+    },
+    {
+      "id": "omar-khalil",
+      "name": "Omar Khalil",
+      "gender": "male",
+      "species": "human",
+      "role": "Sales",
+      "category": "people",
+      "sha256": "b3a30a1939eb8d545d7f8f7adffb34407630b46fa0213025bc6d262e56c292f9"
+    },
+    {
+      "id": "sofia-reyes",
+      "name": "Sofia Reyes",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "7a99ad401a924fd3e67b0690dffcc7287950243b869a1b9fb75161c62db75f0e"
+    },
+    {
+      "id": "kai-thompson",
+      "name": "Kai Thompson",
+      "gender": "male",
+      "species": "human",
+      "role": "Support lead",
+      "category": "people",
+      "sha256": "0b8aeab1da9fbb6978066fbcc1d5f93458ece1708b544696a4c9b62854d94ef9"
+    },
+    {
+      "id": "ananya-sharma",
+      "name": "Ananya Sharma",
+      "gender": "female",
+      "species": "human",
+      "role": "Intern",
+      "category": "people",
+      "sha256": "4cd2a73bede4746a43eec3e7f78934ef521dc0c93d4c198eaf72aa7e34a9764c"
+    },
+    {
+      "id": "hiro-sato",
+      "name": "Hiro Sato",
+      "gender": "male",
+      "species": "human",
+      "role": "Advisor",
+      "category": "people",
+      "sha256": "d82855b64eb6bfa60976d7895f8440e52f1104024a80301d31de58d56d3fdffd"
+    },
+    {
+      "id": "theo-miller",
+      "name": "Theo Miller",
+      "gender": "male",
+      "species": "human",
+      "role": "Product designer",
+      "category": "people",
+      "sha256": "2be5b73a477c90dd64f044dc5aaf540fa0b42f560d56359ea4248f70a954dd92"
+    },
+    {
+      "id": "nia-brooks",
+      "name": "Nia Brooks",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "dc96cd83cb95cde79a2db5e511785fd1b0637761577553cd7621d38d852ec6d8"
+    },
+    {
+      "id": "elise-carter",
+      "name": "Elise Carter",
+      "gender": "female",
+      "species": "human",
+      "role": "PM",
+      "category": "people",
+      "sha256": "f31f36d2b7441980b150cca3b3394a37d249f3967a525ff2bb0e76a100e09fb6"
+    },
+    {
+      "id": "jordan-wells",
+      "name": "Jordan Wells",
+      "gender": "nonbinary",
+      "species": "human",
+      "role": "Staff engineer",
+      "category": "people",
+      "sha256": "bce53bfd1a4299250e80987a053ba42824f2e738e26b6c2cb90b8b83de0c0b50"
+    },
+    {
+      "id": "graham-price",
+      "name": "Graham Price",
+      "gender": "male",
+      "species": "human",
+      "role": "Counsel",
+      "category": "people",
+      "sha256": "d030a57ac9b6e47840bebb3c02f9399a6ad7bb54080da053b4347989bd5d055d"
+    },
+    {
+      "id": "linh-nguyen",
+      "name": "Linh Nguyen",
+      "gender": "female",
+      "species": "human",
+      "role": "Researcher",
+      "category": "people",
+      "sha256": "716e898b74bfe31985f7bfc3d7b21be658f177abc4fa9213306ee3c47ffbde30"
+    },
+    {
+      "id": "miguel-santos",
+      "name": "Miguel Santos",
+      "gender": "male",
+      "species": "human",
+      "role": "Intern",
+      "category": "people",
+      "sha256": "73049c0096aa6427791a7a55633fd1ebe2149a060c8a7d9e42db71f9129002a4"
+    },
+    {
+      "id": "amara-cole",
+      "name": "Amara Cole",
+      "gender": "female",
+      "species": "human",
+      "role": "Product designer",
+      "category": "people",
+      "sha256": "b66a757695921808a5ee6ea00c9bbafd48bd587f1ceda60b3d5d431d133a3702"
+    },
+    {
+      "id": "ezra-cohen",
+      "name": "Ezra Cohen",
+      "gender": "male",
+      "species": "human",
+      "role": "Founder",
+      "category": "people",
+      "sha256": "c916cb5c9ea9f662b6dfaab52aef05731e8759aed000c82ef1aa3bc18c326471"
+    },
+    {
+      "id": "rosa-mendez",
+      "name": "Rosa M\u00e9ndez",
+      "gender": "female",
+      "species": "human",
+      "role": "Advisor",
+      "category": "people",
+      "sha256": "6ebddfe8158de3f2d3f86204dd810867208237703673822473c35044b7591431"
+    },
+    {
+      "id": "ren-okada",
+      "name": "Ren Okada",
+      "gender": "nonbinary",
+      "species": "human",
+      "role": "Staff engineer",
+      "category": "people",
+      "sha256": "51a9ff8435d26e3384a6e947d2d0dcb43ad43b5b35ff8930137079414dac85b7"
+    },
+    {
+      "id": "connor-hayes",
+      "name": "Connor Hayes",
+      "gender": "male",
+      "species": "human",
+      "role": "Sales",
+      "category": "people",
+      "sha256": "0b93ef39e8e3ec2bb0088288617a67c7bcf85ba77b4cb4084d25dfc877b374ae"
+    },
+    {
+      "id": "fatima-rahman",
+      "name": "Fatima Rahman",
+      "gender": "female",
+      "species": "human",
+      "role": "Researcher",
+      "category": "people",
+      "sha256": "42e9d3f9a50fca0df885b31a05871e3e2e4c5bdff1e45690cdd9665617002203"
+    },
+    {
+      "id": "derrick-hayes",
+      "name": "Derrick Hayes",
+      "gender": "male",
+      "species": "human",
+      "role": "Support lead",
+      "category": "people",
+      "sha256": "b6805e32c4d73021bdec621cb2ae39043d211a1f80542763559253f34dd8cd73"
+    },
+    {
+      "id": "nora-blake",
+      "name": "Nora Blake",
+      "gender": "female",
+      "species": "human",
+      "role": "Ops",
+      "category": "people",
+      "sha256": "9bfc21ac76b3802505e82cd18a6701c519059d941b930d07727e96c30c9a59ed"
+    },
+    {
+      "id": "tasha-greene",
+      "name": "Tasha Greene",
+      "gender": "female",
+      "species": "human",
+      "role": "Marketing",
+      "category": "people",
+      "sha256": "8b4bc4cc3fcb4c0fab3623f6ac7bcda1fe2013ed116db1eed8b667b65d9330af"
+    },
+    {
+      "id": "noah-petrov",
+      "name": "Noah Petrov",
+      "gender": "male",
+      "species": "human",
+      "role": "Intern",
+      "category": "people",
+      "sha256": "91165c6a14f5e1c22462b05e173b125beb96d966e0419a62d32d389248114fc1"
+    },
+    {
+      "id": "valeria-cruz",
+      "name": "Valeria Cruz",
+      "gender": "female",
+      "species": "human",
+      "role": "PM",
+      "category": "people",
+      "sha256": "51b2447b6e3cb1a37eb2e75e47c70e0331bc123a91b58636fd1e885e9feb1450"
+    },
+    {
+      "id": "maple-golden",
+      "name": "Maple",
+      "gender": "unspecified",
+      "species": "dog",
+      "role": "Support mascot",
+      "category": "animals",
+      "sha256": "d34d0d1a6a71dfd2229eeed3554a73dc3c9c461919d60f897ba622361846c969"
+    },
+    {
+      "id": "ink-lab",
+      "name": "Ink",
+      "gender": "unspecified",
+      "species": "dog",
+      "role": "Ops buddy",
+      "category": "animals",
+      "sha256": "b094ef9b74576b5471fe047fab2f01ed3c8ef6f29e008e03bbb79e0515948cc8"
+    },
+    {
+      "id": "biscuit-corgi",
+      "name": "Biscuit",
+      "gender": "unspecified",
+      "species": "dog",
+      "role": "Office pup",
+      "category": "animals",
+      "sha256": "511bd7e5311da24e60319f79d1851579000c8481d18211e0c32194de974ed546"
+    },
+    {
+      "id": "mango-tabby",
+      "name": "Mango",
+      "gender": "unspecified",
+      "species": "cat",
+      "role": "Product cat",
+      "category": "animals",
+      "sha256": "4db36f49dca96b819787c7a71d70e21eb2c187a34c7ab718d828ceccde0a7f0c"
+    },
+    {
+      "id": "mist-shorthair",
+      "name": "Mist",
+      "gender": "unspecified",
+      "species": "cat",
+      "role": "Design critter",
+      "category": "animals",
+      "sha256": "962ab282b3332d63cbbef3263880e88479505380703ea04b6a1673e79830298b"
+    },
+    {
+      "id": "tuxedo-jack",
+      "name": "Jack",
+      "gender": "unspecified",
+      "species": "cat",
+      "role": "Office cat",
+      "category": "animals",
+      "sha256": "0cf29a3cfca83b7fbd196722e778602fc329a07a7c465aa0e1b5ff012b5c6489"
+    },
+    {
+      "id": "bay-star",
+      "name": "Bay",
+      "gender": "unspecified",
+      "species": "horse",
+      "role": "Brand mare",
+      "category": "animals",
+      "sha256": "1db8c0555d99ab92200432f2adb4b34d044392ae493d0710f62d8997af4991ef"
+    },
+    {
+      "id": "cloud-mare",
+      "name": "Cloud",
+      "gender": "unspecified",
+      "species": "horse",
+      "role": "Pasture lead",
+      "category": "animals",
+      "sha256": "65303df28e64f39a920205cf44af9c52ffea54ab3b72c6dc161e2ce728dd45b4"
+    },
+    {
+      "id": "onyx-stallion",
+      "name": "Onyx",
+      "gender": "unspecified",
+      "species": "horse",
+      "role": "Studio horse",
+      "category": "animals",
+      "sha256": "c2aa57007fe985c969213d897f685ee09cd188507c0134a5d16758af10677b5e"
+    },
+    {
+      "id": "leaf-veiled",
+      "name": "Leaf",
+      "gender": "unspecified",
+      "species": "chameleon",
+      "role": "Garden scout",
+      "category": "animals",
+      "sha256": "cc021ea2667136581eae14eee3a4beabb39f46e8d0ac702b99f00deac74cc850"
+    },
+    {
+      "id": "reef-panther",
+      "name": "Reef",
+      "gender": "unspecified",
+      "species": "chameleon",
+      "role": "Color QA",
+      "category": "animals",
+      "sha256": "a055dd2c626b0421d6cb9c23b167b3f5f3375bbaa80e0adaf5c26b85d5d42253"
+    },
+    {
+      "id": "sun-chameleon",
+      "name": "Sun",
+      "gender": "unspecified",
+      "species": "chameleon",
+      "role": "Habitat mascot",
+      "category": "animals",
+      "sha256": "6b2a48ba3b406719e4cbf3a1ab8fbfe9c80e9f1b1068f18e20d392ef7f1774e7"
+    },
+    {
+      "id": "azure-betta",
+      "name": "Azure",
+      "gender": "unspecified",
+      "species": "fish",
+      "role": "Aquarium lead",
+      "category": "animals",
+      "sha256": "fdc39c58e18f9a7d749a03a47975e6d194a3f2ddd6e04bc24680c80ae5d33b31"
+    },
+    {
+      "id": "coin-goldfish",
+      "name": "Coin",
+      "gender": "unspecified",
+      "species": "fish",
+      "role": "Lucky fish",
+      "category": "animals",
+      "sha256": "4248a7d98d5147f67aa7aeaaecf9ddda306d97fa0759bf4e19a10ca0c1a0bc72"
+    },
+    {
+      "id": "koi-flash",
+      "name": "Flash",
+      "gender": "unspecified",
+      "species": "fish",
+      "role": "Pond mascot",
+      "category": "animals",
+      "sha256": "c80eb1a1dd04007118d03e9023dd6eaeffffe2d627c16e4c29608c0061f6d24d"
+    },
+    {
+      "id": "rio-macaw",
+      "name": "Rio",
+      "gender": "unspecified",
+      "species": "bird",
+      "role": "Community bird",
+      "category": "animals",
+      "sha256": "1647c0208a0f7ab18493277cc23ade59d18041869c198d3565f54712c7d964f0"
+    },
+    {
+      "id": "pip-canary",
+      "name": "Pip",
+      "gender": "unspecified",
+      "species": "bird",
+      "role": "Studio songbird",
+      "category": "animals",
+      "sha256": "13b6df50fe6a941bf3c1b42530ef41a502998f7755a77c8b3fe992bc7e4913e0"
+    },
+    {
+      "id": "luna-barn",
+      "name": "Luna",
+      "gender": "unspecified",
+      "species": "bird",
+      "role": "Night docs",
+      "category": "animals",
+      "sha256": "15df9d43c265cff083f34c9362a8b3e07a24ace0280a1c295c26f074d61c27c3"
+    }
+  ]
+}

@@ -154,7 +154,9 @@ export function ChangelogPopover() {
             >
               <div className="flex items-center gap-2">
                 <span className="rounded-full bg-brand/10 px-1.5 py-0.5 font-mono text-[10px] text-brand">
-                  v{entry.version}
+                  {entry.version === "Unreleased"
+                    ? entry.version
+                    : `v${entry.version}`}
                 </span>
                 <span className="text-muted-foreground/60 text-xs">
                   {entry.date}

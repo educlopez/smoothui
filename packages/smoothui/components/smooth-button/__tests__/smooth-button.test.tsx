@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import SmoothButton from "../index";
 
@@ -66,5 +67,11 @@ describe("SmoothButton", () => {
     );
     expect(getByTestId("prefix")).toBeInTheDocument();
     expect(getByTestId("suffix")).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<SmoothButton>Click me</SmoothButton>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

@@ -1,0 +1,73 @@
+---
+title: Country Dialog
+description: A searchable, virtualized country and region picker dialog with grouping, recent selections, and full keyboard navigation.
+icon: Globe
+dependencies:
+  - motion.dev
+installer: country-dialog
+---
+
+## Features
+
+- Full-screen-safe modal dialog with backdrop, focus trap, and portal rendering
+- Diacritic-insensitive search across country name, ISO code, and dial code
+- Optional "Recent" group shown above the full list when the search field is empty
+- Optional grouping by region (`group`) with section headers
+- Windowed rendering (simple slice-window, no external library) once the list crosses a size threshold
+- Emoji flags derived automatically from the ISO code, with a text fallback
+- Full keyboard support via the ARIA combobox + listbox pattern (`aria-activedescendant`)
+
+## Scope
+
+This component is presentation only. It ships with no network calls, no geolocation or IP-based country detection, and no bundled country dataset — you pass in the `countries` array (and optional `recent` codes) as props. Nothing here reads or infers a user's real location.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-haspopup="dialog"` / `aria-expanded` | Trigger button | Announces that activating it opens a dialog |
+| `role="dialog"` / `aria-modal="true"` | Dialog panel | Marks the panel as a modal dialog |
+| `role="combobox"` / `aria-autocomplete="list"` | Search input | Identifies the input as a combobox driving a list |
+| `aria-controls` | Search input | Points to the listbox it controls |
+| `aria-activedescendant` | Search input | Points to the `id` of the currently highlighted option, while focus stays on the input |
+| `role="listbox"` | Results container | Identifies the results as a selectable listbox |
+| `role="option"` / `aria-selected` | Each country row | Identifies each row as a selectable option and its selection state |
+| `role="presentation"` | Group/"Recent" headers | Hides purely visual section labels from the accessibility tree as list semantics |
+| `aria-hidden="true"` | Flag emoji | The country name already carries the accessible label, so the decorative flag is hidden |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Enter` / `Space` (on trigger) | Opens the dialog |
+| `Escape` | Closes the dialog and returns focus to the trigger |
+| `Tab` / `Shift+Tab` | Cycles focus within the dialog (focus trap) |
+| `Arrow Down` | Moves the highlighted option to the next row |
+| `Arrow Up` | Moves the highlighted option to the previous row |
+| `Home` | Highlights the first option |
+| `End` | Highlights the last option |
+| `Enter` (in search field) | Selects the highlighted option and closes the dialog |
+
+### Screen Reader
+
+- Focus moves to the search field when the dialog opens and returns to the element that opened it when the dialog closes.
+- The search field keeps focus at all times; the highlighted option is announced through `aria-activedescendant` rather than by moving focus into the list.
+- Selection state is exposed via `aria-selected` on the option and reinforced visually with a checkmark.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the backdrop and dialog panel still fade in and out via `opacity`, but the transition duration is `0` (instant) and the scale/vertical-offset entrance used in normal motion is removed entirely.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/country-dialog/index.tsx"
+  name="CountryDialogProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/country-dialog/index.tsx"
+  name="Country"
+/>

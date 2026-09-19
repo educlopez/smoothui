@@ -1,0 +1,54 @@
+---
+title: Floating Navbar
+description: A pill navbar that detaches from the top edge, shrinks and blurs on scroll, and hides on scroll-down while revealing on scroll-up.
+icon: Navigation
+dependencies:
+  - motion.dev
+installer: floating-navbar
+---
+
+## Features
+
+- Pill-shaped floating navbar with a sliding active-item indicator
+- Shrinks and blurs after scrolling past a configurable threshold
+- Hides on scroll-down and reveals on scroll-up
+- Works inside a scrollable container via `containerRef`, not just `window`
+- Controlled or uncontrolled active item
+- Respects reduced motion preferences
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Primary"` | `<nav>` | Identifies the navbar as the primary navigation landmark |
+| `aria-current="page"` | Active `<a>`/`<button>` | Indicates which item is the current page or section |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` / `Shift+Tab` | Moves focus between navbar items in document order |
+| `Enter` / `Space` | Activates the focused item |
+
+### Screen Reader
+
+- Items render as real `<a>` elements when `href` is provided, or `<button>` otherwise, so assistive technology announces them as standard navigation controls.
+- The sliding pill indicator is purely decorative and lives behind the text with `aria-hidden` icons, so it never interferes with the announced label.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the hide/reveal and shrink transitions become instant and the active-item pill jumps without a spring animation.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/floating-navbar/index.tsx"
+  name="FloatingNavbarProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/floating-navbar/index.tsx"
+  name="FloatingNavbarItem"
+/>

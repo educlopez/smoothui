@@ -92,7 +92,11 @@ const AIArtifact = ({
         </span>
 
         {available.length > 1 && (
-          <div className="ml-auto flex items-center gap-0.5 rounded-lg bg-muted p-0.5">
+          <div
+            aria-label="Artifact view"
+            className="ml-auto flex items-center gap-0.5 rounded-lg bg-muted p-0.5"
+            role="tablist"
+          >
             {available.map((candidate) => (
               <button
                 aria-selected={pane === candidate}

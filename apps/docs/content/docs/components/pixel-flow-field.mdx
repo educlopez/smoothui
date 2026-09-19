@@ -1,0 +1,93 @@
+---
+title: Pixel Flow Field
+description: A grid of cells that samples a word into itself — scattered dust drifting on a flow field, re-forming into legible type, with a decaying wake wherever your pointer has been.
+icon: Grid3x3
+dependencies:
+  - motion.dev
+installer: pixel-flow-field
+---
+
+## Features
+
+- **The field carries a word.** `text` is rasterised to an offscreen canvas and read back with `getImageData`, one pixel per cell. Each cell's brightness and size come from the coverage it sampled, so the grid resolves into readable type.
+- **Scatter and re-form.** Cells arrive dispersed across the surface and travel home on an ease-out curve with a spatial stagger, so they land in a sweep rather than all at once. Bumping the `scatter` counter blows the field apart again.
+- **A wake, not a push.** Pointer impulses accumulate into a per-cell displacement that decays exponentially, so you can see the path the cursor took a moment ago. The trail is walked in sub-steps between frames, so a fast flick leaves a continuous stroke instead of dotted impacts.
+- **The word is the calm centre.** Cells the word covers barely drift while the empty field keeps flowing around them — the type reads as stillness inside motion.
+- **Cells scale with field magnitude**, so the flow itself is legible even where the word is not.
+- **Brightness travels through lightness**, not opacity alone: the three-stop `colors` ramp goes dim field → accent → ink, which is what makes the word actually resolve instead of looking like a slightly darker patch of grey.
+- `square`, `circle`, and `cross` cell shapes.
+- Optional `src` samples an image instead of the word, falling back to `text` when the pixels cannot be read.
+- Colours resolve from CSS custom properties, so the field follows your theme in light and dark.
+- `paused` freezes the field on its current frame.
+- Automatic dotted-background fallback when Canvas2D is unavailable.
+
+## Usage
+
+```tsx
+import PixelFlowField from "@/components/smoothui/ui/pixel-flow-field";
+
+const [scatter, setScatter] = useState(0);
+
+<PixelFlowField
+  cellSize={7}
+  className="h-[460px] rounded-2xl"
+  gap={3}
+  scatter={scatter}
+  text="smooth"
+>
+  <button onClick={() => setScatter((n) => n + 1)} type="button">
+    Scatter and re-form
+  </button>
+</PixelFlowField>;
+```
+
+The wrapper is `position: relative` and the canvas is absolutely positioned inside it, so **the element needs a resolvable height** — an explicit `h-[460px]`, an aspect ratio, or content whose own flow provides it.
+
+## Performance
+
+**Sampling happens once, never per frame.** The word is rasterised into a `cols × rows` bitmap — one pixel per cell — and `getImageData` is called exactly once per source change. The result is cached and only re-read when the grid dimensions, `text`, `weight`, the resolved font family, or `src` actually change. Nothing reads pixels inside the render loop.
+
+**The flow field is evaluated coarsely.** Value noise is sampled on a lattice of one point per 4×4 block of cells and bilinear-filtered per cell, with the bilinear indices and weights precomputed at grid build time. Per-frame trigonometry is therefore proportional to the lattice, roughly a sixteenth of the cell count, and the per-cell cost is a handful of multiplies.
+
+**Cells are batched by brightness.** Coverage is quantised into 7 tiers at build time, so a frame issues 7 `fillStyle` assignments and 7 `fill()` calls regardless of how many cells there are — not one per cell, and no DOM node per cell. Cells pushed off-surface during a scatter are culled before any path work.
+
+**The grid adapts at both ends.** Because the word is fitted to a fraction of the column count, too few columns means too few cells per glyph and the type stops reading — so on a narrow surface the grid densifies to at least 44 columns rather than letting the word turn to mush. At the other end, **the cell count is capped at 14,000.** Cell count scales with area / step², so a large panel with small cells is the expensive case; past the cap the grid is coarsened rather than truncated, keeping coverage complete. At the demo's size (roughly 700 × 460 with `cellSize={7}` and `gap={3}`) the field is about 3,200 cells and a frame costs well under a millisecond of scripting on a current laptop — comfortably inside a 120 Hz budget. The backing store honours `devicePixelRatio` capped at 2.
+
+**Nothing routes through React state.** Shape, scatter, colours, and pointer position are pushed into an imperative controller via `setSettings` / `setPointer`; there is no `setState` per frame and no CSS custom property animated on a parent.
+
+**When it pauses.** The render loop is torn down, not merely skipped:
+
+- An `IntersectionObserver` stops the loop as soon as the field leaves the viewport — and the scatter reveal is deferred until the field is first visible, rather than playing to nobody below the fold.
+- A `visibilitychange` listener stops the loop when the tab is hidden.
+- Setting `paused` stops the loop and leaves the last frame on screen.
+- A `ResizeObserver` drives resizing, so no layout is read per frame.
+
+On unmount the animation frame is cancelled, pointer listeners are removed, and both the visible canvas and the offscreen sampler have their backing stores collapsed to free memory.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Canvas wrapper | Removes the purely decorative field from the accessibility tree. The attribute sits on the wrapper, never on the canvas element itself |
+| `aria-hidden="true"` | Dotted fallback | Same treatment when Canvas2D is unavailable |
+
+### Screen Reader
+
+The word rendered into the field is decoration, not content — it is pixels on a canvas and is never announced. If the word carries meaning, repeat it in real text inside `children`. The canvas wrapper is `aria-hidden` and has `pointer-events: none`, and pointer tracking is attached to the outer wrapper, so links, buttons, and inputs nested inside keep their own hit targets and focus behaviour.
+
+### Reduced Motion
+
+With `prefers-reduced-motion` active the component draws **one static frame and starts no `requestAnimationFrame` loop at all**. That frame is the fully resolved state: every cell on its grid position, the word at full legibility, no scatter, no flow displacement, no wake. Pointer listeners are not attached either, so moving the cursor changes nothing.
+
+### Contrast
+
+The default ramp runs from `--color-smooth-500` for the empty field to `--color-foreground` for the word's core, which keeps a real lightness gap against the background in both themes rather than relying on saturation. If you pass your own `colors`, keep that lightness gap on the last stop — that is the stop the word is read from.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/pixel-flow-field/index.tsx"
+  name="PixelFlowFieldProps"
+/>

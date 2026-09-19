@@ -50,7 +50,7 @@
     "tsx": "4.23.1",
     "typescript": "^5.9.3",
     "ultracite": "^7.9.4",
-    "vitest": "4.1.8"
+    "vitest": "4.1.11"
   },
   "engines": {
     "node": ">=22.13.0"

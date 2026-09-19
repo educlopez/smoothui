@@ -1,0 +1,42 @@
+{
+  "name": "@repo/card-swipe-deck",
+  "description": "A CardSwipeDeck component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "interaction",
+    "tags": [
+      "swipe",
+      "deck",
+      "cards",
+      "tinder",
+      "drag",
+      "gesture",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Tinder-style approve/reject deck",
+      "Onboarding flow with swipeable steps",
+      "Card-based decision queue with keyboard and imperative control"
+    ],
+    "compositionHints": [
+      "Drive it externally with the ref API for a like/dislike button bar",
+      "Pass rich JSX as item content, e.g. profile cards or product tiles"
+    ],
+    "hasReducedMotion": true
+  }
+}

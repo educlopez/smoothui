@@ -1,51 +1,22 @@
+import { PHOTO_TABS, sceneSrc } from "@docs/examples/shared/demo-fixtures";
 import Phototab, { type PhototabTab } from "@repo/smoothui/components/phototab";
-import { getImageKitUrl } from "@smoothui/data";
-import { Dog, Map as MapIcon, User } from "lucide-react";
+import { Mountain, TreePine, Waves } from "lucide-react";
 
-// Placeholder images (replace with your own if available)
-const Images = [
-  getImageKitUrl("/images/girl-summer.webp", {
-    format: "auto",
-    height: 300,
-    quality: 80,
-    width: 600,
-  }),
-  getImageKitUrl("/images/dog-white.webp", {
-    format: "auto",
-    height: 300,
-    quality: 80,
-    width: 600,
-  }),
-  getImageKitUrl("/images/surf.webp", {
-    format: "auto",
-    height: 300,
-    quality: 80,
-    width: 600,
-  }),
-];
+const ICONS = [<Mountain key="m" />, <Waves key="w" />, <TreePine key="t" />];
 
-const tabs: PhototabTab[] = [
-  {
-    icon: <User />,
-    image: Images[0],
-    name: "one",
-  },
-  {
-    icon: <Dog />,
-    image: Images[1],
-    name: "two",
-  },
-  {
-    icon: <MapIcon />,
-    image: Images[2],
-    name: "three",
-  },
-];
+const tabs: PhototabTab[] = PHOTO_TABS.map((tab, index) => ({
+  icon: ICONS[index],
+  image: sceneSrc(tab.scene, "w-600,h-600"),
+  name: tab.name,
+}));
 
 export default function PhototabDemo() {
   return (
     <div className="mx-auto max-w-md">
-      <Phototab defaultTab="one" height={300} tabs={tabs} />
+      {/* No defaultTab on purpose: the component falls back to the first
+          tab's real name. A stale name here selects nothing and Radix then
+          mounts no panel at all — the demo renders without any photo. */}
+      <Phototab height={300} tabs={tabs} />
     </div>
   );
 }

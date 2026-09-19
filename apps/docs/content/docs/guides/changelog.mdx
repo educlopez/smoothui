@@ -3,10 +3,61 @@ title: Changelog
 description: View the release notes and updates for SmoothUI. Stay up to date with the latest changes in React components, TailwindCSS styles, and animations.
 ---
 
-> This page is a curated highlight reel of major SmoothUI releases. For the
-> full technical log auto-generated from conventional commits, see
-> [GitHub Releases](https://github.com/educlopez/smoothui/releases) or
-> [`CHANGELOG.md`](https://github.com/educlopez/smoothui/blob/main/CHANGELOG.md).
+> This page and the changelog bell are maintained manually. The entry below
+> previews work on `develop`; it is not a published release. Package release
+> notes are maintained separately by release-please in
+> [GitHub Releases](https://github.com/educlopez/smoothui/releases),
+> [the component changelog](https://github.com/educlopez/smoothui/blob/main/packages/smoothui/CHANGELOG.md)
+> and [the CLI changelog](https://github.com/educlopez/smoothui/blob/main/packages/cli/CHANGELOG.md).
+
+## Unreleased
+
+<ChangelogEntry date="Updated Sep 19, 2026" version="Unreleased" title="Expanded Library, Live Demos & Original Media">
+
+These notes cover the August–September work on `develop` and the current
+integration changes. The date is the editorial update date, not a release date.
+
+### Components, docs and quality
+
+- Added 67 components with registry entries, documentation and examples, plus self-sizing preview frames.
+- Expanded component accessibility coverage with axe tests and fixes, alongside reduced-motion and keyboard interaction checks.
+- Updated Next.js to 16.3.3 and Sharp to 0.35.4, with patched same-major dependency floors for the production security audit; refined CI validation and release-flow checks.
+- Completed the shared media dictionary migration across components, blocks and templates.
+
+### Landing and Playground
+
+- Added a draggable component canvas and refined the live component showcase, navigation, responsive layouts and documentation links.
+- Consolidated theme exploration in the Playground, preserving shared preset URLs and the legacy themes route.
+- Refined the hero, feature panels, AI workflow and UI Craft installation section with generated backgrounds and interactive UI previews.
+- Added optional, non-interactive square and contour textures to selected artwork; other backgrounds remain clean.
+- Separated readable feature captions from vivid artwork instead of dimming the entire image.
+- Kept the footer mascot interaction, while replacing the large installer mascot copy prompt with the compact shared copy control. The copy gutter now matches the command background in both themes.
+
+### Original media library
+
+- Added a searchable media gallery with 95 unique active assets: 12 abstract backgrounds, 8 landscapes, 4 event images, 50 people, 18 animals, 2 products and 1 fantasy card.
+- Replaced legacy demo portraits with the generated Troupe cast, keeping source-provided identity and gender metadata; retained compatibility aliases without duplicating gallery entries.
+- Replaced product imagery with ivory sneaker and headphones artwork, and the old tarot card with Nymara while preserving its complete card composition.
+- Added meaningful mountain, sea, forest and event imagery for Photo Tabs, Apple Invites and Expandable Cards, plus distinct landscapes for Scrollable Card Stack and Image Metadata Preview.
+- Centralized landing and demo image selection, updated misleading image labels and metadata, and documented asset provenance and rollback references.
+
+### Blog and interaction fixes
+
+- Added topic-specific editorial cover compositions for all 15 blog posts: generated backgrounds, optional textures, frosted panels and neutral UI illustrations across landing cards, the blog index and article heroes.
+- Kept valid canonical background images for social metadata and structured data; composed social images are not included in this update.
+- Fixed Number Flow animation lifecycle cleanup and reduced-motion behavior, and matched homepage control proportions to the documentation example without changing its initial value.
+- Fixed reduced-motion Scrollable Card Stack pagination: cards retain static centering and navigation stays above the card layers, preserving pointer and keyboard access.
+- Improved event-card text contrast, responsive metadata layouts, image alternative text and demo identity consistency.
+- Added targeted media, artwork, clipboard, geometry and responsive browser regression coverage.
+
+For the already committed portion of this work, see the
+[August component expansion](https://github.com/educlopez/smoothui/commit/d4cf30e),
+[accessibility audit](https://github.com/educlopez/smoothui/commit/6ea6727),
+[component canvas and media dictionary](https://github.com/educlopez/smoothui/commit/c85e7ff),
+[media migration fixes](https://github.com/educlopez/smoothui/commit/d7cf194)
+and [September landing consolidation](https://github.com/educlopez/smoothui/commit/e66ddc5).
+
+</ChangelogEntry>
 
 ## 3.6.0
 
@@ -46,7 +97,7 @@ description: View the release notes and updates for SmoothUI. Stay up to date wi
 
 ### Theme Studio
 
-- New **[Theme Studio](/themes)**: a draggable, infinite-canvas board previewing all 70 component demos with your theme applied live
+- New **[Playground](/playground)**: a draggable, infinite-canvas board previewing all 70 component demos with your theme applied live
 - Dialkit-style inspector with palette, light/dark, font, neutral tint, a continuous radius scrubber, and an accent lightness scrubber
 - Component search and one-click board re-centering
 

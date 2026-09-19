@@ -1,5 +1,7 @@
+import { blogArtwork } from "@docs/lib/blog-artwork";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Image from "next/image";
+import { BlogCoverArtwork } from "./blog/blog-cover-artwork";
 
 // On-brand mesh-gradient fallbacks. Posts without an `image` get a deterministic
 // one based on their slug, so every post still has a distinct cover.
@@ -45,16 +47,19 @@ export function PostCover({
   className?: string;
   sizes?: string;
 }) {
+  const artwork = blogArtwork(seed);
+  const cover = artwork?.src ?? image;
+
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      {image ? (
+      {cover ? (
         <Image
-          alt={alt}
+          alt={artwork?.alt ?? alt}
           className="object-cover object-center"
           draggable={false}
           fill
           sizes={sizes}
-          src={image}
+          src={cover}
         />
       ) : (
         <>
@@ -73,6 +78,7 @@ export function PostCover({
           />
         </>
       )}
+      <BlogCoverArtwork seed={seed} />
     </div>
   );
 }

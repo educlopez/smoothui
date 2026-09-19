@@ -1,0 +1,42 @@
+{
+  "name": "@repo/motion-loader",
+  "description": "A MotionLoader component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "loader",
+      "spinner",
+      "loading",
+      "progress",
+      "status",
+      "svg",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Inline loading indicator for buttons and toolbars",
+      "Full-page or section loading state with a labelled status region",
+      "Skeleton-free async feedback in dashboards and forms"
+    ],
+    "compositionHints": [
+      "Drop inside a button to replace the label while a request is pending",
+      "Wrap in a centred flex container for page-level loading states"
+    ],
+    "hasReducedMotion": true
+  }
+}

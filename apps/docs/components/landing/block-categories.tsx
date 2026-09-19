@@ -1,6 +1,5 @@
 "use client";
 
-import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
@@ -19,9 +18,15 @@ import {
   Strava,
 } from "@repo/smoothui/blocks/shared";
 import InfiniteSlider from "@repo/smoothui/components/infinite-slider";
-import PriceFlow from "@repo/smoothui/components/price-flow";
+
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AnimatePresence,
+  MotionConfig,
+  motion,
+  useInView,
+  useReducedMotion,
+} from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -33,7 +38,7 @@ import {
   IconStarFill24,
 } from "nucleo-core-fill-24";
 import { IconGithub, IconXTwitter } from "nucleo-social-media";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
 
@@ -88,11 +93,11 @@ const blockCategories = [
   },
 ];
 
-function HeroPreview() {
+function HeroPreview({ active = false }: PreviewProps) {
   return (
     <div className="group/preview flex h-full w-full items-center justify-between gap-3 p-5">
       <div className="flex flex-1 flex-col items-start gap-1.5">
-        <span className="rounded-full bg-brand/10 px-2 py-0.5 font-medium text-[9px] text-brand">
+        <span className="rounded-full bg-muted px-2 py-0.5 font-medium text-[9px] text-brand">
           New
         </span>
         <h4 className="font-semibold text-foreground text-sm leading-tight tracking-tight">
@@ -110,7 +115,9 @@ function HeroPreview() {
           </span>
         </div>
       </div>
-      <div className="relative size-20 shrink-0 transition-transform duration-300 group-hover/preview:scale-105">
+      <div
+        className={`relative size-20 shrink-0 transition-transform duration-300 motion-reduce:transition-none ${active ? "motion-safe:rotate-6 motion-safe:scale-110" : ""}`}
+      >
         <Image
           alt=""
           aria-hidden
@@ -136,55 +143,42 @@ const PRICING_PLANS = [
   { base: 29, hover: 34, name: "Scale", popular: false },
 ];
 
-function PricingPreview() {
-  const [hovered, setHovered] = useState(false);
-
+function PricingPreview({ active = false }: PreviewProps) {
   return (
-    <motion.div
-      className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      onHoverEnd={() => setHovered(false)}
-      onHoverStart={() => setHovered(true)}
-    >
-      <div className="grid w-full grid-cols-3 gap-2">
-        {PRICING_PLANS.map((plan) => (
+    <div className="flex h-full items-center p-4">
+      <div className="w-full rounded-xl border border-border bg-muted/40 p-2 shadow-[inset_0_1px_2px_#00000004]">
+        {PRICING_PLANS.slice(0, 2).map((plan) => (
           <motion.div
-            className={`relative flex flex-col gap-2 rounded-lg border p-2.5 ${
-              plan.popular
-                ? "border-brand/30 bg-background shadow-sm"
-                : "border-border bg-primary"
-            }`}
             key={plan.name}
-            transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
-            whileHover={{ scale: 1.02, y: -2 }}
+            animate={{ y: active && plan.popular ? -2 : 0 }}
+            transition={{ duration: 0.2 }}
+            className={`flex items-center gap-3 rounded-lg p-3 ${plan.popular ? "border border-border bg-background shadow-[0_2px_3px_#00000004,0_5px_10px_#00000004]" : ""}`}
           >
-            {plan.popular ? (
-              <span className="absolute -top-1.5 left-1/2 flex h-3 w-fit -translate-x-1/2 items-center rounded-full bg-brand px-1.5 font-medium text-[8px] text-white">
-                Popular
-              </span>
-            ) : null}
-            <span className="font-medium text-[9px] text-foreground/70">
-              {plan.name}
-            </span>
-            <div className="flex items-baseline gap-0.5">
-              <span className="text-[10px] text-foreground/40">$</span>
-              <div className="origin-left scale-75">
-                <PriceFlow value={hovered ? plan.hover : plan.base} />
-              </div>
-              <span className="text-[8px] text-foreground/30">/mo</span>
-            </div>
             <span
-              className={`mt-1 block rounded-md py-1 text-center font-medium text-[8px] ${
-                plan.popular
-                  ? "bg-brand text-white"
-                  : "border border-border bg-background text-foreground/70"
-              }`}
+              className={`flex size-4 shrink-0 items-center justify-center rounded-full border ${plan.popular ? "border-foreground" : "border-border"}`}
             >
-              {plan.popular ? "Choose" : "Start"}
+              {plan.popular ? (
+                <span className="size-1.5 rounded-full bg-brand" />
+              ) : null}
+            </span>
+            <div className="flex-1">
+              <p className="font-medium text-xs">{plan.name}</p>
+              <p className="mt-0.5 text-[9px] text-muted-foreground">
+                {plan.popular
+                  ? "For your next project"
+                  : "Start with the essentials"}
+              </p>
+            </div>
+            <span className="font-semibold text-lg tabular-nums">
+              ${plan.base}
+              <span className="ml-0.5 font-normal text-[9px] text-muted-foreground">
+                /mo
+              </span>
             </span>
           </motion.div>
         ))}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -194,9 +188,9 @@ const TESTIMONIAL_QUOTES = [
   "Dropped straight into my app — love it.",
 ];
 
-function TestimonialPreview() {
+function TestimonialPreview({ active = false }: PreviewProps) {
   const people = getAllPeople().slice(0, 3);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const currentIndex = active ? 1 : 0;
   const currentPerson = people[currentIndex] || people[0];
   const quote = TESTIMONIAL_QUOTES[currentIndex % TESTIMONIAL_QUOTES.length];
 
@@ -207,17 +201,14 @@ function TestimonialPreview() {
   };
 
   return (
-    <motion.div
-      className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      onHoverStart={() => setCurrentIndex((prev) => (prev + 1) % people.length)}
-    >
-      <div className="relative flex w-[180px] flex-col items-center gap-2 overflow-hidden rounded-xl border border-border bg-background p-4 shadow-sm">
+    <motion.div className="group/preview relative flex h-full w-full items-center justify-center p-4">
+      <div className="relative flex w-full max-w-[240px] flex-col items-start gap-2 overflow-hidden rounded-xl border border-border bg-background p-5 shadow-[0_2px_4px_#00000003,0_8px_16px_#00000005]">
         <IconChevronLeftFill24 className="absolute top-1/2 left-1.5 size-3 -translate-y-1/2 text-foreground/30" />
         <IconChevronRightFill24 className="absolute top-1/2 right-1.5 size-3 -translate-y-1/2 text-foreground/30" />
         <AnimatePresence mode="wait">
           <motion.div
             animate="center"
-            className="flex flex-col items-center gap-1.5"
+            className="flex flex-col items-start gap-2"
             exit="exit"
             initial="enter"
             key={currentIndex}
@@ -239,17 +230,17 @@ function TestimonialPreview() {
             <div className="flex gap-0.5">
               {[...new Array(5)].map((_, i) => (
                 <IconStarFill24
-                  className="size-2 fill-brand text-brand"
+                  className="size-2 fill-foreground text-foreground"
                   // biome-ignore lint/suspicious/noArrayIndexKey: static 5-star rating
                   key={`star-${i}`}
                 />
               ))}
             </div>
-            <p className="text-balance text-center text-[9px] text-foreground/70 leading-snug">
+            <p className="text-balance text-left text-[9px] text-foreground/70 leading-snug">
               "{quote}"
             </p>
             <span className="font-medium text-[8px] text-muted-foreground">
-              {currentPerson?.name}
+              Example customer
             </span>
           </motion.div>
         </AnimatePresence>
@@ -258,32 +249,32 @@ function TestimonialPreview() {
   );
 }
 
-function FAQPreview() {
+function FAQPreview({ active = false }: PreviewProps) {
   const chevronVariants = {
     closed: { rotate: 0 },
     open: { rotate: 180 },
   };
 
   const contentVariants = {
-    closed: { height: 0, marginTop: 0, opacity: 0 },
-    open: { height: "auto", marginTop: "0.25rem", opacity: 1 },
+    closed: { opacity: 0 },
+    open: { opacity: 1 },
   };
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full flex-col items-stretch justify-center gap-2 p-4"
-      initial="open"
-      whileHover="closed"
+      animate={active ? "open" : "closed"}
+      initial={false}
     >
       <motion.div
-        className="flex flex-col overflow-hidden rounded-md border border-border bg-background p-2"
+        className="flex flex-col overflow-hidden rounded-lg border border-border bg-background p-2.5 shadow-[0_1px_2px_#00000004]"
         transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
-        whileHover={{ scale: 1.02 }}
+        animate={{ opacity: active ? 0.65 : 1 }}
       >
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-1">
-            <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
-            <span className="font-medium text-[9px] text-foreground/80">
+            <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-muted-foreground" />
+            <span className="font-medium text-[11px] text-foreground/80">
               Is it free to use?
             </span>
           </div>
@@ -295,11 +286,11 @@ function FAQPreview() {
           </motion.div>
         </div>
         <motion.div
-          className="overflow-hidden pl-3.5"
+          className="mt-1 overflow-hidden pl-3.5"
           transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
           variants={contentVariants}
         >
-          <p className="text-[8px] text-foreground/55 leading-snug">
+          <p className="text-[10px] text-foreground/55 leading-snug">
             Yes — MIT licensed. Copy any block into your project, free forever.
           </p>
         </motion.div>
@@ -307,14 +298,14 @@ function FAQPreview() {
       {["Does it work with shadcn?", "Can I customize the theme?"].map(
         (question) => (
           <motion.div
-            className="flex items-center justify-between gap-2 rounded-md border border-border bg-background p-2"
+            className="flex items-center justify-between gap-2 rounded-lg border border-border bg-background p-2.5 shadow-[0_1px_2px_#00000004]"
             key={question}
             transition={{ duration: 0.2, ease: EASE_OUT_QUAD }}
-            whileHover={{ scale: 1.02 }}
+            animate={{ opacity: active ? 0.65 : 1 }}
           >
             <div className="flex items-center gap-1">
-              <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-brand/60" />
-              <span className="font-medium text-[9px] text-foreground/80">
+              <IconCircleQuestionFill24 className="size-2.5 shrink-0 text-muted-foreground" />
+              <span className="font-medium text-[11px] text-foreground/80">
                 {question}
               </span>
             </div>
@@ -326,21 +317,21 @@ function FAQPreview() {
   );
 }
 
-function FooterPreview() {
+function FooterPreview({ active = false }: PreviewProps) {
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      whileHover={{ scale: 1.02 }}
+      animate={{ scale: active ? 1.02 : 1 }}
     >
       <div className="flex w-full flex-col gap-2 rounded-lg border border-border bg-background p-3">
         <div className="flex items-center gap-2.5">
           <div className="flex size-3.5 items-center justify-center rounded bg-brand text-[7px] text-white">
             S
           </div>
-          <div className="flex gap-2.5">
+          <div className="flex items-center gap-8">
             {["Docs", "Blocks", "Pricing"].map((label) => (
               <span
-                className="text-[9px] text-foreground/60 transition-colors group-hover/preview:text-brand"
+                className="text-[9px] text-foreground/60 transition-colors group-hover/preview:text-foreground"
                 key={label}
               >
                 {label}
@@ -375,7 +366,7 @@ function FooterPreview() {
   );
 }
 
-function LogoCloudPreview() {
+function LogoCloudPreview({ active = false }: PreviewProps) {
   const logos = [
     Canpoy,
     Canva,
@@ -391,63 +382,30 @@ function LogoCloudPreview() {
     Ramp,
   ];
 
-  const logoVariants = {
-    hover: { opacity: 1, scale: 1.08 },
-    rest: { opacity: 0.6, scale: 1 },
-  };
-
-  const createBlurMask = (
-    direction: "left" | "right",
-    blur: number,
-    offset: number
-  ) => {
-    const gradientDirection = direction === "left" ? "270deg" : "90deg";
-    const startPercent = offset * 12.5;
-    const midPercent = (offset + 1) * 12.5;
-    const endPercent = (offset + 2) * 12.5;
-    const finalPercent = (offset + 3) * 12.5;
-
-    return (
-      <div
-        className="pointer-events-none absolute inset-0 rounded-[inherit]"
-        key={`${direction}-${blur}`}
-        style={{
-          backdropFilter: `blur(${blur}px)`,
-          maskImage: `linear-gradient(${gradientDirection}, rgba(255, 255, 255, 0) ${startPercent}%, rgba(255, 255, 255, 1) ${midPercent}%, rgba(255, 255, 255, 1) ${endPercent}%, rgba(255, 255, 255, 0) ${finalPercent}%)`,
-          WebkitMaskImage: `linear-gradient(${gradientDirection}, rgba(255, 255, 255, 0) ${startPercent}%, rgba(255, 255, 255, 1) ${midPercent}%, rgba(255, 255, 255, 1) ${endPercent}%, rgba(255, 255, 255, 0) ${finalPercent}%)`,
-        }}
-      />
-    );
-  };
-
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref);
   return (
-    <div className="group/preview relative flex h-full w-full items-center justify-center overflow-hidden p-4">
-      <div className="relative w-full overflow-hidden">
-        <div className="absolute inset-y-0 left-0 z-10 w-5 bg-linear-to-r from-background" />
-        <div className="absolute inset-y-0 right-0 z-10 w-5 bg-linear-to-l from-background" />
-        <div className="pointer-events-none absolute top-0 left-0 z-20 h-full w-5">
-          {Array.from({ length: 4 }, (_, i) => createBlurMask("left", i, i))}
-        </div>
-        <div className="pointer-events-none absolute top-0 right-0 z-20 h-full w-5">
-          {Array.from({ length: 4 }, (_, i) => createBlurMask("right", i, i))}
-        </div>
-        <InfiniteSlider gap={10} speed={15} speedOnHover={0}>
-          {logos.map((LogoComponent) => (
-            <motion.div
-              className="relative flex shrink-0 flex-col items-center gap-1"
-              initial="rest"
-              key={LogoComponent.name}
-              transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              variants={logoVariants}
-              whileHover="hover"
-            >
-              <div className="relative flex size-9 items-center justify-center rounded-lg border border-border bg-background text-foreground transition-opacity duration-200 [&_svg]:h-5 [&_svg]:w-5 [&_svg]:fill-current">
-                <LogoComponent />
-              </div>
-            </motion.div>
-          ))}
-        </InfiniteSlider>
-      </div>
+    <div
+      ref={ref}
+      className="flex h-full w-full items-center overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+      data-logo-strip
+    >
+      <InfiniteSlider
+        gap={10}
+        speed={15}
+        speedOnHover={0}
+        paused={!inView || active}
+      >
+        {logos.map((LogoComponent) => (
+          <div
+            key={LogoComponent.name}
+            data-logo-name={LogoComponent.name}
+            className="flex h-20 w-32 shrink-0 items-center justify-center text-foreground [&_svg]:h-40 [&_svg]:w-40 [&_svg]:max-w-none [&_svg]:shrink-0 [&_svg]:fill-current"
+          >
+            <LogoComponent />
+          </div>
+        ))}
+      </InfiniteSlider>
     </div>
   );
 }
@@ -458,15 +416,11 @@ const STATS = [
   { base: 813, hover: 820, label: "GitHub stars" },
 ];
 
-function StatsPreview() {
-  const [hovered, setHovered] = useState(false);
+function StatsPreview({ active = false }: PreviewProps) {
+  const hovered = active;
 
   return (
-    <motion.div
-      className="group/preview relative flex h-full w-full items-center justify-center p-4"
-      onHoverEnd={() => setHovered(false)}
-      onHoverStart={() => setHovered(true)}
-    >
+    <motion.div className="group/preview relative flex h-full w-full items-center justify-center p-4">
       <div className="grid w-full grid-cols-3 divide-x divide-border">
         {STATS.map((stat) => (
           <motion.div
@@ -477,7 +431,9 @@ function StatsPreview() {
           >
             <div className="flex items-baseline justify-center gap-0.5 font-bold text-foreground">
               <span className="text-[8px] text-brand">+</span>
-              <PriceFlow value={hovered ? stat.hover : stat.base} />
+              <span className="text-xl tabular-nums">
+                {hovered ? stat.hover : stat.base}
+              </span>
             </div>
             <span className="text-[9px] text-muted-foreground">
               {stat.label}
@@ -491,13 +447,13 @@ function StatsPreview() {
 
 const TEAM_ROLES = ["Maintainer", "Designer", "Engineer"];
 
-function TeamPreview() {
+function TeamPreview({ active = false }: PreviewProps) {
   const people = getAllPeople().slice(0, 3);
 
   return (
     <motion.div
       className="group/preview relative flex h-full w-full items-center justify-center gap-2.5 p-4"
-      whileHover={{ scale: 1.04, y: -3 }}
+      animate={{ scale: active ? 1.04 : 1, y: active ? -3 : 0 }}
     >
       {people.map((person, i) => (
         <div
@@ -526,6 +482,47 @@ function TeamPreview() {
   );
 }
 
+type PreviewProps = { active?: boolean };
+
+function BlockPreview({
+  category,
+}: {
+  category: (typeof blockCategories)[number];
+}) {
+  const [active, setActive] = useState(false);
+  return (
+    <motion.div
+      className="relative"
+      onHoverStart={() => setActive(true)}
+      onHoverEnd={() => setActive(false)}
+    >
+      <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-2xl p-2">
+        <MotionConfig reducedMotion="user">
+          <div
+            aria-hidden="true"
+            className="motion-reduce:[&_*]:!transform-none h-full"
+          >
+            <category.preview active={active} />
+          </div>
+        </MotionConfig>
+      </div>
+      <Link
+        onFocus={() => setActive(true)}
+        onBlur={() => setActive(false)}
+        className="mt-3 flex min-h-11 items-center justify-center gap-2 rounded-lg focus-visible:outline-2 focus-visible:outline-ring"
+        href={category.href}
+      >
+        <span className="font-medium text-foreground text-sm">
+          {category.title}
+        </span>
+        <span className="text-muted-foreground text-xs">
+          {category.blockCount} Blocks ↗
+        </span>
+      </Link>
+    </motion.div>
+  );
+}
+
 export function BlockCategories() {
   const shouldReduceMotion = useReducedMotion();
 
@@ -545,7 +542,7 @@ export function BlockCategories() {
           title="Elevate your design with premium blocks"
         />
 
-        <div className="relative -mx-3 mt-8 h-[480px] overflow-hidden sm:mx-0 md:mt-16 md:h-[672px]">
+        <div className="relative mt-8 md:mt-16">
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-6 xl:grid-cols-4">
             {blockCategories.map((category, index) => (
               <motion.div
@@ -566,29 +563,14 @@ export function BlockCategories() {
                       }
                 }
               >
-                <Link className="relative block" href={category.href}>
-                  <div className="w-full overflow-hidden">
-                    <div className="frame-box relative h-[220px] w-full overflow-hidden rounded-[13px] p-2 md:rounded-2xl">
-                      <category.preview />
-                    </div>
-                  </div>
-                  <div className="mt-3 flex items-center justify-center gap-2 md:mt-4">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-2.5 py-0.5 font-medium text-foreground text-xs">
-                      <span className="size-1.5 rounded-full bg-brand" />
-                      {category.title}
-                    </span>
-                    <span className="text-foreground/50 text-xs">
-                      {category.blockCount} Blocks
-                    </span>
-                  </div>
-                </Link>
+                <BlockPreview category={category} />
               </motion.div>
             ))}
           </div>
 
           <Button
             asChild
-            className="absolute bottom-6 left-1/2 z-20 -translate-x-1/2 md:bottom-24"
+            className="mx-auto mt-8 flex w-fit"
             size="lg"
             variant="candy"
           >
@@ -612,15 +594,6 @@ export function BlockCategories() {
               </svg>
             </Link>
           </Button>
-
-          <BlurMagic
-            background="var(--color-background)"
-            blur="4px"
-            className="!absolute !bottom-0 !left-0 z-10 h-80 w-full"
-            height="500px"
-            side="bottom"
-            style={{ position: "absolute" }}
-          />
         </div>
       </div>
     </section>

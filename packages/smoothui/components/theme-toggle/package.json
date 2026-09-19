@@ -1,0 +1,43 @@
+{
+  "name": "@repo/theme-toggle",
+  "description": "A light/dark/system theme switch with sun-moon, pill, switch and orb visual treatments.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "theme",
+      "dark-mode",
+      "toggle",
+      "switch",
+      "radiogroup",
+      "morph",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Light/dark theme switch for a site header or settings panel",
+      "Three-way light/dark/system theme picker",
+      "Decorative sun-to-moon morph as a standalone dark mode control"
+    ],
+    "compositionHints": [
+      "Use in a navbar alongside expandable-navbar or floating-navbar",
+      "Pair with animated-toggle in a settings panel"
+    ],
+    "hasReducedMotion": true
+  }
+}

@@ -1,5 +1,6 @@
 import { act } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import ScrollableCardStack from "../index";
 
@@ -139,5 +140,12 @@ describe("ScrollableCardStack", () => {
     const { container } = render(<ScrollableCardStack items={buildItems(2)} />);
 
     expect(container.querySelector('[data-active="true"]')).toBeInTheDocument();
+  });
+
+  it("has no accessibility violations", async () => {
+    vi.useRealTimers();
+    const { container } = render(<ScrollableCardStack items={buildItems(2)} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

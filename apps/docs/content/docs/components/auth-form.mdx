@@ -1,0 +1,92 @@
+---
+title: Auth Form
+description: A sign-in / sign-up form that reveals the password field progressively, morphs between modes, and ticks password requirements live.
+icon: LogIn
+dependencies:
+  - lucide.dev
+  - motion.dev
+installer: auth-form
+---
+
+## Scope
+
+`AuthForm` is **presentation only**. It never authenticates, never stores or transmits credentials, and never makes a network call. It renders whatever `status`, `error`, and `fieldErrors` you pass in, and calls your `onSubmit` with the current `{ email, password }` values — everything else (validation, API calls, sessions) is your responsibility to wire up.
+
+## Features
+
+- Email field shown first; the password field springs into place with a measured-height animation once the email looks valid — no field ever mounts on a keystroke, so autofill works
+- `mode="sign-in" | "sign-up"` cross-fades the header with a direction-aware slide and morphs the submit button label
+- Password requirement list ticks live as you type, using your own `test` functions or the built-in defaults
+- Submit button morphs through idle → submitting (spinner) → success (checkmark)
+- Optional OAuth-style provider buttons and a "send a magic link instead" action
+- Show/hide password toggle with `aria-pressed`
+- Composes [Smooth Button](/docs/components/smooth-button) for the provider, submit, reveal and magic-link controls — the submit spinner is the primitive's own `loading` state
+- Field-level and form-level error rendering, with the error summary auto-focused on failed submit
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` / `Shift+Tab` | Moves through email, password, show/hide toggle, and submit in document order |
+| `Enter` | Submits the form from any field |
+| Typing in email | Reveals the password field once the value matches a valid email shape — no key handler required |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `<label htmlFor>` | Email, password | Binds every input to its visible label |
+| `aria-invalid` | Email, password inputs | Marks a field as failing validation |
+| `aria-describedby` | Email, password inputs | Points to the field's error message and/or the requirements list |
+| `role="alert"` | Error summary, field errors | Announces validation failures immediately |
+| `tabIndex={-1}` + focus on error | Error summary | Moves focus to the failure so screen reader users hear it right away |
+| `aria-pressed` | Show/hide password button | Reflects whether the password is currently visible |
+| `aria-live="polite"` + `role="status"` | Status announcer | Announces submitting / success / error state changes |
+| `tabIndex={-1}` + `aria-hidden` | Collapsed password wrapper | Keeps the hidden password field out of the tab order until the email is valid, without unmounting it |
+
+### Screen Reader
+
+- The password field stays mounted at all times (never conditionally rendered) so autofill and password managers work; it is only removed from the tab order and hidden via `aria-hidden` while collapsed.
+- Each password requirement announces its label plus "met" or "not met" as you type.
+- The error summary receives focus automatically when `status` becomes `"error"` with a message.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the password reveal skips the height animation (it snaps between `0` and `auto`), the mode-switch slide becomes an instant cross-fade, and the submit button label swap has no motion — all with `duration: 0`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/auth-form/index.tsx"
+  name="AuthFormProps"
+/>
+
+### AuthFormValues
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/auth-form/index.tsx"
+  name="AuthFormValues"
+/>
+
+### AuthFormFieldErrors
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/auth-form/index.tsx"
+  name="AuthFormFieldErrors"
+/>
+
+### AuthProvider
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/auth-form/index.tsx"
+  name="AuthProvider"
+/>
+
+### AuthPasswordRequirement
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/auth-form/index.tsx"
+  name="AuthPasswordRequirement"
+/>

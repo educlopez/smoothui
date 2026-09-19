@@ -1,0 +1,43 @@
+---
+title: Rolling Text
+description: Odometer-style vertical roll — each character cycles through a short ramp of glyphs before landing on its target, like a split-flap display.
+icon: RotateCw
+dependencies:
+  - motion.dev
+installer: rolling-text
+---
+
+## Features
+
+- Each character is a fixed-height clipping box with a vertical column of glyphs translated into place
+- Ramp alphabet defaults to the unique characters found in the target text, or a custom `glyphs` string
+- Four trigger modes: `mount`, `inView`, `hover`, and `manual`
+- Configurable roll `direction`, `duration`, `stagger`, and ramp length
+- Grapheme-aware splitting so emoji never break mid-character
+- Respects `prefers-reduced-motion` by showing the final glyph only
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` | Wrapper element | Exposes the full, intact string once to assistive technology |
+| `aria-hidden="true"` | Per-character clip boxes | Hides the rolling glyph columns from screen readers |
+
+### Screen Reader
+
+- The wrapper carries `aria-label={text}`, announcing the target string as a single phrase.
+- Each rolling character column is `aria-hidden`, so intermediate ramp glyphs are never announced.
+- The text remains selectable in the DOM at all times.
+
+### Reduced Motion
+
+Respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the component renders the plain target string directly — no clipping boxes, no glyph ramp, no roll transition, regardless of `trigger`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/rolling-text/index.tsx"
+  name="RollingTextProps"
+/>

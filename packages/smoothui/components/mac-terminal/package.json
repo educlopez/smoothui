@@ -1,0 +1,42 @@
+{
+  "name": "@repo/mac-terminal",
+  "description": "A MacTerminal component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "display",
+    "tags": [
+      "terminal",
+      "macos",
+      "typing",
+      "code",
+      "console",
+      "animated",
+      "developer"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Scripted terminal demo for developer-facing landing pages",
+      "Animated CLI walkthrough inside documentation",
+      "Showcase a command sequence with realistic typing"
+    ],
+    "compositionHints": [
+      "Pair with a code block or feature list to narrate a workflow",
+      "Use inside a hero section to demonstrate a CLI product"
+    ],
+    "hasReducedMotion": true
+  }
+}

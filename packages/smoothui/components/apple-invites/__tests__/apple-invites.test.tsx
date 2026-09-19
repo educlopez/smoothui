@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AppleInvites, { type Event } from "../index";
 
@@ -18,6 +19,12 @@ const events: Event[] = [
 ];
 
 describe("AppleInvites", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AppleInvites events={events} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(<AppleInvites events={events} />);
     expect(container).toBeInTheDocument();

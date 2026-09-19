@@ -124,13 +124,14 @@ export default function AnimatedStepper({
     >
       <div
         aria-label="Progress steps"
+        aria-orientation={isHorizontal ? "horizontal" : "vertical"}
         className={cn(
           "relative flex",
           isHorizontal
             ? "flex-row items-center justify-between"
             : "flex-col items-start gap-2"
         )}
-        role="group"
+        role="tablist"
       >
         {steps.map((step, index) => {
           const isActive = index === activeStep;

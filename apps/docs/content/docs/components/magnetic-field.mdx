@@ -1,0 +1,57 @@
+---
+title: Magnetic Field
+description: A field of elements attracted to, repelled from, or orbiting the pointer, with springy return to rest.
+icon: Magnet
+dependencies:
+  - motion.dev
+installer: magnetic-field
+---
+
+## Features
+
+- Attach `data-magnetic` to any children to make them participate, or pass a
+  data-driven `items` array
+- Three modes: `"attract"` (pulls toward the pointer), `"repel"` (pushes
+  away), and `"orbit"` (adds a tangential pull for circular motion)
+- Optional `rotate` — items tilt toward the pointer within a clamped range
+- One shared `rAF` loop drives a manual spring integrator (`stiffness` /
+  `damping`) per item — no React state per frame, no per-item listeners
+- Rest positions are measured once via `ResizeObserver` (and on window
+  resize), not recomputed on every frame
+- `paused` freezes the field; pointer/reduced-motion/touch users get items
+  at rest with zero listeners attached
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| _(none added)_ | Container | The wrapper adds no ARIA role — it is purely a visual transform layer, so participating elements keep whatever semantics they already have |
+
+### Screen Reader
+
+- Only `transform` (translate + rotate) is applied to participants — layout,
+  focus order, and hit-testing are untouched, so keyboard and screen reader
+  navigation behave exactly as if `MagneticField` were a plain wrapper.
+- Interactive participants (buttons, links) remain fully focusable and
+  operable regardless of their current visual offset.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is set, or on touch/coarse-pointer devices
+(detected via `matchMedia("(hover: hover) and (pointer: fine)")`), or while
+`paused` is `true`, no pointer listeners are attached, the `rAF` loop never
+starts, and every participant sits at its natural rest position.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/magnetic-field/index.tsx"
+  name="MagneticFieldProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/magnetic-field/index.tsx"
+  name="MagneticFieldItem"
+/>

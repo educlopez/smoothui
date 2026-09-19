@@ -1,0 +1,42 @@
+{
+  "name": "@repo/coverflow-carousel",
+  "description": "A CoverflowCarousel component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "navigation",
+    "tags": [
+      "carousel",
+      "coverflow",
+      "3d",
+      "perspective",
+      "drag",
+      "swipe",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "spring",
+    "useCases": [
+      "3D perspective carousel for featured items or media",
+      "Album/cover browsing experience with depth",
+      "Product showcase with draggable coverflow navigation"
+    ],
+    "compositionHints": [
+      "Feed image or content items for the coverflow slides",
+      "Combine with autoplay for hero/banner sections"
+    ],
+    "hasReducedMotion": true
+  }
+}

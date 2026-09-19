@@ -1,0 +1,46 @@
+---
+title: Cursor Image Trail
+description: Images that spawn along the pointer path and fade out behind it, built from a fixed, recycled DOM pool.
+icon: Images
+dependencies:
+  - motion.dev
+installer: cursor-image-trail
+---
+
+## Features
+
+- Fixed pool of recycled image nodes — no mounting/unmounting per pointer move
+- Distance-gated spawning so images appear at a consistent spacing along the path
+- Pointer velocity scales the spawned image's size and lifetime — faster movement, bigger and longer-lived images
+- Random rotation per spawn for a natural, scattered trail look
+- All position/opacity/scale writes happen directly on refs inside a single `requestAnimationFrame` loop
+- Automatically disabled on touch/coarse-pointer devices and when reduced motion is preferred
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Trail image pool | Hides the decorative trail images from assistive technologies |
+
+### Screen Reader
+
+- The trail layer is `aria-hidden` and uses `pointer-events: none`, so it never intercepts focus or interaction.
+- `children` render normally in the document flow and remain fully readable and selectable by screen readers.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, or on devices without a fine, hover-capable pointer, no listeners are attached and no trail images are rendered — `children` render normally with no visual side effects.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/cursor-image-trail/index.tsx"
+  name="CursorImageTrailProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/cursor-image-trail/index.tsx"
+  name="CursorTrailImage"
+/>

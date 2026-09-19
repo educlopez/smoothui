@@ -8,36 +8,31 @@ const TENS_PLACE = 10;
 const HUNDREDS_PLACE = 100;
 
 const animateDigit = (
-  prevElement: HTMLElement | null,
-  nextElement: HTMLElement | null,
-  isIncreasing: boolean
-) => {
-  if (!prevElement) {
-    return;
+  previous: HTMLElement | null,
+  next: HTMLElement | null,
+  increasing: boolean
+): Animation[] => {
+  if (!(previous?.animate && next?.animate)) {
+    return [];
   }
-  if (!nextElement) {
-    return;
-  }
-
-  if (isIncreasing) {
-    prevElement.classList.add("slide-out-up");
-    nextElement.classList.add("slide-in-up");
-  } else {
-    prevElement.classList.add("slide-out-down");
-    nextElement.classList.add("slide-in-down");
-  }
-
-  const handleAnimationEnd = () => {
-    prevElement.classList.remove("slide-out-up", "slide-out-down");
-    nextElement.classList.remove("slide-in-up", "slide-in-down");
-    prevElement.removeEventListener("animationend", handleAnimationEnd);
-  };
-
-  prevElement.addEventListener("animationend", handleAnimationEnd);
+  const options = { duration: 300, easing: "cubic-bezier(0.22, 1, 0.36, 1)" };
+  return [
+    previous.animate(
+      [
+        { opacity: 1, transform: "translateY(0%)" },
+        { opacity: 0, transform: `translateY(${increasing ? -100 : 100}%)` },
+      ],
+      options
+    ),
+    next.animate(
+      [
+        { opacity: 0, transform: `translateY(${increasing ? 100 : -100}%)` },
+        { opacity: 1, transform: "translateY(0%)" },
+      ],
+      options
+    ),
+  ];
 };
-
-const getTensValue = (num: number) => Math.floor(num / TENS_PLACE);
-const getHundredsValue = (num: number) => Math.floor(num / HUNDREDS_PLACE);
 
 export interface NumberFlowProps {
   buttonClassName?: string;
@@ -59,9 +54,11 @@ export default function NumberFlow({
   buttonClassName = "",
 }: NumberFlowProps) {
   const [internalValue, setInternalValue] = useState(0);
-  const [prevValue, setPrevValue] = useState(0);
+  const [prevValue, setPrevValue] = useState(controlledValue ?? 0);
+  const [reduced, setReduced] = useState(false);
 
   const value = controlledValue === undefined ? internalValue : controlledValue;
+  const lastAnimatedValue = useRef(value);
 
   const prevValueRef = useRef<HTMLElement>(null);
   const nextValueRef = useRef<HTMLElement>(null);
@@ -93,44 +90,54 @@ export default function NumberFlow({
   };
 
   useEffect(() => {
-    if (prevValueRef.current && nextValueRef.current) {
-      animateDigit(
-        prevValueRef.current,
-        nextValueRef.current,
-        value > prevValue
-      );
-    }
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const update = () => setReduced(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
-    const currentTens = getTensValue(value);
-    const prevTens = getTensValue(prevValue);
-
+  useEffect(() => {
+    const changed = lastAnimatedValue.current !== value;
+    lastAnimatedValue.current = value;
     if (
-      prevValueTens.current &&
-      nextValueTens.current &&
-      currentTens !== prevTens
+      !changed ||
+      reduced ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      value === prevValue
     ) {
-      animateDigit(
-        prevValueTens.current,
-        nextValueTens.current,
-        currentTens > prevTens
-      );
+      return;
     }
-
-    const currentHundreds = getHundredsValue(value);
-    const prevHundreds = getHundredsValue(prevValue);
-
-    if (
-      prevValueHunds.current &&
-      nextValueHunds.current &&
-      currentHundreds !== prevHundreds
-    ) {
-      animateDigit(
-        prevValueHunds.current,
-        nextValueHunds.current,
-        currentHundreds > prevHundreds
-      );
+    const animations: Animation[] = [];
+    const digits = [
+      { next: nextValueRef.current, place: 1, previous: prevValueRef.current },
+      {
+        next: nextValueTens.current,
+        place: TENS_PLACE,
+        previous: prevValueTens.current,
+      },
+      {
+        next: nextValueHunds.current,
+        place: HUNDREDS_PLACE,
+        previous: prevValueHunds.current,
+      },
+    ];
+    for (const digit of digits) {
+      if (
+        Math.floor(value / digit.place) % TENS_PLACE !==
+        Math.floor(prevValue / digit.place) % TENS_PLACE
+      ) {
+        animations.push(
+          ...animateDigit(digit.previous, digit.next, value > prevValue)
+        );
+      }
     }
-  }, [value, prevValue]);
+    return () => {
+      for (const animation of animations) {
+        animation.cancel();
+      }
+    };
+  }, [value, prevValue, reduced]);
 
   return (
     <div
@@ -140,7 +147,13 @@ export default function NumberFlow({
       )}
     >
       <div className="flex items-center gap-2 rounded-xl border bg-background p-4">
-        <div className={cn("flex items-center gap-1", digitClassName)}>
+        <output aria-label="Current value" className="sr-only">
+          {value}
+        </output>
+        <div
+          aria-hidden="true"
+          className={cn("flex items-center gap-1", digitClassName)}
+        >
           <div
             className={cn(
               "relative h-16 w-12 overflow-hidden rounded-lg border bg-primary"
@@ -207,7 +220,7 @@ export default function NumberFlow({
           <button
             aria-label="Increase number"
             className={cn(
-              "relative w-auto cursor-pointer overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
+              "relative flex w-auto cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
               buttonClassName
             )}
             disabled={value >= max}
@@ -219,7 +232,7 @@ export default function NumberFlow({
           <button
             aria-label="Decrease number"
             className={cn(
-              "relative w-auto cursor-pointer overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
+              "relative flex w-auto cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
               buttonClassName
             )}
             disabled={value <= min}

@@ -1,0 +1,42 @@
+{
+  "name": "@repo/page-preloader",
+  "description": "A page-preloader curtain that plays once and then uncovers the page.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "feedback",
+    "tags": [
+      "preloader",
+      "loading",
+      "curtain",
+      "transition",
+      "splash",
+      "overlay",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "staircase",
+    "useCases": [
+      "Full-screen loading curtain shown once on first app load",
+      "Branded splash reveal before route content mounts",
+      "Section-scoped loading cover inside a bounded container"
+    ],
+    "compositionHints": [
+      "Mount once near the app root and control with the active prop",
+      "Pair with shader-reveal-transition for the in-page state changes that follow"
+    ],
+    "hasReducedMotion": true
+  }
+}

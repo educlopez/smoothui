@@ -1,0 +1,46 @@
+---
+title: Ransom Note
+description: Text rendered as cut-out magazine letters — mixed fonts, sizes, rotations, and paper scraps, assembled from a deterministic seed.
+icon: Scissors
+dependencies:
+  - motion.dev
+installer: ransom-note
+---
+
+## Features
+
+- Every character becomes its own paper "scrap" with a seeded font, size, rotation, skew, and background color
+- A deterministic mulberry32-style PRNG (`createSeededRandom`) drives all randomness — no `Math.random()` anywhere, so the same `text` + `seed` + `intensity` always produces the same layout, even during SSR
+- Layout is memoised so it stays stable across re-renders and only recomputes when `text`, `seed`, `intensity`, `fonts`, `palette`, or `rotation` actually change
+- `intensity` (0..1) scales how wild the per-character variation gets, from barely-there to chaotic
+- `animate="assemble"` flies each scrap in from a seeded offset with a per-character stagger; `animate="jitter"` leaves scraps in place and gives each one a tiny idle wobble loop; `animate="none"` renders everything static
+- `fonts` and `palette` let you swap in your own font stacks and paper colors
+- Whitespace characters are preserved as plain spacing, without a paper scrap box
+
+## Accessibility
+
+### Keyboard Interactions
+
+Not applicable — `RansomNote` is a purely presentational text component with no interactive elements, so it has no keyboard behavior of its own.
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | Scrap container | Hides the decorative, per-character scrap spans from assistive technologies |
+
+### Screen Reader
+
+- The full, intact string is always exposed once as visually-hidden (`sr-only`) text, independent of animation state, so screen readers read the intended sentence rather than individual letters.
+- The animated scrap spans live inside an `aria-hidden="true"` container and never become the accessible content.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, every scrap renders directly in its final position and rotation with no transition — there is no assemble fly-in and no idle jitter loop, regardless of the `animate` prop.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/ransom-note/index.tsx"
+  name="RansomNoteProps"
+/>

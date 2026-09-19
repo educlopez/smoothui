@@ -1,0 +1,42 @@
+{
+  "name": "@repo/svg-clip-mask",
+  "description": "Reveals any children through a custom SVG shape mask that can morph on a loop, on scroll, or on hover.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "svg",
+      "clip-path",
+      "mask",
+      "shape",
+      "morph",
+      "scroll",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "scroll",
+    "useCases": [
+      "Blob-shaped image or video frames with an ambient morph loop",
+      "Section dividers revealed through a diamond or wave mask",
+      "Hover cards that morph shape on interaction"
+    ],
+    "compositionHints": [
+      "Wrap an <img> or gradient div as children for a shaped media frame",
+      "Feed matching-structure paths via morphPaths for smooth custom morphs"
+    ],
+    "hasReducedMotion": true
+  }
+}

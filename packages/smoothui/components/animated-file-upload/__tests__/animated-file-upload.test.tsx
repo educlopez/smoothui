@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen } from "../../../test-utils/render";
 import AnimatedFileUpload from "../index";
 
@@ -8,6 +9,14 @@ const createFile = (name: string, size: number, type = "image/png") => {
 };
 
 describe("AnimatedFileUpload", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AnimatedFileUpload onFilesSelected={() => {}} />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders without throwing", () => {
     const { container } = render(
       <AnimatedFileUpload onFilesSelected={() => {}} />
@@ -136,13 +145,15 @@ describe("AnimatedFileUpload", () => {
   });
 
   it("opens the file picker on Enter and Space keys", () => {
-    const { getByLabelText } = render(
+    const { container, getByLabelText } = render(
       <AnimatedFileUpload onFilesSelected={() => {}} />
     );
     const dropzone = getByLabelText(
       "File upload area. Drag and drop files or press to browse"
     );
-    const input = dropzone.querySelector(
+    // The input is a sibling of the dropzone, not a child: nesting it inside
+    // put a focusable, unlabelled field inside another control.
+    const input = container.querySelector(
       'input[type="file"]'
     ) as HTMLInputElement;
     const clickSpy = vi.spyOn(input, "click");

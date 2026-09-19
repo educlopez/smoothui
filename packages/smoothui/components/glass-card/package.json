@@ -1,0 +1,42 @@
+{
+  "name": "@repo/glass-card",
+  "description": "A GlassCard component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "layout",
+    "tags": [
+      "glass",
+      "glassmorphism",
+      "blur",
+      "specular",
+      "refraction",
+      "card",
+      "interactive"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "Liquid-glass surface over a hero image or gradient background",
+      "Frosted panel for pricing, stats or feature cards",
+      "Overlay UI that needs to stay legible over any background"
+    ],
+    "compositionHints": [
+      "Place over an image or colorful background to show off the refraction",
+      "Combine with glow-hover-card for a layered hover effect"
+    ],
+    "hasReducedMotion": true
+  }
+}

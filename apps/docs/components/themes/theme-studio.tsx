@@ -259,7 +259,7 @@ function StudioSidebar({
     <aside className="flex w-full shrink-0 flex-col gap-1.5 overflow-y-auto rounded-xl border bg-smooth-100 p-3 shadow-sm lg:w-64">
       <div className="flex items-center justify-between px-1 pb-1">
         <span className="font-semibold text-[15px] text-foreground">
-          Theme Studio
+          Playground
         </span>
         <div className="flex items-center gap-0.5">
           <button
@@ -421,7 +421,7 @@ function StudioSidebar({
             className="flex cursor-pointer items-center justify-between rounded-md px-2 py-1.5 text-[13px] text-foreground transition-colors hover:bg-foreground/5"
             onClick={() =>
               linkCopy.copy(
-                `${window.location.origin}/themes?preset=${presetCode}`
+                `${window.location.origin}/playground?preset=${presetCode}`
               )
             }
             type="button"
@@ -1024,7 +1024,7 @@ export function ThemeStudio() {
     }
   }, [resolvedTheme]);
 
-  // Restore a shared preset from /themes?preset=<code>
+  // Restore a shared preset from /playground?preset=<code>
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("preset");
     if (!code) {
@@ -1053,7 +1053,7 @@ export function ThemeStudio() {
 
   return (
     <div className="flex w-full flex-col gap-4 px-3 pt-20 pb-3 lg:h-dvh lg:flex-row lg:items-stretch lg:overflow-hidden lg:pr-0 lg:pb-4 lg:pl-6">
-      <h1 className="sr-only">SmoothUI Themes</h1>
+      <h1 className="sr-only">SmoothUI Playground</h1>
       <StudioSidebar
         accent={accent}
         font={font}

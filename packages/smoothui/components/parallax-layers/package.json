@@ -1,0 +1,42 @@
+{
+  "name": "@repo/parallax-layers",
+  "description": "Multi-layer depth parallax for hero sections, with optional pointer-driven parallax.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "scroll",
+      "parallax",
+      "hero",
+      "depth",
+      "layers",
+      "pointer",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "scroll",
+    "useCases": [
+      "Hero sections with layered depth as the page scrolls",
+      "Illustration compositions that gain subtle pointer-driven depth",
+      "Storytelling sections with foreground/background separation"
+    ],
+    "compositionHints": [
+      "Stack image and text layers with increasing depth for a parallax hero",
+      "Combine with scroll-progress to indicate section position"
+    ],
+    "hasReducedMotion": true
+  }
+}

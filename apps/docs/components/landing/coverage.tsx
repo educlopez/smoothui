@@ -1,4 +1,25 @@
 import Divider from "@docs/components/landing/divider";
+import { CoverageCarousel } from "./coverage-carousel";
+
+const MARKS: Record<string, { src: string; wide?: boolean; invert?: boolean }> =
+  {
+    "All Shadcn": { src: "/community-marks/all-shadcn.png" },
+    "Built At Lightspeed": {
+      invert: false,
+      src: "/community-marks/builtatlightspeed.png",
+    },
+    "DEV.to": { src: "/community-marks/dev.png" },
+    Peerlist: { src: "/community-marks/peerlist.png", wide: true },
+    "Shadcn Templates": {
+      src: "/community-marks/shadcn-templates.svg",
+      wide: true,
+    },
+    Tailkits: { src: "/community-marks/tailkits.svg", wide: true },
+    "Tailwind Resources": {
+      src: "/community-marks/tailwind-resources.svg",
+      wide: true,
+    },
+  };
 
 // Real, verified external mentions — coverage + directory listings. Not testimonials
 // (those stay X-only) and not "featured in" listicles we aren't actually in.
@@ -31,12 +52,12 @@ export function Coverage() {
   return (
     <section className="relative bg-background px-8 py-20 transition">
       <Divider />
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto w-full max-w-7xl text-center">
         <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
           Featured across the community
         </h2>
 
-        <blockquote className="mt-5 text-balance font-semibold font-title text-foreground text-xl tracking-tight md:text-2xl">
+        <blockquote className="mx-auto mt-5 max-w-3xl text-balance font-semibold font-title text-foreground text-xl tracking-tight md:text-2xl">
           &ldquo;SmoothUI is a game-changer for frontend developers looking for
           polished UI components with motion-powered interactivity.&rdquo;
         </blockquote>
@@ -50,19 +71,9 @@ export function Coverage() {
           — Shikhil Saxena, Peerlist
         </a>
 
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-          {COVERAGE.map((item) => (
-            <a
-              className="font-medium text-muted-foreground text-sm transition-colors hover:text-foreground"
-              href={item.url}
-              key={item.label}
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+        <CoverageCarousel
+          items={COVERAGE.map((item) => ({ ...item, ...MARKS[item.label] }))}
+        />
       </div>
     </section>
   );

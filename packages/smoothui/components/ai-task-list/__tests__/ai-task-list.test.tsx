@@ -1,5 +1,6 @@
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AITaskList, { type AITask } from "../index";
 
@@ -17,6 +18,12 @@ const TASKS: AITask[] = [
 ];
 
 describe("AITaskList", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(<AITaskList tasks={TASKS} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("renders every task and sub-task", () => {
     render(<AITaskList tasks={TASKS} />);
     expect(screen.getByText("Verify records")).toBeInTheDocument();

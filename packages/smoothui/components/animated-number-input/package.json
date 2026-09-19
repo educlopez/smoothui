@@ -1,0 +1,43 @@
+{
+  "name": "@repo/animated-number-input",
+  "description": "A numeric field with rolling digits, keyboard stepping and horizontal scrub-to-change.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "basic-ui",
+    "tags": [
+      "input",
+      "number",
+      "stepper",
+      "scrub",
+      "form",
+      "spinbutton",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "spring",
+    "useCases": [
+      "Quantity field with scrub-to-change and keyboard stepping",
+      "Numeric settings input with rolling digit feedback",
+      "Currency or unit field with prefix/suffix and precision control"
+    ],
+    "compositionHints": [
+      "Use in forms alongside animated-input and animated-toggle",
+      "Pair with scrubber when a slider-style alternative is also needed"
+    ],
+    "hasReducedMotion": true
+  }
+}

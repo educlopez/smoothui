@@ -1,5 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { fireEvent, render, screen, waitFor } from "../../../test-utils/render";
 import SearchableDropdown from "../index";
 
@@ -186,5 +187,25 @@ describe("SearchableDropdown", () => {
       ).not.toBeInTheDocument()
     );
     expect(trigger).toHaveFocus();
+  });
+
+  it("has no accessibility violations when closed", async () => {
+    const { container } = render(
+      <SearchableDropdown items={items} label="Pick a fruit" />
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
+  it("has no accessibility violations when open", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <SearchableDropdown items={items} label="Pick a fruit" />
+    );
+
+    await user.click(screen.getByRole("button", { name: "Pick a fruit" }));
+
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

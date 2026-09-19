@@ -1,5 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import {
   fireEvent,
   render,
@@ -33,6 +34,12 @@ const mockScrollHeight = (height: number) => {
 describe("GooeyPopover", () => {
   afterEach(() => {
     mockMatchMedia(false);
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<GooeyPopover>Open</GooeyPopover>);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 
   it("renders without throwing", () => {

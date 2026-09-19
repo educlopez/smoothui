@@ -1,0 +1,47 @@
+---
+title: Morph Icon
+description: An animated SVG icon that morphs between two states by animating path and shape geometry directly, with no path-morph library.
+icon: Shapes
+dependencies:
+  - motion.dev
+installer: morph-icon
+---
+
+## Features
+
+- Eight ready-made variants: `sidebar`, `list`, `grid`, `compact`, `menu`, `search`, `play`, `check`
+- Morphs by animating SVG geometry attributes (`x1`/`y1`/`x2`/`y2`, `d`, `r`, `pathLength`) directly — no path-morph library
+- Toggle-driven via a single `active` boolean prop
+- Customizable size, stroke width, color, and duration
+- Purely decorative by default, or an accessible labeled image when `label` is passed
+- Respects reduced motion preferences
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | `<svg>` | Applied when no `label` is passed, hiding a purely decorative icon from assistive technology |
+| `role="img"` | `<svg>` | Applied when `label` is passed, exposing the icon as a single accessible image |
+| `<title>` | `<svg>` child | Provides the accessible name for the icon when `label` is passed |
+
+### Keyboard Interactions
+
+This component renders a static graphic with no interactive elements of its own; it has no keyboard interactions. Wrap it in a `<button>` or other interactive element to make it actionable, and drive the `active` prop from that element's state.
+
+### Screen Reader
+
+- Without a `label`, the icon is `aria-hidden` and is skipped entirely by screen readers — pair it with visible or accessible text on its container.
+- With a `label`, the icon is announced as an image with that label as its accessible name.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all geometry transitions snap instantly between states with `duration: 0`.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/morph-icon/index.tsx"
+  name="MorphIconProps"
+/>

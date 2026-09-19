@@ -1,0 +1,65 @@
+---
+title: Inline Testimonials
+description: Testimonial quotes woven directly into a paragraph, expanding into a quote card when a highlighted name is hovered or focused.
+icon: MessageSquareQuote
+dependencies:
+  - motion.dev
+  - lucide.dev
+installer: inline-testimonials
+---
+
+## Features
+
+- Parses `{{id}}` tokens inside a paragraph and renders each as a focusable inline trigger
+- The quote card is a popover measured against the container and clamped to its edges, so it can never overflow sideways — and it scales from the trigger it belongs to
+- Vertical room is measured against the viewport, so the card flips above the name when there is not enough space below it
+- The popover's hover region includes the gap between the trigger and the card, and closing runs on a short delay, so moving the pointer from the name to the card never makes it flicker
+- The card follows its trigger on resize and scroll while it is open
+- Only one card is open at a time
+- Click toggles the card (so touch devices work), while focus opens it only for keyboard users — a mouse click can't open and instantly re-close it
+- `Escape` closes the open card and returns focus to its trigger
+- Each trigger reads as an enriched word, not a chip: the name keeps the prose's size and colour and picks up only a face and a hairline rule, which turns to the accent colour while its card is open
+- Star rating rendered from an optional `rating` value
+- Works controlled (`openId` / `onOpenChange`) or uncontrolled
+- Fully respects `prefers-reduced-motion`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Inline trigger | Reflects whether this testimonial's card is open |
+| `aria-controls` | Inline trigger | Points to the quote card's `id` |
+| `aria-label` | Star rating | Announces the numeric rating instead of relying on icons |
+| `aria-hidden="true"` | Star icons | Hides decorative icons from assistive technology |
+| `alt=""` | Trigger avatar | The person's name is already the button's text, so the thumbnail is decorative |
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Moves focus between inline triggers, opening each card as it receives keyboard focus |
+| `Enter` / `Space` | Toggles the focused testimonial's card |
+| `Escape` | Closes the open card and returns focus to its trigger |
+
+### Screen Reader
+
+- Each inline trigger is a real `<button>` with an accessible name (the person's name), so it is announced and operable independent of hover.
+- `aria-expanded` and `aria-controls` let assistive technology track which card is associated with which trigger and whether it is currently open.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, the popover appears and disappears with an instant opacity change only — no scale and no slide.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/inline-testimonials/index.tsx"
+  name="InlineTestimonialsProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/inline-testimonials/index.tsx"
+  name="Testimonial"
+/>

@@ -2,6 +2,7 @@
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
+import { somePeople } from "@smoothui/data/people";
 import {
   LogOut,
   Moon,
@@ -15,9 +16,9 @@ import {
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ChatConversation } from "./chat-data";
 
-/** A real photograph, so the footer is a person and not a lettered circle. */
-const USER_AVATAR =
-  "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?tr=w-64,h-64";
+/** Fictional generated demo identity, shared with the other examples. */
+const [USER] = somePeople(1, 0);
+const USER_AVATAR = `${USER.avatar}?tr=w-64,h-64,f-auto`;
 
 export type ChatSidebarProps = {
   activeId: string;
@@ -272,7 +273,7 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
         type="button"
       >
         <img
-          alt="Edu Calvo"
+          alt={USER.name}
           className="size-7 shrink-0 rounded-full object-cover"
           height={28}
           src={USER_AVATAR}
@@ -280,7 +281,7 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
         />
         {align === "pane" && (
           <span className="min-w-0 flex-1">
-            <span className="block truncate text-sm">Edu Calvo</span>
+            <span className="block truncate text-sm">{USER.name}</span>
             <span className="block text-muted-foreground text-xs">
               Pro plan
             </span>

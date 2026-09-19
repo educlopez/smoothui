@@ -1,0 +1,42 @@
+{
+  "name": "@repo/gravity-stars",
+  "description": "A GravityStars particle background component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "background",
+    "tags": [
+      "background",
+      "canvas",
+      "particles",
+      "starfield",
+      "constellation",
+      "pointer",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "canvas",
+    "useCases": [
+      "Night-sky hero where stars gather around the cursor",
+      "Constellation network backdrop for infrastructure or AI products",
+      "Ambient particle layer behind a testimonial or CTA section"
+    ],
+    "compositionHints": [
+      "Wrap hero copy or a card so it renders above the starfield",
+      "Layer over aurora-curtain for a full night-sky composition"
+    ],
+    "hasReducedMotion": true
+  }
+}

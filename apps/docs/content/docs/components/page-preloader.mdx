@@ -1,0 +1,56 @@
+---
+title: Page Preloader
+description: A loading curtain with four reveal styles that plays once and then uncovers the page.
+icon: Blinds
+dependencies:
+  - motion.dev
+installer: page-preloader
+---
+
+## Features
+
+- Four built-in variants: `words`, `stairs`, `pixel`, `curtain`
+- Controlled (`active`) or uncontrolled (`defaultActive`) usage
+- `container` mode renders the overlay `absolute` inside its parent instead of a full-screen `fixed` layer
+- Locks page scroll while holding (skipped entirely in `container` mode)
+- Deterministic, seeded tile order for the `pixel` variant — no randomness between renders
+- Fires `onComplete` once the exit transition has fully finished
+- Fully respects `prefers-reduced-motion`
+
+## Variants
+
+- **words** — cycles through the `words` array with a vertical roll while holding, then the whole panel slides away.
+- **stairs** — exits as `columns` vertical columns leaving the screen in a staggered cascade.
+- **pixel** — exits as a `columns` × `columns` grid of tiles fading out in a randomized-but-deterministic, seeded order.
+- **curtain** (default) — splits into two halves that part to reveal the page underneath.
+
+## Usage guidance
+
+Mount `PagePreloader` once, near the root of the page it covers, and leave `active`/`defaultActive` uncontrolled for a simple "hold for `duration`, then reveal" splash. Switch to the controlled `active` prop when the reveal should wait on real data (e.g. `active={!isReady}`) — flipping it to `false` plays the same exit transition instead of the timer-driven one. Use `container` when the preloader should only cover a section of the page rather than the whole viewport.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="status"` | Overlay container | Announces the overlay as a status region while it's visible |
+| `aria-live="polite"` | Overlay container | Lets assistive tech announce the loading state without interrupting |
+| `aria-hidden="true"` | Variant tiles/panels | Hides the decorative curtain/stairs/pixel/words visuals from assistive tech |
+
+### Screen Reader
+
+- A visually-hidden "Loading" string is rendered inside the `role="status"` region for the entire time the overlay is mounted.
+- All decorative variant visuals (curtain halves, stair columns, pixel tiles, the words panel) are `aria-hidden`, so screen readers only ever hear the single "Loading" announcement.
+- The overlay unmounts entirely (renders `null`) once the exit finishes, so it never traps focus or lingers in the accessibility tree.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the hold ends immediately, the staggered cascade is skipped, and every variant performs a single instant opacity fade at `duration: 0` instead of a transform-based exit.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/page-preloader/index.tsx"
+  name="PagePreloaderProps"
+/>

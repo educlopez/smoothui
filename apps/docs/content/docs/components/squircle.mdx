@@ -1,0 +1,45 @@
+---
+title: Squircle
+description: Apple-style corner smoothing for any element, generated as a superellipse clip-path so the same smoothing value renders identically in every browser.
+icon: Squircle
+dependencies: []
+installer: squircle
+---
+
+## Features
+
+- Corners follow a superellipse (squircle) curve instead of a circular arc, which is the curvature-continuous shape Apple uses for app icons and tiles
+- `smoothing` (0..1) maps to the superellipse exponent: `0` is *exactly* a circular corner — indistinguishable from `border-radius` — and `1` pushes the curvature out into the flat edges
+- The corner is traced as a polyline whose sample count scales with the radius, so a 96px corner is as smooth as a 24px one
+- `ResizeObserver` re-measures the element, and the path is memoised on size, `radius`, and `smoothing`
+- Exposes the standalone `squirclePath(width, height, radius, smoothing)` helper so you can generate the path yourself (for an SVG mask, a stroked outline, or a comparison overlay)
+- `as` renders the squircle as any element or component (`div`, `button`, `a`, …)
+
+## Notes
+
+The shape is always the generated `clip-path`, never CSS `corner-shape`. `corner-shape: squircle` is a single fixed shape that ignores `smoothing`, so switching to it where supported made identical props render two different corners depending on the browser.
+
+Because the element is clipped, anything drawn at its very edge is clipped too: a 1px CSS `border` renders as a hairline. For a crisp outline, stroke `squirclePath()` in an SVG overlay instead.
+
+The effect is proportional — it is only visible when the radius is a meaningful fraction of the element. On a 24px chip with an 8px radius there is nothing to see; on a 200px tile with a 56px radius the difference against `border-radius` is obvious.
+
+## Accessibility
+
+### ARIA Attributes
+
+No ARIA attributes are added by `Squircle` itself — it is a purely visual wrapper and passes through whatever semantics `as` and `children` already carry.
+
+### Screen Reader
+
+- `Squircle` renders a single element with your `children` inside; nothing is hidden, duplicated, or reordered, so screen reader behavior is identical to not using it.
+
+### Reduced Motion
+
+Not applicable. `Squircle` has no animation loop — the corner shape is computed once per size/radius/smoothing change and stays static, so `prefers-reduced-motion` has no effect on it.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/squircle/index.tsx"
+  name="SquircleProps"
+/>

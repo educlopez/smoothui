@@ -1,0 +1,69 @@
+---
+title: Favicon Search
+description: A keyboard-driven search field whose results show each site's favicon, with a combobox listbox, matched-substring highlighting, and skeleton loading.
+icon: Search
+dependencies:
+  - lucide.dev
+  - motion.dev
+installer: favicon-search
+---
+
+## Features
+
+- Combobox pattern: `role="combobox"` input drives a `role="listbox"` result panel
+- Each result's favicon resolves from the `favicon` prop, falls back to Google's `s2/favicons` service, and falls back again to a monogram tile if the image fails to load
+- Matched substrings in the title and description are wrapped in `<mark>`
+- Results stagger in by a few milliseconds each, and the highlighted row's background slides between rows via a shared `layoutId`
+- Loading state renders skeleton rows instead of a spinner
+- Optional `⌘K`-style shortcut hint that focuses the input from anywhere on the page
+- Controlled or uncontrolled `value`
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow Down` | Opens the panel (if closed) or moves the highlight to the next result (wraps to first) |
+| `Arrow Up` | Moves the highlight to the previous result (wraps to last) |
+| `Enter` | Selects the highlighted result |
+| `Escape` | Closes the result panel |
+| `⌘/Ctrl` + hotkey (default `K`) | Focuses the search input from anywhere on the page, when `showShortcut` is set |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="combobox"` | Search input | Identifies the input as a combobox |
+| `aria-expanded` | Search input | Indicates whether the result panel is open |
+| `aria-controls` | Search input | References the `id` of the result listbox |
+| `aria-activedescendant` | Search input | Points to the currently highlighted result option |
+| `aria-autocomplete="list"` | Search input | Indicates the input provides list-based results |
+| `role="listbox"` + `aria-label` | Result panel | Identifies the results as a listbox with a group label |
+| `aria-busy` | Result panel | Indicates results are still loading |
+| `role="option"` + `aria-selected` | Result row | Identifies each result and its highlighted state |
+| `aria-hidden="true"` | Favicon image, skeleton rows | Hides purely decorative content from assistive technology |
+
+### Screen Reader
+
+- A visually hidden `aria-live="polite"` status announces "Loading results…" while a search is in flight.
+- Skeleton placeholder rows are marked `aria-hidden` so they are never announced as real options.
+- Each result announces its title and description together via the button's text content; the favicon image is decorative (`alt=""`) since the title already identifies the site.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, results appear without staggering, the highlighted row uses a plain background class instead of an animated shared-`layoutId` background, and the loading skeleton no longer pulses.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/favicon-search/index.tsx"
+  name="FaviconSearchProps"
+/>
+
+### FaviconSearchResult
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/favicon-search/index.tsx"
+  name="FaviconSearchResult"
+/>

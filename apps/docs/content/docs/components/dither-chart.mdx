@@ -1,0 +1,76 @@
+---
+title: Dither Chart
+description: A family of retro ordered-dithered micro-charts drawn on Canvas2D, where every fill is quantised through a Bayer matrix into a dot pattern.
+icon: ChartPie
+dependencies:
+  - motion.dev
+installer: dither-chart
+---
+
+## Features
+
+- Eight chart variants from a single component and a single data shape
+- Ordered dithering through a 2×2, 4×4 or 8×8 Bayer matrix — every fill becomes a dot pattern instead of a solid
+- Rendered at `width / pixelSize` on an offscreen canvas, then blitted up with `imageSmoothingEnabled = false` for crisp retro pixels
+- Colours resolved from `currentColor` and the `--color-brand` custom property, so charts follow the theme automatically
+- Animated draw-in interpolates the **values**, not the pixels, so the dither pattern never crawls
+- `devicePixelRatio` aware, `requestAnimationFrame` cancelled on unmount, and paused via `IntersectionObserver` while off-screen
+- Full screen-reader text alternative generated from the data
+
+## Variants
+
+| Variant | Data it reads | Description |
+|---------|---------------|-------------|
+| `line` | All series | Dithered area under a 1px stroke, one layer per series |
+| `bar` | All series | Grouped bars, one group per point index |
+| `stacked` | All series | Stacked bars normalised against the tallest stack |
+| `donut` | First series | One ring slice per point, sweeping in on draw-in |
+| `gauge` | First point of first series | 270° dial, value read as a 0–100 percentage |
+| `funnel` | First series | Centred rows whose width follows each value |
+| `heatmap` | One series per row | Grid of cells whose dither density follows the value |
+| `bubbles` | All series | Circles positioned by value with value-driven radius |
+
+Every variant is also exported as the `DITHER_CHART_VARIANTS` const array, so you can map over the whole family.
+
+```tsx
+import DitherChart, {
+  DITHER_CHART_VARIANTS,
+} from "@repo/smoothui/components/dither-chart";
+```
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-hidden="true"` | `<canvas>` | The canvas is purely decorative — its pixels carry no accessible information |
+| `sr-only` text node | `<span>` next to the canvas | Text alternative listing the variant, every series name and every point value |
+| `<figcaption>` | Caption element | Associates the visible caption with the figure |
+
+### Screen Reader
+
+- The chart is wrapped in a `<figure>`. The canvas itself is hidden from assistive technologies and a visually hidden sibling describes the chart in full: label, variant, series names and every value.
+- The optional `caption` is rendered as a real `<figcaption>` so it is announced as part of the figure.
+- Nothing inside the component is focusable, so it never interrupts the tab order.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the final frame is drawn immediately on mount — no `requestAnimationFrame` loop is started and no `IntersectionObserver` draw-in is scheduled. Setting `animate={false}` produces the same static result for everyone.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dither-chart/index.tsx"
+  name="DitherChartProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dither-chart/index.tsx"
+  name="DitherChartSeries"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/dither-chart/index.tsx"
+  name="DitherChartPoint"
+/>

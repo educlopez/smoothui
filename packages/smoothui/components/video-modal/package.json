@@ -1,0 +1,44 @@
+{
+  "name": "@repo/video-modal",
+  "description": "A video thumbnail that morphs into a full accessible player inside a modal, with a custom keyboard-operable control bar.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "other",
+    "tags": [
+      "video",
+      "modal",
+      "dialog",
+      "player",
+      "media",
+      "accessibility",
+      "layout-animation"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Thumbnail grid that opens a full video player on click",
+      "Product demo or trailer with real controls and captions",
+      "Portfolio or case-study video preview"
+    ],
+    "compositionHints": [
+      "Provide captions for anything that carries dialogue or narration",
+      "Set showCustomControls to false to fall back to native browser controls",
+      "Pass open / onOpenChange to drive the modal from a parent list"
+    ],
+    "hasReducedMotion": true
+  }
+}

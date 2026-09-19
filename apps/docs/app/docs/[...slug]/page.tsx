@@ -479,11 +479,6 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                 <>
                   <div className="pointer-events-none fixed inset-0 -z-20 bg-primary" />
                   <BgLines className="fixed inset-0 -z-10 max-w-none!" />
-                  <Divider orientation="vertical" />
-                  <Divider
-                    className="right-auto left-0"
-                    orientation="vertical"
-                  />
                 </>
               ) : null}
               {isTemplateDetail && installer ? (

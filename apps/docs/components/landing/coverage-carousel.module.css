@@ -1,0 +1,62 @@
+.stage {
+  display: grid;
+  align-items: center;
+  min-height: 88px;
+  overflow: hidden;
+}
+.row {
+  display: grid;
+  grid-area: 1 / 1;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 24px;
+  align-items: center;
+}
+.mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 4px;
+  border-radius: 8px;
+}
+.mark:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: -2px;
+}
+.enter .mark {
+  animation: enter 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.exit {
+  pointer-events: none;
+}
+.exit .mark {
+  animation: exit 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+@keyframes enter {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes exit {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-28px);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mark {
+    animation: none !important;
+  }
+  .exit {
+    display: none;
+  }
+}

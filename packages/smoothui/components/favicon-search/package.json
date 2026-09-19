@@ -1,0 +1,44 @@
+{
+  "name": "@repo/favicon-search",
+  "description": "A keyboard-driven search field that shows each result's favicon, with a combobox listbox and highlighted matches.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "forms",
+    "tags": [
+      "search",
+      "combobox",
+      "favicon",
+      "command-palette",
+      "listbox",
+      "accessible",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "spring",
+    "useCases": [
+      "Site/URL search with recognizable favicons per result",
+      "Command palette style search with a ⌘K shortcut hint",
+      "Bookmark or history picker with keyboard navigation"
+    ],
+    "compositionHints": [
+      "Pass loading while an async search request is in flight",
+      "Combine with your own debounced search call via onValueChange",
+      "Favicons fall back to Google's s2 favicon service, then a monogram tile"
+    ],
+    "hasReducedMotion": true
+  }
+}

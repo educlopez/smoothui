@@ -1,0 +1,43 @@
+{
+  "name": "@repo/drawing-cursor",
+  "description": "A DrawingCursor component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "cursor",
+      "canvas",
+      "draw",
+      "trail",
+      "decay",
+      "pointer",
+      "interactive",
+      "animated"
+    ],
+    "complexity": "complex",
+    "animationType": "canvas",
+    "useCases": [
+      "Playful canvas layer where the cursor leaves a fading ink trail",
+      "Portfolio or landing hero with a hand-drawn cursor effect",
+      "Sketch-style annotation overlay for demo or marketing sections"
+    ],
+    "compositionHints": [
+      "Wrap any hero, card, or section that should feel hand-drawn on hover",
+      "Combine with a Clear button using the exposed `clear()` ref method"
+    ],
+    "hasReducedMotion": true
+  }
+}

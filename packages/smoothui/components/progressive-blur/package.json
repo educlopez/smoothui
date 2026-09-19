@@ -1,0 +1,43 @@
+{
+  "name": "@repo/progressive-blur",
+  "description": "A ProgressiveBlur component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "effects",
+    "tags": [
+      "blur",
+      "gradient",
+      "backdrop-filter",
+      "mask",
+      "overlay",
+      "fade",
+      "css-only"
+    ],
+    "complexity": "simple",
+    "animationType": "css",
+    "useCases": [
+      "Soften the bottom of a scrolling list instead of a hard fade edge",
+      "Legible sticky headers and floating navs over dense content",
+      "Blur vignette around a hero image or video"
+    ],
+    "compositionHints": [
+      "Needs a positioned ancestor — it renders as an absolutely positioned overlay",
+      "Pair with liquid-metal or any busy background to keep overlaid copy readable",
+      "Pass children to place a label or gradient caption on top of the ramp"
+    ],
+    "hasReducedMotion": true
+  }
+}

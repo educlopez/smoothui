@@ -1,17 +1,12 @@
 "use client";
 
 import AnimatedAvatarGroup from "@repo/smoothui/components/animated-avatar-group";
+import { somePeople } from "@smoothui/data/people";
 
-const avatars = [
-  { alt: "User 1", src: "https://i.pravatar.cc/150?img=1" },
-  { alt: "User 2", src: "https://i.pravatar.cc/150?img=2" },
-  { alt: "User 3", src: "https://i.pravatar.cc/150?img=3" },
-  { alt: "User 4", src: "https://i.pravatar.cc/150?img=4" },
-  { alt: "User 5", src: "https://i.pravatar.cc/150?img=5" },
-  { alt: "User 6", src: "https://i.pravatar.cc/150?img=6" },
-  { alt: "User 7", src: "https://i.pravatar.cc/150?img=7" },
-  { alt: "User 8", src: "https://i.pravatar.cc/150?img=8" },
-];
+const avatars = somePeople(8).map((person) => ({
+  alt: person.name,
+  src: `${person.avatar}?tr=w-150,h-150,f-auto`,
+}));
 
 const AnimatedAvatarGroupDemo = () => (
   <div className="flex min-h-[300px] flex-col items-center justify-center gap-12">

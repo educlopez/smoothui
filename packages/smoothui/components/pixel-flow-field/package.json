@@ -1,0 +1,42 @@
+{
+  "name": "@repo/pixel-flow-field",
+  "description": "A PixelFlowField background component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/shadcn-ui": "workspace:*",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "background",
+    "tags": [
+      "background",
+      "canvas",
+      "grid",
+      "pixels",
+      "flow-field",
+      "pointer",
+      "animated"
+    ],
+    "complexity": "advanced",
+    "animationType": "canvas",
+    "useCases": [
+      "Dotted grid backdrop that ripples and reacts to the cursor",
+      "Developer-tool hero with a technical, plotter-like texture",
+      "Section divider with a subtle animated pixel field"
+    ],
+    "compositionHints": [
+      "Wrap hero copy or a feature grid so it renders above the field",
+      "Use a small cellSize with the circle shape for a dotted-paper look"
+    ],
+    "hasReducedMotion": true
+  }
+}

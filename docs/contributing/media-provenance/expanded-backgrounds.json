@@ -1,0 +1,83 @@
+{
+  "date": "2026-09-19",
+  "source": "Magnific generation",
+  "conversion": {
+    "format": "WebP",
+    "quality": 88,
+    "method": 6
+  },
+  "assets": [
+    {
+      "id": "coral-cyan",
+      "generationId": "3zdi6j1REY",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_3zdi6j1REY.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "92de208f4045d91b252f79d21ca891bba7b11134a1bf4b9dcfba4803e1cb6365",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-cyan.webp"
+    },
+    {
+      "id": "violet-tangerine",
+      "generationId": "rg61k0Axtc",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_rg61k0Axtc.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "1c3afe3519595093f516166af38233478b7f1be6e5afb7b092da2c882c309724",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/violet-tangerine.webp"
+    },
+    {
+      "id": "teal-apricot",
+      "generationId": "jU3xrzyLD0",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_jU3xrzyLD0.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "a3e6bad2a194b9bf763684966456a2e1ea99f357faa3abc364e6c334d54a1a37",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/teal-apricot.webp"
+    },
+    {
+      "id": "plum-coral",
+      "generationId": "LwRjxJoswO",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_LwRjxJoswO.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "91c406882bbd97b07e5e66bbb5f04c199a251bf8e70517fd91b91c7d972314b2",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/plum-coral.webp"
+    },
+    {
+      "id": "azure-apricot",
+      "generationId": "s7ZLx98l8e",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_s7ZLx98l8e.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "ac0b50ef8ba3cd897b63174e1f6d3d64a4e9dd9fbe950919b97981f2f340992a",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/azure-apricot.webp"
+    },
+    {
+      "id": "sky-peach",
+      "generationId": "79YwSkhJAL",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_79YwSkhJAL.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "1c6e829f6064fcfdbc54e8e385978d750b484d97cfd385fad3ae4993fdf701de",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/sky-peach.webp"
+    },
+    {
+      "id": "fuchsia-cobalt",
+      "generationId": "1lNk5d8r4r",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_1lNk5d8r4r.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "d6276638f691c92e9d6aac9d6fa6d322ea016ffedc1881bc6968db53a9334d7a",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/fuchsia-cobalt.webp"
+    },
+    {
+      "id": "golden-coral",
+      "generationId": "MBuV0F0DCm",
+      "sourceFilename": "magnific_fullbleed-169-abstract-op_MBuV0F0DCm.png",
+      "width": 1376,
+      "height": 768,
+      "sourceSha256": "e78c88e0c5b2ef1e9f9fb2c358d6ec042fa8cc2a7003865cdd2ced41a13514a6",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-coral.webp"
+    }
+  ]
+}

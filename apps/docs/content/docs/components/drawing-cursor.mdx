@@ -1,0 +1,58 @@
+---
+title: Drawing Cursor
+description: A canvas layer where the pointer draws a decaying, taper-aware stroke over your content.
+icon: Paintbrush2
+dependencies:
+  - motion.dev
+installer: drawing-cursor
+---
+
+## Features
+
+- Freehand ink trail rendered on a `<canvas>` overlay as the pointer moves
+- Speed-aware `taper` — faster strokes get thinner, slower strokes get thicker
+- Per-point `decay` so old ink fades and is dropped once fully transparent
+  (or stays permanent when `decay` is `0`)
+- Quadratic `smoothing` for a hand-drawn curve instead of jagged segments
+- Configurable `blend` (`GlobalCompositeOperation`) for ink, neon, or eraser
+  looks
+- Imperative `ref` API (`clear()`, `toDataURL()`) using React 19's `ref`-as-prop
+  pattern — no `forwardRef`
+- Canvas sized with `ResizeObserver`, capped at 2x device pixel ratio
+- Coalesced pointer events are read where the browser supports them, for a
+  smoother line at high polling rates
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute             | Element  | Purpose                                                             |
+| ---------------------- | -------- | ---------------------------------------------------------------------- |
+| `aria-hidden="true"`   | `<canvas>` | Hides the purely decorative ink layer from assistive technology       |
+| `pointer-events-none`  | `<canvas>` | Ensures the canvas never intercepts clicks, taps, or focus from `children` |
+
+### Screen Reader
+
+- The canvas is `aria-hidden` and non-interactive; it draws on top of
+  `children` but never in front of them for input purposes. Everything
+  underneath remains focusable, clickable, and readable exactly as if the
+  component were not present.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is set, or on touch/coarse-pointer devices
+(detected via `matchMedia("(hover: hover) and (pointer: fine)")`), the
+`<canvas>` is not mounted at all — no listeners are attached and `children`
+render normally with zero drawing overhead.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/drawing-cursor/index.tsx"
+  name="DrawingCursorProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/drawing-cursor/index.tsx"
+  name="DrawingCursorHandle"
+/>

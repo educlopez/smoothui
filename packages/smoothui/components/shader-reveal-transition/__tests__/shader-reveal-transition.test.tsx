@@ -1,5 +1,6 @@
 import { useReducedMotion } from "motion/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import {
   flushFrames,
@@ -160,4 +161,14 @@ describe("ShaderRevealTransition", () => {
       expect(onRest).toHaveBeenCalledTimes(1);
     });
   }
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <ShaderRevealTransition transitionKey="draft">
+        Draft saved
+      </ShaderRevealTransition>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
 });

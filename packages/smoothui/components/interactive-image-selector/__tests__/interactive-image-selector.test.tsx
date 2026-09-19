@@ -1,5 +1,6 @@
 import { act, fireEvent, waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import InteractiveImageSelector, { type ImageData } from "../index";
 
@@ -155,5 +156,11 @@ describe("InteractiveImageSelector", () => {
 
     expect(getByRole("button", { name: "Reset selection" })).not.toBeDisabled();
     vi.useRealTimers();
+  });
+
+  it("has no accessibility violations", async () => {
+    const { container } = render(<InteractiveImageSelector images={images} />);
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
   });
 });

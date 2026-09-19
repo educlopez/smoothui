@@ -1,0 +1,64 @@
+---
+title: Mac Terminal
+description: A macOS-style terminal window that types out a scripted command session, complete with a blinking caret and traffic-light controls.
+icon: SquareTerminal
+dependencies:
+  - motion.dev
+installer: mac-terminal
+---
+
+## Features
+
+- Scripted session of commands, outputs, errors, successes, and comments
+- Realistic character-by-character typing with a blinking caret
+- Auto-scrolls to the newest line as the session plays
+- Starts only when the terminal scrolls into view (`IntersectionObserver`) and pauses automatically when the browser tab is hidden
+- Optional looping playback with a pause between runs
+- `dark`, `light`, or `auto` (system-aware) themes
+- Traffic-light buttons become real, labelled controls when `onClose` or `onMinimize` are provided
+- Selectable output rendered inside a `<pre>` element
+- Full accessible transcript available to screen readers immediately, independent of the typing animation
+- Respects `prefers-reduced-motion` by rendering the full session instantly
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="{title} terminal"` | Root container | Identifies the widget for assistive technology |
+| `role="group"` | Root container | Default role when the session plays automatically |
+| `role="button"` / `tabIndex={0}` | Root container | Applied only when `autoPlay` is `false`, so the session can be started by keyboard or pointer |
+| `aria-hidden="true"` | Visual `<pre>` log | Hides the animated, partially-typed transcript from assistive technology while it plays |
+| `aria-live="off"` | Screen-reader transcript | Exposes the complete, final transcript at once instead of announcing it character by character |
+| `aria-hidden="true"` | Traffic lights | Applied when neither `onClose` nor `onMinimize` are supplied, marking the lights as purely decorative |
+| `aria-label="Close terminal"` / `aria-label="Minimize terminal"` | Traffic-light buttons | Present only when the matching handler is supplied, turning the light into a real control |
+
+### Keyboard
+
+| Key | Action |
+|-----|--------|
+| `Tab` | Moves focus to the terminal when `autoPlay` is `false` and the session has not started, or to a traffic-light button when handlers are provided |
+| `Enter` / `Space` | Starts the scripted session when the terminal itself is focused and `autoPlay` is `false` |
+
+### Screen Reader
+
+- While the session animates, the visible `<pre>` is marked `aria-hidden` so partially-typed text is never announced mid-keystroke.
+- A second, visually hidden block holds the complete transcript with `aria-live="off"`, so screen reader users can read the full session immediately rather than waiting for the typing animation to finish.
+- Traffic lights without handlers are `aria-hidden`; when `onClose` or `onMinimize` are supplied they become focusable buttons with descriptive labels.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, every line renders instantly and in full, there is no character-by-character typing, no caret blink animation, and the screen-reader-only duplicate transcript is skipped since the visible log already contains the complete text.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/mac-terminal/index.tsx"
+  name="MacTerminalProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/mac-terminal/index.tsx"
+  name="TerminalLine"
+/>

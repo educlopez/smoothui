@@ -1,9 +1,18 @@
 import { fireEvent, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { axe } from "vitest-axe";
 import { render } from "../../../test-utils/render";
 import AIReasoning from "../index";
 
 describe("AIReasoning", () => {
+  it("has no accessibility violations", async () => {
+    const { container } = render(
+      <AIReasoning duration={4.2}>trace</AIReasoning>
+    );
+    const results = await axe(container);
+    expect(results).toHaveNoViolations();
+  });
+
   it("starts open while streaming", () => {
     render(<AIReasoning isStreaming>trace</AIReasoning>);
     expect(screen.getByRole("button")).toHaveAttribute("aria-expanded", "true");
