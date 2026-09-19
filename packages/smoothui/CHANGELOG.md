@@ -1,5 +1,25 @@
 # Changelog
 
+## [3.8.0](https://github.com/educlopez/smoothui/compare/v3.7.1...v3.8.0) (2026-09-19)
+
+
+### Features
+
+* 67 new components, docs registration and a self-sizing preview frame ([#124](https://github.com/educlopez/smoothui/issues/124)) ([d4cf30e](https://github.com/educlopez/smoothui/commit/d4cf30eb7fb9f53ccf530be915c03ea4e3cdbd85))
+* draggable component canvas on the landing, and one media library behind every demo ([#127](https://github.com/educlopez/smoothui/issues/127)) ([c85e7ff](https://github.com/educlopez/smoothui/commit/c85e7ff6eeafa06d74798cd9138899b971ccfaca))
+* refine landing interactions and consolidate component updates ([d7a9a7c](https://github.com/educlopez/smoothui/commit/d7a9a7c1c93330823cad27fc62397dda47df23d3))
+* refine landing interactions and consolidate component updates ([e66ddc5](https://github.com/educlopez/smoothui/commit/e66ddc501b432933d9ca920f64649ba34bdb0e20))
+* refresh landing media and update platform changelog ([0e35113](https://github.com/educlopez/smoothui/commit/0e351131f26d2489487758f1f8945168783e9feb))
+* refresh landing, media library and platform changelog ([2acdfa1](https://github.com/educlopez/smoothui/commit/2acdfa17726dcddbb75cea5dcd2af70546c7809f))
+
+
+### Bug Fixes
+
+* **a11y:** audit every component with axe, plus CI and release-flow gaps ([#126](https://github.com/educlopez/smoothui/issues/126)) ([6ea6727](https://github.com/educlopez/smoothui/commit/6ea67276b6d51ddf2e2997f6b7f1974718883e8c))
+* finish the media dictionary sweep across components, blocks and templates ([#129](https://github.com/educlopez/smoothui/issues/129)) ([d7cf194](https://github.com/educlopez/smoothui/commit/d7cf1940ad5406f2134c3c90b0d0ae06c94f5a2e))
+* harden inline clipboard controls and browser coverage ([5646e82](https://github.com/educlopez/smoothui/commit/5646e82e1088025a89270e10ba58ae6f7c37a3d8))
+* patch dependencies and reduced-motion stack navigation ([520c127](https://github.com/educlopez/smoothui/commit/520c12723ee263d41fcd2c8efd26fe4eed1c9a49))
+
 ## [3.7.1](https://github.com/educlopez/smoothui/compare/v3.7.0...v3.7.1) (2026-08-02)
 
 
