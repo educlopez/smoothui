@@ -41,9 +41,9 @@ export default function SvgClipMaskDemo() {
           </p>
           <SvgClipMask animate="morph" morphPaths={MORPH_PATHS} shape="blob">
             <img
-              alt="Warm ember bands over a plum ground"
+              alt="Amber and violet abstract color fields"
               className="size-52 object-cover"
-              src="https://ik.imagekit.io/16u211libb/smoothui/scenes/ember-drift-warm.webp?tr=w-400,h-400,f-auto"
+              src="https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-400,h-400,f-auto"
             />
           </SvgClipMask>
         </div>
@@ -64,9 +64,9 @@ export default function SvgClipMaskDemo() {
             shape="wave"
           >
             <img
-              alt="Streaks of orange light across black"
+              alt="Cobalt blue and pink abstract color fields"
               className="h-48 w-full object-cover"
-              src="https://ik.imagekit.io/16u211libb/smoothui/scenes/ember-streaks.webp?tr=w-800,h-300,f-auto"
+              src="https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-800,h-300,f-auto"
             />
           </SvgClipMask>
         </div>

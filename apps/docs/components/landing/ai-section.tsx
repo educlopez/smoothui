@@ -1,8 +1,10 @@
 "use client";
 
+import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
+import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Braces, CornerDownLeft, FileCode, Search } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -34,7 +36,7 @@ function McpIllustration() {
             onPointerEnter={() => setStep(index)}
             onFocus={() => setStep(index)}
             type="button"
-            className={`flex min-h-10 w-full items-center gap-2 rounded px-1 py-2 text-left text-xs focus-visible:outline-2 focus-visible:outline-ring ${index === step ? "bg-muted text-foreground" : "text-muted-foreground"}`}
+            className={`flex min-h-12 w-full items-center gap-3 rounded px-2 py-3 text-left text-sm focus-visible:outline-2 focus-visible:outline-ring ${index === step ? "bg-muted text-foreground" : "text-muted-foreground"}`}
             key={label}
             animate={{ x: index === step && !reduced ? 4 : 0 }}
             transition={{ duration: 0.2 }}
@@ -199,34 +201,43 @@ export function AISection() {
         />
 
         <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-2 lg:items-start">
-          {/* MCP — lead pillar: agent-chat mockup over a saturated blurred photo */}
+          {/* MCP — lead pillar: agent-chat mockup over a saturated blurred artwork */}
           <div
             className={cn(
               cardBase,
-              "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-1 lg:row-span-2 lg:self-stretch"
+              "relative overflow-hidden p-0 md:col-span-2 lg:col-span-1 lg:row-span-2 lg:self-stretch"
             )}
           >
-            <Image
-              alt=""
-              aria-hidden
-              className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
-              draggable={false}
-              fill
-              sizes="(max-width: 768px) 100vw, 420px"
-              src="/scenes/ai-mcp.webp"
-              unoptimized
-            />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
-            <div className="relative flex flex-1 items-center justify-center p-6">
-              <div className="w-full max-w-xs rounded-2xl border border-white/40 bg-background/80 p-4 shadow-xl backdrop-blur-xl">
-                <McpIllustration />
+            <div
+              className="relative flex min-h-72 flex-1 items-center justify-center overflow-hidden"
+              data-vivid-stage="ai"
+            >
+              <Image
+                alt=""
+                aria-hidden
+                className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
+                draggable={false}
+                fill
+                sizes="(max-width: 768px) 100vw, 420px"
+                data-landing-background="ai"
+                src={`${landingBackgrounds.ai.src}?tr=w-1280,f-auto`}
+                unoptimized
+              />
+              <ArtworkPattern variant="contours" />
+              <div className="relative flex w-full items-center justify-center p-6">
+                <div className="w-full max-w-[420px] rounded-2xl border border-border bg-background p-5 text-foreground shadow-xl md:w-3/4 md:p-6">
+                  <McpIllustration />
+                </div>
               </div>
             </div>
-            <div className="relative p-6">
-              <h3 className="font-semibold text-lg tracking-tight drop-shadow-sm">
+            <div
+              className="relative border-t bg-background p-6 text-foreground"
+              data-lead-caption="ai"
+            >
+              <h3 className="font-semibold text-lg tracking-tight">
                 {aiFeatures[0].title}
               </h3>
-              <p className="mt-1.5 max-w-sm text-sm text-white/80">
+              <p className="mt-1.5 max-w-sm text-muted-foreground text-sm">
                 {aiFeatures[0].description}
               </p>
             </div>

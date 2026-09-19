@@ -2,14 +2,14 @@
 
 import CursorFollow from "@repo/smoothui/components/cursor-follow";
 import { getImageKitUrl } from "@smoothui/data";
-import { portraits } from "@smoothui/data/scenes";
+import { castPeople } from "@smoothui/data/cast";
 import Image from "next/image";
 
 const images = [
   {
     id: 1,
-    label: portraits[0].alt,
-    src: getImageKitUrl(`${portraits[0].src}`, {
+    label: castPeople[0].alt,
+    src: getImageKitUrl(`${castPeople[0].src}`, {
       format: "auto",
       quality: 80,
       width: 384,
@@ -17,8 +17,8 @@ const images = [
   },
   {
     id: 2,
-    label: portraits[3].alt,
-    src: getImageKitUrl(`${portraits[3].src}`, {
+    label: castPeople[3].alt,
+    src: getImageKitUrl(`${castPeople[3].src}`, {
       format: "auto",
       quality: 80,
       width: 384,

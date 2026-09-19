@@ -3,15 +3,16 @@
 import AsciiRender, {
   type AsciiRenderSource,
 } from "@repo/smoothui/components/ascii-render";
+import { castAnimals, castPeople } from "@smoothui/data/cast";
 import { useState } from "react";
 
 const PORTRAIT: AsciiRenderSource = {
-  src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-720,h-720,f-auto",
+  src: `${castPeople[3].src}?tr=w-720,h-720,f-auto`,
   type: "image",
 };
 
 const LANDSCAPE: AsciiRenderSource = {
-  src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-960,h-540,f-auto",
+  src: `${castAnimals[0].src}?tr=w-960,h-540,f-auto`,
   type: "image",
 };
 
@@ -41,7 +42,7 @@ const AsciiRenderDemo = () => {
 
         <figure className="flex flex-col gap-2">
           <AsciiRender
-            alt="A landscape photograph rendered as ASCII characters tinted with the source colours"
+            alt="An animal portrait rendered as ASCII characters tinted with the source colours"
             className="border border-foreground/20 p-3"
             color="source"
             columns={96}
@@ -70,7 +71,7 @@ const AsciiRenderDemo = () => {
 
         <figure className="flex flex-col gap-2">
           <AsciiRender
-            alt="A landscape photograph rendered with a dense 68 character ramp, inverted"
+            alt="An animal portrait rendered with a dense 68 character ramp, inverted"
             charset={DENSE_CHARSET}
             className="border border-foreground/20 p-3"
             color="mono"

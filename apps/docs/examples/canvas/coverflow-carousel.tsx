@@ -15,22 +15,22 @@ const STAGE_SCALE = 0.6;
 
 const items: CoverflowCarouselItem[] = [
   {
-    alt: "A mountainside catching low golden light",
-    id: "ridge",
+    alt: "Amber and violet abstract color fields",
+    id: "amber-violet",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "Blue ridges receding into the night",
-    id: "coast",
+    alt: "Cobalt blue and pink abstract color fields",
+    id: "cobalt-pink",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "A pale dune crest in deep shadow",
-    id: "dunes",
+    alt: "Coral and lavender abstract color fields",
+    id: "coral-lavender",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-lavender.webp?tr=w-600,h-500,f-auto",
   },
 ];
 

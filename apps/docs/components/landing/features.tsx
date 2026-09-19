@@ -1,10 +1,12 @@
 "use client";
 
+import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
 import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
+import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Package, Terminal } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -80,7 +82,7 @@ export function Features() {
         }
       />
       <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:items-start">
-        {/* Lead — live component marquee over a saturated blurred photo */}
+        {/* Lead — live component marquee over a saturated blurred artwork */}
         <motion.div
           onHoverStart={() => setReplay(true)}
           onHoverEnd={() => setReplay(false)}
@@ -88,54 +90,86 @@ export function Features() {
           onBlurCapture={() => setReplay(false)}
           className={cn(
             cardBase,
-            "relative overflow-hidden border-0 p-0 text-white md:col-span-2 lg:col-span-2 lg:row-span-2 lg:self-stretch"
+            "relative overflow-hidden p-0 md:col-span-2 lg:col-span-2 lg:row-span-2 lg:self-stretch"
           )}
         >
-          <Image
-            alt=""
-            aria-hidden
-            className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
-            draggable={false}
-            fill
-            sizes="(max-width: 768px) 100vw, 420px"
-            src="/scenes/why-choose.webp"
-            unoptimized
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-black/20" />
-          <div className="relative flex flex-1 flex-col justify-center gap-3 py-12 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-            <motion.div
-              className="flex gap-3"
-              key={`a-${replay}`}
-              initial={{ x: 0 }}
-              animate={{ x: replay && !reduced ? [0, -48, 0] : 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          <div
+            className="relative flex min-h-72 flex-1 items-center overflow-hidden"
+            data-vivid-stage="features"
+          >
+            <Image
+              alt=""
+              aria-hidden
+              className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
+              draggable={false}
+              fill
+              sizes="(max-width: 768px) 100vw, 420px"
+              data-landing-background="features"
+              src={`${landingBackgrounds.features.src}?tr=w-1280,f-auto`}
+              unoptimized
+            />
+            <ArtworkPattern variant="squares" />
+            <div
+              className="relative mx-6 my-6 w-full max-w-[420px] overflow-hidden rounded-2xl border border-border bg-background text-foreground shadow-xl md:mx-auto md:w-3/4"
+              data-motion-library
             >
-              {SHOWCASE_ROW_A.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </motion.div>
-            <motion.div
-              className="flex gap-3"
-              key={`b-${replay}`}
-              initial={{ x: 0 }}
-              animate={{ x: replay && !reduced ? [0, 32, 0] : 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              {SHOWCASE_ROW_B.map((name) => (
-                <Pill key={name}>{name}</Pill>
-              ))}
-            </motion.div>
+              <div className="flex items-center gap-3 border-b px-5 py-4">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border bg-muted/50">
+                  <Package aria-hidden size={17} />
+                </span>
+                <div className="min-w-0">
+                  <p className="font-medium text-sm">Motion library</p>
+                  <p className="mt-0.5 text-muted-foreground text-xs">
+                    Small details. Better interactions.
+                  </p>
+                </div>
+              </div>
+              <div className="flex min-h-32 flex-col justify-center gap-3 bg-muted/20 py-6 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
+                <motion.div
+                  className="flex gap-3"
+                  key={`a-${replay}`}
+                  initial={{ x: 0 }}
+                  animate={{ x: replay && !reduced ? [0, -48, 0] : 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {SHOWCASE_ROW_A.map((name) => (
+                    <Pill key={name}>{name}</Pill>
+                  ))}
+                </motion.div>
+                <motion.div
+                  className="flex gap-3"
+                  key={`b-${replay}`}
+                  initial={{ x: 0 }}
+                  animate={{ x: replay && !reduced ? [0, 32, 0] : 0 }}
+                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  {SHOWCASE_ROW_B.map((name) => (
+                    <Pill key={name}>{name}</Pill>
+                  ))}
+                </motion.div>
+              </div>
+              <div className="flex items-center gap-2 border-t px-5 py-3 text-muted-foreground text-xs">
+                <span aria-hidden className="size-1.5 rounded-full bg-brand" />
+                Spring-driven. Reduced-motion ready.
+              </div>
+            </div>
           </div>
-          <div className="relative p-6">
-            <h3 className="mb-2 font-semibold text-xl tracking-tight drop-shadow-sm">
+          <div
+            className="relative border-t bg-background p-6 text-foreground"
+            data-feature-copy
+            data-lead-caption="features"
+          >
+            <h3 className="mb-2 font-semibold text-xl tracking-tight">
               <Link
                 href="/docs/components"
-                className="rounded focus-visible:outline-2 focus-visible:outline-white"
+                className="rounded focus-visible:outline-2 focus-visible:outline-ring"
               >
                 {lead.title}
               </Link>
             </h3>
-            <p className="max-w-md text-sm text-white/80">{lead.description}</p>
+            <p className="max-w-md text-muted-foreground text-sm">
+              {lead.description}
+            </p>
           </div>
         </motion.div>
 

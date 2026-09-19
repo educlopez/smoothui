@@ -9,6 +9,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: "Sep 19, 2026",
+    description:
+      "Preview of work on develop: 67 additional components, an interactive landing and Playground, a 95-asset media library, topic-specific blog covers, accessibility fixes, and more compact install controls. Not a published package release.",
+    href: "/docs/guides/changelog#unreleased",
+    id: "unreleased-2026-09-19",
+    title: "Expanded Library, Live Demos & Original Media",
+    version: "Unreleased",
+  },
+  {
     date: "Jul 31, 2026",
     description:
       "Twenty AI components and the first template, installable in one command. Component pages pin the preview beside the docs; block and template pages were rebuilt around what you actually came to do.",

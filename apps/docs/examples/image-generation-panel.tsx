@@ -8,7 +8,8 @@ import { sceneById } from "@smoothui/data/scenes";
 import { useInView } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 
-const SCRIPTED_PROMPT = "a lighthouse at dusk, long exposure, cinematic";
+const SCRIPTED_PROMPT =
+  "saturated color fields, heavy optical blur, fine film grain";
 
 const ASPECT_RATIO = "16 / 9";
 const RESULT_WIDTH = 1024;
@@ -31,17 +32,17 @@ const PROGRESS_QUANTUM = 100;
 
 /** Cycled per run, so re-generating returns a different picture each time. */
 const RESULTS = [
-  sceneById("moonrise-valley"),
-  sceneById("golden-ridge"),
-  sceneById("nebula-canyon"),
-  sceneById("lake-camp"),
+  sceneById("coral-lavender"),
+  sceneById("amber-violet"),
+  sceneById("cobalt-pink"),
+  sceneById("cyan-tangerine"),
 ].filter((scene): scene is NonNullable<typeof scene> => scene !== undefined);
 
 const makeImage = (batch: number): ImageGenerationImage[] => {
   const scene = RESULTS[batch % RESULTS.length];
   return [
     {
-      alt: SCRIPTED_PROMPT,
+      alt: scene.alt,
       id: `${batch}`,
       preview: `${scene.src}?tr=w-${PREVIEW_WIDTH},h-${PREVIEW_HEIGHT},f-auto`,
       src: `${scene.src}?tr=w-${RESULT_WIDTH},h-${RESULT_HEIGHT},f-auto`,

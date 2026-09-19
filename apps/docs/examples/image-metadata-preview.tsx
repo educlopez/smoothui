@@ -1,15 +1,13 @@
 "use client";
 
+import {
+  METADATA_DESCRIPTION,
+  METADATA_DETAILS,
+  METADATA_SCENE,
+} from "@docs/examples/shared/demo-fixtures";
 import ImageMetadataPreview from "@repo/smoothui/components/image-metadata-preview";
 
 const Example = () => {
-  const sampleMetadata = {
-    by: "John Doe",
-    created: "2024-01-15",
-    source: "https://example.com/source",
-    updated: "2024-01-20",
-  };
-
   const handleShare = () => {
     console.log("Share clicked!");
   };
@@ -17,11 +15,11 @@ const Example = () => {
   return (
     <div className="flex min-h-[600px] items-center justify-center">
       <ImageMetadataPreview
-        alt="Mountain landscape"
-        description="Beautiful mountain landscape with snow-capped peaks"
-        filename="desert-canyon.jpg"
-        imageSrc="https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-800,f-auto"
-        metadata={sampleMetadata}
+        alt={METADATA_SCENE.alt}
+        description={METADATA_DESCRIPTION}
+        filename={`${METADATA_SCENE.id}.webp`}
+        imageSrc={`${METADATA_SCENE.src}?tr=w-800,f-auto`}
+        metadata={METADATA_DETAILS}
         onShare={handleShare}
       />
     </div>

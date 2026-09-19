@@ -89,10 +89,10 @@ const TiltCardCanvasDemo = () => {
         </div>
         <div className="absolute inset-x-0 bottom-0 p-4" data-tilt-depth="0.55">
           <p className="font-medium text-[10px] text-white/65 uppercase tracking-[0.16em]">
-            Ridge pass
+            Studio pass
           </p>
           <p className="font-semibold text-[17px] text-white leading-tight">
-            Northern Traverse
+            Color Studies
           </p>
           <p className="text-[11px] text-white/70 tabular-nums">
             Gate 04 · 09:41

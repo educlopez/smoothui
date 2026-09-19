@@ -132,6 +132,12 @@ export default async function BlogPage() {
                     className="flex h-full flex-col bg-card p-6 transition-colors duration-200 hover:bg-card/80 lg:p-10"
                     href={post.url}
                   >
+                    <PostCover
+                      alt={post.data.title}
+                      image={post.data.image}
+                      seed={post.url}
+                      className="mb-6 aspect-[16/10] rounded-xl"
+                    />
                     <div className="flex flex-1 flex-col gap-3">
                       <time
                         className="text-muted-foreground text-sm"

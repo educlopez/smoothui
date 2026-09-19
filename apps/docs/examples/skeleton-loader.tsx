@@ -17,10 +17,10 @@ export default function SkeletonLoaderDemo() {
       <Skeleton className="rounded-xl" loading={loading}>
         <div className="w-[320px] overflow-hidden rounded-xl border bg-card">
           <Image
-            alt="Surf"
+            alt="Coral and lavender blurred color fields"
             className="h-40 w-full object-cover"
             height={160}
-            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-480,f-auto"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-lavender.webp?tr=w-480,f-auto"
             width={320}
           />
           <div className="p-4">
@@ -33,8 +33,8 @@ export default function SkeletonLoaderDemo() {
                 width={48}
               />
               <div>
-                <p className="font-semibold">Edu Calvo</p>
-                <p className="text-muted-foreground text-sm">@educalvolpz</p>
+                <p className="font-semibold">{PERSON.name}</p>
+                <p className="text-muted-foreground text-sm">{PERSON.handle}</p>
               </div>
             </div>
             <p className="mt-3 text-muted-foreground text-sm">

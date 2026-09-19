@@ -3,6 +3,7 @@
 import {
   STACK_CAST,
   STACK_SCENES,
+  sceneAlt,
   sceneSrc,
 } from "@docs/examples/shared/demo-fixtures";
 import ScrollableCardStack from "@repo/smoothui/components/scrollable-card-stack";
@@ -21,6 +22,7 @@ const items = [
     href: founder.social.twitter,
     id: STACK_SCENES[0],
     image: sceneSrc(STACK_SCENES[0], "w-600,h-380"),
+    imageAlt: sceneAlt(STACK_SCENES[0]),
     name: founder.name,
   },
   ...STACK_CAST.slice(0, 2).map((person, index) => ({
@@ -29,6 +31,7 @@ const items = [
     href: `https://example.com/${person.handle.replace("@", "")}`,
     id: STACK_SCENES[index + 1],
     image: sceneSrc(STACK_SCENES[index + 1], "w-600,h-380"),
+    imageAlt: sceneAlt(STACK_SCENES[index + 1]),
     name: person.name,
   })),
 ];

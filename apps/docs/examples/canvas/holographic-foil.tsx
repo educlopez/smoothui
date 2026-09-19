@@ -11,7 +11,7 @@ import { sceneById } from "@smoothui/data/scenes";
  * The card face carries the whole tile, so there is no name plate or serial
  * strip built around it competing with the finish.
  */
-const CARD = sceneById("moon-tarot");
+const CARD = sceneById("nymara");
 
 const HolographicFoilCanvasDemo = () => (
   <HolographicFoil
@@ -25,11 +25,11 @@ const HolographicFoilCanvasDemo = () => (
   >
     <img
       alt={CARD?.alt ?? ""}
-      className="block w-full select-none"
+      className="block h-auto w-full select-none object-contain"
       draggable={false}
-      height={676}
+      height={1200}
       src={`${CARD?.src}?tr=w-380,f-auto`}
-      width={380}
+      width={896}
     />
   </HolographicFoil>
 );

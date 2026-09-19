@@ -8,7 +8,6 @@ import type { ComponentProps } from "react";
 import { useRef } from "react";
 
 type Frame = {
-  alt: string;
   caption: string;
   direction?: ComponentProps<typeof ScrollImageReveal>["direction"];
   id: string;
@@ -20,7 +19,6 @@ type Frame = {
 
 const FRAMES: Frame[] = [
   {
-    alt: "A mountainside catching low golden light",
     caption:
       "A single edge travels across the frame. The most literal reveal there is, and the one that survives being used twice on the same page.",
     id: "wipe",
@@ -29,7 +27,6 @@ const FRAMES: Frame[] = [
     title: "Wipe",
   },
   {
-    alt: "A wildflower meadow under towering cumulus",
     caption:
       "The mask opens from the top edge downward, so the image reads as arriving rather than uncovering. Best where the subject sits low in the crop.",
     direction: "down",
@@ -39,16 +36,14 @@ const FRAMES: Frame[] = [
     title: "Curtain",
   },
   {
-    alt: "A watercolour grove fading into white",
     caption:
       "An expanding circle puts the centre of the frame first. It rewards a photograph with a real subject and punishes one without.",
     id: "circle",
     mask: "circle",
-    scene: "watercolor-grove",
+    scene: "maple-golden",
     title: "Circle",
   },
   {
-    alt: "Blue mountain ridges receding into night",
     caption:
       "Forty-pixel bands widen in parallel. Mechanical, deliberate, and the only mask here that reads as an instrument rather than a curtain.",
     id: "blinds",
@@ -57,7 +52,6 @@ const FRAMES: Frame[] = [
     title: "Blinds",
   },
   {
-    alt: "A single pale dune crest in deep shadow",
     caption:
       "Scale and opacity together, settling from a slight overscan down to its natural size. No hard edge anywhere — the quietest of the five.",
     id: "scale",
@@ -126,7 +120,7 @@ export default function ScrollImageRevealDemo() {
                 </span>
               </div>
               <ScrollImageReveal
-                alt={frame.alt}
+                alt={sceneById(frame.scene)?.alt ?? ""}
                 className="h-[260px] w-full"
                 container={scrollRef}
                 direction={frame.direction}

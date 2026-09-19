@@ -15,40 +15,40 @@ const PROFILES = [
     age: 27,
     id: "nova",
     location: "Lisbon · 4 km away",
-    name: "Nova",
-    portrait: "sky-freckles",
+    name: "Maya",
+    portrait: "maya-solis",
     tags: ["Product design", "Film", "Cortado"],
   },
   {
     age: 31,
     id: "kai",
     location: "Porto · 12 km away",
-    name: "Kaia",
-    portrait: "warm-wall",
+    name: "Luca",
+    portrait: "luca-moretti",
     tags: ["Frontend", "Bouldering", "Vinyl"],
   },
   {
     age: 24,
     id: "ines",
     location: "Lisbon · 2 km away",
-    name: "Inês",
-    portrait: "golden-hour",
+    name: "Sasha",
+    portrait: "sasha-kim",
     tags: ["Illustration", "Ceramics", "Jazz"],
   },
   {
     age: 29,
     id: "sage",
     location: "Braga · 38 km away",
-    name: "Sage",
-    portrait: "windswept",
+    name: "Inês",
+    portrait: "ines-moreau",
     tags: ["Motion", "Surfing", "Ramen"],
   },
   {
     age: 26,
     id: "mira",
     location: "Sintra · 21 km away",
-    name: "Mira",
-    portrait: "open-sky",
+    name: "Hana",
+    portrait: "hana-park",
     tags: ["Type design", "Trail running"],
   },
 ] as const;
@@ -57,7 +57,10 @@ const items: CardSwipeDeckItem[] = PROFILES.map((profile) => ({
   content: (
     <div className="relative h-full w-full bg-muted">
       <img
-        alt={`Portrait of ${profile.name}`}
+        alt={
+          sceneById(profile.portrait)?.alt ??
+          `Generated portrait of ${profile.name}`
+        }
         className="h-full w-full object-cover"
         src={`${sceneById(profile.portrait)?.src}?tr=w-600,h-760,f-auto`}
       />

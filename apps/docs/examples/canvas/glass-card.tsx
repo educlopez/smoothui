@@ -9,7 +9,7 @@ import { motion, useReducedMotion } from "motion/react";
  * sitting on a still one — transform only, so the pan is free.
  */
 const PHOTO =
-  "url(https://ik.imagekit.io/16u211libb/smoothui/scenes/silk-waves.webp?tr=w-1200,h-800,f-auto) center/cover no-repeat";
+  "url(https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-tangerine.webp?tr=w-1200,h-800,f-auto) center/cover no-repeat";
 const SHADOWED = "[text-shadow:0_1px_3px_oklch(0_0_0/0.55)]";
 const DRIFT_PX = 26;
 const DRIFT_SECONDS = 24;
@@ -41,7 +41,7 @@ const GlassCardCanvasDemo = () => {
           <div className="flex items-center gap-3">
             <div
               aria-hidden="true"
-              className="size-11 shrink-0 rounded-lg bg-[url(https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-aurora.webp?tr=w-160,h-160,f-auto)] bg-center bg-cover ring-1 ring-white/25 ring-inset"
+              className="size-11 shrink-0 rounded-lg bg-[url(https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-160,h-160,f-auto)] bg-center bg-cover ring-1 ring-white/25 ring-inset"
             />
             <div className="min-w-0 flex-1">
               <p

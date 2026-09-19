@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  METADATA_DESCRIPTION,
+  METADATA_DETAILS,
+  METADATA_SCENE,
+} from "@docs/examples/shared/demo-fixtures";
+
 import Checkbox from "@repo/smoothui/components/checkbox";
 import DynamicIsland from "@repo/smoothui/components/dynamic-island";
 import ImageMetadataPreview from "@repo/smoothui/components/image-metadata-preview";
@@ -7,12 +13,10 @@ import NumberFlow from "@repo/smoothui/components/number-flow";
 import UserAccountAvatar from "@repo/smoothui/components/user-account-avatar";
 import { getImageKitUrl } from "@smoothui/data";
 import { somePeople } from "@smoothui/data/people";
-import { useReducedMotion } from "motion/react";
 import { useId, useState } from "react";
 
 const [AVATAR_PERSON] = somePeople(1, 7);
-const SCENE =
-  "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-800,f-auto";
+const SCENE = `${METADATA_SCENE.src}?tr=w-800,f-auto`;
 
 function IslandDemo() {
   const [view, setView] = useState<"idle" | "ring" | "timer">("idle");
@@ -45,37 +49,9 @@ function IslandDemo() {
 
 function CounterDemo() {
   const [value, setValue] = useState(128);
-  const reduced = useReducedMotion();
-  if (reduced) {
-    return (
-      <div className="flex min-h-52 items-center justify-center gap-6">
-        <button
-          aria-label="Decrease value"
-          className="size-11 rounded-full border"
-          onClick={() => setValue((v) => Math.max(0, v - 1))}
-          type="button"
-        >
-          −
-        </button>
-        <output className="font-mono text-3xl">{value}</output>
-        <button
-          aria-label="Increase value"
-          className="size-11 rounded-full border"
-          onClick={() => setValue((v) => Math.min(999, v + 1))}
-          type="button"
-        >
-          +
-        </button>
-      </div>
-    );
-  }
   return (
     <div className="flex min-h-52 items-center justify-center">
-      <NumberFlow
-        buttonClassName="!size-11"
-        value={value}
-        onChange={setValue}
-      />
+      <NumberFlow value={value} onChange={setValue} />
     </div>
   );
 }
@@ -97,15 +73,10 @@ function MetadataDemo() {
     >
       <ImageMetadataPreview
         imageSrc={SCENE}
-        alt="Rust-colored mountain landscape"
-        filename="rust-peak.webp"
-        description="An image from the SmoothUI demo collection."
-        metadata={{
-          by: "SmoothUI demo",
-          created: "2026-01-01",
-          source: SCENE,
-          updated: "2026-01-01",
-        }}
+        alt={METADATA_SCENE.alt}
+        filename={`${METADATA_SCENE.id}.webp`}
+        description={METADATA_DESCRIPTION}
+        metadata={METADATA_DETAILS}
         onShare={share}
       />
       <p
@@ -157,8 +128,8 @@ function AvatarDemo() {
       height: 96,
       width: 96,
     }),
-    email: "jane@example.com",
-    name: "Jane Doe",
+    email: AVATAR_PERSON.email,
+    name: AVATAR_PERSON.name,
   });
   const [order, setOrder] = useState("");
   return (
@@ -170,7 +141,7 @@ function AvatarDemo() {
         onOrderView={setOrder}
         orders={[
           {
-            date: "2026-01-01",
+            date: "2026-09-19",
             id: "ORD100",
             progress: 100,
             status: "delivered",

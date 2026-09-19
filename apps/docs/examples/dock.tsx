@@ -45,10 +45,10 @@ export default function DockDemo() {
   return (
     <div className="relative h-[420px] w-full overflow-hidden rounded-2xl border border-foreground/10">
       <img
-        alt="A green mountain ridge falling away under a heavy sky"
+        alt="Amber and violet abstract color fields"
         className="absolute inset-0 size-full select-none object-cover"
         draggable={false}
-        src="https://ik.imagekit.io/16u211libb/smoothui/backgrounds/mountain-ridge.jpg?tr=w-1600,f-auto"
+        src="https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-1600,f-auto"
       />
       {/* Scrim: darkest at the two edges the chrome sits on, so the menu bar
           and the dock keep their contrast whatever the photo is doing. */}

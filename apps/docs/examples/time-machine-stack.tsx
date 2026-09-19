@@ -3,35 +3,32 @@
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import type { TimeMachineStackItem } from "@repo/smoothui/components/time-machine-stack";
 import TimeMachineStack from "@repo/smoothui/components/time-machine-stack";
-import { sceneById } from "@smoothui/data/scenes";
+import { castAnimals, castPeople } from "@smoothui/data/cast";
+import { approvedAbstracts } from "@smoothui/data/scenes";
+import Image from "next/image";
 import { useState } from "react";
 
-// Seven distinct shots: the stack is a photo history, and a history of the same
-// picture seven times is not one. Each `alt` describes its own image.
-const SHOTS = [
-  { id: "ridge", scene: "blue-ridge-night" },
-  { id: "peak", scene: "rust-peak" },
-  { id: "lake", scene: "lake-camp" },
-  { id: "moon", scene: "moonrise-valley" },
-  { id: "canyon", scene: "nebula-canyon" },
-  { id: "dune", scene: "dune-shadow" },
-  { id: "grove", scene: "watercolor-grove" },
-] as const;
-
-const items: TimeMachineStackItem[] = SHOTS.map((shot) => {
-  const scene = sceneById(shot.scene);
-  return {
-    content: (
-      <img
-        alt={scene?.alt ?? ""}
-        className="h-full w-full select-none object-cover"
-        draggable={false}
-        src={`${scene?.src}?tr=w-960,h-640,f-auto`}
-      />
-    ),
-    id: shot.id,
-  };
-});
+const items: TimeMachineStackItem[] = [
+  castPeople[0],
+  castPeople[3],
+  castPeople[13],
+  castAnimals[0],
+  castAnimals[3],
+  ...approvedAbstracts.slice(0, 2),
+].map((image) => ({
+  content: (
+    <Image
+      alt={image.alt}
+      className="h-full w-full select-none object-cover"
+      draggable={false}
+      height={640}
+      width={960}
+      unoptimized
+      src={`${image.src}?tr=w-960,h-640,f-auto`}
+    />
+  ),
+  id: image.id,
+}));
 
 export default function TimeMachineStackDemo() {
   const [index, setIndex] = useState(0);

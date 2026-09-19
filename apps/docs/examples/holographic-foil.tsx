@@ -23,7 +23,7 @@ const PATTERNS: HolographicFoilPattern[] = ["prism", "aurora", "gold", "oil"];
  * artwork at full bleed with the foil on top, and the controls change only the
  * finish.
  */
-const CARD = sceneById("moon-tarot");
+const CARD = sceneById("nymara");
 
 const HolographicFoilDemo = () => {
   const [intensity, setIntensity] = useState(0.6);
@@ -42,11 +42,11 @@ const HolographicFoilDemo = () => {
       >
         <img
           alt={CARD?.alt ?? ""}
-          className="block w-full select-none"
+          className="block h-auto w-full select-none object-contain"
           draggable={false}
-          height={1138}
+          height={1200}
           src={`${CARD?.src}?tr=w-640,f-auto`}
-          width={640}
+          width={896}
         />
       </HolographicFoil>
 

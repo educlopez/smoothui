@@ -1,24 +1,25 @@
 "use client";
 
 import ProductCard from "@repo/smoothui/components/product-card";
+import { productImages } from "@smoothui/data/products";
+
+const [sneaker, headphones] = productImages;
 
 const products = [
   {
     badge: "Sale",
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/products/sneaker.jpg?tr=w-600,h-600,f-auto",
+    image: `${sneaker.src}?tr=w-600,h-600,f-auto`,
     originalPrice: 179,
     price: 129,
     rating: 4.5,
-    title: "Nike Air Max",
+    title: sneaker.title,
   },
   {
     badge: "New",
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/products/headphones.jpg?tr=w-600,h-600,f-auto",
+    image: `${headphones.src}?tr=w-600,h-600,f-auto`,
     price: 89,
     rating: 5,
-    title: "Luxury Perfume",
+    title: headphones.title,
   },
 ];
 

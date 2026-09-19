@@ -1,12 +1,10 @@
+import { castAnimals, castPeople } from "./cast";
+
 /**
- * Background and decorative imagery for demos — the Super Visuals backgrounds
- * library, served from ImageKit.
- *
- * This replaced the random `picsum.photos` seeds. Random stock made every
- * gallery, carousel and card look like a different product; one curated set with
- * a consistent grade makes the docs read as one thing.
- *
- * Request the size you render: `?tr=w-640,f-auto`. Sources are ~1600px wide.
+ * Curated blurred, saturated, grain-rich demo backgrounds served from ImageKit.
+ * Legacy IDs resolve through aliases, but never return retired source artwork.
+ * Original registry and URLs are kept in docs/contributing/media-provenance/.
+ * Request rendered dimensions with `?tr=w-640,f-auto`.
  */
 const BASE = "https://ik.imagekit.io/16u211libb/smoothui/scenes";
 
@@ -22,6 +20,8 @@ export interface Scene {
    */
   kind: "photo" | "abstract";
   src: string;
+  /** Optional editorial title for artwork. */
+  title?: string;
   /** Roughly how bright the image is, for choosing overlay and text colour. */
   tone: "light" | "dark";
 }
@@ -33,169 +33,107 @@ const scene = (
   kind: Scene["kind"]
 ): Scene => ({ alt, id, kind, src: `${BASE}/${id}.webp`, tone });
 
-export const scenes: Scene[] = [
+/** Approved Magnific backgrounds; retired sources live only in provenance files. */
+export const approvedAbstracts: Scene[] = [
   scene(
-    "cloud-meadow",
-    "A wildflower meadow under towering cumulus",
-    "light",
-    "photo"
-  ),
-  scene(
-    "rust-peak",
-    "A rust-red mountain against a pale sky",
-    "light",
-    "photo"
-  ),
-  scene(
-    "blue-ridge-night",
-    "Blue mountain ridges receding into night",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "moonrise-valley",
-    "A huge moon rising over a forested valley",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "lake-camp",
-    "A lit tent beside a still lake under peaks",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "prism-meadow",
-    "A meadow under a rainbow and drifting sparks",
-    "light",
-    "photo"
-  ),
-  scene(
-    "golden-ridge",
-    "A mountainside catching low golden light",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "nebula-canyon",
-    "A canyon under a churning violet nebula",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "dune-shadow",
-    "A single pale dune crest in deep shadow",
-    "dark",
-    "photo"
-  ),
-  scene(
-    "watercolor-grove",
-    "A watercolour grove fading into white",
-    "light",
-    "photo"
-  ),
-
-  scene(
-    "ember-drift",
-    "Soft bands of ember red drifting into violet",
-    "dark",
-    "abstract"
-  ),
-  scene(
-    "ember-drift-warm",
-    "Warm ember bands over a plum ground",
-    "dark",
-    "abstract"
-  ),
-  scene(
-    "ember-streaks",
-    "Streaks of orange light across black",
-    "dark",
-    "abstract"
-  ),
-  scene(
-    "silk-waves",
-    "Pale blue silk folding in slow waves",
+    "amber-violet",
+    "Amber and violet abstract color fields",
     "light",
     "abstract"
   ),
   scene(
-    "cyan-aurora",
-    "A cyan aurora smeared across pale blue",
+    "cobalt-pink",
+    "Cobalt blue and pink abstract color fields",
+    "dark",
+    "abstract"
+  ),
+  scene(
+    "coral-lavender",
+    "Coral and lavender abstract color fields",
     "light",
     "abstract"
   ),
   scene(
-    "cobalt-fade",
-    "A clean cobalt-to-white diagonal fade",
-    "light",
-    "abstract"
-  ),
-  scene("lilac-bloom", "A soft lilac bloom on near-white", "light", "abstract"),
-  scene(
-    "pale-iridescence",
-    "Barely-there iridescence on off-white",
+    "cyan-tangerine",
+    "Cyan and tangerine abstract color fields",
     "light",
     "abstract"
   ),
   scene(
-    "meadow-haze",
-    "Green and cream haze, like a field out of focus",
+    "coral-cyan",
+    "Coral and cyan heavily blurred color fields with fine grain",
     "light",
     "abstract"
   ),
   scene(
-    "linen-texture",
-    "A woven off-white linen texture",
+    "violet-tangerine",
+    "Violet and tangerine heavily blurred color fields with fine grain",
+    "dark",
+    "abstract"
+  ),
+  scene(
+    "teal-apricot",
+    "Teal and apricot heavily blurred color fields with fine grain",
+    "light",
+    "abstract"
+  ),
+  scene(
+    "plum-coral",
+    "Plum and coral heavily blurred color fields with fine grain",
+    "dark",
+    "abstract"
+  ),
+  scene(
+    "azure-apricot",
+    "Azure and apricot softly blurred color fields with fine grain",
+    "light",
+    "abstract"
+  ),
+  scene(
+    "sky-peach",
+    "Sky blue and peach heavily blurred color fields with fine grain",
+    "light",
+    "abstract"
+  ),
+  scene(
+    "fuchsia-cobalt",
+    "Fuchsia and cobalt heavily blurred color fields with fine grain",
+    "dark",
+    "abstract"
+  ),
+  scene(
+    "golden-coral",
+    "Golden yellow and coral heavily blurred color fields with fine grain",
     "light",
     "abstract"
   ),
 ];
 
-/**
- * Editorial portraits, for demos where a card *is* a person — a swipe deck, a
- * profile cover. Distinct from `@smoothui/data/people`, whose avatars are square
- * headshots meant for a 32px circle and which crop badly at card size.
- */
-const PORTRAIT_BASE = "https://ik.imagekit.io/16u211libb/smoothui/portraits";
+/** Legacy IDs are lookup-only aliases; retired artwork is archived in docs. */
+export const sceneAliases: Record<string, string> = {
+  "blue-ridge-night": "fuchsia-cobalt",
+  "cloud-meadow": "sky-peach",
+  "cobalt-fade": "cobalt-pink",
+  "cyan-aurora": "teal-apricot",
+  "dune-shadow": "golden-coral",
+  "ember-drift": "plum-coral",
+  "ember-drift-warm": "amber-violet",
+  "ember-streaks": "amber-violet",
+  "golden-ridge": "violet-tangerine",
+  "lake-camp": "teal-apricot",
+  "lilac-bloom": "coral-lavender",
+  "linen-texture": "azure-apricot",
+  "meadow-haze": "teal-apricot",
+  "moonrise-valley": "plum-coral",
+  "nebula-canyon": "fuchsia-cobalt",
+  "pale-iridescence": "coral-lavender",
+  "prism-meadow": "coral-cyan",
+  "rust-peak": "golden-coral",
+  "silk-waves": "sky-peach",
+  "watercolor-grove": "azure-apricot",
+};
 
-export const portraits: Scene[] = [
-  {
-    alt: "A woman with freckles against a clear blue sky",
-    id: "sky-freckles",
-    kind: "photo",
-    src: `${PORTRAIT_BASE}/sky-freckles.webp`,
-    tone: "light",
-  },
-  {
-    alt: "A woman in sunlight against a warm plaster wall",
-    id: "warm-wall",
-    kind: "photo",
-    src: `${PORTRAIT_BASE}/warm-wall.webp`,
-    tone: "light",
-  },
-  {
-    alt: "A woman at golden hour with hills behind her",
-    id: "golden-hour",
-    kind: "photo",
-    src: `${PORTRAIT_BASE}/golden-hour.webp`,
-    tone: "dark",
-  },
-  {
-    alt: "A woman with wind-blown hair under scattered cloud",
-    id: "windswept",
-    kind: "photo",
-    src: `${PORTRAIT_BASE}/windswept.webp`,
-    tone: "light",
-  },
-  {
-    alt: "A woman laughing, head tilted back against open sky",
-    id: "open-sky",
-    kind: "photo",
-    src: `${PORTRAIT_BASE}/open-sky.webp`,
-    tone: "light",
-  },
-];
+export const scenes: Scene[] = approvedAbstracts;
 
 /**
  * Card art, for demos where the component is a finish applied over a printed
@@ -206,18 +144,124 @@ const CARD_BASE = "https://ik.imagekit.io/16u211libb/smoothui/cards";
 
 export const cards: Scene[] = [
   {
-    alt: "Tarot card back: a moon phase wheel in gold and white on deep indigo",
-    id: "moon-tarot",
+    alt: "Nymara — Eclipse Guardian: a violet-winged, antlered fantasy creature above a ruined arch, framed as a Moonveil collectible card",
+    id: "nymara",
     kind: "photo",
-    src: `${CARD_BASE}/moon-tarot.webp`,
+    src: `${CARD_BASE}/nymara.webp`,
+    title: "Nymara — Eclipse Guardian",
+    tone: "dark",
+  },
+];
+
+export const landscapes: Scene[] = [
+  {
+    alt: "AI-generated black-sand coast with foaming surf, green volcanic cliffs and a warm horizon",
+    id: "volcanic-coast",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/volcanic-coast.webp",
+    title: "Volcanic coast",
+    tone: "dark",
+  },
+  {
+    alt: "AI-generated terracotta dunes with sweeping wind-shaped ridges and distant blue mountains",
+    id: "terracotta-dunes",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/terracotta-dunes.webp",
+    title: "Terracotta dunes",
+    tone: "dark",
+  },
+  {
+    alt: "AI-generated green rice terraces curving around misty hills in warm morning light",
+    id: "emerald-terraces",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/emerald-terraces.webp",
+    title: "Emerald terraces",
+    tone: "light",
+  },
+  {
+    alt: "AI-generated turquoise icebergs reflected in a calm lagoon beneath snowy mountains and a pink sky",
+    id: "glacial-lagoon",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/glacial-lagoon.webp",
+    title: "Glacial lagoon",
+    tone: "light",
+  },
+  {
+    alt: "AI-generated turquoise river winding around a sandstone canyon beneath a clear blue sky",
+    id: "turquoise-canyon",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/turquoise-canyon.webp",
+    title: "Turquoise canyon",
+    tone: "light",
+  },
+  {
+    alt: "Generated alpine mountain peaks above blue valleys in soft peach dawn light",
+    id: "alpine-dawn",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/alpine-dawn.webp",
+    title: "Alpine dawn",
+    tone: "light",
+  },
+  {
+    alt: "Generated turquoise sea and white surf between warm rocky coastal cliffs",
+    id: "tidal-cove",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/tidal-cove.webp",
+    title: "Tidal cove",
+    tone: "light",
+  },
+  {
+    alt: "Generated evergreen forest with moss, turquoise mist and golden sunlight",
+    id: "emerald-forest",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/landscapes/emerald-forest.webp",
+    title: "Emerald forest",
+    tone: "dark",
+  },
+];
+
+export const events: Scene[] = [
+  {
+    alt: "Generated outdoor cinema in a garden at dusk, with a glowing screen, rows of chairs and string lights",
+    id: "open-air-cinema",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/events/open-air-cinema.webp",
+    title: "Open-Air Cinema",
+    tone: "dark",
+  },
+  {
+    alt: "Generated surfers carrying boards toward ocean waves under a peach sunrise",
+    id: "dawn-patrol",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/events/dawn-patrol.webp",
+    title: "Dawn Patrol",
+    tone: "light",
+  },
+  {
+    alt: "Generated candlelit supper gathering around a long table in a courtyard",
+    id: "supper-club",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/events/supper-club.webp",
+    title: "Supper Club",
+    tone: "dark",
+  },
+  {
+    alt: "Generated group practicing yoga on a terrace overlooking the sea at sunrise",
+    id: "sunrise-yoga",
+    kind: "photo",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/events/sunrise-yoga.webp",
+    title: "Sunrise Yoga",
     tone: "dark",
   },
 ];
 
 export const sceneById = (id: string): Scene | undefined =>
-  scenes.find((item) => item.id === id) ??
-  portraits.find((item) => item.id === id) ??
-  cards.find((item) => item.id === id);
+  scenes.find((item) => item.id === (sceneAliases[id] ?? id)) ??
+  landscapes.find((item) => item.id === id) ??
+  events.find((item) => item.id === id) ??
+  cards.find((item) => item.id === id) ??
+  castPeople.find((item) => item.id === id) ??
+  castAnimals.find((item) => item.id === id);
 
 /** Everything of one kind, for a demo that only wants photos or only texture. */
 export const scenesOfKind = (kind: Scene["kind"]): Scene[] =>

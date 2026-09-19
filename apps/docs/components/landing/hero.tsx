@@ -1,6 +1,7 @@
 "use client";
 
 import Divider from "@docs/components/landing/divider";
+import { HeroMaterial } from "@docs/components/landing/hero-material";
 import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
@@ -8,25 +9,15 @@ import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
-import ExpandableCardsDemo from "@docs/examples/expandable-cards";
 import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@repo/shadcn-ui/components/ui/tooltip";
-import AnimatedInput from "@repo/smoothui/components/animated-input";
-import ButtonCopy from "@repo/smoothui/components/button-copy";
-import ClipCornersButton from "@repo/smoothui/components/clip-corners-button";
-import ScrambleHover from "@repo/smoothui/components/scramble-hover";
-import SiriOrb from "@repo/smoothui/components/siri-orb";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import {
-  IconCheckFill24,
-  IconCopy2Fill24,
-  IconUserFill24,
-} from "nucleo-core-fill-24";
+import { IconCheckFill24, IconCopy2Fill24 } from "nucleo-core-fill-24";
 import { useState } from "react";
 
 const EASE_OUT_QUAD_X1 = 0.25;
@@ -84,7 +75,7 @@ export function Hero() {
                 <h1 className="text-balance font-semibold font-title text-4xl text-foreground tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.1]">
                   <span className="block">React components.</span>
                   <span className="block text-muted-foreground">
-                    Thoughtfully in motion.
+                    Made to move.
                   </span>
                 </h1>
 
@@ -101,9 +92,8 @@ export function Hero() {
                   <Button
                     asChild
                     onClick={() => playClick()}
-                    color="neutral"
                     size="sm"
-                    variant="solid"
+                    variant="candy"
                   >
                     <Link href="/docs/components">Browse components</Link>
                   </Button>
@@ -210,56 +200,7 @@ export function Hero() {
                   : { delay: 0.2, duration: 0.35, ease: EASE_OUT_QUAD }
               }
             >
-              <div className="grid grid-cols-2 gap-4">
-                {/* SiriOrb Component */}
-                <div className="frame-box relative col-span-2 flex justify-center rounded-lg p-6">
-                  <SiriOrb
-                    animationDuration={15}
-                    className="drop-shadow-lg"
-                    colors={{
-                      bg: "var(--color-primary)",
-                    }}
-                    size="120px"
-                  />
-                </div>
-
-                {/* AnimatedInput Component */}
-                <div className="frame-box relative rounded-lg p-4">
-                  <AnimatedInput
-                    icon={<IconUserFill24 size={16} strokeWidth={1.5} />}
-                    label="Username"
-                    placeholder="Enter username"
-                  />
-                </div>
-
-                {/* ScrambleHover Component */}
-                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
-                  <ScrambleHover
-                    className="z-10 font-medium text-sm"
-                    duration={1200}
-                    speed={50}
-                  >
-                    Hover to Scramble
-                  </ScrambleHover>
-                </div>
-
-                {/* ClipCornersButton Component */}
-                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
-                  <ClipCornersButton className="px-4 py-2 text-xs">
-                    Clip Corners
-                  </ClipCornersButton>
-                </div>
-
-                {/* ButtonCopy Component */}
-                <div className="frame-box relative flex items-center justify-center rounded-lg p-4">
-                  <ButtonCopy className="text-xs" />
-                </div>
-
-                {/* ExpandableCards Component */}
-                <div className="frame-box relative col-span-2 rounded-lg p-4">
-                  <ExpandableCardsDemo />
-                </div>
-              </div>
+              <HeroMaterial />
             </motion.div>
           </div>
         </div>

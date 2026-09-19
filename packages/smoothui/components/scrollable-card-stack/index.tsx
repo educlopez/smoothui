@@ -20,6 +20,7 @@ interface CardItem {
   href: string;
   id: string;
   image: string;
+  imageAlt?: string;
   name: string;
 }
 
@@ -411,7 +412,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                   />
                   {/* Image */}
                   <img
-                    alt={`${item.name}'s card`}
+                    alt={item.imageAlt ?? `${item.name}'s card`}
                     className="absolute inset-0 h-full w-full object-cover"
                     decoding="async"
                     draggable={false}

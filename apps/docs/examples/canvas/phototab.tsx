@@ -71,7 +71,7 @@ const PhototabCanvasDemo = () => {
   return (
     <div className="h-[240px] w-[240px]" ref={hostRef}>
       <Phototab
-        defaultTab="Ridge line"
+        defaultTab={PHOTO_TABS[0].name}
         height={FRAME}
         // The bar hides itself off-frame until hover; there is no hover here.
         tabListClassName="translate-y-0! md:translate-y-0!"

@@ -6,6 +6,7 @@ import {
   PopoverTrigger,
 } from "@repo/shadcn-ui/components/ui/popover";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import { somePeople } from "@smoothui/data/people";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
@@ -74,15 +75,12 @@ interface InteractiveAvatarTutorialProps {
   className?: string;
 }
 
-// Avatar URL matching the example
-const AVATAR_URL =
-  "https://ik.imagekit.io/16u211libb/avatar-educalvolpz.jpeg?updatedAt=1765524159631&tr=w-96,h-96,q-85,f-auto";
-
-// Mock data
+// A fictional generated identity, separate from the real article author.
+const [tutorialPerson] = somePeople(1, 7);
 const mockUser = {
-  avatar: AVATAR_URL,
-  email: "jane@example.com",
-  name: "Jane Doe",
+  avatar: `${tutorialPerson.avatar}?tr=w-96,h-96,q-85,f-auto`,
+  email: tutorialPerson.email,
+  name: tutorialPerson.name,
 };
 
 const mockOrders = [

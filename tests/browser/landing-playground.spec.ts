@@ -50,7 +50,7 @@ test("twelve live showcase cards have only corner documentation links", async ({
   await expect(cards.locator("footer")).toHaveCount(0);
   const counter = page.locator('[data-showcase="number-flow"]');
   await counter.scrollIntoViewIfNeeded();
-  await counter.getByRole("button", { name: "Increase value" }).click();
+  await counter.getByRole("button", { name: "Increase number" }).click();
   await expect(counter.locator("output")).toHaveText("129");
   const link = counter.getByRole("link", {
     name: "View Number Flow documentation",
@@ -395,9 +395,7 @@ for (const width of [390, 1440]) {
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
     const heading = page.getByRole("heading", { level: 1 });
-    await expect(heading).toHaveText(
-      "React components.Thoughtfully in motion."
-    );
+    await expect(heading).toHaveText("React components.Made to move.");
     const hero = heading.locator("xpath=ancestor::section[1]");
     await expect(
       hero.getByRole("link", { name: "Browse components" })
@@ -426,5 +424,117 @@ for (const width of [390, 1440]) {
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth)
     ).toBeLessThanOrEqual(width);
+  });
+}
+
+for (const width of [390, 1440]) {
+  test(`hero material controls update real preview at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 1000, width });
+    await page.goto("/");
+    const material = page.locator("[data-hero-material]");
+    await expect(material).toBeVisible();
+    await expect(material.locator("..")).toHaveCSS("opacity", "1");
+    const rose = material.getByRole("button", { exact: true, name: "Rose" });
+    await rose.focus();
+    await page.keyboard.press("Space");
+    await expect(rose).toHaveAttribute("aria-pressed", "true");
+    await expect(material.locator(".siri-orb")).toHaveCSS("--c1", "#bf397e");
+    const energetic = material.getByRole("button", {
+      exact: true,
+      name: "Energetic",
+    });
+    await energetic.click();
+    await expect(energetic).toHaveAttribute("aria-pressed", "true");
+    const duration = await material
+      .locator(".siri-orb")
+      .evaluate((element) =>
+        getComputedStyle(element).getPropertyValue("--animation-duration")
+      );
+    expect(Number.parseFloat(duration)).toBeLessThan(10);
+    const pause = material.getByRole("button", {
+      name: "Pause material animation",
+    });
+    await pause.focus();
+    await page.keyboard.press("Enter");
+    await expect(
+      material.getByRole("button", { name: "Resume material animation" })
+    ).toHaveAttribute("aria-pressed", "true");
+    await expect(material.locator(".hero-material-orb")).toHaveAttribute(
+      "data-paused",
+      "true"
+    );
+    await rose.focus();
+    expect(await material.locator("a").count()).toBe(0);
+    expect(await material.getByRole("button", { name: /copy/i }).count()).toBe(
+      0
+    );
+    const box = await material.boundingBox();
+    if (!box) {
+      throw new Error("Material preview has no bounds");
+    }
+    expect(box.x).toBeGreaterThanOrEqual(0);
+    expect(box.x + box.width).toBeLessThanOrEqual(width);
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth)
+    ).toBeLessThanOrEqual(width);
+    await page
+      .getByRole("heading", { level: 1 })
+      .locator("xpath=ancestor::section[1]")
+      .screenshot({ path: `/tmp/smoothui-material-hero-${width}.png` });
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await material.getByRole("button", { exact: true, name: "Calm" }).click();
+    await expect(
+      material.getByRole("button", { exact: true, name: "Calm" })
+    ).toHaveAttribute("aria-pressed", "true");
+  });
+}
+
+for (const reducedMotion of ["reduce", "no-preference"] as const) {
+  test(`number flow preserves layout and rolling carry with ${reducedMotion}`, async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion });
+    await page.goto("/");
+    const counter = page.locator('[data-showcase="number-flow"]');
+    await counter.scrollIntoViewIfNeeded();
+    const plus = counter.getByRole("button", { name: "Increase number" });
+    await plus.click();
+    await plus.click();
+    await expect(
+      counter.getByRole("status", { name: "Current value" })
+    ).toHaveText("130");
+    if (reducedMotion === "no-preference") {
+      expect(
+        await counter.evaluate(
+          (element) =>
+            element
+              .getAnimations({ subtree: true })
+              .filter((animation) => animation.playState === "running").length
+        )
+      ).toBeGreaterThan(0);
+    }
+    await counter.getByRole("button", { name: "Decrease number" }).click();
+    await expect(
+      counter.getByRole("status", { name: "Current value" })
+    ).toHaveText("129");
+    await page.waitForTimeout(350);
+    for (const width of [390, 1440]) {
+      await page.setViewportSize({ height: 1000, width });
+      const centers = await plus.evaluate((button) => {
+        const rect = button.getBoundingClientRect();
+        const icon = button.querySelector("svg")?.getBoundingClientRect();
+        return {
+          x: icon ? icon.x + icon.width / 2 - rect.x - rect.width / 2 : 99,
+          y: icon ? icon.y + icon.height / 2 - rect.y - rect.height / 2 : 99,
+        };
+      });
+      expect(Math.abs(centers.x)).toBeLessThan(1);
+      expect(Math.abs(centers.y)).toBeLessThan(1);
+      await counter.screenshot({
+        path: `/tmp/smoothui-numberflow-${width}-${reducedMotion}.png`,
+      });
+    }
   });
 }

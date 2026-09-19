@@ -5,34 +5,28 @@ import CoverflowCarousel from "@repo/smoothui/components/coverflow-carousel";
 
 const items: CoverflowCarouselItem[] = [
   {
-    alt: "A mountainside catching low golden light",
-    id: "slide-1",
+    alt: "Amber and violet abstract color fields",
+    id: "amber-violet",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "Blue ridges receding into the night",
-    id: "slide-2",
+    alt: "Cobalt blue and pink abstract color fields",
+    id: "cobalt-pink",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "A watercolour grove fading into white",
-    id: "slide-3",
+    alt: "Coral and lavender abstract color fields",
+    id: "coral-lavender",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-lavender.webp?tr=w-600,h-500,f-auto",
   },
   {
-    alt: "A canyon under a churning violet sky",
-    id: "slide-4",
+    alt: "Cyan and tangerine abstract color fields",
+    id: "cyan-tangerine",
     image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/nebula-canyon.webp?tr=w-600,h-500,f-auto",
-  },
-  {
-    alt: "A pale dune crest in deep shadow",
-    id: "slide-5",
-    image:
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-600,h-500,f-auto",
+      "https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-tangerine.webp?tr=w-600,h-500,f-auto",
   },
 ];
 

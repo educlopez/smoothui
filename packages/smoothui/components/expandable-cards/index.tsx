@@ -117,7 +117,10 @@ export default function ExpandableCards({
                 src={card.image || "/placeholder.svg"}
                 width={200}
               />
-              <div className="absolute inset-0 bg-black/20" />
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-linear-to-b from-35% from-black/65 via-50% via-black/20 to-75% to-black/65"
+              />
               <div className="absolute inset-0 flex flex-col justify-between p-6 text-white">
                 <h2 className="font-bold text-2xl">
                   {/* The `after` overlay makes the whole card face clickable

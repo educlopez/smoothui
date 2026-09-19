@@ -2,13 +2,9 @@ import { ArticleSchema } from "@docs/components/article-schema";
 import { PostCover } from "@docs/components/post-cover";
 import { RelatedPosts } from "@docs/components/related-posts";
 import { ShareButtons } from "@docs/components/share-buttons";
+import { blogCoverImage } from "@docs/lib/blog-cover";
 import { createMetadata } from "@docs/lib/metadata";
-import {
-  blogSource,
-  formatDate,
-  getBlogPageImage,
-  getReadingTime,
-} from "@docs/lib/source";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DocsBody } from "fumadocs-ui/page";
@@ -84,7 +80,7 @@ export default async function BlogPostPage({ params }: PageProps) {
 
         <PostCover
           alt={post.data.title}
-          className="mb-8 aspect-[4/1] rounded-2xl border border-border"
+          className="mb-8 aspect-[16/10] rounded-2xl border border-border sm:aspect-[2/1]"
           image={post.data.image as string | undefined}
           seed={post.url}
           sizes="(max-width: 1024px) 100vw, 1152px"
@@ -161,7 +157,7 @@ export async function generateMetadata({
     });
   }
 
-  const image = getBlogPageImage(slug);
+  const image = blogCoverImage(post.url);
 
   return createMetadata({
     alternates: {
@@ -170,14 +166,14 @@ export async function generateMetadata({
     description: post.data.description,
     openGraph: {
       authors: post.data.author ? [post.data.author as string] : undefined,
-      images: [{ height: 630, url: image.url, width: 1200 }],
+      images: [{ height: 630, url: image, width: 1200 }],
       publishedTime: post.data.date as string,
       type: "article",
       url: `/blog/${slug}`,
     },
     title: post.data.title,
     twitter: {
-      images: [{ height: 630, url: image.url, width: 1200 }],
+      images: [{ height: 630, url: image, width: 1200 }],
     },
   });
 }

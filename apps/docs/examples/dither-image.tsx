@@ -14,7 +14,7 @@ interface Sample {
 }
 
 /** One photograph across every algorithm, so the algorithm is the variable. */
-const SAMPLE_SCENE = sceneById("golden-ridge");
+const SAMPLE_SCENE = sceneById("luca-moretti");
 
 const SAMPLES: Sample[] = [
   {
@@ -77,13 +77,13 @@ const DitherImageDemo = () => (
       <figure className="flex flex-col gap-2">
         <DitherImage
           algorithm="floyd-steinberg"
-          alt="A pale dune crest in deep shadow, on a four-stop palette"
+          alt="Amber and violet blurred color fields, on a four-stop palette"
           className="border border-foreground/20"
           height={SAMPLE_HEIGHT}
           levels={4}
           palette={DUOTONE_PALETTE}
           pixelSize={3}
-          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-640,h-440,f-auto"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-640,h-440,f-auto"
           width={SAMPLE_WIDTH}
         />
         <figcaption className="text-muted-foreground text-xs">
@@ -94,13 +94,13 @@ const DitherImageDemo = () => (
       <figure className="flex flex-col gap-2">
         <DitherImage
           algorithm="bayer"
-          alt="Blue mountain ridges receding into night"
+          alt="Cobalt and pink blurred color fields"
           className="border border-foreground/20"
           height={SAMPLE_HEIGHT}
           levels={3}
           pixelSize={3}
           progressive
-          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-640,h-440,f-auto"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-640,h-440,f-auto"
           width={SAMPLE_WIDTH}
         />
         <figcaption className="text-muted-foreground text-xs">

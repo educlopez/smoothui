@@ -4,28 +4,20 @@ import CursorImageTrail from "@repo/smoothui/components/cursor-image-trail";
 
 const trailImages = [
   {
-    alt: "A mountainside catching low golden light",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-300,h-300,f-auto",
+    alt: "Amber and violet abstract color fields",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "A watercolour grove fading into white",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/watercolor-grove.webp?tr=w-300,h-300,f-auto",
+    alt: "Cobalt blue and pink abstract color fields",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "A wildflower meadow under towering cumulus",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/cloud-meadow.webp?tr=w-300,h-300,f-auto",
+    alt: "Coral and lavender abstract color fields",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/coral-lavender.webp?tr=w-300,h-300,f-auto",
   },
   {
-    alt: "Pale blue silk folding in slow waves",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/silk-waves.webp?tr=w-300,h-300,f-auto",
-  },
-  {
-    alt: "A pale dune crest in deep shadow",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-300,h-300,f-auto",
-  },
-  {
-    alt: "A vast moon rising over a wooded valley",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/moonrise-valley.webp?tr=w-300,h-300,f-auto",
+    alt: "Cyan and tangerine abstract color fields",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/cyan-tangerine.webp?tr=w-300,h-300,f-auto",
   },
 ];
 

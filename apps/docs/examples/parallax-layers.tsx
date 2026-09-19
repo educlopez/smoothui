@@ -17,9 +17,9 @@ export default function ParallaxLayersDemo() {
     {
       content: (
         <img
-          alt="Blue mountain ridges receding into night"
+          alt="Cobalt and pink blurred color fields"
           className="h-full w-full scale-125 object-cover"
-          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/blue-ridge-night.webp?tr=w-1200,h-800,f-auto"
+          src="https://ik.imagekit.io/16u211libb/smoothui/scenes/cobalt-pink.webp?tr=w-1200,h-800,f-auto"
         />
       ),
       depth: 0.15,
@@ -32,9 +32,9 @@ export default function ParallaxLayersDemo() {
       content: (
         <div className="absolute inset-x-0 -bottom-10 h-3/4">
           <img
-            alt="A single pale dune crest in deep shadow"
+            alt="Amber and violet blurred color fields"
             className="h-full w-full scale-125 object-cover"
-            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/dune-shadow.webp?tr=w-1200,h-500,f-auto"
+            src="https://ik.imagekit.io/16u211libb/smoothui/scenes/amber-violet.webp?tr=w-1200,h-500,f-auto"
           />
         </div>
       ),
@@ -104,8 +104,8 @@ export default function ParallaxLayersDemo() {
 
         <div className="flex h-[320px] items-start justify-center px-6 pt-8">
           <p className="max-w-sm text-center text-muted-foreground/70 text-sm leading-relaxed">
-            The background barely shifts, the ridge follows, the title leads —
-            which is what reads as distance.
+            The background barely shifts, the color field follows, the title
+            leads — which is what reads as distance.
           </p>
         </div>
       </div>

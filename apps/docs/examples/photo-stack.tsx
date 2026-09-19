@@ -4,29 +4,20 @@ import PhotoStack, {
   type PhotoStackPhoto,
 } from "@repo/smoothui/components/photo-stack";
 
+import { castAnimals, castPeople } from "@smoothui/data/cast";
+
 const photos: PhotoStackPhoto[] = [
-  {
-    alt: "A rust-red mountain against a pale sky",
-    id: "canyon",
-    name: "Rust Peak",
-    role: "Golden hour",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/rust-peak.webp?tr=w-640,h-800,f-auto",
-  },
-  {
-    alt: "A mountainside catching low golden light",
-    id: "palms",
-    name: "Golden Ridge",
-    role: "Summer haze",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/golden-ridge.webp?tr=w-640,h-800,f-auto",
-  },
-  {
-    alt: "A vast moon rising over a wooded valley",
-    id: "lights",
-    name: "Moonrise",
-    role: "After dark",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/scenes/moonrise-valley.webp?tr=w-640,h-800,f-auto",
-  },
-];
+  castPeople[0],
+  castPeople[3],
+  castPeople[13],
+  ...castAnimals.slice(0, 1),
+].map((image) => ({
+  alt: image.alt,
+  id: image.id,
+  name: image.name,
+  role: image.role,
+  src: `${image.src}?tr=w-640,h-800,f-auto`,
+}));
 
 export default function PhotoStackDemo() {
   return (

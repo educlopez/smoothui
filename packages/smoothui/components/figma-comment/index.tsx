@@ -7,9 +7,12 @@ import {
 } from "@repo/shadcn-ui/components/ui/avatar";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { getImageKitUrl } from "@smoothui/data";
+import { somePeople } from "@smoothui/data/people";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import { useClickOutside } from "./use-click-outside";
+
+const [DEFAULT_AUTHOR] = somePeople(1, 11);
 
 const CLOSED_SIZE = 32;
 const AVATAR_CLOSED_LEFT = 4;
@@ -46,18 +49,15 @@ export interface FigmaCommentProps {
 }
 
 export default function FigmaComment({
-  avatarUrl = getImageKitUrl(
-    "https://ik.imagekit.io/16u211libb/smoothui/people/alec-whitten.webp",
-    {
-      format: "auto",
-      height: 48,
-      quality: 85,
-      width: 48,
-    }
-  ),
-  avatarAlt = "Alec Whitten",
+  avatarUrl = getImageKitUrl(DEFAULT_AUTHOR.avatar, {
+    format: "auto",
+    height: 48,
+    quality: 85,
+    width: 48,
+  }),
+  avatarAlt = DEFAULT_AUTHOR.name,
   className,
-  authorName = "Alec Whitten",
+  authorName = DEFAULT_AUTHOR.name,
   timestamp = "Just now",
   message = "What happens if we adjust this to handle a light and dark mode? I'm not sure if we're ready to handle...",
   width = 180,

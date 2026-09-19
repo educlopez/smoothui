@@ -3,18 +3,18 @@
 import InteractiveImageSelector, {
   type ImageData,
 } from "@repo/smoothui/components/interactive-image-selector";
-import { portraits } from "@smoothui/data/scenes";
+import { castPeople } from "@smoothui/data/cast";
 import { useEffect, useState } from "react";
 
 /**
- * The five editorial portraits, rather than six loose files sitting outside the
- * `smoothui/` namespace on ImageKit. A selector of faces reads as a set when the
- * faces are lit and graded the same way.
+ * Five generated Troupe portraits with a consistent photographic treatment.
  */
-const demoImages: ImageData[] = portraits.map((portrait, index) => ({
-  id: index + 1,
-  src: `${portrait.src}?tr=w-400,h-400,q-80,f-auto`,
-}));
+const demoImages: ImageData[] = castPeople
+  .slice(0, 5)
+  .map((portrait, index) => ({
+    id: index + 1,
+    src: `${portrait.src}?tr=w-400,h-400,q-80,f-auto`,
+  }));
 
 const InteractiveImageSelectorDemo = () => {
   const [selected, setSelected] = useState<number[]>([]);

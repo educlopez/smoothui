@@ -1,11 +1,11 @@
 "use client";
 
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
-import { MascotCompanion } from "@docs/components/mascot-companion";
 import { useInstallCli } from "@docs/hooks/use-install-cli";
 import { usePackageManager } from "@docs/hooks/use-package-manager";
 import { prettify } from "@docs/lib/kit-context";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import ButtonCopy from "@repo/smoothui/components/button-copy";
 import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 
 interface InstallerProps {
@@ -237,17 +237,23 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
       </div>
 
       {/* Code block */}
-      <div className="flex justify-end border-border border-t px-2">
-        <MascotCompanion
-          copyText={
-            activeTab === "smoothui"
-              ? smoothuiCommand
-              : shadcnCommands[activePm]
-          }
-          message="Yours now. Make it your own."
-        />
-      </div>
-      <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none [&_figure]:border-0">
+      <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none relative border-border border-t bg-fd-card pr-14 [&_figure]:border-0">
+        <div
+          className="absolute top-2 right-2 z-10"
+          title="Copy install command"
+        >
+          <ButtonCopy
+            className="size-9! min-h-9! min-w-9! rounded-md p-0!"
+            loadingDuration={0}
+            onCopy={() =>
+              navigator.clipboard.writeText(
+                activeTab === "smoothui"
+                  ? smoothuiCommand
+                  : shadcnCommands[activePm]
+              )
+            }
+          />
+        </div>
         <DynamicCodeBlock
           codeblock={{ allowCopy: false }}
           code={

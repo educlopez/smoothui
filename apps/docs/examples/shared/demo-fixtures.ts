@@ -34,8 +34,8 @@ export const INVITES: InviteFixture[] = [
   {
     badge: "Hosting",
     id: 1,
-    location: "Prospect Park",
-    scene: "cloud-meadow",
+    location: "Seafront Studio",
+    scene: "sunrise-yoga",
     subtitle: "Sat, June 14 · 6:00 AM",
     title: "Sunrise Yoga",
   },
@@ -44,7 +44,7 @@ export const INVITES: InviteFixture[] = [
     id: 2,
     location: "Rue Léon",
     // An 8pm supper, so warm light rather than a night mountain range.
-    scene: "ember-drift-warm",
+    scene: "supper-club",
     subtitle: "Fri, June 20 · 8:00 PM",
     title: "Supper Club",
   },
@@ -52,16 +52,16 @@ export const INVITES: InviteFixture[] = [
     badge: "Going",
     id: 3,
     location: "Praia do Amado",
-    scene: "golden-ridge",
+    scene: "dawn-patrol",
     subtitle: "Sun, June 22 · 7:30 AM",
     title: "Dawn Patrol",
   },
   {
     badge: "Interested",
     id: 4,
-    location: "Rooftop, Bldg 9",
+    location: "Garden Cinema",
     // A 9pm screening under the sky.
-    scene: "moonrise-valley",
+    scene: "open-air-cinema",
     subtitle: "Thu, June 26 · 9:00 PM",
     title: "Open-Air Cinema",
   },
@@ -76,21 +76,21 @@ export const inviteImage = (scene: string, width: number, height: number) =>
 // ----------------------------------------------------------------- phototab
 
 export const PHOTO_TABS = [
-  { name: "Ridge line", scene: "blue-ridge-night" },
-  { name: "Lake shore", scene: "lake-camp" },
-  { name: "Pale grove", scene: "watercolor-grove" },
+  { name: "Mountains", scene: "alpine-dawn" },
+  { name: "Sea", scene: "tidal-cove" },
+  { name: "Forest", scene: "emerald-forest" },
 ];
 
 // ------------------------------------------------- scrollable-card-stack
 
-/** The founder plus two of the cast, in that order, in both demos. */
+/** Three generated cast members, in the same order in both demos. */
 export const STACK_CAST = somePeople(3, 12);
 
 export const STACK_SCENES = [
-  "blue-ridge-night",
-  "lake-camp",
-  "dune-shadow",
-  "cyan-aurora",
+  "volcanic-coast",
+  "terracotta-dunes",
+  "emerald-terraces",
+  "glacial-lagoon",
 ];
 
 // ---------------------------------------------------------------- tilt-card
@@ -98,11 +98,27 @@ export const STACK_SCENES = [
 /** The photo the tilt is demonstrated on, in both demos. */
 export const TILT_SCENE = "golden-ridge";
 
-/** The caption printed over it — the card is a mountain pass, so it says so. */
+/** Abstract artwork framed as an exhibition pass. */
 export const TILT_CARD = {
-  eyebrow: "Ridge pass",
+  eyebrow: "Studio pass",
   meta: "Gate 04 · 09:41",
-  title: "Northern Traverse",
+  title: "Color Studies",
 };
 
 export const sceneSrc = src;
+
+/** One AI-generated subject shared by docs and the landing metadata preview. */
+const metadataScene = sceneById("turquoise-canyon");
+if (!metadataScene) {
+  throw new Error("Missing canonical metadata landscape: turquoise-canyon");
+}
+export const METADATA_SCENE = metadataScene;
+export const METADATA_DETAILS = {
+  by: "AI-generated",
+  created: "2026-09-19",
+  source: "https://magnific.com/app/creation/tCxv7KMmZJ",
+  updated: "2026-09-19",
+};
+
+export const METADATA_DESCRIPTION =
+  "A turquoise river winding through warm sandstone cliffs.";

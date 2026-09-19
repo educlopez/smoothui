@@ -3,6 +3,7 @@
 import {
   STACK_CAST,
   STACK_SCENES,
+  sceneAlt,
   sceneSrc,
 } from "@docs/examples/shared/demo-fixtures";
 import ScrollableCardStack from "@repo/smoothui/components/scrollable-card-stack";
@@ -35,6 +36,7 @@ const items = cards.map((card, index) => ({
   ...card,
   id: STACK_SCENES[index],
   image: sceneSrc(STACK_SCENES[index], "w-600,h-380"),
+  imageAlt: sceneAlt(STACK_SCENES[index]),
 }));
 
 export default function ScrollableCardStackDemo() {

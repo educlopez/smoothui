@@ -1,0 +1,90 @@
+{
+  "date": "2026-09-19",
+  "conversion": {
+    "format": "WebP",
+    "quality": 88,
+    "method": 6
+  },
+  "assets": [
+    {
+      "id": "volcanic-coast",
+      "title": "Volcanic coast",
+      "alt": "AI-generated black-sand coast with foaming surf, green volcanic cliffs and a warm horizon",
+      "tone": "dark",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/landscapes/volcanic-coast.webp",
+      "generationId": "Syz7MZ7Ub8",
+      "generationUrl": "https://magnific.com/app/creation/Syz7MZ7Ub8",
+      "model": "Nano Banana 2 Fast",
+      "credits": 75,
+      "originalFilename": "magnific_a-landscape-photograph-of_Syz7MZ7Ub8.png",
+      "width": 1200,
+      "height": 896,
+      "bytes": 164998,
+      "sourceSha256": "d79e4fd21bcde4c0f4e933f60c1794bdfc36aa108d946b622f8c293ff7ebe939"
+    },
+    {
+      "id": "terracotta-dunes",
+      "title": "Terracotta dunes",
+      "alt": "AI-generated terracotta dunes with sweeping wind-shaped ridges and distant blue mountains",
+      "tone": "dark",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/landscapes/terracotta-dunes.webp",
+      "generationId": "Xm58slSBfo",
+      "generationUrl": "https://magnific.com/app/creation/Xm58slSBfo",
+      "model": "Nano Banana 2 Fast",
+      "credits": 75,
+      "originalFilename": "magnific_premium-editorial-landsca_Xm58slSBfo.png",
+      "width": 1200,
+      "height": 896,
+      "bytes": 79392,
+      "sourceSha256": "9f3f0c521a778aa234e30e26c707ea3130d03b44a98b388a729f016287eee95c"
+    },
+    {
+      "id": "emerald-terraces",
+      "title": "Emerald terraces",
+      "alt": "AI-generated green rice terraces curving around misty hills in warm morning light",
+      "tone": "light",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/landscapes/emerald-terraces.webp",
+      "generationId": "fHguPcPCDY",
+      "generationUrl": "https://magnific.com/app/creation/fHguPcPCDY",
+      "model": "Nano Banana 2 Fast",
+      "credits": 75,
+      "originalFilename": "magnific_a-premium-original-editor_fHguPcPCDY.png",
+      "width": 1200,
+      "height": 896,
+      "bytes": 200298,
+      "sourceSha256": "d04930161421a1b0d096dd75be3b76e66228447de72f69306b649684cbe2537e"
+    },
+    {
+      "id": "glacial-lagoon",
+      "title": "Glacial lagoon",
+      "alt": "AI-generated turquoise icebergs reflected in a calm lagoon beneath snowy mountains and a pink sky",
+      "tone": "light",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/landscapes/glacial-lagoon.webp",
+      "generationId": "Xm58lo8Bfo",
+      "generationUrl": "https://magnific.com/app/creation/Xm58lo8Bfo",
+      "model": "Nano Banana 2 Fast",
+      "credits": 75,
+      "originalFilename": "magnific_horizontal-43-premium-edi_Xm58lo8Bfo.png",
+      "width": 1200,
+      "height": 896,
+      "bytes": 128344,
+      "sourceSha256": "8fd3931346a2bb442f5eae930655564774ba4cc77ab4309e1291dd840ffc4ac8"
+    },
+    {
+      "id": "turquoise-canyon",
+      "title": "Turquoise canyon",
+      "alt": "AI-generated turquoise river winding around a sandstone canyon beneath a clear blue sky",
+      "tone": "light",
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/landscapes/turquoise-canyon.webp",
+      "generationId": "tCxv7KMmZJ",
+      "generationUrl": "https://magnific.com/app/creation/tCxv7KMmZJ",
+      "model": "Nano Banana 2 Fast",
+      "credits": 75,
+      "originalFilename": "magnific_original-highend-editoria_tCxv7KMmZJ.png",
+      "width": 1200,
+      "height": 896,
+      "bytes": 302830,
+      "sourceSha256": "022ae448c89f822ceff54be9a628c0c92af0263abaecc225c28f04abe732f92f"
+    }
+  ]
+}

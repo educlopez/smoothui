@@ -1,0 +1,36 @@
+{
+  "date": "2026-09-19",
+  "conversion": {
+    "format": "WebP",
+    "quality": 88,
+    "method": 6
+  },
+  "assets": [
+    {
+      "id": "sneaker",
+      "generationId": "mExmSWqhJQ",
+      "generationUrl": "https://magnific.ai/app/creation/mExmSWqhJQ",
+      "model": "Nano Banana 2 Fast",
+      "originalFilename": "magnific_highend-editorial-product_mExmSWqhJQ.png",
+      "sourceSha256": "3dc58169ad0cdc02f08c5a8defad41881846c7e12bf5918f1279d8069df3ea52",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 97990,
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/products/ivory-sneaker.webp",
+      "retiredSrc": "https://ik.imagekit.io/16u211libb/smoothui/products/sneaker.jpg"
+    },
+    {
+      "id": "headphones",
+      "generationId": "ks9kZ5r16B",
+      "generationUrl": "https://magnific.ai/app/creation/ks9kZ5r16B",
+      "model": "Nano Banana 2 Fast",
+      "originalFilename": "magnific_highend-editorial-product_ks9kZ5r16B.png",
+      "sourceSha256": "5b4d0ea489f3a97679cb4e8f8082e451ed024538912b4aba69639d8b50312ba4",
+      "width": 1024,
+      "height": 1024,
+      "bytes": 63420,
+      "src": "https://ik.imagekit.io/16u211libb/smoothui/products/ivory-headphones.webp",
+      "retiredSrc": "https://ik.imagekit.io/16u211libb/smoothui/products/headphones.jpg"
+    }
+  ]
+}

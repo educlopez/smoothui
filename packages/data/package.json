@@ -28,6 +28,14 @@
     "./scenes": {
       "types": "./scenes.ts",
       "default": "./scenes.ts"
+    },
+    "./cast": {
+      "types": "./cast.ts",
+      "default": "./cast.ts"
+    },
+    "./products": {
+      "types": "./products.ts",
+      "default": "./products.ts"
     }
   },
   "scripts": {

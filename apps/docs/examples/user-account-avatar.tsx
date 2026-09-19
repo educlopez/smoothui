@@ -17,8 +17,8 @@ const demoUser: UserData = {
     quality: 85,
     width: 96,
   }),
-  email: "jane@example.com",
-  name: "Jane Doe",
+  email: PERSON.email,
+  name: PERSON.name,
 };
 
 const demoOrders: Order[] = [
