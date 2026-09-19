@@ -2,23 +2,62 @@
 
 ## [3.8.0](https://github.com/educlopez/smoothui/compare/v3.7.1...v3.8.0) (2026-09-19)
 
+### Component library
 
-### Features
+- Added 67 components with registry entries, documentation and examples, including self-sizing documentation previews.
+- Expanded accessibility checks across the library with axe, keyboard and reduced-motion coverage.
+- Completed the shared media dictionary migration across components, blocks and templates, removing inconsistent demo asset references.
+- Fixed Number Flow's animation lifecycle cleanup and reduced-motion behavior. Its homepage controls now match the documentation proportions without changing the initial example value.
+- Fixed Scrollable Card Stack pagination on mobile under reduced motion: cards retain static centering and navigation sits above the card layers. Normal animations and keyboard interaction remain available.
+- Hardened the shared copy control: rejected clipboard writes allow retry without false success, pending results are ignored after unmount, and timers are cleaned up. The default loading indicator respects reduced motion.
+- Improved event-card text contrast, image alternative text, responsive metadata previews and consistency between demo names and portraits.
 
-* 67 new components, docs registration and a self-sizing preview frame ([#124](https://github.com/educlopez/smoothui/issues/124)) ([d4cf30e](https://github.com/educlopez/smoothui/commit/d4cf30eb7fb9f53ccf530be915c03ea4e3cdbd85))
-* draggable component canvas on the landing, and one media library behind every demo ([#127](https://github.com/educlopez/smoothui/issues/127)) ([c85e7ff](https://github.com/educlopez/smoothui/commit/c85e7ff6eeafa06d74798cd9138899b971ccfaca))
-* refine landing interactions and consolidate component updates ([d7a9a7c](https://github.com/educlopez/smoothui/commit/d7a9a7c1c93330823cad27fc62397dda47df23d3))
-* refine landing interactions and consolidate component updates ([e66ddc5](https://github.com/educlopez/smoothui/commit/e66ddc501b432933d9ca920f64649ba34bdb0e20))
-* refresh landing media and update platform changelog ([0e35113](https://github.com/educlopez/smoothui/commit/0e351131f26d2489487758f1f8945168783e9feb))
-* refresh landing, media library and platform changelog ([2acdfa1](https://github.com/educlopez/smoothui/commit/2acdfa17726dcddbb75cea5dcd2af70546c7809f))
+### Documentation site and product experience
 
+These are site/product updates, not claims that every asset or page is distributed in an npm package.
 
-### Bug Fixes
+#### Landing and Playground
 
-* **a11y:** audit every component with axe, plus CI and release-flow gaps ([#126](https://github.com/educlopez/smoothui/issues/126)) ([6ea6727](https://github.com/educlopez/smoothui/commit/6ea67276b6d51ddf2e2997f6b7f1974718883e8c))
-* finish the media dictionary sweep across components, blocks and templates ([#129](https://github.com/educlopez/smoothui/issues/129)) ([d7cf194](https://github.com/educlopez/smoothui/commit/d7cf1940ad5406f2134c3c90b0d0ae06c94f5a2e))
-* harden inline clipboard controls and browser coverage ([5646e82](https://github.com/educlopez/smoothui/commit/5646e82e1088025a89270e10ba58ae6f7c37a3d8))
-* patch dependencies and reduced-motion stack navigation ([520c127](https://github.com/educlopez/smoothui/commit/520c12723ee263d41fcd2c8efd26fe4eed1c9a49))
+- Added a draggable component canvas and refined live showcase interactions, responsive layouts, navigation and documentation links.
+- Consolidated theme exploration in the Playground while preserving shared preset URLs and the legacy themes route.
+- Refined the hero, Features, AI workflow and UI Craft section with vivid generated backgrounds and neutral interactive UI panels.
+- Added opt-in square and organic contour textures to selected artwork. Patterns remain decorative, non-interactive and disabled by default; other backgrounds remain unpatterned.
+- Moved feature captions onto readable dedicated surfaces instead of dimming entire images.
+- Replaced the oversized installer mascot copy prompt with the compact shared copy component, integrated beside the command with matching light/dark surfaces. The footer mascot remains.
+
+#### Original media
+
+- Added a searchable gallery of **95 unique active assets**: 12 abstract backgrounds, 8 landscapes, 4 event images, 50 people, 18 animals, 2 products and 1 fantasy card.
+- Replaced legacy portraits with the generated Troupe cast, preserving source-provided identity/gender metadata and internal compatibility aliases without duplicate gallery entries.
+- Added ivory sneaker and headphones product imagery and the original Nymara fantasy card, preserving its complete card composition.
+- Added semantic mountain, sea, forest and event imagery for Photo Tabs, Apple Invites and Expandable Cards, plus distinct landscapes for Scrollable Card Stack and Image Metadata Preview.
+- Centralized artwork selection and documented provenance and rollback references; updated misleading image titles, alternative text and sample metadata.
+
+#### Editorial covers and changelog
+
+- Added topic-specific editorial covers for all **15 blog posts**, combining approved backgrounds, optional subtle patterns, frosted cards and neutral UI illustrations. Covers appear in landing cards, the blog index and article heroes.
+- Social metadata and structured data retain valid canonical background image URLs; composed social images are **not** included.
+- Updated the manually maintained platform changelog and notification feed. Package release notes remain separate and are generated through the existing release-please flow; no new changelog automation was added.
+
+### Security and engineering
+
+- Updated the documentation framework to **Next.js 16.3.3** and its image processor to **Sharp 0.35.4**.
+- Raised affected transitive dependency security floors within their existing majors, including Hono/node-server, qs, fast-uri, js-yaml, Browserslist/baseline data, selector-parser and NanoID 3.
+- Aligned Vitest and coverage tooling to **4.1.11** across the workspace.
+- At verification time, full and production `pnpm audit` reports contained **zero known advisories**. This describes the audited dependency graph, not a guarantee against undiscovered vulnerabilities.
+- Added regression coverage for media catalogs, artwork variants, image layouts, clipboard success/failure/races, Number Flow lifecycle/proportions and reduced-motion stack pagination.
+- Validated the integration with 81 browser smoke tests, workspace typechecks, copy lifecycle tests, the component/risk suites and a production build.
+
+### Source references
+
+- [Component expansion](https://github.com/educlopez/smoothui/commit/d4cf30eb)
+- [Accessibility audit](https://github.com/educlopez/smoothui/commit/6ea67276)
+- [Component canvas and shared media dictionary](https://github.com/educlopez/smoothui/commit/c85e7ff6)
+- [Media dictionary completion](https://github.com/educlopez/smoothui/commit/d7cf1940)
+- [Landing consolidation](https://github.com/educlopez/smoothui/commit/e66ddc50)
+- [Original media and platform changelog](https://github.com/educlopez/smoothui/commit/0e351131)
+- [Security dependencies and stack navigation](https://github.com/educlopez/smoothui/commit/520c1272)
+- [Inline copy lifecycle and browser coverage](https://github.com/educlopez/smoothui/commit/5646e82e)
 
 ## [3.7.1](https://github.com/educlopez/smoothui/compare/v3.7.0...v3.7.1) (2026-08-02)
 

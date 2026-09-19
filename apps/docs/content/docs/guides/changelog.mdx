@@ -4,18 +4,18 @@ description: View the release notes and updates for SmoothUI. Stay up to date wi
 ---
 
 > This page and the changelog bell are maintained manually. The entry below
-> previews work on `develop`; it is not a published release. Package release
+> describes the SmoothUI 3.8.0 product release. Package release
 > notes are maintained separately by release-please in
 > [GitHub Releases](https://github.com/educlopez/smoothui/releases),
 > [the component changelog](https://github.com/educlopez/smoothui/blob/main/packages/smoothui/CHANGELOG.md)
 > and [the CLI changelog](https://github.com/educlopez/smoothui/blob/main/packages/cli/CHANGELOG.md).
 
-## Unreleased
+## 3.8.0
 
-<ChangelogEntry date="Updated Sep 19, 2026" version="Unreleased" title="Expanded Library, Live Demos & Original Media">
+<ChangelogEntry date="Sep 19, 2026" version="3.8.0" title="Expanded Library, Live Demos & Original Media">
 
-These notes cover the August–September work on `develop` and the current
-integration changes. The date is the editorial update date, not a release date.
+These notes cover the August–September changes integrated for SmoothUI 3.8.0.
+The separate CLI 1.1.3 release updates development test tooling only; it does not add CLI runtime features.
 
 ### Components, docs and quality
 
@@ -31,6 +31,7 @@ integration changes. The date is the editorial update date, not a release date.
 - Refined the hero, feature panels, AI workflow and UI Craft installation section with generated backgrounds and interactive UI previews.
 - Added optional, non-interactive square and contour textures to selected artwork; other backgrounds remain clean.
 - Separated readable feature captions from vivid artwork instead of dimming the entire image.
+- Hardened inline clipboard feedback: failed writes allow retry without false success, command changes invalidate pending feedback, and timers are cleaned up on unmount.
 - Kept the footer mascot interaction, while replacing the large installer mascot copy prompt with the compact shared copy control. The copy gutter now matches the command background in both themes.
 
 ### Original media library
@@ -50,7 +51,7 @@ integration changes. The date is the editorial update date, not a release date.
 - Improved event-card text contrast, responsive metadata layouts, image alternative text and demo identity consistency.
 - Added targeted media, artwork, clipboard, geometry and responsive browser regression coverage.
 
-For the already committed portion of this work, see the
+For source history behind this release, see the
 [August component expansion](https://github.com/educlopez/smoothui/commit/d4cf30e),
 [accessibility audit](https://github.com/educlopez/smoothui/commit/6ea6727),
 [component canvas and media dictionary](https://github.com/educlopez/smoothui/commit/c85e7ff),
