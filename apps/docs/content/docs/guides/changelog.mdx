@@ -21,7 +21,7 @@ integration changes. The date is the editorial update date, not a release date.
 
 - Added 67 components with registry entries, documentation and examples, plus self-sizing preview frames.
 - Expanded component accessibility coverage with axe tests and fixes, alongside reduced-motion and keyboard interaction checks.
-- Updated Next.js to 16.3 and dependency security fixes; refined CI validation and release-flow checks.
+- Updated Next.js to 16.3.3 and Sharp to 0.35.4, with patched same-major dependency floors for the production security audit; refined CI validation and release-flow checks.
 - Completed the shared media dictionary migration across components, blocks and templates.
 
 ### Landing and Playground
@@ -46,6 +46,7 @@ integration changes. The date is the editorial update date, not a release date.
 - Added topic-specific editorial cover compositions for all 15 blog posts: generated backgrounds, optional textures, frosted panels and neutral UI illustrations across landing cards, the blog index and article heroes.
 - Kept valid canonical background images for social metadata and structured data; composed social images are not included in this update.
 - Fixed Number Flow animation lifecycle cleanup and reduced-motion behavior, and matched homepage control proportions to the documentation example without changing its initial value.
+- Fixed reduced-motion Scrollable Card Stack pagination: cards retain static centering and navigation stays above the card layers, preserving pointer and keyboard access.
 - Improved event-card text contrast, responsive metadata layouts, image alternative text and demo identity consistency.
 - Added targeted media, artwork, clipboard, geometry and responsive browser regression coverage.
 

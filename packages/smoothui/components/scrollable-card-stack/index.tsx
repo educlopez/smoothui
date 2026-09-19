@@ -315,7 +315,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
             <motion.div
               animate={
                 shouldReduceMotion
-                  ? { x: "-50%" }
+                  ? { x: "-50%", y: "-50%" }
                   : {
                       scale: transform.scale,
                       x: "-50%",
@@ -464,6 +464,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
         <div
           aria-label="Card navigation"
           className="absolute bottom-4 left-1/2 flex -translate-x-1/2 transform space-x-2"
+          style={{ zIndex: items.length + 1 }}
           role="tablist"
         >
           {Array.from({ length: items.length }, (_, i) => (
