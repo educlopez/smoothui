@@ -32,7 +32,7 @@ test("mascot reactions stay local and reduced motion remains static", async ({
   await expect(page.getByText("You made it. Now make something.")).toBeHidden();
 });
 
-test("copy success celebrates and Escape restores the trigger", async ({
+test("inline copy announces success without a mascot popup", async ({
   page,
 }) => {
   await page.addInitScript(() => {
@@ -43,23 +43,14 @@ test("copy success celebrates and Escape restores the trigger", async ({
   });
   await page.goto("/docs/components/siri-orb");
   await readyInstaller(page);
-  const copy = page.getByRole("button", { exact: true, name: "Copy command" });
-  await copy.click();
-  const copied = page.getByRole("button", {
-    exact: true,
-    name: "Command copied",
-  });
-  await expect(copied.locator("svg")).toHaveAttribute(
-    "data-expression",
-    "happy"
-  );
+  await page.getByRole("button", { exact: true, name: "Copy" }).click();
   await expect(
-    page.getByRole("status").filter({ hasText: "Command copied to clipboard." })
-  ).toBeAttached();
-  await page.getByRole("button", { exact: true, name: "Dismiss" }).focus();
-  await page.keyboard.press("Escape");
-  await expect(copied).toBeFocused();
+    page.getByRole("button", { exact: true, name: "Copied" })
+  ).toBeVisible();
   await expect(page.getByText("Yours now. Make it your own.")).toBeHidden();
+  await expect(
+    page.getByRole("button", { exact: true, name: "Copy" })
+  ).toBeEnabled();
 });
 
 test("copy failure never celebrates", async ({ page }) => {
@@ -73,18 +64,18 @@ test("copy failure never celebrates", async ({ page }) => {
   });
   await page.goto("/docs/components/siri-orb");
   await readyInstaller(page);
-  const copy = page.getByRole("button", { exact: true, name: "Copy command" });
+  const copy = page.getByRole("button", { exact: true, name: "Copy" });
   await copy.click();
+  const retry = page.getByRole("button", {
+    exact: true,
+    name: "Copy failed. Try again",
+  });
+  await expect(retry).toBeEnabled();
   await expect(
-    page.getByText(
-      "Clipboard unavailable. Select the command below to copy it manually."
-    )
-  ).toBeVisible();
-  await expect(page.getByText("Yours now. Make it your own.")).toBeHidden();
-  await expect(copy.locator("svg")).not.toHaveAttribute(
-    "data-expression",
-    "happy"
-  );
+    page.getByRole("button", { exact: true, name: "Copied" })
+  ).toHaveCount(0);
+  await retry.click();
+  await expect(retry).toBeEnabled();
 });
 
 test("changing command invalidates a pending clipboard result", async ({
@@ -106,14 +97,14 @@ test("changing command invalidates a pending clipboard result", async ({
   await page.goto("/docs/components/siri-orb");
   await readyInstaller(page);
   await page.getByRole("button", { exact: true, name: "SmoothUI CLI" }).click();
-  await page.getByRole("button", { exact: true, name: "Copy command" }).click();
+  await page.getByRole("button", { exact: true, name: "Copy" }).click();
   await page.getByRole("button", { exact: true, name: "shadcn CLI" }).click();
   await page.evaluate(() => window.dispatchEvent(new Event("resolve-copy")));
   await expect(
-    page.getByRole("button", { exact: true, name: "Copy command" })
+    page.getByRole("button", { exact: true, name: "Copy" })
   ).toBeEnabled();
   await expect(page.getByText("Yours now. Make it your own.")).toBeHidden();
   await expect(
-    page.getByRole("button", { exact: true, name: "Command copied" })
+    page.getByRole("button", { exact: true, name: "Copied" })
   ).toHaveCount(0);
 });

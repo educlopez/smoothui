@@ -244,6 +244,11 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
         >
           <ButtonCopy
             className="size-9! min-h-9! min-w-9! rounded-md p-0!"
+            key={
+              activeTab === "smoothui"
+                ? smoothuiCommand
+                : shadcnCommands[activePm]
+            }
             loadingDuration={0}
             onCopy={() =>
               navigator.clipboard.writeText(

@@ -2,7 +2,13 @@
 
 import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { type ReactNode, useCallback, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export interface ButtonCopyProps {
   className?: string;
@@ -17,7 +23,12 @@ export interface ButtonCopyProps {
 
 const defaultIcons = {
   idle: <Copy size={16} />,
-  loading: <LoaderCircle className="animate-spin" size={16} />,
+  loading: (
+    <LoaderCircle
+      className="animate-spin motion-reduce:animate-none"
+      size={16}
+    />
+  ),
   success: <Check size={16} />,
 };
 
@@ -32,30 +43,51 @@ export default function ButtonCopy({
   disabled = false,
 }: ButtonCopyProps) {
   const [buttonState, setButtonState] = useState<
-    "idle" | "loading" | "success"
+    "idle" | "loading" | "success" | "error"
   >("idle");
   const shouldReduceMotion = useReducedMotion();
 
+  const requestId = useRef(0);
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  useEffect(
+    () => () => {
+      requestId.current += 1;
+      for (const timer of timers.current) {
+        clearTimeout(timer);
+      }
+    },
+    []
+  );
+
   const handleClick = useCallback(async () => {
+    const request = ++requestId.current;
     setButtonState("loading");
-    if (onCopy) {
-      await onCopy();
+    try {
+      await onCopy?.();
+    } catch {
+      if (request === requestId.current) {
+        setButtonState("error");
+      }
+      return;
     }
-    setTimeout(() => {
-      setButtonState("success");
-    }, loadingDuration);
-    setTimeout(() => {
-      setButtonState("idle");
-    }, loadingDuration + duration);
+    if (request !== requestId.current) {
+      return;
+    }
+    timers.current = [
+      setTimeout(() => setButtonState("success"), loadingDuration),
+      setTimeout(() => setButtonState("idle"), loadingDuration + duration),
+    ];
   }, [onCopy, loadingDuration, duration]);
 
   const icons = {
+    error: idleIcon,
     idle: idleIcon,
     loading: loadingIcon,
     success: successIcon,
   };
 
   const ariaLabels = {
+    error: "Copy failed. Try again",
     idle: "Copy",
     loading: "Copying...",
     success: "Copied",
@@ -67,7 +99,9 @@ export default function ButtonCopy({
         aria-label={ariaLabels[buttonState]}
         aria-live="polite"
         className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
-        disabled={buttonState !== "idle" || disabled}
+        disabled={
+          buttonState === "loading" || buttonState === "success" || disabled
+        }
         onClick={handleClick}
         type="button"
       >
