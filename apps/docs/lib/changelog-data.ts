@@ -11,11 +11,11 @@ export const CHANGELOG: ChangelogEntry[] = [
   {
     date: "Sep 19, 2026",
     description:
-      "Preview of work on develop: 67 additional components, an interactive landing and Playground, a 95-asset media library, topic-specific blog covers, accessibility and security dependency fixes, usable reduced-motion stack pagination, and more compact install controls. Not a published package release.",
-    href: "/docs/guides/changelog#unreleased",
-    id: "unreleased-2026-09-19",
+      "67 additional components, an interactive landing and Playground, a 95-asset media library, topic-specific blog covers, accessibility and security dependency fixes, usable reduced-motion stack pagination, and more compact install controls.",
+    href: "/docs/guides/changelog#380",
+    id: "3.8.0",
     title: "Expanded Library, Live Demos & Original Media",
-    version: "Unreleased",
+    version: "3.8.0",
   },
   {
     date: "Jul 31, 2026",
