@@ -5,7 +5,7 @@ import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 
 /**
- * Trial strip of Sapira-style section drawings on the SmoothUI home.
+ * Section drawings on the SmoothUI home.
  * Same language as the docs overview cards: drawings, not screenshots.
  */
 export function ExploreSections() {
