@@ -3,12 +3,11 @@
 import Checkbox from "@repo/smoothui/components/checkbox";
 import { useState } from "react";
 
-export default function CheckboxDemo() {
+const CheckedDemo = () => {
   const [checked, setChecked] = useState(false);
-  const [indeterminate, setIndeterminate] = useState(true);
 
   return (
-    <div className="flex w-full max-w-xs flex-col gap-6 p-8">
+    <div className="flex items-center justify-center p-8">
       <div className="flex items-center gap-3">
         <Checkbox checked={checked} id="terms" onCheckedChange={setChecked} />
         <label
@@ -18,7 +17,15 @@ export default function CheckboxDemo() {
           Accept terms and conditions
         </label>
       </div>
+    </div>
+  );
+};
 
+const IndeterminateDemo = () => {
+  const [indeterminate, setIndeterminate] = useState(true);
+
+  return (
+    <div className="flex items-center justify-center p-8">
       <div className="flex items-center gap-3">
         <Checkbox
           checked={false}
@@ -30,19 +37,33 @@ export default function CheckboxDemo() {
           className="font-medium text-sm leading-none"
           htmlFor="indeterminate"
         >
-          Select all (indeterminate)
-        </label>
-      </div>
-
-      <div className="flex items-center gap-3">
-        <Checkbox checked={false} disabled id="disabled" />
-        <label
-          className="font-medium text-sm leading-none opacity-50"
-          htmlFor="disabled"
-        >
-          Disabled checkbox
+          Select all
         </label>
       </div>
     </div>
   );
+};
+
+const DisabledDemo = () => (
+  <div className="flex items-center justify-center p-8">
+    <div className="flex items-center gap-3">
+      <Checkbox checked={false} disabled id="disabled" />
+      <label
+        className="font-medium text-sm leading-none opacity-50"
+        htmlFor="disabled"
+      >
+        Disabled checkbox
+      </label>
+    </div>
+  </div>
+);
+
+export const demoScenes = {
+  Disabled: DisabledDemo,
+  Features: CheckedDemo,
+  Indeterminate: IndeterminateDemo,
+};
+
+export default function CheckboxDemo() {
+  return <CheckedDemo />;
 }

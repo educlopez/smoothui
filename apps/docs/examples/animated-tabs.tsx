@@ -9,34 +9,55 @@ const tabs = [
   { id: "settings", label: "Settings" },
 ];
 
-export default function AnimatedTabsDemo() {
+const UnderlineDemo = () => {
   const [activeTab, setActiveTab] = useState("home");
 
   return (
-    <div className="flex flex-col items-center gap-8">
-      <AnimatedTabs
-        activeTab={activeTab}
-        layoutId="underline-demo"
-        onChange={setActiveTab}
-        tabs={tabs}
-        variant="underline"
-      />
-
-      <AnimatedTabs
-        activeTab={activeTab}
-        layoutId="pill-demo"
-        onChange={setActiveTab}
-        tabs={tabs}
-        variant="pill"
-      />
-
-      <AnimatedTabs
-        activeTab={activeTab}
-        layoutId="segment-demo"
-        onChange={setActiveTab}
-        tabs={tabs}
-        variant="segment"
-      />
-    </div>
+    <AnimatedTabs
+      activeTab={activeTab}
+      layoutId="underline-demo"
+      onChange={setActiveTab}
+      tabs={tabs}
+      variant="underline"
+    />
   );
+};
+
+const PillDemo = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  return (
+    <AnimatedTabs
+      activeTab={activeTab}
+      layoutId="pill-demo"
+      onChange={setActiveTab}
+      tabs={tabs}
+      variant="pill"
+    />
+  );
+};
+
+const SegmentDemo = () => {
+  const [activeTab, setActiveTab] = useState("home");
+
+  return (
+    <AnimatedTabs
+      activeTab={activeTab}
+      layoutId="segment-demo"
+      onChange={setActiveTab}
+      tabs={tabs}
+      variant="segment"
+    />
+  );
+};
+
+export const demoScenes = {
+  Features: UnderlineDemo,
+  Pill: PillDemo,
+  Segment: SegmentDemo,
+  Underline: UnderlineDemo,
+};
+
+export default function AnimatedTabsDemo() {
+  return <UnderlineDemo />;
 }

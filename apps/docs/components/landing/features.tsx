@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  InstallDrawing,
+  MotionDrawing,
+  ReactDrawing,
+  TokensDrawing,
+} from "@docs/components/illustrations/feature-drawings";
+import { VividLeadCard } from "@docs/components/illustrations/illustration-card";
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
 import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
@@ -8,13 +15,10 @@ import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { Package, Terminal } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
+import type { ComponentType, ReactNode } from "react";
 import { useState } from "react";
-import { ReactSettingsIllustration, TokenIllustration } from "./bento-controls";
-import { CommandCopy } from "./command-copy";
 
 const lead = {
   description:
@@ -25,34 +29,12 @@ const lead = {
 const cardBase =
   "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
 
-const SHOWCASE_ROW_A = [
-  "Siri Orb",
-  "Dynamic Island",
-  "Number Flow",
-  "Apple Invites",
-  "Scramble Hover",
-];
-
-const SHOWCASE_ROW_B = [
-  "Wave Text",
-  "Grid Loader",
-  "Social Selector",
-  "Image Metadata",
-  "Power Off Slide",
-];
-
-const Pill = ({ children }: { children: string }) => (
-  <span className="flex shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-background px-3 py-1.5 text-foreground/70 text-sm">
-    {children}
-  </span>
-);
-
 const CardHeading = ({
   icon: Icon,
   title,
   description,
 }: {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string }>;
   title: string;
   description: string;
 }) => (
@@ -67,9 +49,32 @@ const CardHeading = ({
   </>
 );
 
+const DrawingStage = ({
+  children,
+  active,
+  onActiveChange,
+}: {
+  children: (active: boolean) => ReactNode;
+  active: boolean;
+  onActiveChange: (active: boolean) => void;
+}) => (
+  <div
+    className="mb-5 flex min-h-40 items-center justify-center"
+    onBlur={() => onActiveChange(false)}
+    onFocus={() => onActiveChange(true)}
+    onMouseEnter={() => onActiveChange(true)}
+    onMouseLeave={() => onActiveChange(false)}
+  >
+    {children(active)}
+  </div>
+);
+
 export function Features() {
-  const [replay, setReplay] = useState(false);
-  const reduced = useReducedMotion();
+  const [motionActive, setMotionActive] = useState(false);
+  const [reactActive, setReactActive] = useState(false);
+  const [tokensActive, setTokensActive] = useState(false);
+  const [installActive, setInstallActive] = useState(false);
+
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <Divider />
@@ -82,102 +87,48 @@ export function Features() {
         }
       />
       <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:items-start">
-        {/* Lead — live component marquee over a saturated blurred artwork */}
-        <motion.div
-          onHoverStart={() => setReplay(true)}
-          onHoverEnd={() => setReplay(false)}
-          onFocusCapture={() => setReplay(true)}
-          onBlurCapture={() => setReplay(false)}
-          className={cn(
-            cardBase,
-            "relative overflow-hidden p-0 md:col-span-2 lg:col-span-2 lg:row-span-2 lg:self-stretch"
-          )}
-        >
-          <div
-            className="relative flex min-h-72 flex-1 items-center overflow-hidden"
-            data-vivid-stage="features"
-          >
+        <VividLeadCard
+          background={
             <Image
               alt=""
               aria-hidden
               className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
+              data-landing-background="features"
               draggable={false}
               fill
               sizes="(max-width: 768px) 100vw, 420px"
-              data-landing-background="features"
               src={`${landingBackgrounds.features.src}?tr=w-1280,f-auto`}
               unoptimized
             />
-            <ArtworkPattern variant="squares" />
-            <div
-              className="relative mx-6 my-6 w-full max-w-[420px] overflow-hidden rounded-2xl border border-border bg-background text-foreground shadow-xl md:mx-auto md:w-3/4"
-              data-motion-library
-            >
-              <div className="flex items-center gap-3 border-b px-5 py-4">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-xl border bg-muted/50">
-                  <Package aria-hidden size={17} />
-                </span>
-                <div className="min-w-0">
-                  <p className="font-medium text-sm">Motion library</p>
-                  <p className="mt-0.5 text-muted-foreground text-xs">
-                    Small details. Better interactions.
-                  </p>
-                </div>
-              </div>
-              <div className="flex min-h-32 flex-col justify-center gap-3 bg-muted/20 py-6 [mask-image:linear-gradient(to_right,transparent,#000_12%,#000_88%,transparent)]">
-                <motion.div
-                  className="flex gap-3"
-                  key={`a-${replay}`}
-                  initial={{ x: 0 }}
-                  animate={{ x: replay && !reduced ? [0, -48, 0] : 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          }
+          caption={
+            <>
+              <h3 className="mb-2 font-semibold text-xl tracking-tight">
+                <Link
+                  className="rounded focus-visible:outline-2 focus-visible:outline-ring"
+                  href="/docs/components"
                 >
-                  {SHOWCASE_ROW_A.map((name) => (
-                    <Pill key={name}>{name}</Pill>
-                  ))}
-                </motion.div>
-                <motion.div
-                  className="flex gap-3"
-                  key={`b-${replay}`}
-                  initial={{ x: 0 }}
-                  animate={{ x: replay && !reduced ? [0, 32, 0] : 0 }}
-                  transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {SHOWCASE_ROW_B.map((name) => (
-                    <Pill key={name}>{name}</Pill>
-                  ))}
-                </motion.div>
-              </div>
-              <div className="flex items-center gap-2 border-t px-5 py-3 text-muted-foreground text-xs">
-                <span aria-hidden className="size-1.5 rounded-full bg-brand" />
-                Spring-driven. Reduced-motion ready.
-              </div>
-            </div>
-          </div>
-          <div
-            className="relative border-t bg-background p-6 text-foreground"
-            data-feature-copy
-            data-lead-caption="features"
-          >
-            <h3 className="mb-2 font-semibold text-xl tracking-tight">
-              <Link
-                href="/docs/components"
-                className="rounded focus-visible:outline-2 focus-visible:outline-ring"
-              >
-                {lead.title}
-              </Link>
-            </h3>
-            <p className="max-w-md text-muted-foreground text-sm">
-              {lead.description}
-            </p>
-          </div>
-        </motion.div>
+                  {lead.title}
+                </Link>
+              </h3>
+              <p className="max-w-md text-muted-foreground text-sm">
+                {lead.description}
+              </p>
+            </>
+          }
+          className="md:col-span-2 lg:col-span-2 lg:row-span-2 lg:self-stretch"
+          onHoverEnd={() => setMotionActive(false)}
+          onHoverStart={() => setMotionActive(true)}
+          pattern={<ArtworkPattern variant="squares" />}
+          stage="features"
+        >
+          <MotionDrawing active={motionActive} />
+        </VividLeadCard>
 
-        {/* Modern React — a real code snippet */}
         <div className={cn(cardBase, "lg:col-span-2")}>
-          <div className="mb-5">
-            <ReactSettingsIllustration />
-          </div>
+          <DrawingStage active={reactActive} onActiveChange={setReactActive}>
+            {(active) => <ReactDrawing active={active} />}
+          </DrawingStage>
           <CardHeading
             description="Server Components, TypeScript and hooks throughout — built for React 19."
             icon={ReactLogo}
@@ -185,11 +136,10 @@ export function Features() {
           />
         </div>
 
-        {/* Tailwind v4 — real token / utility chips */}
         <div className={cardBase}>
-          <div className="mb-5">
-            <TokenIllustration />
-          </div>
+          <DrawingStage active={tokensActive} onActiveChange={setTokensActive}>
+            {(active) => <TokensDrawing active={active} />}
+          </DrawingStage>
           <CardHeading
             description="The latest utility-first engine, with a unified token spine."
             icon={TailwindLogo}
@@ -197,42 +147,13 @@ export function Features() {
           />
         </div>
 
-        {/* shadcn — the real install command */}
         <div className={cn(cardBase, "self-stretch")}>
-          <div className="mb-5 flex flex-1 flex-col justify-center rounded-xl border border-border/70 bg-muted/50 p-3 shadow-[inset_0_1px_3px_#00000004]">
-            <div className="rounded-xl border border-border bg-background shadow-[0_2px_3px_#00000004,0_12px_22px_-10px_#00000020]">
-              <div className="flex items-center gap-2 border-b p-3">
-                <span className="flex size-8 items-center justify-center rounded-lg border bg-muted/40">
-                  <Package size={15} />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="font-medium text-xs">siri-orb</p>
-                  <p className="mt-0.5 text-[9px] text-muted-foreground">
-                    Registry component
-                  </p>
-                </div>
-                <CommandCopy />
-              </div>
-              <div className="p-3">
-                <div className="flex items-start gap-2 rounded-lg border border-border/60 bg-muted/40 p-2.5">
-                  <Terminal
-                    size={12}
-                    className="mt-0.5 shrink-0 text-muted-foreground"
-                  />
-                  <code className="break-all font-mono text-[10px] leading-5">
-                    <span className="text-muted-foreground">
-                      npx shadcn add
-                    </span>
-                    <br />
-                    @smoothui/siri-orb
-                  </code>
-                </div>
-              </div>
-              <p className="border-t px-3 py-2 text-[9px] text-muted-foreground">
-                Copy into your terminal
-              </p>
-            </div>
-          </div>
+          <DrawingStage
+            active={installActive}
+            onActiveChange={setInstallActive}
+          >
+            {(active) => <InstallDrawing active={active} />}
+          </DrawingStage>
           <CardHeading
             description="Drops into any shadcn project — same patterns, one command."
             icon={ShadcnLogo}

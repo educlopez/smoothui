@@ -1,6 +1,6 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { axe } from "vitest-axe";
-import { render } from "../../../test-utils/render";
+import { fireEvent, render } from "../../../test-utils/render";
 import NumberFlow from "../index";
 
 describe("NumberFlow", () => {
@@ -13,5 +13,16 @@ describe("NumberFlow", () => {
     const { container } = render(<NumberFlow />);
     const results = await axe(container);
     expect(results).toHaveNoViolations();
+  });
+
+  it("does not collapse rapid controlled increments to the same value", () => {
+    const onChange = vi.fn();
+    const { getByRole } = render(
+      <NumberFlow onChange={onChange} value={128} />
+    );
+    const increase = getByRole("button", { name: "Increase number" });
+    fireEvent.click(increase);
+    fireEvent.click(increase);
+    expect(onChange.mock.calls.map((call) => call[0])).toEqual([129, 130]);
   });
 });

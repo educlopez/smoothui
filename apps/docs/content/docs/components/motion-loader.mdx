@@ -9,39 +9,57 @@ installer: motion-loader
 
 ## Features
 
-- Twelve loaders from a single install, switched with the `variant` prop
-- Every variant animates `transform` and `opacity` only — no layout thrash, no paint-heavy properties
-- Resolution independent: SVG or scaled elements derived from a single `size` prop
-- Colour comes from `currentColor` by default, so a loader inherits the surrounding text colour; `color` overrides it
-- `speed` multiplier to tune the loop without touching the component
-- Announced as a live status region with a configurable `label`
+Twelve loaders from a single install, switched with `variant`. Every one animates `transform` and `opacity` only. Colour inherits `currentColor` unless you pass `color`; `speed` tunes the loop; `label` feeds a polite live region.
 
 ## Variants
 
-| Variant | Description | Animated properties |
-|---------|-------------|---------------------|
-| `orbit` | A dot circling a faint track ring | `rotate` |
-| `newton-cradle` | Five hanging balls, outer ones swinging in turn | `rotate` |
-| `pendulum` | Single arm swinging with an ease-in-out arc | `rotate` |
-| `hourglass` | Hourglass glyph flipping every half cycle | `rotate` |
-| `morph-ring` | Two counter-rotating dashed arcs with a scale pulse | `rotate`, `scale` |
-| `square-snake` | A square travelling the four corners of a 2×2 grid | `x`, `y` |
-| `comet` | A head dot with a fading four-dot tail sweeping the circle | `rotate` |
-| `radar` | A conic sweep rotating inside a circular mask | `rotate` |
-| `cube-flip` | A square flipping across both axes in perspective | `rotateX`, `rotateY` |
-| `wave-bars` | Five bars scaling vertically with a stagger | `scaleY` |
-| `breathing-glow` | A blurred halo breathing around a solid core | `scale`, `opacity` |
-| `dot-ring` | Eight dots fading in sequence around a circle | `opacity` |
+### Orbit
 
-The full list is exported as `MOTION_LOADER_VARIANTS`:
+A dot circling a faint track ring.
 
-```tsx
-import MotionLoader, {
-  MOTION_LOADER_VARIANTS,
-} from "@repo/smoothui/components/motion-loader";
+### Newton Cradle
 
-<MotionLoader variant="orbit" size={40} label="Loading results" />;
-```
+Five hanging balls; the outer ones swing in turn.
+
+### Pendulum
+
+A single arm swinging with an ease-in-out arc.
+
+### Hourglass
+
+Hourglass glyph flipping every half cycle.
+
+### Morph Ring
+
+Two counter-rotating dashed arcs with a scale pulse.
+
+### Square Snake
+
+A square travelling the four corners of a 2×2 grid.
+
+### Comet
+
+A head dot with a fading four-dot tail sweeping the circle.
+
+### Radar
+
+A conic sweep rotating inside a circular mask.
+
+### Cube Flip
+
+A square flipping across both axes in perspective.
+
+### Wave Bars
+
+Five bars scaling vertically with a stagger.
+
+### Breathing Glow
+
+A blurred halo breathing around a solid core.
+
+### Dot Ring
+
+Eight dots fading in sequence around a circle.
 
 ## Accessibility
 

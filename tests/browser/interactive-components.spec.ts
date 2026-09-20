@@ -36,9 +36,12 @@ test("dropdown supports arrow keys, Escape, and outside dismissal", async ({
 
   const menu = page.getByRole("menu");
   await expect(menu).toBeVisible();
-  await expect(
-    page.getByRole("menuitem", { name: PROFILE_ITEM_NAME })
-  ).toBeFocused();
+  const profile = page.getByRole("menuitem", { name: PROFILE_ITEM_NAME });
+  await expect
+    .poll(async () =>
+      profile.evaluate((node) => node === document.activeElement)
+    )
+    .toBe(true);
 
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();

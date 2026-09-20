@@ -9,16 +9,25 @@ installer: animated-toggle
 
 ## Features
 
-- Three variants: default (smooth sliding), morph (shape changes during travel), and icon (transitions between icons)
-- Three sizes: sm, md, and lg
-- Controlled and uncontrolled modes
-- Smooth spring animations with Motion
-- Icon variant supports custom icons with crossfade and scale transitions
-- Morph variant animates borderRadius during travel
-- Full keyboard accessibility (Space/Enter to toggle)
-- Proper ARIA attributes with role="switch" and aria-checked
-- Respects reduced motion preferences
-- Disabled state support
+A toggle switch with spring motion, controlled or uncontrolled, three sizes, and full keyboard access. Pick a variant below — the panel beside this column shows that one alone.
+
+## Variants
+
+### Default
+
+A smooth sliding thumb. The usual on/off control.
+
+### Morph
+
+The thumb changes shape while it travels — `borderRadius` animates with the position.
+
+### Icon
+
+Crossfades and scales between custom icons. Pass `icons={{ on, off }}`.
+
+## Sizes
+
+`sm`, `md`, and `lg` scale the track and the thumb together.
 
 ## Accessibility
 

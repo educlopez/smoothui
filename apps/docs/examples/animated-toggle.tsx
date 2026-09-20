@@ -41,27 +41,88 @@ const MoonIcon = () => (
   </svg>
 );
 
-export default function AnimatedToggleDemo() {
+const DefaultDemo = () => {
   const [checked, setChecked] = useState(false);
 
   return (
-    <div className="flex items-center gap-8">
+    <AnimatedToggle
+      checked={checked}
+      label="Toggle"
+      onChange={setChecked}
+      size="lg"
+      variant="default"
+    />
+  );
+};
+
+const MorphDemo = () => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <AnimatedToggle
+      checked={checked}
+      label="Morph toggle"
+      onChange={setChecked}
+      size="lg"
+      variant="morph"
+    />
+  );
+};
+
+const IconDemo = () => {
+  const [checked, setChecked] = useState(false);
+
+  return (
+    <AnimatedToggle
+      checked={checked}
+      icons={{ off: <MoonIcon />, on: <SunIcon /> }}
+      label="Theme toggle"
+      onChange={setChecked}
+      size="lg"
+      variant="icon"
+    />
+  );
+};
+
+const SizesDemo = () => {
+  const [checked, setChecked] = useState(true);
+
+  return (
+    <div className="flex items-center gap-6">
       <AnimatedToggle
         checked={checked}
-        label="Toggle"
+        label="Small"
+        onChange={setChecked}
+        size="sm"
+        variant="default"
+      />
+      <AnimatedToggle
+        checked={checked}
+        label="Medium"
+        onChange={setChecked}
+        size="md"
+        variant="default"
+      />
+      <AnimatedToggle
+        checked={checked}
+        label="Large"
         onChange={setChecked}
         size="lg"
         variant="default"
       />
-
-      <AnimatedToggle
-        checked={checked}
-        icons={{ off: <MoonIcon />, on: <SunIcon /> }}
-        label="Theme toggle"
-        onChange={setChecked}
-        size="lg"
-        variant="icon"
-      />
     </div>
   );
+};
+
+export const demoScenes = {
+  Default: DefaultDemo,
+  Features: DefaultDemo,
+  Icon: IconDemo,
+  Morph: MorphDemo,
+  Sizes: SizesDemo,
+  Variants: DefaultDemo,
+};
+
+export default function AnimatedToggleDemo() {
+  return <DefaultDemo />;
 }

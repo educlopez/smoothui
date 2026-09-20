@@ -6,83 +6,110 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import { Button } from "@docs/components/smoothbutton";
+import { AppearanceDrawing } from "@docs/components/illustrations/appearance-drawing";
+import { THEME_PALETTES } from "@docs/lib/registry-themes";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import ButtonCopy from "@repo/smoothui/components/button-copy";
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { useTheme } from "next-themes";
 import {
-  IconArrowRightFill24,
-  IconCheckDoubleFill24,
   IconCheckFill24,
-  IconCopy2Fill24,
-  IconFloppyDiskFill24,
+  IconDotsLoaderFill24,
+  IconLaptopFill24,
+  IconMoonFill24,
   IconRefresh2Fill24,
+  IconSunFill24,
 } from "nucleo-core-fill-24";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
-const CLOSE_DELAY = 200;
-const SAVE_MESSAGE_DURATION = 1200;
-const COPY_MESSAGE_DURATION = 1200;
+type Appearance = "system" | "dark" | "light";
 
 const themeInstallCommand = (paletteName: string) =>
   `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName.toLowerCase()}.json`;
 
-const PALETTES = [
-  {
-    candy: "oklch(0.72 0.2 352.53)",
-    candySecondary: "oklch(0.66 0.21 354.31)",
-    name: "Candy",
-  },
-  {
-    candy: "oklch(0.65 0.22 300.21)",
-    candySecondary: "oklch(0.54 0.23 286.53)",
-    name: "Indigo",
-  },
-  {
-    candy: "oklch(0.67 0.17 257.78)",
-    candySecondary: "oklch(0.59 0.21 258.02)",
-    name: "Blue",
-  },
-  {
-    candy: "oklch(0.67 0.21 24.28)",
-    candySecondary: "oklch(0.62 0.25 28.23)",
-    name: "Red",
-  },
-  {
-    candy: "oklch(0.75 0.17 47.65)",
-    candySecondary: "oklch(0.68 0.21 40.59)",
-    name: "Orange",
-  },
-  {
-    candy: "oklch(0.70 0.15 162.48)",
-    candySecondary: "oklch(0.60 0.13 163.23)",
-    name: "Green",
-  },
+const APPEARANCES: {
+  id: Appearance;
+  label: string;
+  icon: typeof IconSunFill24;
+}[] = [
+  { icon: IconLaptopFill24, id: "system", label: "System" },
+  { icon: IconMoonFill24, id: "dark", label: "Dark" },
+  { icon: IconSunFill24, id: "light", label: "Light" },
 ];
 
-export function ColorPickerFloatNav() {
-  const [open, setOpen] = useState(false);
-  const [candy, setCandy] = useState("");
-  const [candySecondary, setCandySecondary] = useState("");
-  const pickerRef = useRef<HTMLDivElement>(null);
-  const [show, setShow] = useState(false);
-  const [saved, setSaved] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const shouldReduceMotion = useReducedMotion();
+const FOCUSABLE_SELECTOR =
+  'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-  const selectedPalette = PALETTES.find(
-    (palette) =>
-      palette.candy === candy && palette.candySecondary === candySecondary
+/**
+ * Float-nav glyph: accent rim + appearance fill.
+ * Reads as both the brand color and the active theme mode.
+ */
+const ThemeFloatIcon = ({
+  accent,
+  appearance,
+}: {
+  accent: string;
+  appearance: Appearance;
+}) => {
+  const isSystem = appearance === "system";
+  const isDark = appearance === "dark";
+
+  return (
+    <span
+      aria-hidden="true"
+      className="relative size-[1.35rem] overflow-hidden rounded-[7px] border-[2.5px]"
+      style={{ borderColor: accent }}
+    >
+      {isSystem ? (
+        <>
+          <span className="absolute inset-y-0 left-0 w-1/2 bg-zinc-950" />
+          <span className="absolute inset-y-0 right-0 w-1/2 bg-zinc-100" />
+        </>
+      ) : (
+        <span
+          className={cn(
+            "absolute inset-0",
+            isDark ? "bg-zinc-950" : "bg-zinc-100"
+          )}
+        />
+      )}
+    </span>
   );
+};
 
-  async function handleCopyInstall() {
-    if (!selectedPalette) {
-      return;
-    }
-    await navigator.clipboard.writeText(
-      themeInstallCommand(selectedPalette.name)
-    );
-    setCopied(true);
-    setTimeout(() => setCopied(false), COPY_MESSAGE_DURATION);
-  }
+export function ColorPickerFloatNav() {
+  const { theme, setTheme } = useTheme();
+  const [open, setOpen] = useState(false);
+  const [candy, setCandy] = useState(THEME_PALETTES[0].primary);
+  const [candySecondary, setCandySecondary] = useState(
+    THEME_PALETTES[0].secondary
+  );
+  const [mounted, setMounted] = useState(false);
+  const reduceMotion = useReducedMotion();
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+
+  const selectedPalette =
+    THEME_PALETTES.find(
+      (palette) =>
+        palette.primary === candy && palette.secondary === candySecondary
+    ) ?? THEME_PALETTES[0];
+
+  const appearance: Appearance =
+    !mounted || theme === "system" || theme === undefined
+      ? "system"
+      : theme === "dark"
+        ? "dark"
+        : "light";
+
+  const installCommand = themeInstallCommand(selectedPalette.name);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
@@ -94,7 +121,7 @@ export function ColorPickerFloatNav() {
         applyColorPalette(parsed.candy, parsed.candySecondary);
         return;
       } catch {
-        // Ignore
+        // Ignore corrupt storage
       }
     }
 
@@ -104,236 +131,286 @@ export function ColorPickerFloatNav() {
     const cs = getComputedStyle(document.body)
       .getPropertyValue("--color-brand-secondary")
       .trim();
-    setCandy(c);
-    setCandySecondary(cs);
+    if (c) {
+      setCandy(c);
+    }
+    if (cs) {
+      setCandySecondary(cs);
+    }
   }, []);
 
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        pickerRef.current &&
-        !pickerRef.current.contains(event.target as Node)
-      ) {
-        setOpen(false);
-      }
+    if (!open) {
+      previouslyFocusedRef.current?.focus();
+      previouslyFocusedRef.current = null;
+      return;
     }
-    function handleEscape(event: KeyboardEvent) {
+
+    previouslyFocusedRef.current =
+      (document.activeElement as HTMLElement | null) ?? triggerRef.current;
+
+    const focusFrame = requestAnimationFrame(() => {
+      dialogRef.current?.focus();
+    });
+
+    const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         setOpen(false);
+        return;
       }
-    }
-    if (open) {
-      document.addEventListener("mousedown", handleClickOutside);
-      document.addEventListener("keydown", handleEscape);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    }
+      if (event.key !== "Tab" || !dialogRef.current) {
+        return;
+      }
+      const focusable = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)
+      ).filter((el) => !el.hasAttribute("disabled"));
+      if (focusable.length === 0) {
+        event.preventDefault();
+        return;
+      }
+      const [first] = focusable;
+      const last = focusable.at(-1);
+      if (!(first && last)) {
+        return;
+      }
+      const active = document.activeElement as HTMLElement | null;
+      if (event.shiftKey) {
+        if (active === first || !dialogRef.current.contains(active)) {
+          event.preventDefault();
+          last.focus();
+        }
+      } else if (active === last || !dialogRef.current.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
+      cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
     };
   }, [open]);
 
-  useEffect(() => {
-    if (open) {
-      setShow(true);
-    } else {
-      const timeout = setTimeout(() => setShow(false), CLOSE_DELAY);
-      return () => clearTimeout(timeout);
-    }
-  }, [open]);
+  const pickPalette = (primary: string, secondary: string) => {
+    setCandy(primary);
+    setCandySecondary(secondary);
+    applyColorPalette(primary, secondary);
+    persistColorPalette(primary, secondary);
+  };
 
-  function handleReset() {
+  const handleReset = () => {
     resetColorPalette();
     localStorage.removeItem(COLOR_STORAGE_KEY);
-
     const c = getComputedStyle(document.body)
       .getPropertyValue("--color-brand")
       .trim();
     const cs = getComputedStyle(document.body)
       .getPropertyValue("--color-brand-secondary")
       .trim();
-
-    setCandy(c);
-    setCandySecondary(cs);
-  }
-
-  function handleSave() {
-    persistColorPalette(candy, candySecondary);
-    setSaved(true);
-    setTimeout(() => setSaved(false), SAVE_MESSAGE_DURATION);
-  }
+    setCandy(c || THEME_PALETTES[0].primary);
+    setCandySecondary(cs || THEME_PALETTES[0].secondary);
+  };
 
   return (
-    <div className="float-trigger !p-2 relative" ref={pickerRef}>
+    <>
       <button
-        aria-label="Open color picker"
-        className="flex h-5 w-5 cursor-pointer items-center gap-1 overflow-hidden rounded-sm border shadow-custom-brand transition-all duration-200"
-        onClick={() => setOpen((v) => !v)}
-        style={{
-          background: `linear-gradient(90deg, ${candy} 60%, ${candySecondary} 100%)`,
-        }}
+        aria-expanded={open}
+        aria-label="Open theme settings"
+        className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
+        onClick={() => setOpen(true)}
+        ref={triggerRef}
         type="button"
       >
-        <span
-          className="h-full w-full"
-          style={{
-            background: `linear-gradient(135deg, ${candy} 60%, ${candySecondary} 100%)`,
-          }}
-        />
+        <ThemeFloatIcon accent={candy} appearance={appearance} />
       </button>
-      <AnimatePresence>
-        {show ? (
-          <motion.div
-            animate={
-              shouldReduceMotion
-                ? { opacity: 1 }
-                : { opacity: 1, scale: 1, y: 0 }
-            }
-            aria-modal="true"
-            className="absolute bottom-12 left-1/2 z-50 flex min-w-[220px] -translate-x-1/2 flex-col items-center rounded-xl border bg-background p-2 shadow-2xl"
-            exit={
-              shouldReduceMotion
-                ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, scale: 0.95, y: 20 }
-            }
-            initial={
-              shouldReduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, scale: 0.95, y: 20 }
-            }
-            role="dialog"
-            tabIndex={-1}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { damping: 30, stiffness: 300, type: "spring" }
-            }
-          >
-            <div className="mb-2 flex flex-row gap-3">
-              {PALETTES.map((palette) => (
-                <motion.button
-                  animate={(() => {
-                    const isSelected =
-                      palette.candy === candy &&
-                      palette.candySecondary === candySecondary;
-                    if (!isSelected) {
-                      return { scale: 1 };
+
+      {mounted
+        ? createPortal(
+            <AnimatePresence>
+              {open ? (
+                <>
+                  <motion.div
+                    animate={{ opacity: 1 }}
+                    className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm"
+                    exit={{ opacity: 0 }}
+                    initial={{ opacity: 0 }}
+                    key="theme-overlay"
+                    onClick={() => setOpen(false)}
+                    transition={
+                      reduceMotion ? { duration: 0 } : { duration: 0.2 }
                     }
-                    return shouldReduceMotion ? {} : { scale: 1.12 };
-                  })()}
-                  aria-label={`Select ${palette.name} palette`}
-                  className={`relative h-8 w-8 rounded-md transition-all focus:outline-none ${palette.candy === candy && palette.candySecondary === candySecondary ? "cursor-not-allowed border shadow-custom-brand" : "cursor-pointer border border-transparent"}`}
-                  key={palette.name}
-                  onClick={() => {
-                    setCandy(palette.candy);
-                    setCandySecondary(palette.candySecondary);
-                    applyColorPalette(palette.candy, palette.candySecondary);
-                    persistColorPalette(palette.candy, palette.candySecondary);
-                  }}
-                  style={{
-                    background: `linear-gradient(135deg, ${palette.candy} 60%, ${palette.candySecondary} 100%)`,
-                  }}
-                  type="button"
-                  whileHover={shouldReduceMotion ? {} : { scale: 1.08 }}
-                  whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
-                >
-                  <AnimatePresence>
-                    {palette.candy === candy &&
-                      palette.candySecondary === candySecondary && (
-                        <motion.span
-                          animate={
-                            shouldReduceMotion
-                              ? { opacity: 1 }
-                              : { opacity: 1, scale: 1 }
-                          }
-                          className="absolute inset-0 flex items-center justify-center"
-                          exit={
-                            shouldReduceMotion
-                              ? { opacity: 0, transition: { duration: 0 } }
-                              : { opacity: 0, scale: 0.7 }
-                          }
-                          initial={
-                            shouldReduceMotion
-                              ? { opacity: 0 }
-                              : { opacity: 0, scale: 0.7 }
-                          }
-                          transition={
-                            shouldReduceMotion
-                              ? { duration: 0 }
-                              : { damping: 30, stiffness: 400, type: "spring" }
-                          }
-                        >
-                          <span className="rounded-full bg-white/40 p-0.5">
-                            <IconCheckFill24 className="h-4 w-4 text-white" />
-                          </span>
-                        </motion.span>
-                      )}
-                  </AnimatePresence>
-                </motion.button>
-              ))}
-            </div>
-            {selectedPalette && (
-              <Button
-                aria-label={`Copy install command for the ${selectedPalette.name} theme`}
-                className="w-full font-mono text-xs"
-                onClick={handleCopyInstall}
-                size="sm"
-                type="button"
-                variant="candy"
-              >
-                {copied ? (
-                  <>
-                    <IconCheckDoubleFill24 className="h-3.5 w-3.5" /> Copied!
-                  </>
-                ) : (
-                  <>
-                    <IconCopy2Fill24 className="h-3.5 w-3.5" /> Install{" "}
-                    {selectedPalette.name} theme
-                  </>
-                )}
-              </Button>
-            )}
-            <div className="mt-2 flex justify-end gap-2">
-              <Button
-                aria-label="Reset to original colors"
-                onClick={handleReset}
-                size="sm"
-                type="button"
-                variant="outline"
-              >
-                <IconRefresh2Fill24 className="mr-1 h-4 w-4" />
-                Reset
-              </Button>
-              <Button
-                aria-label="Save colors to browser"
-                onClick={handleSave}
-                size="sm"
-                type="button"
-                variant="candy"
-              >
-                {saved ? (
-                  <>
-                    <IconCheckDoubleFill24 className="h-4 w-4" /> Saved!
-                  </>
-                ) : (
-                  <>
-                    <IconFloppyDiskFill24 className="h-4 w-4" /> Save
-                  </>
-                )}
-              </Button>
-            </div>
-            <a
-              className="mt-3 flex items-center gap-1 text-muted-foreground text-xs transition-colors hover:text-foreground"
-              href="/playground"
-            >
-              Open Playground
-              <IconArrowRightFill24 className="h-3 w-3" />
-            </a>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </div>
+                  />
+                  <motion.div
+                    animate={{ opacity: 1, y: 0 }}
+                    aria-label="Theme settings"
+                    aria-modal="true"
+                    className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex max-h-[80vh] w-[calc(100%-2rem)] max-w-lg flex-col overflow-hidden rounded-2xl border bg-background shadow-xl outline-none"
+                    exit={
+                      reduceMotion
+                        ? { opacity: 0, transition: { duration: 0 } }
+                        : { opacity: 0, y: "100%" }
+                    }
+                    initial={
+                      reduceMotion ? { opacity: 0 } : { opacity: 0, y: "100%" }
+                    }
+                    key="theme-panel"
+                    ref={dialogRef}
+                    role="dialog"
+                    tabIndex={-1}
+                    transition={
+                      reduceMotion
+                        ? { duration: 0 }
+                        : { bounce: 0.1, duration: 0.4, type: "spring" }
+                    }
+                  >
+                    <div className="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-muted" />
+
+                    <div className="p-4 pb-3">
+                      <h2 className="font-semibold text-base">
+                        Theme settings
+                      </h2>
+                      <p className="text-muted-foreground text-sm">
+                        Accent color, appearance, and install command.
+                      </p>
+                    </div>
+
+                    <div className="flex-1 overflow-y-auto">
+                      <section className="border-t p-4">
+                        <div className="mb-3 flex items-center justify-between gap-2">
+                          <h3 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                            Accent
+                          </h3>
+                          <button
+                            className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
+                            onClick={handleReset}
+                            type="button"
+                          >
+                            <IconRefresh2Fill24 size={13} />
+                            Reset accent
+                          </button>
+                        </div>
+                        <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
+                          {THEME_PALETTES.map((palette) => {
+                            const selected =
+                              palette.primary === candy &&
+                              palette.secondary === candySecondary;
+                            return (
+                              <button
+                                aria-label={`Use ${palette.label}`}
+                                aria-pressed={selected}
+                                className={cn(
+                                  "aspect-square cursor-pointer rounded-xl border-2 transition-transform",
+                                  selected
+                                    ? "scale-105 border-foreground shadow-sm"
+                                    : "border-transparent hover:scale-105"
+                                )}
+                                key={palette.name}
+                                onClick={() =>
+                                  pickPalette(
+                                    palette.primary,
+                                    palette.secondary
+                                  )
+                                }
+                                style={{
+                                  background: `linear-gradient(135deg, ${palette.primary} 55%, ${palette.secondary} 100%)`,
+                                }}
+                                title={palette.label}
+                                type="button"
+                              />
+                            );
+                          })}
+                        </div>
+                      </section>
+
+                      <section className="border-t p-4">
+                        <h3 className="mb-3 font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                          Appearance
+                        </h3>
+                        <div className="grid grid-cols-3 gap-3">
+                          {APPEARANCES.map((option) => {
+                            const selected = appearance === option.id;
+                            const Icon = option.icon;
+                            return (
+                              <button
+                                aria-label={`Use ${option.label} theme`}
+                                aria-pressed={selected}
+                                className="group flex cursor-pointer flex-col gap-2 rounded-xl text-left outline-none focus-visible:ring-2 focus-visible:ring-brand"
+                                key={option.id}
+                                onClick={() => setTheme(option.id)}
+                                type="button"
+                              >
+                                <AppearanceDrawing
+                                  accent={candy}
+                                  mode={option.id}
+                                  selected={selected}
+                                />
+                                <span
+                                  className={cn(
+                                    "inline-flex items-center justify-center gap-1.5 rounded-full border px-2 py-1 font-medium text-xs transition-colors",
+                                    selected
+                                      ? "border-brand bg-brand/5 text-brand"
+                                      : "border-transparent text-muted-foreground group-hover:text-foreground"
+                                  )}
+                                >
+                                  <Icon size={12} />
+                                  {option.label}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </section>
+                    </div>
+
+                    <div className="border-t p-4">
+                      <div className="mb-1.5 flex items-center justify-between gap-2">
+                        <span className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
+                          Install theme
+                        </span>
+                        <span className="text-muted-foreground text-xs capitalize">
+                          {selectedPalette.label}
+                        </span>
+                      </div>
+                      <div className="overflow-hidden rounded-lg border border-border">
+                        <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none relative bg-fd-card pr-14 [&_code]:break-all [&_figure]:border-0 [&_pre]:whitespace-pre-wrap">
+                          <div
+                            className="absolute top-2 right-2 z-10"
+                            title="Copy install command"
+                          >
+                            <ButtonCopy
+                              className="size-9! min-h-9! min-w-9! rounded-md p-0!"
+                              key={installCommand}
+                              loadingDuration={0}
+                              loadingIcon={
+                                <IconDotsLoaderFill24 className="size-3.5 animate-spin" />
+                              }
+                              onCopy={() =>
+                                navigator.clipboard.writeText(installCommand)
+                              }
+                              successIcon={
+                                <IconCheckFill24 className="size-3.5" />
+                              }
+                            />
+                          </div>
+                          <DynamicCodeBlock
+                            code={installCommand}
+                            codeblock={{ allowCopy: false }}
+                            lang="bash"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </>
+              ) : null}
+            </AnimatePresence>,
+            document.body
+          )
+        : null}
+    </>
   );
 }

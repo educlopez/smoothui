@@ -19,6 +19,68 @@ const CHEVRON_ROTATION = 180;
 const DROPDOWN_OFFSET = 4;
 const STAGGER_DELAY = 0.02;
 const ITEM_HOVER_X = 2;
+/** Matches `max-h-60` on the menu scroller. */
+const MENU_MAX_HEIGHT = 240;
+/** Keep the menu clear of the viewport edge. */
+const VIEWPORT_PAD = 8;
+
+type MenuSide = "top" | "bottom";
+
+type MenuPosition = {
+  /** Distance from the viewport bottom — set when opening upward. */
+  bottom: number | null;
+  left: number;
+  maxHeight: number;
+  side: MenuSide;
+  /** Distance from the viewport top — set when opening downward. */
+  top: number | null;
+  width: number;
+};
+
+/**
+ * Prefer opening below the trigger; flip above when the viewport has more
+ * room there (or not enough below for a usable menu).
+ *
+ * Upward menus are anchored with `bottom` so they sit flush under the
+ * trigger even when their content is shorter than `maxHeight`.
+ */
+const positionOf = (
+  rect: DOMRect,
+  menuHeight = MENU_MAX_HEIGHT
+): MenuPosition => {
+  const spaceBelow = window.innerHeight - rect.bottom - VIEWPORT_PAD;
+  const spaceAbove = rect.top - VIEWPORT_PAD;
+  const needed = Math.min(menuHeight, 120);
+  const openUp = spaceBelow < needed && spaceAbove > spaceBelow;
+
+  if (openUp) {
+    const maxHeight = Math.max(
+      80,
+      Math.min(MENU_MAX_HEIGHT, spaceAbove - DROPDOWN_OFFSET)
+    );
+    return {
+      bottom: window.innerHeight - rect.top + DROPDOWN_OFFSET,
+      left: rect.left,
+      maxHeight,
+      side: "top",
+      top: null,
+      width: rect.width,
+    };
+  }
+
+  const maxHeight = Math.max(
+    80,
+    Math.min(MENU_MAX_HEIGHT, spaceBelow - DROPDOWN_OFFSET)
+  );
+  return {
+    bottom: null,
+    left: rect.left,
+    maxHeight,
+    side: "bottom",
+    top: rect.bottom + DROPDOWN_OFFSET,
+    width: rect.width,
+  };
+};
 
 // ---------------------------------------------------------------------------
 // Types
@@ -95,7 +157,14 @@ export default function Select({
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue ?? "");
   const [focusedIndex, setFocusedIndex] = useState(-1);
-  const [position, setPosition] = useState({ left: 0, top: 0, width: 0 });
+  const [position, setPosition] = useState<MenuPosition>({
+    bottom: null,
+    left: 0,
+    maxHeight: MENU_MAX_HEIGHT,
+    side: "bottom",
+    top: 0,
+    width: 0,
+  });
 
   const triggerRef = useRef<HTMLButtonElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
@@ -103,6 +172,15 @@ export default function Select({
 
   const selectedValue =
     controlledValue === undefined ? internalValue : controlledValue;
+
+  const syncPosition = useCallback((measuredHeight?: number) => {
+    if (!triggerRef.current) {
+      return;
+    }
+    setPosition(
+      positionOf(triggerRef.current.getBoundingClientRect(), measuredHeight)
+    );
+  }, []);
 
   // Flatten all options for keyboard navigation
   const allOptions: SelectOptionProps[] = (() => {
@@ -150,20 +228,15 @@ export default function Select({
     if (disabled) {
       return;
     }
-    if (!isOpen && triggerRef.current) {
-      const rect = triggerRef.current.getBoundingClientRect();
-      setPosition({
-        left: rect.left,
-        top: rect.bottom + DROPDOWN_OFFSET,
-        width: rect.width,
-      });
+    if (!isOpen) {
+      syncPosition();
     }
     setIsOpen((prev) => !prev);
     setFocusedIndex(-1);
-  }, [disabled, isOpen]);
+  }, [disabled, isOpen, syncPosition]);
 
   // ---------------------------------------------------------------------------
-  // Position updates on scroll/resize
+  // Position updates on scroll/resize + remeasure after paint
   // ---------------------------------------------------------------------------
 
   useEffect(() => {
@@ -172,23 +245,24 @@ export default function Select({
     }
 
     const updatePosition = () => {
-      if (triggerRef.current) {
-        const rect = triggerRef.current.getBoundingClientRect();
-        setPosition({
-          left: rect.left,
-          top: rect.bottom + DROPDOWN_OFFSET,
-          width: rect.width,
-        });
-      }
+      const menu = portalRef.current?.querySelector("[role='listbox']");
+      const measured =
+        menu instanceof HTMLElement ? menu.offsetHeight : undefined;
+      syncPosition(measured);
     };
+
+    updatePosition();
+    // Remeasure once the menu has laid out — height drives whether we flip.
+    const frame = window.requestAnimationFrame(updatePosition);
 
     window.addEventListener("scroll", updatePosition, true);
     window.addEventListener("resize", updatePosition);
     return () => {
+      window.cancelAnimationFrame(frame);
       window.removeEventListener("scroll", updatePosition, true);
       window.removeEventListener("resize", updatePosition);
     };
-  }, [isOpen]);
+  }, [isOpen, syncPosition]);
 
   // ---------------------------------------------------------------------------
   // Click outside to close
@@ -355,6 +429,9 @@ export default function Select({
   // Dropdown content (portalled)
   // ---------------------------------------------------------------------------
 
+  const openUp = position.side === "top";
+  const enterY = openUp ? 4 : -4;
+
   const dropdownContent = (
     <AnimatePresence>
       {isOpen ? (
@@ -366,7 +443,8 @@ export default function Select({
                 : { opacity: 1, scale: 1, y: 0 }
             }
             className={cn(
-              "fixed z-50 origin-top overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
+              "fixed z-[60] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
+              openUp ? "origin-bottom" : "origin-top",
               contentClassName
             )}
             exit={
@@ -376,23 +454,29 @@ export default function Select({
                     opacity: 0,
                     scale: 0.95,
                     transition: { duration: 0.15 },
-                    y: -4,
+                    y: enterY,
                   }
             }
             initial={
               shouldReduceMotion
                 ? { opacity: 1 }
-                : { opacity: 0, scale: 0.95, y: -4 }
+                : { opacity: 0, scale: 0.95, y: enterY }
             }
             role="listbox"
             style={{
+              bottom:
+                position.bottom === null ? undefined : `${position.bottom}px`,
               left: `${position.left}px`,
-              top: `${position.top}px`,
+              maxHeight: `${position.maxHeight}px`,
+              top: position.top === null ? undefined : `${position.top}px`,
               width: `${position.width}px`,
             }}
             transition={shouldReduceMotion ? DURATION_INSTANT : SPRING_DEFAULT}
           >
-            <div className="max-h-60 overflow-y-auto p-1">
+            <div
+              className="overflow-y-auto p-1"
+              style={{ maxHeight: `${position.maxHeight}px` }}
+            >
               {/* Flat options */}
               {options &&
                 options.length > 0 &&

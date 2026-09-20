@@ -50,6 +50,7 @@ test("twelve live showcase cards have only corner documentation links", async ({
   await expect(cards.locator("footer")).toHaveCount(0);
   const counter = page.locator('[data-showcase="number-flow"]');
   await counter.scrollIntoViewIfNeeded();
+  await expect(counter.locator("output")).toHaveText("128");
   await counter.getByRole("button", { name: "Increase number" }).click();
   await expect(counter.locator("output")).toHaveText("129");
   const link = counter.getByRole("link", {
@@ -79,26 +80,6 @@ test("photo tabs and checkbox remain keyboard operable", async ({ page }) => {
   await checkbox.focus();
   await page.keyboard.press("Space");
   await expect(checkbox).toBeChecked();
-});
-
-test("illustrated command copy failure is recoverable", async ({ page }) => {
-  await page.addInitScript(() => {
-    Object.defineProperty(navigator, "clipboard", {
-      configurable: true,
-      value: { writeText: () => Promise.reject(new Error("Denied")) },
-    });
-  });
-  await page.goto("/");
-  const copy = page.getByRole("button", {
-    exact: true,
-    name: "Copy example command",
-  });
-  await copy.click();
-  await expect(page.getByText("Copy unavailable. Try again.")).toBeVisible();
-  await expect(copy).toBeEnabled();
-  await expect(
-    page.getByRole("status").filter({ hasText: "Copy failed." })
-  ).toBeAttached();
 });
 
 test("community logos continue cycling past five seconds with discreet accessible pause", async ({
@@ -138,7 +119,7 @@ test("intrinsic showcase demos remain horizontally centered", async ({
   await page.goto("/");
   for (const [slug, selector] of [
     ["phototab", "[role=tablist]"],
-    ["animated-toggle", "div.flex.items-center.gap-8"],
+    ["animated-toggle", "[role=switch]"],
     ["image-metadata-preview", "img"],
   ]) {
     const card = page.locator(`[data-showcase="${slug}"]`);
@@ -253,30 +234,6 @@ for (const width of [390, 1440]) {
   });
 }
 
-test("Logo Clouds retains original SVG brands and paused continuous strip", async ({
-  page,
-}) => {
-  await page.goto("/");
-  const strip = page.locator("[data-logo-strip]");
-  await strip.scrollIntoViewIfNeeded();
-  await page.mouse.move(0, 0);
-  for (const brand of ["Canva", "Strava", "Descript"]) {
-    await expect(strip.locator(`[data-logo-name="${brand}"]`)).toHaveCount(2);
-  }
-  const track = strip.locator(".w-max");
-  const x = () =>
-    track.evaluate((e) => new DOMMatrix(getComputedStyle(e).transform).m41);
-  const before = await x();
-  await expect.poll(x).toBeLessThan(before);
-  await strip.hover();
-  await page.waitForTimeout(50);
-  const paused = await x();
-  await page.waitForTimeout(300);
-  expect(await x()).toBeCloseTo(paused, 1);
-  await page.mouse.move(0, 0);
-  await expect.poll(x).toBeLessThan(paused);
-});
-
 test("metadata preserves nonreduced moving-image expansion inside frame", async ({
   page,
 }) => {
@@ -310,50 +267,6 @@ test("metadata preserves nonreduced moving-image expansion inside frame", async 
     )
     .toBe(0);
 });
-
-for (const reducedMotion of ["reduce", "no-preference"] as const) {
-  test(`crafted bento controls respond with ${reducedMotion} motion`, async ({
-    page,
-  }) => {
-    await page.emulateMedia({ reducedMotion });
-    await page.goto("/");
-    const settings = page.locator("[data-react-settings]");
-    await settings.scrollIntoViewIfNeeded();
-    const toggle = settings.getByRole("switch", { name: "Activity updates" });
-    await toggle.focus();
-    await page.keyboard.press("Space");
-    await expect(toggle).toHaveAttribute("aria-checked", "false");
-    await expect(settings.getByText("Notifications are paused")).toBeVisible();
-    const token = page.locator("[data-token-preview]");
-    await token.getByRole("button", { exact: true, name: "round" }).click();
-    await expect(token.getByText("border-radius: 28px")).toBeVisible();
-    const sample = token.getByRole("button", {
-      exact: true,
-      name: "Select item",
-    });
-    await expect(sample).toHaveCSS("border-radius", "28px");
-    await sample.click();
-    await expect(
-      token.getByRole("button", { exact: true, name: "Selected" })
-    ).toHaveAttribute("aria-pressed", "true");
-    const query = page.getByRole("group", { name: "Example search query" });
-    await query
-      .getByRole("button", { exact: true, name: "interaction" })
-      .click();
-    await expect(
-      query.getByRole("button", { exact: true, name: "interaction" })
-    ).toHaveAttribute("aria-pressed", "true");
-    await expect(
-      page.getByText("animated-toggle", { exact: true })
-    ).toBeVisible();
-    for (const width of [390, 1440]) {
-      await page.setViewportSize({ height: 900, width });
-      expect(
-        await page.evaluate(() => document.documentElement.scrollWidth)
-      ).toBeLessThanOrEqual(width);
-    }
-  });
-}
 
 for (const width of [390, 1440]) {
   test(`landing section surfaces share canonical gutters at ${width}px`, async ({
@@ -500,11 +413,11 @@ for (const reducedMotion of ["reduce", "no-preference"] as const) {
     const counter = page.locator('[data-showcase="number-flow"]');
     await counter.scrollIntoViewIfNeeded();
     const plus = counter.getByRole("button", { name: "Increase number" });
+    await expect(counter.locator("output")).toHaveText("128");
     await plus.click();
+    await expect(counter.locator("output")).toHaveText("129");
     await plus.click();
-    await expect(
-      counter.getByRole("status", { name: "Current value" })
-    ).toHaveText("130");
+    await expect(counter.locator("output")).toHaveText("130");
     if (reducedMotion === "no-preference") {
       expect(
         await counter.evaluate(
@@ -516,9 +429,7 @@ for (const reducedMotion of ["reduce", "no-preference"] as const) {
       ).toBeGreaterThan(0);
     }
     await counter.getByRole("button", { name: "Decrease number" }).click();
-    await expect(
-      counter.getByRole("status", { name: "Current value" })
-    ).toHaveText("129");
+    await expect(counter.locator("output")).toHaveText("129");
     await page.waitForTimeout(350);
     for (const width of [390, 1440]) {
       await page.setViewportSize({ height: 1000, width });

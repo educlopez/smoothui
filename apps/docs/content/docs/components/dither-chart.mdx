@@ -9,26 +9,43 @@ installer: dither-chart
 
 ## Features
 
-- Eight chart variants from a single component and a single data shape
-- Ordered dithering through a 2×2, 4×4 or 8×8 Bayer matrix — every fill becomes a dot pattern instead of a solid
-- Rendered at `width / pixelSize` on an offscreen canvas, then blitted up with `imageSmoothingEnabled = false` for crisp retro pixels
-- Colours resolved from `currentColor` and the `--color-brand` custom property, so charts follow the theme automatically
-- Animated draw-in interpolates the **values**, not the pixels, so the dither pattern never crawls
-- `devicePixelRatio` aware, `requestAnimationFrame` cancelled on unmount, and paused via `IntersectionObserver` while off-screen
-- Full screen-reader text alternative generated from the data
+Eight chart variants from a single component and a single data shape. Ordered dithering through a Bayer matrix — every fill becomes a dot pattern instead of a solid.
+
+Scroll the sections below — the panel shows one chart type at a time.
 
 ## Variants
 
-| Variant | Data it reads | Description |
-|---------|---------------|-------------|
-| `line` | All series | Dithered area under a 1px stroke, one layer per series |
-| `bar` | All series | Grouped bars, one group per point index |
-| `stacked` | All series | Stacked bars normalised against the tallest stack |
-| `donut` | First series | One ring slice per point, sweeping in on draw-in |
-| `gauge` | First point of first series | 270° dial, value read as a 0–100 percentage |
-| `funnel` | First series | Centred rows whose width follows each value |
-| `heatmap` | One series per row | Grid of cells whose dither density follows the value |
-| `bubbles` | All series | Circles positioned by value with value-driven radius |
+### Line
+
+Dithered area under a 1px stroke, one layer per series — weekly visitors and signups.
+
+### Bar
+
+Grouped bars, one group per point index.
+
+### Bubbles
+
+Circles positioned by value with value-driven radius.
+
+### Donut
+
+One ring slice per point, sweeping in on draw-in — traffic share by channel.
+
+### Funnel
+
+Centred rows whose width follows each value — conversion funnel, top to bottom.
+
+### Gauge
+
+270° dial, value read as a 0–100 percentage — uptime as a dial.
+
+### Heatmap
+
+Grid of cells whose dither density follows the value — activity per slot and day.
+
+### Stacked
+
+Stacked bars normalised against the tallest stack.
 
 Every variant is also exported as the `DITHER_CHART_VARIANTS` const array, so you can map over the whole family.
 

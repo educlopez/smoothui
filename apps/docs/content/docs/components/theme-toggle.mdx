@@ -9,21 +9,37 @@ installer: theme-toggle
 
 ## Features
 
-Four variants that are deliberately built from different primitives, so they never look like the same grey pill:
+Four variants built from different primitives so they never look like the same grey pill. Binary and three-way modes, three sizes, controlled or uncontrolled — and it never writes to `document.documentElement` or `localStorage`. Wire `onThemeChange` to your own theme provider (e.g. `next-themes`).
 
-- **`sun-moon`** — a single filled disc carved by a masking circle that slides across it. The disc radius, the mask radius and the mask position all animate together, so the sun grows into a crescent instead of crossfading two icons. Eight rays retract into the disc with a stagger while the whole ray group rotates. In three-way mode the mask becomes a huge circle whose edge lands exactly on the centre line, leaving a half-lit disc with rays only on the lit side.
-- **`pill`** — a segmented control with icons *and* labels. The active thumb is a `layoutId` element with real elevation (drop shadow plus a hairline ring), so it physically travels between segments, and each icon shifts to its own hue as the thumb lands under it (amber for light, indigo for dark).
-- **`switch`** — a real track-and-knob switch. The track cross-fades a sky gradient into a night gradient, has an inset shadow for depth, and fades in tiny stars on the dark end. The knob is a gradient sphere with a specular highlight and a layered shadow; it travels on a spring while the icon inside rotates through the transition.
-- **`orb`** — a lit sphere: radial-gradient body, a specular highlight that travels across the surface as the theme changes, craters that fade in on the dark side, an inset terminator shadow and a soft coloured bloom cast beneath it.
+## Variants
 
-Plus:
+Each treatment is a different control. Scroll the sections below — the panel shows one at a time.
 
-- Binary mode (`showSystem={false}`) and three-way mode (`showSystem`, the default) for every variant
-- Controlled and uncontrolled modes via `theme` / `defaultTheme` / `onThemeChange`
-- Three sizes (`sm` / `md` / `lg`) that scale the glyph, the orb, the knob and the segments together
-- Guards against hydration mismatches by skipping transitions until the component has mounted on the client
-- **Does not** write to `document.documentElement` or `localStorage` — it only reports the chosen value through `onThemeChange`. Wire that callback up to your own theme provider (e.g. `next-themes`) to actually apply the theme
-- Respects `prefers-reduced-motion`
+### Sun Moon
+
+A single filled disc carved by a masking circle that slides across it. The disc radius, the mask radius and the mask position all animate together, so the sun grows into a crescent instead of crossfading two icons. Eight rays retract into the disc with a stagger while the whole ray group rotates.
+
+### Pill
+
+A segmented control with icons *and* labels. The active thumb is a `layoutId` element with real elevation (drop shadow plus a hairline ring), so it physically travels between segments, and each icon shifts to its own hue as the thumb lands under it (amber for light, indigo for dark).
+
+### Switch
+
+A real track-and-knob switch. The track cross-fades a sky gradient into a night gradient, has an inset shadow for depth, and fades in tiny stars on the dark end. The knob is a gradient sphere with a specular highlight and a layered shadow; it travels on a spring while the icon inside rotates through the transition.
+
+### Orb
+
+A lit sphere: radial-gradient body, a specular highlight that travels across the surface as the theme changes, craters that fade in on the dark side, an inset terminator shadow and a soft coloured bloom cast beneath it.
+
+## Modes
+
+### Binary
+
+`showSystem={false}` — light and dark only. Best for a header chip that should never land on “system”.
+
+### Three-way
+
+`showSystem` (the default) — light, dark and system. On `sun-moon` and `orb` the control cycles; on `pill` and `switch` system is a third segment / stop.
 
 ## Accessibility
 

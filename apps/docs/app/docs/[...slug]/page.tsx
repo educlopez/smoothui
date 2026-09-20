@@ -6,6 +6,7 @@ import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { ComponentSchema } from "@docs/components/component-schema";
 import { Contributor } from "@docs/components/contributor";
+import { ReadingMarker } from "@docs/components/docs-reading/reading-marker";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import {
@@ -260,11 +261,20 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const heading = (
     <>
       <DocsTitle>{page.data.title}</DocsTitle>
-      <DocsDescription className="mb-2 text-foreground/70 text-md">
-        {page.data.description}
-      </DocsDescription>
+      {isSplit ? null : (
+        <DocsDescription className="mb-2 text-foreground/70 text-md">
+          {page.data.description}
+        </DocsDescription>
+      )}
     </>
   );
+
+  const introCopy =
+    isSplit && page.data.description ? (
+      <p className="mb-[9vh] text-foreground/70 text-md leading-relaxed">
+        {page.data.description}
+      </p>
+    ) : null;
 
   const mdxBody = (
     <MDX
@@ -406,8 +416,13 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             >
               {heading}
               {actionRow}
-              {installSection}
-              {mdxBody}
+              <ReadingMarker>
+                <div>
+                  {introCopy}
+                  {installSection}
+                  {mdxBody}
+                </div>
+              </ReadingMarker>
               {/* On a split page there is no TOC column, and this content used to
                   live in its footer — contributors, dependencies and references
                   would have vanished. It ends the reading column instead. */}

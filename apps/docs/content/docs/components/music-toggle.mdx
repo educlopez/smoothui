@@ -9,13 +9,17 @@ installer: music-toggle
 
 ## Features
 
-- Cover art spins continuously while playing and pauses in place (never resets) when paused
-- Play icon morphs into a pause icon with a spring rotate/scale transition
-- Waveform bars animate `scaleY` on a deterministic per-bar phase — no `Math.random()` is used, heights and timing are seeded from the bar index
-- A `pathLength`-style progress ring around the record doubles as a `role="slider"` for keyboard seeking
-- Optional `src` lets the component own an `<audio>` element; without it, the component is purely visual and the caller drives `playing`
-- Never autoplays: the underlying `<audio>` element is only played or paused in response to a `playing` change made **after** the initial mount, and its `muted` property is never touched
-- Respects `prefers-reduced-motion`
+Play/pause control shaped like a spinning record with a live waveform and seekable progress ring. Caller-driven or self-contained with an optional `<audio>` element.
+
+## Modes
+
+### Player
+
+Full player with title, artist, seek ring, and waveform. Pass `playing`, `onPlayingChange`, `progress`, and `onSeek` — or supply `src` and let the component own playback.
+
+### Caller-driven
+
+Purely visual when you drive `playing` yourself — no `<audio>` element. Useful for previews and design systems where audio would be hostile.
 
 ## Accessibility
 

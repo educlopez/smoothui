@@ -2,67 +2,48 @@
 
 import BasicToast from "@repo/smoothui/components/basic-toast";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { AlertCircle, CheckCircle, Info, XCircle } from "lucide-react";
 import { useState } from "react";
 
-const Example = () => {
-  const [showToast, setShowToast] = useState(false);
-  const [toastType, setToastType] = useState<
-    "success" | "error" | "info" | "warning"
-  >("success");
+type ToastType = "success" | "error" | "info" | "warning";
 
-  const handleShowToast = (type: "success" | "error" | "info" | "warning") => {
-    setToastType(type);
-    setShowToast(true);
-  };
+const ToastScene = ({ type }: { type: ToastType }) => {
+  const [showToast, setShowToast] = useState(false);
 
   return (
-    <div className="flex flex-col gap-4 p-4">
-      <div className="flex flex-wrap gap-2">
-        <SmoothButton
-          onClick={() => handleShowToast("success")}
-          size="sm"
-          variant="outline"
-        >
-          <CheckCircle className="h-4 w-4 text-emerald-500" />
-          Success
-        </SmoothButton>
-        <SmoothButton
-          onClick={() => handleShowToast("error")}
-          size="sm"
-          variant="outline"
-        >
-          <XCircle className="h-4 w-4 text-red-500" />
-          Error
-        </SmoothButton>
-        <SmoothButton
-          onClick={() => handleShowToast("warning")}
-          size="sm"
-          variant="outline"
-        >
-          <AlertCircle className="h-4 w-4 text-amber-500" />
-          Warning
-        </SmoothButton>
-        <SmoothButton
-          onClick={() => handleShowToast("info")}
-          size="sm"
-          variant="outline"
-        >
-          <Info className="h-4 w-4 text-blue-500" />
-          Info
-        </SmoothButton>
-      </div>
+    <div className="flex flex-col items-center justify-center gap-4 p-8">
+      <SmoothButton
+        onClick={() => setShowToast(true)}
+        size="sm"
+        variant="outline"
+      >
+        Show {type}
+      </SmoothButton>
 
       {showToast ? (
         <BasicToast
           duration={3000}
-          message={`This is a ${toastType} message example!`}
+          message={`This is a ${type} message example!`}
           onClose={() => setShowToast(false)}
-          type={toastType}
+          type={type}
         />
       ) : null}
     </div>
   );
 };
 
-export default Example;
+const SuccessDemo = () => <ToastScene type="success" />;
+const ErrorDemo = () => <ToastScene type="error" />;
+const WarningDemo = () => <ToastScene type="warning" />;
+const InfoDemo = () => <ToastScene type="info" />;
+
+export const demoScenes = {
+  Error: ErrorDemo,
+  Features: SuccessDemo,
+  Info: InfoDemo,
+  Success: SuccessDemo,
+  Warning: WarningDemo,
+};
+
+export default function BasicToastDemo() {
+  return <SuccessDemo />;
+}

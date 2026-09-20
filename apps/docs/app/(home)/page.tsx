@@ -2,6 +2,7 @@ import { AISection } from "@docs/components/landing/ai-section";
 import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { Coverage } from "@docs/components/landing/coverage";
+import { ExploreSections } from "@docs/components/landing/explore-sections";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
@@ -52,6 +53,7 @@ export default function Home() {
       <LandingBand>
         <Hero />
         <SocialProof />
+        <ExploreSections />
         <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
           <ComponentsSlideshow />
         </Suspense>
