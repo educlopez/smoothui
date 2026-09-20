@@ -120,6 +120,7 @@ export function Features() {
           onHoverEnd={() => setMotionActive(false)}
           onHoverStart={() => setMotionActive(true)}
           pattern={<ArtworkPattern variant="squares" />}
+          stage="features"
         >
           <MotionDrawing active={motionActive} />
         </VividLeadCard>

@@ -83,6 +83,7 @@ export function AISection() {
             onHoverEnd={() => setMcpActive(false)}
             onHoverStart={() => setMcpActive(true)}
             pattern={<ArtworkPattern variant="contours" />}
+            stage="ai"
           >
             <McpDrawing active={mcpActive} />
           </VividLeadCard>

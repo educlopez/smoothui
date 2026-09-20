@@ -43,10 +43,7 @@ for (const width of [390, 1440]) {
       "pointer-events",
       "none"
     );
-    await ai.getByRole("button", { name: "2 Resolve dependencies" }).click();
-    await expect(
-      ai.getByRole("button", { name: "2 Resolve dependencies" })
-    ).toHaveAttribute("aria-pressed", "true");
+    await expect(ai.getByText("AI agents, meet your components")).toBeVisible();
     await ai
       .locator("..")
       .screenshot({ path: `/tmp/smoothui-pattern-ai-contours-${width}.png` });

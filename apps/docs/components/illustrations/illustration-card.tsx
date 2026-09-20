@@ -8,6 +8,7 @@ export const VividLeadCard = ({
   className,
   background,
   pattern,
+  stage,
   onHoverStart,
   onHoverEnd,
 }: {
@@ -16,6 +17,7 @@ export const VividLeadCard = ({
   className?: string;
   background: ReactNode;
   pattern: ReactNode;
+  stage?: string;
   onHoverStart?: () => void;
   onHoverEnd?: () => void;
 }) => (
@@ -24,6 +26,7 @@ export const VividLeadCard = ({
       "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary",
       className
     )}
+    data-vivid-stage={stage}
     onBlurCapture={onHoverEnd}
     onFocusCapture={onHoverStart}
     onMouseEnter={onHoverStart}
@@ -36,7 +39,10 @@ export const VividLeadCard = ({
         {children}
       </div>
     </div>
-    <div className="relative border-t bg-background p-6 text-foreground">
+    <div
+      className="relative border-t bg-background p-6 text-foreground"
+      data-lead-caption
+    >
       {caption}
     </div>
   </div>
