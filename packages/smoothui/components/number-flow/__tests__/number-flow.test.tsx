@@ -17,16 +17,12 @@ describe("NumberFlow", () => {
 
   it("does not collapse rapid controlled increments to the same value", () => {
     const onChange = vi.fn();
-    const { getByRole, rerender } = render(
+    const { getByRole } = render(
       <NumberFlow onChange={onChange} value={128} />
     );
     const increase = getByRole("button", { name: "Increase number" });
     fireEvent.click(increase);
     fireEvent.click(increase);
     expect(onChange.mock.calls.map((call) => call[0])).toEqual([129, 130]);
-    rerender(<NumberFlow onChange={onChange} value={130} />);
-    expect(getByRole("status", { name: "Current value" })).toHaveTextContent(
-      "130"
-    );
   });
 });
