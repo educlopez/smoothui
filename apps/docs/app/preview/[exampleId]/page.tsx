@@ -1,6 +1,7 @@
 import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { ColorSync } from "@docs/components/color-sync";
+import { ExampleStage } from "@docs/components/preview/example-stage";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -55,7 +56,9 @@ export default async function ExamplePreviewPage({
           <style dangerouslySetInnerHTML={{ __html: TRANSPARENT_PAGE_CSS }} />
         )}
         <ColorSync />
-        <Example />
+        <ExampleStage exampleId={exampleId}>
+          <Example />
+        </ExampleStage>
       </div>
     );
   } catch {

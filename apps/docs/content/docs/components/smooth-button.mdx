@@ -11,22 +11,19 @@ installer: smooth-button
 
 ## Features
 
-- 7 style variants: default, candy, destructive, outline, secondary, ghost, link
-- 4 sizes: sm, default, lg, icon
-- Subtle `active:scale(0.97)` press feedback
-- Polymorphic with `asChild` prop (via Radix Slot)
-- Brand gradient "candy" variant matching SmoothUI identity
-- Focus-visible ring for keyboard navigation
-- Disabled state with reduced opacity
+Seven style variants, four sizes, a candy brand treatment, and a quiet press scale. Polymorphic via `asChild` (Radix Slot). Focus-visible ring and a disabled state with reduced opacity.
 
-## Props
+## Variants
 
-<AutoTypeTable
-  path="../../packages/smoothui/components/smooth-button/index.tsx"
-  name="SmoothButtonProps"
-/>
+Solid, soft, outline, ghost, and candy — each colour way sits on the same size scale.
+
+## Sizes
+
+`xs`, `sm`, `default`, `lg`, and `icon`. Icon buttons keep the hit target square.
 
 ## Usage
+
+Loading, disabled, leading/trailing icons, and pill shape — the everyday compositions.
 
 ```tsx
 import SmoothButton from "@/components/smooth-button";
@@ -36,35 +33,9 @@ export default function Example() {
 }
 ```
 
-## Examples
+## Props
 
-### Variants
-
-```tsx
-<SmoothButton variant="default">Default</SmoothButton>
-<SmoothButton variant="candy">Candy</SmoothButton>
-<SmoothButton variant="destructive">Delete</SmoothButton>
-<SmoothButton variant="outline">Outline</SmoothButton>
-<SmoothButton variant="secondary">Secondary</SmoothButton>
-<SmoothButton variant="ghost">Ghost</SmoothButton>
-<SmoothButton variant="link">Link</SmoothButton>
-```
-
-### Sizes
-
-```tsx
-<SmoothButton size="sm">Small</SmoothButton>
-<SmoothButton size="default">Default</SmoothButton>
-<SmoothButton size="lg">Large</SmoothButton>
-<SmoothButton size="icon"><Heart /></SmoothButton>
-```
-
-### As Child (Polymorphic)
-
-Render as any element using `asChild`:
-
-```tsx
-<SmoothButton asChild variant="candy">
-  <a href="/docs">Go to Docs</a>
-</SmoothButton>
-```
+<AutoTypeTable
+  path="../../packages/smoothui/components/smooth-button/index.tsx"
+  name="SmoothButtonProps"
+/>

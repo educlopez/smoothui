@@ -9,13 +9,37 @@ installer: emboss-surface
 
 ## Features
 
-- Four material recipes — `emboss`, `deboss`, `plaster` and `metal-stamp`
-- Highlight and shade layers derived from `lightAngle`, `depth` and `softness`, so a single angle drives the whole relief
-- `plaster` swaps the shadow stack for an SVG `feSpecularLighting` filter with a matching `feDistantLight`
-- `metal-stamp` adds hard zero-blur layers plus a `drop-shadow` pass so icons and SVG shapes take the same strike
-- Polymorphic `as` prop — emboss a heading, a `span`, a button wrapper or any element
-- `interactive` couples the light angle to the pointer by writing CSS custom properties directly, with no React re-render per move
-- Colours are derived with `color-mix`, so the relief tracks whatever theme token you pass to `color`
+Four material recipes — highlight and shade derived from `lightAngle`, `depth` and `softness`. Polymorphic `as` prop and optional pointer-driven lighting.
+
+Scroll the sections below — the panel shows one material at a time.
+
+## Variants
+
+### Emboss
+
+Raised relief, light from the upper left — the default raised type treatment.
+
+### Deboss
+
+The same relief, pressed into the surface — inverted highlight and shade.
+
+### Plaster
+
+Soft specular lighting through an SVG `feSpecularLighting` filter with a matching `feDistantLight`.
+
+### Metal Stamp
+
+Hard-edged die strike with a metallic falloff — icons and SVG shapes take the same strike.
+
+## Extras
+
+### Interactive
+
+`interactive` couples the light angle to the pointer by writing CSS custom properties directly, with no React re-render per move.
+
+### Icon
+
+Metal-stamp variant on an icon and label — shows how relief works on non-text content with a custom `lightAngle`.
 
 ## Usage notes
 

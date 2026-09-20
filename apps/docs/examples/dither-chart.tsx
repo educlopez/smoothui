@@ -2,7 +2,7 @@
 
 import type { DitherChartSeries } from "@repo/smoothui/components/dither-chart";
 import DitherChart, {
-  DITHER_CHART_VARIANTS,
+  type DitherChartVariant,
 } from "@repo/smoothui/components/dither-chart";
 
 const TRAFFIC: DitherChartSeries[] = [
@@ -96,7 +96,7 @@ const HEATMAP: DitherChartSeries[] = [
   },
 ];
 
-const DATA_BY_VARIANT: Record<string, DitherChartSeries[]> = {
+const DATA_BY_VARIANT: Record<DitherChartVariant, DitherChartSeries[]> = {
   bar: TRAFFIC,
   bubbles: TRAFFIC,
   donut: BREAKDOWN,
@@ -107,40 +107,41 @@ const DATA_BY_VARIANT: Record<string, DitherChartSeries[]> = {
   stacked: TRAFFIC,
 };
 
-const CAPTIONS: Record<string, string> = {
-  bar: "Grouped bars, one group per day",
-  bubbles: "Bubble size and height follow the value",
-  donut: "Traffic share by channel",
-  funnel: "Conversion funnel, top to bottom",
-  gauge: "Uptime as a 0–100 dial",
-  heatmap: "Activity per slot and day",
-  line: "Weekly visitors and signups",
-  stacked: "Visitors stacked over signups",
-};
-
 const CHART_WIDTH = 260;
 const CHART_HEIGHT = 150;
 
+const ChartScene = ({ variant }: { variant: DitherChartVariant }) => (
+  <div className="flex items-center justify-center p-8">
+    <DitherChart
+      data={DATA_BY_VARIANT[variant]}
+      height={CHART_HEIGHT}
+      variant={variant}
+      width={CHART_WIDTH}
+    />
+  </div>
+);
+
+const LineDemo = () => <ChartScene variant="line" />;
+const BarDemo = () => <ChartScene variant="bar" />;
+const StackedDemo = () => <ChartScene variant="stacked" />;
+const DonutDemo = () => <ChartScene variant="donut" />;
+const GaugeDemo = () => <ChartScene variant="gauge" />;
+const FunnelDemo = () => <ChartScene variant="funnel" />;
+const HeatmapDemo = () => <ChartScene variant="heatmap" />;
+const BubblesDemo = () => <ChartScene variant="bubbles" />;
+
+export const demoScenes = {
+  Bar: BarDemo,
+  Bubbles: BubblesDemo,
+  Donut: DonutDemo,
+  Features: LineDemo,
+  Funnel: FunnelDemo,
+  Gauge: GaugeDemo,
+  Heatmap: HeatmapDemo,
+  Line: LineDemo,
+  Stacked: StackedDemo,
+};
+
 export default function DitherChartDemo() {
-  return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8">
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {DITHER_CHART_VARIANTS.map((variant) => (
-          <div
-            className="flex flex-col items-center rounded-2xl border border-foreground/20 bg-background p-4"
-            key={variant}
-          >
-            <DitherChart
-              caption={CAPTIONS[variant]}
-              data={DATA_BY_VARIANT[variant]}
-              height={CHART_HEIGHT}
-              label={variant}
-              variant={variant}
-              width={CHART_WIDTH}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <LineDemo />;
 }

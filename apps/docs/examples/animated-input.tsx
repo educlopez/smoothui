@@ -4,16 +4,12 @@ import AnimatedInput from "@repo/smoothui/components/animated-input";
 import { Lock, Mail, User } from "lucide-react";
 import { useState } from "react";
 
-const Example = () => {
+const EmailDemo = () => {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
 
   return (
-    <div className="mx-auto max-w-md space-y-6 p-6">
-      <div className="space-y-4">
-        <h3 className="font-semibold text-lg">Animated Input Examples</h3>
-
+    <div className="flex items-center justify-center p-8">
+      <div className="w-full max-w-sm">
         <AnimatedInput
           icon={<Mail className="h-4 w-4 text-gray-400" />}
           label="Email Address"
@@ -21,7 +17,17 @@ const Example = () => {
           placeholder="Enter your email"
           value={email}
         />
+      </div>
+    </div>
+  );
+};
 
+const UsernameDemo = () => {
+  const [username, setUsername] = useState("");
+
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="w-full max-w-sm">
         <AnimatedInput
           icon={<User className="h-4 w-4 text-gray-400" />}
           label="Username"
@@ -29,7 +35,17 @@ const Example = () => {
           placeholder="Choose a username"
           value={username}
         />
+      </div>
+    </div>
+  );
+};
 
+const PasswordDemo = () => {
+  const [password, setPassword] = useState("");
+
+  return (
+    <div className="flex items-center justify-center p-8">
+      <div className="w-full max-w-sm">
         <AnimatedInput
           icon={<Lock className="h-4 w-4 text-gray-400" />}
           label="Password"
@@ -38,12 +54,17 @@ const Example = () => {
           value={password}
         />
       </div>
-
-      <div className="text-gray-600 text-sm dark:text-gray-300">
-        <p>Try focusing on the inputs to see the label animation!</p>
-      </div>
     </div>
   );
 };
 
-export default Example;
+export const demoScenes = {
+  Email: EmailDemo,
+  Features: EmailDemo,
+  Password: PasswordDemo,
+  Username: UsernameDemo,
+};
+
+export default function AnimatedInputDemo() {
+  return <EmailDemo />;
+}

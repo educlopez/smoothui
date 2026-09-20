@@ -1,45 +1,50 @@
 "use client";
 
 import MotionLoader, {
-  MOTION_LOADER_VARIANTS,
+  type MotionLoaderVariant,
 } from "@repo/smoothui/components/motion-loader";
 
 const LOADER_SIZE = 44;
 
-export default function MotionLoaderDemo() {
-  return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8">
-      <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {MOTION_LOADER_VARIANTS.map((variant) => (
-          <div
-            className="flex flex-col items-center gap-3 rounded-2xl border border-foreground/20 bg-background p-5 text-foreground"
-            key={variant}
-          >
-            <div className="flex h-14 items-center justify-center">
-              <MotionLoader
-                label={`Loading ${variant}`}
-                size={LOADER_SIZE}
-                variant={variant}
-              />
-            </div>
-            <span className="text-muted-foreground text-xs">{variant}</span>
-          </div>
-        ))}
-      </div>
+const LoaderScene = ({ variant }: { variant: MotionLoaderVariant }) => (
+  <div className="flex items-center justify-center p-8">
+    <MotionLoader
+      label={`Loading ${variant}`}
+      size={LOADER_SIZE}
+      variant={variant}
+    />
+  </div>
+);
 
-      <div className="mt-8 flex flex-wrap items-center gap-6 rounded-2xl border border-foreground/20 bg-background p-5">
-        <span className="text-brand">
-          <MotionLoader label="Loading brand" variant="comet" />
-        </span>
-        <MotionLoader
-          className="text-muted-foreground"
-          label="Loading small"
-          size={20}
-          variant="dot-ring"
-        />
-        <MotionLoader label="Loading fast" speed={2} variant="wave-bars" />
-        <MotionLoader label="Loading large" size={64} variant="morph-ring" />
-      </div>
-    </div>
-  );
+const OrbitDemo = () => <LoaderScene variant="orbit" />;
+const NewtonCradleDemo = () => <LoaderScene variant="newton-cradle" />;
+const PendulumDemo = () => <LoaderScene variant="pendulum" />;
+const HourglassDemo = () => <LoaderScene variant="hourglass" />;
+const MorphRingDemo = () => <LoaderScene variant="morph-ring" />;
+const SquareSnakeDemo = () => <LoaderScene variant="square-snake" />;
+const CometDemo = () => <LoaderScene variant="comet" />;
+const RadarDemo = () => <LoaderScene variant="radar" />;
+const CubeFlipDemo = () => <LoaderScene variant="cube-flip" />;
+const WaveBarsDemo = () => <LoaderScene variant="wave-bars" />;
+const BreathingGlowDemo = () => <LoaderScene variant="breathing-glow" />;
+const DotRingDemo = () => <LoaderScene variant="dot-ring" />;
+
+export const demoScenes = {
+  "Breathing Glow": BreathingGlowDemo,
+  Comet: CometDemo,
+  "Cube Flip": CubeFlipDemo,
+  "Dot Ring": DotRingDemo,
+  Features: OrbitDemo,
+  Hourglass: HourglassDemo,
+  "Morph Ring": MorphRingDemo,
+  "Newton Cradle": NewtonCradleDemo,
+  Orbit: OrbitDemo,
+  Pendulum: PendulumDemo,
+  Radar: RadarDemo,
+  "Square Snake": SquareSnakeDemo,
+  "Wave Bars": WaveBarsDemo,
+};
+
+export default function MotionLoaderDemo() {
+  return <OrbitDemo />;
 }

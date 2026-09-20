@@ -41,12 +41,11 @@ export function PmFloatNav() {
     <div className="relative" ref={ref}>
       <button
         aria-label={`Package manager: ${activePm}`}
-        className="float-trigger flex h-auto w-auto cursor-pointer items-center gap-1.5 p-2!"
+        className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
         onClick={() => setOpen((v) => !v)}
         type="button"
       >
         {CurrentIcon ? <CurrentIcon colored /> : null}
-        <span className="hidden font-medium text-sm sm:inline">{activePm}</span>
       </button>
       <AnimatePresence>
         {open ? (

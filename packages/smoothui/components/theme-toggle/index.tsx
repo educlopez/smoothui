@@ -123,7 +123,6 @@ const RAY_INNER = 7.3;
 const RAY_OUTER = 10.3;
 const RAY_STAGGER = 0.025;
 const RAY_WIDTH = 1.7;
-const GLOW_RADIUS = 9.6;
 const RAY_RETRACTED_SCALE = 0.12;
 
 /** Where the carving circle sits: off-canvas (sun), overlapping (crescent), or a
@@ -147,12 +146,6 @@ const RAY_ROTATION: Record<ThemeToggleValue, number> = {
   dark: 60,
   light: 0,
   system: 30,
-};
-
-const GLOW_OPACITY: Record<ThemeToggleValue, number> = {
-  dark: 0.16,
-  light: 0.5,
-  system: 0.28,
 };
 
 const GLYPH_COLOR: Record<ThemeToggleValue, string> = {
@@ -212,17 +205,6 @@ const SunMoonGlyph = ({
           transition={morph}
         />
       </mask>
-
-      <motion.circle
-        animate={{ opacity: GLOW_OPACITY[value] }}
-        cx={CENTER}
-        cy={CENTER}
-        fill="currentColor"
-        initial={false}
-        r={GLOW_RADIUS}
-        style={{ filter: "blur(4px)" }}
-        transition={canAnimate ? FADE : INSTANT}
-      />
 
       <motion.circle
         animate={{ r: DISC_RADIUS[value] }}
@@ -489,7 +471,7 @@ const SwitchVisual = ({
 };
 
 /* -------------------------------------------------------------------------- */
-/* Variant 4 — orb: a lit sphere with a travelling specular and a cast bloom    */
+/* Variant 4 — orb: a lit sphere with a travelling specular highlight */
 /* -------------------------------------------------------------------------- */
 
 const ORB_BODY: Record<ThemeToggleValue, string> = {
@@ -501,18 +483,6 @@ const ORB_BODY: Record<ThemeToggleValue, string> = {
 };
 
 const ORB_LAYER_ORDER: ThemeToggleValue[] = ["light", "dark", "system"];
-
-const ORB_BLOOM: Record<ThemeToggleValue, string> = {
-  dark: "#4f46e5",
-  light: "#f59e0b",
-  system: "#7c8aa5",
-};
-
-const ORB_BLOOM_OPACITY: Record<ThemeToggleValue, number> = {
-  dark: 0.5,
-  light: 0.62,
-  system: 0.36,
-};
 
 const SPECULAR: Record<
   ThemeToggleValue,
@@ -545,23 +515,6 @@ const OrbVisual = ({ canAnimate, size, value }: OrbVisualProps) => {
       className="pointer-events-none relative block"
       style={{ height: size, width: size }}
     >
-      <motion.span
-        animate={{
-          backgroundColor: ORB_BLOOM[value],
-          opacity: ORB_BLOOM_OPACITY[value],
-        }}
-        className="absolute left-1/2 rounded-[50%]"
-        initial={false}
-        style={{
-          bottom: -size * 0.12,
-          filter: `blur(${Math.round(size * 0.13)}px)`,
-          height: size * 0.3,
-          marginLeft: -size * 0.42,
-          width: size * 0.84,
-        }}
-        transition={canAnimate ? FADE : INSTANT}
-      />
-
       <span className="absolute inset-0 overflow-hidden rounded-full">
         {ORB_LAYER_ORDER.map((layer) => (
           <motion.span

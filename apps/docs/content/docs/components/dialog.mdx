@@ -9,14 +9,17 @@ installer: dialog
 
 ## Features
 
-- Controlled `open` and `onOpenChange` props
-- Title, description, and footer slots
-- Close button with configurable visibility
-- Focus trap within the dialog
-- Escape key to dismiss (Dialog only)
-- Backdrop click to dismiss (Dialog only)
-- AlertDialog variant that requires explicit action (no Escape dismiss)
-- Spring animation with reduced motion support
+Controlled modal with title, description, footer slots, focus trap, and spring entrance. Two variants: a dismissible dialog and an alert dialog that requires an explicit action.
+
+## Variants
+
+### Dialog
+
+Standard modal — Escape and backdrop click dismiss it. Includes a close button and returns focus to the trigger when closed.
+
+### Alert Dialog
+
+Destructive or irreversible actions. Escape is ignored; the user must choose Cancel or Continue. Use for delete confirmations and similar flows.
 
 ## Accessibility
 

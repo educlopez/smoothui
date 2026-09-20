@@ -1,11 +1,10 @@
 import type { RegistryItem } from "shadcn/schema";
 
 // Installable SmoothUI themes (registry:theme). Each theme maps the SmoothUI
-// design tokens (smooth neutral scale + brand accent from the docs color
-// picker) onto the standard shadcn CSS variable names, so `shadcn add`
+// design tokens (smooth neutral scale + brand accent from the docs theme
+// settings) onto the standard shadcn CSS variable names, so `shadcn add`
 // injects them into any shadcn project — Radix or Base UI based.
-// Palette values mirror PALETTES in components/color-picker-float-nav.tsx
-// and the scales in app/smoothui.css.
+// Palette values are the source of truth for ColorPickerFloatNav.
 
 export interface ThemePalette {
   label: string;
