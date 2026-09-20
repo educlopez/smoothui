@@ -4,11 +4,17 @@ import { type ReactNode, useContext, useEffect, useRef, useState } from "react";
 
 import { MasonryItemContext } from "./masonry-grid";
 
-/** Width a demo is laid out at when it has to be shown as a thumbnail. */
-const STAGE_WIDTH = 1024;
+/** Width a page-scale demo is laid out at before being scaled into the tile. */
+const STAGE_WIDTH = 880;
 
-/** Tallest a demo may be and still be shown at its real size. */
-const LIVE_MAX_HEIGHT = 300;
+/**
+ * Tallest a live (unscaled) demo may grow. Beyond this we clip the top of the
+ * demo rather than shrinking the whole thing into an unreadable thumbnail.
+ */
+const LIVE_MAX_HEIGHT = 520;
+
+/** Floor so short demos (avatars, toggles) still fill a comfortable card. */
+const DEFAULT_MIN_HEIGHT = 168;
 
 export interface PreviewStageProps {
   children: ReactNode;
@@ -29,37 +35,38 @@ export interface PreviewStageProps {
 /**
  * A demo fitted to whatever width the tile happens to have.
  *
- * Two outcomes, decided by the measurement:
+ * Preference order:
  *
- * - **Live.** The demo already fits the tile and is short. It is rendered at
- *   the tile's own width, unscaled, so a button looks like a button rather
- *   than a third-size picture of one.
- * - **Thumbnail.** The demo wants a page. It is laid out on a full-width
- *   stage and scaled down to fit, and reports itself as wide so the grid can
- *   hand it two columns.
+ * 1. **Live.** Lay the demo out at the column width, real size, top-aligned.
+ *    Height follows content (capped). This is what makes masonry look like
+ *    masonry — short toggles stay short, dense AI panels get tall cards.
+ * 2. **Clipped live.** Same as live, but the demo is taller than the cap:
+ *    show the top and fade the bottom instead of shrinking everything.
+ * 3. **Thumbnail.** Only when the demo cannot fit the column width (hard
+ *    min-width / page chrome). Laid out on a stage and scaled to fill the
+ *    tile; reports itself as wide so the grid can give it two columns.
  *
- * All of it is applied to the DOM directly rather than through state: the
- * measurement changes the element it measures, so a render pass per reading
- * would be a loop.
+ * Styles are written to the DOM directly: measuring feeds back into the
+ * measured element, so a React state pass per reading would loop.
  */
 export const PreviewStage = ({
-  maxScale = 0.6,
+  maxScale = 0.92,
   stageWidth = STAGE_WIDTH,
-  minHeight = 132,
-  maxHeight = 460,
-  padding = 24,
+  minHeight = DEFAULT_MIN_HEIGHT,
+  maxHeight = LIVE_MAX_HEIGHT,
+  padding = 20,
   eager = false,
   children,
 }: PreviewStageProps) => {
   const hostRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const [live, setLive] = useState(eager);
+  const [ready, setReady] = useState(eager);
   const item = useContext(MasonryItemContext);
   const reportRef = useRef(item?.report);
   reportRef.current = item?.report;
 
   useEffect(() => {
-    if (live) {
+    if (ready) {
       return;
     }
     const host = hostRef.current;
@@ -70,7 +77,7 @@ export const PreviewStage = ({
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries.some((entry) => entry.isIntersecting)) {
-          setLive(true);
+          setReady(true);
           observer.disconnect();
         }
       },
@@ -79,16 +86,28 @@ export const PreviewStage = ({
 
     observer.observe(host);
     return () => observer.disconnect();
-  }, [live]);
+  }, [ready]);
 
   useEffect(() => {
     const host = hostRef.current;
     const stage = stageRef.current;
-    if (!(host && stage && live)) {
+    if (!(host && stage && ready)) {
       return;
     }
 
     let frame = 0;
+
+    const clearFade = () => {
+      host.style.maskImage = "";
+      host.style.webkitMaskImage = "";
+    };
+
+    const applyFade = () => {
+      const fade =
+        "linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%)";
+      host.style.maskImage = fade;
+      host.style.webkitMaskImage = fade;
+    };
 
     const apply = () => {
       const available = host.clientWidth - padding * 2;
@@ -96,55 +115,61 @@ export const PreviewStage = ({
         return;
       }
 
-      // First reading: the demo on the full-width stage it was written for.
+      // Natural size on the design-width stage (used to detect squeeze).
       stage.style.transform = "none";
-      stage.style.transformOrigin = "center";
+      stage.style.transformOrigin = "top left";
       stage.style.width = `${stageWidth}px`;
+      stage.style.left = `${padding}px`;
+      stage.style.top = `${padding}px`;
       const natural = stage.scrollHeight;
 
-      // Second reading: the same demo at the tile's own width. Overflowing
-      // means something inside has a minimum bigger than the column; growing
-      // much taller than it was at full width means it is not overflowing,
-      // it is being wrung out — a header stacking into four lines.
+      // Same demo at the column's own width.
       stage.style.width = `${available}px`;
-      stage.style.left = `${padding}px`;
-      stage.style.top = "50%";
-
       const liveWidth = stage.scrollWidth;
       const liveHeight = stage.scrollHeight;
-      const squeezed = liveHeight > natural * 1.35 + 8;
+      const overflowsColumn = liveWidth > available + 2;
+      const squeezed = liveHeight > natural * 1.4 + 12;
 
-      if (
-        liveWidth <= available + 1 &&
-        liveHeight <= LIVE_MAX_HEIGHT &&
-        !squeezed
-      ) {
-        stage.style.transform = "translateY(-50%)";
-        host.style.height = `${Math.max(minHeight, liveHeight + padding * 2)}px`;
+      if (!(overflowsColumn || squeezed)) {
+        // Live — real size, top-aligned. Height follows content.
+        const contentHeight = liveHeight + padding * 2;
+        const clipped = contentHeight > maxHeight;
+        const height = Math.max(minHeight, Math.min(maxHeight, contentHeight));
+
+        stage.style.transform = "none";
+        stage.style.left = `${padding}px`;
+        stage.style.top = `${padding}px`;
+        host.style.height = `${height}px`;
+
+        if (clipped) {
+          applyFade();
+        } else {
+          clearFade();
+        }
         return;
       }
 
+      // Thumbnail — page-scale layout scaled to fill the column width.
       stage.style.width = `${stageWidth}px`;
       const scale = Math.min(maxScale, available / stageWidth);
-      const scaled = natural * scale;
-      const height = Math.min(
-        maxHeight,
-        Math.max(minHeight, scaled + padding * 2)
-      );
+      const scaledHeight = natural * scale;
+      const contentHeight = scaledHeight + padding * 2;
+      const clipped = contentHeight > maxHeight;
+      const height = Math.max(minHeight, Math.min(maxHeight, contentHeight));
 
+      stage.style.left = `${padding}px`;
+      stage.style.top = `${padding}px`;
+      stage.style.transformOrigin = "top left";
+      stage.style.transform = `scale(${scale})`;
       host.style.height = `${height}px`;
 
-      if (scaled + padding * 2 <= height) {
-        stage.style.left = "50%";
-        stage.style.top = "50%";
-        stage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+      if (clipped) {
+        applyFade();
       } else {
-        stage.style.left = "50%";
-        stage.style.top = `${padding}px`;
-        stage.style.transformOrigin = "top center";
-        stage.style.transform = `translateX(-50%) scale(${scale})`;
+        clearFade();
       }
 
+      // Wide demos get two columns so the thumbnail stays readable.
       reportRef.current?.(2);
     };
 
@@ -158,7 +183,9 @@ export const PreviewStage = ({
     const observer = new ResizeObserver(schedule);
     observer.observe(host);
 
+    // Demos often settle after fonts / images / motion mount.
     const timer = window.setTimeout(schedule, 400);
+    const late = window.setTimeout(schedule, 1200);
     const fontsReady = document.fonts?.ready;
     if (fontsReady) {
       fontsReady.then(schedule);
@@ -167,9 +194,11 @@ export const PreviewStage = ({
     return () => {
       cancelAnimationFrame(frame);
       window.clearTimeout(timer);
+      window.clearTimeout(late);
       observer.disconnect();
+      clearFade();
     };
-  }, [live, maxScale, stageWidth, minHeight, maxHeight, padding]);
+  }, [ready, maxScale, stageWidth, minHeight, maxHeight, padding]);
 
   return (
     <div
@@ -184,7 +213,7 @@ export const PreviewStage = ({
         ref={stageRef}
         style={{ width: stageWidth }}
       >
-        {live ? children : null}
+        {ready ? children : null}
       </div>
     </div>
   );
