@@ -59,6 +59,10 @@ export default function NumberFlow({
 
   const value = controlledValue === undefined ? internalValue : controlledValue;
   const lastAnimatedValue = useRef(value);
+  // Keep a live copy so rapid clicks before the parent re-renders do not
+  // both commit the same next value (stale controlled prop).
+  const committedValue = useRef(value);
+  committedValue.current = value;
 
   const prevValueRef = useRef<HTMLElement>(null);
   const nextValueRef = useRef<HTMLElement>(null);
@@ -76,16 +80,22 @@ export default function NumberFlow({
   };
 
   const add = () => {
-    if (value < max) {
-      setPrevValue(value);
-      setValue(value + 1);
+    const { current } = committedValue;
+    if (current < max) {
+      const next = current + 1;
+      committedValue.current = next;
+      setPrevValue(current);
+      setValue(next);
     }
   };
 
   const subtract = () => {
-    if (value > min) {
-      setPrevValue(value);
-      setValue(value - 1);
+    const { current } = committedValue;
+    if (current > min) {
+      const next = current - 1;
+      committedValue.current = next;
+      setPrevValue(current);
+      setValue(next);
     }
   };
 
