@@ -9,19 +9,35 @@ installer: border-beam
 
 ## Features
 
-- The comet **is** the border: every segment is a `stroke-dasharray` dash on the same SVG outline `<path>`, so it is curved by construction and can never leave the shape — nothing is translated or rotated along the path
-- Only `stroke-dashoffset` animates, on a path normalised with `pathLength={1}`, so the dash slides *through* a corner instead of pivoting across it
-- The tail is four dashes sharing one head: each successive layer is longer and fainter, so alpha accumulates towards the head and the exposed far end reads as the tip of the trail
-- The halo is a single blurred dash stroked in a **lighter** tint of the beam colour, mixed towards white in `oklab`. Blurring a dark stroke produces a shadow, not a glow, so no layer is ever allowed to be darker than the beam
-- On dark surfaces the halo composites with `mix-blend-mode: plus-lighter`, so the blur adds light instead of laying haze over the card; on light surfaces it composites normally, where an additive glow would wash out to nothing
-- The ring is a plain hairline in `--color-border`, decoupled from `colorFrom`/`colorTo` — those two only ever colour the beam, so they are free to be as bright as a glow needs
-- `radius` accepts a pixel value or `"squircle"` for continuous, Apple-style corners with no constant-radius arc at all
-- Any number of `beams`, which are phase offsets of the same normalised offset, so they stay evenly spaced at any `duration`
-- `reverse` runs the offset the other way and flips which end of the dash leads, so the comet still travels head-first
-- `pauseOnHover` freezes the animation frame loop, only on hover-capable, fine-pointer devices
-- An `IntersectionObserver` skips every style write while the element is scrolled out of view
-- `active` lets you drive the beam from loading or focus state
-- Auto-measures with a `ResizeObserver`, so the path re-derives on layout change
+A soft light comet that travels along an element's border — curved by construction because it is a stroked dash on the outline path itself. Only `stroke-dashoffset` animates, so the beam slides through corners instead of pivoting across them.
+
+Scroll the sections below — the panel shows one configuration at a time.
+
+## Variants
+
+### Tight Corners
+
+`radius={6}` — the hardest case: a 90° swing inside six pixels, leaving square with the next edge.
+
+### Pill
+
+`radius={999}` — the tangent turns continuously, so there is no seam where the arc meets the straight run.
+
+### Squircle
+
+`radius="squircle"` — a squircle has no constant-radius arc at all, and the beam still tracks it.
+
+### Two Beams
+
+`beams={2}` — phase offsets along one path, so they stay half a lap apart at any duration.
+
+### Custom Colors
+
+`colorFrom` / `colorTo` — the tail fades in from one and the head burns out in the other.
+
+### Reverse
+
+`reverse` with `pauseOnHover` — counter-clockwise travel; hover to freeze mid-corner on fine-pointer devices.
 
 ## Notes
 

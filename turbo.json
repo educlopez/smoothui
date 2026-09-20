@@ -6,7 +6,13 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [".next/**", "!.next/cache/**", ".basehub/**", "dist/**"]
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**",
+        "!.next/dev/**",
+        ".basehub/**",
+        "dist/**"
+      ]
     },
     "test": {
       "dependsOn": ["^test"]

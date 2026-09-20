@@ -48,7 +48,7 @@ function validate(data: FormData): FormErrors {
   return errors;
 }
 
-export default function FormDemo() {
+const FormDemo = () => {
   const [formData, setFormData] = useState<FormData>({
     acceptTerms: false,
     email: "",
@@ -98,79 +98,89 @@ export default function FormDemo() {
   }
 
   return (
-    <div className="w-full max-w-md p-8">
-      <Form errors={errors} onFormSubmit={handleSubmit}>
-        <FormField name="name">
-          <FormLabel>Name</FormLabel>
-          <FormControl>
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
-              }
-              placeholder="Your name"
-              type="text"
-              value={formData.name}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormField>
+    <div className="flex w-full justify-center p-8">
+      <div className="w-full max-w-md">
+        <Form errors={errors} onFormSubmit={handleSubmit}>
+          <FormField name="name">
+            <FormLabel>Name</FormLabel>
+            <FormControl>
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                }
+                placeholder="Your name"
+                type="text"
+                value={formData.name}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormField>
 
-        <FormField name="email">
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <input
-              className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, email: e.target.value }))
-              }
-              placeholder="you@example.com"
-              type="email"
-              value={formData.email}
-            />
-          </FormControl>
-          <FormDescription>We will never share your email.</FormDescription>
-          <FormMessage />
-        </FormField>
+          <FormField name="email">
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <input
+                className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
+                placeholder="you@example.com"
+                type="email"
+                value={formData.email}
+              />
+            </FormControl>
+            <FormDescription>We will never share your email.</FormDescription>
+            <FormMessage />
+          </FormField>
 
-        <FormField name="subject">
-          <FormLabel>Subject</FormLabel>
-          <FormControl>
-            <Select
-              onValueChange={(val) =>
-                setFormData((prev) => ({ ...prev, subject: val }))
-              }
-              options={subjectOptions}
-              placeholder="Select a subject"
-              value={formData.subject}
-            />
-          </FormControl>
-          <FormMessage />
-        </FormField>
+          <FormField name="subject">
+            <FormLabel>Subject</FormLabel>
+            <FormControl>
+              <Select
+                onValueChange={(val) =>
+                  setFormData((prev) => ({ ...prev, subject: val }))
+                }
+                options={subjectOptions}
+                placeholder="Select a subject"
+                value={formData.subject}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormField>
 
-        <FormField name="acceptTerms">
-          <div className="flex items-center gap-3">
-            <Checkbox
-              checked={formData.acceptTerms}
-              id="accept-terms"
-              onCheckedChange={(checked) =>
-                setFormData((prev) => ({ ...prev, acceptTerms: checked }))
-              }
-            />
-            <label
-              className="font-medium text-sm leading-none"
-              htmlFor="accept-terms"
-            >
-              I accept the terms and conditions
-            </label>
-          </div>
-          <FormMessage />
-        </FormField>
+          <FormField name="acceptTerms">
+            <div className="flex items-center gap-3">
+              <Checkbox
+                checked={formData.acceptTerms}
+                id="accept-terms"
+                onCheckedChange={(checked) =>
+                  setFormData((prev) => ({ ...prev, acceptTerms: checked }))
+                }
+              />
+              <label
+                className="font-medium text-sm leading-none"
+                htmlFor="accept-terms"
+              >
+                I accept the terms and conditions
+              </label>
+            </div>
+            <FormMessage />
+          </FormField>
 
-        <SmoothButton type="submit" variant="candy">
-          Submit
-        </SmoothButton>
-      </Form>
+          <SmoothButton type="submit" variant="candy">
+            Submit
+          </SmoothButton>
+        </Form>
+      </div>
     </div>
   );
+};
+
+export const demoScenes = {
+  Features: FormDemo,
+};
+
+export default function FormDemoPage() {
+  return <FormDemo />;
 }

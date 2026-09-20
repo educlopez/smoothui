@@ -33,43 +33,53 @@ const groupedOptions = [
   },
 ];
 
-export default function SelectDemo() {
+const BasicDemo = () => {
   const [value, setValue] = useState<string>("");
 
   return (
-    <div className="flex w-full max-w-sm flex-col gap-8 p-8">
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Basic Select</h3>
-        <Select
-          aria-label="Fruit selection"
-          onValueChange={setValue}
-          options={fruits}
-          placeholder="Choose a fruit"
-          value={value}
-        />
-        {value ? (
-          <p className="text-muted-foreground text-sm">Selected: {value}</p>
-        ) : null}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Grouped Select</h3>
-        <Select
-          aria-label="Food selection"
-          groups={groupedOptions}
-          placeholder="Choose food"
-        />
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Disabled Select</h3>
-        <Select
-          aria-label="Disabled selection"
-          disabled
-          options={fruits}
-          placeholder="Not available"
-        />
-      </div>
+    <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+      <Select
+        aria-label="Fruit selection"
+        onValueChange={setValue}
+        options={fruits}
+        placeholder="Choose a fruit"
+        value={value}
+      />
+      {value ? (
+        <p className="text-muted-foreground text-sm">Selected: {value}</p>
+      ) : null}
     </div>
   );
+};
+
+const GroupedDemo = () => (
+  <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+    <Select
+      aria-label="Food selection"
+      groups={groupedOptions}
+      placeholder="Choose food"
+    />
+  </div>
+);
+
+const DisabledDemo = () => (
+  <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+    <Select
+      aria-label="Disabled selection"
+      disabled
+      options={fruits}
+      placeholder="Not available"
+    />
+  </div>
+);
+
+export const demoScenes = {
+  Basic: BasicDemo,
+  Disabled: DisabledDemo,
+  Features: BasicDemo,
+  Grouped: GroupedDemo,
+};
+
+export default function SelectDemo() {
+  return <BasicDemo />;
 }

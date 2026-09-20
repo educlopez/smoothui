@@ -1,3 +1,5 @@
+"use client";
+
 import { GalleryPreview } from "@docs/components/gallery/gallery-preview";
 import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
@@ -5,10 +7,10 @@ import { Button } from "@docs/components/smoothbutton";
 import Link from "next/link";
 import { ShowcaseDemo } from "./showcase-demo";
 
-type ShowcaseItem = {
+interface ShowcaseItem {
   name: string;
   slug: string;
-};
+}
 
 const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
   { name: "Dynamic Island", slug: "dynamic-island" },
@@ -24,6 +26,14 @@ const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
   { name: "Animated Toggle", slug: "animated-toggle" },
   { name: "Exposure Slider", slug: "exposure-slider" },
 ];
+
+const INTERACTIVE_DEMOS = new Set([
+  "dynamic-island",
+  "user-account-avatar",
+  "number-flow",
+  "image-metadata-preview",
+  "checkbox",
+]);
 
 export function ComponentsSlideshow() {
   return (
@@ -41,13 +51,7 @@ export function ComponentsSlideshow() {
             key={slug}
           >
             <GalleryPreview interactive slug={slug} title={name}>
-              {[
-                "dynamic-island",
-                "user-account-avatar",
-                "number-flow",
-                "image-metadata-preview",
-                "checkbox",
-              ].includes(slug) ? (
+              {INTERACTIVE_DEMOS.has(slug) ? (
                 <ShowcaseDemo slug={slug} />
               ) : null}
             </GalleryPreview>

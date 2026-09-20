@@ -10,9 +10,13 @@ import { GalleryPreview } from "./gallery-preview";
 
 export interface ComponentCardProps {
   component: GalleryComponentMeta;
+  eager?: boolean;
 }
 
-export const ComponentCard = ({ component }: ComponentCardProps) => {
+export const ComponentCard = ({
+  component,
+  eager = false,
+}: ComponentCardProps) => {
   const shouldReduceMotion = useReducedMotion();
 
   return (
@@ -30,7 +34,11 @@ export const ComponentCard = ({ component }: ComponentCardProps) => {
           an anchor inside an anchor is invalid HTML that React refuses to
           hydrate. The overlay sits above the preview and below the footer. */}
       <div className="relative">
-        <GalleryPreview slug={component.slug} title={component.title} />
+        <GalleryPreview
+          eager={eager}
+          slug={component.slug}
+          title={component.title}
+        />
         <Link
           aria-label={`View ${component.title} component`}
           className="absolute inset-0 z-10"

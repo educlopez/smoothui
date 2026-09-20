@@ -8,12 +8,27 @@ installer: squircle
 
 ## Features
 
-- Corners follow a superellipse (squircle) curve instead of a circular arc, which is the curvature-continuous shape Apple uses for app icons and tiles
-- `smoothing` (0..1) maps to the superellipse exponent: `0` is *exactly* a circular corner — indistinguishable from `border-radius` — and `1` pushes the curvature out into the flat edges
-- The corner is traced as a polyline whose sample count scales with the radius, so a 96px corner is as smooth as a 24px one
-- `ResizeObserver` re-measures the element, and the path is memoised on size, `radius`, and `smoothing`
-- Exposes the standalone `squirclePath(width, height, radius, smoothing)` helper so you can generate the path yourself (for an SVG mask, a stroked outline, or a comparison overlay)
-- `as` renders the squircle as any element or component (`div`, `button`, `a`, …)
+Corners follow a superellipse (squircle) curve instead of a circular arc — the curvature-continuous shape Apple uses for app icons and tiles. `smoothing` maps to the superellipse exponent from `0` (circular) to `1` (maximum spread).
+
+## Variants
+
+Scroll the sections below — the panel shows one configuration at a time.
+
+### Tile
+
+A single squircle tile at the default smoothing — the simplest use case.
+
+### Smoothing
+
+Drag the slider to see smoothing change in real time — at `0.00` the corner is exactly a circular arc.
+
+### Comparison
+
+Side-by-side: `border-radius` with a dashed squircle overlay versus the actual clipped squircle at the same radius.
+
+### App Icons
+
+Six app-icon tiles at a fixed smoothing — shows how squircles scale to small radii.
 
 ## Notes
 

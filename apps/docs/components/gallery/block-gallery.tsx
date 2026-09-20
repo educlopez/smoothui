@@ -15,10 +15,11 @@ import pricingCover from "./covers/pricing.webp";
 import statsCover from "./covers/stats.webp";
 import teamCover from "./covers/team-sections.webp";
 import testimonialCover from "./covers/testimonial.webp";
+import { MasonryGrid } from "./masonry-grid";
 
-export type BlockGalleryProps = {
+export interface BlockGalleryProps {
   categories: BlockCategoryMeta[];
-};
+}
 
 /**
  * Cover art, one per category.
@@ -48,66 +49,56 @@ const STAGGER_STEP = 0.03;
 
 /**
  * The blocks index: one card per category, led by a real block from it.
- *
- * CSS columns, not a layout library: the cards never reorder, so nothing has to
- * be measured in JavaScript.
  */
 export const BlockGallery = ({ categories }: BlockGalleryProps) => {
   const shouldReduceMotion = useReducedMotion();
 
-  return (
-    <div className="not-prose columns-1 gap-4 sm:columns-2 xl:columns-3">
-      {categories.map((category, index) => {
-        const cover = COVERS[category.slug];
+  const tiles = categories.map((category, index) => {
+    const cover = COVERS[category.slug];
 
-        return (
-          <motion.article
-            animate={{ opacity: 1, y: 0 }}
-            className="relative mb-4 break-inside-avoid overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
-            initial={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }
-            }
-            key={category.slug}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : {
-                    delay: Math.min(index * STAGGER_STEP, MAX_STAGGER),
-                    duration: 0.25,
-                    ease: EASE_OUT,
-                  }
-            }
-          >
-            {cover ? (
-              <Image
-                alt=""
-                className="w-full"
-                placeholder="blur"
-                sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
-                src={cover}
-              />
-            ) : null}
-            {/* Spans, not a heading: the docs stylesheet sizes every `h2` on the
-                page and would blow the card title up to article scale. The link
-                already carries the full accessible name. */}
-            {/* Title and count share one row: stacked, the footer cost two
-                lines of height on every card for one short number. */}
-            <footer className="flex items-baseline justify-between gap-3 border-t px-4 py-2.5">
-              <span className="truncate font-medium text-foreground text-sm">
-                {category.title}
-              </span>
-              <span className="shrink-0 text-muted-foreground text-xs tabular-nums">
-                {category.count} {category.count === 1 ? "block" : "blocks"}
-              </span>
-            </footer>
-            <Link
-              aria-label={`${category.title}, ${category.count} blocks`}
-              className="absolute inset-0 z-10"
-              href={category.href}
+    return {
+      key: category.slug,
+      node: (
+        <motion.article
+          animate={{ opacity: 1, y: 0 }}
+          className="relative overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : {
+                  delay: Math.min(index * STAGGER_STEP, MAX_STAGGER),
+                  duration: 0.25,
+                  ease: EASE_OUT,
+                }
+          }
+        >
+          {cover ? (
+            <Image
+              alt=""
+              className="w-full"
+              placeholder="blur"
+              sizes="(min-width: 1280px) 33vw, (min-width: 640px) 50vw, 100vw"
+              src={cover}
             />
-          </motion.article>
-        );
-      })}
-    </div>
-  );
+          ) : null}
+          <footer className="flex items-baseline justify-between gap-3 border-t px-4 py-2.5">
+            <span className="truncate font-medium text-foreground text-sm">
+              {category.title}
+            </span>
+            <span className="shrink-0 text-muted-foreground text-xs tabular-nums">
+              {category.count} {category.count === 1 ? "block" : "blocks"}
+            </span>
+          </footer>
+          <Link
+            aria-label={`${category.title}, ${category.count} blocks`}
+            className="absolute inset-0 z-10"
+            href={category.href}
+          />
+        </motion.article>
+      ),
+    };
+  });
+
+  return <MasonryGrid className="not-prose" maxColumns={3} tiles={tiles} />;
 };

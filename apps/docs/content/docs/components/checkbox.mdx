@@ -10,11 +10,21 @@ installer: checkbox
 
 ## Features
 
-- Animated checkmark with spring path drawing animation
-- Indeterminate state with `aria-checked="mixed"` and animated dash icon
-- Disabled state support
-- Wraps Radix UI Checkbox for robust form integration
-- Works with HTML label elements via `id` prop
+Animated checkmark with spring path drawing, indeterminate support, and Radix-backed form integration. Scroll the sections below — the panel shows one state at a time.
+
+## States
+
+### Checked
+
+The default toggle: click the box or its label to check and uncheck. The checkmark draws in with a spring path animation.
+
+### Indeterminate
+
+Use `indeterminate` for partial selection — a parent “select all” row when some but not all children are checked. Renders `aria-checked="mixed"` with an animated dash icon.
+
+### Disabled
+
+A non-interactive checkbox with reduced opacity. Pair with a label that uses matching opacity so the whole row reads as unavailable.
 
 ## Accessibility
 

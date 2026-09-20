@@ -9,15 +9,27 @@ installer: orb
 
 ## Features
 
-- Sphere impostor: the normal is derived per pixel from the distance to the centre, so a rim, a highlight and a shaded side can exist at all
-- Seamless by construction — every point walks a circle in a flow field that advances exactly one turn per loop, so the field returns to where it began with no crossfade
-- Colour mixed in **OkLab**: no muddy midpoint, each stop reproduces exactly, and the hue ripple is a real rotation in the a/b plane
-- Nested domain warp — marbled, ink-in-water flow rather than drifting blobs
-- Twenty-two props, from palette and blob size to refraction, iridescence and rim dispersion
-- `wobble` deforms the silhouette into a liquid drop; `glow` casts a halo that reaches zero before the canvas edge
-- Grain plus an always-on deband dither, stepped to 24 frames per loop so it animates without breaking the seam
-- Pauses when scrolled out of view, and when `prefers-reduced-motion` is set it draws one frame and stops
-- Device-pixel-content-box aware, capped at 2× DPR, with `WEBGL_lose_context` teardown
+Sphere impostor with seamless OkLab colour marbling, nested domain warp, and twenty-two tuning props. Pauses off-screen and respects reduced motion.
+
+## Variants
+
+Scroll the presets below — the panel shows one finished orb at a time.
+
+### Bloom
+
+Magenta against white. The lightness gap is what makes the marbling visible at all.
+
+### Glass
+
+Four stops and a hard rim. Iridescence rotates the hue toward the edge, the way a bubble does.
+
+### Ember
+
+Lit from within rather than from the side, so it reads as a lamp instead of a ball.
+
+### Drop
+
+Wobble deforms the silhouette and the halo spills past it. A liquid drop, not a sphere.
 
 ## Why it does not look like a gradient circle
 

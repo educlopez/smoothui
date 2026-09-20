@@ -8,28 +8,24 @@ import Dialog, {
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
-const DialogDemo = () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [alertOpen, setAlertOpen] = useState(false);
+const DialogScene = () => {
+  const [open, setOpen] = useState(false);
 
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      <SmoothButton onClick={() => setDialogOpen(true)} variant="candy">
+    <div className="flex items-center justify-center p-8">
+      <SmoothButton onClick={() => setOpen(true)} variant="candy">
         Open Dialog
-      </SmoothButton>
-      <SmoothButton onClick={() => setAlertOpen(true)} variant="outline">
-        Open Alert Dialog
       </SmoothButton>
 
       <Dialog
         description="This is a standard dialog. Press Escape or click the X to close."
         footer={
-          <SmoothButton onClick={() => setDialogOpen(false)} variant="candy">
+          <SmoothButton onClick={() => setOpen(false)} variant="candy">
             Got it
           </SmoothButton>
         }
-        onOpenChange={setDialogOpen}
-        open={dialogOpen}
+        onOpenChange={setOpen}
+        open={open}
         title="Dialog Title"
       >
         <p className="text-muted-foreground text-sm">
@@ -37,6 +33,18 @@ const DialogDemo = () => {
           focus trapping, and backdrop dismiss.
         </p>
       </Dialog>
+    </div>
+  );
+};
+
+const AlertDialogScene = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="flex items-center justify-center p-8">
+      <SmoothButton onClick={() => setOpen(true)} variant="outline">
+        Open Alert Dialog
+      </SmoothButton>
 
       <AlertDialog
         description="This action cannot be undone. This will permanently delete your account and remove your data."
@@ -48,12 +56,20 @@ const DialogDemo = () => {
             </AlertDialogAction>
           </>
         }
-        onOpenChange={setAlertOpen}
-        open={alertOpen}
+        onOpenChange={setOpen}
+        open={open}
         title="Are you absolutely sure?"
       />
     </div>
   );
 };
 
-export default DialogDemo;
+export const demoScenes = {
+  "Alert Dialog": AlertDialogScene,
+  Dialog: DialogScene,
+  Features: DialogScene,
+};
+
+export default function DialogDemo() {
+  return <DialogScene />;
+}

@@ -1,40 +1,48 @@
 "use client";
 
 import MorphIcon, {
-  MORPH_ICON_VARIANTS,
+  type MorphIconVariant,
 } from "@repo/smoothui/components/morph-icon";
 import { useState } from "react";
 
-export default function MorphIconDemo() {
-  const [activeMap, setActiveMap] = useState<Record<string, boolean>>({});
-
-  const toggle = (variant: string) => {
-    setActiveMap((previous) => ({
-      ...previous,
-      [variant]: !previous[variant],
-    }));
-  };
+const MorphIconScene = ({ variant }: { variant: MorphIconVariant }) => {
+  const [active, setActive] = useState(false);
 
   return (
-    <div className="grid grid-cols-2 gap-4 px-4 py-8 sm:grid-cols-4">
-      {MORPH_ICON_VARIANTS.map((variant) => (
-        <button
-          className="flex flex-col items-center gap-2 rounded-xl border border-foreground/10 bg-background p-4 outline-none transition-colors hover:bg-foreground/5 focus-visible:ring-2 focus-visible:ring-brand"
-          key={variant}
-          onClick={() => toggle(variant)}
-          type="button"
-        >
-          <MorphIcon
-            active={Boolean(activeMap[variant])}
-            label={variant}
-            size={28}
-            variant={variant}
-          />
-          <span className="text-muted-foreground text-xs capitalize">
-            {variant}
-          </span>
-        </button>
-      ))}
+    <div className="flex items-center justify-center p-8">
+      <button
+        aria-label={`Toggle ${variant} icon`}
+        className="rounded-lg p-3 outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand"
+        onClick={() => setActive((value) => !value)}
+        type="button"
+      >
+        <MorphIcon active={active} size={32} variant={variant} />
+      </button>
     </div>
   );
+};
+
+const SidebarDemo = () => <MorphIconScene variant="sidebar" />;
+const ListDemo = () => <MorphIconScene variant="list" />;
+const GridDemo = () => <MorphIconScene variant="grid" />;
+const CompactDemo = () => <MorphIconScene variant="compact" />;
+const MenuDemo = () => <MorphIconScene variant="menu" />;
+const SearchDemo = () => <MorphIconScene variant="search" />;
+const PlayDemo = () => <MorphIconScene variant="play" />;
+const CheckDemo = () => <MorphIconScene variant="check" />;
+
+export const demoScenes = {
+  Check: CheckDemo,
+  Compact: CompactDemo,
+  Features: SidebarDemo,
+  Grid: GridDemo,
+  List: ListDemo,
+  Menu: MenuDemo,
+  Play: PlayDemo,
+  Search: SearchDemo,
+  Sidebar: SidebarDemo,
+};
+
+export default function MorphIconDemo() {
+  return <SidebarDemo />;
 }

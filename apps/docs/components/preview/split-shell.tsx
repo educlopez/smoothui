@@ -1,12 +1,22 @@
 "use client";
 
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
+import {
+  DemoSyncProvider,
+  sameHeading,
+} from "@docs/components/docs-reading/demo-sync";
 import { PreviewCode } from "@docs/components/preview/code";
 import {
   FileTypeIcon,
   languageOf,
   tabLabel,
 } from "@docs/components/preview/code-explorer";
+import { SceneTabs } from "@docs/components/preview/scene-tabs";
+import {
+  DEMO_SCENE_MESSAGE,
+  DEMO_SCENES_REQUEST,
+  isDemoScenesReadyMessage,
+} from "@docs/lib/demo-scenes";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { Separator } from "@repo/shadcn-ui/components/ui/separator";
 import {
@@ -26,7 +36,14 @@ import {
 } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { type ReactNode, useState } from "react";
+import {
+  type ReactNode,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 export type PreviewFile = { code: string; path: string };
 
@@ -109,7 +126,60 @@ export const SplitPreviewShell = ({
   const [pane, setPane] = useState<Pane>("info");
   const [viewport, setViewport] = useState<Viewport>("desktop");
   const [activeFile, setActiveFile] = useState(0);
+  const [scenes, setScenes] = useState<string[]>([]);
+  const [activeScene, setActiveScene] = useState<string | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const scenesRef = useRef<string[]>([]);
+  const pendingHeadingRef = useRef<string | null>(null);
   const file = files[activeFile] ?? files[0];
+
+  const applyScene = useCallback((heading: string) => {
+    const match = scenesRef.current.find((name) => sameHeading(name, heading));
+    if (!match) {
+      return;
+    }
+    setActiveScene(match);
+    iframeRef.current?.contentWindow?.postMessage(
+      { scene: match, type: DEMO_SCENE_MESSAGE },
+      window.location.origin
+    );
+  }, []);
+
+  const showSection = useCallback(
+    (heading: string) => {
+      pendingHeadingRef.current = heading;
+      applyScene(heading);
+    },
+    [applyScene]
+  );
+
+  const sync = useMemo(() => ({ showSection }), [showSection]);
+
+  useEffect(() => {
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin !== window.location.origin) {
+        return;
+      }
+      if (!isDemoScenesReadyMessage(event.data)) {
+        return;
+      }
+      scenesRef.current = event.data.scenes;
+      setScenes(event.data.scenes);
+      if (pendingHeadingRef.current) {
+        applyScene(pendingHeadingRef.current);
+      }
+    };
+
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [applyScene]);
+
+  const requestScenes = useCallback(() => {
+    iframeRef.current?.contentWindow?.postMessage(
+      { type: DEMO_SCENES_REQUEST },
+      window.location.origin
+    );
+  }, []);
 
   const paneTransition = shouldReduceMotion
     ? { duration: 0 }
@@ -130,11 +200,12 @@ export const SplitPreviewShell = ({
           // row starts where it will end up once pinned instead of travelling
           // down to the navbar on the first scroll.
           "lg:-mt-14",
-          // Sections need to read as sections. The gap before a heading is what
-          // does that work — roughly 80px before an h2, 48 before an h3 — not
-          // boxes or rules around the content.
-          "[&_h2]:mt-20 [&_h2]:mb-5 [&_h3]:mt-12 [&_h3]:mb-3",
-          "[&_h2:first-child]:mt-0 [&_p]:leading-relaxed"
+          // Viewport-relative section rhythm (Sapira): h2 ~14vh, h3 ~6vh, so
+          // the reading marker's groups have room to activate one at a time
+          // instead of stacking as a dense patch.
+          "[&_h2]:mt-[14vh] [&_h2]:mb-5 [&_h3]:mt-[6vh] [&_h3]:mb-3",
+          "[&_h2:first-child]:mt-0 [&_p]:mb-4 [&_p]:leading-relaxed",
+          "[&_ol]:mb-4 [&_p:last-child]:mb-0 [&_ul]:mb-4"
         )}
       >
         {/* The crumb and the pane switch follow the scroll: on a page this long
@@ -214,7 +285,11 @@ export const SplitPreviewShell = ({
           transition={paneTransition}
         >
           {pane === "info" ? (
-            children
+            <DemoSyncProvider value={sync}>
+              {/* Room under the last section so atEnd can still paint it — Sapira
+                  uses pb-32 on the info column for the same reason. */}
+              <div className="pb-32">{children}</div>
+            </DemoSyncProvider>
           ) : (
             <div className="not-prose flex min-w-0 flex-col lg:sticky lg:top-[9.75rem] lg:h-[calc(100dvh-11rem)]">
               {/* Tabs, not the blocks pages' file tree: the reading column is
@@ -319,10 +394,21 @@ export const SplitPreviewShell = ({
           >
             <iframe
               className="size-full border-0 bg-transparent"
+              onLoad={requestScenes}
+              ref={iframeRef}
               src={`${popOutHref}?embed=1`}
               title={`${title} preview`}
             />
           </div>
+
+          <SceneTabs
+            activeScene={activeScene}
+            onSelect={(scene) => {
+              pendingHeadingRef.current = scene;
+              applyScene(scene);
+            }}
+            scenes={scenes}
+          />
 
           {/* Desktop only: on a phone the stage is the width of the screen, so a
               viewport switcher is meaningless and the rest is chrome over the one

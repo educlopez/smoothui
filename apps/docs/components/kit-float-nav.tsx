@@ -11,13 +11,13 @@ import { STARTER_KITS } from "@docs/lib/starter-kits";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
 import { track } from "@vercel/analytics";
+import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { Package, PackageOpen } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconChartBarTrendUpFill24,
   IconCheckFill24,
   IconChevronDownFill24,
-  IconCopy2Fill24,
   IconDotsLoaderFill24,
   IconLayersFill24,
   IconMobile2Fill24,
@@ -158,7 +158,7 @@ export function KitFloatNav() {
     <>
       <button
         aria-label={`Open install bundle (${count} selected)`}
-        className="float-trigger flex h-auto w-auto cursor-pointer items-center gap-1.5 p-2!"
+        className="float-trigger relative grid h-11! w-11! cursor-pointer place-items-center p-0!"
         onClick={() => setOpen(true)}
         ref={triggerRef}
         type="button"
@@ -166,12 +166,14 @@ export function KitFloatNav() {
         {/* A box, matching the "add to bundle" button on every preview:
             you fill a package, you do not stack layers. */}
         <Package aria-hidden="true" size={19} />
-        <span className="hidden font-medium text-sm sm:inline">Bundle</span>
-        {count > 0 && (
-          <span className="grid min-w-5 place-items-center rounded-full bg-brand px-1.5 py-0.5 font-semibold text-[11px] text-white">
-            {count}
+        {count > 0 ? (
+          <span
+            aria-hidden="true"
+            className="absolute top-1.5 right-1.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-brand px-0.5 font-semibold text-[9px] text-white leading-none shadow-xs ring-2 ring-background"
+          >
+            {count > 99 ? "99+" : String(count)}
           </span>
-        )}
+        ) : null}
       </button>
 
       {/* Announces bundle changes for screen reader users, independent of
@@ -406,7 +408,7 @@ export function KitFloatNav() {
                       </section>
                     </div>
 
-                    {/* Command + actions */}
+                    {/* Command + actions — same Shiki shell as Installer on component pages */}
                     {count > 0 && (
                       <div className="border-t p-4">
                         <div className="mb-1.5 flex items-center justify-between gap-2">
@@ -419,28 +421,38 @@ export function KitFloatNav() {
                             </span>
                           ) : null}
                         </div>
-                        <div className="flex items-center gap-2 rounded-md border border-border bg-muted/40 py-2 pr-1 pl-3">
-                          <code className="flex-1 overflow-x-auto whitespace-nowrap font-mono text-foreground text-xs">
-                            {command}
-                          </code>
-                          <ButtonCopy
-                            className="grid size-7 shrink-0 place-items-center rounded text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                            idleIcon={<IconCopy2Fill24 className="size-3.5" />}
-                            loadingIcon={
-                              <IconDotsLoaderFill24 className="size-3.5 animate-spin" />
-                            }
-                            onCopy={() => {
-                              track("bundle_copy_command", {
-                                count,
-                                pm,
-                                theme: siteTheme ?? "none",
-                              });
-                              navigator.clipboard.writeText(command);
-                            }}
-                            successIcon={
-                              <IconCheckFill24 className="size-3.5" />
-                            }
-                          />
+                        <div className="overflow-hidden rounded-lg border border-border">
+                          <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none relative bg-fd-card pr-14 [&_code]:break-all [&_figure]:border-0 [&_pre]:whitespace-pre-wrap">
+                            <div
+                              className="absolute top-2 right-2 z-10"
+                              title="Copy install command"
+                            >
+                              <ButtonCopy
+                                className="size-9! min-h-9! min-w-9! rounded-md p-0!"
+                                key={command}
+                                loadingDuration={0}
+                                loadingIcon={
+                                  <IconDotsLoaderFill24 className="size-3.5 animate-spin" />
+                                }
+                                onCopy={() => {
+                                  track("bundle_copy_command", {
+                                    count,
+                                    pm,
+                                    theme: siteTheme ?? "none",
+                                  });
+                                  navigator.clipboard.writeText(command);
+                                }}
+                                successIcon={
+                                  <IconCheckFill24 className="size-3.5" />
+                                }
+                              />
+                            </div>
+                            <DynamicCodeBlock
+                              code={command}
+                              codeblock={{ allowCopy: false }}
+                              lang="bash"
+                            />
+                          </div>
                         </div>
                         <div className="mt-3 flex items-center justify-between">
                           <button

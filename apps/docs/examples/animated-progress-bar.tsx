@@ -4,31 +4,53 @@ import AnimatedProgressBar from "@repo/smoothui/components/animated-progress-bar
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { useState } from "react";
 
-export default function AnimatedProgressBarDemo() {
+const DefaultDemo = () => {
   const [value, setValue] = useState(40);
-  const [refreshKey, _setRefreshKey] = useState(0);
+
   return (
-    <div className="relative max-w-xs space-y-6">
+    <div className="flex w-full max-w-xs flex-col items-center gap-4 p-8">
+      <AnimatedProgressBar label={`Progress: ${value}%`} value={value} />
+      <SmoothButton
+        onClick={() =>
+          setValue((current) => (current >= 100 ? 0 : current + 10))
+        }
+        size="sm"
+        variant="outline"
+      >
+        Increase
+      </SmoothButton>
+    </div>
+  );
+};
+
+const CustomColorDemo = () => {
+  const [value, setValue] = useState(65);
+
+  return (
+    <div className="flex w-full max-w-xs flex-col items-center gap-4 p-8">
       <AnimatedProgressBar
-        key={refreshKey}
+        color="#22d3ee"
         label={`Progress: ${value}%`}
         value={value}
       />
-      <AnimatedProgressBar
-        color="#22d3ee"
-        key={refreshKey + 1000}
-        label="Custom Color"
-        value={value}
-      />
-      <div className="mt-4 flex gap-2">
-        <SmoothButton
-          onClick={() => setValue((v) => (v >= 100 ? 0 : v + 10))}
-          size="sm"
-          variant="outline"
-        >
-          Increase
-        </SmoothButton>
-      </div>
+      <SmoothButton
+        onClick={() =>
+          setValue((current) => (current >= 100 ? 0 : current + 10))
+        }
+        size="sm"
+        variant="outline"
+      >
+        Increase
+      </SmoothButton>
     </div>
   );
+};
+
+export const demoScenes = {
+  "Custom Color": CustomColorDemo,
+  Features: DefaultDemo,
+};
+
+export default function AnimatedProgressBarDemo() {
+  return <DefaultDemo />;
 }

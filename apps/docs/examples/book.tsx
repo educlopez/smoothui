@@ -2,22 +2,36 @@
 
 import Book from "@repo/smoothui/components/book";
 
-const BookDemo = () => (
-  <div className="flex min-h-[350px] flex-wrap items-center justify-center gap-8">
-    {/* Default stripe variant */}
+const StripeDemo = () => (
+  <div className="flex items-center justify-center p-8">
     <Book title="The art of smooth interfaces" />
+  </div>
+);
 
-    {/* Simple variant with custom color */}
+const SimpleDemo = () => (
+  <div className="flex items-center justify-center p-8">
     <Book
       color="#7DC1C1"
       textColor="white"
       title="Design Engineering Handbook"
       variant="simple"
     />
+  </div>
+);
 
-    {/* Custom color stripe variant */}
+const CustomColorDemo = () => (
+  <div className="flex items-center justify-center p-8">
     <Book color="#9D2127" title="Building for the modern web" />
   </div>
 );
 
-export default BookDemo;
+export const demoScenes = {
+  "Custom Color": CustomColorDemo,
+  Features: StripeDemo,
+  Simple: SimpleDemo,
+  Stripe: StripeDemo,
+};
+
+export default function BookDemo() {
+  return <StripeDemo />;
+}

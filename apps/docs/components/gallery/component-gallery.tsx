@@ -1,30 +1,29 @@
 "use client";
 
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
 import { ComponentCard } from "./component-card";
 import { FilterBar } from "./filter-bar";
+import { MasonryGrid } from "./masonry-grid";
 
-export type ComponentGalleryProps = {
-  components: GalleryComponentMeta[];
+export interface ComponentGalleryProps {
   categories: string[];
-};
+  components: GalleryComponentMeta[];
+}
+
+const EAGER_COUNT = 8;
 
 export const ComponentGallery = ({
   components,
   categories,
 }: ComponentGalleryProps) => {
-  const shouldReduceMotion = useReducedMotion();
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  // Initialize state from URL params
   const [activeCategory, setActiveCategory] = useState<string | null>(
     searchParams.get("category") ?? null
   );
@@ -84,6 +83,17 @@ export const ComponentGallery = ({
     return result;
   }, [components, activeCategory, searchQuery]);
 
+  const tiles = useMemo(
+    () =>
+      filteredComponents.map((component, index) => ({
+        key: component.slug,
+        node: (
+          <ComponentCard component={component} eager={index < EAGER_COUNT} />
+        ),
+      })),
+    [filteredComponents]
+  );
+
   return (
     <div className="not-prose space-y-6">
       <FilterBar
@@ -94,7 +104,6 @@ export const ComponentGallery = ({
         searchQuery={searchQuery}
       />
 
-      {/* Results count */}
       <p aria-live="polite" className="text-muted-foreground text-sm">
         {filteredComponents.length}{" "}
         {filteredComponents.length === 1 ? "component" : "components"}
@@ -102,39 +111,8 @@ export const ComponentGallery = ({
         {searchQuery ? ` matching "${searchQuery}"` : ""}
       </p>
 
-      {/* Grid */}
       {filteredComponents.length > 0 ? (
-        // A masonry, not a grid: each preview is as tall as its demo, so equal
-        // rows would crop the tall ones and pad the short ones. CSS columns
-        // keep it to markup — nothing is measured or positioned in JS.
-        <div
-          className={cn(
-            "columns-1 gap-4 sm:columns-2 lg:columns-3 2xl:columns-4"
-          )}
-          role="list"
-        >
-          <AnimatePresence mode="popLayout">
-            {filteredComponents.map((component) => (
-              <motion.div
-                className="mb-4 break-inside-avoid"
-                exit={
-                  shouldReduceMotion
-                    ? { opacity: 0, transition: { duration: 0 } }
-                    : {
-                        opacity: 0,
-                        scale: 0.95,
-                        transition: { duration: 0.15 },
-                      }
-                }
-                key={component.slug}
-                layout={!shouldReduceMotion}
-                role="listitem"
-              >
-                <ComponentCard component={component} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+        <MasonryGrid tiles={tiles} />
       ) : (
         <EmptyState
           hasFilters={Boolean(activeCategory || searchQuery)}
@@ -149,10 +127,10 @@ export const ComponentGallery = ({
   );
 };
 
-type EmptyStateProps = {
+interface EmptyStateProps {
   hasFilters: boolean;
   onClearFilters: () => void;
-};
+}
 
 const EmptyState = ({ hasFilters, onClearFilters }: EmptyStateProps) => (
   <div className="flex flex-col items-center justify-center rounded-lg border border-border border-dashed py-16 text-center">

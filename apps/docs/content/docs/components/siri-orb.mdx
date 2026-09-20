@@ -8,22 +8,35 @@ installer: siri-orb
 
 ## Features
 
-- Six layered conic gradients animated through a registered `--angle` property
-- Reads the shared `AIState` contract (`idle`, `listening`, `thinking`, `streaming`, `done`, `error`)
-- Reacts to a live `amplitude` signal: loud audio tightens the gradient, which reads as the orb focusing
-- Size-aware blur, contrast, dot size and mask radius, so it holds up from 16px to hero scale
-- Fully customisable palette
+Six layered conic gradients animated through a registered `--angle` property. Reads the shared `AIState` contract and reacts to a live `amplitude` signal.
 
-## The state contract
+Scroll the sections below — the panel shows one state at a time with simulated amplitude.
 
-| State | What the orb does |
-| --- | --- |
-| `idle` | Slow rotation, slightly desaturated |
-| `listening` | Grows, fully reactive to amplitude |
-| `thinking` | Rotation speeds up 2.2× with **no size change**, so the layout stays calm |
-| `streaming` | Gentle pulse in sync with output |
-| `done` | One settle overshoot |
-| `error` | Desaturates and shakes once, under 200ms |
+## States
+
+### Idle
+
+Slow rotation, slightly desaturated — the resting assistant.
+
+### Listening
+
+Grows and fully reactive to amplitude — the orb focuses when audio is present.
+
+### Thinking
+
+Rotation speeds up 2.2× with **no size change**, so the layout stays calm while work happens.
+
+### Streaming
+
+Gentle pulse in sync with output — a softer, breathing motion.
+
+### Done
+
+One settle overshoot when a task completes.
+
+### Error
+
+Desaturates and shakes once, under 200ms.
 
 ## Real audio reactivity
 

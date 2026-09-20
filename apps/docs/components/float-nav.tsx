@@ -1,36 +1,9 @@
 "use client";
 
 import { useSoundToggle, useUiSound } from "@docs/components/sound-provider";
-import { useTheme } from "next-themes";
-import { IconMoonFill24, IconSunFill24 } from "nucleo-core-fill-24";
 import { ColorPickerFloatNav } from "./color-picker-float-nav";
 import { KitFloatNav } from "./kit-float-nav";
 import { PmFloatNav } from "./pm-float-nav";
-
-function ThemeSwitch() {
-  const { resolvedTheme, setTheme } = useTheme();
-  const playToggle = useUiSound("/sounds/toggle_on.wav", 0.4);
-
-  const toggleTheme = () => {
-    playToggle();
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
-  };
-
-  return (
-    <button
-      aria-label="Theme Switcher"
-      className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
-      onClick={toggleTheme}
-      type="button"
-    >
-      {resolvedTheme === "dark" ? (
-        <IconSunFill24 size={20} />
-      ) : (
-        <IconMoonFill24 size={20} />
-      )}
-    </button>
-  );
-}
 
 function SoundToggle() {
   const { enabled, setEnabled, suppressed } = useSoundToggle();
@@ -100,7 +73,6 @@ export function FloatNav() {
     >
       <div className="flex items-center gap-0.5">
         {/* Site options */}
-        <ThemeSwitch />
         <SoundToggle />
         <ColorPickerFloatNav />
         {/* Divider */}
