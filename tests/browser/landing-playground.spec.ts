@@ -50,9 +50,9 @@ test("twelve live showcase cards have only corner documentation links", async ({
   await expect(cards.locator("footer")).toHaveCount(0);
   const counter = page.locator('[data-showcase="number-flow"]');
   await counter.scrollIntoViewIfNeeded();
-  await expect(counter.locator("output")).toHaveText("0");
+  await expect(counter.locator("output")).toHaveText("128");
   await counter.getByRole("button", { name: "Increase number" }).click();
-  await expect(counter.locator("output")).toHaveText("1");
+  await expect(counter.locator("output")).toHaveText("129");
   const link = counter.getByRole("link", {
     name: "View Number Flow documentation",
   });
@@ -413,11 +413,11 @@ for (const reducedMotion of ["reduce", "no-preference"] as const) {
     const counter = page.locator('[data-showcase="number-flow"]');
     await counter.scrollIntoViewIfNeeded();
     const plus = counter.getByRole("button", { name: "Increase number" });
-    await expect(counter.locator("output")).toHaveText("0");
+    await expect(counter.locator("output")).toHaveText("128");
     await plus.click();
-    await expect(counter.locator("output")).toHaveText("1");
+    await expect(counter.locator("output")).toHaveText("129");
     await plus.click();
-    await expect(counter.locator("output")).toHaveText("2");
+    await expect(counter.locator("output")).toHaveText("130");
     if (reducedMotion === "no-preference") {
       expect(
         await counter.evaluate(
@@ -429,7 +429,7 @@ for (const reducedMotion of ["reduce", "no-preference"] as const) {
       ).toBeGreaterThan(0);
     }
     await counter.getByRole("button", { name: "Decrease number" }).click();
-    await expect(counter.locator("output")).toHaveText("1");
+    await expect(counter.locator("output")).toHaveText("129");
     await page.waitForTimeout(350);
     for (const width of [390, 1440]) {
       await page.setViewportSize({ height: 1000, width });

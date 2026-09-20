@@ -48,9 +48,10 @@ function IslandDemo() {
 }
 
 function CounterDemo() {
+  const [value, setValue] = useState(128);
   return (
     <div className="flex min-h-52 items-center justify-center">
-      <NumberFlow max={999} min={0} />
+      <NumberFlow onChange={setValue} value={value} />
     </div>
   );
 }
