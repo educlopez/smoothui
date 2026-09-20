@@ -142,11 +142,7 @@ export const TokensDrawing = ({ active = false }: ActiveProps) => {
         <div
           className={cn(
             "size-8",
-            selected === 0
-              ? "rounded-sm"
-              : selected === 1
-                ? "rounded-lg"
-                : "rounded-2xl",
+            selected === 1 ? "rounded-lg" : "rounded-2xl",
             INK
           )}
         />
