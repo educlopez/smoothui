@@ -1,5 +1,5 @@
 /**
- * Sapira-style docs illustrations for SmoothUI.
+ * Docs illustrations for SmoothUI.
  *
  * Drawings, not screenshots: skeleton shapes that say what a section holds.
  * One family of tints so the set reads together —
