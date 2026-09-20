@@ -22,7 +22,7 @@ export const ComponentCard = ({
   return (
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card"
+      className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
       transition={
         shouldReduceMotion
