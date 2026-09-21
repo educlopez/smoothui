@@ -25,7 +25,7 @@ const TokenDots = ({
 );
 
 /**
- * Appearance card drawing — Sapira tray language at theme-settings scale:
+ * Appearance card drawing — control tray at theme-settings scale:
  * recognisable controls on a surface that reads System / Dark / Light.
  */
 export const AppearanceDrawing = ({
@@ -75,7 +75,7 @@ export const AppearanceDrawing = ({
           Aa
         </span>
 
-        {/* Control tray — Sapira Components language, compressed */}
+        {/* Control tray — compressed components language */}
         <span className="grid grid-cols-3 gap-1">
           <span
             className={cn(

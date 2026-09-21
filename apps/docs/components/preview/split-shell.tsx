@@ -200,8 +200,8 @@ export const SplitPreviewShell = ({
           // row starts where it will end up once pinned instead of travelling
           // down to the navbar on the first scroll.
           "lg:-mt-14",
-          // Viewport-relative section rhythm (Sapira): h2 ~14vh, h3 ~6vh, so
-          // the reading marker's groups have room to activate one at a time
+          // Viewport-relative section rhythm: h2 ~14vh, h3 ~6vh, so the
+          // reading marker's groups have room to activate one at a time
           // instead of stacking as a dense patch.
           "[&_h2]:mt-[14vh] [&_h2]:mb-5 [&_h3]:mt-[6vh] [&_h3]:mb-3",
           "[&_h2:first-child]:mt-0 [&_p]:mb-4 [&_p]:leading-relaxed",
@@ -286,8 +286,7 @@ export const SplitPreviewShell = ({
         >
           {pane === "info" ? (
             <DemoSyncProvider value={sync}>
-              {/* Room under the last section so atEnd can still paint it — Sapira
-                  uses pb-32 on the info column for the same reason. */}
+              {/* Room under the last section so atEnd can still paint it. */}
               <div className="pb-32">{children}</div>
             </DemoSyncProvider>
           ) : (
