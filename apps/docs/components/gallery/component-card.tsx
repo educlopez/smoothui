@@ -4,18 +4,29 @@ import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { motion, useReducedMotion } from "motion/react";
+import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
-
-import { GalleryPreview } from "./gallery-preview";
 
 export interface ComponentCardProps {
   component: GalleryComponentMeta;
-  eager?: boolean;
+  /** First screenful, so the browser fetches those posters immediately. */
+  priority?: boolean;
+  shot?: StaticImageData;
 }
+
+/**
+ * Footer is `h-12` (48px) and the card border adds 2px. The masonry span
+ * uses this instead of measuring the card.
+ */
+export const POSTER_CHROME = 50;
+
+/** Stand-in ratio when a poster has not been captured yet. */
+export const POSTER_PLACEHOLDER = { height: 3, width: 4 } as const;
 
 export const ComponentCard = ({
   component,
-  eager = false,
+  priority = false,
+  shot,
 }: ComponentCardProps) => {
   const shouldReduceMotion = useReducedMotion();
 
@@ -30,22 +41,35 @@ export const ComponentCard = ({
           : { bounce: 0.1, duration: 0.25, type: "spring" }
       }
     >
-      {/* Not a wrapper around the preview: demos contain their own links, and
-          an anchor inside an anchor is invalid HTML that React refuses to
-          hydrate. The overlay sits above the preview and below the footer. */}
-      <div className="relative">
-        <GalleryPreview
-          eager={eager}
-          slug={component.slug}
-          title={component.title}
-        />
+      {/* The overlay covers the poster only. Footer actions stay clickable,
+          and the poster is not wrapped in the link. */}
+      <div className="relative bg-muted">
+        {shot ? (
+          <Image
+            alt=""
+            className="block h-auto w-full"
+            priority={priority}
+            sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+            src={shot}
+          />
+        ) : (
+          <div
+            aria-hidden="true"
+            className="flex items-center justify-center px-6 text-center text-muted-foreground text-sm"
+            style={{
+              aspectRatio: `${POSTER_PLACEHOLDER.width} / ${POSTER_PLACEHOLDER.height}`,
+            }}
+          >
+            {component.title}
+          </div>
+        )}
         <Link
           aria-label={`View ${component.title} component`}
           className="absolute inset-0 z-10"
           href={component.href}
         />
       </div>
-      <footer className="flex items-center justify-between gap-2 border-border/60 border-t px-4 py-2.5">
+      <footer className="flex h-12 items-center justify-between gap-2 border-border/60 border-t px-4">
         <Link
           className="truncate font-medium text-foreground text-sm transition-colors hover:text-brand"
           href={component.href}

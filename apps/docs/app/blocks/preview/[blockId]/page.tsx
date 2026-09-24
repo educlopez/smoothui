@@ -40,7 +40,11 @@ export default async function BlockPreviewPage({ params }: PageProps) {
         <style>{"nextjs-portal{display:none}"}</style>
         <ColorSync />
         <BlockHeightSync blockId={blockId} />
-        <BlockExample />
+        {/* Poster capture measures this node. A plain wrapper, so the live
+            preview iframe is unchanged. */}
+        <div className="w-full" id="poster-root">
+          <BlockExample />
+        </div>
       </div>
     );
   } catch {

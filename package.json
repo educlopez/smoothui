@@ -18,6 +18,7 @@
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",
     "clean": "git clean -xdf node_modules",
     "calculate-sizes": "pnpm exec tsx scripts/calculate-bundle-sizes.ts",
+    "capture:posters": "tsx scripts/capture-component-posters.ts",
     "calculate-new": "pnpm exec tsx scripts/calculate-new-components.ts",
     "actions:check": "pnpm exec tsx scripts/refresh-action-pins.ts",
     "actions:update": "pnpm exec tsx scripts/refresh-action-pins.ts --write",
