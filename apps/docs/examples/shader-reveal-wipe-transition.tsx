@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealWipeTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A directional shader wipe for moving between adjacent product sections."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealWipeTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealWipeTransitionDemo = () => (
         {children}
       </ShaderRevealWipeTransition>
     )}
-    title="Displacement wipe"
+    scene="editorial"
   />
 );
 

@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealPushTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A pushed flow for transitions that should feel directional and continuous."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealPushTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealPushTransitionDemo = () => (
         {children}
       </ShaderRevealPushTransition>
     )}
-    title="Noise push"
+    scene="editorial"
   />
 );
 

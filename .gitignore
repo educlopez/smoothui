@@ -46,8 +46,9 @@ next-env.d.ts
 .cursor/*
 !.cursor/skills/
 .cursor/skills/*
-# The friction-log skill is shared contributor tooling, not personal editor config.
+# Shared contributor tooling, not personal editor config.
 !.cursor/skills/friction-log/
+!.cursor/skills/capture-component-posters
 
 # others
 notes.md
@@ -57,10 +58,14 @@ AGENT.md
 
 # internal planning docs (never committed)
 planning/
-.agents/
+.agents/*
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/capture-component-posters/
 node-compile-cache/
 skills-lock.json
-.claude/skills/
+.claude/skills/*
+!.claude/skills/capture-component-posters
 
 # tsx writes its compile cache here when TMPDIR points at the repo.
 /tsx-*/

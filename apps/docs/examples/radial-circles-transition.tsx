@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const RadialCirclesTransitionDemo = () => (
   <TransitionDemoFrame
-    description="Concentric motion for controlled, graphic state changes."
     renderTransition={({ children, className, transitionKey }) => (
       <RadialCirclesTransition
         className={className}
@@ -14,7 +13,7 @@ const RadialCirclesTransitionDemo = () => (
         {children}
       </RadialCirclesTransition>
     )}
-    title="Radial circles"
+    scene="subject"
   />
 );
 

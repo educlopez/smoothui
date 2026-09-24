@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const WarpedCircleTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A warped radial edge that gives the transition a handcrafted feel."
     renderTransition={({ children, className, transitionKey }) => (
       <WarpedCircleTransition
         className={className}
@@ -14,7 +13,7 @@ const WarpedCircleTransitionDemo = () => (
         {children}
       </WarpedCircleTransition>
     )}
-    title="Warped circle"
+    scene="subject"
   />
 );
 

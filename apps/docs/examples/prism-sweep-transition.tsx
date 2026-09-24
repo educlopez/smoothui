@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const PrismSweepTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A faceted prism field for major state changes across the whole component frame."
     renderTransition={({ children, className, transitionKey }) => (
       <PrismSweepTransition
         className={className}
@@ -16,7 +15,7 @@ const PrismSweepTransitionDemo = () => (
         {children}
       </PrismSweepTransition>
     )}
-    title="Prism sweep"
+    scene="signal"
   />
 );
 

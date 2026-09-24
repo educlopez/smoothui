@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealNoiseTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A textured threshold reveal for product states that should feel deliberate, not loud."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealNoiseTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealNoiseTransitionDemo = () => (
         {children}
       </ShaderRevealNoiseTransition>
     )}
-    title="Noise gate"
+    scene="signal"
   />
 );
 

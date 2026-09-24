@@ -301,3 +301,16 @@ files in the tree. Load `.cursor/skills/friction-log/SKILL.md` when you hit one
 (policy: `docs/contributing/friction-log.md`). A daily Cursor agent
 ([`educlopez/friction-log`](https://github.com/educlopez/friction-log))
 investigates them.
+
+## Component index posters
+
+The `/docs/components` index uses static WebP posters, not the live example. Updating a component is not done until its poster matches the example.
+
+When you add a component or change `apps/docs/examples/<slug>.tsx`, recapture that slug before you finish. Follow `.agents/skills/capture-component-posters/SKILL.md` (Claude and Cursor load the same skill through `.claude/skills/capture-component-posters` and `.cursor/skills/capture-component-posters`).
+
+```bash
+export PLAYWRIGHT_BROWSERS_PATH="$HOME/Library/Caches/ms-playwright"
+pnpm capture:posters --force --only <slug>
+```
+
+Run that outside the sandbox. Do not hand-edit `apps/docs/components/gallery/component-shots.ts`.

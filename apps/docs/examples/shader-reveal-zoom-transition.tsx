@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealZoomTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A soft lens movement for switching between compact dashboard and marketing states."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealZoomTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealZoomTransitionDemo = () => (
         {children}
       </ShaderRevealZoomTransition>
     )}
-    title="Zoom wash"
+    scene="signal"
   />
 );
 
