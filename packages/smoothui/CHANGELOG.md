@@ -1,5 +1,18 @@
 # Changelog
 
+## [3.9.0](https://github.com/educlopez/smoothui/compare/v3.8.0...v3.9.0) (2026-09-20)
+
+
+### Features
+
+* **docs:** Sapira reading/masonry UX, theme drawer, and landing illustrations ([d8f10aa](https://github.com/educlopez/smoothui/commit/d8f10aa5197af6258f9eb6869d617b0aef021f7a))
+
+
+### Bug Fixes
+
+* make landing NumberFlow showcase update reliably under masonry ([21fd6af](https://github.com/educlopez/smoothui/commit/21fd6afc55f2950ae43a1743db23aa0d5f76dbc8))
+* prevent NumberFlow controlled increments from racing on rapid clicks ([6fe7893](https://github.com/educlopez/smoothui/commit/6fe7893e0ee084e452e068c078951177c7ee1b95))
+
 ## [3.8.0](https://github.com/educlopez/smoothui/compare/v3.7.1...v3.8.0) (2026-09-19)
 
 ### Component library
