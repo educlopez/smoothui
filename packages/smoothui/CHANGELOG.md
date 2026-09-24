@@ -1,5 +1,15 @@
 # Changelog
 
+## [3.9.1](https://github.com/educlopez/smoothui/compare/v3.8.0...v3.9.1) (2026-09-24)
+
+### Performance
+
+* render the component index from static posters ([2efe424](https://github.com/educlopez/smoothui/commit/2efe424a1008af1e2118ba184600cf36ec7bedb0))
+
+### Bug Fixes
+
+* prefer live column-width demos in gallery masonry cards ([738de237](https://github.com/educlopez/smoothui/commit/738de237))
+
 ## [3.9.0](https://github.com/educlopez/smoothui/compare/v3.8.0...v3.9.0) (2026-09-20)
 
 
