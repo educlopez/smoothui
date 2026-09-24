@@ -5,7 +5,12 @@ import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
 
-import { ComponentCard } from "./component-card";
+import {
+  ComponentCard,
+  POSTER_CHROME,
+  POSTER_PLACEHOLDER,
+} from "./component-card";
+import { COMPONENT_SHOTS } from "./component-shots";
 import { FilterBar } from "./filter-bar";
 import { MasonryGrid } from "./masonry-grid";
 
@@ -14,7 +19,7 @@ export interface ComponentGalleryProps {
   components: GalleryComponentMeta[];
 }
 
-const EAGER_COUNT = 8;
+const FIRST_SCREEN = 4;
 
 export const ComponentGallery = ({
   components,
@@ -85,12 +90,25 @@ export const ComponentGallery = ({
 
   const tiles = useMemo(
     () =>
-      filteredComponents.map((component, index) => ({
-        key: component.slug,
-        node: (
-          <ComponentCard component={component} eager={index < EAGER_COUNT} />
-        ),
-      })),
+      filteredComponents.map((component, index) => {
+        const shot = COMPONENT_SHOTS[component.slug];
+
+        return {
+          frame: {
+            chrome: POSTER_CHROME,
+            height: shot?.height ?? POSTER_PLACEHOLDER.height,
+            width: shot?.width ?? POSTER_PLACEHOLDER.width,
+          },
+          key: component.slug,
+          node: (
+            <ComponentCard
+              component={component}
+              priority={index < FIRST_SCREEN}
+              shot={shot}
+            />
+          ),
+        };
+      }),
     [filteredComponents]
   );
 

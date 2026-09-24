@@ -254,6 +254,35 @@ export const TweetMedia = ({ tweet }: { tweet: EnrichedTweet }) => {
   );
 };
 
+const entityList = <T,>(value: T[] | undefined): T[] =>
+  Array.isArray(value) ? value : [];
+
+// react-tweet's enrichTweet walks hashtags, mentions, urls, and symbols
+// with for...of, including on quoted_tweet. The syndication API omits
+// those arrays (entities can be {}), which throws "entities is not iterable".
+const iterableEntities = (
+  entities: Tweet["entities"] | undefined
+): Tweet["entities"] => ({
+  hashtags: entityList(entities?.hashtags),
+  symbols: entityList(entities?.symbols),
+  urls: entityList(entities?.urls),
+  user_mentions: entityList(entities?.user_mentions),
+  ...(Array.isArray(entities?.media) ? { media: entities.media } : {}),
+});
+
+const withIterableEntities = (tweet: Tweet): Tweet => ({
+  ...tweet,
+  entities: iterableEntities(tweet.entities),
+  ...(tweet.quoted_tweet
+    ? {
+        quoted_tweet: {
+          ...tweet.quoted_tweet,
+          entities: iterableEntities(tweet.quoted_tweet.entities),
+        },
+      }
+    : {}),
+});
+
 export const SmoothTweet = ({
   tweet,
   className,
@@ -266,21 +295,7 @@ export const SmoothTweet = ({
   userInfoPosition?: "top" | "bottom";
   avatarRounded?: string;
 }) => {
-  // react-tweet's enrichTweet iterates over each entity array without
-  // guarding for undefined. The syndication API can omit arrays (e.g.
-  // symbols/user_mentions) for some tweets, which would throw
-  // "entities is not iterable" and crash the whole tree. Normalize first.
-  const safeTweet: Tweet = {
-    ...tweet,
-    entities: {
-      hashtags: tweet.entities?.hashtags ?? [],
-      symbols: tweet.entities?.symbols ?? [],
-      urls: tweet.entities?.urls ?? [],
-      user_mentions: tweet.entities?.user_mentions ?? [],
-      ...(tweet.entities?.media ? { media: tweet.entities.media } : {}),
-    },
-  };
-  const enrichedTweet = enrichTweet(safeTweet);
+  const enrichedTweet = enrichTweet(withIterableEntities(tweet));
   const userInfo = (
     <TweetHeader avatarRounded={avatarRounded} tweet={enrichedTweet} />
   );
