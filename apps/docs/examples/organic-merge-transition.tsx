@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const OrganicMergeTransitionDemo = () => (
   <TransitionDemoFrame
-    description="Soft merged shapes reveal a new state while keeping the underlying UI readable."
     renderTransition={({ children, className, transitionKey }) => (
       <OrganicMergeTransition
         className={className}
@@ -14,7 +13,7 @@ const OrganicMergeTransitionDemo = () => (
         {children}
       </OrganicMergeTransition>
     )}
-    title="Organic merge"
+    scene="subject"
   />
 );
 

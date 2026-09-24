@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ApertureBlurTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A focused aperture reveal for switching between dashboard and landing contexts."
     renderTransition={({ children, className, transitionKey }) => (
       <ApertureBlurTransition
         className={className}
@@ -14,7 +13,7 @@ const ApertureBlurTransitionDemo = () => (
         {children}
       </ApertureBlurTransition>
     )}
-    title="Aperture blur"
+    scene="signal"
   />
 );
 

@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealCircleTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A radial reveal that works best when the next surface needs a clear focal point."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealCircleTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealCircleTransitionDemo = () => (
         {children}
       </ShaderRevealCircleTransition>
     )}
-    title="Circle reveal"
+    scene="subject"
   />
 );
 

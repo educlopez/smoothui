@@ -1,8 +1,11 @@
 "use client";
 
-import { ArrowRight, Check, Sparkles } from "lucide-react";
-import type { ReactNode } from "react";
-import { useState } from "react";
+import { cn } from "@repo/shadcn-ui/lib/utils";
+import { ArrowRight } from "lucide-react";
+import { useReducedMotion } from "motion/react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
+
+export type TransitionDemoScene = "editorial" | "subject" | "signal";
 
 interface TransitionRenderProps {
   children: ReactNode;
@@ -11,125 +14,243 @@ interface TransitionRenderProps {
 }
 
 interface TransitionDemoFrameProps {
-  description: string;
   renderTransition: (props: TransitionRenderProps) => ReactNode;
-  title: string;
+  scene: TransitionDemoScene;
+  toolbar?: ReactNode;
 }
 
-const states = [
-  {
-    bars: [72, 48, 84],
-    description: "A quiet frame for state changes inside product surfaces.",
-    eyebrow: "Dashboard",
-    id: "dashboard",
-    primary: "$42.8k",
-    rows: ["MRR", "Activation", "Retention"],
-    secondary: "+12.4%",
-    title: "Revenue is ready to review.",
-  },
-  {
-    bars: [58, 76, 39],
-    description:
-      "A minimal marketing block with just enough structure to read through the shader.",
-    eyebrow: "Landing",
-    id: "landing",
-    primary: "18.2k",
-    rows: ["Hero", "Pricing", "Proof"],
-    secondary: "visitors",
-    title: "The section has been published.",
-  },
-] as const;
+const AUTOPLAY_DELAY_MS = 640;
+const STAGE_CLASS =
+  "min-h-[22rem] w-full overflow-hidden rounded-2xl border border-black/10 shadow-custom";
 
-export function TransitionDemoFrame({
-  description,
-  renderTransition,
-  title,
-}: TransitionDemoFrameProps) {
-  const [index, setIndex] = useState(0);
-  const current = states[index];
+const scenes = {
+  editorial: [
+    { id: "morning", label: "Morning" },
+    { id: "night", label: "Night" },
+  ],
+  signal: [
+    { id: "draft", label: "Draft" },
+    { id: "published", label: "Published" },
+  ],
+  subject: [
+    { id: "mark", label: "Mark" },
+    { id: "seal", label: "Seal" },
+  ],
+} as const;
 
-  return renderTransition({
-    children: (
-      <div className="relative min-h-[420px] overflow-hidden bg-background p-4 text-foreground sm:p-6">
-        <div className="mx-auto flex min-h-[372px] w-full max-w-[720px] flex-col overflow-hidden rounded-2xl border bg-card text-card-foreground shadow-sm">
-          <div className="flex h-12 items-center justify-between border-b bg-muted/25 px-4 backdrop-blur-sm">
-            <div aria-hidden="true" className="flex items-center gap-1.5">
-              <span className="size-2 rounded-full bg-brand" />
-              <span className="size-2 rounded-full bg-brand/45" />
-              <span className="size-2 rounded-full bg-muted-foreground/30" />
-            </div>
-            <span className="font-medium text-[11px] text-muted-foreground">
-              smoothui.dev/preview
-            </span>
-            <button
-              className="inline-flex items-center gap-1 rounded-full border bg-background/80 px-2.5 py-1 font-medium text-[11px] text-foreground shadow-sm transition-colors hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              onClick={() => setIndex((value) => (value + 1) % states.length)}
-              type="button"
-            >
-              Transition
-              <ArrowRight className="size-3" />
-            </button>
-          </div>
+const controlClass =
+  "rounded-full border px-2.5 py-1 font-medium text-xs shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
-          <main className="grid flex-1 grid-cols-[1fr_210px] gap-6 p-6 max-sm:grid-cols-1 sm:p-8">
-            <section className="flex min-w-0 flex-col justify-between">
-              <div>
-                <div className="mb-7 inline-flex items-center gap-2 rounded-full border bg-background/70 px-2.5 py-1 text-[12px] text-muted-foreground shadow-sm">
-                  <Sparkles className="size-3 text-brand" />
-                  {current.eyebrow}
-                </div>
-                <p className="mb-2 font-medium text-brand text-sm">{title}</p>
-                <h3 className="max-w-md text-balance font-semibold text-2xl tracking-[-0.03em] sm:text-3xl">
-                  {current.title}
-                </h3>
-                <p className="mt-3 max-w-md text-muted-foreground text-sm leading-6">
-                  {description || current.description}
-                </p>
-              </div>
+const EditorialScene = ({ night }: { night: boolean }) => (
+  <div
+    className="grid min-h-[22rem] grid-cols-[minmax(0,1.4fr)_minmax(4.75rem,0.6fr)]"
+    style={{
+      background: night ? "#14120f" : "#f3eee6",
+      color: night ? "#f6f1e8" : "#1a1612",
+    }}
+  >
+    <div className="flex flex-col justify-between gap-8 p-8 sm:p-10">
+      <p className="font-medium text-[11px] uppercase tracking-[0.22em] opacity-60">
+        {night ? "Night edition" : "Morning edition"}
+      </p>
+      <h3 className="max-w-[10ch] text-balance font-semibold text-4xl tracking-[-0.045em] sm:text-6xl">
+        {night ? "After dark." : "In print."}
+      </h3>
+      <p className="text-sm opacity-70">
+        {night ? "Field notes from the coast" : "Issue 04 · The atlas"}
+      </p>
+    </div>
+    <div
+      aria-hidden="true"
+      className="min-h-full"
+      style={{ background: night ? "var(--color-brand)" : "#1a1612" }}
+    />
+  </div>
+);
 
-              <div className="mt-8 grid max-w-md grid-cols-3 gap-2">
-                {current.rows.map((row, rowIndex) => (
-                  <div className="rounded-xl border bg-muted/20 p-3" key={row}>
-                    <div className="mb-2 flex items-center gap-1.5 text-muted-foreground text-xs">
-                      <Check className="size-3 text-brand" />
-                      {row}
-                    </div>
-                    <div className="h-1.5 rounded-full bg-muted">
-                      <div
-                        className="h-full rounded-full bg-brand/70"
-                        style={{ width: `${current.bars[rowIndex]}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+const SubjectScene = ({ night }: { night: boolean }) => (
+  <div
+    className="flex min-h-[22rem] flex-col items-center justify-center gap-6 px-8"
+    style={{ background: night ? "#121016" : "#f7f4ef" }}
+  >
+    <div
+      aria-hidden="true"
+      className="size-40 rounded-full sm:size-48"
+      style={{
+        background: night ? "var(--color-brand)" : "#16141a",
+        boxShadow: night
+          ? "0 0 0 18px color-mix(in oklab, var(--color-brand) 22%, transparent)"
+          : "0 0 0 18px rgb(22 20 26 / 0.06)",
+      }}
+    />
+    <p
+      className="font-medium text-lg tracking-[-0.03em]"
+      style={{ color: night ? "#f6f1e8" : "#1a1612" }}
+    >
+      {night ? "Seal" : "Mark"}
+    </p>
+  </div>
+);
 
-            <aside className="flex flex-col justify-between rounded-2xl border bg-muted/20 p-4">
-              <div>
-                <p className="text-muted-foreground text-xs">Signal</p>
-                <div className="mt-2 font-semibold text-4xl tracking-[-0.04em]">
-                  {current.primary}
-                </div>
-                <p className="mt-1 text-muted-foreground text-xs">
-                  {current.secondary}
-                </p>
-              </div>
-              <div className="mt-8 space-y-2">
-                <div className="h-16 rounded-xl border bg-background/70" />
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="h-10 rounded-lg bg-brand/15" />
-                  <div className="h-10 rounded-lg bg-muted" />
-                  <div className="h-10 rounded-lg bg-muted" />
-                </div>
-              </div>
-            </aside>
-          </main>
-        </div>
+const signalBars = {
+  draft: [
+    { color: "var(--color-brand)", width: "100%" },
+    { color: "#1a1612", width: "68%" },
+    { color: "#e2a15a", width: "42%" },
+  ],
+  published: [
+    { color: "#7ddec8", width: "100%" },
+    { color: "var(--color-brand)", width: "62%" },
+    { color: "#f4efe6", width: "34%" },
+  ],
+} as const;
+
+const SignalScene = ({ published }: { published: boolean }) => {
+  const bars = published ? signalBars.published : signalBars.draft;
+
+  return (
+    <div
+      className="flex min-h-[22rem] flex-col justify-between p-8 sm:p-10"
+      style={{
+        background: published ? "#0e1c24" : "#f4efe6",
+        color: published ? "#f6f1e8" : "#1a1612",
+      }}
+    >
+      <div className="flex items-start justify-between gap-6">
+        <p className="font-medium text-[11px] uppercase tracking-[0.22em] opacity-60">
+          {published ? "Published" : "Draft"}
+        </p>
+        <p className="font-semibold text-6xl tracking-[-0.05em] sm:text-7xl">
+          {published ? "02" : "01"}
+        </p>
       </div>
-    ),
-    className:
-      "min-h-[420px] w-full rounded-none border-0 bg-background text-foreground shadow-none sm:rounded-2xl sm:border sm:shadow-custom",
-    transitionKey: current.id,
-  });
-}
+      <div
+        className={cn(
+          "flex flex-col gap-2",
+          published ? "items-end" : "items-start"
+        )}
+      >
+        {bars.map((bar) => (
+          <div
+            className="h-8 rounded-md"
+            key={bar.color}
+            style={{ background: bar.color, width: bar.width }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const SceneView = ({
+  night,
+  scene,
+}: {
+  night: boolean;
+  scene: TransitionDemoScene;
+}) => {
+  if (scene === "editorial") {
+    return <EditorialScene night={night} />;
+  }
+  if (scene === "subject") {
+    return <SubjectScene night={night} />;
+  }
+  return <SignalScene published={night} />;
+};
+
+export const TransitionDemoFrame = ({
+  renderTransition,
+  scene,
+  toolbar,
+}: TransitionDemoFrameProps) => {
+  const shouldReduceMotion = useReducedMotion();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [index, setIndex] = useState(0);
+  const [hasAutoplayed, setHasAutoplayed] = useState(false);
+  const states = scenes[scene];
+  const current = states[index] ?? states[0];
+  const next = states[(index + 1) % states.length] ?? states[0];
+
+  useEffect(() => {
+    if (shouldReduceMotion || hasAutoplayed) {
+      return;
+    }
+    const node = rootRef.current;
+    if (!node) {
+      return;
+    }
+
+    let timer = 0;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry?.isIntersecting) {
+          return;
+        }
+        observer.disconnect();
+        timer = window.setTimeout(() => {
+          setHasAutoplayed(true);
+          setIndex(1);
+        }, AUTOPLAY_DELAY_MS);
+      },
+      { threshold: 0.55 }
+    );
+
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, [hasAutoplayed, shouldReduceMotion]);
+
+  const goTo = (nextIndex: number) => {
+    setHasAutoplayed(true);
+    setIndex(nextIndex);
+  };
+
+  return (
+    <div
+      className="flex w-full max-w-[720px] flex-col items-center gap-3"
+      ref={rootRef}
+    >
+      {renderTransition({
+        children: <SceneView night={index === 1} scene={scene} />,
+        className: STAGE_CLASS,
+        transitionKey: `${scene}-${current.id}`,
+      })}
+      {toolbar ? (
+        <div className="flex flex-wrap items-center justify-center gap-1.5">
+          {toolbar}
+        </div>
+      ) : null}
+      <div className="flex flex-wrap items-center justify-center gap-1.5">
+        {states.map((state, stateIndex) => (
+          <button
+            aria-pressed={index === stateIndex}
+            className={cn(
+              controlClass,
+              index === stateIndex
+                ? "border-brand bg-brand text-[#1a1612]"
+                : "bg-background text-muted-foreground hover:bg-muted"
+            )}
+            key={state.id}
+            onClick={() => goTo(stateIndex)}
+            type="button"
+          >
+            {state.label}
+          </button>
+        ))}
+        <button
+          className={cn(
+            controlClass,
+            "inline-flex items-center gap-1.5 bg-background px-3 py-1.5 text-foreground hover:bg-muted"
+          )}
+          onClick={() => goTo((index + 1) % states.length)}
+          type="button"
+        >
+          Show {next.label}
+          <ArrowRight aria-hidden="true" className="size-3" />
+        </button>
+      </div>
+    </div>
+  );
+};

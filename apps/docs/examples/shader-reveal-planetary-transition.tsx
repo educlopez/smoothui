@@ -5,7 +5,6 @@ import { TransitionDemoFrame } from "./transition-demo-frame";
 
 const ShaderRevealPlanetaryTransitionDemo = () => (
   <TransitionDemoFrame
-    description="A rotational field for rare moments where the change should feel spatial."
     renderTransition={({ children, className, transitionKey }) => (
       <ShaderRevealPlanetaryTransition
         className={className}
@@ -14,7 +13,7 @@ const ShaderRevealPlanetaryTransitionDemo = () => (
         {children}
       </ShaderRevealPlanetaryTransition>
     )}
-    title="Planetary swirl"
+    scene="subject"
   />
 );
 
