@@ -12,24 +12,17 @@ async function readyInstaller(page: Page) {
   }).toPass();
 }
 
-test("mascot reactions stay local and reduced motion remains static", async ({
-  page,
-}) => {
-  await page.emulateMedia({ reducedMotion: "reduce" });
+test("footer brand mark is a static logo", async ({ page }) => {
   await page.goto("/");
-  const companion = page.getByRole("button", { exact: true, name: "Say hi" });
-  await companion.scrollIntoViewIfNeeded();
-  const mascot = companion.locator("svg");
-  await expect(mascot).toHaveAttribute("data-expression", "neutral");
-  await page.locator("body").click({ position: { x: 2, y: 2 } });
-  await expect(mascot).toHaveAttribute("data-expression", "neutral");
-  await companion.focus();
-  await page.keyboard.press("Enter");
-  await expect(mascot).toHaveAttribute("data-expression", "happy");
-  await expect(mascot).toHaveCSS("transform", "none");
-  await page.getByRole("button", { exact: true, name: "Dismiss" }).click();
-  await expect(companion).toBeFocused();
-  await expect(page.getByText("You made it. Now make something.")).toBeHidden();
+  const footer = page.locator("footer");
+  const logo = footer.getByText("SmoothUI", { exact: true });
+  await logo.scrollIntoViewIfNeeded();
+  await expect(logo).toBeVisible();
+  await expect(footer.getByRole("button", { name: "SmoothUI" })).toHaveCount(0);
+  await logo.click();
+  await expect(page.getByText("You made it. Now make something.")).toHaveCount(
+    0
+  );
 });
 
 test("inline copy announces success without a mascot popup", async ({
