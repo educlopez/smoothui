@@ -94,7 +94,19 @@ export function MascotCompanion({
     }
   };
 
-  const label = copyText === undefined ? "Say hi" : "Copy command";
+  const isGreeting = copyText === undefined;
+  if (isGreeting) {
+    return (
+      <div className="not-prose inline-flex shrink-0 items-center gap-2">
+        <Icon className="h-6 w-auto shrink-0" />
+        <span className="mt-0.5 select-none font-medium font-title text-foreground text-xl leading-none">
+          Smooth<span className="text-brand">UI</span>
+        </span>
+      </div>
+    );
+  }
+
+  const label = "Copy command";
   const buttonLabel = copied ? "Command copied" : label;
   const comment = failed
     ? "Clipboard unavailable. Select the command below to copy it manually."
@@ -104,18 +116,14 @@ export function MascotCompanion({
       <button
         aria-describedby={open ? id : undefined}
         aria-expanded={open}
-        className={`inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-lg px-2 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2 disabled:cursor-wait ${copyText === undefined ? "" : "w-36"}`}
+        className="inline-flex min-h-11 w-36 cursor-pointer items-center gap-2 rounded-lg px-2 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2 disabled:cursor-wait"
         disabled={busy}
         onClick={activate}
         ref={trigger}
         type="button"
       >
         <Icon
-          className={
-            copyText === undefined
-              ? "h-9 w-auto shrink-0"
-              : "h-7 w-auto shrink-0"
-          }
+          className="h-7 w-auto shrink-0"
           expression={open && !failed ? "happy" : undefined}
           reactionKey={reaction}
         />
@@ -127,7 +135,7 @@ export function MascotCompanion({
       </span>
       {open ? (
         <div
-          className={`not-prose absolute bottom-full z-50 mb-2 w-56 rounded-xl border border-border bg-popover p-3 text-popover-foreground text-xs leading-relaxed shadow-lg ${copyText === undefined ? "left-0" : "right-0"}`}
+          className="not-prose absolute right-0 bottom-full z-50 mb-2 w-56 rounded-xl border border-border bg-popover p-3 text-popover-foreground text-xs leading-relaxed shadow-lg"
           id={id}
         >
           <p className="m-0">{comment}</p>
