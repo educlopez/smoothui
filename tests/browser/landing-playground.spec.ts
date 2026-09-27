@@ -361,7 +361,8 @@ for (const width of [390, 1440]) {
       "aria-selected",
       "true"
     );
-    await expect(hero.getByRole("textbox", { name: "Prompt" })).toBeVisible();
+    await expect(hero.getByRole("heading", { name: "Overview" })).toBeVisible();
+    await expect(hero.getByText("Active users")).toBeVisible();
     await tabs.getByRole("tab", { name: "Experiment" }).click();
     await expect(
       hero.getByRole("button", { name: "Maya Solis — next" })
