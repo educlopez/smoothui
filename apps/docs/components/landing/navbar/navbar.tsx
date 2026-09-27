@@ -186,7 +186,7 @@ const resourceGroups = [
   {
     href: "/docs/guides/themes",
     icon: <IconColorPaletteFill24 size={16} />,
-    text: "Oat, palettes, and dark mode.",
+    text: "Palettes and dark mode.",
     title: "Themes",
   },
   {

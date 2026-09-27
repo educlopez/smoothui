@@ -1,4 +1,4 @@
-# Oat illustrations
+# Illustrations
 
 Spec for a later skill. Do not invent a second material.
 

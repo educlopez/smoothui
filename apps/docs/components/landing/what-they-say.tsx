@@ -63,7 +63,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
 
 // Four side slots. Each holds one testimonial and is a card on its activePage,
 // otherwise a small square. The two slots in a column swap card/square on page
-// change — the ElevenLabs morph.
+// change.
 const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
   // left column: top, bottom
   {

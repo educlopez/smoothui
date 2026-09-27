@@ -11,7 +11,7 @@
 @source "../../../packages/smoothui/templates/**/*.{js,jsx,ts,tsx}";
 
 @theme {
-  --font-title: var(--font-plus-jakarta-sans);
+  --font-title: var(--font-inter);
   --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
   --shadow-md:
     0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -64,10 +64,6 @@
   --lines-page: url("/lines-w.png");
 }
 
-[data-ds="oat"] {
-  --font-title: var(--font-inter);
-}
-
 .shadow-sm {
   --tw-shadow: var(--shadow-sm);
 }
@@ -78,29 +74,28 @@
   --tw-shadow: var(--shadow-lg);
 }
 
-/* Site chrome. These classes used --primary as a light hover wash.
-   Under Oat, --primary is ink, so the wash has to become a white card. */
-[data-ds="oat"] .tracking-tight {
+/* Site chrome. Primary is ink, so a light hover wash becomes a card. */
+.tracking-tight {
   letter-spacing: 0;
 }
 
-[data-ds="oat"] h1 .text-muted-foreground {
+h1 .text-muted-foreground {
   color: var(--color-foreground);
 }
 
-[data-ds="oat"] .bg-primary\/40 {
+.bg-primary\/40 {
   background-color: var(--color-card);
   box-shadow: var(--shadow-sm);
 }
 
-[data-ds="oat"] .hover\:bg-primary:hover {
+.hover\:bg-primary:hover {
   background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
   transition-duration: 200ms;
 }
 
-[data-ds="oat"] .trigger:hover,
-[data-ds="oat"] .link:hover,
-[data-ds="oat"] .mobile-navbar-link:hover {
+.trigger:hover,
+.link:hover,
+.mobile-navbar-link:hover {
   background-color: color-mix(
     in oklch,
     var(--color-foreground) 5%,
@@ -109,31 +104,31 @@
   border-color: transparent;
 }
 
-[data-ds="oat"] #nd-page :is(p, li) {
+#nd-page :is(p, li) {
   font-weight: 400;
   color: var(--color-muted-foreground);
 }
 
-[data-ds="oat"] #nd-page :is(p, li) a {
+#nd-page :is(p, li) a {
   font-weight: 400;
   color: var(--color-foreground);
 }
 
-[data-ds="oat"] .group:hover h3 {
+.group:hover h3 {
   color: var(--color-foreground);
 }
 
-[data-ds="oat"] article.group p {
+article.group p {
   font-size: 1rem;
   line-height: 1.5rem;
 }
 
-[data-ds="oat"] [data-side="top"] {
+[data-side="top"] {
   display: none;
 }
 
-[data-ds="oat"] .h-px.bg-gradient-to-r,
-[data-ds="oat"] .w-px.bg-gradient-to-b {
+.h-px.bg-gradient-to-r,
+.w-px.bg-gradient-to-b {
   background-color: var(--color-border);
   background-image: none;
 }
@@ -357,12 +352,13 @@
   animation: accordion-up 0.2s ease-out;
 }
 
-/* Center the docs content column within its (full-width) grid track,
-   mirroring ElevenLabs' `w-content-width mx-auto` article. */
+/* Center the docs content column within its full-width grid track. */
 #nd-page {
   width: 100%;
   max-width: calc(900px + 2 * 2rem);
   margin-inline: auto;
+  font-size: 0.9375rem;
+  line-height: 1.625;
 }
 
 /* Full pages (no TOC) stretch to the whole main track; also lift the
@@ -376,26 +372,29 @@
   max-width: none;
 }
 
-/* Docs headings use the title font (Plus Jakarta Sans). */
+/* Docs headings use the title font. */
 #nd-page :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-title);
 }
 
 /* Override fumadocs utility classes on headings — unlayered beats @layer utilities */
 #nd-page h1 {
-  font-size: var(--text-4xl);
-  font-weight: 800;
-  line-height: var(--leading-tight);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: -0.025em;
 }
 #nd-page h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: -0.011em;
 }
 #nd-page h3 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  line-height: var(--leading-tight);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  letter-spacing: normal;
 }
 #nd-page h4 {
   font-size: var(--text-lg);
@@ -411,34 +410,7 @@
   font-weight: 600;
 }
 
-[data-ds="oat"] #nd-page {
-  font-size: 0.9375rem;
-  line-height: 1.625;
-}
-
-[data-ds="oat"] #nd-page h1 {
-  font-size: 1.5rem;
-  font-weight: 500;
-  line-height: 2rem;
-  letter-spacing: -0.025em;
-}
-
-[data-ds="oat"] #nd-page h2 {
-  font-size: 1.125rem;
-  font-weight: 400;
-  line-height: 1.75rem;
-  letter-spacing: -0.011em;
-}
-
-[data-ds="oat"] #nd-page h3 {
-  font-size: 0.9375rem;
-  font-weight: 400;
-  line-height: 1.5rem;
-  letter-spacing: normal;
-}
-
-/* ElevenLabs-style docs chrome: clean white surfaces + hairline borders,
-   built from our own tokens (no hardcoded colors). */
+/* Docs chrome: white surfaces and hairline borders from our tokens. */
 #nd-notebook-layout,
 #nd-sidebar {
   --fd-sidebar-width: 240px;

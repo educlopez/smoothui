@@ -138,9 +138,9 @@ const buildModeVars = (
 
 const themeItemName = (paletteName: string): string => `theme-${paletteName}`;
 
-const OAT_THEME_NAME = "theme-oat";
+const DEFAULT_THEME_NAME = "theme";
 
-const OAT_LIGHT_SCALE = {
+const DEFAULT_LIGHT_SCALE = {
   50: "oklch(0.965 0 0)",
   100: "oklch(0.972 0 0)",
   200: "oklch(0.955 0 0)",
@@ -155,7 +155,7 @@ const OAT_LIGHT_SCALE = {
   1000: "oklch(0.16 0 0)",
 } as const;
 
-const OAT_DARK_SCALE = {
+const DEFAULT_DARK_SCALE = {
   50: "oklch(0.16 0 0)",
   100: "oklch(0.21 0 0)",
   200: "oklch(0.25 0 0)",
@@ -170,8 +170,8 @@ const OAT_DARK_SCALE = {
   1000: "oklch(0.96 0 0)",
 } as const;
 
-const oatModeVars = (
-  scale: typeof OAT_LIGHT_SCALE | typeof OAT_DARK_SCALE,
+const defaultModeVars = (
+  scale: typeof DEFAULT_LIGHT_SCALE | typeof DEFAULT_DARK_SCALE,
   ink: string,
   inkForeground: string
 ): Record<string, string> => ({
@@ -194,22 +194,26 @@ const oatModeVars = (
 
 export const getAllThemeNames = (): string[] => [
   ...THEME_PALETTES.map((palette) => themeItemName(palette.name)),
-  OAT_THEME_NAME,
+  DEFAULT_THEME_NAME,
 ];
 
 export const getTheme = (itemName: string): RegistryItem | undefined => {
-  if (itemName === OAT_THEME_NAME) {
+  if (itemName === DEFAULT_THEME_NAME) {
     return {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
       author: "Eduardo Calvo <educlopez93@gmail.com>",
       cssVars: {
-        dark: oatModeVars(
-          OAT_DARK_SCALE,
-          OAT_DARK_SCALE[1000],
-          OAT_DARK_SCALE[50]
+        dark: defaultModeVars(
+          DEFAULT_DARK_SCALE,
+          DEFAULT_DARK_SCALE[1000],
+          DEFAULT_DARK_SCALE[50]
         ),
         light: {
-          ...oatModeVars(OAT_LIGHT_SCALE, OAT_LIGHT_SCALE[1000], WHITE),
+          ...defaultModeVars(
+            DEFAULT_LIGHT_SCALE,
+            DEFAULT_LIGHT_SCALE[1000],
+            WHITE
+          ),
           card: WHITE,
           popover: WHITE,
           radius: "0.625rem",
@@ -219,9 +223,9 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
         },
       },
       description:
-        "SmoothUI Oat theme: near-black ink, white cards on a gray canvas, hairline borders, light and dark mode included.",
-      name: OAT_THEME_NAME,
-      title: "SmoothUI Oat",
+        "SmoothUI theme: near-black ink, white cards on a gray canvas, hairline borders, light and dark mode included.",
+      name: DEFAULT_THEME_NAME,
+      title: "SmoothUI",
       type: "registry:theme",
     };
   }

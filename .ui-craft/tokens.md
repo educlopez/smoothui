@@ -72,17 +72,16 @@ Brand pink: max 3-5 placements per above-the-fold viewport. Secondary uses drop
 chroma (`--color-brand-light/lighter`). Today the pink appears in logo + sidebar
 active + TOC active + eyebrows + CTA simultaneously — trim per viewport.
 
-## Oat
+## Surfaces
 
-The docs site always sets `data-ds="oat"`. There is no second system to pick.
-Oat does not add classes. It rewrites the shadcn variables (`background`,
-`card`, `foreground`, `muted`, `border`, `primary`, `ring`). The same values
-ship as the installable theme `theme-oat`. The shadow scale is a short black
-drop, with the edge carried by `border` or `ring`.
+The docs site has one look. It does not add classes. It sets the shadcn
+variables (`background`, `card`, `foreground`, `muted`, `border`, `primary`,
+`ring`). The same values ship as the installable theme `theme`. The shadow
+scale is a short black drop, with the edge carried by `border` or `ring`.
 
-Under Oat, `--primary` is ink and `--primary-foreground` is the opposite
-surface, so `bg-primary` is the default action. Brand pink stays on
-`--color-brand`. `--font-title` is Inter.
+`--primary` is ink and `--primary-foreground` is the opposite surface, so
+`bg-primary` is the default action. Brand pink stays on `--color-brand`.
+`--font-title` is Inter.
 
 Surface contract for new chrome, in components that install into someone
 else's project:
@@ -90,9 +89,8 @@ else's project:
 - Quiet surface: `bg-card ring-1 ring-foreground/8 shadow-sm`
 - Raised: `shadow-md`
 - Flat (lists, pricing, tables): `border-border`, no shadow
-- Default action: `bg-primary text-primary-foreground` when the host adopted
-  Oat; `bg-foreground text-background` when the control must stay ink on any
-  host theme
+- Default action: `bg-primary text-primary-foreground` on this theme;
+  `bg-foreground text-background` when the control must stay ink on any host
 - Outline: `bg-card ring-1 ring-foreground/10`
 - Do not add `bg-white`, `bg-zinc-*`, or `shadow-[...]` on chrome
 

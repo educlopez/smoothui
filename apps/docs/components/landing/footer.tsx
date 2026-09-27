@@ -141,7 +141,7 @@ function XIcon({ className }: { className?: string }) {
 }
 
 // ---------------------------------------------------------------------------
-// CTA card — sits on the seam between page and footer (tailark pattern)
+// CTA card — sits on the seam between page and footer.
 // ---------------------------------------------------------------------------
 
 function CtaCard() {

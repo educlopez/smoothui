@@ -6,7 +6,6 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import { applyOat } from "@docs/app/lib/design-system";
 import { AppearanceDrawing } from "@docs/components/illustrations/appearance-drawing";
 import { THEME_PALETTES } from "@docs/lib/registry-themes";
 import { cn } from "@repo/shadcn-ui/lib/utils";
@@ -27,8 +26,8 @@ import { createPortal } from "react-dom";
 
 type Appearance = "system" | "dark" | "light";
 
-const OAT_INSTALL_COMMAND =
-  "npx shadcn@latest add https://smoothui.dev/r/theme-oat.json";
+const THEME_INSTALL_COMMAND =
+  "npx shadcn@latest add https://smoothui.dev/r/theme.json";
 
 const APPEARANCES: {
   id: Appearance;
@@ -100,11 +99,10 @@ export function ColorPickerFloatNav() {
         ? "dark"
         : "light";
 
-  const installCommand = OAT_INSTALL_COMMAND;
+  const installCommand = THEME_INSTALL_COMMAND;
 
   useEffect(() => {
     setMounted(true);
-    applyOat();
   }, []);
 
   useEffect(() => {
@@ -366,9 +364,6 @@ export function ColorPickerFloatNav() {
                       <div className="mb-1.5 flex items-center justify-between gap-2">
                         <span className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
                           Install theme
-                        </span>
-                        <span className="text-muted-foreground text-xs capitalize">
-                          Oat
                         </span>
                       </div>
                       <div className="overflow-hidden rounded-lg border border-border">
