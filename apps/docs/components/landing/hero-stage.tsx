@@ -512,11 +512,12 @@ function ExperimentView() {
     <div className="relative flex min-h-[32rem] items-center justify-center overflow-hidden md:min-h-[36rem]">
       <img
         alt=""
-        className="absolute inset-0 size-full object-cover"
+        className="absolute inset-0 size-full scale-110 object-cover blur-xl"
         height={900}
         src={sceneSrc(EXPERIMENT_SCENE.id, "w-1400")}
         width={1400}
       />
+      <div className="absolute inset-0 bg-foreground/10" />
       <div className="relative">
         <PhotoStack photos={stackPhotos} />
       </div>
