@@ -1,18 +1,19 @@
 "use client";
 
-import { HeroDither } from "@docs/components/landing/hero-dither";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
 import { cn } from "@repo/shadcn-ui/lib/utils";
+import DitherChart from "@repo/smoothui/components/dither-chart";
+import DitherImage from "@repo/smoothui/components/dither-image";
 import PhotoStack from "@repo/smoothui/components/photo-stack";
+import ShaderRevealTransition from "@repo/smoothui/components/shader-reveal-transition";
 import { castAnimals, castPeople } from "@smoothui/data/cast";
 import { landscapes } from "@smoothui/data/scenes";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   IconArrowTrendUpFill24,
   IconBellFill24,
-  IconChartBarTrendUpFill24,
   IconFolderImageFill24,
   IconGearFill24,
   IconGrid2Fill24,
@@ -22,7 +23,7 @@ import {
   IconSparkleFill24,
   IconUsersFill24,
 } from "nucleo-core-fill-24";
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 const VIEWS = [
   { icon: IconHouse4Fill24, id: "landing", label: "Landing" },
@@ -32,8 +33,8 @@ const VIEWS = [
 
 type ViewId = (typeof VIEWS)[number]["id"];
 
-const LANDING_SCENE = landscapes[1] ?? landscapes[0];
-const LANDING_FEATURE_SCENES = [
+const LANDING_SCENES = [
+  landscapes[1],
   landscapes[0],
   landscapes[2],
   landscapes[5],
@@ -66,53 +67,81 @@ const DASH_NAV = [
   { icon: IconGearFill24, id: "settings", label: "Settings" },
 ] as const;
 
+type DashSection = (typeof DASH_NAV)[number]["id"];
+
 const KPIS = [
   {
     change: "+12.4%",
+    id: "revenue",
     label: "Revenue",
     up: true,
     value: "$48.2k",
   },
   {
     change: "+8.1%",
+    id: "users",
     label: "Active users",
     up: true,
     value: "12,480",
   },
   {
     change: "+21%",
+    id: "gens",
     label: "Generations",
     up: true,
     value: "3,912",
   },
-  {
-    change: "−1.8%",
-    label: "Bounce",
-    up: false,
-    value: "24.6%",
-  },
+  { change: "−1.8%", id: "bounce", label: "Bounce", up: false, value: "24.6%" },
 ] as const;
-
-const CHART_BARS = [38, 52, 44, 68, 61, 78, 72, 86, 80, 94, 88, 100] as const;
 
 const ACTIVITY = [
   {
+    id: "a1",
+    kpi: "gens",
     meta: "2m ago · Maya",
     title: "Late light dunes exported",
   },
   {
+    id: "a2",
+    kpi: "users",
     meta: "18m ago · Luca",
     title: "Team seat invited",
   },
   {
+    id: "a3",
+    kpi: "revenue",
     meta: "1h ago · System",
     title: "Weekly digest sent",
   },
   {
+    id: "a4",
+    kpi: "gens",
     meta: "3h ago · Nora",
     title: "Library folder renamed",
   },
 ] as const;
+
+const CHART_DATA = [
+  {
+    name: "Generations",
+    points: [
+      { label: "W1", value: 38 },
+      { label: "W2", value: 52 },
+      { label: "W3", value: 44 },
+      { label: "W4", value: 68 },
+      { label: "W5", value: 61 },
+      { label: "W6", value: 78 },
+      { label: "W7", value: 72 },
+      { label: "W8", value: 86 },
+      { label: "W9", value: 80 },
+      { label: "W10", value: 94 },
+      { label: "W11", value: 88 },
+      { label: "W12", value: 100 },
+    ],
+  },
+];
+
+const PIXEL_STEPS = [2, 4, 6, 8] as const;
 
 const stackPhotos = [
   castPeople[0],
@@ -126,54 +155,18 @@ const stackPhotos = [
     src: `${person.src}?tr=w-640,h-800,f-auto`,
   }));
 
-export function HeroStage({ src }: { src: string }) {
+export function HeroStage({ src: _src }: { src: string }) {
   const shouldReduceMotion = useReducedMotion();
   const playClick = useUiSound("/sounds/button.wav", 0.4);
-  const stageRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<ViewId>("landing");
-  const [stageSize, setStageSize] = useState({ height: 0, width: 0 });
-
-  useEffect(() => {
-    const stage = stageRef.current;
-    if (!stage) {
-      return;
-    }
-    const measure = () => {
-      const box = stage.getBoundingClientRect();
-      setStageSize({ height: box.height, width: box.width });
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(stage);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <div className="relative mt-16 w-full" ref={stageRef}>
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-full"
-      >
-        <img
-          alt=""
-          className="size-full object-cover"
-          height={573}
-          src={src}
-          width={1024}
-        />
-        <HeroDither
-          height={stageSize.height}
-          onFallback={() => undefined}
-          src={src}
-          width={stageSize.width}
-        />
-      </div>
-
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-4 py-12 md:px-6 md:py-16">
-        <div className="mx-auto max-w-3xl border-border border-x bg-background">
+    <div className="@container relative z-10 border-background border-b pt-8 [mask-image:radial-gradient(ellipse_80%_95%_at_50%_0%,#000_72%,transparent_100%)] md:pt-12">
+      <div className="border-border-illustration border-y pb-2">
+        <div className="mx-auto max-w-3xl px-4 md:px-11">
           <div
             aria-label="Previews"
-            className="grid grid-cols-3 border-border border-y"
+            className="relative z-20 grid grid-cols-3 items-center justify-center gap-px divide-x divide-border-illustration border-border-illustration border-x *:h-16"
             role="tablist"
           >
             {VIEWS.map((item) => {
@@ -182,7 +175,7 @@ export function HeroStage({ src }: { src: string }) {
               return (
                 <button
                   aria-selected={selected}
-                  className="group flex h-16 cursor-pointer items-center justify-center border-border border-r px-2 last:border-r-0"
+                  className="group flex cursor-pointer items-center justify-center px-2"
                   id={`hero-tab-${item.id}`}
                   key={item.id}
                   onClick={() => {
@@ -194,9 +187,9 @@ export function HeroStage({ src }: { src: string }) {
                 >
                   <span
                     className={cn(
-                      "flex h-10 items-center gap-2 rounded-full px-4 text-sm ring-1 ring-border transition-colors duration-150",
+                      "flex h-10 items-center gap-2 rounded-full px-4 text-sm ring-1 ring-border-illustration transition-[transform,background-color,color,box-shadow] duration-150 group-active:scale-[0.99] [&>svg]:size-4",
                       selected
-                        ? "bg-card text-foreground shadow-sm"
+                        ? "bg-card text-foreground shadow-md shadow-primary/10"
                         : "text-muted-foreground group-hover:bg-foreground/5 group-hover:text-foreground"
                     )}
                   >
@@ -208,27 +201,31 @@ export function HeroStage({ src }: { src: string }) {
             })}
           </div>
         </div>
+      </div>
 
-        <div
-          aria-labelledby={`hero-tab-${view}`}
-          className="mx-auto -mt-px min-h-[32rem] overflow-hidden rounded-2xl bg-card shadow-lg ring-1 ring-foreground/10 md:min-h-[36rem]"
-          role="tabpanel"
-        >
-          <motion.div
-            animate={{ opacity: 1 }}
-            className="h-full"
-            initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-            key={view}
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.25, ease: [0.23, 1, 0.32, 1] }
-            }
+      <div className="relative mx-auto -mt-2 max-w-6xl max-md:mx-1 lg:px-10">
+        <div className="rounded-2xl bg-card/90 p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur-sm">
+          <div
+            aria-labelledby={`hero-tab-${view}`}
+            className="relative min-h-[32rem] origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 md:min-h-[36rem] dark:bg-background"
+            role="tabpanel"
           >
-            {view === "landing" ? <LandingView /> : null}
-            {view === "dashboard" ? <DashboardView /> : null}
-            {view === "experiment" ? <ExperimentView /> : null}
-          </motion.div>
+            <motion.div
+              animate={{ opacity: 1 }}
+              className="h-full"
+              initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
+              key={view}
+              transition={
+                shouldReduceMotion
+                  ? { duration: 0 }
+                  : { duration: 0.25, ease: [0.23, 1, 0.32, 1] }
+              }
+            >
+              {view === "landing" ? <LandingView /> : null}
+              {view === "dashboard" ? <DashboardView /> : null}
+              {view === "experiment" ? <ExperimentView /> : null}
+            </motion.div>
+          </div>
         </div>
       </div>
     </div>
@@ -236,9 +233,17 @@ export function HeroStage({ src }: { src: string }) {
 }
 
 function LandingView() {
-  if (!LANDING_SCENE) {
+  const playClick = useUiSound("/sounds/button.wav", 0.35);
+  const [sceneIndex, setSceneIndex] = useState(0);
+  const [ditherOn, setDitherOn] = useState(true);
+  const [pixelSize, setPixelSize] = useState<(typeof PIXEL_STEPS)[number]>(4);
+  const scene = LANDING_SCENES[sceneIndex] ?? LANDING_SCENES[0];
+
+  if (!scene) {
     return null;
   }
+
+  const sceneUrl = sceneSrc(scene.id, "w-1200");
 
   return (
     <div className="flex h-full min-h-[32rem] flex-col bg-background md:min-h-[36rem]">
@@ -257,7 +262,12 @@ function LandingView() {
           <span>Pricing</span>
           <span>Customers</span>
         </nav>
-        <Button size="sm" type="button" variant="candy">
+        <Button
+          onClick={() => playClick()}
+          size="sm"
+          type="button"
+          variant="candy"
+        >
           Start free
         </Button>
       </header>
@@ -271,16 +281,52 @@ function LandingView() {
             Built to be opened.
           </h2>
           <p className="mt-4 max-w-md text-pretty text-foreground/70 text-sm leading-relaxed md:text-base">
-            A headline, two actions, and a photograph that holds the fold. The
-            rest of the page earns its place below.
+            Click a feature to swap the still. Toggle the dither shader and
+            scrub the grain — the fold reacts.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button size="sm" type="button" variant="candy">
+            <Button
+              onClick={() => playClick()}
+              size="sm"
+              type="button"
+              variant="candy"
+            >
               Get started
             </Button>
-            <Button size="sm" type="button" variant="outline">
-              See the work
+            <Button
+              onClick={() => {
+                setDitherOn((value) => !value);
+                playClick();
+              }}
+              size="sm"
+              type="button"
+              variant="outline"
+            >
+              {ditherOn ? "Photo clear" : "Apply dither"}
             </Button>
+          </div>
+          <div className="mt-6 flex flex-wrap items-center gap-2">
+            <span className="text-muted-foreground text-xs">Grain</span>
+            {PIXEL_STEPS.map((step) => (
+              <button
+                aria-pressed={pixelSize === step}
+                className={cn(
+                  "rounded-full px-2.5 py-1 text-xs ring-1 ring-border transition-colors duration-150",
+                  pixelSize === step
+                    ? "bg-foreground text-background"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                )}
+                disabled={!ditherOn}
+                key={step}
+                onClick={() => {
+                  setPixelSize(step);
+                  playClick();
+                }}
+                type="button"
+              >
+                {step}px
+              </button>
+            ))}
           </div>
           <div className="mt-8 flex items-center gap-3">
             <div className="flex -space-x-2">
@@ -302,18 +348,35 @@ function LandingView() {
         </div>
 
         <div className="relative min-h-52 overflow-hidden rounded-2xl ring-1 ring-foreground/10 md:min-h-0">
-          <img
-            alt={LANDING_SCENE.alt}
-            className="absolute inset-0 size-full object-cover"
-            height={900}
-            src={sceneSrc(LANDING_SCENE.id, "w-1200")}
-            width={1200}
-          />
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/55 to-transparent p-4 pt-16">
-            <p className="font-medium text-background text-sm">
-              Terracotta dunes
+          <ShaderRevealTransition
+            className="absolute inset-0"
+            transitionKey={`${scene.id}-${ditherOn}-${pixelSize}`}
+            variant="noise"
+          >
+            {ditherOn ? (
+              <DitherImage
+                alt={scene.alt}
+                className="size-full [&_canvas]:size-full [&_canvas]:object-cover"
+                height={480}
+                pixelSize={pixelSize}
+                src={sceneUrl}
+                width={640}
+              />
+            ) : (
+              <img
+                alt={scene.alt}
+                className="size-full object-cover"
+                height={900}
+                src={sceneUrl}
+                width={1200}
+              />
+            )}
+          </ShaderRevealTransition>
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/55 to-transparent p-4 pt-16">
+            <p className="font-medium text-background text-sm">{scene.alt}</p>
+            <p className="text-background/80 text-xs">
+              {ditherOn ? `Bayer · ${pixelSize}px` : "Hero still · clear"}
             </p>
-            <p className="text-background/80 text-xs">Hero still · 16:9</p>
           </div>
         </div>
       </div>
@@ -321,33 +384,53 @@ function LandingView() {
       <div className="grid gap-3 border-border border-t p-4 md:grid-cols-3 md:p-5">
         {LANDING_FEATURES.map((feature, index) => {
           const Icon = feature.icon;
-          const scene = LANDING_FEATURE_SCENES[index];
+          const featureScene = LANDING_SCENES[index];
+          const active = sceneIndex === index;
           return (
-            <div
-              className="rounded-xl bg-card p-3 ring-1 ring-foreground/8"
+            <button
+              aria-pressed={active}
+              className={cn(
+                "rounded-xl p-3 text-left ring-1 transition-colors duration-150",
+                active
+                  ? "bg-foreground text-background ring-foreground"
+                  : "bg-card text-foreground ring-foreground/8 hover:bg-muted"
+              )}
               key={feature.title}
+              onClick={() => {
+                setSceneIndex(index);
+                playClick();
+              }}
+              type="button"
             >
               <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="grid size-8 place-items-center rounded-lg bg-muted text-foreground">
+                <span
+                  className={cn(
+                    "grid size-8 place-items-center rounded-lg",
+                    active ? "bg-background/15" : "bg-muted"
+                  )}
+                >
                   <Icon className="size-4" />
                 </span>
-                {scene ? (
+                {featureScene ? (
                   <img
                     alt=""
                     className="size-10 rounded-lg object-cover"
                     height={80}
-                    src={sceneSrc(scene.id, "w-160")}
+                    src={sceneSrc(featureScene.id, "w-160")}
                     width={80}
                   />
                 ) : null}
               </div>
-              <p className="font-medium text-foreground text-sm">
-                {feature.title}
-              </p>
-              <p className="mt-1 text-muted-foreground text-xs leading-relaxed">
+              <p className="font-medium text-sm">{feature.title}</p>
+              <p
+                className={cn(
+                  "mt-1 text-xs leading-relaxed",
+                  active ? "text-background/75" : "text-muted-foreground"
+                )}
+              >
                 {feature.description}
               </p>
-            </div>
+            </button>
           );
         })}
       </div>
@@ -356,6 +439,23 @@ function LandingView() {
 }
 
 function DashboardView() {
+  const playClick = useUiSound("/sounds/button.wav", 0.35);
+  const [section, setSection] = useState<DashSection>("overview");
+  const [activeKpi, setActiveKpi] = useState<
+    (typeof KPIS)[number]["id"] | null
+  >(null);
+  const [dismissed, setDismissed] = useState<string[]>([]);
+  const [prompt, setPrompt] = useState("Pink dunes at late light");
+  const [spark, setSpark] = useState(0);
+
+  const activity = useMemo(
+    () =>
+      ACTIVITY.filter((item) => !dismissed.includes(item.id)).filter((item) =>
+        activeKpi ? item.kpi === activeKpi : true
+      ),
+    [activeKpi, dismissed]
+  );
+
   return (
     <div className="flex h-full min-h-[32rem] bg-background md:min-h-[36rem]">
       <aside className="flex w-14 shrink-0 flex-col border-border border-r bg-card py-3 md:w-44 md:px-2">
@@ -370,20 +470,25 @@ function DashboardView() {
         <nav aria-label="Dashboard" className="flex flex-1 flex-col gap-1">
           {DASH_NAV.map((item) => {
             const Icon = item.icon;
-            const active = item.id === "overview";
+            const active = item.id === section;
             return (
-              <span
+              <button
                 className={cn(
-                  "mx-1 flex items-center gap-2 rounded-lg px-2 py-2 text-xs md:px-3",
+                  "mx-1 flex items-center gap-2 rounded-lg px-2 py-2 text-left text-xs transition-colors duration-150 md:px-3",
                   active
                     ? "bg-foreground text-background"
-                    : "text-muted-foreground"
+                    : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                 )}
                 key={item.id}
+                onClick={() => {
+                  setSection(item.id);
+                  playClick();
+                }}
+                type="button"
               >
                 <Icon className="size-4 shrink-0" />
                 <span className="hidden truncate md:inline">{item.label}</span>
-              </span>
+              </button>
             );
           })}
         </nav>
@@ -409,94 +514,292 @@ function DashboardView() {
           <div>
             <p className="text-muted-foreground text-xs">Monday · Sep 27</p>
             <h2 className="font-medium text-foreground text-sm md:text-base">
-              Overview
+              {DASH_NAV.find((item) => item.id === section)?.label ??
+                "Overview"}
             </h2>
           </div>
           <div className="flex items-center gap-2">
-            <span className="grid size-8 place-items-center rounded-full bg-muted text-foreground">
+            <button
+              aria-label="Notifications"
+              className="grid size-8 place-items-center rounded-full bg-muted text-foreground transition-colors duration-150 hover:bg-foreground/10"
+              onClick={() => playClick()}
+              type="button"
+            >
               <IconBellFill24 className="size-3.5" />
-            </span>
-            <Button size="sm" type="button" variant="outline">
+            </button>
+            <Button
+              onClick={() => playClick()}
+              size="sm"
+              type="button"
+              variant="outline"
+            >
               Export
             </Button>
           </div>
         </header>
 
-        <div className="flex-1 space-y-4 overflow-hidden p-4 md:p-5">
-          <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-            {KPIS.map((kpi) => (
-              <div
-                className="rounded-xl bg-card p-3 ring-1 ring-foreground/8"
-                key={kpi.label}
-              >
-                <p className="text-muted-foreground text-xs">{kpi.label}</p>
-                <p className="mt-1 font-semibold font-title text-foreground text-xl tracking-tight">
-                  {kpi.value}
-                </p>
-                <p
-                  className={cn(
-                    "mt-2 inline-flex items-center gap-1 text-[11px]",
-                    kpi.up ? "text-foreground" : "text-muted-foreground"
-                  )}
-                >
-                  <IconArrowTrendUpFill24
-                    className={cn("size-3", !kpi.up && "rotate-180 opacity-70")}
-                  />
-                  {kpi.change}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="grid min-h-0 flex-1 gap-3 md:grid-cols-[1.4fr_1fr]">
-            <div className="rounded-xl bg-card p-4 ring-1 ring-foreground/8">
-              <div className="mb-4 flex items-center justify-between gap-2">
-                <div>
-                  <p className="font-medium text-foreground text-sm">
-                    Weekly volume
-                  </p>
-                  <p className="text-muted-foreground text-xs">
-                    Generations across the team
-                  </p>
-                </div>
-                <IconChartBarTrendUpFill24 className="size-4 text-muted-foreground" />
-              </div>
-              <div className="flex h-32 items-end gap-1.5 md:h-40">
-                {CHART_BARS.map((height, index) => (
-                  <div
-                    aria-hidden
-                    className="flex-1 rounded-t-md bg-foreground"
-                    key={`bar-${height}-${index}`}
-                    style={{
-                      height: `${height}%`,
-                      opacity: 0.35 + height / 200,
-                    }}
-                  />
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-xl bg-card p-4 ring-1 ring-foreground/8">
-              <p className="font-medium text-foreground text-sm">
-                Recent activity
-              </p>
-              <ul className="mt-3 space-y-3">
-                {ACTIVITY.map((item) => (
-                  <li className="flex gap-3" key={item.title}>
-                    <span className="mt-1 size-1.5 shrink-0 rounded-full bg-foreground" />
-                    <div className="min-w-0">
-                      <p className="truncate text-foreground text-xs">
-                        {item.title}
+        <div className="flex-1 space-y-4 overflow-auto p-4 md:p-5">
+          {section === "overview" ? (
+            <>
+              <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+                {KPIS.map((kpi) => {
+                  const selected = activeKpi === kpi.id;
+                  return (
+                    <button
+                      aria-pressed={selected}
+                      className={cn(
+                        "rounded-xl p-3 text-left ring-1 transition-colors duration-150",
+                        selected
+                          ? "bg-foreground text-background ring-foreground"
+                          : "bg-card ring-foreground/8 hover:bg-muted"
+                      )}
+                      key={kpi.id}
+                      onClick={() => {
+                        setActiveKpi((current) =>
+                          current === kpi.id ? null : kpi.id
+                        );
+                        playClick();
+                      }}
+                      type="button"
+                    >
+                      <p
+                        className={cn(
+                          "text-xs",
+                          selected
+                            ? "text-background/70"
+                            : "text-muted-foreground"
+                        )}
+                      >
+                        {kpi.label}
                       </p>
-                      <p className="text-[10px] text-muted-foreground">
-                        {item.meta}
+                      <p className="mt-1 font-semibold font-title text-xl tracking-tight">
+                        {kpi.value}
+                      </p>
+                      <p
+                        className={cn(
+                          "mt-2 inline-flex items-center gap-1 text-[11px]",
+                          selected && "text-background/80",
+                          !(selected || kpi.up) && "text-muted-foreground",
+                          !(selected || !kpi.up) && "text-foreground"
+                        )}
+                      >
+                        <IconArrowTrendUpFill24
+                          className={cn(
+                            "size-3",
+                            !kpi.up && "rotate-180 opacity-70"
+                          )}
+                        />
+                        {kpi.change}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
+
+              <div className="grid min-h-0 gap-3 md:grid-cols-[1.4fr_1fr]">
+                <div className="rounded-xl bg-card p-4 ring-1 ring-foreground/8">
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <div>
+                      <p className="font-medium text-foreground text-sm">
+                        Weekly volume
+                      </p>
+                      <p className="text-muted-foreground text-xs">
+                        Dither chart · click a KPI to filter activity
                       </p>
                     </div>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                  <DitherChart
+                    animate
+                    className="w-full"
+                    data={CHART_DATA}
+                    height={180}
+                    label="Weekly generations"
+                    variant="bar"
+                    width={420}
+                  />
+                </div>
+
+                <div className="rounded-xl bg-card p-4 ring-1 ring-foreground/8">
+                  <div className="mb-3 flex items-center justify-between gap-2">
+                    <p className="font-medium text-foreground text-sm">
+                      Recent activity
+                    </p>
+                    {activeKpi || dismissed.length > 0 ? (
+                      <button
+                        className="text-muted-foreground text-xs hover:text-foreground"
+                        onClick={() => {
+                          setActiveKpi(null);
+                          setDismissed([]);
+                          playClick();
+                        }}
+                        type="button"
+                      >
+                        Reset
+                      </button>
+                    ) : null}
+                  </div>
+                  <ul className="space-y-2">
+                    <AnimatePresence initial={false}>
+                      {activity.map((item) => (
+                        <motion.li
+                          animate={{ height: "auto", opacity: 1 }}
+                          className="overflow-hidden"
+                          exit={{ height: 0, opacity: 0 }}
+                          initial={{ height: 0, opacity: 0 }}
+                          key={item.id}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <button
+                            className="flex w-full gap-3 rounded-lg px-1 py-1.5 text-left hover:bg-muted"
+                            onClick={() => {
+                              setDismissed((current) => [...current, item.id]);
+                              playClick();
+                            }}
+                            type="button"
+                          >
+                            <span className="mt-1.5 size-1.5 shrink-0 rounded-full bg-foreground" />
+                            <div className="min-w-0">
+                              <p className="truncate text-foreground text-xs">
+                                {item.title}
+                              </p>
+                              <p className="text-[10px] text-muted-foreground">
+                                {item.meta} · dismiss
+                              </p>
+                            </div>
+                          </button>
+                        </motion.li>
+                      ))}
+                    </AnimatePresence>
+                    {activity.length === 0 ? (
+                      <li className="text-muted-foreground text-xs">
+                        Nothing left in this filter.
+                      </li>
+                    ) : null}
+                  </ul>
+                </div>
+              </div>
+            </>
+          ) : null}
+
+          {section === "generations" ? (
+            <div className="grid gap-4 md:grid-cols-[1fr_0.9fr]">
+              <div className="rounded-xl bg-card p-4 ring-1 ring-foreground/8">
+                <p className="font-medium text-foreground text-sm">Prompt</p>
+                <label className="mt-3 block">
+                  <span className="sr-only">Prompt</span>
+                  <textarea
+                    className="min-h-28 w-full resize-none rounded-lg bg-background px-3 py-2 text-foreground text-sm outline-none ring-1 ring-border focus:ring-foreground/30"
+                    onChange={(event) => setPrompt(event.target.value)}
+                    value={prompt}
+                  />
+                </label>
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <Button
+                    onClick={() => {
+                      setSpark((value) => value + 1);
+                      playClick();
+                    }}
+                    size="sm"
+                    type="button"
+                    variant="candy"
+                  >
+                    Generate
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setPrompt("");
+                      playClick();
+                    }}
+                    size="sm"
+                    type="button"
+                    variant="outline"
+                  >
+                    Clear
+                  </Button>
+                </div>
+              </div>
+              <div className="relative min-h-48 overflow-hidden rounded-xl ring-1 ring-foreground/8">
+                <ShaderRevealTransition
+                  className="absolute inset-0"
+                  transitionKey={`gen-${spark}`}
+                  variant="circle"
+                >
+                  <DitherImage
+                    alt="Generation preview"
+                    className="size-full [&_canvas]:size-full [&_canvas]:object-cover"
+                    height={320}
+                    pixelSize={5}
+                    src={sceneSrc(
+                      LANDING_SCENES[spark % LANDING_SCENES.length]?.id ??
+                        LANDING_SCENES[0]?.id ??
+                        "desert-dunes",
+                      "w-900"
+                    )}
+                    width={420}
+                  />
+                </ShaderRevealTransition>
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/50 to-transparent p-3 pt-12">
+                  <p className="truncate text-background text-xs">
+                    {prompt || "—"}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          ) : null}
+
+          {section === "library" ? (
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+              {LANDING_SCENES.map((item, index) => (
+                <button
+                  className="group relative aspect-[4/3] overflow-hidden rounded-xl ring-1 ring-foreground/8"
+                  key={item.id}
+                  onClick={() => {
+                    setSection("generations");
+                    setSpark(index);
+                    setPrompt(item.alt);
+                    playClick();
+                  }}
+                  type="button"
+                >
+                  <img
+                    alt={item.alt}
+                    className="size-full object-cover transition-transform duration-200 group-hover:scale-105"
+                    height={240}
+                    src={sceneSrc(item.id, "w-480")}
+                    width={320}
+                  />
+                  <span className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/60 to-transparent p-2 text-left text-[11px] text-background">
+                    {item.alt}
+                  </span>
+                </button>
+              ))}
+            </div>
+          ) : null}
+
+          {section === "team" || section === "settings" ? (
+            <div className="rounded-xl bg-card p-6 ring-1 ring-foreground/8">
+              <p className="font-medium text-foreground text-sm">
+                {section === "team" ? "Team" : "Settings"}
+              </p>
+              <p className="mt-2 max-w-sm text-muted-foreground text-sm">
+                {section === "team"
+                  ? "Maya, Luca, and Nora are online. Invite another seat from Overview."
+                  : "Theme, notifications, and export defaults live here in the full product."}
+              </p>
+              <Button
+                className="mt-4"
+                onClick={() => {
+                  setSection("overview");
+                  playClick();
+                }}
+                size="sm"
+                type="button"
+                variant="outline"
+              >
+                Back to Overview
+              </Button>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

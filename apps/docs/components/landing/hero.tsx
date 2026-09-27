@@ -47,9 +47,9 @@ export function Hero() {
     <section className="relative overflow-hidden bg-background">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_46%,black_58%,black_74%,transparent_96%)]"
+        className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_85%_75%_at_50%_42%,#000_35%,transparent_78%)]"
       >
-        <div className="absolute inset-x-0 -top-[22%] h-[120%]" ref={stageRef}>
+        <div className="absolute inset-x-0 -top-[8%] h-[118%]" ref={stageRef}>
           {showPhoto ? (
             <img
               alt=""
