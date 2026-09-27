@@ -106,6 +106,6 @@ it("shares five new landscape subjects without relabeling real authors", async (
   expect(METADATA_SCENE.id).toBe("turquoise-canyon");
   expect(METADATA_DETAILS.by).toContain("AI-generated");
   expect(METADATA_DETAILS.source).toBe(
-    "https://magnific.com/app/creation/tCxv7KMmZJ"
+    "https://magnific.com/app/creation/3zovpIvREY"
   );
 });

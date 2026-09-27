@@ -9,6 +9,8 @@ import {
   ComponentCard,
   POSTER_CHROME,
   POSTER_PLACEHOLDER,
+  POSTER_STAGE_INSET,
+  posterDisplaySize,
 } from "./component-card";
 import { COMPONENT_SHOTS } from "./component-shots";
 import { FilterBar } from "./filter-bar";
@@ -96,8 +98,13 @@ export const ComponentGallery = ({
         return {
           frame: {
             chrome: POSTER_CHROME,
-            height: shot?.height ?? POSTER_PLACEHOLDER.height,
-            width: shot?.width ?? POSTER_PLACEHOLDER.width,
+            height: shot
+              ? posterDisplaySize(shot).height
+              : POSTER_PLACEHOLDER.height,
+            inset: POSTER_STAGE_INSET,
+            width: shot
+              ? posterDisplaySize(shot).width
+              : POSTER_PLACEHOLDER.width,
           },
           key: component.slug,
           node: (
@@ -130,7 +137,7 @@ export const ComponentGallery = ({
       </p>
 
       {filteredComponents.length > 0 ? (
-        <MasonryGrid tiles={tiles} />
+        <MasonryGrid gap={8} tiles={tiles} />
       ) : (
         <EmptyState
           hasFilters={Boolean(activeCategory || searchQuery)}

@@ -1,7 +1,5 @@
 "use client";
 
-import { AddToKitButton } from "@docs/components/add-to-kit-button";
-import { InstallCopyButton } from "@docs/components/landing/install-copy-button";
 import type { GalleryComponentMeta } from "@docs/lib/gallery";
 import { motion, useReducedMotion } from "motion/react";
 import Image, { type StaticImageData } from "next/image";
@@ -14,11 +12,32 @@ export interface ComponentCardProps {
   shot?: StaticImageData;
 }
 
+/** Horizontal and vertical stage padding (`p-6` on both axes). */
+export const POSTER_STAGE_INSET = 48;
+
+/** Label row (`h-11`) plus the stage padding above and below the poster. */
+export const POSTER_CHROME = 44 + POSTER_STAGE_INSET;
+
 /**
- * Footer is `h-12` (48px) and the card border adds 2px. The masonry span
- * uses this instead of measuring the card.
+ * Posters are captured at 2x. Display CSS pixels are the file size divided by
+ * this, so a button stays a button and only wider shots shrink to the card.
  */
-export const POSTER_CHROME = 50;
+export const POSTER_PIXEL_RATIO = 2;
+
+/** Icon-sized shots scale up to this so they stay readable. Wider shots do not. */
+export const POSTER_MIN_CSS = 168;
+
+export const posterDisplaySize = (shot: { height: number; width: number }) => {
+  const naturalWidth = shot.width / POSTER_PIXEL_RATIO;
+  const naturalHeight = shot.height / POSTER_PIXEL_RATIO;
+  const scale =
+    naturalWidth < POSTER_MIN_CSS ? POSTER_MIN_CSS / naturalWidth : 1;
+
+  return {
+    height: naturalHeight * scale,
+    width: naturalWidth * scale,
+  };
+};
 
 /** Stand-in ratio when a poster has not been captured yet. */
 export const POSTER_PLACEHOLDER = { height: 3, width: 4 } as const;
@@ -33,7 +52,7 @@ export const ComponentCard = ({
   return (
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card"
+      className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-muted"
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
       transition={
         shouldReduceMotion
@@ -41,21 +60,21 @@ export const ComponentCard = ({
           : { bounce: 0.1, duration: 0.25, type: "spring" }
       }
     >
-      {/* The overlay covers the poster only. Footer actions stay clickable,
-          and the poster is not wrapped in the link. */}
-      <div className="relative bg-muted">
+      <div className="flex flex-1 items-center justify-center p-6">
         {shot ? (
           <Image
             alt=""
-            className="block h-auto w-full"
+            className="block h-auto max-w-full"
             priority={priority}
+            quality={90}
             sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
             src={shot}
+            style={{ width: posterDisplaySize(shot).width }}
           />
         ) : (
           <div
             aria-hidden="true"
-            className="flex items-center justify-center px-6 text-center text-muted-foreground text-sm"
+            className="flex w-full items-center justify-center text-center text-muted-foreground text-sm"
             style={{
               aspectRatio: `${POSTER_PLACEHOLDER.width} / ${POSTER_PLACEHOLDER.height}`,
             }}
@@ -63,30 +82,15 @@ export const ComponentCard = ({
             {component.title}
           </div>
         )}
-        <Link
-          aria-label={`View ${component.title} component`}
-          className="absolute inset-0 z-10"
-          href={component.href}
-        />
       </div>
-      <footer className="flex h-12 items-center justify-between gap-2 border-border/60 border-t px-4">
-        <Link
-          className="truncate font-medium text-foreground text-sm transition-colors hover:text-brand"
-          href={component.href}
-        >
-          {component.title}
-        </Link>
-        {component.installer ? (
-          <div className="flex shrink-0 items-center gap-1.5">
-            <AddToKitButton
-              size="xs"
-              slug={component.installer}
-              title={component.title}
-            />
-            <InstallCopyButton slug={component.installer} />
-          </div>
-        ) : null}
-      </footer>
+      <p className="flex h-11 items-center px-6 font-medium text-foreground text-sm">
+        <span className="truncate">{component.title}</span>
+      </p>
+      <Link
+        aria-label={`View ${component.title} component`}
+        className="absolute inset-0 z-10"
+        href={component.href}
+      />
     </motion.div>
   );
 };

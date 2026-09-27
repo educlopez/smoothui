@@ -50,14 +50,16 @@ function SectionSkeleton({ minHeight = "400px" }: { minHeight?: string }) {
 export default function Home() {
   return (
     <>
-      <LandingBand>
+      <div className="w-full bg-background">
         <Hero />
-        <SocialProof />
-        <ExploreSections />
-        <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
-          <ComponentsSlideshow />
-        </Suspense>
-      </LandingBand>
+        <div className="mx-auto w-full max-w-7xl [&>section]:bg-transparent">
+          <SocialProof />
+          <ExploreSections />
+          <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
+            <ComponentsSlideshow />
+          </Suspense>
+        </div>
+      </div>
       <LandingBand muted>
         <Features />
       </LandingBand>

@@ -1,207 +1,207 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
-import { HeroMaterial } from "@docs/components/landing/hero-material";
-import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
-import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
-import { ReactLogo } from "@docs/components/landing/logos/react-logo";
-import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
-import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { HeroDither } from "@docs/components/landing/hero-dither";
+import { ShowcaseDemo } from "@docs/components/landing/showcase-demo";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@repo/shadcn-ui/components/ui/tooltip";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { IconCheckFill24, IconCopy2Fill24 } from "nucleo-core-fill-24";
-import { useState } from "react";
+import {
+  IconImageFill24,
+  IconLayersStackedFill24,
+  IconPhotosFill24,
+} from "nucleo-core-fill-24";
+import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 
-const EASE_OUT_QUAD_X1 = 0.25;
-const EASE_OUT_QUAD_Y1 = 0.46;
-const EASE_OUT_QUAD_X2 = 0.45;
-const EASE_OUT_QUAD_Y2 = 0.94;
-const EASE_OUT_QUAD = [
-  EASE_OUT_QUAD_X1,
-  EASE_OUT_QUAD_Y1,
-  EASE_OUT_QUAD_X2,
-  EASE_OUT_QUAD_Y2,
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
+
+const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
+
+preload(BACKGROUND_SRC, { as: "image", fetchPriority: "high" });
+
+const EXAMPLES = [
+  {
+    icon: IconImageFill24,
+    label: "Image metadata",
+    slug: "image-metadata-preview",
+  },
+  {
+    icon: IconPhotosFill24,
+    label: "Phototab",
+    slug: "phototab",
+  },
+  {
+    icon: IconLayersStackedFill24,
+    label: "Photo stack",
+    slug: "photo-stack",
+  },
 ] as const;
-
-const INSTALL_COMMAND = "npx shadcn@latest add @smoothui/dynamic-island";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const playClick = useUiSound("/sounds/button.wav", 0.4);
-  const [installCopied, setInstallCopied] = useState(false);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [stage, setStage] = useState({ height: 0, width: 0 });
+  const [showPhoto, setShowPhoto] = useState(false);
 
-  const copyInstall = async () => {
-    try {
-      await navigator.clipboard.writeText(INSTALL_COMMAND);
-      setInstallCopied(true);
-      playClick();
-      setTimeout(() => setInstallCopied(false), 1600);
-    } catch {
-      // clipboard unavailable — no-op
+  useEffect(() => {
+    const node = stageRef.current;
+    if (!node) {
+      return;
     }
-  };
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      setStage({
+        height: Math.max(1, Math.round(box.height)),
+        width: Math.max(1, Math.round(box.width)),
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+  const playClick = useUiSound("/sounds/button.wav", 0.4);
+  const [example, setExample] = useState<(typeof EXAMPLES)[number]["slug"]>(
+    "image-metadata-preview"
+  );
+  const active = EXAMPLES.find((item) => item.slug === example) ?? EXAMPLES[0];
 
   return (
-    <section className="bg-background transition">
-      <div className="relative py-24 md:py-36">
-        <Divider />
-        <div className="mx-auto max-w-7xl px-8">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            {/* Left side - Hero content */}
-            <motion.div
-              animate={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-              }
-              className="flex max-w-xl flex-col"
-              initial={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.35, ease: EASE_OUT_QUAD }
-              }
+    <section className="relative overflow-hidden bg-background">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_46%,black_58%,black_74%,transparent_96%)]"
+      >
+        <div className="absolute inset-x-0 -top-[22%] h-[120%]" ref={stageRef}>
+          {showPhoto ? (
+            <img
+              alt=""
+              className="size-full object-fill"
+              src={BACKGROUND_SRC}
+            />
+          ) : null}
+          {stage.width > 1 ? (
+            <HeroDither
+              height={stage.height}
+              onFallback={() => setShowPhoto(true)}
+              src={BACKGROUND_SRC}
+              width={stage.width}
+            />
+          ) : null}
+        </div>
+      </div>
+
+      <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 text-center md:pt-40">
+        <motion.div
+          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+          className="flex flex-col items-center"
+          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.35, ease: EASE_OUT }
+          }
+        >
+          <h1 className="text-balance font-semibold font-title text-5xl text-foreground tracking-tight md:text-6xl lg:text-7xl lg:leading-[1.05]">
+            React components.
+            <span className="mt-1 block">Made to move.</span>
+          </h1>
+
+          <p className="mt-6 max-w-xl text-balance text-lg text-muted-foreground leading-relaxed md:text-xl">
+            {COMPONENT_COUNT} animated components for React and shadcn/ui — copy
+            the code and make it yours.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
+            <Button
+              asChild
+              onClick={() => playClick()}
+              size="sm"
+              variant="candy"
             >
-              {/* Primary message */}
-              <div className="flex flex-col gap-5">
-                <h1 className="text-balance font-semibold font-title text-4xl text-foreground tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.1]">
-                  <span className="block">React components.</span>
-                  <span className="block text-muted-foreground">
-                    Made to move.
-                  </span>
-                </h1>
+              <Link href="/docs/components">Browse components</Link>
+            </Button>
+            <Button
+              asChild
+              onClick={() => playClick()}
+              size="sm"
+              variant="outline"
+            >
+              <Link href="/docs/guides">Read the docs</Link>
+            </Button>
+          </div>
 
-                <p className="max-w-lg text-balance text-foreground/70 text-lg leading-relaxed md:text-xl">
-                  {COMPONENT_COUNT} animated components to make every
-                  interaction feel considered. Copy the code, make it yours.
-                  Built for React and shadcn/ui.
-                </p>
-              </div>
+          <a
+            className="mt-12 opacity-80 transition-opacity duration-150 hover:opacity-100"
+            href="https://vercel.com/oss"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <img
+              alt="Vercel Open Source Software Program"
+              draggable={false}
+              height={24}
+              src="/vercel-oss-badge.svg"
+              width={240}
+            />
+          </a>
+        </motion.div>
+      </div>
 
-              {/* Actions */}
-              <div className="mt-10 flex flex-col gap-5">
-                <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                  <Button
-                    asChild
-                    onClick={() => playClick()}
-                    size="sm"
-                    variant="candy"
-                  >
-                    <Link href="/docs/components">Browse components</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    onClick={() => playClick()}
-                    size="sm"
-                    variant="outline"
-                  >
-                    <Link href="/docs/guides">Read the docs</Link>
-                  </Button>
-                </div>
-
+      <div className="relative z-10 mx-auto mt-10 w-full max-w-5xl px-4 pb-20 md:mt-14 md:px-6 md:pb-28">
+        <div className="mx-auto max-w-3xl">
+          <div
+            aria-label="Component examples"
+            className="grid grid-cols-3"
+            role="tablist"
+          >
+            {EXAMPLES.map((item) => {
+              const selected = item.slug === active.slug;
+              const Icon = item.icon;
+              return (
                 <button
-                  aria-label="Copy install command"
-                  className="group flex w-fit max-w-full cursor-pointer items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2 font-mono text-foreground/80 text-sm transition-colors hover:border-brand/40"
-                  onClick={copyInstall}
+                  aria-selected={selected}
+                  className="group flex h-16 cursor-pointer items-center justify-center px-2"
+                  id={`hero-tab-${item.slug}`}
+                  key={item.slug}
+                  onClick={() => {
+                    setExample(item.slug);
+                    playClick();
+                  }}
+                  role="tab"
                   type="button"
                 >
                   <span
-                    aria-hidden
-                    className="select-none text-muted-foreground"
-                  >
-                    $
-                  </span>
-                  <span className="truncate">{INSTALL_COMMAND}</span>
-                  <span className="shrink-0 text-muted-foreground transition-colors group-hover:text-foreground">
-                    {installCopied ? (
-                      <IconCheckFill24 className="size-4 text-brand" />
-                    ) : (
-                      <IconCopy2Fill24 className="size-4" />
+                    className={cn(
+                      "flex h-10 items-center gap-2 rounded-full bg-card px-4 text-foreground text-sm shadow-sm ring-1 ring-foreground/15 transition-colors duration-150",
+                      selected
+                        ? "shadow-md ring-foreground/25"
+                        : "text-foreground/80 group-hover:text-foreground group-hover:ring-foreground/30"
                     )}
-                  </span>
-                  <span aria-live="polite" className="sr-only">
-                    {installCopied ? "Copied to clipboard" : ""}
+                  >
+                    <Icon className="size-4" />
+                    <span className="max-md:sr-only">{item.label}</span>
                   </span>
                 </button>
-              </div>
+              );
+            })}
+          </div>
+        </div>
 
-              {/* Trust — Vercel OSS + stack */}
-              <div className="mt-12 flex flex-col gap-5 border-border/60 border-t pt-8">
-                <a
-                  className="w-fit opacity-80 transition-opacity hover:opacity-100"
-                  href="https://vercel.com/oss"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt="Vercel Open Source Software Program"
-                    draggable={false}
-                    height={24}
-                    src="/vercel-oss-badge.svg"
-                    width={240}
-                  />
-                </a>
-
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                  {[
-                    { className: "size-6", icon: ReactLogo, name: "React" },
-                    {
-                      className: "h-5 w-auto",
-                      icon: TailwindLogo,
-                      name: "Tailwind CSS",
-                    },
-                    {
-                      className: "size-6",
-                      icon: ShadcnLogo,
-                      name: "shadcn/ui",
-                    },
-                    {
-                      className: "h-4 w-auto",
-                      icon: MotionLogo,
-                      name: "Motion",
-                    },
-                    { className: "h-4 w-auto", icon: GsapLogo, name: "GSAP" },
-                  ].map((tech) => (
-                    <Tooltip key={tech.name}>
-                      <TooltipTrigger asChild>
-                        <span className="cursor-default text-smooth-700 transition-colors hover:text-brand">
-                          <tech.icon className={tech.className} />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom" sideOffset={8}>
-                        {tech.name}
-                      </TooltipContent>
-                    </Tooltip>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right side - SmoothUI Component showcase */}
-            <motion.div
-              animate={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-              }
-              className="relative"
-              initial={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { delay: 0.2, duration: 0.35, ease: EASE_OUT_QUAD }
-              }
-            >
-              <HeroMaterial />
-            </motion.div>
+        <div className="mx-auto -mt-px max-w-6xl">
+          <div
+            aria-labelledby={`hero-tab-${active.slug}`}
+            className="flex min-h-[28rem] items-center justify-center overflow-hidden rounded-2xl bg-card p-6 shadow-lg ring-1 ring-foreground/10 md:p-8"
+            role="tabpanel"
+          >
+            <div className="[&_[data-metadata-stage]>div]:translate-none flex w-full items-center justify-center [&_[data-metadata-stage]>div]:static [&_[data-metadata-stage]>div]:inset-auto [&_[data-metadata-stage]>div]:w-[300px] [&_[data-metadata-stage]>div]:max-w-none [&_[data-metadata-stage]]:flex [&_[data-metadata-stage]]:h-auto [&_[data-metadata-stage]]:w-full [&_[data-metadata-stage]]:justify-center">
+              <ShowcaseDemo slug={active.slug} />
+            </div>
           </div>
         </div>
       </div>

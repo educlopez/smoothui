@@ -51,7 +51,7 @@ const SHARP_FADE_START = 0.12;
 const SHARP_FADE_SPAN = 0.5;
 const SHARPEN_EXPONENT = 1.35;
 /** Extra scale on the sharp pass at 0% — the tile "pulls focus" as it resolves. */
-const FOCUS_PULL_SCALE = 0.055;
+const FOCUS_PULL_SCALE = 0.08;
 
 /**
  * The sweep band is 45% of the tile tall and travels leading-edge-first from
@@ -217,6 +217,7 @@ type TileProps = {
   onSelect?: (image: ImageGenerationImage) => void;
   onVariations?: (image: ImageGenerationImage) => void;
   progress: number;
+  selected?: boolean;
   shouldReduceMotion: boolean;
   status: ImageGenerationStatus;
 };
@@ -266,6 +267,7 @@ const ImageGenerationTile = ({
   onSelect,
   onVariations,
   progress,
+  selected = false,
   shouldReduceMotion,
   status,
 }: TileProps) => {
@@ -292,7 +294,10 @@ const ImageGenerationTile = ({
   return (
     <motion.div
       animate={{ opacity: 1, transform: "scale(1)" }}
-      className="group relative isolate overflow-hidden rounded-lg border border-border bg-muted"
+      className={cn(
+        "group relative isolate overflow-hidden rounded-lg border bg-muted",
+        selected ? "border-brand" : "border-border"
+      )}
       initial={
         shouldReduceMotion ? false : { opacity: 0, transform: "scale(0.96)" }
       }
@@ -313,7 +318,7 @@ const ImageGenerationTile = ({
           filter: `blur(${MOSAIC_BLUR_PX}px) saturate(${MOSAIC_SATURATE})`,
           imageRendering: "pixelated",
           opacity: mosaicOpacity,
-          transform: `scale(${MOSAIC_SCALE})`,
+          transform: `scale(${MOSAIC_SCALE + (1 - local) * 0.04})`,
         }}
       />
 
@@ -351,26 +356,45 @@ const ImageGenerationTile = ({
 
       <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-start p-2">
         <AnimatePresence initial={false} mode="wait">
-          <motion.span
-            animate={{ opacity: 1, transform: "translateY(0px)" }}
-            className="rounded-full bg-black/55 px-2 py-0.5 font-mono text-[11px] text-white tabular-nums backdrop-blur-sm"
-            exit={
-              shouldReduceMotion
-                ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, transform: "translateY(-4px)" }
-            }
-            initial={
-              shouldReduceMotion
-                ? false
-                : { opacity: 0, transform: "translateY(4px)" }
-            }
-            key={isResolving ? "progress" : "seed"}
-            transition={shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY}
-          >
-            {isResolving
-              ? `${Math.round(local * PERCENT)}%`
-              : (image.seed ?? "done")}
-          </motion.span>
+          {isResolving ? (
+            <motion.span
+              animate={{ opacity: 1, transform: "translateY(0px)" }}
+              className="rounded-full bg-black/55 px-2 py-0.5 font-mono text-[11px] text-white tabular-nums backdrop-blur-sm"
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, transform: "translateY(-4px)" }
+              }
+              initial={
+                shouldReduceMotion
+                  ? false
+                  : { opacity: 0, transform: "translateY(4px)" }
+              }
+              key="progress"
+              transition={shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY}
+            >
+              {`${Math.round(local * PERCENT)}%`}
+            </motion.span>
+          ) : image.seed ? (
+            <motion.span
+              animate={{ opacity: 1, transform: "translateY(0px)" }}
+              className="rounded-full bg-black/55 px-2 py-0.5 font-mono text-[11px] text-white tabular-nums backdrop-blur-sm"
+              exit={
+                shouldReduceMotion
+                  ? { opacity: 0, transition: { duration: 0 } }
+                  : { opacity: 0, transform: "translateY(-4px)" }
+              }
+              initial={
+                shouldReduceMotion
+                  ? false
+                  : { opacity: 0, transform: "translateY(4px)" }
+              }
+              key="seed"
+              transition={shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY}
+            >
+              {image.seed}
+            </motion.span>
+          ) : null}
         </AnimatePresence>
       </div>
 
@@ -387,7 +411,7 @@ const ImageGenerationTile = ({
       ) : null}
 
       {canAct ? (
-        <div className="absolute inset-0 flex items-start justify-end gap-1 bg-gradient-to-b from-black/45 via-transparent to-transparent p-2 opacity-0 transition-opacity duration-150 ease-out group-focus-within:opacity-100 group-hover:opacity-100 motion-reduce:transition-none">
+        <div className="absolute inset-0 flex translate-y-1 items-start justify-end gap-1 bg-gradient-to-b from-black/45 via-transparent to-transparent p-2 opacity-0 transition-[opacity,translate] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none">
           <a
             aria-label={`Download ${image.alt}`}
             className={TILE_ACTION_CLASS}
@@ -409,7 +433,11 @@ const ImageGenerationTile = ({
           {onSelect ? (
             <button
               aria-label={`Select ${image.alt}`}
-              className={TILE_ACTION_CLASS}
+              aria-pressed={selected}
+              className={cn(
+                TILE_ACTION_CLASS,
+                selected && "bg-brand text-white hover:bg-brand"
+              )}
               onClick={() => onSelect(image)}
               type="button"
             >
@@ -469,6 +497,7 @@ const ImageGenerationPanel = ({
   const panelId = useId();
 
   const [internalPrompt, setInternalPrompt] = useState("");
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [internalStatus, setInternalStatus] =
     useState<ImageGenerationStatus>("idle");
   const [internalRatio, setInternalRatio] = useState(
@@ -509,6 +538,13 @@ const ImageGenerationPanel = ({
       draft.includes(marker) ? draft.replace(marker, "") : `${draft}${marker}`
     );
   };
+
+  const selectImage = onSelect
+    ? (image: ImageGenerationImage) => {
+        setSelectedId(image.id);
+        onSelect(image);
+      }
+    : undefined;
 
   const handleGenerate = async () => {
     if (!(draft.trim() && onGenerate) || isBusy) {
@@ -691,9 +727,30 @@ const ImageGenerationPanel = ({
           ) : null}
 
           {showSeed ? (
-            <span className="ml-auto flex items-center gap-2 rounded-md border border-border border-dashed px-2 py-1 font-mono text-[11px] text-muted-foreground tabular-nums">
+            <span className="ml-auto flex items-center gap-2 overflow-hidden rounded-md border border-border border-dashed px-2 py-1 font-mono text-[11px] text-muted-foreground tabular-nums">
               seed
-              <span className="text-foreground">{seed ?? "—"}</span>
+              <AnimatePresence initial={false} mode="wait">
+                <motion.span
+                  animate={{ opacity: 1, transform: "translateY(0px)" }}
+                  className="text-foreground"
+                  exit={
+                    shouldReduceMotion
+                      ? { opacity: 0, transition: { duration: 0 } }
+                      : { opacity: 0, transform: "translateY(-4px)" }
+                  }
+                  initial={
+                    shouldReduceMotion
+                      ? false
+                      : { opacity: 0, transform: "translateY(4px)" }
+                  }
+                  key={seed ?? "empty"}
+                  transition={
+                    shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
+                  }
+                >
+                  {seed ?? "—"}
+                </motion.span>
+              </AnimatePresence>
             </span>
           ) : null}
         </div>
@@ -714,9 +771,10 @@ const ImageGenerationPanel = ({
           image={images[index]}
           index={index}
           key={images[index]?.id ?? `slot-${index}`}
-          onSelect={onSelect}
+          onSelect={selectImage}
           onVariations={onVariations}
           progress={tileProgress(clamp01(progress), index, count)}
+          selected={images[index]?.id === selectedId}
           shouldReduceMotion={shouldReduceMotion}
           status={effectiveStatus}
         />
@@ -746,9 +804,25 @@ const ImageGenerationPanel = ({
       {isMinimal ? null : (
         <header className="flex items-center justify-between gap-3 border-border border-b px-4 py-3">
           <div className="flex min-w-0 items-center gap-2.5">
-            <span className="flex size-8 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand">
+            <motion.span
+              animate={
+                isBusy && !shouldReduceMotion
+                  ? { opacity: [1, 0.5, 1], scale: [1, 1.08, 1] }
+                  : { opacity: 1, scale: 1 }
+              }
+              className="flex size-8 shrink-0 items-center justify-center rounded-md bg-brand/10 text-brand"
+              transition={
+                isBusy && !shouldReduceMotion
+                  ? {
+                      duration: 0.9,
+                      ease: [0.45, 0.05, 0.55, 0.95],
+                      repeat: Number.POSITIVE_INFINITY,
+                    }
+                  : { duration: shouldReduceMotion ? 0 : 0.2 }
+              }
+            >
               <Sparkles aria-hidden="true" size={STATUS_ICON_SIZE} />
-            </span>
+            </motion.span>
             <div className="min-w-0">
               <p className="truncate font-medium text-foreground text-sm leading-tight">
                 Image generation
@@ -759,11 +833,45 @@ const ImageGenerationPanel = ({
             </div>
           </div>
           <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-border px-2.5 py-1 text-muted-foreground text-xs">
-            <span
+            <motion.span
+              animate={
+                isBusy && !shouldReduceMotion
+                  ? { opacity: [1, 0.35, 1], scale: [1, 0.8, 1] }
+                  : { opacity: 1, scale: 1 }
+              }
               aria-hidden="true"
               className={cn("size-1.5 rounded-full", statusMeta.dot)}
+              transition={
+                isBusy && !shouldReduceMotion
+                  ? {
+                      duration: 0.9,
+                      ease: [0.45, 0.05, 0.55, 0.95],
+                      repeat: Number.POSITIVE_INFINITY,
+                    }
+                  : { duration: shouldReduceMotion ? 0 : 0.2 }
+              }
             />
-            {statusMeta.label}
+            <AnimatePresence initial={false} mode="wait">
+              <motion.span
+                animate={{ opacity: 1, transform: "translateY(0px)" }}
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : { opacity: 0, transform: "translateY(-3px)" }
+                }
+                initial={
+                  shouldReduceMotion
+                    ? false
+                    : { opacity: 0, transform: "translateY(3px)" }
+                }
+                key={effectiveStatus}
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : SPRING_SNAPPY
+                }
+              >
+                {statusMeta.label}
+              </motion.span>
+            </AnimatePresence>
           </span>
         </header>
       )}
@@ -815,7 +923,7 @@ const ImageGenerationPanel = ({
 
           <span aria-hidden="true" className="block h-0.5 w-full bg-border">
             <span
-              className="block h-full origin-left bg-brand transition-transform duration-150 ease-out motion-reduce:transition-none"
+              className="block h-full origin-left bg-brand"
               style={{ transform: `scaleX(${clamp01(progress)})` }}
             />
           </span>

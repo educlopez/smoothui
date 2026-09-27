@@ -95,6 +95,13 @@ export default function Layout({ children }: LayoutProps<"/">) {
       suppressHydrationWarning
     >
       <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: apply the saved system before paint
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(localStorage.getItem('smoothui-ds')!=='legacy')document.documentElement.dataset.ds='oat'}catch(e){}",
+          }}
+        />
         <meta content="SmoothUI" name="apple-mobile-web-app-title" />
         <link
           href="/blog/rss.xml"

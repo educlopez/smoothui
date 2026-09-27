@@ -10,9 +10,16 @@
 @source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/templates/**/*.{js,jsx,ts,tsx}";
 
+@theme {
+  --font-title: var(--font-plus-jakarta-sans);
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
+}
+
 @theme inline {
   --font-body: var(--font-inter);
-  --font-title: var(--font-plus-jakarta-sans);
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme);
   --shiki--dark: var(--shiki-theme);
@@ -31,9 +38,11 @@
     0px 1px 2px rgba(0, 0, 0, 0.4),
     0px 0px 0px 1px var(--color-brand-secondary),
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
-  --shadow-custom:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 2px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
+  --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand);
   --color-fd-secondary: var(--color-smooth-50);
@@ -48,11 +57,111 @@
 
 .dark {
   --bt-gray: black;
-  --shadow-custom:
-    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
-    0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
-    0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.28);
+  --shadow-md: 0 4px 8px -4px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 8px 16px -8px rgb(0 0 0 / 0.45);
+  --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-w.png");
+}
+
+[data-ds="oat"] {
+  --font-title: var(--font-inter);
+}
+
+.shadow-sm {
+  --tw-shadow: var(--shadow-sm);
+}
+.shadow-md {
+  --tw-shadow: var(--shadow-md);
+}
+.shadow-lg {
+  --tw-shadow: var(--shadow-lg);
+}
+
+/* Site chrome. These classes used --primary as a light hover wash.
+   Under Oat, --primary is ink, so the wash has to become a white card. */
+[data-ds="oat"] .tracking-tight {
+  letter-spacing: 0;
+}
+
+[data-ds="oat"] h1 .text-muted-foreground {
+  color: var(--color-foreground);
+}
+
+[data-ds="oat"] .bg-primary\/40 {
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-sm);
+}
+
+[data-ds="oat"] .hover\:bg-primary:hover {
+  background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
+  transition-duration: 200ms;
+}
+
+[data-ds="oat"] .trigger:hover,
+[data-ds="oat"] .link:hover,
+[data-ds="oat"] .mobile-navbar-link:hover {
+  background-color: color-mix(
+    in oklch,
+    var(--color-foreground) 5%,
+    transparent
+  );
+  border-color: transparent;
+}
+
+[data-ds="oat"] #nd-page {
+  font-size: 0.9375rem;
+  line-height: 1.625;
+}
+
+[data-ds="oat"] #nd-page h1 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: -0.025em;
+}
+
+[data-ds="oat"] #nd-page h2 {
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: -0.011em;
+}
+
+[data-ds="oat"] #nd-page h3 {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  letter-spacing: normal;
+}
+
+[data-ds="oat"] #nd-page :is(p, li) {
+  font-weight: 400;
+  color: var(--color-muted-foreground);
+}
+
+[data-ds="oat"] #nd-page :is(p, li) a {
+  font-weight: 400;
+  color: var(--color-foreground);
+}
+
+[data-ds="oat"] .group:hover h3 {
+  color: var(--color-foreground);
+}
+
+[data-ds="oat"] article.group p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+[data-ds="oat"] [data-side="top"] {
+  display: none;
+}
+
+[data-ds="oat"] .h-px.bg-gradient-to-r,
+[data-ds="oat"] .w-px.bg-gradient-to-b {
+  background-color: var(--color-border);
+  background-image: none;
 }
 
 @layer base {
@@ -61,7 +170,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-border, currentColor);
   }
   * {
     scrollbar-color: gray transparent;
