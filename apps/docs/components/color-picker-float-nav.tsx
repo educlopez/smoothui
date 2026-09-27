@@ -6,12 +6,7 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import {
-  applyDesignSystem,
-  type DesignSystem,
-  persistDesignSystem,
-  readDesignSystem,
-} from "@docs/app/lib/design-system";
+import { applyOat } from "@docs/app/lib/design-system";
 import { AppearanceDrawing } from "@docs/components/illustrations/appearance-drawing";
 import { THEME_PALETTES } from "@docs/lib/registry-themes";
 import { cn } from "@repo/shadcn-ui/lib/utils";
@@ -32,16 +27,8 @@ import { createPortal } from "react-dom";
 
 type Appearance = "system" | "dark" | "light";
 
-const themeInstallCommand = (paletteName: string) =>
-  `npx shadcn@latest add https://smoothui.dev/r/theme-${paletteName.toLowerCase()}.json`;
-
 const OAT_INSTALL_COMMAND =
   "npx shadcn@latest add https://smoothui.dev/r/theme-oat.json";
-
-const DESIGN_SYSTEMS: { id: DesignSystem; label: string; note?: string }[] = [
-  { id: "oat", label: "Oat" },
-  { id: "legacy", label: "Original", note: "Deprecated" },
-];
 
 const APPEARANCES: {
   id: Appearance;
@@ -101,17 +88,10 @@ export function ColorPickerFloatNav() {
     THEME_PALETTES[0].secondary
   );
   const [mounted, setMounted] = useState(false);
-  const [designSystem, setDesignSystem] = useState<DesignSystem>("oat");
   const reduceMotion = useReducedMotion();
   const triggerRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
-
-  const selectedPalette =
-    THEME_PALETTES.find(
-      (palette) =>
-        palette.primary === candy && palette.secondary === candySecondary
-    ) ?? THEME_PALETTES[0];
 
   const appearance: Appearance =
     !mounted || theme === "system" || theme === undefined
@@ -120,23 +100,12 @@ export function ColorPickerFloatNav() {
         ? "dark"
         : "light";
 
-  const installCommand =
-    designSystem === "oat"
-      ? OAT_INSTALL_COMMAND
-      : themeInstallCommand(selectedPalette.name);
+  const installCommand = OAT_INSTALL_COMMAND;
 
   useEffect(() => {
     setMounted(true);
-    const saved = readDesignSystem();
-    setDesignSystem(saved);
-    applyDesignSystem(saved);
+    applyOat();
   }, []);
-
-  const pickDesignSystem = (system: DesignSystem) => {
-    setDesignSystem(system);
-    applyDesignSystem(system);
-    persistDesignSystem(system);
-  };
 
   useEffect(() => {
     const savedColors = localStorage.getItem(COLOR_STORAGE_KEY);
@@ -301,42 +270,11 @@ export function ColorPickerFloatNav() {
                         Theme settings
                       </h2>
                       <p className="text-muted-foreground text-sm">
-                        System, accent color, appearance, and install command.
+                        Accent color, appearance, and install command.
                       </p>
                     </div>
 
                     <div className="flex-1 overflow-y-auto">
-                      <section className="border-t p-4">
-                        <h3 className="mb-3 font-medium text-muted-foreground text-xs uppercase tracking-wide">
-                          System
-                        </h3>
-                        <div className="grid grid-cols-2 gap-2">
-                          {DESIGN_SYSTEMS.map((system) => {
-                            const selected = designSystem === system.id;
-                            return (
-                              <button
-                                aria-pressed={selected}
-                                className={cn(
-                                  "cursor-pointer rounded-md border px-3 py-2 font-medium text-sm",
-                                  selected
-                                    ? "border-foreground bg-foreground text-background"
-                                    : "border-border bg-card text-foreground hover:bg-muted"
-                                )}
-                                key={system.id}
-                                onClick={() => pickDesignSystem(system.id)}
-                                type="button"
-                              >
-                                {system.label}
-                                {system.note ? (
-                                  <span className="mt-0.5 block font-normal text-[10px] opacity-70">
-                                    {system.note}
-                                  </span>
-                                ) : null}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </section>
                       <section className="border-t p-4">
                         <div className="mb-3 flex items-center justify-between gap-2">
                           <h3 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
@@ -430,9 +368,7 @@ export function ColorPickerFloatNav() {
                           Install theme
                         </span>
                         <span className="text-muted-foreground text-xs capitalize">
-                          {designSystem === "oat"
-                            ? "Oat"
-                            : selectedPalette.label}
+                          Oat
                         </span>
                       </div>
                       <div className="overflow-hidden rounded-lg border border-border">

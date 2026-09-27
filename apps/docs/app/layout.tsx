@@ -96,10 +96,10 @@ export default function Layout({ children }: LayoutProps<"/">) {
     >
       <head>
         <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: apply the saved system before paint
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: paint Oat before first frame
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(localStorage.getItem('smoothui-ds')!=='legacy')document.documentElement.dataset.ds='oat'}catch(e){}",
+              "try{localStorage.removeItem('smoothui-ds')}catch(e){}document.documentElement.dataset.ds='oat'",
           }}
         />
         <meta content="SmoothUI" name="apple-mobile-web-app-title" />

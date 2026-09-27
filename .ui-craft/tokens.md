@@ -72,18 +72,17 @@ Brand pink: max 3-5 placements per above-the-fold viewport. Secondary uses drop
 chroma (`--color-brand-light/lighter`). Today the pink appears in logo + sidebar
 active + TOC active + eyebrows + CTA simultaneously — trim per viewport.
 
-## Oat (opt-in)
+## Oat
 
-`data-ds="oat"` on the document. Missing attribute is the default look. Oat
-does not add classes. It rewrites the shadcn variables (`background`, `card`,
-`foreground`, `muted`, `border`, `primary`, `ring`). The same values ship as
-the installable theme `theme-oat`. The shadow scale is shared: a short black
-drop, with the edge carried by `border` or `ring`, in both systems.
+The docs site always sets `data-ds="oat"`. There is no second system to pick.
+Oat does not add classes. It rewrites the shadcn variables (`background`,
+`card`, `foreground`, `muted`, `border`, `primary`, `ring`). The same values
+ship as the installable theme `theme-oat`. The shadow scale is a short black
+drop, with the edge carried by `border` or `ring`.
 
 Under Oat, `--primary` is ink and `--primary-foreground` is the opposite
-surface, so `bg-primary` is the default action. The default system keeps
-`--primary` as the light hover fill. Brand pink stays on `--color-brand`.
-`--font-title` is Inter only while Oat is on.
+surface, so `bg-primary` is the default action. Brand pink stays on
+`--color-brand`. `--font-title` is Inter.
 
 Surface contract for new chrome, in components that install into someone
 else's project:
