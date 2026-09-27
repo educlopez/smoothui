@@ -71,7 +71,7 @@ export function HeroStage({ src }: { src: string }) {
   const playClick = useUiSound("/sounds/button.wav", 0.4);
   const stageRef = useRef<HTMLDivElement>(null);
   const [view, setView] = useState<ViewId>("landing");
-  const [stageHeight, setStageHeight] = useState(0);
+  const [stageSize, setStageSize] = useState({ height: 0, width: 0 });
   const [images, setImages] = useState<ImageGenerationImage[]>(() => pairAt(0));
   const [progress, setProgress] = useState(100);
   const cursor = useRef(1);
@@ -82,7 +82,10 @@ export function HeroStage({ src }: { src: string }) {
     if (!stage) {
       return;
     }
-    const measure = () => setStageHeight(stage.getBoundingClientRect().height);
+    const measure = () => {
+      const box = stage.getBoundingClientRect();
+      setStageSize({ height: box.height, width: box.width });
+    };
     measure();
     const observer = new ResizeObserver(measure);
     observer.observe(stage);
@@ -129,8 +132,10 @@ export function HeroStage({ src }: { src: string }) {
           width={1024}
         />
         <HeroDither
-          className="absolute inset-0 size-full"
-          height={stageHeight}
+          height={stageSize.height}
+          onFallback={() => undefined}
+          src={src}
+          width={stageSize.width}
         />
       </div>
 
@@ -268,7 +273,11 @@ function DashboardView({
       </div>
       <ImageGenerationPanel
         aspectRatio="16 / 9"
-        aspectRatios={["1:1", "4:5", "16:9"]}
+        aspectRatios={[
+          { id: "square", label: "1:1", value: "1 / 1" },
+          { id: "portrait", label: "4:5", value: "4 / 5" },
+          { id: "wide", label: "16:9", value: "16 / 9" },
+        ]}
         chrome="minimal"
         className="w-full flex-1 rounded-none border-0 bg-transparent shadow-none"
         composerPlacement="bottom"
