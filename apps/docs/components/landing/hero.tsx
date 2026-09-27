@@ -1,13 +1,11 @@
 "use client";
 
-import { HeroDither } from "@docs/components/landing/hero-dither";
 import { HeroStage } from "@docs/components/landing/hero-stage";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import { preload } from "react-dom";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
@@ -18,56 +16,10 @@ preload(BACKGROUND_SRC, { as: "image", fetchPriority: "high" });
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
-  const stageRef = useRef<HTMLDivElement>(null);
-  const [stage, setStage] = useState({ height: 0, width: 0 });
-  const [showPhoto, setShowPhoto] = useState(false);
-
-  useEffect(() => {
-    const node = stageRef.current;
-    if (!node) {
-      return;
-    }
-    const measure = () => {
-      const box = node.getBoundingClientRect();
-      setStage({
-        height: Math.max(1, Math.round(box.height)),
-        width: Math.max(1, Math.round(box.width)),
-      });
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
   const playClick = useUiSound("/sounds/button.wav", 0.4);
 
   return (
     <section className="relative overflow-hidden bg-background">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 [mask-image:radial-gradient(ellipse_85%_75%_at_50%_42%,#000_35%,transparent_78%)]"
-      >
-        <div className="absolute inset-x-0 -top-[8%] h-[118%]" ref={stageRef}>
-          {showPhoto ? (
-            <img
-              alt=""
-              className="size-full object-fill"
-              src={BACKGROUND_SRC}
-            />
-          ) : null}
-          {stage.width > 1 ? (
-            <HeroDither
-              height={stage.height}
-              onFallback={() => setShowPhoto(true)}
-              src={BACKGROUND_SRC}
-              width={stage.width}
-            />
-          ) : null}
-        </div>
-      </div>
-
       <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 pt-32 text-center md:pt-40">
         <motion.div
           animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}

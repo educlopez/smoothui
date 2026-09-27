@@ -1,5 +1,6 @@
 "use client";
 
+import { HeroDither } from "@docs/components/landing/hero-dither";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
@@ -23,7 +24,7 @@ import {
   IconSparkleFill24,
   IconUsersFill24,
 } from "nucleo-core-fill-24";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const VIEWS = [
   { icon: IconHouse4Fill24, id: "landing", label: "Landing" },
@@ -155,14 +156,59 @@ const stackPhotos = [
     src: `${person.src}?tr=w-640,h-800,f-auto`,
   }));
 
-export function HeroStage({ src: _src }: { src: string }) {
+export function HeroStage({ src }: { src: string }) {
   const shouldReduceMotion = useReducedMotion();
   const playClick = useUiSound("/sounds/button.wav", 0.4);
   const [view, setView] = useState<ViewId>("landing");
+  const bandRef = useRef<HTMLDivElement>(null);
+  const [band, setBand] = useState({ height: 0, width: 0 });
+  const [showPhoto, setShowPhoto] = useState(false);
+
+  useEffect(() => {
+    const node = bandRef.current;
+    if (!node) {
+      return;
+    }
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      setBand({
+        height: Math.max(1, Math.round(box.height)),
+        width: Math.max(1, Math.round(box.width)),
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="@container relative z-10 border-background border-b pt-8 [mask-image:radial-gradient(ellipse_80%_95%_at_50%_0%,#000_72%,transparent_100%)] md:pt-12">
-      <div className="border-border-illustration border-y pb-2">
+    <div className="@container relative z-10 border-background border-b pt-10 md:pt-14">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-56 [mask-image:radial-gradient(ellipse_78%_90%_at_50%_35%,#000_42%,transparent_78%)] md:h-72"
+        ref={bandRef}
+      >
+        {showPhoto ? (
+          <img
+            alt=""
+            className="size-full object-cover object-center"
+            height={573}
+            src={src}
+            width={1024}
+          />
+        ) : null}
+        {band.width > 1 ? (
+          <HeroDither
+            height={band.height}
+            onFallback={() => setShowPhoto(true)}
+            src={src}
+            width={band.width}
+          />
+        ) : null}
+      </div>
+
+      <div className="relative border-border-illustration border-y pb-2 [mask-image:radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)]">
         <div className="mx-auto max-w-3xl px-4 md:px-11">
           <div
             aria-label="Previews"
@@ -203,7 +249,7 @@ export function HeroStage({ src: _src }: { src: string }) {
         </div>
       </div>
 
-      <div className="relative mx-auto -mt-2 max-w-6xl max-md:mx-1 lg:px-10">
+      <div className="relative mx-auto -mt-2 max-w-6xl [mask-image:linear-gradient(to_bottom,#000_72%,transparent_100%)] max-md:mx-1 lg:px-10">
         <div className="rounded-2xl bg-card/90 p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur-sm">
           <div
             aria-labelledby={`hero-tab-${view}`}
