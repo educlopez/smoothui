@@ -1,6 +1,5 @@
 "use client";
 
-import { HeroDither } from "@docs/components/landing/hero-dither";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
 import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
@@ -24,7 +23,7 @@ import {
   IconSparkleFill24,
   IconUsersFill24,
 } from "nucleo-core-fill-24";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 
 const VIEWS = [
   { icon: IconHouse4Fill24, id: "landing", label: "Landing" },
@@ -156,59 +155,14 @@ const stackPhotos = [
     src: `${person.src}?tr=w-640,h-800,f-auto`,
   }));
 
-export function HeroStage({ src }: { src: string }) {
+export function HeroStage() {
   const shouldReduceMotion = useReducedMotion();
   const playClick = useUiSound("/sounds/button.wav", 0.4);
   const [view, setView] = useState<ViewId>("landing");
-  const bandRef = useRef<HTMLDivElement>(null);
-  const [band, setBand] = useState({ height: 0, width: 0 });
-  const [showPhoto, setShowPhoto] = useState(false);
-
-  useEffect(() => {
-    const node = bandRef.current;
-    if (!node) {
-      return;
-    }
-    const measure = () => {
-      const box = node.getBoundingClientRect();
-      setBand({
-        height: Math.max(1, Math.round(box.height)),
-        width: Math.max(1, Math.round(box.width)),
-      });
-    };
-    measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
 
   return (
-    <div className="@container relative z-10 border-background border-b pt-10 md:pt-14">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-56 [mask-image:radial-gradient(ellipse_78%_90%_at_50%_35%,#000_42%,transparent_78%)] md:h-72"
-        ref={bandRef}
-      >
-        {showPhoto ? (
-          <img
-            alt=""
-            className="size-full object-cover object-center"
-            height={573}
-            src={src}
-            width={1024}
-          />
-        ) : null}
-        {band.width > 1 ? (
-          <HeroDither
-            height={band.height}
-            onFallback={() => setShowPhoto(true)}
-            src={src}
-            width={band.width}
-          />
-        ) : null}
-      </div>
-
-      <div className="relative border-border-illustration border-y pb-2 [mask-image:radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)]">
+    <div className="@container relative z-10 border-background border-b pt-12 [mask-image:radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)] lg:pt-20">
+      <div className="border-border-illustration border-y pb-2">
         <div className="mx-auto max-w-3xl px-4 md:px-11">
           <div
             aria-label="Previews"
@@ -249,16 +203,16 @@ export function HeroStage({ src }: { src: string }) {
         </div>
       </div>
 
-      <div className="relative mx-auto -mt-2 max-w-6xl [mask-image:linear-gradient(to_bottom,#000_72%,transparent_100%)] max-md:mx-1 lg:px-10">
-        <div className="rounded-2xl bg-card/90 p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur-sm">
+      <div className="relative mx-auto -mt-2 max-w-6xl max-md:mx-1 lg:px-10">
+        <div className="aspect-square rounded-2xl bg-card p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur sm:aspect-[3/2]">
           <div
             aria-labelledby={`hero-tab-${view}`}
-            className="relative min-h-[32rem] origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 md:min-h-[36rem] dark:bg-background"
+            className="relative aspect-square origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 sm:aspect-[3/2] dark:bg-background"
             role="tabpanel"
           >
             <motion.div
               animate={{ opacity: 1 }}
-              className="h-full"
+              className="h-full min-h-0"
               initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
               key={view}
               transition={
@@ -292,7 +246,7 @@ function LandingView() {
   const sceneUrl = sceneSrc(scene.id, "w-1200");
 
   return (
-    <div className="flex h-full min-h-[32rem] flex-col bg-background md:min-h-[36rem]">
+    <div className="flex h-full flex-col bg-background">
       <header className="flex items-center justify-between gap-3 border-border border-b px-4 py-3 md:px-6">
         <div className="flex items-center gap-2">
           <span className="grid size-7 place-items-center rounded-full bg-foreground text-[10px] text-background">
@@ -503,7 +457,7 @@ function DashboardView() {
   );
 
   return (
-    <div className="flex h-full min-h-[32rem] bg-background md:min-h-[36rem]">
+    <div className="flex h-full bg-background">
       <aside className="flex w-14 shrink-0 flex-col border-border border-r bg-card py-3 md:w-44 md:px-2">
         <div className="mb-4 flex items-center gap-2 px-2 md:px-3">
           <span className="grid size-7 place-items-center rounded-lg bg-foreground text-[10px] text-background">
@@ -858,7 +812,7 @@ function ExperimentView() {
   }
 
   return (
-    <div className="relative flex min-h-[32rem] items-center justify-center overflow-hidden md:min-h-[36rem]">
+    <div className="relative flex h-full items-center justify-center overflow-hidden">
       <img
         alt=""
         className="absolute inset-0 size-full scale-110 object-cover blur-xl"
