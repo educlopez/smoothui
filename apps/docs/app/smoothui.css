@@ -43,8 +43,8 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: #fff;
   --color-accent: var(--color-brand);
-  --color-muted-foreground: var(--color-smooth-800);
-  --color-muted: var(--color-smooth-200);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-muted: var(--color-muted);
   --color-background: var(--color-smooth-50);
   --color-foreground: var(--color-smooth-1000);
   --color-primary: var(--color-smooth-100);
@@ -113,7 +113,7 @@
   --color-secondary: oklch(0.955 0 0);
   --color-secondary-foreground: oklch(0.16 0 0);
   --color-muted: oklch(0.955 0 0);
-  --color-muted-foreground: oklch(0.36 0 0);
+  --color-muted-foreground: oklch(0.34 0 0);
   --color-sidebar: oklch(0.965 0 0);
   --color-sidebar-foreground: oklch(0.16 0 0);
   --color-fd-card: oklch(1 0 0);

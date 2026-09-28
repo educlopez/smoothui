@@ -325,7 +325,7 @@ for (const width of [390, 1440]) {
     expect(footerBounds?.x).toBeCloseTo(expectedLeft, 0);
     expect(footerBounds?.width).toBeCloseTo(expectedWidth, 0);
     await page
-      .locator("footer.bg-muted\\/60")
+      .locator("footer")
       .screenshot({ path: `/tmp/smoothui-footer-${width}.png` });
     const faq = page
       .getByRole("heading", { name: "Frequently Asked Questions" })

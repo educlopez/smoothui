@@ -49,10 +49,10 @@ export function SkillsSection() {
   });
 
   return (
-    <section className="relative overflow-hidden bg-background">
+    <section className="relative overflow-hidden bg-background px-8 py-32 md:py-40">
       <div
         aria-hidden
-        className="mask-t-from-35% mask-t-to-65% mask-b-from-55% mask-b-to-75% dark:mask-t-to-55% pointer-events-none absolute inset-0"
+        className="mask-t-from-35% mask-t-to-65% mask-b-from-55% mask-b-to-75% dark:mask-t-to-55% pointer-events-none absolute inset-y-0 left-1/2 w-screen max-w-none -translate-x-1/2"
         data-landing-background="uicraft"
         ref={bandRef}
       >
@@ -75,7 +75,7 @@ export function SkillsSection() {
         ) : null}
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center px-8 py-32 md:py-40">
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center">
         <div
           className="mx-auto flex w-full max-w-3xl flex-col items-center gap-5 rounded-2xl border border-border bg-background px-4 py-10 text-center shadow-xl md:px-8 md:py-12"
           data-uicraft-copy
