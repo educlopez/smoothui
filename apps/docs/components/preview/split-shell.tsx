@@ -93,6 +93,11 @@ export type SplitPreviewShellProps = {
    * the stage renders, so the viewport switcher changes a real viewport.
    */
   popOutHref: string;
+  /**
+   * Site chrome that belongs under the reading column (prev/next, footer).
+   * Rendered *after* the bottom fade so the sticky veil does not wash over it.
+   */
+  footer?: ReactNode;
   /** The section catalogue trigger + drawer. */
   nav?: ReactNode;
   /** Name shown above the code pane. */
@@ -117,6 +122,7 @@ export type SplitPreviewShellProps = {
 export const SplitPreviewShell = ({
   children,
   files,
+  footer,
   nav,
   popOutHref,
   title,
@@ -128,10 +134,30 @@ export const SplitPreviewShell = ({
   const [activeFile, setActiveFile] = useState(0);
   const [scenes, setScenes] = useState<string[]>([]);
   const [activeScene, setActiveScene] = useState<string | null>(null);
+  /** Bottom veil clears once the footer enters the viewport. */
+  const [veilClear, setVeilClear] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
+  const footerRef = useRef<HTMLDivElement>(null);
   const scenesRef = useRef<string[]>([]);
   const pendingHeadingRef = useRef<string | null>(null);
   const file = files[activeFile] ?? files[0];
+
+  useEffect(() => {
+    const node = footerRef.current;
+    if (!node) {
+      return;
+    }
+    // Expand the root downward so the veil clears as the footer approaches,
+    // not only once the copyright bar is already under the fade.
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setVeilClear(entry?.isIntersecting ?? false);
+      },
+      { rootMargin: "0px 0px 35% 0px", threshold: 0 }
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const applyScene = useCallback((heading: string) => {
     const match = scenesRef.current.find((name) => sameHeading(name, heading));
@@ -334,9 +360,16 @@ export const SplitPreviewShell = ({
             scroll and nothing passes underneath, so a blur there would just
             smudge the last lines. */}
         {/* Sticky rather than fixed: it rides the bottom of the viewport but only
-            ever covers the reading column. */}
+            ever covers the reading column. Clears when the footer enters view so
+            the copyright bar is not washed out by the veil. */}
         {pane === "info" && (
-          <div className="not-prose pointer-events-none sticky bottom-0 z-20 hidden h-[120px] lg:block">
+          <div
+            aria-hidden
+            className={cn(
+              "not-prose pointer-events-none sticky bottom-0 z-20 hidden h-[120px] transition-opacity duration-200 lg:block",
+              veilClear ? "opacity-0" : "opacity-100"
+            )}
+          >
             <BlurMagic
               background="var(--color-background)"
               blur="6px"
@@ -350,6 +383,12 @@ export const SplitPreviewShell = ({
             />
           </div>
         )}
+
+        {footer ? (
+          <div className="not-prose relative z-30 pb-24" ref={footerRef}>
+            {footer}
+          </div>
+        ) : null}
       </div>
 
       <div
