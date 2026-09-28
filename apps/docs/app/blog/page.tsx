@@ -86,7 +86,11 @@ export default async function BlogPage() {
         <div className="overflow-hidden rounded-2xl border border-border">
           {/* Featured post */}
           <article className="group relative grid divide-x divide-border md:grid-cols-2">
-            <div className="bg-card p-6 lg:p-10">
+            <Link
+              className="block bg-card p-6 lg:p-10"
+              href={featured.url}
+              transitionTypes={["nav-forward"]}
+            >
               <PostCover
                 alt={featured.data.title}
                 className="aspect-video rounded-[10px] border border-transparent shadow-black/10 shadow-md ring-1 ring-border"
@@ -94,11 +98,12 @@ export default async function BlogPage() {
                 seed={featured.url}
                 sizes="(max-width: 768px) 100vw, 460px"
               />
-            </div>
+            </Link>
             <div>
               <Link
                 className="flex h-full flex-col gap-4 bg-card p-6 lg:p-10"
                 href={featured.url}
+                transitionTypes={["nav-forward"]}
               >
                 <div className="flex items-center gap-2 text-muted-foreground text-sm">
                   <time dateTime={featured.data.date as string}>
@@ -131,6 +136,7 @@ export default async function BlogPage() {
                   <Link
                     className="flex h-full flex-col bg-card p-6 transition-colors duration-200 hover:bg-card/80 lg:p-10"
                     href={post.url}
+                    transitionTypes={["nav-forward"]}
                   >
                     <PostCover
                       alt={post.data.title}

@@ -535,3 +535,20 @@ article.group p {
     display: none;
   }
 }
+
+/* Blog cover index ↔ article morph. Fast ease-out; shares only the matched
+   cover. Unmatched siblings stay still via ViewTransition default="none". */
+::view-transition-group(.blog-cover-morph),
+::view-transition-old(.blog-cover-morph),
+::view-transition-new(.blog-cover-morph) {
+  animation-duration: 0.28s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}

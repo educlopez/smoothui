@@ -1,20 +1,39 @@
 "use client";
 
-import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
-import Divider from "@docs/components/landing/divider";
+import { HeroDither } from "@docs/components/landing/hero-dither";
 import { UiCraftInstallSelector } from "@docs/components/landing/ui-craft-install-selector";
-import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
-import {
-  landingBackgrounds,
-  landingStageImageClass,
-} from "@docs/lib/landing-backgrounds";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowUpRightFill24 } from "nucleo-core-fill-24";
+import { useEffect, useRef, useState } from "react";
+
+/** Same pink dunes as the hero. */
+const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
 
 export function SkillsSection() {
   const shouldReduceMotion = useReducedMotion();
+  const bandRef = useRef<HTMLDivElement>(null);
+  const [band, setBand] = useState({ height: 0, width: 0 });
+  const [showPhoto, setShowPhoto] = useState(false);
+
+  useEffect(() => {
+    const node = bandRef.current;
+    if (!node) {
+      return;
+    }
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      setBand({
+        height: Math.max(1, Math.round(box.height)),
+        width: Math.max(1, Math.round(box.width)),
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   const lift = (delay: number) => ({
     initial: shouldReduceMotion
@@ -30,82 +49,88 @@ export function SkillsSection() {
   });
 
   return (
-    <section className="relative bg-background px-8 py-32 transition">
-      <Divider />
-      <div className="mx-auto w-full max-w-7xl">
-        <div className="group relative isolate overflow-hidden rounded-3xl border border-border">
-          <Image
+    <section className="relative overflow-hidden bg-background">
+      <div
+        aria-hidden
+        className="mask-t-from-35% mask-t-to-65% mask-b-from-55% mask-b-to-75% dark:mask-t-to-55% pointer-events-none absolute inset-0"
+        data-landing-background="uicraft"
+        ref={bandRef}
+      >
+        {showPhoto ? (
+          <img
             alt=""
-            aria-hidden
-            className={`-z-10 ${landingStageImageClass}`}
-            data-landing-background="uicraft"
-            draggable={false}
-            fill
-            sizes="(max-width: 1024px) 100vw, 960px"
-            src={sceneSrc(landingBackgrounds.uicraft.id, "w-1280")}
-            unoptimized
+            className="size-full object-cover object-bottom"
+            height={1024}
+            src={BACKGROUND_SRC}
+            width={1024}
           />
-          <ArtworkPattern variant="contours" />
+        ) : null}
+        {band.width > 1 ? (
+          <HeroDither
+            height={band.height}
+            onFallback={() => setShowPhoto(true)}
+            src={BACKGROUND_SRC}
+            width={band.width}
+          />
+        ) : null}
+      </div>
 
-          <div className="relative px-4 py-10 md:px-12 md:py-16">
-            <div
-              className="mx-auto flex max-w-3xl flex-col items-center gap-5 rounded-2xl border border-border bg-background px-4 py-10 text-center shadow-xl md:px-8 md:py-12"
-              data-uicraft-copy
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl items-center justify-center px-8 py-32 md:py-40">
+        <div
+          className="mx-auto flex w-full max-w-3xl flex-col items-center gap-5 rounded-2xl border border-border bg-background px-4 py-10 text-center shadow-xl md:px-8 md:py-12"
+          data-uicraft-copy
+        >
+          <motion.div {...lift(0.05)}>
+            <Image
+              alt="UI Craft"
+              className="size-14 rounded-2xl shadow-black/20 shadow-lg ring-1 ring-white/40"
+              draggable={false}
+              height={56}
+              src="/icon-ui-craft.png"
+              width={56}
+            />
+          </motion.div>
+
+          <motion.span
+            className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]"
+            {...lift(0.1)}
+          >
+            UI Craft
+          </motion.span>
+
+          <motion.h2
+            className="max-w-2xl text-balance font-semibold font-title text-3xl text-foreground tracking-tight md:text-5xl"
+            {...lift(0.15)}
+          >
+            The system behind design taste
+          </motion.h2>
+
+          <motion.p
+            className="max-w-xl text-balance text-muted-foreground"
+            {...lift(0.2)}
+          >
+            Anti-slop detection, a scored quality gate, and a convergence loop —
+            so your agent ships UI you&apos;d actually put in production.
+          </motion.p>
+
+          <motion.div className="mt-3 w-full min-w-0" {...lift(0.25)}>
+            <UiCraftInstallSelector className="w-full min-w-0" />
+          </motion.div>
+
+          <motion.div {...lift(0.3)}>
+            <Link
+              className="group mt-2 flex items-center gap-1.5 font-medium text-foreground/80 text-sm transition-colors hover:text-foreground"
+              href="https://skills.smoothui.dev"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              <motion.div {...lift(0.05)}>
-                <Image
-                  alt="UI Craft"
-                  className="size-14 rounded-2xl shadow-black/20 shadow-lg ring-1 ring-white/40"
-                  draggable={false}
-                  height={56}
-                  src="/icon-ui-craft.png"
-                  width={56}
-                />
-              </motion.div>
-
-              <motion.span
-                className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]"
-                {...lift(0.1)}
-              >
-                UI Craft
-              </motion.span>
-
-              <motion.h2
-                className="max-w-2xl text-balance font-semibold font-title text-3xl text-foreground tracking-tight md:text-5xl"
-                {...lift(0.15)}
-              >
-                The system behind design taste
-              </motion.h2>
-
-              <motion.p
-                className="max-w-xl text-balance text-muted-foreground"
-                {...lift(0.2)}
-              >
-                Anti-slop detection, a scored quality gate, and a convergence
-                loop — so your agent ships UI you&apos;d actually put in
-                production.
-              </motion.p>
-
-              <motion.div className="mt-3 w-full min-w-0" {...lift(0.25)}>
-                <UiCraftInstallSelector className="w-full min-w-0" />
-              </motion.div>
-
-              <motion.div {...lift(0.3)}>
-                <Link
-                  className="group mt-2 flex items-center gap-1.5 font-medium text-foreground/80 text-sm transition-colors hover:text-foreground"
-                  href="https://skills.smoothui.dev"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  Explore UI Craft
-                  <IconArrowUpRightFill24
-                    className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                    size={14}
-                  />
-                </Link>
-              </motion.div>
-            </div>
-          </div>
+              Explore UI Craft
+              <IconArrowUpRightFill24
+                className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                size={14}
+              />
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

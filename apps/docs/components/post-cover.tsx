@@ -1,6 +1,8 @@
 import { blogArtwork } from "@docs/lib/blog-artwork";
+import { blogCoverTransitionName } from "@docs/lib/blog-cover";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Image from "next/image";
+import { ViewTransition } from "react";
 import { BlogCoverArtwork } from "./blog/blog-cover-artwork";
 
 /** Same vivid stage treatment as landing testimonials — full punch under glass. */
@@ -55,35 +57,41 @@ export function PostCover({
   const cover = artwork ? `${artwork.src}?tr=w-1280,f-auto` : image;
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {cover ? (
-        <Image
-          alt={artwork?.alt ?? alt}
-          className={COVER_IMAGE_CLASS}
-          draggable={false}
-          fill
-          sizes={sizes}
-          src={cover}
-          unoptimized={Boolean(artwork)}
-        />
-      ) : (
-        <>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 saturate-[3]"
-            style={{ background: gradientFor(seed) }}
+    <ViewTransition
+      default="none"
+      name={blogCoverTransitionName(seed)}
+      share="blog-cover-morph"
+    >
+      <div className={cn("relative overflow-hidden", className)}>
+        {cover ? (
+          <Image
+            alt={artwork?.alt ?? alt}
+            className={COVER_IMAGE_CLASS}
+            draggable={false}
+            fill
+            sizes={sizes}
+            src={cover}
+            unoptimized={Boolean(artwork)}
           />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-40 mix-blend-soft-light"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 70% 25%, white 0%, transparent 40%)",
-            }}
-          />
-        </>
-      )}
-      <BlogCoverArtwork seed={seed} />
-    </div>
+        ) : (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 saturate-[3]"
+              style={{ background: gradientFor(seed) }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-40 mix-blend-soft-light"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 70% 25%, white 0%, transparent 40%)",
+              }}
+            />
+          </>
+        )}
+        <BlogCoverArtwork seed={seed} />
+      </div>
+    </ViewTransition>
   );
 }

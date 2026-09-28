@@ -14,7 +14,6 @@ import {
   IconChevronRightFill24,
 } from "nucleo-core-fill-24";
 import { useState } from "react";
-import Divider from "./divider";
 
 type Testimonial = {
   id: string;
@@ -269,7 +268,6 @@ export function WhatTheySay() {
 
   return (
     <section className="relative w-full bg-background px-8 py-24">
-      <Divider />
       <div className="mx-auto w-full max-w-7xl">
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">

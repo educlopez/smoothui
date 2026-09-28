@@ -10,7 +10,6 @@ import {
   TeamBlockDrawing,
   TestimonialBlockDrawing,
 } from "@docs/components/illustrations/block-drawings";
-import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import { MotionConfig, motion, useReducedMotion } from "motion/react";
@@ -122,7 +121,6 @@ export function BlockCategories() {
 
   return (
     <section className="relative bg-background px-8 py-24 transition">
-      <Divider />
       <div className="mx-auto max-w-7xl">
         <SectionHeader
           description={

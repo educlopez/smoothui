@@ -1,4 +1,3 @@
-import Divider from "@docs/components/landing/divider";
 import { CoverageCarousel } from "./coverage-carousel";
 
 const MARKS: Record<string, { src: string; wide?: boolean; invert?: boolean }> =
@@ -51,7 +50,6 @@ const COVERAGE: { label: string; url: string }[] = [
 export function Coverage() {
   return (
     <section className="relative bg-background px-8 py-20 transition">
-      <Divider />
       <div className="mx-auto w-full max-w-7xl text-center">
         <h2 className="font-medium text-[11px] text-muted-foreground uppercase tracking-[0.18em]">
           Featured across the community

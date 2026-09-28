@@ -52,6 +52,12 @@ export function blogCover(url: string): BlogCoverDirection {
   );
 }
 
+/** Shared-element name for index ↔ article cover morph. */
+export function blogCoverTransitionName(url: string) {
+  const slug = url.split("/").filter(Boolean).at(-1) ?? url;
+  return `blog-cover-${slug}`;
+}
+
 export function blogCoverImage(url: string) {
   const slug = url.split("/").filter(Boolean).at(-1) ?? url;
   const background = blogArtwork(url)?.src;

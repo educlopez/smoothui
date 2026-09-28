@@ -74,6 +74,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
           href="/blog"
+          transitionTypes={["nav-back"]}
         >
           ← Back to Blog
         </Link>

@@ -16,10 +16,6 @@ for (const width of [390, 1440]) {
         "ai",
         "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/volcanic-coast.webp?tr=w-1280,f-auto",
       ],
-      [
-        "uicraft",
-        "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/glacial-lagoon.webp?tr=w-1280,f-auto",
-      ],
     ] as const) {
       const image = page.locator(`[data-landing-background="${surface}"]`);
       await image.scrollIntoViewIfNeeded();
@@ -32,7 +28,7 @@ for (const width of [390, 1440]) {
         )
         .toBeGreaterThan(0);
       await image
-        .locator(surface === "uicraft" ? ".." : "../..")
+        .locator("../..")
         .screenshot({ path: `/tmp/smoothui-landing-${surface}-${width}.png` });
     }
     // Copy lives on an opaque neutral caption, separate from undimmed artwork.

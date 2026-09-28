@@ -17,10 +17,9 @@ export const landingBackgrounds = {
   features: landscape("turquoise-canyon"),
   testimonialFirst: landscape("alpine-dawn"),
   testimonialSecond: landscape("tidal-cove"),
-  uicraft: landscape("glacial-lagoon"),
 };
 
-/** Shared treatment for lead vivid stages (Features, AI, UI Craft). */
+/** Shared treatment for lead vivid stages (Features, AI). */
 export const landingStageImageClass =
   "scale-110 object-cover blur-2xl saturate-[3] motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-[1.15] motion-safe:group-focus-within:scale-[1.15] dark:opacity-55";
 

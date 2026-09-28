@@ -46,6 +46,10 @@ const loadImage = (src: string) => {
   }
   const image = new Image();
   image.decoding = "async";
+  // Remote scenes (ImageKit) need CORS for WebGL texImage2D.
+  if (/^https?:\/\//i.test(src)) {
+    image.crossOrigin = "anonymous";
+  }
   image.src = src;
   images.set(src, image);
   return image;

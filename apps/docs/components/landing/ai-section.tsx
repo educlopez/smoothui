@@ -7,7 +7,6 @@ import {
 } from "@docs/components/illustrations/ai-drawings";
 import { VividLeadCard } from "@docs/components/illustrations/illustration-card";
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
-import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
@@ -51,7 +50,6 @@ export function AISection() {
 
   return (
     <section className="relative bg-background px-8 py-40 transition">
-      <Divider />
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."

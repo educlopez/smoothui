@@ -1,18 +1,15 @@
 "use client";
 
+import { HeroDither } from "@docs/components/landing/hero-dither";
 import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { MascotCompanion } from "@docs/components/mascot-companion";
-import { Button } from "@docs/components/smoothbutton";
-import { SponsorLogo } from "@docs/components/sponsor-logo";
-import { getExternalSponsors } from "@docs/lib/sponsors";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { IconArrowUpRightFill24, IconHeartFill24 } from "nucleo-core-fill-24";
+import { IconArrowUpRightFill24 } from "nucleo-core-fill-24";
+import { type RefObject, useEffect, useRef, useState } from "react";
 
 // ---------------------------------------------------------------------------
 // Types
@@ -59,6 +56,11 @@ const developColumn: FooterColumn = {
 
 const connectColumn: FooterColumn = {
   links: [
+    {
+      external: true,
+      href: "https://wingtics.com",
+      label: "wingtics.com",
+    },
     { external: true, href: "https://sparkbites.dev", label: "sparkbites.dev" },
     { external: true, href: "https://codevator.dev", label: "codevator.dev" },
     { external: true, href: "https://thegridcn.com", label: "thegridcn.com" },
@@ -79,6 +81,9 @@ const techStack = [
   { className: "h-3.5 w-auto", icon: GsapLogo, name: "GSAP" },
 ];
 
+/** Same pink dunes as the hero — bookends the page. */
+const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
+
 // ---------------------------------------------------------------------------
 // Shared styles
 // ---------------------------------------------------------------------------
@@ -88,27 +93,8 @@ const linkClass =
   "inline-flex items-center gap-1 text-muted-foreground text-sm transition-colors duration-200 hover:text-brand";
 
 // ---------------------------------------------------------------------------
-// Decorative SmoothUI logomark (watermark inside CTA card)
+// Icons
 // ---------------------------------------------------------------------------
-
-function SmoothLogoMark({ className }: { className?: string }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={cn("text-muted", className)}
-      fill="none"
-      viewBox="0 0 512 512"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        clipRule="evenodd"
-        d="M329.205 6.05469C331.396 0.985458 337.281 -1.34888 342.351 0.84082L355.644 6.58301C356.018 6.74496 356.377 6.93032 356.722 7.13086L439.729 42.9902C444.799 45.1805 447.134 51.066 444.944 56.1357L439.202 69.4277C437.012 74.4976 431.126 76.8315 426.056 74.6416L351.12 42.2705L330.918 89.0332C376.141 114.344 408.567 159.794 416.052 213.239H429.756V278.752H397.765L397.27 282.408L386.144 369.047C383.266 392.108 380.937 415.238 377.957 438.284C376.66 448.318 375.865 459.058 373.398 468.858C372.384 471.375 371.168 473.657 369.527 475.817C353.072 497.475 312.68 504.556 287.003 508.111C273.789 510.037 260.45 510.964 247.098 510.888C217.287 510.485 162.338 502.749 138.37 484.41C133.049 480.338 128.118 475.314 126.057 468.793C124.143 462.739 123.772 455.672 122.899 449.391L117.649 411.719L99.9443 278.752H67.7119V213.239H80.5723C92.1014 130.913 162.808 67.5599 248.312 67.5596C266.066 67.5596 283.183 70.2933 299.265 75.3594L329.205 6.05469ZM298.618 347.714C290.008 349.185 284.699 357.994 277.604 362.6C260.758 373.533 233.532 371.369 217.451 359.928C211.198 355.48 206.551 346.709 197.798 348.069C194.209 348.628 190.796 350.598 188.722 353.611C186.781 356.428 186.276 360.028 186.956 363.345C188.187 369.351 193.243 374.041 197.507 378.105C213.771 391.889 237.722 397.757 258.754 395.938C277.382 394.327 294.852 386.112 306.932 371.629C309.792 368.2 311.798 364.372 311.3 359.786C310.918 356.283 309.287 352.397 306.453 350.188C304.098 348.351 301.526 347.879 298.618 347.714ZM187.43 188.242C177.489 188.242 169.43 196.301 169.43 206.242V305.578C169.43 315.519 177.489 323.578 187.43 323.578H194.529C204.47 323.578 212.529 315.519 212.529 305.578V206.242C212.529 196.301 204.47 188.242 194.529 188.242H187.43ZM302.939 188.242C292.998 188.242 284.94 196.301 284.939 206.242V305.578C284.939 315.519 292.998 323.578 302.939 323.578H310.04C319.981 323.578 328.04 315.519 328.04 305.578V206.242C328.04 196.301 319.981 188.242 310.04 188.242H302.939Z"
-        fill="currentColor"
-        fillRule="evenodd"
-      />
-    </svg>
-  );
-}
 
 function GithubIcon({ className }: { className?: string }) {
   return (
@@ -141,93 +127,60 @@ function XIcon({ className }: { className?: string }) {
 }
 
 // ---------------------------------------------------------------------------
-// CTA card — sits on the seam between page and footer.
+// Full-bleed pink dither atmosphere
 // ---------------------------------------------------------------------------
 
-function CtaCard() {
-  const externalSponsors = getExternalSponsors();
-  const hasSponsors = externalSponsors.length > 0;
-
+function PinkAtmosphere({
+  band,
+  showPhoto,
+  onFallback,
+  bandRef,
+}: {
+  band: { height: number; width: number };
+  showPhoto: boolean;
+  onFallback: () => void;
+  bandRef: RefObject<HTMLDivElement | null>;
+}) {
   return (
     <div
-      className={cn(
-        "relative overflow-hidden rounded-2xl bg-card p-10 text-card-foreground shadow-lg ring-1 ring-border/70",
-        "shadow-foreground/5 md:px-20 md:py-16"
-      )}
+      aria-hidden
+      className="mask-t-from-0% mask-t-to-18% mask-b-from-48% mask-b-to-82% dark:mask-t-to-22% pointer-events-none absolute inset-0"
+      ref={bandRef}
     >
-      {/* Decorative logomark watermark */}
-      <SmoothLogoMark className="pointer-events-none absolute inset-0 size-full translate-y-3/4 opacity-50" />
+      {showPhoto ? (
+        <img
+          alt=""
+          className="size-full object-cover object-center"
+          height={1024}
+          src={BACKGROUND_SRC}
+          width={1024}
+        />
+      ) : null}
+      {band.width > 1 ? (
+        <HeroDither
+          height={band.height}
+          onFallback={onFallback}
+          src={BACKGROUND_SRC}
+          width={band.width}
+        />
+      ) : null}
+    </div>
+  );
+}
 
-      <div className="relative text-center">
-        {hasSponsors ? (
-          <>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
-              <IconHeartFill24
-                aria-hidden
-                className="size-3.5 fill-brand text-brand"
-              />
-              <span className="text-foreground">Thank you to our sponsors</span>
-            </div>
-            <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
-              Backed by great people
-            </h2>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-8">
-              {externalSponsors.map((sponsor) => (
-                <Link
-                  aria-label={`Visit ${sponsor.name}`}
-                  className="group relative flex h-16 w-16 items-center justify-center text-foreground opacity-60 transition-all duration-200 ease-out hover:scale-110 hover:opacity-100 md:h-20 md:w-20"
-                  href={sponsor.url}
-                  key={sponsor.name}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <SponsorLogo
-                    className="h-full w-full"
-                    height={80}
-                    sponsor={sponsor}
-                    width={80}
-                  />
-                </Link>
-              ))}
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 font-medium text-xs backdrop-blur-sm">
-              <span aria-hidden className="relative flex size-2">
-                <span className="absolute inset-0 inline-flex size-full animate-ping rounded-full bg-brand/60 opacity-75" />
-                <span className="relative inline-flex size-2 rounded-full bg-brand" />
-              </span>
-              <span className="text-foreground">Open source & free</span>
-            </div>
-            <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
-              Support <span className="text-brand">SmoothUI</span>
-            </h2>
-            <p className="mx-auto mt-4 max-w-xl text-balance text-muted-foreground">
-              Help keep SmoothUI free and actively maintained. Every sponsor
-              helps ship more components, blocks, and animation recipes.
-            </p>
-            <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-              <Button asChild color="neutral" variant="solid">
-                <Link href="/docs/guides/sponsors">
-                  Become a sponsor
-                  <IconArrowUpRightFill24 aria-hidden />
-                </Link>
-              </Button>
-              <Button asChild variant="outline">
-                <a
-                  href="https://github.com/educlopez/smoothui"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <GithubIcon />
-                  Star on GitHub
-                </a>
-              </Button>
-            </div>
-          </>
-        )}
-      </div>
+// ---------------------------------------------------------------------------
+// Giant cropped wordmark — footer.design “Decimals” move
+// ---------------------------------------------------------------------------
+
+function GiantMark() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none relative z-10 select-none overflow-hidden"
+    >
+      <p className="translate-y-[18%] text-center font-semibold font-title text-[clamp(4.5rem,16vw,12rem)] text-foreground/[0.07] leading-[0.8] tracking-tighter dark:text-foreground/[0.09]">
+        SmoothUI
+      </p>
     </div>
   );
 }
@@ -276,135 +229,135 @@ function LinkColumn({ column }: { column: FooterColumn }) {
 }
 
 // ---------------------------------------------------------------------------
-// Footer body
+// Footer — pink band + links + giant mark
 // ---------------------------------------------------------------------------
 
-const ENTER_EASE = [0.23, 1, 0.32, 1] as const;
-
 export default function Footer() {
-  const shouldReduceMotion = useReducedMotion();
+  const bandRef = useRef<HTMLDivElement>(null);
+  const [band, setBand] = useState({ height: 0, width: 0 });
+  const [showPhoto, setShowPhoto] = useState(false);
+
+  useEffect(() => {
+    const node = bandRef.current;
+    if (!node) {
+      return;
+    }
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      setBand({
+        height: Math.max(1, Math.round(box.height)),
+        width: Math.max(1, Math.round(box.width)),
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <div className="relative z-30">
-      {/* CTA bridge — top half page bg, bottom half footer bg */}
-      <section
-        aria-label="Support SmoothUI"
-        className="relative bg-linear-to-b from-50% from-background to-50% to-muted/60 pt-16 md:pt-24"
-      >
-        <div className="relative mx-auto w-full max-w-7xl px-8">
-          <motion.div
-            initial={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-            }
-            transition={
-              shouldReduceMotion
-                ? { duration: 0 }
-                : { duration: 0.5, ease: ENTER_EASE }
-            }
-            viewport={{ margin: "-100px", once: true }}
-            whileInView={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-            }
-          >
-            <CtaCard />
-          </motion.div>
-        </div>
-      </section>
+    <footer className="relative z-30 overflow-hidden bg-background">
+      <PinkAtmosphere
+        band={band}
+        bandRef={bandRef}
+        onFallback={() => setShowPhoto(true)}
+        showPhoto={showPhoto}
+      />
 
-      {/* Footer body */}
-      <footer className="bg-muted/60 py-16 sm:py-20">
-        <FooterBody />
-      </footer>
-    </div>
+      <div className="relative z-10 pt-16 pb-10 sm:pt-20 sm:pb-12">
+        <FooterBody showMark={false} />
+      </div>
+
+      <GiantMark />
+    </footer>
   );
 }
 
 // ---------------------------------------------------------------------------
-// Footer body — link columns + bottom bar, reusable without the CTA card
+// Footer body — link columns + bottom bar (also used in docs chrome)
 // ---------------------------------------------------------------------------
 
-export function FooterBody() {
+export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-14 px-8">
-      <div className="grid gap-12 md:grid-cols-5">
-        {/* Brand column (spans 2) */}
-        <div className="space-y-6 md:col-span-2 md:space-y-8">
-          <MascotCompanion message="You made it. Now make something." />
-          <p className="max-w-xs text-balance text-muted-foreground text-sm leading-relaxed">
-            Animated React components with smooth Motion animations. Drop-in
-            shadcn/ui compatible.
-          </p>
-        </div>
+    <>
+      <div className="mx-auto w-full max-w-7xl px-8">
+        <div className="grid gap-12 md:grid-cols-5">
+          <div className="space-y-6 md:col-span-2 md:space-y-8">
+            <MascotCompanion message="You made it. Now make something." />
+            <p className="max-w-xs text-balance text-muted-foreground text-sm leading-relaxed">
+              Animated React components with smooth Motion animations. Drop-in
+              shadcn/ui compatible.
+            </p>
+          </div>
 
-        {/* 3 link columns */}
-        <div className="grid gap-8 sm:grid-cols-3 md:col-span-3">
-          <LinkColumn column={navigateColumn} />
-          <LinkColumn column={developColumn} />
-          <div>
-            <LinkColumn column={connectColumn} />
-            <div className="mt-5 flex items-center gap-3">
-              <a
-                className="text-muted-foreground transition-colors duration-200 hover:text-brand"
-                href="https://x.com/educalvolpz"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <XIcon className="size-[18px]" />
-              </a>
-              <a
-                aria-label="SmoothUI on GitHub"
-                className="text-muted-foreground transition-colors duration-200 hover:text-brand"
-                href="https://github.com/educlopez/smoothui"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                <GithubIcon className="size-[18px]" />
-              </a>
+          <div className="grid gap-8 sm:grid-cols-3 md:col-span-3">
+            <LinkColumn column={navigateColumn} />
+            <LinkColumn column={developColumn} />
+            <div>
+              <LinkColumn column={connectColumn} />
+              <div className="mt-5 flex items-center gap-3">
+                <a
+                  className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                  href="https://x.com/educalvolpz"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <XIcon className="size-[18px]" />
+                </a>
+                <a
+                  aria-label="SmoothUI on GitHub"
+                  className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                  href="https://github.com/educlopez/smoothui"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <GithubIcon className="size-[18px]" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Dotted divider */}
       <div
         aria-hidden
-        className="h-px bg-[length:6px_1px] bg-repeat-x opacity-30 [background-image:linear-gradient(90deg,var(--color-foreground)_1px,transparent_1px)]"
+        className="mt-14 h-px w-full bg-[length:6px_1px] bg-repeat-x opacity-30 [background-image:linear-gradient(90deg,var(--color-foreground)_1px,transparent_1px)]"
       />
 
-      {/* Bottom bar */}
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <p className="text-muted-foreground text-sm">
-            &copy; {new Date().getFullYear()} SmoothUI. Built by{" "}
-            <a
-              className="text-foreground underline underline-offset-4 transition-colors hover:text-brand"
-              href="https://x.com/educalvolpz"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Eduardo Calvo
-            </a>
-            .
-          </p>
-        </div>
+      <div className="mx-auto flex w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-8 pt-14">
+        <p className="text-muted-foreground text-sm">
+          &copy; {new Date().getFullYear()} SmoothUI. Built by{" "}
+          <a
+            className="text-foreground underline underline-offset-4 transition-colors hover:text-brand"
+            href="https://x.com/educalvolpz"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Eduardo Calvo
+          </a>
+          .
+        </p>
 
-        <div className="flex items-center gap-3">
-          {/* Tech stack row */}
-          <div className="hidden items-center gap-3 text-smooth-800 sm:flex">
-            {techStack.map((tech) => (
-              <span
-                aria-label={tech.name}
-                className="transition-colors duration-200 hover:text-brand"
-                key={tech.name}
-                role="img"
-                title={tech.name}
-              >
-                <tech.icon className={tech.className} />
-              </span>
-            ))}
-          </div>
+        <div className="hidden items-center gap-3 text-smooth-800 sm:flex">
+          {techStack.map((tech) => (
+            <span
+              aria-label={tech.name}
+              className="transition-colors duration-200 hover:text-brand"
+              key={tech.name}
+              role="img"
+              title={tech.name}
+            >
+              <tech.icon className={tech.className} />
+            </span>
+          ))}
         </div>
       </div>
-    </div>
+
+      {showMark ? (
+        <div className="mt-10">
+          <GiantMark />
+        </div>
+      ) : null}
+    </>
   );
 }

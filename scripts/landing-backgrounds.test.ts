@@ -5,16 +5,15 @@ import { mediaCatalog } from "../apps/docs/lib/media-catalog";
 import { landscapes } from "../packages/data/scenes";
 
 describe("landing background selection", () => {
-  it("uses five distinct catalog landscapes and exposes landing usage", () => {
+  it("uses four distinct catalog landscapes and exposes landing usage", () => {
     expect(landingBackgrounds.features.id).toBe("turquoise-canyon");
     expect(landingBackgrounds.ai.id).toBe("volcanic-coast");
-    expect(landingBackgrounds.uicraft.id).toBe("glacial-lagoon");
     expect(landingBackgrounds.testimonialFirst.id).toBe("alpine-dawn");
     expect(landingBackgrounds.testimonialSecond.id).toBe("tidal-cove");
     expect(mediaCatalog).toHaveLength(95);
     const backgrounds = Object.values(landingBackgrounds);
-    expect(backgrounds).toHaveLength(5);
-    expect(new Set(backgrounds.map((asset) => asset.id)).size).toBe(5);
+    expect(backgrounds).toHaveLength(4);
+    expect(new Set(backgrounds.map((asset) => asset.id)).size).toBe(4);
     for (const asset of backgrounds) {
       expect(landscapes).toContainEqual(asset);
       expect(asset.kind).toBe("photo");

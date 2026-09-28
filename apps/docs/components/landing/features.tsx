@@ -8,7 +8,6 @@ import {
 } from "@docs/components/illustrations/feature-drawings";
 import { VividLeadCard } from "@docs/components/illustrations/illustration-card";
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
-import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
@@ -81,7 +80,6 @@ export function Features() {
 
   return (
     <section className="relative bg-background px-8 py-24 transition">
-      <Divider />
       <SectionHeader
         description="Built on the foundations you already love, with the polish you've been wishing for."
         title={

@@ -65,9 +65,11 @@ export default function Home() {
       </LandingBand>
       <LandingBand>
         <BlockCategories />
-        <AISection />
-        <SkillsSection />
       </LandingBand>
+      <LandingBand muted>
+        <AISection />
+      </LandingBand>
+      <SkillsSection />
       <LandingBand muted>
         <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
           <WhatTheySay />
