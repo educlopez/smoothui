@@ -205,11 +205,15 @@ article.group p {
 }
 
 .float-trigger {
-  @apply text-foreground flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-medium outline-0;
+  @apply flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent text-foreground text-sm font-medium outline-0 transition-colors duration-150;
 }
 
 .float-trigger:hover {
-  @apply bg-primary border-border border;
+  @apply bg-foreground/5;
+}
+
+.float-trigger:focus-visible {
+  @apply ring-2 ring-foreground/20;
 }
 
 .prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {

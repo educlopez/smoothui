@@ -354,7 +354,9 @@ for (const width of [390, 1440]) {
       "true"
     );
     await expect(
-      hero.getByRole("heading", { name: "Built to be opened." })
+      hero.getByRole("heading", {
+        name: "Unlock growth with quieter analytics",
+      })
     ).toBeVisible();
     await tabs.getByRole("tab", { name: "Dashboard" }).click();
     await expect(tabs.getByRole("tab", { name: "Dashboard" })).toHaveAttribute(
@@ -362,7 +364,7 @@ for (const width of [390, 1440]) {
       "true"
     );
     await expect(hero.getByRole("heading", { name: "Overview" })).toBeVisible();
-    await expect(hero.getByText("Active users")).toBeVisible();
+    await expect(hero.getByText("Visitors")).toBeVisible();
     await tabs.getByRole("tab", { name: "Experiment" }).click();
     await expect(
       hero.getByRole("button", { name: "Maya Solis — next" })

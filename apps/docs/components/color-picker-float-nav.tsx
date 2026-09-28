@@ -6,11 +6,9 @@ import {
   persistColorPalette,
   resetColorPalette,
 } from "@docs/app/lib/color-palette";
-import { AppearanceDrawing } from "@docs/components/illustrations/appearance-drawing";
 import { THEME_PALETTES } from "@docs/lib/registry-themes";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import ButtonCopy from "@repo/smoothui/components/button-copy";
-import { DynamicCodeBlock } from "fumadocs-ui/components/dynamic-codeblock";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useTheme } from "next-themes";
 import {
@@ -59,7 +57,7 @@ const ThemeFloatIcon = ({
   return (
     <span
       aria-hidden="true"
-      className="relative size-[1.35rem] overflow-hidden rounded-[7px] border-[2.5px]"
+      className="relative size-4 overflow-hidden rounded-[5px] border-[1.5px]"
       style={{ borderColor: accent }}
     >
       {isSystem ? (
@@ -98,8 +96,6 @@ export function ColorPickerFloatNav() {
       : theme === "dark"
         ? "dark"
         : "light";
-
-  const installCommand = THEME_INSTALL_COMMAND;
 
   useEffect(() => {
     setMounted(true);
@@ -214,7 +210,7 @@ export function ColorPickerFloatNav() {
       <button
         aria-expanded={open}
         aria-label="Open theme settings"
-        className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
+        className="float-trigger grid size-9! cursor-pointer place-items-center p-0!"
         onClick={() => setOpen(true)}
         ref={triggerRef}
         type="button"
@@ -229,27 +225,27 @@ export function ColorPickerFloatNav() {
                 <>
                   <motion.div
                     animate={{ opacity: 1 }}
-                    className="fixed inset-0 z-[55] bg-black/40 backdrop-blur-sm"
+                    className="fixed inset-0 z-[55] bg-black/30 backdrop-blur-[2px]"
                     exit={{ opacity: 0 }}
                     initial={{ opacity: 0 }}
                     key="theme-overlay"
                     onClick={() => setOpen(false)}
                     transition={
-                      reduceMotion ? { duration: 0 } : { duration: 0.2 }
+                      reduceMotion ? { duration: 0 } : { duration: 0.15 }
                     }
                   />
                   <motion.div
                     animate={{ opacity: 1, y: 0 }}
                     aria-label="Theme settings"
                     aria-modal="true"
-                    className="fixed inset-x-0 bottom-4 z-[60] mx-auto flex max-h-[80vh] w-[calc(100%-2rem)] max-w-lg flex-col overflow-hidden rounded-2xl border bg-background shadow-xl outline-none"
+                    className="fixed inset-x-0 bottom-4 z-[60] mx-auto w-[calc(100%-2rem)] max-w-sm overflow-hidden rounded-2xl border border-foreground/10 bg-background shadow-lg outline-none"
                     exit={
                       reduceMotion
                         ? { opacity: 0, transition: { duration: 0 } }
-                        : { opacity: 0, y: "100%" }
+                        : { opacity: 0, y: 12 }
                     }
                     initial={
-                      reduceMotion ? { opacity: 0 } : { opacity: 0, y: "100%" }
+                      reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12 }
                     }
                     key="theme-panel"
                     ref={dialogRef}
@@ -258,141 +254,102 @@ export function ColorPickerFloatNav() {
                     transition={
                       reduceMotion
                         ? { duration: 0 }
-                        : { bounce: 0.1, duration: 0.4, type: "spring" }
+                        : { bounce: 0.08, duration: 0.28, type: "spring" }
                     }
                   >
-                    <div className="mx-auto mt-3 h-1.5 w-12 shrink-0 rounded-full bg-muted" />
-
-                    <div className="p-4 pb-3">
-                      <h2 className="font-semibold text-base">
-                        Theme settings
+                    <div className="flex items-center justify-between gap-3 px-3.5 pt-3.5 pb-2">
+                      <h2 className="font-medium text-foreground text-sm">
+                        Theme
                       </h2>
-                      <p className="text-muted-foreground text-sm">
-                        Accent color, appearance, and install command.
-                      </p>
+                      <button
+                        aria-label="Reset accent"
+                        className="inline-flex size-7 cursor-pointer items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        onClick={handleReset}
+                        type="button"
+                      >
+                        <IconRefresh2Fill24 size={14} />
+                      </button>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto">
-                      <section className="border-t p-4">
-                        <div className="mb-3 flex items-center justify-between gap-2">
-                          <h3 className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
-                            Accent
-                          </h3>
-                          <button
-                            className="inline-flex cursor-pointer items-center gap-1.5 text-muted-foreground text-xs transition-colors hover:text-foreground"
-                            onClick={handleReset}
-                            type="button"
-                          >
-                            <IconRefresh2Fill24 size={13} />
-                            Reset accent
-                          </button>
-                        </div>
-                        <div className="grid grid-cols-6 gap-2 sm:grid-cols-8">
-                          {THEME_PALETTES.map((palette) => {
-                            const selected =
-                              palette.primary === candy &&
-                              palette.secondary === candySecondary;
-                            return (
-                              <button
-                                aria-label={`Use ${palette.label}`}
-                                aria-pressed={selected}
-                                className={cn(
-                                  "aspect-square cursor-pointer rounded-xl border-2 transition-transform",
-                                  selected
-                                    ? "scale-105 border-foreground shadow-sm"
-                                    : "border-transparent hover:scale-105"
-                                )}
-                                key={palette.name}
-                                onClick={() =>
-                                  pickPalette(
-                                    palette.primary,
-                                    palette.secondary
-                                  )
-                                }
-                                style={{
-                                  background: `linear-gradient(135deg, ${palette.primary} 55%, ${palette.secondary} 100%)`,
-                                }}
-                                title={palette.label}
-                                type="button"
-                              />
-                            );
-                          })}
-                        </div>
-                      </section>
-
-                      <section className="border-t p-4">
-                        <h3 className="mb-3 font-medium text-muted-foreground text-xs uppercase tracking-wide">
-                          Appearance
-                        </h3>
-                        <div className="grid grid-cols-3 gap-3">
-                          {APPEARANCES.map((option) => {
-                            const selected = appearance === option.id;
-                            const Icon = option.icon;
-                            return (
-                              <button
-                                aria-label={`Use ${option.label} theme`}
-                                aria-pressed={selected}
-                                className="group flex cursor-pointer flex-col gap-2 rounded-xl text-left outline-none focus-visible:ring-2 focus-visible:ring-brand"
-                                key={option.id}
-                                onClick={() => setTheme(option.id)}
-                                type="button"
-                              >
-                                <AppearanceDrawing
-                                  accent={candy}
-                                  mode={option.id}
-                                  selected={selected}
-                                />
-                                <span
-                                  className={cn(
-                                    "inline-flex items-center justify-center gap-1.5 rounded-full border px-2 py-1 font-medium text-xs transition-colors",
-                                    selected
-                                      ? "border-brand bg-brand/5 text-brand"
-                                      : "border-transparent text-muted-foreground group-hover:text-foreground"
-                                  )}
-                                >
-                                  <Icon size={12} />
-                                  {option.label}
-                                </span>
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </section>
-                    </div>
-
-                    <div className="border-t p-4">
-                      <div className="mb-1.5 flex items-center justify-between gap-2">
-                        <span className="font-medium text-muted-foreground text-xs uppercase tracking-wide">
-                          Install theme
-                        </span>
-                      </div>
-                      <div className="overflow-hidden rounded-lg border border-border">
-                        <div className="[&_figure]:!my-0 [&_figure]:!rounded-none [&_pre]:!rounded-none relative bg-fd-card pr-14 [&_code]:break-all [&_figure]:border-0 [&_pre]:whitespace-pre-wrap">
-                          <div
-                            className="absolute top-2 right-2 z-10"
-                            title="Copy install command"
-                          >
-                            <ButtonCopy
-                              className="size-9! min-h-9! min-w-9! rounded-md p-0!"
-                              key={installCommand}
-                              loadingDuration={0}
-                              loadingIcon={
-                                <IconDotsLoaderFill24 className="size-3.5 animate-spin" />
+                    <div className="space-y-3 px-3.5 pb-3.5">
+                      <div
+                        aria-label="Accent color"
+                        className="flex flex-wrap gap-1.5"
+                        role="group"
+                      >
+                        {THEME_PALETTES.map((palette) => {
+                          const selected =
+                            palette.primary === candy &&
+                            palette.secondary === candySecondary;
+                          return (
+                            <button
+                              aria-label={palette.label}
+                              aria-pressed={selected}
+                              className={cn(
+                                "size-7 cursor-pointer rounded-full transition-[transform,box-shadow] duration-150",
+                                selected
+                                  ? "scale-105 ring-2 ring-foreground ring-offset-2 ring-offset-background"
+                                  : "hover:scale-105"
+                              )}
+                              key={palette.name}
+                              onClick={() =>
+                                pickPalette(palette.primary, palette.secondary)
                               }
-                              onCopy={() =>
-                                navigator.clipboard.writeText(installCommand)
-                              }
-                              successIcon={
-                                <IconCheckFill24 className="size-3.5" />
-                              }
+                              style={{
+                                background: `linear-gradient(135deg, ${palette.primary} 55%, ${palette.secondary} 100%)`,
+                              }}
+                              title={palette.label}
+                              type="button"
                             />
-                          </div>
-                          <DynamicCodeBlock
-                            code={installCommand}
-                            codeblock={{ allowCopy: false }}
-                            lang="bash"
-                          />
-                        </div>
+                          );
+                        })}
+                      </div>
+
+                      <div
+                        aria-label="Appearance"
+                        className="grid grid-cols-3 gap-0.5 rounded-lg bg-muted p-0.5"
+                        role="group"
+                      >
+                        {APPEARANCES.map((option) => {
+                          const selected = appearance === option.id;
+                          const Icon = option.icon;
+                          return (
+                            <button
+                              aria-label={option.label}
+                              aria-pressed={selected}
+                              className={cn(
+                                "inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-md px-2 py-1.5 font-medium text-xs transition-colors duration-150",
+                                selected
+                                  ? "bg-background text-foreground shadow-sm"
+                                  : "text-muted-foreground hover:text-foreground"
+                              )}
+                              key={option.id}
+                              onClick={() => setTheme(option.id)}
+                              type="button"
+                            >
+                              <Icon size={12} />
+                              {option.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      <div className="flex items-center gap-2 rounded-lg bg-muted/70 px-2.5 py-2 ring-1 ring-foreground/8">
+                        <code className="min-w-0 flex-1 truncate font-mono text-[11px] text-muted-foreground">
+                          {THEME_INSTALL_COMMAND}
+                        </code>
+                        <ButtonCopy
+                          className="size-7! min-h-7! min-w-7! shrink-0 rounded-md p-0!"
+                          key={THEME_INSTALL_COMMAND}
+                          loadingDuration={0}
+                          loadingIcon={
+                            <IconDotsLoaderFill24 className="size-3 animate-spin" />
+                          }
+                          onCopy={() =>
+                            navigator.clipboard.writeText(THEME_INSTALL_COMMAND)
+                          }
+                          successIcon={<IconCheckFill24 className="size-3" />}
+                        />
                       </div>
                     </div>
                   </motion.div>

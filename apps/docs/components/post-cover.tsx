@@ -3,8 +3,12 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 import Image from "next/image";
 import { BlogCoverArtwork } from "./blog/blog-cover-artwork";
 
-// On-brand mesh-gradient fallbacks. Posts without an `image` get a deterministic
-// one based on their slug, so every post still has a distinct cover.
+/** Same vivid stage treatment as landing testimonials — full punch under glass. */
+const COVER_IMAGE_CLASS =
+  "scale-110 object-cover object-center blur-2xl saturate-[3]";
+
+// On-brand mesh-gradient fallbacks. Posts without catalog artwork get a
+// deterministic one based on their slug, so every post still has a cover.
 const GRADIENTS = [
   [
     "radial-gradient(ellipse 80% 60% at 20% 30%, var(--color-brand) 0%, transparent 60%)",
@@ -48,24 +52,25 @@ export function PostCover({
   sizes?: string;
 }) {
   const artwork = blogArtwork(seed);
-  const cover = artwork?.src ?? image;
+  const cover = artwork ? `${artwork.src}?tr=w-1280,f-auto` : image;
 
   return (
     <div className={cn("relative overflow-hidden", className)}>
       {cover ? (
         <Image
           alt={artwork?.alt ?? alt}
-          className="object-cover object-center"
+          className={COVER_IMAGE_CLASS}
           draggable={false}
           fill
           sizes={sizes}
           src={cover}
+          unoptimized={Boolean(artwork)}
         />
       ) : (
         <>
           <div
             aria-hidden="true"
-            className="absolute inset-0"
+            className="absolute inset-0 saturate-[3]"
             style={{ background: gradientFor(seed) }}
           />
           <div

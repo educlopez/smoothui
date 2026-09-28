@@ -69,8 +69,8 @@ export default async function BlogPage() {
   const featuredReadingTime = getReadingTime(featuredContent);
 
   return (
-    <main className="bg-background">
-      <div className="mx-auto max-w-5xl px-6 pt-12 pb-24 lg:pt-16">
+    <main className="bg-background px-8">
+      <div className="mx-auto max-w-7xl pt-12 pb-24 lg:pt-16">
         {/* Header */}
         <div className="mb-12 max-w-xl">
           <h1 className="text-balance font-semibold text-4xl text-foreground sm:text-5xl lg:tracking-tight">

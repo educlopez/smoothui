@@ -1,7 +1,11 @@
 "use client";
 
-import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
-
+import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
+import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
+import {
+  landingBackgrounds,
+  landingTestimonialImageClass,
+} from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -46,7 +50,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
         "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
       tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
     },
-    image: `${landingBackgrounds.testimonialFirst.src}?tr=w-800,f-auto`,
+    image: sceneSrc(landingBackgrounds.testimonialFirst.id, "w-800"),
   },
   {
     data: {
@@ -57,7 +61,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
         "All I can say is 🙌🔥 — planning to build something crazy with it.",
       tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
     },
-    image: `${landingBackgrounds.testimonialSecond.src}?tr=w-800,f-auto`,
+    image: sceneSrc(landingBackgrounds.testimonialSecond.id, "w-800"),
   },
 ];
 
@@ -158,15 +162,16 @@ const FeatureCard = ({ data, image }: { data: Testimonial; image: string }) => (
     <Image
       alt=""
       aria-hidden
-      className="object-cover"
+      className={landingTestimonialImageClass}
+      data-landing-background="testimonials"
       draggable={false}
       fill
       sizes="(max-width: 768px) 100vw, 360px"
-      data-landing-background="testimonials"
       src={image}
       unoptimized
     />
-    {/* legibility scrim over the abstract artwork */}
+    <ArtworkPattern variant="squares" />
+    {/* legibility scrim over the blurred landscape */}
     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/55 via-black/15 to-black/5" />
     <p className="relative text-balance font-medium text-lg leading-snug drop-shadow-sm">
       {data.quote}

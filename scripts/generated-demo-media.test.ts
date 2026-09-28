@@ -31,16 +31,16 @@ it("uses canonical source identities for every fictional demo avatar", () => {
   ).toBe(true);
 });
 
-it("gives all blog posts approved coherent artwork with broad color variety", () => {
+it("gives all blog posts catalog landscapes with cover variety", () => {
   const posts = readdirSync(
     new URL("../apps/docs/content/blog", import.meta.url)
   ).filter((name) => name.endsWith(".mdx"));
   expect(Object.keys(blogArtworkIds)).toHaveLength(posts.length);
-  expect(new Set(Object.values(blogArtworkIds)).size).toBe(12);
+  expect(new Set(Object.values(blogArtworkIds)).size).toBe(8);
   for (const file of posts) {
     const artwork = blogArtwork(`/blog/${file.replace(".mdx", "")}`);
-    expect(artwork?.kind).toBe("abstract");
-    expect(artwork?.src).toContain("imagekit.io");
+    expect(artwork?.kind).toBe("photo");
+    expect(artwork?.src).toContain("landscapes-v2");
   }
 });
 

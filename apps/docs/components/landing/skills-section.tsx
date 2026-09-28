@@ -3,7 +3,11 @@
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
 import Divider from "@docs/components/landing/divider";
 import { UiCraftInstallSelector } from "@docs/components/landing/ui-craft-install-selector";
-import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
+import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
+import {
+  landingBackgrounds,
+  landingStageImageClass,
+} from "@docs/lib/landing-backgrounds";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,17 +33,17 @@ export function SkillsSection() {
     <section className="relative bg-background px-8 py-32 transition">
       <Divider />
       <div className="mx-auto w-full max-w-7xl">
-        <div className="relative isolate overflow-hidden rounded-3xl border border-border">
+        <div className="group relative isolate overflow-hidden rounded-3xl border border-border">
           <Image
             alt=""
             aria-hidden
-            className="-z-10 object-cover"
+            className={`-z-10 ${landingStageImageClass}`}
+            data-landing-background="uicraft"
             draggable={false}
             fill
             sizes="(max-width: 1024px) 100vw, 960px"
+            src={sceneSrc(landingBackgrounds.uicraft.id, "w-1280")}
             unoptimized
-            data-landing-background="uicraft"
-            src={`${landingBackgrounds.uicraft.src}?tr=w-1280,f-auto`}
           />
           <ArtworkPattern variant="contours" />
 

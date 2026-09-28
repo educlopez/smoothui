@@ -2,18 +2,22 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { landingBackgrounds } from "../apps/docs/lib/landing-backgrounds";
 import { mediaCatalog } from "../apps/docs/lib/media-catalog";
-import { approvedAbstracts } from "../packages/data/scenes";
+import { landscapes } from "../packages/data/scenes";
 
 describe("landing background selection", () => {
-  it("uses five distinct approved canonical assets and exposes landing usage", () => {
-    expect(landingBackgrounds.uicraft.id).toBe("cobalt-pink");
+  it("uses five distinct catalog landscapes and exposes landing usage", () => {
+    expect(landingBackgrounds.features.id).toBe("turquoise-canyon");
+    expect(landingBackgrounds.ai.id).toBe("volcanic-coast");
+    expect(landingBackgrounds.uicraft.id).toBe("glacial-lagoon");
+    expect(landingBackgrounds.testimonialFirst.id).toBe("alpine-dawn");
+    expect(landingBackgrounds.testimonialSecond.id).toBe("tidal-cove");
     expect(mediaCatalog).toHaveLength(95);
     const backgrounds = Object.values(landingBackgrounds);
     expect(backgrounds).toHaveLength(5);
     expect(new Set(backgrounds.map((asset) => asset.id)).size).toBe(5);
     for (const asset of backgrounds) {
-      expect(approvedAbstracts).toContainEqual(asset);
-      expect(asset.kind).toBe("abstract");
+      expect(landscapes).toContainEqual(asset);
+      expect(asset.kind).toBe("photo");
       expect(
         mediaCatalog.find((entry) => entry.id === asset.id)?.usage
       ).toContain("landing");
