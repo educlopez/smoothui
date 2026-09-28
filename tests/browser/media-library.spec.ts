@@ -163,7 +163,12 @@ for (const demo of [
   test(`${demo} renders imported cast imagery`, async ({ page }) => {
     await page.goto(`/preview/${demo}`);
     if (demo === "hover-image-list") {
-      await page.getByRole("link").first().hover();
+      const link = page.getByRole("link").first();
+      await link.scrollIntoViewIfNeeded();
+      await link.hover({ force: true });
+      await expect
+        .poll(() => page.locator('img[src*="troupe-"]').count())
+        .toBeGreaterThan(0);
     }
     const image = page.locator('img[src*="troupe-"]').first();
     await expect(image).toBeAttached();

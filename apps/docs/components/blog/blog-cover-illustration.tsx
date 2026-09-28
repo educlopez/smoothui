@@ -9,7 +9,7 @@ const Panel = ({
   children,
   className,
 }: {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   className?: string;
 }) => (
   <div

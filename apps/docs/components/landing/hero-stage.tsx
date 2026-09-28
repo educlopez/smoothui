@@ -942,7 +942,7 @@ function DashboardView() {
                         <button
                           className={cn(
                             "flex w-full rounded-lg px-2.5 py-1.5 text-left text-xs transition-colors duration-150",
-                            item.danger
+                            "danger" in item && item.danger
                               ? "text-destructive hover:bg-destructive/10"
                               : "text-foreground hover:bg-muted"
                           )}

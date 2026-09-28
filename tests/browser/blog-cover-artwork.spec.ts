@@ -14,7 +14,8 @@ for (const width of [390, 1440]) {
       await expect(cover).toBeVisible();
       await cover
         .locator("..")
-        .locator("img")
+        .locator('img[data-nimg="fill"]')
+        .first()
         .evaluate((image: HTMLImageElement) => image.decode());
       await cover
         .locator("..")
@@ -31,7 +32,8 @@ for (const width of [390, 1440]) {
     await expect(landingCover).toBeVisible();
     await landingCover
       .locator("..")
-      .locator("img")
+      .locator('img[data-nimg="fill"]')
+      .first()
       .evaluate((image: HTMLImageElement) => image.decode());
     await landingCover
       .locator("..")

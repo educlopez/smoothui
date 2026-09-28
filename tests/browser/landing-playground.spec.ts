@@ -193,9 +193,12 @@ for (const width of [390, 1440]) {
     const avatar = page.locator('[data-showcase="user-account-avatar"]');
     await avatar.scrollIntoViewIfNeeded();
     await avatar.getByRole("button").first().click();
-    await avatar
-      .getByRole("button", { exact: true, name: "Edit Profile" })
-      .click();
+    const editProfile = avatar.getByRole("button", {
+      exact: true,
+      name: "Edit Profile",
+    });
+    await editProfile.scrollIntoViewIfNeeded();
+    await editProfile.click({ force: width <= 480 });
     const dialog = avatar.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect
