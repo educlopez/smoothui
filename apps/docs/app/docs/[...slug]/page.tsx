@@ -7,6 +7,8 @@ import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { ComponentSchema } from "@docs/components/component-schema";
 import { Contributor } from "@docs/components/contributor";
 import { ReadingMarker } from "@docs/components/docs-reading/reading-marker";
+import { DocsStageFigure } from "@docs/components/docs-stage-figure";
+import { DocsStagePanel } from "@docs/components/docs-stage-panel";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import {
@@ -22,7 +24,7 @@ import { FooterBody } from "@docs/components/landing/footer";
 import { LastModified } from "@docs/components/last-modified";
 import { OpenInV0Button } from "@docs/components/open-in-v0-button";
 import { PackageManagerTabs } from "@docs/components/package-manager-tabs";
-import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
+import { PageActions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { loadPreview, Preview } from "@docs/components/preview";
 import { DocsBreadcrumb } from "@docs/components/preview/docs-breadcrumb";
@@ -286,6 +288,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         ChangelogEntry,
         Contributor,
         Divider,
+        DocsStageFigure,
+        DocsStagePanel,
         FeatureCard,
         FeatureCardHover,
         GalleryPage,
@@ -313,8 +317,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const actionRow = (
     <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
-      <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-      <ViewOptions
+      <PageActions
         githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
         markdownUrl={`${page.url}.mdx`}
       />

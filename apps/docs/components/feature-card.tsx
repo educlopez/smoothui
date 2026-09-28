@@ -1,35 +1,34 @@
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ReactNode } from "react";
-import { BgLines } from "./landing/bg-lines";
 
 const featureCardVariants = cva(
-  "frame-box relative grid grid-cols-[4px_1fr] items-start gap-2 rounded-md bg-linear-to-br from-background via-background px-3 py-2.5",
+  "not-prose relative flex gap-3 overflow-hidden rounded-xl border border-border bg-card px-4 py-3.5 shadow-sm",
   {
     defaultVariants: {
       variant: "info",
     },
     variants: {
       variant: {
-        error: "to-red-500/10",
-        info: "to-brand/10",
-        success: "to-green-500/10",
-        warning: "to-yellow-500/10",
+        error: "bg-destructive/5",
+        info: "bg-brand/5",
+        success: "bg-green/5",
+        warning: "bg-amber/5",
       },
     },
   }
 );
 
-const featureCardBarVariants = cva("h-full w-1 rounded-full bg-linear-to-b", {
+const featureCardBarVariants = cva("w-1 shrink-0 self-stretch rounded-full", {
   defaultVariants: {
     variant: "info",
   },
   variants: {
     variant: {
-      error: "from-red-500/0 via-red-500 to-red-600/0",
-      info: "from-brand/0 via-brand to-brand/0",
-      success: "from-green-500/0 via-green-500 to-green-600/0",
-      warning: "from-yellow-500/0 via-yellow-500 to-yellow-600/0",
+      error: "bg-destructive",
+      info: "bg-brand",
+      success: "bg-green",
+      warning: "bg-amber",
     },
   },
 });
@@ -48,17 +47,13 @@ export function FeatureCard({
   variant,
 }: FeatureCardProps) {
   return (
-    <div
-      className={cn(featureCardVariants({ variant }), "not-prose", className)}
-    >
-      <BgLines />
-      <div
-        className={featureCardBarVariants({ variant })}
-        role="presentation"
-      />
-      <div className="relative z-10">
-        <p className="m-0 mb-1 font-medium text-xs">{title}</p>
-        <div className="text-foreground/70 text-xs leading-normal [&_p]:m-0">
+    <div className={cn(featureCardVariants({ variant }), className)}>
+      <div aria-hidden className={featureCardBarVariants({ variant })} />
+      <div className="min-w-0 flex-1">
+        <p className="m-0 mb-1.5 font-semibold text-foreground text-sm tracking-tight">
+          {title}
+        </p>
+        <div className="text-muted-foreground text-sm leading-relaxed [&_a]:font-medium [&_a]:text-foreground [&_a]:underline [&_a]:underline-offset-4 [&_li]:my-0.5 [&_ol]:my-1.5 [&_ol]:list-decimal [&_ol]:pl-4 [&_p]:m-0 [&_ul]:my-1.5 [&_ul]:list-disc [&_ul]:pl-4">
           {children}
         </div>
       </div>

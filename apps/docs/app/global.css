@@ -112,6 +112,16 @@ h1 .text-muted-foreground {
 #nd-page :is(p, li) a {
   font-weight: 400;
   color: var(--color-foreground);
+  text-decoration-color: var(--color-smooth-600);
+}
+
+/* Fumadocs prose paints link underlines with --color-fd-primary (brand).
+   Keep link text ink; underlines use the DS mid gray. */
+.prose
+:where(a:not([data-card])):not(
+  :where([class~="not-prose"], [class~="not-prose"] *)
+) {
+  text-decoration-color: var(--color-smooth-600);
 }
 
 .group:hover h3 {
@@ -461,10 +471,10 @@ article.group p {
   }
 }
 
-/* Top nav: solid surface instead of the translucent gray. The inner
+/* Top nav: pure white (card) instead of the muted canvas gray. The inner
    tabs row already carries its own border-b, so no border here. */
 #nd-subnav {
-  background-color: var(--color-background);
+  background-color: var(--color-card);
 }
 
 /* Sidebar: hairline separator from the content column. */
