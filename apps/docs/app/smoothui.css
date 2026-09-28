@@ -43,8 +43,8 @@
   --color-destructive: var(--destructive);
   --color-accent-foreground: #fff;
   --color-accent: var(--color-brand);
-  --color-muted-foreground: var(--color-muted-foreground);
-  --color-muted: var(--color-muted);
+  --color-muted-foreground: var(--color-smooth-950);
+  --color-muted: var(--color-smooth-200);
   --color-background: var(--color-smooth-50);
   --color-foreground: var(--color-smooth-1000);
   --color-primary: var(--color-smooth-100);
@@ -89,7 +89,7 @@
   --color-smooth-700: oklch(0.66 0 0);
   --color-smooth-800: oklch(0.56 0 0);
   --color-smooth-900: oklch(0.47 0 0);
-  --color-smooth-950: oklch(0.36 0 0);
+  --color-smooth-950: oklch(0.34 0 0);
   --color-smooth-1000: oklch(0.16 0 0);
   /* Shimmer text gradient (loading-shimmer utility below): base = outer
      gradient stops (resting text color), highlight = animated mid-stop sweep. */
