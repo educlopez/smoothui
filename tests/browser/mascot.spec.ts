@@ -14,7 +14,7 @@ async function readyInstaller(page: Page) {
 
 test("footer brand mark is a static logo", async ({ page }) => {
   await page.goto("/");
-  const footer = page.locator("footer");
+  const footer = page.locator("footer.relative");
   const logo = footer
     .locator("span.font-title")
     .filter({ hasText: "SmoothUI" });
