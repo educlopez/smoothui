@@ -35,7 +35,7 @@ export const TemplateGallery = ({ templates }: TemplateGalleryProps) => {
       node: (
         <motion.article
           animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
+          className="relative flex h-full flex-col overflow-hidden rounded-xl bg-muted"
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
           transition={
             shouldReduceMotion
@@ -56,14 +56,9 @@ export const TemplateGallery = ({ templates }: TemplateGalleryProps) => {
               src={cover.image}
             />
           )}
-          <footer className="border-t px-4 py-3">
-            <span className="block font-medium text-foreground text-sm">
-              {template.title}
-            </span>
-            <span className="mt-0.5 block text-muted-foreground text-xs leading-relaxed">
-              {template.description}
-            </span>
-          </footer>
+          <p className="mt-auto flex h-11 items-center px-4 font-medium text-foreground text-sm">
+            <span className="truncate">{template.title}</span>
+          </p>
           <Link
             aria-label={template.title}
             className="absolute inset-0 z-10"
@@ -74,5 +69,7 @@ export const TemplateGallery = ({ templates }: TemplateGalleryProps) => {
     };
   });
 
-  return <MasonryGrid className="not-prose" maxColumns={2} tiles={tiles} />;
+  return (
+    <MasonryGrid className="not-prose" gap={8} maxColumns={2} tiles={tiles} />
+  );
 };

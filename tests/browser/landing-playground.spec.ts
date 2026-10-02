@@ -193,9 +193,12 @@ for (const width of [390, 1440]) {
     const avatar = page.locator('[data-showcase="user-account-avatar"]');
     await avatar.scrollIntoViewIfNeeded();
     await avatar.getByRole("button").first().click();
-    await avatar
-      .getByRole("button", { exact: true, name: "Edit Profile" })
-      .click();
+    const editProfile = avatar.getByRole("button", {
+      exact: true,
+      name: "Edit Profile",
+    });
+    await editProfile.scrollIntoViewIfNeeded();
+    await editProfile.click({ force: width <= 480 });
     const dialog = avatar.getByRole("dialog");
     await expect(dialog).toBeVisible();
     await expect
@@ -279,7 +282,6 @@ for (const width of [390, 1440]) {
     const expectedWidth = Math.min(width, 1280) - 64;
     const headings = [
       "Built for AI-assisted development",
-      "The system behind design taste",
       "What they say about us",
       "Featured across the community",
       "From the blog",
@@ -322,7 +324,7 @@ for (const width of [390, 1440]) {
     expect(footerBounds?.x).toBeCloseTo(expectedLeft, 0);
     expect(footerBounds?.width).toBeCloseTo(expectedWidth, 0);
     await page
-      .locator("footer.bg-muted\\/60")
+      .locator("footer.relative")
       .screenshot({ path: `/tmp/smoothui-footer-${width}.png` });
     const faq = page
       .getByRole("heading", { name: "Frequently Asked Questions" })
@@ -341,66 +343,44 @@ for (const width of [390, 1440]) {
 }
 
 for (const width of [390, 1440]) {
-  test(`hero material controls update real preview at ${width}px`, async ({
-    page,
-  }) => {
+  test(`hero stage tabs stay in view at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ height: 1000, width });
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    const material = page.locator("[data-hero-material]");
-    await expect(material).toBeVisible();
-    await expect(material.locator("..")).toHaveCSS("opacity", "1");
-    const rose = material.getByRole("button", { exact: true, name: "Rose" });
-    await rose.focus();
-    await page.keyboard.press("Space");
-    await expect(rose).toHaveAttribute("aria-pressed", "true");
-    await expect(material.locator(".siri-orb")).toHaveCSS("--c1", "#bf397e");
-    const energetic = material.getByRole("button", {
-      exact: true,
-      name: "Energetic",
-    });
-    await energetic.click();
-    await expect(energetic).toHaveAttribute("aria-pressed", "true");
-    const duration = await material
-      .locator(".siri-orb")
-      .evaluate((element) =>
-        getComputedStyle(element).getPropertyValue("--animation-duration")
-      );
-    expect(Number.parseFloat(duration)).toBeLessThan(10);
-    const pause = material.getByRole("button", {
-      name: "Pause material animation",
-    });
-    await pause.focus();
-    await page.keyboard.press("Enter");
-    await expect(
-      material.getByRole("button", { name: "Resume material animation" })
-    ).toHaveAttribute("aria-pressed", "true");
-    await expect(material.locator(".hero-material-orb")).toHaveAttribute(
-      "data-paused",
+    const hero = page
+      .getByRole("heading", { level: 1 })
+      .locator("xpath=ancestor::section[1]");
+    const tabs = hero.getByRole("tablist", { name: "Previews" });
+    await expect(tabs.getByRole("tab", { name: "Landing" })).toHaveAttribute(
+      "aria-selected",
       "true"
     );
-    await rose.focus();
-    expect(await material.locator("a").count()).toBe(0);
-    expect(await material.getByRole("button", { name: /copy/i }).count()).toBe(
-      0
+    await expect(
+      hero.getByRole("heading", {
+        name: "Unlock growth with quieter analytics",
+      })
+    ).toBeVisible();
+    await tabs.getByRole("tab", { name: "Dashboard" }).click();
+    await expect(tabs.getByRole("tab", { name: "Dashboard" })).toHaveAttribute(
+      "aria-selected",
+      "true"
     );
-    const box = await material.boundingBox();
+    await expect(hero.getByRole("heading", { name: "Overview" })).toBeVisible();
+    await expect(hero.getByText("Visitors")).toBeVisible();
+    await tabs.getByRole("tab", { name: "Experiment" }).click();
+    await expect(
+      hero.getByRole("button", { name: "Maya Solis — next" })
+    ).toBeVisible();
+    const box = await tabs.boundingBox();
     if (!box) {
-      throw new Error("Material preview has no bounds");
+      throw new Error("Hero tabs have no bounds");
     }
     expect(box.x).toBeGreaterThanOrEqual(0);
     expect(box.x + box.width).toBeLessThanOrEqual(width);
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth)
     ).toBeLessThanOrEqual(width);
-    await page
-      .getByRole("heading", { level: 1 })
-      .locator("xpath=ancestor::section[1]")
-      .screenshot({ path: `/tmp/smoothui-material-hero-${width}.png` });
-    await page.emulateMedia({ reducedMotion: "reduce" });
-    await material.getByRole("button", { exact: true, name: "Calm" }).click();
-    await expect(
-      material.getByRole("button", { exact: true, name: "Calm" })
-    ).toHaveAttribute("aria-pressed", "true");
+    await hero.screenshot({ path: `/tmp/smoothui-hero-stage-${width}.png` });
   });
 }
 

@@ -39,6 +39,7 @@ export async function LatestPosts() {
             <Link
               className="flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary"
               href={post.url}
+              transitionTypes={["nav-forward"]}
             >
               <PostCover
                 alt={post.data.title}

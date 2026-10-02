@@ -171,12 +171,13 @@ function SmoothButton({
   const classes = cn(
     smoothButtonVariants({ className, color, shape, size, variant })
   );
+  const variantName = variant ?? "default";
 
   // asChild defers all rendering to the consumer's element — slots/loading
   // are not injected (single-child contract of Radix Slot).
   if (asChild) {
     return (
-      <Slot className={classes} ref={ref} {...props}>
+      <Slot className={classes} data-variant={variantName} ref={ref} {...props}>
         {children}
       </Slot>
     );
@@ -195,6 +196,7 @@ function SmoothButton({
     <button
       aria-busy={loading || undefined}
       className={classes}
+      data-variant={variantName}
       disabled={disabled || loading}
       ref={setRefs}
       type={props.type ?? "button"}

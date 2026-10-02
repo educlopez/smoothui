@@ -7,6 +7,8 @@ import { ChangelogEntry } from "@docs/components/changelog-entry";
 import { ComponentSchema } from "@docs/components/component-schema";
 import { Contributor } from "@docs/components/contributor";
 import { ReadingMarker } from "@docs/components/docs-reading/reading-marker";
+import { DocsStageFigure } from "@docs/components/docs-stage-figure";
+import { DocsStagePanel } from "@docs/components/docs-stage-panel";
 import { FeatureCard } from "@docs/components/feature-card";
 import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import {
@@ -20,9 +22,8 @@ import { BgLines } from "@docs/components/landing/bg-lines";
 import Divider from "@docs/components/landing/divider";
 import { FooterBody } from "@docs/components/landing/footer";
 import { LastModified } from "@docs/components/last-modified";
-import { OpenInV0Button } from "@docs/components/open-in-v0-button";
 import { PackageManagerTabs } from "@docs/components/package-manager-tabs";
-import { LLMCopyButton, ViewOptions } from "@docs/components/page-actions";
+import { PageActions } from "@docs/components/page-actions";
 import { PoweredBy } from "@docs/components/powered-by";
 import { loadPreview, Preview } from "@docs/components/preview";
 import { DocsBreadcrumb } from "@docs/components/preview/docs-breadcrumb";
@@ -286,6 +287,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         ChangelogEntry,
         Contributor,
         Divider,
+        DocsStageFigure,
+        DocsStagePanel,
         FeatureCard,
         FeatureCardHover,
         GalleryPage,
@@ -313,14 +316,18 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const actionRow = (
     <div className="flex flex-wrap items-center gap-2 border-b pt-2 pb-6">
-      <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
-      <ViewOptions
+      <PageActions
         githubUrl={`https://github.com/educlopez/smoothui/blob/${process.env.NEXT_PUBLIC_GITHUB_BRANCH ?? "monorepo"}/apps/docs/content/docs/${page.slugs.join("/")}.mdx`}
         markdownUrl={`${page.url}.mdx`}
+        registryUrl={registryUrl}
       />
-      {registryUrl ? <OpenInV0Button url={registryUrl} /> : null}
       {installer ? (
-        <AddToKitButton size="sm" slug={installer} title={page.data.title} />
+        <AddToKitButton
+          iconOnly
+          size="sm"
+          slug={installer}
+          title={page.data.title}
+        />
       ) : null}
       {componentName || lastModified ? (
         <div className="order-last flex w-full items-center gap-2 pt-2 sm:order-0 sm:ml-auto sm:w-auto sm:pt-0">
@@ -401,6 +408,18 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
             <SplitDocsChrome />
             <SplitPreviewShell
               files={previewData ? toPreviewFiles(previewData) : []}
+              footer={
+                <>
+                  {pageNav}
+                  {/* The site footer belongs at the end of the reading column here,
+                      not spanning the full width underneath the stage. The layout's
+                      own copy is suppressed by SplitDocsChrome. Past the bottom
+                      veil so the copyright bar stays sharp. */}
+                  <div className="not-prose mt-10 border-t pt-6">
+                    <FooterBody showMark={false} />
+                  </div>
+                </>
+              }
               nav={
                 <DocsBreadcrumb
                   section={sectionNav.title}
@@ -431,13 +450,6 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                   {footerContent}
                 </div>
               ) : null}
-              {pageNav}
-              {/* The site footer belongs at the end of the reading column here,
-                  not spanning the full width underneath the stage. The layout's
-                  own copy is suppressed by SplitDocsChrome. */}
-              <div className="not-prose mt-10 border-t pt-6">
-                <FooterBody />
-              </div>
             </SplitPreviewShell>
           </DocsBody>
         ) : (

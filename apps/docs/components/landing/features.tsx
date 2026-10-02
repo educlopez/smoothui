@@ -8,12 +8,15 @@ import {
 } from "@docs/components/illustrations/feature-drawings";
 import { VividLeadCard } from "@docs/components/illustrations/illustration-card";
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
-import Divider from "@docs/components/landing/divider";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { SectionHeader } from "@docs/components/landing/section-header";
-import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
+import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
+import {
+  landingBackgrounds,
+  landingStageImageClass,
+} from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
@@ -77,7 +80,6 @@ export function Features() {
 
   return (
     <section className="relative bg-background px-8 py-24 transition">
-      <Divider />
       <SectionHeader
         description="Built on the foundations you already love, with the polish you've been wishing for."
         title={
@@ -92,12 +94,12 @@ export function Features() {
             <Image
               alt=""
               aria-hidden
-              className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
+              className={landingStageImageClass}
               data-landing-background="features"
               draggable={false}
               fill
               sizes="(max-width: 768px) 100vw, 420px"
-              src={`${landingBackgrounds.features.src}?tr=w-1280,f-auto`}
+              src={sceneSrc(landingBackgrounds.features.id, "w-1280")}
               unoptimized
             />
           }

@@ -28,21 +28,22 @@
   --color-smooth-900: var(--color-smooth-900);
   --color-smooth-950: var(--color-smooth-950);
   --color-smooth-1000: var(--color-smooth-1000);
-  --color-border: var(--color-smooth-300);
+  --color-border-illustration: var(--border-illustration);
+  --color-border: var(--color-border);
   --color-sidebar-ring: var(--color-brand);
-  --color-sidebar-border: var(--color-smooth-400);
+  --color-sidebar-border: var(--color-sidebar-border);
   --color-sidebar-accent-foreground: var(--color-smooth-900);
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-primary-foreground: var(--color-smooth-1000);
   --color-sidebar-primary: var(--color-brand);
   --color-sidebar-foreground: var(--color-smooth-1000);
   --color-sidebar: var(--color-smooth-100);
-  --color-ring: var(--color-brand);
-  --color-input: var(--color-smooth-700);
+  --color-ring: var(--color-ring);
+  --color-input: var(--color-input);
   --color-destructive: var(--destructive);
   --color-accent-foreground: #fff;
   --color-accent: var(--color-brand);
-  --color-muted-foreground: var(--color-smooth-800);
+  --color-muted-foreground: var(--color-smooth-950);
   --color-muted: var(--color-smooth-200);
   --color-background: var(--color-smooth-50);
   --color-foreground: var(--color-smooth-1000);
@@ -78,9 +79,9 @@
   --color-green-fg: #fff;
   /* Perceptually uniform neutral ramp. Even oklch-L spacing so mid-tones
      exist for legible borders and secondary text. See DS-AUDIT.md. */
-  --color-smooth-50: oklch(0.99 0 0);
+  --color-smooth-50: oklch(0.985 0 0);
   --color-smooth-100: oklch(0.972 0 0);
-  --color-smooth-200: oklch(0.945 0 0);
+  --color-smooth-200: oklch(0.955 0 0);
   --color-smooth-300: oklch(0.91 0 0);
   --color-smooth-400: oklch(0.865 0 0);
   --color-smooth-500: oklch(0.81 0 0);
@@ -88,19 +89,49 @@
   --color-smooth-700: oklch(0.66 0 0);
   --color-smooth-800: oklch(0.56 0 0);
   --color-smooth-900: oklch(0.47 0 0);
-  --color-smooth-950: oklch(0.36 0 0);
-  --color-smooth-1000: oklch(0.22 0 0);
+  --color-smooth-950: oklch(0.34 0 0);
+  --color-smooth-1000: oklch(0.16 0 0);
   /* Shimmer text gradient (loading-shimmer utility below): base = outer
      gradient stops (resting text color), highlight = animated mid-stop sweep. */
   --shimmer-highlight: var(--color-smooth-200);
   --shimmer-base: var(--color-smooth-1000);
   --radius: 0.625rem;
+  --color-border: oklch(0.91 0 0);
+  --color-input: oklch(0.91 0 0);
+  --color-sidebar-border: oklch(0.91 0 0);
+  --color-ring: oklch(0.56 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --sidebar-accent: var(--color-smooth-200);
-  --color-fd-card: var(--color-smooth-100);
+  --color-background: oklch(0.965 0 0);
+  --color-foreground: oklch(0.16 0 0);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.16 0 0);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.16 0 0);
+  --color-primary: oklch(0.16 0 0);
+  --color-primary-foreground: oklch(1 0 0);
+  --color-secondary: oklch(0.955 0 0);
+  --color-secondary-foreground: oklch(0.16 0 0);
+  --color-muted: oklch(0.955 0 0);
+  --color-muted-foreground: oklch(0.34 0 0);
+  --color-sidebar: oklch(0.965 0 0);
+  --color-sidebar-foreground: oklch(0.16 0 0);
+  --color-fd-card: oklch(1 0 0);
+  --border-illustration: color-mix(
+    in oklch,
+    var(--color-foreground) 7.5%,
+    transparent
+  );
 }
 
 .dark {
+  --color-border: color-mix(in oklch, var(--color-foreground) 10%, transparent);
+  --color-input: color-mix(in oklch, var(--color-foreground) 15%, transparent);
+  --color-sidebar-border: color-mix(
+    in oklch,
+    var(--color-foreground) 10%,
+    transparent
+  );
   --destructive: oklch(0.704 0.191 22.216);
   /* DS Button color families — dark mode (lift base L, amber keeps dark fg). */
   --color-blue: oklch(0.66 0.18 256);
@@ -113,10 +144,10 @@
   --color-green-hover: oklch(0.79 0.15 152);
   --color-green-fg: oklch(0.2 0 0);
   /* Perceptually uniform dark ramp (50 darkest → 1000 lightest). */
-  --color-smooth-50: oklch(0.2 0 0);
-  --color-smooth-100: oklch(0.235 0 0);
-  --color-smooth-200: oklch(0.275 0 0);
-  --color-smooth-300: oklch(0.315 0 0);
+  --color-smooth-50: oklch(0.16 0 0);
+  --color-smooth-100: oklch(0.21 0 0);
+  --color-smooth-200: oklch(0.25 0 0);
+  --color-smooth-300: oklch(0.3 0 0);
   --color-smooth-400: oklch(0.36 0 0);
   --color-smooth-500: oklch(0.41 0 0);
   --color-smooth-600: oklch(0.47 0 0);
@@ -127,7 +158,27 @@
   --color-smooth-1000: oklch(0.96 0 0);
   --shimmer-highlight: var(--color-smooth-200);
   --shimmer-base: var(--color-smooth-1000);
-  --color-fd-card: var(--color-smooth-100);
+  --color-background: oklch(0.16 0 0);
+  --color-foreground: oklch(0.96 0 0);
+  --color-card: oklch(0.21 0 0);
+  --color-card-foreground: oklch(0.96 0 0);
+  --color-popover: oklch(0.21 0 0);
+  --color-popover-foreground: oklch(0.96 0 0);
+  --color-primary: oklch(0.96 0 0);
+  --color-primary-foreground: oklch(0.16 0 0);
+  --color-secondary: oklch(0.25 0 0);
+  --color-secondary-foreground: oklch(0.96 0 0);
+  --color-muted: oklch(0.25 0 0);
+  --color-muted-foreground: oklch(0.72 0 0);
+  --color-ring: oklch(0.66 0 0);
+  --color-sidebar: oklch(0.16 0 0);
+  --color-sidebar-foreground: oklch(0.96 0 0);
+  --color-fd-card: oklch(0.21 0 0);
+  --border-illustration: color-mix(
+    in oklch,
+    var(--color-foreground) 7.5%,
+    transparent
+  );
 }
 
 /* Component NumberFlow */

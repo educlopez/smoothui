@@ -138,10 +138,98 @@ const buildModeVars = (
 
 const themeItemName = (paletteName: string): string => `theme-${paletteName}`;
 
-export const getAllThemeNames = (): string[] =>
-  THEME_PALETTES.map((palette) => themeItemName(palette.name));
+const DEFAULT_THEME_NAME = "theme";
+
+const DEFAULT_LIGHT_SCALE = {
+  50: "oklch(0.965 0 0)",
+  100: "oklch(0.972 0 0)",
+  200: "oklch(0.955 0 0)",
+  300: "oklch(0.91 0 0)",
+  400: "oklch(0.865 0 0)",
+  500: "oklch(0.81 0 0)",
+  600: "oklch(0.74 0 0)",
+  700: "oklch(0.66 0 0)",
+  800: "oklch(0.56 0 0)",
+  900: "oklch(0.47 0 0)",
+  950: "oklch(0.36 0 0)",
+  1000: "oklch(0.16 0 0)",
+} as const;
+
+const DEFAULT_DARK_SCALE = {
+  50: "oklch(0.16 0 0)",
+  100: "oklch(0.21 0 0)",
+  200: "oklch(0.25 0 0)",
+  300: "oklch(0.3 0 0)",
+  400: "oklch(0.36 0 0)",
+  500: "oklch(0.45 0 0)",
+  600: "oklch(0.55 0 0)",
+  700: "oklch(0.66 0 0)",
+  800: "oklch(0.72 0 0)",
+  900: "oklch(0.8 0 0)",
+  950: "oklch(0.9 0 0)",
+  1000: "oklch(0.96 0 0)",
+} as const;
+
+const defaultModeVars = (
+  scale: typeof DEFAULT_LIGHT_SCALE | typeof DEFAULT_DARK_SCALE,
+  ink: string,
+  inkForeground: string
+): Record<string, string> => ({
+  background: scale[50],
+  border: scale[300],
+  card: scale[100],
+  "card-foreground": ink,
+  foreground: ink,
+  input: scale[300],
+  muted: scale[200],
+  "muted-foreground": scale[800],
+  popover: scale[100],
+  "popover-foreground": ink,
+  primary: ink,
+  "primary-foreground": inkForeground,
+  ring: scale[800],
+  secondary: scale[200],
+  "secondary-foreground": ink,
+});
+
+export const getAllThemeNames = (): string[] => [
+  ...THEME_PALETTES.map((palette) => themeItemName(palette.name)),
+  DEFAULT_THEME_NAME,
+];
 
 export const getTheme = (itemName: string): RegistryItem | undefined => {
+  if (itemName === DEFAULT_THEME_NAME) {
+    return {
+      $schema: "https://ui.shadcn.com/schema/registry-item.json",
+      author: "Eduardo Calvo <educlopez93@gmail.com>",
+      cssVars: {
+        dark: defaultModeVars(
+          DEFAULT_DARK_SCALE,
+          DEFAULT_DARK_SCALE[1000],
+          DEFAULT_DARK_SCALE[50]
+        ),
+        light: {
+          ...defaultModeVars(
+            DEFAULT_LIGHT_SCALE,
+            DEFAULT_LIGHT_SCALE[1000],
+            WHITE
+          ),
+          card: WHITE,
+          popover: WHITE,
+          radius: "0.625rem",
+        },
+        theme: {
+          "font-sans": "Inter, sans-serif",
+        },
+      },
+      description:
+        "SmoothUI theme: near-black ink, white cards on a gray canvas, hairline borders, light and dark mode included.",
+      name: DEFAULT_THEME_NAME,
+      title: "SmoothUI",
+      type: "registry:theme",
+    };
+  }
+
   const palette = THEME_PALETTES.find(
     (entry) => themeItemName(entry.name) === itemName
   );

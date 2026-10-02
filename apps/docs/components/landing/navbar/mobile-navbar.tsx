@@ -210,10 +210,6 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 <IconWindowCodeFill24 size={16} />
                 Templates
               </Link>
-              <Link className="mobile-navbar-link" href="/playground">
-                <IconColorPaletteFill24 size={16} />
-                Playground
-              </Link>
             </motion.div>
 
             <motion.div
@@ -235,6 +231,10 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 Resources
               </div>
               <div className="mobile-navbar-links">
+                <Link className="mobile-navbar-link" href="/playground">
+                  <IconColorPaletteFill24 size={16} />
+                  Playground
+                </Link>
                 <Link className="mobile-navbar-link" href="/blog">
                   <IconTextFill24 size={16} />
                   Blog

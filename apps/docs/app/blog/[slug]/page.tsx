@@ -70,10 +70,11 @@ export default async function BlogPostPage({ params }: PageProps) {
         }}
         type="application/ld+json"
       />
-      <main className="mx-auto w-full max-w-6xl px-6 py-12">
+      <main className="mx-auto w-full max-w-7xl px-8 py-12">
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
           href="/blog"
+          transitionTypes={["nav-back"]}
         >
           ← Back to Blog
         </Link>
@@ -83,7 +84,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           className="mb-8 aspect-[16/10] rounded-2xl border border-border sm:aspect-[2/1]"
           image={post.data.image as string | undefined}
           seed={post.url}
-          sizes="(max-width: 1024px) 100vw, 1152px"
+          sizes="(max-width: 1024px) 100vw, 1280px"
         />
 
         <article>

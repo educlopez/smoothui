@@ -26,16 +26,16 @@ function SoundToggle() {
     <button
       aria-label={enabled ? "Mute interface sounds" : "Enable interface sounds"}
       aria-pressed={enabled}
-      className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
+      className="float-trigger grid size-9! cursor-pointer place-items-center p-0!"
       onClick={toggle}
       type="button"
     >
       <svg
         aria-hidden="true"
         fill="none"
-        height="20"
+        height="16"
         viewBox="0 0 24 24"
-        width="20"
+        width="16"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -69,15 +69,12 @@ export function FloatNav() {
   return (
     <nav
       aria-label="Floating Navigation"
-      className="fixed bottom-5 left-1/2 z-50 flex w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border bg-background/70 px-1 py-1 text-foreground bg-blend-luminosity shadow-xs backdrop-blur-xl transition"
+      className="fixed bottom-4 left-1/2 z-50 flex w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border border-foreground/10 bg-background/75 px-1 py-1 text-foreground shadow-sm backdrop-blur-xl"
     >
       <div className="flex items-center gap-0.5">
-        {/* Site options */}
         <SoundToggle />
         <ColorPickerFloatNav />
-        {/* Divider */}
-        <div aria-hidden className="mx-1 h-5 w-px bg-border" />
-        {/* Install configurator */}
+        <div aria-hidden className="mx-0.5 h-4 w-px bg-foreground/15" />
         <PmFloatNav />
         <KitFloatNav />
       </div>

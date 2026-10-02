@@ -1,6 +1,5 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
 import { BLOCK_COUNT, COMPONENT_COUNT } from "@docs/lib/generated/counts";
 import {
   Accordion,
@@ -78,7 +77,6 @@ export function FAQ() {
         id="faq-schema"
         type="application/ld+json"
       />
-      <Divider />
       <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
         Frequently Asked Questions
       </h2>

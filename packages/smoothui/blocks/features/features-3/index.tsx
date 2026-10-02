@@ -14,7 +14,7 @@ const features = [
   {
     description:
       "Every component is designed with usability in mind. Clean interfaces that your users will love from the first interaction.",
-    image: getImageKitUrl("/smoothui/troupe-people/maya-solis.webp", {
+    image: getImageKitUrl("/smoothui/troupe-people-v2/maya-solis.webp", {
       format: "auto",
       quality: 85,
       width: 800,
