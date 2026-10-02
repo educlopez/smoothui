@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "lucide-react": "^0.548.0",
-    "motion": "^11.15.0"
+    "motion": "^11.15.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Support page FAQ with animated filtering"
     ],
     "compositionHints": [
-      "Could use basic-accordion for individual FAQ items"
+      "Could use Accordion primitive for individual FAQ items"
     ],
     "hasReducedMotion": true
   }

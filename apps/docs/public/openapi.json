@@ -99,14 +99,14 @@
                 "example": {
                   "data": [
                     {
-                      "name": "animated-tabs",
-                      "displayName": "AnimatedTabs",
+                      "name": "morph-toggle",
+                      "displayName": "MorphToggle",
                       "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
                       "category": "navigation",
                       "tags": ["animation", "tabs", "navigation"],
                       "useCases": ["Tab navigation with smooth transitions"],
                       "compositionHints": [
-                        "Combine with animated-tooltip for rich tab headers"
+                        "Combine with tooltip for rich tab headers"
                       ],
                       "complexity": "moderate",
                       "animationType": "spring",
@@ -114,9 +114,9 @@
                       "registryDependencies": [],
                       "hasReducedMotion": true,
                       "propsCount": 5,
-                      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-                      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-                      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                      "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+                      "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+                      "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
                     }
                   ],
                   "total": 84,
@@ -145,7 +145,7 @@
             "schema": {
               "type": "string"
             },
-            "example": "animated-tabs"
+            "example": "morph-toggle"
           },
           {
             "name": "include",
@@ -168,14 +168,14 @@
                 },
                 "example": {
                   "component": {
-                    "name": "animated-tabs",
-                    "displayName": "AnimatedTabs",
+                    "name": "morph-toggle",
+                    "displayName": "MorphToggle",
                     "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
                     "category": "navigation",
                     "tags": ["animation", "tabs", "navigation"],
                     "useCases": ["Tab navigation with smooth transitions"],
                     "compositionHints": [
-                      "Combine with animated-tooltip for rich tab headers"
+                      "Combine with tooltip for rich tab headers"
                     ],
                     "complexity": "moderate",
                     "animationType": "spring",
@@ -183,9 +183,9 @@
                     "registryDependencies": [],
                     "hasReducedMotion": true,
                     "propsCount": 5,
-                    "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-                    "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-                    "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                    "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+                    "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+                    "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
                   }
                 }
               }
@@ -256,8 +256,8 @@
                 "example": {
                   "data": [
                     {
-                      "name": "basic-modal",
-                      "displayName": "BasicModal",
+                      "name": "dialog",
+                      "displayName": "Dialog",
                       "description": "Accessible modal dialog with smooth enter/exit animations.",
                       "category": "feedback",
                       "tags": ["modal", "dialog", "overlay"],
@@ -269,9 +269,9 @@
                       "registryDependencies": [],
                       "hasReducedMotion": true,
                       "propsCount": 4,
-                      "installCommand": "npx shadcn@latest add @smoothui/basic-modal",
-                      "docUrl": "https://smoothui.dev/docs/components/basic-modal",
-                      "registryUrl": "https://smoothui.dev/r/basic-modal.json",
+                      "installCommand": "npx shadcn@latest add @smoothui/dialog",
+                      "docUrl": "https://smoothui.dev/docs/components/dialog",
+                      "registryUrl": "https://smoothui.dev/r/dialog.json",
                       "relevanceScore": 12
                     }
                   ],
@@ -497,14 +497,14 @@
                   "suggestions": [
                     {
                       "type": "component",
-                      "name": "animated-tabs",
-                      "displayName": "AnimatedTabs",
+                      "name": "morph-toggle",
+                      "displayName": "MorphToggle",
                       "description": "Tab navigation with smooth spring-based transitions and animated underline indicator.",
                       "category": "navigation",
                       "relevanceScore": 21,
-                      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-                      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-                      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+                      "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+                      "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+                      "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
                     }
                   ],
                   "total": 1
@@ -535,7 +535,7 @@
       "ComponentCategory": {
         "type": "string",
         "enum": [
-          "basic-ui",
+          "patterns",
           "button",
           "text",
           "ai",
@@ -595,11 +595,11 @@
         "properties": {
           "name": {
             "type": "string",
-            "description": "kebab-case identifier (e.g. \"animated-tabs\")."
+            "description": "kebab-case identifier (e.g. \"morph-toggle\")."
           },
           "displayName": {
             "type": "string",
-            "description": "PascalCase display name (e.g. \"AnimatedTabs\")."
+            "description": "PascalCase display name (e.g. \"MorphToggle\")."
           },
           "description": {
             "type": "string",

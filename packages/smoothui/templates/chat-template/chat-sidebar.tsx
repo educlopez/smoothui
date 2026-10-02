@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
+import { cn } from "@repo/smoothui-utils";
 import { somePeople } from "@smoothui/data/people";
 import {
   LogOut,

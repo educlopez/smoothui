@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/shadcn-ui/components/ui/avatar";
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { Avatar, AvatarFallback, AvatarImage } from "@repo/avatar";
+import { cn } from "@repo/smoothui-utils";
 import { getImageKitUrl } from "@smoothui/data";
 import { somePeople } from "@smoothui/data/people";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";

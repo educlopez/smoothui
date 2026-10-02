@@ -15,7 +15,7 @@ import { cache } from "react";
 
 const BASE_URL = "https://smoothui.dev";
 
-/** Convert kebab-case to PascalCase, e.g. "animated-tabs" -> "AnimatedTabs" */
+/** Convert kebab-case to PascalCase, e.g. "morph-toggle" -> "MorphToggle" */
 const toPascalCase = (kebab: string): string =>
   kebab
     .split("-")
@@ -94,7 +94,7 @@ const INSTALLER_FIELD = /^installer:\s*(\S+)\s*$/m;
  * Registry names that have a documentation page, which is what "public" means.
  *
  * Keyed on the `installer` frontmatter rather than the filename, because the two
- * can differ: `accordion.mdx` documents the `basic-accordion` package. Matching
+ * can differ: docs slug and package name usually match. Matching
  * on filenames alone drops that component from the catalogue.
  */
 const listDocumentedComponents = async (): Promise<Set<string>> => {

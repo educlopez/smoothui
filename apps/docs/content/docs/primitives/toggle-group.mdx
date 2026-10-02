@@ -1,0 +1,44 @@
+---
+title: Toggle Group
+description: Segmented single or multi selection wrapping Toggle — Astryx Segmented Control inspired.
+icon: Columns3
+dependencies:
+  - motion.dev
+  - base-ui
+installer: toggle-group
+---
+
+## Features
+
+`ToggleGroupRoot` + `ToggleGroupItem` on Base UI Toggle Group. Looks like a segmented control (muted track, pressed chip). Supports `multiple` / `type="multiple"` for multi-select; value is always a `string[]`.
+
+## States
+
+### Features
+
+Single-select alignment control.
+
+### Multiple
+
+Several items can stay pressed.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow` keys | Move focus between items |
+| `Enter` / `Space` | Toggle the focused item |
+| `Tab` | Moves focus into / out of the group |
+
+### Reduced Motion
+
+Item press scale follows Toggle’s reduced-motion behavior.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/toggle-group/index.tsx"
+  name="ToggleGroupRootProps"
+/>

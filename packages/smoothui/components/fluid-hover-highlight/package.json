@@ -1,0 +1,12 @@
+{
+  "name": "@repo/fluid-hover-highlight",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/smoothui-utils": "workspace:*",
+    "motion": "^12.23.24"
+  },
+  "peerDependencies": {
+    "react": "^19"
+  }
+}

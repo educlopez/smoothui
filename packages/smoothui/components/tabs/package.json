@@ -1,0 +1,39 @@
+{
+  "name": "@repo/tabs",
+  "description": "Animated Tabs primitive for SmoothUI with Base Indicator and underline/pill/segment variants.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "motion": "^12.23.25",
+    "radix-ui": "^1.4.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "tabs",
+      "navigation",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Tabbed navigation with animated indicator",
+      "Segmented content switcher"
+    ],
+    "compositionHints": [
+      "Place TabsIndicator inside TabsList",
+      "Use variant underline, pill, or segment on TabsList"
+    ],
+    "hasReducedMotion": true
+  }
+}

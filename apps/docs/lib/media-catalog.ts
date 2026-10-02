@@ -62,7 +62,7 @@ const demoUsage: Record<string, string[]> = {
     "image-generation-panel",
     "orbital-image-wheel",
     "scroll-progress",
-    "skeleton-loader",
+    "content-skeleton",
   ],
   "cyan-tangerine": [
     "coverflow-carousel",
@@ -143,7 +143,7 @@ const avatarConsumers: [string, number, number][] = [
   ["figma-comment", 1, 11],
   ["inline-testimonials", 3, 20],
   ["scrollable-card-stack", 3, 12],
-  ["skeleton-loader", 1, 3],
+  ["content-skeleton", 1, 3],
   ["social-hover-card", 1, 47],
   ["user-account-avatar", 1, 7],
   ["wallet-card", 7, 40],

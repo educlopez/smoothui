@@ -4,7 +4,7 @@ import { HeroDither } from "@docs/components/landing/hero-dither";
 import { HeroStage } from "@docs/components/landing/hero-stage";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
-import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
+import { UI_COUNT } from "@docs/lib/generated/counts";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -87,8 +87,8 @@ export function Hero() {
             </h1>
 
             <p className="mt-6 max-w-xl text-balance text-lg text-muted-foreground leading-relaxed md:text-xl">
-              {COMPONENT_COUNT} animated components for React and shadcn/ui —
-              copy the code and make it yours.
+              {UI_COUNT} animated primitives and components for React — copy the
+              code and make it yours.
             </p>
 
             <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
@@ -98,7 +98,7 @@ export function Hero() {
                 size="sm"
                 variant="candy"
               >
-                <Link href="/docs/components">Browse components</Link>
+                <Link href="/docs/primitives">Browse primitives</Link>
               </Button>
               <Button
                 asChild

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { useEffect, useRef } from "react";
 
 export type AgentAvatarProps = Omit<

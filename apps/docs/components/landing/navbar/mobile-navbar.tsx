@@ -144,7 +144,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 </Link>
                 <Link
                   className="mobile-navbar-link"
-                  href="/docs/components/animated-o-t-p-input"
+                  href="/docs/components/otp-slots"
                 >
                   <IconGrid2Fill24 size={16} />
                   UI Components

@@ -1,0 +1,59 @@
+---
+title: Meter
+description: Semantic capacity gauge with a Motion-friendly fill, Base UI semantics, and an ARIA Radix-parity twin.
+icon: Gauge
+dependencies:
+  - motion.dev
+  - base-ui
+installer: meter
+---
+
+## Features
+
+- `role="meter"` for capacity / gauge values (not in-flight task progress)
+- Compound parts: `MeterRoot`, `MeterTrack`, `MeterIndicator`, `MeterLabel`, `MeterValue`
+- Convenience default export with `label` and `showValue`
+- Brand-colored fill with reduced-motion-safe width transition
+- Three track sizes (`sm`, `md`, `lg`)
+- Base UI by default; Radix twin is a hand-rolled ARIA meter (Radix has no Meter)
+
+## States
+
+### Features
+
+Labelled meters at different sizes with optional formatted values.
+
+### Quota
+
+A pair of capacity gauges side by side in a stack.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="meter"` | Root | Identifies the element as a meter |
+| `aria-valuenow` | Root | Current value |
+| `aria-valuemin` / `aria-valuemax` | Root | Range of the meter |
+| `aria-valuetext` | Root | Human-readable value |
+| `aria-labelledby` | Root | Points at `MeterLabel` when present |
+
+Provide either a visible `label` or an `aria-label`. Prefer Meter over Progress when the value is a snapshot of capacity, not a task completing.
+
+### Reduced Motion
+
+When `prefers-reduced-motion` is set, the fill width updates without a transition.
+
+## Radix twin
+
+Radix has no Meter primitive. The Radix twin implements the same SmoothUI props with native `role="meter"` semantics so both styles stay interchangeable.
+
+## Props
+
+### MeterProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/meter/index.tsx"
+  name="MeterProps"
+/>

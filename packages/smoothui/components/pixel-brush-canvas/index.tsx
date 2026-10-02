@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import {
   type KeyboardEvent as ReactKeyboardEvent,
@@ -366,7 +366,7 @@ const ToolPalette = ({
           );
         })}
       </fieldset>
-      {/* Tool selection borrows the language of `animated-tabs`: the whole
+      {/* Tool selection borrows the language of `Tabs`: the whole
           group is a recessed track and the active tool is a solid chip raised
           out of it, which reads instantly at this size without any fill. */}
       <fieldset

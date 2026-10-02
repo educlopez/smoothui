@@ -1,0 +1,41 @@
+{
+  "name": "@repo/switch",
+  "description": "An animated Switch component for SmoothUI with a spring thumb toggle.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "motion": "^12.23.25",
+    "radix-ui": "^1.4.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "switch",
+      "form",
+      "toggle",
+      "input",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "spring",
+    "useCases": [
+      "Form on/off switch with animated thumb",
+      "Settings toggle with accessible labeling"
+    ],
+    "compositionHints": [
+      "Pair with a label via id/htmlFor for accessibility",
+      "Use inside Field for description and error messaging"
+    ],
+    "hasReducedMotion": true
+  }
+}

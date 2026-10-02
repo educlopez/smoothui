@@ -21,16 +21,9 @@ import aiTaskList from "./covers/components/ai-task-list.webp";
 import aiToolCall from "./covers/components/ai-tool-call.webp";
 import animatedAvatarGroup from "./covers/components/animated-avatar-group.webp";
 import animatedFileUpload from "./covers/components/animated-file-upload.webp";
-import animatedInput from "./covers/components/animated-input.webp";
 import animatedList from "./covers/components/animated-list.webp";
-import animatedNumberInput from "./covers/components/animated-number-input.webp";
-import animatedOTPInput from "./covers/components/animated-o-t-p-input.webp";
-import animatedProgressBar from "./covers/components/animated-progress-bar.webp";
 import animatedStepper from "./covers/components/animated-stepper.webp";
-import animatedTabs from "./covers/components/animated-tabs.webp";
 import animatedTags from "./covers/components/animated-tags.webp";
-import animatedToggle from "./covers/components/animated-toggle.webp";
-import animatedTooltip from "./covers/components/animated-tooltip.webp";
 import apertureBlurTransition from "./covers/components/aperture-blur-transition.webp";
 import appDownloadStack from "./covers/components/app-download-stack.webp";
 import appleInvites from "./covers/components/apple-invites.webp";
@@ -38,9 +31,6 @@ import arcadePixel from "./covers/components/arcade-pixel.webp";
 import asciiRender from "./covers/components/ascii-render.webp";
 import auroraCurtain from "./covers/components/aurora-curtain.webp";
 import authForm from "./covers/components/auth-form.webp";
-import basicDropdown from "./covers/components/basic-dropdown.webp";
-import basicModal from "./covers/components/basic-modal.webp";
-import basicToast from "./covers/components/basic-toast.webp";
 import blurOutUp from "./covers/components/blur-out-up.webp";
 import book from "./covers/components/book.webp";
 import borderBeam from "./covers/components/border-beam.webp";
@@ -54,14 +44,17 @@ import chromaBlurTransition from "./covers/components/chroma-blur-transition.web
 import clipCornersButton from "./covers/components/clip-corners-button.webp";
 import codeBlock from "./covers/components/code-block.webp";
 import combobox from "./covers/components/combobox.webp";
+import skeletonLoader from "./covers/components/content-skeleton.webp";
 import contextMenu from "./covers/components/context-menu.webp";
 import contributionGraph from "./covers/components/contribution-graph.webp";
-import countryDialog from "./covers/components/country-dialog.webp";
+import notificationBadge from "./covers/components/count-badge.webp";
+import countryDialog from "./covers/components/country-picker.webp";
 import coverflowCarousel from "./covers/components/coverflow-carousel.webp";
 import cursorFollow from "./covers/components/cursor-follow.webp";
 import cursorImageTrail from "./covers/components/cursor-image-trail.webp";
 import depthParallaxWords from "./covers/components/depth-parallax-words.webp";
 import dialog from "./covers/components/dialog.webp";
+import animatedNumberInput from "./covers/components/digit-roll.webp";
 import ditherChart from "./covers/components/dither-chart.webp";
 import ditherImage from "./covers/components/dither-image.webp";
 import dock from "./covers/components/dock.webp";
@@ -80,6 +73,7 @@ import fadeThrough from "./covers/components/fade-through.webp";
 import faviconSearch from "./covers/components/favicon-search.webp";
 import figmaComment from "./covers/components/figma-comment.webp";
 import fileTree from "./covers/components/file-tree.webp";
+import animatedInput from "./covers/components/float-input.webp";
 import floatingNavbar from "./covers/components/floating-navbar.webp";
 import focusBlurResolve from "./covers/components/focus-blur-resolve.webp";
 import folderReveal from "./covers/components/folder-reveal.webp";
@@ -112,13 +106,14 @@ import maskRevealUp from "./covers/components/mask-reveal-up.webp";
 import microScaleFade from "./covers/components/micro-scale-fade.webp";
 import morphIcon from "./covers/components/morph-icon.webp";
 import morphSurface from "./covers/components/morph-surface.webp";
+import animatedToggle from "./covers/components/morph-toggle.webp";
 import motionLoader from "./covers/components/motion-loader.webp";
 import musicToggle from "./covers/components/music-toggle.webp";
-import notificationBadge from "./covers/components/notification-badge.webp";
 import numberFlow from "./covers/components/number-flow.webp";
 import orb from "./covers/components/orb.webp";
 import orbitalImageWheel from "./covers/components/orbital-image-wheel.webp";
 import organicMergeTransition from "./covers/components/organic-merge-transition.webp";
+import animatedOTPInput from "./covers/components/otp-slots.webp";
 import pagePreloader from "./covers/components/page-preloader.webp";
 import pagination from "./covers/components/pagination.webp";
 import parallaxLayers from "./covers/components/parallax-layers.webp";
@@ -151,7 +146,6 @@ import scrollableCardStack from "./covers/components/scrollable-card-stack.webp"
 import scrubber from "./covers/components/scrubber.webp";
 import sdfBlobTransition from "./covers/components/sdf-blob-transition.webp";
 import sdfCircleTransition from "./covers/components/sdf-circle-transition.webp";
-import searchableDropdown from "./covers/components/searchable-dropdown.webp";
 import select from "./covers/components/select.webp";
 import shaderRevealCircleTransition from "./covers/components/shader-reveal-circle-transition.webp";
 import shaderRevealLumaTransition from "./covers/components/shader-reveal-luma-transition.webp";
@@ -170,7 +164,6 @@ import shineText from "./covers/components/shine-text.webp";
 import shortSlideDown from "./covers/components/short-slide-down.webp";
 import shortSlideRight from "./covers/components/short-slide-right.webp";
 import siriOrb from "./covers/components/siri-orb.webp";
-import skeletonLoader from "./covers/components/skeleton-loader.webp";
 import smoothButton from "./covers/components/smooth-button.webp";
 import socialHoverCard from "./covers/components/social-hover-card.webp";
 import socialSelector from "./covers/components/social-selector.webp";
@@ -225,16 +218,9 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "ai-tool-call": aiToolCall,
   "animated-avatar-group": animatedAvatarGroup,
   "animated-file-upload": animatedFileUpload,
-  "animated-input": animatedInput,
   "animated-list": animatedList,
-  "animated-number-input": animatedNumberInput,
-  "animated-o-t-p-input": animatedOTPInput,
-  "animated-progress-bar": animatedProgressBar,
   "animated-stepper": animatedStepper,
-  "animated-tabs": animatedTabs,
   "animated-tags": animatedTags,
-  "animated-toggle": animatedToggle,
-  "animated-tooltip": animatedTooltip,
   "aperture-blur-transition": apertureBlurTransition,
   "app-download-stack": appDownloadStack,
   "apple-invites": appleInvites,
@@ -242,9 +228,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "ascii-render": asciiRender,
   "aurora-curtain": auroraCurtain,
   "auth-form": authForm,
-  "basic-dropdown": basicDropdown,
-  "basic-modal": basicModal,
-  "basic-toast": basicToast,
   "blur-out-up": blurOutUp,
   book,
   "border-beam": borderBeam,
@@ -258,14 +241,17 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "clip-corners-button": clipCornersButton,
   "code-block": codeBlock,
   combobox,
+  "content-skeleton": skeletonLoader,
   "context-menu": contextMenu,
   "contribution-graph": contributionGraph,
-  "country-dialog": countryDialog,
+  "count-badge": notificationBadge,
+  "country-picker": countryDialog,
   "coverflow-carousel": coverflowCarousel,
   "cursor-follow": cursorFollow,
   "cursor-image-trail": cursorImageTrail,
   "depth-parallax-words": depthParallaxWords,
   dialog,
+  "digit-roll": animatedNumberInput,
   "dither-chart": ditherChart,
   "dither-image": ditherImage,
   dock,
@@ -284,6 +270,7 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "favicon-search": faviconSearch,
   "figma-comment": figmaComment,
   "file-tree": fileTree,
+  "float-input": animatedInput,
   "floating-navbar": floatingNavbar,
   "focus-blur-resolve": focusBlurResolve,
   "folder-reveal": folderReveal,
@@ -316,13 +303,14 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "micro-scale-fade": microScaleFade,
   "morph-icon": morphIcon,
   "morph-surface": morphSurface,
+  "morph-toggle": animatedToggle,
   "motion-loader": motionLoader,
   "music-toggle": musicToggle,
-  "notification-badge": notificationBadge,
   "number-flow": numberFlow,
   orb,
   "orbital-image-wheel": orbitalImageWheel,
   "organic-merge-transition": organicMergeTransition,
+  "otp-slots": animatedOTPInput,
   "page-preloader": pagePreloader,
   pagination,
   "parallax-layers": parallaxLayers,
@@ -355,7 +343,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   scrubber,
   "sdf-blob-transition": sdfBlobTransition,
   "sdf-circle-transition": sdfCircleTransition,
-  "searchable-dropdown": searchableDropdown,
   select,
   "shader-reveal-circle-transition": shaderRevealCircleTransition,
   "shader-reveal-luma-transition": shaderRevealLumaTransition,
@@ -374,7 +361,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "short-slide-down": shortSlideDown,
   "short-slide-right": shortSlideRight,
   "siri-orb": siriOrb,
-  "skeleton-loader": skeletonLoader,
   "smooth-button": smoothButton,
   "social-hover-card": socialHoverCard,
   "social-selector": socialSelector,

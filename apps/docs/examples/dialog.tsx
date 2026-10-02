@@ -14,23 +14,22 @@ const DialogScene = () => {
   return (
     <div className="flex items-center justify-center p-8">
       <SmoothButton onClick={() => setOpen(true)} variant="candy">
-        Open Dialog
+        Edit profile
       </SmoothButton>
 
       <Dialog
-        description="This is a standard dialog. Press Escape or click the X to close."
+        description="Update your public profile details."
         footer={
           <SmoothButton onClick={() => setOpen(false)} variant="candy">
-            Got it
+            Save
           </SmoothButton>
         }
         onOpenChange={setOpen}
         open={open}
-        title="Dialog Title"
+        title="Edit profile"
       >
         <p className="text-muted-foreground text-sm">
-          Dialog content goes here. This dialog supports keyboard navigation,
-          focus trapping, and backdrop dismiss.
+          Changes apply to your workspace profile and public bio.
         </p>
       </Dialog>
     </div>
@@ -43,22 +42,22 @@ const AlertDialogScene = () => {
   return (
     <div className="flex items-center justify-center p-8">
       <SmoothButton onClick={() => setOpen(true)} variant="outline">
-        Open Alert Dialog
+        Delete account
       </SmoothButton>
 
       <AlertDialog
-        description="This action cannot be undone. This will permanently delete your account and remove your data."
+        description="This permanently deletes your account and all workspace data."
         footer={
           <>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction className="bg-gradient-to-b from-brand to-brand-secondary text-white hover:from-brand-secondary hover:to-brand-secondary">
-              Continue
+              Delete
             </AlertDialogAction>
           </>
         }
         onOpenChange={setOpen}
         open={open}
-        title="Are you absolutely sure?"
+        title="Delete account?"
       />
     </div>
   );

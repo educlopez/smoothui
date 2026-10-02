@@ -1,5 +1,9 @@
-import { blogSource, source } from "@docs/lib/source";
+import { blogSource } from "@docs/lib/blog-source";
+import { source } from "@docs/lib/source";
+import type { InferPageType } from "fumadocs-core/source";
 import type { MetadataRoute } from "next";
+
+type DocPage = InferPageType<typeof source>;
 
 export const revalidate = false;
 
@@ -9,10 +13,10 @@ const baseUrl = "https://smoothui.dev";
 const popularComponents = new Set([
   "expandable-cards",
   "dynamic-island",
-  "animated-input",
+  "float-input",
   "scramble-hover",
   "accordion",
-  "basic-modal",
+  "dialog",
   "infinite-slider",
   "number-flow",
   "typewriter-text",
@@ -61,6 +65,11 @@ const getPriority = (url: string): number => {
     return popularComponents.has(slug) ? 0.7 : 0.6;
   }
 
+  // Primitive pages (owned headless layer)
+  if (url.startsWith("/docs/primitives")) {
+    return url === "/docs/primitives" ? 0.8 : 0.7;
+  }
+
   // Block pages
   if (url.startsWith("/docs/blocks/")) {
     return 0.6;
@@ -69,8 +78,19 @@ const getPriority = (url: string): number => {
   return 0.5;
 };
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const url = (path: string): string => new URL(path, baseUrl).toString();
+
+  // Docs pages are compiled on demand, and `lastModified` comes with the compiled
+  // page, so load them one at a time rather than all at once.
+  const docPages: { lastModified?: number; page: DocPage }[] = [];
+  for (const page of source.getPages()) {
+    // biome-ignore lint/performance/noAwaitInLoops: sequential on purpose, see above
+    const { lastModified } = (await page.data.load()) as {
+      lastModified?: number;
+    };
+    docPages.push({ lastModified, page });
+  }
 
   return [
     {
@@ -83,16 +103,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
       url: url("/docs"),
     },
-    ...source.getPages().flatMap((page) => {
-      const { lastModified } = page.data;
-
-      return {
-        changeFrequency: "weekly",
-        lastModified: lastModified ? new Date(lastModified) : undefined,
-        priority: getPriority(page.url),
-        url: url(page.url),
-      } as MetadataRoute.Sitemap[number];
-    }),
+    ...docPages.flatMap(
+      ({ page, lastModified }) =>
+        ({
+          changeFrequency: "weekly",
+          lastModified: lastModified ? new Date(lastModified) : undefined,
+          priority: getPriority(page.url),
+          url: url(page.url),
+        }) as MetadataRoute.Sitemap[number]
+    ),
     {
       changeFrequency: "weekly",
       priority: 0.7,

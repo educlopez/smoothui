@@ -1,0 +1,41 @@
+---
+title: Textarea
+description: Multi-line text field matching Input styling, built on Base UI Input.
+icon: Type
+dependencies:
+  - base-ui
+installer: textarea
+---
+
+## Features
+
+- Same surface language as Input / FieldControl
+- Configurable `rows`
+- Works inside Field for label / error
+- Base-only (no Radix Input twin)
+
+## States
+
+### Features
+
+Default multi-line message field.
+
+### Compact
+
+Two-row quick note.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label` / Field label | Root | Names the control |
+| `aria-invalid` | Root | Error styling when inside Field |
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/textarea/index.tsx"
+  name="TextareaProps"
+/>

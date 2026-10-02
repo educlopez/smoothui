@@ -4,11 +4,12 @@
 @import "./smoothui.css";
 
 @source "../node_modules/fumadocs-ui/dist/**/*.js";
-@source "../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}";
+@source "../node_modules/@repo/shadcn-ui/**/*.{js,jsx,ts,tsx}";
 @source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
 @source "../../../packages/smoothui/components";
 @source "../../../packages/smoothui/blocks";
 @source "../../../packages/smoothui/templates";
+@source "../../../packages/smoothui-utils/**/*.{js,jsx,ts,tsx}";
 
 @theme {
   --font-title: var(--font-inter);
@@ -131,10 +132,6 @@ h1 .text-muted-foreground {
 article.group p {
   font-size: 1rem;
   line-height: 1.5rem;
-}
-
-[data-side="top"] {
-  display: none;
 }
 
 .h-px.bg-gradient-to-r,

@@ -1,7 +1,7 @@
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { PostCover } from "@docs/components/post-cover";
 import { Button } from "@docs/components/smoothbutton";
-import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 

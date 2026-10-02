@@ -131,9 +131,12 @@ export const ComponentGallery = ({
 
       <p aria-live="polite" className="text-muted-foreground text-sm">
         {filteredComponents.length}{" "}
-        {filteredComponents.length === 1 ? "component" : "components"}
+        {filteredComponents.length === 1 ? "primitive" : "primitives"}
         {activeCategory ? ` in ${activeCategory}` : ""}
         {searchQuery ? ` matching "${searchQuery}"` : ""}
+        {filteredComponents.some((c) => c.status === "planned")
+          ? ` · ${filteredComponents.filter((c) => c.status === "planned").length} coming soon`
+          : ""}
       </p>
 
       {filteredComponents.length > 0 ? (

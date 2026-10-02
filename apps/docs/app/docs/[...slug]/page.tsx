@@ -14,6 +14,7 @@ import { FeatureCardHover } from "@docs/components/feature-card-hover";
 import {
   BlocksGalleryPage,
   GalleryPage,
+  PrimitivesGalleryPage,
   TemplateShowcase,
   TemplatesGalleryPage,
 } from "@docs/components/gallery";
@@ -43,6 +44,7 @@ import { typeGenerator } from "@docs/mdx-components";
 import { findNeighbour } from "fumadocs-core/page-tree";
 import type { TableOfContents } from "fumadocs-core/toc";
 import { AutoTypeTable } from "fumadocs-typescript/ui";
+import { Accordion, Accordions } from "fumadocs-ui/components/accordion";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import { Tab, Tabs } from "fumadocs-ui/components/tabs";
 import defaultMdxComponents from "fumadocs-ui/mdx";
@@ -95,10 +97,12 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     notFound();
   }
 
-  const MDX = page.data.body;
+  const loaded = await page.data.load();
+  const { body: MDX, toc } = loaded;
 
-  // Access lastModified from page data (available when lastModifiedTime: 'git' is enabled)
-  const { lastModified } = page.data as { lastModified?: number };
+  // Comes from the loaded page now that pages are compiled on demand (set by
+  // the last-modified plugin, which reads git).
+  const { lastModified } = loaded as { lastModified?: number };
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
   const isComponentOrBlock =
@@ -237,11 +241,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // the anchor actually exists — block pages install per block, from each
   // preview's own toolbar.
   const updatedToc: TableOfContents = installer
-    ? [
-        { depth: 2, title: "Installation", url: "#installation" },
-        ...page.data.toc,
-      ]
-    : page.data.toc;
+    ? [{ depth: 2, title: "Installation", url: "#installation" }, ...toc]
+    : toc;
 
   const hasDependencies =
     Array.isArray(dependencies) && dependencies.length > 0;
@@ -281,6 +282,8 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <MDX
       components={{
         ...defaultMdxComponents,
+        Accordion,
+        Accordions,
         AutoTypeTable: AutoTypeTableWithGenerator,
         BlocksGallery: BlocksGalleryPage,
         BodyText: BodyTextAsDiv,
@@ -296,6 +299,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         PackageManagerTabs,
         PoweredBy,
         Preview,
+        PrimitivesGallery: PrimitivesGalleryPage,
         // HTML `ref` attribute conflicts with `forwardRef`
         pre: (preProps) => {
           const { ref: _ref, ...restProps } = preProps;

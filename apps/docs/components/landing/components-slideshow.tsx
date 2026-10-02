@@ -21,8 +21,8 @@ const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
   { name: "Checkbox", slug: "checkbox" },
   { name: "Animated Tags", slug: "animated-tags" },
   { name: "Image Metadata Preview", slug: "image-metadata-preview" },
-  { name: "Animated Tabs", slug: "animated-tabs" },
-  { name: "Animated Toggle", slug: "animated-toggle" },
+  { name: "Tabs", slug: "tabs" },
+  { name: "Morph Toggle", slug: "morph-toggle" },
   { name: "Exposure Slider", slug: "exposure-slider" },
 ];
 

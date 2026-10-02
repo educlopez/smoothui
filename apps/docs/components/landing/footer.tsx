@@ -32,6 +32,7 @@ interface FooterColumn {
 
 const navigateColumn: FooterColumn = {
   links: [
+    { href: "/docs/primitives", label: "Primitives" },
     { href: "/docs/components", label: "Components" },
     { href: "/docs/blocks", label: "Blocks" },
     { href: "/docs/templates", label: "Templates" },

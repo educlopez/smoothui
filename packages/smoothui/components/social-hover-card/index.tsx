@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { BadgeCheck } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { FocusEvent, KeyboardEvent, ReactNode } from "react";

@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import AIApproval from "@repo/smoothui/components/ai-approval";
 import AIArtifact from "@repo/smoothui/components/ai-artifact";
 import AIContextMeter from "@repo/smoothui/components/ai-context-meter";
@@ -19,6 +18,7 @@ import AISuggestions from "@repo/smoothui/components/ai-suggestions";
 import AITaskList from "@repo/smoothui/components/ai-task-list";
 import AIToolCall from "@repo/smoothui/components/ai-tool-call";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronDown, PanelLeftOpen, Paperclip } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {

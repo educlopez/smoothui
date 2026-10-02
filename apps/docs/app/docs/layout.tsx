@@ -1,13 +1,17 @@
 import DocsFooter from "@docs/components/docs-footer";
+import { DocsSidebarItem } from "@docs/components/docs-sidebar-item";
 import { FloatNav } from "@docs/components/float-nav";
 import { NavSponsorCard } from "@docs/components/nav-sponsor-card";
 import { decorateNewPages } from "@docs/lib/decorate-new";
+import { injectPlannedPrimitives } from "@docs/lib/inject-planned-primitives";
 import { baseOptions } from "@docs/lib/layout.shared";
 import { source } from "@docs/lib/source";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 
 export default function Layout({ children }: LayoutProps<"/docs">) {
-  const tree = decorateNewPages(source.pageTree, source);
+  const tree = injectPlannedPrimitives(
+    decorateNewPages(source.pageTree, source)
+  );
   const options = baseOptions();
 
   return (
@@ -23,6 +27,9 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
         // reach it as an overlay — the stage there is worth more than a permanent
         // 240px column. Prose pages keep it open; see SplitDocsChrome.
         collapsible: true,
+        components: {
+          Item: DocsSidebarItem,
+        },
         footer: <NavSponsorCard key="nav-sponsor-card" />,
       }}
       tabMode="navbar"

@@ -48,11 +48,16 @@ export const ComponentCard = ({
   shot,
 }: ComponentCardProps) => {
   const shouldReduceMotion = useReducedMotion();
+  const isPlanned = component.status === "planned";
 
   return (
     <motion.div
       animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-      className="group relative flex h-full flex-col overflow-hidden rounded-xl bg-muted"
+      className={
+        isPlanned
+          ? "group relative flex h-full flex-col overflow-hidden rounded-xl bg-muted opacity-55"
+          : "group relative flex h-full flex-col overflow-hidden rounded-xl bg-muted"
+      }
       initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }}
       transition={
         shouldReduceMotion
@@ -61,7 +66,7 @@ export const ComponentCard = ({
       }
     >
       <div className="flex flex-1 items-center justify-center p-6">
-        {shot ? (
+        {shot && !isPlanned ? (
           <Image
             alt=""
             className="block h-auto max-w-full"
@@ -74,23 +79,41 @@ export const ComponentCard = ({
         ) : (
           <div
             aria-hidden="true"
-            className="flex w-full items-center justify-center text-center text-muted-foreground text-sm"
+            className="flex w-full flex-col items-center justify-center gap-2 text-center text-muted-foreground text-sm"
             style={{
               aspectRatio: `${POSTER_PLACEHOLDER.width} / ${POSTER_PLACEHOLDER.height}`,
             }}
           >
-            {component.title}
+            <span>{component.title}</span>
+            {isPlanned ? (
+              <span className="rounded-full border border-border px-2 py-0.5 text-[10px] text-muted-foreground uppercase tracking-wide">
+                Coming soon
+              </span>
+            ) : null}
           </div>
         )}
       </div>
-      <p className="flex h-11 items-center px-6 font-medium text-foreground text-sm">
+      <p className="flex h-11 items-center gap-2 px-6 font-medium text-foreground text-sm">
         <span className="truncate">{component.title}</span>
+        {isPlanned ? (
+          <span className="shrink-0 rounded-full bg-background/60 px-1.5 py-0.5 text-[10px] text-muted-foreground">
+            Soon
+          </span>
+        ) : null}
       </p>
-      <Link
-        aria-label={`View ${component.title} component`}
-        className="absolute inset-0 z-10"
-        href={component.href}
-      />
+      {isPlanned ? (
+        <span
+          aria-disabled="true"
+          aria-label={`${component.title} — coming soon`}
+          className="absolute inset-0 z-10 cursor-not-allowed"
+        />
+      ) : (
+        <Link
+          aria-label={`View ${component.title} component`}
+          className="absolute inset-0 z-10"
+          href={component.href}
+        />
+      )}
     </motion.div>
   );
 };

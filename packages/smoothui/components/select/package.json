@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "lucide-react": "^0.545.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -17,7 +17,7 @@
     "typescript": "^5.9.3"
   },
   "smoothui": {
-    "category": "basic-ui",
+    "category": "patterns",
     "tags": [
       "select",
       "dropdown",

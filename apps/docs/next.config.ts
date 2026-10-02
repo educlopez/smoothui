@@ -49,6 +49,27 @@ const config: NextConfig = {
   reactStrictMode: true,
   redirects() {
     return [
+      // Primitives moved out of /docs/components into their own section.
+      ...[
+        "checkbox",
+        "combobox",
+        "context-menu",
+        "dialog",
+        "drawer",
+        "dropdown-menu",
+        "radio-group",
+        "select",
+        "smooth-button",
+      ].map((slug) => ({
+        destination: `/docs/primitives/${slug}`,
+        permanent: true,
+        source: `/docs/components/${slug}`,
+      })),
+      {
+        destination: "/docs/primitives",
+        permanent: true,
+        source: "/docs/guides/primitives",
+      },
       // Redirect removed matrix-card component to home page
       {
         destination: "/",
@@ -61,11 +82,38 @@ const config: NextConfig = {
         permanent: true,
         source: "/docs/components/ai-input",
       },
-      {
-        destination: "/docs/components/animated-o-t-p-input",
+      // Patterns rename (Basic UI → Patterns)
+      ...[
+        ["animated-toggle", "morph-toggle"],
+        ["animated-input", "float-input"],
+        ["animated-number-input", "digit-roll"],
+        ["animated-o-t-p-input", "otp-slots"],
+        ["animated-otp-input", "otp-slots"],
+        ["skeleton-loader", "content-skeleton"],
+        ["notification-badge", "count-badge"],
+        ["country-dialog", "country-picker"],
+      ].map(([from, to]) => ({
+        destination: `/docs/components/${to}`,
         permanent: true,
-        source: "/doc/components/animated-otp-input",
-      },
+        source: `/docs/components/${from}`,
+      })),
+      // Deleted near-duplicates → use the SmoothUI primitive instead
+      ...[
+        ["basic-modal", "dialog"],
+        ["basic-dropdown", "dropdown-menu"],
+        ["basic-accordion", "accordion"],
+        ["accordion", "accordion"],
+        ["basic-toast", "toast"],
+        ["searchable-dropdown", "combobox"],
+        ["animated-tabs", "tabs"],
+        ["animated-tooltip", "tooltip"],
+        ["animated-progress-bar", "progress"],
+        ["code-block", "code-block"],
+      ].map(([from, to]) => ({
+        destination: `/docs/primitives/${to}`,
+        permanent: true,
+        source: `/docs/components/${from}`,
+      })),
       {
         destination: "/docs/blocks/logo-clouds",
         permanent: true,
@@ -77,7 +125,7 @@ const config: NextConfig = {
         source: "/doc/blocks/team",
       },
       {
-        destination: "/docs/components/accordion",
+        destination: "/docs/primitives/accordion",
         permanent: true,
         source: "/doc/basic/basic-accordion",
       },

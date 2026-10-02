@@ -1,0 +1,63 @@
+---
+title: Checkbox Group
+description: Multi-select checkbox list with optional parent/select-all and indeterminate state, Base UI twin and Radix-parity twin.
+icon: ListChecks
+dependencies:
+  - motion.dev
+  - base-ui
+installer: checkbox-group
+---
+
+## Features
+
+- Shared `value` / `onValueChange` across items
+- Parent item for select-all when `allValues` is set — auto indeterminate when partially selected
+- Compound parts: `CheckboxGroup`, `CheckboxGroupItem`
+- Same spring checkmark / dash glyphs as Checkbox
+- Base UI by default; Radix twin is a hand-rolled group (Radix has no CheckboxGroup)
+
+## States
+
+### Features
+
+A fruit list with a parent checkbox controlling the children.
+
+### Disabled
+
+The whole group ignores interaction.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="group"` | Root (Radix twin) | Groups related checkboxes |
+| `role="checkbox"` | Item control | Each option |
+| `aria-checked="mixed"` | Parent item | Partial selection |
+
+Provide `aria-label` or `aria-labelledby` on the group.
+
+### Reduced Motion
+
+Glyph enter/exit animations respect `prefers-reduced-motion`.
+
+## Radix twin
+
+Radix has no CheckboxGroup. The Radix twin implements the same SmoothUI props with local state + Radix Checkbox.
+
+## Props
+
+### CheckboxGroupProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/checkbox-group/index.tsx"
+  name="CheckboxGroupProps"
+/>
+
+### CheckboxGroupItemProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/checkbox-group/index.tsx"
+  name="CheckboxGroupItemProps"
+/>

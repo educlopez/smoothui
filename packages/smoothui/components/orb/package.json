@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -33,7 +33,7 @@
     "useCases": [
       "Assistant or voice-agent avatar that reads as a lit object",
       "Hero focal point on a loop with no visible seam",
-      "Configurable brand orb \u2014 22 knobs from palette to dispersion"
+      "Configurable brand orb — 22 knobs from palette to dispersion"
     ],
     "compositionHints": [
       "Used as the body of ai-orb-face",

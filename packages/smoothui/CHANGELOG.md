@@ -146,7 +146,7 @@ These are site/product updates, not claims that every asset or page is distribut
 * **components:** disable native image dragging across the library ([119157f](https://github.com/educlopez/smoothui/commit/119157f89f7dba34d046e7ca7153c3d102403ac7))
 * **components:** remove forced min-h-screen from number-flow root ([4e4531e](https://github.com/educlopez/smoothui/commit/4e4531ee5689656605948a609f219bcd7b8ebdff))
 * **deps:** bump vitest to ^4.1.0 (GHSA-5xrq-8626-4rwp) ([#85](https://github.com/educlopez/smoothui/issues/85)) ([25eafd3](https://github.com/educlopez/smoothui/commit/25eafd3b321db91fa87c3aec13cc74b87264e585))
-* **docs:** center blog post layout and fix AnimatedInput hydration mismatch ([15b137f](https://github.com/educlopez/smoothui/commit/15b137f409c3cdccec1b3497f2926a21bdb52961))
+* **docs:** center blog post layout and fix FloatInput hydration mismatch ([15b137f](https://github.com/educlopez/smoothui/commit/15b137f409c3cdccec1b3497f2926a21bdb52961))
 * **registry:** rewrite workspace imports in served registry content ([b73ac1d](https://github.com/educlopez/smoothui/commit/b73ac1d4bc6d89cf654f909d8a2a101d4e2e6c1b))
 
 

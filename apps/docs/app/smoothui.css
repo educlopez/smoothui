@@ -304,3 +304,122 @@
     mask-image: linear-gradient(#0000, #000);
   }
 }
+
+/* Fluid Functionalism — scroll edge fades (ScrollArea / lists) */
+@property --sf-start {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+@property --sf-end {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@keyframes sf-reveal-start {
+  from {
+    --sf-start: 1;
+  }
+  to {
+    --sf-start: 0;
+  }
+}
+
+@keyframes sf-reveal-end {
+  from {
+    --sf-end: 0;
+  }
+  to {
+    --sf-end: 1;
+  }
+}
+
+@layer utilities {
+  .scroll-fade,
+  .scroll-fade-x {
+    --scroll-fade-size: 48px;
+  }
+
+  .scroll-fade {
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--scroll-fade-size),
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      #000 var(--scroll-fade-size),
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+  }
+
+  .scroll-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--scroll-fade-size),
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--scroll-fade-size),
+      #000 calc(100% - var(--scroll-fade-size)),
+      transparent 100%
+    );
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-fade {
+      mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, var(--sf-start)) 0,
+        #000 var(--scroll-fade-size),
+        #000 calc(100% - var(--scroll-fade-size)),
+        rgba(0, 0, 0, var(--sf-end)) 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, var(--sf-start)) 0,
+        #000 var(--scroll-fade-size),
+        #000 calc(100% - var(--scroll-fade-size)),
+        rgba(0, 0, 0, var(--sf-end)) 100%
+      );
+      animation:
+        sf-reveal-start both linear,
+        sf-reveal-end both linear;
+      animation-timeline: scroll(self), scroll(self);
+      animation-range-start: 0, calc(100% - var(--scroll-fade-size));
+      animation-range-end: var(--scroll-fade-size), 100%;
+    }
+
+    .scroll-fade-x {
+      mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, var(--sf-start)) 0,
+        #000 var(--scroll-fade-size),
+        #000 calc(100% - var(--scroll-fade-size)),
+        rgba(0, 0, 0, var(--sf-end)) 100%
+      );
+      -webkit-mask-image: linear-gradient(
+        to right,
+        rgba(0, 0, 0, var(--sf-start)) 0,
+        #000 var(--scroll-fade-size),
+        #000 calc(100% - var(--scroll-fade-size)),
+        rgba(0, 0, 0, var(--sf-end)) 100%
+      );
+      animation:
+        sf-reveal-start both linear,
+        sf-reveal-end both linear;
+      animation-timeline: scroll(self inline), scroll(self inline);
+      animation-range-start: 0, calc(100% - var(--scroll-fade-size));
+      animation-range-end: var(--scroll-fade-size), 100%;
+    }
+  }
+}

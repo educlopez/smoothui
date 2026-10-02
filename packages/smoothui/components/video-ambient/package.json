@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "motion": "^12.23.25",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Background video that should tint the surrounding surface"
     ],
     "compositionHints": [
-      "Give the wrapper a dark, generously padded surface \u2014 the bloom deliberately spills far past the video box",
+      "Give the wrapper a dark, generously padded surface — the bloom deliberately spills far past the video box",
       "Raise gain above 1 so the glow reads as emitted light rather than a colour wash; raise saturation so it bleeds more colour than the source",
       "Pass a poster so the pre-sample and CORS-blocked fallbacks still look intentional",
       "Lower sampleRate, or set glow to false, on long-running background loops"

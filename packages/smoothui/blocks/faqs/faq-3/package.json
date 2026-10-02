@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "lucide-react": "^0.548.0",
-    "motion": "^11.15.0"
+    "motion": "^11.15.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -32,7 +32,7 @@
       "Documentation FAQ with real-time search"
     ],
     "compositionHints": [
-      "Could use searchable-dropdown for enhanced search"
+      "Could use Combobox primitive for enhanced search"
     ],
     "hasReducedMotion": true
   }

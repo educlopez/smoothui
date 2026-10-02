@@ -84,3 +84,6 @@ skills-lock.json
 apps/docs/.install-check/
 .release/
 .media-staging/
+
+# Local pnpm content-addressable store (never commit)
+.pnpm-store/

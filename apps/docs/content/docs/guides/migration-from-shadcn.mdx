@@ -18,10 +18,10 @@ SmoothUI components are additive. You can migrate one component at a time withou
 Use either the SmoothUI CLI or the shadcn registry to add the component you want:
 
 <PackageManagerTabs
-  pnpm="pnpm dlx smoothui-cli@latest add animated-tabs"
-  npm="npx smoothui-cli@latest add animated-tabs"
-  yarn="yarn dlx smoothui-cli@latest add animated-tabs"
-  bun="bunx smoothui-cli@latest add animated-tabs"
+  pnpm="pnpm dlx smoothui-cli@latest add tabs"
+  npm="npx smoothui-cli@latest add tabs"
+  yarn="yarn dlx smoothui-cli@latest add tabs"
+  bun="bunx smoothui-cli@latest add tabs"
 />
 
 This installs the component to `components/smoothui/ui/` alongside your existing shadcn components in `components/ui/`.
@@ -37,7 +37,7 @@ Replace the shadcn import with the SmoothUI import:
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 
 // After: SmoothUI
-import AnimatedTabs from "@/components/smoothui/ui/AnimatedTabs"
+import Tabs from "@/components/smoothui/ui/Tabs"
 ```
 
 SmoothUI components use a **default export** pattern rather than named exports. Each component is a single self-contained import.
@@ -64,7 +64,7 @@ shadcn uses a **compound component** pattern with multiple named exports. Smooth
 </Tabs>
 
 // SmoothUI: Data-driven props
-<AnimatedTabs
+<Tabs
   tabs={[
     { label: "Tab 1", content: <div>Content 1</div> },
     { label: "Tab 2", content: <div>Content 2</div> },
@@ -78,7 +78,7 @@ Both shadcn and SmoothUI use Tailwind CSS. SmoothUI components accept a `classNa
 
 ```tsx
 // Both support className for custom styling
-<AnimatedTabs className="w-full max-w-md" tabs={tabs} />
+<Tabs className="w-full max-w-md" tabs={tabs} />
 ```
 
 ---
@@ -89,16 +89,16 @@ Below is a mapping of shadcn components to their SmoothUI animated equivalents:
 
 | shadcn/ui Component | SmoothUI Equivalent | Key Differences |
 |---------------------|-------------------|-----------------|
-| `Tabs` | [Animated Tabs](/docs/components/animated-tabs) | Animated sliding indicator, data-driven API |
-| `Dialog` | [Basic Modal](/docs/components/basic-modal) | Spring entrance animation, controlled via `isOpen`/`onClose` |
-| `Toast` / `Sonner` | [Basic Toast](/docs/components/basic-toast) | Animated entrance/exit with spring physics |
+| `Tabs` | [Tabs](/docs/primitives/tabs) | Animated sliding indicator, data-driven API |
+| `Dialog` | [Dialog](/docs/primitives/dialog) | Spring entrance animation, controlled via `isOpen`/`onClose` |
+| `Toast` / `Sonner` | [Toast](/docs/primitives/toast) | Animated entrance/exit with spring physics |
 | `Accordion` | [Accordion](/docs/components/accordion) | Smooth height animation with spring easing |
-| `Tooltip` | [Animated Tooltip](/docs/components/animated-tooltip) | Spring-based show/hide with configurable delay |
-| `DropdownMenu` | [Basic Dropdown](/docs/components/basic-dropdown) | Animated open/close with spring transitions |
-| `Input` | [Animated Input](/docs/components/animated-input) | Floating label animation, focus effects |
-| `Toggle` | [Animated Toggle](/docs/components/animated-toggle) | Spring-based toggle with smooth state transitions |
-| `Progress` | [Animated Progress Bar](/docs/components/animated-progress-bar) | Animated fill with spring physics |
-| `Skeleton` | [Skeleton Loader](/docs/components/skeleton-loader) | Enhanced shimmer animation |
+| `Tooltip` | [Tooltip](/docs/primitives/tooltip) | Spring-based show/hide with configurable delay |
+| `DropdownMenu` | [Dropdown Menu](/docs/primitives/dropdown-menu) | Animated open/close with spring transitions |
+| `Input` | [Animated Input](/docs/components/float-input) | Floating label animation, focus effects |
+| `Toggle` | [Morph Toggle](/docs/components/morph-toggle) | Spring-based toggle with smooth state transitions |
+| `Progress` | [Progress](/docs/primitives/progress) | Animated fill with spring physics |
+| `Skeleton` | [Skeleton Loader](/docs/components/content-skeleton) | Enhanced shimmer animation |
 | `Avatar` | [Animated Avatar Group](/docs/components/animated-avatar-group) | Staggered entrance, hover expansion |
 
 ---
@@ -114,12 +114,12 @@ import { MotionConfig } from "motion/react"
 
 // Disable all animations within this subtree
 <MotionConfig reducedMotion="always">
-  <AnimatedTabs tabs={tabs} />
+  <Tabs tabs={tabs} />
 </MotionConfig>
 
 // Respect system setting (default behavior)
 <MotionConfig reducedMotion="user">
-  <AnimatedTabs tabs={tabs} />
+  <Tabs tabs={tabs} />
 </MotionConfig>
 ```
 

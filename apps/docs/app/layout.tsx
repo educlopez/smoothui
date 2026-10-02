@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
+import Script from "next/script";
 import "./global.css";
 import { inter, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
@@ -106,10 +107,11 @@ export default function Layout({ children }: LayoutProps<"/">) {
             pointed at them, so an agent had to guess the convention. */}
         <link href="/llms.txt" rel="alternate" type="text/plain" />
         <link href="/llms-full.txt" rel="alternate" type="text/plain" />
-        <script
+        <Script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data
           dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
           id="smoothui-schema"
+          strategy="beforeInteractive"
           type="application/ld+json"
         />
       </head>

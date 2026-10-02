@@ -1,6 +1,6 @@
 import { PostCover } from "@docs/components/post-cover";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import { createMetadata } from "@docs/lib/metadata";
-import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";

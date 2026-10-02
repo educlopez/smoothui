@@ -50,7 +50,7 @@ const componentGroups = [
     title: "Text",
   },
   {
-    href: "/docs/components/smooth-button",
+    href: "/docs/primitives/smooth-button",
     icon: <IconSparkleFill24 size={16} />,
     text: "Candy, outline, and magnetic.",
     title: "Buttons",

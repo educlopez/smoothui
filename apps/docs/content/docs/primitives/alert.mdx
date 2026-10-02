@@ -1,0 +1,35 @@
+---
+title: Alert
+description: Inline info, success, warning, and destructive notices — not a modal dialog.
+icon: Bell
+dependencies: []
+installer: alert
+---
+
+## Features
+
+- Variants: info, success, warning, destructive
+- Optional title, body, and icon
+- `role="alert"` for assertive announcements
+- SmoothUI-owned (distinct from Dialog / Alert Dialog)
+
+## States
+
+### Features
+
+All four tones stacked.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="alert"` | Root | Announces the notice to assistive tech |
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/alert/index.tsx"
+  name="AlertProps"
+/>

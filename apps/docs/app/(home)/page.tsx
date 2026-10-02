@@ -3,6 +3,7 @@ import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { Coverage } from "@docs/components/landing/coverage";
 import { ExploreSections } from "@docs/components/landing/explore-sections";
+import { FaqSchema } from "@docs/components/landing/faq-schema";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
@@ -50,6 +51,7 @@ function SectionSkeleton({ minHeight = "400px" }: { minHeight?: string }) {
 export default function Home() {
   return (
     <>
+      <FaqSchema />
       <div className="w-full bg-background">
         <Hero />
         <div className="mx-auto w-full max-w-7xl [&>section]:bg-transparent">

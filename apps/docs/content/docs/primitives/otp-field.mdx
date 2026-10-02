@@ -1,0 +1,39 @@
+---
+title: OTP Field
+description: One-time-passcode digit inputs with paste and keyboard navigation, Base UI twin and Radix-parity twin.
+icon: KeyRound
+dependencies:
+  - base-ui
+installer: otp-field
+---
+
+## Features
+
+- Configurable `length` (default 6)
+- Paste fills consecutive slots
+- Optional `mask` for shared screens
+- Compound parts: `OTPFieldRoot`, `OTPFieldInput`
+- Base UI by default; Radix twin is a hand-rolled multi-input (Radix has no OTP Field)
+
+## States
+
+### Features
+
+A six-digit verification code.
+
+### Masked
+
+Characters are obscured.
+
+## Accessibility
+
+Provide a visible `label` or an `aria-label`. Each subsequent slot announces its position.
+
+## Props
+
+### OTPFieldProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/otp-field/index.tsx"
+  name="OTPFieldProps"
+/>
