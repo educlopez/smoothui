@@ -486,7 +486,7 @@ article.group p {
   --fd-toc-width: 240px;
 }
 
-/* Three sources of top gap in the sidebar when navMode="top" + collapsible=false:
+/* Three sources of top gap in the sidebar when navMode="top" + tabMode=navbar:
    1. Header div (p-4 pb-2) has no visible content → collapse it
    2. ScrollViewport inner div has p-4 top padding → remove it
    3. Hidden lg:hidden menu items precede the first separator so first:mt-0 never

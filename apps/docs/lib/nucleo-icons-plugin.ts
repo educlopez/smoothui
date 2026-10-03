@@ -286,6 +286,8 @@ function replaceIcon(node: Record<string, unknown>): Record<string, unknown> {
   return node;
 }
 
+export { resolveIcon };
+
 export function nucleoIconsPlugin() {
   return {
     name: "smoothui:nucleo-icons",

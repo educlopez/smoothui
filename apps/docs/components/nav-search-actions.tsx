@@ -6,14 +6,14 @@ import {
   type SearchTriggerProps,
 } from "fumadocs-ui/layouts/shared/slots/search-trigger";
 
-// Mobile (<md): the changelog bell sits next to the compact search icon on
-// the right, instead of being pushed into the sidebar drawer. Theme toggling
+// Mobile (<md): search icon then changelog (notifications stay furthest
+// right), instead of pushing either into the sidebar drawer. Theme toggling
 // lives only in the FloatNav to avoid a duplicate control.
 export function NavSearchTriggerSm(props: SearchTriggerProps) {
   return (
     <div className="flex items-center">
-      <ChangelogPopover />
       <SearchTrigger {...props} />
+      <ChangelogPopover />
     </div>
   );
 }

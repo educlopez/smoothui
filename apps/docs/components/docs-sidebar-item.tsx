@@ -28,11 +28,20 @@ const isActivePath = (href: string, pathname: string): boolean =>
 /**
  * Renders planned primitives as disabled “Soon” rows; everything else as a
  * normal fumadocs sidebar link (with notebook item styles restored).
+ *
+ * Leaf icons are omitted on purpose — with 200+ pages the glyph noise drowns
+ * the list. Category icons live on `---Section---` separators (see
+ * `decorateSidebarCategories`). An empty `size-4` gutter still reserves the
+ * icon column so leaf labels align with section text and section breaks scan
+ * faster.
  */
 export const DocsSidebarItem = ({ item }: { item: PageTree.Item }) => {
   const pathname = usePathname();
   const depth = useFolderDepth();
   const style = { paddingInlineStart: getItemOffset(depth) };
+  // Matches separator `[&_svg]:size-4` + `gap-2` so text lines up under
+  // section labels that carry a real icon.
+  const iconGutter = <span aria-hidden className="size-4 shrink-0" />;
 
   if (isPlannedSidebarItem(item)) {
     return (
@@ -44,6 +53,7 @@ export const DocsSidebarItem = ({ item }: { item: PageTree.Item }) => {
         )}
         style={style}
       >
+        {iconGutter}
         {item.name}
       </span>
     );
@@ -55,9 +65,9 @@ export const DocsSidebarItem = ({ item }: { item: PageTree.Item }) => {
       className={itemClassName}
       external={item.external}
       href={item.url}
-      icon={item.icon}
       style={style}
     >
+      {iconGutter}
       {item.name}
     </SidebarItem>
   );

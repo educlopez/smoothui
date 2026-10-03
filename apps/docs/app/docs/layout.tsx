@@ -1,16 +1,18 @@
 import DocsFooter from "@docs/components/docs-footer";
+import { DocsHeader } from "@docs/components/docs-header";
 import { DocsSidebarItem } from "@docs/components/docs-sidebar-item";
 import { FloatNav } from "@docs/components/float-nav";
 import { NavSponsorCard } from "@docs/components/nav-sponsor-card";
 import { decorateNewPages } from "@docs/lib/decorate-new";
+import { decorateSidebarCategories } from "@docs/lib/decorate-sidebar-categories";
 import { injectPlannedPrimitives } from "@docs/lib/inject-planned-primitives";
 import { baseOptions } from "@docs/lib/layout.shared";
 import { source } from "@docs/lib/source";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 
 export default function Layout({ children }: LayoutProps<"/docs">) {
-  const tree = injectPlannedPrimitives(
-    decorateNewPages(source.pageTree, source)
+  const tree = decorateSidebarCategories(
+    injectPlannedPrimitives(decorateNewPages(source.pageTree, source))
   );
   const options = baseOptions();
 
@@ -31,6 +33,11 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
           Item: DocsSidebarItem,
         },
         footer: <NavSponsorCard key="nav-sponsor-card" />,
+      }}
+      slots={{
+        ...options.slots,
+        // Custom header: section tabs + right-side search/changelog in one row.
+        header: DocsHeader,
       }}
       tabMode="navbar"
     >
