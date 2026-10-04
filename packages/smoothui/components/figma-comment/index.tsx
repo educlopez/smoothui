@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@repo/avatar";
+import { Avatar } from "@repo/avatar";
 import { cn } from "@repo/smoothui-utils";
 import { getImageKitUrl } from "@smoothui/data";
 import { somePeople } from "@smoothui/data/people";
@@ -169,10 +169,12 @@ export default function FigmaComment({
                 }
           }
         >
-          <Avatar className="h-6 w-6">
-            <AvatarImage alt={avatarAlt} src={avatarUrl} />
-            <AvatarFallback>{authorName.charAt(0)}</AvatarFallback>
-          </Avatar>
+          <Avatar
+            alt={avatarAlt}
+            className="size-6 overflow-hidden rounded-full"
+            fallback={authorName.charAt(0)}
+            src={avatarUrl}
+          />
         </motion.div>
 
         {/* Content - always rendered but hidden when closed for measurement */}

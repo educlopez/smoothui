@@ -1,6 +1,6 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@repo/avatar";
+import { Avatar } from "@repo/avatar";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { ArrowDownRight, Star } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -110,9 +110,11 @@ export function HeroShowcase({
                       }}
                       whileHover={shouldReduceMotion ? {} : { y: -8 }}
                     >
-                      <Avatar className="size-12 border">
-                        <AvatarImage alt={avatar.alt} src={avatar.src} />
-                      </Avatar>
+                      <Avatar
+                        alt={avatar.alt}
+                        className="size-12 overflow-hidden rounded-full border"
+                        src={avatar.src}
+                      />
                     </motion.div>
                   ))}
                 </span>

@@ -66,11 +66,13 @@ export const HeroHeader = () => {
                   />
                 </a>
 
-                <button
+                <SmoothButton
                   aria-label={menuState === true ? "Close Menu" : "Open Menu"}
-                  className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden"
+                  className="relative z-20 -m-2.5 -mr-4 block lg:hidden"
                   onClick={() => setMenuState(!menuState)}
+                  size="icon-sm"
                   type="button"
+                  variant="ghost"
                 >
                   <AnimatePresence mode="wait">
                     {menuState ? (
@@ -149,7 +151,7 @@ export const HeroHeader = () => {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </button>
+                </SmoothButton>
 
                 <div className="m-auto hidden size-fit lg:block">
                   <ul className="flex gap-1">

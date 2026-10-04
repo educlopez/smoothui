@@ -1,6 +1,10 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import {
+  ToggleGroupItem,
+  ToggleGroupRoot,
+} from "@repo/smoothui/components/toggle-group";
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
@@ -134,33 +138,32 @@ export function PricingCreative() {
               priority support
             </p>
             <div className="my-12">
-              <div
-                className="relative mx-auto grid w-fit grid-cols-2 rounded-full border bg-background p-1 *:block *:h-8 *:w-24 *:rounded-full *:text-foreground *:text-sm *:hover:opacity-75"
-                data-period={isAnnual ? "annually" : "monthly"}
+              <ToggleGroupRoot
+                aria-label="Billing period"
+                className="mx-auto rounded-full border bg-background p-1"
+                onValueChange={(next) => {
+                  if (next[0] === "annually") {
+                    setIsAnnual(true);
+                  } else if (next[0] === "monthly") {
+                    setIsAnnual(false);
+                  }
+                }}
+                type="single"
+                value={[isAnnual ? "annually" : "monthly"]}
               >
-                <div
-                  aria-hidden="true"
-                  className={`pointer-events-none absolute inset-1 w-1/2 rounded-full border border-transparent bg-brand shadow ring-1 ring-foreground/5 transition-transform duration-500 ease-in-out ${
-                    isAnnual ? "translate-x-full" : "translate-x-0"
-                  }`}
-                />
-                <button
-                  className="relative duration-500 data-[active=true]:font-medium data-[active=true]:text-white"
-                  data-active={!isAnnual}
-                  onClick={() => setIsAnnual(false)}
-                  type="button"
+                <ToggleGroupItem
+                  className="w-24 rounded-full data-pressed:bg-brand data-pressed:text-white dark:data-pressed:bg-brand"
+                  value="monthly"
                 >
                   Monthly
-                </button>
-                <button
-                  className="relative duration-500 data-[active=true]:font-medium data-[active=true]:text-white"
-                  data-active={isAnnual}
-                  onClick={() => setIsAnnual(true)}
-                  type="button"
+                </ToggleGroupItem>
+                <ToggleGroupItem
+                  className="w-24 rounded-full data-pressed:bg-brand data-pressed:text-white dark:data-pressed:bg-brand"
+                  value="annually"
                 >
                   Annually
-                </button>
-              </div>
+                </ToggleGroupItem>
+              </ToggleGroupRoot>
             </div>
           </div>
           <div className="container">

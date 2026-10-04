@@ -1,7 +1,14 @@
 "use client";
 
-import { ChevronDown, Search } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import {
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
+  AccordionRoot,
+  AccordionTrigger,
+} from "@repo/smoothui/components/accordion";
+import { Search } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
 
 export interface FaqSearchableProps {
@@ -56,7 +63,6 @@ export function FaqSearchable({
   faqs = defaultFaqs,
 }: FaqSearchableProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
 
   const filteredFaqs = useMemo(() => {
@@ -71,17 +77,9 @@ export function FaqSearchable({
     );
   }, [faqs, searchQuery]);
 
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
   const springTransition = shouldReduceMotion
     ? { duration: 0 }
     : { bounce: 0.05, duration: 0.25, type: "spring" as const };
-
-  const contentTransition = shouldReduceMotion
-    ? { duration: 0 }
-    : { bounce: 0, duration: 0.25, type: "spring" as const };
 
   return (
     <section className="py-20">
@@ -115,7 +113,6 @@ export function FaqSearchable({
             className="w-full rounded-xl border border-border bg-background py-4 pr-4 pl-12 text-foreground transition-colors placeholder:text-foreground/40 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
             onChange={(e) => {
               setSearchQuery(e.target.value);
-              setOpenIndex(null);
             }}
             placeholder={searchPlaceholder}
             type="text"
@@ -123,121 +120,33 @@ export function FaqSearchable({
           />
         </motion.div>
 
-        <div className="space-y-4">
-          <AnimatePresence mode="popLayout">
-            {filteredFaqs.length === 0 ? (
-              <motion.div
-                animate={
-                  shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1 }
-                }
-                className="rounded-xl border border-border bg-background/50 py-12 text-center"
-                exit={
-                  shouldReduceMotion
-                    ? { opacity: 0, transition: { duration: 0 } }
-                    : { opacity: 0, scale: 0.95 }
-                }
-                initial={
-                  shouldReduceMotion
-                    ? { opacity: 1 }
-                    : { opacity: 0, scale: 0.95 }
-                }
-                key="no-results"
-                transition={springTransition}
+        {filteredFaqs.length === 0 ? (
+          <div className="rounded-xl border border-border bg-background/50 py-12 text-center">
+            <p className="text-foreground/60">{noResultsText}</p>
+          </div>
+        ) : (
+          <AccordionRoot
+            className="space-y-4 divide-y-0 rounded-none border-0"
+            key={searchQuery}
+          >
+            {filteredFaqs.map((faq) => (
+              <AccordionItem
+                className="overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
+                key={faq.question}
+                value={faq.question}
               >
-                <p className="text-foreground/60">{noResultsText}</p>
-              </motion.div>
-            ) : (
-              filteredFaqs.map((faq, index) => {
-                const originalIndex = faqs.indexOf(faq);
-                const isOpen = openIndex === originalIndex;
-
-                return (
-                  <motion.div
-                    animate={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 1, scale: 1, y: 0 }
-                    }
-                    className="group overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
-                    exit={
-                      shouldReduceMotion
-                        ? { opacity: 0, transition: { duration: 0 } }
-                        : { opacity: 0, scale: 0.95, y: -10 }
-                    }
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 0, scale: 0.95, y: 20 }
-                    }
-                    key={faq.question}
-                    layout={!shouldReduceMotion}
-                    transition={{
-                      ...springTransition,
-                      delay: shouldReduceMotion ? 0 : index * 0.05,
-                    }}
-                  >
-                    <button
-                      aria-expanded={isOpen}
-                      className="flex w-full cursor-pointer items-center justify-between p-5 text-left transition-colors hover:bg-background/50"
-                      onClick={() => toggleAccordion(originalIndex)}
-                      type="button"
-                    >
-                      <h3 className="pr-4 font-medium text-foreground">
-                        {faq.question}
-                      </h3>
-                      <motion.div
-                        animate={{
-                          rotate: isOpen ? 180 : 0,
-                        }}
-                        className="flex-shrink-0"
-                        transition={springTransition}
-                      >
-                        <ChevronDown
-                          aria-hidden="true"
-                          className="h-5 w-5 text-foreground/60"
-                        />
-                      </motion.div>
-                    </button>
-
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          animate={
-                            shouldReduceMotion
-                              ? { height: "auto", opacity: 1 }
-                              : { height: "auto", opacity: 1 }
-                          }
-                          className="overflow-hidden"
-                          exit={
-                            shouldReduceMotion
-                              ? {
-                                  height: 0,
-                                  opacity: 0,
-                                  transition: { duration: 0 },
-                                }
-                              : { height: 0, opacity: 0 }
-                          }
-                          initial={
-                            shouldReduceMotion
-                              ? { height: "auto", opacity: 1 }
-                              : { height: 0, opacity: 0 }
-                          }
-                          transition={contentTransition}
-                        >
-                          <div className="px-5 pb-5">
-                            <p className="text-foreground/70 leading-relaxed">
-                              {faq.answer}
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })
-            )}
-          </AnimatePresence>
-        </div>
+                <AccordionHeader>
+                  <AccordionTrigger className="px-5 py-5 text-base hover:bg-background/50">
+                    {faq.question}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel className="text-foreground/70">
+                  {faq.answer}
+                </AccordionPanel>
+              </AccordionItem>
+            ))}
+          </AccordionRoot>
+        )}
       </div>
     </section>
   );

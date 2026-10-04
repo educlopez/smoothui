@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
@@ -138,13 +139,14 @@ const AnimatedList = ({
               }
             >
               {onItemClick ? (
-                <button
-                  className="w-full rounded-lg text-left"
+                <SmoothButton
+                  className="h-auto w-full justify-start rounded-lg text-left font-normal"
                   onClick={() => onItemClick(item.id)}
                   type="button"
+                  variant="ghost"
                 >
                   {item.content}
-                </button>
+                </SmoothButton>
               ) : (
                 item.content
               )}

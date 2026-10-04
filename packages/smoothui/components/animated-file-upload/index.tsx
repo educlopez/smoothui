@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useRef, useState } from "react";
@@ -343,16 +344,16 @@ export default function AnimatedFileUpload({
                     {formatFileSize(file.size)}
                   </p>
                 </div>
-                <motion.button
+                <SmoothButton
                   aria-label={`Remove ${file.name}`}
-                  className="shrink-0 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  className="shrink-0 text-muted-foreground"
                   onClick={(e) => {
                     e.stopPropagation();
                     removeFile(index);
                   }}
+                  size="icon-sm"
                   type="button"
-                  whileHover={shouldReduceMotion ? undefined : { scale: 1.1 }}
-                  whileTap={shouldReduceMotion ? undefined : { scale: 0.9 }}
+                  variant="ghost"
                 >
                   <svg
                     aria-hidden="true"
@@ -368,7 +369,7 @@ export default function AnimatedFileUpload({
                       strokeLinejoin="round"
                     />
                   </svg>
-                </motion.button>
+                </SmoothButton>
               </motion.li>
             ))}
           </AnimatePresence>

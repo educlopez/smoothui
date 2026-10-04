@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { Minus, Plus } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -229,30 +230,28 @@ export default function NumberFlow({
         </div>
 
         <div className="flex flex-col gap-1">
-          <button
+          <SmoothButton
             aria-label="Increase number"
-            className={cn(
-              "relative flex w-auto cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
-              buttonClassName
-            )}
+            className={cn("overflow-hidden", buttonClassName)}
             disabled={value >= max}
             onClick={add}
+            size="icon-sm"
             type="button"
+            variant="outline"
           >
             <Plus className="h-3 w-3" />
-          </button>
-          <button
+          </SmoothButton>
+          <SmoothButton
             aria-label="Decrease number"
-            className={cn(
-              "relative flex w-auto cursor-pointer items-center justify-center overflow-hidden rounded-md border bg-background p-2 disabled:cursor-not-allowed disabled:opacity-50",
-              buttonClassName
-            )}
+            className={cn("overflow-hidden", buttonClassName)}
             disabled={value <= min}
             onClick={subtract}
+            size="icon-sm"
             type="button"
+            variant="outline"
           >
             <Minus className="h-3 w-3" />
-          </button>
+          </SmoothButton>
         </div>
       </div>
     </div>

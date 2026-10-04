@@ -268,13 +268,15 @@ export default function SwapPanel({
                 {typeof from.balance === "number" ? (
                   <div className="mt-1 flex items-center gap-2 px-1 text-muted-foreground text-xs">
                     <span>Balance {decimalFormatter.format(from.balance)}</span>
-                    <button
-                      className="rounded font-medium text-foreground underline decoration-foreground/30 underline-offset-2 transition-colors hover:decoration-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                    <SmoothButton
+                      className="h-auto p-0 font-medium underline decoration-foreground/30 underline-offset-2"
                       onClick={() => onAmountChange(String(from.balance))}
+                      size="xs"
                       type="button"
+                      variant="link"
                     >
                       Max
-                    </button>
+                    </SmoothButton>
                   </div>
                 ) : null}
               </div>

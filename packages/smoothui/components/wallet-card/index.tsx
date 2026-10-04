@@ -568,16 +568,19 @@ export default function WalletCard({
             </div>
           ))}
           {overflowMembers.length > 0 ? (
-            <button
+            <SmoothButton
               aria-controls="wallet-card-overflow-list"
               aria-expanded={overflowOpen}
               aria-label={`Show ${overflowMembers.length} more members`}
-              className="ease ml-1 flex h-8 min-w-[32px] cursor-pointer items-center justify-center rounded-full bg-secondary px-2 font-medium text-xs outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+              className="ml-1 min-w-[32px] px-2"
               onClick={() => setOverflowOpen((open) => !open)}
+              shape="pill"
+              size="sm"
               type="button"
+              variant="soft"
             >
               +{overflowMembers.length}
-            </button>
+            </SmoothButton>
           ) : null}
         </div>
         {actions}

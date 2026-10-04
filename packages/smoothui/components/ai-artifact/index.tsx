@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { Check, Copy } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -130,24 +131,23 @@ const AIArtifact = ({
         )}
 
         {copyText ? (
-          <button
+          <SmoothButton
             aria-label={hasCopied ? "Copied" : "Copy"}
             className={cn(
-              "cursor-pointer rounded-md p-1.5 transition-colors",
               available.length > 1 ? "" : "ml-auto",
-              hasCopied
-                ? "text-foreground"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+              hasCopied ? "text-foreground" : "text-muted-foreground"
             )}
             onClick={copy}
+            size="icon-sm"
             type="button"
+            variant="ghost"
           >
             {hasCopied ? (
               <Check aria-hidden="true" size={13} />
             ) : (
               <Copy aria-hidden="true" size={13} />
             )}
-          </button>
+          </SmoothButton>
         ) : null}
       </div>
 

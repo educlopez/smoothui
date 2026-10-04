@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { ArrowDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -112,10 +113,9 @@ const AIConversation = ({
 
       <AnimatePresence initial={false}>
         {!isPinned && (
-          <motion.button
+          <motion.div
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            aria-label="Jump to latest"
-            className="absolute inset-x-0 bottom-3 mx-auto flex w-fit cursor-pointer items-center gap-1.5 rounded-full border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-foreground text-xs shadow-sm backdrop-blur"
+            className="absolute inset-x-0 bottom-3 mx-auto w-fit"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }
@@ -126,15 +126,23 @@ const AIConversation = ({
                 ? { opacity: 1, scale: 1, y: 0 }
                 : { opacity: 0, scale: 0.96, y: 8 }
             }
-            onClick={() =>
-              scrollToBottom(shouldReduceMotion ? "auto" : "smooth")
-            }
             transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
-            type="button"
           >
-            <ArrowDown aria-hidden="true" size={13} />
-            Jump to latest
-          </motion.button>
+            <SmoothButton
+              aria-label="Jump to latest"
+              className="border border-border bg-background/90 py-1.5 pr-3 pl-2.5 text-xs shadow-sm backdrop-blur"
+              onClick={() =>
+                scrollToBottom(shouldReduceMotion ? "auto" : "smooth")
+              }
+              shape="pill"
+              size="xs"
+              type="button"
+              variant="outline"
+            >
+              <ArrowDown aria-hidden="true" size={13} />
+              Jump to latest
+            </SmoothButton>
+          </motion.div>
         )}
       </AnimatePresence>
     </div>
