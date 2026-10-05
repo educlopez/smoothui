@@ -67,6 +67,10 @@ describe("SidebarLabel while collapsing", () => {
     );
     await user.click(screen.getByRole("button", { name: "Expand sidebar" }));
     expect(labelOf().classList.contains("sr-only")).toBe(false);
-    expect(labelOf().classList.contains("opacity-0")).toBe(false);
+    // Fades in: transparent on the first frame, then cleared.
+    expect(labelOf().classList.contains("opacity-0")).toBe(true);
+    await waitFor(() =>
+      expect(labelOf().classList.contains("opacity-0")).toBe(false)
+    );
   });
 });

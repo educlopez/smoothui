@@ -36,7 +36,10 @@ describe("Command selected item", () => {
     renderCommand();
     const item = screen.getByText("New file");
     const classes = item.className.split(" ");
-    expect(classes).toContain("data-[selected=true]:bg-muted");
+    // Translucent, so the sliding hover highlight underneath stays visible
+    // (the item sits above it at z-10).
+    expect(classes).toContain("data-[selected=true]:bg-foreground/10");
+    expect(classes).not.toContain("data-[selected=true]:bg-muted");
     expect(item.className).not.toMatch(BRAND_BG);
   });
 

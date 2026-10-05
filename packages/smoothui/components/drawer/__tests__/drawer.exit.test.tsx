@@ -62,6 +62,13 @@ describe("Drawer body exit", () => {
 
   it("keeps the body until its exit finishes, then removes it", async () => {
     reduced.value = false;
+    // jsdom has no CSS animations, so Base UI would unmount the popup at once.
+    // Report one running animation so the popup waits like it does in a browser.
+    const original = Element.prototype.getAnimations;
+    Element.prototype.getAnimations = () =>
+      [
+        { finished: new Promise<void>((resolve) => setTimeout(resolve, 300)) },
+      ] as unknown as Animation[];
     const { rerender } = render(
       <Drawer open title="Exit title">
         <p>Body</p>
@@ -69,9 +76,12 @@ describe("Drawer body exit", () => {
     );
     expect(screen.getByText("Exit title")).toBeInTheDocument();
     rerender(closeDrawer());
+    // Still mounted right after close: the exit has not finished yet.
+    expect(screen.getByText("Exit title")).toBeInTheDocument();
     await waitFor(() => expect(screen.queryByText("Exit title")).toBeNull(), {
       timeout: 2000,
     });
+    Element.prototype.getAnimations = original;
   });
 
   it("removes the body at once with reduced motion", () => {

@@ -14,16 +14,43 @@ describe("CodeBlock scroll region", () => {
     expect(await axe(container)).toHaveNoViolations();
   });
 
-  it("falls back to the language when there is no filename", () => {
-    render(<CodeBlock code="const x = 1;" language="ts" />);
-    expect(screen.getByRole("region", { name: "ts code" })).toBeInTheDocument();
+  it("stays focusable without becoming a landmark when there is no filename", () => {
+    const { container } = render(
+      <CodeBlock code="const x = 1;" language="ts" />
+    );
+    expect(screen.queryByRole("region")).toBeNull();
+    const scroller = container.querySelector("[tabindex='0']");
+    expect(scroller).not.toBeNull();
+    expect(scroller?.querySelector("pre")).not.toBeNull();
+  });
+
+  it("gives two blocks on a page distinct landmark names", async () => {
+    const { container } = render(
+      <>
+        <CodeBlock code="a" filename="a.ts" language="ts" />
+        <CodeBlock code="b" filename="b.ts" language="ts" />
+        <CodeBlock code="c" language="ts" />
+        <CodeBlock code="d" language="ts" />
+      </>
+    );
+    const names = screen
+      .getAllByRole("region")
+      .map((el) => el.getAttribute("aria-label"));
+    expect(names).toEqual(["a.ts code", "b.ts code"]);
+    expect(await axe(container)).toHaveNoViolations();
   });
 
   it("is also a region when only the height is capped", async () => {
     const { container } = render(
-      <CodeBlock code="const x = 1;" language="ts" maxHeight={120} wrap />
+      <CodeBlock
+        code="const x = 1;"
+        filename="cap.ts"
+        language="ts"
+        maxHeight={120}
+        wrap
+      />
     );
-    const region = screen.getByRole("region", { name: "ts code" });
+    const region = screen.getByRole("region", { name: "cap.ts code" });
     expect(region.getAttribute("tabindex")).toBe("0");
     expect(await axe(container)).toHaveNoViolations();
   });

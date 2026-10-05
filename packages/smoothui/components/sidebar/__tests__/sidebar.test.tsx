@@ -75,4 +75,36 @@ describe("Sidebar", () => {
       expect(screen.getByText("Overview")).toHaveClass("sr-only")
     );
   });
+
+  it("fades the label in on expand instead of popping it in", async () => {
+    const user = userEvent.setup();
+    render(
+      <SidebarProvider>
+        <Sidebar>
+          <SidebarContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton icon={<span aria-hidden>x</span>}>
+                  Overview
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarContent>
+        </Sidebar>
+        <SidebarTrigger />
+      </SidebarProvider>
+    );
+
+    await user.click(screen.getByRole("button", { name: "Collapse sidebar" }));
+    await waitFor(() =>
+      expect(screen.getByText("Overview")).toHaveClass("sr-only")
+    );
+    await user.click(screen.getByRole("button", { name: "Expand sidebar" }));
+    // First frame after expand: visible layout but still transparent.
+    expect(screen.getByText("Overview")).toHaveClass("opacity-0");
+    expect(screen.getByText("Overview")).toHaveClass("transition-opacity");
+    await waitFor(() =>
+      expect(screen.getByText("Overview")).not.toHaveClass("opacity-0")
+    );
+  });
 });
