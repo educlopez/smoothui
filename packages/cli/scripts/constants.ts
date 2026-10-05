@@ -2,20 +2,6 @@ export const REGISTRY_URL = "https://smoothui.dev";
 
 export const CATEGORIES: Record<string, string[]> = {
   AI: ["ai-branch", "ai-prompt-input", "ai-response", "ai-tool-call"],
-  "Basic UI": [
-    "accordion",
-    "animated-input",
-    "animated-progress-bar",
-    "animated-tabs",
-    "animated-toggle",
-    "basic-dropdown",
-    "basic-modal",
-    "basic-toast",
-    "notification-badge",
-    "searchable-dropdown",
-    "skeleton-loader",
-    "tweet-card",
-  ],
   Buttons: [
     "button-copy",
     "clip-corners-button",
@@ -31,7 +17,6 @@ export const CATEGORIES: Record<string, string[]> = {
     "job-listing-component",
   ],
   Interactive: [
-    "animated-o-t-p-input",
     "animated-tags",
     "app-download-stack",
     "apple-invites",
@@ -54,6 +39,16 @@ export const CATEGORIES: Record<string, string[]> = {
     "siri-orb",
     "cursor-follow",
     "github-stars-animation",
+  ],
+  Patterns: [
+    "float-input",
+    "digit-roll",
+    "otp-slots",
+    "morph-toggle",
+    "count-badge",
+    "content-skeleton",
+    "country-picker",
+    "tweet-card",
   ],
   "Text Effects": [
     "wave-text",

@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "@radix-ui/react-tabs": "^1.1.2"
+    "@radix-ui/react-tabs": "^1.1.2",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Category-based image viewer with smooth transitions"
     ],
     "compositionHints": [
-      "Use as an alternative to animated-tabs for image-heavy content"
+      "Use as an alternative to Tabs primitive for image-heavy content"
     ],
     "hasReducedMotion": true
   }

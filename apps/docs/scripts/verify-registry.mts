@@ -174,11 +174,104 @@ for (const themeName of themeNames) {
 
 validateSchema(SKILL_ITEM_NAME, await getSkill());
 
+// Dual-style smoke: owned primitives must serve distinct Base and Radix payloads.
+const DUAL_COHORT = [
+  "smoothui/components/checkbox",
+  "smoothui/components/radio-group",
+  "smoothui/components/dialog",
+  "smoothui/components/dropdown-menu",
+  "smoothui/components/smooth-button",
+] as const;
+
+let dualStyleErrors = 0;
+
+for (const name of DUAL_COHORT) {
+  if (!names.includes(name)) {
+    dualStyleErrors++;
+    console.log(`DUAL-MISSING ${name} is not in the package catalogue`);
+    continue;
+  }
+
+  const baseItem = await getPackage(name, "base-nova");
+  const radixItem = await getPackage(name, "radix-nova");
+  const plainItem = await getPackage(name, null);
+
+  const baseContent = (baseItem.files ?? [])
+    .map((file) => file.content ?? "")
+    .join("\n");
+  const radixContent = (radixItem.files ?? [])
+    .map((file) => file.content ?? "")
+    .join("\n");
+  const plainContent = (plainItem.files ?? [])
+    .map((file) => file.content ?? "")
+    .join("\n");
+
+  // Payload identity: plain /r must match Base; Radix must differ when twins exist.
+  if (plainContent !== baseContent) {
+    dualStyleErrors++;
+    console.log(
+      `DUAL-DEFAULT ${name}: plain /r payload must match base-nova (product default)`
+    );
+  }
+
+  if (baseContent === radixContent) {
+    dualStyleErrors++;
+    console.log(
+      `DUAL-IDENTICAL ${name}: base-nova and radix-nova payloads must differ`
+    );
+  }
+
+  const baseDeps = new Set(baseItem.dependencies ?? []);
+  const radixDeps = new Set(radixItem.dependencies ?? []);
+
+  if (
+    baseDeps.has("radix-ui") ||
+    [...baseDeps].some((d) => d.startsWith("@radix-ui/"))
+  ) {
+    dualStyleErrors++;
+    console.log(
+      `DUAL-BASE-DEPS ${name}: Base twin must not list radix-ui / @radix-ui/*`
+    );
+  }
+
+  if (
+    baseDeps.has("@base-ui/react") === false &&
+    baseContent.includes("@base-ui/react")
+  ) {
+    // Content imports Base but deps omitted — still a problem for installers.
+    dualStyleErrors++;
+    console.log(
+      `DUAL-BASE-DEPS ${name}: Base twin imports @base-ui/react but does not declare it`
+    );
+  }
+
+  if (
+    !(
+      radixDeps.has("radix-ui") ||
+      [...radixDeps].some((d) => d.startsWith("@radix-ui/"))
+    ) &&
+    (radixContent.includes("radix-ui") || radixContent.includes("@radix-ui/"))
+  ) {
+    dualStyleErrors++;
+    console.log(
+      `DUAL-RADIX-DEPS ${name}: Radix twin imports radix but does not declare it`
+    );
+  }
+
+  validateSchema(`${name}@base-nova`, baseItem);
+  validateSchema(`${name}@radix-nova`, radixItem);
+}
+
 console.log(
-  `Items: ${names.length} packages + ${themeNames.length} themes + tokens + skill, leaks: ${leaks}, schema errors: ${schemaErrors}, unresolved sibling imports: ${unresolved}, undeclared tokens: ${undeclaredTokens}, missing token deps: ${missingTokenDeps}`
+  `Items: ${names.length} packages + ${themeNames.length} themes + tokens + skill, leaks: ${leaks}, schema errors: ${schemaErrors}, unresolved sibling imports: ${unresolved}, undeclared tokens: ${undeclaredTokens}, missing token deps: ${missingTokenDeps}, dual-style errors: ${dualStyleErrors}`
 );
 process.exit(
-  leaks || schemaErrors || unresolved || undeclaredTokens || missingTokenDeps
+  leaks ||
+    schemaErrors ||
+    unresolved ||
+    undeclaredTokens ||
+    missingTokenDeps ||
+    dualStyleErrors
     ? 1
     : 0
 );

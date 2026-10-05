@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
+    "cmdk": "1.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "lucide-react": "^0.469.0"
+    "lucide-react": "^0.469.0",
+    "radix-ui": "1.4.3",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -18,7 +20,7 @@
     "typescript": "^5.9.3"
   },
   "smoothui": {
-    "category": "basic-ui",
+    "category": "patterns",
     "tags": [
       "combobox",
       "autocomplete",

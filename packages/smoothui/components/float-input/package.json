@@ -1,0 +1,41 @@
+{
+  "name": "@repo/float-input",
+  "description": "A FloatInput component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "input",
+      "form",
+      "floating-label",
+      "material-design",
+      "animated"
+    ],
+    "complexity": "simple",
+    "animationType": "tween",
+    "useCases": [
+      "Form input with floating label animation",
+      "Material Design style text field",
+      "Accessible input with animated placeholder transition"
+    ],
+    "compositionHints": [
+      "Combine with Toast primitive for form validation feedback",
+      "Use in forms alongside morph-toggle and Dropdown Menu primitive"
+    ],
+    "hasReducedMotion": true,
+    "name": "float-input"
+  }
+}

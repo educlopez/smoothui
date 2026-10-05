@@ -1,5 +1,5 @@
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type React from "react";
 import type { ButtonHTMLAttributes } from "react";

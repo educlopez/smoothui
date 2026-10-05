@@ -1,0 +1,36 @@
+{
+  "name": "@repo/toolbar",
+  "description": "Accessible Toolbar for SmoothUI with Base UI / Radix twins for grouped controls.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "radix-ui": "1.4.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "toolbar",
+      "actions",
+      "controls"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Editor formatting bar",
+      "Grouped icon actions with keyboard roving focus"
+    ],
+    "compositionHints": [
+      "Nest ToolbarButton / ToolbarGroup / ToolbarSeparator",
+      "Compose with ToggleGroup for alignment or style tools"
+    ]
+  }
+}

@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "usehooks-ts": "^3.1.1"
+    "usehooks-ts": "^3.1.1",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Animated job board with salary and location info"
     ],
     "compositionHints": [
-      "Use with searchable-dropdown for job filtering",
+      "Use with Combobox primitive for job filtering",
       "Pair with animated-tags for skill tag display"
     ],
     "hasReducedMotion": true

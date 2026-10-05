@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import gsap from "gsap";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { useClickOutside } from "./use-click-outside";

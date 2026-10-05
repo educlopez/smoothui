@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
@@ -185,22 +186,26 @@ const AIDiff = ({
       {(onAccept || onReject) && !decision && (
         <div className="flex items-center justify-end gap-2 border-border border-t px-3 py-2">
           {onReject ? (
-            <button
-              className="cursor-pointer rounded-lg px-2.5 py-1 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
+            <SmoothButton
+              className="text-muted-foreground"
               onClick={reject}
+              size="xs"
               type="button"
+              variant="ghost"
             >
               Reject
-            </button>
+            </SmoothButton>
           ) : null}
           {onAccept ? (
-            <button
-              className="cursor-pointer rounded-lg bg-foreground px-2.5 py-1 text-background text-xs"
+            <SmoothButton
+              color="neutral"
               onClick={accept}
+              size="xs"
               type="button"
+              variant="solid"
             >
               Accept
-            </button>
+            </SmoothButton>
           ) : null}
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { BadgeCheck } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { FocusEvent, KeyboardEvent, ReactNode } from "react";
@@ -251,21 +251,23 @@ const SocialHoverCard = ({
       onMouseLeave={() => isHoverDevice && closeCard()}
       ref={wrapperRef}
     >
-      <button
+      <SmoothButton
         aria-expanded={isOpen}
         aria-haspopup="dialog"
         className={cn(
-          "rounded font-medium text-brand text-sm underline-offset-2 hover:underline",
+          "h-auto rounded p-0 font-medium text-brand text-sm",
           className
         )}
+        color="accent"
         onClick={handleTriggerClick}
         onFocus={() => openCard("focus")}
         onKeyDown={handleTriggerKeyDown}
         ref={triggerRef}
         type="button"
+        variant="link"
       >
         {trigger ?? `@${profile.handle}`}
-      </button>
+      </SmoothButton>
 
       <AnimatePresence>
         {isOpen ? (

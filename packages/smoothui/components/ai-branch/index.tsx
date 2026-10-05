@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronLeftIcon, ChevronRightIcon, Copy, Pencil } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { HTMLAttributes, ReactElement, ReactNode } from "react";

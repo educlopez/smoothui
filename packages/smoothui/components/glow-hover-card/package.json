@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -35,7 +35,7 @@
     ],
     "compositionHints": [
       "Wrap any content cards for the glow effect",
-      "Use with animated-tabs for categorized card sections"
+      "Use with Tabs primitive for categorized card sections"
     ],
     "hasReducedMotion": true
   }

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronRight, File, Folder, FolderOpen } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import {

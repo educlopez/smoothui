@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import {
   motion,
   useMotionValueEvent,
@@ -145,17 +146,18 @@ export default function FloatingNavbar({
                   {item.label}
                 </a>
               ) : (
-                <button
+                <SmoothButton
                   aria-current={isActive ? "page" : undefined}
-                  className={linkClassName}
+                  className={cn(linkClassName, "h-auto font-normal")}
                   onClick={() => handleSelect(item)}
                   type="button"
+                  variant="ghost"
                 >
                   {item.icon ? (
                     <span aria-hidden="true">{item.icon}</span>
                   ) : null}
                   {item.label}
-                </button>
+                </SmoothButton>
               )}
               {isActive && (
                 <motion.span
