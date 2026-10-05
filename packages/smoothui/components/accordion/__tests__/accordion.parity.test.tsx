@@ -12,9 +12,34 @@ vi.mock("motion/react", async () => {
 import * as Base from "../accordion.base";
 import * as Radix from "../accordion.radix";
 
+const panelBody = (A: typeof Base | typeof Radix) => (
+  <A.AccordionItem value="one">
+    <A.AccordionHeader>
+      <A.AccordionTrigger>One</A.AccordionTrigger>
+    </A.AccordionHeader>
+    <A.AccordionPanel>
+      <p>Body</p>
+    </A.AccordionPanel>
+  </A.AccordionItem>
+);
+
+const renderBase = (defaultValue: string[]) =>
+  render(
+    <Base.AccordionRoot defaultValue={defaultValue}>
+      {panelBody(Base)}
+    </Base.AccordionRoot>
+  );
+
+const renderRadix = (defaultValue: string[]) =>
+  render(
+    <Radix.AccordionRoot defaultValue={defaultValue} type="multiple">
+      {panelBody(Radix)}
+    </Radix.AccordionRoot>
+  );
+
 const twins = [
-  ["Base", Base],
-  ["Radix", Radix],
+  ["Base", renderBase],
+  ["Radix", renderRadix],
 ] as const;
 
 const CLOSE_VARIANT = /^(data-ending-style|data-\[state=closed\]):/;
@@ -25,21 +50,7 @@ const closeTokens = (el: Element) =>
     .filter((token) => CLOSE_VARIANT.test(token))
     .map((token) => token.replace(CLOSE_VARIANT, ""));
 
-describe.each(twins)("Accordion (%s) parity", (_name, A) => {
-  const renderAccordion = (defaultValue: string[]) =>
-    render(
-      <A.AccordionRoot defaultValue={defaultValue}>
-        <A.AccordionItem value="one">
-          <A.AccordionHeader>
-            <A.AccordionTrigger>One</A.AccordionTrigger>
-          </A.AccordionHeader>
-          <A.AccordionPanel>
-            <p>Body</p>
-          </A.AccordionPanel>
-        </A.AccordionItem>
-      </A.AccordionRoot>
-    );
-
+describe.each(twins)("Accordion (%s) parity", (_name, renderAccordion) => {
   it("exposes data-slot on every part", () => {
     reduced.value = false;
     renderAccordion(["one"]);
@@ -81,18 +92,7 @@ describe.each(twins)("Accordion (%s) parity", (_name, A) => {
 describe("Accordion (Radix) close animation", () => {
   it("keeps the closed panel mounted so the transition can play", () => {
     reduced.value = false;
-    render(
-      <Radix.AccordionRoot defaultValue={[]}>
-        <Radix.AccordionItem value="one">
-          <Radix.AccordionHeader>
-            <Radix.AccordionTrigger>One</Radix.AccordionTrigger>
-          </Radix.AccordionHeader>
-          <Radix.AccordionPanel>
-            <p>Body</p>
-          </Radix.AccordionPanel>
-        </Radix.AccordionItem>
-      </Radix.AccordionRoot>
-    );
+    renderRadix([]);
     const panel = document.querySelector('[data-slot="accordion-panel"]');
     expect(panel).not.toBeNull();
     expect(panel?.getAttribute("data-state")).toBe("closed");
@@ -101,18 +101,7 @@ describe("Accordion (Radix) close animation", () => {
 
   it("hides the closed panel outright with reduced motion", () => {
     reduced.value = true;
-    render(
-      <Radix.AccordionRoot defaultValue={[]}>
-        <Radix.AccordionItem value="one">
-          <Radix.AccordionHeader>
-            <Radix.AccordionTrigger>One</Radix.AccordionTrigger>
-          </Radix.AccordionHeader>
-          <Radix.AccordionPanel>
-            <p>Body</p>
-          </Radix.AccordionPanel>
-        </Radix.AccordionItem>
-      </Radix.AccordionRoot>
-    );
+    renderRadix([]);
     const panel = document.querySelector('[data-slot="accordion-panel"]');
     expect(panel?.className).toContain("data-[state=closed]:hidden");
   });
