@@ -50,7 +50,7 @@ export interface PopoverContentProps {
 }
 
 const POPUP_CLASS =
-  "z-50 w-72 origin-[var(--transform-origin)] rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
+  "w-72 origin-[var(--transform-origin)] rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
 
 const overlayMotion = (shouldReduceMotion: boolean | null) => ({
   animate: shouldReduceMotion
@@ -117,7 +117,8 @@ export const PopoverContent = ({
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Positioner
         align={align}
-        className="outline-none"
+        className="z-50 outline-none"
+        data-slot="popover-positioner"
         side={side}
         sideOffset={sideOffset}
       >

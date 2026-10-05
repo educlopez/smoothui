@@ -2,11 +2,16 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { ChevronRightIcon } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { DropdownMenu as DropdownMenuPrimitive } from "radix-ui";
 import type React from "react";
-import { type ComponentProps, useState } from "react";
-import { SPRING_DEFAULT } from "../../lib/animation";
+import {
+  type ComponentProps,
+  createContext,
+  useContext,
+  useState,
+} from "react";
+import { DURATION, EASE_OUT, SPRING_DEFAULT } from "../../lib/animation";
 
 export interface DropdownMenuProps {
   /** Alignment of the dropdown relative to the trigger */
@@ -48,6 +53,32 @@ export interface DropdownMenuItemConfig {
   variant?: "default" | "destructive";
 }
 
+/**
+ * Surface motion: the bordered Content element itself fades and scales, so the
+ * border and fill appear together with the items. Exit runs through
+ * AnimatePresence because Radix only waits for CSS animations before unmounting.
+ */
+const surfaceMotion = (shouldReduceMotion: boolean | null) =>
+  shouldReduceMotion
+    ? {
+        animate: { opacity: 1 },
+        exit: { opacity: 0, transition: { duration: 0 } },
+        initial: { opacity: 1 },
+        transition: { duration: 0 },
+      }
+    : {
+        animate: { opacity: 1, scale: 1, y: 0 },
+        exit: {
+          opacity: 0,
+          scale: 0.95,
+          transition: { duration: DURATION.fast, ease: EASE_OUT },
+        },
+        initial: { opacity: 0, scale: 0.95, y: -4 },
+        transition: SPRING_DEFAULT,
+      };
+
+const SubOpenContext = createContext(false);
+
 /* ------------------------------------------------------------------ */
 /*  Thin radix wrappers (shadcn-parity, no @repo/shadcn-ui)            */
 /* ------------------------------------------------------------------ */
@@ -66,21 +97,38 @@ const DropdownMenuTrigger = ({
 
 const DropdownMenuContent = ({
   className,
+  children,
   sideOffset = 4,
   ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Content>) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.Content
-      className={cn(
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
-        className
-      )}
-      data-slot="dropdown-menu-content"
-      sideOffset={sideOffset}
-      {...props}
-    />
-  </DropdownMenuPrimitive.Portal>
-);
+}: ComponentProps<typeof DropdownMenuPrimitive.Content>) => {
+  const shouldReduceMotion = useReducedMotion();
+  const motionProps = surfaceMotion(shouldReduceMotion);
+
+  return (
+    <DropdownMenuPrimitive.Portal forceMount>
+      <DropdownMenuPrimitive.Content
+        asChild
+        data-slot="dropdown-menu-content"
+        forceMount
+        sideOffset={sideOffset}
+        {...props}
+      >
+        <motion.div
+          animate={motionProps.animate}
+          className={cn(
+            "z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+            className
+          )}
+          exit={motionProps.exit}
+          initial={motionProps.initial}
+          transition={motionProps.transition}
+        >
+          {children}
+        </motion.div>
+      </DropdownMenuPrimitive.Content>
+    </DropdownMenuPrimitive.Portal>
+  );
+};
 
 const DropdownMenuGroup = ({
   ...props
@@ -143,10 +191,28 @@ const DropdownMenuShortcut = ({
 );
 
 const DropdownMenuSub = ({
+  defaultOpen = false,
+  onOpenChange,
+  open: openProp,
   ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.Sub>) => (
-  <DropdownMenuPrimitive.Sub data-slot="dropdown-menu-sub" {...props} />
-);
+}: ComponentProps<typeof DropdownMenuPrimitive.Sub>) => {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const isOpen = openProp ?? internalOpen;
+
+  return (
+    <SubOpenContext.Provider value={isOpen}>
+      <DropdownMenuPrimitive.Sub
+        data-slot="dropdown-menu-sub"
+        onOpenChange={(value) => {
+          setInternalOpen(value);
+          onOpenChange?.(value);
+        }}
+        open={isOpen}
+        {...props}
+      />
+    </SubOpenContext.Provider>
+  );
+};
 
 const DropdownMenuSubTrigger = ({
   className,
@@ -168,17 +234,40 @@ const DropdownMenuSubTrigger = ({
 
 const DropdownMenuSubContent = ({
   className,
+  children,
   ...props
-}: ComponentProps<typeof DropdownMenuPrimitive.SubContent>) => (
-  <DropdownMenuPrimitive.SubContent
-    className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-out data-[state=open]:animate-in",
-      className
-    )}
-    data-slot="dropdown-menu-sub-content"
-    {...props}
-  />
-);
+}: ComponentProps<typeof DropdownMenuPrimitive.SubContent>) => {
+  const shouldReduceMotion = useReducedMotion();
+  const motionProps = surfaceMotion(shouldReduceMotion);
+  const isOpen = useContext(SubOpenContext);
+
+  return (
+    <AnimatePresence>
+      {isOpen ? (
+        <DropdownMenuPrimitive.SubContent
+          asChild
+          data-slot="dropdown-menu-sub-content"
+          forceMount
+          key="sub-content"
+          {...props}
+        >
+          <motion.div
+            animate={motionProps.animate}
+            className={cn(
+              "z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+              className
+            )}
+            exit={motionProps.exit}
+            initial={motionProps.initial}
+            transition={motionProps.transition}
+          >
+            {children}
+          </motion.div>
+        </DropdownMenuPrimitive.SubContent>
+      ) : null}
+    </AnimatePresence>
+  );
+};
 
 /**
  * SmoothUI DropdownMenu — Radix twin.
@@ -258,27 +347,20 @@ export default function DropdownMenu({
   return (
     <DropdownMenuRoot onOpenChange={handleOpenChange} open={controlledOpen}>
       <DropdownMenuTrigger asChild>{children}</DropdownMenuTrigger>
-      <DropdownMenuContent
-        align={align}
-        className={cn("origin-top", className)}
-        sideOffset={sideOffset}
-      >
-        <motion.div
-          animate={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
-          }
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, scale: 0.95, y: -4 }
-          }
-          transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
-        >
-          <DropdownMenuGroup>
-            {items.map((item, index) => renderItem(item, index))}
-          </DropdownMenuGroup>
-        </motion.div>
-      </DropdownMenuContent>
+      <AnimatePresence>
+        {controlledOpen ? (
+          <DropdownMenuContent
+            align={align}
+            className={cn("origin-top", className)}
+            key="content"
+            sideOffset={sideOffset}
+          >
+            <DropdownMenuGroup>
+              {items.map((item, index) => renderItem(item, index))}
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        ) : null}
+      </AnimatePresence>
     </DropdownMenuRoot>
   );
 }

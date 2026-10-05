@@ -63,7 +63,7 @@ export interface DropdownMenuItemConfig {
 }
 
 const POPUP_CLASS =
-  "z-50 max-h-[var(--available-height)] min-w-[8rem] origin-[var(--transform-origin)] overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md";
+  "max-h-[var(--available-height)] min-w-[8rem] origin-[var(--transform-origin)] overflow-x-hidden overflow-y-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md";
 
 const ITEM_CLASS =
   "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden data-disabled:pointer-events-none data-disabled:opacity-50 data-highlighted:bg-accent data-highlighted:text-accent-foreground [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0";
@@ -136,7 +136,8 @@ export default function DropdownMenu({
           <Menu.Portal>
             <Menu.Positioner
               align="start"
-              className="outline-none"
+              className="z-50 outline-none"
+              data-slot="dropdown-menu-sub-positioner"
               side="right"
               sideOffset={2}
             >
@@ -198,28 +199,34 @@ export default function DropdownMenu({
       <Menu.Portal>
         <Menu.Positioner
           align={align}
-          className="outline-none"
+          className="z-50 outline-none"
+          data-slot="dropdown-menu-positioner"
           side="bottom"
           sideOffset={sideOffset}
         >
-          <Menu.Popup className={cn("origin-top", POPUP_CLASS, className)}>
-            <motion.div
-              animate={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, scale: 1, y: 0 }
-              }
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, scale: 0.95, y: -4 }
-              }
-              transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
-            >
-              <Menu.Group>
-                {items.map((item, index) => renderItem(item, index))}
-              </Menu.Group>
-            </motion.div>
+          <Menu.Popup
+            className={cn("origin-top", POPUP_CLASS, className)}
+            render={
+              <motion.div
+                animate={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: 1, scale: 1, y: 0 }
+                }
+                initial={
+                  shouldReduceMotion
+                    ? { opacity: 1 }
+                    : { opacity: 0, scale: 0.95, y: -4 }
+                }
+                transition={
+                  shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT
+                }
+              />
+            }
+          >
+            <Menu.Group>
+              {items.map((item, index) => renderItem(item, index))}
+            </Menu.Group>
           </Menu.Popup>
         </Menu.Positioner>
       </Menu.Portal>

@@ -99,13 +99,14 @@ export const TooltipContent = ({
   return (
     <TooltipPrimitive.Portal>
       <TooltipPrimitive.Content
-        className={cn(POPUP_CLASS, className)}
+        asChild
         data-slot="tooltip-content"
         side={side}
         sideOffset={sideOffset}
       >
         <motion.div
           animate={motionProps.animate}
+          className={cn(POPUP_CLASS, className)}
           initial={motionProps.initial}
           transition={motionProps.transition}
         >

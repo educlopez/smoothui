@@ -2,11 +2,16 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { ChevronRightIcon } from "lucide-react";
-import { motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { ContextMenu as ContextMenuPrimitive } from "radix-ui";
 import type React from "react";
-import type { ComponentProps } from "react";
-import { SPRING_DEFAULT } from "../../lib/animation";
+import {
+  type ComponentProps,
+  createContext,
+  useContext,
+  useState,
+} from "react";
+import { DURATION, EASE_OUT, SPRING_DEFAULT } from "../../lib/animation";
 
 export interface ContextMenuProps {
   /** The trigger element that opens the context menu on right-click */
@@ -40,6 +45,32 @@ export interface ContextMenuItemConfig {
   variant?: "default" | "destructive";
 }
 
+/**
+ * Surface motion: the bordered Content element itself fades and scales, so the
+ * border and fill appear together with the items. Exit runs through
+ * AnimatePresence because Radix only waits for CSS animations before unmounting.
+ */
+const surfaceMotion = (shouldReduceMotion: boolean | null) =>
+  shouldReduceMotion
+    ? {
+        animate: { opacity: 1 },
+        exit: { opacity: 0, transition: { duration: 0 } },
+        initial: { opacity: 1 },
+        transition: { duration: 0 },
+      }
+    : {
+        animate: { opacity: 1, scale: 1, y: 0 },
+        exit: {
+          opacity: 0,
+          scale: 0.95,
+          transition: { duration: DURATION.fast, ease: EASE_OUT },
+        },
+        initial: { opacity: 0, scale: 0.95, y: -4 },
+        transition: SPRING_DEFAULT,
+      };
+
+const SubOpenContext = createContext(false);
+
 /* ------------------------------------------------------------------ */
 /*  Thin radix wrappers (shadcn-parity, no @repo/shadcn-ui)            */
 /* ------------------------------------------------------------------ */
@@ -63,10 +94,28 @@ const ContextMenuGroup = ({
 );
 
 const ContextMenuSub = ({
+  defaultOpen = false,
+  onOpenChange,
+  open: openProp,
   ...props
-}: ComponentProps<typeof ContextMenuPrimitive.Sub>) => (
-  <ContextMenuPrimitive.Sub data-slot="context-menu-sub" {...props} />
-);
+}: ComponentProps<typeof ContextMenuPrimitive.Sub>) => {
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const isOpen = openProp ?? internalOpen;
+
+  return (
+    <SubOpenContext.Provider value={isOpen}>
+      <ContextMenuPrimitive.Sub
+        data-slot="context-menu-sub"
+        onOpenChange={(value) => {
+          setInternalOpen(value);
+          onOpenChange?.(value);
+        }}
+        open={isOpen}
+        {...props}
+      />
+    </SubOpenContext.Provider>
+  );
+};
 
 const ContextMenuSubTrigger = ({
   className,
@@ -88,33 +137,73 @@ const ContextMenuSubTrigger = ({
 
 const ContextMenuSubContent = ({
   className,
+  children,
   ...props
-}: ComponentProps<typeof ContextMenuPrimitive.SubContent>) => (
-  <ContextMenuPrimitive.SubContent
-    className={cn(
-      "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg data-[state=closed]:animate-out data-[state=open]:animate-in",
-      className
-    )}
-    data-slot="context-menu-sub-content"
-    {...props}
-  />
-);
+}: ComponentProps<typeof ContextMenuPrimitive.SubContent>) => {
+  const shouldReduceMotion = useReducedMotion();
+  const motionProps = surfaceMotion(shouldReduceMotion);
+  const isOpen = useContext(SubOpenContext);
+
+  return (
+    <AnimatePresence>
+      {isOpen ? (
+        <ContextMenuPrimitive.SubContent
+          asChild
+          data-slot="context-menu-sub-content"
+          forceMount
+          key="sub-content"
+          {...props}
+        >
+          <motion.div
+            animate={motionProps.animate}
+            className={cn(
+              "z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+              className
+            )}
+            exit={motionProps.exit}
+            initial={motionProps.initial}
+            transition={motionProps.transition}
+          >
+            {children}
+          </motion.div>
+        </ContextMenuPrimitive.SubContent>
+      ) : null}
+    </AnimatePresence>
+  );
+};
 
 const ContextMenuContent = ({
   className,
+  children,
   ...props
-}: ComponentProps<typeof ContextMenuPrimitive.Content>) => (
-  <ContextMenuPrimitive.Portal>
-    <ContextMenuPrimitive.Content
-      className={cn(
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md data-[state=closed]:animate-out data-[state=open]:animate-in",
-        className
-      )}
-      data-slot="context-menu-content"
-      {...props}
-    />
-  </ContextMenuPrimitive.Portal>
-);
+}: ComponentProps<typeof ContextMenuPrimitive.Content>) => {
+  const shouldReduceMotion = useReducedMotion();
+  const motionProps = surfaceMotion(shouldReduceMotion);
+
+  return (
+    <ContextMenuPrimitive.Portal forceMount>
+      <ContextMenuPrimitive.Content
+        asChild
+        data-slot="context-menu-content"
+        forceMount
+        {...props}
+      >
+        <motion.div
+          animate={motionProps.animate}
+          className={cn(
+            "z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+            className
+          )}
+          exit={motionProps.exit}
+          initial={motionProps.initial}
+          transition={motionProps.transition}
+        >
+          {children}
+        </motion.div>
+      </ContextMenuPrimitive.Content>
+    </ContextMenuPrimitive.Portal>
+  );
+};
 
 const ContextMenuItem = ({
   className,
@@ -176,6 +265,7 @@ export default function ContextMenu({
   className,
 }: ContextMenuProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [isOpen, setIsOpen] = useState(false);
 
   const renderItem = (item: ContextMenuItemConfig, index: number) => {
     if (item.separator) {
@@ -231,25 +321,20 @@ export default function ContextMenu({
   };
 
   return (
-    <ContextMenuRoot>
+    <ContextMenuRoot onOpenChange={setIsOpen}>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-      <ContextMenuContent className={cn("origin-top", className)}>
-        <motion.div
-          animate={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 1, scale: 1, y: 0 }
-          }
-          initial={
-            shouldReduceMotion
-              ? { opacity: 1 }
-              : { opacity: 0, scale: 0.95, y: -4 }
-          }
-          transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
-        >
-          <ContextMenuGroup>
-            {items.map((item, index) => renderItem(item, index))}
-          </ContextMenuGroup>
-        </motion.div>
-      </ContextMenuContent>
+      <AnimatePresence>
+        {isOpen ? (
+          <ContextMenuContent
+            className={cn("origin-top", className)}
+            key="content"
+          >
+            <ContextMenuGroup>
+              {items.map((item, index) => renderItem(item, index))}
+            </ContextMenuGroup>
+          </ContextMenuContent>
+        ) : null}
+      </AnimatePresence>
     </ContextMenuRoot>
   );
 }
