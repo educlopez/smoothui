@@ -63,7 +63,7 @@ const surfaceMotion = (shouldReduceMotion: boolean | null) =>
         exit: {
           opacity: 0,
           scale: 0.95,
-          transition: { duration: DURATION.fast, ease: EASE_OUT },
+          transition: { duration: DURATION.default, ease: EASE_OUT },
         },
         initial: { opacity: 0, scale: 0.95, y: -4 },
         transition: SPRING_DEFAULT,

@@ -2,9 +2,10 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { ChevronDown } from "lucide-react";
-import { useReducedMotion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { Accordion as AccordionPrimitive } from "radix-ui";
 import type { ComponentProps, ReactNode } from "react";
+import { DURATION, DURATION_INSTANT, EASE_OUT } from "../../lib/animation";
 
 export type AccordionRootProps = ComponentProps<
   typeof AccordionPrimitive.Root
@@ -119,37 +120,62 @@ const AccordionTrigger = ({
   );
 };
 
+type AccordionSurfaceProps = ComponentProps<typeof motion.div> & {
+  "data-state"?: string;
+};
+
+/**
+ * Height surface. Radix hands `data-state` to the child through `asChild`, so
+ * the open state needs no extra context. The surface animates height between
+ * 0 and "auto" with Motion; the closed panel is also `inert` and `aria-hidden`
+ * and turns `visibility: hidden` once the close finishes, so it leaves the
+ * a11y tree and the tab order.
+ */
+const AccordionSurface = ({
+  "data-state": state,
+  ...props
+}: AccordionSurfaceProps) => {
+  const shouldReduceMotion = useReducedMotion();
+  const isOpen = state === "open";
+  return (
+    <motion.div
+      {...props}
+      animate={{
+        height: isOpen ? "auto" : 0,
+        opacity: isOpen ? 1 : 0,
+        visibility: isOpen ? "visible" : "hidden",
+      }}
+      aria-hidden={isOpen ? undefined : true}
+      data-state={state}
+      inert={!isOpen}
+      initial={false}
+      transition={
+        shouldReduceMotion
+          ? DURATION_INSTANT
+          : { duration: DURATION.default, ease: EASE_OUT }
+      }
+    />
+  );
+};
+
 const AccordionPanel = ({
   className,
   children,
   ...props
-}: AccordionPanelProps) => {
-  const shouldReduceMotion = useReducedMotion();
-  // Radix unmounts on close unless a CSS animation runs, so a height transition
-  // never plays. forceMount keeps the panel in the tree; `invisible` (animated
-  // through the transition) removes it from the a11y tree and tab order once
-  // the close finishes.
-  return (
-    <AccordionPrimitive.Content
-      className={cn(
-        "overflow-hidden text-muted-foreground text-sm",
-        shouldReduceMotion
-          ? "data-[state=closed]:hidden"
-          : cn(
-              "data-[state=open]:h-[var(--radix-accordion-content-height)]",
-              `transition-[height,opacity,visibility] duration-200 ${PANEL_EASE}`,
-              "data-[state=closed]:invisible data-[state=closed]:h-0 data-[state=closed]:opacity-0"
-            ),
-        className
-      )}
-      data-slot="accordion-panel"
-      forceMount
-      {...props}
+}: AccordionPanelProps) => (
+  <AccordionPrimitive.Content
+    asChild
+    data-slot="accordion-panel"
+    forceMount
+    {...props}
+  >
+    <AccordionSurface
+      className={cn("overflow-hidden text-muted-foreground text-sm", className)}
     >
       <div className="px-4 pt-0 pb-4 leading-relaxed">{children}</div>
-    </AccordionPrimitive.Content>
-  );
-};
+    </AccordionSurface>
+  </AccordionPrimitive.Content>
+);
 
 export {
   AccordionHeader,

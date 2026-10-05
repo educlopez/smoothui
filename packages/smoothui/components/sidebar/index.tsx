@@ -307,6 +307,29 @@ export const SidebarLabel = ({
   const { collapsed } = useSidebar();
   const shouldReduceMotion = useReducedMotion();
   const [fadedOut, setFadedOut] = useState(collapsed);
+  const [wasCollapsed, setWasCollapsed] = useState(collapsed);
+  // On expand the label starts transparent and fades in while the rail widens.
+  const [entering, setEntering] = useState(false);
+
+  if (wasCollapsed !== collapsed) {
+    setWasCollapsed(collapsed);
+    setEntering(!(collapsed || shouldReduceMotion));
+  }
+
+  useEffect(() => {
+    if (!entering) {
+      return;
+    }
+    // Two frames so the transparent state is painted before it is cleared.
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setEntering(false));
+    });
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+    };
+  }, [entering]);
 
   useEffect(() => {
     if (!collapsed) {
@@ -325,7 +348,7 @@ export const SidebarLabel = ({
         hidden ? "sr-only" : "truncate",
         !shouldReduceMotion &&
           "transition-opacity duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-        collapsed && !hidden && "opacity-0",
+        ((collapsed && !hidden) || entering) && "opacity-0",
         className
       )}
       data-slot="sidebar-label"

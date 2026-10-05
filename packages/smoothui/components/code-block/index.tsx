@@ -431,9 +431,11 @@ const CodeBlock = ({
         </div>
       ) : null}
       <div
-        aria-label={isScrollable ? `${filename ?? language} code` : undefined}
+        // A landmark needs a unique name, so only a block with a filename gets
+        // one; unnamed blocks stay focusable but are not a landmark.
+        aria-label={isScrollable && filename ? `${filename} code` : undefined}
         className={cn(!wrap && "overflow-x-auto")}
-        role={isScrollable ? "region" : undefined}
+        role={isScrollable && filename ? "region" : undefined}
         style={maxHeight ? { maxHeight, overflowY: "auto" } : undefined}
         // A scroll container must be reachable by keyboard to be scrollable.
         tabIndex={isScrollable ? 0 : undefined}
