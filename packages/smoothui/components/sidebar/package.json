@@ -1,0 +1,36 @@
+{
+  "name": "@repo/sidebar",
+  "description": "Collapsible app sidebar shell for SmoothUI with provider and menu parts.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "motion": "^12.23.24",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "sidebar",
+      "navigation",
+      "layout",
+      "shell"
+    ],
+    "complexity": "medium",
+    "useCases": [
+      "App shell side navigation",
+      "Collapsible icon rail"
+    ],
+    "compositionHints": [
+      "Wrap app chrome in SidebarProvider",
+      "Use SidebarMenuButton for nav items"
+    ]
+  }
+}

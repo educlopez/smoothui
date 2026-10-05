@@ -1,0 +1,18 @@
+---
+title: Primitives
+description: "{{primitives}} headless-backed primitives with Motion polish — Base UI by default, Radix via style. Forms, overlays, and the Smooth Button."
+full: true
+---
+
+<PrimitivesGallery />
+
+## The four layers
+
+| Layer | What it is |
+|---|---|
+| **Primitives** | Owned building blocks (button, dialog, checkbox, …) with headless + microinteractions |
+| **Components** | Animated SmoothUI pieces built on top of primitives and Motion |
+| **Blocks** | Pre-built page sections (hero, pricing, FAQ, …) |
+| **Templates** | Full surfaces installed in one command |
+
+Primitives are simple Base UI–backed pieces you install as `@smoothui/<name>` and compose into components, blocks, and templates. They do **not** pull shadcn `registryDependencies` for `dialog` / `button` / etc. See [Installation](/docs/guides/installation) for style-aware registry URLs.

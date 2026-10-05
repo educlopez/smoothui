@@ -2,6 +2,7 @@ import {
   BLOCK_CATEGORY_COUNT,
   BLOCK_COUNT,
   COMPONENT_COUNT,
+  PRIMITIVE_COUNT,
   TEMPLATE_COUNT,
 } from "./generated/counts";
 
@@ -9,10 +10,12 @@ const TOKENS: Record<string, number> = {
   blockCategories: BLOCK_CATEGORY_COUNT,
   blocks: BLOCK_COUNT,
   components: COMPONENT_COUNT,
+  primitives: PRIMITIVE_COUNT,
   templates: TEMPLATE_COUNT,
 };
 
-const TOKEN_PATTERN = /\{\{(components|blocks|blockCategories|templates)\}\}/g;
+const TOKEN_PATTERN =
+  /\{\{(components|blocks|blockCategories|templates|primitives)\}\}/g;
 
 /**
  * Substitutes `{{components}}`-style tokens with the generated counts.

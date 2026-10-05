@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { Check, Copy, RotateCcw, ThumbsDown, ThumbsUp } from "lucide-react";
 import { type ReactNode, useEffect, useState } from "react";
 
@@ -213,20 +214,20 @@ const AIMessage = ({
           {actions.map((action, index) => {
             const Icon = action.icon;
             return (
-              <button
+              <SmoothButton
                 aria-label={action.label}
                 aria-pressed={action.active}
                 className={cn(
-                  "ai-message-action cursor-pointer rounded-lg p-1.5",
+                  "ai-message-action",
                   isUser ? "ai-message-action-user" : "ai-message-action-agent",
-                  action.active
-                    ? "text-foreground"
-                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                  action.active ? "text-foreground" : "text-muted-foreground"
                 )}
                 key={action.key}
                 onClick={action.onClick}
+                size="icon-sm"
                 style={{ transitionDelay: `${index * ACTION_STAGGER_MS}ms` }}
                 type="button"
+                variant="ghost"
               >
                 <Icon
                   aria-hidden="true"
@@ -238,7 +239,7 @@ const AIMessage = ({
                   key={action.key === "copy" && hasCopied ? "copied" : "idle"}
                   size={14}
                 />
-              </button>
+              </SmoothButton>
             );
           })}
         </div>

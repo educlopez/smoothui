@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { Suspense } from "react";
 import { type EnrichedTweet, enrichTweet, type TweetProps } from "react-tweet";
 import { getTweet, type Tweet } from "react-tweet/api";

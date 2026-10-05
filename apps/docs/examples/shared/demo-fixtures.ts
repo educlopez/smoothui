@@ -115,10 +115,10 @@ if (!metadataScene) {
 export const METADATA_SCENE = metadataScene;
 export const METADATA_DETAILS = {
   by: "AI-generated",
-  created: "2026-09-19",
-  source: "https://magnific.com/app/creation/tCxv7KMmZJ",
-  updated: "2026-09-19",
+  created: "2026-09-27",
+  source: "https://magnific.com/app/creation/3zovpIvREY",
+  updated: "2026-09-27",
 };
 
 export const METADATA_DESCRIPTION =
-  "A turquoise river winding through warm sandstone cliffs.";
+  "A sandstone canyon and a dusty blue-green river in warm late light.";

@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
     "lucide-react": "^0.545.0",
-    "react-use-measure": "^2.1.0"
+    "react-use-measure": "^2.1.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -35,7 +35,7 @@
       "Media asset preview with creation date and source info"
     ],
     "compositionHints": [
-      "Use inside basic-modal for full image preview dialogs"
+      "Use inside Dialog primitive for full image preview dialogs"
     ],
     "hasReducedMotion": true
   }

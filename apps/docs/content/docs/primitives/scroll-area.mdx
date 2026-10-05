@@ -1,0 +1,51 @@
+---
+title: Scroll Area
+description: Custom scrollable region with styled scrollbars, built on Base UI with a Radix twin.
+icon: Layers
+dependencies:
+  - base-ui
+installer: scroll-area
+---
+
+## Features
+
+- Vertical and horizontal scrollbars that appear on hover / while scrolling
+- Thin→wide thumb and fade-in on hover/scroll (Fluid Functionalism cues)
+- Optional `scrollFade` edge mask (`true` / `"y"` vertical, `"x"` horizontal)
+- Compound parts: `ScrollAreaRoot`, `ScrollAreaViewport`, `ScrollAreaContent`, `ScrollAreaScrollbar`, `ScrollAreaThumb`, `ScrollAreaCorner`
+- Convenience default export with `vertical` / `horizontal` toggles
+- Touch-friendly thumb hit area
+- Base UI by default; Radix twin available via style
+
+## States
+
+### Features
+
+A fixed-height panel with a custom vertical scrollbar.
+
+### Horizontal
+
+A row of cards that scrolls sideways.
+
+## Accessibility
+
+### Keyboard
+
+The viewport is focusable. Arrow keys, Page Up/Down, Home, and End scroll when focused.
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| Focusable viewport | Viewport | Keyboard scrolling target |
+
+Give the root an explicit height (or max-height) so overflow can be measured.
+
+## Props
+
+### ScrollAreaProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/scroll-area/index.tsx"
+  name="ScrollAreaProps"
+/>

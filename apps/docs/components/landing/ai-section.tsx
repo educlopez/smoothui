@@ -7,10 +7,13 @@ import {
 } from "@docs/components/illustrations/ai-drawings";
 import { VividLeadCard } from "@docs/components/illustrations/illustration-card";
 import { ArtworkPattern } from "@docs/components/landing/artwork-pattern";
-import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
-import { landingBackgrounds } from "@docs/lib/landing-backgrounds";
+import { sceneSrc } from "@docs/examples/shared/demo-fixtures";
+import {
+  landingBackgrounds,
+  landingStageImageClass,
+} from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
@@ -47,7 +50,6 @@ export function AISection() {
 
   return (
     <section className="relative bg-background px-8 py-40 transition">
-      <Divider />
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
           description="The first component library designed for AI agents. Discover, search, and install components programmatically."
@@ -60,12 +62,12 @@ export function AISection() {
               <Image
                 alt=""
                 aria-hidden
-                className="object-cover motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:scale-105 motion-safe:group-focus-within:scale-105"
+                className={landingStageImageClass}
                 data-landing-background="ai"
                 draggable={false}
                 fill
                 sizes="(max-width: 768px) 100vw, 420px"
-                src={`${landingBackgrounds.ai.src}?tr=w-1280,f-auto`}
+                src={sceneSrc(landingBackgrounds.ai.id, "w-1280")}
                 unoptimized
               />
             }

@@ -5,6 +5,7 @@ packages:
   - "packages/smoothui/blocks/*/*"
   - "packages/smoothui/blocks/shared"
   - "packages/smoothui/templates/*"
+  - "packages/smoothui/lib"
 
 allowBuilds:
   esbuild: true

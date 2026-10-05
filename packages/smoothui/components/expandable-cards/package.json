@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "lucide-react": "^0.545.0"
+    "lucide-react": "^0.545.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Content cards with smooth shared layout transitions"
     ],
     "compositionHints": [
-      "Combine with animated-tabs for categorized card grids",
+      "Combine with Tabs primitive for categorized card grids",
       "Use animated-avatar-group for card author displays"
     ],
     "hasReducedMotion": true

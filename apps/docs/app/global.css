@@ -4,15 +4,23 @@
 @import "./smoothui.css";
 
 @source "../node_modules/fumadocs-ui/dist/**/*.js";
-@source "../node_modules/shadcn-ui/**/*.{js,jsx,ts,tsx}";
+@source "../node_modules/@repo/shadcn-ui/**/*.{js,jsx,ts,tsx}";
 @source "../node_modules/@repo/*/**/*.{js,jsx,ts,tsx}";
-@source "../../../packages/smoothui/components/**/*.{js,jsx,ts,tsx}";
-@source "../../../packages/smoothui/blocks/**/*.{js,jsx,ts,tsx}";
-@source "../../../packages/smoothui/templates/**/*.{js,jsx,ts,tsx}";
+@source "../../../packages/smoothui/components";
+@source "../../../packages/smoothui/blocks";
+@source "../../../packages/smoothui/templates";
+@source "../../../packages/smoothui-utils/**/*.{js,jsx,ts,tsx}";
+
+@theme {
+  --font-title: var(--font-inter);
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
+}
 
 @theme inline {
   --font-body: var(--font-inter);
-  --font-title: var(--font-plus-jakarta-sans);
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme);
   --shiki--dark: var(--shiki-theme);
@@ -31,9 +39,11 @@
     0px 1px 2px rgba(0, 0, 0, 0.4),
     0px 0px 0px 1px var(--color-brand-secondary),
     inset 0px 0.75px 0px rgba(255, 255, 255, 0.2);
-  --shadow-custom:
-    0px 0px 0px 1px rgba(0, 0, 0, 0.08),
-    0px 1px 2px -1px rgba(0, 0, 0, 0.08), 0px 2px 4px 0px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
+  --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand);
   --color-fd-secondary: var(--color-smooth-50);
@@ -48,11 +58,86 @@
 
 .dark {
   --bt-gray: black;
-  --shadow-custom:
-    0px -1px 0px 0px hsla(0, 0%, 100%, 0.06),
-    0px 0px 0px 1px hsla(0, 0%, 100%, 0.06), 0px 0px 0px 1px #27272a,
-    0px 1px 2px 0px rgba(0, 0, 0, 0.32), 0px 2px 4px 0px rgba(0, 0, 0, 0.32);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.28);
+  --shadow-md: 0 4px 8px -4px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 8px 16px -8px rgb(0 0 0 / 0.45);
+  --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-w.png");
+}
+
+.shadow-sm {
+  --tw-shadow: var(--shadow-sm);
+}
+.shadow-md {
+  --tw-shadow: var(--shadow-md);
+}
+.shadow-lg {
+  --tw-shadow: var(--shadow-lg);
+}
+
+/* Site chrome. Primary is ink, so a light hover wash becomes a card. */
+.tracking-tight {
+  letter-spacing: 0;
+}
+
+h1 .text-muted-foreground {
+  color: var(--color-foreground);
+}
+
+.bg-primary\/40 {
+  background-color: var(--color-card);
+  box-shadow: var(--shadow-sm);
+}
+
+.hover\:bg-primary:hover {
+  background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
+  transition-duration: 200ms;
+}
+
+.trigger:hover,
+.link:hover,
+.mobile-navbar-link:hover {
+  background-color: color-mix(
+    in oklch,
+    var(--color-foreground) 5%,
+    transparent
+  );
+  border-color: transparent;
+}
+
+#nd-page :is(p, li) {
+  font-weight: 400;
+  color: var(--color-muted-foreground);
+}
+
+#nd-page :is(p, li) a {
+  font-weight: 400;
+  color: var(--color-foreground);
+  text-decoration-color: var(--color-smooth-600);
+}
+
+/* Fumadocs prose paints link underlines with --color-fd-primary (brand).
+   Keep link text ink; underlines use the DS mid gray. */
+.prose
+:where(a:not([data-card])):not(
+  :where([class~="not-prose"], [class~="not-prose"] *)
+) {
+  text-decoration-color: var(--color-smooth-600);
+}
+
+.group:hover h3 {
+  color: var(--color-foreground);
+}
+
+article.group p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.h-px.bg-gradient-to-r,
+.w-px.bg-gradient-to-b {
+  background-color: var(--color-border);
+  background-image: none;
 }
 
 @layer base {
@@ -61,7 +146,7 @@
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
+    border-color: var(--color-border, currentColor);
   }
   * {
     scrollbar-color: gray transparent;
@@ -127,11 +212,15 @@
 }
 
 .float-trigger {
-  @apply text-foreground flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent px-4 py-2 text-sm font-medium outline-0;
+  @apply flex cursor-pointer flex-row items-center justify-center rounded-full border border-transparent text-foreground text-sm font-medium outline-0 transition-colors duration-150;
 }
 
 .float-trigger:hover {
-  @apply bg-primary border-border border;
+  @apply bg-foreground/5;
+}
+
+.float-trigger:focus-visible {
+  @apply ring-2 ring-foreground/20;
 }
 
 .prose :where(ul):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -274,12 +363,13 @@
   animation: accordion-up 0.2s ease-out;
 }
 
-/* Center the docs content column within its (full-width) grid track,
-   mirroring ElevenLabs' `w-content-width mx-auto` article. */
+/* Center the docs content column within its full-width grid track. */
 #nd-page {
   width: 100%;
   max-width: calc(900px + 2 * 2rem);
   margin-inline: auto;
+  font-size: 0.9375rem;
+  line-height: 1.625;
 }
 
 /* Full pages (no TOC) stretch to the whole main track; also lift the
@@ -293,26 +383,29 @@
   max-width: none;
 }
 
-/* Docs headings use the title font (Plus Jakarta Sans). */
+/* Docs headings use the title font. */
 #nd-page :is(h1, h2, h3, h4, h5, h6) {
   font-family: var(--font-title);
 }
 
 /* Override fumadocs utility classes on headings — unlayered beats @layer utilities */
 #nd-page h1 {
-  font-size: var(--text-4xl);
-  font-weight: 800;
-  line-height: var(--leading-tight);
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 2rem;
+  letter-spacing: -0.025em;
 }
 #nd-page h2 {
-  font-size: var(--text-2xl);
-  font-weight: 700;
-  line-height: var(--leading-tight);
+  font-size: 1.125rem;
+  font-weight: 400;
+  line-height: 1.75rem;
+  letter-spacing: -0.011em;
 }
 #nd-page h3 {
-  font-size: var(--text-xl);
-  font-weight: 600;
-  line-height: var(--leading-tight);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5rem;
+  letter-spacing: normal;
 }
 #nd-page h4 {
   font-size: var(--text-lg);
@@ -328,8 +421,7 @@
   font-weight: 600;
 }
 
-/* ElevenLabs-style docs chrome: clean white surfaces + hairline borders,
-   built from our own tokens (no hardcoded colors). */
+/* Docs chrome: white surfaces and hairline borders from our tokens. */
 #nd-notebook-layout,
 #nd-sidebar {
   --fd-sidebar-width: 240px;
@@ -376,10 +468,10 @@
   }
 }
 
-/* Top nav: solid surface instead of the translucent gray. The inner
+/* Top nav: pure white (card) instead of the muted canvas gray. The inner
    tabs row already carries its own border-b, so no border here. */
 #nd-subnav {
-  background-color: var(--color-background);
+  background-color: var(--color-card);
 }
 
 /* Sidebar: hairline separator from the content column. */
@@ -394,7 +486,7 @@
   --fd-toc-width: 240px;
 }
 
-/* Three sources of top gap in the sidebar when navMode="top" + collapsible=false:
+/* Three sources of top gap in the sidebar when navMode="top" + tabMode=navbar:
    1. Header div (p-4 pb-2) has no visible content → collapse it
    2. ScrollViewport inner div has p-4 top padding → remove it
    3. Hidden lg:hidden menu items precede the first separator so first:mt-0 never
@@ -448,5 +540,22 @@
   #nd-subnav [aria-label="Collapse Sidebar"],
   #nd-subnav [aria-label="Expand Sidebar"] {
     display: none;
+  }
+}
+
+/* Blog cover index ↔ article morph. Fast ease-out; shares only the matched
+   cover. Unmatched siblings stay still via ViewTransition default="none". */
+::view-transition-group(.blog-cover-morph),
+::view-transition-old(.blog-cover-morph),
+::view-transition-new(.blog-cover-morph) {
+  animation-duration: 0.28s;
+  animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
   }
 }

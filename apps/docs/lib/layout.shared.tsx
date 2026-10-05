@@ -11,11 +11,10 @@ export function baseOptions(): BaseLayoutProps {
     nav: {
       title: <Logo />,
     },
-    // Keep the changelog action next to the search/menu controls: beside the
-    // compact search icon on mobile (searchTrigger.sm), and in the far-right
-    // header cluster on desktop (themeSwitch slot). This keeps it out of the
-    // mobile sidebar drawer. Theme toggling lives only in the FloatNav
-    // (bottom pill) to avoid a duplicate control in the top nav.
+    // Search + changelog live in the header right cluster (search, then
+    // notifications furthest right). Compact search icon on mobile
+    // (searchTrigger.sm); full field on desktop (searchTrigger.full) via
+    // DocsHeader. Theme toggling lives only in FloatNav.
     slots: {
       searchTrigger: {
         full: FullSearchTrigger,

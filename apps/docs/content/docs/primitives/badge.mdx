@@ -1,0 +1,53 @@
+---
+title: Badge
+description: Compact labels, tags, and presence dots for status and metadata.
+icon: Tag
+dependencies: []
+installer: badge
+---
+
+## Features
+
+- Variants: default, secondary, outline, destructive, success, warning
+- Sizes: `sm` and `md`
+- `StatusDot` for online / away / busy / offline with optional pulse
+- SmoothUI-owned — no Base UI / Radix twin required
+
+## States
+
+### Features
+
+Mixed variants for labels and filter chips.
+
+### Sizes
+
+Compact `sm` next to default `md`.
+
+### Status
+
+Presence dots with optional pulse on online.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="status"` | StatusDot | Announces presence state |
+| `aria-label` | StatusDot | Status name (`online`, `busy`, …) |
+
+### Reduced Motion
+
+StatusDot pulse disables when `prefers-reduced-motion` is set.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/badge/index.tsx"
+  name="BadgeProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/badge/index.tsx"
+  name="StatusDotProps"
+/>

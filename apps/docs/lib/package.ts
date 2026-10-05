@@ -4,6 +4,12 @@ import postcss, { type AtRule } from "postcss";
 import postcssNested from "postcss-nested";
 import { cache } from "react";
 import type { RegistryItem } from "shadcn/schema";
+import {
+  isDualPrimitivePackage,
+  type RegistryPrimitiveStyle,
+  resolvePrimitiveStyle,
+  twinFileName,
+} from "./registry-style";
 import { collectUsedTokens, TOKENS_ITEM_NAME } from "./registry-tokens";
 
 // Regex patterns for detecting imports (hoisted for performance)
@@ -18,9 +24,16 @@ const REGISTRY_URL = "https://smoothui.dev/r";
 // registry installs files in user projects — raw @repo/* or @smoothui/*
 // specifiers don't resolve outside this monorepo.
 const WORKSPACE_IMPORT_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
+  [/@repo\/smoothui-utils(?:\/cn)?/g, "@/lib/utils"],
   [/@repo\/shadcn-ui\/lib\/utils/g, "@/lib/utils"],
   [/@repo\/shadcn-ui\/components\/ui\//g, "@/components/ui/"],
   [/@repo\/smoothui\/components\//g, "@/components/smoothui/"],
+  // Owned SmoothUI packages (`@repo/avatar`, `@repo/dialog`, …) install under
+  // components/smoothui/<slug>. Exclude utils / shadcn / the smoothui barrel.
+  [
+    /@repo\/(?!smoothui-utils|shadcn-ui|typescript-config|smoothui(?:\/|$))([a-z0-9-]+)/g,
+    "@/components/smoothui/$1",
+  ],
   [/@smoothui\/data/g, "@/lib/smoothui-data"],
   // Components import shared animation constants via "../../lib/animation";
   // the registry installs that file at components/smoothui/lib/animation.ts.
@@ -58,8 +71,13 @@ const FILTERED_DEPS = new Set([
   "react",
   "react-dom",
   "@repo/shadcn-ui",
+  "@repo/smoothui-utils",
   "@smoothui/data",
 ]);
+
+/** Headless deps that belong only to one twin — strip the other when packaging. */
+const BASE_ONLY_DEPS = new Set(["@base-ui/react"]);
+const RADIX_ONLY_DEPS = new Set(["radix-ui", "@radix-ui/react-slot"]);
 const FILTERED_DEV_DEPS = new Set([
   "@repo/typescript-config",
   "@types/react",
@@ -142,244 +160,299 @@ export const getAllPackageNameMapping = cache(
   }
 );
 
-// Use React.cache() for per-request deduplication
-export const getPackage = cache(async (packageName: string) => {
-  const packageDir = join(process.cwd(), "..", "..", "packages", packageName);
-  const packagePath = join(packageDir, "package.json");
-  const packageJson = JSON.parse(await readFile(packagePath, "utf-8"));
+// Use React.cache() for per-request deduplication.
+// Second arg: components.json `style` (e.g. base-nova). Omit / null = Base
+// twin for plain `/r/{name}.json` (product default).
+export const getPackage = cache(
+  async (packageName: string, style?: string | null) => {
+    const packageDir = join(process.cwd(), "..", "..", "packages", packageName);
+    const packagePath = join(packageDir, "package.json");
+    const packageJson = JSON.parse(await readFile(packagePath, "utf-8"));
 
-  // Extract the actual package name from the path (e.g., "ai-branch" from "smoothui/components/ai-branch")
-  const packageNameParts = packageName.split("/");
-  const actualPackageName = packageNameParts.at(-1) || packageName;
+    // Extract the actual package name from the path (e.g., "ai-branch" from "smoothui/components/ai-branch")
+    const packageNameParts = packageName.split("/");
+    const actualPackageName = packageNameParts.at(-1) || packageName;
+    const primitiveStyle: RegistryPrimitiveStyle = resolvePrimitiveStyle(style);
 
-  // Use Set for O(1) lookups instead of array includes
-  const deps = packageJson.dependencies || {};
-  const smoothuiDependencies = Object.keys(deps).filter(
-    (dep) => dep.startsWith("@repo") && dep !== "@repo/shadcn-ui"
-  );
-  const smoothuiDepsSet = new Set(smoothuiDependencies);
+    // Use Set for O(1) lookups instead of array includes
+    const deps = packageJson.dependencies || {};
+    const smoothuiDependencies = Object.keys(deps).filter(
+      (dep) =>
+        dep.startsWith("@repo") &&
+        dep !== "@repo/shadcn-ui" &&
+        dep !== "@repo/smoothui-utils"
+    );
+    const smoothuiDepsSet = new Set(smoothuiDependencies);
 
-  const dependencies = Object.keys(deps).filter(
-    (dep) => !(FILTERED_DEPS.has(dep) || smoothuiDepsSet.has(dep))
-  );
-
-  const devDeps = packageJson.devDependencies || {};
-  const devDependencies = Object.keys(devDeps).filter(
-    (dep) => !FILTERED_DEV_DEPS.has(dep)
-  );
-
-  const isData = packageName === "data";
-  const isSharedLib = packageName === "smoothui/blocks/shared";
-  // Templates ship as blocks: multi-file, page-level, and installed as a unit.
-  const isBlock =
-    (packageName.startsWith("smoothui/blocks/") && !isSharedLib) ||
-    packageName.startsWith("smoothui/templates/");
-
-  const packageFiles = await readdir(packageDir, { withFileTypes: true });
-  const sourceFiles = packageFiles.filter(
-    (file) =>
-      file.isFile() &&
-      !file.name.includes(".config.") &&
-      (file.name.endsWith(".tsx") ||
-        (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
-  );
-
-  // CSS modules are consumed as a module (`import styles from "./x.module.css"`),
-  // so they have to ship as real files next to the component. Only global CSS
-  // gets folded into the registry `css` field, which the walk below builds from
-  // `@layer` at-rules — a module has none, so folding one in would silently drop
-  // every rule and leave the installed component importing a file that is not
-  // there.
-  const cssModuleFiles = packageFiles.filter(
-    (file) => file.isFile() && file.name.endsWith(".module.css")
-  );
-
-  const cssFiles = packageFiles.filter(
-    (file) =>
-      file.isFile() &&
-      file.name.endsWith(".css") &&
-      !file.name.endsWith(".module.css")
-  );
-
-  let fileType: RegistryItem["type"] = "registry:ui";
-  if (isData || packageName === "smoothui/lib") {
-    fileType = "registry:lib";
-  } else if (isBlock) {
-    fileType = "registry:block";
-  } else if (isSharedLib) {
-    fileType = "registry:component";
-  }
-
-  const files: RegistryItem["files"] = [];
-
-  for (const file of sourceFiles) {
-    const filePath = join(packageDir, file.name);
-    const content = await readFile(filePath, "utf-8");
-
-    files.push({
-      content: rewriteWorkspaceImports(content),
-      path: file.name,
-      target: isData
-        ? `lib/smoothui-data/${file.name}`
-        : `components/smoothui/${actualPackageName}/${file.name}`,
-      type: fileType,
+    const dependencies = Object.keys(deps).filter((dep) => {
+      if (FILTERED_DEPS.has(dep) || smoothuiDepsSet.has(dep)) {
+        return false;
+      }
+      // Dual primitives list both headless libs; only ship the active twin's deps.
+      if (primitiveStyle === "base" && RADIX_ONLY_DEPS.has(dep)) {
+        return false;
+      }
+      if (primitiveStyle === "radix" && BASE_ONLY_DEPS.has(dep)) {
+        return false;
+      }
+      // Prefer scoped @radix-ui/* only for the radix twin.
+      if (primitiveStyle === "base" && dep.startsWith("@radix-ui/")) {
+        return false;
+      }
+      return true;
     });
-  }
 
-  // Relative to the component dir, so the `./x.module.css` import in the source
-  // keeps resolving once installed.
-  files.push(
-    ...(await Promise.all(
-      cssModuleFiles.map(async (file) => ({
-        content: await readFile(join(packageDir, file.name), "utf-8"),
-        path: file.name,
-        target: `components/smoothui/${actualPackageName}/${file.name}`,
+    const devDeps = packageJson.devDependencies || {};
+    const devDependencies = Object.keys(devDeps).filter(
+      (dep) => !FILTERED_DEV_DEPS.has(dep)
+    );
+
+    const isData = packageName === "data";
+    const isSharedLib = packageName === "smoothui/blocks/shared";
+    // Templates ship as blocks: multi-file, page-level, and installed as a unit.
+    const isBlock =
+      (packageName.startsWith("smoothui/blocks/") && !isSharedLib) ||
+      packageName.startsWith("smoothui/templates/");
+
+    const packageFiles = await readdir(packageDir, { withFileTypes: true });
+    const sourceFiles = packageFiles.filter(
+      (file) =>
+        file.isFile() &&
+        !file.name.includes(".config.") &&
+        (file.name.endsWith(".tsx") ||
+          (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
+    );
+
+    // CSS modules are consumed as a module (`import styles from "./x.module.css"`),
+    // so they have to ship as real files next to the component. Only global CSS
+    // gets folded into the registry `css` field, which the walk below builds from
+    // `@layer` at-rules — a module has none, so folding one in would silently drop
+    // every rule and leave the installed component importing a file that is not
+    // there.
+    const cssModuleFiles = packageFiles.filter(
+      (file) => file.isFile() && file.name.endsWith(".module.css")
+    );
+
+    const cssFiles = packageFiles.filter(
+      (file) =>
+        file.isFile() &&
+        file.name.endsWith(".css") &&
+        !file.name.endsWith(".module.css")
+    );
+
+    let fileType: RegistryItem["type"] = "registry:ui";
+    if (isData || packageName === "smoothui/lib") {
+      fileType = "registry:lib";
+    } else if (isBlock) {
+      fileType = "registry:block";
+    } else if (isSharedLib) {
+      fileType = "registry:component";
+    }
+
+    const files: RegistryItem["files"] = [];
+
+    const sourceFileNames = sourceFiles.map((file) => file.name);
+    const dual = isDualPrimitivePackage(sourceFileNames);
+
+    if (dual) {
+      // Ship the active twin as index.tsx so consumers import one file.
+      // Drop the other twin and the re-export stub.
+      const activeTwin = twinFileName(actualPackageName, primitiveStyle);
+      const twinContent = await readFile(join(packageDir, activeTwin), "utf-8");
+      files.push({
+        content: rewriteWorkspaceImports(twinContent),
+        path: "index.tsx",
+        target: `components/smoothui/${actualPackageName}/index.tsx`,
         type: fileType,
-      }))
-    ))
-  );
-
-  // Detect shadcn-ui dependencies from @/components/ui imports
-  const shadcnDependencies =
-    files
-      .map((f) => f.content)
-      .join("\n")
-      .match(SHADCN_IMPORT_REGEX)
-      ?.map((path) => path.split("/").pop())
-      .filter((name): name is string => !!name) || [];
-
-  // Detect relative imports to other smoothui components/blocks
-  const allContent = files.map((f) => f.content).join("\n");
-  const relativeMatches = Array.from(
-    allContent.matchAll(RELATIVE_IMPORT_REGEX)
-  );
-  const relativeImports = relativeMatches
-    .map((match) => match[1])
-    .filter((name): name is string => !!name);
-
-  const registryDependencies = new Set<string>(shadcnDependencies);
-
-  // Add smoothui dependencies from package.json
-  for (const dep of smoothuiDependencies) {
-    const raw = dep.replace("@repo/", "");
-    const pkg = WORKSPACE_DEP_ALIASES.get(raw) ?? raw;
-
-    if (pkg !== actualPackageName) {
-      registryDependencies.add(`${REGISTRY_URL}/${pkg}.json`);
-    }
-  }
-
-  // Add relative imports as registry dependencies
-  for (const relativeImport of relativeImports) {
-    registryDependencies.add(`${REGISTRY_URL}/${relativeImport}.json`);
-  }
-
-  // Add cross-item imports detected in the rewritten content
-  // (@/components/smoothui/<name> covers components and the shared barrel)
-  for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
-    const [, name] = match;
-    if (name && name !== actualPackageName) {
-      registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
-    }
-  }
-
-  if (!isData && SMOOTHUI_DATA_IMPORT_REGEX.test(allContent)) {
-    registryDependencies.add(`${REGISTRY_URL}/data.json`);
-  }
-
-  // SmoothUI-only tokens (`brand`, the `smooth-*` ramp, the button colour
-  // families) exist nowhere in a plain shadcn project, so anything referencing
-  // one has to pull the tokens item in alongside itself.
-  if (collectUsedTokens(allContent).length > 0) {
-    registryDependencies.add(`${REGISTRY_URL}/${TOKENS_ITEM_NAME}.json`);
-  }
-
-  const css: RegistryItem["css"] = {};
-
-  for (const file of cssFiles) {
-    const contents = await readFile(join(packageDir, file.name), "utf-8");
-
-    // Process CSS with PostCSS to handle nested selectors
-    const processed = await postcss([postcssNested]).process(contents, {
-      from: undefined,
-    });
-
-    // Parse the processed CSS and convert to JSON structure
-    const ast = postcss.parse(processed.css);
-
-    ast.walkAtRules("layer", (atRule) => {
-      const layerName = `@layer ${atRule.params}`;
-      css[layerName] = {};
-
-      // First pass: process non-media rules
-      atRule.walkRules((rule) => {
-        // Skip rules that are inside media queries
-        if (
-          rule.parent &&
-          rule.parent.type === "atrule" &&
-          (rule.parent as AtRule).name === "media"
-        ) {
-          return;
-        }
-
-        const { selector } = rule;
-        const ruleObj: Record<string, string> = {};
-
-        // Process all declarations
-        rule.walkDecls((decl) => {
-          ruleObj[decl.prop] = decl.value;
-        });
-
-        if (Object.keys(ruleObj).length > 0) {
-          css[layerName][selector] = ruleObj;
-        }
       });
 
-      // Second pass: process media query rules as top-level entries
-      atRule.walkAtRules("media", (mediaRule) => {
-        const mediaQuery = `@media ${mediaRule.params}`;
-
-        // Create a top-level media query entry if it doesn't exist
-        if (!css[layerName][mediaQuery]) {
-          css[layerName][mediaQuery] = {};
+      for (const file of sourceFiles) {
+        if (
+          file.name === "index.tsx" ||
+          file.name.endsWith(".base.tsx") ||
+          file.name.endsWith(".radix.tsx")
+        ) {
+          continue;
         }
+        const content = await readFile(join(packageDir, file.name), "utf-8");
+        files.push({
+          content: rewriteWorkspaceImports(content),
+          path: file.name,
+          target: `components/smoothui/${actualPackageName}/${file.name}`,
+          type: fileType,
+        });
+      }
+    } else {
+      for (const file of sourceFiles) {
+        const filePath = join(packageDir, file.name);
+        const content = await readFile(filePath, "utf-8");
 
-        mediaRule.walkRules((rule) => {
+        files.push({
+          content: rewriteWorkspaceImports(content),
+          path: file.name,
+          target: isData
+            ? `lib/smoothui-data/${file.name}`
+            : `components/smoothui/${actualPackageName}/${file.name}`,
+          type: fileType,
+        });
+      }
+    }
+
+    // Relative to the component dir, so the `./x.module.css` import in the source
+    // keeps resolving once installed.
+    files.push(
+      ...(await Promise.all(
+        cssModuleFiles.map(async (file) => ({
+          content: await readFile(join(packageDir, file.name), "utf-8"),
+          path: file.name,
+          target: `components/smoothui/${actualPackageName}/${file.name}`,
+          type: fileType,
+        }))
+      ))
+    );
+
+    // Detect shadcn-ui dependencies from @/components/ui imports
+    const shadcnDependencies =
+      files
+        .map((f) => f.content)
+        .join("\n")
+        .match(SHADCN_IMPORT_REGEX)
+        ?.map((path) => path.split("/").pop())
+        .filter((name): name is string => !!name) || [];
+
+    // Detect relative imports to other smoothui components/blocks
+    const allContent = files.map((f) => f.content).join("\n");
+    const relativeMatches = Array.from(
+      allContent.matchAll(RELATIVE_IMPORT_REGEX)
+    );
+    const relativeImports = relativeMatches
+      .map((match) => match[1])
+      .filter((name): name is string => !!name);
+
+    const registryDependencies = new Set<string>(shadcnDependencies);
+
+    // Add smoothui dependencies from package.json
+    for (const dep of smoothuiDependencies) {
+      const raw = dep.replace("@repo/", "");
+      const pkg = WORKSPACE_DEP_ALIASES.get(raw) ?? raw;
+
+      if (pkg !== actualPackageName) {
+        registryDependencies.add(`${REGISTRY_URL}/${pkg}.json`);
+      }
+    }
+
+    // Add relative imports as registry dependencies
+    for (const relativeImport of relativeImports) {
+      registryDependencies.add(`${REGISTRY_URL}/${relativeImport}.json`);
+    }
+
+    // Add cross-item imports detected in the rewritten content
+    // (@/components/smoothui/<name> covers components and the shared barrel)
+    for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
+      const [, name] = match;
+      if (name && name !== actualPackageName) {
+        registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
+      }
+    }
+
+    if (!isData && SMOOTHUI_DATA_IMPORT_REGEX.test(allContent)) {
+      registryDependencies.add(`${REGISTRY_URL}/data.json`);
+    }
+
+    // SmoothUI-only tokens (`brand`, the `smooth-*` ramp, the button colour
+    // families) exist nowhere in a plain shadcn project, so anything referencing
+    // one has to pull the tokens item in alongside itself.
+    if (collectUsedTokens(allContent).length > 0) {
+      registryDependencies.add(`${REGISTRY_URL}/${TOKENS_ITEM_NAME}.json`);
+    }
+
+    const css: RegistryItem["css"] = {};
+
+    for (const file of cssFiles) {
+      const contents = await readFile(join(packageDir, file.name), "utf-8");
+
+      // Process CSS with PostCSS to handle nested selectors
+      const processed = await postcss([postcssNested]).process(contents, {
+        from: undefined,
+      });
+
+      // Parse the processed CSS and convert to JSON structure
+      const ast = postcss.parse(processed.css);
+
+      ast.walkAtRules("layer", (atRule) => {
+        const layerName = `@layer ${atRule.params}`;
+        css[layerName] = {};
+
+        // First pass: process non-media rules
+        atRule.walkRules((rule) => {
+          // Skip rules that are inside media queries
+          if (
+            rule.parent &&
+            rule.parent.type === "atrule" &&
+            (rule.parent as AtRule).name === "media"
+          ) {
+            return;
+          }
+
           const { selector } = rule;
-          const mediaObj: Record<string, string> = {};
+          const ruleObj: Record<string, string> = {};
 
+          // Process all declarations
           rule.walkDecls((decl) => {
-            mediaObj[decl.prop] = decl.value;
+            ruleObj[decl.prop] = decl.value;
           });
 
-          if (Object.keys(mediaObj).length > 0) {
-            // Store the selector inside the media query
-            css[layerName][mediaQuery][selector] = mediaObj;
+          if (Object.keys(ruleObj).length > 0) {
+            css[layerName][selector] = ruleObj;
           }
         });
+
+        // Second pass: process media query rules as top-level entries
+        atRule.walkAtRules("media", (mediaRule) => {
+          const mediaQuery = `@media ${mediaRule.params}`;
+
+          // Create a top-level media query entry if it doesn't exist
+          if (!css[layerName][mediaQuery]) {
+            css[layerName][mediaQuery] = {};
+          }
+
+          mediaRule.walkRules((rule) => {
+            const { selector } = rule;
+            const mediaObj: Record<string, string> = {};
+
+            rule.walkDecls((decl) => {
+              mediaObj[decl.prop] = decl.value;
+            });
+
+            if (Object.keys(mediaObj).length > 0) {
+              // Store the selector inside the media query
+              css[layerName][mediaQuery][selector] = mediaObj;
+            }
+          });
+        });
       });
-    });
+    }
+
+    let type: RegistryItem["type"] = fileType;
+
+    if (!files.length && Object.keys(css).length) {
+      type = "registry:style";
+    }
+
+    const response: RegistryItem = {
+      $schema: "https://ui.shadcn.com/schema/registry-item.json",
+      author: "Eduardo Calvo <educlopez93@gmail.com>",
+      css,
+      dependencies,
+      description: packageJson.description,
+      devDependencies,
+      files,
+      name: actualPackageName,
+      registryDependencies: Array.from(registryDependencies),
+      title: toTitleCase(actualPackageName),
+      type,
+    };
+
+    return response;
   }
-
-  let type: RegistryItem["type"] = fileType;
-
-  if (!files.length && Object.keys(css).length) {
-    type = "registry:style";
-  }
-
-  const response: RegistryItem = {
-    $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
-    css,
-    dependencies,
-    description: packageJson.description,
-    devDependencies,
-    files,
-    name: actualPackageName,
-    registryDependencies: Array.from(registryDependencies),
-    title: toTitleCase(actualPackageName),
-    type,
-  };
-
-  return response;
-});
+);

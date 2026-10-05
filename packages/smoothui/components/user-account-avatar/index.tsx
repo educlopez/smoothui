@@ -6,6 +6,8 @@ import {
   Root as PopoverRoot,
   Trigger as PopoverTrigger,
 } from "@radix-ui/react-popover";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { Eye, Package, User } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Fragment, useState } from "react";
@@ -104,12 +106,14 @@ export default function UserAccountAvatar({
         />
       </div>
 
-      <button
-        className="mt-2 cursor-pointer rounded-md bg-brand px-4 py-2.5 font-semibold text-sm text-white shadow-sm transition-all hover:bg-brand/90 hover:shadow-md active:scale-[0.98] active:bg-brand"
+      <SmoothButton
+        className="mt-2"
+        color="accent"
         type="submit"
+        variant="solid"
       >
         Save Changes
-      </button>
+      </SmoothButton>
     </form>
   );
 
@@ -162,16 +166,18 @@ export default function UserAccountAvatar({
                 />
               </div>
             </div>
-            <button
+            <SmoothButton
               aria-label="View Order"
-              className="flex shrink-0 cursor-pointer items-center justify-center rounded-md border border-border bg-background p-2 transition-colors hover:border-primary hover:bg-muted"
+              className="shrink-0 text-muted-foreground"
               onClick={() => {
                 onOrderView?.(order.id);
               }}
+              size="icon-sm"
               type="button"
+              variant="outline"
             >
-              <Eye className="text-muted-foreground" size={16} />
-            </button>
+              <Eye size={16} />
+            </SmoothButton>
           </div>
         </div>
       ))}
@@ -182,9 +188,11 @@ export default function UserAccountAvatar({
   return (
     <PopoverRoot>
       <PopoverTrigger asChild>
-        <button
-          className={`flex cursor-pointer items-center gap-2 rounded-full border bg-background ${className}`}
+        <SmoothButton
+          className={cn("h-auto gap-2 p-0", className)}
+          shape="pill"
           type="button"
+          variant="outline"
         >
           <img
             alt="User Avatar"
@@ -194,7 +202,7 @@ export default function UserAccountAvatar({
             src={userData.avatar}
             width={48}
           />
-        </button>
+        </SmoothButton>
       </PopoverTrigger>
       <Portal>
         <PopoverContent
@@ -217,26 +225,22 @@ export default function UserAccountAvatar({
               className="flex flex-col divide-y divide-border"
               style={{ pointerEvents: "auto" }}
             >
-              <button
-                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 font-medium text-sm transition-colors ${
+              <SmoothButton
+                className={cn(
+                  "h-auto w-full justify-start rounded-lg px-3 py-2.5 font-medium",
                   activeSection === "profile"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground hover:bg-muted"
-                }`}
+                    ? "bg-primary text-primary-foreground hover:bg-primary"
+                    : "text-foreground"
+                )}
                 onClick={() => {
                   handleSectionClick("profile");
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleSectionClick("profile");
-                  }
-                }}
                 type="button"
+                variant="ghost"
               >
                 <User className="shrink-0" size={16} />
                 Edit Profile
-              </button>
+              </SmoothButton>
               <AnimatePresence initial={false}>
                 {activeSection === "profile" && (
                   <motion.div
@@ -269,26 +273,22 @@ export default function UserAccountAvatar({
                   </motion.div>
                 )}
               </AnimatePresence>
-              <button
-                className={`flex w-full cursor-pointer items-center gap-2 rounded-lg px-3 py-2.5 font-medium text-sm transition-colors ${
+              <SmoothButton
+                className={cn(
+                  "h-auto w-full justify-start rounded-lg px-3 py-2.5 font-medium",
                   activeSection === "orders"
-                    ? "bg-primary text-primary-foreground"
-                    : "text-foreground hover:bg-muted"
-                }`}
+                    ? "bg-primary text-primary-foreground hover:bg-primary"
+                    : "text-foreground"
+                )}
                 onClick={() => {
                   handleSectionClick("orders");
                 }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    handleSectionClick("orders");
-                  }
-                }}
                 type="button"
+                variant="ghost"
               >
                 <Package className="shrink-0" size={16} />
                 Last Orders
-              </button>
+              </SmoothButton>
               <AnimatePresence initial={false}>
                 {activeSection === "orders" && (
                   <motion.div

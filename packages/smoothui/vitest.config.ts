@@ -1,8 +1,8 @@
 import path from "node:path";
 import { defineConfig } from "vitest/config";
 
-const shadcnPath = path.resolve(import.meta.dirname, "../shadcn-ui");
 const smoothuiPath = path.resolve(import.meta.dirname, ".");
+const utilsPath = path.resolve(import.meta.dirname, "../smoothui-utils");
 const reactPath = path.resolve(import.meta.dirname, "node_modules/react");
 const reactDomPath = path.resolve(
   import.meta.dirname,
@@ -19,10 +19,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@repo/shadcn-ui": shadcnPath,
-      "@repo/shadcn-ui/components/ui": path.join(shadcnPath, "components/ui"),
-      "@repo/shadcn-ui/lib/utils": path.join(shadcnPath, "lib/utils"),
       "@repo/smoothui": smoothuiPath,
+      "@repo/smoothui-utils": utilsPath,
+      "@repo/smoothui-utils/cn": path.join(utilsPath, "cn.ts"),
       "@repo/smoothui/components": path.join(smoothuiPath, "components"),
       "@smoothui/data": path.resolve(import.meta.dirname, "../data"),
       react: reactPath,

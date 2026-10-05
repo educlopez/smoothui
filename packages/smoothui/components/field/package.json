@@ -1,0 +1,37 @@
+{
+  "name": "@repo/field",
+  "description": "Base UI Field compound primitives for SmoothUI — label, description, control, and error.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "field",
+      "form",
+      "label",
+      "input",
+      "validation"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Labeled form control with description and error",
+      "Accessible field grouping for Base UI inputs"
+    ],
+    "compositionHints": [
+      "Wrap Switch, Checkbox, or FieldControl inside Field",
+      "Use FieldError with match for validation messaging"
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { PostCover } from "@docs/components/post-cover";
 import { Button } from "@docs/components/smoothbutton";
-import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
@@ -39,6 +39,7 @@ export async function LatestPosts() {
             <Link
               className="flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary"
               href={post.url}
+              transitionTypes={["nav-forward"]}
             >
               <PostCover
                 alt={post.data.title}

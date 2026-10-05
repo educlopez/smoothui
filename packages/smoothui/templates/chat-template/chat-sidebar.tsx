@@ -1,7 +1,8 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { somePeople } from "@smoothui/data/people";
 import {
   LogOut,
@@ -110,24 +111,27 @@ export const ChatSidebar = ({
           <SiriOrb size="22px" state="idle" />
           Scoop Assistant
         </span>
-        <button
+        <SmoothButton
           aria-label="Collapse sidebar"
-          className="rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="text-muted-foreground"
           onClick={onToggleCollapsed}
+          size="icon-sm"
           type="button"
+          variant="ghost"
         >
           <PanelLeftClose aria-hidden="true" size={16} />
-        </button>
+        </SmoothButton>
       </div>
 
-      <button
-        className="flex items-center gap-2 rounded-xl border border-border/60 bg-background px-3 py-2 text-left text-sm transition-colors hover:bg-muted"
+      <SmoothButton
+        className="w-full justify-start rounded-xl border border-border/60 bg-background px-3 py-2 text-left text-sm"
         onClick={onNewChat}
         type="button"
+        variant="outline"
       >
         <Plus aria-hidden="true" size={15} />
         New chat
-      </button>
+      </SmoothButton>
 
       {/* Icon and field share one flex row rather than absolute-positioning the
           icon over padding: the gap is then a single value instead of two that
@@ -165,21 +169,22 @@ export const ChatSidebar = ({
             <ul className="flex flex-col gap-0.5">
               {items.map((conversation) => (
                 <li key={conversation.id}>
-                  <button
+                  <SmoothButton
                     aria-current={
                       conversation.id === activeId ? "page" : undefined
                     }
                     className={cn(
-                      "w-full truncate rounded-lg px-2 py-2 text-left text-sm transition-colors",
+                      "h-auto w-full justify-start truncate rounded-lg px-2 py-2 text-left font-normal text-sm",
                       conversation.id === activeId
                         ? "bg-background text-foreground shadow-black/5 shadow-xs"
-                        : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                        : "text-muted-foreground"
                     )}
                     onClick={() => onSelect(conversation.id)}
                     type="button"
+                    variant="ghost"
                   >
                     {conversation.title}
-                  </button>
+                  </SmoothButton>
                 </li>
               ))}
             </ul>
@@ -203,15 +208,17 @@ const RailButton = ({
   label: string;
   onClick?: () => void;
 }) => (
-  <button
+  <SmoothButton
     aria-label={label}
-    className="rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+    className="text-muted-foreground"
     onClick={onClick}
+    size="icon-sm"
     title={label}
     type="button"
+    variant="ghost"
   >
     {icon}
-  </button>
+  </SmoothButton>
 );
 
 /**
@@ -262,15 +269,16 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
 
   return (
     <div className="relative" ref={containerRef}>
-      <button
+      <SmoothButton
         aria-expanded={isOpen}
         aria-haspopup="menu"
         className={cn(
-          "flex w-full items-center gap-2 rounded-xl text-left transition-colors hover:bg-muted",
-          align === "pane" ? "p-1.5" : "justify-center p-1"
+          "h-auto w-full gap-2 rounded-xl text-left font-normal",
+          align === "pane" ? "justify-start p-1.5" : "justify-center p-1"
         )}
         onClick={() => setIsOpen((open) => !open)}
         type="button"
+        variant="ghost"
       >
         <img
           alt={USER.name}
@@ -287,7 +295,7 @@ const AccountMenu = ({ align }: { align: "pane" | "rail" }) => {
             </span>
           </span>
         )}
-      </button>
+      </SmoothButton>
 
       {isOpen ? (
         <div
@@ -328,15 +336,16 @@ const MenuItem = ({
   label: string;
   onClick?: () => void;
 }) => (
-  <button
-    className="flex w-full items-center gap-2 rounded-lg px-2 py-1.5 text-left text-muted-foreground text-sm transition-colors hover:bg-muted hover:text-foreground"
+  <SmoothButton
+    className="h-auto w-full justify-start gap-2 rounded-lg px-2 py-1.5 text-left font-normal text-muted-foreground text-sm"
     onClick={onClick}
     role="menuitem"
     type="button"
+    variant="ghost"
   >
     {icon}
     {label}
-  </button>
+  </SmoothButton>
 );
 
 export default ChatSidebar;

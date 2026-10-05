@@ -1,0 +1,49 @@
+---
+title: Tabs
+description: Tabbed navigation with an animated indicator — underline, pill, or segment variants on Base UI Tabs.
+icon: LayoutList
+dependencies:
+  - motion.dev
+  - base-ui
+installer: tabs
+---
+
+## Features
+
+Compound Tabs built on Base UI (`Tabs.Root` / `List` / `Tab` / `Panel` / `Indicator`) with Motion-friendly CSS indicator transitions. Variants: `underline`, `pill`, and `segment`. Optional panel opacity crossfade via `animated` on `TabsPanel`.
+
+## States
+
+### Features
+
+Underline tabs with a sliding brand indicator and optional panel fade.
+
+### Pill
+
+Rounded pill list with a soft background indicator.
+
+### Segment
+
+Full-width segmented control look.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `ArrowLeft` / `ArrowRight` | Moves focus between tabs |
+| `Home` / `End` | Focuses first / last tab |
+| `Enter` / `Space` | Activates the focused tab |
+| `Tab` | Moves focus into / out of the tablist |
+
+### Reduced Motion
+
+Indicator transitions and panel opacity fades become instant when `prefers-reduced-motion` is set (`useReducedMotion`).
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/tabs/index.tsx"
+  name="TabsListProps"
+/>
