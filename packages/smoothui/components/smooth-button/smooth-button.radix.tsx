@@ -173,16 +173,6 @@ function SmoothButton({
   );
   const variantName = variant ?? "default";
 
-  // asChild defers all rendering to the consumer's element — slots/loading
-  // are not injected (single-child contract of Radix Slot).
-  if (asChild) {
-    return (
-      <Slot className={classes} data-variant={variantName} ref={ref} {...props}>
-        {children}
-      </Slot>
-    );
-  }
-
   const setRefs = (node: HTMLButtonElement | null) => {
     localRef.current = node;
     if (typeof ref === "function") {
@@ -191,6 +181,21 @@ function SmoothButton({
       (ref as { current: HTMLButtonElement | null }).current = node;
     }
   };
+
+  // asChild defers all rendering to the consumer's element — slots/loading
+  // are not injected (single-child contract of Radix Slot).
+  if (asChild) {
+    return (
+      <Slot
+        className={classes}
+        data-variant={variantName}
+        ref={setRefs}
+        {...props}
+      >
+        {children}
+      </Slot>
+    );
+  }
 
   return (
     <button

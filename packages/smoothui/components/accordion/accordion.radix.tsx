@@ -125,6 +125,10 @@ const AccordionPanel = ({
   ...props
 }: AccordionPanelProps) => {
   const shouldReduceMotion = useReducedMotion();
+  // Radix unmounts on close unless a CSS animation runs, so a height transition
+  // never plays. forceMount keeps the panel in the tree; `invisible` (animated
+  // through the transition) removes it from the a11y tree and tab order once
+  // the close finishes.
   return (
     <AccordionPrimitive.Content
       className={cn(
@@ -133,12 +137,13 @@ const AccordionPanel = ({
           ? "data-[state=closed]:hidden"
           : cn(
               "data-[state=open]:h-[var(--radix-accordion-content-height)]",
-              `transition-[height,opacity] duration-200 ${PANEL_EASE}`,
-              "data-[state=closed]:h-0 data-[state=closed]:opacity-0"
+              `transition-[height,opacity,visibility] duration-200 ${PANEL_EASE}`,
+              "data-[state=closed]:invisible data-[state=closed]:h-0 data-[state=closed]:opacity-0"
             ),
         className
       )}
       data-slot="accordion-panel"
+      forceMount
       {...props}
     >
       <div className="px-4 pt-0 pb-4 leading-relaxed">{children}</div>

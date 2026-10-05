@@ -88,6 +88,10 @@ const CollapsiblePanel = ({
   ...props
 }: CollapsiblePanelProps) => {
   const shouldReduceMotion = useReducedMotion();
+  // Radix unmounts on close unless a CSS animation runs, so a height transition
+  // never plays. forceMount keeps the panel in the tree; `invisible` (animated
+  // through the transition) removes it from the a11y tree and tab order once
+  // the close finishes.
   return (
     <CollapsiblePrimitive.Content
       className={cn(
@@ -96,12 +100,13 @@ const CollapsiblePanel = ({
           ? "data-[state=closed]:hidden"
           : cn(
               "data-[state=open]:h-[var(--radix-collapsible-content-height)]",
-              `transition-[height,opacity] duration-200 ${PANEL_EASE}`,
-              "data-[state=closed]:h-0 data-[state=closed]:opacity-0"
+              `transition-[height,opacity,visibility] duration-200 ${PANEL_EASE}`,
+              "data-[state=closed]:invisible data-[state=closed]:h-0 data-[state=closed]:opacity-0"
             ),
         className
       )}
       data-slot="collapsible-panel"
+      forceMount
       {...props}
     >
       <div className="space-y-1 px-4 pt-1 pb-4 leading-relaxed">{children}</div>
