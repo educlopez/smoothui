@@ -1,0 +1,15 @@
+# Paths where a mistake reaches users or weakens the checks that guard them:
+# CI and repo automation, the published CLI, the registry served at /r,
+# build scripts, and the files that decide what gets installed.
+/.github/                       @educlopez
+/packages/cli/                  @educlopez
+/apps/docs/app/r/               @educlopez
+/apps/docs/lib/package.ts       @educlopez
+/apps/docs/lib/registry-*.ts    @educlopez
+/scripts/                       @educlopez
+/biome.jsonc                    @educlopez
+/package.json                   @educlopez
+/pnpm-workspace.yaml            @educlopez
+/pnpm-lock.yaml                 @educlopez
+/release-please-config.json     @educlopez
+/RELEASING.md                   @educlopez
