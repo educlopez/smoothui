@@ -1,0 +1,55 @@
+# CodeQL static analysis, deliberately kept off pull requests.
+#
+# It runs on pushes to main (releases) and once a week, never on PRs, so it adds
+# no time to the review loop and cannot block a merge. Findings land in
+# Security -> Code scanning. The repo is public, so Actions minutes are free.
+#
+# `develop` is not scanned: the schedule only fires from the default branch, and
+# a scan of develop would just duplicate the one that runs when it reaches main.
+
+name: CodeQL
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "17 4 * * 1" # Mondays 04:17 UTC, off the top of the hour
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read # Required to read workflow run metadata
+      contents: read # Required by actions/checkout
+      security-events: write # Required to upload SARIF results
+    strategy:
+      fail-fast: false
+      matrix:
+        # `actions` checks the workflows themselves for script injection and
+        # over-broad token permissions.
+        language: [javascript-typescript, actions]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: none
+
+      - name: Analyze
+        uses: github/codeql-action/analyze@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4
+        with:
+          category: "/language:${{ matrix.language }}"
