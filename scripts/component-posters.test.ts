@@ -55,8 +55,8 @@ describe("component index posters", () => {
 
     expect(card).not.toContain("GalleryPreview");
     expect(card).not.toContain("gallery-preview");
-    expect(card).toContain("h-12");
-    expect(card).toContain("POSTER_CHROME = 50");
+    expect(card).toContain("h-11");
+    expect(card).toContain("POSTER_CHROME = 44 + POSTER_STAGE_INSET");
     expect(gallery).not.toContain("GalleryPreview");
     expect(gallery).not.toContain("eager");
   });
@@ -65,15 +65,19 @@ describe("component index posters", () => {
     expect(
       posterClip({
         bottom: 2000,
+        left: 0,
+        right: 560,
         top: 40,
         viewportHeight: 1400,
         viewportWidth: 560,
       })
-    ).toEqual({ height: 640, width: 560, x: 0, y: 12 });
+    ).toEqual({ height: 640, width: 560, x: 0, y: 24 });
 
     expect(
       posterClip({
         bottom: 80,
+        left: 80,
+        right: 400,
         top: 40,
         viewportHeight: 1400,
         viewportWidth: 560,

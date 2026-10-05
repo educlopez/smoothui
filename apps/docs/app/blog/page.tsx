@@ -1,6 +1,6 @@
 import { PostCover } from "@docs/components/post-cover";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import { createMetadata } from "@docs/lib/metadata";
-import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
@@ -69,8 +69,8 @@ export default async function BlogPage() {
   const featuredReadingTime = getReadingTime(featuredContent);
 
   return (
-    <main className="bg-background">
-      <div className="mx-auto max-w-5xl px-6 pt-12 pb-24 lg:pt-16">
+    <main className="bg-background px-8">
+      <div className="mx-auto max-w-7xl pt-12 pb-24 lg:pt-16">
         {/* Header */}
         <div className="mb-12 max-w-xl">
           <h1 className="text-balance font-semibold text-4xl text-foreground sm:text-5xl lg:tracking-tight">
@@ -86,7 +86,11 @@ export default async function BlogPage() {
         <div className="overflow-hidden rounded-2xl border border-border">
           {/* Featured post */}
           <article className="group relative grid divide-x divide-border md:grid-cols-2">
-            <div className="bg-card p-6 lg:p-10">
+            <Link
+              className="block bg-card p-6 lg:p-10"
+              href={featured.url}
+              transitionTypes={["nav-forward"]}
+            >
               <PostCover
                 alt={featured.data.title}
                 className="aspect-video rounded-[10px] border border-transparent shadow-black/10 shadow-md ring-1 ring-border"
@@ -94,11 +98,12 @@ export default async function BlogPage() {
                 seed={featured.url}
                 sizes="(max-width: 768px) 100vw, 460px"
               />
-            </div>
+            </Link>
             <div>
               <Link
                 className="flex h-full flex-col gap-4 bg-card p-6 lg:p-10"
                 href={featured.url}
+                transitionTypes={["nav-forward"]}
               >
                 <div className="flex items-center gap-2 text-muted-foreground text-sm">
                   <time dateTime={featured.data.date as string}>
@@ -131,6 +136,7 @@ export default async function BlogPage() {
                   <Link
                     className="flex h-full flex-col bg-card p-6 transition-colors duration-200 hover:bg-card/80 lg:p-10"
                     href={post.url}
+                    transitionTypes={["nav-forward"]}
                   >
                     <PostCover
                       alt={post.data.title}

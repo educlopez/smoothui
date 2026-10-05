@@ -62,22 +62,22 @@ curl "https://smoothui.dev/api/v1/components?category=navigation&pageSize=10"
 {
   "data": [
     {
-      "name": "animated-tabs",
-      "displayName": "AnimatedTabs",
+      "name": "morph-toggle",
+      "displayName": "MorphToggle",
       "description": "Tab navigation with smooth spring-based transitions.",
       "category": "navigation",
       "tags": ["animation", "tabs", "navigation"],
       "useCases": ["Tab navigation with smooth transitions"],
-      "compositionHints": ["Combine with animated-tooltip for rich tab headers"],
+      "compositionHints": ["Combine with tooltip for rich tab headers"],
       "complexity": "moderate",
       "animationType": "spring",
       "dependencies": ["motion"],
       "registryDependencies": [],
       "hasReducedMotion": true,
       "propsCount": 5,
-      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+      "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+      "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+      "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
     }
   ],
   "total": 84,
@@ -96,26 +96,26 @@ Returns full metadata for a single component. Add `?include=source` to also retr
 </BodyText>
 
 ```bash title="Request"
-curl "https://smoothui.dev/api/v1/components/animated-tabs"
+curl "https://smoothui.dev/api/v1/components/morph-toggle"
 ```
 
 ```bash title="Request (with source code)"
-curl "https://smoothui.dev/api/v1/components/animated-tabs?include=source"
+curl "https://smoothui.dev/api/v1/components/morph-toggle?include=source"
 ```
 
 ```json title="Response"
 {
   "component": {
-    "name": "animated-tabs",
-    "displayName": "AnimatedTabs",
+    "name": "morph-toggle",
+    "displayName": "MorphToggle",
     "description": "Tab navigation with smooth spring-based transitions.",
     "category": "navigation",
     "tags": ["animation", "tabs", "navigation"],
     "complexity": "moderate",
     "animationType": "spring",
-    "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-    "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-    "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+    "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+    "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+    "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
   },
   "source": "// --- index.tsx ---\n\"use client\";\nimport { motion } from ..."
 }
@@ -155,8 +155,8 @@ curl "https://smoothui.dev/api/v1/components/search?q=modal+dialog"
 {
   "data": [
     {
-      "name": "basic-modal",
-      "displayName": "BasicModal",
+      "name": "dialog",
+      "displayName": "Dialog",
       "description": "Accessible modal dialog with smooth enter/exit animations.",
       "category": "feedback",
       "tags": ["modal", "dialog", "overlay"],
@@ -257,14 +257,14 @@ curl "https://smoothui.dev/api/v1/suggest?need=animated+tab+navigation"
   "suggestions": [
     {
       "type": "component",
-      "name": "animated-tabs",
-      "displayName": "AnimatedTabs",
+      "name": "morph-toggle",
+      "displayName": "MorphToggle",
       "description": "Tab navigation with smooth spring-based transitions.",
       "category": "navigation",
       "relevanceScore": 21,
-      "installCommand": "npx shadcn@latest add @smoothui/animated-tabs",
-      "docUrl": "https://smoothui.dev/docs/components/animated-tabs",
-      "registryUrl": "https://smoothui.dev/r/animated-tabs.json"
+      "installCommand": "npx shadcn@latest add @smoothui/morph-toggle",
+      "docUrl": "https://smoothui.dev/docs/components/morph-toggle",
+      "registryUrl": "https://smoothui.dev/r/morph-toggle.json"
     }
   ],
   "total": 1

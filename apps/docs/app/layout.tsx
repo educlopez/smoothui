@@ -7,7 +7,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import "./global.css";
-import { inter, plusJakartaSans, poppins } from "./fonts";
+import { inter, poppins } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
 
 const enableVercelAnalytics =
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
     <html
-      className={`${inter.className} ${inter.variable} ${poppins.variable} ${plusJakartaSans.variable}`}
+      className={`${inter.className} ${inter.variable} ${poppins.variable}`}
       lang="en"
       suppressHydrationWarning
     >
@@ -108,7 +108,9 @@ export default function Layout({ children }: LayoutProps<"/">) {
         <link href="/llms-full.txt" rel="alternate" type="text/plain" />
         <script
           // biome-ignore lint/security/noDangerouslySetInnerHtml: Schema.org JSON-LD structured data
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(smoothUISchema) }}
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(smoothUISchema).replace(/</g, "\\u003c"),
+          }}
           id="smoothui-schema"
           type="application/ld+json"
         />

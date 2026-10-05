@@ -1,0 +1,57 @@
+---
+title: Preview Card
+description: Hover and focus card for link previews with a Motion fade/scale, Base UI Preview Card, and a Radix HoverCard twin.
+icon: Eye
+dependencies:
+  - motion.dev
+  - base-ui
+installer: preview-card
+---
+
+## Features
+
+- Opens on hover or keyboard focus, closes after a short delay
+- Spring fade/scale entrance from the shared overlay presets
+- Compound parts: `PreviewCardRoot`, `PreviewCardTrigger`, `PreviewCardPortal`, `PreviewCardPositioner`, `PreviewCardPopup`, `PreviewCardArrow`
+- Convenience default export with `trigger` and children
+- `delay` / `closeDelay` on the root; `side`, `align`, `sideOffset` for placement
+- Base UI by default; Radix `HoverCard` twin available via style
+
+## States
+
+### Features
+
+Hover or focus the link to open the card. The card is for sighted-user previews, so keep essential content on the destination page.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Focusing the trigger opens the card |
+| `Escape` | Closes the card |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the card appears without scale or fade.
+
+## Radix twin
+
+Radix `HoverCard` has no Positioner part. In the Radix twin, `PreviewCardPositioner` only carries `side` / `align` / `sideOffset` to `PreviewCardPopup`, so the compound tree is identical.
+
+## Props
+
+### PreviewCardProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/preview-card/index.tsx"
+  name="PreviewCardProps"
+/>
+
+### PreviewCardContentProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/preview-card/index.tsx"
+  name="PreviewCardContentProps"
+/>

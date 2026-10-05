@@ -32,16 +32,9 @@ export { default as AiToolCall } from "./ai-tool-call";
 export { default as Alert } from "./alert";
 export { default as AnimatedAvatarGroup } from "./animated-avatar-group";
 export { default as AnimatedFileUpload } from "./animated-file-upload";
-export { default as AnimatedInput } from "./animated-input";
 export { default as AnimatedList } from "./animated-list";
-export { default as AnimatedNumberInput } from "./animated-number-input";
-export { default as AnimatedOTPInput } from "./animated-o-t-p-input";
-export { default as AnimatedProgressBar } from "./animated-progress-bar";
 export { default as AnimatedStepper } from "./animated-stepper";
-export { default as AnimatedTabs } from "./animated-tabs";
 export { default as AnimatedTags } from "./animated-tags";
-export { default as AnimatedToggle } from "./animated-toggle";
-export { default as AnimatedTooltip } from "./animated-tooltip";
 export { default as ApertureBlurTransition } from "./aperture-blur-transition";
 export { default as AppDownloadStack } from "./app-download-stack";
 export { default as AppleInvites } from "./apple-invites";
@@ -62,10 +55,6 @@ export {
   default as Avatar,
 } from "./avatar";
 export { default as Badge, StatusDot } from "./badge";
-export { default as BasicAccordion } from "./basic-accordion";
-export { default as BasicDropdown } from "./basic-dropdown";
-export { default as BasicModal } from "./basic-modal";
-export { default as BasicToast } from "./basic-toast";
 // Text animation components (animate-text catalog)
 export { default as BlurOutUp } from "./blur-out-up";
 export { default as Book } from "./book";
@@ -103,7 +92,6 @@ export { default as ContentSkeleton } from "./content-skeleton";
 export { default as ContextMenu } from "./context-menu";
 export { default as ContributionGraph } from "./contribution-graph";
 export { default as CountBadge } from "./count-badge";
-export { default as CountryDialog } from "./country-dialog";
 export { default as CountryPicker } from "./country-picker";
 export { default as CoverflowCarousel } from "./coverflow-carousel";
 export { default as CursorFollow } from "./cursor-follow";
@@ -239,7 +227,6 @@ export {
   NavigationMenuTrigger,
   NavigationMenuViewport,
 } from "./navigation-menu";
-export { default as NotificationBadge } from "./notification-badge";
 export {
   default as NumberField,
   NumberFieldDecrement,
@@ -327,7 +314,6 @@ export { default as ScrollableCardStack } from "./scrollable-card-stack";
 export { default as Scrubber } from "./scrubber";
 export { default as SdfBlobTransition } from "./sdf-blob-transition";
 export { default as SdfCircleTransition } from "./sdf-circle-transition";
-export { default as SearchableDropdown } from "./searchable-dropdown";
 export { default as Select } from "./select";
 export { default as Separator } from "./separator";
 export { default as ShaderRevealCircleTransition } from "./shader-reveal-circle-transition";
@@ -361,7 +347,6 @@ export {
 } from "./sidebar";
 export { default as SiriOrb } from "./siri-orb";
 export { default as Skeleton } from "./skeleton";
-export { default as SkeletonLoader } from "./skeleton-loader";
 export {
   default as Slider,
   SliderControl,

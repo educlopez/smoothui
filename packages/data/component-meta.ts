@@ -11,7 +11,6 @@
 // ---------------------------------------------------------------------------
 
 export type ComponentCategory =
-  | "basic-ui"
   | "patterns"
   | "button"
   | "text"

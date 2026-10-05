@@ -1,209 +1,133 @@
 "use client";
 
-import Divider from "@docs/components/landing/divider";
-import { HeroMaterial } from "@docs/components/landing/hero-material";
-import { GsapLogo } from "@docs/components/landing/logos/gsap-logo";
-import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
-import { ReactLogo } from "@docs/components/landing/logos/react-logo";
-import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
-import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { HeroDither } from "@docs/components/landing/hero-dither";
+import { HeroStage } from "@docs/components/landing/hero-stage";
 import { Button } from "@docs/components/smoothbutton";
 import { useUiSound } from "@docs/components/sound-provider";
-import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@repo/shadcn-ui/components/ui/tooltip";
+import { UI_COUNT } from "@docs/lib/generated/counts";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
-import { IconCheckFill24, IconCopy2Fill24 } from "nucleo-core-fill-24";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { preload } from "react-dom";
 
-const EASE_OUT_QUAD_X1 = 0.25;
-const EASE_OUT_QUAD_Y1 = 0.46;
-const EASE_OUT_QUAD_X2 = 0.45;
-const EASE_OUT_QUAD_Y2 = 0.94;
-const EASE_OUT_QUAD = [
-  EASE_OUT_QUAD_X1,
-  EASE_OUT_QUAD_Y1,
-  EASE_OUT_QUAD_X2,
-  EASE_OUT_QUAD_Y2,
-] as const;
+const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 
-const INSTALL_COMMAND = "npx shadcn@latest add @smoothui/dynamic-island";
+const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
+
+preload(BACKGROUND_SRC, { as: "image", fetchPriority: "high" });
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   const playClick = useUiSound("/sounds/button.wav", 0.4);
-  const [installCopied, setInstallCopied] = useState(false);
+  const bandRef = useRef<HTMLDivElement>(null);
+  const [band, setBand] = useState({ height: 0, width: 0 });
+  const [showPhoto, setShowPhoto] = useState(false);
 
-  const copyInstall = async () => {
-    try {
-      await navigator.clipboard.writeText(INSTALL_COMMAND);
-      setInstallCopied(true);
-      playClick();
-      setTimeout(() => setInstallCopied(false), 1600);
-    } catch {
-      // clipboard unavailable — no-op
+  useEffect(() => {
+    const node = bandRef.current;
+    if (!node) {
+      return;
     }
-  };
+    const measure = () => {
+      const box = node.getBoundingClientRect();
+      setBand({
+        height: Math.max(1, Math.round(box.height)),
+        width: Math.max(1, Math.round(box.width)),
+      });
+    };
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section className="bg-background transition">
-      <div className="relative py-24 md:py-36">
-        <Divider />
-        <div className="mx-auto max-w-7xl px-8">
-          <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            {/* Left side - Hero content */}
-            <motion.div
-              animate={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-              }
-              className="flex max-w-xl flex-col"
-              initial={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { duration: 0.35, ease: EASE_OUT_QUAD }
-              }
+    <section className="relative overflow-hidden bg-background">
+      <div
+        aria-hidden
+        className="mask-t-from-35% mask-t-to-65% mask-b-from-55% mask-b-to-75% dark:mask-t-to-55% pointer-events-none absolute inset-0"
+        ref={bandRef}
+      >
+        {showPhoto ? (
+          <img
+            alt=""
+            className="size-full object-cover object-bottom"
+            height={1024}
+            src={BACKGROUND_SRC}
+            width={1024}
+          />
+        ) : null}
+        {band.width > 1 ? (
+          <HeroDither
+            height={band.height}
+            onFallback={() => setShowPhoto(true)}
+            src={BACKGROUND_SRC}
+            width={band.width}
+          />
+        ) : null}
+      </div>
+
+      <div className="pt-24 pb-20 md:pt-32 lg:pt-40">
+        <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
+          <motion.div
+            animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
+            className="flex flex-col items-center"
+            initial={
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }
+            }
+            transition={
+              shouldReduceMotion
+                ? { duration: 0 }
+                : { duration: 0.35, ease: EASE_OUT }
+            }
+          >
+            <h1 className="text-balance font-semibold font-title text-5xl text-foreground tracking-tight md:text-6xl lg:text-7xl lg:leading-[1.05]">
+              React components.
+              <span className="mt-1 block">Made to move.</span>
+            </h1>
+
+            <p className="mt-6 max-w-xl text-balance text-lg text-muted-foreground leading-relaxed md:text-xl">
+              {UI_COUNT} animated primitives and components for React — copy the
+              code and make it yours.
+            </p>
+
+            <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row">
+              <Button
+                asChild
+                onClick={() => playClick()}
+                size="sm"
+                variant="candy"
+              >
+                <Link href="/docs/primitives">Browse primitives</Link>
+              </Button>
+              <Button
+                asChild
+                onClick={() => playClick()}
+                size="sm"
+                variant="outline"
+              >
+                <Link href="/docs/guides">Read the docs</Link>
+              </Button>
+            </div>
+
+            <a
+              className="mt-12 opacity-80 transition-opacity duration-150 hover:opacity-100"
+              href="https://vercel.com/oss"
+              rel="noopener noreferrer"
+              target="_blank"
             >
-              {/* Primary message */}
-              <div className="flex flex-col gap-5">
-                <h1 className="text-balance font-semibold font-title text-4xl text-foreground tracking-tight md:text-5xl lg:text-6xl lg:leading-[1.1]">
-                  <span className="block">React components.</span>
-                  <span className="block text-muted-foreground">
-                    Made to move.
-                  </span>
-                </h1>
-
-                <p className="max-w-lg text-balance text-foreground/70 text-lg leading-relaxed md:text-xl">
-                  {COMPONENT_COUNT} animated components to make every
-                  interaction feel considered. Copy the code, make it yours.
-                  Built for React and shadcn/ui.
-                </p>
-              </div>
-
-              {/* Actions */}
-              <div className="mt-10 flex flex-col gap-5">
-                <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-                  <Button
-                    asChild
-                    onClick={() => playClick()}
-                    size="sm"
-                    variant="candy"
-                  >
-                    <Link href="/docs/components">Browse components</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    onClick={() => playClick()}
-                    size="sm"
-                    variant="outline"
-                  >
-                    <Link href="/docs/guides">Read the docs</Link>
-                  </Button>
-                </div>
-
-                <button
-                  aria-label="Copy install command"
-                  className="group flex w-fit max-w-full cursor-pointer items-center gap-2.5 rounded-lg border border-border bg-background px-3 py-2 font-mono text-foreground/80 text-sm transition-colors hover:border-brand/40"
-                  onClick={copyInstall}
-                  type="button"
-                >
-                  <span
-                    aria-hidden
-                    className="select-none text-muted-foreground"
-                  >
-                    $
-                  </span>
-                  <span className="truncate">{INSTALL_COMMAND}</span>
-                  <span className="shrink-0 text-muted-foreground transition-colors group-hover:text-foreground">
-                    {installCopied ? (
-                      <IconCheckFill24 className="size-4 text-brand" />
-                    ) : (
-                      <IconCopy2Fill24 className="size-4" />
-                    )}
-                  </span>
-                  <span aria-live="polite" className="sr-only">
-                    {installCopied ? "Copied to clipboard" : ""}
-                  </span>
-                </button>
-              </div>
-
-              {/* Trust — Vercel OSS + stack */}
-              <div className="mt-12 flex flex-col gap-5 border-border/60 border-t pt-8">
-                <a
-                  className="w-fit opacity-80 transition-opacity hover:opacity-100"
-                  href="https://vercel.com/oss"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <img
-                    alt="Vercel Open Source Software Program"
-                    draggable={false}
-                    height={24}
-                    src="/vercel-oss-badge.svg"
-                    width={240}
-                  />
-                </a>
-
-                <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-                  {[
-                    { className: "size-6", icon: ReactLogo, name: "React" },
-                    {
-                      className: "h-5 w-auto",
-                      icon: TailwindLogo,
-                      name: "Tailwind CSS",
-                    },
-                    {
-                      className: "size-6",
-                      icon: ShadcnLogo,
-                      name: "shadcn/ui",
-                    },
-                    {
-                      className: "h-4 w-auto",
-                      icon: MotionLogo,
-                      name: "Motion",
-                    },
-                    { className: "h-4 w-auto", icon: GsapLogo, name: "GSAP" },
-                  ].map((tech) => (
-                    <Tooltip key={tech.name}>
-                      <TooltipTrigger asChild>
-                        <span className="cursor-default text-smooth-700 transition-colors hover:text-brand">
-                          <tech.icon className={tech.className} />
-                        </span>
-                      </TooltipTrigger>
-                      <TooltipContent side="bottom" sideOffset={8}>
-                        {tech.name}
-                      </TooltipContent>
-                    </Tooltip>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right side - SmoothUI Component showcase */}
-            <motion.div
-              animate={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-              }
-              className="relative"
-              initial={
-                shouldReduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { delay: 0.2, duration: 0.35, ease: EASE_OUT_QUAD }
-              }
-            >
-              <HeroMaterial />
-            </motion.div>
-          </div>
+              <img
+                alt="Vercel Open Source Software Program"
+                draggable={false}
+                height={24}
+                src="/vercel-oss-badge.svg"
+                width={240}
+              />
+            </a>
+          </motion.div>
         </div>
+
+        <HeroStage />
       </div>
     </section>
   );

@@ -130,9 +130,47 @@ export const TemplatesDrawing = () => {
   );
 };
 
+/** Primitives: stacked foundation chips — button / check / menu. */
+export const PrimitivesDrawing = () => (
+  <div className="relative flex h-36 w-56 items-center justify-center">
+    <div
+      className={cn(
+        "absolute top-6 left-8 h-20 w-36 rounded-2xl border border-border bg-background shadow-sm"
+      )}
+    />
+    <div
+      className={cn(
+        "absolute top-10 left-12 h-20 w-36 rounded-2xl border border-border bg-background shadow-sm"
+      )}
+    />
+    <div className="relative z-10 flex w-40 flex-col gap-2 rounded-2xl border border-border bg-background p-3 shadow-sm">
+      <div className={cn("h-7 w-full rounded-full", CANDY)} />
+      <div className="flex items-center gap-2">
+        <div
+          className={cn(
+            "flex size-5 items-center justify-center rounded-[5px]",
+            CANDY
+          )}
+        >
+          <IconCheckFill24 className="text-white" size={11} />
+        </div>
+        <div className={cn("h-2 flex-1 rounded-full", GHOST)} />
+      </div>
+      <div className="flex h-8 items-center gap-1.5 rounded-lg border border-border px-2">
+        <div className={cn("h-2 w-10 rounded-full", INK)} />
+        <div
+          aria-hidden
+          className="ml-auto size-0 border-x-[3px] border-x-transparent border-t-4 border-t-foreground/70"
+        />
+      </div>
+    </div>
+  </div>
+);
+
 export const SECTION_DRAWINGS = {
   blocks: BlocksDrawing,
   components: ComponentsDrawing,
+  primitives: PrimitivesDrawing,
   templates: TemplatesDrawing,
 } as const;
 

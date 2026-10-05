@@ -1,0 +1,57 @@
+---
+title: Avatar
+description: User avatar with image fallback, sizes, an overlapping AvatarGroup with +N overflow, and an optional status dot.
+icon: CircleUser
+dependencies:
+  - base-ui
+installer: avatar
+---
+
+## Features
+
+- Image with initials or custom fallback while loading or on error
+- Sizes `sm` (24px), `md` (32px), `lg` (40px)
+- `AvatarGroup` stacks avatars and collapses extras into a `+N` chip via `max`
+- Optional `status` dot (`online`, `away`, `busy`, `offline`) with an accessible label
+- Compound parts: `AvatarRoot`, `AvatarImage`, `AvatarFallback`, `AvatarStatus`, `AvatarGroup`, `AvatarGroupOverflow`
+- Base UI by default; Radix twin available via style
+
+## States
+
+### Features
+
+Three sizes. Pass `src` and `fallback`; the fallback shows until the image loads.
+
+### Group
+
+`AvatarGroup` with `max={3}` shows three avatars and a `+2` overflow chip. The group size is inherited by children.
+
+### Status
+
+Presence dots sit on the bottom-right edge and scale with the avatar size.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `alt` | Image | Describes the person; use `alt=""` for decorative images |
+| `role="group"` + `aria-label` | AvatarGroup | Names the stack, e.g. "Project members" |
+| `role="img"` + `aria-label` | Status / Overflow | Announces the presence state or "N more" |
+
+## Props
+
+### AvatarProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/avatar/index.tsx"
+  name="AvatarProps"
+/>
+
+### AvatarGroupProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/avatar/index.tsx"
+  name="AvatarGroupProps"
+/>

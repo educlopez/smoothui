@@ -141,7 +141,7 @@ export const LlmsDrawing = ({ active = false }: ActiveProps) => {
         { name: "faqs", width: "3.5rem" },
       ]
     : [
-        { name: "animated-tabs", width: "6rem" },
+        { name: "morph-toggle", width: "6rem" },
         { name: "phototab", width: "5rem" },
         { name: "siri-orb", width: "4.5rem" },
       ];

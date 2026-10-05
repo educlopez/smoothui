@@ -7,17 +7,19 @@ for (const width of [390, 1440]) {
     await page.setViewportSize({ height: 1000, width });
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/");
-    for (const [surface, id] of [
-      ["features", "coral-cyan"],
-      ["ai", "fuchsia-cobalt"],
-      ["uicraft", "cobalt-pink"],
+    for (const [surface, src] of [
+      [
+        "features",
+        "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/turquoise-canyon.webp?tr=w-1280,f-auto",
+      ],
+      [
+        "ai",
+        "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/volcanic-coast.webp?tr=w-1280,f-auto",
+      ],
     ] as const) {
       const image = page.locator(`[data-landing-background="${surface}"]`);
       await image.scrollIntoViewIfNeeded();
-      await expect(image).toHaveAttribute(
-        "src",
-        `https://ik.imagekit.io/16u211libb/smoothui/scenes/${id}.webp?tr=w-1280,f-auto`
-      );
+      await expect(image).toHaveAttribute("src", src);
       await expect(image).toHaveAttribute("alt", "");
       await expect(image).toHaveAttribute("aria-hidden", "true");
       await expect
@@ -26,7 +28,7 @@ for (const width of [390, 1440]) {
         )
         .toBeGreaterThan(0);
       await image
-        .locator(surface === "uicraft" ? ".." : "../..")
+        .locator("../..")
         .screenshot({ path: `/tmp/smoothui-landing-${surface}-${width}.png` });
     }
     // Copy lives on an opaque neutral caption, separate from undimmed artwork.
@@ -75,7 +77,7 @@ for (const width of [390, 1440]) {
     await testimonial.scrollIntoViewIfNeeded();
     await expect(testimonial).toHaveAttribute(
       "src",
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/violet-tangerine.webp?tr=w-800,f-auto"
+      "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/alpine-dawn.webp?tr=w-800,f-auto"
     );
     await expect
       .poll(() =>
@@ -90,7 +92,7 @@ for (const width of [390, 1440]) {
       .click();
     await expect(testimonial).toHaveAttribute(
       "src",
-      "https://ik.imagekit.io/16u211libb/smoothui/scenes/teal-apricot.webp?tr=w-800,f-auto"
+      "https://ik.imagekit.io/16u211libb/smoothui/landscapes-v2/tidal-cove.webp?tr=w-800,f-auto"
     );
     await expect
       .poll(() =>

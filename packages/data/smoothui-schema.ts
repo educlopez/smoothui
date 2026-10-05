@@ -66,7 +66,6 @@ export interface SmoothUIPackageMeta {
 // ---------------------------------------------------------------------------
 
 const VALID_CATEGORIES: readonly ComponentCategory[] = [
-  "basic-ui",
   "patterns",
   "button",
   "text",

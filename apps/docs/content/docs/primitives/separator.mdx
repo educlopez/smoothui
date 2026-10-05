@@ -1,0 +1,42 @@
+---
+title: Separator
+description: Thin horizontal or vertical divider, decorative or semantic, built on Base UI with a Radix twin.
+icon: Minus
+dependencies:
+  - base-ui
+installer: separator
+---
+
+## Features
+
+- Horizontal (default) and vertical orientation
+- 1px line using `bg-foreground/25` with `shrink-0` so flex rows never squash it
+- `decorative` hides purely visual dividers from assistive technology
+- Base UI by default; Radix twin available via style
+
+## States
+
+### Features
+
+A horizontal rule between blocks and vertical dividers between inline items. Give the parent a height (for example `h-5`) so vertical separators stretch.
+
+### Decorative
+
+Use `decorative` when the line is only visual. It renders with `role="none"` and `aria-hidden`.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="separator"` | Root | Semantic separator (default) |
+| `aria-orientation` | Root | `vertical` when the line is vertical |
+| `role="none"` / `aria-hidden` | Root | Applied when `decorative` is set |
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/separator/index.tsx"
+  name="SeparatorProps"
+/>

@@ -1,0 +1,36 @@
+---
+title: Menubar
+description: Desktop-style menu bar with keyboard navigation, Base UI and Radix twins.
+icon: LayoutDashboard
+dependencies:
+  - base-ui
+installer: menubar
+---
+
+## Features
+
+- Horizontal menu bar with File / Edit style menus
+- Compound parts: `MenubarRoot`, `MenubarMenu`, `MenubarTrigger`, `MenubarContent`, `MenubarItem`, `MenubarSeparator`
+- Arrow-key roving focus across triggers; open menus with Enter / Space
+- Base UI by default; Radix twin available via style
+
+## States
+
+### Features
+
+A classic File / Edit / View menubar.
+
+## Accessibility
+
+### Keyboard
+
+Arrow Left / Right move between menus. Arrow Down opens the focused menu.
+
+## Props
+
+### MenubarProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/menubar/index.tsx"
+  name="MenubarProps"
+/>

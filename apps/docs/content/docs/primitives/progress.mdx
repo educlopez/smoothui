@@ -1,0 +1,58 @@
+---
+title: Progress
+description: Determinate and indeterminate progress bar with a Motion-driven fill, Base UI semantics, and a Radix twin.
+icon: Loader
+dependencies:
+  - motion.dev
+  - base-ui
+installer: progress
+---
+
+## Features
+
+- Determinate (`value` 0–100) and indeterminate (`value={null}`) states
+- Fill animates with `transform: scaleX` from the left edge — no width reflow
+- Compound parts: `ProgressRoot`, `ProgressTrack`, `ProgressIndicator`, `ProgressLabel`, `ProgressValue`
+- Convenience default export with `label` and `showValue`
+- Brand-colored fill; three track sizes (`sm`, `md`, `lg`)
+- Base UI by default; Radix twin available via style
+
+## States
+
+### Features
+
+A determinate bar with a label and formatted value. The fill springs to each new value.
+
+### Indeterminate
+
+Pass `value={null}` when progress is unknown. A short bar slides across the track.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="progressbar"` | Root / Track | Identifies the element as a progress bar |
+| `aria-valuenow` | Root / Track | Current value (omitted when indeterminate) |
+| `aria-valuemin` / `aria-valuemax` | Root / Track | Range of the bar |
+| `aria-labelledby` | Root / Track | Points at `ProgressLabel` when present |
+
+Provide either a visible `label` or an `aria-label`.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the fill jumps to its value instantly and the indeterminate bar stays still.
+
+## Radix twin
+
+Radix `Progress` has no `Label` / `Value` parts and no `min`. The Radix twin keeps the same SmoothUI props and compounds: `ProgressLabel` and `ProgressValue` are plain elements, and `min` is mapped by shifting the value.
+
+## Props
+
+### ProgressProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/progress/index.tsx"
+  name="ProgressProps"
+/>

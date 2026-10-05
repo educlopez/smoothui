@@ -33,7 +33,7 @@ Imported from the local **Troupe** project (`troupe/assets/people/` and
 `SOURCES.md` records these Magnific generations as owned output approved for
 redistribution. All 68 originals remain untouched in Troupe. WebP exports retain
 1024 × 1024 dimensions at quality 88, method 6, totaling 7,692,908 bytes, and live
-in new ImageKit folders `smoothui/troupe-people/` and `smoothui/troupe-animals/`.
+in ImageKit folders `smoothui/troupe-people-v2/` and `smoothui/troupe-animals/`.
 
 `packages/data/cast.ts` contains 50 people and 18 animals. Gender is copied from
 Troupe's source catalog: 26 female, 20 male, 4 nonbinary. No label is inferred
@@ -131,6 +131,6 @@ Seven newly generated subject images complement the abstract backgrounds: `alpin
 
 ## Stack and metadata landscape expansion
 
-Five additional generated landscapes replace abstract demo subjects: `volcanic-coast`, `terracotta-dunes`, `emerald-terraces`, `glacial-lagoon` in ScrollableCardStack (four docs cards, first three in its unchanged auto-advancing canvas); `turquoise-canyon` in both metadata previews. Real Eduardo identity/profile links remain unchanged. Metadata explicitly identifies AI generation and links the Magnific creation, not a real photographer. The decorative landing map now contains five abstracts; the metadata subject is a separate shared fixture. Gallery total: 95 unique assets. `media-provenance/stack-metadata-landscapes.json` records originals, hashes, dimensions and non-overwriting uploads.
+Five additional generated landscapes replace abstract demo subjects: `volcanic-coast`, `terracotta-dunes`, `emerald-terraces`, `glacial-lagoon` in ScrollableCardStack (four docs cards, first three in its unchanged auto-advancing canvas); `turquoise-canyon` in both metadata previews. Active landscape files are served from `smoothui/landscapes-v2/`. The previous files remain at `smoothui/landscapes/` for rollback. Real Eduardo identity/profile links remain unchanged. Metadata explicitly identifies AI generation and links the Magnific creation, not a real photographer. The decorative landing map now contains five abstracts; the metadata subject is a separate shared fixture. Gallery total: 95 unique assets. `media-provenance/stack-metadata-landscapes.json` records originals, hashes, dimensions and non-overwriting uploads.
 
 UI Craft now uses the blue-dominant `cobalt-pink` background with the optional subtle contour layer beneath a neutral content panel. Install selection/copy behavior is unchanged; neutral tokens provide contrast without dimming the artwork. This reuses an existing approved asset, so the gallery stays at 95 images.

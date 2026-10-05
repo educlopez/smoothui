@@ -120,8 +120,10 @@ export const GalleryPreview = ({
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
+      (entries) => {
+        // A batch can hold several records for one target (oldest first); the
+        // first may predate the scroll, so act on any intersecting record.
+        if (entries.some((entry) => entry.isIntersecting)) {
           setIsVisible(true);
           observer.disconnect();
         }

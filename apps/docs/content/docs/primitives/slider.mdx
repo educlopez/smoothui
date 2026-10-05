@@ -1,0 +1,44 @@
+---
+title: Slider
+description: Range slider with Track, Indicator, and a spring-scaled Thumb on press — Base UI Slider.
+icon: SlidersHorizontal
+dependencies:
+  - motion.dev
+  - base-ui
+installer: slider
+---
+
+## Features
+
+Compound `SliderRoot` / `Control` / `Track` / `Indicator` / `Thumb`, plus a thin default convenience for a single numeric value (`value` / `defaultValue`, `min`, `max`, `step`, `onValueChange`, `disabled`). Thumb scales on press (`whileTap`) and keeps a focus ring.
+
+## States
+
+### Features
+
+Controlled single-value slider with live readout.
+
+### Disabled
+
+Non-interactive track and thumb.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Arrow` keys | Adjust value by `step` |
+| `Home` / `End` | Jump to min / max |
+| `PageUp` / `PageDown` | Larger steps |
+
+### Reduced Motion
+
+Thumb press scale is disabled when reduced motion is preferred.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/slider/index.tsx"
+  name="SliderProps"
+/>

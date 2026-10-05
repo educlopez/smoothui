@@ -1,7 +1,6 @@
 "use client";
 
 import { GalleryPreview } from "@docs/components/gallery/gallery-preview";
-import Divider from "@docs/components/landing/divider";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import Link from "next/link";
@@ -22,8 +21,8 @@ const SHOWCASE_COMPONENTS: ShowcaseItem[] = [
   { name: "Checkbox", slug: "checkbox" },
   { name: "Animated Tags", slug: "animated-tags" },
   { name: "Image Metadata Preview", slug: "image-metadata-preview" },
-  { name: "Animated Tabs", slug: "animated-tabs" },
-  { name: "Animated Toggle", slug: "animated-toggle" },
+  { name: "Tabs", slug: "tabs" },
+  { name: "Morph Toggle", slug: "morph-toggle" },
   { name: "Exposure Slider", slug: "exposure-slider" },
 ];
 
@@ -38,7 +37,6 @@ const INTERACTIVE_DEMOS = new Set([
 export function ComponentsSlideshow() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
-      <Divider />
       <SectionHeader
         description="Real components from the registry — preview the motion, then install with one command."
         title="Components showcase"

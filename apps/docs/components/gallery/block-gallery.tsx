@@ -61,7 +61,7 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
       node: (
         <motion.article
           animate={{ opacity: 1, y: 0 }}
-          className="relative overflow-hidden rounded-xl border bg-card transition-colors hover:border-foreground/20"
+          className="relative flex h-full flex-col overflow-hidden rounded-xl bg-muted"
           initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }}
           transition={
             shouldReduceMotion
@@ -82,14 +82,9 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
               src={cover}
             />
           ) : null}
-          <footer className="flex items-baseline justify-between gap-3 border-t px-4 py-2.5">
-            <span className="truncate font-medium text-foreground text-sm">
-              {category.title}
-            </span>
-            <span className="shrink-0 text-muted-foreground text-xs tabular-nums">
-              {category.count} {category.count === 1 ? "block" : "blocks"}
-            </span>
-          </footer>
+          <p className="mt-auto flex h-11 items-center px-4 font-medium text-foreground text-sm">
+            <span className="truncate">{category.title}</span>
+          </p>
           <Link
             aria-label={`${category.title}, ${category.count} blocks`}
             className="absolute inset-0 z-10"
@@ -100,5 +95,7 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
     };
   });
 
-  return <MasonryGrid className="not-prose" maxColumns={3} tiles={tiles} />;
+  return (
+    <MasonryGrid className="not-prose" gap={8} maxColumns={3} tiles={tiles} />
+  );
 };

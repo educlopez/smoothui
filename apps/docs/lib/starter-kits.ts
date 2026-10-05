@@ -40,7 +40,7 @@ export const STARTER_KITS: StarterKit[] = [
       "number-flow",
       "price-flow",
       "animated-stepper",
-      "searchable-dropdown",
+      "country-picker",
       "combobox",
       "user-account-avatar",
     ],

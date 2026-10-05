@@ -38,53 +38,59 @@ const simulateSearch = (query: string): Promise<ComboboxOption[]> =>
     }, 600);
   });
 
-export default function ComboboxDemo() {
+const BasicDemo = () => {
   const [framework, setFramework] = useState("");
+
+  return (
+    <div className="flex w-full max-w-sm items-center justify-center p-8">
+      <Combobox
+        aria-label="Framework"
+        onValueChange={setFramework}
+        options={frameworks}
+        placeholder="Select a framework…"
+        searchPlaceholder="Search…"
+        value={framework}
+      />
+    </div>
+  );
+};
+
+const AsyncDemo = () => {
   const [language, setLanguage] = useState("");
 
   return (
-    <div className="flex w-full max-w-sm flex-col gap-8 p-8">
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Basic Combobox</h3>
-        <Combobox
-          aria-label="Framework selection"
-          onValueChange={setFramework}
-          options={frameworks}
-          placeholder="Select a framework…"
-          searchPlaceholder="Search frameworks…"
-          value={framework}
-        />
-        {framework ? (
-          <p className="text-muted-foreground text-sm">Selected: {framework}</p>
-        ) : null}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Async Search</h3>
-        <Combobox
-          aria-label="Language selection"
-          emptyText="No languages found."
-          onSearch={simulateSearch}
-          onValueChange={setLanguage}
-          placeholder="Search languages…"
-          searchDebounce={200}
-          searchPlaceholder="Type to search…"
-          value={language}
-        />
-        {language ? (
-          <p className="text-muted-foreground text-sm">Selected: {language}</p>
-        ) : null}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <h3 className="font-medium text-lg">Disabled</h3>
-        <Combobox
-          aria-label="Disabled combobox"
-          disabled
-          options={frameworks}
-          placeholder="Not available"
-        />
-      </div>
+    <div className="flex w-full max-w-sm items-center justify-center p-8">
+      <Combobox
+        aria-label="Language"
+        emptyText="No languages found."
+        onSearch={simulateSearch}
+        onValueChange={setLanguage}
+        placeholder="Search languages…"
+        searchDebounce={200}
+        searchPlaceholder="Type to search…"
+        value={language}
+      />
     </div>
   );
+};
+
+const DisabledDemo = () => (
+  <div className="flex w-full max-w-sm items-center justify-center p-8">
+    <Combobox
+      aria-label="Unavailable"
+      disabled
+      options={frameworks}
+      placeholder="Not available"
+    />
+  </div>
+);
+
+export const demoScenes = {
+  Async: AsyncDemo,
+  Disabled: DisabledDemo,
+  Features: BasicDemo,
+};
+
+export default function ComboboxDemo() {
+  return <BasicDemo />;
 }

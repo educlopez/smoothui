@@ -1,0 +1,51 @@
+---
+title: Switch
+description: Animated on/off switch with a spring thumb, Base UI form integration, and full accessibility.
+icon: ToggleLeft
+dependencies:
+  - motion.dev
+  - base-ui
+installer: switch
+---
+
+## Features
+
+Spring-animated thumb toggle with Base UI form integration (Radix twin via style). Controlled and uncontrolled modes, disabled state, and label association via `id`.
+
+## States
+
+### Features
+
+The default toggle: click the switch or its label to turn it on and off. The thumb slides with a spring transform animation.
+
+### Disabled
+
+A non-interactive switch with muted fill and thumb. Pair with a label that uses matching muted styling so the whole row reads as unavailable.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` | Toggles the switch checked state |
+| `Tab` | Moves focus to/from the switch |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-checked` | Root | `true` or `false` for the on/off state |
+| `role="switch"` | Root | Identifies the element as a switch |
+| `disabled` | Root | Disables interaction and applies visual styling |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the thumb jumps to its target position instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/switch/index.tsx"
+  name="SwitchProps"
+/>

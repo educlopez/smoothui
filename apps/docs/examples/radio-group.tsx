@@ -7,8 +7,7 @@ export default function RadioGroupDemo() {
   const [value, setValue] = useState("comfortable");
 
   return (
-    <div className="flex w-full max-w-xs flex-col gap-6 p-8">
-      <h3 className="font-medium text-lg">Spacing</h3>
+    <div className="flex w-full max-w-xs items-center justify-center p-8">
       <RadioGroup onValueChange={setValue} value={value}>
         <Radio id="compact" value="compact">
           Compact
@@ -20,7 +19,6 @@ export default function RadioGroupDemo() {
           Spacious
         </Radio>
       </RadioGroup>
-      <p className="text-muted-foreground text-sm">Selected: {value}</p>
     </div>
   );
 }

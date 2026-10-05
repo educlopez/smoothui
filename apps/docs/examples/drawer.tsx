@@ -17,15 +17,17 @@ const DrawerSideScene = ({ side }: { side: Side }) => {
       </SmoothButton>
 
       <Drawer
-        description={`This drawer slides in from the ${side}.`}
+        description="Filters and sort options for this view."
         onOpenChange={setOpen}
         open={open}
         side={side}
-        title={`${label} Drawer`}
+        title="Filters"
       >
-        <p className="py-4 text-muted-foreground">
-          Drawer content goes here. Click outside or press Escape to close.
-        </p>
+        <div className="space-y-3 py-4 text-sm">
+          <p>Status · Active</p>
+          <p>Owner · Anyone</p>
+          <p>Updated · Last 7 days</p>
+        </div>
       </Drawer>
     </div>
   );

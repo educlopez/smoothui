@@ -1,4 +1,4 @@
-import { blogSource } from "@docs/lib/source";
+import { blogSource } from "@docs/lib/blog-source";
 
 export const revalidate = false;
 
