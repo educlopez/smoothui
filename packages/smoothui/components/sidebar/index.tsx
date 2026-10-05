@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@repo/smoothui-utils";
-import { motion, useReducedMotion } from "motion/react";
+import { type HTMLMotionProps, motion, useReducedMotion } from "motion/react";
 import {
   type ComponentProps,
   createContext,
@@ -155,7 +155,7 @@ export default function Sidebar({
       data-slot="sidebar"
       initial={false}
       transition={shouldReduceMotion ? { duration: 0 } : spring.moderate}
-      {...props}
+      {...(props as Omit<HTMLMotionProps<"aside">, "ref">)}
     >
       {children}
     </motion.aside>

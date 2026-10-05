@@ -26,7 +26,7 @@ describe("Input", () => {
     render(<Input aria-label="Name" />);
     const el = screen.getByRole("textbox");
     expect(el.className).toContain("h-9");
-    expect(el.className).toContain("border-input");
+    expect(el.className).toContain("border-foreground/25");
     expect(el.className).toContain("focus-visible:ring-[3px]");
   });
 

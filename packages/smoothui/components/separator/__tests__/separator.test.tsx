@@ -21,7 +21,7 @@ describe("Separator", () => {
     render(<Separator />);
     const sep = screen.getByRole("separator");
     expect(sep).toHaveAttribute("data-slot", "separator");
-    expect(sep.className).toContain("bg-border");
+    expect(sep.className).toContain("bg-foreground/40");
     expect(sep.className).toContain("shrink-0");
   });
 

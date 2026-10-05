@@ -38,6 +38,13 @@ const WORKSPACE_IMPORT_REWRITES: ReadonlyArray<readonly [RegExp, string]> = [
   // Components import shared animation constants via "../../lib/animation";
   // the registry installs that file at components/smoothui/lib/animation.ts.
   [/(?:\.\.\/)+lib\/animation/g, "@/components/smoothui/lib/animation"],
+  // Same for the spring presets and the fluid-hover hook: both ship inside the
+  // `lib` item so a component that imports either pulls it in as a dependency.
+  [/(?:\.\.\/)+lib\/springs/g, "@/components/smoothui/lib/springs"],
+  [
+    /(?:\.\.\/)+hooks\/use-fluid-hover/g,
+    "@/components/smoothui/lib/use-fluid-hover",
+  ],
   // Blocks import the shared helpers barrel via "../../shared", which would
   // point outside the install dir (components/smoothui/<name>/) in user
   // projects.
@@ -64,6 +71,7 @@ const WORKSPACE_DEP_ALIASES = new Map([["blocks-shared", "shared"]]);
 // Cache filtered package names for repeated lookups
 const FILTERED_PACKAGES = new Set([
   "shadcn-ui",
+  "smoothui-utils",
   "typescript-config",
   "patterns",
 ]);
@@ -174,6 +182,20 @@ export const getPackage = cache(
     const actualPackageName = packageNameParts.at(-1) || packageName;
     const primitiveStyle: RegistryPrimitiveStyle = resolvePrimitiveStyle(style);
 
+    const packageFiles = await readdir(packageDir, { withFileTypes: true });
+    const sourceFiles = packageFiles.filter(
+      (file) =>
+        file.isFile() &&
+        !file.name.includes(".config.") &&
+        (file.name.endsWith(".tsx") ||
+          (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
+    );
+    // Only dual (Base + Radix twin) items list both headless libs; every other
+    // item needs the deps it declares, whichever style the installer picked.
+    const isDualPackage = isDualPrimitivePackage(
+      sourceFiles.map((file) => file.name)
+    );
+
     // Use Set for O(1) lookups instead of array includes
     const deps = packageJson.dependencies || {};
     const smoothuiDependencies = Object.keys(deps).filter(
@@ -189,14 +211,26 @@ export const getPackage = cache(
         return false;
       }
       // Dual primitives list both headless libs; only ship the active twin's deps.
-      if (primitiveStyle === "base" && RADIX_ONLY_DEPS.has(dep)) {
+      if (
+        isDualPackage &&
+        primitiveStyle === "base" &&
+        RADIX_ONLY_DEPS.has(dep)
+      ) {
         return false;
       }
-      if (primitiveStyle === "radix" && BASE_ONLY_DEPS.has(dep)) {
+      if (
+        isDualPackage &&
+        primitiveStyle === "radix" &&
+        BASE_ONLY_DEPS.has(dep)
+      ) {
         return false;
       }
       // Prefer scoped @radix-ui/* only for the radix twin.
-      if (primitiveStyle === "base" && dep.startsWith("@radix-ui/")) {
+      if (
+        isDualPackage &&
+        primitiveStyle === "base" &&
+        dep.startsWith("@radix-ui/")
+      ) {
         return false;
       }
       return true;
@@ -213,15 +247,6 @@ export const getPackage = cache(
     const isBlock =
       (packageName.startsWith("smoothui/blocks/") && !isSharedLib) ||
       packageName.startsWith("smoothui/templates/");
-
-    const packageFiles = await readdir(packageDir, { withFileTypes: true });
-    const sourceFiles = packageFiles.filter(
-      (file) =>
-        file.isFile() &&
-        !file.name.includes(".config.") &&
-        (file.name.endsWith(".tsx") ||
-          (file.name.endsWith(".ts") && !file.name.endsWith(".d.ts")))
-    );
 
     // CSS modules are consumed as a module (`import styles from "./x.module.css"`),
     // so they have to ship as real files next to the component. Only global CSS
@@ -296,6 +321,20 @@ export const getPackage = cache(
           type: fileType,
         });
       }
+    }
+
+    // The fluid-hover hook lives in packages/smoothui/hooks but installs beside
+    // the other shared helpers, so the `lib` item carries it.
+    if (packageName === "smoothui/lib") {
+      files.push({
+        content: await readFile(
+          join(packageDir, "..", "hooks", "use-fluid-hover.ts"),
+          "utf-8"
+        ),
+        path: "use-fluid-hover.ts",
+        target: "components/smoothui/lib/use-fluid-hover.ts",
+        type: fileType,
+      });
     }
 
     // Relative to the component dir, so the `./x.module.css` import in the source

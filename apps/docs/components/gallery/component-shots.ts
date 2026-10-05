@@ -1,6 +1,5 @@
 import type { StaticImageData } from "next/image";
 
-import accordion from "./covers/components/accordion.webp";
 import agentAvatar from "./covers/components/agent-avatar.webp";
 import aiApproval from "./covers/components/ai-approval.webp";
 import aiArtifact from "./covers/components/ai-artifact.webp";
@@ -39,29 +38,22 @@ import breadcrumb from "./covers/components/breadcrumb.webp";
 import breakpointIndicator from "./covers/components/breakpoint-indicator.webp";
 import buttonCopy from "./covers/components/button-copy.webp";
 import cardSwipeDeck from "./covers/components/card-swipe-deck.webp";
-import checkbox from "./covers/components/checkbox.webp";
 import chromaBlurTransition from "./covers/components/chroma-blur-transition.webp";
 import clipCornersButton from "./covers/components/clip-corners-button.webp";
-import codeBlock from "./covers/components/code-block.webp";
-import combobox from "./covers/components/combobox.webp";
-import skeletonLoader from "./covers/components/content-skeleton.webp";
-import contextMenu from "./covers/components/context-menu.webp";
+import contentSkeleton from "./covers/components/content-skeleton.webp";
 import contributionGraph from "./covers/components/contribution-graph.webp";
-import notificationBadge from "./covers/components/count-badge.webp";
-import countryDialog from "./covers/components/country-picker.webp";
+import countBadge from "./covers/components/count-badge.webp";
+import countryPicker from "./covers/components/country-picker.webp";
 import coverflowCarousel from "./covers/components/coverflow-carousel.webp";
 import cursorFollow from "./covers/components/cursor-follow.webp";
 import cursorImageTrail from "./covers/components/cursor-image-trail.webp";
 import depthParallaxWords from "./covers/components/depth-parallax-words.webp";
-import dialog from "./covers/components/dialog.webp";
-import animatedNumberInput from "./covers/components/digit-roll.webp";
+import digitRoll from "./covers/components/digit-roll.webp";
 import ditherChart from "./covers/components/dither-chart.webp";
 import ditherImage from "./covers/components/dither-image.webp";
 import dock from "./covers/components/dock.webp";
 import dotMorphButton from "./covers/components/dot-morph-button.webp";
-import drawer from "./covers/components/drawer.webp";
 import drawingCursor from "./covers/components/drawing-cursor.webp";
-import dropdownMenu from "./covers/components/dropdown-menu.webp";
 import durationPicker from "./covers/components/duration-picker.webp";
 import dynamicIsland from "./covers/components/dynamic-island.webp";
 import embossSurface from "./covers/components/emboss-surface.webp";
@@ -73,7 +65,7 @@ import fadeThrough from "./covers/components/fade-through.webp";
 import faviconSearch from "./covers/components/favicon-search.webp";
 import figmaComment from "./covers/components/figma-comment.webp";
 import fileTree from "./covers/components/file-tree.webp";
-import animatedInput from "./covers/components/float-input.webp";
+import floatInput from "./covers/components/float-input.webp";
 import floatingNavbar from "./covers/components/floating-navbar.webp";
 import focusBlurResolve from "./covers/components/focus-blur-resolve.webp";
 import folderReveal from "./covers/components/folder-reveal.webp";
@@ -106,14 +98,14 @@ import maskRevealUp from "./covers/components/mask-reveal-up.webp";
 import microScaleFade from "./covers/components/micro-scale-fade.webp";
 import morphIcon from "./covers/components/morph-icon.webp";
 import morphSurface from "./covers/components/morph-surface.webp";
-import animatedToggle from "./covers/components/morph-toggle.webp";
+import morphToggle from "./covers/components/morph-toggle.webp";
 import motionLoader from "./covers/components/motion-loader.webp";
 import musicToggle from "./covers/components/music-toggle.webp";
 import numberFlow from "./covers/components/number-flow.webp";
 import orb from "./covers/components/orb.webp";
 import orbitalImageWheel from "./covers/components/orbital-image-wheel.webp";
 import organicMergeTransition from "./covers/components/organic-merge-transition.webp";
-import animatedOTPInput from "./covers/components/otp-slots.webp";
+import otpSlots from "./covers/components/otp-slots.webp";
 import pagePreloader from "./covers/components/page-preloader.webp";
 import pagination from "./covers/components/pagination.webp";
 import parallaxLayers from "./covers/components/parallax-layers.webp";
@@ -131,7 +123,6 @@ import prismSweepTransition from "./covers/components/prism-sweep-transition.web
 import productCard from "./covers/components/product-card.webp";
 import progressiveBlur from "./covers/components/progressive-blur.webp";
 import radialCirclesTransition from "./covers/components/radial-circles-transition.webp";
-import radioGroup from "./covers/components/radio-group.webp";
 import ransomNote from "./covers/components/ransom-note.webp";
 import revealText from "./covers/components/reveal-text.webp";
 import reviewsCarousel from "./covers/components/reviews-carousel.webp";
@@ -146,7 +137,6 @@ import scrollableCardStack from "./covers/components/scrollable-card-stack.webp"
 import scrubber from "./covers/components/scrubber.webp";
 import sdfBlobTransition from "./covers/components/sdf-blob-transition.webp";
 import sdfCircleTransition from "./covers/components/sdf-circle-transition.webp";
-import select from "./covers/components/select.webp";
 import shaderRevealCircleTransition from "./covers/components/shader-reveal-circle-transition.webp";
 import shaderRevealLumaTransition from "./covers/components/shader-reveal-luma-transition.webp";
 import shaderRevealNoiseTransition from "./covers/components/shader-reveal-noise-transition.webp";
@@ -164,7 +154,6 @@ import shineText from "./covers/components/shine-text.webp";
 import shortSlideDown from "./covers/components/short-slide-down.webp";
 import shortSlideRight from "./covers/components/short-slide-right.webp";
 import siriOrb from "./covers/components/siri-orb.webp";
-import smoothButton from "./covers/components/smooth-button.webp";
 import socialHoverCard from "./covers/components/social-hover-card.webp";
 import socialSelector from "./covers/components/social-selector.webp";
 import softBlurIn from "./covers/components/soft-blur-in.webp";
@@ -197,7 +186,6 @@ import waveText from "./covers/components/wave-text.webp";
  * A slug with no file fails `scripts/component-posters.test.ts`.
  */
 export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
-  accordion,
   "agent-avatar": agentAvatar,
   "ai-approval": aiApproval,
   "ai-artifact": aiArtifact,
@@ -236,29 +224,22 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "breakpoint-indicator": breakpointIndicator,
   "button-copy": buttonCopy,
   "card-swipe-deck": cardSwipeDeck,
-  checkbox,
   "chroma-blur-transition": chromaBlurTransition,
   "clip-corners-button": clipCornersButton,
-  "code-block": codeBlock,
-  combobox,
-  "content-skeleton": skeletonLoader,
-  "context-menu": contextMenu,
+  "content-skeleton": contentSkeleton,
   "contribution-graph": contributionGraph,
-  "count-badge": notificationBadge,
-  "country-picker": countryDialog,
+  "count-badge": countBadge,
+  "country-picker": countryPicker,
   "coverflow-carousel": coverflowCarousel,
   "cursor-follow": cursorFollow,
   "cursor-image-trail": cursorImageTrail,
   "depth-parallax-words": depthParallaxWords,
-  dialog,
-  "digit-roll": animatedNumberInput,
+  "digit-roll": digitRoll,
   "dither-chart": ditherChart,
   "dither-image": ditherImage,
   dock,
   "dot-morph-button": dotMorphButton,
-  drawer,
   "drawing-cursor": drawingCursor,
-  "dropdown-menu": dropdownMenu,
   "duration-picker": durationPicker,
   "dynamic-island": dynamicIsland,
   "emboss-surface": embossSurface,
@@ -270,7 +251,7 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "favicon-search": faviconSearch,
   "figma-comment": figmaComment,
   "file-tree": fileTree,
-  "float-input": animatedInput,
+  "float-input": floatInput,
   "floating-navbar": floatingNavbar,
   "focus-blur-resolve": focusBlurResolve,
   "folder-reveal": folderReveal,
@@ -303,14 +284,14 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "micro-scale-fade": microScaleFade,
   "morph-icon": morphIcon,
   "morph-surface": morphSurface,
-  "morph-toggle": animatedToggle,
+  "morph-toggle": morphToggle,
   "motion-loader": motionLoader,
   "music-toggle": musicToggle,
   "number-flow": numberFlow,
   orb,
   "orbital-image-wheel": orbitalImageWheel,
   "organic-merge-transition": organicMergeTransition,
-  "otp-slots": animatedOTPInput,
+  "otp-slots": otpSlots,
   "page-preloader": pagePreloader,
   pagination,
   "parallax-layers": parallaxLayers,
@@ -328,7 +309,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "product-card": productCard,
   "progressive-blur": progressiveBlur,
   "radial-circles-transition": radialCirclesTransition,
-  "radio-group": radioGroup,
   "ransom-note": ransomNote,
   "reveal-text": revealText,
   "reviews-carousel": reviewsCarousel,
@@ -343,7 +323,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   scrubber,
   "sdf-blob-transition": sdfBlobTransition,
   "sdf-circle-transition": sdfCircleTransition,
-  select,
   "shader-reveal-circle-transition": shaderRevealCircleTransition,
   "shader-reveal-luma-transition": shaderRevealLumaTransition,
   "shader-reveal-noise-transition": shaderRevealNoiseTransition,
@@ -361,7 +340,6 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "short-slide-down": shortSlideDown,
   "short-slide-right": shortSlideRight,
   "siri-orb": siriOrb,
-  "smooth-button": smoothButton,
   "social-hover-card": socialHoverCard,
   "social-selector": socialSelector,
   "soft-blur-in": softBlurIn,

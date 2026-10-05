@@ -42,11 +42,18 @@ const ToggleGroupRoot = ({
           className
         )}
         data-slot="toggle-group"
-        defaultValue={defaultValue}
-        onValueChange={onValueChange}
+        defaultValue={defaultValue as string[] | undefined}
+        onValueChange={(next) => {
+          (onValueChange as ((groupValue: string[]) => void) | undefined)?.(
+            next
+          );
+        }}
         type="multiple"
-        value={value}
-        {...(props as Omit<RadixRootProps, "type" | "value" | "defaultValue">)}
+        value={value as string[] | undefined}
+        {...(props as Omit<
+          RadixRootProps,
+          "type" | "value" | "defaultValue" | "onValueChange"
+        >)}
       >
         {children}
       </ToggleGroupPrimitive.Root>
@@ -66,11 +73,16 @@ const ToggleGroupRoot = ({
       data-slot="toggle-group"
       defaultValue={singleDefault}
       onValueChange={(next) => {
-        onValueChange?.(next ? [next] : []);
+        (onValueChange as ((groupValue: string[]) => void) | undefined)?.(
+          next ? [next] : []
+        );
       }}
       type="single"
       value={singleValue}
-      {...(props as Omit<RadixRootProps, "type" | "value" | "defaultValue">)}
+      {...(props as Omit<
+        RadixRootProps,
+        "type" | "value" | "defaultValue" | "onValueChange"
+      >)}
     >
       {children}
     </ToggleGroupPrimitive.Root>

@@ -250,3 +250,5 @@ export default function Avatar({
     </AvatarRoot>
   );
 }
+
+export { Avatar };

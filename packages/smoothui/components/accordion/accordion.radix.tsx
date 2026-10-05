@@ -61,8 +61,10 @@ const AccordionRoot = ({
       className
     )}
     data-slot="accordion"
-    type={type ?? (multiple ? "multiple" : "single")}
-    {...props}
+    {...({
+      type: type ?? (multiple ? "multiple" : "single"),
+      ...props,
+    } as ComponentProps<typeof AccordionPrimitive.Root>)}
   />
 );
 

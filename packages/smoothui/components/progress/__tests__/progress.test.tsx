@@ -33,13 +33,12 @@ describe("Progress", () => {
     );
   });
 
-  it("scales the indicator from the left for determinate values", () => {
+  it("translates the indicator to the determinate value", () => {
     const { container } = render(<Progress aria-label="Task" value={50} />);
     const indicator = container.querySelector(
       "[data-slot='progress-indicator']"
     ) as HTMLElement;
-    expect(indicator.className).toContain("origin-left");
-    expect(indicator.style.transform).toContain("scaleX(0.5)");
+    expect(indicator.style.transform).toContain("translateX(-50%)");
   });
 });
 

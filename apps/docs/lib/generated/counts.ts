@@ -2,10 +2,10 @@
 // Run `pnpm counts` in apps/docs after adding a primitive, component, block or template.
 
 /** Owned primitives, one per page under /docs/primitives. */
-export const PRIMITIVE_COUNT = 25;
+export const PRIMITIVE_COUNT = 47;
 
 /** Documented components, one per page under /docs/components. */
-export const COMPONENT_COUNT = 189;
+export const COMPONENT_COUNT = 180;
 
 /** Individual blocks — every <Preview> across the block category pages. */
 export const BLOCK_COUNT = 34;

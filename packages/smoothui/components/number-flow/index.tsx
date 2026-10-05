@@ -229,10 +229,13 @@ export default function NumberFlow({
           </div>
         </div>
 
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 self-stretch">
           <SmoothButton
             aria-label="Increase number"
-            className={cn("overflow-hidden", buttonClassName)}
+            className={cn(
+              "h-auto min-h-0 flex-1 overflow-hidden",
+              buttonClassName
+            )}
             disabled={value >= max}
             onClick={add}
             size="icon-sm"
@@ -243,7 +246,10 @@ export default function NumberFlow({
           </SmoothButton>
           <SmoothButton
             aria-label="Decrease number"
-            className={cn("overflow-hidden", buttonClassName)}
+            className={cn(
+              "h-auto min-h-0 flex-1 overflow-hidden",
+              buttonClassName
+            )}
             disabled={value <= min}
             onClick={subtract}
             size="icon-sm"

@@ -135,7 +135,12 @@ const DocsHeaderTabs = ({
 } & ComponentProps<"div">) => {
   const pathname = usePathname();
   const selectedIdx = useMemo(
-    () => tabs.findLastIndex((option) => isLayoutTabActive(option, pathname)),
+    () =>
+      tabs.reduce(
+        (found, option, index) =>
+          isLayoutTabActive(option, pathname) ? index : found,
+        -1
+      ),
     [tabs, pathname]
   );
 

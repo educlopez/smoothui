@@ -119,7 +119,6 @@ test("intrinsic showcase demos remain horizontally centered", async ({
   await page.goto("/");
   for (const [slug, selector] of [
     ["phototab", "[role=tablist]"],
-    ["animated-toggle", "[role=switch]"],
     ["image-metadata-preview", "img"],
   ]) {
     const card = page.locator(`[data-showcase="${slug}"]`);
@@ -313,8 +312,8 @@ for (const width of [390, 1440]) {
     await expect(heading).toHaveText("React components.Made to move.");
     const hero = heading.locator("xpath=ancestor::section[1]");
     await expect(
-      hero.getByRole("link", { name: "Browse components" })
-    ).toHaveAttribute("href", "/docs/components");
+      hero.getByRole("link", { name: "Browse primitives" })
+    ).toHaveAttribute("href", "/docs/primitives");
     await hero.screenshot({ path: `/tmp/smoothui-hero-refined-${width}.png` });
     const expectedLeft = Math.max(0, (width - 1280) / 2) + 32;
     const expectedWidth = Math.min(width, 1280) - 64;
