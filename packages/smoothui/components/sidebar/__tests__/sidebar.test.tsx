@@ -1,7 +1,7 @@
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 import { axe } from "vitest-axe";
-import { render, screen } from "../../../test-utils/render";
+import { render, screen, waitFor } from "../../../test-utils/render";
 import Sidebar, {
   SidebarContent,
   SidebarMenu,
@@ -70,6 +70,9 @@ describe("Sidebar", () => {
     expect(
       screen.getByRole("button", { name: "Overview" })
     ).toBeInTheDocument();
-    expect(screen.getByText("Overview")).toHaveClass("sr-only");
+    // The label now fades with the width and turns sr-only once the fade ends.
+    await waitFor(() =>
+      expect(screen.getByText("Overview")).toHaveClass("sr-only")
+    );
   });
 });

@@ -9,6 +9,7 @@ import {
   type RefObject,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -92,6 +93,8 @@ export interface SidebarTriggerProps extends ComponentProps<"button"> {
   children?: ReactNode;
 }
 
+/** Label fade duration; matches the `duration-200` class on the label. */
+const LABEL_FADE_MS = 200;
 const EXPANDED_WIDTH = 240;
 const COLLAPSED_WIDTH = 56;
 
@@ -291,17 +294,40 @@ export const SidebarMenuItem = ({
   );
 };
 
-/** Text that hides when the sidebar collapses (keeps `sr-only` for a11y). */
+/**
+ * Text that hides when the sidebar collapses. It fades out with the width and
+ * only then becomes `sr-only`, so it stays readable to assistive tech and does
+ * not pop out while the rail is still narrowing.
+ */
 export const SidebarLabel = ({
   children,
   className,
   ...props
 }: SidebarLabelProps) => {
   const { collapsed } = useSidebar();
+  const shouldReduceMotion = useReducedMotion();
+  const [fadedOut, setFadedOut] = useState(collapsed);
+
+  useEffect(() => {
+    if (!collapsed) {
+      setFadedOut(false);
+      return;
+    }
+    const timer = setTimeout(() => setFadedOut(true), LABEL_FADE_MS);
+    return () => clearTimeout(timer);
+  }, [collapsed]);
+
+  const hidden = collapsed && (shouldReduceMotion || fadedOut);
 
   return (
     <span
-      className={cn(collapsed ? "sr-only" : "truncate", className)}
+      className={cn(
+        hidden ? "sr-only" : "truncate",
+        !shouldReduceMotion &&
+          "transition-opacity duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+        collapsed && !hidden && "opacity-0",
+        className
+      )}
       data-slot="sidebar-label"
       {...props}
     >
@@ -326,9 +352,10 @@ export const SidebarMenuButton = ({
 
   return (
     <button
+      aria-current={active ? "page" : undefined}
       aria-label={ariaLabel ?? (collapsed ? textLabel : undefined)}
       className={cn(
-        "ease flex h-9 w-full items-center gap-2 rounded-md px-2.5 text-left text-sm transition-colors duration-200",
+        "ease flex h-9 w-full items-center gap-2 rounded-md px-2.5 text-left text-sm outline-none transition-colors duration-200 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset",
         active
           ? "bg-foreground/10 font-medium text-foreground"
           : "text-muted-foreground",
