@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ArrowUp, Paperclip, Square, X } from "lucide-react";
 import {
   AnimatePresence,
@@ -255,14 +256,16 @@ const AIPromptInput = ({
                   </span>
                 )}
                 {onRemoveAttachment ? (
-                  <button
+                  <SmoothButton
                     aria-label={`Remove ${attachment.name}`}
-                    className="cursor-pointer rounded-md p-0.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                    className="size-6 text-muted-foreground"
                     onClick={() => onRemoveAttachment(attachment.id)}
+                    size="icon-sm"
                     type="button"
+                    variant="ghost"
                   >
                     <X aria-hidden="true" size={12} />
-                  </button>
+                  </SmoothButton>
                 ) : null}
               </motion.li>
             ))}
@@ -287,15 +290,17 @@ const AIPromptInput = ({
       <div className="flex items-center justify-between gap-2 px-2 pb-2">
         <div className="flex min-w-0 items-center gap-1">
           {onAttach ? (
-            <button
+            <SmoothButton
               aria-label="Attach a file"
-              className="cursor-pointer rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="text-muted-foreground"
               disabled={disabled}
               onClick={onAttach}
+              size="icon-sm"
               type="button"
+              variant="ghost"
             >
               <Paperclip aria-hidden="true" size={16} />
-            </button>
+            </SmoothButton>
           ) : null}
           {children}
         </div>

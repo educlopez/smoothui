@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { motion, useAnimationFrame, useReducedMotion } from "motion/react";
 import { useRef, useState } from "react";
 

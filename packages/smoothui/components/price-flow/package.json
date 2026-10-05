@@ -4,9 +4,9 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -33,7 +33,7 @@
     ],
     "compositionHints": [
       "Use in pricing blocks alongside number-flow",
-      "Pair with animated-toggle for pricing interval switcher"
+      "Pair with morph-toggle for pricing interval switcher"
     ],
     "hasReducedMotion": false
   }

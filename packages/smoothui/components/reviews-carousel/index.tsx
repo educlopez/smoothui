@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useMemo, useState } from "react";
@@ -114,26 +115,18 @@ function NavigationButton({
   const Icon = direction === "prev" ? ChevronLeft : ChevronRight;
 
   return (
-    <button
-      aria-label={direction === "prev" ? "Anterior" : "Siguiente"}
-      className={cn(
-        "box-gen group relative z-0 flex h-7 w-7 items-center justify-center rounded-full border-[0.5px] border-foreground/10 bg-background/50 backdrop-blur-sm transition-all duration-200",
-        disabled
-          ? "cursor-not-allowed opacity-30"
-          : "cursor-pointer hover:border-foreground/20 hover:bg-background/70 hover:shadow-lg",
-        "dark:border-foreground/5 dark:bg-foreground/5 dark:hover:border-foreground/10 dark:hover:bg-foreground/10"
-      )}
+    <SmoothButton
+      aria-label={direction === "prev" ? "Previous review" : "Next review"}
+      className="box-gen relative z-0 size-7 border-[0.5px] border-foreground/10 bg-background/50 backdrop-blur-sm disabled:opacity-30 dark:border-foreground/5 dark:bg-foreground/5"
       disabled={disabled}
       onClick={onClick}
+      shape="pill"
+      size="icon-sm"
       type="button"
+      variant="ghost"
     >
-      <Icon
-        className={cn(
-          "h-3.5 w-3.5 text-foreground/60 transition-colors",
-          "group-hover:text-foreground group-disabled:text-foreground/20"
-        )}
-      />
-    </button>
+      <Icon className="size-3.5 text-foreground/60" />
+    </SmoothButton>
   );
 }
 

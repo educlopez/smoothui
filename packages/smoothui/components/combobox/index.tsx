@@ -1,23 +1,22 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
+import { Command as CommandPrimitive } from "cmdk";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@repo/shadcn-ui/components/ui/command";
+  CheckIcon,
+  ChevronsUpDownIcon,
+  LoaderIcon,
+  SearchIcon,
+} from "lucide-react";
+import { useReducedMotion } from "motion/react";
+import { Popover as PopoverPrimitive } from "radix-ui";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@repo/shadcn-ui/components/ui/popover";
-import { cn } from "@repo/shadcn-ui/lib/utils";
-import { CheckIcon, ChevronsUpDownIcon, LoaderIcon } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { DURATION_INSTANT, SPRING_DEFAULT } from "../../lib/animation";
+  type ComponentProps,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import SmoothButton from "../smooth-button";
 
 export interface ComboboxOption {
@@ -58,7 +57,127 @@ export interface ComboboxProps {
   value?: string;
 }
 
-const MotionCommandItem = motion.create(CommandItem);
+/* ------------------------------------------------------------------ */
+/*  Thin cmdk + radix wrappers (no @repo/shadcn-ui)                    */
+/* ------------------------------------------------------------------ */
+
+const Popover = ({
+  ...props
+}: ComponentProps<typeof PopoverPrimitive.Root>) => (
+  <PopoverPrimitive.Root data-slot="popover" {...props} />
+);
+
+const PopoverTrigger = ({
+  ...props
+}: ComponentProps<typeof PopoverPrimitive.Trigger>) => (
+  <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />
+);
+
+const PopoverContent = ({
+  className,
+  align = "center",
+  sideOffset = 4,
+  ...props
+}: ComponentProps<typeof PopoverPrimitive.Content>) => (
+  <PopoverPrimitive.Portal>
+    <PopoverPrimitive.Content
+      align={align}
+      className={cn(
+        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden data-[state=closed]:animate-out data-[state=open]:animate-in",
+        className
+      )}
+      data-slot="popover-content"
+      sideOffset={sideOffset}
+      {...props}
+    />
+  </PopoverPrimitive.Portal>
+);
+
+const Command = ({
+  className,
+  ...props
+}: ComponentProps<typeof CommandPrimitive>) => (
+  <CommandPrimitive
+    className={cn(
+      "flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
+      className
+    )}
+    data-slot="command"
+    {...props}
+  />
+);
+
+const CommandInput = ({
+  className,
+  ...props
+}: ComponentProps<typeof CommandPrimitive.Input>) => (
+  <div
+    className="flex h-9 items-center gap-2 border-b px-3"
+    data-slot="command-input-wrapper"
+  >
+    <SearchIcon className="size-4 shrink-0 opacity-50" />
+    <CommandPrimitive.Input
+      className={cn(
+        "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground/70 disabled:cursor-not-allowed disabled:text-muted-foreground/60",
+        className
+      )}
+      data-slot="command-input"
+      {...props}
+    />
+  </div>
+);
+
+const CommandList = ({
+  className,
+  ...props
+}: ComponentProps<typeof CommandPrimitive.List>) => (
+  <CommandPrimitive.List
+    className={cn(
+      "max-h-[300px] min-h-[7.5rem] scroll-py-1 overflow-y-auto overflow-x-hidden",
+      className
+    )}
+    data-slot="command-list"
+    {...props}
+  />
+);
+
+const CommandEmpty = ({
+  ...props
+}: ComponentProps<typeof CommandPrimitive.Empty>) => (
+  <CommandPrimitive.Empty
+    className="py-6 text-center text-sm"
+    data-slot="command-empty"
+    {...props}
+  />
+);
+
+const CommandGroup = ({
+  className,
+  ...props
+}: ComponentProps<typeof CommandPrimitive.Group>) => (
+  <CommandPrimitive.Group
+    className={cn(
+      "overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground [&_[cmdk-group-heading]]:text-xs",
+      className
+    )}
+    data-slot="command-group"
+    {...props}
+  />
+);
+
+const CommandItem = ({
+  className,
+  ...props
+}: ComponentProps<typeof CommandPrimitive.Item>) => (
+  <CommandPrimitive.Item
+    className={cn(
+      "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden data-[disabled=true]:pointer-events-none data-[selected=true]:bg-foreground/10 data-[disabled=true]:text-muted-foreground/60 data-[selected=true]:text-foreground [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+      className
+    )}
+    data-slot="command-item"
+    {...props}
+  />
+);
 
 export default function Combobox({
   value,
@@ -81,12 +200,23 @@ export default function Combobox({
   const [asyncOptions, setAsyncOptions] = useState<ComboboxOption[]>([]);
   const [loading, setLoading] = useState(false);
   const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /** Prevents empty search results from re-triggering the initial `onSearch("")`. */
+  const hasLoadedInitialRef = useRef(false);
 
   const displayOptions = onSearch ? asyncOptions : (staticOptions ?? []);
 
-  const selectedLabel = displayOptions.find(
-    (opt) => opt.value === value
-  )?.label;
+  /** Prefer full option lists so a filtered/async view cannot blank the trigger. */
+  const selectedLabel = (() => {
+    const pools = [staticOptions, asyncOptions, displayOptions].filter(
+      (list): list is ComboboxOption[] => Boolean(list?.length)
+    );
+    for (const pool of pools) {
+      const match = pool.find((opt) => opt.value === value);
+      if (match) {
+        return match.label;
+      }
+    }
+  })();
 
   const handleSearch = useCallback(
     (searchQuery: string) => {
@@ -113,16 +243,21 @@ export default function Combobox({
     [onSearch, searchDebounce]
   );
 
-  // Load initial async options when popover opens
+  // Load initial async options once when the popover first opens
   useEffect(() => {
-    if (open && onSearch && asyncOptions.length === 0 && !loading) {
-      setLoading(true);
-      onSearch("").then((results) => {
+    if (!(open && onSearch) || hasLoadedInitialRef.current || loading) {
+      return;
+    }
+    hasLoadedInitialRef.current = true;
+    setLoading(true);
+    onSearch("")
+      .then((results) => {
         setAsyncOptions(results);
+      })
+      .finally(() => {
         setLoading(false);
       });
-    }
-  }, [open, onSearch, asyncOptions.length, loading]);
+  }, [open, onSearch, loading]);
 
   // Clean up debounce on unmount
   useEffect(
@@ -137,13 +272,19 @@ export default function Combobox({
   const handleSelect = (selectedValue: string) => {
     const newValue = selectedValue === value ? "" : selectedValue;
     onValueChange?.(newValue);
+    setQuery("");
     setOpen(false);
   };
 
-  const itemTransition = shouldReduceMotion ? DURATION_INSTANT : SPRING_DEFAULT;
+  const handleOpenChange = (nextOpen: boolean) => {
+    setOpen(nextOpen);
+    if (!nextOpen) {
+      setQuery("");
+    }
+  };
 
   return (
-    <Popover onOpenChange={setOpen} open={open}>
+    <Popover onOpenChange={handleOpenChange} open={open}>
       <PopoverTrigger asChild>
         <SmoothButton
           aria-expanded={open}
@@ -151,8 +292,9 @@ export default function Combobox({
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           className={cn(
-            "h-9 w-full justify-between px-3 py-2 text-left font-normal [&:hover_*]:text-white",
-            !selectedLabel && "text-muted-foreground",
+            "h-9 w-full justify-between px-3 py-2 text-left font-normal hover:text-primary-foreground",
+            !selectedLabel &&
+              "text-muted-foreground hover:text-primary-foreground",
             shouldReduceMotion && "!transition-none !duration-0",
             className
           )}
@@ -164,7 +306,7 @@ export default function Combobox({
           <span
             className={cn(
               "truncate transition-colors",
-              !selectedLabel && "text-muted-foreground"
+              !selectedLabel && "text-muted-foreground/70"
             )}
           >
             {selectedLabel ?? placeholder}
@@ -182,70 +324,47 @@ export default function Combobox({
       >
         <Command shouldFilter={!onSearch}>
           <CommandInput
-            className=""
             onValueChange={handleSearch}
             placeholder={searchPlaceholder}
             value={query}
           />
-          <CommandList>
-            <AnimatePresence>
-              {loading ? (
-                <motion.div
-                  animate={{ opacity: 1 }}
-                  className="flex items-center justify-center py-4"
-                  exit={
-                    shouldReduceMotion
-                      ? { opacity: 0, transition: DURATION_INSTANT }
-                      : { opacity: 0 }
-                  }
-                  initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-                  transition={itemTransition}
-                >
-                  <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
-                  <span className="ml-2 text-muted-foreground text-sm">
-                    Loading…
-                  </span>
-                </motion.div>
-              ) : null}
-            </AnimatePresence>
+          <CommandList className="relative">
+            {loading ? (
+              <div
+                aria-busy="true"
+                aria-live="polite"
+                className="absolute inset-0 z-10 flex min-h-[7.5rem] items-center justify-center bg-popover/80"
+              >
+                <LoaderIcon className="size-4 animate-spin text-muted-foreground" />
+                <span className="ml-2 text-muted-foreground text-sm">
+                  Loading…
+                </span>
+              </div>
+            ) : null}
 
             {!loading && <CommandEmpty>{emptyText}</CommandEmpty>}
 
-            {!loading && displayOptions.length > 0 && (
+            {!loading && displayOptions.length > 0 ? (
               <CommandGroup>
-                {displayOptions.map((option, index) => (
-                  <MotionCommandItem
-                    animate={{ opacity: 1, transform: "translateY(0px)" }}
+                {displayOptions.map((option) => (
+                  <CommandItem
                     disabled={option.disabled}
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 0, transform: "translateY(4px)" }
-                    }
                     key={option.value}
-                    keywords={[option.label]}
-                    onSelect={handleSelect}
-                    transition={
-                      shouldReduceMotion
-                        ? DURATION_INSTANT
-                        : {
-                            ...SPRING_DEFAULT,
-                            delay: index * 0.02,
-                          }
-                    }
-                    value={option.value}
+                    keywords={[option.label, option.value]}
+                    onSelect={() => handleSelect(option.value)}
+                    value={`${option.label} ${option.value}`}
                   >
                     <CheckIcon
                       className={cn(
-                        "mr-2 size-4 shrink-0",
+                        "size-4 shrink-0",
                         value === option.value ? "opacity-100" : "opacity-0"
                       )}
                     />
                     {option.label}
-                  </MotionCommandItem>
+                  </CommandItem>
                 ))}
               </CommandGroup>
-            )}
+            ) : null}
           </CommandList>
         </Command>
       </PopoverContent>

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { Star } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { FocusEvent } from "react";

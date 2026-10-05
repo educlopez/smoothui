@@ -12,6 +12,7 @@
 
 export type ComponentCategory =
   | "basic-ui"
+  | "patterns"
   | "button"
   | "text"
   | "ai"
@@ -57,7 +58,7 @@ export interface ComponentMeta {
   hasReducedMotion: boolean;
   /** shadcn-style install command */
   installCommand: string;
-  /** kebab-case identifier, e.g. "animated-tabs" */
+  /** kebab-case identifier, e.g. "morph-toggle" */
   name: string;
   /** Number of public props */
   propsCount: number;

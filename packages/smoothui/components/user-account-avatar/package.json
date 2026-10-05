@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
     "lucide-react": "^0.545.0",
-    "@radix-ui/react-popover": "1.1.15"
+    "@radix-ui/react-popover": "1.1.15",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -36,7 +36,7 @@
       "Interactive user avatar with animated tab navigation"
     ],
     "compositionHints": [
-      "Use with notification-badge for unread indicators",
+      "Use with count-badge for unread indicators",
       "Pair with animated-avatar-group in team settings"
     ],
     "hasReducedMotion": true

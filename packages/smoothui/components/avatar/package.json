@@ -1,0 +1,38 @@
+{
+  "name": "@repo/avatar",
+  "description": "Avatar, AvatarGroup, and status dot for SmoothUI with Base UI / Radix twins.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "radix-ui": "1.4.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "avatar",
+      "user",
+      "profile",
+      "group",
+      "status"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "User profile picture with initials fallback",
+      "Stacked avatar group with +N overflow"
+    ],
+    "compositionHints": [
+      "Pass fallback initials for failed images",
+      "Use AvatarGroup max for overflow count"
+    ]
+  }
+}

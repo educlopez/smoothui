@@ -5,11 +5,11 @@
   "private": true,
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.2",
-    "@repo/shadcn-ui": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -36,7 +36,7 @@
       "Playful button with cursor-aware displacement"
     ],
     "compositionHints": [
-      "Enhance with animated-tooltip for hover descriptions",
+      "Enhance with Tooltip primitive for hover descriptions",
       "Use as primary CTA in hero sections"
     ],
     "hasReducedMotion": true
