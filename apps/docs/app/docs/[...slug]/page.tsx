@@ -474,7 +474,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                     that is only collapsed on wide screens; on a phone the navbar
                     already carries the drawer toggle, and showing both would
                     offer the same sidebar twice. */}
-                <div className="not-prose sticky top-[6.5rem] z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
+                <div className="not-prose sticky top-16 z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
                   {/* The module only blurs; painting the page colour under the
                       mask is what makes the text dissolve instead of staying
                       legible-but-smudged. */}
