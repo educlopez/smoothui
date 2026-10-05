@@ -48,11 +48,12 @@ const CaretDownIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg
     fill="currentColor"
     height="12"
+    aria-hidden="true"
+    focusable="false"
     viewBox="0 0 16 16"
     width="12"
     {...props}
   >
-    <title>Open</title>
     <path d="M12 6H4l4 4.5z" />
   </svg>
 );
