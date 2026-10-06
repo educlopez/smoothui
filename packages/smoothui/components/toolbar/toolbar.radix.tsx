@@ -46,7 +46,7 @@ export type ToolbarSeparatorProps = Omit<
 export type ToolbarInputProps = ComponentProps<"input">;
 
 const BUTTON_CLASS =
-  "inline-flex h-8 shrink-0 select-none items-center justify-center gap-1.5 rounded-md px-2.5 font-medium text-sm outline-none transition-colors hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-background data-[state=on]:shadow-sm dark:data-[state=on]:bg-foreground/15";
+  "inline-flex h-8 shrink-0 select-none items-center justify-center gap-1.5 rounded-md px-2.5 font-medium text-sm outline-none transition-colors hover:bg-muted focus-ring disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-background data-[state=on]:shadow-sm dark:data-[state=on]:bg-foreground/15";
 
 /** Radix Toolbar has no `disabled`; the root shares it with its controls. */
 const ToolbarDisabledContext = createContext(false);
@@ -100,7 +100,7 @@ export const ToolbarButton = ({
 export const ToolbarLink = ({ className, ...props }: ToolbarLinkProps) => (
   <ToolbarPrimitive.Link
     className={cn(
-      "px-2.5 font-medium text-muted-foreground text-xs outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50",
+      "focus-ring px-2.5 font-medium text-muted-foreground text-xs outline-none transition-colors hover:text-foreground",
       className
     )}
     data-slot="toolbar-link"
@@ -137,7 +137,7 @@ export const ToolbarInput = ({
   return (
     <input
       className={cn(
-        "h-8 min-w-24 rounded-md border border-foreground/25 bg-background px-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50",
+        "focus-ring h-8 min-w-24 rounded-md border border-foreground/25 bg-background px-2 text-sm outline-none focus-visible:border-ring disabled:opacity-50",
         className
       )}
       data-slot="toolbar-input"

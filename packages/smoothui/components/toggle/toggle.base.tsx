@@ -50,9 +50,9 @@ export default function Toggle({
     <TogglePrimitive
       aria-label={ariaLabel}
       className={cn(
-        "inline-flex h-9 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-3 font-medium text-sm outline-none",
+        "hit-area relative inline-flex h-9 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-3 font-medium text-sm outline-none",
         "bg-secondary text-muted-foreground",
-        "hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        "state-transition focus-ring hover:bg-muted",
         "data-pressed:border-border data-pressed:bg-background data-pressed:text-foreground data-pressed:shadow-sm dark:data-pressed:bg-foreground/15",
         "data-disabled:pointer-events-none data-disabled:border-foreground/25 data-disabled:bg-foreground/10 data-disabled:text-muted-foreground",
         className

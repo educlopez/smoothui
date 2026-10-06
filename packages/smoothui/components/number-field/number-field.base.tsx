@@ -56,10 +56,10 @@ export type NumberFieldScrubAreaProps = Omit<
 > & { className?: string };
 
 const STEPPER_CLASS =
-  "flex size-8 shrink-0 items-center justify-center border border-foreground/25 bg-background text-foreground outline-none transition-colors hover:bg-muted focus-visible:z-10 focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50";
+  "flex size-8 shrink-0 items-center justify-center border border-foreground/25 bg-background text-foreground outline-none state-transition hover:bg-muted focus-visible:z-10 focus-ring disabled:pointer-events-none disabled:opacity-50 data-disabled:pointer-events-none data-disabled:opacity-50";
 
 const INPUT_CLASS =
-  "h-8 w-[7ch] min-w-0 border border-foreground/25 bg-background px-2 text-center font-medium text-sm tabular-nums outline-none transition-[color,box-shadow] focus-visible:z-10 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground";
+  "h-8 w-[7ch] min-w-0 border border-foreground/25 bg-background px-2 text-center font-medium text-sm tabular-nums outline-none state-transition focus-visible:z-10 focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground";
 
 const MinusIcon = (props: SVGProps<SVGSVGElement>) => (
   <svg

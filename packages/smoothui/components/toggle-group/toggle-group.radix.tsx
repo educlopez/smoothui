@@ -114,7 +114,7 @@ const ToggleGroupItem = ({
       className={cn(
         "inline-flex h-8 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-2.5 font-medium text-sm outline-none",
         "bg-transparent text-muted-foreground shadow-none",
-        "hover:bg-muted/80 focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        "state-transition focus-ring hover:bg-muted/80",
         "data-[state=on]:border-border data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm dark:data-[state=on]:bg-foreground/15",
         "disabled:pointer-events-none disabled:border-foreground/25 disabled:bg-foreground/10 disabled:text-muted-foreground",
         className

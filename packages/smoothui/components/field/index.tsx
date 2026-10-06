@@ -54,7 +54,7 @@ const FieldError = ({ className, ...props }: FieldErrorProps) => (
 const FieldControl = ({ className, ...props }: FieldControlProps) => (
   <FieldPrimitive.Control
     className={cn(
-      "flex h-9 w-full rounded-md border border-foreground/25 bg-background px-3 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
+      "state-transition focus-ring flex h-9 w-full rounded-md border border-foreground/25 bg-background px-3 text-sm shadow-xs outline-none placeholder:text-muted-foreground/60 focus-visible:border-ring disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
       className
     )}
     data-slot="field-control"

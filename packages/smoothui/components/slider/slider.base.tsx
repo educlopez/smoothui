@@ -104,9 +104,9 @@ const SliderThumb = ({ className, ...props }: SliderThumbProps) => {
         <MotionThumb
           className={cn(
             // Solid fill so the thumb stays visible on dark preview surfaces
-            "block size-4 rounded-full border-2 border-brand bg-white shadow-sm",
+            "block size-4 rounded-full border-2 border-brand bg-thumb shadow-sm",
             // Focus lands on the hidden <input> child, not the thumb itself
-            "has-[:focus-visible]:ring-[3px] has-[:focus-visible]:ring-ring/50",
+            "focus-ring-within",
             "data-disabled:pointer-events-none",
             // Never `bg-background` when disabled — matches dark frame-box and vanishes
             "group-data-disabled/slider:border-muted-foreground group-data-disabled/slider:bg-muted-foreground"

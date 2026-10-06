@@ -27,7 +27,7 @@ export default function InputGroup({
   return (
     <div
       className={cn(
-        "flex h-9 w-full min-w-0 items-center overflow-hidden rounded-md border border-foreground/25 bg-background shadow-xs transition-[color,box-shadow] has-[[data-slot=input]:disabled]:cursor-not-allowed has-[[data-slot=input]:focus-visible]:border-ring has-[[data-slot=input][aria-invalid=true]]:border-destructive has-[[data-slot=input]:disabled]:bg-muted has-[[data-slot=input]:focus-visible]:ring-[3px] has-[[data-slot=input]:focus-visible]:ring-ring/50 has-[[data-slot=input][aria-invalid=true]]:ring-destructive/20 dark:has-[[data-slot=input][aria-invalid=true]]:ring-destructive/40",
+        "state-transition flex h-9 w-full min-w-0 items-center overflow-hidden rounded-md border border-foreground/25 bg-background shadow-xs has-[[data-slot=input]:disabled]:cursor-not-allowed has-[[data-slot=input]:focus-visible]:border-ring has-[[data-slot=input][aria-invalid=true]]:border-destructive has-[[data-slot=input]:disabled]:bg-muted has-[[data-slot=input]:focus-visible]:ring-[3px] has-[[data-slot=input]:focus-visible]:ring-ring/50 has-[[data-slot=input][aria-invalid=true]]:ring-destructive/20 dark:has-[[data-slot=input][aria-invalid=true]]:ring-destructive/40",
         "[&_[data-slot=input]]:h-full [&_[data-slot=input]]:flex-1 [&_[data-slot=input]]:rounded-none [&_[data-slot=input]]:border-0 [&_[data-slot=input]]:bg-transparent [&_[data-slot=input]]:shadow-none [&_[data-slot=input]]:focus-visible:ring-0",
         className
       )}

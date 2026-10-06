@@ -168,7 +168,7 @@ export const ToastDescription = ({
 export const ToastAction = ({ className, ...props }: ToastActionProps) => (
   <ToastPrimitive.Action
     className={cn(
-      "mt-2 inline-flex h-7 items-center rounded-md border border-input bg-background px-2.5 font-medium text-xs outline-none transition-colors hover:bg-accent focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+      "focus-ring mt-2 inline-flex h-7 items-center rounded-md border border-input bg-background px-2.5 font-medium text-xs outline-none transition-colors hover:bg-accent focus-visible:border-ring",
       className
     )}
     data-slot="toast-action"
@@ -184,7 +184,7 @@ export const ToastClose = ({
   <ToastPrimitive.Close
     aria-label="Close notification"
     className={cn(
-      "-mt-1 -mr-1 ml-auto inline-flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-accent hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50",
+      "focus-ring -mt-1 -mr-1 ml-auto inline-flex size-6 shrink-0 items-center justify-center rounded-md text-muted-foreground outline-none transition-colors hover:bg-accent hover:text-foreground",
       className
     )}
     data-slot="toast-close"

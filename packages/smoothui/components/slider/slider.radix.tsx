@@ -91,8 +91,8 @@ const SliderThumb = ({ className, ...props }: SliderThumbProps) => {
     <SliderPrimitive.Thumb asChild {...props}>
       <MotionThumb
         className={cn(
-          "block size-4 rounded-full border-2 border-brand bg-white shadow-sm outline-none",
-          "focus-visible:ring-[3px] focus-visible:ring-ring/50",
+          "block size-4 rounded-full border-2 border-brand bg-thumb shadow-sm outline-none",
+          "focus-ring",
           "data-[disabled]:pointer-events-none",
           "group-data-[disabled]/slider:border-muted-foreground group-data-[disabled]/slider:bg-muted-foreground",
           className

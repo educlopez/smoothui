@@ -143,8 +143,8 @@ export function Radio({
       <RadioPrimitive.Root
         className={cn(
           // Base UI defaults to an inline <span> — must be a flex box so size-4 sticks
-          "group/radio inline-flex size-4 shrink-0 items-center justify-center rounded-full border border-foreground/50 bg-background shadow-xs outline-none transition-[color,box-shadow]",
-          "hover:border-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+          "group/radio state-transition inline-flex size-4 shrink-0 items-center justify-center rounded-full border border-foreground/50 bg-background shadow-xs outline-none",
+          "focus-ring hover:border-foreground focus-visible:border-ring",
           "disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-muted disabled:hover:border-foreground/30",
           "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
           "data-checked:border-brand data-checked:hover:border-brand dark:bg-foreground/10",

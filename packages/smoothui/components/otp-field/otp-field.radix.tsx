@@ -45,7 +45,7 @@ export type OTPFieldRootProps = ComponentProps<"fieldset"> & {
 export type OTPFieldInputProps = ComponentProps<"input">;
 
 const SLOT_CLASS =
-  "m-0 size-10 shrink-0 rounded-md border border-foreground/25 bg-background text-center font-medium text-sm tabular-nums outline-none transition-[color,box-shadow] placeholder:text-muted-foreground/50 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground";
+  "m-0 size-10 shrink-0 rounded-md border border-foreground/25 bg-background text-center font-medium text-sm tabular-nums outline-none state-transition placeholder:text-muted-foreground/50 focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground";
 
 const DIGIT_ONLY = /^\d*$/;
 
