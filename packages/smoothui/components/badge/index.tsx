@@ -2,7 +2,14 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
-import type { ComponentProps, ReactNode } from "react";
+import { type ComponentProps, type ReactNode, useRef } from "react";
+import {
+  EASE_OUT,
+  LOOP_CLASS,
+  LOOP_REPEAT_DELAY,
+  loopTransition,
+  useLoopInView,
+} from "../../lib/animation";
 
 export type BadgeVariant =
   | "default"
@@ -41,7 +48,7 @@ export interface StatusDotProps {
 const BADGE_VARIANT: Record<BadgeVariant, string> = {
   default: "border-transparent bg-primary text-primary-foreground",
   destructive:
-    "border-transparent bg-destructive text-white dark:bg-destructive/80",
+    "border-transparent bg-destructive text-destructive-fg dark:bg-destructive/80",
   outline: "border-foreground/25 bg-transparent text-foreground",
   secondary: "border-transparent bg-secondary text-secondary-foreground",
   success:
@@ -105,7 +112,10 @@ export const StatusDot = ({
   status = "online",
 }: StatusDotProps) => {
   const shouldReduceMotion = useReducedMotion();
-  const showPulse = pulse && !shouldReduceMotion && status === "online";
+  const hostRef = useRef<HTMLSpanElement>(null);
+  const inView = useLoopInView(hostRef);
+  const showPulse =
+    pulse && !shouldReduceMotion && status === "online" && inView;
 
   return (
     <span
@@ -118,18 +128,22 @@ export const StatusDot = ({
       )}
       data-slot="status-dot"
       data-status={status}
+      ref={hostRef}
       role="status"
     >
       {showPulse ? (
         <motion.span
           animate={{ opacity: [0.55, 0], scale: [1, 1.85] }}
           aria-hidden
-          className={cn("absolute inset-0 rounded-full", DOT_COLOR[status])}
-          transition={{
-            duration: 1.4,
-            ease: [0.23, 1, 0.32, 1],
-            repeat: Number.POSITIVE_INFINITY,
-          }}
+          className={cn(
+            "absolute inset-0 rounded-full",
+            DOT_COLOR[status],
+            LOOP_CLASS
+          )}
+          transition={loopTransition(
+            { duration: 1.4, ease: EASE_OUT },
+            LOOP_REPEAT_DELAY.pulse
+          )}
         />
       ) : null}
     </span>

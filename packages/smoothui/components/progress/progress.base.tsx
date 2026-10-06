@@ -3,8 +3,15 @@
 import { Progress as ProgressPrimitive } from "@base-ui/react/progress";
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
-import { type ComponentProps, createContext, useContext } from "react";
-import { EASE_IN_OUT, SPRING_DEFAULT } from "../../lib/animation";
+import { type ComponentProps, createContext, useContext, useRef } from "react";
+import {
+  EASE_IN_OUT,
+  LOOP_CLASS,
+  LOOP_REPEAT_DELAY,
+  loopTransition,
+  SPRING_DEFAULT,
+  useLoopInView,
+} from "../../lib/animation";
 
 export type ProgressSize = "sm" | "md" | "lg";
 
@@ -119,7 +126,11 @@ export const ProgressIndicator = ({
 }: ProgressIndicatorProps) => {
   const percent = useContext(ProgressPercentContext);
   const shouldReduceMotion = useReducedMotion();
+  const indicatorRef = useRef<HTMLDivElement>(null);
+  // The track clips the sliding bar, so watch the track, not the bar.
+  const inView = useLoopInView(indicatorRef, { observeParent: true });
   const isIndeterminate = percent === null;
+  const isLooping = isIndeterminate && !shouldReduceMotion && inView;
 
   let animate: { opacity?: number; transform: string | string[] };
   let initial: { opacity?: number; transform: string } | false = false;
@@ -131,14 +142,18 @@ export const ProgressIndicator = ({
       animate = { opacity: 0.4, transform: "translateX(0%)" };
       initial = { opacity: 0.4, transform: "translateX(0%)" };
       transition = { duration: 0 };
-    } else {
+    } else if (inView) {
       animate = { transform: ["translateX(-100%)", "translateX(250%)"] };
       initial = { transform: "translateX(-100%)" };
-      transition = {
-        duration: INDETERMINATE_DURATION,
-        ease: EASE_IN_OUT,
-        repeat: Number.POSITIVE_INFINITY,
-      };
+      transition = loopTransition(
+        { duration: INDETERMINATE_DURATION, ease: EASE_IN_OUT },
+        LOOP_REPEAT_DELAY.progress
+      );
+    } else {
+      // Off screen: rest at the start instead of looping unseen.
+      animate = { transform: "translateX(-100%)" };
+      initial = { transform: "translateX(-100%)" };
+      transition = { duration: 0 };
     }
   } else {
     // translateX keeps rounded ends; scaleX would squash them into ellipses
@@ -152,12 +167,17 @@ export const ProgressIndicator = ({
 
   return (
     <ProgressPrimitive.Indicator
-      className={cn("block h-full rounded-full bg-brand", className)}
+      className={cn(
+        "block h-full rounded-full bg-brand",
+        isLooping && LOOP_CLASS,
+        className
+      )}
       data-slot="progress-indicator"
       render={
         <motion.div
           animate={animate}
           initial={initial}
+          ref={indicatorRef}
           style={{
             width: isIndeterminate
               ? shouldReduceMotion
