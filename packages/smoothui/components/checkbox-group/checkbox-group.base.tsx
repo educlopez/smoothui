@@ -84,9 +84,10 @@ const CheckboxGlyph = ({
           strokeLinejoin="round"
           strokeWidth={3}
           transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+          aria-hidden="true"
+          focusable="false"
           viewBox="0 0 24 24"
         >
-          <title>Checked</title>
           <CheckmarkPath
             animate={shouldReduceMotion ? {} : { pathLength: 1 }}
             d="M20 6L9 17l-5-5"
@@ -120,9 +121,10 @@ const CheckboxGlyph = ({
           strokeLinejoin="round"
           strokeWidth={3}
           transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+          aria-hidden="true"
+          focusable="false"
           viewBox="0 0 24 24"
         >
-          <title>Indeterminate</title>
           <CheckmarkPath
             animate={shouldReduceMotion ? {} : { pathLength: 1 }}
             d="M5 12h14"

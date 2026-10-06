@@ -103,6 +103,12 @@ Field-like compounds that have no Radix twin (Base Field only) may ship a single
 `index.tsx` — document that on the MDX page. Current Base-only primitives:
 Field, Input (Radix has no Input), Toast (Radix Toast has no manager API).
 
+`context-menu` is Radix-only: it ships a single `index.tsx` on `radix-ui` and has
+no Base twin. Base UI's Context Menu would only duplicate the same API, and the
+convenience props (`items`, `className`) are identical, so a twin adds a file to
+maintain without changing what consumers get. Add `context-menu.base.tsx` and
+`context-menu.radix.tsx` behind `index.tsx` if a Base-only install ever needs it.
+
 ## Microinteraction contract
 
 All owned primitives must:

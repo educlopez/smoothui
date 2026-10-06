@@ -3,6 +3,7 @@
 import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
+import { useState } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
 export interface CheckboxProps {
@@ -10,10 +11,12 @@ export interface CheckboxProps {
   "aria-label"?: string;
   /** ID of the element labelling the checkbox */
   "aria-labelledby"?: string;
-  /** Whether the checkbox is checked */
+  /** Whether the checkbox is checked (controlled). Omit for uncontrolled use. */
   checked?: boolean;
   /** Optional CSS class */
   className?: string;
+  /** Initial checked state when uncontrolled */
+  defaultChecked?: boolean;
   /** Whether the checkbox is disabled */
   disabled?: boolean;
   /** ID for label association */
@@ -36,7 +39,8 @@ const MotionSvg = motion.svg;
 export default function Checkbox({
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
-  checked = false,
+  checked: checkedProp,
+  defaultChecked = false,
   indeterminate = false,
   onCheckedChange,
   disabled = false,
@@ -47,17 +51,17 @@ export default function Checkbox({
   required,
 }: CheckboxProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [internalChecked, setInternalChecked] = useState(defaultChecked);
+  const checked = checkedProp ?? internalChecked;
 
-  const derivedState = indeterminate
-    ? "indeterminate"
-    : checked
-      ? "checked"
-      : "unchecked";
+  const checkedState = checked ? "checked" : "unchecked";
+  const derivedState = indeterminate ? "indeterminate" : checkedState;
 
   const handleChange = (state: boolean | "indeterminate") => {
     if (state === "indeterminate") {
       return;
     }
+    setInternalChecked(state);
     onCheckedChange?.(state);
   };
 
@@ -106,9 +110,10 @@ export default function Checkbox({
               strokeLinejoin="round"
               strokeWidth={3}
               transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+              aria-hidden="true"
+              focusable="false"
               viewBox="0 0 24 24"
             >
-              <title>Checked</title>
               <CheckmarkPath
                 animate={shouldReduceMotion ? {} : { pathLength: 1 }}
                 d="M20 6L9 17l-5-5"
@@ -142,9 +147,10 @@ export default function Checkbox({
               strokeLinejoin="round"
               strokeWidth={3}
               transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+              aria-hidden="true"
+              focusable="false"
               viewBox="0 0 24 24"
             >
-              <title>Indeterminate</title>
               <CheckmarkPath
                 animate={shouldReduceMotion ? {} : { pathLength: 1 }}
                 d="M5 12h14"

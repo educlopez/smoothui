@@ -68,11 +68,12 @@ const MinusIcon = (props: SVGProps<SVGSVGElement>) => (
     stroke="currentColor"
     strokeLinecap="round"
     strokeWidth="2"
+    aria-hidden="true"
+    focusable="false"
     viewBox="0 0 16 16"
     width="14"
     {...props}
   >
-    <title>Decrement</title>
     <path d="M3 8h10" />
   </svg>
 );
@@ -84,11 +85,12 @@ const PlusIcon = (props: SVGProps<SVGSVGElement>) => (
     stroke="currentColor"
     strokeLinecap="round"
     strokeWidth="2"
+    aria-hidden="true"
+    focusable="false"
     viewBox="0 0 16 16"
     width="14"
     {...props}
   >
-    <title>Increment</title>
     <path d="M8 3v10M3 8h10" />
   </svg>
 );
@@ -132,6 +134,7 @@ export const NumberFieldDecrement = ({
   ...props
 }: NumberFieldDecrementProps) => (
   <NumberFieldPrimitive.Decrement
+    aria-label="Decrement"
     className={cn(STEPPER_CLASS, "rounded-l-md border-r-0", className)}
     data-slot="number-field-decrement"
     {...props}
@@ -146,6 +149,7 @@ export const NumberFieldIncrement = ({
   ...props
 }: NumberFieldIncrementProps) => (
   <NumberFieldPrimitive.Increment
+    aria-label="Increment"
     className={cn(STEPPER_CLASS, "rounded-r-md border-l-0", className)}
     data-slot="number-field-increment"
     {...props}
