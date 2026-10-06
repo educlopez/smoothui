@@ -171,7 +171,7 @@ export const PreviewCardPopup = ({
   return (
     <PreviewCardPrimitive.Content
       align={align}
-      className={cn("z-50", POPUP_CLASS, className)}
+      asChild
       data-slot="preview-card-popup"
       side={side}
       sideOffset={sideOffset}
@@ -179,6 +179,7 @@ export const PreviewCardPopup = ({
     >
       <motion.div
         animate={motionProps.animate}
+        className={cn("z-50", POPUP_CLASS, className)}
         initial={motionProps.initial}
         transition={motionProps.transition}
       >

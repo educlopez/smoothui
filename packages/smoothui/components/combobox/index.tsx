@@ -37,6 +37,8 @@ export interface ComboboxProps {
   className?: string;
   /** Additional CSS class names for the popover content */
   contentClassName?: string;
+  /** Initially selected value when uncontrolled */
+  defaultValue?: string;
   /** Whether the combobox is disabled */
   disabled?: boolean;
   /** Text shown when no results match */
@@ -53,7 +55,7 @@ export interface ComboboxProps {
   searchDebounce?: number;
   /** Placeholder text for the search input */
   searchPlaceholder?: string;
-  /** The controlled selected value */
+  /** The controlled selected value. Omit for uncontrolled use. */
   value?: string;
 }
 
@@ -118,7 +120,7 @@ const CommandInput = ({
     <SearchIcon className="size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       className={cn(
-        "flex h-10 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground/70 disabled:cursor-not-allowed disabled:text-muted-foreground/60",
+        "flex h-9 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground/70 disabled:cursor-not-allowed disabled:text-muted-foreground/60",
         className
       )}
       data-slot="command-input"
@@ -180,7 +182,8 @@ const CommandItem = ({
 );
 
 export default function Combobox({
-  value,
+  value: valueProp,
+  defaultValue = "",
   onValueChange,
   options: staticOptions,
   onSearch,
@@ -196,6 +199,8 @@ export default function Combobox({
 }: ComboboxProps) {
   const shouldReduceMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
+  const [internalValue, setInternalValue] = useState(defaultValue);
+  const value = valueProp ?? internalValue;
   const [query, setQuery] = useState("");
   const [asyncOptions, setAsyncOptions] = useState<ComboboxOption[]>([]);
   const [loading, setLoading] = useState(false);
@@ -271,6 +276,7 @@ export default function Combobox({
 
   const handleSelect = (selectedValue: string) => {
     const newValue = selectedValue === value ? "" : selectedValue;
+    setInternalValue(newValue);
     onValueChange?.(newValue);
     setQuery("");
     setOpen(false);

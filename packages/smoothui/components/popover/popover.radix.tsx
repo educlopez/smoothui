@@ -106,13 +106,14 @@ export const PopoverContent = ({
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content
         align={align}
-        className={cn(POPUP_CLASS, className)}
+        asChild
         data-slot="popover-content"
         side={side}
         sideOffset={sideOffset}
       >
         <motion.div
           animate={motionProps.animate}
+          className={cn(POPUP_CLASS, className)}
           initial={motionProps.initial}
           transition={motionProps.transition}
         >

@@ -64,7 +64,7 @@ export default function Switch({
       aria-labelledby={ariaLabelledBy}
       checked={isOn}
       className={cn(
-        "peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-transparent shadow-xs outline-none transition-colors focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed",
+        "peer state-transition focus-ring inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border border-transparent shadow-xs outline-none focus-visible:border-ring disabled:cursor-not-allowed",
         // Avoid root opacity — translucent tracks vanish on dark stages
         disabled
           ? isOn
@@ -101,9 +101,9 @@ export default function Switch({
             className={cn(
               "pointer-events-none block size-4 rounded-full ring-0",
               disabled
-                ? "bg-white shadow-sm"
+                ? "bg-thumb shadow-sm"
                 : isOn
-                  ? "bg-white"
+                  ? "bg-thumb"
                   : "bg-background dark:bg-foreground"
             )}
             transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}

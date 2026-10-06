@@ -43,7 +43,7 @@ export type ToolbarInputProps = Omit<
 > & { className?: string };
 
 const BUTTON_CLASS =
-  "inline-flex h-8 shrink-0 select-none items-center justify-center gap-1.5 rounded-md px-2.5 font-medium text-sm outline-none transition-colors hover:bg-muted focus-visible:ring-[3px] focus-visible:ring-ring/50 data-disabled:pointer-events-none data-disabled:opacity-50 data-pressed:bg-background data-pressed:shadow-sm dark:data-pressed:bg-foreground/15";
+  "inline-flex h-8 shrink-0 select-none items-center justify-center gap-1.5 rounded-md px-2.5 font-medium text-sm outline-none transition-colors hover:bg-muted focus-ring data-disabled:pointer-events-none data-disabled:opacity-50 data-pressed:bg-background data-pressed:shadow-sm dark:data-pressed:bg-foreground/15";
 
 export const ToolbarRoot = ({ className, ...props }: ToolbarRootProps) => (
   <ToolbarPrimitive.Root
@@ -76,7 +76,7 @@ export const ToolbarButton = ({ className, ...props }: ToolbarButtonProps) => (
 export const ToolbarLink = ({ className, ...props }: ToolbarLinkProps) => (
   <ToolbarPrimitive.Link
     className={cn(
-      "px-2.5 font-medium text-muted-foreground text-xs outline-none transition-colors hover:text-foreground focus-visible:ring-[3px] focus-visible:ring-ring/50",
+      "focus-ring px-2.5 font-medium text-muted-foreground text-xs outline-none transition-colors hover:text-foreground",
       className
     )}
     data-slot="toolbar-link"
@@ -101,7 +101,7 @@ export const ToolbarSeparator = ({
 export const ToolbarInput = ({ className, ...props }: ToolbarInputProps) => (
   <ToolbarPrimitive.Input
     className={cn(
-      "h-8 min-w-24 rounded-md border border-foreground/25 bg-background px-2 text-sm outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:opacity-50",
+      "focus-ring h-8 min-w-24 rounded-md border border-foreground/25 bg-background px-2 text-sm outline-none focus-visible:border-ring disabled:opacity-50",
       className
     )}
     data-slot="toolbar-input"

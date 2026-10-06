@@ -405,6 +405,8 @@ const CodeBlock = ({
     [visibleTokens]
   );
 
+  const isScrollable = !wrap || Boolean(maxHeight);
+
   return (
     <div
       className={cn(
@@ -429,8 +431,14 @@ const CodeBlock = ({
         </div>
       ) : null}
       <div
+        // A landmark needs a unique name, so only a block with a filename gets
+        // one; unnamed blocks stay focusable but are not a landmark.
+        aria-label={isScrollable && filename ? `${filename} code` : undefined}
         className={cn(!wrap && "overflow-x-auto")}
+        role={isScrollable && filename ? "region" : undefined}
         style={maxHeight ? { maxHeight, overflowY: "auto" } : undefined}
+        // A scroll container must be reachable by keyboard to be scrollable.
+        tabIndex={isScrollable ? 0 : undefined}
       >
         <pre
           className={cn(
@@ -446,6 +454,9 @@ const CodeBlock = ({
                 <div
                   className={cn(
                     "flex gap-3 border-transparent border-l-2 px-3",
+                    // Span the widest line so a highlight or rail is not cut
+                    // short when the block scrolls horizontally.
+                    !wrap && "w-max min-w-full",
                     // Legibility first: the code sitting on a highlighted line
                     // must keep its full contrast, so the surface barely moves
                     // and the accent lives entirely in the gutter rail plus a

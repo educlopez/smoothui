@@ -31,13 +31,15 @@ export interface DrawerProps {
   children?: ReactNode;
   /** Additional CSS class names */
   className?: string;
+  /** Initial open state when uncontrolled */
+  defaultOpen?: boolean;
   /** Description displayed below the title */
   description?: string;
   /** Footer content */
   footer?: ReactNode;
   /** Callback when the open state changes */
   onOpenChange?: (open: boolean) => void;
-  /** Whether the drawer is open */
+  /** Whether the drawer is open (controlled). Omit for uncontrolled use. */
   open?: boolean;
   /** The side from which the drawer opens */
   side?: DrawerSide;
@@ -246,7 +248,8 @@ const renderTrigger = (trigger: ReactNode) => {
 /* ------------------------------------------------------------------ */
 
 export default function Drawer({
-  open,
+  defaultOpen = false,
+  open: openProp,
   onOpenChange,
   side = "bottom",
   title,
@@ -257,6 +260,9 @@ export default function Drawer({
   footer,
 }: DrawerProps) {
   const shouldReduceMotion = useReducedMotion();
+  const [internalOpen, setInternalOpen] = useState(defaultOpen);
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : internalOpen;
   const [mounted, setMounted] = useState(Boolean(open));
 
   useEffect(() => {
@@ -267,9 +273,12 @@ export default function Drawer({
 
   const handleOpenChange = useCallback(
     (next: boolean) => {
+      if (!isControlled) {
+        setInternalOpen(next);
+      }
       onOpenChange?.(next);
     },
-    [onOpenChange]
+    [isControlled, onOpenChange]
   );
 
   const handleOpenChangeComplete = useCallback((next: boolean) => {
@@ -296,6 +305,14 @@ export default function Drawer({
               <motion.div
                 animate={{ opacity: 1 }}
                 className="flex min-h-0 flex-1 flex-col"
+                exit={
+                  shouldReduceMotion
+                    ? { opacity: 0, transition: { duration: 0 } }
+                    : {
+                        opacity: 0,
+                        transition: { duration: 0.2, ease: [0.23, 1, 0.32, 1] },
+                      }
+                }
                 initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
                 key="drawer-body"
                 transition={

@@ -3,7 +3,7 @@
 import { cn } from "@repo/smoothui-utils";
 import { Check, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
   DURATION_INSTANT,
@@ -154,6 +154,7 @@ export default function Select({
   "aria-labelledby": ariaLabelledBy,
 }: SelectProps) {
   const shouldReduceMotion = useReducedMotion();
+  const listboxId = useId();
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(defaultValue ?? "");
   const [focusedIndex, setFocusedIndex] = useState(-1);
@@ -199,6 +200,12 @@ export default function Select({
     }
     return flat;
   })();
+
+  const optionId = (index: number) => `${listboxId}-option-${index}`;
+  const activeOption =
+    isOpen && focusedIndex >= 0 && focusedIndex < allOptions.length
+      ? optionId(focusedIndex)
+      : undefined;
 
   const selectedLabel = allOptions.find(
     (opt) => opt.value === selectedValue
@@ -377,11 +384,12 @@ export default function Select({
             "transition-colors",
             opt.disabled
               ? "pointer-events-none opacity-50"
-              : "hover:bg-accent hover:text-white",
-            isFocused && "bg-accent text-white",
+              : "hover:bg-muted hover:text-foreground",
+            isFocused && "bg-muted text-foreground",
             isSelected && "font-medium"
           )}
           disabled={opt.disabled}
+          id={optionId(itemIndex)}
           onClick={() => handleSelect(opt)}
           onMouseEnter={() => setFocusedIndex(itemIndex)}
           role="option"
@@ -462,6 +470,7 @@ export default function Select({
                 ? { opacity: 1 }
                 : { opacity: 0, scale: 0.95, y: enterY }
             }
+            id={listboxId}
             role="listbox"
             style={{
               bottom:
@@ -538,13 +547,15 @@ export default function Select({
         ) : null}
 
         <button
+          aria-activedescendant={activeOption}
+          aria-controls={isOpen ? listboxId : undefined}
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label={ariaLabel}
           aria-labelledby={ariaLabelledBy}
           aria-required={required || undefined}
           className={cn(
-            "flex w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground",
+            "state-transition focus-ring flex w-full cursor-pointer items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-background px-3 py-2 text-sm shadow-xs outline-none focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground",
             size === "default" ? "h-9" : "h-8",
             className
           )}

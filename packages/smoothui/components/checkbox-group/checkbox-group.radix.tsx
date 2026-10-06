@@ -51,7 +51,7 @@ export interface CheckboxGroupItemProps {
 }
 
 const CHECKBOX_CLASS =
-  "peer size-4 shrink-0 rounded-[4px] border border-foreground/40 shadow-xs outline-none transition-shadow focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-muted aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground data-[state=checked]:bg-foreground data-[state=indeterminate]:bg-foreground data-[state=unchecked]:bg-background data-[state=checked]:text-background data-[state=indeterminate]:text-background disabled:data-[state=checked]:border-muted-foreground disabled:data-[state=indeterminate]:border-muted-foreground disabled:data-[state=checked]:bg-muted-foreground disabled:data-[state=indeterminate]:bg-muted-foreground dark:data-[state=unchecked]:bg-foreground/10 dark:aria-invalid:ring-destructive/40";
+  "peer size-4 shrink-0 rounded-[4px] border border-foreground/40 shadow-xs outline-none state-transition focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:border-foreground/30 disabled:bg-muted aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[state=checked]:border-foreground data-[state=indeterminate]:border-foreground data-[state=checked]:bg-foreground data-[state=indeterminate]:bg-foreground data-[state=unchecked]:bg-background data-[state=checked]:text-background data-[state=indeterminate]:text-background disabled:data-[state=checked]:border-muted-foreground disabled:data-[state=indeterminate]:border-muted-foreground disabled:data-[state=checked]:bg-muted-foreground disabled:data-[state=indeterminate]:bg-muted-foreground dark:data-[state=unchecked]:bg-foreground/10 dark:aria-invalid:ring-destructive/40";
 
 const CheckmarkPath = motion.path;
 const MotionSvg = motion.svg;
@@ -97,9 +97,10 @@ const CheckboxGlyph = ({
           strokeLinejoin="round"
           strokeWidth={3}
           transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+          aria-hidden="true"
+          focusable="false"
           viewBox="0 0 24 24"
         >
-          <title>Checked</title>
           <CheckmarkPath
             animate={shouldReduceMotion ? {} : { pathLength: 1 }}
             d="M20 6L9 17l-5-5"
@@ -133,9 +134,10 @@ const CheckboxGlyph = ({
           strokeLinejoin="round"
           strokeWidth={3}
           transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
+          aria-hidden="true"
+          focusable="false"
           viewBox="0 0 24 24"
         >
-          <title>Indeterminate</title>
           <CheckmarkPath
             animate={shouldReduceMotion ? {} : { pathLength: 1 }}
             d="M5 12h14"

@@ -13,6 +13,7 @@ installer: toolbar
 - Compound parts: `ToolbarRoot`, `ToolbarGroup`, `ToolbarButton`, `ToolbarLink`, `ToolbarSeparator`, `ToolbarInput`
 - Roving tabindex so arrow keys move between controls
 - Base UI by default; Radix twin available via style
+- `disabled` on the toolbar disables every button (and the input) in both twins
 
 ## States
 
@@ -29,6 +30,8 @@ Same controls stacked for side rails.
 ### Keyboard
 
 Arrow keys move focus within the toolbar. Home / End jump to the first / last item.
+
+With the Radix twin, `ToolbarInput` is a native input that sits outside the toolbar's roving focus: it stays reachable with Tab, and the arrow keys keep moving its caret instead of jumping to the next control. The Base UI twin includes the input in roving focus.
 
 ### ARIA Attributes
 

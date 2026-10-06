@@ -40,7 +40,7 @@ export type OTPFieldInputProps = Omit<
 > & { className?: string };
 
 const SLOT_CLASS =
-  "m-0 size-10 shrink-0 rounded-md border border-foreground/25 bg-background text-center font-medium text-sm tabular-nums outline-none transition-[color,box-shadow] placeholder:text-muted-foreground/50 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground data-disabled:cursor-not-allowed data-disabled:bg-muted";
+  "m-0 size-10 shrink-0 rounded-md border border-foreground/25 bg-background text-center font-medium text-sm tabular-nums outline-none state-transition placeholder:text-muted-foreground/50 focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:bg-muted disabled:text-muted-foreground data-disabled:cursor-not-allowed data-disabled:bg-muted";
 
 export const OTPFieldRoot = ({ className, ...props }: OTPFieldRootProps) => (
   <OTPFieldPrimitive.Root
