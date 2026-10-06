@@ -14,7 +14,7 @@ export type InputProps = Omit<
 
 /** Same surface as `FieldControl` so the two are visually interchangeable. */
 const INPUT_CLASS =
-  "flex h-9 w-full min-w-0 rounded-md border border-foreground/25 bg-background px-3 text-sm shadow-xs outline-none transition-[color,box-shadow] file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40";
+  "flex h-9 w-full min-w-0 rounded-md border border-foreground/25 bg-background px-3 text-sm shadow-xs outline-none state-transition file:border-0 file:bg-transparent file:font-medium file:text-sm placeholder:text-muted-foreground/60 focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40";
 
 /**
  * SmoothUI Input — Base UI primitive (no Radix twin; Radix has no Input).

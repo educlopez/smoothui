@@ -78,6 +78,22 @@ describe.each(twins)("ToggleGroup (%s) parity", (_name, Root, Item) => {
     expect(classes).toContain("hover:bg-muted/80");
   });
 
+  it("carries the positioned host and the coarse-pointer hit area", () => {
+    const [on] = setup();
+    expect(on).toBeDefined();
+    const classes = (on as HTMLElement).classList;
+    expect(classes.contains("relative")).toBe(true);
+    for (const token of [
+      "pointer-coarse:after:absolute",
+      "pointer-coarse:after:size-full",
+      "pointer-coarse:after:min-h-10",
+      "pointer-coarse:after:min-w-10",
+      "pointer-coarse:after:content-['']",
+    ]) {
+      expect(classes.contains(token)).toBe(true);
+    }
+  });
+
   it("scales the item while pressed", async () => {
     const [on] = setup();
     expect(on).toBeDefined();

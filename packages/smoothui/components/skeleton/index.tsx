@@ -2,7 +2,14 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
-import type { ComponentProps } from "react";
+import { type ComponentProps, useCallback, useRef } from "react";
+import {
+  EASE_IN_OUT,
+  LOOP_CLASS,
+  LOOP_REPEAT_DELAY,
+  loopTransition,
+  useLoopInView,
+} from "../../lib/animation";
 
 export type SkeletonProps = ComponentProps<"div"> & {
   /** Animate a subtle shimmer across the block */
@@ -14,11 +21,25 @@ export type SkeletonProps = ComponentProps<"div"> & {
  */
 export default function Skeleton({
   className,
+  ref,
   shimmer = true,
   ...props
 }: SkeletonProps) {
   const shouldReduceMotion = useReducedMotion();
-  const animate = shimmer && !shouldReduceMotion;
+  const hostRef = useRef<HTMLDivElement>(null);
+  const inView = useLoopInView(hostRef);
+  const setRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      hostRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref]
+  );
+  const animate = shimmer && !shouldReduceMotion && inView;
 
   return (
     <div
@@ -28,18 +49,23 @@ export default function Skeleton({
         className
       )}
       data-slot="skeleton"
+      ref={setRef}
       {...props}
     >
       {animate ? (
         <motion.span
-          animate={{ x: ["-100%", "100%"] }}
+          animate={{ transform: ["translateX(-100%)", "translateX(100%)"] }}
           aria-hidden
-          className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-foreground/10 to-transparent"
-          transition={{
-            duration: 1.2,
-            ease: [0.645, 0.045, 0.355, 1],
-            repeat: Number.POSITIVE_INFINITY,
-          }}
+          className={cn(
+            "pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-foreground/10 to-transparent",
+            LOOP_CLASS
+          )}
+          data-slot="skeleton-shimmer"
+          initial={{ transform: "translateX(-100%)" }}
+          transition={loopTransition(
+            { duration: 1.2, ease: EASE_IN_OUT },
+            LOOP_REPEAT_DELAY.shimmer
+          )}
         />
       ) : null}
     </div>

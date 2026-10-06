@@ -34,12 +34,12 @@ const smoothButtonVariants = cva(
     variants: {
       color: {
         accent:
-          "[--btn-fg:#fff] [--btn-hover:var(--color-brand-secondary)] [--btn:var(--color-brand)]",
+          "[--btn-fg:var(--color-on-brand)] [--btn-hover:var(--color-brand-secondary)] [--btn:var(--color-brand)]",
         amber:
           "[--btn-fg:var(--color-amber-fg)] [--btn-hover:var(--color-amber-hover)] [--btn:var(--color-amber)]",
         blue: "[--btn-fg:var(--color-blue-fg)] [--btn-hover:var(--color-blue-hover)] [--btn:var(--color-blue)]",
         destructive:
-          "[--btn-fg:#fff] [--btn-hover:color-mix(in_oklab,var(--color-destructive)_85%,black)] [--btn:var(--color-destructive)]",
+          "[--btn-fg:var(--color-destructive-fg)] [--btn-hover:var(--color-destructive-hover)] [--btn:var(--color-destructive)]",
         green:
           "[--btn-fg:var(--color-green-fg)] [--btn-hover:var(--color-green-hover)] [--btn:var(--color-green)]",
         neutral:
@@ -54,19 +54,20 @@ const smoothButtonVariants = cva(
         default: "h-10 gap-2 rounded-md px-4 py-2 text-sm [&_svg]:size-4",
         icon: "size-10 rounded-md [&_svg]:size-4",
         "icon-lg": "size-11 rounded-lg [&_svg]:size-5",
-        "icon-sm": "size-9 rounded-md [&_svg]:size-4",
+        "icon-sm":
+          "pointer-coarse:after:-translate-1/2 size-9 rounded-md pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-4",
         lg: "h-11 gap-2 rounded-lg px-8 text-base [&_svg]:size-5",
-        sm: "h-9 gap-1.5 rounded-md px-3 text-sm [&_svg]:size-4",
-        xs: "h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg]:size-3.5",
+        sm: "pointer-coarse:after:-translate-1/2 h-9 gap-1.5 rounded-md px-3 text-sm pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-4",
+        xs: "pointer-coarse:after:-translate-1/2 h-7 gap-1.5 rounded-sm px-2.5 text-xs pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-3.5",
       },
       variant: {
         candy:
-          "border-[0.5px] border-white/25 bg-gradient-to-b from-[var(--btn,var(--color-brand))] to-[var(--btn-hover,var(--color-brand-secondary))] text-[var(--btn-fg,#fff)] text-shadow-sm shadow-black/20 shadow-md ring-1 ring-[color-mix(in_oklab,var(--color-foreground)_15%,var(--btn,var(--color-brand)))] hover:from-[var(--btn-hover,var(--color-brand-secondary))] hover:to-[var(--btn-hover,var(--color-brand-secondary))] [&_svg]:drop-shadow-sm",
+          "border-[0.5px] border-on-brand/25 bg-gradient-to-b from-[var(--btn,var(--color-brand))] to-[var(--btn-hover,var(--color-brand-secondary))] text-[var(--btn-fg,var(--color-on-brand))] text-shadow-sm shadow-black/20 shadow-md ring-1 ring-[color-mix(in_oklab,var(--color-foreground)_15%,var(--btn,var(--color-brand)))] hover:from-[var(--btn-hover,var(--color-brand-secondary))] hover:to-[var(--btn-hover,var(--color-brand-secondary))] [&_svg]:drop-shadow-sm",
         // --- legacy (preserved verbatim, ignore `color`) ---
         default:
           "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90",
         destructive:
-          "bg-gradient-to-b from-[#FD4B4E] to-destructive text-shadow-sm text-white shadow-[0px_1px_2px_rgba(0,0,0,0.4),0px_0px_0px_1px_#F61418,inset_0px_0.75px_0px_rgba(255,255,255,0.2)] hover:from-destructive hover:to-destructive",
+          "bg-gradient-to-b from-destructive-top to-destructive text-destructive-fg text-shadow-sm shadow-[0px_1px_2px_var(--color-btn-drop),0px_0px_0px_1px_var(--color-destructive-edge),inset_0px_0.75px_0px_var(--color-btn-sheen)] hover:from-destructive hover:to-destructive",
         ghost:
           "text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_10%,transparent)]",
         link: "text-[var(--btn,var(--color-foreground))] underline-offset-4 hover:underline",

@@ -16,7 +16,7 @@ export type TextareaProps = Omit<
 
 /** Same surface language as Input / FieldControl. */
 const TEXTAREA_CLASS =
-  "flex min-h-20 w-full min-w-0 resize-y rounded-md border border-foreground/25 bg-background px-3 py-2 text-sm shadow-xs outline-none transition-[color,box-shadow] placeholder:text-muted-foreground/60 focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40";
+  "flex min-h-20 w-full min-w-0 resize-y rounded-md border border-foreground/25 bg-background px-3 py-2 text-sm shadow-xs outline-none state-transition placeholder:text-muted-foreground/60 focus-visible:border-ring focus-ring disabled:cursor-not-allowed disabled:border-foreground/20 disabled:bg-muted disabled:text-muted-foreground disabled:placeholder:text-muted-foreground/70 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40";
 
 /**
  * SmoothUI Textarea — Base UI Input rendered as multiline. No Radix twin.
