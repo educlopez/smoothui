@@ -10,6 +10,7 @@ import defaultMdxComponents from "fumadocs-ui/mdx";
 // biome-ignore lint/performance/noNamespaceImport: namespace import needed for spreading
 import * as icons from "lucide-react";
 import type { MDXComponents } from "mdx/types";
+import { brandMdxComponents } from "./components/brand-mdx";
 import { ChangelogEntry } from "./components/changelog-entry";
 
 // Create the TypeScript generator for AutoTypeTable
@@ -52,6 +53,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
       <AutoTypeTable {...props} generator={typeGenerator} />
     ),
     ChangelogEntry,
+    ...brandMdxComponents,
     // HTML `ref` attribute conflicts with `forwardRef`
     pre: ({ ref: _ref, ...props }) => (
       <CodeBlock {...props}>
