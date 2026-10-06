@@ -7,6 +7,14 @@
   --color-brand-secondary: var(--color-brand-secondary);
   --color-brand-light: var(--color-brand-light);
   --color-brand-lighter: var(--color-brand-lighter);
+  --color-on-brand: var(--color-on-brand);
+  --color-destructive-fg: var(--color-destructive-fg);
+  --color-destructive-hover: var(--color-destructive-hover);
+  --color-destructive-top: var(--color-destructive-top);
+  --color-destructive-edge: var(--color-destructive-edge);
+  --color-btn-drop: var(--color-btn-drop);
+  --color-btn-sheen: var(--color-btn-sheen);
+  --color-thumb: var(--color-thumb);
   --color-blue: var(--color-blue);
   --color-blue-hover: var(--color-blue-hover);
   --color-blue-fg: var(--color-blue-fg);
@@ -66,6 +74,23 @@
   --color-brand-secondary: oklch(0.66 0.21 354.31);
   --color-brand-light: oklch(0.78 0.15 352.53);
   --color-brand-lighter: oklch(0.85 0.1 352.53);
+  /* Foreground on brand fills. White on the brand pink is about 3:1 and is a
+     deliberate brand decision: the value is pinned, not an AA target. */
+  --color-on-brand: #fff;
+  /* Destructive fill family, same rendering as before the tokens existed. */
+  --color-destructive-fg: #fff;
+  --color-destructive-hover: color-mix(
+    in oklab,
+    var(--color-destructive) 85%,
+    black
+  );
+  --color-destructive-top: #fd4b4e;
+  --color-destructive-edge: #f61418;
+  /* Button drop shadow and inner sheen. */
+  --color-btn-drop: rgb(0 0 0 / 0.4);
+  --color-btn-sheen: rgb(255 255 255 / 0.2);
+  /* Switch and slider thumb surface. */
+  --color-thumb: #fff;
   /* DS Button color families (decoupled `color` axis). Each: base / hover / fg.
      Soft + outline tints are derived at use-site via color-mix. See design-system/components/button.md */
   --color-blue: oklch(0.62 0.19 256);
@@ -133,6 +158,7 @@
     transparent
   );
   --destructive: oklch(0.704 0.191 22.216);
+  --color-thumb: #fff;
   /* DS Button color families — dark mode (lift base L, amber keeps dark fg). */
   --color-blue: oklch(0.66 0.18 256);
   --color-blue-hover: oklch(0.72 0.16 256);
@@ -179,6 +205,40 @@
     var(--color-foreground) 7.5%,
     transparent
   );
+}
+
+/* Shared primitive utilities. Mirrored in apps/docs/lib/registry-tokens.ts so
+   installs get the same definitions. */
+
+/* Focus indicator for form controls: a 3px ring at 80% of the ring token. At
+   50% the ring over the page background measured 1.9:1 in light and 2.4:1 in
+   dark, under the 3:1 non-text floor; 80% gives 3.1:1 and 4.4:1. */
+@utility focus-ring {
+  &:focus-visible {
+    @apply ring-[3px] ring-ring/80;
+  }
+}
+
+/* Same ring for wrappers whose focusable child is nested (slider thumb). */
+@utility focus-ring-within {
+  &:has(:focus-visible) {
+    @apply ring-[3px] ring-ring/80;
+  }
+}
+
+/* Enlarged hit area for controls under 40px: on coarse pointers an invisible
+   pseudo-element grows the target to at least 40x40 around the control, so the
+   fine-pointer look and the layout do not change. The host must be positioned. */
+@utility hit-area {
+  &::after {
+    @apply pointer-coarse:absolute pointer-coarse:top-1/2 pointer-coarse:left-1/2 pointer-coarse:size-full pointer-coarse:min-h-10 pointer-coarse:min-w-10 pointer-coarse:-translate-1/2 pointer-coarse:content-[''];
+  }
+}
+
+/* One state transition for controls that change colour, border or shadow on
+   hover, focus and selection. Never ease-in; off with reduced motion. */
+@utility state-transition {
+  @apply transition-[background-color,border-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none;
 }
 
 /* Component NumberFlow */

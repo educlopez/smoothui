@@ -26,6 +26,17 @@ const CONSTANT_TOKENS: Record<string, string> = {
   "brand-light": "oklch(0.78 0.15 352.53)",
   "brand-lighter": "oklch(0.85 0.1 352.53)",
   "brand-secondary": "oklch(0.66 0.21 354.31)",
+  // Button drop shadow and inner sheen.
+  "btn-drop": "rgb(0 0 0 / 0.4)",
+  "btn-sheen": "rgb(255 255 255 / 0.2)",
+  "destructive-edge": "#f61418",
+  "destructive-fg": "#fff",
+  "destructive-hover":
+    "color-mix(in oklab, var(--color-destructive) 85%, black)",
+  "destructive-top": "#fd4b4e",
+  // Foreground on brand and destructive fills. White on the brand pink is about
+  // 3:1 and is a deliberate brand decision, so the value is pinned.
+  "on-brand": "#fff",
 };
 
 const SMOOTH_STEPS = [
@@ -46,12 +57,40 @@ const MODE_TOKENS: Record<string, { dark: string; light: string }> = {
     dark: "oklch(0.79 0.15 152)",
     light: "oklch(0.64 0.18 152)",
   },
+  // Switch and slider thumb surface.
+  thumb: { dark: "#fff", light: "#fff" },
   ...Object.fromEntries(
     SMOOTH_STEPS.map((step) => [
       `smooth-${step}`,
       { dark: DARK_SCALE[step], light: LIGHT_SCALE[step] },
     ])
   ),
+};
+
+/**
+ * Shared utilities this item ships in its `css` field, so a single installed
+ * primitive carries them too. Mirrors the `@utility` blocks in smoothui.css.
+ * `focus-ring` is the 3px ring at 80% (3:1 non-text contrast);
+ * `hit-area` grows a sub-40px control to a 40px target on coarse pointers;
+ * `state-transition` is the shared control transition.
+ */
+export const SHARED_UTILITIES: Record<string, Record<string, unknown>> = {
+  "focus-ring": {
+    "&:focus-visible": { "@apply ring-[3px] ring-ring/80": {} },
+  },
+  "focus-ring-within": {
+    "&:has(:focus-visible)": { "@apply ring-[3px] ring-ring/80": {} },
+  },
+  "hit-area": {
+    "&::after": {
+      "@apply pointer-coarse:absolute pointer-coarse:top-1/2 pointer-coarse:left-1/2 pointer-coarse:size-full pointer-coarse:min-h-10 pointer-coarse:min-w-10 pointer-coarse:-translate-1/2 pointer-coarse:content-['']":
+        {},
+    },
+  },
+  "state-transition": {
+    "@apply transition-[background-color,border-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none":
+      {},
+  },
 };
 
 /** Every token this item declares — used by the CI coverage check. */
@@ -90,9 +129,22 @@ const TOKENS_BY_SPECIFICITY = [...DECLARED_TOKENS].sort(
   (a, b) => b.length - a.length
 );
 
-/** Tokens from this item that the given source content actually references. */
-export const collectUsedTokens = (content: string): string[] =>
-  TOKENS_BY_SPECIFICITY.filter((token) => tokenUsageRegex(token).test(content));
+const utilityUsageRegex = (name: string): RegExp =>
+  new RegExp(`(?<![\\w-])${name}(?![\\w-])`);
+
+/**
+ * Tokens and shared utilities from this item that the given source content
+ * actually references. Utilities count, so a primitive that only uses
+ * `focus-ring` still pulls the item in.
+ */
+export const collectUsedTokens = (content: string): string[] => [
+  ...TOKENS_BY_SPECIFICITY.filter((token) =>
+    tokenUsageRegex(token).test(content)
+  ),
+  ...Object.keys(SHARED_UTILITIES).filter((name) =>
+    utilityUsageRegex(name).test(content)
+  ),
+];
 
 export const getTokensItem = (): RegistryItem => {
   const theme: Record<string, string> = {};
@@ -118,9 +170,15 @@ export const getTokensItem = (): RegistryItem => {
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
     author: "Eduardo Calvo <educlopez93@gmail.com>",
+    css: Object.fromEntries(
+      Object.entries(SHARED_UTILITIES).map(([name, rules]) => [
+        `@utility ${name}`,
+        rules,
+      ])
+    ) as RegistryItem["css"],
     cssVars: { dark, light, theme },
     description:
-      "SmoothUI design tokens: the brand accent, the smooth neutral ramp, and the button colour families that SmoothUI components and blocks reference. Override the accent by defining --brand.",
+      "SmoothUI design tokens and shared utilities: the brand accent, the smooth neutral ramp, the button colour families, the focus ring and the state transition that SmoothUI components and blocks reference. Override the accent by defining --brand.",
     name: TOKENS_ITEM_NAME,
     title: "SmoothUI Tokens",
     type: "registry:theme",

@@ -124,6 +124,54 @@ All owned primitives must:
 5. Keep focus-visible rings and keyboard behavior from the headless library —
    do not restyle focus away.
 
+## Shared utilities and tokens
+
+Primitives take their colour and their repeated class recipes from one place,
+never from literals:
+
+- `focus-ring` (and `focus-ring-within` for a wrapper whose focusable child is
+  nested, such as the slider thumb) is the 3px focus ring on form controls. It
+  is a Tailwind v4 `@utility` in `apps/docs/app/smoothui.css`, mirrored in the
+  shipped tokens item (`apps/docs/lib/registry-tokens.ts`) so an install of a
+  single primitive carries it. The ring is the ring token at 80%: at 50% it
+  measured 1.9:1 (light) and 2.4:1 (dark) over the page, under the 3:1
+  non-text floor.
+- `state-transition` is the shared colour, border and shadow transition for
+  stateful controls (150ms, ease-out, off with reduced motion).
+- Foreground and surface tokens: `on-brand`, `destructive-fg`,
+  `destructive-hover`, `destructive-top`, `destructive-edge`, `btn-drop`,
+  `btn-sheen`, `thumb`. A guard test (`scripts/primitives-hardcoded-colors.test.ts`)
+  fails on a hex, `rgb(`, `bg-white`, `text-white` or `border-white` in any
+  primitive source.
+- White text on the brand pink is about 3:1. That pairing is a deliberate brand
+  decision: `on-brand` is pinned to white and the ratio is pinned in
+  `scripts/primitives-tokens.test.ts`, not held to an AA target. Change the
+  brand or `on-brand` and that test fails until the decision is revisited.
+
+Looping animations (skeleton shimmer, spinner, indeterminate progress, the
+status pulse) share one preset, `LOOP` and `useLoopInView` in
+`packages/smoothui/lib/animation.ts`: `repeat` forever with an explicit
+`repeatDelay`, `will-change-transform`, and a pause while the element is off
+screen. Reduced motion renders no loop.
+
+## Selection color
+
+One rule for the colour that marks a selected state:
+
+- Controls whose selection is a mark on a surface (`checkbox`,
+  `checkbox-group`) fill with the foreground token (`bg-foreground`, check in
+  `text-background`). Brand is not used: the check glyph sits on the fill and
+  white over the brand pink is about 3:1, under the 3:1 floor for UI glyphs.
+- Controls whose selection is the "on" state of a track, dot or range
+  (`radio-group`, `switch`, `slider`) use the brand token (`border-brand`,
+  `bg-brand`).
+- `select` options are a list: the selected row is marked by weight and its
+  check icon, and the highlighted row is neutral (`bg-muted text-foreground`).
+  A brand or `bg-accent` row fill is not used.
+
+`scripts/primitives-selection-color.test.ts` lists the token each component
+uses and asserts it equals this rule.
+
 ## Test contract
 
 Every shipped primitive needs at least:
