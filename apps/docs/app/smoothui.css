@@ -127,7 +127,10 @@
   --color-ring: oklch(0.56 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --sidebar-accent: var(--color-smooth-200);
-  --color-background: oklch(0.965 0 0);
+  /* The page paints `bg-background`, which Tailwind inlines to smooth-50 from
+     the @theme above. Anything reading this variable directly (the blur veils,
+     the navbar) has to land on that same colour, or it shows as a grey box. */
+  --color-background: var(--color-smooth-50);
   --color-foreground: oklch(0.16 0 0);
   --color-card: oklch(1 0 0);
   --color-card-foreground: oklch(0.16 0 0);

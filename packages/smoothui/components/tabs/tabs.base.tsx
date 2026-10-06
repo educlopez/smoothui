@@ -122,10 +122,16 @@ const TabsPanel = ({
       className={cn(
         "min-w-0 pt-4 text-muted-foreground text-sm leading-relaxed outline-none",
         "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+        // The outgoing panel leaves the layout the moment it starts to exit;
+        // until then it sits in the flow next to the incoming one for a frame.
+        "data-ending-style:hidden",
+        // Fade in only. Fading the outgoing panel out keeps it in the flow next
+        // to the incoming one for the whole transition, so the pair stacks and
+        // the tab list and everything below it jump by a panel's height.
         animated &&
           (shouldReduceMotion
-            ? "data-ending-style:opacity-0 data-starting-style:opacity-0"
-            : "transition-opacity duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-ending-style:opacity-0 data-starting-style:opacity-0"),
+            ? "data-starting-style:opacity-0"
+            : "transition-opacity duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] data-starting-style:opacity-0"),
         className
       )}
       data-slot="tabs-panel"

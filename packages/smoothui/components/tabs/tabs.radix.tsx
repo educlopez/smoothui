@@ -11,7 +11,7 @@ import {
   useId,
   useState,
 } from "react";
-import { SPRING_DEFAULT } from "../../lib/animation";
+import { DURATION, EASE_OUT, SPRING_DEFAULT } from "../../lib/animation";
 import type { TabsVariant } from "./tabs.base";
 
 export type { TabsVariant } from "./tabs.base";
@@ -166,22 +166,42 @@ const TabsTab = ({ className, children, value, ...props }: TabsTabProps) => {
 const TabsPanel = ({
   className,
   animated = false,
+  children,
   ...props
 }: TabsPanelProps) => {
   const shouldReduceMotion = useReducedMotion();
+  const panelClassName = cn(
+    "min-w-0 pt-4 text-muted-foreground text-sm leading-relaxed outline-none",
+    "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+    className
+  );
+
+  if (!animated || shouldReduceMotion) {
+    return (
+      <TabsPrimitive.Content
+        className={panelClassName}
+        data-slot="tabs-panel"
+        {...props}
+      >
+        {children}
+      </TabsPrimitive.Content>
+    );
+  }
+
+  // Radix unmounts the inactive panel, so only the incoming one needs a fade.
+  // It is done with Motion because the registry ships no CSS keyframes (the
+  // old `animate-in` utilities were never defined, so nothing animated).
   return (
-    <TabsPrimitive.Content
-      className={cn(
-        "min-w-0 pt-4 text-muted-foreground text-sm leading-relaxed outline-none",
-        "focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
-        animated &&
-          !shouldReduceMotion &&
-          "data-[state=active]:fade-in-0 data-[state=active]:animate-in",
-        className
-      )}
-      data-slot="tabs-panel"
-      {...props}
-    />
+    <TabsPrimitive.Content asChild data-slot="tabs-panel" {...props}>
+      <motion.div
+        animate={{ opacity: 1 }}
+        className={panelClassName}
+        initial={{ opacity: 0 }}
+        transition={{ duration: DURATION.default, ease: EASE_OUT }}
+      >
+        {children}
+      </motion.div>
+    </TabsPrimitive.Content>
   );
 };
 

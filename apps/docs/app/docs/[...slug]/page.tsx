@@ -1,6 +1,8 @@
 import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
 import { BodyText } from "@docs/components/body-text";
+import { brandify } from "@docs/components/brand-mark";
+import { brandMdxComponents } from "@docs/components/brand-mdx";
 import { BreadcrumbSchema } from "@docs/components/breadcrumb-schema";
 import { BundleSizeBadge } from "@docs/components/bundle-size-badge";
 import { ChangelogEntry } from "@docs/components/changelog-entry";
@@ -262,10 +264,10 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const heading = (
     <>
-      <DocsTitle>{page.data.title}</DocsTitle>
+      <DocsTitle>{brandify(page.data.title)}</DocsTitle>
       {isSplit ? null : (
         <DocsDescription className="mb-2 text-foreground/70 text-md">
-          {page.data.description}
+          {brandify(page.data.description)}
         </DocsDescription>
       )}
     </>
@@ -274,7 +276,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const introCopy =
     isSplit && page.data.description ? (
       <p className="mb-[9vh] text-foreground/70 text-md leading-relaxed">
-        {page.data.description}
+        {brandify(page.data.description)}
       </p>
     ) : null;
 
@@ -282,6 +284,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <MDX
       components={{
         ...defaultMdxComponents,
+        ...brandMdxComponents,
         Accordion,
         Accordions,
         AutoTypeTable: AutoTypeTableWithGenerator,
@@ -474,7 +477,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                     that is only collapsed on wide screens; on a phone the navbar
                     already carries the drawer toggle, and showing both would
                     offer the same sidebar twice. */}
-                <div className="not-prose sticky top-[6.5rem] z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
+                <div className="not-prose sticky top-16 z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
                   {/* The module only blurs; painting the page colour under the
                       mask is what makes the text dissolve instead of staying
                       legible-but-smudged. */}

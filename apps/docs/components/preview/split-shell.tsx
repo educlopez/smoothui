@@ -244,9 +244,10 @@ export const SplitPreviewShell = ({
           className={cn(
             // Below Fumadocs' sidebar wrapper (z-20): the revealed catalogue is an
             // overlay and has to cover this row, not slide under it.
-            // `top-[6.5rem]` rather than `top-24`: 10px lower, which lines the crumb
-            // up with the centre of the stage's floating controls opposite it.
-            "not-prose sticky top-[6.5rem] z-10 mb-6 flex items-center justify-start gap-3 py-2 lg:justify-between",
+            // `top-16` rather than `top-14` (the navbar's height): 8px lower, which
+            // lines the crumb up with the centre of the stage's floating controls
+            // opposite it.
+            "not-prose sticky top-16 z-10 mb-6 flex items-center justify-start gap-3 py-2 lg:justify-between",
             // Prose scrolls under the blur, so it starts past it. The code panel
             // has its own scroll and never passes underneath, so it can start
             // right away and use the full height.
@@ -396,9 +397,9 @@ export const SplitPreviewShell = ({
           "not-prose relative w-full",
           // Pinned under the navbar and exactly as tall as what is left of the
           // viewport, so the stage never scrolls out from under the component.
-          "lg:sticky lg:top-24 lg:h-[calc(100dvh-6rem)] lg:self-start",
+          "lg:sticky lg:top-14 lg:h-[calc(100dvh-3.5rem)] lg:self-start",
           // Measured, not guessed: the docs main area is 56px top / 32px sides at
-          // md+, and the navbar bottom sits at 96px.
+          // md+, and the navbar bottom sits at 56px.
           // Cancels the docs page's own padding — 56px top, 32px sides at md+ —
           // so the stage reaches the header and bleeds off the right edge instead
           // of floating inside the article's gutter.

@@ -110,8 +110,37 @@ h1 .text-muted-foreground {
   color: var(--color-muted-foreground);
 }
 
-#nd-page :is(p, li) a {
+/* Sidebar and table of contents: one step below the 15px body so navigation
+   recedes behind the page it indexes. Group labels become small tracked caps
+   in the muted colour. */
+:where(#nd-sidebar, #nd-toc) a,
+:where(#nd-sidebar) button {
+  font-size: 0.8125rem;
+  line-height: 1.43;
+}
+
+:where(#nd-sidebar) p {
+  font-size: 0.6875rem;
   font-weight: 400;
+  line-height: 1.33;
+  color: var(--color-muted-foreground);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* List items fall back to the prose 16px/28px; paragraphs already sit at the
+   page's 15px, so lists have to follow them or the two read as different
+   documents. */
+#nd-page li {
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Emphasis is carried by ink and weight, not size: links and bold text step up
+   from the muted body copy to the foreground colour at weight 500. */
+#nd-page :is(p, li) a,
+#nd-page :is(p, li) strong {
+  font-weight: 500;
   color: var(--color-foreground);
   text-decoration-color: var(--color-smooth-600);
 }
@@ -325,8 +354,13 @@ article.group p {
 .prose :where(h6):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   @apply font-semibold text-sm;
 }
-.prose :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply text-base;
+/* Anchored on #nd-page: another .prose paragraph rule (text-base) is emitted
+   later in the cascade and wins a tie, so the id breaks it. */
+#nd-page
+  .prose
+  :where(p):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+  font-size: 0.9375rem;
+  line-height: 1.625;
 }
 .prose
   :where(strong):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -474,8 +508,10 @@ article.group p {
   background-color: var(--color-card);
 }
 
-/* Sidebar: hairline separator from the content column. */
+/* Sidebar: same surface as the top nav, with a hairline separator from the
+   content column. */
 #nd-sidebar {
+  background-color: var(--color-card);
   border-inline-end: 1px solid var(--color-border);
 }
 
