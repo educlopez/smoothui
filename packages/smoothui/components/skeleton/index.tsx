@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
-import { type ComponentProps, useRef } from "react";
+import { type ComponentProps, useCallback, useRef } from "react";
 import {
   EASE_IN_OUT,
   LOOP_CLASS,
@@ -28,14 +28,17 @@ export default function Skeleton({
   const shouldReduceMotion = useReducedMotion();
   const hostRef = useRef<HTMLDivElement>(null);
   const inView = useLoopInView(hostRef);
-  const setRef = (node: HTMLDivElement | null) => {
-    hostRef.current = node;
-    if (typeof ref === "function") {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
-  };
+  const setRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      hostRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref]
+  );
   const animate = shimmer && !shouldReduceMotion && inView;
 
   return (

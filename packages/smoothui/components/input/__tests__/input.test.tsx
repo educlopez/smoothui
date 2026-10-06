@@ -27,7 +27,9 @@ describe("Input", () => {
     const el = screen.getByRole("textbox");
     expect(el.className).toContain("h-9");
     expect(el.className).toContain("border-foreground/25");
-    expect(el.className).toContain("focus-ring");
+    // Exact token: `toContain` would also match `focus-ring-within`.
+    expect(el.classList.contains("focus-ring")).toBe(true);
+    expect(el.classList.contains("focus-ring-within")).toBe(false);
   });
 
   it("reports typed values", async () => {

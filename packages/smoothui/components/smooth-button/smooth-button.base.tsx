@@ -61,10 +61,11 @@ const smoothButtonVariants = cva(
         default: "h-10 gap-2 rounded-md px-4 py-2 text-sm [&_svg]:size-4",
         icon: "size-10 rounded-md [&_svg]:size-4",
         "icon-lg": "size-11 rounded-lg [&_svg]:size-5",
-        "icon-sm": "hit-area size-9 rounded-md [&_svg]:size-4",
+        "icon-sm":
+          "pointer-coarse:after:-translate-1/2 size-9 rounded-md pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-4",
         lg: "h-11 gap-2 rounded-lg px-8 text-base [&_svg]:size-5",
-        sm: "hit-area h-9 gap-1.5 rounded-md px-3 text-sm [&_svg]:size-4",
-        xs: "hit-area h-7 gap-1.5 rounded-sm px-2.5 text-xs [&_svg]:size-3.5",
+        sm: "pointer-coarse:after:-translate-1/2 h-9 gap-1.5 rounded-md px-3 text-sm pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-4",
+        xs: "pointer-coarse:after:-translate-1/2 h-7 gap-1.5 rounded-sm px-2.5 text-xs pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-[''] [&_svg]:size-3.5",
       },
       variant: {
         candy:

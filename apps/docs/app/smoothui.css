@@ -226,15 +226,6 @@
   }
 }
 
-/* Enlarged hit area for controls under 40px: on coarse pointers an invisible
-   pseudo-element grows the target to at least 40x40 around the control, so the
-   fine-pointer look and the layout do not change. The host must be positioned. */
-@utility hit-area {
-  &::after {
-    @apply pointer-coarse:absolute pointer-coarse:top-1/2 pointer-coarse:left-1/2 pointer-coarse:size-full pointer-coarse:min-h-10 pointer-coarse:min-w-10 pointer-coarse:-translate-1/2 pointer-coarse:content-[''];
-  }
-}
-
 /* One state transition for controls that change colour, border or shadow on
    hover, focus and selection. Never ease-in; off with reduced motion. */
 @utility state-transition {

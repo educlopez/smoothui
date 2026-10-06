@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
-import { type ComponentProps, useRef } from "react";
+import { type ComponentProps, useCallback, useRef } from "react";
 import {
   EASE_LINEAR,
   LOOP_CLASS,
@@ -39,14 +39,17 @@ export default function Spinner({
   const shouldReduceMotion = useReducedMotion();
   const hostRef = useRef<HTMLSpanElement>(null);
   const inView = useLoopInView(hostRef);
-  const setRef = (node: HTMLSpanElement | null) => {
-    hostRef.current = node;
-    if (typeof ref === "function") {
-      ref(node);
-    } else if (ref) {
-      ref.current = node;
-    }
-  };
+  const setRef = useCallback(
+    (node: HTMLSpanElement | null) => {
+      hostRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref]
+  );
   const spinning = !shouldReduceMotion && inView;
 
   return (

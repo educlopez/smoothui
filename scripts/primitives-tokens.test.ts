@@ -22,6 +22,31 @@ const ruleBody = (selector: string): string => {
   return css.slice(start, css.indexOf("\n}", start));
 };
 
+const squash = (value: string): string => value.replace(/\s+/g, " ").trim();
+
+/** Flatten a registry rule object into selector and `@apply` lines, in order. */
+const flattenRules = (rules: Record<string, unknown>): string[] =>
+  Object.entries(rules).flatMap(([key, value]) => [
+    squash(key),
+    ...(value && typeof value === "object"
+      ? flattenRules(value as Record<string, unknown>)
+      : []),
+  ]);
+
+/** The same lines for `@utility <name>` in smoothui.css, nesting dropped. */
+const cssUtilityRules = (name: string): string[] => {
+  const start = css.indexOf(`@utility ${name} {`);
+  if (start === -1) {
+    throw new Error(`utility ${name} not found`);
+  }
+  const end = css.indexOf("\n}\n", start);
+  const body = css.slice(css.indexOf("{", start) + 1, end);
+  return body
+    .split(/(?<=[{;])/)
+    .map((part) => squash(part.replace(/[;{}]/g, "")))
+    .filter((part) => part !== "");
+};
+
 const ROOT = ruleBody(":root");
 const DARK = ruleBody(".dark");
 const THEME_BLOCK = css.slice(
@@ -108,6 +133,43 @@ describe("primitive tokens in the registry tokens item", () => {
     for (const name of Object.keys(SHARED_UTILITIES)) {
       expect(item.css?.[`@utility ${name}`]).toBeDefined();
       expect(css).toContain(`@utility ${name} {`);
+    }
+  });
+
+  it("keeps the destructive hover and fill resolving at the same level", () => {
+    // `--color-destructive-hover` is mixed from `--color-destructive` at :root.
+    // The fill (`--btn: var(--color-destructive)`) resolves at the same level,
+    // so hover and fill always agree, in the root theme and in a nested
+    // `.dark` subtree alike. Redeclaring either one only in `.dark` would
+    // split them.
+    expect(ROOT).toContain("--color-destructive-hover: color-mix(");
+    expect(ROOT).toContain("var(--color-destructive)");
+    expect(DARK).not.toContain("--color-destructive:");
+    expect(DARK).not.toContain("--color-destructive-hover");
+  });
+
+  it("ships exactly the three shared utilities", () => {
+    expect(Object.keys(SHARED_UTILITIES).sort()).toEqual([
+      "focus-ring",
+      "focus-ring-within",
+      "state-transition",
+    ]);
+  });
+
+  it("keeps the full body of each utility identical in the css and the registry", () => {
+    for (const name of Object.keys(SHARED_UTILITIES)) {
+      expect(flattenRules(SHARED_UTILITIES[name] ?? {})).toEqual(
+        cssUtilityRules(name)
+      );
+    }
+  });
+
+  it("never applies a Tailwind 4.1-only variant from shared css", () => {
+    // An unknown variant inside @apply aborts the whole consumer stylesheet on
+    // older Tailwind 4.x, so shared css may not depend on one.
+    const shipped = JSON.stringify(item.css);
+    for (const source of [shipped, css]) {
+      expect(source).not.toMatch(/@apply[^;"]*pointer-(?:coarse|fine|none)/);
     }
   });
 });

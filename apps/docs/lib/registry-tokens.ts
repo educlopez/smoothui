@@ -71,7 +71,6 @@ const MODE_TOKENS: Record<string, { dark: string; light: string }> = {
  * Shared utilities this item ships in its `css` field, so a single installed
  * primitive carries them too. Mirrors the `@utility` blocks in smoothui.css.
  * `focus-ring` is the 3px ring at 80% (3:1 non-text contrast);
- * `hit-area` grows a sub-40px control to a 40px target on coarse pointers;
  * `state-transition` is the shared control transition.
  */
 export const SHARED_UTILITIES: Record<string, Record<string, unknown>> = {
@@ -80,12 +79,6 @@ export const SHARED_UTILITIES: Record<string, Record<string, unknown>> = {
   },
   "focus-ring-within": {
     "&:has(:focus-visible)": { "@apply ring-[3px] ring-ring/80": {} },
-  },
-  "hit-area": {
-    "&::after": {
-      "@apply pointer-coarse:absolute pointer-coarse:top-1/2 pointer-coarse:left-1/2 pointer-coarse:size-full pointer-coarse:min-h-10 pointer-coarse:min-w-10 pointer-coarse:-translate-1/2 pointer-coarse:content-['']":
-        {},
-    },
   },
   "state-transition": {
     "@apply transition-[background-color,border-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none":

@@ -35,7 +35,7 @@ export default function Toggle({
       aria-label={ariaLabel}
       asChild
       className={cn(
-        "hit-area relative inline-flex h-9 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-3 font-medium text-sm outline-none",
+        "pointer-coarse:after:-translate-1/2 relative inline-flex h-9 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-3 font-medium text-sm outline-none pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-['']",
         "bg-secondary text-muted-foreground",
         "state-transition focus-ring hover:bg-muted",
         "data-[state=on]:border-border data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm dark:data-[state=on]:bg-foreground/15",

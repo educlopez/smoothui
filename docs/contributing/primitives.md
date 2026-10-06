@@ -138,6 +138,13 @@ never from literals:
   non-text floor.
 - `state-transition` is the shared colour, border and shadow transition for
   stateful controls (150ms, ease-out, off with reduced motion).
+- The enlarged coarse-pointer hit area (smooth-button `xs`, `sm`, `icon-sm`,
+  toggle, toggle-group item) is written as `pointer-coarse:after:*` classes on
+  the markup, with `relative` on the host, and not as a shared `@utility`: an
+  unknown variant inside `@apply` aborts the whole consumer stylesheet on
+  Tailwind older than 4.1, while the same class in markup is ignored there.
+  Shared CSS must not `@apply` a variant newer than the oldest Tailwind 4.x we
+  support (a test pins this).
 - Foreground and surface tokens: `on-brand`, `destructive-fg`,
   `destructive-hover`, `destructive-top`, `destructive-edge`, `btn-drop`,
   `btn-sheen`, `thumb`. A guard test (`scripts/primitives-hardcoded-colors.test.ts`)

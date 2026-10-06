@@ -112,7 +112,8 @@ const ToggleGroupItem = ({
       aria-label={ariaLabel}
       asChild
       className={cn(
-        "inline-flex h-8 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-2.5 font-medium text-sm outline-none",
+        "relative inline-flex h-8 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-2.5 font-medium text-sm outline-none",
+        "pointer-coarse:after:-translate-1/2 pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-['']",
         "bg-transparent text-muted-foreground shadow-none",
         "state-transition focus-ring hover:bg-muted/80",
         "data-[state=on]:border-border data-[state=on]:bg-background data-[state=on]:text-foreground data-[state=on]:shadow-sm dark:data-[state=on]:bg-foreground/15",
