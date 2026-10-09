@@ -480,7 +480,7 @@ export const getPackage = cache(
 
     const response: RegistryItem = {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
-      author: "Eduardo Calvo <educlopez93@gmail.com>",
+      author: "Eduardo Calvo <edu@smoothui.dev>",
       css,
       dependencies,
       description: packageJson.description,
