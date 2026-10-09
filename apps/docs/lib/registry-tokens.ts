@@ -162,7 +162,7 @@ export const getTokensItem = (): RegistryItem => {
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
+    author: "Eduardo Calvo <edu@smoothui.dev>",
     css: Object.fromEntries(
       Object.entries(SHARED_UTILITIES).map(([name, rules]) => [
         `@utility ${name}`,

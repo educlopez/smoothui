@@ -87,3 +87,4 @@ apps/docs/.install-check/
 
 # Local pnpm content-addressable store (never commit)
 .pnpm-store/
+.env*

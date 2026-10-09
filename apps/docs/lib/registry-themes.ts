@@ -201,7 +201,7 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
   if (itemName === DEFAULT_THEME_NAME) {
     return {
       $schema: "https://ui.shadcn.com/schema/registry-item.json",
-      author: "Eduardo Calvo <educlopez93@gmail.com>",
+      author: "Eduardo Calvo <edu@smoothui.dev>",
       cssVars: {
         dark: defaultModeVars(
           DEFAULT_DARK_SCALE,
@@ -240,7 +240,7 @@ export const getTheme = (itemName: string): RegistryItem | undefined => {
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
+    author: "Eduardo Calvo <edu@smoothui.dev>",
     cssVars: {
       dark: buildModeVars(
         DARK_SCALE,
