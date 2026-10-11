@@ -93,11 +93,18 @@ const FILTERED_DEV_DEPS = new Set([
   "typescript",
 ]);
 
-const getAllPackagePaths = async (
-  baseDir: string,
-  currentPath = ""
-): Promise<string[]> => {
-  const fullPath = join(baseDir, currentPath);
+const getAllPackagePaths = async (currentPath = ""): Promise<string[]> => {
+  // Turbopack traces join(baseDir, dynamic) as the whole project. Keep
+  // process.cwd() plus the fixed packages/smoothui prefix at every join so
+  // analysis can bound the walk to that tree (same path as before).
+  const fullPath = join(
+    process.cwd(),
+    "..",
+    "..",
+    "packages",
+    "smoothui",
+    currentPath
+  );
   const entries = await readdir(fullPath, { withFileTypes: true });
 
   const packagePaths: string[] = [];
@@ -108,16 +115,23 @@ const getAllPackagePaths = async (
     }
 
     const entryPath = join(currentPath, entry.name);
-    const entryFullPath = join(baseDir, entryPath);
 
     // Check if this directory has a package.json
     try {
-      const packageJsonPath = join(entryFullPath, "package.json");
+      const packageJsonPath = join(
+        process.cwd(),
+        "..",
+        "..",
+        "packages",
+        "smoothui",
+        entryPath,
+        "package.json"
+      );
       await stat(packageJsonPath);
       packagePaths.push(entryPath);
     } catch {
       // No package.json, recurse into subdirectories
-      const subPackages = await getAllPackagePaths(baseDir, entryPath);
+      const subPackages = await getAllPackagePaths(entryPath);
       packagePaths.push(...subPackages);
     }
   }
@@ -138,10 +152,9 @@ export const getAllPackageNames = async (): Promise<string[]> => {
     .filter((name) => !FILTERED_PACKAGES.has(name));
 
   // Get nested packages in smoothui
-  const smoothuiPath = join(packagesDir, "smoothui");
   let smoothuiPackages: string[] = [];
   try {
-    smoothuiPackages = await getAllPackagePaths(smoothuiPath);
+    smoothuiPackages = await getAllPackagePaths();
   } catch {
     // smoothui directory might not exist
   }
