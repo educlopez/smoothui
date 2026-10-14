@@ -1,9 +1,11 @@
 import manifest from "@docs/lib/generated/last-modified.json";
 
 const times = manifest.times as Record<string, number>;
+const LEADING_SLASHES = /^\/+/;
+const DOCS_PREFIX = /^docs\//;
 
 const normalize = (path: string): string => {
-  const trimmed = path.replace(/^\/+/, "");
+  const trimmed = path.replace(LEADING_SLASHES, "");
   return trimmed.endsWith(".mdx") ? trimmed : `${trimmed}.mdx`;
 };
 
@@ -12,7 +14,7 @@ const normalize = (path: string): string => {
  * Returns undefined when git was unavailable or the path is missing.
  */
 export const getLastModified = (infoPath: string): number | undefined => {
-  const stripped = infoPath.replace(/^docs\//, "");
+  const stripped = infoPath.replace(DOCS_PREFIX, "");
   const candidates = [
     infoPath,
     normalize(infoPath),

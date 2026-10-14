@@ -11,11 +11,11 @@ const DOCS_ROOT = join(import.meta.dirname, "..");
 const CONTENT_ROOT = join(DOCS_ROOT, "content", "docs");
 const OUTPUT_PATH = join(DOCS_ROOT, "lib", "generated", "last-modified.json");
 
-type Manifest = {
+interface Manifest {
   generatedAt: string;
   /** `components/dock.mdx` → unix milliseconds */
   times: Record<string, number>;
-};
+}
 
 const gitLogMs = (filePath: string): number | null => {
   try {
