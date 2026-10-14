@@ -50,10 +50,7 @@ export const DELETED_TO_PRIMITIVES = [
   ["searchable-dropdown", "combobox"],
 ] as const;
 
-const registryAliasEntries = [
-  ...COMPONENT_RENAMES,
-  ...DELETED_TO_PRIMITIVES,
-].filter(([from, to]) => from !== to);
+const registryAliasEntries = [...COMPONENT_RENAMES, ...DELETED_TO_PRIMITIVES];
 
 /** Old registry JSON name → current registry JSON name. */
 export const REGISTRY_ALIASES: Readonly<Record<string, string>> =

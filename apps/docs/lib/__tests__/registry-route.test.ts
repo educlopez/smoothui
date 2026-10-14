@@ -128,6 +128,28 @@ describe("/r/{style}/{name}.json", () => {
     );
   });
 
+  it("accepts official radix-* and default styles, not only nova", async () => {
+    const vega = await getStyled(
+      request(),
+      styleContext("radix-vega", "dialog.json")
+    );
+    const legacy = await getStyled(
+      request(),
+      styleContext("default", "dialog.json")
+    );
+
+    expect(vega.status).toBe(200);
+    expect(legacy.status).toBe(200);
+    expect(mocks.getPackage).toHaveBeenCalledWith(
+      "smoothui/components/dialog",
+      "radix-vega"
+    );
+    expect(mocks.getPackage).toHaveBeenCalledWith(
+      "smoothui/components/dialog",
+      "default"
+    );
+  });
+
   it("returns 404 for an unknown style, never 500", async () => {
     const response = await getStyled(
       request(),

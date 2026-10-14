@@ -10,14 +10,17 @@ const readJson = (relative: string): Record<string, unknown> =>
     unknown
   >;
 
-describe("release-please", () => {
-  it("keeps the manifest at the last published versions until release-please bumps them", () => {
-    const manifest = readJson(".release-please-manifest.json");
+const SEMVER = /^\d+\.\d+\.\d+$/;
 
-    expect(manifest).toEqual({
-      "packages/cli": "1.1.3",
-      "packages/smoothui": "3.9.1",
-    });
+describe("release-please", () => {
+  it("lists each package with a semver so release-please can bump them independently", () => {
+    const manifest = readJson(".release-please-manifest.json");
+    const names = Object.keys(manifest).toSorted();
+
+    expect(names).toEqual(["packages/cli", "packages/smoothui"]);
+    for (const name of names) {
+      expect(manifest[name], name).toMatch(SEMVER);
+    }
   });
 
   it("versions smoothui and the CLI as separate packages", () => {

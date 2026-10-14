@@ -2,26 +2,70 @@
  * Registry style helpers — mirror shadcn's base-* vs radix-* convention.
  *
  * Plain `/r/{name}.json` defaults to the Base twin.
- * Style-aware `/r/{style}/{name}.json` picks Base for `base-*` styles and
- * Radix for the other known styles (`radix-nova`, `new-york`). Unknown
- * styles 404; they are not treated as Radix.
+ * Style-aware `/r/{style}/{name}.json` picks Base for any `base-*` style and
+ * Radix for `radix-*`, `aria-*`, `default`, and `new-york`. Names that match
+ * none of those 404; they are not treated as Radix.
  */
 
 export type RegistryPrimitiveStyle = "base" | "radix";
 
-/** Styles the registry actually serves under `/r/{style}/{name}.json`. */
+/**
+ * Official `style` enum from https://ui.shadcn.com/schema.json.
+ * Runtime acceptance is broader: any `base-*` / `radix-*` / `aria-*` prefix,
+ * plus `default` and `new-york`.
+ */
 export const KNOWN_REGISTRY_STYLES = [
+  "default",
+  "new-york",
+  "radix-vega",
+  "radix-nova",
+  "radix-maia",
+  "radix-lyra",
+  "radix-mira",
+  "radix-luma",
+  "radix-sera",
+  "radix-rhea",
+  "base-vega",
+  "base-nova",
+  "base-maia",
+  "base-lyra",
+  "base-mira",
+  "base-luma",
+  "base-sera",
+  "base-rhea",
+  "aria-vega",
+  "aria-nova",
+  "aria-maia",
+  "aria-lyra",
+  "aria-mira",
+  "aria-luma",
+  "aria-sera",
+  "aria-rhea",
+] as const;
+
+export type KnownRegistryStyle = (typeof KNOWN_REGISTRY_STYLES)[number];
+
+/** Styles pre-rendered at build time. Others resolve on demand. */
+export const PRERENDERED_REGISTRY_STYLES = [
   "base-nova",
   "radix-nova",
   "new-york",
 ] as const;
 
-export type KnownRegistryStyle = (typeof KNOWN_REGISTRY_STYLES)[number];
+const RADIX_STYLE_ALIASES = new Set(["default", "new-york"]);
 
-export const isKnownRegistryStyle = (
-  style: string
-): style is KnownRegistryStyle =>
-  (KNOWN_REGISTRY_STYLES as readonly string[]).includes(style);
+/** True for official styles and any future `base-*` / `radix-*` / `aria-*` name. */
+export const isKnownRegistryStyle = (style: string): boolean => {
+  const name = style.toLowerCase();
+  if (RADIX_STYLE_ALIASES.has(name)) {
+    return true;
+  }
+  return (
+    name.startsWith("base-") ||
+    name.startsWith("radix-") ||
+    name.startsWith("aria-")
+  );
+};
 
 /** Styles whose name starts with `base-` (e.g. base-nova) select Base UI. */
 export const isBaseStyle = (style: string | null | undefined): boolean =>
@@ -31,7 +75,7 @@ export const isBaseStyle = (style: string | null | undefined): boolean =>
  * Resolve which twin to ship.
  * - No style (plain `/r/{name}.json`) → base (product default)
  * - Explicit `base-*` → base
- * - Known non-base styles (`radix-nova`, `new-york`) → radix
+ * - `radix-*`, `aria-*`, `default`, `new-york` → radix
  */
 export const resolvePrimitiveStyle = (
   style: string | null | undefined

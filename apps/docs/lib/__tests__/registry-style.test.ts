@@ -3,7 +3,6 @@ import {
   isBaseStyle,
   isDualPrimitivePackage,
   isKnownRegistryStyle,
-  KNOWN_REGISTRY_STYLES,
   registryDependencyUrl,
   resolvePrimitiveStyle,
   twinFileName,
@@ -44,22 +43,58 @@ describe("registry-style", () => {
   });
 });
 
+/**
+ * `style` enum from https://ui.shadcn.com/schema.json — 2 legacy names plus
+ * the 8 visual presets for each of radix, base, and aria.
+ */
+const OFFICIAL_SHADCN_STYLES = [
+  "default",
+  "new-york",
+  "radix-vega",
+  "radix-nova",
+  "radix-maia",
+  "radix-lyra",
+  "radix-mira",
+  "radix-luma",
+  "radix-sera",
+  "radix-rhea",
+  "base-vega",
+  "base-nova",
+  "base-maia",
+  "base-lyra",
+  "base-mira",
+  "base-luma",
+  "base-sera",
+  "base-rhea",
+  "aria-vega",
+  "aria-nova",
+  "aria-maia",
+  "aria-lyra",
+  "aria-mira",
+  "aria-luma",
+  "aria-sera",
+  "aria-rhea",
+] as const;
+
 describe("known registry styles", () => {
-  it("accepts only the published style names", () => {
-    expect(KNOWN_REGISTRY_STYLES).toEqual([
-      "base-nova",
-      "radix-nova",
-      "new-york",
-    ]);
-    expect(isKnownRegistryStyle("base-nova")).toBe(true);
-    expect(isKnownRegistryStyle("radix-nova")).toBe(true);
-    expect(isKnownRegistryStyle("new-york")).toBe(true);
+  it("accepts every style in the official shadcn schema", () => {
+    expect(OFFICIAL_SHADCN_STYLES).toHaveLength(26);
+    for (const style of OFFICIAL_SHADCN_STYLES) {
+      expect(isKnownRegistryStyle(style), style).toBe(true);
+    }
   });
 
-  it("rejects unknown styles instead of treating them as Radix", () => {
+  it("maps official styles to the Base or Radix twin", () => {
+    for (const style of OFFICIAL_SHADCN_STYLES) {
+      const expected = style.startsWith("base-") ? "base" : "radix";
+      expect(resolvePrimitiveStyle(style), style).toBe(expected);
+    }
+  });
+
+  it("rejects names that are not a base-*, radix-*, aria-*, default, or new-york", () => {
     expect(isKnownRegistryStyle("not-a-style")).toBe(false);
-    expect(isKnownRegistryStyle("base-vega")).toBe(false);
     expect(isKnownRegistryStyle("radix")).toBe(false);
+    expect(isKnownRegistryStyle("base")).toBe(false);
     expect(isKnownRegistryStyle("")).toBe(false);
   });
 });

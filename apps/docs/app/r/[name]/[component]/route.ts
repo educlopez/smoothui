@@ -4,7 +4,7 @@ import { getRegistryPackageResponse } from "@docs/lib/registry-response";
 import { SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
 import {
   isKnownRegistryStyle,
-  KNOWN_REGISTRY_STYLES,
+  PRERENDERED_REGISTRY_STYLES,
 } from "@docs/lib/registry-style";
 import { TOKENS_ITEM_NAME } from "@docs/lib/registry-tokens";
 import { type NextRequest, NextResponse } from "next/server";
@@ -17,8 +17,8 @@ interface StyleRegistryParams {
 
 /**
  * Style-aware registry: `/r/{style}/{name}.json`
- * Known `base-*` styles → Base UI twin; known Radix styles → Radix twin.
- * Unknown styles 404.
+ * `base-*` → Base UI twin; `radix-*`, `aria-*`, `default`, `new-york` → Radix.
+ * Anything else 404.
  */
 export const GET = async (_: NextRequest, { params }: StyleRegistryParams) => {
   const { name: style, component } = await params;
@@ -50,7 +50,7 @@ export const GET = async (_: NextRequest, { params }: StyleRegistryParams) => {
 
 export const generateStaticParams = async () => {
   const allPackageNames = await getAllPackageNames();
-  const styles = KNOWN_REGISTRY_STYLES;
+  const styles = PRERENDERED_REGISTRY_STYLES;
   const names = [
     ...allPackageNames.map(
       (packageName) => packageName.split("/").at(-1) || packageName
