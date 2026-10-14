@@ -30,7 +30,7 @@ overrides:
   qs: ">=6.16.0 <7"
   diff: ">=8.0.3"
   "@isaacs/brace-expansion": ">=5.0.1"
-  "@modelcontextprotocol/sdk": ">=1.31.0"
+  "@modelcontextprotocol/sdk": "^1.31.0"
   mdast-util-to-hast: ">=13.2.1"
   rollup: ">=4.59.0"
   minimatch: ">=10.2.3"
