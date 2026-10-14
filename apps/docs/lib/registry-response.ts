@@ -1,6 +1,10 @@
 import { resolveRegistryName } from "@docs/lib/legacy-registry";
 import { getAllPackageNameMapping, getPackage } from "@docs/lib/package";
-import { isKnownRegistryStyle } from "@docs/lib/registry-style";
+import {
+  isAriaStyle,
+  isKnownRegistryStyle,
+  UNSUPPORTED_ARIA_STYLE_ERROR,
+} from "@docs/lib/registry-style";
 import { NextResponse } from "next/server";
 
 const FILTERED_PACKAGES = new Set([
@@ -20,6 +24,13 @@ export const getRegistryPackageResponse = async (
   shortName: string,
   style: string | null
 ): Promise<NextResponse> => {
+  if (isAriaStyle(style)) {
+    return NextResponse.json(
+      { error: UNSUPPORTED_ARIA_STYLE_ERROR },
+      { status: 404 }
+    );
+  }
+
   if (style !== null && style !== "" && !isKnownRegistryStyle(style)) {
     return notFoundJson();
   }

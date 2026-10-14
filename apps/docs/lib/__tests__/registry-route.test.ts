@@ -38,6 +38,8 @@ vi.mock("@docs/lib/studio-preset", () => ({
 
 import { GET as getStyled } from "../../app/r/[name]/[component]/route";
 import { GET } from "../../app/r/[name]/route";
+import { getRegistryPackageResponse } from "../registry-response";
+import { UNSUPPORTED_ARIA_STYLE_ERROR } from "../registry-style";
 
 const request = () =>
   new NextRequest("https://smoothui.dev/r/basic-modal.json");
@@ -150,6 +152,19 @@ describe("/r/{style}/{name}.json", () => {
     );
   });
 
+  it("returns 404 for aria-* instead of serving the Radix twin", async () => {
+    const response = await getStyled(
+      request(),
+      styleContext("aria-vega", "dialog.json")
+    );
+
+    expect(response.status).toBe(404);
+    await expect(response.json()).resolves.toEqual({
+      error: UNSUPPORTED_ARIA_STYLE_ERROR,
+    });
+    expect(mocks.getPackage).not.toHaveBeenCalled();
+  });
+
   it("returns 404 for an unknown style, never 500", async () => {
     const response = await getStyled(
       request(),
@@ -159,6 +174,16 @@ describe("/r/{style}/{name}.json", () => {
     expect(response.status).toBe(404);
     await expect(response.json()).resolves.toEqual({
       error: "Package not found",
+    });
+    expect(mocks.getPackage).not.toHaveBeenCalled();
+  });
+
+  it("returns the same aria-* 404 from getRegistryPackageResponse", async () => {
+    const response = await getRegistryPackageResponse("dialog", "aria-nova");
+
+    expect(response.status).toBe(404);
+    await expect(response.json()).resolves.toEqual({
+      error: UNSUPPORTED_ARIA_STYLE_ERROR,
     });
     expect(mocks.getPackage).not.toHaveBeenCalled();
   });

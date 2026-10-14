@@ -22,3 +22,5 @@ Those names now resolve to the current package. Prefer the new name going forwar
 | `skeleton-loader` | `content-skeleton` | `npx shadcn@latest add https://smoothui.dev/r/content-skeleton.json` |
 
 `https://smoothui.dev/r/{old}.json` still returns the new item.
+
+`aria-*` styles (React Aria) are not served yet. `/r/aria-{preset}/{name}.json` returns 404 with `{ "error": "React Aria styles are not supported yet" }` until an Aria twin exists. Use `base-*` or `radix-*` (or `default` / `new-york`) instead.

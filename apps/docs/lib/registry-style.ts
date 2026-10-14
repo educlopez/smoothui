@@ -3,16 +3,16 @@
  *
  * Plain `/r/{name}.json` defaults to the Base twin.
  * Style-aware `/r/{style}/{name}.json` picks Base for any `base-*` style and
- * Radix for `radix-*`, `aria-*`, `default`, and `new-york`. Names that match
- * none of those 404; they are not treated as Radix.
+ * Radix for `radix-*`, `default`, and `new-york`. `aria-*` is React Aria and
+ * 404s until an Aria twin exists. Other names 404 as unknown.
  */
 
 export type RegistryPrimitiveStyle = "base" | "radix";
 
 /**
  * Official `style` enum from https://ui.shadcn.com/schema.json.
- * Runtime acceptance is broader: any `base-*` / `radix-*` / `aria-*` prefix,
- * plus `default` and `new-york`.
+ * Runtime acceptance is any `base-*` / `radix-*` prefix, plus `default`
+ * and `new-york`. `aria-*` is listed here but is not served.
  */
 export const KNOWN_REGISTRY_STYLES = [
   "default",
@@ -54,17 +54,19 @@ export const PRERENDERED_REGISTRY_STYLES = [
 
 const RADIX_STYLE_ALIASES = new Set(["default", "new-york"]);
 
-/** True for official styles and any future `base-*` / `radix-*` / `aria-*` name. */
+export const UNSUPPORTED_ARIA_STYLE_ERROR =
+  "React Aria styles are not supported yet";
+
+export const isAriaStyle = (style: string | null | undefined): boolean =>
+  typeof style === "string" && style.toLowerCase().startsWith("aria-");
+
+/** True for served styles: `base-*`, `radix-*`, `default`, and `new-york`. */
 export const isKnownRegistryStyle = (style: string): boolean => {
   const name = style.toLowerCase();
   if (RADIX_STYLE_ALIASES.has(name)) {
     return true;
   }
-  return (
-    name.startsWith("base-") ||
-    name.startsWith("radix-") ||
-    name.startsWith("aria-")
-  );
+  return name.startsWith("base-") || name.startsWith("radix-");
 };
 
 /** Styles whose name starts with `base-` (e.g. base-nova) select Base UI. */
@@ -75,7 +77,7 @@ export const isBaseStyle = (style: string | null | undefined): boolean =>
  * Resolve which twin to ship.
  * - No style (plain `/r/{name}.json`) → base (product default)
  * - Explicit `base-*` → base
- * - `radix-*`, `aria-*`, `default`, `new-york` → radix
+ * - `radix-*`, `default`, `new-york` → radix
  */
 export const resolvePrimitiveStyle = (
   style: string | null | undefined

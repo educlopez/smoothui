@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import {
+  isAriaStyle,
   isBaseStyle,
   isDualPrimitivePackage,
   isKnownRegistryStyle,
   registryDependencyUrl,
   resolvePrimitiveStyle,
   twinFileName,
+  UNSUPPORTED_ARIA_STYLE_ERROR,
 } from "../registry-style";
 
 describe("registry-style", () => {
@@ -77,21 +79,42 @@ const OFFICIAL_SHADCN_STYLES = [
 ] as const;
 
 describe("known registry styles", () => {
-  it("accepts every style in the official shadcn schema", () => {
+  it("accepts official base-*, radix-*, default, and new-york styles", () => {
+    const served = OFFICIAL_SHADCN_STYLES.filter(
+      (style) => !style.startsWith("aria-")
+    );
     expect(OFFICIAL_SHADCN_STYLES).toHaveLength(26);
-    for (const style of OFFICIAL_SHADCN_STYLES) {
+    for (const style of served) {
       expect(isKnownRegistryStyle(style), style).toBe(true);
     }
   });
 
-  it("maps official styles to the Base or Radix twin", () => {
-    for (const style of OFFICIAL_SHADCN_STYLES) {
+  it("maps official Base and Radix styles to the matching twin", () => {
+    const served = OFFICIAL_SHADCN_STYLES.filter(
+      (style) => !style.startsWith("aria-")
+    );
+    for (const style of served) {
       const expected = style.startsWith("base-") ? "base" : "radix";
       expect(resolvePrimitiveStyle(style), style).toBe(expected);
     }
   });
 
-  it("rejects names that are not a base-*, radix-*, aria-*, default, or new-york", () => {
+  it("treats aria-* as React Aria, not as a served twin", () => {
+    expect(UNSUPPORTED_ARIA_STYLE_ERROR).toBe(
+      "React Aria styles are not supported yet"
+    );
+    for (const style of OFFICIAL_SHADCN_STYLES.filter((name) =>
+      name.startsWith("aria-")
+    )) {
+      expect(isAriaStyle(style), style).toBe(true);
+      expect(isKnownRegistryStyle(style), style).toBe(false);
+    }
+    expect(isAriaStyle("radix-nova")).toBe(false);
+    expect(isAriaStyle("base-nova")).toBe(false);
+    expect(isAriaStyle("default")).toBe(false);
+  });
+
+  it("rejects names that are not a base-*, radix-*, default, or new-york", () => {
     expect(isKnownRegistryStyle("not-a-style")).toBe(false);
     expect(isKnownRegistryStyle("radix")).toBe(false);
     expect(isKnownRegistryStyle("base")).toBe(false);

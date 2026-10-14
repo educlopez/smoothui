@@ -3,8 +3,10 @@ import { getAllPackageNames } from "@docs/lib/package";
 import { getRegistryPackageResponse } from "@docs/lib/registry-response";
 import { SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
 import {
+  isAriaStyle,
   isKnownRegistryStyle,
   PRERENDERED_REGISTRY_STYLES,
+  UNSUPPORTED_ARIA_STYLE_ERROR,
 } from "@docs/lib/registry-style";
 import { TOKENS_ITEM_NAME } from "@docs/lib/registry-tokens";
 import { type NextRequest, NextResponse } from "next/server";
@@ -17,11 +19,18 @@ interface StyleRegistryParams {
 
 /**
  * Style-aware registry: `/r/{style}/{name}.json`
- * `base-*` → Base UI twin; `radix-*`, `aria-*`, `default`, `new-york` → Radix.
- * Anything else 404.
+ * `base-*` → Base UI twin; `radix-*`, `default`, `new-york` → Radix.
+ * `aria-*` 404s until an Aria twin exists. Anything else 404.
  */
 export const GET = async (_: NextRequest, { params }: StyleRegistryParams) => {
   const { name: style, component } = await params;
+
+  if (isAriaStyle(style)) {
+    return NextResponse.json(
+      { error: UNSUPPORTED_ARIA_STYLE_ERROR },
+      { status: 404 }
+    );
+  }
 
   if (!isKnownRegistryStyle(style)) {
     return NextResponse.json({ error: "Package not found" }, { status: 404 });

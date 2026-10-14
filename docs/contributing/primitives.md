@@ -218,7 +218,7 @@ documented on the component page — never silently different.
 | URL | Behavior |
 |---|---|
 | `https://smoothui.dev/r/{name}.json` | **Base** twin (product default) |
-| `https://smoothui.dev/r/{style}/{name}.json` | Style-aware: any `base-*` → Base files; `radix-*`, `aria-*`, `default`, and `new-york` → Radix files. Other names 404. |
+| `https://smoothui.dev/r/{style}/{name}.json` | Style-aware: any `base-*` → Base files; `radix-*`, `default`, and `new-york` → Radix files. Other names 404. |
 
 Consumers configure:
 
