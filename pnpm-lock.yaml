@@ -38,7 +38,7 @@ overrides:
   '@octokit/request-error': '>=5.1.1'
   picomatch: '>=4.0.4'
   path-to-regexp: '>=8.4.0'
-  brace-expansion: '>=5.0.11'
+  brace-expansion: ^5.0.11
   proxy-addr: '>=2.0.8 <3'
   source-map-js: '>=1.2.2 <2'
   yaml: '>=2.8.3'
