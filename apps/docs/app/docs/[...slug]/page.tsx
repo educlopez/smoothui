@@ -39,6 +39,7 @@ import {
   type ContributorInfo,
   getComponentContributors,
 } from "@docs/lib/git-contributor";
+import { getLastModified } from "@docs/lib/last-modified";
 import { createMetadata } from "@docs/lib/metadata";
 import { getSectionNav } from "@docs/lib/section-nav";
 import { getPageImage, source } from "@docs/lib/source";
@@ -102,9 +103,9 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   const loaded = await page.data.load();
   const { body: MDX, toc } = loaded;
 
-  // Comes from the loaded page now that pages are compiled on demand (set by
-  // the last-modified plugin, which reads git).
-  const { lastModified } = loaded as { lastModified?: number };
+  // Build-time git manifest. The fumadocs last-modified plugin spawned `git`
+  // on every request; the serverless runtime has no git binary.
+  const lastModified = getLastModified(page.data.info.path);
 
   const type = page.data.info.path.startsWith("blocks") ? "block" : "component";
   const isComponentOrBlock =
@@ -404,11 +405,15 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         // them.
         footer={isSplit || isGalleryIndex ? { enabled: false } : undefined}
         full={page.data.full ?? isSplit}
-        tableOfContent={{
-          footer: footerContent,
-          style: "clerk",
-        }}
-        toc={updatedToc}
+        tableOfContent={
+          isSplit
+            ? { enabled: false }
+            : {
+                footer: footerContent,
+                style: "clerk",
+              }
+        }
+        toc={isSplit ? [] : updatedToc}
       >
         {isSplit && previewData ? (
           <DocsBody>

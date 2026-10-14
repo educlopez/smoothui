@@ -4,13 +4,13 @@ import { AddToKitButton } from "@docs/components/add-to-kit-button";
 import { MotionLogo } from "@docs/components/landing/logos/motion-logo";
 import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
+import { docsHrefForSlug } from "@docs/lib/docs-href";
 import { Button } from "@repo/shadcn-ui/components/ui/button";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import { Boxes, KeyRound, SquareArrowOutUpRight, Terminal } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import type { ReactNode } from "react";
-
 import { TEMPLATE_SHOTS } from "./template-shots";
 
 export type TemplateShowcaseProps = {
@@ -191,16 +191,25 @@ const TemplateContents = ({
       Installed with it — {registryDependencies.length} components
     </p>
     <ul className="mt-3 flex flex-wrap gap-1.5">
-      {registryDependencies.map((dependency) => (
-        <li key={dependency}>
-          <Link
-            className="inline-flex rounded-md bg-muted px-2 py-1 font-mono text-foreground/80 text-xs transition-colors hover:text-foreground"
-            href={`/docs/components/${dependency}`}
-          >
-            {dependency}
-          </Link>
-        </li>
-      ))}
+      {registryDependencies.map((dependency) => {
+        const href = docsHrefForSlug(dependency);
+        const className =
+          "inline-flex rounded-md bg-muted px-2 py-1 font-mono text-foreground/80 text-xs";
+        return (
+          <li key={dependency}>
+            {href ? (
+              <Link
+                className={`${className} transition-colors hover:text-foreground`}
+                href={href}
+              >
+                {dependency}
+              </Link>
+            ) : (
+              <span className={className}>{dependency}</span>
+            )}
+          </li>
+        );
+      })}
     </ul>
   </aside>
 );

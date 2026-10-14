@@ -9,6 +9,15 @@ export interface ChangelogEntry {
 
 export const CHANGELOG: ChangelogEntry[] = [
   {
+    date: "Oct 14, 2026",
+    description:
+      "Registry and docs URLs for renamed packages. Old /r/{name}.json names still resolve. The CLI package is unchanged.",
+    href: "/docs/guides/changelog#400",
+    id: "4.0.0",
+    title: "Registry rename",
+    version: "4.0.0",
+  },
+  {
     date: "Sep 19, 2026",
     description:
       "67 additional components, an interactive landing and Playground, a 95-asset media library, topic-specific blog covers, accessibility and security dependency fixes, usable reduced-motion stack pagination, and more compact install controls.",

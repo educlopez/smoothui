@@ -200,16 +200,16 @@ curl "https://smoothui.dev/api/v1/blocks?blockType=hero"
 {
   "data": [
     {
-      "name": "hero-section",
-      "displayName": "HeroSection",
-      "description": "Animated hero section with gradient text and CTA buttons.",
-      "blockType": "hero",
-      "components": ["animated-gradient-text", "magnetic-button"],
+      "name": "header-1",
+      "displayName": "Header1",
+      "description": "Modern header block with navigation and mobile menu",
+      "blockType": "header",
+      "components": [],
       "category": "layout",
-      "tags": ["hero", "landing-page"],
-      "complexity": "moderate",
-      "animationType": "spring",
-      "installCommand": "npx shadcn@latest add @smoothui/hero-section"
+      "tags": ["header", "hero", "navigation", "grid", "interactive", "animated"],
+      "complexity": "complex",
+      "animationType": "tween",
+      "installCommand": "npx shadcn@latest add @smoothui/header-1"
     }
   ],
   "total": 5,
@@ -228,7 +228,7 @@ Returns full metadata for a single block. Add `?include=source` for raw source c
 </BodyText>
 
 ```bash title="Request"
-curl "https://smoothui.dev/api/v1/blocks/hero-section?include=source"
+curl "https://smoothui.dev/api/v1/blocks/header-1?include=source"
 ```
 
 <BodyText>

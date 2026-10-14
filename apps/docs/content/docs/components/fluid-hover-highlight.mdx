@@ -1,0 +1,40 @@
+---
+title: Fluid Hover Highlight
+description: A highlight that springs between list items as the pointer moves, instead of blinking on hover.
+icon: MousePointer2
+dependencies:
+  - motion.dev
+installer: fluid-hover-highlight
+---
+
+## Features
+
+- Springs between `useFluidHover` rects so one highlight glides across a list
+- Pass the hook result, or a measured `rect` and `session` for custom layouts
+- Container must be `position: relative`; radius and stacking go on `className`
+- Opacity fades on enter and leave; position uses the shared spring presets
+- Instant when `prefers-reduced-motion` is set, or when `transition={false}`
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `data-slot="fluid-hover-highlight"` | Highlight | Marks the decorative layer for styling. It is `pointer-events-none` and never receives focus |
+
+### Screen Reader
+
+- The highlight is decorative. List items keep their own labels and roles.
+- Interactive children stay in the accessibility tree; the highlight does not wrap them.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, the highlight snaps to the active rect with no travel.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/fluid-hover-highlight/index.tsx"
+  name="FluidHoverHighlightProps"
+/>

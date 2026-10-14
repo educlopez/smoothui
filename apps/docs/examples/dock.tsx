@@ -43,7 +43,7 @@ export default function DockDemo() {
     }));
 
   return (
-    <div className="relative h-[420px] w-full overflow-hidden rounded-2xl border border-foreground/10">
+    <div className="relative h-[min(28rem,70dvh)] w-full overflow-hidden rounded-2xl border border-foreground/10">
       <img
         alt="Amber and violet abstract color fields"
         className="absolute inset-0 size-full select-none object-cover"
@@ -72,18 +72,18 @@ export default function DockDemo() {
         </p>
       </div>
 
-      <div className="absolute top-1/2 right-1 -translate-y-1/2">
+      <div className="absolute top-1/2 right-2 -translate-y-1/2 max-lg:hidden">
         <Dock
-          baseSize={40}
-          distance={140}
+          baseSize={36}
+          distance={120}
           items={sideItems}
-          magnification={1.45}
+          magnification={1.35}
           orientation="vertical"
         />
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 flex justify-center">
-        <Dock items={items} />
+      <div className="absolute inset-x-0 bottom-3 flex justify-center px-2 sm:bottom-4">
+        <Dock baseSize={36} distance={120} items={items} magnification={1.35} />
       </div>
     </div>
   );

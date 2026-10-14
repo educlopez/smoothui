@@ -1,6 +1,10 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import { createMDX } from "fumadocs-mdx/next";
 import type { NextConfig } from "next";
+import {
+  docBasicDirectRedirects,
+  docsComponentRedirects,
+} from "./lib/legacy-registry";
 
 const withMDX = createMDX();
 
@@ -49,71 +53,7 @@ const config: NextConfig = {
   reactStrictMode: true,
   redirects() {
     return [
-      // Primitives moved out of /docs/components into their own section.
-      ...[
-        "checkbox",
-        "combobox",
-        "context-menu",
-        "dialog",
-        "drawer",
-        "dropdown-menu",
-        "radio-group",
-        "select",
-        "smooth-button",
-      ].map((slug) => ({
-        destination: `/docs/primitives/${slug}`,
-        permanent: true,
-        source: `/docs/components/${slug}`,
-      })),
-      {
-        destination: "/docs/primitives",
-        permanent: true,
-        source: "/docs/guides/primitives",
-      },
-      // Redirect removed matrix-card component to home page
-      {
-        destination: "/",
-        permanent: true,
-        source: "/docs/components/matrix-card",
-      },
-      // Specific redirects for renamed components (must come before generic patterns)
-      {
-        destination: "/docs/components/morph-surface",
-        permanent: true,
-        source: "/docs/components/ai-input",
-      },
-      // Patterns rename (Basic UI → Patterns)
-      ...[
-        ["animated-toggle", "morph-toggle"],
-        ["animated-input", "float-input"],
-        ["animated-number-input", "digit-roll"],
-        ["animated-o-t-p-input", "otp-slots"],
-        ["animated-otp-input", "otp-slots"],
-        ["skeleton-loader", "content-skeleton"],
-        ["notification-badge", "count-badge"],
-        ["country-dialog", "country-picker"],
-      ].map(([from, to]) => ({
-        destination: `/docs/components/${to}`,
-        permanent: true,
-        source: `/docs/components/${from}`,
-      })),
-      // Deleted near-duplicates → use the SmoothUI primitive instead
-      ...[
-        ["basic-modal", "dialog"],
-        ["basic-dropdown", "dropdown-menu"],
-        ["basic-accordion", "accordion"],
-        ["accordion", "accordion"],
-        ["basic-toast", "toast"],
-        ["searchable-dropdown", "combobox"],
-        ["animated-tabs", "tabs"],
-        ["animated-tooltip", "tooltip"],
-        ["animated-progress-bar", "progress"],
-        ["code-block", "code-block"],
-      ].map(([from, to]) => ({
-        destination: `/docs/primitives/${to}`,
-        permanent: true,
-        source: `/docs/components/${from}`,
-      })),
+      ...docsComponentRedirects(),
       {
         destination: "/docs/blocks/logo-clouds",
         permanent: true,
@@ -124,18 +64,14 @@ const config: NextConfig = {
         permanent: true,
         source: "/doc/blocks/team",
       },
-      {
-        destination: "/docs/primitives/accordion",
-        permanent: true,
-        source: "/doc/basic/basic-accordion",
-      },
+      // Direct /doc/basic/{old} → final URL, before the :component wildcard.
+      ...docBasicDirectRedirects(),
       // Redirect /doc to /docs
       {
         destination: "/docs",
         permanent: true,
         source: "/doc",
       },
-      // Redirecciones de categorías a /docs/components/
       {
         destination: "/docs/components/:component",
         permanent: true,

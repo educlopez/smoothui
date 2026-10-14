@@ -416,7 +416,7 @@ export const SplitPreviewShell = ({
             this looks like SmoothUI and not like a second design. On a phone the
             column sits mid-article, where a radius keeps it from bleeding into the
             prose; on desktop it runs edge to edge. */}
-        <div className="frame-box relative flex h-[70dvh] items-center justify-center overflow-hidden rounded-xl lg:h-full lg:rounded-none">
+        <div className="frame-box relative mb-20 flex h-[calc(100dvh-11rem)] max-h-[36rem] items-center justify-center overflow-hidden rounded-xl lg:mb-0 lg:h-full lg:max-h-none lg:rounded-none">
           {/* Sized with `max-width`, not `width`: as a flex item the stage's used
               width comes from the layout, so an inline `width` was ignored while a
               `max-width` constrains it — which is what makes the switcher real.

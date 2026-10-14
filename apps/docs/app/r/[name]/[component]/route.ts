@@ -1,11 +1,12 @@
-import {
-  getAllPackageNameMapping,
-  getAllPackageNames,
-  getPackage,
-} from "@docs/lib/package";
+import { LEGACY_REGISTRY_NAMES } from "@docs/lib/legacy-registry";
+import { getAllPackageNames } from "@docs/lib/package";
+import { getRegistryPackageResponse } from "@docs/lib/registry-response";
 import { SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
+import {
+  isKnownRegistryStyle,
+  KNOWN_REGISTRY_STYLES,
+} from "@docs/lib/registry-style";
 import { TOKENS_ITEM_NAME } from "@docs/lib/registry-tokens";
-import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
 interface StyleRegistryParams {
@@ -14,14 +15,17 @@ interface StyleRegistryParams {
   params: Promise<{ name: string; component: string }>;
 }
 
-const filteredPackages = ["shadcn-ui", "typescript-config", "patterns"];
-
 /**
  * Style-aware registry: `/r/{style}/{name}.json`
- * `base-*` → Base UI twin; anything else → Radix twin.
+ * Known `base-*` styles → Base UI twin; known Radix styles → Radix twin.
+ * Unknown styles 404.
  */
 export const GET = async (_: NextRequest, { params }: StyleRegistryParams) => {
   const { name: style, component } = await params;
+
+  if (!isKnownRegistryStyle(style)) {
+    return NextResponse.json({ error: "Package not found" }, { status: 404 });
+  }
 
   if (!component.endsWith(".json")) {
     return NextResponse.json(
@@ -32,45 +36,31 @@ export const GET = async (_: NextRequest, { params }: StyleRegistryParams) => {
 
   const shortName = component.replace(".json", "");
 
-  if (filteredPackages.includes(shortName)) {
-    notFound();
-  }
-
   // Themes / skill / tokens stay on the flat URL — no style variants.
   if (
     shortName === SKILL_ITEM_NAME ||
     shortName === TOKENS_ITEM_NAME ||
     shortName.startsWith("theme-")
   ) {
-    notFound();
+    return NextResponse.json({ error: "Package not found" }, { status: 404 });
   }
 
-  try {
-    const mapping = await getAllPackageNameMapping();
-    const fullPackageName = mapping.get(shortName);
-
-    if (!fullPackageName) {
-      notFound();
-    }
-
-    const pkg = await getPackage(fullPackageName, style);
-
-    return NextResponse.json(pkg);
-  } catch (error) {
-    return NextResponse.json(
-      { details: error, error: "Failed to get package" },
-      { status: 500 }
-    );
-  }
+  return getRegistryPackageResponse(shortName, style);
 };
 
 export const generateStaticParams = async () => {
   const allPackageNames = await getAllPackageNames();
-  const styles = ["base-nova", "radix-nova", "new-york"];
+  const styles = KNOWN_REGISTRY_STYLES;
+  const names = [
+    ...allPackageNames.map(
+      (packageName) => packageName.split("/").at(-1) || packageName
+    ),
+    ...LEGACY_REGISTRY_NAMES,
+  ];
 
   return styles.flatMap((style) =>
-    allPackageNames.map((packageName) => ({
-      component: packageName.split("/").at(-1) || packageName,
+    names.map((component) => ({
+      component,
       name: style,
     }))
   );
