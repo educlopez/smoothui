@@ -1,4 +1,5 @@
 import { blogSource } from "@docs/lib/blog-source";
+import { getLastModified } from "@docs/lib/last-modified";
 import { source } from "@docs/lib/source";
 import type { InferPageType } from "fumadocs-core/source";
 import type { MetadataRoute } from "next";
@@ -78,19 +79,15 @@ const getPriority = (url: string): number => {
   return 0.5;
 };
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
   const url = (path: string): string => new URL(path, baseUrl).toString();
 
-  // Docs pages are compiled on demand, and `lastModified` comes with the compiled
-  // page, so load them one at a time rather than all at once.
-  const docPages: { lastModified?: number; page: DocPage }[] = [];
-  for (const page of source.getPages()) {
-    // biome-ignore lint/performance/noAwaitInLoops: sequential on purpose, see above
-    const { lastModified } = (await page.data.load()) as {
-      lastModified?: number;
-    };
-    docPages.push({ lastModified, page });
-  }
+  const docPages: { lastModified?: number; page: DocPage }[] = source
+    .getPages()
+    .map((page) => ({
+      lastModified: getLastModified(page.data.info.path),
+      page,
+    }));
 
   return [
     {

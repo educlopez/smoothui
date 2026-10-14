@@ -461,6 +461,31 @@ article.group p {
   --fd-sidebar-width: 240px;
 }
 
+/* Room under the article so the floating toolbar does not cover titles. */
+#nd-page {
+  padding-bottom: 5.5rem;
+}
+
+@media (min-width: 1024px) {
+  #nd-page {
+    padding-bottom: 2rem;
+  }
+}
+
+/* Mobile sidebar sheet must sit above the floating toolbar and TOC popover. */
+@media (max-width: 767px) {
+  #nd-sidebar {
+    z-index: 70;
+  }
+}
+
+/* Split pages have no TOC column; keep the clerk popover off the preview. */
+html[data-split-docs] #nd-toc,
+html[data-split-docs] [data-toc-popover],
+html[data-split-docs] #nd-toc-popover {
+  display: none;
+}
+
 /* The fumadocs notebook container sets grid-template via inline style using
    `calc(var(--fd-layout-width,97rem) - sidebar - toc)` for the main track.
    Percentage values in CSS vars don't resolve against the grid container's

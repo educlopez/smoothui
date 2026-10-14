@@ -1,13 +1,10 @@
-import {
-  getAllPackageNameMapping,
-  getAllPackageNames,
-  getPackage,
-} from "@docs/lib/package";
+import { LEGACY_REGISTRY_NAMES } from "@docs/lib/legacy-registry";
+import { getAllPackageNames } from "@docs/lib/package";
+import { getRegistryPackageResponse } from "@docs/lib/registry-response";
 import { getSkill, SKILL_ITEM_NAME } from "@docs/lib/registry-skill";
 import { getAllThemeNames, getTheme } from "@docs/lib/registry-themes";
 import { getTokensItem, TOKENS_ITEM_NAME } from "@docs/lib/registry-tokens";
 import { getCustomTheme } from "@docs/lib/studio-preset";
-import { notFound } from "next/navigation";
 import { type NextRequest, NextResponse } from "next/server";
 
 interface RegistryParams {
@@ -34,7 +31,7 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
   const shortName = name.replace(".json", "");
 
   if (filteredPackages.includes(shortName)) {
-    notFound();
+    return NextResponse.json({ error: "Package not found" }, { status: 404 });
   }
 
   const theme = getTheme(shortName);
@@ -57,24 +54,8 @@ export const GET = async (_: NextRequest, { params }: RegistryParams) => {
     return NextResponse.json(getTokensItem());
   }
 
-  try {
-    const mapping = await getAllPackageNameMapping();
-    const fullPackageName = mapping.get(shortName);
-
-    if (!fullPackageName) {
-      notFound();
-    }
-
-    // Plain URL → Base (product default). Pass null so resolvePrimitiveStyle → base.
-    const pkg = await getPackage(fullPackageName, null);
-
-    return NextResponse.json(pkg);
-  } catch (error) {
-    return NextResponse.json(
-      { details: error, error: "Failed to get package" },
-      { status: 500 }
-    );
-  }
+  // Plain URL → Base (product default). Pass null so resolvePrimitiveStyle → base.
+  return getRegistryPackageResponse(shortName, null);
 };
 
 export const generateStaticParams = async () => {
@@ -84,6 +65,7 @@ export const generateStaticParams = async () => {
     ...allPackageNames.map((packageName) => ({
       name: packageName.split("/").at(-1) || packageName,
     })),
+    ...LEGACY_REGISTRY_NAMES.map((name) => ({ name })),
     ...getAllThemeNames().map((themeName) => ({ name: themeName })),
     { name: SKILL_ITEM_NAME },
   ];

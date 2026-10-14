@@ -5,7 +5,7 @@
 export const PRIMITIVE_COUNT = 47;
 
 /** Documented components, one per page under /docs/components. */
-export const COMPONENT_COUNT = 180;
+export const COMPONENT_COUNT = 181;
 
 /** Individual blocks — every <Preview> across the block category pages. */
 export const BLOCK_COUNT = 34;

@@ -7,6 +7,7 @@ import type { RegistryItem } from "shadcn/schema";
 import {
   isDualPrimitivePackage,
   type RegistryPrimitiveStyle,
+  registryDependencyUrl,
   resolvePrimitiveStyle,
   twinFileName,
 } from "./registry-style";
@@ -17,8 +18,6 @@ const SHADCN_IMPORT_REGEX = /@\/components\/ui\/([a-z-]+)/g;
 const RELATIVE_IMPORT_REGEX = /from\s+["']\.\.\/([a-z-]+)["']/g;
 const SMOOTHUI_IMPORT_REGEX = /@\/components\/smoothui\/([a-z0-9-]+)/g;
 const SMOOTHUI_DATA_IMPORT_REGEX = /@\/lib\/smoothui-data/;
-
-const REGISTRY_URL = "https://smoothui.dev/r";
 
 // Workspace import specifiers must be rewritten to the paths where the
 // registry installs files in user projects — raw @repo/* or @smoothui/*
@@ -389,13 +388,13 @@ export const getPackage = cache(
       const pkg = WORKSPACE_DEP_ALIASES.get(raw) ?? raw;
 
       if (pkg !== actualPackageName) {
-        registryDependencies.add(`${REGISTRY_URL}/${pkg}.json`);
+        registryDependencies.add(registryDependencyUrl(pkg, style));
       }
     }
 
     // Add relative imports as registry dependencies
     for (const relativeImport of relativeImports) {
-      registryDependencies.add(`${REGISTRY_URL}/${relativeImport}.json`);
+      registryDependencies.add(registryDependencyUrl(relativeImport, style));
     }
 
     // Add cross-item imports detected in the rewritten content
@@ -403,19 +402,19 @@ export const getPackage = cache(
     for (const match of allContent.matchAll(SMOOTHUI_IMPORT_REGEX)) {
       const [, name] = match;
       if (name && name !== actualPackageName) {
-        registryDependencies.add(`${REGISTRY_URL}/${name}.json`);
+        registryDependencies.add(registryDependencyUrl(name, style));
       }
     }
 
     if (!isData && SMOOTHUI_DATA_IMPORT_REGEX.test(allContent)) {
-      registryDependencies.add(`${REGISTRY_URL}/data.json`);
+      registryDependencies.add(registryDependencyUrl("data", style));
     }
 
     // SmoothUI-only tokens (`brand`, the `smooth-*` ramp, the button colour
     // families) exist nowhere in a plain shadcn project, so anything referencing
     // one has to pull the tokens item in alongside itself.
     if (collectUsedTokens(allContent).length > 0) {
-      registryDependencies.add(`${REGISTRY_URL}/${TOKENS_ITEM_NAME}.json`);
+      registryDependencies.add(registryDependencyUrl(TOKENS_ITEM_NAME, style));
     }
 
     const css: RegistryItem["css"] = {};

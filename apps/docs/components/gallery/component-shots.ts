@@ -67,6 +67,7 @@ import figmaComment from "./covers/components/figma-comment.webp";
 import fileTree from "./covers/components/file-tree.webp";
 import floatInput from "./covers/components/float-input.webp";
 import floatingNavbar from "./covers/components/floating-navbar.webp";
+import fluidHoverHighlight from "./covers/components/fluid-hover-highlight.webp";
 import focusBlurResolve from "./covers/components/focus-blur-resolve.webp";
 import folderReveal from "./covers/components/folder-reveal.webp";
 import form from "./covers/components/form.webp";
@@ -253,6 +254,7 @@ export const COMPONENT_SHOTS: Record<string, StaticImageData> = {
   "file-tree": fileTree,
   "float-input": floatInput,
   "floating-navbar": floatingNavbar,
+  "fluid-hover-highlight": fluidHoverHighlight,
   "focus-blur-resolve": focusBlurResolve,
   "folder-reveal": folderReveal,
   form,

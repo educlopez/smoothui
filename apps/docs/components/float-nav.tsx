@@ -69,7 +69,7 @@ export function FloatNav() {
   return (
     <nav
       aria-label="Floating Navigation"
-      className="fixed bottom-4 left-1/2 z-50 flex w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border border-foreground/10 bg-background/75 px-1 py-1 text-foreground shadow-sm backdrop-blur-xl"
+      className="fixed bottom-4 left-1/2 z-40 flex w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-row items-center justify-center whitespace-nowrap rounded-full border border-foreground/10 bg-background/75 px-1 py-1 text-foreground shadow-sm backdrop-blur-xl"
     >
       <div className="flex items-center gap-0.5">
         <SoundToggle />
