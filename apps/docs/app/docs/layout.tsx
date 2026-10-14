@@ -1,7 +1,7 @@
+import { DocsFloatNav } from "@docs/components/docs-float-nav";
 import DocsFooter from "@docs/components/docs-footer";
 import { DocsHeader } from "@docs/components/docs-header";
 import { DocsSidebarItem } from "@docs/components/docs-sidebar-item";
-import { FloatNav } from "@docs/components/float-nav";
 import { NavSponsorCard } from "@docs/components/nav-sponsor-card";
 import { decorateNewPages } from "@docs/lib/decorate-new";
 import { decorateSidebarCategories } from "@docs/lib/decorate-sidebar-categories";
@@ -42,7 +42,7 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
       tabMode="navbar"
     >
       {children}
-      <FloatNav key="float-nav" />
+      <DocsFloatNav key="float-nav" />
       {/* SEO footer inside the scroll flow, spanning the full grid width so it
           lands at the bottom without breaking the 100dvh layout. DocsFooter
           constrains its content to the main column band.

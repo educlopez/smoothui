@@ -4,7 +4,45 @@ import type { DockItem } from "@repo/smoothui/components/dock";
 import Dock from "@repo/smoothui/components/dock";
 import type { AppIcon } from "@smoothui/data/app-icons";
 import { appIconById, dockIcons } from "@smoothui/data/app-icons";
-import { useState } from "react";
+import { type ReactNode, useLayoutEffect, useRef, useState } from "react";
+
+const FitToWidth = ({ children }: { children: ReactNode }) => {
+  const hostRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useLayoutEffect(() => {
+    const host = hostRef.current;
+    const content = contentRef.current;
+    if (!(host && content)) {
+      return;
+    }
+    const update = () => {
+      const available = host.clientWidth;
+      const needed = content.scrollWidth;
+      setScale(available > 0 && needed > available ? available / needed : 1);
+    };
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(host);
+    observer.observe(content);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="flex w-full justify-center overflow-hidden" ref={hostRef}>
+      <div
+        ref={contentRef}
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: "bottom center",
+        }}
+      >
+        {children}
+      </div>
+    </div>
+  );
+};
 
 const appIcon = (app: AppIcon, size: number) => (
   <img
@@ -83,7 +121,14 @@ export default function DockDemo() {
       </div>
 
       <div className="absolute inset-x-0 bottom-3 flex justify-center px-2 sm:bottom-4">
-        <Dock baseSize={36} distance={120} items={items} magnification={1.35} />
+        <FitToWidth>
+          <Dock
+            baseSize={36}
+            distance={120}
+            items={items}
+            magnification={1.35}
+          />
+        </FitToWidth>
       </div>
     </div>
   );
