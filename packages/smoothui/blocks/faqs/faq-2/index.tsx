@@ -107,6 +107,7 @@ export function FaqsAccordion({
                   : { opacity: 0, y: INITIAL_Y_OFFSET }
               }
               key={faq.question}
+              tabIndex={-1}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
@@ -131,8 +132,8 @@ export function FaqsAccordion({
                     {faq.question}
                   </AccordionTrigger>
                 </AccordionHeader>
-                <AccordionPanel className="text-foreground/70">
-                  <p className="-mx-4 -mb-4 px-6 pb-6 leading-relaxed">
+                <AccordionPanel className="text-base text-foreground/70">
+                  <p className="-mx-4 -mb-4 px-6 pb-6 text-base leading-relaxed">
                     {faq.answer}
                   </p>
                 </AccordionPanel>

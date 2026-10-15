@@ -33,7 +33,7 @@
       "Organized FAQ with tabbed topic groups"
     ],
     "compositionHints": [
-      "Uses Accordion for answers and SmoothButton for category tabs"
+      "Uses Accordion for answers and Tabs for category tabs"
     ],
     "hasReducedMotion": true
   }

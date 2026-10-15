@@ -115,6 +115,7 @@ export function FaqSearchable({
               Search frequently asked questions
             </FieldLabel>
             <Input
+              aria-label="Search frequently asked questions"
               className="h-auto rounded-xl border-border bg-background py-4 pr-4 pl-12 text-base text-foreground shadow-none placeholder:text-foreground/40 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
               onChange={(e) => {
                 setSearchQuery(e.target.value);

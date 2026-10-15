@@ -79,7 +79,8 @@ Blocks no longer ship a local button, input, or accordion. They import the primi
 | --- | --- |
 | Headers 1–4 | `smooth-button` |
 | Footer 2, Footer 3, FAQ 3 | `input` and `field` (newsletter / search) |
-| FAQ 1 | `collapsible` (always-open cards; trigger keeps `aria-expanded`) |
-| FAQ 2, FAQ 4 | `accordion` (FAQ 4 category tabs also use `smooth-button`) |
+| FAQ 1 | Always-visible Q&A cards (no collapsible or accordion; those hide answers) |
+| FAQ 2 | `accordion` |
+| FAQ 4 | `accordion` for answers; `tabs` for category tabs (`role=tablist`, arrow keys, `aria-controls`) |
 
 A block JSON such as `https://smoothui.dev/r/base-nova/faq-2.json` lists those primitives in `registryDependencies`, style-prefixed when a style is in the request.

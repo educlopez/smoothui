@@ -1,11 +1,6 @@
 "use client";
 
 import {
-  CollapsiblePanel,
-  CollapsibleRoot,
-  CollapsibleTrigger,
-} from "@repo/smoothui/components/collapsible";
-import {
   Activity,
   Clock,
   DollarSign,
@@ -219,58 +214,48 @@ export function FaqsGrid({
                   : { duration: ANIMATION_DURATION, ease: "easeInOut" }
               }
             >
-              <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
-                {categories[activeTab].faqs.map((faq, faqIndex) => {
-                  const IconComponent =
-                    iconMap[faq.icon as keyof typeof iconMap] || HelpCircle;
+              <div className="space-y-6">
+                <dl className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+                  {categories[activeTab].faqs.map((faq, faqIndex) => {
+                    const IconComponent =
+                      iconMap[faq.icon as keyof typeof iconMap] || HelpCircle;
 
-                  return (
-                    <motion.div
-                      animate={
-                        shouldReduceMotion
-                          ? { opacity: 1 }
-                          : { opacity: 1, y: 0 }
-                      }
-                      className="space-y-3"
-                      initial={
-                        shouldReduceMotion
-                          ? { opacity: 1 }
-                          : { opacity: 0, y: INITIAL_Y_OFFSET }
-                      }
-                      key={`${categories[activeTab].id}-${faq.question}`}
-                      transition={
-                        shouldReduceMotion
-                          ? { duration: 0 }
-                          : {
-                              delay: faqIndex * FAQ_STAGGER_DELAY,
-                              duration: 0.4,
-                            }
-                      }
-                    >
-                      <CollapsibleRoot
-                        className="gap-0 overflow-visible rounded-none border-0 bg-transparent"
-                        defaultOpen
+                    return (
+                      <motion.div
+                        animate={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 1, y: 0 }
+                        }
+                        className="space-y-3"
+                        initial={
+                          shouldReduceMotion
+                            ? { opacity: 1 }
+                            : { opacity: 0, y: INITIAL_Y_OFFSET }
+                        }
+                        key={`${categories[activeTab].id}-${faq.question}`}
+                        transition={
+                          shouldReduceMotion
+                            ? { duration: 0 }
+                            : {
+                                delay: faqIndex * FAQ_STAGGER_DELAY,
+                                duration: 0.4,
+                              }
+                        }
                       >
-                        <CollapsibleTrigger
-                          className="flex-col items-start gap-3 border-0 px-0 py-0 font-semibold text-base text-foreground hover:bg-transparent data-panel-open:border-transparent"
-                          hideChevron
-                        >
-                          <span className="space-y-3">
-                            <span className="flex size-8 items-center justify-center rounded-md border bg-card *:m-auto *:size-4">
-                              <IconComponent className="h-4 w-4" />
-                            </span>
-                            {faq.question}
-                          </span>
-                        </CollapsibleTrigger>
-                        <CollapsiblePanel className="text-base text-muted-foreground">
-                          <span className="-mx-4 -mb-4 block">
-                            {faq.answer}
-                          </span>
-                        </CollapsiblePanel>
-                      </CollapsibleRoot>
-                    </motion.div>
-                  );
-                })}
+                        <dt className="space-y-3 font-semibold text-foreground">
+                          <div className="flex size-8 items-center justify-center rounded-md border bg-card *:m-auto *:size-4">
+                            <IconComponent className="h-4 w-4" />
+                          </div>
+                          {faq.question}
+                        </dt>
+                        <dd className="text-base text-muted-foreground">
+                          {faq.answer}
+                        </dd>
+                      </motion.div>
+                    );
+                  })}
+                </dl>
               </div>
             </motion.div>
           </AnimatePresence>

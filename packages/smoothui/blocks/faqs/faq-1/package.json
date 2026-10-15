@@ -34,7 +34,7 @@
       "Support page FAQ with animated filtering"
     ],
     "compositionHints": [
-      "Uses Collapsible primitive for individual FAQ items"
+      "Always-visible FAQ cards; not collapsible"
     ],
     "hasReducedMotion": true
   }
