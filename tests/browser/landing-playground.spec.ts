@@ -216,9 +216,11 @@ for (const width of [390, 1440]) {
     await expect(avatar.getByLabel("Name", { exact: true })).toBeFocused();
     await avatar.getByLabel("Name", { exact: true }).fill("Jane Updated");
     await avatar.getByRole("button", { name: "Save Changes" }).click();
+    await expect(avatar.getByLabel("Name", { exact: true })).toHaveCount(0);
+    await expect(dialog).toBeVisible();
     await avatar
       .getByRole("button", { exact: true, name: "Edit Profile" })
-      .click();
+      .click({ force: width <= 480 });
     await expect(avatar.getByLabel("Name", { exact: true })).toHaveValue(
       "Jane Updated"
     );
