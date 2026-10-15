@@ -34,7 +34,7 @@
       "Support page FAQ with animated filtering"
     ],
     "compositionHints": [
-      "Could use Accordion primitive for individual FAQ items"
+      "Uses Collapsible primitive for individual FAQ items"
     ],
     "hasReducedMotion": true
   }

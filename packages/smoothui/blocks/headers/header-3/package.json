@@ -34,7 +34,7 @@
       "Content-focused hero section with animated entrance"
     ],
     "compositionHints": [
-      "Uses shared block components"
+      "Uses SmoothButton primitive and shared block components"
     ],
     "hasReducedMotion": true
   }

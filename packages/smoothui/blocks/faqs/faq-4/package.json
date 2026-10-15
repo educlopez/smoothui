@@ -33,7 +33,7 @@
       "Organized FAQ with tabbed topic groups"
     ],
     "compositionHints": [
-      "Could use Tabs primitive for tab navigation"
+      "Uses Accordion for answers and SmoothButton for category tabs"
     ],
     "hasReducedMotion": true
   }

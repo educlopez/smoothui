@@ -34,7 +34,7 @@
       "Developer portfolio header with interactive elements"
     ],
     "compositionHints": [
-      "Uses shared block components"
+      "Uses SmoothButton primitive and shared block components"
     ],
     "hasReducedMotion": true
   }

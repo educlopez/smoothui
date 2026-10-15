@@ -34,7 +34,7 @@
       "Footer with multiple sections and social media integration"
     ],
     "compositionHints": [
-      "Use social-selector for social icons"
+      "Uses Input and Field for the newsletter email field"
     ],
     "hasReducedMotion": true
   }

@@ -1,8 +1,9 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { getImageKitUrl } from "@smoothui/data";
 import { motion, useReducedMotion } from "motion/react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
+import { AnimatedGroup, AnimatedText, HeroHeader } from "../../shared";
 
 interface HeroProductProps {
   badgeText?: string;
@@ -166,13 +167,13 @@ export function HeroProduct({
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
-                    <Button asChild size="lg" variant="candy">
+                    <SmoothButton asChild size="lg" variant="candy">
                       <a href={primaryButton.url}>
                         <span className="text-nowrap">
                           {primaryButton.text}
                         </span>
                       </a>
-                    </Button>
+                    </SmoothButton>
                   </motion.div>
 
                   <motion.div
@@ -184,13 +185,13 @@ export function HeroProduct({
                     whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
                     whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
                   >
-                    <Button asChild size="lg" variant="outline">
+                    <SmoothButton asChild size="lg" variant="outline">
                       <a href={secondaryButton.url}>
                         <span className="text-nowrap">
                           {secondaryButton.text}
                         </span>
                       </a>
-                    </Button>
+                    </SmoothButton>
                   </motion.div>
                 </motion.div>
               </AnimatedGroup>

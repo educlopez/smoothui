@@ -24,3 +24,62 @@ Those names now resolve to the current package. Prefer the new name going forwar
 `https://smoothui.dev/r/{old}.json` still returns the new item.
 
 `aria-*` styles (React Aria) are not served yet. `/r/aria-{preset}/{name}.json` returns 404 with `{ "error": "React Aria styles are not supported yet" }` until an Aria twin exists. Use `base-*` or `radix-*` (or `default` / `new-york`) instead.
+
+## v4 primitives
+
+Primitives are the owned building blocks of SmoothUI 4: button, accordion, collapsible, input, field, dialog, and the rest of the catalog under `/docs/primitives`. They wrap a headless library, add Motion microinteractions, and honor `prefers-reduced-motion`. Components, blocks, and templates compose them instead of shipping a parallel hand-built control.
+
+### Base vs Radix style
+
+Each dual primitive has two twins with the same public props:
+
+| Registry URL | Twin |
+| --- | --- |
+| `https://smoothui.dev/r/{name}.json` | Base (product default) |
+| `https://smoothui.dev/r/base-{preset}/{name}.json` | Base |
+| `https://smoothui.dev/r/radix-{preset}/{name}.json` | Radix |
+| `https://smoothui.dev/r/default/{name}.json` and `https://smoothui.dev/r/new-york/{name}.json` | Radix |
+
+A few primitives are Base-only (for example Input and Field — there is no Input in Radix). Those ship the same file for every served style.
+
+`aria-*` is not a served twin. Requests 404 until an Aria implementation exists.
+
+### Install
+
+Configure the registry in `components.json`:
+
+```json
+{
+  "style": "base-nova",
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{style}/{name}.json"
+  }
+}
+```
+
+Then install a primitive:
+
+```bash
+npx shadcn@latest add @smoothui/smooth-button
+npx shadcn@latest add @smoothui/accordion
+npx shadcn@latest add @smoothui/collapsible
+npx shadcn@latest add @smoothui/input
+npx shadcn@latest add @smoothui/field
+```
+
+Or pin a style in the URL: `npx shadcn@latest add https://smoothui.dev/r/radix-nova/accordion.json`.
+
+Owned primitives install `@base-ui/react` or `radix-ui`. They do not pull shadcn `button` / `dialog` registry dependencies.
+
+### Blocks now depend on primitives
+
+Blocks no longer ship a local button, input, or accordion. They import the primitives so a registry install of a block also installs the matching twin:
+
+| Block | Primitive |
+| --- | --- |
+| Headers 1–4 | `smooth-button` |
+| Footer 2, Footer 3, FAQ 3 | `input` and `field` (newsletter / search) |
+| FAQ 1 | `collapsible` (always-open cards; trigger keeps `aria-expanded`) |
+| FAQ 2, FAQ 4 | `accordion` (FAQ 4 category tabs also use `smooth-button`) |
+
+A block JSON such as `https://smoothui.dev/r/base-nova/faq-2.json` lists those primitives in `registryDependencies`, style-prefixed when a style is in the request.

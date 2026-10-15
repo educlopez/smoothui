@@ -1,4 +1,3 @@
-export { default as Button } from "@repo/smoothui/components/smooth-button";
 export type { AnimatedGroupProps, PresetType } from "./animated-group";
 export { AnimatedGroup } from "./animated-group";
 export { AnimatedText } from "./animated-text";

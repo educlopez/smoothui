@@ -4,6 +4,7 @@ import {
   isBaseStyle,
   isDualPrimitivePackage,
   isKnownRegistryStyle,
+  KNOWN_REGISTRY_STYLES,
   registryDependencyUrl,
   resolvePrimitiveStyle,
   twinFileName,
@@ -112,6 +113,15 @@ describe("known registry styles", () => {
     expect(isAriaStyle("radix-nova")).toBe(false);
     expect(isAriaStyle("base-nova")).toBe(false);
     expect(isAriaStyle("default")).toBe(false);
+  });
+
+  it("does not list aria-vega, aria-nova, or aria-maia as known styles", () => {
+    expect(KNOWN_REGISTRY_STYLES).not.toContain("aria-vega");
+    expect(KNOWN_REGISTRY_STYLES).not.toContain("aria-nova");
+    expect(KNOWN_REGISTRY_STYLES).not.toContain("aria-maia");
+    expect(
+      KNOWN_REGISTRY_STYLES.some((style) => style.startsWith("aria-"))
+    ).toBe(false);
   });
 
   it("rejects names that are not a base-*, radix-*, default, or new-york", () => {

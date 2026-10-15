@@ -7,6 +7,7 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from "@repo/smoothui/components/accordion";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
@@ -137,17 +138,18 @@ export function FaqCategorized({
             role="tablist"
           >
             {categories.map((category, index) => (
-              <button
+              <SmoothButton
                 aria-selected={activeCategory === index}
-                className={`relative px-4 py-3 font-medium text-sm transition-colors ${
+                className={`!h-auto relative rounded-none px-4 py-3 font-medium text-sm shadow-none ${
                   activeCategory === index
-                    ? "text-brand"
-                    : "text-foreground/60 hover:text-foreground"
+                    ? "hover:!bg-transparent text-brand"
+                    : "hover:!bg-transparent text-foreground/60 hover:text-foreground"
                 }`}
                 key={category.name}
                 onClick={() => handleCategoryChange(index)}
                 role="tab"
                 type="button"
+                variant="ghost"
               >
                 {category.name}
                 {activeCategory === index && (
@@ -157,7 +159,7 @@ export function FaqCategorized({
                     transition={springTransition}
                   />
                 )}
-              </button>
+              </SmoothButton>
             ))}
           </div>
         </motion.div>

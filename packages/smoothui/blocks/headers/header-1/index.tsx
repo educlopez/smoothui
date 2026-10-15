@@ -1,8 +1,10 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ExternalLink } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
+import { AnimatedGroup, AnimatedText, HeroHeader } from "../../shared";
 import styles from "./hero-grid.module.css";
 
 const CELL_SIZE = 120; // px
@@ -66,16 +68,23 @@ function SubGrid() {
   return (
     <div className={styles.subgrid} style={{ pointerEvents: "none" }}>
       {[0, 1, 2, 3].map((cellIdx) => (
-        <button
-          className={styles.cell}
+        <SmoothButton
+          aria-hidden
+          className={cn(
+            styles.cell,
+            "!h-full !min-h-0 !w-full !p-0 hover:!bg-transparent active:!scale-100 shadow-none"
+          )}
           key={cellIdx}
           onMouseEnter={() => handleHover(cellIdx)}
           onMouseLeave={() => handleLeave(cellIdx)}
+          shape="square"
           style={{
             background: cellColors[cellIdx] || "transparent",
             pointerEvents: "auto",
           }}
+          tabIndex={-1}
           type="button"
+          variant="ghost"
         />
       ))}
     </div>
@@ -163,16 +172,16 @@ export function HeroGrid() {
               className="pointer-events-auto mt-6 flex justify-center gap-3"
               preset="slide"
             >
-              <Button
+              <SmoothButton
                 className="shadow-sm transition-shadow hover:shadow"
                 variant="outline"
               >
                 Get Started
-              </Button>
-              <Button className="group" variant="candy">
+              </SmoothButton>
+              <SmoothButton className="group" variant="candy">
                 Learn more{" "}
                 <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+              </SmoothButton>
             </AnimatedGroup>
           </AnimatedGroup>
         </section>
