@@ -385,6 +385,39 @@ for (const width of [390, 1440]) {
   });
 }
 
+for (const width of [320, 390]) {
+  test(`landing document does not scroll horizontally at ${width}px`, async ({
+    page,
+  }) => {
+    await page.setViewportSize({ height: 844, width });
+    await page.goto("/");
+    await expect
+      .poll(async () =>
+        page.evaluate(() => document.documentElement.scrollWidth)
+      )
+      .toBeLessThanOrEqual(width);
+    const slider = page.locator('[data-showcase="exposure-slider"]');
+    await slider.scrollIntoViewIfNeeded();
+    await expect
+      .poll(async () =>
+        page.evaluate(() => document.documentElement.scrollWidth)
+      )
+      .toBeLessThanOrEqual(width);
+  });
+}
+
+test("hero blocks docs page emits no console warnings", async ({ page }) => {
+  const warnings: string[] = [];
+  page.on("console", (message) => {
+    if (message.type() === "warning") {
+      warnings.push(message.text());
+    }
+  });
+  await page.goto("/docs/blocks/hero", { waitUntil: "networkidle" });
+  await page.waitForTimeout(2000);
+  expect(warnings, warnings.join("\n")).toEqual([]);
+});
+
 for (const reducedMotion of ["reduce", "no-preference"] as const) {
   test(`number flow preserves layout and rolling carry with ${reducedMotion}`, async ({
     page,
