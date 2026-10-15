@@ -139,7 +139,7 @@ export function FaqCategorized({
           >
             <TabsList
               activateOnFocus
-              className="flex-nowrap justify-center gap-2 overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              className="flex-nowrap justify-start gap-2 overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] sm:justify-center [&::-webkit-scrollbar]:hidden"
               variant="underline"
             >
               {categories.map((category) => (

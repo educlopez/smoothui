@@ -2,7 +2,8 @@
 
 import {
   type CSSProperties,
-  type RefObject,
+  createContext,
+  useContext,
   useLayoutEffect,
   useState,
 } from "react";
@@ -20,6 +21,8 @@ const ACTIVE_TAB_SELECTOR =
   '[data-slot="tabs-tab"][aria-selected="true"], [data-slot="tabs-tab"][data-active], [data-slot="tabs-tab"][data-state="active"]';
 
 const UNDERLINE_THICKNESS_PX = 2;
+
+export const TabsMeasureValueContext = createContext<unknown>(undefined);
 
 const boxesEqual = (a: ActiveTabBox | null, b: ActiveTabBox | null) => {
   if (a === b) {
@@ -51,24 +54,36 @@ const readActiveTabBox = (list: HTMLElement): ActiveTabBox | null => {
 
 /**
  * Tracks the active tab's layout box (`offsetLeft` / `offsetTop` /
- * `offsetWidth` / `offsetHeight`) and refreshes on tab change, resize, and
- * scroll so the indicator cannot drift.
+ * `offsetWidth` / `offsetHeight`) and refreshes on mount, value change,
+ * resize, and scroll so the indicator cannot stay invisible or drift.
  */
-export const useActiveTabIndicatorBox = (
-  indicatorRef: RefObject<HTMLElement | null>
-): ActiveTabBox | null => {
+export const useActiveTabIndicatorBox = (): {
+  box: ActiveTabBox | null;
+  ref: (node: HTMLElement | null) => void;
+} => {
+  const value = useContext(TabsMeasureValueContext);
+  const [node, setNode] = useState<HTMLElement | null>(null);
   const [box, setBox] = useState<ActiveTabBox | null>(null);
 
   useLayoutEffect(() => {
-    const indicator = indicatorRef.current;
-    const list = indicator?.closest<HTMLElement>('[role="tablist"]');
-    if (!(indicator && list)) {
+    if (!node) {
+      setBox((prev) => (prev === null ? prev : null));
+      return;
+    }
+
+    const list = node.closest<HTMLElement>('[role="tablist"]');
+    if (!list) {
       return;
     }
 
     const measure = () => {
       const next = readActiveTabBox(list);
-      setBox((prev) => (boxesEqual(prev, next) ? prev : next));
+      setBox((prev) => {
+        if ((value === null || value === undefined) && next === null) {
+          return prev === null ? prev : null;
+        }
+        return boxesEqual(prev, next) ? prev : next;
+      });
     };
 
     measure();
@@ -95,9 +110,9 @@ export const useActiveTabIndicatorBox = (
       list.removeEventListener("scroll", measure);
       window.removeEventListener("resize", measure);
     };
-  }, [indicatorRef]);
+  }, [node, value]);
 
-  return box;
+  return { box, ref: setNode };
 };
 
 export const activeTabIndicatorStyle = (
@@ -117,4 +132,14 @@ export const activeTabIndicatorStyle = (
     transform: `translate(${box.left}px, ${y}px)`,
     width: box.width,
   };
+};
+
+export const composeIndicatorStyle = <State>(
+  measured: CSSProperties,
+  style?: CSSProperties | ((state: State) => CSSProperties | undefined)
+): CSSProperties | ((state: State) => CSSProperties) => {
+  if (typeof style === "function") {
+    return (state: State) => ({ ...measured, ...style(state) });
+  }
+  return { ...measured, ...style };
 };

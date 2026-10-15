@@ -9,13 +9,13 @@ import {
   type ReactNode,
   useContext,
   useLayoutEffect,
-  useRef,
   useState,
 } from "react";
 import { DURATION, EASE_OUT } from "../../lib/animation";
 import type { TabsVariant } from "./tabs.base";
 import {
   activeTabIndicatorStyle,
+  TabsMeasureValueContext,
   useActiveTabIndicatorBox,
 } from "./use-active-tab-indicator";
 
@@ -104,21 +104,30 @@ const TabsRoot = ({
   const [activationMode, setActivationMode] = useState<"automatic" | "manual">(
     "manual"
   );
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const current = value === undefined ? uncontrolled : value;
 
   return (
-    <TabsActivationContext.Provider value={setActivationMode}>
-      <TabsPrimitive.Root
-        className={cn("flex w-full min-w-0 flex-col", className)}
-        data-slot="tabs"
-        defaultValue={defaultValue}
-        onValueChange={onValueChange}
-        value={value}
-        {...props}
-        activationMode={activationMode}
-      >
-        {children}
-      </TabsPrimitive.Root>
-    </TabsActivationContext.Provider>
+    <TabsMeasureValueContext.Provider value={current}>
+      <TabsActivationContext.Provider value={setActivationMode}>
+        <TabsPrimitive.Root
+          className={cn("flex w-full min-w-0 flex-col", className)}
+          data-slot="tabs"
+          defaultValue={defaultValue}
+          onValueChange={(next) => {
+            if (value === undefined) {
+              setUncontrolled(next);
+            }
+            onValueChange?.(next);
+          }}
+          value={value}
+          {...props}
+          activationMode={activationMode}
+        >
+          {children}
+        </TabsPrimitive.Root>
+      </TabsActivationContext.Provider>
+    </TabsMeasureValueContext.Provider>
   );
 };
 
@@ -209,15 +218,14 @@ const TabsPanel = ({
 const TabsIndicator = ({ className, style, ...props }: TabsIndicatorProps) => {
   const variant = useContext(TabsVariantContext);
   const shouldReduceMotion = useReducedMotion();
-  const indicatorRef = useRef<HTMLSpanElement>(null);
-  const box = useActiveTabIndicatorBox(indicatorRef);
+  const { box, ref } = useActiveTabIndicatorBox();
 
   return (
     <span
       aria-hidden="true"
       className={cn(indicatorStyles(variant, !!shouldReduceMotion), className)}
       data-slot="tabs-indicator"
-      ref={indicatorRef}
+      ref={ref}
       role="presentation"
       style={{ ...activeTabIndicatorStyle(variant, box), ...style }}
       {...props}

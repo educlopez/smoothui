@@ -3,9 +3,16 @@
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cn } from "@repo/smoothui-utils";
 import { useReducedMotion } from "motion/react";
-import { type ComponentProps, createContext, useContext, useRef } from "react";
+import {
+  type ComponentProps,
+  createContext,
+  useContext,
+  useState,
+} from "react";
 import {
   activeTabIndicatorStyle,
+  composeIndicatorStyle,
+  TabsMeasureValueContext,
   useActiveTabIndicatorBox,
 } from "./use-active-tab-indicator";
 
@@ -78,13 +85,34 @@ const indicatorStyles = (variant: TabsVariant, reduceMotion: boolean) =>
  * SmoothUI Tabs — Base UI twin (default).
  * Compound: TabsRoot, TabsList (variant), TabsTab, TabsPanel, TabsIndicator.
  */
-const TabsRoot = ({ className, ...props }: TabsRootProps) => (
-  <TabsPrimitive.Root
-    className={cn("flex w-full min-w-0 flex-col", className)}
-    data-slot="tabs"
-    {...props}
-  />
-);
+const TabsRoot = ({
+  className,
+  value,
+  defaultValue,
+  onValueChange,
+  ...props
+}: TabsRootProps) => {
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const current = value === undefined ? uncontrolled : value;
+
+  return (
+    <TabsMeasureValueContext.Provider value={current}>
+      <TabsPrimitive.Root
+        className={cn("flex w-full min-w-0 flex-col", className)}
+        data-slot="tabs"
+        defaultValue={defaultValue}
+        onValueChange={(next, eventDetails) => {
+          if (value === undefined) {
+            setUncontrolled(next);
+          }
+          onValueChange?.(next, eventDetails);
+        }}
+        value={value}
+        {...props}
+      />
+    </TabsMeasureValueContext.Provider>
+  );
+};
 
 const TabsList = ({
   className,
@@ -146,16 +174,16 @@ const TabsPanel = ({
 const TabsIndicator = ({ className, style, ...props }: TabsIndicatorProps) => {
   const variant = useContext(TabsVariantContext);
   const shouldReduceMotion = useReducedMotion();
-  const indicatorRef = useRef<HTMLSpanElement>(null);
-  const box = useActiveTabIndicatorBox(indicatorRef);
+  const { box, ref } = useActiveTabIndicatorBox();
+  const measured = activeTabIndicatorStyle(variant, box);
 
   return (
     <TabsPrimitive.Indicator
       className={cn(indicatorStyles(variant, !!shouldReduceMotion), className)}
       data-slot="tabs-indicator"
-      ref={indicatorRef}
+      ref={ref}
       renderBeforeHydration
-      style={{ ...activeTabIndicatorStyle(variant, box), ...style }}
+      style={composeIndicatorStyle(measured, style)}
       {...props}
     />
   );

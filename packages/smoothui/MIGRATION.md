@@ -44,6 +44,8 @@ A few primitives are Base-only (for example Input and Field — there is no Inpu
 
 `aria-*` is not a served twin. Requests 404 until an Aria implementation exists.
 
+On the Radix **tabs** twin, render `TabsIndicator` inside `TabsList` — the marker is no longer drawn inside the active tab, so omitting it hides the underline. Activation defaults to **manual** (`activateOnFocus={false}` maps to Radix `activationMode="manual"`). Pass `activateOnFocus` on `TabsList` for automatic activation on focus and arrow keys.
+
 ### Install
 
 Configure the registry in `components.json`:

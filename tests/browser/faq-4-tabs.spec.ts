@@ -86,3 +86,35 @@ test("faq-4 tabpanel is not in the tab order", async ({ page }) => {
   await expect(panel).toBeVisible();
   await expect(panel).not.toHaveAttribute("tabindex", "0");
 });
+
+test("faq-4 first tab is fully visible and the row scrolls at 320px", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 844, width: 320 });
+  await page.goto("/blocks/preview/faq-4");
+
+  const first = page.getByRole("tab").nth(0);
+  const list = page.getByRole("tablist");
+  await expect(first).toBeVisible();
+
+  const tabBox = await first.boundingBox();
+  const listBox = await list.boundingBox();
+  if (!(tabBox && listBox)) {
+    throw new Error("expected the first tab and tablist to have boxes");
+  }
+  expect(tabBox.x).toBeGreaterThanOrEqual(listBox.x - 1);
+  expect(tabBox.x + tabBox.width).toBeLessThanOrEqual(
+    listBox.x + listBox.width + 1
+  );
+
+  const scrollable = await list.evaluate(
+    (el) => el.scrollWidth > el.clientWidth + 1
+  );
+  expect(scrollable).toBe(true);
+
+  await list.evaluate((el) => {
+    el.scrollLeft = el.scrollWidth;
+  });
+  const scrolled = await list.evaluate((el) => el.scrollLeft > 0);
+  expect(scrolled).toBe(true);
+});
