@@ -40,4 +40,10 @@ describe("Faq4", () => {
       expect(tabs[1].getAttribute("aria-controls")).toBeTruthy();
     });
   });
+
+  it("does not put the tabpanel in the tab order", () => {
+    render(<Block />);
+    const panel = screen.getByRole("tabpanel");
+    expect(panel).not.toHaveAttribute("tabindex", "0");
+  });
 });

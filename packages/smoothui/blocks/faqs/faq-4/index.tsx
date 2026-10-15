@@ -139,7 +139,7 @@ export function FaqCategorized({
           >
             <TabsList
               activateOnFocus
-              className="flex-wrap justify-center gap-2"
+              className="flex-nowrap justify-center gap-2 overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
               variant="underline"
             >
               {categories.map((category) => (
@@ -151,7 +151,7 @@ export function FaqCategorized({
                   {category.name}
                 </TabsTab>
               ))}
-              <TabsIndicator className="left-0" />
+              <TabsIndicator />
             </TabsList>
           </motion.div>
 
@@ -160,6 +160,7 @@ export function FaqCategorized({
               animated
               className="pt-0 text-base text-foreground"
               key={category.name}
+              tabIndex={-1}
               value={category.name}
             >
               <AccordionRoot className="space-y-4 divide-y-0 rounded-none border-0">
