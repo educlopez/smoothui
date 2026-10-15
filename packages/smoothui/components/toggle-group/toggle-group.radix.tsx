@@ -3,22 +3,39 @@
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { ToggleGroup as ToggleGroupPrimitive } from "radix-ui";
-import type { ComponentProps } from "react";
+import type { ComponentProps, ReactNode } from "react";
 import {
   PRESS_SCALE,
   PRESS_TRANSITION,
   SPRING_SNAPPY,
 } from "../../lib/animation";
-import type {
-  ToggleGroupItemProps,
-  ToggleGroupRootProps,
-} from "./toggle-group.base";
 
-export type {
-  ToggleGroupItemProps,
-  ToggleGroupProps,
-  ToggleGroupRootProps,
-} from "./toggle-group.base";
+export type ToggleGroupRootProps = Omit<
+  ComponentProps<typeof ToggleGroupPrimitive.Root>,
+  "type" | "value" | "defaultValue" | "onValueChange"
+> & {
+  className?: string;
+  children?: ReactNode;
+  /**
+   * When `"single"`, only one item can be pressed.
+   * When `"multiple"`, many items can be pressed.
+   */
+  type?: "single" | "multiple";
+  value?: string[];
+  defaultValue?: string[];
+  onValueChange?: (groupValue: string[]) => void;
+};
+
+export type ToggleGroupItemProps = {
+  "aria-label"?: string;
+  children?: ReactNode;
+  className?: string;
+  disabled?: boolean;
+  value: string;
+};
+
+/** Convenience alias for AutoTypeTable */
+export type ToggleGroupProps = ToggleGroupRootProps;
 
 type RadixRootProps = ComponentProps<typeof ToggleGroupPrimitive.Root>;
 

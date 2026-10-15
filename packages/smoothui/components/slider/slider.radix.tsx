@@ -5,7 +5,6 @@ import { motion, useReducedMotion } from "motion/react";
 import { Slider as SliderPrimitive } from "radix-ui";
 import type { ComponentProps, ReactNode } from "react";
 import { PRESS_TRANSITION, SPRING_SNAPPY } from "../../lib/animation";
-import type { SliderProps } from "./slider.base";
 
 export type SliderRootProps = ComponentProps<typeof SliderPrimitive.Root> & {
   className?: string;
@@ -32,7 +31,18 @@ export type SliderThumbProps = ComponentProps<typeof SliderPrimitive.Thumb> & {
   className?: string;
 };
 
-export type { SliderProps } from "./slider.base";
+/** Convenience single-thumb slider props */
+export interface SliderProps {
+  "aria-label"?: string;
+  className?: string;
+  defaultValue?: number;
+  disabled?: boolean;
+  max?: number;
+  min?: number;
+  onValueChange?: (value: number) => void;
+  step?: number;
+  value?: number;
+}
 
 const MotionThumb = motion.span;
 

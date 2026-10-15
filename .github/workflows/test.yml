@@ -143,6 +143,14 @@ jobs:
         working-directory: apps/docs
         run: pnpm exec tsx scripts/verify-install.mts
 
+      # Base install verification above uses the default (Base) twin. These four
+      # Radix twins historically imported a sibling `.base` file the payload
+      # did not ship, so `/r/radix-nova/{tabs,slider,toggle,toggle-group}.json`
+      # failed tsc in a consumer project.
+      - name: Verify radix-nova twins compile when installed
+        working-directory: apps/docs
+        run: pnpm exec tsx scripts/verify-radix-nova-install.mts
+
       # The counts are committed so client components and MDX frontmatter can
       # import them. Checked like a lockfile, so marketing copy cannot silently
       # drift from the catalogue again.
