@@ -12,14 +12,13 @@ import {
   useState,
 } from "react";
 import { DURATION, EASE_OUT } from "../../lib/animation";
-import type { TabsVariant } from "./tabs.base";
 import {
   activeTabIndicatorStyle,
   TabsMeasureValueContext,
   useActiveTabIndicatorBox,
 } from "./use-active-tab-indicator";
 
-export type { TabsVariant } from "./tabs.base";
+export type TabsVariant = "underline" | "pill" | "segment";
 
 export type TabsRootProps = Omit<
   ComponentProps<typeof TabsPrimitive.Root>,
@@ -99,17 +98,19 @@ const TabsRoot = ({
   defaultValue,
   onValueChange,
   children,
+  activationMode: activationModeProp,
   ...props
 }: TabsRootProps) => {
-  const [activationMode, setActivationMode] = useState<"automatic" | "manual">(
-    "manual"
-  );
+  const [listActivationMode, setListActivationMode] = useState<
+    "automatic" | "manual"
+  >("manual");
   const [uncontrolled, setUncontrolled] = useState(defaultValue);
   const current = value === undefined ? uncontrolled : value;
+  const activationMode = activationModeProp ?? listActivationMode;
 
   return (
     <TabsMeasureValueContext.Provider value={current}>
-      <TabsActivationContext.Provider value={setActivationMode}>
+      <TabsActivationContext.Provider value={setListActivationMode}>
         <TabsPrimitive.Root
           className={cn("flex w-full min-w-0 flex-col", className)}
           data-slot="tabs"
