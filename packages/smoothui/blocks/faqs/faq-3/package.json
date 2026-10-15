@@ -32,7 +32,7 @@
       "Documentation FAQ with real-time search"
     ],
     "compositionHints": [
-      "Could use Combobox primitive for enhanced search"
+      "Uses Accordion for answers and Input plus Field for search"
     ],
     "hasReducedMotion": true
   }

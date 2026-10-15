@@ -32,7 +32,7 @@
       "Support page with collapsible question items"
     ],
     "compositionHints": [
-      "Similar pattern to Accordion primitive"
+      "Uses Accordion primitive for expandable questions"
     ],
     "hasReducedMotion": true
   }

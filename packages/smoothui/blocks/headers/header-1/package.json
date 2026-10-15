@@ -34,7 +34,7 @@
       "SaaS landing page header with CTA"
     ],
     "compositionHints": [
-      "Uses shared block components like AnimatedGroup and HeroHeader"
+      "Uses SmoothButton primitive and shared AnimatedGroup and HeroHeader"
     ],
     "hasReducedMotion": false
   }

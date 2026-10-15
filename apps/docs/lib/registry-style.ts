@@ -10,9 +10,9 @@
 export type RegistryPrimitiveStyle = "base" | "radix";
 
 /**
- * Official `style` enum from https://ui.shadcn.com/schema.json.
- * Runtime acceptance is any `base-*` / `radix-*` prefix, plus `default`
- * and `new-york`. `aria-*` is listed here but is not served.
+ * Official served `style` names: `default`, `new-york`, and the 8 visual
+ * presets for `radix-*` and `base-*`. `aria-*` is not listed — those
+ * requests 404 until an Aria twin exists (`isAriaStyle`).
  */
 export const KNOWN_REGISTRY_STYLES = [
   "default",
@@ -33,14 +33,6 @@ export const KNOWN_REGISTRY_STYLES = [
   "base-luma",
   "base-sera",
   "base-rhea",
-  "aria-vega",
-  "aria-nova",
-  "aria-maia",
-  "aria-lyra",
-  "aria-mira",
-  "aria-luma",
-  "aria-sera",
-  "aria-rhea",
 ] as const;
 
 export type KnownRegistryStyle = (typeof KNOWN_REGISTRY_STYLES)[number];

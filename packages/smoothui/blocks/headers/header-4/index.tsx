@@ -10,9 +10,10 @@
 
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { ExternalLink } from "lucide-react";
 import { useEffect, useRef } from "react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
+import { AnimatedGroup, AnimatedText, HeroHeader } from "../../shared";
 import styles from "./hero-grid.module.css";
 
 interface InteractiveGridProps {
@@ -107,16 +108,16 @@ export function HeroGrid({ hoverColors }: HeroGridProps) {
               className="pointer-events-auto mt-6 flex justify-center gap-3"
               preset="slide"
             >
-              <Button
+              <SmoothButton
                 className="shadow-sm transition-shadow hover:shadow"
                 variant="outline"
               >
                 Get Started
-              </Button>
-              <Button className="group" variant="candy">
+              </SmoothButton>
+              <SmoothButton className="group" variant="candy">
                 Learn more{" "}
                 <ExternalLink className="ml-2 h-4 transition-transform group-hover:translate-x-0.5" />
-              </Button>
+              </SmoothButton>
             </AnimatedGroup>
           </AnimatedGroup>
         </section>

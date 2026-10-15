@@ -3,7 +3,18 @@
 import { Tabs as TabsPrimitive } from "@base-ui/react/tabs";
 import { cn } from "@repo/smoothui-utils";
 import { useReducedMotion } from "motion/react";
-import { type ComponentProps, createContext, useContext } from "react";
+import {
+  type ComponentProps,
+  createContext,
+  useContext,
+  useState,
+} from "react";
+import {
+  activeTabIndicatorStyle,
+  composeIndicatorStyle,
+  TabsMeasureValueContext,
+  useActiveTabIndicatorBox,
+} from "./use-active-tab-indicator";
 
 export type TabsVariant = "underline" | "pill" | "segment";
 
@@ -59,29 +70,49 @@ const tabStyles = (variant: TabsVariant) =>
 
 const indicatorStyles = (variant: TabsVariant, reduceMotion: boolean) =>
   cn(
-    "absolute z-0",
-    "w-[var(--active-tab-width)] translate-x-[var(--active-tab-left)]",
+    "pointer-events-none absolute top-0 left-0 z-0",
     reduceMotion
       ? "transition-none"
-      : "transition-[translate,width,height,top] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
-    variant === "underline" && "top-auto bottom-0 h-0.5 translate-y-0 bg-brand",
+      : "transition-[transform,width,height] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+    variant === "underline" && "bg-brand",
     variant === "pill" &&
-      "top-[var(--active-tab-top)] h-[var(--active-tab-height)] rounded-full border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15",
+      "rounded-full border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15",
     variant === "segment" &&
-      "top-[var(--active-tab-top)] h-[var(--active-tab-height)] rounded-md border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15"
+      "rounded-md border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15"
   );
 
 /**
  * SmoothUI Tabs — Base UI twin (default).
  * Compound: TabsRoot, TabsList (variant), TabsTab, TabsPanel, TabsIndicator.
  */
-const TabsRoot = ({ className, ...props }: TabsRootProps) => (
-  <TabsPrimitive.Root
-    className={cn("flex w-full min-w-0 flex-col", className)}
-    data-slot="tabs"
-    {...props}
-  />
-);
+const TabsRoot = ({
+  className,
+  value,
+  defaultValue,
+  onValueChange,
+  ...props
+}: TabsRootProps) => {
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const current = value === undefined ? uncontrolled : value;
+
+  return (
+    <TabsMeasureValueContext.Provider value={current}>
+      <TabsPrimitive.Root
+        className={cn("flex w-full min-w-0 flex-col", className)}
+        data-slot="tabs"
+        defaultValue={defaultValue}
+        onValueChange={(next, eventDetails) => {
+          if (value === undefined) {
+            setUncontrolled(next);
+          }
+          onValueChange?.(next, eventDetails);
+        }}
+        value={value}
+        {...props}
+      />
+    </TabsMeasureValueContext.Provider>
+  );
+};
 
 const TabsList = ({
   className,
@@ -140,14 +171,19 @@ const TabsPanel = ({
   );
 };
 
-const TabsIndicator = ({ className, ...props }: TabsIndicatorProps) => {
+const TabsIndicator = ({ className, style, ...props }: TabsIndicatorProps) => {
   const variant = useContext(TabsVariantContext);
   const shouldReduceMotion = useReducedMotion();
+  const { box, ref } = useActiveTabIndicatorBox();
+  const measured = activeTabIndicatorStyle(variant, box);
+
   return (
     <TabsPrimitive.Indicator
       className={cn(indicatorStyles(variant, !!shouldReduceMotion), className)}
       data-slot="tabs-indicator"
+      ref={ref}
       renderBeforeHydration
+      style={composeIndicatorStyle(measured, style)}
       {...props}
     />
   );

@@ -1,17 +1,19 @@
 "use client";
 
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import {
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
+  AccordionRoot,
+  AccordionTrigger,
+} from "@repo/smoothui/components/accordion";
+import { motion, useReducedMotion } from "motion/react";
 
 const ANIMATION_DURATION = 0.6;
 const STAGGER_DELAY = 0.1;
 const INITIAL_Y_OFFSET = 20;
 const HOVER_SCALE = 1.01;
 const TAP_SCALE = 0.99;
-const ROTATION_OPEN = 180;
-const ROTATION_CLOSED = 0;
-const CONTENT_DELAY = 0.1;
-const INITIAL_CONTENT_Y = -10;
 
 interface FaqsAccordionProps {
   description?: string;
@@ -59,11 +61,7 @@ export function FaqsAccordion({
   ],
 }: FaqsAccordionProps) {
   const shouldReduceMotion = useReducedMotion();
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
+  const firstQuestion = faqs[0]?.question;
 
   return (
     <section className="py-20">
@@ -94,19 +92,22 @@ export function FaqsAccordion({
           </p>
         </motion.div>
 
-        <div className="space-y-4">
+        <AccordionRoot
+          className="space-y-4 divide-y-0 overflow-visible rounded-none border-0"
+          defaultValue={firstQuestion ? [firstQuestion] : undefined}
+        >
           {faqs.map((faq, index) => (
             <motion.div
               animate={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
-              className="group overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-brand hover:shadow-lg"
               initial={
                 shouldReduceMotion
                   ? { opacity: 1 }
                   : { opacity: 0, y: INITIAL_Y_OFFSET }
               }
               key={faq.question}
+              tabIndex={-1}
               transition={
                 shouldReduceMotion
                   ? { duration: 0 }
@@ -116,111 +117,30 @@ export function FaqsAccordion({
                     }
               }
               viewport={{ once: true }}
+              whileHover={shouldReduceMotion ? {} : { scale: HOVER_SCALE }}
               whileInView={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
+              whileTap={shouldReduceMotion ? {} : { scale: TAP_SCALE }}
             >
-              <motion.button
-                className="flex w-full cursor-pointer items-center justify-between p-6 text-left transition-colors hover:bg-background/50"
-                onClick={() => toggleAccordion(index)}
-                type="button"
-                whileHover={shouldReduceMotion ? {} : { scale: HOVER_SCALE }}
-                whileTap={shouldReduceMotion ? {} : { scale: TAP_SCALE }}
+              <AccordionItem
+                className="overflow-hidden rounded-2xl border border-border bg-background transition-all hover:border-brand hover:shadow-lg"
+                value={faq.question}
               >
-                <h3 className="pr-4 font-semibold text-foreground text-lg">
-                  {faq.question}
-                </h3>
-                <motion.div
-                  animate={
-                    shouldReduceMotion
-                      ? {
-                          rotate:
-                            openIndex === index
-                              ? ROTATION_OPEN
-                              : ROTATION_CLOSED,
-                        }
-                      : {
-                          rotate:
-                            openIndex === index
-                              ? ROTATION_OPEN
-                              : ROTATION_CLOSED,
-                        }
-                  }
-                  className="flex-shrink-0"
-                  transition={
-                    shouldReduceMotion
-                      ? { duration: 0 }
-                      : { duration: ANIMATION_DURATION, ease: "easeInOut" }
-                  }
-                >
-                  <svg
-                    aria-hidden="true"
-                    className="h-5 w-5 text-foreground/60"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      d="M19 9l-7 7-7-7"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                    />
-                  </svg>
-                </motion.div>
-              </motion.button>
-
-              <AnimatePresence>
-                {openIndex === index && (
-                  <motion.div
-                    animate={{ height: "auto", opacity: 1 }}
-                    className="overflow-hidden"
-                    exit={
-                      shouldReduceMotion
-                        ? { opacity: 0, transition: { duration: 0 } }
-                        : { height: 0, opacity: 0 }
-                    }
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { height: 0, opacity: 0 }
-                    }
-                    transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : { duration: ANIMATION_DURATION, ease: "easeInOut" }
-                    }
-                  >
-                    <motion.div
-                      animate={{ y: 0 }}
-                      className="px-6 pb-6"
-                      exit={
-                        shouldReduceMotion
-                          ? { transition: { duration: 0 } }
-                          : { y: INITIAL_CONTENT_Y }
-                      }
-                      initial={
-                        shouldReduceMotion ? { y: 0 } : { y: INITIAL_CONTENT_Y }
-                      }
-                      transition={
-                        shouldReduceMotion
-                          ? { duration: 0 }
-                          : {
-                              delay: CONTENT_DELAY,
-                              duration: ANIMATION_DURATION,
-                            }
-                      }
-                    >
-                      <p className="text-foreground/70 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                <AccordionHeader>
+                  <AccordionTrigger className="p-6 text-left font-semibold text-foreground text-lg hover:bg-background/50">
+                    {faq.question}
+                  </AccordionTrigger>
+                </AccordionHeader>
+                <AccordionPanel className="text-base text-foreground/70">
+                  <p className="-mx-4 -mb-4 px-6 pb-6 text-base leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </AccordionPanel>
+              </AccordionItem>
             </motion.div>
           ))}
-        </div>
+        </AccordionRoot>
       </div>
     </section>
   );

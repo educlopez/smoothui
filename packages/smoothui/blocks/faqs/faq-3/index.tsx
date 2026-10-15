@@ -7,6 +7,8 @@ import {
   AccordionRoot,
   AccordionTrigger,
 } from "@repo/smoothui/components/accordion";
+import Field, { FieldLabel } from "@repo/smoothui/components/field";
+import Input from "@repo/smoothui/components/input";
 import { Search } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useMemo, useState } from "react";
@@ -107,17 +109,22 @@ export function FaqSearchable({
             delay: shouldReduceMotion ? 0 : 0.1,
           }}
         >
-          <Search className="absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-foreground/40" />
-          <input
-            aria-label="Search frequently asked questions"
-            className="w-full rounded-xl border border-border bg-background py-4 pr-4 pl-12 text-foreground transition-colors placeholder:text-foreground/40 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-            }}
-            placeholder={searchPlaceholder}
-            type="text"
-            value={searchQuery}
-          />
+          <Search className="pointer-events-none absolute top-1/2 left-4 h-5 w-5 -translate-y-1/2 text-foreground/40" />
+          <Field className="gap-0">
+            <FieldLabel className="sr-only">
+              Search frequently asked questions
+            </FieldLabel>
+            <Input
+              aria-label="Search frequently asked questions"
+              className="h-auto rounded-xl border-border bg-background py-4 pr-4 pl-12 text-base text-foreground shadow-none placeholder:text-foreground/40 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+              }}
+              placeholder={searchPlaceholder}
+              type="text"
+              value={searchQuery}
+            />
+          </Field>
         </motion.div>
 
         {filteredFaqs.length === 0 ? (

@@ -33,7 +33,7 @@
       "SaaS footer with newsletter and navigation"
     ],
     "compositionHints": [
-      "Use animated-input for newsletter email field"
+      "Uses Input and Field for the newsletter email field"
     ],
     "hasReducedMotion": true
   }

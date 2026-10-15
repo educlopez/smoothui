@@ -1,10 +1,11 @@
 "use client";
 
 import { Avatar } from "@repo/avatar";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { getAllPeople, getAvatarUrl, getImageKitUrl } from "@smoothui/data";
 import { ArrowDownRight, Star } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
-import { AnimatedGroup, AnimatedText, Button, HeroHeader } from "../../shared";
+import { AnimatedGroup, AnimatedText, HeroHeader } from "../../shared";
 
 interface HeroShowcaseProps {
   buttons?: {
@@ -140,17 +141,21 @@ export function HeroShowcase({
                 preset="slide"
               >
                 {buttons.primary ? (
-                  <Button asChild className="w-full sm:w-auto" variant="candy">
+                  <SmoothButton
+                    asChild
+                    className="w-full sm:w-auto"
+                    variant="candy"
+                  >
                     <a href={buttons.primary.url}>{buttons.primary.text}</a>
-                  </Button>
+                  </SmoothButton>
                 ) : null}
                 {buttons.secondary ? (
-                  <Button asChild variant="outline">
+                  <SmoothButton asChild variant="outline">
                     <a href={buttons.secondary.url}>
                       {buttons.secondary.text}
                       <ArrowDownRight className="size-4" />
                     </a>
-                  </Button>
+                  </SmoothButton>
                 ) : null}
               </AnimatedGroup>
             </AnimatedGroup>

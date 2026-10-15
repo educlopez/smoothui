@@ -7,12 +7,16 @@ import { Accordion as AccordionPrimitive } from "radix-ui";
 import type { ComponentProps, ReactNode } from "react";
 import { DURATION, DURATION_INSTANT, EASE_OUT } from "../../lib/animation";
 
-export type AccordionRootProps = ComponentProps<
-  typeof AccordionPrimitive.Root
+export type AccordionRootProps = Omit<
+  ComponentProps<typeof AccordionPrimitive.Root>,
+  "type" | "value" | "defaultValue"
 > & {
   className?: string;
   /** Maps to Radix `type="multiple"` when true */
   multiple?: boolean;
+  type?: ComponentProps<typeof AccordionPrimitive.Root>["type"];
+  value?: string | string[];
+  defaultValue?: string | string[];
 };
 
 export type AccordionItemProps = ComponentProps<

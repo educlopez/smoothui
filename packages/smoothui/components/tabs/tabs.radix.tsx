@@ -8,11 +8,16 @@ import {
   createContext,
   type ReactNode,
   useContext,
-  useId,
+  useLayoutEffect,
   useState,
 } from "react";
-import { DURATION, EASE_OUT, SPRING_DEFAULT } from "../../lib/animation";
+import { DURATION, EASE_OUT } from "../../lib/animation";
 import type { TabsVariant } from "./tabs.base";
+import {
+  activeTabIndicatorStyle,
+  TabsMeasureValueContext,
+  useActiveTabIndicatorBox,
+} from "./use-active-tab-indicator";
 
 export type { TabsVariant } from "./tabs.base";
 
@@ -28,6 +33,8 @@ export type TabsListProps = ComponentProps<typeof TabsPrimitive.List> & {
   variant?: TabsVariant;
   className?: string;
   children?: ReactNode;
+  /** Maps to Radix Root `activationMode`. Not forwarded to the DOM. */
+  activateOnFocus?: boolean;
 };
 
 export type TabsTabProps = ComponentProps<typeof TabsPrimitive.Trigger> & {
@@ -41,15 +48,14 @@ export type TabsPanelProps = ComponentProps<typeof TabsPrimitive.Content> & {
   children?: ReactNode;
 };
 
-export type TabsIndicatorProps = {
-  className?: string;
-};
+export type TabsIndicatorProps = ComponentProps<"span">;
 
 export type TabsProps = TabsRootProps;
 
 const TabsVariantContext = createContext<TabsVariant>("underline");
-const TabsValueContext = createContext<string>("");
-const TabsLayoutIdContext = createContext<string>("tabs-indicator");
+const TabsActivationContext = createContext<
+  ((mode: "automatic" | "manual") => void) | null
+>(null);
 
 const listStyles = (variant: TabsVariant) =>
   cn(
@@ -70,19 +76,22 @@ const tabStyles = (variant: TabsVariant) =>
     variant === "segment" && "min-w-0 flex-1 rounded-md"
   );
 
-const indicatorStyles = (variant: TabsVariant) =>
+const indicatorStyles = (variant: TabsVariant, reduceMotion: boolean) =>
   cn(
-    "absolute z-0",
-    variant === "underline" && "right-0 -bottom-px left-0 h-0.5 bg-brand",
+    "pointer-events-none absolute top-0 left-0 z-0",
+    reduceMotion
+      ? "transition-none"
+      : "transition-[transform,width,height] duration-200 ease-[cubic-bezier(0.23,1,0.32,1)]",
+    variant === "underline" && "bg-brand",
     variant === "pill" &&
-      "inset-0 rounded-full border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15",
+      "rounded-full border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15",
     variant === "segment" &&
-      "inset-0 rounded-md border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15"
+      "rounded-md border border-foreground/15 bg-background shadow-sm dark:bg-foreground/15"
   );
 
 /**
  * SmoothUI Tabs — Radix twin.
- * Same public API as Base; indicator uses Motion layoutId (Radix has no Indicator).
+ * Same public API as Base. Indicator is a sibling measured from the active tab.
  */
 const TabsRoot = ({
   className,
@@ -92,13 +101,15 @@ const TabsRoot = ({
   children,
   ...props
 }: TabsRootProps) => {
-  const layoutId = useId();
-  const [uncontrolled, setUncontrolled] = useState(() => defaultValue ?? "");
-  const current = value ?? uncontrolled;
+  const [activationMode, setActivationMode] = useState<"automatic" | "manual">(
+    "manual"
+  );
+  const [uncontrolled, setUncontrolled] = useState(defaultValue);
+  const current = value === undefined ? uncontrolled : value;
 
   return (
-    <TabsLayoutIdContext.Provider value={`tabs-ind-${layoutId}`}>
-      <TabsValueContext.Provider value={String(current)}>
+    <TabsMeasureValueContext.Provider value={current}>
+      <TabsActivationContext.Provider value={setActivationMode}>
         <TabsPrimitive.Root
           className={cn("flex w-full min-w-0 flex-col", className)}
           data-slot="tabs"
@@ -111,11 +122,12 @@ const TabsRoot = ({
           }}
           value={value}
           {...props}
+          activationMode={activationMode}
         >
           {children}
         </TabsPrimitive.Root>
-      </TabsValueContext.Provider>
-    </TabsLayoutIdContext.Provider>
+      </TabsActivationContext.Provider>
+    </TabsMeasureValueContext.Provider>
   );
 };
 
@@ -123,25 +135,31 @@ const TabsList = ({
   className,
   variant = "underline",
   children,
+  activateOnFocus = false,
   ...props
-}: TabsListProps) => (
-  <TabsVariantContext.Provider value={variant}>
-    <TabsPrimitive.List
-      className={cn(listStyles(variant), className)}
-      data-slot="tabs-list"
-      {...props}
-    >
-      {children}
-    </TabsPrimitive.List>
-  </TabsVariantContext.Provider>
-);
+}: TabsListProps) => {
+  const setActivationMode = useContext(TabsActivationContext);
+  const mode = activateOnFocus ? "automatic" : "manual";
+
+  useLayoutEffect(() => {
+    setActivationMode?.(mode);
+  }, [mode, setActivationMode]);
+
+  return (
+    <TabsVariantContext.Provider value={variant}>
+      <TabsPrimitive.List
+        className={cn(listStyles(variant), className)}
+        data-slot="tabs-list"
+        {...props}
+      >
+        {children}
+      </TabsPrimitive.List>
+    </TabsVariantContext.Provider>
+  );
+};
 
 const TabsTab = ({ className, children, value, ...props }: TabsTabProps) => {
   const variant = useContext(TabsVariantContext);
-  const active = useContext(TabsValueContext);
-  const layoutId = useContext(TabsLayoutIdContext);
-  const shouldReduceMotion = useReducedMotion();
-  const isActive = String(value) === active;
 
   return (
     <TabsPrimitive.Trigger
@@ -150,15 +168,7 @@ const TabsTab = ({ className, children, value, ...props }: TabsTabProps) => {
       value={value}
       {...props}
     >
-      {isActive ? (
-        <motion.span
-          className={indicatorStyles(variant)}
-          layoutId={layoutId}
-          style={{ position: "absolute" }}
-          transition={shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT}
-        />
-      ) : null}
-      <span className="relative z-10">{children}</span>
+      {children}
     </TabsPrimitive.Trigger>
   );
 };
@@ -205,8 +215,23 @@ const TabsPanel = ({
   );
 };
 
-/** No-op on Radix — indicator is rendered inside active TabsTab via layoutId. */
-const TabsIndicator = (_props: TabsIndicatorProps) => null;
+const TabsIndicator = ({ className, style, ...props }: TabsIndicatorProps) => {
+  const variant = useContext(TabsVariantContext);
+  const shouldReduceMotion = useReducedMotion();
+  const { box, ref } = useActiveTabIndicatorBox();
+
+  return (
+    <span
+      aria-hidden="true"
+      className={cn(indicatorStyles(variant, !!shouldReduceMotion), className)}
+      data-slot="tabs-indicator"
+      ref={ref}
+      role="presentation"
+      style={{ ...activeTabIndicatorStyle(variant, box), ...style }}
+      {...props}
+    />
+  );
+};
 
 export { TabsIndicator, TabsList, TabsPanel, TabsRoot, TabsTab };
 
