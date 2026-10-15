@@ -235,7 +235,7 @@ export const getCustomTheme = (itemName: string): RegistryItem | undefined => {
   const palette = THEME_PALETTES.find((entry) => entry.name === state.palette);
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
+    author: "Eduardo Calvo <edu@smoothui.dev>",
     cssVars,
     description: `Custom SmoothUI ${state.palette} theme from the Theme Studio: radius ${state.radius}px, accent ${state.accent >= 0 ? "+" : ""}${state.accent}, ${state.font} font, ${state.tint} neutrals.`,
     name: itemName,

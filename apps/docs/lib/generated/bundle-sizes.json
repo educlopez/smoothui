@@ -17,11 +17,11 @@
       "minified": 26541,
       "gzipped": 8605
     },
-    "animated-input": {
+    "float-input": {
       "minified": 1644,
       "gzipped": 896
     },
-    "animated-o-t-p-input": {
+    "otp-slots": {
       "minified": 28395,
       "gzipped": 9137
     },
@@ -37,7 +37,7 @@
       "minified": 2195,
       "gzipped": 806
     },
-    "animated-toggle": {
+    "morph-toggle": {
       "minified": 26698,
       "gzipped": 8697
     },
@@ -145,7 +145,7 @@
       "minified": 27067,
       "gzipped": 8895
     },
-    "notification-badge": {
+    "count-badge": {
       "minified": 26955,
       "gzipped": 8767
     },
@@ -201,7 +201,7 @@
       "minified": 28738,
       "gzipped": 9082
     },
-    "skeleton-loader": {
+    "content-skeleton": {
       "minified": 25272,
       "gzipped": 8069
     },

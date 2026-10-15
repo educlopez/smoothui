@@ -1,8 +1,20 @@
 "use client";
 
-import { ChevronDown } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import {
+  AccordionHeader,
+  AccordionItem,
+  AccordionPanel,
+  AccordionRoot,
+  AccordionTrigger,
+} from "@repo/smoothui/components/accordion";
+import {
+  TabsIndicator,
+  TabsList,
+  TabsPanel,
+  TabsRoot,
+  TabsTab,
+} from "@repo/smoothui/components/tabs";
+import { motion, useReducedMotion } from "motion/react";
 
 export interface FaqCategorizedProps {
   categories?: Array<{
@@ -89,26 +101,12 @@ export function FaqCategorized({
   description = "Find answers organized by topic",
   categories = defaultCategories,
 }: FaqCategorizedProps) {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
   const shouldReduceMotion = useReducedMotion();
+  const defaultCategory = categories[0]?.name;
 
   const springTransition = shouldReduceMotion
     ? { duration: 0 }
     : { bounce: 0.05, duration: 0.25, type: "spring" as const };
-
-  const contentTransition = shouldReduceMotion
-    ? { duration: 0 }
-    : { bounce: 0, duration: 0.25, type: "spring" as const };
-
-  const handleCategoryChange = (index: number) => {
-    setActiveCategory(index);
-    setOpenIndex(null);
-  };
-
-  const toggleAccordion = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
 
   return (
     <section className="py-20">
@@ -127,140 +125,65 @@ export function FaqCategorized({
           </p>
         </motion.div>
 
-        <motion.div
-          animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-          className="mb-8"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          transition={{
-            ...springTransition,
-            delay: shouldReduceMotion ? 0 : 0.1,
-          }}
-        >
-          <div
-            className="flex flex-wrap justify-center gap-2 border-border border-b"
-            role="tablist"
-          >
-            {categories.map((category, index) => (
-              <button
-                aria-selected={activeCategory === index}
-                className={`relative px-4 py-3 font-medium text-sm transition-colors ${
-                  activeCategory === index
-                    ? "text-brand"
-                    : "text-foreground/60 hover:text-foreground"
-                }`}
-                key={category.name}
-                onClick={() => handleCategoryChange(index)}
-                role="tab"
-                type="button"
-              >
-                {category.name}
-                {activeCategory === index && (
-                  <motion.div
-                    className="absolute right-0 bottom-0 left-0 h-0.5 bg-brand"
-                    layoutId="categoryIndicator"
-                    transition={springTransition}
-                  />
-                )}
-              </button>
-            ))}
-          </div>
-        </motion.div>
-
-        <AnimatePresence mode="wait">
+        <TabsRoot className="gap-0" defaultValue={defaultCategory}>
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            exit={
-              shouldReduceMotion
-                ? { opacity: 0, transition: { duration: 0 } }
-                : { opacity: 0, y: -10 }
-            }
+            className="mb-8"
             initial={
-              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
+              shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 }
             }
-            key={activeCategory}
-            transition={springTransition}
+            transition={{
+              ...springTransition,
+              delay: shouldReduceMotion ? 0 : 0.1,
+            }}
           >
-            <div className="space-y-4">
-              {categories[activeCategory].faqs.map((faq, index) => {
-                const isOpen = openIndex === index;
-
-                return (
-                  <motion.div
-                    animate={
-                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
-                    }
-                    className="overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 0, y: 20 }
-                    }
-                    key={faq.question}
-                    transition={{
-                      ...springTransition,
-                      delay: shouldReduceMotion ? 0 : index * 0.05,
-                    }}
-                  >
-                    <button
-                      aria-expanded={isOpen}
-                      className="flex w-full cursor-pointer items-center justify-between p-5 text-left transition-colors hover:bg-background/50"
-                      onClick={() => toggleAccordion(index)}
-                      type="button"
-                    >
-                      <h3 className="pr-4 font-medium text-foreground">
-                        {faq.question}
-                      </h3>
-                      <motion.div
-                        animate={{ rotate: isOpen ? 180 : 0 }}
-                        className="flex-shrink-0"
-                        transition={springTransition}
-                      >
-                        <ChevronDown
-                          aria-hidden="true"
-                          className="h-5 w-5 text-foreground/60"
-                        />
-                      </motion.div>
-                    </button>
-
-                    <AnimatePresence>
-                      {isOpen && (
-                        <motion.div
-                          animate={
-                            shouldReduceMotion
-                              ? { height: "auto", opacity: 1 }
-                              : { height: "auto", opacity: 1 }
-                          }
-                          className="overflow-hidden"
-                          exit={
-                            shouldReduceMotion
-                              ? {
-                                  height: 0,
-                                  opacity: 0,
-                                  transition: { duration: 0 },
-                                }
-                              : { height: 0, opacity: 0 }
-                          }
-                          initial={
-                            shouldReduceMotion
-                              ? { height: "auto", opacity: 1 }
-                              : { height: 0, opacity: 0 }
-                          }
-                          transition={contentTransition}
-                        >
-                          <div className="px-5 pb-5">
-                            <p className="text-foreground/70 leading-relaxed">
-                              {faq.answer}
-                            </p>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </motion.div>
-                );
-              })}
-            </div>
+            <TabsList
+              activateOnFocus
+              className="flex-nowrap justify-start gap-2 overflow-x-auto overflow-y-hidden [-ms-overflow-style:none] [scrollbar-width:none] sm:justify-center [&::-webkit-scrollbar]:hidden"
+              variant="underline"
+            >
+              {categories.map((category) => (
+                <TabsTab
+                  className="px-4 py-3 text-foreground/60 hover:text-foreground data-[state=active]:text-brand data-active:text-brand"
+                  key={category.name}
+                  value={category.name}
+                >
+                  {category.name}
+                </TabsTab>
+              ))}
+              <TabsIndicator />
+            </TabsList>
           </motion.div>
-        </AnimatePresence>
+
+          {categories.map((category) => (
+            <TabsPanel
+              animated
+              className="pt-0 text-base text-foreground"
+              key={category.name}
+              tabIndex={-1}
+              value={category.name}
+            >
+              <AccordionRoot className="space-y-4 divide-y-0 rounded-none border-0">
+                {category.faqs.map((faq) => (
+                  <AccordionItem
+                    className="overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-brand"
+                    key={faq.question}
+                    value={faq.question}
+                  >
+                    <AccordionHeader>
+                      <AccordionTrigger className="px-5 py-5 text-base hover:bg-background/50">
+                        {faq.question}
+                      </AccordionTrigger>
+                    </AccordionHeader>
+                    <AccordionPanel className="text-foreground/70">
+                      {faq.answer}
+                    </AccordionPanel>
+                  </AccordionItem>
+                ))}
+              </AccordionRoot>
+            </TabsPanel>
+          ))}
+        </TabsRoot>
       </div>
     </section>
   );

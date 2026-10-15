@@ -41,7 +41,7 @@ export function PmFloatNav() {
     <div className="relative" ref={ref}>
       <button
         aria-label={`Package manager: ${activePm}`}
-        className="float-trigger grid h-11! w-11! cursor-pointer place-items-center p-0!"
+        className="float-trigger grid size-9! cursor-pointer place-items-center p-0!"
         onClick={() => setOpen((v) => !v)}
         type="button"
       >
@@ -55,7 +55,7 @@ export function PmFloatNav() {
                 ? { opacity: 1 }
                 : { opacity: 1, scale: 1, y: 0 }
             }
-            className="absolute bottom-12 left-1/2 z-50 flex min-w-[140px] -translate-x-1/2 flex-col gap-0.5 rounded-xl border bg-background p-1 shadow-2xl"
+            className="absolute bottom-10 left-1/2 z-50 flex min-w-[140px] -translate-x-1/2 flex-col gap-0.5 rounded-xl border bg-background p-1 shadow-lg"
             exit={
               shouldReduceMotion
                 ? { opacity: 0, transition: { duration: 0 } }

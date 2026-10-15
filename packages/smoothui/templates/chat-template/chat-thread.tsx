@@ -1,6 +1,5 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import AIApproval from "@repo/smoothui/components/ai-approval";
 import AIArtifact from "@repo/smoothui/components/ai-artifact";
 import AIContextMeter from "@repo/smoothui/components/ai-context-meter";
@@ -19,6 +18,8 @@ import AISuggestions from "@repo/smoothui/components/ai-suggestions";
 import AITaskList from "@repo/smoothui/components/ai-task-list";
 import AIToolCall from "@repo/smoothui/components/ai-tool-call";
 import SiriOrb from "@repo/smoothui/components/siri-orb";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronDown, PanelLeftOpen, Paperclip } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
@@ -202,14 +203,16 @@ export const ChatThread = ({
         {/* The only way into the conversation list on a phone, where the sidebar
             has no column of its own. */}
         {onOpenSidebar ? (
-          <button
+          <SmoothButton
             aria-label="Open conversations"
-            className="-ml-1 flex cursor-pointer items-center rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden"
+            className="-ml-1 text-muted-foreground md:hidden"
             onClick={onOpenSidebar}
+            size="icon-sm"
             type="button"
+            variant="ghost"
           >
             <PanelLeftOpen aria-hidden="true" size={16} />
-          </button>
+          </SmoothButton>
         ) : null}
         <h2 className="min-w-0 flex-1 truncate font-medium text-sm">{title}</h2>
         <AIContextMeter
@@ -486,16 +489,17 @@ const ModelPicker = ({
 
   return (
     <div className="relative" ref={containerRef}>
-      <button
+      <SmoothButton
         aria-expanded={isOpen}
         aria-haspopup="menu"
-        className="flex items-center gap-1 rounded-lg px-2 py-1.5 text-muted-foreground text-xs transition-colors hover:bg-muted hover:text-foreground"
+        className="h-auto gap-1 px-2 py-1.5 font-normal text-muted-foreground text-xs"
         onClick={() => setIsOpen((open) => !open)}
         type="button"
+        variant="ghost"
       >
         {value}
         <ChevronDown aria-hidden="true" size={12} />
-      </button>
+      </SmoothButton>
 
       {isOpen ? (
         <div
@@ -503,9 +507,9 @@ const ModelPicker = ({
           role="menu"
         >
           {MODELS.map((option) => (
-            <button
+            <SmoothButton
               className={cn(
-                "flex w-full flex-col rounded-lg px-2 py-1.5 text-left transition-colors hover:bg-muted",
+                "h-auto w-full flex-col items-start rounded-lg px-2 py-1.5 font-normal",
                 option.label === value
                   ? "text-foreground"
                   : "text-muted-foreground"
@@ -517,12 +521,13 @@ const ModelPicker = ({
               }}
               role="menuitem"
               type="button"
+              variant="ghost"
             >
               <span className="text-sm">{option.label}</span>
               <span className="text-muted-foreground text-xs">
                 {option.note}
               </span>
-            </button>
+            </SmoothButton>
           ))}
         </div>
       ) : null}

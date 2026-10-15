@@ -1,0 +1,51 @@
+---
+title: Toolbar
+description: Accessible toolbar for grouped controls with keyboard roving focus, Base UI and Radix twins.
+icon: Wrench
+dependencies:
+  - base-ui
+installer: toolbar
+---
+
+## Features
+
+- Horizontal (default) and vertical orientation
+- Compound parts: `ToolbarRoot`, `ToolbarGroup`, `ToolbarButton`, `ToolbarLink`, `ToolbarSeparator`, `ToolbarInput`
+- Roving tabindex so arrow keys move between controls
+- Base UI by default; Radix twin available via style
+- `disabled` on the toolbar disables every button (and the input) in both twins
+
+## States
+
+### Features
+
+A formatting bar with style buttons, actions, and a status link.
+
+### Vertical
+
+Same controls stacked for side rails.
+
+## Accessibility
+
+### Keyboard
+
+Arrow keys move focus within the toolbar. Home / End jump to the first / last item.
+
+With the Radix twin, `ToolbarInput` is a native input that sits outside the toolbar's roving focus: it stays reachable with Tab, and the arrow keys keep moving its caret instead of jumping to the next control. The Base UI twin includes the input in roving focus.
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="toolbar"` | Root | Identifies the toolbar |
+| `aria-orientation` | Root | `vertical` when stacked |
+| `role="group"` | Group | Labels a cluster of related controls |
+
+## Props
+
+### ToolbarProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/toolbar/index.tsx"
+  name="ToolbarProps"
+/>

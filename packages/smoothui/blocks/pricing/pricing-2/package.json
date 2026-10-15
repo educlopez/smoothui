@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^11.15.0"
+    "motion": "^11.15.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -33,7 +33,7 @@
       "Product pricing table with feature highlights"
     ],
     "compositionHints": [
-      "Use animated-toggle for monthly/yearly switcher",
+      "Use morph-toggle for monthly/yearly switcher",
       "Use price-flow for animated price transitions"
     ],
     "hasReducedMotion": true

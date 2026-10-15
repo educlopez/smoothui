@@ -1,10 +1,7 @@
 "use client";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/shadcn-ui/components/ui/avatar";
+import { Avatar } from "@repo/avatar";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { getAvatarUrl, getTestimonials } from "@smoothui/data";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
@@ -67,52 +64,28 @@ export function TestimonialsGrid() {
               <div className="relative flex min-h-fit flex-col items-end">
                 {/* Navigation Arrows - Above the card */}
                 <div className="mb-4 flex justify-center gap-2">
-                  <motion.button
-                    animate={
-                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-                    }
+                  <SmoothButton
                     aria-label="Previous testimonial"
-                    className="group/button flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 0, x: -20 }
-                    }
+                    className="group/button shadow-lg"
                     onClick={handlePrev}
-                    transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : { delay: 0.4, duration: 0.3 }
-                    }
+                    shape="pill"
+                    size="icon-sm"
                     type="button"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                    variant="outline"
                   >
                     <ChevronLeft className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:-rotate-12" />
-                  </motion.button>
-                  <motion.button
-                    animate={
-                      shouldReduceMotion ? { opacity: 1 } : { opacity: 1, x: 0 }
-                    }
+                  </SmoothButton>
+                  <SmoothButton
                     aria-label="Next testimonial"
-                    className="group/button flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-background shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
-                    initial={
-                      shouldReduceMotion
-                        ? { opacity: 1 }
-                        : { opacity: 0, x: 20 }
-                    }
+                    className="group/button shadow-lg"
                     onClick={handleNext}
-                    transition={
-                      shouldReduceMotion
-                        ? { duration: 0 }
-                        : { delay: 0.4, duration: 0.3 }
-                    }
+                    shape="pill"
+                    size="icon-sm"
                     type="button"
-                    whileHover={shouldReduceMotion ? {} : { scale: 1.1 }}
-                    whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+                    variant="outline"
                   >
                     <ChevronRight className="h-5 w-5 text-foreground transition-transform duration-300 group-hover/button:rotate-12" />
-                  </motion.button>
+                  </SmoothButton>
                 </div>
                 <div className="relative h-full w-full max-w-md">
                   <AnimatePresence>
@@ -232,15 +205,12 @@ export function TestimonialsGrid() {
                                 : { delay: 0.2, duration: 0.3 }
                             }
                           >
-                            <Avatar className="size-8 border border-transparent shadow ring-1 ring-foreground/10">
-                              <AvatarImage
-                                alt={testimonial.name}
-                                src={getAvatarUrl(testimonial.avatar, 64)}
-                              />
-                              <AvatarFallback>
-                                {testimonial.name.charAt(0)}
-                              </AvatarFallback>
-                            </Avatar>
+                            <Avatar
+                              alt={testimonial.name}
+                              className="size-8 overflow-hidden rounded-full shadow"
+                              fallback={testimonial.name.charAt(0)}
+                              src={getAvatarUrl(testimonial.avatar, 64)}
+                            />
                             <div>
                               <div className="font-semibold text-foreground">
                                 {testimonial.name}

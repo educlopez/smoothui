@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import Orb from "@repo/smoothui/components/orb";
+import { cn } from "@repo/smoothui-utils";
 import {
   type MotionValue,
   motion,

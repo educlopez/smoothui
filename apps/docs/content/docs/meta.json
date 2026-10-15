@@ -1,3 +1,10 @@
 {
-  "pages": ["guides", "components", "blocks", "templates", "community"]
+  "pages": [
+    "guides",
+    "primitives",
+    "components",
+    "blocks",
+    "templates",
+    "community"
+  ]
 }

@@ -1,0 +1,45 @@
+{
+  "name": "@repo/otp-slots",
+  "description": "A OtpSlots component for SmoothUI.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "motion": "^12.23.25",
+    "lucide-react": "^0.545.0",
+    "input-otp": "^1.2.4",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "otp",
+      "input",
+      "verification",
+      "code",
+      "pin",
+      "form",
+      "animated"
+    ],
+    "complexity": "moderate",
+    "animationType": "tween",
+    "useCases": [
+      "One-time password input for two-factor authentication",
+      "Verification code entry with animated digit slots",
+      "PIN code input with staggered entrance animations"
+    ],
+    "compositionHints": [
+      "Combine with Dialog primitive for verification dialogs",
+      "Use Toast primitive to show verification success/error"
+    ],
+    "hasReducedMotion": true,
+    "name": "otp-slots"
+  }
+}

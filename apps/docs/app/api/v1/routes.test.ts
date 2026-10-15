@@ -31,7 +31,7 @@ import { GET as listComponents } from "./components/route";
 
 const component = (name: string, overrides: Record<string, unknown> = {}) => ({
   animationType: "spring",
-  category: "basic-ui",
+  category: "patterns",
   complexity: "simple",
   name,
   tags: ["overlay"],

@@ -25,9 +25,9 @@ const SPRING_STIFFNESS = 500;
 const SPRING_DAMPING = 30;
 const HOVER_SCALE = 1.02;
 const TAP_SCALE = 0.98;
-const FAQ_STAGGER_DELAY = 0.1;
 const INITIAL_Y_OFFSET = 20;
 const EXIT_Y_OFFSET = -20;
+const FAQ_STAGGER_DELAY = 0.1;
 
 const iconMap = {
   Activity,
@@ -233,7 +233,7 @@ export function FaqsGrid({
                             ? { opacity: 1 }
                             : { opacity: 0, y: INITIAL_Y_OFFSET }
                         }
-                        key={`${categories[activeTab].id}-${faqIndex}`}
+                        key={`${categories[activeTab].id}-${faq.question}`}
                         transition={
                           shouldReduceMotion
                             ? { duration: 0 }
@@ -249,7 +249,9 @@ export function FaqsGrid({
                           </div>
                           {faq.question}
                         </dt>
-                        <dd className="text-muted-foreground">{faq.answer}</dd>
+                        <dd className="text-base text-muted-foreground">
+                          {faq.answer}
+                        </dd>
                       </motion.div>
                     );
                   })}

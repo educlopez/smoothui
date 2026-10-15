@@ -1,0 +1,63 @@
+---
+title: Field
+description: Accessible field compound with label, description, control, and error — powered by Base UI Field.
+icon: TextCursorInput
+dependencies:
+  - base-ui
+installer: field
+---
+
+## Features
+
+Base UI Field compound for labeling and validating form controls. Vertical stack with label, description, styled control, and error messaging.
+
+## Usage
+
+Compose `Field`, `FieldLabel`, `FieldControl`, `FieldDescription`, and `FieldError`. The root wires ids and `aria-*` associations automatically.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `for` / `id` | Label ↔ Control | Associates the label with the control |
+| `aria-describedby` | Control | Links description and error messages |
+| `aria-invalid` | Control | Marks the control when the field is invalid |
+
+## Props
+
+### FieldProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/field/index.tsx"
+  name="FieldProps"
+/>
+
+### FieldLabelProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/field/index.tsx"
+  name="FieldLabelProps"
+/>
+
+### FieldControlProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/field/index.tsx"
+  name="FieldControlProps"
+/>
+
+### FieldDescriptionProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/field/index.tsx"
+  name="FieldDescriptionProps"
+/>
+
+### FieldErrorProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/field/index.tsx"
+  name="FieldErrorProps"
+/>

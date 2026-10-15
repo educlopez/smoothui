@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { getAllPeople, getAvatarUrl, type Person } from "@smoothui/data";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -102,13 +103,14 @@ export function TeamCarousel({
         <div className="relative">
           {/* Navigation Buttons */}
           <div className="mt-4 hidden items-center justify-end gap-4 md:flex">
-            <motion.button
-              className="static top-1/2 -left-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+            <SmoothButton
+              aria-label="Previous slide"
               disabled={currentIndex === 0 || isTransitioning}
               onClick={prevSlide}
+              shape="pill"
+              size="icon-lg"
               type="button"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+              variant="outline"
             >
               <svg
                 aria-hidden="true"
@@ -126,18 +128,18 @@ export function TeamCarousel({
                 <path d="m12 19-7-7 7-7" />
                 <path d="M19 12H5" />
               </svg>
-              <span className="sr-only">Previous slide</span>
-            </motion.button>
-            <motion.button
-              className="static top-1/2 -right-12 inline-flex size-11 shrink-0 translate-x-0 translate-y-0 cursor-pointer items-center justify-center gap-2 whitespace-nowrap rounded-full border bg-background font-medium text-sm shadow-xs outline-none transition-all hover:bg-accent hover:text-accent-foreground focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:border-input dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0"
+            </SmoothButton>
+            <SmoothButton
+              aria-label="Next slide"
               disabled={
                 currentIndex >= members.length - CARDS_PER_VIEW ||
                 isTransitioning
               }
               onClick={nextSlide}
+              shape="pill"
+              size="icon-lg"
               type="button"
-              whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-              whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+              variant="outline"
             >
               <svg
                 aria-hidden="true"
@@ -155,8 +157,7 @@ export function TeamCarousel({
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
-              <span className="sr-only">Next slide</span>
-            </motion.button>
+            </SmoothButton>
           </div>
 
           {/* Carousel Content */}

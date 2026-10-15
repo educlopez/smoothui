@@ -158,18 +158,18 @@ export function KitFloatNav() {
     <>
       <button
         aria-label={`Open install bundle (${count} selected)`}
-        className="float-trigger relative grid h-11! w-11! cursor-pointer place-items-center p-0!"
+        className="float-trigger relative grid size-9! cursor-pointer place-items-center p-0!"
         onClick={() => setOpen(true)}
         ref={triggerRef}
         type="button"
       >
         {/* A box, matching the "add to bundle" button on every preview:
             you fill a package, you do not stack layers. */}
-        <Package aria-hidden="true" size={19} />
+        <Package aria-hidden="true" size={16} />
         {count > 0 ? (
           <span
             aria-hidden="true"
-            className="absolute top-1.5 right-1.5 flex h-3.5 min-w-3.5 items-center justify-center rounded-full bg-brand px-0.5 font-semibold text-[9px] text-white leading-none shadow-xs ring-2 ring-background"
+            className="absolute top-1 right-1 flex h-3 min-w-3 items-center justify-center rounded-full bg-brand px-0.5 font-semibold text-[8px] text-white leading-none ring-2 ring-background"
           >
             {count > 99 ? "99+" : String(count)}
           </span>

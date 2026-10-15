@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "lucide-react": "^0.548.0",
-    "motion": "^11.15.0"
+    "motion": "^11.15.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Developer portfolio header with interactive elements"
     ],
     "compositionHints": [
-      "Uses shared block components"
+      "Uses SmoothButton primitive and shared block components"
     ],
     "hasReducedMotion": true
   }

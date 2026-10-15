@@ -9,7 +9,7 @@
  * @example package.json
  * ```json
  * {
- *   "name": "@repo/animated-tabs",
+ *   "name": "@repo/morph-toggle",
  *   "description": "Animated tabs component with sliding indicator",
  *   "smoothui": {
  *     "category": "navigation",
@@ -21,7 +21,7 @@
  *       "Section switcher with animated indicator"
  *     ],
  *     "compositionHints": [
- *       "Combine with animated-tooltip for rich tab headers"
+ *       "Combine with tooltip for rich tab headers"
  *     ],
  *     "hasReducedMotion": true
  *   }
@@ -66,7 +66,7 @@ export interface SmoothUIPackageMeta {
 // ---------------------------------------------------------------------------
 
 const VALID_CATEGORIES: readonly ComponentCategory[] = [
-  "basic-ui",
+  "patterns",
   "button",
   "text",
   "ai",

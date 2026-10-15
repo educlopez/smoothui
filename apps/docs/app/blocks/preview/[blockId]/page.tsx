@@ -15,10 +15,21 @@ interface PageProps {
   params: Promise<{
     blockId: string;
   }>;
+  searchParams: Promise<{
+    poster?: string;
+  }>;
 }
 
-export default async function BlockPreviewPage({ params }: PageProps) {
+const TRANSPARENT_PAGE_CSS =
+  "html,body{background:transparent !important;color-scheme:normal}";
+
+export default async function BlockPreviewPage({
+  params,
+  searchParams,
+}: PageProps) {
   const { blockId } = await params;
+  const { poster } = await searchParams;
+  const isPoster = poster === "1";
 
   try {
     const BlockExample = await import(`@docs/examples/${blockId}.tsx`).then(
@@ -30,14 +41,22 @@ export default async function BlockPreviewPage({ params }: PageProps) {
     }
 
     return (
-      <div className="flex min-h-screen w-full flex-col bg-background p-0 text-foreground">
+      <div
+        className={`flex min-h-screen w-full flex-col p-0 text-foreground ${
+          isPoster ? "bg-transparent" : "bg-background"
+        }`}
+      >
         {/* The dev overlay is a fixed element in the corner of this page, so it
             lands inside any screenshot taken of a block — including the cover art
             on the blocks index. It does not exist in production, so hiding it
             costs nothing there. */}
         {/* A text child rather than `dangerouslySetInnerHTML`: React accepts one
             for `<style>`, and there is nothing to sanitise in a constant. */}
-        <style>{"nextjs-portal{display:none}"}</style>
+        <style>
+          {isPoster
+            ? `nextjs-portal{display:none}${TRANSPARENT_PAGE_CSS}`
+            : "nextjs-portal{display:none}"}
+        </style>
         <ColorSync />
         <BlockHeightSync blockId={blockId} />
         {/* Poster capture measures this node. A plain wrapper, so the live

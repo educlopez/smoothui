@@ -1,0 +1,48 @@
+---
+title: Popover
+description: Anchored popover for non-modal content with Motion enter animations and Base UI positioning.
+icon: PanelTop
+dependencies:
+  - motion.dev
+  - base-ui
+installer: popover
+---
+
+## Features
+
+- Anchored to a trigger with configurable side and alignment
+- Spring fade/scale entrance via Motion
+- Controlled or uncontrolled open state
+- Compound parts (`PopoverTrigger`, `PopoverContent`, `PopoverClose`) for advanced layouts
+- Base UI by default; Radix twin available via style
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Opens the popover when the trigger is focused |
+| `Escape` | Closes the popover and returns focus to the trigger |
+| `Tab` | Moves focus into and through focusable content inside the popover |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-expanded` | Trigger | Indicates whether the popover is open |
+| `aria-haspopup` | Trigger | Indicates the trigger opens a popup |
+| `role="dialog"` | Content | Identifies the popover surface (when modal behavior applies) |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, fade and scale animations are disabled instantly.
+
+## Props
+
+### PopoverProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/popover/index.tsx"
+  name="PopoverProps"
+/>

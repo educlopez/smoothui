@@ -11,9 +11,11 @@ import {
 function LogoContent({
   classNameIcon,
   className,
+  mark = false,
 }: {
   classNameIcon?: string;
   className?: string;
+  mark?: boolean;
 }) {
   const { openMenu } = useLogoContextMenu();
   const ref = useRef<HTMLSpanElement>(null);
@@ -60,14 +62,16 @@ function LogoContent({
       ref={ref}
     >
       <Icon className={cn("h-6 w-auto cursor-grabbing", classNameIcon)} />
-      <span
-        className={cn(
-          "mt-0.5 select-none text-center font-medium font-title text-foreground text-xl transition",
-          className
-        )}
-      >
-        Smooth<span className="text-brand">UI</span>
-      </span>
+      {mark ? null : (
+        <span
+          className={cn(
+            "mt-0.5 select-none text-center font-medium font-title text-foreground text-xl transition",
+            className
+          )}
+        >
+          Smooth<span className="text-brand">UI</span>
+        </span>
+      )}
     </span>
   );
 }
@@ -75,13 +79,19 @@ function LogoContent({
 export default function Logo({
   classNameIcon,
   className,
+  mark = false,
 }: {
   classNameIcon?: string;
   className?: string;
+  mark?: boolean;
 }) {
   return (
     <LogoContextMenuProvider>
-      <LogoContent className={className} classNameIcon={classNameIcon} />
+      <LogoContent
+        className={className}
+        classNameIcon={classNameIcon}
+        mark={mark}
+      />
     </LogoContextMenuProvider>
   );
 }

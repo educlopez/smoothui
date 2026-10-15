@@ -1,13 +1,19 @@
+import { DocsFloatNav } from "@docs/components/docs-float-nav";
 import DocsFooter from "@docs/components/docs-footer";
-import { FloatNav } from "@docs/components/float-nav";
+import { DocsHeader } from "@docs/components/docs-header";
+import { DocsSidebarItem } from "@docs/components/docs-sidebar-item";
 import { NavSponsorCard } from "@docs/components/nav-sponsor-card";
 import { decorateNewPages } from "@docs/lib/decorate-new";
+import { decorateSidebarCategories } from "@docs/lib/decorate-sidebar-categories";
+import { injectPlannedPrimitives } from "@docs/lib/inject-planned-primitives";
 import { baseOptions } from "@docs/lib/layout.shared";
 import { source } from "@docs/lib/source";
 import { DocsLayout } from "fumadocs-ui/layouts/notebook";
 
 export default function Layout({ children }: LayoutProps<"/docs">) {
-  const tree = decorateNewPages(source.pageTree, source);
+  const tree = decorateSidebarCategories(
+    injectPlannedPrimitives(decorateNewPages(source.pageTree, source))
+  );
   const options = baseOptions();
 
   return (
@@ -23,12 +29,20 @@ export default function Layout({ children }: LayoutProps<"/docs">) {
         // reach it as an overlay — the stage there is worth more than a permanent
         // 240px column. Prose pages keep it open; see SplitDocsChrome.
         collapsible: true,
+        components: {
+          Item: DocsSidebarItem,
+        },
         footer: <NavSponsorCard key="nav-sponsor-card" />,
+      }}
+      slots={{
+        ...options.slots,
+        // Custom header: section tabs + right-side search/changelog in one row.
+        header: DocsHeader,
       }}
       tabMode="navbar"
     >
       {children}
-      <FloatNav key="float-nav" />
+      <DocsFloatNav key="float-nav" />
       {/* SEO footer inside the scroll flow, spanning the full grid width so it
           lands at the bottom without breaking the 100dvh layout. DocsFooter
           constrains its content to the main column band.

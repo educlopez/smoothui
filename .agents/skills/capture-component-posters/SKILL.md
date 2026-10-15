@@ -40,7 +40,9 @@ Run that outside the sandbox. `tsx` needs its IPC pipes, and an empty `PLAYWRIGH
 
 The script uses `http://localhost:3000` unless `DOCS_URL` is set. If the docs server is already up, it is left running. If it is down, the script starts `pnpm --filter docs dev` and stops only the server it started.
 
-Capture is light theme, `colorScheme: "light"`, viewport 560×1400, device scale 2. It waits 1200ms so entrance animations that start at `opacity: 0` are not blank. A demo that still renders nothing becomes a labeled frame, not a live card. Fix the demo when that happens, then recapture that slug with `--force`.
+Capture is light theme, `colorScheme: "light"`, viewport 768×900, device scale 2. 768px is the width of a card column: a 1280px viewport makes full-bleed demos into strips that turn illegible when the card scales them down. It waits 1200ms so entrance animations that start at `opacity: 0` are not blank. Opacity-0 nodes are still measured, because that is the animation, not an empty demo. The screenshot is transparent. After the shot, the script trims to the painted pixels and adds an even 16px margin. `cwebp` encodes at quality 86 with full alpha. A slug fails only when the painted box is under 8px. A short control, such as a checkbox row, is still a poster. The previous file is kept on failure. Fix the demo, then recapture with `--force`. Do not write a text label in place of the component.
+
+The card shows the bitmap at capture size (file pixels ÷ 2). Shots narrower than 168px scale up to 168px so an icon is readable. Wider shots only shrink to fit the card. Do not set the poster image to `w-full`.
 
 ## Check
 

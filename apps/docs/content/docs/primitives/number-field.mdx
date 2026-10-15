@@ -1,0 +1,39 @@
+---
+title: Number Field
+description: Numeric input with steppers and optional scrubbing label, Base UI twin and Radix-parity twin.
+icon: Hash
+dependencies:
+  - base-ui
+installer: number-field
+---
+
+## Features
+
+- Increment / decrement steppers
+- Optional scrubbing label (drag to change value) on the Base twin
+- `min` / `max` / `step` constraints
+- Compound parts: `NumberFieldRoot`, `NumberFieldGroup`, `NumberFieldInput`, `NumberFieldIncrement`, `NumberFieldDecrement`, `NumberFieldScrubArea`
+- Base UI by default; Radix twin is a hand-rolled stepper (Radix has no Number Field)
+
+## States
+
+### Features
+
+A labelled quantity field with steppers.
+
+### Disabled
+
+Steppers and input ignore interaction.
+
+## Accessibility
+
+Provide a visible `label` or an `aria-label`. Steppers expose decrement / increment actions.
+
+## Props
+
+### NumberFieldProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/number-field/index.tsx"
+  name="NumberFieldProps"
+/>

@@ -4,7 +4,7 @@ Thank you for your interest in contributing to SmoothUI! This guide covers every
 
 ## Prerequisites
 
-- **Node.js** >= 18
+- **Node.js** >= 22.13 (`.nvmrc` pins the major, `nvm use` picks it up)
 - **pnpm** 10 (install via `corepack enable && corepack prepare pnpm@10 --activate`, or see [pnpm.io/installation](https://pnpm.io/installation))
 - **Git**
 

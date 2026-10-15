@@ -20,11 +20,11 @@ describe("Pricing1", () => {
     const { container } = render(<Block />);
 
     expect(screen.getByRole("button", { name: "Annually" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "true"
     );
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "false"
     );
     expect(container.textContent).toContain("15");
@@ -36,11 +36,11 @@ describe("Pricing1", () => {
     fireEvent.click(screen.getByRole("button", { name: "Monthly" }));
 
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "true"
     );
     expect(screen.getByRole("button", { name: "Annually" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "false"
     );
     expect(container.textContent).toContain("19");
@@ -53,7 +53,7 @@ describe("Pricing1", () => {
     fireEvent.click(screen.getByRole("button", { name: "Annually" }));
 
     expect(screen.getByRole("button", { name: "Annually" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "true"
     );
     expect(container.textContent).toContain("15");

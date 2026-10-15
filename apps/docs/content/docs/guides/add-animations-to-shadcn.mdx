@@ -1,7 +1,6 @@
 ---
 title: How to Add Animations to shadcn/ui
 description: Three ways to animate a shadcn/ui project — CSS transitions, hand-rolled Motion, or pre-animated components. When to use each, with the durations, easings and reduced-motion rules that make motion feel right.
-icon: Sparkles
 ---
 
 import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
@@ -9,6 +8,13 @@ import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 Your shadcn/ui app works. Forms validate, dialogs open, the dark mode is fine — and the whole thing feels inert next to Linear or Vercel. That gap is motion, and shadcn/ui deliberately leaves it to you: it ships accessible primitives, not an opinion about how they should move.
 
 This guide covers the three ways to close that gap, when each is the right call, and the rules that separate motion that feels expensive from motion that feels cheap.
+
+<DocsStageFigure
+  illustration="react"
+  scene="turquoise-canyon"
+  title="Three routes to motion"
+  caption="Start with CSS for simple states, reach for Motion when you need springs, or drop in SmoothUI when you want breadth without writing every transition by hand."
+/>
 
 ## Which route is yours
 

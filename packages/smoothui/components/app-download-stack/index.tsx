@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { ChevronDown } from "lucide-react";
 import {
   AnimatePresence,
@@ -346,14 +347,16 @@ export default function AppDownloadStack({
                   </motion.li>
                 ))}
               </motion.ul>
-              <button
-                className="mt-4 w-full rounded-lg bg-blue-500 px-4 py-2 font-semibold text-white shadow transition hover:bg-blue-600 disabled:opacity-50"
+              <SmoothButton
+                className="mt-4 w-full"
+                color="blue"
                 disabled={selected.length === 0}
                 onClick={handleDownload}
                 type="button"
+                variant="solid"
               >
                 Download Selected
-              </button>
+              </SmoothButton>
             </motion.div>
           )}
 

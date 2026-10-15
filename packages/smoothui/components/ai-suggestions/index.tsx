@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useMemo } from "react";
 
@@ -89,17 +90,16 @@ const AISuggestions = ({
                     }
               }
             >
-              <motion.button
-                className="cursor-pointer rounded-full border border-border bg-background px-3 py-1.5 text-left text-foreground text-sm transition-colors hover:border-foreground/30 hover:bg-muted"
+              <SmoothButton
+                className="h-auto px-3 py-1.5 font-normal"
                 onClick={() => onSelect?.(suggestion)}
-                transition={
-                  shouldReduceMotion ? { duration: 0 } : SPRING_DEFAULT
-                }
+                shape="pill"
+                size="sm"
                 type="button"
-                whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                variant="outline"
               >
                 {suggestion.label}
-              </motion.button>
+              </SmoothButton>
             </motion.li>
           ))}
         </AnimatePresence>

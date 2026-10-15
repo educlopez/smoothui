@@ -1,6 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   type FocusEvent,
@@ -184,22 +185,23 @@ export default function ExpandableNavbar({
           const panelId = `expandable-navbar-${generatedId}-${item.id}`;
           return (
             <li key={item.id}>
-              <button
+              <SmoothButton
                 aria-controls={panelId}
                 aria-expanded={isOpen}
                 className={cn(
-                  "rounded-lg px-3 py-2 font-medium text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-brand",
+                  "rounded-lg px-3 py-2 font-medium",
                   isOpen
                     ? "bg-foreground/10 text-foreground"
-                    : "text-muted-foreground hover:text-foreground"
+                    : "text-muted-foreground"
                 )}
                 onClick={() => handleItemClick(item.id)}
                 onFocus={() => handleItemEnter(item.id)}
                 onPointerEnter={() => handleItemEnter(item.id)}
                 type="button"
+                variant="ghost"
               >
                 {item.label}
-              </button>
+              </SmoothButton>
             </li>
           );
         })}

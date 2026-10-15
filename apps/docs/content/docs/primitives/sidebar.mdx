@@ -1,0 +1,45 @@
+---
+title: Sidebar
+description: Collapsible app sidebar shell with provider, menu, and trigger.
+icon: LayoutDashboard
+dependencies: []
+installer: sidebar
+---
+
+## Features
+
+- `SidebarProvider` for collapsed state
+- Animated width (expanded ↔ icon rail)
+- Header / content / footer regions + menu buttons
+- SmoothUI-owned lean shell (Delphi Sidebar / Astryx Side Nav refs)
+
+## States
+
+### Features
+
+Collapsible rail with nav items and footer.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-label="Sidebar"` | aside | Names the landmark |
+| `aria-expanded` | Trigger | Reflects collapsed state |
+
+### Reduced Motion
+
+Width animation is instant when reduced motion is preferred.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/sidebar/index.tsx"
+  name="SidebarProviderProps"
+/>
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/sidebar/index.tsx"
+  name="SidebarMenuButtonProps"
+/>

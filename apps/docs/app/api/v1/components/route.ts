@@ -14,7 +14,7 @@ export { OPTIONS } from "../_shared";
 export const revalidate = false;
 
 const VALID_CATEGORIES: ReadonlySet<string> = new Set<ComponentCategory>([
-  "basic-ui",
+  "patterns",
   "button",
   "text",
   "ai",

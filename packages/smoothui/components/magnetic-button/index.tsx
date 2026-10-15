@@ -1,7 +1,7 @@
 "use client";
 
 import { Slot } from "@radix-ui/react-slot";
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { motion, useReducedMotion, useSpring } from "motion/react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";

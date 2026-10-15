@@ -4,15 +4,23 @@ import {
   METADATA_DESCRIPTION,
   METADATA_DETAILS,
   METADATA_SCENE,
+  PHOTO_TABS,
+  sceneSrc,
 } from "@docs/examples/shared/demo-fixtures";
 
 import Checkbox from "@repo/smoothui/components/checkbox";
 import DynamicIsland from "@repo/smoothui/components/dynamic-island";
 import ImageMetadataPreview from "@repo/smoothui/components/image-metadata-preview";
 import NumberFlow from "@repo/smoothui/components/number-flow";
+import PhotoStack, {
+  type PhotoStackPhoto,
+} from "@repo/smoothui/components/photo-stack";
+import Phototab, { type PhototabTab } from "@repo/smoothui/components/phototab";
 import UserAccountAvatar from "@repo/smoothui/components/user-account-avatar";
 import { getImageKitUrl } from "@smoothui/data";
+import { castAnimals, castPeople } from "@smoothui/data/cast";
 import { somePeople } from "@smoothui/data/people";
+import { Mountain, TreePine, Waves } from "lucide-react";
 import { useId, useState } from "react";
 
 const [AVATAR_PERSON] = somePeople(1, 7);
@@ -102,7 +110,57 @@ export function ShowcaseDemo({ slug }: { slug: string }) {
   if (slug === "number-flow") {
     return <CounterDemo />;
   }
+  if (slug === "phototab") {
+    return <PhototabDemo />;
+  }
+  if (slug === "photo-stack") {
+    return <PhotoStackDemo />;
+  }
   return <MetadataDemo />;
+}
+
+const PHOTO_TAB_ICONS = [
+  <Mountain key="mountain" />,
+  <Waves key="waves" />,
+  <TreePine key="trees" />,
+];
+
+function PhototabDemo() {
+  const tabs: PhototabTab[] = PHOTO_TABS.map((tab, index) => ({
+    icon: PHOTO_TAB_ICONS[index],
+    image: sceneSrc(tab.scene, "w-600,h-600"),
+    name: tab.name,
+  }));
+  return (
+    <div className="flex w-full justify-center">
+      <Phototab
+        height={360}
+        tabListClassName="translate-y-0! md:translate-y-0!"
+        tabs={tabs}
+      />
+    </div>
+  );
+}
+
+const STACK_PHOTOS: PhotoStackPhoto[] = [
+  castPeople[0],
+  castPeople[3],
+  castPeople[13],
+  ...castAnimals.slice(0, 1),
+].map((image) => ({
+  alt: image.alt,
+  id: image.id,
+  name: image.name,
+  role: image.role,
+  src: `${image.src}?tr=w-640,h-800,f-auto`,
+}));
+
+function PhotoStackDemo() {
+  return (
+    <div className="flex items-center justify-center py-4">
+      <PhotoStack className="-translate-x-2.5" photos={STACK_PHOTOS} />
+    </div>
+  );
 }
 
 function CheckboxDemo() {

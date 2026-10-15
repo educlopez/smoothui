@@ -1,0 +1,37 @@
+---
+title: Skeleton
+description: Loading placeholders with optional shimmer that respects reduced motion.
+icon: RectangleEllipsis
+dependencies: []
+installer: skeleton
+---
+
+## Features
+
+- Shape via className (`h-*`, `w-*`, `rounded-*`)
+- Optional shimmer animation (on by default)
+- `aria-hidden` — parent should expose busy state
+- SmoothUI-owned
+
+## States
+
+### Features
+
+Avatar + text row and card block placeholders.
+
+### Static
+
+Shimmer disabled for a solid pulse-free fill.
+
+## Accessibility
+
+### Reduced Motion
+
+Shimmer disables when `prefers-reduced-motion` is set.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/skeleton/index.tsx"
+  name="SkeletonProps"
+/>

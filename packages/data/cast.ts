@@ -16,7 +16,7 @@ export const castPeople: CastImage[] = [
     name: "Maya Solis",
     role: "Product designer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/maya-solis.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/maya-solis.webp",
     tone: "light",
   },
   {
@@ -27,7 +27,7 @@ export const castPeople: CastImage[] = [
     name: "Hana Park",
     role: "Researcher",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/hana-park.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/hana-park.webp",
     tone: "light",
   },
   {
@@ -38,7 +38,7 @@ export const castPeople: CastImage[] = [
     name: "Zara Ndiaye",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/zara-ndiaye.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/zara-ndiaye.webp",
     tone: "light",
   },
   {
@@ -49,7 +49,7 @@ export const castPeople: CastImage[] = [
     name: "Luca Moretti",
     role: "Support lead",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/luca-moretti.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/luca-moretti.webp",
     tone: "light",
   },
   {
@@ -60,7 +60,7 @@ export const castPeople: CastImage[] = [
     name: "Jun Park",
     role: "Data",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/jun-park.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/jun-park.webp",
     tone: "light",
   },
   {
@@ -71,7 +71,7 @@ export const castPeople: CastImage[] = [
     name: "Marcus Hale",
     role: "Founder",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/marcus-hale.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/marcus-hale.webp",
     tone: "light",
   },
   {
@@ -82,7 +82,7 @@ export const castPeople: CastImage[] = [
     name: "Meera Kapoor",
     role: "Counsel",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/meera-kapoor.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/meera-kapoor.webp",
     tone: "light",
   },
   {
@@ -93,7 +93,7 @@ export const castPeople: CastImage[] = [
     name: "Niels Holm",
     role: "Advisor",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/niels-holm.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/niels-holm.webp",
     tone: "light",
   },
   {
@@ -104,7 +104,7 @@ export const castPeople: CastImage[] = [
     name: "Leila Hassan",
     role: "Researcher",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/leila-hassan.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/leila-hassan.webp",
     tone: "light",
   },
   {
@@ -115,7 +115,7 @@ export const castPeople: CastImage[] = [
     name: "Diego Ramos",
     role: "Intern",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/diego-ramos.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/diego-ramos.webp",
     tone: "light",
   },
   {
@@ -126,7 +126,7 @@ export const castPeople: CastImage[] = [
     name: "In\u00e8s Moreau",
     role: "Ops",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/ines-moreau.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/ines-moreau.webp",
     tone: "light",
   },
   {
@@ -137,7 +137,7 @@ export const castPeople: CastImage[] = [
     name: "Arjun Mehta",
     role: "PM",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/arjun-mehta.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/arjun-mehta.webp",
     tone: "light",
   },
   {
@@ -148,7 +148,7 @@ export const castPeople: CastImage[] = [
     name: "Camila Duarte",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/camila-duarte.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/camila-duarte.webp",
     tone: "light",
   },
   {
@@ -159,7 +159,7 @@ export const castPeople: CastImage[] = [
     name: "Sasha Kim",
     role: "Staff engineer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/sasha-kim.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/sasha-kim.webp",
     tone: "light",
   },
   {
@@ -170,7 +170,7 @@ export const castPeople: CastImage[] = [
     name: "Freya Lund",
     role: "Product designer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/freya-lund.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/freya-lund.webp",
     tone: "light",
   },
   {
@@ -181,7 +181,7 @@ export const castPeople: CastImage[] = [
     name: "Saoirse Flynn",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/saoirse-flynn.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/saoirse-flynn.webp",
     tone: "light",
   },
   {
@@ -192,7 +192,7 @@ export const castPeople: CastImage[] = [
     name: "Rowan O'Brien",
     role: "Support lead",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/rowan-obrien.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/rowan-obrien.webp",
     tone: "light",
   },
   {
@@ -203,7 +203,7 @@ export const castPeople: CastImage[] = [
     name: "Erik Lindqvist",
     role: "Sales",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/erik-lindqvist.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/erik-lindqvist.webp",
     tone: "light",
   },
   {
@@ -214,7 +214,7 @@ export const castPeople: CastImage[] = [
     name: "Chloe Bennett",
     role: "Intern",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/chloe-bennett.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/chloe-bennett.webp",
     tone: "light",
   },
   {
@@ -225,7 +225,7 @@ export const castPeople: CastImage[] = [
     name: "Isla Reid",
     role: "Ops",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/isla-reid.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/isla-reid.webp",
     tone: "light",
   },
   {
@@ -236,7 +236,7 @@ export const castPeople: CastImage[] = [
     name: "Lars Bergman",
     role: "Data",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/lars-bergman.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/lars-bergman.webp",
     tone: "light",
   },
   {
@@ -247,7 +247,7 @@ export const castPeople: CastImage[] = [
     name: "Morgan Reed",
     role: "Researcher",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/morgan-reed.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/morgan-reed.webp",
     tone: "light",
   },
   {
@@ -258,7 +258,7 @@ export const castPeople: CastImage[] = [
     name: "Amina Osei",
     role: "Ops",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/amina-osei.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/amina-osei.webp",
     tone: "light",
   },
   {
@@ -269,7 +269,7 @@ export const castPeople: CastImage[] = [
     name: "Malik Johnson",
     role: "PM",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/malik-johnson.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/malik-johnson.webp",
     tone: "light",
   },
   {
@@ -280,7 +280,7 @@ export const castPeople: CastImage[] = [
     name: "Yuki Tanaka",
     role: "Advisor",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/yuki-tanaka.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/yuki-tanaka.webp",
     tone: "light",
   },
   {
@@ -291,7 +291,7 @@ export const castPeople: CastImage[] = [
     name: "Helen Frost",
     role: "Counsel",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/helen-frost.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/helen-frost.webp",
     tone: "light",
   },
   {
@@ -302,7 +302,7 @@ export const castPeople: CastImage[] = [
     name: "Bridget Cairns",
     role: "Founder",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/bridget-cairns.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/bridget-cairns.webp",
     tone: "light",
   },
   {
@@ -313,7 +313,7 @@ export const castPeople: CastImage[] = [
     name: "Omar Khalil",
     role: "Sales",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/omar-khalil.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/omar-khalil.webp",
     tone: "light",
   },
   {
@@ -324,7 +324,7 @@ export const castPeople: CastImage[] = [
     name: "Sofia Reyes",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/sofia-reyes.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/sofia-reyes.webp",
     tone: "light",
   },
   {
@@ -335,7 +335,7 @@ export const castPeople: CastImage[] = [
     name: "Kai Thompson",
     role: "Support lead",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/kai-thompson.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/kai-thompson.webp",
     tone: "light",
   },
   {
@@ -346,7 +346,7 @@ export const castPeople: CastImage[] = [
     name: "Ananya Sharma",
     role: "Intern",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/ananya-sharma.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/ananya-sharma.webp",
     tone: "light",
   },
   {
@@ -357,7 +357,7 @@ export const castPeople: CastImage[] = [
     name: "Hiro Sato",
     role: "Advisor",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/hiro-sato.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/hiro-sato.webp",
     tone: "light",
   },
   {
@@ -368,7 +368,7 @@ export const castPeople: CastImage[] = [
     name: "Theo Miller",
     role: "Product designer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/theo-miller.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/theo-miller.webp",
     tone: "light",
   },
   {
@@ -379,7 +379,7 @@ export const castPeople: CastImage[] = [
     name: "Nia Brooks",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/nia-brooks.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/nia-brooks.webp",
     tone: "light",
   },
   {
@@ -390,7 +390,7 @@ export const castPeople: CastImage[] = [
     name: "Elise Carter",
     role: "PM",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/elise-carter.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/elise-carter.webp",
     tone: "light",
   },
   {
@@ -401,7 +401,7 @@ export const castPeople: CastImage[] = [
     name: "Jordan Wells",
     role: "Staff engineer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/jordan-wells.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/jordan-wells.webp",
     tone: "light",
   },
   {
@@ -412,7 +412,7 @@ export const castPeople: CastImage[] = [
     name: "Graham Price",
     role: "Counsel",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/graham-price.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/graham-price.webp",
     tone: "light",
   },
   {
@@ -423,7 +423,7 @@ export const castPeople: CastImage[] = [
     name: "Linh Nguyen",
     role: "Researcher",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/linh-nguyen.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/linh-nguyen.webp",
     tone: "light",
   },
   {
@@ -434,7 +434,7 @@ export const castPeople: CastImage[] = [
     name: "Miguel Santos",
     role: "Intern",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/miguel-santos.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/miguel-santos.webp",
     tone: "light",
   },
   {
@@ -445,7 +445,7 @@ export const castPeople: CastImage[] = [
     name: "Amara Cole",
     role: "Product designer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/amara-cole.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/amara-cole.webp",
     tone: "light",
   },
   {
@@ -456,7 +456,7 @@ export const castPeople: CastImage[] = [
     name: "Ezra Cohen",
     role: "Founder",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/ezra-cohen.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/ezra-cohen.webp",
     tone: "light",
   },
   {
@@ -467,7 +467,7 @@ export const castPeople: CastImage[] = [
     name: "Rosa M\u00e9ndez",
     role: "Advisor",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/rosa-mendez.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/rosa-mendez.webp",
     tone: "light",
   },
   {
@@ -478,7 +478,7 @@ export const castPeople: CastImage[] = [
     name: "Ren Okada",
     role: "Staff engineer",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/ren-okada.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/ren-okada.webp",
     tone: "light",
   },
   {
@@ -489,7 +489,7 @@ export const castPeople: CastImage[] = [
     name: "Connor Hayes",
     role: "Sales",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/connor-hayes.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/connor-hayes.webp",
     tone: "light",
   },
   {
@@ -500,7 +500,7 @@ export const castPeople: CastImage[] = [
     name: "Fatima Rahman",
     role: "Researcher",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/fatima-rahman.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/fatima-rahman.webp",
     tone: "light",
   },
   {
@@ -511,7 +511,7 @@ export const castPeople: CastImage[] = [
     name: "Derrick Hayes",
     role: "Support lead",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/derrick-hayes.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/derrick-hayes.webp",
     tone: "light",
   },
   {
@@ -522,7 +522,7 @@ export const castPeople: CastImage[] = [
     name: "Nora Blake",
     role: "Ops",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/nora-blake.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/nora-blake.webp",
     tone: "light",
   },
   {
@@ -533,7 +533,7 @@ export const castPeople: CastImage[] = [
     name: "Tasha Greene",
     role: "Marketing",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/tasha-greene.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/tasha-greene.webp",
     tone: "light",
   },
   {
@@ -544,7 +544,7 @@ export const castPeople: CastImage[] = [
     name: "Noah Petrov",
     role: "Intern",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/noah-petrov.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/noah-petrov.webp",
     tone: "light",
   },
   {
@@ -555,7 +555,7 @@ export const castPeople: CastImage[] = [
     name: "Valeria Cruz",
     role: "PM",
     species: "human",
-    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people/valeria-cruz.webp",
+    src: "https://ik.imagekit.io/16u211libb/smoothui/troupe-people-v2/valeria-cruz.webp",
     tone: "light",
   },
 ];

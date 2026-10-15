@@ -1,0 +1,43 @@
+---
+title: Toggle
+description: Two-state button with press scale and pressed background, backed by Base UI Toggle.
+icon: ToggleLeft
+dependencies:
+  - motion.dev
+  - base-ui
+installer: toggle
+---
+
+## Features
+
+Standalone toggle button with spring press feedback. Pressed state uses elevated background (`data-pressed`). Controlled via `pressed` / `defaultPressed` / `onPressedChange`. Nest inside Toggle Group for segmented selection.
+
+## States
+
+### Features
+
+Click to press/unpress — scale springs on press.
+
+### Disabled
+
+Non-interactive with a muted fill, border, and label — no root opacity wash.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Toggles pressed state |
+| `Tab` | Moves focus |
+
+### Reduced Motion
+
+Press scale becomes instant when reduced motion is preferred.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/toggle/index.tsx"
+  name="ToggleProps"
+/>

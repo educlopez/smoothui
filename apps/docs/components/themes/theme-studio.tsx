@@ -492,36 +492,28 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
     slug: "animated-file-upload",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/animated-input")),
-    slug: "animated-input",
+    Demo: dynamic(() => import("@docs/examples/float-input")),
+    slug: "float-input",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/animated-o-t-p-input")),
-    slug: "animated-o-t-p-input",
+    Demo: dynamic(() => import("@docs/examples/digit-roll")),
+    slug: "digit-roll",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/animated-progress-bar")),
-    slug: "animated-progress-bar",
+    Demo: dynamic(() => import("@docs/examples/otp-slots")),
+    slug: "otp-slots",
   },
   {
     Demo: dynamic(() => import("@docs/examples/animated-stepper")),
     slug: "animated-stepper",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/animated-tabs")),
-    slug: "animated-tabs",
-  },
-  {
     Demo: dynamic(() => import("@docs/examples/animated-tags")),
     slug: "animated-tags",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/animated-toggle")),
-    slug: "animated-toggle",
-  },
-  {
-    Demo: dynamic(() => import("@docs/examples/animated-tooltip")),
-    slug: "animated-tooltip",
+    Demo: dynamic(() => import("@docs/examples/morph-toggle")),
+    slug: "morph-toggle",
   },
   {
     Demo: dynamic(() => import("@docs/examples/app-download-stack")),
@@ -530,22 +522,6 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
   {
     Demo: dynamic(() => import("@docs/examples/apple-invites")),
     slug: "apple-invites",
-  },
-  {
-    Demo: dynamic(() => import("@docs/examples/basic-accordion")),
-    slug: "basic-accordion",
-  },
-  {
-    Demo: dynamic(() => import("@docs/examples/basic-dropdown")),
-    slug: "basic-dropdown",
-  },
-  {
-    Demo: dynamic(() => import("@docs/examples/basic-modal")),
-    slug: "basic-modal",
-  },
-  {
-    Demo: dynamic(() => import("@docs/examples/basic-toast")),
-    slug: "basic-toast",
   },
   {
     Demo: dynamic(() => import("@docs/examples/book")),
@@ -660,8 +636,12 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
     slug: "morph-surface",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/notification-badge")),
-    slug: "notification-badge",
+    Demo: dynamic(() => import("@docs/examples/count-badge")),
+    slug: "count-badge",
+  },
+  {
+    Demo: dynamic(() => import("@docs/examples/country-picker")),
+    slug: "country-picker",
   },
   {
     Demo: dynamic(() => import("@docs/examples/number-flow")),
@@ -716,10 +696,6 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
     slug: "scrubber",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/searchable-dropdown")),
-    slug: "searchable-dropdown",
-  },
-  {
     Demo: dynamic(() => import("@docs/examples/select")),
     slug: "select",
   },
@@ -728,8 +704,8 @@ const DEMO_CARDS: { slug: string; Demo: ComponentType }[] = [
     slug: "siri-orb",
   },
   {
-    Demo: dynamic(() => import("@docs/examples/skeleton-loader")),
-    slug: "skeleton-loader",
+    Demo: dynamic(() => import("@docs/examples/content-skeleton")),
+    slug: "content-skeleton",
   },
   {
     Demo: dynamic(() => import("@docs/examples/smooth-button")),

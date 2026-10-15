@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
@@ -95,15 +96,18 @@ export default function ButtonCopy({
 
   return (
     <div className="flex justify-center">
-      <button
+      <SmoothButton
         aria-label={ariaLabels[buttonState]}
         aria-live="polite"
-        className={`relative min-h-[44px] w-auto min-w-[44px] cursor-pointer overflow-hidden rounded-full border bg-background p-3 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 ${className}`}
+        className={`relative min-h-11 min-w-11 overflow-hidden bg-background p-3 ${className}`}
         disabled={
           buttonState === "loading" || buttonState === "success" || disabled
         }
         onClick={handleClick}
+        shape="pill"
+        size="icon"
         type="button"
+        variant="outline"
       >
         <AnimatePresence initial={false} mode="popLayout">
           <motion.span
@@ -133,7 +137,7 @@ export default function ButtonCopy({
             {icons[buttonState]}
           </motion.span>
         </AnimatePresence>
-      </button>
+      </SmoothButton>
     </div>
   );
 }

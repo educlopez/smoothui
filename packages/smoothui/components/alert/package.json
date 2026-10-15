@@ -1,0 +1,35 @@
+{
+  "name": "@repo/alert",
+  "description": "Inline Alert for SmoothUI — info, success, warning, and destructive banners.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "alert",
+      "banner",
+      "feedback",
+      "status"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Form success and error banners",
+      "Page-level notices"
+    ],
+    "compositionHints": [
+      "Not a modal — use Dialog for blocking confirms",
+      "Pass title + description for richer copy"
+    ]
+  }
+}

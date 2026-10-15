@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { useCallback, useId, useMemo } from "react";
@@ -24,7 +24,7 @@ const ELLIPSIS = "ellipsis" as const;
 
 type PageItem = number | typeof ELLIPSIS;
 
-/** Spring for the sliding active indicator (like animated-tabs) */
+/** Spring for the sliding active indicator (like Tabs) */
 const SPRING_INDICATOR = {
   bounce: 0.05,
   duration: 0.25,

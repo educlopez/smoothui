@@ -47,7 +47,12 @@ export const SceneTabs = ({
   const active = activeScene && chips.includes(activeScene) ? activeScene : "";
 
   return (
-    <div className={cn("absolute right-3 bottom-3 z-20 w-36", className)}>
+    <div
+      className={cn(
+        "absolute right-3 bottom-16 z-20 w-36 lg:bottom-3",
+        className
+      )}
+    >
       <Select
         aria-label="Examples"
         className="w-full border-border/60 bg-background/85 shadow-black/5 shadow-sm backdrop-blur-md"

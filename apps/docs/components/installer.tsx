@@ -163,7 +163,7 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
   };
 
   return (
-    <div className="rounded-lg border border-border">
+    <div className="overflow-hidden rounded-lg border border-border">
       {/* Main tabs header */}
       <div className="flex flex-col gap-2 rounded-t-lg bg-muted/50 px-2 py-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-0">
         <div className="flex items-center gap-1">
@@ -243,7 +243,7 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
           title="Copy install command"
         >
           <ButtonCopy
-            className="size-9! min-h-9! min-w-9! rounded-md p-0!"
+            className="size-8! min-h-8! min-w-8! rounded-md! border-0! bg-transparent! p-0! text-muted-foreground shadow-none! ring-0! hover:bg-muted! hover:text-foreground"
             key={
               activeTab === "smoothui"
                 ? smoothuiCommand

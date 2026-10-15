@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { useEffect, useMemo, useState } from "react";
 
 export type LightState = "off" | "medium" | "high";

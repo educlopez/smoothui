@@ -21,6 +21,7 @@ export default defineConfig({
       "scripts/**/*.test.ts",
       "packages/cli/**/*.test.ts",
       "apps/docs/app/api/v1/**/*.test.ts",
+      "apps/docs/lib/__tests__/**/*.test.ts",
     ],
     restoreMocks: true,
   },

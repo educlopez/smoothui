@@ -1,0 +1,36 @@
+---
+title: Command
+description: Command palette built on cmdk inside SmoothUI Dialog — search and run actions.
+icon: RectangleEllipsis
+dependencies:
+  - cmdk
+installer: command
+---
+
+## Features
+
+- `Command` root with input, list, groups, items, shortcuts
+- `CommandDialog` wraps the palette in SmoothUI Dialog
+- Compose with `Kbd` for shortcut hints
+- Delphi Command / Astryx Command Palette as visual refs
+
+## States
+
+### Features
+
+Inline command list with shortcuts.
+
+### Dialog
+
+Modal palette toggled by button / ⌘J.
+
+## Accessibility
+
+cmdk handles listbox keyboard navigation. Dialog provides focus trap when modal.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/command/index.tsx"
+  name="CommandDialogProps"
+/>

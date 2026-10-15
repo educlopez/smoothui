@@ -1,0 +1,38 @@
+{
+  "name": "@repo/meter",
+  "description": "Semantic Meter for SmoothUI with Base UI twin and ARIA Radix-parity twin for gauges and capacity.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "motion": "^12.23.25",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "meter",
+      "gauge",
+      "capacity",
+      "storage"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Storage / quota capacity bars",
+      "Battery or resource gauges"
+    ],
+    "compositionHints": [
+      "Prefer Meter over Progress when the value is a capacity snapshot, not a task in flight",
+      "Pair with Field or card headers"
+    ],
+    "hasReducedMotion": true
+  }
+}

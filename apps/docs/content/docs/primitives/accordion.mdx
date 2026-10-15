@@ -1,0 +1,43 @@
+---
+title: Accordion
+description: Expandable sections with CSS height panel animation and a rotating chevron, backed by Base UI Accordion.
+icon: ChevronsDownUp
+dependencies:
+  - motion.dev
+  - base-ui
+installer: accordion
+---
+
+## Features
+
+Compound Accordion (`Root`, `Item`, `Header`, `Trigger`, `Panel`) with chevron rotation and panel height driven by Base CSS variable `--accordion-panel-height` plus opacity. Pass `multiple` on the root to allow several open items.
+
+## States
+
+### Features
+
+Single-open FAQ-style accordion with springy chevron and height animation.
+
+### Multiple
+
+Several panels can stay expanded at once.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Expands or collapses the focused item |
+| `Tab` | Moves focus between triggers |
+
+### Reduced Motion
+
+When reduced motion is preferred, height and opacity transitions are disabled (instant open/close). Documented via `useReducedMotion` gating on panel and chevron classes.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/accordion/index.tsx"
+  name="AccordionRootProps"
+/>

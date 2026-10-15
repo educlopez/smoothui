@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -33,8 +33,8 @@
       "Decorative loader with configurable cell patterns"
     ],
     "compositionHints": [
-      "Use alongside skeleton-loader for different loading states",
-      "Pair with animated-progress-bar for determinate loading"
+      "Use alongside content-skeleton for different loading states",
+      "Pair with Progress primitive for determinate loading"
     ],
     "hasReducedMotion": true
   }

@@ -7,19 +7,19 @@ test("dialog traps keyboard focus and closes with Escape", async ({ page }) => {
 
   const trigger = page.getByRole("button", {
     exact: true,
-    name: "Open Dialog",
+    name: "Edit profile",
   });
   await trigger.click();
 
-  const dialog = page.getByRole("dialog", { name: "Dialog Title" });
+  const dialog = page.getByRole("dialog", { name: "Edit profile" });
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByRole("button", { name: "Got it" })).toBeFocused();
+  await expect(dialog.getByRole("button", { name: "Save" })).toBeFocused();
   await page.keyboard.press("Tab");
   await expect(
     dialog.getByRole("button", { name: "Close dialog" })
   ).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(dialog.getByRole("button", { name: "Got it" })).toBeFocused();
+  await expect(dialog.getByRole("button", { name: "Save" })).toBeFocused();
 
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
@@ -49,8 +49,7 @@ test("dropdown supports arrow keys, Escape, and outside dismissal", async ({
 
   await trigger.click();
   await expect(menu).toBeVisible();
-  await page
-    .getByText("Click outside the menu to close it.")
-    .click({ force: true });
+  // Outside dismissal: click an empty corner of the page, away from the menu.
+  await page.mouse.click(4, 4);
   await expect(menu).toBeHidden();
 });

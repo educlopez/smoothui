@@ -1,0 +1,44 @@
+---
+title: Spinner
+description: Indeterminate loading indicator with Motion spin and reduced-motion support.
+icon: LoaderCircle
+dependencies: []
+installer: spinner
+---
+
+## Features
+
+- Sizes: `sm`, `md`, `lg`
+- `role="status"` with default `aria-label="Loading"`
+- Honors `prefers-reduced-motion`
+- SmoothUI-owned
+
+## States
+
+### Features
+
+Three sizes side by side.
+
+### Labeled
+
+Spinner next to visible status copy.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="status"` | Root | Live loading status |
+| `aria-label` | Root | Accessible name when no visible text |
+
+### Reduced Motion
+
+Rotation stops when reduced motion is preferred.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/spinner/index.tsx"
+  name="SpinnerProps"
+/>

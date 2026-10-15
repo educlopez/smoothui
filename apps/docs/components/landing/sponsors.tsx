@@ -4,7 +4,6 @@ import { SponsorLogo } from "@docs/components/sponsor-logo";
 import { getExternalSponsors } from "@docs/lib/sponsors";
 import Link from "next/link";
 import { IconHeartFill24 } from "nucleo-core-fill-24";
-import Divider from "./divider";
 
 export function Sponsors() {
   const externalSponsors = getExternalSponsors();
@@ -12,7 +11,6 @@ export function Sponsors() {
 
   return (
     <section className="relative w-full bg-background px-8 py-24">
-      <Divider />
       <div className="mx-auto max-w-7xl">
         {hasSponsors && (
           <div className="mb-12 text-center">

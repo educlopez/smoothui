@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronRight } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
@@ -77,13 +77,15 @@ export default function Breadcrumb({
                 >
                   {item.label}
                 </span>
-              ) : (
+              ) : item.href ? (
                 <a
                   className="transition-colors hover:text-foreground"
-                  href={item.href ?? "#"}
+                  href={item.href}
                 >
                   {item.label}
                 </a>
+              ) : (
+                <span className="text-muted-foreground">{item.label}</span>
               )}
             </motion.li>
           );

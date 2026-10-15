@@ -5,7 +5,9 @@ for (const width of [390, 1440]) {
     await page.setViewportSize({ height: 1000, width });
     await page.goto("/blog");
     const cover = page
-      .locator('img[src*="smoothui%2Fscenes"], img[src*="smoothui/scenes"]')
+      .locator(
+        'img[src*="smoothui/landscapes"], img[src*="smoothui%2Flandscapes"]'
+      )
       .first();
     await expect(cover).toBeVisible();
     await expect(cover).toHaveJSProperty("complete", true);

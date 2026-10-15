@@ -1,0 +1,37 @@
+{
+  "name": "@repo/scroll-area",
+  "description": "Styled Scroll Area for SmoothUI with Base UI / Radix twins and custom scrollbars.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@base-ui/react": "^1.8.0",
+    "radix-ui": "1.4.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "scroll",
+      "scrollbar",
+      "overflow",
+      "viewport"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Long lists inside fixed-height panels",
+      "Horizontal scroll galleries with custom thumbs"
+    ],
+    "compositionHints": [
+      "Give the root an explicit height or max-height",
+      "Use compound ScrollAreaScrollbar for dual-axis layouts"
+    ]
+  }
+}

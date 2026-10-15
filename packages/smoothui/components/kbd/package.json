@@ -1,0 +1,35 @@
+{
+  "name": "@repo/kbd",
+  "description": "Keyboard key hint for SmoothUI — shortcuts and command affordances.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "kbd",
+      "keyboard",
+      "shortcut",
+      "display"
+    ],
+    "complexity": "simple",
+    "useCases": [
+      "Shortcut hints in menus and tooltips",
+      "Command palette key affordances"
+    ],
+    "compositionHints": [
+      "Wrap each key in its own Kbd",
+      "Use muted text between keys for separators"
+    ]
+  }
+}

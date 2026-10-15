@@ -31,7 +31,9 @@ const rowsForFrame = (
   columnWidth: number,
   gap: number
 ) => {
-  const imageHeight = columnWidth * (frame.height / frame.width);
+  const innerWidth = Math.max(columnWidth - (frame.inset ?? 0), 0);
+  const imageWidth = Math.min(innerWidth, frame.width);
+  const imageHeight = imageWidth * (frame.height / frame.width);
   // The extra pixels cover subpixel image height so a card cannot spill
   // into the tile below. The slack sits under the card, inside the cell.
   return rowsFor(imageHeight + frame.chrome + 4, gap);
@@ -70,6 +72,8 @@ export interface MasonryFrame {
   /** Pixels below the scaled image: footer and card border. */
   chrome: number;
   height: number;
+  /** Horizontal padding inside the card, subtracted before fitting the image. */
+  inset?: number;
   width: number;
 }
 
@@ -270,7 +274,12 @@ const Cell = ({
       }}
     >
       <MasonryItemContext.Provider value={context}>
-        <div ref={innerRef}>{children}</div>
+        <div
+          className={rows === undefined ? undefined : "h-full"}
+          ref={innerRef}
+        >
+          {children}
+        </div>
       </MasonryItemContext.Provider>
     </li>
   );

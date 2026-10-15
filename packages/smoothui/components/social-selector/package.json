@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^12.23.25"
+    "motion": "^12.23.25",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
     ],
     "compositionHints": [
       "Use in footer blocks for social media links",
-      "Pair with animated-tooltip for platform name labels"
+      "Pair with Tooltip primitive for platform name labels"
     ],
     "hasReducedMotion": true
   }

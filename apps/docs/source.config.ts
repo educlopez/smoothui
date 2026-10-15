@@ -10,7 +10,6 @@ import {
   metaSchema,
 } from "fumadocs-mdx/config";
 import jsonSchema from "fumadocs-mdx/plugins/json-schema";
-import lastModified from "fumadocs-mdx/plugins/last-modified";
 import { transformerTwoslash } from "fumadocs-twoslash";
 import { createFileSystemTypesCache } from "fumadocs-twoslash/cache-fs";
 import { remarkAutoTypeTable } from "fumadocs-typescript";
@@ -19,10 +18,16 @@ import rehypeKatex from "rehype-katex";
 import remarkMath from "remark-math";
 import { z } from "zod";
 import { substituteCounts } from "./lib/count-tokens";
+import { remarkInlineImports } from "./lib/remark-inline-imports";
 import { smoothuiDark, smoothuiLight } from "./lib/themes";
 
 export const docs = defineDocs({
   docs: {
+    // Compile each page on demand, at runtime. Statically, the server bundle
+    // imports and compiles all ~290 MDX files as soon as anything touches the
+    // source loader, which is what drove `next dev` into the tens of GB. MDX
+    // imports are resolved by `remarkInlineImports`.
+    dynamic: true,
     postprocess: {
       includeProcessedMarkdown: true,
     },
@@ -122,6 +127,7 @@ export default defineConfig({
       },
     },
     remarkPlugins: [
+      remarkInlineImports,
       remarkSteps,
       remarkMath,
       remarkAutoTypeTable,
@@ -132,6 +138,5 @@ export default defineConfig({
     jsonSchema({
       insert: true,
     }),
-    lastModified(),
   ],
 });

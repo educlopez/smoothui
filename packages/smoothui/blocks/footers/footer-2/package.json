@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "@repo/smooth-button": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "motion": "^11.15.0"
+    "motion": "^11.15.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -33,7 +33,7 @@
       "SaaS footer with newsletter and navigation"
     ],
     "compositionHints": [
-      "Use animated-input for newsletter email field"
+      "Uses Input and Field for the newsletter email field"
     ],
     "hasReducedMotion": true
   }

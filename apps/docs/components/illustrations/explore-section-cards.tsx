@@ -9,7 +9,13 @@ const SECTIONS: {
   href: string;
 }[] = [
   {
-    description: "Motion-ready primitives you drop into any React app.",
+    description: "Owned headless + Motion — button, dialog, checkbox, …",
+    href: "/docs/primitives",
+    id: "primitives",
+    title: "Primitives",
+  },
+  {
+    description: "Motion-ready pieces you drop into any React app.",
     href: "/docs/components",
     id: "components",
     title: "Components",
@@ -36,7 +42,7 @@ const cardBase =
  */
 export function ExploreSectionCards() {
   return (
-    <div className="grid w-full @2xl:grid-cols-3 grid-cols-1 gap-4">
+    <div className="grid w-full @3xl:grid-cols-4 @xl:grid-cols-2 grid-cols-1 gap-4">
       {SECTIONS.map((section) => {
         const Drawing = SECTION_DRAWINGS[section.id];
         return (

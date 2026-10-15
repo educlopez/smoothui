@@ -37,25 +37,22 @@ const BasicDemo = () => {
   const [value, setValue] = useState<string>("");
 
   return (
-    <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+    <div className="flex w-full max-w-sm items-center justify-center p-8">
       <Select
-        aria-label="Fruit selection"
+        aria-label="Fruit"
         onValueChange={setValue}
         options={fruits}
         placeholder="Choose a fruit"
         value={value}
       />
-      {value ? (
-        <p className="text-muted-foreground text-sm">Selected: {value}</p>
-      ) : null}
     </div>
   );
 };
 
 const GroupedDemo = () => (
-  <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+  <div className="flex w-full max-w-sm items-center justify-center p-8">
     <Select
-      aria-label="Food selection"
+      aria-label="Food"
       groups={groupedOptions}
       placeholder="Choose food"
     />
@@ -63,9 +60,9 @@ const GroupedDemo = () => (
 );
 
 const DisabledDemo = () => (
-  <div className="flex w-full max-w-sm flex-col gap-2 p-8">
+  <div className="flex w-full max-w-sm items-center justify-center p-8">
     <Select
-      aria-label="Disabled selection"
+      aria-label="Unavailable"
       disabled
       options={fruits}
       placeholder="Not available"

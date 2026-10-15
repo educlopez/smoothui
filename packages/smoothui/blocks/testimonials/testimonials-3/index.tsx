@@ -1,11 +1,7 @@
 "use client";
 
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@repo/shadcn-ui/components/ui/avatar";
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { Avatar } from "@repo/avatar";
+import { cn } from "@repo/smoothui-utils";
 import { getAvatarUrl, getTestimonials } from "@smoothui/data";
 import { Star } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -173,15 +169,12 @@ export function TestimonialsStars() {
                         }
                   }
                 >
-                  <Avatar className="size-6 border border-transparent shadow ring-1 ring-foreground/10">
-                    <AvatarImage
-                      alt={testimonial.name}
-                      src={getAvatarUrl(testimonial.avatar, 48)}
-                    />
-                    <AvatarFallback>
-                      {testimonial.name.charAt(0)}
-                    </AvatarFallback>
-                  </Avatar>
+                  <Avatar
+                    alt={testimonial.name}
+                    className="size-6 overflow-hidden rounded-full shadow"
+                    fallback={testimonial.name.charAt(0)}
+                    src={getAvatarUrl(testimonial.avatar, 48)}
+                  />
                   <div className="font-medium text-foreground text-sm">
                     {testimonial.name}
                   </div>

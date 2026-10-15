@@ -1,6 +1,5 @@
 import { BlogFloatNav } from "@docs/components/blog-float-nav";
 import { BlurMagic } from "@docs/components/blurmagic/blurmagic";
-import { BgLines } from "@docs/components/landing/bg-lines";
 import Footer from "@docs/components/landing/footer";
 import Navbar from "@docs/components/landing/navbar/navbar";
 
@@ -10,9 +9,8 @@ export default function BlogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative isolate bg-primary transition">
-      <BgLines />
-      <main className="relative mx-auto min-h-screen w-full max-w-7xl">
+    <div className="relative isolate bg-background transition">
+      <main className="relative min-h-screen w-full overflow-y-auto">
         <BlurMagic
           background="var(--color-background)"
           blur="4px"
@@ -21,7 +19,7 @@ export default function BlogLayout({
           stop="50%"
         />
         <Navbar className="mx-auto max-w-7xl" />
-        <section className="flex flex-col bg-background pt-24 pb-16">
+        <section className="flex flex-col overflow-hidden pt-24 pb-16">
           {children}
         </section>
         <BlurMagic

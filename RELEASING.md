@@ -50,3 +50,26 @@ notes — make it describe the most significant change in the PR, not the
 smallest. `feat:` and `fix:` are user-visible; `chore:`, `ci:`, `test:`,
 `style:` and `build:` are hidden from the changelog by
 `release-please-config.json`.
+
+## Rolling back a bad release
+
+Revert first, diagnose afterwards. Restoring what users get matters more than
+understanding the cause, and the cause is easier to find once nothing is on
+fire. Never force-push `main` or `develop`; undo with a revert PR.
+
+| What broke | How to restore it |
+| ---------- | ----------------- |
+| Docs site | In Vercel, open Deployments and promote the previous production deployment. It is instant and needs no build. Then revert the offending commit on `main` so the next deploy does not bring it back. |
+| Registry (`smoothui.dev/r`) | It is served by the docs deployment, so the same promote applies. The registry items are generated from `packages/`, so the lasting fix is a revert PR. |
+| `smoothui-cli` on npm | A published version cannot be quietly removed. Point `latest` back at the last good version with `npm dist-tag add smoothui-cli@<good> latest`, mark the bad one with `npm deprecate smoothui-cli@<bad> "<reason>"`, then ship a fixed patch through the normal release flow. |
+
+Steps for any of them:
+
+1. Decide it is a rollback, not a fix-forward. If the cause is not obvious in
+   a few minutes, roll back.
+2. Restore the service using the table above.
+3. Open a revert PR into `develop` and promote it to `main` as usual, so the
+   branches match what is live.
+4. Open an issue with what broke, how it was noticed and what would have
+   caught it earlier.
+

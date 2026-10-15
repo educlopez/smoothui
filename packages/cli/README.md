@@ -17,7 +17,7 @@ npx smoothui-cli add siri-orb
 npx smoothui-cli add siri-orb
 
 # Add multiple components
-npx smoothui-cli add siri-orb grid-loader animated-tabs
+npx smoothui-cli add siri-orb grid-loader morph-toggle
 
 # Interactive mode - browse and select
 npx smoothui-cli add

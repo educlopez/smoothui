@@ -13,7 +13,7 @@ export const getSkill = cache(async (): Promise<RegistryItem> => {
 
   return {
     $schema: "https://ui.shadcn.com/schema/registry-item.json",
-    author: "Eduardo Calvo <educlopez93@gmail.com>",
+    author: "Eduardo Calvo <edu@smoothui.dev>",
     description:
       "Teaches AI coding assistants how to install SmoothUI components, blocks, and themes, and how to follow SmoothUI animation conventions.",
     files: [

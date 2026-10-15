@@ -3,8 +3,8 @@ import { PostCover } from "@docs/components/post-cover";
 import { RelatedPosts } from "@docs/components/related-posts";
 import { ShareButtons } from "@docs/components/share-buttons";
 import { blogCoverImage } from "@docs/lib/blog-cover";
+import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import { createMetadata } from "@docs/lib/metadata";
-import { blogSource, formatDate, getReadingTime } from "@docs/lib/source";
 import { CodeBlock, Pre } from "fumadocs-ui/components/codeblock";
 import defaultMdxComponents from "fumadocs-ui/mdx";
 import { DocsBody } from "fumadocs-ui/page";
@@ -70,10 +70,11 @@ export default async function BlogPostPage({ params }: PageProps) {
         }}
         type="application/ld+json"
       />
-      <main className="mx-auto w-full max-w-6xl px-6 py-12">
+      <main className="mx-auto w-full max-w-7xl px-8 py-12">
         <Link
           className="mb-8 inline-flex items-center gap-2 text-foreground/60 text-sm hover:text-foreground"
           href="/blog"
+          transitionTypes={["nav-back"]}
         >
           ← Back to Blog
         </Link>
@@ -83,7 +84,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           className="mb-8 aspect-[16/10] rounded-2xl border border-border sm:aspect-[2/1]"
           image={post.data.image as string | undefined}
           seed={post.url}
-          sizes="(max-width: 1024px) 100vw, 1152px"
+          sizes="(max-width: 1024px) 100vw, 1280px"
         />
 
         <article>

@@ -1,5 +1,7 @@
 "use client";
 
+import Field, { FieldLabel } from "@repo/smoothui/components/field";
+import Input from "@repo/smoothui/components/input";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Github, Linkedin, Twitter, Youtube } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -202,12 +204,14 @@ export const FooterMega = ({
               className="flex flex-col gap-3 sm:flex-row"
               onSubmit={(e) => e.preventDefault()}
             >
-              <input
-                aria-label="Email address"
-                className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm placeholder:text-foreground/50 focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20"
-                placeholder={newsletter.placeholder}
-                type="email"
-              />
+              <Field className="min-w-0 flex-1 gap-0">
+                <FieldLabel className="sr-only">Email address</FieldLabel>
+                <Input
+                  className="h-auto rounded-lg border-border bg-background px-4 py-2.5 text-sm shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+                  placeholder={newsletter.placeholder}
+                  type="email"
+                />
+              </Field>
               <SmoothButton type="submit" variant="candy">
                 {newsletter.buttonText}
               </SmoothButton>

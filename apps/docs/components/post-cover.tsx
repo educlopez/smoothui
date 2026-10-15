@@ -1,10 +1,16 @@
 import { blogArtwork } from "@docs/lib/blog-artwork";
+import { blogCoverTransitionName } from "@docs/lib/blog-cover";
 import { cn } from "@repo/shadcn-ui/lib/utils";
 import Image from "next/image";
+import { ViewTransition } from "react";
 import { BlogCoverArtwork } from "./blog/blog-cover-artwork";
 
-// On-brand mesh-gradient fallbacks. Posts without an `image` get a deterministic
-// one based on their slug, so every post still has a distinct cover.
+/** Same vivid stage treatment as landing testimonials — full punch under glass. */
+const COVER_IMAGE_CLASS =
+  "scale-110 object-cover object-center blur-2xl saturate-[3]";
+
+// On-brand mesh-gradient fallbacks. Posts without catalog artwork get a
+// deterministic one based on their slug, so every post still has a cover.
 const GRADIENTS = [
   [
     "radial-gradient(ellipse 80% 60% at 20% 30%, var(--color-brand) 0%, transparent 60%)",
@@ -48,37 +54,44 @@ export function PostCover({
   sizes?: string;
 }) {
   const artwork = blogArtwork(seed);
-  const cover = artwork?.src ?? image;
+  const cover = artwork ? `${artwork.src}?tr=w-1280,f-auto` : image;
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      {cover ? (
-        <Image
-          alt={artwork?.alt ?? alt}
-          className="object-cover object-center"
-          draggable={false}
-          fill
-          sizes={sizes}
-          src={cover}
-        />
-      ) : (
-        <>
-          <div
-            aria-hidden="true"
-            className="absolute inset-0"
-            style={{ background: gradientFor(seed) }}
+    <ViewTransition
+      default="none"
+      name={blogCoverTransitionName(seed)}
+      share="blog-cover-morph"
+    >
+      <div className={cn("relative overflow-hidden", className)}>
+        {cover ? (
+          <Image
+            alt={artwork?.alt ?? alt}
+            className={COVER_IMAGE_CLASS}
+            draggable={false}
+            fill
+            sizes={sizes}
+            src={cover}
+            unoptimized={Boolean(artwork)}
           />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 opacity-40 mix-blend-soft-light"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 70% 25%, white 0%, transparent 40%)",
-            }}
-          />
-        </>
-      )}
-      <BlogCoverArtwork seed={seed} />
-    </div>
+        ) : (
+          <>
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 saturate-[3]"
+              style={{ background: gradientFor(seed) }}
+            />
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 opacity-40 mix-blend-soft-light"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle at 70% 25%, white 0%, transparent 40%)",
+              }}
+            />
+          </>
+        )}
+        <BlogCoverArtwork seed={seed} />
+      </div>
+    </ViewTransition>
   );
 }

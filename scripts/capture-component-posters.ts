@@ -1,7 +1,9 @@
 import { type ChildProcess, spawn } from "node:child_process";
 import {
+  copyFileSync,
   existsSync,
   mkdirSync,
+  readdirSync,
   readFileSync,
   rmSync,
   writeFileSync,
@@ -10,25 +12,33 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { chromium, type Page } from "@playwright/test";
 import { galleryComponentSlugs } from "./component-poster-slugs";
+import { trimPosterPng } from "./poster-trim";
 
 const ROOT = join(import.meta.dirname, "..");
 const COVERS = join(ROOT, "apps/docs/components/gallery/covers/components");
+const STAGING = join(tmpdir(), "smoothui-posters");
 const MANIFEST = join(ROOT, "apps/docs/components/gallery/component-shots.ts");
 const META = join(ROOT, "apps/docs/content/docs/components/meta.json");
 const BASE_URL = process.env.DOCS_URL ?? "http://localhost:3000";
 
-/** Capture width. Posters keep this full width so a button is not blown up. */
-export const POSTER_VIEWPORT = { height: 1400, width: 560 } as const;
+/**
+ * Card-column width. A 1280px viewport turns a full-bleed demo into a strip
+ * that becomes illegible once the card scales it down. 768px is the `md`
+ * breakpoint, so multi-card demos stay large enough to read.
+ */
+export const POSTER_VIEWPORT = { height: 900, width: 768 } as const;
 
-const PAD = 28;
+const PAD = 16;
 const MAX_HEIGHT = 640;
 const MIN_HEIGHT = 112;
 const SETTLE_MS = 1200;
 const IDENTIFIER_START = /^[A-Za-z_]/;
-const CONCURRENCY = 4;
+const CONCURRENCY = 2;
 
 export interface PosterBounds {
   bottom: number;
+  left: number;
+  right: number;
   top: number;
   viewportHeight: number;
   viewportWidth: number;
@@ -42,19 +52,25 @@ export interface PosterClip {
 }
 
 /**
- * Crop a settled demo to its content, full viewport width, capped so a
- * full-screen shader does not become a multi-thousand-pixel card.
+ * Crop a settled demo to its content, with a margin on every side, capped so
+ * a full-screen shader does not become a multi-thousand-pixel card.
  */
 export const posterClip = ({
   bottom,
+  left,
+  right,
   top,
   viewportHeight,
   viewportWidth,
 }: PosterBounds): PosterClip => {
   const contentTop = Math.min(Math.max(top, 0), viewportHeight);
   const contentBottom = Math.min(Math.max(bottom, 0), viewportHeight);
+  const contentLeft = Math.min(Math.max(left, 0), viewportWidth);
+  const contentRight = Math.min(Math.max(right, contentLeft), viewportWidth);
   let y = Math.max(0, contentTop - PAD);
   let height = contentBottom + PAD - y;
+  let x = Math.max(0, contentLeft - PAD);
+  let width = Math.min(viewportWidth, contentRight + PAD) - x;
 
   if (!(height > 0)) {
     return {
@@ -78,10 +94,15 @@ export const posterClip = ({
     height = viewportHeight - y;
   }
 
+  if (!(width > 0)) {
+    x = 0;
+    width = viewportWidth;
+  }
+
   return {
     height: Math.max(1, Math.round(height)),
-    width: viewportWidth,
-    x: 0,
+    width: Math.max(1, Math.round(width)),
+    x: Math.round(x),
     y: Math.round(y),
   };
 };
@@ -195,9 +216,6 @@ const MEASURE_BOUNDS = `(() => {
       if (style.display === "none" || style.visibility === "hidden") {
         return false;
       }
-      if (Number.parseFloat(style.opacity) === 0) {
-        return false;
-      }
       current = current.parentElement;
     }
     return true;
@@ -205,6 +223,8 @@ const MEASURE_BOUNDS = `(() => {
 
   let top = Number.POSITIVE_INFINITY;
   let bottom = Number.NEGATIVE_INFINITY;
+  let left = Number.POSITIVE_INFINITY;
+  let right = Number.NEGATIVE_INFINITY;
 
   if (root) {
     const nodes = [root, ...root.querySelectorAll("*")];
@@ -216,13 +236,20 @@ const MEASURE_BOUNDS = `(() => {
       if (rect.width < 2 || rect.height < 2) {
         continue;
       }
+      if (rect.width > window.innerWidth * 0.92) {
+        continue;
+      }
       top = Math.min(top, rect.top);
       bottom = Math.max(bottom, rect.bottom);
+      left = Math.min(left, rect.left);
+      right = Math.max(right, rect.right);
     }
   }
 
   return {
     bottom: Number.isFinite(bottom) ? bottom : 0,
+    left: Number.isFinite(left) ? left : 0,
+    right: Number.isFinite(right) ? right : window.innerWidth,
     top: Number.isFinite(top) ? top : 0,
     viewportHeight: window.innerHeight,
     viewportWidth: window.innerWidth,
@@ -233,10 +260,25 @@ const measure = (page: Page): Promise<PosterBounds> =>
   page.evaluate(MEASURE_BOUNDS);
 
 const captureSlug = async (page: Page, slug: string) => {
-  const response = await page.goto(`${BASE_URL}/blocks/preview/${slug}`, {
-    timeout: 90_000,
-    waitUntil: "domcontentloaded",
-  });
+  let response = await page.goto(
+    `${BASE_URL}/blocks/preview/${slug}?poster=1`,
+    {
+      timeout: 90_000,
+      waitUntil: "domcontentloaded",
+    }
+  );
+
+  for (
+    let attempt = 0;
+    response && response.status() >= 500 && attempt < 4;
+    attempt += 1
+  ) {
+    await wait(1500);
+    response = await page.goto(`${BASE_URL}/blocks/preview/${slug}?poster=1`, {
+      timeout: 90_000,
+      waitUntil: "domcontentloaded",
+    });
+  }
 
   if (response && response.status() >= 400) {
     throw new Error(`${slug} returned ${response.status()}`);
@@ -256,49 +298,42 @@ const captureSlug = async (page: Page, slug: string) => {
     ? await measure(page)
     : {
         bottom: 0,
+        left: 0,
+        right: POSTER_VIEWPORT.width,
         top: 0,
         viewportHeight: POSTER_VIEWPORT.height,
         viewportWidth: POSTER_VIEWPORT.width,
       };
-  if (bounds.bottom - bounds.top < 24) {
+  if (bounds.bottom - bounds.top < 8) {
     await wait(800);
     bounds = await measure(page);
   }
 
-  let labeled = false;
-  if (bounds.bottom - bounds.top < 24) {
-    labeled = true;
-    console.warn(`  ${slug} rendered nothing; capturing a label`);
-    await page.setContent(
-      `<!doctype html><html><body style="margin:0;background:#fafafa;color:#171717;font-family:ui-sans-serif,system-ui,sans-serif"><div style="padding:36px 32px;font-size:18px;font-weight:600">${slug}</div></body></html>`
-    );
-    await page.setViewportSize({
-      height: 180,
-      width: POSTER_VIEWPORT.width,
-    });
-    bounds = {
-      bottom: 180,
-      top: 0,
-      viewportHeight: 180,
-      viewportWidth: POSTER_VIEWPORT.width,
-    };
+  if (bounds.bottom - bounds.top < 8) {
+    throw new Error(`${slug} rendered nothing`);
   }
 
   const clip = posterClip(bounds);
   const png = join(tmpdir(), `smoothui-poster-${slug}.png`);
-  const webp = join(COVERS, `${slug}.webp`);
+  const webp = join(STAGING, `${slug}.webp`);
 
   try {
     await page.screenshot({
       clip,
+      omitBackground: true,
       path: png,
       type: "png",
     });
+    writeFileSync(png, trimPosterPng(readFileSync(png)));
 
     await new Promise<void>((resolve, reject) => {
-      const encoder = spawn("cwebp", ["-q", "78", "-m", "4", png, "-o", webp], {
-        stdio: "ignore",
-      });
+      const encoder = spawn(
+        "cwebp",
+        ["-q", "86", "-alpha_q", "100", "-m", "6", png, "-o", webp],
+        {
+          stdio: "ignore",
+        }
+      );
       encoder.on("error", reject);
       encoder.on("exit", (code) => {
         if (code === 0) {
@@ -310,9 +345,6 @@ const captureSlug = async (page: Page, slug: string) => {
     });
   } finally {
     rmSync(png, { force: true });
-    if (labeled) {
-      await page.setViewportSize(POSTER_VIEWPORT);
-    }
   }
 };
 
@@ -342,6 +374,8 @@ const main = async () => {
   }
 
   mkdirSync(COVERS, { recursive: true });
+  rmSync(STAGING, { force: true, recursive: true });
+  mkdirSync(STAGING, { recursive: true });
 
   const pending = force
     ? targets
@@ -396,7 +430,6 @@ const main = async () => {
             const message =
               error instanceof Error ? error.message : String(error);
             console.error(`  failed ${slug}: ${message}`);
-            rmSync(join(COVERS, `${slug}.webp`), { force: true });
             failed.push(slug);
           }
         }
@@ -410,6 +443,12 @@ const main = async () => {
       );
 
       await browser.close();
+      for (const file of readdirSync(STAGING)) {
+        if (!file.endsWith(".webp")) {
+          continue;
+        }
+        copyFileSync(join(STAGING, file), join(COVERS, file));
+      }
     }
   } finally {
     writeManifest(slugs);

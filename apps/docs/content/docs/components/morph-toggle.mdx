@@ -1,0 +1,64 @@
+---
+title: Morph Toggle
+description: A toggle switch component with smooth animations and multiple variants including morph and icon transitions.
+icon: ToggleLeft
+dependencies:
+  - motion.dev
+installer: morph-toggle
+---
+
+## Features
+
+A toggle switch with spring motion, controlled or uncontrolled, three sizes, and full keyboard access. Pick a variant below — the panel beside this column shows that one alone.
+
+## Variants
+
+### Default
+
+A smooth sliding thumb. The usual on/off control.
+
+### Morph
+
+The thumb changes shape while it travels — `borderRadius` animates with the position.
+
+### Icon
+
+Crossfades and scales between custom icons. Pass `icons={{ on, off }}`.
+
+## Sizes
+
+`sm`, `md`, and `lg` scale the track and the thumb together.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Space` | Toggles the switch on/off |
+| `Enter` | Toggles the switch on/off |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="switch"` | Button | Identifies the element as a toggle switch |
+| `aria-checked` | Button | Reflects the current on/off state |
+| `aria-label` | Button | Provides an accessible name via the `label` prop |
+| `disabled` | Button | Indicates when the toggle is non-interactive |
+
+### Screen Reader
+
+- The `role="switch"` with `aria-checked` communicates the toggle state to assistive technologies.
+- Focus is visually indicated with a focus-visible ring style.
+
+### Reduced Motion
+
+This component respects the `prefers-reduced-motion` media query via `useReducedMotion` from Motion. When reduced motion is preferred, all spring animations, icon transitions, and morph effects are disabled instantly.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/morph-toggle/index.tsx"
+  name="MorphToggleProps"
+/>

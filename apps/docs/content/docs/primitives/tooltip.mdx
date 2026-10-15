@@ -1,0 +1,46 @@
+---
+title: Tooltip
+description: Accessible tooltip with configurable delay and Motion fade/scale.
+icon: MessageCircle
+dependencies:
+  - motion.dev
+  - base-ui
+installer: tooltip
+---
+
+## Features
+
+- Hover/focus tooltip with configurable delay (default 400ms)
+- Spring fade/scale entrance via Motion
+- Controlled or uncontrolled open state
+- Compound parts (`TooltipProvider`, `TooltipTrigger`, `TooltipContent`) for shared delay grouping
+- Base UI by default; Radix twin available via style
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Tab` | Focuses the trigger and shows the tooltip (after delay) |
+| `Escape` | Dismisses the tooltip |
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `role="tooltip"` | Content | Identifies the element as a tooltip |
+| `aria-describedby` | Trigger | References the tooltip content for assistive tech |
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, fade and scale animations are disabled instantly.
+
+## Props
+
+### TooltipProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/tooltip/index.tsx"
+  name="TooltipProps"
+/>

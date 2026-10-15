@@ -1,0 +1,43 @@
+---
+title: Collapsible
+description: Single expandable region with the same CSS height panel pattern as Accordion, backed by Base UI Collapsible.
+icon: ChevronsUpDown
+dependencies:
+  - motion.dev
+  - base-ui
+installer: collapsible
+---
+
+## Features
+
+`CollapsibleRoot`, `CollapsibleTrigger`, and `CollapsiblePanel` wrap Base UI Collapsible. Panel height uses `--collapsible-panel-height` with opacity; the chevron rotates when the panel is open.
+
+## States
+
+### Features
+
+Closed by default — click the trigger to reveal content.
+
+### Default open
+
+Starts expanded via `defaultOpen`.
+
+## Accessibility
+
+### Keyboard Interactions
+
+| Key | Description |
+|-----|-------------|
+| `Enter` / `Space` | Toggles the panel |
+| `Tab` | Moves focus to / from the trigger |
+
+### Reduced Motion
+
+Height and opacity transitions are skipped when `prefers-reduced-motion` is preferred.
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/collapsible/index.tsx"
+  name="CollapsibleRootProps"
+/>

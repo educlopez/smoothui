@@ -1,0 +1,46 @@
+---
+title: Input
+description: Text input matching the Field control surface, powered by Base UI Input. Works standalone or inside Field.
+icon: TextCursorInput
+dependencies:
+  - base-ui
+installer: input
+---
+
+## Features
+
+- Same surface as `FieldControl`: `h-9`, `border-input`, 3px focus ring
+- Works standalone, or inside `Field` for label, description, and error wiring
+- Supports `type`, `disabled`, and `aria-invalid` styling
+- Controlled (`value`, `onValueChange`) or uncontrolled (`defaultValue`)
+
+<Callout>
+Input is **Base UI only**. Radix Primitives has no Input, so there is no Radix twin; the same file ships for every style.
+</Callout>
+
+## States
+
+### Features
+
+Search, disabled, and invalid inputs on their own. Always give a standalone input an `aria-label` or a visible `<label>`.
+
+### In Field
+
+Inside `Field`, the label, description, and error are associated automatically (`for`/`id`, `aria-describedby`, `aria-invalid`).
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-invalid` | Input | Marks the input invalid and applies destructive styling |
+| `aria-describedby` | Input | Links description and error text when used in `Field` |
+| `disabled` | Input | Disables interaction and dims the control |
+
+## Props
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/input/index.tsx"
+  name="InputProps"
+/>

@@ -21,7 +21,7 @@ describe("Pricing3", () => {
 
     expect(container.textContent).toContain("12");
     expect(screen.getByRole("button", { name: "Annually" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "true"
     );
   });
@@ -33,7 +33,7 @@ describe("Pricing3", () => {
 
     expect(container.textContent).toContain("25");
     expect(screen.getByRole("button", { name: "Monthly" })).toHaveAttribute(
-      "data-active",
+      "aria-pressed",
       "true"
     );
   });

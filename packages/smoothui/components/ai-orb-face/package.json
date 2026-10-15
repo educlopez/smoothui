@@ -5,10 +5,10 @@
   "private": true,
   "dependencies": {
     "@repo/ai-core": "workspace:*",
-    "@repo/shadcn-ui": "workspace:*",
     "motion": "^12.23.25",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",

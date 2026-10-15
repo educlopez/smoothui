@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "gsap": "^3.12.0"
+    "gsap": "^3.12.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -34,7 +34,7 @@
       "Unique menu or content reveal with gooey physics"
     ],
     "compositionHints": [
-      "Use as an alternative to animated-tooltip for creative UIs"
+      "Use as an alternative to Tooltip primitive for creative UIs"
     ],
     "hasReducedMotion": false
   }

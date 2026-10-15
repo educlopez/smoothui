@@ -1,4 +1,4 @@
-import { blogSource, formatDate } from "@docs/lib/source";
+import { blogSource, formatDate } from "@docs/lib/blog-source";
 import Link from "next/link";
 
 interface RelatedPostsProps {

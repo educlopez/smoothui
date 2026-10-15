@@ -25,7 +25,7 @@ import {
   IconWindowCodeFill24,
 } from "nucleo-core-fill-24";
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import "./navbar.css";
 
@@ -34,59 +34,209 @@ import { useIsMobile } from "@repo/shadcn-ui/hooks/use-mobile";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { GithubStars } from "./github-stars";
-import {
-  BlocksMenuIllustration,
-  MenuIllustration,
-  ResourcesMenuIllustration,
-} from "./menu-illustration";
 import { MobileNavbar } from "./mobile-navbar";
 
-// Preview components data
-const componentPreviews = {
-  basic: {
-    icon: <IconLayersFill24 size={20} />,
-    section: "basic",
-    title: "Basic Components",
+const componentGroups = [
+  {
+    href: "/docs/components/accordion",
+    icon: <IconLayersFill24 size={16} />,
+    text: "Forms, dialogs, and inputs.",
+    title: "Basic UI",
   },
-  components: {
-    icon: <IconGrid2Fill24 size={20} />,
-    section: "components",
-    title: "UI Components",
+  {
+    href: "/docs/components/scroll-reveal-paragraph",
+    icon: <IconTextFill24 size={16} />,
+    text: "Headings, paragraphs, and type.",
+    title: "Text",
   },
-  text: {
-    icon: <IconTextFill24 size={20} />,
-    section: "text",
-    title: "Text Components",
+  {
+    href: "/docs/primitives/smooth-button",
+    icon: <IconSparkleFill24 size={16} />,
+    text: "Candy, outline, and magnetic.",
+    title: "Buttons",
   },
-};
+  {
+    href: "/docs/components/breadcrumb",
+    icon: <IconCompassFill24 size={16} />,
+    text: "Docks, breadcrumbs, and navbars.",
+    title: "Navigation",
+  },
+  {
+    href: "/docs/components/ai-prompt-input",
+    icon: <IconWandSparkleFill24 size={16} />,
+    text: "Chat, agents, and orbs.",
+    title: "AI",
+  },
+  {
+    href: "/docs/components/glass-card",
+    icon: <IconWindowCodeFill24 size={16} />,
+    text: "Glass, shaders, and foil.",
+    title: "Surfaces",
+  },
+] as const;
 
-const blockPreviews = {
-  hero: {
-    icon: <IconSparkleFill24 size={20} />,
-    section: "hero",
-    title: "Hero Blocks",
+const componentMore = [
+  {
+    href: "/docs/components/shader-reveal-transition",
+    icon: <IconBoltFill24 size={16} />,
+    title: "Transitions",
   },
-  pricing: {
-    icon: <IconBoxFill24 size={20} />,
-    section: "pricing",
-    title: "Pricing Blocks",
+  {
+    href: "/docs/components/coverflow-carousel",
+    icon: <IconColorPaletteFill24 size={16} />,
+    title: "Media",
   },
-  testimonial: {
-    icon: <IconUserFill24 size={20} />,
-    section: "testimonial",
-    title: "Testimonial Blocks",
+  {
+    href: "/docs/components/scroll-progress",
+    icon: <IconArrowRightFill24 size={16} />,
+    title: "Scroll",
   },
-};
+  {
+    href: "/docs/components/dynamic-island",
+    icon: <IconHeartFill24 size={16} />,
+    title: "Creative",
+  },
+  {
+    href: "/docs/components",
+    icon: <IconGrid2Fill24 size={16} />,
+    title: "All components",
+  },
+] as const;
+
+const blockGroups = [
+  {
+    href: "/docs/blocks/hero",
+    icon: <IconSparkleFill24 size={16} />,
+    text: "Opening sections for a landing.",
+    title: "Hero",
+  },
+  {
+    href: "/docs/blocks/features",
+    icon: <IconGrid2Fill24 size={16} />,
+    text: "Product highlights and grids.",
+    title: "Features",
+  },
+  {
+    href: "/docs/blocks/pricing",
+    icon: <IconBoxFill24 size={16} />,
+    text: "Plans and comparison tables.",
+    title: "Pricing",
+  },
+  {
+    href: "/docs/blocks/testimonial",
+    icon: <IconUserFill24 size={16} />,
+    text: "Quotes and social proof.",
+    title: "Testimonials",
+  },
+  {
+    href: "/docs/blocks/faqs",
+    icon: <IconTextFill24 size={16} />,
+    text: "Answers to common questions.",
+    title: "FAQs",
+  },
+  {
+    href: "/docs/blocks/cta",
+    icon: <IconBoltFill24 size={16} />,
+    text: "A closer before the footer.",
+    title: "Call to action",
+  },
+] as const;
+
+const blockMore = [
+  {
+    href: "/docs/blocks/footer",
+    icon: <IconLayersFill24 size={16} />,
+    title: "Footer",
+  },
+  {
+    href: "/docs/blocks/logo-clouds",
+    icon: <IconWindowCodeFill24 size={16} />,
+    title: "Logo clouds",
+  },
+  {
+    href: "/docs/blocks/stats",
+    icon: <IconColorPaletteFill24 size={16} />,
+    title: "Stats",
+  },
+  {
+    href: "/docs/blocks/team-sections",
+    icon: <IconUserFill24 size={16} />,
+    title: "Team",
+  },
+  {
+    href: "/docs/blocks",
+    icon: <IconGrid2Fill24 size={16} />,
+    title: "All blocks",
+  },
+] as const;
+
+const resourceGroups = [
+  {
+    href: "/blog",
+    icon: <IconTextFill24 size={16} />,
+    text: "Tutorials and component notes.",
+    title: "Blog",
+  },
+  {
+    href: "/docs/guides/getting-started",
+    icon: <IconCompassFill24 size={16} />,
+    text: "Install and ship in a few minutes.",
+    title: "Getting started",
+  },
+  {
+    href: "/docs/guides/themes",
+    icon: <IconColorPaletteFill24 size={16} />,
+    text: "Palettes and dark mode.",
+    title: "Themes",
+  },
+  {
+    external: true,
+    href: "https://skills.smoothui.dev",
+    icon: <IconWandSparkleFill24 size={16} />,
+    text: "Scaffold components from the editor.",
+    title: "Skills",
+  },
+] as const;
+
+const resourceMore = [
+  {
+    href: "/playground",
+    icon: <IconColorPaletteFill24 size={16} />,
+    title: "Playground",
+  },
+  {
+    href: "/docs/guides/changelog",
+    icon: <IconBoltFill24 size={16} />,
+    title: "Changelog",
+  },
+  {
+    href: "/docs/guides/accessibility",
+    icon: <IconHeartFill24 size={16} />,
+    title: "Accessibility",
+  },
+  {
+    href: "/docs/guides/sponsors",
+    icon: <IconUserFill24 size={16} />,
+    title: "Sponsors",
+  },
+] as const;
 
 interface NavbarProps {
   className?: string;
 }
 
 export default function Navbar({ className }: NavbarProps) {
-  const [hoveredComponent, setHoveredComponent] = useState<string | null>(null);
-  const [hoveredBlock, setHoveredBlock] = useState<string | null>(null);
-  const [hoveredResource, setHoveredResource] = useState<string | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const isMobile = useIsMobile();
+
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 12);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Show mobile navbar on mobile devices
   if (isMobile) {
@@ -94,74 +244,33 @@ export default function Navbar({ className }: NavbarProps) {
   }
 
   return (
-    <NavigationMenuRoot className={cn("navbar-menu", className)}>
-      <div className="flex flex-1 items-center gap-2">
+    <NavigationMenuRoot
+      className={cn("navbar-menu", scrolled && "is-scrolled", className)}
+    >
+      <div className="nav-side nav-side-start" inert={scrolled || undefined}>
         <a href="/">
           <Logo />
         </a>
       </div>
-      <NavigationMenuList className="menu-list flex-auto">
+      <NavigationMenuList className="menu-list">
+        <li className="nav-slot" inert={scrolled ? undefined : true}>
+          <a aria-label="Smooth UI" href="/">
+            <Logo classNameIcon="h-5 w-auto" mark />
+          </a>
+        </li>
         <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
             <IconGrid2Fill24 size={16} />
             Components
+            <span aria-hidden="true" className="nav-caret" />
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
-            <div className="enhanced-submenu">
-              <div className="submenu-nav">
-                <div className="submenu-items">
-                  <EnhancedListItem
-                    href="/docs/components/scroll-reveal-paragraph"
-                    icon={componentPreviews.text.icon}
-                    onHover={() => setHoveredComponent("text")}
-                    onLeave={() => setHoveredComponent(null)}
-                    title="Texts"
-                  >
-                    Animate text, headings, and more.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    href="/docs/components/accordion"
-                    icon={componentPreviews.basic.icon}
-                    onHover={() => setHoveredComponent("basic")}
-                    onLeave={() => setHoveredComponent(null)}
-                    title="Basics"
-                  >
-                    Typography, spacing, and more.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    href="/docs/components/animated-o-t-p-input"
-                    icon={componentPreviews.components.icon}
-                    onHover={() => setHoveredComponent("components")}
-                    onLeave={() => setHoveredComponent(null)}
-                    title="Components"
-                  >
-                    Buttons, cards, forms, and more.
-                  </EnhancedListItem>
-                </div>
-                <Link
-                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
-                  href="/docs/components"
-                >
-                  Explore all components
-                  <IconArrowRightFill24 size={14} />
-                </Link>
-              </div>
-
-              <div className="submenu-preview">
-                <div className="flex h-full w-full items-center justify-center">
-                  <MenuIllustration
-                    activeSection={
-                      hoveredComponent
-                        ? componentPreviews[
-                            hoveredComponent as keyof typeof componentPreviews
-                          ].section
-                        : "text"
-                    }
-                    className="h-full w-full"
-                  />
-                </div>
-              </div>
-            </div>
+            <MenuPanel
+              aside={componentMore}
+              asideLabel="More"
+              items={componentGroups}
+              label="Components"
+            />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
@@ -169,63 +278,15 @@ export default function Navbar({ className }: NavbarProps) {
           <NavigationMenuTrigger className="trigger !cursor-default">
             <IconBoltFill24 size={16} />
             Blocks
+            <span aria-hidden="true" className="nav-caret" />
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
-            <div className="enhanced-submenu">
-              <div className="submenu-nav">
-                <div className="submenu-items">
-                  <EnhancedListItem
-                    href="/docs/blocks/hero"
-                    icon={blockPreviews.hero.icon}
-                    onHover={() => setHoveredBlock("hero")}
-                    onLeave={() => setHoveredBlock(null)}
-                    title="Hero Blocks"
-                  >
-                    Animated hero sections for landing pages.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    href="/docs/blocks/pricing"
-                    icon={blockPreviews.pricing.icon}
-                    onHover={() => setHoveredBlock("pricing")}
-                    onLeave={() => setHoveredBlock(null)}
-                    title="Pricing Blocks"
-                  >
-                    Responsive pricing sections for your product.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    href="/docs/blocks/testimonial"
-                    icon={blockPreviews.testimonial.icon}
-                    onHover={() => setHoveredBlock("testimonial")}
-                    onLeave={() => setHoveredBlock(null)}
-                    title="Testimonial Blocks"
-                  >
-                    Stylish testimonial sections to build trust.
-                  </EnhancedListItem>
-                </div>
-                <Link
-                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
-                  href="/docs/blocks"
-                >
-                  Explore all blocks
-                  <IconArrowRightFill24 size={14} />
-                </Link>
-              </div>
-
-              <div className="submenu-preview">
-                <div className="flex h-full w-full items-center justify-center">
-                  <BlocksMenuIllustration
-                    activeSection={
-                      hoveredBlock
-                        ? blockPreviews[
-                            hoveredBlock as keyof typeof blockPreviews
-                          ].section
-                        : "hero"
-                    }
-                    className="h-full w-full"
-                  />
-                </div>
-              </div>
-            </div>
+            <MenuPanel
+              aside={blockMore}
+              asideLabel="More"
+              items={blockGroups}
+              label="Blocks"
+            />
           </NavigationMenuContent>
         </NavigationMenuItem>
 
@@ -237,73 +298,28 @@ export default function Navbar({ className }: NavbarProps) {
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className="trigger" href="/playground">
-            <IconColorPaletteFill24 size={16} /> Playground
-          </NavigationMenuLink>
-        </NavigationMenuItem>
-        <NavigationMenuItem>
           <NavigationMenuTrigger className="trigger !cursor-default">
             <IconCompassFill24 size={16} />
             Resources
+            <span aria-hidden="true" className="nav-caret" />
           </NavigationMenuTrigger>
           <NavigationMenuContent className="content">
-            <div className="enhanced-submenu">
-              <div className="submenu-nav">
-                <div className="submenu-items">
-                  <EnhancedListItem
-                    href="/blog"
-                    icon={<IconTextFill24 size={20} />}
-                    onHover={() => setHoveredResource("blog")}
-                    onLeave={() => setHoveredResource(null)}
-                    title="Blog"
-                  >
-                    Interactive tutorials and deep dives on components.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    href="/docs/guides/sponsors"
-                    icon={<IconHeartFill24 size={20} />}
-                    onHover={() => setHoveredResource("sponsors")}
-                    onLeave={() => setHoveredResource(null)}
-                    title="Sponsors"
-                  >
-                    Support the project and meet our backers.
-                  </EnhancedListItem>
-                  <EnhancedListItem
-                    external
-                    href="https://skills.smoothui.dev"
-                    icon={<IconWandSparkleFill24 size={20} />}
-                    onHover={() => setHoveredResource("skills")}
-                    onLeave={() => setHoveredResource(null)}
-                    title="Skills"
-                  >
-                    Claude Code skills to scaffold SmoothUI components.
-                  </EnhancedListItem>
-                </div>
-                <Link
-                  className="mt-4 flex items-center gap-2 font-medium text-foreground/70 text-sm transition-colors hover:text-foreground"
-                  href="/blog"
-                >
-                  Read the blog
-                  <IconArrowRightFill24 size={14} />
-                </Link>
-              </div>
-
-              <div className="submenu-preview">
-                <div className="flex h-full w-full items-center justify-center">
-                  <ResourcesMenuIllustration
-                    activeSection={hoveredResource ?? "blog"}
-                    className="h-full w-full"
-                  />
-                </div>
-              </div>
-            </div>
+            <MenuPanel
+              aside={resourceMore}
+              asideLabel="Also"
+              items={resourceGroups}
+              label="Resources"
+            />
           </NavigationMenuContent>
         </NavigationMenuItem>
+        <li className="nav-slot" inert={scrolled ? undefined : true}>
+          <GithubStars compact />
+        </li>
       </NavigationMenuList>
       <div className="viewport-position">
         <NavigationMenuViewport className="viewport" />
       </div>
-      <div className="flex flex-1 items-center justify-end gap-2">
+      <div className="nav-side nav-side-end" inert={scrolled || undefined}>
         <GithubStars />
       </div>
     </NavigationMenuRoot>
@@ -315,8 +331,6 @@ interface EnhancedListItemProps {
   external?: boolean;
   href: string;
   icon: React.ReactNode;
-  onHover: () => void;
-  onLeave: () => void;
   title: string;
 }
 
@@ -325,8 +339,6 @@ function EnhancedListItem({
   title,
   icon,
   href,
-  onHover,
-  onLeave,
   external,
   ...props
 }: EnhancedListItemProps) {
@@ -339,17 +351,75 @@ function EnhancedListItem({
       <Link
         className="enhanced-list-item-link"
         href={href}
-        onMouseEnter={onHover}
-        onMouseLeave={onLeave}
         {...externalProps}
         {...props}
       >
-        <div className="enhanced-list-item-icon frame-box relative">{icon}</div>
+        <div className="enhanced-list-item-icon">{icon}</div>
         <div className="enhanced-list-item-content">
           <div className="enhanced-list-item-heading">{title}</div>
           <p className="enhanced-list-item-text">{children}</p>
         </div>
       </Link>
     </NavigationMenuLink>
+  );
+}
+
+interface MenuLink {
+  external?: boolean;
+  href: string;
+  icon: React.ReactNode;
+  text?: string;
+  title: string;
+}
+
+function MenuPanel({
+  aside,
+  asideLabel,
+  items,
+  label,
+}: {
+  aside: readonly MenuLink[];
+  asideLabel: string;
+  items: readonly MenuLink[];
+  label: string;
+}) {
+  return (
+    <div className="enhanced-submenu">
+      <div className="submenu-nav">
+        <span className="submenu-label">{label}</span>
+        <div className="submenu-items">
+          {items.map((item) => (
+            <EnhancedListItem
+              external={item.external}
+              href={item.href}
+              icon={item.icon}
+              key={item.href}
+              title={item.title}
+            >
+              {item.text}
+            </EnhancedListItem>
+          ))}
+        </div>
+      </div>
+      <div className="submenu-aside">
+        <span className="submenu-label">{asideLabel}</span>
+        <div className="submenu-plain">
+          {aside.map((item) => (
+            <NavigationMenuLink asChild key={item.href}>
+              <Link
+                className="submenu-plain-link"
+                href={item.href}
+                {...(item.external
+                  ? { rel: "noopener noreferrer", target: "_blank" }
+                  : {})}
+              >
+                {item.icon}
+                {item.title}
+              </Link>
+            </NavigationMenuLink>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }

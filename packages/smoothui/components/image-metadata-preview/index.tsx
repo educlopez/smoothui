@@ -1,5 +1,6 @@
 "use client";
 
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { ChevronUp, CircleX, Share } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -72,25 +73,26 @@ export default function ImageMetadataPreview({
 
       <div className="relative flex w-full flex-col items-center gap-4">
         <div className="relative flex w-full flex-row items-center justify-center gap-4">
-          <button
+          <SmoothButton
             aria-label="Share"
-            className={`min-h-[44px] min-w-[44px] rounded-full border bg-background p-3 transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-              isHoverDevice ? "hover:bg-muted" : ""
-            }`}
             disabled={!onShare}
             onClick={onShare}
+            shape="pill"
+            size="icon"
             type="button"
+            variant="outline"
           >
             <Share aria-hidden="true" size={16} />
-          </button>
-          <button
+          </SmoothButton>
+          <SmoothButton
             aria-label="Connect"
-            className="min-h-[44px] cursor-not-allowed rounded-full border bg-background px-4 py-3 text-sm transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50"
             disabled
+            shape="pill"
             type="button"
+            variant="outline"
           >
             Connect
-          </button>
+          </SmoothButton>
           <AnimatePresence>
             {openInfo ? null : (
               <motion.button
@@ -148,19 +150,18 @@ export default function ImageMetadataPreview({
                     <p className="text-primary-foreground">{description}</p>
                   </div>
 
-                  <button
+                  <SmoothButton
                     aria-label="Close metadata preview"
-                    className={`flex min-h-[44px] min-w-[44px] items-center justify-center rounded p-2 transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
-                      isHoverDevice ? "hover:bg-muted" : ""
-                    }`}
                     onClick={(e) => {
                       e.stopPropagation();
                       handleClickClose();
                     }}
+                    size="icon-sm"
                     type="button"
+                    variant="ghost"
                   >
                     <CircleX aria-hidden="true" size={16} />
-                  </button>
+                  </SmoothButton>
                 </div>
                 <table className="flex w-full flex-col items-center gap-4 text-foreground">
                   <tbody className="w-full">

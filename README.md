@@ -108,7 +108,7 @@ The SmoothUI CLI provides an interactive way to browse and install components wi
 npx smoothui-cli add siri-orb
 
 # Add multiple components
-npx smoothui-cli add siri-orb rich-popover animated-input
+npx smoothui-cli add siri-orb rich-popover float-input
 
 # Interactive mode - browse and select components
 npx smoothui-cli add
@@ -135,7 +135,7 @@ SmoothUI is an official shadcn registry, so you can install components directly 
 npx shadcn@latest add @smoothui/siri-orb
 
 # Install multiple components
-npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input
+npx shadcn@latest add @smoothui/rich-popover @smoothui/float-input
 ```
 
 ### Manual Installation
@@ -229,7 +229,7 @@ SmoothUI includes a wide variety of components:
 - **SiriOrb** - Animated orb with smooth color transitions
 - **RichPopover** - Advanced popover with rich content
 - **ScrollableCardStack** - Interactive card stack with smooth scrolling
-- **AnimatedInput** - Input field with smooth animations
+- **FloatInput** - Input field with smooth animations
 - **DynamicIsland** - iOS-style dynamic island component
 - **FluidMorph** - Fluid morphing animations
 - **MatrixCard** - Matrix-style card with particle effects

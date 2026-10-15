@@ -1,5 +1,6 @@
 "use client";
 
+import { useSidebar } from "fumadocs-ui/components/sidebar/base";
 import { PanelLeft } from "lucide-react";
 
 export type DocsBreadcrumbProps = {
@@ -12,24 +13,12 @@ export type DocsBreadcrumbProps = {
 /**
  * Breadcrumb that doubles as the sidebar handle.
  *
- * On split pages the sidebar starts collapsed and reveals itself as a floating
- * card when the pointer reaches the left edge. That reveal is internal state in
- * Fumadocs' `SidebarContent` — no prop, no context — driven by pointer events on
- * the sidebar element, so the button reproduces the gesture rather than inventing
- * a second navigation surface next to it. One catalogue, two ways in.
+ * The sidebar is docked open on these pages, and this button toggles it through
+ * Fumadocs' sidebar context, so it closes what it opened. When collapsed, the
+ * sidebar still reveals as a floating card at the left edge of the viewport.
  */
 export const DocsBreadcrumb = ({ section, title }: DocsBreadcrumbProps) => {
-  const revealSidebar = () => {
-    const sidebar = document.querySelector("#nd-sidebar");
-    sidebar?.dispatchEvent(
-      new PointerEvent("pointerover", {
-        bubbles: true,
-        clientX: 4,
-        clientY: Math.round(window.innerHeight / 2),
-        pointerType: "mouse",
-      })
-    );
-  };
+  const { collapsed, setCollapsed } = useSidebar();
 
   return (
     <nav
@@ -40,7 +29,8 @@ export const DocsBreadcrumb = ({ section, title }: DocsBreadcrumbProps) => {
           there is nothing to aim at separately. */}
       <button
         className="-ml-1.5 flex cursor-pointer items-center gap-1.5 rounded-lg px-1.5 py-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-        onClick={revealSidebar}
+        aria-expanded={!collapsed}
+        onClick={() => setCollapsed(!collapsed)}
         type="button"
       >
         <PanelLeft aria-hidden="true" size={15} />

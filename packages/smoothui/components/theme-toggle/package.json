@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "@repo/shadcn-ui": "workspace:*",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "motion": "^12.23.25",
-    "lucide-react": "^0.545.0"
+    "lucide-react": "^0.545.0",
+    "@repo/smoothui-utils": "workspace:*"
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
@@ -17,7 +17,7 @@
     "typescript": "^5.9.3"
   },
   "smoothui": {
-    "category": "basic-ui",
+    "category": "patterns",
     "tags": [
       "theme",
       "dark-mode",
@@ -36,7 +36,7 @@
     ],
     "compositionHints": [
       "Use in a navbar alongside expandable-navbar or floating-navbar",
-      "Pair with animated-toggle in a settings panel"
+      "Pair with morph-toggle in a settings panel"
     ],
     "hasReducedMotion": true
   }

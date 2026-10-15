@@ -13,6 +13,7 @@
     "test:risk": "vitest run --config vitest.risk.config.ts",
     "typecheck": "turbo typecheck",
     "typecheck:cli": "pnpm --filter smoothui-cli typecheck",
+    "typecheck:blocks-radix": "tsx scripts/typecheck-blocks-radix.mts",
     "analyze": "turbo analyze",
     "bump-deps": "npx npm-check-updates --deep -u -x shiki,next,recharts,require-in-the-middle && pnpm install",
     "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/shadcn-ui && npx shadcn@latest migrate radix -c packages/shadcn-ui",

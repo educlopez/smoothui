@@ -18,6 +18,13 @@ SmoothUI works with any React-compatible framework. Check out the dedicated setu
 The SmoothUI CLI provides an interactive way to browse and install components with automatic dependency resolution.
 </BodyText>
 
+<FeatureCard title="Base UI by default" variant="info">
+Owned SmoothUI primitives (button, dialog, checkbox, …) ship on **Base UI** by
+default (`/r/{name}.json` and `base-*` styles). Radix projects set a non-`base-*`
+style and point at `https://smoothui.dev/r/{style}/{name}.json`. See
+[Primitives](/docs/primitives).
+</FeatureCard>
+
 ### Add Components
 
 <PackageManagerTabs
@@ -30,10 +37,10 @@ The SmoothUI CLI provides an interactive way to browse and install components wi
 ### Add Multiple Components
 
 <PackageManagerTabs
-  pnpm="pnpm dlx smoothui-cli@latest add siri-orb rich-popover animated-input"
-  npm="npx smoothui-cli@latest add siri-orb rich-popover animated-input"
-  yarn="yarn dlx smoothui-cli@latest add siri-orb rich-popover animated-input"
-  bun="bunx smoothui-cli@latest add siri-orb rich-popover animated-input"
+  pnpm="pnpm dlx smoothui-cli@latest add siri-orb rich-popover float-input"
+  npm="npx smoothui-cli@latest add siri-orb rich-popover float-input"
+  yarn="yarn dlx smoothui-cli@latest add siri-orb rich-popover float-input"
+  bun="bunx smoothui-cli@latest add siri-orb rich-popover float-input"
 />
 
 ### Interactive Mode
@@ -63,11 +70,23 @@ Run the add command without arguments to launch an interactive picker. Search an
 ## Installation (shadcn Registry)
 
 <BodyText>
-SmoothUI is an official shadcn registry, so you can install components directly without any configuration. Just use the `@smoothui{:js}` namespace.
+SmoothUI is an official shadcn registry. Use the `@smoothui{:js}` namespace.
+Owned primitives ship on **Base UI** by default; Radix projects should use the
+style-aware registry URL.
 </BodyText>
 
-<FeatureCard title="No Configuration Required" variant="info">
-Since SmoothUI is an official registry, you don't need to add anything to your `components.json{:js}` file. Just install components directly!
+```json
+{
+  "style": "base-nova",
+  "registries": {
+    "@smoothui": "https://smoothui.dev/r/{style}/{name}.json"
+  }
+}
+```
+
+<FeatureCard title="Base by default" variant="info">
+Plain `@smoothui/...` installs get the Base twin. Set a non-`base-*` style plus
+the style-aware URL above for Radix — see [Primitives](/docs/primitives).
 </FeatureCard>
 
 ### Install Components
@@ -86,10 +105,10 @@ Install SmoothUI components using the shadcn CLI with the `@smoothui{:js}` names
 ### Install Multiple Components
 
 <PackageManagerTabs
-  pnpm="pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
-  npm="npx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
-  yarn="yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
-  bun="bunx shadcn@latest add @smoothui/rich-popover @smoothui/animated-input"
+  pnpm="pnpm dlx shadcn@latest add @smoothui/rich-popover @smoothui/float-input"
+  npm="npx shadcn@latest add @smoothui/rich-popover @smoothui/float-input"
+  yarn="yarn dlx shadcn@latest add @smoothui/rich-popover @smoothui/float-input"
+  bun="bunx shadcn@latest add @smoothui/rich-popover @smoothui/float-input"
 />
 
 ### Use Components

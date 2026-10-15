@@ -1,0 +1,38 @@
+{
+  "name": "@repo/calendar",
+  "description": "Calendar date picker grid for SmoothUI built on react-day-picker.",
+  "version": "0.0.0",
+  "private": true,
+  "dependencies": {
+    "@repo/smooth-button": "workspace:*",
+    "lucide-react": "^0.545.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-day-picker": "9.14.0",
+    "@repo/smoothui-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.1",
+    "typescript": "^5.9.3"
+  },
+  "smoothui": {
+    "category": "patterns",
+    "tags": [
+      "calendar",
+      "date",
+      "picker",
+      "form"
+    ],
+    "complexity": "medium",
+    "useCases": [
+      "Single date selection",
+      "Date range selection in filters"
+    ],
+    "compositionHints": [
+      "Compose with Popover for date picker popups",
+      "Pass mode=range for ranges"
+    ]
+  }
+}

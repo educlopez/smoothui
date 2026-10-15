@@ -1,7 +1,7 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { Check, Eye, EyeOff } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { FormEvent, ReactNode, RefObject } from "react";
@@ -589,13 +589,15 @@ export default function AuthForm({
 
       <p className="mt-5 text-center text-muted-foreground text-sm">
         {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
-        <button
-          className="font-medium text-brand underline-offset-4 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+        <SmoothButton
+          className="h-auto p-0 font-medium text-brand"
+          color="accent"
           onClick={() => onModeChange?.(isSignUp ? "sign-in" : "sign-up")}
           type="button"
+          variant="link"
         >
           {isSignUp ? "Sign in" : "Sign up"}
-        </button>
+        </SmoothButton>
       </p>
 
       {footer}

@@ -35,14 +35,14 @@ export function AddToKitButton({
       }
       aria-pressed={inKit}
       className={cn(
-        "inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-md border border-transparent bg-background font-medium shadow-black/15 shadow-sm ring-1 ring-foreground/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-background dark:ring-foreground/15",
-        size === "sm" && "h-9 px-3 text-sm [&_svg]:size-4",
+        "inline-flex shrink-0 cursor-pointer items-center justify-center gap-1.5 rounded-full border border-border bg-card font-medium text-foreground shadow-sm transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-1",
+        size === "sm" && "h-8 px-3 text-sm [&_svg]:size-3.5",
         size === "xs" && "h-7 px-2.5 text-xs [&_svg]:size-3.5",
-        iconOnly && size === "sm" && "w-9 px-0",
-        iconOnly && size === "xs" && "w-7 px-0",
+        iconOnly && size === "sm" && "size-8 px-0",
+        iconOnly && size === "xs" && "size-7 px-0",
         inKit
           ? "border-brand/30 bg-brand/10 text-brand hover:bg-brand/15"
-          : "text-foreground hover:bg-primary",
+          : null,
         className
       )}
       onClick={(e) => {

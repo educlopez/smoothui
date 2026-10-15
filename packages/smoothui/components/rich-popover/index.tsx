@@ -7,6 +7,7 @@ import {
   Root as PopoverRoot,
   Trigger as PopoverTrigger,
 } from "@radix-ui/react-popover";
+import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Clock, ExternalLink, Play } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
@@ -88,25 +89,35 @@ export default function RichTooltip({
     }
 
     const actionClassName =
-      "inline-flex items-center gap-2 rounded-full bg-white px-3 py-2 font-medium text-black text-xs transition-colors hover:bg-white/90";
+      "bg-white text-black hover:bg-white/90 dark:bg-white dark:text-black";
 
     if (actionHref) {
       return (
-        <a
+        <SmoothButton
+          asChild
           className={actionClassName}
-          href={actionHref}
-          rel="noopener noreferrer"
-          target="_blank"
+          shape="pill"
+          size="xs"
+          variant="solid"
         >
-          <Play className="h-3.5 w-3.5" /> {actionLabel}
-        </a>
+          <a href={actionHref} rel="noopener noreferrer" target="_blank">
+            <Play className="h-3.5 w-3.5" /> {actionLabel}
+          </a>
+        </SmoothButton>
       );
     }
 
     return (
-      <button className={actionClassName} onClick={onActionClick} type="button">
+      <SmoothButton
+        className={actionClassName}
+        onClick={onActionClick}
+        shape="pill"
+        size="xs"
+        type="button"
+        variant="solid"
+      >
         <Play className="h-3.5 w-3.5" /> {actionLabel}
-      </button>
+      </SmoothButton>
     );
   };
 

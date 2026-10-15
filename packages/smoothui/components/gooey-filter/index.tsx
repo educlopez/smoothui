@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@repo/shadcn-ui/lib/utils";
+import { cn } from "@repo/smoothui-utils";
 import { type ElementType, type ReactNode, useId } from "react";
 
 const DEFAULT_STRENGTH = 8;

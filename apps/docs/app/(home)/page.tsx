@@ -3,6 +3,7 @@ import { BlockCategories } from "@docs/components/landing/block-categories";
 import { ComponentsSlideshow } from "@docs/components/landing/components-slideshow";
 import { Coverage } from "@docs/components/landing/coverage";
 import { ExploreSections } from "@docs/components/landing/explore-sections";
+import { FaqSchema } from "@docs/components/landing/faq-schema";
 import { FAQ } from "@docs/components/landing/faqs";
 import { Features } from "@docs/components/landing/features";
 import Footer from "@docs/components/landing/footer";
@@ -50,22 +51,27 @@ function SectionSkeleton({ minHeight = "400px" }: { minHeight?: string }) {
 export default function Home() {
   return (
     <>
-      <LandingBand>
+      <FaqSchema />
+      <div className="w-full bg-background">
         <Hero />
-        <SocialProof />
-        <ExploreSections />
-        <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
-          <ComponentsSlideshow />
-        </Suspense>
-      </LandingBand>
+        <div className="mx-auto w-full max-w-7xl [&>section]:bg-transparent">
+          <SocialProof />
+          <ExploreSections />
+          <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
+            <ComponentsSlideshow />
+          </Suspense>
+        </div>
+      </div>
       <LandingBand muted>
         <Features />
       </LandingBand>
       <LandingBand>
         <BlockCategories />
-        <AISection />
-        <SkillsSection />
       </LandingBand>
+      <LandingBand muted>
+        <AISection />
+      </LandingBand>
+      <SkillsSection />
       <LandingBand muted>
         <Suspense fallback={<SectionSkeleton minHeight="700px" />}>
           <WhatTheySay />

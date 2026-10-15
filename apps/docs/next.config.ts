@@ -1,6 +1,10 @@
 import withBundleAnalyzer from "@next/bundle-analyzer";
 import { createMDX } from "fumadocs-mdx/next";
 import type { NextConfig } from "next";
+import {
+  docBasicDirectRedirects,
+  docsComponentRedirects,
+} from "./lib/legacy-registry";
 
 const withMDX = createMDX();
 
@@ -49,23 +53,7 @@ const config: NextConfig = {
   reactStrictMode: true,
   redirects() {
     return [
-      // Redirect removed matrix-card component to home page
-      {
-        destination: "/",
-        permanent: true,
-        source: "/docs/components/matrix-card",
-      },
-      // Specific redirects for renamed components (must come before generic patterns)
-      {
-        destination: "/docs/components/morph-surface",
-        permanent: true,
-        source: "/docs/components/ai-input",
-      },
-      {
-        destination: "/docs/components/animated-o-t-p-input",
-        permanent: true,
-        source: "/doc/components/animated-otp-input",
-      },
+      ...docsComponentRedirects(),
       {
         destination: "/docs/blocks/logo-clouds",
         permanent: true,
@@ -76,18 +64,14 @@ const config: NextConfig = {
         permanent: true,
         source: "/doc/blocks/team",
       },
-      {
-        destination: "/docs/components/accordion",
-        permanent: true,
-        source: "/doc/basic/basic-accordion",
-      },
+      // Direct /doc/basic/{old} → final URL, before the :component wildcard.
+      ...docBasicDirectRedirects(),
       // Redirect /doc to /docs
       {
         destination: "/docs",
         permanent: true,
         source: "/doc",
       },
-      // Redirecciones de categorías a /docs/components/
       {
         destination: "/docs/components/:component",
         permanent: true,

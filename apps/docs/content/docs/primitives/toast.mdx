@@ -1,0 +1,74 @@
+---
+title: Toast
+description: Toast notifications with a queue, swipe dismiss, and Motion enter/exit, built on the Base UI Toast manager.
+icon: Bell
+dependencies:
+  - motion.dev
+  - base-ui
+installer: toast
+---
+
+## Features
+
+- Base UI Toast manager: queue, limit, auto-dismiss, hover/focus pause, swipe to dismiss
+- Imperative `toast()` helper (plus `toast.success`, `toast.error`, `toast.promise`, `toast.close`)
+- `useToastManager()` hook for use inside the provider tree
+- Compound parts: `ToastProvider`, `ToastViewport`, `ToastList`, `ToastRoot`, `ToastContent`, `ToastTitle`, `ToastDescription`, `ToastAction`, `ToastClose`
+- Motion opacity/transform enter and exit; swipe movement uses the CSS `translate` property so both compose
+
+<Callout>
+Toast is **Base UI only**. Radix Toast uses a different, component-per-toast API with no manager, so there is no Radix twin.
+</Callout>
+
+## Usage
+
+Mount `Toaster` once near the app root, then call `toast()` anywhere:
+
+```tsx
+import Toaster, { toast } from "@/components/smoothui/toast";
+
+export default function Layout({ children }) {
+  return <Toaster>{children}</Toaster>;
+}
+
+toast({ title: "Saved", description: "Your changes are live." });
+toast.error("Upload failed");
+```
+
+## States
+
+### Features
+
+Default, error, and promise toasts. Toasts stack in the bottom-right corner; hover to pause the timer.
+
+## Accessibility
+
+### ARIA Attributes
+
+| Attribute | Element | Purpose |
+|-----------|---------|---------|
+| `aria-live="polite"` | Viewport | Announces new toasts without interrupting |
+| `role="dialog"` | Root | Each toast is a non-modal region |
+| `priority: "high"` | Toast option | Announces urgently for critical errors |
+
+Use `F6` to move focus to the toast region.
+
+### Reduced Motion
+
+This component respects `prefers-reduced-motion` via `useReducedMotion` from Motion. When reduced motion is preferred, toasts appear and disappear instantly.
+
+## Props
+
+### ToasterProps
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/toast/index.tsx"
+  name="ToasterProps"
+/>
+
+### ToastOptions
+
+<AutoTypeTable
+  path="../../packages/smoothui/components/toast/index.tsx"
+  name="ToastOptions"
+/>
