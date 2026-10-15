@@ -9,6 +9,7 @@ import {
   type ReactNode,
   useContext,
   useId,
+  useLayoutEffect,
   useState,
 } from "react";
 import { DURATION, EASE_OUT, SPRING_DEFAULT } from "../../lib/animation";
@@ -28,6 +29,8 @@ export type TabsListProps = ComponentProps<typeof TabsPrimitive.List> & {
   variant?: TabsVariant;
   className?: string;
   children?: ReactNode;
+  /** Maps to Radix Root `activationMode`. Not forwarded to the DOM. */
+  activateOnFocus?: boolean;
 };
 
 export type TabsTabProps = ComponentProps<typeof TabsPrimitive.Trigger> & {
@@ -50,6 +53,9 @@ export type TabsProps = TabsRootProps;
 const TabsVariantContext = createContext<TabsVariant>("underline");
 const TabsValueContext = createContext<string>("");
 const TabsLayoutIdContext = createContext<string>("tabs-indicator");
+const TabsActivationContext = createContext<
+  ((mode: "automatic" | "manual") => void) | null
+>(null);
 
 const listStyles = (variant: TabsVariant) =>
   cn(
@@ -94,26 +100,32 @@ const TabsRoot = ({
 }: TabsRootProps) => {
   const layoutId = useId();
   const [uncontrolled, setUncontrolled] = useState(() => defaultValue ?? "");
+  const [activationMode, setActivationMode] = useState<"automatic" | "manual">(
+    "manual"
+  );
   const current = value ?? uncontrolled;
 
   return (
     <TabsLayoutIdContext.Provider value={`tabs-ind-${layoutId}`}>
       <TabsValueContext.Provider value={String(current)}>
-        <TabsPrimitive.Root
-          className={cn("flex w-full min-w-0 flex-col", className)}
-          data-slot="tabs"
-          defaultValue={defaultValue}
-          onValueChange={(next) => {
-            if (value === undefined) {
-              setUncontrolled(next);
-            }
-            onValueChange?.(next);
-          }}
-          value={value}
-          {...props}
-        >
-          {children}
-        </TabsPrimitive.Root>
+        <TabsActivationContext.Provider value={setActivationMode}>
+          <TabsPrimitive.Root
+            className={cn("flex w-full min-w-0 flex-col", className)}
+            data-slot="tabs"
+            defaultValue={defaultValue}
+            onValueChange={(next) => {
+              if (value === undefined) {
+                setUncontrolled(next);
+              }
+              onValueChange?.(next);
+            }}
+            value={value}
+            {...props}
+            activationMode={activationMode}
+          >
+            {children}
+          </TabsPrimitive.Root>
+        </TabsActivationContext.Provider>
       </TabsValueContext.Provider>
     </TabsLayoutIdContext.Provider>
   );
@@ -123,18 +135,28 @@ const TabsList = ({
   className,
   variant = "underline",
   children,
+  activateOnFocus = false,
   ...props
-}: TabsListProps) => (
-  <TabsVariantContext.Provider value={variant}>
-    <TabsPrimitive.List
-      className={cn(listStyles(variant), className)}
-      data-slot="tabs-list"
-      {...props}
-    >
-      {children}
-    </TabsPrimitive.List>
-  </TabsVariantContext.Provider>
-);
+}: TabsListProps) => {
+  const setActivationMode = useContext(TabsActivationContext);
+  const mode = activateOnFocus ? "automatic" : "manual";
+
+  useLayoutEffect(() => {
+    setActivationMode?.(mode);
+  }, [mode, setActivationMode]);
+
+  return (
+    <TabsVariantContext.Provider value={variant}>
+      <TabsPrimitive.List
+        className={cn(listStyles(variant), className)}
+        data-slot="tabs-list"
+        {...props}
+      >
+        {children}
+      </TabsPrimitive.List>
+    </TabsVariantContext.Provider>
+  );
+};
 
 const TabsTab = ({ className, children, value, ...props }: TabsTabProps) => {
   const variant = useContext(TabsVariantContext);

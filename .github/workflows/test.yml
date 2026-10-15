@@ -103,6 +103,7 @@ jobs:
         run: |
           pnpm typecheck
           pnpm typecheck:cli
+          pnpm typecheck:blocks-radix
 
   test:
     name: Test
