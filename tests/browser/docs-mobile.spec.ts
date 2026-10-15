@@ -40,8 +40,18 @@ test.describe("docs mobile", () => {
       name: "Floating Navigation",
     });
     await expect(floatNav).toBeVisible();
-    await page.getByRole("button", { name: "Open Sidebar" }).click();
+    const openSidebar = page.getByRole("button", { name: "Open Sidebar" });
+    await expect(openSidebar).toBeEnabled();
     const sidebar = page.locator("#nd-sidebar-mobile");
+    await expect(sidebar).toBeAttached();
+    // Contributor tooltip hydration can regenerate the docs tree and drop a
+    // click that lands before recovery. Re-click only while closed.
+    await expect(async () => {
+      if ((await sidebar.getAttribute("data-state")) !== "open") {
+        await openSidebar.click();
+      }
+      await expect(sidebar).toHaveAttribute("data-state", "open");
+    }).toPass();
     await expect(sidebar).toBeVisible();
     await sidebar
       .getByRole("link", { name: "Visit Sparkbites" })

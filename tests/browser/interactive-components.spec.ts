@@ -31,17 +31,22 @@ test("dropdown supports arrow keys, Escape, and outside dismissal", async ({
   await page.goto("/preview/dropdown-menu");
 
   const trigger = page.getByRole("button", { name: "Open Menu" });
-  await trigger.focus();
-  await page.keyboard.press("ArrowDown");
-
+  await expect(trigger).toBeEnabled();
   const menu = page.getByRole("menu");
-  await expect(menu).toBeVisible();
   const profile = page.getByRole("menuitem", { name: PROFILE_ITEM_NAME });
-  await expect
-    .poll(async () =>
-      profile.evaluate((node) => node === document.activeElement)
-    )
-    .toBe(true);
+  // ArrowDown before Base UI hydrates opens nothing; an early open can also
+  // miss the first item. Reset and retry until Profile is actually focused.
+  await expect(async () => {
+    if (await menu.isVisible()) {
+      await page.keyboard.press("Escape");
+      await expect(menu).toBeHidden();
+    }
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press("ArrowDown");
+    await expect(menu).toBeVisible();
+    await expect(profile).toBeFocused();
+  }).toPass();
 
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
