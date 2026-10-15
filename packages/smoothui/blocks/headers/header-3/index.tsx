@@ -74,7 +74,11 @@ export function HeroShowcase({
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { bounce: 0.32, duration: 0.9, type: "spring" as const }
+              : {
+                  duration: 0.35,
+                  ease: [0.23, 1, 0.32, 1],
+                  filter: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+                }
           }
         >
           <div className="mx-auto grid max-w-5xl items-center gap-10 px-6 py-24 lg:grid-cols-2 lg:gap-20">

@@ -12,10 +12,10 @@ const FACES = [
 
 export function SocialProof() {
   return (
-    <section className="bg-background px-8 py-8 transition">
-      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 sm:flex-row sm:gap-6">
-        <div className="flex items-center gap-3">
-          <div className="flex -space-x-2">
+    <section className="relative isolate z-20 bg-background px-6 py-10 transition sm:px-8">
+      <div className="mx-auto flex max-w-7xl flex-col items-center justify-center gap-4 text-center sm:flex-row sm:gap-6 sm:text-left">
+        <div className="flex flex-col items-center gap-3 sm:flex-row">
+          <div className="flex shrink-0 -space-x-2">
             {FACES.map((handle) => (
               <img
                 alt=""
@@ -30,7 +30,7 @@ export function SocialProof() {
               />
             ))}
           </div>
-          <span className="text-muted-foreground text-sm">
+          <span className="max-w-[16rem] text-pretty text-muted-foreground text-sm sm:max-w-none">
             Loved by developers building with shadcn/ui
           </span>
         </div>

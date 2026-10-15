@@ -4,6 +4,7 @@ import { GalleryPreview } from "@docs/components/gallery/gallery-preview";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
 import { docsHrefForSlug } from "@docs/lib/docs-href";
+import { cn } from "@repo/shadcn-ui/lib/utils";
 import Link from "next/link";
 import { ShowcaseDemo } from "./showcase-demo";
 
@@ -45,7 +46,10 @@ export function ComponentsSlideshow() {
       <div className="mt-16 columns-1 gap-4 md:columns-2 lg:columns-3">
         {SHOWCASE_COMPONENTS.map(({ name, slug }) => (
           <div
-            className="group relative mb-4 break-inside-avoid rounded-xl border border-border bg-card focus-within:z-20 hover:z-20"
+            className={cn(
+              "group relative mb-4 break-inside-avoid rounded-xl border border-border bg-card focus-within:z-20 hover:z-20",
+              slug === "exposure-slider" && "overflow-hidden"
+            )}
             data-showcase={slug}
             key={slug}
           >

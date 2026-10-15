@@ -114,6 +114,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
               className="mobile-navbar-section"
+              data-nav-section="components"
               initial={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
               }
@@ -157,6 +158,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
               className="mobile-navbar-section"
+              data-nav-section="blocks"
               initial={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
               }
@@ -196,7 +198,8 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
               animate={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
-              className="mobile-navbar-links"
+              className="mobile-navbar-section"
+              data-nav-section="templates"
               initial={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
               }
@@ -206,10 +209,16 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                   : { delay: 0.15, duration: 0.2 }
               }
             >
-              <Link className="mobile-navbar-link" href="/docs/templates">
+              <div className="mobile-navbar-section-title">
                 <IconWindowCodeFill24 size={16} />
                 Templates
-              </Link>
+              </div>
+              <div className="mobile-navbar-links">
+                <Link className="mobile-navbar-link" href="/docs/templates">
+                  <IconWindowCodeFill24 size={16} />
+                  Browse templates
+                </Link>
+              </div>
             </motion.div>
 
             <motion.div
@@ -217,6 +226,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
               }
               className="mobile-navbar-section"
+              data-nav-section="resources"
               initial={
                 shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 10 }
               }

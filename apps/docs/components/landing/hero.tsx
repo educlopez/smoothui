@@ -67,7 +67,7 @@ export function Hero() {
         ) : null}
       </div>
 
-      <div className="pt-24 pb-20 md:pt-32 lg:pt-40">
+      <div className="pt-24 pb-10 md:pt-32 md:pb-20 lg:pt-40">
         <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}

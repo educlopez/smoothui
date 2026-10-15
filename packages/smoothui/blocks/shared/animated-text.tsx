@@ -34,10 +34,12 @@ export function AnimatedText({
         shouldReduceMotion
           ? { duration: 0 }
           : {
-              bounce: 0.3,
               delay,
-              duration: 1.5,
-              type: "spring" as const,
+              duration: 0.35,
+              ease: [0.23, 1, 0.32, 1],
+              filter: { duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+              opacity: { delay, duration: 0.3, ease: [0.23, 1, 0.32, 1] },
+              y: { delay, duration: 0.35, ease: [0.23, 1, 0.32, 1] },
             }
       }
     >
