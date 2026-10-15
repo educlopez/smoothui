@@ -10,26 +10,24 @@ test.describe("docs mobile", () => {
   test("dock preview stays inside its iframe at 390px", async ({ page }) => {
     await page.goto("/docs/components/dock");
     const iframe = page.locator('iframe[title="Dock preview"]');
-    await expect(iframe).toBeVisible();
-    const dock = iframe
-      .contentFrame()
-      .getByRole("navigation", { name: "Application dock" });
-    await expect(dock).toBeVisible();
-    await expect
-      .poll(async () => {
-        const frame = await iframe.boundingBox();
-        const bar = await dock.boundingBox();
-        if (!(frame && bar)) {
-          return -1;
-        }
-        const left = bar.x - frame.x;
-        const right = frame.x + frame.width - (bar.x + bar.width);
-        return Math.min(left, right);
-      })
-      .toBeGreaterThanOrEqual(0);
-    await iframe.screenshot({
-      path: "/opt/cursor/artifacts/screenshots/dock-iframe-390.png",
-    });
+    await expect(async () => {
+      await expect(iframe).toBeVisible();
+      const dock = iframe
+        .contentFrame()
+        .getByRole("navigation", { name: "Application dock" });
+      await expect(dock).toBeVisible();
+      const frame = await iframe.boundingBox();
+      const bar = await dock.boundingBox();
+      if (!(frame && bar)) {
+        throw new Error("Dock or iframe has no box");
+      }
+      const left = bar.x - frame.x;
+      const right = frame.x + frame.width - (bar.x + bar.width);
+      expect(Math.min(left, right)).toBeGreaterThanOrEqual(0);
+      await iframe.screenshot({
+        path: "/opt/cursor/artifacts/screenshots/dock-iframe-390.png",
+      });
+    }).toPass();
   });
 
   test("floating navigation hides while the mobile sidebar is open", async ({
