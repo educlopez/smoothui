@@ -413,8 +413,9 @@ test("hero blocks docs page emits no console warnings", async ({ page }) => {
       warnings.push(message.text());
     }
   });
-  await page.goto("/docs/blocks/hero", { waitUntil: "networkidle" });
-  await page.waitForTimeout(2000);
+  await page.goto("/docs/blocks/hero", { waitUntil: "load" });
+  await page.locator("iframe").first().waitFor({ state: "attached" });
+  await page.waitForTimeout(2500);
   expect(warnings, warnings.join("\n")).toEqual([]);
 });
 
