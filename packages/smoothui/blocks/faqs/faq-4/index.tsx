@@ -151,7 +151,7 @@ export function FaqCategorized({
                   {category.name}
                 </TabsTab>
               ))}
-              <TabsIndicator />
+              <TabsIndicator className="left-0" />
             </TabsList>
           </motion.div>
 
