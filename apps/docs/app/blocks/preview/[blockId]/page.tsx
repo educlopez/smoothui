@@ -2,6 +2,7 @@ import { readdir } from "node:fs/promises";
 import { join } from "node:path";
 import { ColorSync } from "@docs/components/color-sync";
 import { BlockHeightSync } from "@docs/components/preview/block-height-sync";
+import { ClampNegativeBlur } from "@docs/components/preview/clamp-negative-blur";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -58,6 +59,7 @@ export default async function BlockPreviewPage({
             : "nextjs-portal{display:none}"}
         </style>
         <ColorSync />
+        <ClampNegativeBlur />
         <BlockHeightSync blockId={blockId} />
         {/* Poster capture measures this node. A plain wrapper, so the live
             preview iframe is unchanged. */}

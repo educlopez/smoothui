@@ -3,14 +3,31 @@
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { Toggle as TogglePrimitive } from "radix-ui";
+import type { ReactNode } from "react";
 import {
   PRESS_SCALE,
   PRESS_TRANSITION,
   SPRING_SNAPPY,
 } from "../../lib/animation";
-import type { ToggleProps } from "./toggle.base";
 
-export type { ToggleProps } from "./toggle.base";
+export interface ToggleProps {
+  /** Accessible name when no visible text */
+  "aria-label"?: string;
+  /** Children rendered inside the toggle */
+  children?: ReactNode;
+  /** Optional CSS class */
+  className?: string;
+  /** Uncontrolled initial pressed state */
+  defaultPressed?: boolean;
+  /** Whether the toggle is disabled */
+  disabled?: boolean;
+  /** Callback when pressed state changes */
+  onPressedChange?: (pressed: boolean) => void;
+  /** Controlled pressed state */
+  pressed?: boolean;
+  /** Value when used inside a ToggleGroup */
+  value?: string;
+}
 
 const MotionButton = motion.button;
 

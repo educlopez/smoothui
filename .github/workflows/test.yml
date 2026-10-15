@@ -8,6 +8,7 @@ on:
     branches: [main, develop]
   push:
     branches: [main, develop]
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -143,6 +144,14 @@ jobs:
         working-directory: apps/docs
         run: pnpm exec tsx scripts/verify-install.mts
 
+      # Base install verification above uses the default (Base) twin. These four
+      # Radix twins historically imported a sibling `.base` file the payload
+      # did not ship, so `/r/radix-nova/{tabs,slider,toggle,toggle-group}.json`
+      # failed tsc in a consumer project.
+      - name: Verify radix-nova twins compile when installed
+        working-directory: apps/docs
+        run: pnpm exec tsx scripts/verify-radix-nova-install.mts
+
       # The counts are committed so client components and MDX frontmatter can
       # import them. Checked like a lockfile, so marketing copy cannot silently
       # drift from the catalogue again.
@@ -188,6 +197,50 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: playwright-browser-failure
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7
+
+  browser-smoke-repeat:
+    name: Browser Smoke Repeat (docs-mobile + dropdown)
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    needs: lockfile-audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read # Required by actions/checkout
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Repeat docs-mobile and dropdown specs
+        run: pnpm exec playwright test tests/browser/docs-mobile.spec.ts tests/browser/interactive-components.spec.ts --repeat-each=10 --retries=0
+
+      - name: Upload browser failure artifacts
+        if: failure()
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: playwright-browser-repeat-failure
           path: |
             playwright-report/
             test-results/

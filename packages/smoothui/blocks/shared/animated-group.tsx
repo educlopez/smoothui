@@ -40,14 +40,23 @@ const defaultItemVariants: Variants = {
   visible: { opacity: 1 },
 };
 
+const BLUR_TRANSITION = {
+  duration: 0.25,
+  ease: [0.23, 1, 0.32, 1],
+} as const;
+
 const presetVariants: Record<PresetType, Variants> = {
   blur: {
     hidden: { filter: "blur(4px)" },
-    visible: { filter: "blur(0px)" },
+    visible: { filter: "blur(0px)", transition: BLUR_TRANSITION },
   },
   "blur-slide": {
     hidden: { filter: "blur(4px)", y: 20 },
-    visible: { filter: "blur(0px)", y: 0 },
+    visible: {
+      filter: "blur(0px)",
+      transition: BLUR_TRANSITION,
+      y: 0,
+    },
   },
   bounce: {
     hidden: { y: -50 },
@@ -131,9 +140,9 @@ function AnimatedGroup({
     ? reducedItemVariants
     : (variants?.item ?? selectedVariants.item);
 
-  const MotionComponent = motion(as);
+  const MotionComponent = motion.create(as);
 
-  const MotionChild = motion(asChild);
+  const MotionChild = motion.create(asChild);
 
   return (
     <MotionComponent

@@ -27,9 +27,13 @@ test.describe("docs mobile", () => {
         return Math.min(left, right);
       })
       .toBeGreaterThanOrEqual(0);
-    await iframe.screenshot({
-      path: "/opt/cursor/artifacts/screenshots/dock-iframe-390.png",
-    });
+    // Hydration recovery can replace the iframe after the poll; wait for the
+    // live node before screenshot.
+    await expect(async () => {
+      await iframe.screenshot({
+        path: "/opt/cursor/artifacts/screenshots/dock-iframe-390.png",
+      });
+    }).toPass();
   });
 
   test("floating navigation hides while the mobile sidebar is open", async ({
@@ -40,8 +44,18 @@ test.describe("docs mobile", () => {
       name: "Floating Navigation",
     });
     await expect(floatNav).toBeVisible();
-    await page.getByRole("button", { name: "Open Sidebar" }).click();
+    const openSidebar = page.getByRole("button", { name: "Open Sidebar" });
+    await expect(openSidebar).toBeEnabled();
     const sidebar = page.locator("#nd-sidebar-mobile");
+    await expect(sidebar).toBeAttached();
+    // Contributor tooltip hydration can regenerate the docs tree and drop a
+    // click that lands before recovery. Re-click only while closed.
+    await expect(async () => {
+      if ((await sidebar.getAttribute("data-state")) !== "open") {
+        await openSidebar.click();
+      }
+      await expect(sidebar).toHaveAttribute("data-state", "open");
+    }).toPass();
     await expect(sidebar).toBeVisible();
     await sidebar
       .getByRole("link", { name: "Visit Sparkbites" })

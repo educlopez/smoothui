@@ -12,6 +12,7 @@ import {
 } from "@docs/components/illustrations/block-drawings";
 import { SectionHeader } from "@docs/components/landing/section-header";
 import { Button } from "@docs/components/smoothbutton";
+import { ArrowUpRight } from "lucide-react";
 import { MotionConfig, motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import type { ComponentType } from "react";
@@ -108,8 +109,9 @@ function BlockPreview({
         <span className="font-medium text-foreground text-sm">
           {category.title}
         </span>
-        <span className="text-muted-foreground text-xs">
-          {category.blockCount} Blocks ↗
+        <span className="inline-flex items-center gap-1 text-muted-foreground text-xs">
+          {category.blockCount} Blocks
+          <ArrowUpRight aria-hidden className="size-3.5" />
         </span>
       </Link>
     </motion.div>

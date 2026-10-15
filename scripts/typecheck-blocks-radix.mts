@@ -55,8 +55,11 @@ const tsconfig = {
 
 writeFileSync(configPath, `${JSON.stringify(tsconfig, null, 2)}\n`);
 
+let status = 0;
+
 try {
-  const tsc = path.join(ROOT, "node_modules/.bin/tsc");
+  const tsc =
+    process.env.SMOOTHUI_TSC_BIN ?? path.join(ROOT, "node_modules/.bin/tsc");
   const result = spawnSync(tsc, ["--pretty", "false", "-p", CONFIG_NAME], {
     cwd: SMOOTHUI,
     encoding: "utf8",
@@ -69,11 +72,13 @@ try {
     process.stderr.write(result.stderr);
   }
 
-  if (result.status !== 0) {
-    process.exit(result.status ?? 1);
-  }
+  status = result.status ?? 1;
 } finally {
   if (existsSync(configPath)) {
     unlinkSync(configPath);
   }
+}
+
+if (status !== 0) {
+  process.exit(status);
 }

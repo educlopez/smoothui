@@ -53,4 +53,52 @@ describe("Tabs radix twin", () => {
       expect(screen.getByTestId("indicator")).toHaveStyle({ opacity: "1" });
     });
   });
+
+  it("keeps manual activation by default", async () => {
+    const user = userEvent.setup();
+    render(
+      <TabsRoot defaultValue="a">
+        <TabsList>
+          <TabsTab value="a">Account</TabsTab>
+          <TabsTab value="b">Billing</TabsTab>
+        </TabsList>
+        <TabsPanel value="a">Account content</TabsPanel>
+        <TabsPanel value="b">Billing content</TabsPanel>
+      </TabsRoot>
+    );
+
+    screen.getByRole("tab", { name: "Account" }).focus();
+    await user.keyboard("{ArrowRight}");
+
+    expect(screen.getByRole("tab", { name: "Account" })).toHaveAttribute(
+      "aria-selected",
+      "true"
+    );
+    expect(screen.getByRole("tab", { name: "Billing" })).toHaveAttribute(
+      "aria-selected",
+      "false"
+    );
+  });
+
+  it("respects a caller-provided activationMode", async () => {
+    const user = userEvent.setup();
+    render(
+      <TabsRoot activationMode="automatic" defaultValue="a">
+        <TabsList>
+          <TabsTab value="a">Account</TabsTab>
+          <TabsTab value="b">Billing</TabsTab>
+        </TabsList>
+        <TabsPanel value="a">Account content</TabsPanel>
+        <TabsPanel value="b">Billing content</TabsPanel>
+      </TabsRoot>
+    );
+
+    screen.getByRole("tab", { name: "Account" }).focus();
+    await user.keyboard("{ArrowRight}");
+
+    expect(screen.getByRole("tab", { name: "Billing" })).toHaveAttribute(
+      "aria-selected",
+      "true"
+    );
+  });
 });

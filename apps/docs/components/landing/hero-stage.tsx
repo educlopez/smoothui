@@ -568,7 +568,7 @@ export function HeroStage() {
   const [view, setView] = useState<ViewId>("landing");
 
   return (
-    <div className="@container mask-[radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)] relative z-10 border-b pt-12 lg:pt-20">
+    <div className="@container max-md:mask-none md:mask-[radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)] relative z-10 border-b pt-12 lg:pt-20">
       <div className="pb-2">
         <div className="mx-auto flex max-w-3xl items-center justify-center gap-1 px-4 md:gap-2 md:px-11">
           <div
@@ -611,10 +611,10 @@ export function HeroStage() {
       </div>
 
       <div className="relative mx-auto -mt-2 max-w-6xl max-md:mx-1 lg:px-10">
-        <div className="aspect-square rounded-2xl bg-card p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur sm:aspect-[3/2]">
+        <div className="aspect-auto min-h-[34rem] rounded-2xl bg-card p-1 shadow-2xl shadow-black/25 ring-1 ring-foreground/10 backdrop-blur sm:aspect-[3/2] sm:min-h-0">
           <div
             aria-labelledby={`hero-tab-${view}`}
-            className="relative aspect-square origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 sm:aspect-[3/2] dark:bg-background"
+            className="relative aspect-auto min-h-[33rem] origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 sm:aspect-[3/2] sm:min-h-0 dark:bg-background"
             role="tabpanel"
           >
             <motion.div
@@ -646,8 +646,8 @@ function LandingView() {
     : sceneSrc("terracotta-dunes", "w-1600");
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-background">
-      <header className="relative z-20 flex items-center justify-between gap-3 px-4 py-3 md:px-5">
+    <div className="relative flex h-full min-h-[33rem] flex-col overflow-hidden bg-background sm:min-h-0">
+      <header className="relative z-20 flex shrink-0 items-center justify-between gap-3 bg-background px-4 py-3 md:px-5">
         <StudioLogo className="h-6" />
         <Button
           onClick={() => playClick()}
@@ -659,7 +659,7 @@ function LandingView() {
         </Button>
       </header>
 
-      <div className="relative z-10 flex justify-center px-4">
+      <div className="relative z-20 flex shrink-0 justify-center bg-background px-4">
         <div className="relative flex flex-wrap items-center justify-center gap-2 py-1">
           <span className="rounded-full bg-foreground px-2 py-0.5 text-[10px] text-background">
             New
@@ -686,7 +686,7 @@ function LandingView() {
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto max-w-2xl px-5 py-3 text-center md:py-4">
+      <div className="relative z-20 mx-auto max-w-2xl shrink-0 bg-background px-5 py-3 text-center md:py-4">
         <h2 className="text-balance font-semibold font-title text-foreground text-xl leading-[1.1] tracking-tight md:text-2xl lg:text-3xl">
           Unlock growth with quieter analytics
         </h2>
@@ -704,7 +704,7 @@ function LandingView() {
         </Button>
       </div>
 
-      <div className="relative min-h-0 flex-1 border-border border-y">
+      <div className="relative z-0 min-h-44 flex-1 overflow-hidden border-border border-y">
         <div className="mask-t-from-25% absolute inset-0 overflow-hidden">
           <img
             alt=""
@@ -716,37 +716,37 @@ function LandingView() {
           <div className="absolute inset-0 bg-background/20 dark:bg-foreground/10" />
         </div>
 
-        <div className="relative flex h-full items-start justify-center px-4 py-4 md:px-8 md:py-6">
-          <div className="relative w-full max-w-3xl rounded-2xl border border-transparent bg-card/90 p-3 shadow-black/10 shadow-md ring-1 ring-border-illustration backdrop-blur-sm md:p-4">
+        <div className="relative flex h-full items-start justify-center overflow-hidden px-3 py-3 md:px-8 md:py-6">
+          <div className="relative w-full min-w-0 max-w-3xl overflow-hidden rounded-2xl border border-transparent bg-card/90 p-3 shadow-black/10 shadow-md ring-1 ring-border-illustration backdrop-blur-sm md:p-4">
             <div className="mb-3">
               <p className="font-medium text-foreground text-sm">Customers</p>
               <p className="mt-0.5 line-clamp-1 text-muted-foreground text-xs">
                 New seats by primary channel this week
               </p>
             </div>
-            <div className="mask-b-from-55% overflow-hidden">
-              <table className="w-full min-w-[28rem] border-collapse text-left text-xs">
+            <div className="overflow-hidden">
+              <table className="w-full min-w-0 table-fixed border-collapse text-left text-xs">
                 <thead className="bg-foreground/5">
-                  <tr className="*:border *:border-border *:px-2.5 *:py-1.5 *:font-medium">
+                  <tr className="*:border *:border-border *:px-2 *:py-1.5 *:font-medium sm:*:px-2.5">
                     <th>Customer</th>
-                    <th>Date</th>
+                    <th className="w-16 max-[22rem]:hidden">Date</th>
                     <th>Revenue</th>
-                    <th>ARR</th>
+                    <th className="max-sm:hidden">ARR</th>
                     <th className="max-md:hidden">Next</th>
                   </tr>
                 </thead>
                 <tbody className="text-foreground/75">
                   {CUSTOMERS.map((row) => (
                     <tr
-                      className="*:border *:border-border *:px-2.5 *:py-1.5"
+                      className="*:truncate *:border *:border-border *:px-2 *:py-1.5 sm:*:px-2.5"
                       key={row.name}
                     >
                       <td className="font-medium text-foreground">
                         {row.name}
                       </td>
-                      <td>{row.date}</td>
+                      <td className="max-[22rem]:hidden">{row.date}</td>
                       <td>{row.revenue}</td>
-                      <td>{row.arr}</td>
+                      <td className="max-sm:hidden">{row.arr}</td>
                       <td className="max-md:hidden">{row.next}</td>
                     </tr>
                   ))}
@@ -757,10 +757,10 @@ function LandingView() {
         </div>
       </div>
 
-      <div className="relative z-10 grid grid-cols-3 gap-2 px-4 py-3 md:grid-cols-6 md:px-6">
+      <div className="relative z-20 grid shrink-0 grid-cols-3 gap-2 overflow-hidden bg-background px-4 py-3 md:grid-cols-6 md:px-6">
         {LOGO_STRIP.map((name) => (
           <div className="flex h-8 items-center justify-center" key={name}>
-            <span className="select-none font-medium text-[10px] text-foreground/45 tracking-wide md:text-xs">
+            <span className="select-none truncate font-medium text-[10px] text-foreground/45 tracking-wide md:text-xs">
               {name}
             </span>
           </div>
