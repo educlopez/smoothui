@@ -106,17 +106,10 @@ const validateSchema = (name: string, item: unknown) => {
   }
 };
 
-for (const name of names) {
-  const item = await getPackage(name);
-
-  // Empty items (no files, no css) are skipped by the registry index route,
-  // so they don't need to validate.
-  const isServed =
-    (item.files?.length ?? 0) > 0 || Object.keys(item.css ?? {}).length > 0;
-  if (isServed) {
-    validateSchema(name, item);
-  }
-
+const checkSiblingImports = (
+  name: string,
+  item: { files?: Array<{ content?: string; path: string }> }
+) => {
   const shipped = new Set((item.files ?? []).map((file) => file.path));
 
   for (const file of item.files ?? []) {
@@ -150,8 +143,33 @@ for (const name of names) {
       }
     }
   }
+};
 
-  const allContent = (item.files ?? []).map((file) => file.content).join("\n");
+for (const name of names) {
+  const item = await getPackage(name);
+
+  // Empty items (no files, no css) are skipped by the registry index route,
+  // so they don't need to validate.
+  const isServed =
+    (item.files?.length ?? 0) > 0 || Object.keys(item.css ?? {}).length > 0;
+  if (isServed) {
+    validateSchema(name, item);
+  }
+
+  checkSiblingImports(name, item);
+
+  const radixItem = await getPackage(name, "radix-nova");
+  const defaultContent = (item.files ?? [])
+    .map((file) => file.content)
+    .join("\n");
+  const radixContent = (radixItem.files ?? [])
+    .map((file) => file.content)
+    .join("\n");
+  if (radixContent !== defaultContent) {
+    checkSiblingImports(`${name}@radix-nova`, radixItem);
+  }
+
+  const allContent = defaultContent;
   const tokensDep = `/${TOKENS_ITEM_NAME}.json`;
   const dependsOnTokens = (item.registryDependencies ?? []).some((dep) =>
     dep.endsWith(tokensDep)

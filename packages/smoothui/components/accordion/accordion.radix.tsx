@@ -9,7 +9,7 @@ import { DURATION, DURATION_INSTANT, EASE_OUT } from "../../lib/animation";
 
 export type AccordionRootProps = Omit<
   ComponentProps<typeof AccordionPrimitive.Root>,
-  "type" | "value" | "defaultValue"
+  "type" | "value" | "defaultValue" | "onValueChange"
 > & {
   className?: string;
   /** Maps to Radix `type="multiple"` when true */
@@ -17,6 +17,7 @@ export type AccordionRootProps = Omit<
   type?: ComponentProps<typeof AccordionPrimitive.Root>["type"];
   value?: string | string[];
   defaultValue?: string | string[];
+  onValueChange?: (value: string | string[]) => void;
 };
 
 export type AccordionItemProps = ComponentProps<
@@ -50,28 +51,68 @@ export type AccordionProps = AccordionRootProps;
 
 const PANEL_EASE = "ease-[cubic-bezier(0.23,1,0.32,1)]";
 
+const firstOf = (value?: string | string[]): string | undefined =>
+  Array.isArray(value) ? value[0] : value;
+
+const asArray = (value?: string | string[]): string[] | undefined => {
+  if (value === undefined) {
+    return;
+  }
+  return Array.isArray(value) ? value : [value];
+};
+
+const accordionRootClassName = (className?: string) =>
+  cn(
+    "flex w-full min-w-0 flex-col divide-y divide-foreground/15 overflow-hidden rounded-lg border border-foreground/20",
+    className
+  );
+
 /**
  * SmoothUI Accordion — Radix twin.
  * Same public API as Base; panel uses `--radix-accordion-content-height`.
+ * Base always uses `string[]` for value; Radix single mode uses `string`.
  */
 const AccordionRoot = ({
   className,
   multiple = false,
   type,
+  value,
+  defaultValue,
+  onValueChange,
   ...props
-}: AccordionRootProps) => (
-  <AccordionPrimitive.Root
-    className={cn(
-      "flex w-full min-w-0 flex-col divide-y divide-foreground/15 overflow-hidden rounded-lg border border-foreground/20",
-      className
-    )}
-    data-slot="accordion"
-    {...({
-      type: type ?? (multiple ? "multiple" : "single"),
-      ...props,
-    } as ComponentProps<typeof AccordionPrimitive.Root>)}
-  />
-);
+}: AccordionRootProps) => {
+  const resolvedType = type ?? (multiple ? "multiple" : "single");
+
+  if (resolvedType === "multiple") {
+    return (
+      <AccordionPrimitive.Root
+        className={accordionRootClassName(className)}
+        data-slot="accordion"
+        defaultValue={asArray(defaultValue)}
+        onValueChange={(next) => {
+          onValueChange?.(next);
+        }}
+        type="multiple"
+        value={asArray(value)}
+        {...props}
+      />
+    );
+  }
+
+  return (
+    <AccordionPrimitive.Root
+      className={accordionRootClassName(className)}
+      data-slot="accordion"
+      defaultValue={firstOf(defaultValue)}
+      onValueChange={(next) => {
+        onValueChange?.(next ? [next] : []);
+      }}
+      type="single"
+      value={firstOf(value)}
+      {...props}
+    />
+  );
+};
 
 const AccordionItem = ({ className, ...props }: AccordionItemProps) => (
   <AccordionPrimitive.Item
