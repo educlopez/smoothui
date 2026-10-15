@@ -1,5 +1,46 @@
 # Changelog
 
+## [4.0.0](https://github.com/educlopez/smoothui/compare/v3.9.1...v4.0.0) (2026-10-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **smoothui:** registry package names changed for renamed and deleted components. Install the new name; old URLs remain aliases.
+
+### Features
+
+* add primitives catalog and smoothui-utils foundation ([723e26f](https://github.com/educlopez/smoothui/commit/723e26f1c3b2f5a04e0dfe0626de1a47f571db0d))
+* add primitives catalog and smoothui-utils foundation ([510d38d](https://github.com/educlopez/smoothui/commit/510d38d58cd826e81393f62d731e79982c0c3e5b))
+* **docs:** default the site to Oat and restage the hero ([14760ec](https://github.com/educlopez/smoothui/commit/14760ec12c816661316a8aaef6d0831e765a972d))
+* **docs:** ship Oat theme, landing hero and primitives docs ([90f617d](https://github.com/educlopez/smoothui/commit/90f617d696b42251e8aa3367f24b92129cf2f160))
+* **primitives:** shared tokens, focus ring, state transition, hit area and loop preset ([6ce173c](https://github.com/educlopez/smoothui/commit/6ce173c883c06670e4e38dbfe08894f828c972ca))
+* ship primitives catalog and collapse Basic UI into Patterns ([3cbbe9c](https://github.com/educlopez/smoothui/commit/3cbbe9c7694d4bd902df681aad5645fd37b3515a))
+* **smoothui:** rename registry packages for v4 ([#157](https://github.com/educlopez/smoothui/issues/157)) ([ec103ae](https://github.com/educlopez/smoothui/commit/ec103aea4f7d24e873ec5789d441acd2b99a8b84))
+
+
+### Bug Fixes
+
+* **docs:** polish the docs chrome and tabs, and mark Base UI, Radix, Next.js and shadcn/ui ([40b465c](https://github.com/educlopez/smoothui/commit/40b465c2127b5ebd4f663f055ea871ef2c11b138))
+* open faq-2 on Radix and ship self-contained radix-nova twins ([#160](https://github.com/educlopez/smoothui/issues/160)) ([a0b0558](https://github.com/educlopez/smoothui/commit/a0b0558a5d6766332373d709979bbef5b4b88521))
+* **primitives:** animate Radix accordion and collapsible height with Motion, keep sidebar, command and code-block states consistent ([016094e](https://github.com/educlopez/smoothui/commit/016094ee61f873fc2dd1bc41bdcea29860be9363))
+* **primitives:** audit fixes for popups, uncontrolled controls, a11y and twin parity ([86c0799](https://github.com/educlopez/smoothui/commit/86c07995e17b68bee44512ead01f064c59d3dc79))
+* **primitives:** bring the Radix twins in line with the Base ones ([d8ebc2a](https://github.com/educlopez/smoothui/commit/d8ebc2a3812d2f748d376226fa3182db2ed3eb23))
+* **primitives:** put z-index on positioners and animate the popup surface itself ([4f9fecc](https://github.com/educlopez/smoothui/commit/4f9feccc8cec1610ae5ff1bca5583322e293ee1c))
+* **primitives:** share one loop preset and pause infinite animations off screen ([8de74f8](https://github.com/educlopez/smoothui/commit/8de74f8b5fa4a722d85b6193a4e86a01a1050798))
+* **primitives:** ship the hit area as markup classes and tighten the review follow-ups ([ce202d9](https://github.com/educlopez/smoothui/commit/ce202d9c4fa162867a6be25e389f2646cb3e90a0))
+* **primitives:** sidebar item states, label fade, code-block scroll region and slider thumb ([1cb69d1](https://github.com/educlopez/smoothui/commit/1cb69d1291d87c7db59c3bd7e6aeb8f88bb2651a))
+* **primitives:** stop tab panels stacking while switching ([d671a7d](https://github.com/educlopez/smoothui/commit/d671a7d68b362055ac7ac0678d97748bf84b78df))
+* **primitives:** uncontrolled checkbox, decorative SVG titles and native number spinners ([a75fd29](https://github.com/educlopez/smoothui/commit/a75fd29d045f36fa3abfafa48ea14a4234aeb13c))
+* **primitives:** uncontrolled drawer and combobox, select listbox semantics, command highlight ([d4c404a](https://github.com/educlopez/smoothui/commit/d4c404a4e3201f50507c71ce2ee0b7b336bfbee3))
+* **primitives:** use tokens, the shared focus ring, state transition and hit areas in form controls ([66e64f8](https://github.com/educlopez/smoothui/commit/66e64f8e90ce187c880139a654763422b27487fb))
+* **site:** contain mobile landing overflow and separate the menu ([#163](https://github.com/educlopez/smoothui/issues/163)) ([b10dddd](https://github.com/educlopez/smoothui/commit/b10dddd32b1b9c549ae17481ff6f08648b2572e2))
+
+
+### Code Refactoring
+
+* compose clear CTAs onto SmoothUI primitives ([8869905](https://github.com/educlopez/smoothui/commit/88699054ba65b63c8ad73fb08a4ebc42614e347a))
+* use primitives in header, footer, and faq blocks ([#159](https://github.com/educlopez/smoothui/issues/159)) ([4195554](https://github.com/educlopez/smoothui/commit/419555464e680e1f88612d7395aff1a5623e8d5b))
+
 ## [3.9.1](https://github.com/educlopez/smoothui/compare/v3.8.0...v3.9.1) (2026-09-24)
 
 ### Performance
