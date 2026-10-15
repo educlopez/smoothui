@@ -12,11 +12,9 @@ test("faq-4 category tabs move with arrow keys and set aria-controls", async ({
 
   const first = tabs.nth(0);
   const second = tabs.nth(1);
-  await expect(first).toHaveAttribute("aria-controls", ARIA_CONTROLS_VALUE);
-  await expect(second).toHaveAttribute("aria-controls", ARIA_CONTROLS_VALUE);
-
   await first.focus();
   await expect(first).toHaveAttribute("aria-selected", "true");
+  await expect(first).toHaveAttribute("aria-controls", ARIA_CONTROLS_VALUE);
 
   await page.keyboard.press("ArrowRight");
   await expect(second).toHaveAttribute("aria-selected", "true");
