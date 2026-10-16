@@ -21,6 +21,9 @@ const SIBLING_IMPORT_REGEX =
   /(?:from\s+|import\s*\(\s*|require\s*\(\s*)["'](\.\/[^"']+)["']/g;
 const SIBLING_PREFIX_REGEX = /^\.\//;
 const INSTALL_TYPECHECK_CLEAN_REGEX = /Install typecheck clean/;
+// Twenty-six twins plus tsc. Default 5s is enough for the four historical
+// names and not for the class. The dedicated CI step has no such cap.
+const RADIX_NOVA_INSTALL_TEST_TIMEOUT_MS = 60_000;
 
 const resolutionCandidates = (specifier: string): string[] => {
   const base = specifier.replace(SIBLING_PREFIX_REGEX, "");
@@ -105,18 +108,22 @@ describe("radix-nova registry twins", () => {
     }
   });
 
-  it("typechecks an install of every /r/radix-nova dual primitive", () => {
-    const result = spawnSync(
-      join(REPO_ROOT, "node_modules/.bin/tsx"),
-      ["scripts/verify-radix-nova-install.mts"],
-      {
-        cwd: DOCS_ROOT,
-        encoding: "utf8",
-      }
-    );
+  it(
+    "typechecks an install of every /r/radix-nova dual primitive",
+    () => {
+      const result = spawnSync(
+        join(REPO_ROOT, "node_modules/.bin/tsx"),
+        ["scripts/verify-radix-nova-install.mts"],
+        {
+          cwd: DOCS_ROOT,
+          encoding: "utf8",
+        }
+      );
 
-    const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
-    expect(result.status, output).toBe(0);
-    expect(output).toMatch(INSTALL_TYPECHECK_CLEAN_REGEX);
-  });
+      const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+      expect(result.status, output).toBe(0);
+      expect(output).toMatch(INSTALL_TYPECHECK_CLEAN_REGEX);
+    },
+    RADIX_NOVA_INSTALL_TEST_TIMEOUT_MS
+  );
 });
