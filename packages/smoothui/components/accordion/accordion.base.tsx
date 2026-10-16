@@ -6,10 +6,21 @@ import { ChevronDown } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import type { ComponentProps, ReactNode } from "react";
 
-export type AccordionRootProps = ComponentProps<
-  typeof AccordionPrimitive.Root
+type AccordionRootBase = Omit<
+  ComponentProps<typeof AccordionPrimitive.Root>,
+  "value" | "defaultValue"
 > & {
   className?: string;
+};
+
+/**
+ * Base UI always stores an array. A string is accepted so a dual-compiled
+ * block (faq-2) can pass one open item and still typecheck against the Radix
+ * twin, whose single mode is a string.
+ */
+export type AccordionRootProps = AccordionRootBase & {
+  value?: string | string[];
+  defaultValue?: string | string[];
 };
 
 export type AccordionItemProps = ComponentProps<
@@ -45,17 +56,31 @@ export type AccordionProps = AccordionRootProps;
 
 const PANEL_EASE = "ease-[cubic-bezier(0.23,1,0.32,1)]";
 
+const asArray = (value?: string | string[]): string[] | undefined => {
+  if (value === undefined) {
+    return;
+  }
+  return Array.isArray(value) ? value : [value];
+};
+
 /**
  * SmoothUI Accordion — Base UI twin (default).
  * Root keeps a stable width (`overflow-hidden`); panel height via CSS vars.
  */
-const AccordionRoot = ({ className, ...props }: AccordionRootProps) => (
+const AccordionRoot = ({
+  className,
+  value,
+  defaultValue,
+  ...props
+}: AccordionRootProps) => (
   <AccordionPrimitive.Root
     className={cn(
       "flex w-full min-w-0 flex-col divide-y divide-foreground/15 overflow-hidden rounded-lg border border-foreground/20",
       className
     )}
     data-slot="accordion"
+    defaultValue={asArray(defaultValue)}
+    value={asArray(value)}
     {...props}
   />
 );
