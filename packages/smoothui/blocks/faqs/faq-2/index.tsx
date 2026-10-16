@@ -94,7 +94,7 @@ export function FaqsAccordion({
 
         <AccordionRoot
           className="space-y-4 divide-y-0 overflow-visible rounded-none border-0"
-          defaultValue={firstQuestion ? [firstQuestion] : undefined}
+          defaultValue={firstQuestion}
         >
           {faqs.map((faq, index) => (
             <motion.div

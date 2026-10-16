@@ -12,6 +12,10 @@ installer: accordion
 
 Compound Accordion (`Root`, `Item`, `Header`, `Trigger`, `Panel`) with chevron rotation and panel height driven by Base CSS variable `--accordion-panel-height` plus opacity. Pass `multiple` on the root to allow several open items.
 
+## Radix twin
+
+Base UI always stores an array (`value` / `defaultValue` / `onValueChange` are `string[]`). The Radix twin matches that in multiple mode (`multiple` or `type="multiple"`). In single mode, Radix uses a string: `value` and `defaultValue` are typed `string`, and `onValueChange` emits `string` rather than `[string]`.
+
 ## States
 
 ### Features
