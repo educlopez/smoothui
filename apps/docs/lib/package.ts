@@ -165,6 +165,42 @@ export const getAllPackageNames = async (): Promise<string[]> => {
   ];
 };
 
+const comparePackageNames = (left: string, right: string): number => {
+  if (left < right) {
+    return -1;
+  }
+  if (left > right) {
+    return 1;
+  }
+  return 0;
+};
+
+/**
+ * Registry items that ship Base and Radix twins. Derived from the files on
+ * disk (`*.base.tsx` + `*.radix.tsx`), not a hand-synced name list. Adding a
+ * twin pair is enough for dual-style CI to cover it.
+ */
+export const getDualPrimitivePackageNames = async (): Promise<string[]> => {
+  const names = await getAllPackageNames();
+  const packagesRoot = join(process.cwd(), "..", "..", "packages");
+
+  const discovered = await Promise.all(
+    names.map(async (name) => {
+      try {
+        const files = await readdir(join(packagesRoot, name));
+        return isDualPrimitivePackage(files) ? name : null;
+      } catch {
+        // Not a package directory, or unreadable — skip.
+        return null;
+      }
+    })
+  );
+
+  return discovered
+    .filter((name): name is string => name !== null)
+    .sort(comparePackageNames);
+};
+
 // Use React.cache() for per-request deduplication
 export const getAllPackageNameMapping = cache(
   async (): Promise<Map<string, string>> => {
