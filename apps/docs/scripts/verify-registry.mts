@@ -11,7 +11,11 @@
 //    tokens item, and the item must depend on it. Otherwise the token resolves
 //    to nothing in the installer's project.
 import { registryItemSchema } from "shadcn/schema";
-import { getAllPackageNames, getPackage } from "../lib/package";
+import {
+  getAllPackageNames,
+  getDualPrimitivePackageNames,
+  getPackage,
+} from "../lib/package";
 import { getSkill, SKILL_ITEM_NAME } from "../lib/registry-skill";
 import { getAllThemeNames, getTheme } from "../lib/registry-themes";
 import {
@@ -192,18 +196,43 @@ for (const themeName of themeNames) {
 
 validateSchema(SKILL_ITEM_NAME, await getSkill());
 
-// Dual-style smoke: owned primitives must serve distinct Base and Radix payloads.
-const DUAL_COHORT = [
+// Dual-style smoke: every owned primitive that ships Base and Radix twins
+// must serve distinct payloads with matching deps. The set is discovered from
+// `*.base.tsx` + `*.radix.tsx` on disk so a new twin is covered without a
+// second list edit. The names below already burned us; discovery dropping one
+// of them means the walker is wrong, not that the class shrank.
+const HISTORICAL_DUAL_INSTANCES = [
   "smoothui/components/checkbox",
-  "smoothui/components/radio-group",
   "smoothui/components/dialog",
   "smoothui/components/dropdown-menu",
+  "smoothui/components/radio-group",
+  "smoothui/components/slider",
   "smoothui/components/smooth-button",
+  "smoothui/components/tabs",
+  "smoothui/components/toggle",
+  "smoothui/components/toggle-group",
 ] as const;
 
 let dualStyleErrors = 0;
+const dualNames = await getDualPrimitivePackageNames();
 
-for (const name of DUAL_COHORT) {
+if (dualNames.length === 0) {
+  dualStyleErrors++;
+  console.log(
+    "DUAL-EMPTY: no dual primitives discovered from *.base.tsx + *.radix.tsx"
+  );
+}
+
+for (const name of HISTORICAL_DUAL_INSTANCES) {
+  if (!dualNames.includes(name)) {
+    dualStyleErrors++;
+    console.log(
+      `DUAL-MISSING ${name}: discovery dropped a known dual primitive`
+    );
+  }
+}
+
+for (const name of dualNames) {
   if (!names.includes(name)) {
     dualStyleErrors++;
     console.log(`DUAL-MISSING ${name} is not in the package catalogue`);
