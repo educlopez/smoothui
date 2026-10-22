@@ -11,10 +11,45 @@ import {
   uninstallIntersectionObserverMock,
 } from "../../../test-utils/canvas-2d";
 import { act, render } from "../../../test-utils/render";
-import ArcadePixel, { ARCADE_SPRITES } from "../index";
+import ArcadePixel, {
+  ARCADE_SPRITES,
+  parseCssVariable,
+  resolveColor,
+} from "../index";
 
 const SURFACE_WIDTH = 240;
 const SURFACE_HEIGHT = 120;
+
+const UNRESOLVED_HOST = document.createElement("div");
+
+describe("parseCssVariable", () => {
+  it("keeps a nested var() fallback intact", () => {
+    expect(parseCssVariable("var(--a, var(--b, #00ff00))")).toEqual({
+      fallback: "var(--b, #00ff00)",
+      name: "--a",
+    });
+    expect(resolveColor(UNRESOLVED_HOST, "var(--a, var(--b, #00ff00))")).toBe(
+      "#00ff00"
+    );
+  });
+
+  it("resolves an empty fallback to #ffffff", () => {
+    expect(parseCssVariable("var(--a,)")).toEqual({ name: "--a" });
+    expect(parseCssVariable("var(--a, )")).toEqual({ name: "--a" });
+    expect(resolveColor(UNRESOLVED_HOST, "var(--a,)")).toBe("#ffffff");
+    expect(resolveColor(UNRESOLVED_HOST, "var(--a, )")).toBe("#ffffff");
+  });
+
+  it("rejects malformed inputs", () => {
+    expect(parseCssVariable("#123456")).toBeNull();
+    expect(parseCssVariable("var(--a")).toBeNull();
+    expect(parseCssVariable("var(--a, #fff")).toBeNull();
+    expect(parseCssVariable("var(foo)")).toBeNull();
+    expect(parseCssVariable("var(--)")).toBeNull();
+    expect(resolveColor(UNRESOLVED_HOST, "#123456")).toBe("#123456");
+    expect(resolveColor(UNRESOLVED_HOST, "var(--a")).toBe("var(--a");
+  });
+});
 
 describe("ArcadePixel", () => {
   it("renders without throwing", () => {
