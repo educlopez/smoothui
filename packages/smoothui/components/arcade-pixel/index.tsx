@@ -175,9 +175,7 @@ const resolveGrid = (sprite?: number[][], text?: string): number[][] => {
 
 /**
  * `fillStyle` cannot resolve CSS custom properties, so `var(--token)` palette
- * entries are read off the live element before the first paint. Parsed with
- * string slices instead of a quantified regex so a long fallback cannot
- * trigger polynomial backtracking (CodeQL js/polynomial-redos).
+ * entries are read off the live element before the first paint.
  */
 const CSS_CUSTOM_PROPERTY_NAME = /^--[\w-]+$/;
 const CSS_VAR_PREFIX = "var(";
@@ -188,7 +186,7 @@ interface CssVariableParts {
   name: string;
 }
 
-const parseCssVariable = (color: string): CssVariableParts | null => {
+export const parseCssVariable = (color: string): CssVariableParts | null => {
   const trimmed = color.trim();
   if (!(trimmed.startsWith(CSS_VAR_PREFIX) && trimmed.endsWith(")"))) {
     return null;
@@ -209,7 +207,7 @@ const parseCssVariable = (color: string): CssVariableParts | null => {
   return fallback.length > 0 ? { fallback, name } : { name };
 };
 
-const resolveColor = (element: HTMLElement, color: string): string => {
+export const resolveColor = (element: HTMLElement, color: string): string => {
   const parsed = parseCssVariable(color);
   if (!parsed) {
     return color;
