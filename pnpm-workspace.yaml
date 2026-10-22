@@ -35,6 +35,10 @@ overrides:
   rollup: ">=4.59.0"
   minimatch: ">=10.2.3"
   ajv: ">=8.18.0"
+  # rehype-katex@7 still declares katex@^0.16.0. CVE-2026-103923 is only
+  # patched in 0.18.2, so this floor is a breaking 0.x jump on purpose.
+  # 0.18.11 is deprecated (accidental 0.19 breaking changes); stay on 0.18.10.
+  katex: ">=0.18.2 <0.18.11"
   hono: ">=4.13.11 <5"
   "@hono/node-server": ">=1.19.15 <2"
   # Advisory floors, each capped below the next major. A security floor exists
