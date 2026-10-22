@@ -175,21 +175,54 @@ const resolveGrid = (sprite?: number[][], text?: string): number[][] => {
 
 /**
  * `fillStyle` cannot resolve CSS custom properties, so `var(--token)` palette
- * entries are read off the live element before the first paint.
+ * entries are read off the live element before the first paint. Parsed with
+ * string slices instead of a quantified regex so a long fallback cannot
+ * trigger polynomial backtracking (CodeQL js/polynomial-redos).
  */
-const CSS_VARIABLE_PATTERN = /^var\(\s*(--[\w-]+)\s*(?:,\s*([\s\S]+))?\)$/;
+const CSS_CUSTOM_PROPERTY_NAME = /^--[\w-]+$/;
+const CSS_VAR_PREFIX = "var(";
 const FALLBACK_COLOR = "#ffffff";
 
+interface CssVariableParts {
+  fallback?: string;
+  name: string;
+}
+
+const parseCssVariable = (color: string): CssVariableParts | null => {
+  const trimmed = color.trim();
+  if (!(trimmed.startsWith(CSS_VAR_PREFIX) && trimmed.endsWith(")"))) {
+    return null;
+  }
+
+  const inner = trimmed.slice(CSS_VAR_PREFIX.length, -1).trim();
+  const commaIndex = inner.indexOf(",");
+  const name = (commaIndex === -1 ? inner : inner.slice(0, commaIndex)).trim();
+  if (!CSS_CUSTOM_PROPERTY_NAME.test(name)) {
+    return null;
+  }
+
+  if (commaIndex === -1) {
+    return { name };
+  }
+
+  const fallback = inner.slice(commaIndex + 1).trim();
+  return fallback.length > 0 ? { fallback, name } : { name };
+};
+
 const resolveColor = (element: HTMLElement, color: string): string => {
-  const match = CSS_VARIABLE_PATTERN.exec(color.trim());
-  if (!match) {
+  const parsed = parseCssVariable(color);
+  if (!parsed) {
     return color;
   }
-  const computed = getComputedStyle(element).getPropertyValue(match[1]).trim();
+  const computed = getComputedStyle(element)
+    .getPropertyValue(parsed.name)
+    .trim();
   if (computed) {
     return computed;
   }
-  return match[2] ? resolveColor(element, match[2].trim()) : FALLBACK_COLOR;
+  return parsed.fallback
+    ? resolveColor(element, parsed.fallback)
+    : FALLBACK_COLOR;
 };
 
 /**
