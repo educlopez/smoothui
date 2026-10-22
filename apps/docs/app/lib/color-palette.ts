@@ -67,12 +67,8 @@ function generateColorVariations(baseColor: string): ColorVariations {
     return { lightColor, lighterColor };
   }
 
-  const lightColor = baseColor
-    .replace(")", ` / ${OPACITY_LIGHT})`)
-    .replace("oklch", "oklch");
-  const lighterColor = baseColor
-    .replace(")", ` / ${OPACITY_LIGHTER})`)
-    .replace("oklch", "oklch");
+  const lightColor = baseColor.replace(")", ` / ${OPACITY_LIGHT})`);
+  const lighterColor = baseColor.replace(")", ` / ${OPACITY_LIGHTER})`);
 
   return { lightColor, lighterColor };
 }
