@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import { cache } from "react";
+
+const GITHUB_REPO_URL = "https://api.github.com/repos/educlopez/smoothui";
+const GENERIC_ERROR = "Failed to fetch GitHub data";
 
 interface GitHubRepoResponse {
   forks_count: number;
@@ -8,83 +10,66 @@ interface GitHubRepoResponse {
   stargazers_count: number;
 }
 
-// Use React.cache() for per-request deduplication
-const fetchGitHubRepo = cache(async (owner: string, repo: string) => {
-  const headers: HeadersInit = {
-    Accept: "application/vnd.github.v3+json",
-  };
+interface GitHubRepoStats {
+  forks: number;
+  name: string;
+  stars: number;
+  url: string;
+}
 
-  // Add token from environment variable if available (for higher rate limits)
-  const token = process.env.GITHUB_TOKEN;
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
+let lastSuccessful: GitHubRepoStats | null = null;
+
+const isGitHubRepoResponse = (value: unknown): value is GitHubRepoResponse => {
+  if (typeof value !== "object" || value === null) {
+    return false;
   }
 
-  const response = await fetch(
-    `https://api.github.com/repos/${owner}/${repo}`,
-    {
-      headers,
-      next: { revalidate: 3600 }, // Cache for 1 hour
-    }
+  const repo = value as Record<string, unknown>;
+
+  return (
+    typeof repo.forks_count === "number" &&
+    typeof repo.full_name === "string" &&
+    typeof repo.html_url === "string" &&
+    typeof repo.stargazers_count === "number"
   );
+};
+
+const fetchGitHubRepo = async (): Promise<GitHubRepoStats> => {
+  const response = await fetch(GITHUB_REPO_URL, {
+    headers: {
+      Accept: "application/vnd.github.v3+json",
+    },
+    next: { revalidate: 3600 },
+  });
 
   if (!response.ok) {
-    // Try to get error details from response
-    let errorMessage = "Failed to fetch GitHub data";
-    try {
-      const errorData = (await response.json()) as { message?: string };
-      errorMessage = errorData.message ?? errorMessage;
-    } catch {
-      // If parsing fails, use default message
+    throw new Error(GENERIC_ERROR);
+  }
+
+  const data: unknown = await response.json();
+
+  if (!isGitHubRepoResponse(data)) {
+    throw new Error(GENERIC_ERROR);
+  }
+
+  return {
+    forks: data.forks_count,
+    name: data.full_name,
+    stars: data.stargazers_count,
+    url: data.html_url,
+  };
+};
+
+export async function GET() {
+  try {
+    const data = await fetchGitHubRepo();
+    lastSuccessful = data;
+    return NextResponse.json(data);
+  } catch {
+    if (lastSuccessful) {
+      return NextResponse.json(lastSuccessful);
     }
 
-    // Log error for debugging (only in development or when needed)
-    console.error(
-      `GitHub API error: ${response.status} ${response.statusText}`,
-      {
-        errorMessage,
-        hasToken: Boolean(token),
-        owner,
-        repo,
-      }
-    );
-
-    throw new Error(errorMessage);
-  }
-
-  return (await response.json()) as GitHubRepoResponse;
-});
-
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const owner = searchParams.get("owner");
-  const repo = searchParams.get("repo");
-
-  if (!(owner && repo)) {
-    return NextResponse.json(
-      { error: "owner and repo are required" },
-      { status: 400 }
-    );
-  }
-
-  try {
-    const data = await fetchGitHubRepo(owner, repo);
-
-    return NextResponse.json({
-      forks: data.forks_count,
-      name: data.full_name,
-      stars: data.stargazers_count,
-      url: data.html_url,
-    });
-  } catch (error) {
-    // Log unexpected errors
-    console.error("Unexpected error fetching GitHub data:", error);
-    return NextResponse.json(
-      {
-        details: error instanceof Error ? error.message : "Unknown error",
-        error: "Failed to fetch GitHub data",
-      },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: GENERIC_ERROR }, { status: 500 });
   }
 }
