@@ -3,6 +3,7 @@
 # build scripts, and the files that decide what gets installed.
 /.github/                       @educlopez
 /packages/cli/                  @educlopez
+/packages/smoothui/             @educlopez
 /apps/docs/app/r/               @educlopez
 /apps/docs/lib/package.ts       @educlopez
 /apps/docs/lib/registry-*.ts    @educlopez
