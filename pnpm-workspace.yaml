@@ -27,13 +27,18 @@ overrides:
   "@types/react-dom": "^19.2.3"
   csstype: "^3.2.3"
   lodash: ">=4.18.0"
-  qs: ">=6.16.0 <7"
-  diff: ">=8.0.3"
+  qs: ">=6.16.1 <7"
+  # Uncapped >=8.0.3 re-resolves to diff 9 when the lockfile is refreshed.
+  # shadcn@4.23.0 declares ^8.0.2, so the cap stays on that major.
+  diff: ">=8.0.3 <9"
   "@isaacs/brace-expansion": ">=5.0.1"
   "@modelcontextprotocol/sdk": "^1.31.0"
   mdast-util-to-hast: ">=13.2.1"
   rollup: ">=4.59.0"
-  minimatch: ">=10.2.3"
+  # Alert 305 wants 11.0.1. Parents still declare ^10
+  # (@eslint/config-array, eslint, @ts-morph/common, typescript-estree,
+  # glob). An uncapped >=10.2.3 re-resolves to 11, so the cap stays.
+  minimatch: ">=10.2.6 <11"
   ajv: ">=8.18.0"
   # rehype-katex@7 still declares katex@^0.16.0. CVE-2026-103923 is only
   # patched in 0.18.2, so this floor is a breaking 0.x jump on purpose.
@@ -51,6 +56,10 @@ overrides:
   body-parser: ">=2.4.0 <3"
   js-yaml: ">=4.3.2 <5"
   undici: ">=7.30.1 <8"
+  # GHSA-mrhx-c7xc-m3w5 is patched in 4.6.6. Cap below 5.
+  # shadcn@4.23.0 declares zod@^4.2.0. 4.11.0 declared ^3.24.1 and
+  # there is no patched 3.x release.
+  zod: ">=4.6.6 <5"
   "@babel/core": ">=7.29.6 <8"
   esbuild: ">=0.28.1 <0.29"
   "@octokit/request": ">=8.4.1"
