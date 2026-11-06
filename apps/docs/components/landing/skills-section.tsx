@@ -120,7 +120,7 @@ export function SkillsSection() {
           <motion.div {...lift(0.3)}>
             <Link
               className="group mt-2 flex items-center gap-1.5 font-medium text-foreground/80 text-sm transition-colors hover:text-foreground"
-              href="https://skills.smoothui.dev"
+              href="https://ui-craft.smoothui.dev"
               rel="noopener noreferrer"
               target="_blank"
             >
