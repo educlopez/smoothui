@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/educlopez/smoothui/compare/cli-v1.2.0...cli-v1.2.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* **deps:** patch undici, fast-uri, body-parser, and vitest ([#173](https://github.com/educlopez/smoothui/issues/173)) ([bf389d1](https://github.com/educlopez/smoothui/commit/bf389d13ae5cd01108dd7fb79782cafffc250a91))
+
 ## [1.2.0](https://github.com/educlopez/smoothui/compare/cli-v1.1.3...cli-v1.2.0) (2026-10-15)
 
 

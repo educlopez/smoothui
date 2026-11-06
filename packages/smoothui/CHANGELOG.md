@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.0.1](https://github.com/educlopez/smoothui/compare/v4.0.0...v4.0.1) (2026-11-06)
+
+
+### Bug Fixes
+
+* **accordion:** type Radix single-mode value and onValueChange as string ([#166](https://github.com/educlopez/smoothui/issues/166)) ([a22bb64](https://github.com/educlopez/smoothui/commit/a22bb6411324548591623e8a94840d4529e32143))
+* **deps:** patch undici, fast-uri, body-parser, and vitest ([#173](https://github.com/educlopez/smoothui/issues/173)) ([bf389d1](https://github.com/educlopez/smoothui/commit/bf389d13ae5cd01108dd7fb79782cafffc250a91))
+* **security:** CodeQL ReDoS and identity-replacement ([#170](https://github.com/educlopez/smoothui/issues/170)) ([c810932](https://github.com/educlopez/smoothui/commit/c810932a29cd58287748798ccbed77a8ca7b0f8d))
+
 ## [4.0.0](https://github.com/educlopez/smoothui/compare/v3.9.1...v4.0.0) (2026-10-15)
 
 
