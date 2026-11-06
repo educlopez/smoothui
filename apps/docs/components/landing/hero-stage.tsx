@@ -133,9 +133,9 @@ const PROJECTS = [
     tone: "ok" as const,
   },
   {
-    domain: "skills.smoothui.dev",
+    domain: "ui-craft.smoothui.dev",
     framework: "Docs",
-    href: "https://skills.smoothui.dev",
+    href: "https://ui-craft.smoothui.dev",
     id: "skills",
     logo: "/logomark-smoothui.svg",
     name: "SmoothUI Skills",
@@ -192,7 +192,7 @@ const DEPLOYS = [
   {
     branch: "main",
     commit: "docs: skill install notes",
-    domain: "skills.smoothui.dev" as const,
+    domain: "ui-craft.smoothui.dev" as const,
     id: "d2",
     project: "SmoothUI Skills",
     status: "Ready",
@@ -251,11 +251,11 @@ const ACTIVITY = [
     title: "Invited Luca to Wingtics",
   },
   {
-    domain: "skills.smoothui.dev",
+    domain: "ui-craft.smoothui.dev",
     id: "a3",
     kind: "project" as ActivityKind,
     kpi: "bandwidth",
-    meta: "skills.smoothui.dev · Preview",
+    meta: "ui-craft.smoothui.dev · Preview",
     title: "Build started — docs update",
   },
   {

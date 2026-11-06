@@ -67,7 +67,7 @@ const connectColumn: FooterColumn = {
     { external: true, href: "https://thegridcn.com", label: "thegridcn.com" },
     {
       external: true,
-      href: "https://skills.smoothui.dev",
+      href: "https://ui-craft.smoothui.dev",
       label: "ui-craft",
     },
   ],
