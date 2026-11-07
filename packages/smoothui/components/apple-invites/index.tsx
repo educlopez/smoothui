@@ -339,12 +339,9 @@ export default function AppleInvites({
 
   const page = controlledIndex === undefined ? internalPage : controlledIndex;
   const setPage = (val: number, dir: number) => {
-    if (onChange) {
-      onChange(val);
-    } else {
-      setInternalPage(val);
-      setDirection(dir);
-    }
+    setInternalPage(val);
+    setDirection(dir);
+    onChange?.(val);
   };
 
   const activeIndex = wrap(0, events.length, page);

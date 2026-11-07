@@ -275,7 +275,7 @@ const AIPromptInput = ({
 
       <textarea
         aria-label={ariaLabel}
-        className="max-h-64 w-full resize-none bg-transparent px-4 pt-3 pb-2 text-sm outline-none placeholder:text-muted-foreground"
+        className="max-h-64 w-full resize-none bg-transparent px-4 pt-3 pb-2 text-base outline-none placeholder:text-muted-foreground md:text-sm"
         disabled={disabled}
         onBlur={() => setIsFocused(false)}
         onChange={handleChange}

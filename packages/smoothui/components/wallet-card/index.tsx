@@ -461,19 +461,13 @@ export default function WalletCard({
   const hidden = controlledHidden ?? internalHidden;
 
   const setActiveId = (id: string) => {
-    if (onActiveChange) {
-      onActiveChange(id);
-    } else {
-      setInternalActiveId(id);
-    }
+    setInternalActiveId(id);
+    onActiveChange?.(id);
   };
 
   const setHidden = (next: boolean) => {
-    if (onHiddenChange) {
-      onHiddenChange(next);
-    } else {
-      setInternalHidden(next);
-    }
+    setInternalHidden(next);
+    onHiddenChange?.(next);
   };
 
   const activeIndex = accounts.findIndex((account) => account.id === activeId);

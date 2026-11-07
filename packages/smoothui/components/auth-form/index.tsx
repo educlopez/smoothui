@@ -467,7 +467,7 @@ export default function AuthForm({
             aria-describedby={fieldErrors?.email ? emailErrorId : undefined}
             aria-invalid={Boolean(fieldErrors?.email)}
             autoComplete="email"
-            className="min-h-[44px] w-full rounded-lg border bg-background px-3 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-invalid:border-destructive"
+            className="min-h-[44px] w-full rounded-lg border bg-background px-3 text-base outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-invalid:border-destructive md:text-sm"
             disabled={isSubmitting || isSuccess}
             id={emailId}
             inputMode="email"
@@ -515,7 +515,7 @@ export default function AuthForm({
                 aria-describedby={passwordDescribedBy}
                 aria-invalid={Boolean(fieldErrors?.password)}
                 autoComplete={isSignUp ? "new-password" : "current-password"}
-                className="min-h-[44px] w-full rounded-lg border bg-background px-3 pr-11 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-invalid:border-destructive"
+                className="min-h-[44px] w-full rounded-lg border bg-background px-3 pr-11 text-base outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 aria-invalid:border-destructive md:text-sm"
                 disabled={isSubmitting || isSuccess}
                 id={passwordId}
                 minLength={isSignUp ? 8 : undefined}

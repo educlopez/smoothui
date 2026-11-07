@@ -207,7 +207,7 @@ export const FooterMega = ({
               <Field className="min-w-0 flex-1 gap-0">
                 <FieldLabel className="sr-only">Email address</FieldLabel>
                 <Input
-                  className="h-auto rounded-lg border-border bg-background px-4 py-2.5 text-sm shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+                  className="h-auto rounded-lg border-border bg-background px-4 py-2.5 shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
                   placeholder={newsletter.placeholder}
                   type="email"
                 />

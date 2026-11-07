@@ -3,14 +3,14 @@
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { Toggle as TogglePrimitive } from "radix-ui";
-import type { ReactNode } from "react";
+import type { ComponentPropsWithRef, ReactNode } from "react";
 import {
   PRESS_SCALE,
   PRESS_TRANSITION,
   SPRING_SNAPPY,
 } from "../../lib/animation";
 
-export interface ToggleProps {
+interface ToggleOwnProps {
   /** Accessible name when no visible text */
   "aria-label"?: string;
   /** Children rendered inside the toggle */
@@ -29,6 +29,18 @@ export interface ToggleProps {
   value?: string;
 }
 
+/**
+ * Native `<button>` attributes forwarded to the control: `ref`, `aria-*`,
+ * `data-*`, `onBlur`, `onFocus` and the rest, so form libraries and error
+ * wiring (`aria-describedby`, `aria-invalid`) reach the element.
+ */
+type ToggleNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  keyof ToggleOwnProps | "defaultValue" | "onChange" | "type"
+>;
+
+export type ToggleProps = ToggleOwnProps & ToggleNativeProps;
+
 const MotionButton = motion.button;
 
 /**
@@ -44,11 +56,13 @@ export default function Toggle({
   onPressedChange,
   pressed,
   value,
+  ...props
 }: ToggleProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <TogglePrimitive.Root
+      {...props}
       aria-label={ariaLabel}
       asChild
       className={cn(

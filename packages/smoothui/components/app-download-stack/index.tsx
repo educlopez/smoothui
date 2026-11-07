@@ -78,11 +78,8 @@ export default function AppDownloadStack({
   const selected = controlledSelected ?? internalSelected;
 
   const setExpanded = (val: boolean) => {
-    if (onExpandChange) {
-      onExpandChange(val);
-    } else {
-      setInternalExpanded(val);
-    }
+    setInternalExpanded(val);
+    onExpandChange?.(val);
   };
 
   const toggleApp = useCallback(
@@ -90,11 +87,8 @@ export default function AppDownloadStack({
       const newSelected = selected.includes(id)
         ? selected.filter((appId) => appId !== id)
         : [...selected, id];
-      if (onChange) {
-        onChange(newSelected);
-      } else {
-        setInternalSelected(newSelected);
-      }
+      setInternalSelected(newSelected);
+      onChange?.(newSelected);
     },
     [selected, onChange]
   );
@@ -118,16 +112,10 @@ export default function AppDownloadStack({
       shineControls.stop();
       setDownloadComplete(true);
       setTimeout(() => {
-        if (onExpandChange) {
-          onExpandChange(false);
-        } else {
-          setInternalExpanded(false);
-        }
-        if (onChange) {
-          onChange([]);
-        } else {
-          setInternalSelected([]);
-        }
+        setInternalExpanded(false);
+        onExpandChange?.(false);
+        setInternalSelected([]);
+        onChange?.([]);
         setIsDownloading(false);
         setDownloadComplete(false);
       }, RESET_DELAY_MS);

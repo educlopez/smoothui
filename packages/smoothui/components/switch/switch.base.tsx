@@ -3,10 +3,11 @@
 import { Switch as SwitchPrimitive } from "@base-ui/react/switch";
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
+import type { ComponentPropsWithRef } from "react";
 import { useState } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
-export interface SwitchProps {
+interface SwitchOwnProps {
   /** Accessible name, for switches without a visible `<label>` */
   "aria-label"?: string;
   /** ID of the element labelling the switch */
@@ -31,6 +32,18 @@ export interface SwitchProps {
   value?: string;
 }
 
+/**
+ * Native `<button>` attributes forwarded to the control: `ref`, `aria-*`,
+ * `data-*`, `onBlur`, `onFocus` and the rest, so form libraries and error
+ * wiring (`aria-describedby`, `aria-invalid`) reach the element.
+ */
+type SwitchNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  keyof SwitchOwnProps | "children" | "defaultValue" | "onChange" | "type"
+>;
+
+export type SwitchProps = SwitchOwnProps & SwitchNativeProps;
+
 const MotionThumb = motion.span;
 
 const THUMB_OFF = "translateX(0.125rem)";
@@ -52,6 +65,7 @@ export default function Switch({
   onCheckedChange,
   required,
   value,
+  ...props
 }: SwitchProps) {
   const shouldReduceMotion = useReducedMotion();
   const [uncontrolledChecked, setUncontrolledChecked] =
@@ -86,7 +100,9 @@ export default function Switch({
         }
         onCheckedChange?.(next);
       }}
-      render={<button type="button" />}
+      // Native props go on the rendered <button>: Base UI types the root as a
+      // span, and merges the render element's props and ref into it.
+      render={<button type="button" {...props} />}
       required={required}
       value={value}
     >

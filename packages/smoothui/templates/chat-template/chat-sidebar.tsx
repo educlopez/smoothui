@@ -145,7 +145,7 @@ export const ChatSidebar = ({
           size={14}
         />
         <input
-          className="w-full appearance-none bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+          className="w-full appearance-none bg-transparent text-base outline-none placeholder:text-muted-foreground md:text-sm"
           onChange={(event) => setQuery(event.target.value)}
           placeholder="Search chats"
           ref={searchRef}
