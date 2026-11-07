@@ -69,11 +69,8 @@ export default function InteractiveImageSelector({
       const newSelected = selected.includes(id)
         ? selected.filter((imgId) => imgId !== id)
         : [...selected, id];
-      if (onChange) {
-        onChange(newSelected);
-      } else {
-        setInternalSelected(newSelected);
-      }
+      setInternalSelected(newSelected);
+      onChange?.(newSelected);
     },
     [isSelecting, selected, onChange]
   );
@@ -86,11 +83,8 @@ export default function InteractiveImageSelector({
       onDelete(selected);
     }
     setInternalImages(newImages);
-    if (onChange) {
-      onChange([]);
-    } else {
-      setInternalSelected([]);
-    }
+    setInternalSelected([]);
+    onChange?.([]);
   }, [selected, internalImages, onDelete, onChange]);
 
   const handleReset = useCallback(() => {
@@ -99,11 +93,8 @@ export default function InteractiveImageSelector({
     // Add a small delay to show the reset animation
     setTimeout(() => {
       setInternalImages(originalImages);
-      if (onChange) {
-        onChange([]);
-      } else {
-        setInternalSelected([]);
-      }
+      setInternalSelected([]);
+      onChange?.([]);
       setIsSelecting(false);
       setIsResetting(false);
     }, RESET_DELAY);
@@ -112,11 +103,8 @@ export default function InteractiveImageSelector({
   const toggleSelecting = useCallback(() => {
     setIsSelecting((prev) => !prev);
     if (isSelecting) {
-      if (onChange) {
-        onChange([]);
-      } else {
-        setInternalSelected([]);
-      }
+      setInternalSelected([]);
+      onChange?.([]);
     }
   }, [isSelecting, onChange]);
 

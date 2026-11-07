@@ -4,10 +4,11 @@ import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { RadioGroup as RadioGroupPrimitive } from "radix-ui";
 import type React from "react";
+import type { ComponentPropsWithRef } from "react";
 import { Children, cloneElement, isValidElement, useId } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
-export interface RadioGroupProps {
+interface RadioGroupOwnProps {
   /** Radio items to render */
   children: React.ReactNode;
   /** Optional CSS class for the group container */
@@ -28,7 +29,18 @@ export interface RadioGroupProps {
   value?: string;
 }
 
-export interface RadioProps {
+/**
+ * Native `<div>` attributes forwarded to the group: `ref`, `aria-label`,
+ * `aria-describedby`, `aria-invalid`, `data-*` and the rest.
+ */
+type RadioGroupNativeProps = Omit<
+  ComponentPropsWithRef<"div">,
+  keyof RadioGroupOwnProps | "defaultChecked" | "dir" | "onChange"
+>;
+
+export type RadioGroupProps = RadioGroupOwnProps & RadioGroupNativeProps;
+
+interface RadioOwnProps {
   /** @internal Stagger index passed by RadioGroup */
   _staggerIndex?: number;
   /** Children (label content) to render next to the radio */
@@ -43,9 +55,17 @@ export interface RadioProps {
   value: string;
 }
 
+/** Native `<button>` attributes forwarded to the radio: `ref`, `aria-*`, `onBlur`... */
+type RadioNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  keyof RadioOwnProps | "defaultValue" | "onChange" | "type"
+>;
+
+export type RadioProps = RadioOwnProps & RadioNativeProps;
+
 /** Spring for the selection dot — playful bounce per CLAUDE.md (0.2-0.3 for playful interactions) */
 const SPRING_DOT = {
-  bounce: 0.2,
+  bounce: 0.1,
   duration: 0.25,
   type: "spring" as const,
 };
@@ -63,6 +83,7 @@ export function RadioGroup({
   name,
   required,
   orientation = "vertical",
+  ...props
 }: RadioGroupProps) {
   const shouldReduceMotion = useReducedMotion();
 
@@ -85,6 +106,7 @@ export function RadioGroup({
 
   return (
     <RadioGroupPrimitive.Root
+      {...props}
       className={cn(
         orientation === "vertical" ? "grid gap-3" : "flex items-center gap-4",
         className
@@ -111,6 +133,7 @@ export function Radio({
   id,
   children,
   _staggerIndex,
+  ...props
 }: RadioProps) {
   const shouldReduceMotion = useReducedMotion();
   const staggerDelay =
@@ -144,6 +167,7 @@ export function Radio({
   return wrapper(
     <>
       <RadioGroupPrimitive.Item
+        {...props}
         className={cn(
           "group/radio state-transition inline-flex size-4 shrink-0 items-center justify-center rounded-full border border-foreground/50 bg-background shadow-xs outline-none",
           "focus-ring hover:border-foreground focus-visible:border-ring",

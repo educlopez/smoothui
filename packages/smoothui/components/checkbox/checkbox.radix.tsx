@@ -3,10 +3,11 @@
 import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { Checkbox as CheckboxPrimitive } from "radix-ui";
+import type { ComponentPropsWithRef } from "react";
 import { useState } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
-export interface CheckboxProps {
+interface CheckboxOwnProps {
   /** Accessible name, for checkboxes without a visible `<label>` */
   "aria-label"?: string;
   /** ID of the element labelling the checkbox */
@@ -33,6 +34,18 @@ export interface CheckboxProps {
   value?: string;
 }
 
+/**
+ * Native `<button>` attributes forwarded to the control: `ref`, `aria-*`,
+ * `data-*`, `onBlur`, `onFocus` and the rest, so form libraries and error
+ * wiring (`aria-describedby`, `aria-invalid`) reach the element.
+ */
+type CheckboxNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  keyof CheckboxOwnProps | "children" | "defaultValue" | "onChange" | "type"
+>;
+
+export type CheckboxProps = CheckboxOwnProps & CheckboxNativeProps;
+
 const CheckmarkPath = motion.path;
 const MotionSvg = motion.svg;
 
@@ -49,6 +62,7 @@ export default function Checkbox({
   value,
   id,
   required,
+  ...props
 }: CheckboxProps) {
   const shouldReduceMotion = useReducedMotion();
   const [internalChecked, setInternalChecked] = useState(defaultChecked);
@@ -67,6 +81,7 @@ export default function Checkbox({
 
   return (
     <CheckboxPrimitive.Root
+      {...props}
       aria-checked={indeterminate ? "mixed" : checked}
       aria-label={ariaLabel}
       aria-labelledby={ariaLabelledBy}

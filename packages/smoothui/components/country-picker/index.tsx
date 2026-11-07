@@ -439,7 +439,7 @@ const CountryPicker = ({
                   aria-controls={listboxId}
                   aria-expanded={open}
                   aria-label="Search countries"
-                  className="w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground"
+                  className="w-full bg-transparent text-base outline-none placeholder:text-muted-foreground md:text-sm"
                   onChange={(event) => handleQueryChange(event.target.value)}
                   onKeyDown={handleInputKeyDown}
                   placeholder={placeholder}

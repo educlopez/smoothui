@@ -81,7 +81,7 @@ export default function UserAccountAvatar({
           Name
         </label>
         <input
-          className="rounded-md border border-border bg-background px-3 py-2 text-foreground text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+          className="rounded-md border border-border bg-background px-3 py-2 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
           defaultValue={userData.name}
           id="name"
           name="name"
@@ -97,7 +97,7 @@ export default function UserAccountAvatar({
           Email
         </label>
         <input
-          className="rounded-md border border-border bg-background px-3 py-2 text-foreground text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary"
+          className="rounded-md border border-border bg-background px-3 py-2 text-base text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary md:text-sm"
           defaultValue={userData.email}
           id="email"
           name="email"

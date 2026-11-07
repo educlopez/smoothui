@@ -223,11 +223,8 @@ export default function DynamicIsland({
       return;
     }
     setVariantKey(`${view}-${newView}`);
-    if (onViewChange) {
-      onViewChange(newView);
-    } else {
-      setInternalView(newView);
-    }
+    setInternalView(newView);
+    onViewChange?.(newView);
   };
 
   return (

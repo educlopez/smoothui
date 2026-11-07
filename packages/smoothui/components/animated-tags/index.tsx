@@ -25,19 +25,13 @@ export default function AnimatedTags({
 
   const handleTagClick = (tag: string) => {
     const newSelected = [...selectedTag, tag];
-    if (onChange) {
-      onChange(newSelected);
-    } else {
-      setInternalSelected(newSelected);
-    }
+    setInternalSelected(newSelected);
+    onChange?.(newSelected);
   };
   const handleDeleteTag = (tag: string) => {
     const newSelectedTag = selectedTag.filter((selected) => selected !== tag);
-    if (onChange) {
-      onChange(newSelectedTag);
-    } else {
-      setInternalSelected(newSelectedTag);
-    }
+    setInternalSelected(newSelectedTag);
+    onChange?.(newSelectedTag);
   };
   return (
     <div className={`flex w-[300px] flex-col gap-4 p-4 ${className}`}>

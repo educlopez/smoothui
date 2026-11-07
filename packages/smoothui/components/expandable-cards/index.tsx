@@ -52,17 +52,11 @@ export default function ExpandableCards({
 
   const handleCardClick = (id: number) => {
     if (selectedCard === id) {
-      if (onSelect) {
-        onSelect(null);
-      } else {
-        setInternalSelected(null);
-      }
+      setInternalSelected(null);
+      onSelect?.(null);
     } else {
-      if (onSelect) {
-        onSelect(id);
-      } else {
-        setInternalSelected(id);
-      }
+      setInternalSelected(id);
+      onSelect?.(id);
       // Center the clicked card in view
       const cardElement = document.querySelector(`[data-card-id="${id}"]`);
       if (cardElement) {

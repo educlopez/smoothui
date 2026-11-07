@@ -121,11 +121,8 @@ export default function SocialSelector({
                 }`}
                 key={platform.name}
                 onClick={() => {
-                  if (onChange) {
-                    onChange(platform);
-                  } else {
-                    setInternalSelected(platform);
-                  }
+                  setInternalSelected(platform);
+                  onChange?.(platform);
                 }}
                 type="button"
               >
