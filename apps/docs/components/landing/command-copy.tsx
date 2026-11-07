@@ -3,11 +3,15 @@
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
 
-export function CommandCopy() {
+export function CommandCopy({
+  command = "npx shadcn@latest add @smoothui/siri-orb",
+}: {
+  command?: string;
+}) {
   const [result, setResult] = useState<"idle" | "copied" | "error">("idle");
   const copy = async () => {
     try {
-      await navigator.clipboard.writeText("npx shadcn add @smoothui/siri-orb");
+      await navigator.clipboard.writeText(command);
       setResult("copied");
     } catch {
       setResult("error");

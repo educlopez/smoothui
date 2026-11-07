@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
 export interface SectionHeaderProps {
@@ -17,49 +16,31 @@ export function SectionHeader({
   className,
   align = "center",
 }: SectionHeaderProps) {
-  const shouldReduceMotion = useReducedMotion();
-
-  const transition = (delay: number) =>
-    shouldReduceMotion
-      ? { duration: 0 }
-      : { bounce: 0.1, delay, duration: 0.3, type: "spring" as const };
-
-  const fadeUp = (delay: number) => ({
-    initial: shouldReduceMotion
-      ? { opacity: 1 }
-      : { opacity: 0, transform: "translateY(10px)" },
-    transition: transition(delay),
-    viewport: { amount: 0.5, once: true } as const,
-    whileInView: shouldReduceMotion
-      ? { opacity: 1 }
-      : { opacity: 1, transform: "translateY(0px)" },
-  });
-
   const isCenter = align === "center";
 
   return (
     <div
       className={cn("max-w-2xl", isCenter && "mx-auto text-center", className)}
     >
-      <motion.h2
+      {/* Static on purpose: fading headings in on scroll delays the content
+          people scrolled to read. */}
+      <h2
         className={cn(
-          "text-balance font-semibold font-title text-3xl text-foreground transition md:text-4xl",
+          "text-balance font-semibold font-title text-3xl text-foreground md:text-4xl",
           isCenter && "text-center"
         )}
-        {...fadeUp(0.05)}
       >
         {title}
-      </motion.h2>
+      </h2>
       {description ? (
-        <motion.p
+        <p
           className={cn(
-            "mt-4 text-balance text-primary-foreground transition",
+            "mt-4 text-balance text-muted-foreground",
             isCenter && "text-center"
           )}
-          {...fadeUp(0.1)}
         >
           {description}
-        </motion.p>
+        </p>
       ) : null}
     </div>
   );

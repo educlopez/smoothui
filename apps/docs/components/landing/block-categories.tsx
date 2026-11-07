@@ -133,7 +133,7 @@ export function BlockCategories() {
               project needs
             </>
           }
-          title="Elevate your design with premium blocks"
+          title="Page sections, ready to paste"
         />
 
         <div className="relative mt-8 md:mt-16">
@@ -166,7 +166,7 @@ export function BlockCategories() {
             asChild
             className="mx-auto mt-8 flex w-fit"
             size="lg"
-            variant="candy"
+            variant="outline"
           >
             <Link href="/docs/blocks">
               <span className="flex items-center gap-1">
@@ -174,7 +174,7 @@ export function BlockCategories() {
               </span>
               <svg
                 aria-hidden="true"
-                className="-mx-1.5 size-5 shrink-0 text-white/72"
+                className="-mx-1.5 size-5 shrink-0 text-muted-foreground"
                 fill="none"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
