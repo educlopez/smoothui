@@ -1,9 +1,7 @@
 "use client";
 
-import Field, { FieldLabel } from "@repo/smoothui/components/field";
-import Input from "@repo/smoothui/components/input";
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { motion, useReducedMotion } from "motion/react";
+import { NewsletterForm } from "../../shared";
 
 const ANIMATION_DURATION = 0.6;
 const DELAY_INCREMENT = 0.1;
@@ -31,6 +29,8 @@ interface FooterComplexProps {
     placeholder: string;
     buttonText: string;
   };
+  /** Called with the email when the newsletter form submits */
+  onSubscribe?: (email: string) => Promise<void> | void;
   social?: {
     twitter?: string;
     linkedin?: string;
@@ -78,6 +78,7 @@ export function FooterComplex({
       { name: "Bug Reports", url: "#bugs" },
     ],
   },
+  onSubscribe,
   social = {
     discord: "https://discord.com",
     github: "https://github.com",
@@ -141,19 +142,12 @@ export function FooterComplex({
                 <p className="mb-4 text-foreground/70 text-sm">
                   {newsletter.description}
                 </p>
-                <div className="flex gap-2">
-                  <Field className="min-w-0 flex-1 gap-0">
-                    <FieldLabel className="sr-only">Email address</FieldLabel>
-                    <Input
-                      className="h-auto rounded-lg border-border bg-background px-4 py-2 shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
-                      placeholder={newsletter.placeholder}
-                      type="email"
-                    />
-                  </Field>
-                  <SmoothButton variant="candy">
-                    {newsletter.buttonText}
-                  </SmoothButton>
-                </div>
+                <NewsletterForm
+                  buttonText={newsletter.buttonText}
+                  inputClassName="h-auto rounded-lg border-border bg-background px-4 py-2 shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+                  onSubscribe={onSubscribe}
+                  placeholder={newsletter.placeholder}
+                />
               </div>
 
               {/* Social Links */}

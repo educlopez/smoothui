@@ -4,7 +4,12 @@ import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { cn } from "@repo/smoothui-utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useId, useState } from "react";
+
+const actionItems = [
+  { href: "#login", id: "login", name: "Login", variant: "ghost" },
+  { href: "#signup", id: "signup", name: "Sign Up", variant: undefined },
+] as const;
 
 const menuItems = [
   { href: "#link", id: "features", name: "Features" },
@@ -34,6 +39,18 @@ const TRANSLATE_X_OFFSET = -10;
 export const HeroHeader = () => {
   const shouldReduceMotion = useReducedMotion();
   const [menuState, setMenuState] = useState(false);
+  const menuId = useId();
+
+  // Login / Sign Up are navigation, so they render as links. On desktop they
+  // sit in the bar; on mobile they live inside the menu panel.
+  const renderActions = (onNavigate?: () => void) =>
+    actionItems.map((action) => (
+      <SmoothButton asChild key={action.id} size="sm" variant={action.variant}>
+        <a href={action.href} onClick={onNavigate}>
+          <span>{action.name}</span>
+        </a>
+      </SmoothButton>
+    ));
 
   return (
     <div className="relative">
@@ -67,6 +84,8 @@ export const HeroHeader = () => {
                 </a>
 
                 <SmoothButton
+                  aria-controls={menuId}
+                  aria-expanded={menuState}
                   aria-label={menuState === true ? "Close Menu" : "Open Menu"}
                   className="relative z-20 -m-2.5 -mr-4 block lg:hidden"
                   onClick={() => setMenuState(!menuState)}
@@ -168,6 +187,8 @@ export const HeroHeader = () => {
                 </div>
               </div>
 
+              <div className="hidden lg:flex lg:gap-3">{renderActions()}</div>
+
               <AnimatePresence>
                 {menuState ? (
                   <motion.div
@@ -176,12 +197,13 @@ export const HeroHeader = () => {
                         ? { opacity: 1 }
                         : { opacity: 1, scale: SCALE_MAX, y: 0 }
                     }
-                    className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent"
+                    className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:hidden dark:shadow-none"
                     exit={
                       shouldReduceMotion
                         ? { opacity: 0, transition: { duration: 0 } }
                         : { opacity: 0, scale: 0.95, y: TRANSLATE_Y_OFFSET }
                     }
+                    id={menuId}
                     initial={
                       shouldReduceMotion
                         ? { opacity: 1 }
@@ -196,7 +218,7 @@ export const HeroHeader = () => {
                           }
                     }
                   >
-                    <div className="lg:hidden">
+                    <div>
                       <ul className="space-y-6 text-base">
                         {menuItems.map((item, index) => (
                           <motion.li
@@ -256,21 +278,7 @@ export const HeroHeader = () => {
                             }
                       }
                     >
-                      <SmoothButton
-                        onClick={() => setMenuState(false)}
-                        size="sm"
-                        type="button"
-                        variant="ghost"
-                      >
-                        <span>Login</span>
-                      </SmoothButton>
-                      <SmoothButton
-                        onClick={() => setMenuState(false)}
-                        size="sm"
-                        type="button"
-                      >
-                        <span>Sign Up</span>
-                      </SmoothButton>
+                      {renderActions(() => setMenuState(false))}
                     </motion.div>
                   </motion.div>
                 ) : null}
