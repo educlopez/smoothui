@@ -258,7 +258,7 @@ export function MobileNavbar({ className }: MobileNavbarProps) {
                 </Link>
                 <a
                   className="mobile-navbar-link"
-                  href="https://skills.smoothui.dev"
+                  href="https://ui-craft.smoothui.dev"
                   rel="noopener noreferrer"
                   target="_blank"
                 >

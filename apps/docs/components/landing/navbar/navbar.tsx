@@ -191,7 +191,7 @@ const resourceGroups = [
   },
   {
     external: true,
-    href: "https://skills.smoothui.dev",
+    href: "https://ui-craft.smoothui.dev",
     icon: <IconWandSparkleFill24 size={16} />,
     text: "Scaffold components from the editor.",
     title: "Skills",

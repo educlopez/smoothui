@@ -144,10 +144,10 @@ jobs:
         working-directory: apps/docs
         run: pnpm exec tsx scripts/verify-install.mts
 
-      # Base install verification above uses the default (Base) twin. These four
-      # Radix twins historically imported a sibling `.base` file the payload
-      # did not ship, so `/r/radix-nova/{tabs,slider,toggle,toggle-group}.json`
-      # failed tsc in a consumer project.
+      # Base install verification above uses the default (Base) twin. Every
+      # dual primitive is typechecked as radix-nova so a new twin cannot
+      # import a sibling the payload does not ship (the class that broke
+      # tabs/slider/toggle/toggle-group, not only those four names).
       - name: Verify radix-nova twins compile when installed
         working-directory: apps/docs
         run: pnpm exec tsx scripts/verify-radix-nova-install.mts

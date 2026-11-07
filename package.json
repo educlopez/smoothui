@@ -45,7 +45,7 @@
     "typescript": "^5.9.3",
     "ultracite": "^7.9.4",
     "vite": "^7.3.6",
-    "vitest": "4.1.11",
+    "vitest": "4.1.12",
     "zod": "^4.3.6"
   },
   "engines": {

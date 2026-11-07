@@ -7,18 +7,40 @@ import { Accordion as AccordionPrimitive } from "radix-ui";
 import type { ComponentProps, ReactNode } from "react";
 import { DURATION, DURATION_INSTANT, EASE_OUT } from "../../lib/animation";
 
-export type AccordionRootProps = Omit<
+type AccordionRootBase = Omit<
   ComponentProps<typeof AccordionPrimitive.Root>,
   "type" | "value" | "defaultValue" | "onValueChange"
 > & {
   className?: string;
-  /** Maps to Radix `type="multiple"` when true */
-  multiple?: boolean;
-  type?: ComponentProps<typeof AccordionPrimitive.Root>["type"];
-  value?: string | string[];
-  defaultValue?: string | string[];
-  onValueChange?: (value: string | string[]) => void;
 };
+
+/**
+ * Single mode is the default (`type` omitted, `multiple` false). Value is a
+ * string — the Base twin takes `string[]`, and passing an array through to
+ * Radix single mode is the faq-2 class (#160). Multiple mode takes `string[]`.
+ */
+export type AccordionRootProps =
+  | (AccordionRootBase & {
+      multiple?: false;
+      type?: "single";
+      value?: string;
+      defaultValue?: string;
+      onValueChange?: (value: string) => void;
+    })
+  | (AccordionRootBase & {
+      multiple: true;
+      type?: "multiple";
+      value?: string[];
+      defaultValue?: string[];
+      onValueChange?: (value: string[]) => void;
+    })
+  | (AccordionRootBase & {
+      multiple?: boolean;
+      type: "multiple";
+      value?: string[];
+      defaultValue?: string[];
+      onValueChange?: (value: string[]) => void;
+    });
 
 export type AccordionItemProps = ComponentProps<
   typeof AccordionPrimitive.Item
@@ -69,8 +91,9 @@ const accordionRootClassName = (className?: string) =>
 
 /**
  * SmoothUI Accordion — Radix twin.
- * Same public API as Base; panel uses `--radix-accordion-content-height`.
- * Base always uses `string[]` for value; Radix single mode uses `string`.
+ * Panel uses `--radix-accordion-content-height`.
+ * Single-mode value is a string at the type level; firstOf still unwraps a
+ * Base-style array at runtime so already-shipped blocks (faq-2) keep working.
  */
 const AccordionRoot = ({
   className,
@@ -84,13 +107,16 @@ const AccordionRoot = ({
   const resolvedType = type ?? (multiple ? "multiple" : "single");
 
   if (resolvedType === "multiple") {
+    const handleMultiple = onValueChange as
+      | ((next: string[]) => void)
+      | undefined;
     return (
       <AccordionPrimitive.Root
         className={accordionRootClassName(className)}
         data-slot="accordion"
         defaultValue={asArray(defaultValue)}
         onValueChange={(next) => {
-          onValueChange?.(next);
+          handleMultiple?.(next);
         }}
         type="multiple"
         value={asArray(value)}
@@ -99,13 +125,14 @@ const AccordionRoot = ({
     );
   }
 
+  const handleSingle = onValueChange as ((next: string) => void) | undefined;
   return (
     <AccordionPrimitive.Root
       className={accordionRootClassName(className)}
       data-slot="accordion"
       defaultValue={firstOf(defaultValue)}
       onValueChange={(next) => {
-        onValueChange?.(next ? [next] : []);
+        handleSingle?.(next);
       }}
       type="single"
       value={firstOf(value)}

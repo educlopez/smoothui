@@ -42,7 +42,7 @@ for (const width of [390, 1440]) {
       .toBe("npx skills add educlopez/ui-craft");
     await expect(
       panel.getByRole("link", { name: "Explore UI Craft" })
-    ).toHaveAttribute("href", "https://skills.smoothui.dev");
+    ).toHaveAttribute("href", "https://ui-craft.smoothui.dev");
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth)
     ).toBeLessThanOrEqual(width);

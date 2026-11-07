@@ -1,12 +1,14 @@
-// Installs the Radix twins that historically imported a sibling `.base` file
-// the registry did not ship, then typechecks the result. verify-install.mts
-// covers the Base (default) payload; this covers `/r/radix-nova/{name}.json`
-// for the twins that actually import local modules.
+// Installs every Radix twin the registry serves, then typechecks the result.
+// verify-install.mts covers the Base (default) payload; this covers
+// `/r/radix-nova/{name}.json`. The item list is discovered from disk so a new
+// twin is typechecked without a second list edit. Four twins (tabs, slider,
+// toggle, toggle-group) historically imported a sibling `.base` file the
+// payload did not ship — that is the class, not a closed set of names.
 import { execFileSync } from "node:child_process";
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join } from "node:path";
-import { getPackage } from "../lib/package";
+import { getDualPrimitivePackageNames, getPackage } from "../lib/package";
 
 const require = createRequire(import.meta.url);
 
@@ -18,9 +20,9 @@ const PACKAGES_ROOT = join(import.meta.dirname, "../../../packages");
 const REPO_ROOT = join(import.meta.dirname, "../../..");
 const PROJECT = join(import.meta.dirname, "..", ".radix-nova-install-check");
 
-const RADIX_NOVA_ITEMS = [
-  "smoothui/components/tabs",
+const HISTORICAL_RADIX_NOVA_FAILURES = [
   "smoothui/components/slider",
+  "smoothui/components/tabs",
   "smoothui/components/toggle",
   "smoothui/components/toggle-group",
 ] as const;
@@ -124,8 +126,22 @@ const main = async () => {
     const mappings = new Map<string, string>();
     let written = 0;
 
+    const radixNovaItems = await getDualPrimitivePackageNames();
+    if (radixNovaItems.length === 0) {
+      throw new Error(
+        "no dual primitives discovered from *.base.tsx + *.radix.tsx"
+      );
+    }
+    for (const name of HISTORICAL_RADIX_NOVA_FAILURES) {
+      if (!radixNovaItems.includes(name)) {
+        throw new Error(
+          `discovery dropped ${name}, which previously shipped a broken radix-nova payload`
+        );
+      }
+    }
+
     const packagesToInstall = [
-      ...RADIX_NOVA_ITEMS.map((name) => ({
+      ...radixNovaItems.map((name) => ({
         name,
         style: "radix-nova" as const,
       })),
@@ -203,7 +219,7 @@ const main = async () => {
     );
 
     console.log(
-      `Wrote ${written} files from ${RADIX_NOVA_ITEMS.length} radix-nova items plus registry deps`
+      `Wrote ${written} files from ${radixNovaItems.length} radix-nova items plus registry deps`
     );
 
     const tsc = join(REPO_ROOT, "node_modules/.bin/tsc");

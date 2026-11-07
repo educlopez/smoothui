@@ -35,9 +35,7 @@ export function GithubStars({
     const fetchData = async () => {
       try {
         setLoading(true);
-        const params = new URLSearchParams({ owner, repo });
-
-        const response = await fetch(`/api/github?${params.toString()}`);
+        const response = await fetch("/api/github");
         if (!response.ok) {
           throw new Error("Failed to fetch");
         }
@@ -52,7 +50,7 @@ export function GithubStars({
     };
 
     fetchData();
-  }, [owner, repo]);
+  }, []);
 
   const githubUrl = data?.url || `https://github.com/${owner}/${repo}`;
   const displayName = data?.name || `${owner}/${repo}`;
