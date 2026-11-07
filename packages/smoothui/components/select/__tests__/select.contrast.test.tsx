@@ -13,6 +13,7 @@ const THEME_CSS = path.resolve(
 
 const BRAND_FILL = /text-white|bg-accent/;
 const OKLCH_VALUE = /oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)\s*\)/;
+const VAR_REFERENCE = /^var\((--[\w-]+)\)$/;
 
 /** Body of the first top-level rule that starts with `selector {`. */
 const ruleBody = (css: string, selector: string): string => {
@@ -23,12 +24,27 @@ const ruleBody = (css: string, selector: string): string => {
   return css.slice(start, css.indexOf("\n}", start));
 };
 
-/** Relative luminance of an achromatic oklch token: Y equals L cubed. */
-const neutralLuminance = (body: string, token: string): number => {
-  const line = body
+/** Declared value of `token` in the rule body, without the trailing `;`. */
+const declaredValue = (body: string, token: string): string | undefined =>
+  body
     .split("\n")
-    .find((entry) => entry.trim().startsWith(`${token}:`));
-  const match = line?.match(OKLCH_VALUE);
+    .find((entry) => entry.trim().startsWith(`${token}:`))
+    ?.trim()
+    .slice(token.length + 1)
+    .replace(";", "")
+    .trim();
+
+/**
+ * Relative luminance of an achromatic oklch token: Y equals L cubed. Roles
+ * point at ramp steps (`var(--color-smooth-950)`), so one `var()` hop is
+ * followed within the same rule body.
+ */
+const neutralLuminance = (body: string, token: string): number => {
+  const value = declaredValue(body, token);
+  const reference = value?.match(VAR_REFERENCE)?.[1];
+  const match = (reference ? declaredValue(body, reference) : value)?.match(
+    OKLCH_VALUE
+  );
   if (!match) {
     throw new Error(`token ${token} is not a plain oklch value`);
   }
