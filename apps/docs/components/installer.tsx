@@ -196,8 +196,10 @@ export const Installer = ({ packageName, addToKit = true }: InstallerProps) => {
         </div>
 
         <div className="flex items-center gap-2">
-          {/* Package manager tabs - always render but hide when not shadcn */}
+          {/* Package manager tabs - always render but hide when not shadcn.
+              `inert` keeps the invisible (opacity-0) buttons out of the tab order. */}
           <div
+            inert={activeTab !== "shadcn"}
             className={cn(
               "flex items-center gap-0.5 transition-opacity",
               activeTab === "shadcn"

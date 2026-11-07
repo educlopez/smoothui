@@ -2,7 +2,7 @@
 
 import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { type KeyboardEvent, useEffect, useRef, useState } from "react";
 import { type ChatConversation, CONVERSATIONS } from "./chat-data";
 import ChatSidebar from "./chat-sidebar";
 import ChatThread from "./chat-thread";
@@ -40,6 +40,30 @@ const ChatTemplate = ({
   // Narrow screens have no column for the list, so it arrives as a drawer.
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const shouldReduceMotion = useReducedMotion();
+  const drawerRef = useRef<HTMLDivElement>(null);
+  // Whatever had focus when the drawer opened (the thread's menu button) gets
+  // it back when the drawer closes.
+  const returnFocusRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    if (isDrawerOpen) {
+      returnFocusRef.current = document.activeElement as HTMLElement | null;
+      const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
+        "button, [href], input, [tabindex]:not([tabindex='-1'])"
+      );
+      (firstFocusable ?? drawerRef.current)?.focus();
+      return;
+    }
+    returnFocusRef.current?.focus();
+    returnFocusRef.current = null;
+  }, [isDrawerOpen]);
+
+  const closeOnEscape = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      setIsDrawerOpen(false);
+    }
+  };
 
   const open = (id: string) => {
     setActiveId(id);
@@ -87,6 +111,9 @@ const ChatTemplate = ({
               initial={{ opacity: 0 }}
               key="chat-drawer-scrim"
               onClick={() => setIsDrawerOpen(false)}
+              // Pointer-only dismiss; keyboard users close with Escape or the
+              // drawer's own collapse button.
+              tabIndex={-1}
               transition={shouldReduceMotion ? { duration: 0 } : SCRIM_FADE}
               type="button"
             />
@@ -94,7 +121,9 @@ const ChatTemplate = ({
                 removing the transition altogether. */}
             <motion.div
               animate={{ opacity: 1, x: 0 }}
-              className="absolute inset-y-0 left-0 z-30 flex md:hidden"
+              aria-label="Conversations"
+              aria-modal="true"
+              className="absolute inset-y-0 left-0 z-30 flex outline-none md:hidden"
               exit={
                 shouldReduceMotion ? { opacity: 0 } : { opacity: 0, x: "-100%" }
               }
@@ -102,6 +131,10 @@ const ChatTemplate = ({
                 shouldReduceMotion ? { opacity: 0 } : { opacity: 1, x: "-100%" }
               }
               key="chat-drawer-panel"
+              onKeyDown={closeOnEscape}
+              ref={drawerRef}
+              role="dialog"
+              tabIndex={-1}
               transition={shouldReduceMotion ? SCRIM_FADE : DRAWER_SPRING}
             >
               <ChatSidebar
@@ -118,12 +151,16 @@ const ChatTemplate = ({
         ) : null}
       </AnimatePresence>
 
-      <ChatThread
-        key={activeId}
-        onOpenSidebar={() => setIsDrawerOpen(true)}
-        title={active?.title ?? "New chat"}
-        turns={active?.turns ?? []}
-      />
+      {/* The thread is inert behind the open drawer, so focus and screen
+          readers stay inside the dialog. */}
+      <div className="flex min-h-0 min-w-0 flex-1" inert={isDrawerOpen}>
+        <ChatThread
+          key={activeId}
+          onOpenSidebar={() => setIsDrawerOpen(true)}
+          title={active?.title ?? "New chat"}
+          turns={active?.turns ?? []}
+        />
+      </div>
     </div>
   );
 };
