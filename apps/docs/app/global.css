@@ -199,8 +199,9 @@ article.group p {
   }
 }
 
+/* Pink wash, ink text: brand text on the wash was about 2.2:1. */
 ::selection {
-  @apply bg-brand-secondary/20 text-brand;
+  @apply bg-brand-secondary/20 text-foreground;
 }
 
 .shiki {
