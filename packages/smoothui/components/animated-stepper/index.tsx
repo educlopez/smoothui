@@ -39,7 +39,7 @@ const SPRING = {
 };
 
 const SPRING_BOUNCY = {
-  bounce: 0.2,
+  bounce: 0.1,
   duration: 0.3,
   type: "spring" as const,
 };
@@ -297,8 +297,8 @@ export default function AnimatedStepper({
               {isHorizontal && index < steps.length - 1 && (
                 <div className="mx-2 h-0.5 flex-1 overflow-hidden rounded-full bg-muted">
                   <motion.div
-                    animate={{ width: index < activeStep ? "100%" : "0%" }}
-                    className="h-full bg-primary"
+                    animate={{ scaleX: index < activeStep ? 1 : 0 }}
+                    className="h-full w-full origin-left bg-primary"
                     transition={shouldReduceMotion ? { duration: 0 } : SPRING}
                   />
                 </div>
@@ -310,8 +310,8 @@ export default function AnimatedStepper({
         {!isHorizontal && (
           <div className="absolute top-5 left-5 h-[calc(100%-2.5rem)] w-0.5 -translate-x-1/2 overflow-hidden bg-muted">
             <motion.div
-              animate={{ height: `${progress * 100}%` }}
-              className="w-full bg-primary"
+              animate={{ scaleY: progress }}
+              className="h-full w-full origin-top bg-primary"
               transition={shouldReduceMotion ? { duration: 0 } : SPRING}
             />
           </div>

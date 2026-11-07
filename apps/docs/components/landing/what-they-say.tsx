@@ -127,7 +127,7 @@ const PlainCard = ({
   compact?: boolean;
 }) => (
   <a
-    className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
+    className="flex h-full flex-col justify-between rounded-2xl border bg-card p-4 shadow-sm transition-colors hover:bg-muted/50"
     href={data.tweetUrl}
     rel="noopener noreferrer"
     target="_blank"
@@ -246,7 +246,7 @@ export function WhatTheySay() {
   const mobileSlots = SIDE_SLOTS.filter((s) => s.activePage === page);
 
   const arrowClass =
-    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary";
+    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted/50";
 
   const renderCenter = (
     <div className="relative size-full">

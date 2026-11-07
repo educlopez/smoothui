@@ -35,7 +35,7 @@ const SECTIONS: {
 ];
 
 const cardBase =
-  "group relative flex h-full flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+  "group relative flex h-full flex-col rounded-2xl border bg-card shadow-sm p-6 transition-colors hover:bg-muted/50";
 
 /**
  * Browse strip — same bento card shell as Features / AI secondary cards.

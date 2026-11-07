@@ -69,21 +69,21 @@ export function FaqsGrid({
       faqs: [
         {
           answer:
-            "You can install Smoothui using npm or yarn. Run `npm install smoothui` or `yarn add smoothui` in your project directory. It's completely free and open source.",
+            "Install any component with the shadcn CLI: `npx shadcn@latest add @smoothui/<component>`. The code is copied into your project, and it's completely free and open source.",
           icon: "Download",
-          question: "How do I install Smoothui?",
+          question: "How do I install SmoothUI?",
         },
         {
           answer:
-            "Smoothui works with React 16.8+ and supports all modern browsers. No additional dependencies are required beyond React and Tailwind CSS.",
+            "SmoothUI works with React 16.8+ and supports all modern browsers. No additional dependencies are required beyond React and Tailwind CSS.",
           icon: "Settings",
           question: "What are the system requirements?",
         },
         {
           answer:
-            "Yes! Smoothui is completely free and open source. You can start using it immediately without any trial limitations or hidden costs.",
+            "Yes! SmoothUI is completely free and open source. You can start using it immediately without any trial limitations or hidden costs.",
           icon: "Zap",
-          question: "Is Smoothui free to use?",
+          question: "Is SmoothUI free to use?",
         },
       ],
       id: "general",
@@ -93,7 +93,7 @@ export function FaqsGrid({
       faqs: [
         {
           answer:
-            "Smoothui includes over 50+ pre-built components including buttons, forms, navigation, modals, animations, and more. New components are added regularly.",
+            "SmoothUI includes 200+ pre-built components including buttons, forms, navigation, modals, animations, and more. New components are added regularly.",
           icon: "HelpCircle",
           question: "How many components are included?",
         },

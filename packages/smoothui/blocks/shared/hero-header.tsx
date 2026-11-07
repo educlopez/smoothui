@@ -1,7 +1,6 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { cn } from "@repo/smoothui-utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useState } from "react";
@@ -59,28 +58,12 @@ export const HeroHeader = () => {
           <div className="mx-auto max-w-5xl px-6">
             <div className="relative flex flex-wrap items-center justify-between gap-6 py-6 transition-all duration-200 lg:gap-0">
               <div className="flex w-full justify-between gap-6 lg:w-auto">
-                <a
-                  aria-label="SmoothUI home"
-                  className="flex items-center gap-2"
-                  href="/"
-                >
-                  <span className="sr-only">SmoothUI</span>
-                  <img
-                    alt="SmoothUI logo"
-                    className={cn("h-6 w-auto", "dark:hidden")}
-                    draggable={false}
-                    height={120}
-                    src="/brand/logo-smoothui-light-1000w.png"
-                    width={609}
-                  />
-                  <img
-                    alt="SmoothUI logo"
-                    className={cn("hidden h-6 w-auto", "dark:block")}
-                    draggable={false}
-                    height={120}
-                    src="/brand/logo-smoothui-dark-1000w.png"
-                    width={609}
-                  />
+                <a className="flex items-center gap-2" href="/">
+                  {/* Text wordmark: an image under /brand only exists on
+                      smoothui.dev, so it broke in installed projects. */}
+                  <span className="font-semibold font-title text-foreground text-lg tracking-tight">
+                    SmoothUI
+                  </span>
                 </a>
 
                 <SmoothButton

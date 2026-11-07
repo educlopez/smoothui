@@ -9,6 +9,7 @@ import {
 } from "motion/react";
 import { useEffect, useState } from "react";
 import useMeasure from "react-use-measure";
+import { EASE_LINEAR } from "../../lib/animation";
 
 export interface InfiniteSliderProps {
   children: React.ReactNode;
@@ -68,7 +69,7 @@ export default function InfiniteSlider({
 
       controls = animate(translation, [translation.get(), to], {
         duration: transitionDuration,
-        ease: "linear",
+        ease: EASE_LINEAR,
         onComplete: () => {
           setIsTransitioning(false);
           setKey((prevKey) => prevKey + 1);
@@ -77,7 +78,7 @@ export default function InfiniteSlider({
     } else {
       controls = animate(translation, [from, to], {
         duration,
-        ease: "linear",
+        ease: EASE_LINEAR,
         onRepeat: () => {
           translation.set(from);
         },

@@ -64,7 +64,7 @@ export function DocsStageFigure({
   return (
     <div
       className={cn(
-        "not-prose my-8 overflow-hidden rounded-2xl border bg-primary/40",
+        "not-prose my-8 overflow-hidden rounded-2xl border bg-card shadow-sm",
         className
       )}
     >

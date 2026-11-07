@@ -37,7 +37,7 @@ export async function LatestPosts() {
         {withMeta.map(({ post, readingTime }) => (
           <article className="group relative" key={post.url}>
             <Link
-              className="flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary"
+              className="flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-colors hover:bg-muted/50"
               href={post.url}
               transitionTypes={["nav-forward"]}
             >

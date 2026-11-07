@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -85,7 +86,7 @@ export default function ShortSlideDown({
   return (
     <span
       aria-live="polite"
-      className={`flex flex-col items-center ${className}`}
+      className={cn("flex flex-col items-center", className)}
       style={{ gap: 12 }}
     >
       <AnimatePresence mode="popLayout">

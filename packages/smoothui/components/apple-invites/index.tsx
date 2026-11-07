@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { Crown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { wrap } from "popmotion";
@@ -374,7 +375,7 @@ export default function AppleInvites({
 
   const renderBackground = (event: Event) => {
     if (event.backgroundClassName) {
-      return <div className={`h-full w-full ${event.backgroundClassName}`} />;
+      return <div className={cn("h-full w-full", event.backgroundClassName)} />;
     }
     if (event.image) {
       return (
@@ -393,13 +394,19 @@ export default function AppleInvites({
 
   return (
     <div
-      className={`relative flex h-full w-full items-center justify-center ${className}`}
+      className={cn(
+        "relative flex h-full w-full items-center justify-center",
+        className
+      )}
     >
       <AnimatePresence custom={direction} initial={false}>
         {visibleEvents.map((event, index) => (
           <motion.div
             animate={getVariant(index)}
-            className={`absolute top-1/2 left-1/2 origin-center -translate-y-1/2 ${cardClassName}`}
+            className={cn(
+              "absolute top-1/2 left-1/2 origin-center -translate-y-1/2",
+              cardClassName
+            )}
             custom={direction}
             exit="hidden"
             initial="hidden"

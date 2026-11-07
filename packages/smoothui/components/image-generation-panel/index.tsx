@@ -16,6 +16,7 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { useId, useState } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 import type { AIState } from "../ai-core";
 import AILoader from "../ai-loader";
 import AIPromptInput from "../ai-prompt-input";
@@ -247,7 +248,7 @@ const EmptyTile = ({
             ? { duration: 0 }
             : {
                 duration: SHIMMER_DURATION_SECONDS,
-                ease: "linear",
+                ease: EASE_LINEAR,
                 repeat: Number.POSITIVE_INFINITY,
               }
         }
@@ -341,7 +342,7 @@ const ImageGenerationTile = ({
           className="pointer-events-none absolute inset-x-0 top-0 h-[45%] mix-blend-screen"
           transition={{
             duration: SCAN_DURATION_SECONDS,
-            ease: "linear",
+            ease: EASE_LINEAR,
             repeat: Number.POSITIVE_INFINITY,
           }}
         >
@@ -655,7 +656,7 @@ const ImageGenerationPanel = ({
                   ? { duration: 0 }
                   : {
                       duration: CARET_DURATION_SECONDS,
-                      ease: "linear",
+                      ease: EASE_LINEAR,
                       repeat: Number.POSITIVE_INFINITY,
                       times: CARET_TIMES,
                     }

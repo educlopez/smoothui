@@ -4,6 +4,7 @@ import { cn } from "@repo/smoothui-utils";
 import { ChevronRight } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useState } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 
 const SPRING_DEFAULT = {
   bounce: 0.1,
@@ -85,7 +86,7 @@ const AIToolCallBadge = ({
           style={{ transformBox: "view-box", transformOrigin: "center" }}
           transition={{
             duration: SPIN_SECONDS,
-            ease: "linear",
+            ease: EASE_LINEAR,
             repeat: Number.POSITIVE_INFINITY,
           }}
         >

@@ -151,7 +151,10 @@ export default function UserAccountAvatar({
                   animate={
                     shouldReduceMotion ? {} : { width: `${order.progress}%` }
                   }
-                  className={`h-full rounded-full ${getStatusColor(order.status)}`}
+                  className={cn(
+                    "h-full rounded-full",
+                    getStatusColor(order.status)
+                  )}
                   initial={shouldReduceMotion ? {} : { width: 0 }}
                   transition={
                     shouldReduceMotion

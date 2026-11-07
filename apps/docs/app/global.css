@@ -75,23 +75,13 @@
   --tw-shadow: var(--shadow-lg);
 }
 
-/* Site chrome. Primary is ink, so a light hover wash becomes a card. */
+/* Site chrome. */
 .tracking-tight {
   letter-spacing: 0;
 }
 
 h1 .text-muted-foreground {
   color: var(--color-foreground);
-}
-
-.bg-primary\/40 {
-  background-color: var(--color-card);
-  box-shadow: var(--shadow-sm);
-}
-
-.hover\:bg-primary:hover {
-  background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
-  transition-duration: 200ms;
 }
 
 .trigger:hover,
@@ -430,30 +420,38 @@ article.group p {
   line-height: 2rem;
   letter-spacing: -0.025em;
 }
+/* Each level steps down from the one above, and h3 (used for every
+   Accessibility subsection) stays distinct from the 15px body text. */
 #nd-page h2 {
-  font-size: 1.125rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.75rem;
   letter-spacing: -0.011em;
 }
 #nd-page h3 {
-  font-size: 0.9375rem;
-  font-weight: 400;
+  font-size: 1.0625rem;
+  font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: normal;
 }
 #nd-page h4 {
-  font-size: var(--text-lg);
+  font-size: 0.9375rem;
   font-weight: 600;
-  line-height: var(--leading-tight);
+  line-height: 1.5rem;
 }
 #nd-page h5 {
-  font-size: var(--text-base);
+  font-size: 0.875rem;
   font-weight: 600;
 }
 #nd-page h6 {
-  font-size: var(--text-sm);
+  font-size: 0.8125rem;
   font-weight: 600;
+}
+
+/* Reading measure: running text stops near 70 characters even though the
+   column is wider (previews and tables keep the full width). */
+#nd-page .prose > :is(p, ul, ol, blockquote) {
+  max-width: 70ch;
 }
 
 /* Docs chrome: white surfaces and hairline borders from our tokens. */

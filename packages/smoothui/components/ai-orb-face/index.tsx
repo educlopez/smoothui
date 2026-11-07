@@ -10,6 +10,7 @@ import {
   useSpring,
 } from "motion/react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 import {
   type AIAmplitude,
   type AIState,
@@ -466,7 +467,7 @@ const AIOrbFace = ({
       }}
       transition={{
         duration: 2.4,
-        ease: "linear",
+        ease: EASE_LINEAR,
         repeat: Number.POSITIVE_INFINITY,
       }}
     />

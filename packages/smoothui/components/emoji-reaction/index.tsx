@@ -78,7 +78,7 @@ const DEGREES_PER_TURN = 360;
 const DEGREES_TO_RADIANS = Math.PI / 180;
 
 const SPRING = { bounce: 0.1, duration: 0.25, type: "spring" } as const;
-const POP_SPRING = { bounce: 0.4, duration: 0.4, type: "spring" } as const;
+const POP_SPRING = { bounce: 0.3, duration: 0.4, type: "spring" } as const;
 const INSTANT = { duration: 0 } as const;
 
 const SIZE_CLASSES: Record<EmojiReactionSize, string> = {

@@ -441,9 +441,11 @@ export default function Select({
                   exit={
                     shouldReduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
-                      : { opacity: 0, scale: 0 }
+                      : { opacity: 0, scale: 0.95 }
                   }
-                  initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0 }}
+                  initial={
+                    shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }
+                  }
                   transition={
                     shouldReduceMotion
                       ? DURATION_INSTANT

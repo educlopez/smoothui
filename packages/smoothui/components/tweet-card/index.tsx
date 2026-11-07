@@ -320,7 +320,7 @@ export const SmoothTweet = ({
       {content}
       <button
         aria-label="Open tweet in new tab"
-        className="absolute right-6 bottom-6 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-primary text-foreground opacity-0 backdrop-blur-sm transition-all duration-200 ease-out group-hover:opacity-100 motion-safe:hover:scale-110"
+        className="absolute right-6 bottom-6 z-10 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border bg-primary text-foreground opacity-0 backdrop-blur-sm transition-[opacity,scale] duration-200 ease-out group-hover:opacity-100 motion-safe:hover:scale-110"
         onClick={() =>
           window.open(enrichedTweet.url, "_blank", "noopener,noreferrer")
         }
