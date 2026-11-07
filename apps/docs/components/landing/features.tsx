@@ -86,7 +86,7 @@ export function Features() {
         description="Built on the foundations you already love, with the polish you've been wishing for."
         title={
           <>
-            Why choose Smooth<span className="text-brand">UI</span>?
+            Why choose Smooth<span className="text-brand-ink">UI</span>?
           </>
         }
       />

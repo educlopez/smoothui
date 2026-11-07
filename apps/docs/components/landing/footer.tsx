@@ -91,7 +91,7 @@ const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
 
 const columnTitleClass = "mb-4 block font-medium text-foreground text-sm";
 const linkClass =
-  "inline-flex items-center gap-1 text-muted-foreground text-sm transition-colors duration-200 hover:text-brand";
+  "inline-flex items-center gap-1 text-muted-foreground text-sm transition-colors duration-200 hover:text-brand-ink";
 
 // ---------------------------------------------------------------------------
 // Icons
@@ -298,7 +298,7 @@ export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
               <LinkColumn column={connectColumn} />
               <div className="mt-5 flex items-center gap-3">
                 <a
-                  className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                  className="text-muted-foreground transition-colors duration-200 hover:text-brand-ink"
                   href="https://x.com/educalvolpz"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -307,7 +307,7 @@ export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
                 </a>
                 <a
                   aria-label="SmoothUI on GitHub"
-                  className="text-muted-foreground transition-colors duration-200 hover:text-brand"
+                  className="text-muted-foreground transition-colors duration-200 hover:text-brand-ink"
                   href="https://github.com/educlopez/smoothui"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -329,7 +329,7 @@ export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
         <p className="text-muted-foreground text-sm">
           &copy; {new Date().getFullYear()} SmoothUI. Built by{" "}
           <a
-            className="text-foreground underline underline-offset-4 transition-colors hover:text-brand"
+            className="text-foreground underline underline-offset-4 transition-colors hover:text-brand-ink"
             href="https://x.com/educalvolpz"
             rel="noopener noreferrer"
             target="_blank"
@@ -343,7 +343,7 @@ export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
           {techStack.map((tech) => (
             <span
               aria-label={tech.name}
-              className="transition-colors duration-200 hover:text-brand"
+              className="transition-colors duration-200 hover:text-brand-ink"
               key={tech.name}
               role="img"
               title={tech.name}

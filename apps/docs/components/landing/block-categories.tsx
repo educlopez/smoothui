@@ -21,55 +21,46 @@ import { useState } from "react";
 const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
 
 const blockCategories: {
-  blockCount: number;
   href: string;
   preview: ComponentType<{ active?: boolean }>;
   title: string;
 }[] = [
   {
-    blockCount: 4,
     href: "/docs/blocks/hero",
     preview: HeroBlockDrawing,
     title: "Hero",
   },
   {
-    blockCount: 3,
     href: "/docs/blocks/pricing",
     preview: PricingBlockDrawing,
     title: "Pricing",
   },
   {
-    blockCount: 3,
     href: "/docs/blocks/testimonial",
     preview: TestimonialBlockDrawing,
     title: "Testimonial",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/faqs",
     preview: FaqBlockDrawing,
     title: "FAQs",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/footer",
     preview: FooterBlockDrawing,
     title: "Footer",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/logo-clouds",
     preview: LogosBlockDrawing,
     title: "Logo Clouds",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/stats",
     preview: StatsBlockDrawing,
     title: "Stats",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/team-sections",
     preview: TeamBlockDrawing,
     title: "Team Sections",
@@ -110,7 +101,7 @@ function BlockPreview({
           {category.title}
         </span>
         <span className="inline-flex items-center gap-1 text-muted-foreground text-xs">
-          {category.blockCount} Blocks
+          View blocks
           <ArrowUpRight aria-hidden className="size-3.5" />
         </span>
       </Link>

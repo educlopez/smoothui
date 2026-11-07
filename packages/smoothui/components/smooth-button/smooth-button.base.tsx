@@ -31,7 +31,7 @@ import {
  * for back-compat with existing call sites and ignore the `color` axis.
  */
 const smoothButtonVariants = cva(
-  "relative inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-medium outline-none ring-offset-background transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.97] disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:ring-1 disabled:ring-foreground/20 motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "relative inline-flex cursor-pointer items-center justify-center gap-2 whitespace-nowrap font-medium outline-none ring-offset-background transition-[transform,background-color,border-color,color,box-shadow] duration-150 ease-out focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-solid focus-visible:outline-offset-2 active:scale-[0.97] disabled:pointer-events-none disabled:bg-muted disabled:text-muted-foreground disabled:shadow-none disabled:ring-1 disabled:ring-foreground/20 motion-reduce:transition-none motion-reduce:active:scale-100 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     defaultVariants: {
       shape: "default",
@@ -41,14 +41,14 @@ const smoothButtonVariants = cva(
     variants: {
       color: {
         accent:
-          "[--btn-fg:var(--color-on-brand)] [--btn-hover:var(--color-brand-secondary)] [--btn:var(--color-brand)]",
+          "[--btn-fg:var(--color-on-brand)] [--btn-hover:var(--color-brand-secondary)] [--btn-text:var(--color-brand-ink)] [--btn:var(--color-brand)]",
         amber:
-          "[--btn-fg:var(--color-amber-fg)] [--btn-hover:var(--color-amber-hover)] [--btn:var(--color-amber)]",
-        blue: "[--btn-fg:var(--color-blue-fg)] [--btn-hover:var(--color-blue-hover)] [--btn:var(--color-blue)]",
+          "[--btn-fg:var(--color-amber-fg)] [--btn-hover:var(--color-amber-hover)] [--btn-text:var(--color-amber-ink)] [--btn:var(--color-amber)]",
+        blue: "[--btn-fg:var(--color-blue-fg)] [--btn-hover:var(--color-blue-hover)] [--btn-text:var(--color-blue-ink)] [--btn:var(--color-blue)]",
         destructive:
-          "[--btn-fg:var(--color-destructive-fg)] [--btn-hover:var(--color-destructive-hover)] [--btn:var(--color-destructive)]",
+          "[--btn-fg:var(--color-destructive-fg)] [--btn-hover:var(--color-destructive-hover)] [--btn-text:var(--color-destructive-ink)] [--btn:var(--color-destructive)]",
         green:
-          "[--btn-fg:var(--color-green-fg)] [--btn-hover:var(--color-green-hover)] [--btn:var(--color-green)]",
+          "[--btn-fg:var(--color-green-fg)] [--btn-hover:var(--color-green-hover)] [--btn-text:var(--color-green-ink)] [--btn:var(--color-green)]",
         neutral:
           "[--btn-fg:var(--color-background)] [--btn-hover:var(--color-smooth-900)] [--btn:var(--color-foreground)]",
       },
@@ -76,13 +76,13 @@ const smoothButtonVariants = cva(
         destructive:
           "bg-gradient-to-b from-destructive-top to-destructive text-destructive-fg text-shadow-sm shadow-[0px_1px_2px_var(--color-btn-drop),0px_0px_0px_1px_var(--color-destructive-edge),inset_0px_0.75px_0px_var(--color-btn-sheen)] hover:from-destructive hover:to-destructive",
         ghost:
-          "text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_10%,transparent)]",
-        link: "text-[var(--btn,var(--color-foreground))] underline-offset-4 hover:underline",
+          "text-[var(--btn-text,var(--btn,var(--color-foreground)))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_10%,transparent)]",
+        link: "text-[var(--btn-text,var(--btn,var(--color-foreground)))] underline-offset-4 hover:underline",
         outline:
-          "border border-transparent bg-background text-[var(--btn,var(--color-foreground))] shadow-black/15 shadow-sm ring-1 ring-foreground/10 hover:bg-primary dark:ring-foreground/15",
+          "border border-transparent bg-background text-[var(--btn-text,var(--btn,var(--color-foreground)))] shadow-black/15 shadow-sm ring-1 ring-foreground/10 hover:bg-primary dark:ring-foreground/15",
         secondary:
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        soft: "bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_12%,transparent)] text-[var(--btn,var(--color-foreground))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_18%,transparent)]",
+        soft: "bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_12%,transparent)] text-[var(--btn-text,var(--btn,var(--color-foreground)))] hover:bg-[color-mix(in_oklab,var(--btn,var(--color-foreground))_18%,transparent)]",
         // --- new decoupled system (consume --btn / --btn-hover / --btn-fg) ---
         solid:
           "bg-[var(--btn,var(--color-foreground))] text-[var(--btn-fg,var(--color-background))] shadow-xs hover:bg-[var(--btn-hover,var(--color-smooth-900))]",

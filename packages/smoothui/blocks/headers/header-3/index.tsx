@@ -135,7 +135,7 @@ export function HeroShowcase({
                         aria-hidden="true"
                         className={
                           starNumber <= Math.round(reviews.rating ?? 0)
-                            ? "size-5 fill-warning text-warning"
+                            ? "size-5 fill-amber text-amber"
                             : "size-5 text-foreground/25"
                         }
                         key={`star-${starNumber}`}

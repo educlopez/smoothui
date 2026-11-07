@@ -61,7 +61,7 @@ export function Coverage() {
         </blockquote>
 
         <a
-          className="mt-3 inline-block text-muted-foreground text-sm transition-colors hover:text-brand"
+          className="mt-3 inline-block text-muted-foreground text-sm transition-colors hover:text-brand-ink"
           href={COVERAGE[0].url}
           rel="noopener noreferrer"
           target="_blank"

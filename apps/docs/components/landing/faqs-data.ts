@@ -21,7 +21,7 @@ export const faqs = [
   },
   {
     answer:
-      "Installing SmoothUI is simple with the shadcn CLI. Run 'npx shadcn@latest add @smoothui/component-name' (for example '@smoothui/siri-orb') to add any component directly to your project. You can also manually copy components from the documentation. Required dependencies include React, Tailwind CSS, Motion (framer-motion), and clsx/tailwind-merge for class utilities. Some components also use GSAP for advanced animations.",
+      "Installing SmoothUI is simple with the shadcn CLI. Run 'npx shadcn@latest add @smoothui/component-name' (for example '@smoothui/siri-orb') to add any component directly to your project. You can also manually copy components from the documentation. Required dependencies include React, Tailwind CSS, Motion (the `motion` package), and clsx/tailwind-merge for class utilities. Some components also use GSAP for advanced animations.",
     question: "How do I install SmoothUI components?",
   },
   {
