@@ -1,5 +1,8 @@
 # SmoothUI — Token Spine
 
+> Historical audit from 2026-06. The current token contract (roles, status
+> tokens, forms, focus) is the Design system section of `AGENTS.md`.
+
 Audit + decisions for the design-token spine. Anchored to `brief.md`.
 Created 2026-06-12. The project already has a Tailwind v4 `@theme inline` system
 in `apps/docs/app/smoothui.css` + `global.css` — this **extends**, never replaces.
