@@ -23,7 +23,7 @@ export const VividLeadCard = ({
 }) => (
   <div
     className={cn(
-      "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-primary/40 transition-colors hover:bg-primary",
+      "group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-colors hover:bg-muted/50",
       className
     )}
     data-vivid-stage={stage}

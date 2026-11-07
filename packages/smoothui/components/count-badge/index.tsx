@@ -132,15 +132,15 @@ const CountBadge = ({
           exit={
             shouldReduceMotion
               ? { opacity: 0, transition: { duration: 0 } }
-              : { opacity: 0, scale: 0, transition: { duration: 0.15 } }
+              : { opacity: 0, scale: 0.95, transition: { duration: 0.15 } }
           }
           initial={
-            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0 }
+            shouldReduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.95 }
           }
           transition={
             shouldReduceMotion
               ? { duration: 0 }
-              : { bounce: 0.2, duration: 0.25, type: "spring" as const }
+              : { bounce: 0.1, duration: 0.25, type: "spring" as const }
           }
         >
           {variant === "count" && (

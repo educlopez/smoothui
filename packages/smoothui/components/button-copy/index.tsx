@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { Check, Copy, LoaderCircle } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
@@ -99,7 +100,10 @@ export default function ButtonCopy({
       <SmoothButton
         aria-label={ariaLabels[buttonState]}
         aria-live="polite"
-        className={`relative min-h-11 min-w-11 overflow-hidden bg-background p-3 ${className}`}
+        className={cn(
+          "relative min-h-11 min-w-11 overflow-hidden bg-background p-3",
+          className
+        )}
         disabled={
           buttonState === "loading" || buttonState === "success" || disabled
         }

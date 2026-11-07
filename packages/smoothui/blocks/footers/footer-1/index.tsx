@@ -29,7 +29,7 @@ interface FooterSimpleProps {
 }
 
 export function FooterSimple({
-  companyName = "Smoothui",
+  companyName = "SmoothUI",
   description = "Build beautiful UIs, effortlessly.",
   links = {
     company: [
@@ -57,7 +57,7 @@ export function FooterSimple({
     linkedin: "https://linkedin.com",
     twitter: "https://twitter.com",
   },
-  copyright = "© 2024 Smoothui. All rights reserved.",
+  copyright = "© 2024 SmoothUI. All rights reserved.",
 }: FooterSimpleProps) {
   const shouldReduceMotion = useReducedMotion();
   return (

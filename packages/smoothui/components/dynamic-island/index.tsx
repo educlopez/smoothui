@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import {
   Bell,
   CloudLightning,
@@ -14,6 +15,7 @@ import {
 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { type ReactNode, useMemo, useState } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 
 const BOUNCE_VARIANTS = {
   idle: 0.5,
@@ -107,10 +109,10 @@ const DefaultTimer = () => {
       </div>
       <div className="h-1 w-24 overflow-hidden rounded-full bg-white/20">
         <motion.div
-          animate={{ width: "0%" }}
-          className="h-full bg-amber-500"
-          initial={{ width: "100%" }}
-          transition={{ duration: time, ease: "linear" }}
+          animate={{ scaleX: 0 }}
+          className="h-full w-full origin-left bg-amber-500"
+          initial={{ scaleX: 1 }}
+          transition={{ duration: time, ease: EASE_LINEAR }}
         />
       </div>
     </div>
@@ -228,7 +230,7 @@ export default function DynamicIsland({
   };
 
   return (
-    <div className={`h-[200px] ${className}`}>
+    <div className={cn("h-[200px]", className)}>
       <div className="relative flex h-full w-full flex-col justify-center">
         <motion.div
           className="mx-auto w-fit min-w-[100px] overflow-hidden rounded-full bg-black"

@@ -17,7 +17,13 @@ import {
   IconSparkleFill24,
   IconUsersFill24,
 } from "nucleo-core-fill-24";
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  type KeyboardEvent as ReactKeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 const VIEWS = [
   { icon: IconHouse4Fill24, id: "landing", label: "Landing" },
@@ -373,7 +379,7 @@ function EdgeRequestsChart({
             <span className="block font-medium font-title text-foreground text-sm tabular-nums">
               {formatChartValue(seriesKey, hovered)}
             </span>
-            <span className="block text-[10px] text-muted-foreground">
+            <span className="block text-[11px] text-muted-foreground">
               {CHART_WEEKS[hovered]}
             </span>
           </motion.p>
@@ -567,6 +573,33 @@ export function HeroStage() {
   const playClick = useUiSound("/sounds/button.wav", 0.4);
   const [view, setView] = useState<ViewId>("landing");
 
+  // Tablist keyboard model: only the selected tab is in the Tab order, and the
+  // arrow keys (plus Home/End) move selection and focus between tabs.
+  const selectView = (id: ViewId, focus = false) => {
+    setView(id);
+    playClick();
+    if (focus) {
+      document.getElementById(`hero-tab-${id}`)?.focus();
+    }
+  };
+
+  const onTabKeyDown = (event: ReactKeyboardEvent<HTMLButtonElement>) => {
+    const index = VIEWS.findIndex((item) => item.id === view);
+    const last = VIEWS.length - 1;
+    const next: Record<string, number> = {
+      ArrowLeft: index === 0 ? last : index - 1,
+      ArrowRight: index === last ? 0 : index + 1,
+      End: last,
+      Home: 0,
+    };
+    const target = next[event.key];
+    if (target === undefined) {
+      return;
+    }
+    event.preventDefault();
+    selectView(VIEWS[target].id, true);
+  };
+
   return (
     <div className="@container max-md:mask-none md:mask-[radial-gradient(ellipse_80%_95%_at_50%_0%,#000_80%,transparent_100%)] relative z-10 border-b pt-12 lg:pt-20">
       <div className="pb-2">
@@ -581,15 +614,15 @@ export function HeroStage() {
               const Icon = item.icon;
               return (
                 <button
+                  aria-controls="hero-panel"
                   aria-selected={selected}
-                  className="group flex cursor-pointer items-center justify-center px-2"
+                  className="group flex cursor-pointer items-center justify-center px-2 outline-none [&:focus-visible>span]:ring-[3px] [&:focus-visible>span]:ring-ring/80"
                   id={`hero-tab-${item.id}`}
                   key={item.id}
-                  onClick={() => {
-                    setView(item.id);
-                    playClick();
-                  }}
+                  onClick={() => selectView(item.id)}
+                  onKeyDown={onTabKeyDown}
                   role="tab"
+                  tabIndex={selected ? 0 : -1}
                   type="button"
                 >
                   <span
@@ -615,6 +648,7 @@ export function HeroStage() {
           <div
             aria-labelledby={`hero-tab-${view}`}
             className="relative aspect-auto min-h-[33rem] origin-top overflow-hidden rounded-xl border-4 border-transparent border-l-8 bg-card shadow ring-1 ring-foreground/5 sm:aspect-[3/2] sm:min-h-0 dark:bg-background"
+            id="hero-panel"
             role="tabpanel"
           >
             <motion.div
@@ -661,7 +695,7 @@ function LandingView() {
 
       <div className="relative z-20 flex shrink-0 justify-center bg-background px-4">
         <div className="relative flex flex-wrap items-center justify-center gap-2 py-1">
-          <span className="rounded-full bg-foreground px-2 py-0.5 text-[10px] text-background">
+          <span className="rounded-full bg-foreground px-2 py-0.5 text-[11px] text-background">
             New
           </span>
           <button
@@ -760,7 +794,7 @@ function LandingView() {
       <div className="relative z-20 grid shrink-0 grid-cols-3 gap-2 overflow-hidden bg-background px-4 py-3 md:grid-cols-6 md:px-6">
         {LOGO_STRIP.map((name) => (
           <div className="flex h-8 items-center justify-center" key={name}>
-            <span className="select-none truncate font-medium text-[10px] text-foreground/45 tracking-wide md:text-xs">
+            <span className="select-none truncate font-medium text-[11px] text-foreground/60 tracking-wide md:text-xs">
               {name}
             </span>
           </div>
@@ -855,7 +889,7 @@ function DashboardView() {
             <p className="truncate font-medium text-foreground text-xs">
               {stackPhotos[0]?.name ?? "Maya Solis"}
             </p>
-            <p className="truncate text-[10px] text-muted-foreground">Admin</p>
+            <p className="truncate text-[11px] text-muted-foreground">Admin</p>
           </div>
         </div>
       </aside>
@@ -1098,7 +1132,7 @@ function DashboardView() {
                               ) : "mark" in item ? (
                                 <span
                                   className={cn(
-                                    "grid size-7 shrink-0 place-items-center rounded-full font-medium text-[10px]",
+                                    "grid size-7 shrink-0 place-items-center rounded-full font-medium text-[11px]",
                                     item.markClass
                                   )}
                                 >
@@ -1111,7 +1145,7 @@ function DashboardView() {
                                   name={item.title}
                                 />
                               ) : (
-                                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-muted font-medium text-[10px] text-foreground">
+                                <span className="grid size-7 shrink-0 place-items-center rounded-full bg-muted font-medium text-[11px] text-foreground">
                                   ·
                                 </span>
                               )}
@@ -1119,7 +1153,7 @@ function DashboardView() {
                                 <p className="truncate text-foreground text-xs">
                                   {item.title}
                                 </p>
-                                <p className="truncate text-[10px] text-muted-foreground">
+                                <p className="truncate text-[11px] text-muted-foreground">
                                   {item.meta}
                                 </p>
                               </div>
@@ -1159,7 +1193,7 @@ function DashboardView() {
                       </p>
                       <span
                         className={cn(
-                          "rounded-full px-1.5 py-0.5 text-[10px]",
+                          "rounded-full px-1.5 py-0.5 text-[11px]",
                           project.tone === "ok" &&
                             "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
                           project.tone === "pending" &&
@@ -1208,13 +1242,13 @@ function DashboardView() {
                         {" · "}
                         {deploy.commit}
                       </p>
-                      <p className="truncate text-[10px] text-muted-foreground">
+                      <p className="truncate text-[11px] text-muted-foreground">
                         {deploy.branch} · {deploy.time}
                       </p>
                     </div>
                     <span
                       className={cn(
-                        "shrink-0 rounded-full px-1.5 py-0.5 text-[10px]",
+                        "shrink-0 rounded-full px-1.5 py-0.5 text-[11px]",
                         deploy.tone === "ok" &&
                           "bg-emerald-500/15 text-emerald-700 dark:text-emerald-400",
                         deploy.tone === "pending" &&

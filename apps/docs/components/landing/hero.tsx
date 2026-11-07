@@ -1,5 +1,6 @@
 "use client";
 
+import { CommandCopy } from "@docs/components/landing/command-copy";
 import { HeroDither } from "@docs/components/landing/hero-dither";
 import { HeroStage } from "@docs/components/landing/hero-stage";
 import { Button } from "@docs/components/smoothbutton";
@@ -15,6 +16,8 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
 
 preload(BACKGROUND_SRC, { as: "image", fetchPriority: "high" });
+
+const INSTALL_COMMAND = "npx shadcn@latest add @smoothui/siri-orb";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -95,7 +98,7 @@ export function Hero() {
               <Button
                 asChild
                 onClick={() => playClick()}
-                size="sm"
+                size="lg"
                 variant="candy"
               >
                 <Link href="/docs/primitives">Browse primitives</Link>
@@ -103,11 +106,22 @@ export function Hero() {
               <Button
                 asChild
                 onClick={() => playClick()}
-                size="sm"
+                size="lg"
                 variant="outline"
               >
                 <Link href="/docs/guides">Read the docs</Link>
               </Button>
+            </div>
+
+            {/* The one thing a visitor needs to try it: the install command. */}
+            <div className="mt-6 inline-flex max-w-full items-center gap-1 rounded-lg border border-border bg-background/80 py-0.5 pl-4 font-mono text-muted-foreground text-sm backdrop-blur-sm">
+              <code className="truncate">
+                <span aria-hidden="true" className="select-none">
+                  ${" "}
+                </span>
+                {INSTALL_COMMAND}
+              </code>
+              <CommandCopy command={INSTALL_COMMAND} />
             </div>
 
             <a

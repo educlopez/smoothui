@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -37,7 +38,7 @@ export default function SharedAxisY({
   return (
     <span
       aria-live="polite"
-      className={`inline-flex flex-wrap gap-x-[0.25em] ${className}`}
+      className={cn("inline-flex flex-wrap gap-x-[0.25em]", className)}
     >
       <AnimatePresence mode="wait">
         <motion.span

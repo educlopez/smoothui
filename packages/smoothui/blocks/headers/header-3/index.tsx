@@ -32,7 +32,7 @@ interface HeroShowcaseProps {
 
 export function HeroShowcase({
   heading = "Build beautiful UIs, effortlessly.",
-  description = "Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.",
+  description = "SmoothUI gives you the building blocks to create stunning, animated interfaces in minutes.",
   buttons = {
     primary: {
       text: "Get Started",
@@ -125,13 +125,23 @@ export function HeroShowcase({
                 </span>
                 <div>
                   <div className="flex items-center gap-1">
+                    {/* Stars follow the rating (filled up to the rounded
+                        value) and are read as one sentence. */}
+                    <span className="sr-only">
+                      Rated {reviews.rating?.toFixed(1)} out of 5
+                    </span>
                     {[1, 2, 3, 4, 5].map((starNumber) => (
                       <Star
-                        className="size-5 fill-yellow-400 text-yellow-400"
+                        aria-hidden="true"
+                        className={
+                          starNumber <= Math.round(reviews.rating ?? 0)
+                            ? "size-5 fill-warning text-warning"
+                            : "size-5 text-foreground/25"
+                        }
                         key={`star-${starNumber}`}
                       />
                     ))}
-                    <span className="mr-1 font-semibold">
+                    <span aria-hidden="true" className="mr-1 font-semibold">
                       {reviews.rating?.toFixed(1)}
                     </span>
                   </div>

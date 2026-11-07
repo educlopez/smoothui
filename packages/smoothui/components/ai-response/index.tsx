@@ -3,6 +3,7 @@
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { Fragment, useEffect, useRef } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 /**
@@ -171,7 +172,7 @@ const AIResponseCaret = ({
     transition={
       shouldReduceMotion
         ? { duration: 0 }
-        : { duration: 1, ease: "linear", repeat: Number.POSITIVE_INFINITY }
+        : { duration: 1, ease: EASE_LINEAR, repeat: Number.POSITIVE_INFINITY }
     }
   />
 );
@@ -210,7 +211,10 @@ const AIResponseCitationPill = ({
   return (
     <motion.a
       {...shared}
-      className={`${shared.className} transition-colors hover:border-foreground/30 hover:text-foreground`}
+      className={cn(
+        shared.className,
+        "transition-colors hover:border-foreground/30 hover:text-foreground"
+      )}
       href={citation.url}
       rel="noopener noreferrer"
       target="_blank"

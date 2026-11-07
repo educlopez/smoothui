@@ -41,7 +41,7 @@ interface FooterComplexProps {
 }
 
 export function FooterComplex({
-  companyName = "Smoothui",
+  companyName = "SmoothUI",
   description = "Build beautiful UIs, effortlessly. The modern way to create stunning interfaces with smooth animations.",
   newsletter = {
     buttonText: "Subscribe",
@@ -86,7 +86,7 @@ export function FooterComplex({
     twitter: "https://twitter.com",
     youtube: "https://youtube.com",
   },
-  copyright = "© 2024 Smoothui. All rights reserved.",
+  copyright = "© 2024 SmoothUI. All rights reserved.",
 }: FooterComplexProps) {
   const shouldReduceMotion = useReducedMotion();
   const socialHover = shouldReduceMotion ? {} : { scale: HOVER_SCALE };

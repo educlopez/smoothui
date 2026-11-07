@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronUp, CircleX, Share } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
@@ -102,9 +103,10 @@ export default function ImageMetadataPreview({
                     : { filter: "blur(0px)", opacity: 1 }
                 }
                 aria-label="Open Metadata Preview"
-                className={`min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${
+                className={cn(
+                  "min-h-[44px] min-w-[44px] border bg-background p-3 shadow-xs transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                   isHoverDevice ? "hover:bg-muted" : ""
-                }`}
+                )}
                 initial={
                   shouldReduceMotion
                     ? { opacity: 1 }

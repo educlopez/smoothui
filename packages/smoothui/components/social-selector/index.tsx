@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 
@@ -107,18 +108,19 @@ export default function SocialSelector({
   const selectedPlatform = controlledSelected ?? internalSelected;
 
   return (
-    <div className={`mx-auto my-4 w-full max-w-2xl text-center ${className}`}>
+    <div className={cn("mx-auto my-4 w-full max-w-2xl text-center", className)}>
       <div className="space-y-6">
         <div className="flex items-center justify-center">
           <div className="relative flex w-fit items-center justify-center gap-4">
             {platforms.map((platform) => (
               <button
                 aria-label={`Select ${platform.name} platform`}
-                className={`relative z-10 cursor-pointer rounded-full p-2 transition-colors ${
+                className={cn(
+                  "relative z-10 cursor-pointer rounded-full p-2 transition-colors",
                   selectedPlatform.name === platform.name
                     ? "fill-foreground"
                     : "fill-primary-foreground hover:bg-primary"
-                }`}
+                )}
                 key={platform.name}
                 onClick={() => {
                   setInternalSelected(platform);

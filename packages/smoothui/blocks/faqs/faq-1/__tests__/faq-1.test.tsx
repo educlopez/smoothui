@@ -3,8 +3,8 @@ import { axe } from "vitest-axe";
 import { render, screen } from "../../../../test-utils/render";
 import Block from "../index";
 
-const INSTALL_ANSWER = /You can install Smoothui using npm or yarn/;
-const INSTALL_QUESTION = /How do I install Smoothui/;
+const INSTALL_ANSWER = /Install any component with the shadcn CLI/;
+const INSTALL_QUESTION = /How do I install SmoothUI/;
 
 describe("Faq1", () => {
   it("renders without throwing", () => {

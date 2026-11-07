@@ -471,7 +471,7 @@
 }
 
 .mobile-navbar-link {
-  @apply text-foreground hover:bg-primary flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors;
+  @apply text-foreground hover:bg-muted/50 flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors;
 }
 
 .mobile-navbar-footer {

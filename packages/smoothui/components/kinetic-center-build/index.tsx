@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -85,7 +86,7 @@ export default function KineticCenterBuild({
   return (
     <span
       aria-live="polite"
-      className={`flex flex-wrap items-center justify-center ${className}`}
+      className={cn("flex flex-wrap items-center justify-center", className)}
       style={{ gap: 10 }}
     >
       <AnimatePresence mode="popLayout">

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
+import { EASE_LINEAR } from "../../lib/animation";
 
 export interface ShineTextProps {
   /** Base text color (any CSS color). */
@@ -52,7 +53,7 @@ export default function ShineText({
       }}
       transition={{
         duration,
-        ease: "linear",
+        ease: EASE_LINEAR,
         repeat: Number.POSITIVE_INFINITY,
         repeatDelay,
       }}

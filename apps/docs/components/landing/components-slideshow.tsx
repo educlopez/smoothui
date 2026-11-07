@@ -80,14 +80,14 @@ export function ComponentsSlideshow() {
         ))}
       </div>
       <div className="mx-auto mt-8 flex justify-center">
-        <Button asChild size="lg" variant="candy">
+        <Button asChild size="lg" variant="outline">
           <Link href="/docs/components">
             <span className="flex items-center gap-1">
               <span>View all components</span>
             </span>
             <svg
               aria-hidden="true"
-              className="-mx-1.5 size-5 shrink-0 text-white/72"
+              className="-mx-1.5 size-5 shrink-0 text-muted-foreground"
               fill="none"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"

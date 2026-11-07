@@ -431,8 +431,8 @@ export function FormMessage({ className, children }: FormMessageProps) {
             }
           >
             <motion.span
-              animate={shouldReduceMotion ? {} : { scale: 1 }}
-              initial={shouldReduceMotion ? {} : { scale: 0 }}
+              animate={shouldReduceMotion ? {} : { opacity: 1, scale: 1 }}
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }}
               transition={
                 shouldReduceMotion
                   ? DURATION_INSTANT

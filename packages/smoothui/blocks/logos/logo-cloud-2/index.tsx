@@ -32,7 +32,7 @@ interface LogoCloudAnimatedProps {
 
 export function LogoCloudAnimated({
   title = "Trusted by the world's most innovative teams",
-  description = "Join thousands of developers and designers who are already building with Smoothui",
+  description = "Join thousands of developers and designers who are already building with SmoothUI",
   logos = [
     { logo: Canpoy, name: "Canpoy", url: "https://canpoy.com" },
     { logo: Canva, name: "Canva", url: "https://canva.com" },

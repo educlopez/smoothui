@@ -157,14 +157,14 @@ export function HeroGrid() {
                 className="mb-6 text-pretty font-bold text-2xl tracking-tight lg:text-5xl"
               >
                 Build your next project with{" "}
-                <span className="text-brand">Smoothui</span>
+                <span className="text-brand">SmoothUI</span>
               </AnimatedText>
               <AnimatedText
                 as="p"
                 className="mx-auto max-w-3xl text-muted-foreground lg:text-xl"
                 delay={0.15}
               >
-                Smoothui gives you the building blocks to create stunning,
+                SmoothUI gives you the building blocks to create stunning,
                 animated interfaces in minutes.
               </AnimatedText>
             </div>

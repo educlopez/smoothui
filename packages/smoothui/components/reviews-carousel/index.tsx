@@ -267,7 +267,7 @@ export default function ReviewsCarousel({
                 <button
                   aria-label={`Ir al testimonio ${index + 1}`}
                   className={cn(
-                    "h-2 rounded-full transition-all duration-200",
+                    "h-2 rounded-full transition-[width,background-color] duration-200",
                     index === activeIndex
                       ? "w-8 bg-brand"
                       : "w-2 bg-brand/30 hover:bg-brand/50"
