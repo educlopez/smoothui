@@ -8,6 +8,11 @@
   --color-brand-light: var(--color-brand-light);
   --color-brand-lighter: var(--color-brand-lighter);
   --color-on-brand: var(--color-on-brand);
+  --color-brand-ink: var(--color-brand-ink);
+  --color-amber-ink: var(--color-amber-ink);
+  --color-green-ink: var(--color-green-ink);
+  --color-blue-ink: var(--color-blue-ink);
+  --color-destructive-ink: var(--color-destructive-ink);
   --color-destructive-fg: var(--color-destructive-fg);
   --color-destructive-hover: var(--color-destructive-hover);
   --color-destructive-top: var(--color-destructive-top);
@@ -117,6 +122,15 @@
   --color-green: oklch(0.7 0.17 152);
   --color-green-hover: oklch(0.64 0.18 152);
   --color-green-fg: var(--color-smooth-1000);
+  /* Text-role inks: the coloured fills (brand, amber, green, blue,
+     destructive) are too light to be text on white. These darker tones carry
+     the same hue at 4.5:1 or more on the canvas, white and the soft 12% tint.
+     Use them for coloured TEXT; keep the fill tokens for backgrounds. */
+  --color-brand-ink: oklch(0.54 0.2 352.53);
+  --color-amber-ink: oklch(0.5 0.12 75);
+  --color-green-ink: oklch(0.5 0.14 152);
+  --color-blue-ink: oklch(0.5 0.2 256);
+  --color-destructive-ink: oklch(0.5 0.2 27);
   /* Status roles. Same lightness logic as the button families. */
   --color-success: oklch(0.7 0.17 152);
   --color-success-foreground: var(--color-smooth-1000);
@@ -203,6 +217,12 @@
   --color-green: oklch(0.73 0.16 152);
   --color-green-hover: oklch(0.79 0.15 152);
   --color-green-fg: oklch(0.2 0 0);
+  /* Text-role inks on dark surfaces: the lifted fills already read. */
+  --color-brand-ink: var(--color-brand);
+  --color-amber-ink: var(--color-amber);
+  --color-green-ink: var(--color-green);
+  --color-blue-ink: oklch(0.7 0.15 256);
+  --color-destructive-ink: var(--destructive);
   --color-success: oklch(0.73 0.16 152);
   --color-success-foreground: oklch(0.2 0 0);
   --color-warning: oklch(0.8 0.15 75);

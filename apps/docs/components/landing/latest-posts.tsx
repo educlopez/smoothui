@@ -55,13 +55,13 @@ export async function LatestPosts() {
                   <span aria-hidden="true">·</span>
                   <span>{readingTime} min read</span>
                 </div>
-                <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand">
+                <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand-ink">
                   {post.data.title}
                 </h3>
                 <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
                   {post.data.description}
                 </p>
-                <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand text-sm">
+                <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand-ink text-sm">
                   Read
                   <IconChevronRightFill24
                     aria-hidden="true"

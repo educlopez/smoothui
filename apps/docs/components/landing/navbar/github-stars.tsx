@@ -59,7 +59,7 @@ export function GithubStars({
     <Link
       className={cn(
         "flex items-center gap-2 font-medium text-sm transition-colors",
-        compact ? "text-foreground" : "hover:text-brand",
+        compact ? "text-foreground" : "hover:text-brand-ink",
         className
       )}
       href={githubUrl}

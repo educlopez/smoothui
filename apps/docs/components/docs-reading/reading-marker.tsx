@@ -9,7 +9,6 @@ import { isDemoHeading, useDemoSync } from "./demo-sync";
 const BAND = 0.32;
 
 /** What the sections that are not being read fade back to. */
-const RESTING = "0.55";
 
 /** How much of the top of the window the navbar covers. */
 const BAR = 96;
@@ -140,11 +139,6 @@ export const ReadingMarker = ({ children, className }: ReadingMarkerProps) => {
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const ease = "cubic-bezier(0.32, 0.72, 0, 1)";
 
-    for (const block of blocks) {
-      block.style.transition = motion.matches
-        ? "none"
-        : `opacity 300ms ${ease}`;
-    }
     if (rule) {
       rule.style.transition = motion.matches
         ? "opacity 200ms linear"
@@ -159,11 +153,8 @@ export const ReadingMarker = ({ children, className }: ReadingMarkerProps) => {
       }
       current = index;
 
-      for (const [i, group] of groups.entries()) {
-        for (const block of group) {
-          block.style.opacity = i === index ? "1" : RESTING;
-        }
-      }
+      // The rule alone marks the reading position. Dimming the other blocks
+      // pushed visible text below 4.5:1 (axe: 337 contrast failures).
 
       // Prefer the deepest heading in the group (h3 over h2) so a Variants
       // section that already named a leaf like "Orb" drives that leaf, not the
@@ -250,10 +241,6 @@ export const ReadingMarker = ({ children, className }: ReadingMarkerProps) => {
     return () => {
       source.removeEventListener("scroll", measure);
       observer.disconnect();
-      for (const block of blocks) {
-        block.style.transition = "";
-        block.style.opacity = "";
-      }
     };
   }, []);
 

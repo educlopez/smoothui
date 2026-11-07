@@ -45,7 +45,7 @@
   --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
   --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-b.png");
-  --color-fd-primary: var(--color-brand);
+  --color-fd-primary: var(--color-brand-ink);
   --color-fd-secondary: var(--color-smooth-50);
   /* Motion spine — match .cursor/rules/animations.mdc. Exit ~75% of enter;
      always honor prefers-reduced-motion. See .ui-craft/tokens.md. */
@@ -500,9 +500,11 @@ html[data-split-docs] #nd-toc-popover {
     grid-template-columns: 0px 0px 1fr 0px 0px !important;
   }
 }
+/* Below xl the TOC is hidden (the popover replaces it), so no column is
+   reserved for it: the article gets the width back. */
 @media (min-width: 768px) and (max-width: 1279px) {
   #nd-notebook-layout {
-    grid-template-columns: 0px var(--fd-sidebar-col) 1fr var(--fd-toc-width) 0px !important;
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
   }
 
   #nd-notebook-layout:has(#nd-page[data-full="true"]) {
@@ -618,4 +620,12 @@ html[data-split-docs] #nd-toc-popover {
   ::view-transition-new(*) {
     animation: none !important;
   }
+}
+
+/* Fumadocs accordion triggers only tint their parent on focus (about 1.2:1).
+   Give them the project's focus ring, inset because the card clips overflow.
+   Unlayered, so it beats the trigger's focus-visible:outline-none utility. */
+#nd-page button[aria-controls][aria-expanded]:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: -2px;
 }

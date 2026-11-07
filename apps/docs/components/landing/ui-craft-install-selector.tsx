@@ -110,7 +110,7 @@ export function UiCraftInstallSelector({
         <DropdownMenu>
           <DropdownMenuTrigger className="inline-flex shrink-0 items-center gap-1.5 rounded-lg px-2 py-1 font-medium text-foreground text-sm transition-colors hover:bg-muted/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
             <MethodIcon className="text-muted-foreground" icon={method.Icon} />
-            <span>{method.label}</span>
+            <span className="max-sm:sr-only">{method.label}</span>
             <IconChevronDownFill24
               aria-hidden
               className="size-3.5 text-muted-foreground"
@@ -166,7 +166,9 @@ export function UiCraftInstallSelector({
         </span>
 
         <span
-          className="relative block min-w-0 max-w-[min(100vw-12rem,28rem)] overflow-hidden"
+          // Narrow screens: the label collapses to its icon for room, and the
+          // fade tells people the command continues past the edge.
+          className="max-sm:mask-r-from-[calc(100%-1.5rem)] relative block min-w-0 max-w-[min(100vw-8rem,28rem)] overflow-hidden"
           ref={wrapRef}
           style={
             shouldReduceMotion
