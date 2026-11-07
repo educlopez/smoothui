@@ -87,7 +87,7 @@ export const BlockGallery = ({ categories }: BlockGalleryProps) => {
           </p>
           <Link
             aria-label={`${category.title}, ${category.count} blocks`}
-            className="absolute inset-0 z-10"
+            className="absolute inset-0 z-10 rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/80 focus-visible:ring-inset"
             href={category.href}
           />
         </motion.article>

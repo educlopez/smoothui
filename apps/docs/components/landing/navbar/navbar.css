@@ -516,3 +516,17 @@
     animation: none !important;
   }
 }
+
+/* Keyboard focus. The resting rules above drop the outline, so every
+   focusable navbar element gets the shared 3px ring back on :focus-visible.
+   The callouts sit on the brand gradient, so they use an offset ring. */
+.trigger:focus-visible,
+.link:focus-visible,
+.list-item-link:focus-visible {
+  @apply ring-[3px] ring-ring/80;
+}
+
+.callout:focus-visible,
+.callout-compact:focus-visible {
+  @apply ring-[3px] ring-ring/80 ring-offset-2 ring-offset-background;
+}

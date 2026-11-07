@@ -30,6 +30,9 @@ const SIZE_TO_PERCENT: Record<PreviewSize, string> = {
 };
 
 const BLOCK_PREVIEW_MIN_HEIGHT_REM = 32;
+// Tailwind only generates classes it can read literally in the source, so the
+// min-height class is spelled out. Keep it equal to BLOCK_PREVIEW_MIN_HEIGHT_REM.
+const BLOCK_PREVIEW_MIN_HEIGHT_CLASS = "min-h-[32rem]";
 const COMPONENT_PANEL_MIN_SIZE = "40%";
 const BLOCK_PANEL_MIN_SIZE = "30%";
 const IFRAME_MIN_HEIGHT_REM = 32;
@@ -175,7 +178,7 @@ export const PreviewContent = ({
         "flex-col",
         type === "component"
           ? "size-full"
-          : `h-auto min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
+          : `h-auto ${BLOCK_PREVIEW_MIN_HEIGHT_CLASS}`
       )}
     >
       <ResizablePanelGroup
@@ -197,7 +200,7 @@ export const PreviewContent = ({
                   "h-auto",
                   "overflow-hidden!",
                   "w-full",
-                  `min-h-[${BLOCK_PREVIEW_MIN_HEIGHT_REM}rem]`
+                  BLOCK_PREVIEW_MIN_HEIGHT_CLASS
                 )
           )}
           defaultSize="100%"
