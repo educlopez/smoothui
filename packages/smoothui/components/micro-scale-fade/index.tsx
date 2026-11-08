@@ -17,7 +17,7 @@ const MS = 1000;
 const EASE = [0.32, 0.72, 0, 1] as const;
 
 /**
- * MicroScaleFade — calm, tiny scale pop used as subtle premium polish for
+ * MicroScaleFade — calm, tiny scale pop used as subtle polish for
  * labels and headings. The whole text animates as a single element from
  * scale 0.96 to 1. From the animate-text catalog (`micro-scale-fade`).
  * Best for single words or short titles.

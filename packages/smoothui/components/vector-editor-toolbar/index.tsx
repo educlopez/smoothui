@@ -457,7 +457,7 @@ export default function VectorEditorToolbar({
                 aria-pressed={isActive}
                 className={cn(
                   "absolute inset-0 flex cursor-pointer items-center justify-center rounded-xl text-foreground/60",
-                  "transition-[color,transform] duration-150 ease-out active:scale-[0.92]",
+                  "transition-[color,transform] duration-150 ease-out active:scale-[0.97]",
                   "hover:text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand focus-visible:outline-offset-2",
                   "motion-reduce:transition-none motion-reduce:active:scale-100",
                   isActive && "text-foreground"

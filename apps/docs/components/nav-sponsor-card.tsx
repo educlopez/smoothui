@@ -93,11 +93,12 @@ export function NavSponsorCard() {
         <div className="absolute right-1 bottom-1 flex gap-0.5">
           {sidebarSponsors.map((sponsor: Sponsor, index: number) => (
             <div
-              className="h-0.5 rounded-full bg-foreground/30 transition-all duration-300 ease-out"
+              className="h-0.5 w-1.5 rounded-full bg-foreground/30 transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none"
               key={sponsor.name}
               style={{
                 opacity: index === currentIndex ? 1 : 0.3,
-                width: index === currentIndex ? "6px" : "2px",
+                transform:
+                  index === currentIndex ? "scaleX(1)" : "scaleX(0.34)",
               }}
             />
           ))}

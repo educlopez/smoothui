@@ -320,7 +320,7 @@ function StudioSidebar({
           <button
             aria-pressed={mode === entry}
             className={cn(
-              "flex h-7 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md font-medium text-[13px] capitalize transition-all",
+              "state-transition flex h-7 flex-1 cursor-pointer items-center justify-center gap-1.5 rounded-md font-medium text-[13px] capitalize",
               mode === entry
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -344,7 +344,7 @@ function StudioSidebar({
           <button
             aria-pressed={font === option.id}
             className={cn(
-              "flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              "state-transition flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px]",
               font === option.id
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"
@@ -364,7 +364,7 @@ function StudioSidebar({
           <button
             aria-pressed={tint === option.id}
             className={cn(
-              "flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px] transition-all",
+              "state-transition flex h-7 flex-1 cursor-pointer items-center justify-center rounded-md font-medium text-[13px]",
               tint === option.id
                 ? "bg-foreground/10 text-foreground"
                 : "text-muted-foreground"

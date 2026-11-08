@@ -497,7 +497,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               }}
               type="button"
               whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
+              whileTap={{ scale: 0.97 }}
             />
           ))}
         </div>

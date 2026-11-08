@@ -22,7 +22,6 @@
       "scale",
       "fade",
       "whole",
-      "premium",
       "animated"
     ],
     "complexity": "simple",
@@ -30,7 +29,7 @@
     "useCases": [
       "Apple system status copy and secondary UI labels",
       "Lightweight onboarding micro-animations",
-      "Single word or short title premium entrance"
+      "Single word or short title entrance"
     ],
     "compositionHints": [
       "Use for single words or short titles",

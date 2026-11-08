@@ -16,7 +16,7 @@ export function SponsorCard({ sponsor, tier }: SponsorCardProps) {
 
   return (
     <Link
-      className={`group not-prose relative flex flex-col gap-4 rounded-lg border p-6 transition-all duration-200 ease-out ${
+      className={`group not-prose relative flex flex-col gap-4 rounded-lg border p-6 transition-[border-color,box-shadow] duration-200 ease-out ${
         isVelocity
           ? "border-brand/30 bg-linear-to-br from-brand/20 via-brand/10 to-background hover:border-brand/50 hover:shadow-brand/10 hover:shadow-xl"
           : "border-border bg-linear-to-br from-background via-background to-brand/5 hover:border-brand/20 hover:shadow-brand/5 hover:shadow-lg"

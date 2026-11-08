@@ -262,7 +262,7 @@ export function InteractiveAvatarTutorial({
             {STEPS.map((step, idx) => (
               <section
                 className={cn(
-                  "relative cursor-pointer scroll-mt-32 rounded-xl p-4 transition-all",
+                  "state-transition relative cursor-pointer scroll-mt-32 rounded-xl p-4",
                   "hover:bg-muted/50",
                   currentStep === step.id && "bg-muted/30"
                 )}
