@@ -29,7 +29,7 @@
     "useCases": [
       "Punctuate major route or state changes",
       "Wrap onboarding, checkout, or publish flows",
-      "Make demos and previews feel more premium"
+      "Transition between demo or preview states"
     ],
     "compositionHints": [
       "Use sparingly for meaningful changes only",

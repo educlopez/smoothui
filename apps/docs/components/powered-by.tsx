@@ -71,7 +71,7 @@ export const PoweredBy = ({ packages }: PoweredByProps) => (
             )}
             {isValidUrl ? (
               <a
-                className="transition-all hover:text-primary"
+                className="transition-colors hover:text-primary"
                 href={url}
                 rel="noopener"
                 target="_blank"

@@ -17,13 +17,13 @@ export function Sponsors() {
             <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-linear-to-br from-background via-background to-brand/10 px-4 py-2">
               <IconHeartFill24 className="h-4 w-4 fill-red-500 text-red-500" />
               <span className="font-medium text-foreground text-sm">
-                Thank You to Our Sponsors
+                Thank you to our sponsors
               </span>
             </div>
-            <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground transition">
-              Our Amazing Sponsors
+            <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground md:text-4xl">
+              Our sponsors
             </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-foreground/70 text-lg">
+            <p className="mx-auto mt-4 max-w-2xl text-balance text-muted-foreground">
               We&apos;re incredibly grateful to our sponsors who help make
               SmoothUI possible.
             </p>

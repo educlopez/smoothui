@@ -53,7 +53,7 @@ const blockCategories: {
   {
     href: "/docs/blocks/logo-clouds",
     preview: LogosBlockDrawing,
-    title: "Logo Clouds",
+    title: "Logo clouds",
   },
   {
     href: "/docs/blocks/stats",
@@ -63,7 +63,7 @@ const blockCategories: {
   {
     href: "/docs/blocks/team-sections",
     preview: TeamBlockDrawing,
-    title: "Team Sections",
+    title: "Team sections",
   },
 ];
 
@@ -161,7 +161,7 @@ export function BlockCategories() {
           >
             <Link href="/docs/blocks">
               <span className="flex items-center gap-1">
-                <span>Browse All Blocks</span>
+                <span>Browse all blocks</span>
               </span>
               <svg
                 aria-hidden="true"

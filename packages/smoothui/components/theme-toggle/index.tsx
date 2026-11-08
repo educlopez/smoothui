@@ -592,7 +592,7 @@ const CycleButton = ({
     aria-label={ariaLabel}
     aria-pressed={ariaPressed}
     className={cn(
-      "inline-flex cursor-pointer items-center justify-center rounded-full transition-transform duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background active:scale-95 motion-reduce:transition-none motion-reduce:active:scale-100",
+      "inline-flex cursor-pointer items-center justify-center rounded-full transition-transform duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100",
       className
     )}
     onClick={onSelect}

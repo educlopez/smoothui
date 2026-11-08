@@ -230,7 +230,7 @@ export function InteractiveMagneticButtonTutorial({
             {STEPS.map((step) => (
               <section
                 className={cn(
-                  "relative cursor-pointer scroll-mt-32 rounded-xl p-4 transition-all hover:bg-muted/50",
+                  "state-transition relative cursor-pointer scroll-mt-32 rounded-xl p-4 hover:bg-muted/50",
                   currentStep === step.id && "bg-muted/30"
                 )}
                 data-active={currentStep === step.id}

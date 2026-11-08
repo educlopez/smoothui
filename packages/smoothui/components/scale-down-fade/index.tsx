@@ -17,7 +17,7 @@ const MS = 1000;
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**
- * ScaleDownFade — subtle premium settle-in where the text enters slightly
+ * ScaleDownFade — subtle settle-in where the text enters slightly
  * scaled up and drifts down to its natural size. The whole text animates as
  * a single element. From the animate-text catalog (`scale-down-fade`).
  * Safe default for product UIs where copy should feel polished but not animated.

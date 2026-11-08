@@ -208,16 +208,29 @@ function SmoothButton({
       type={props.type ?? "button"}
       {...props}
     >
+      {/* The spinner overlays the label instead of pushing it aside, so the
+          button keeps its width and only opacity and scale animate. */}
+      <span
+        className={cn(
+          "inline-flex items-center justify-center gap-[inherit] transition-opacity duration-150 ease-out motion-reduce:transition-none",
+          loading && "opacity-0"
+        )}
+      >
+        {prefix}
+        {children}
+        {suffix}
+      </span>
       <AnimatePresence initial={false}>
         {loading ? (
           <motion.span
-            animate={{ marginRight: "0.5rem", opacity: 1, width: "1em" }}
-            className="inline-flex shrink-0 items-center justify-center overflow-hidden"
-            exit={{ marginRight: 0, opacity: 0, width: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            aria-hidden="true"
+            className="absolute inset-0 flex items-center justify-center"
+            exit={{ opacity: 0, scale: 0.95 }}
             initial={
               shouldReduceMotion
-                ? { marginRight: "0.5rem", opacity: 1, width: "1em" }
-                : { marginRight: 0, opacity: 0, width: 0 }
+                ? { opacity: 1, scale: 1 }
+                : { opacity: 0, scale: 0.95 }
             }
             key="spinner"
             transition={
@@ -230,9 +243,6 @@ function SmoothButton({
           </motion.span>
         ) : null}
       </AnimatePresence>
-      {prefix}
-      {children}
-      {suffix}
     </button>
   );
 }

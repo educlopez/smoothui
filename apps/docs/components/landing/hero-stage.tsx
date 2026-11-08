@@ -246,7 +246,7 @@ const ACTIVITY = [
     kind: "project" as ActivityKind,
     kpi: "visitors",
     meta: "sparkbites.dev · Production",
-    title: "Deployment Ready — main",
+    title: "Deployment ready — main",
   },
   {
     id: "a2",
@@ -627,7 +627,7 @@ export function HeroStage() {
                 >
                   <span
                     className={cn(
-                      "flex h-10 items-center gap-2 rounded-full px-4 text-sm ring-1 transition-[transform,background-color,color,box-shadow] duration-150 group-active:scale-[0.99] [&>svg]:size-4",
+                      "flex h-10 items-center gap-2 rounded-full px-4 text-sm ring-1 transition-[transform,background-color,color,box-shadow] duration-150 group-active:scale-[0.97] [&>svg]:size-4",
                       selected
                         ? "bg-card text-foreground shadow-md shadow-primary/10 ring-border-illustration"
                         : "bg-background/70 text-foreground/75 ring-foreground/15 group-hover:bg-foreground/5 group-hover:text-foreground group-hover:ring-foreground/25"
@@ -920,7 +920,7 @@ function DashboardView() {
                 aria-expanded={menuOpen}
                 aria-haspopup="menu"
                 aria-label="Account menu"
-                className="inline-flex size-8 items-center justify-center overflow-hidden rounded-full outline-none ring-1 ring-foreground/10 ring-offset-background transition-transform duration-150 hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.98]"
+                className="inline-flex size-8 items-center justify-center overflow-hidden rounded-full outline-none ring-1 ring-foreground/10 ring-offset-background transition-transform duration-150 hover:scale-[1.03] focus-visible:ring-2 focus-visible:ring-ring active:scale-[0.97]"
                 onClick={() => {
                   setMenuOpen((value) => !value);
                   playClick();

@@ -32,7 +32,7 @@
     "useCases": [
       "Hero background with an animated liquid chrome surface",
       "Metallic gradient headline text for landing pages",
-      "Premium card or badge surface with pointer-reactive reflections"
+      "Card or badge surface with pointer-reactive reflections"
     ],
     "compositionHints": [
       "Place headings and CTAs inside as children — they render above the surface",
