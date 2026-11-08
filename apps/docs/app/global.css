@@ -82,6 +82,8 @@
   --shadow-lg: 0 8px 16px -8px rgb(0 0 0 / 0.45);
   --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-w.png");
+  /* fd-primary is the light brand pink in dark mode: pair it with dark ink. */
+  --color-fd-primary-foreground: var(--color-background);
 }
 
 .shadow-sm {
