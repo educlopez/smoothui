@@ -127,9 +127,11 @@ export function HeroShowcase({
                   <div className="flex items-center gap-1">
                     {/* Stars follow the rating (filled up to the rounded
                         value) and are read as one sentence. */}
-                    <span className="sr-only">
-                      Rated {reviews.rating?.toFixed(1)} out of 5
-                    </span>
+                    {reviews.rating === undefined ? null : (
+                      <span className="sr-only">
+                        Rated {reviews.rating.toFixed(1)} out of 5
+                      </span>
+                    )}
                     {[1, 2, 3, 4, 5].map((starNumber) => (
                       <Star
                         aria-hidden="true"

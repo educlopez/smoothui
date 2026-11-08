@@ -78,7 +78,7 @@ export const FilterBar = ({
           className={cn(
             "h-10 w-full rounded-lg border border-border bg-background pr-10 pl-10 text-base text-foreground md:text-sm",
             "placeholder:text-muted-foreground",
-            "focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary",
+            "focus-ring outline-none",
             "transition-colors"
           )}
           onChange={(e) => handleSearchInput(e.target.value)}
