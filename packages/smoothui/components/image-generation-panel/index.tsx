@@ -641,7 +641,7 @@ const ImageGenerationPanel = ({
         {typing ? (
           <p
             aria-hidden="true"
-            className="pointer-events-none absolute top-px right-px left-px whitespace-pre-wrap break-words px-4 pt-3 text-foreground text-sm"
+            className="pointer-events-none absolute top-px right-px left-px whitespace-pre-wrap break-words px-4 pt-3 text-base text-foreground md:text-sm"
           >
             {draft}
             <motion.span
