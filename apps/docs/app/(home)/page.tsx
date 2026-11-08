@@ -56,10 +56,10 @@ export default function Home() {
         <Hero />
         <div className="mx-auto w-full max-w-7xl [&>section]:bg-transparent">
           <SocialProof />
-          <ExploreSections />
           <Suspense fallback={<SectionSkeleton minHeight="600px" />}>
             <ComponentsSlideshow />
           </Suspense>
+          <ExploreSections />
         </div>
       </div>
       <LandingBand muted>

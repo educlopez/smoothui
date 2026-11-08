@@ -11,7 +11,7 @@ export function ExploreSections() {
   return (
     <section className="@container relative bg-background px-8 py-24 transition">
       <SectionHeader
-        description="Drawings of what each area holds — components, blocks, and templates at a glance."
+        description="Primitives, components, blocks and templates. Pick where to start."
         title={
           <>
             Browse Smooth<span className="text-brand-ink">UI</span>

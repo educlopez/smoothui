@@ -272,10 +272,10 @@ export function WhatTheySay() {
           <div className="max-w-2xl">
             {/* Static: the heading should be readable the moment it scrolls in. */}
             <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
-              What they say about us
+              From people who shipped with it
             </h2>
             <p className="mt-4 text-balance text-muted-foreground">
-              See what developers and designers are saying about SmoothUI.
+              What developers and designers say after building with SmoothUI.
             </p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
