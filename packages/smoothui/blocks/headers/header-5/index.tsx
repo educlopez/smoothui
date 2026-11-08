@@ -49,7 +49,11 @@ export function HeroSpotlight() {
               className="absolute h-1 w-1 rounded-full bg-white/20"
               key={`particle-${i}`}
               style={{
-                animation: `pulse ${2 + (i % 3)}s ease-in-out infinite ${(i % 5) * 0.5}s`,
+                // Scoped keyframe name: a global `pulse` would override
+                // Tailwind's animate-pulse on the whole page.
+                animation: shouldReduceMotion
+                  ? "none"
+                  : `header-5-pulse ${2 + (i % 3)}s ease-in-out infinite ${(i % 5) * 0.5}s`,
                 left: `${(i * 37 + 13) % 100}%`,
                 top: `${(i * 53 + 7) % 100}%`,
               }}
@@ -101,7 +105,7 @@ export function HeroSpotlight() {
         </div>
 
         <style>{`
-          @keyframes pulse {
+          @keyframes header-5-pulse {
             0%, 100% { opacity: 0.2; }
             50% { opacity: 0.8; }
           }

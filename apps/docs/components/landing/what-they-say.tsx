@@ -46,7 +46,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
       id: "orcdev",
       name: "OrcDev",
       quote:
-        "Love your project Edu! Keep it up — can't wait to see what you cook next 🔥",
+        "Love your project Edu! Keep it up — can't wait to see what you cook next",
       tweetUrl: "https://x.com/orcdev/status/2007091382784303330",
     },
     image: sceneSrc(landingBackgrounds.testimonialFirst.id, "w-800"),
@@ -56,8 +56,7 @@ const CENTERS: { image: string; data: Testimonial }[] = [
       handle: "@jaykosai",
       id: "jaykosai",
       name: "jeth.eth",
-      quote:
-        "All I can say is 🙌🔥 — planning to build something crazy with it.",
+      quote: "Planning to build something crazy with it.",
       tweetUrl: "https://x.com/jaykosai/status/1919079453017231481",
     },
     image: sceneSrc(landingBackgrounds.testimonialSecond.id, "w-800"),
@@ -108,7 +107,7 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
       handle: "@PeteCapeCod",
       id: "pete",
       name: "Peter Cruckshank",
-      quote: "Checked out SmoothUI — some great stuff! 👏 Great job 👍",
+      quote: "Checked out SmoothUI — some great stuff! Great job.",
       tweetUrl: "https://x.com/PeteCapeCod/status/1962707094395556337",
     },
   },
@@ -116,8 +115,8 @@ const SIDE_SLOTS: { activePage: number; data: Testimonial }[] = [
 
 const PAGE_COUNT = CENTERS.length;
 
-const headerSpring = { bounce: 0.1, duration: 0.35, type: "spring" as const };
-const morphSpring = { bounce: 0.14, duration: 0.55, type: "spring" as const };
+// Layout morph between pages: within the 0.4s / bounce 0.1 caps.
+const morphSpring = { bounce: 0.1, duration: 0.35, type: "spring" as const };
 const fadeTween = { duration: 0.25, ease: [0.23, 1, 0.32, 1] as const };
 
 const PlainCard = ({
@@ -128,7 +127,7 @@ const PlainCard = ({
   compact?: boolean;
 }) => (
   <a
-    className="flex h-full flex-col justify-between rounded-2xl border bg-primary/40 p-4 transition-colors hover:bg-primary"
+    className="flex h-full flex-col justify-between rounded-2xl border bg-card p-4 shadow-sm transition-colors hover:bg-muted/50"
     href={data.tweetUrl}
     rel="noopener noreferrer"
     target="_blank"
@@ -247,7 +246,7 @@ export function WhatTheySay() {
   const mobileSlots = SIDE_SLOTS.filter((s) => s.activePage === page);
 
   const arrowClass =
-    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-primary";
+    "flex size-10 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:bg-muted/50";
 
   const renderCenter = (
     <div className="relative size-full">
@@ -271,44 +270,13 @@ export function WhatTheySay() {
       <div className="mx-auto w-full max-w-7xl">
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
-            <motion.h2
-              className="text-balance font-semibold font-title text-3xl text-foreground"
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "translateY(12px)" }
-              }
-              transition={shouldReduceMotion ? { duration: 0 } : headerSpring}
-              viewport={{ amount: 0.5, once: true }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "translateY(0px)" }
-              }
-            >
+            {/* Static: the heading should be readable the moment it scrolls in. */}
+            <h2 className="text-balance font-semibold font-title text-3xl text-foreground">
               What they say about us
-            </motion.h2>
-            <motion.p
-              className="mt-4 text-foreground/70 text-lg"
-              initial={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 0, transform: "translateY(12px)" }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { ...headerSpring, delay: 0.1 }
-              }
-              viewport={{ amount: 0.5, once: true }}
-              whileInView={
-                shouldReduceMotion
-                  ? { opacity: 1 }
-                  : { opacity: 1, transform: "translateY(0px)" }
-              }
-            >
+            </h2>
+            <p className="mt-4 text-foreground/70 text-lg">
               See what developers and designers are saying about SmoothUI.
-            </motion.p>
+            </p>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <button

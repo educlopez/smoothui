@@ -3,13 +3,14 @@
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
+import type { ComponentPropsWithRef } from "react";
 import {
   PRESS_SCALE,
   PRESS_TRANSITION,
   SPRING_SNAPPY,
 } from "../../lib/animation";
 
-export interface ToggleProps {
+interface ToggleOwnProps {
   /** Accessible name when no visible text */
   "aria-label"?: string;
   /** Children rendered inside the toggle */
@@ -28,6 +29,18 @@ export interface ToggleProps {
   value?: string;
 }
 
+/**
+ * Native `<button>` attributes forwarded to the control: `ref`, `aria-*`,
+ * `data-*`, `onBlur`, `onFocus` and the rest, so form libraries and error
+ * wiring (`aria-describedby`, `aria-invalid`) reach the element.
+ */
+type ToggleNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  keyof ToggleOwnProps | "defaultValue" | "onChange" | "type"
+>;
+
+export type ToggleProps = ToggleOwnProps & ToggleNativeProps;
+
 const MotionButton = motion.button;
 
 /**
@@ -43,11 +56,13 @@ export default function Toggle({
   onPressedChange,
   pressed,
   value,
+  ...props
 }: ToggleProps) {
   const shouldReduceMotion = useReducedMotion();
 
   return (
     <TogglePrimitive
+      {...props}
       aria-label={ariaLabel}
       className={cn(
         "pointer-coarse:after:-translate-1/2 relative inline-flex h-9 shrink-0 select-none items-center justify-center gap-2 rounded-md border border-transparent px-3 font-medium text-sm outline-none pointer-coarse:after:absolute pointer-coarse:after:top-1/2 pointer-coarse:after:left-1/2 pointer-coarse:after:size-full pointer-coarse:after:min-h-10 pointer-coarse:after:min-w-10 pointer-coarse:after:content-['']",

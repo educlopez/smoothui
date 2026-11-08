@@ -8,6 +8,7 @@ import {
   Trigger as PopoverTrigger,
 } from "@radix-ui/react-popover";
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { Clock, ExternalLink, Play } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 
@@ -130,7 +131,7 @@ export default function RichTooltip({
         <PopoverContent
           align={align}
           asChild
-          className={`z-50 ${className}`}
+          className={cn("z-50", className)}
           side={side}
           sideOffset={8}
         >

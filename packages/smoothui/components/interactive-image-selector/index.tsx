@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { Share2, Trash2 } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useCallback, useState } from "react";
@@ -69,11 +70,8 @@ export default function InteractiveImageSelector({
       const newSelected = selected.includes(id)
         ? selected.filter((imgId) => imgId !== id)
         : [...selected, id];
-      if (onChange) {
-        onChange(newSelected);
-      } else {
-        setInternalSelected(newSelected);
-      }
+      setInternalSelected(newSelected);
+      onChange?.(newSelected);
     },
     [isSelecting, selected, onChange]
   );
@@ -86,11 +84,8 @@ export default function InteractiveImageSelector({
       onDelete(selected);
     }
     setInternalImages(newImages);
-    if (onChange) {
-      onChange([]);
-    } else {
-      setInternalSelected([]);
-    }
+    setInternalSelected([]);
+    onChange?.([]);
   }, [selected, internalImages, onDelete, onChange]);
 
   const handleReset = useCallback(() => {
@@ -99,11 +94,8 @@ export default function InteractiveImageSelector({
     // Add a small delay to show the reset animation
     setTimeout(() => {
       setInternalImages(originalImages);
-      if (onChange) {
-        onChange([]);
-      } else {
-        setInternalSelected([]);
-      }
+      setInternalSelected([]);
+      onChange?.([]);
       setIsSelecting(false);
       setIsResetting(false);
     }, RESET_DELAY);
@@ -112,11 +104,8 @@ export default function InteractiveImageSelector({
   const toggleSelecting = useCallback(() => {
     setIsSelecting((prev) => !prev);
     if (isSelecting) {
-      if (onChange) {
-        onChange([]);
-      } else {
-        setInternalSelected([]);
-      }
+      setInternalSelected([]);
+      onChange?.([]);
     }
   }, [isSelecting, onChange]);
 
@@ -128,7 +117,10 @@ export default function InteractiveImageSelector({
 
   return (
     <div
-      className={`relative flex h-full w-full max-w-[500px] flex-col justify-between p-4 ${className}`}
+      className={cn(
+        "relative flex h-full w-full max-w-[500px] flex-col justify-between p-4",
+        className
+      )}
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-28 bg-linear-to-b from-primary/80 to-transparent dark:from-background/50" />
       <div className="absolute top-5 right-5 left-5 z-20 flex justify-between p-4">
@@ -147,11 +139,12 @@ export default function InteractiveImageSelector({
                 }
           }
           aria-label="Reset selection"
-          className={`cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl transition-colors ${
+          className={cn(
+            "cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl transition-colors",
             isResetting
               ? "bg-brand/30 text-white"
               : "bg-background/20 text-foreground"
-          }`}
+          )}
           disabled={isResetting}
           exit={shouldReduceMotion ? {} : { rotate: 0 }}
           initial={shouldReduceMotion ? {} : { rotate: 0 }}
@@ -181,11 +174,12 @@ export default function InteractiveImageSelector({
               : {}
           }
           aria-label={isSelecting ? "Cancel selection" : "Select images"}
-          className={`cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl ${
+          className={cn(
+            "cursor-pointer rounded-full px-3 py-1 font-semibold text-sm bg-blend-luminosity backdrop-blur-xl",
             isSelecting
               ? "bg-brand/30 text-white"
               : "bg-background/20 text-foreground"
-          }`}
+          )}
           exit={{ rotate: 0 }}
           initial={{ rotate: 0 }}
           onClick={toggleSelecting}
@@ -246,9 +240,10 @@ export default function InteractiveImageSelector({
             >
               <img
                 alt={`Gallery item ${img.id}`}
-                className={`h-full w-full rounded-lg object-cover ${
+                className={cn(
+                  "h-full w-full rounded-lg object-cover",
                   selected.includes(img.id) && isSelecting ? "opacity-75" : ""
-                }`}
+                )}
                 draggable={false}
                 height={200}
                 loading="lazy"

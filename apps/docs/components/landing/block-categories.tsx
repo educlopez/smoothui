@@ -21,55 +21,46 @@ import { useState } from "react";
 const EASE_OUT_QUAD = [0.25, 0.46, 0.45, 0.94] as const;
 
 const blockCategories: {
-  blockCount: number;
   href: string;
   preview: ComponentType<{ active?: boolean }>;
   title: string;
 }[] = [
   {
-    blockCount: 4,
     href: "/docs/blocks/hero",
     preview: HeroBlockDrawing,
     title: "Hero",
   },
   {
-    blockCount: 3,
     href: "/docs/blocks/pricing",
     preview: PricingBlockDrawing,
     title: "Pricing",
   },
   {
-    blockCount: 3,
     href: "/docs/blocks/testimonial",
     preview: TestimonialBlockDrawing,
     title: "Testimonial",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/faqs",
     preview: FaqBlockDrawing,
     title: "FAQs",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/footer",
     preview: FooterBlockDrawing,
     title: "Footer",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/logo-clouds",
     preview: LogosBlockDrawing,
     title: "Logo Clouds",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/stats",
     preview: StatsBlockDrawing,
     title: "Stats",
   },
   {
-    blockCount: 2,
     href: "/docs/blocks/team-sections",
     preview: TeamBlockDrawing,
     title: "Team Sections",
@@ -110,7 +101,7 @@ function BlockPreview({
           {category.title}
         </span>
         <span className="inline-flex items-center gap-1 text-muted-foreground text-xs">
-          {category.blockCount} Blocks
+          View blocks
           <ArrowUpRight aria-hidden className="size-3.5" />
         </span>
       </Link>
@@ -133,7 +124,7 @@ export function BlockCategories() {
               project needs
             </>
           }
-          title="Elevate your design with premium blocks"
+          title="Page sections, ready to paste"
         />
 
         <div className="relative mt-8 md:mt-16">
@@ -166,7 +157,7 @@ export function BlockCategories() {
             asChild
             className="mx-auto mt-8 flex w-fit"
             size="lg"
-            variant="candy"
+            variant="outline"
           >
             <Link href="/docs/blocks">
               <span className="flex items-center gap-1">
@@ -174,7 +165,7 @@ export function BlockCategories() {
               </span>
               <svg
                 aria-hidden="true"
-                className="-mx-1.5 size-5 shrink-0 text-white/72"
+                className="-mx-1.5 size-5 shrink-0 text-muted-foreground"
                 fill="none"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"

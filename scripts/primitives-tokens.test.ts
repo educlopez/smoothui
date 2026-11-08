@@ -247,7 +247,9 @@ describe("foreground over fill (pinned by the brand decision, not an AA target)"
     expect(Math.abs(measured - ratio)).toBeLessThan(PIN_TOLERANCE);
   });
 
-  it("destructive-fg over destructive keeps today's pairing in both modes", () => {
+  // Dark mode lifts the destructive fill for `text-destructive`, so the fill
+  // carries dark ink there (was white at 2.89:1, below AA).
+  it("destructive-fg over destructive clears AA in both modes", () => {
     const light = contrast(
       linearLuminance(fg(ROOT, "destructive-fg")),
       linearLuminance(tokenValueRaw(ROOT, "--destructive"))
@@ -257,7 +259,7 @@ describe("foreground over fill (pinned by the brand decision, not an AA target)"
       linearLuminance(tokenValueRaw(DARK, "--destructive"))
     );
     expect(Math.abs(light - 4.76)).toBeLessThan(PIN_TOLERANCE);
-    expect(Math.abs(dark - 2.89)).toBeLessThan(PIN_TOLERANCE);
+    expect(dark).toBeGreaterThanOrEqual(4.5);
   });
 });
 

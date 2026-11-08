@@ -13,7 +13,7 @@ describe("Faq2 (Radix accordion twin)", () => {
     render(<Block />);
 
     const firstQuestion = screen.getByRole("button", {
-      name: "What is Smoothui?",
+      name: "What is SmoothUI?",
     });
     expect(firstQuestion).toHaveAttribute("aria-expanded", "true");
   });

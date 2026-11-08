@@ -34,7 +34,7 @@ const SPRING = {
 };
 
 const SPRING_BOUNCY = {
-  bounce: 0.2,
+  bounce: 0.1,
   duration: 0.3,
   type: "spring" as const,
 };

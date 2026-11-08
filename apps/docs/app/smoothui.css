@@ -8,6 +8,11 @@
   --color-brand-light: var(--color-brand-light);
   --color-brand-lighter: var(--color-brand-lighter);
   --color-on-brand: var(--color-on-brand);
+  --color-brand-ink: var(--color-brand-ink);
+  --color-amber-ink: var(--color-amber-ink);
+  --color-green-ink: var(--color-green-ink);
+  --color-blue-ink: var(--color-blue-ink);
+  --color-destructive-ink: var(--color-destructive-ink);
   --color-destructive-fg: var(--color-destructive-fg);
   --color-destructive-hover: var(--color-destructive-hover);
   --color-destructive-top: var(--color-destructive-top);
@@ -44,29 +49,43 @@
   --color-sidebar-accent: var(--sidebar-accent);
   --color-sidebar-primary-foreground: var(--color-smooth-1000);
   --color-sidebar-primary: var(--color-brand);
-  --color-sidebar-foreground: var(--color-smooth-1000);
-  --color-sidebar: var(--color-smooth-100);
+  --color-sidebar-foreground: var(--color-sidebar-foreground);
+  --color-sidebar: var(--color-sidebar);
   --color-ring: var(--color-ring);
   --color-input: var(--color-input);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: #fff;
+  --color-accent-foreground: var(--color-on-brand);
   --color-accent: var(--color-brand);
-  --color-muted-foreground: var(--color-smooth-950);
-  --color-muted: var(--color-smooth-200);
-  --color-background: var(--color-smooth-50);
-  --color-foreground: var(--color-smooth-1000);
-  --color-primary: var(--color-smooth-100);
-  --color-primary-foreground: var(--color-smooth-950);
-  --color-secondary: var(--color-smooth-200);
-  --color-secondary-foreground: var(--color-smooth-900);
-  --color-popover-foreground: var(--color-smooth-1000);
-  --color-popover: var(--color-smooth-50);
-  --color-card-foreground: var(--color-smooth-1000);
-  --color-card: var(--color-smooth-50);
+  /* Semantic roles. Each name points at the variable of the same name, and
+     that variable is defined once per mode in :root / .dark below. Utilities
+     (`bg-card`) and direct reads (`var(--color-card)`) therefore always agree. */
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-muted: var(--color-muted);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-primary: var(--color-primary);
+  --color-primary-foreground: var(--color-primary-foreground);
+  --color-secondary: var(--color-secondary);
+  --color-secondary-foreground: var(--color-secondary-foreground);
+  --color-popover-foreground: var(--color-popover-foreground);
+  --color-popover: var(--color-popover);
+  --color-card-foreground: var(--color-card-foreground);
+  --color-card: var(--color-card);
+  /* Status roles: fills for badges, alerts and toasts. */
+  --color-success: var(--color-success);
+  --color-success-foreground: var(--color-success-foreground);
+  --color-warning: var(--color-warning);
+  --color-warning-foreground: var(--color-warning-foreground);
+  --color-info: var(--color-info);
+  --color-info-foreground: var(--color-info-foreground);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  /* 2xl/3xl render Tailwind's defaults (16px, 24px) at the default radius and
+     follow the Theme Studio slider like the smaller steps. */
+  --radius-2xl: calc(var(--radius) + 6px);
+  --radius-3xl: calc(var(--radius) + 14px);
 }
 
 :root {
@@ -92,18 +111,36 @@
   /* Switch and slider thumb surface. */
   --color-thumb: #fff;
   /* DS Button color families (decoupled `color` axis). Each: base / hover / fg.
-     Soft + outline tints are derived at use-site via color-mix. See design-system/components/button.md */
-  --color-blue: oklch(0.62 0.19 256);
-  --color-blue-hover: oklch(0.56 0.2 256);
+     Soft + outline tints are derived at use-site via color-mix. Every fg
+     clears 4.5:1 on its base: white needs L <= ~0.56, otherwise dark ink. */
+  --color-blue: oklch(0.56 0.2 256);
+  --color-blue-hover: oklch(0.5 0.2 256);
   --color-blue-fg: #fff;
   --color-amber: oklch(0.77 0.16 75);
   --color-amber-hover: oklch(0.71 0.17 70);
   --color-amber-fg: var(--color-smooth-1000);
   --color-green: oklch(0.7 0.17 152);
   --color-green-hover: oklch(0.64 0.18 152);
-  --color-green-fg: #fff;
+  --color-green-fg: var(--color-smooth-1000);
+  /* Text-role inks: the coloured fills (brand, amber, green, blue,
+     destructive) are too light to be text on white. These darker tones carry
+     the same hue at 4.5:1 or more on the canvas, white and the soft 12% tint.
+     Use them for coloured TEXT; keep the fill tokens for backgrounds. */
+  --color-brand-ink: oklch(0.54 0.2 352.53);
+  --color-amber-ink: oklch(0.5 0.12 75);
+  --color-green-ink: oklch(0.5 0.14 152);
+  --color-blue-ink: oklch(0.5 0.2 256);
+  --color-destructive-ink: oklch(0.5 0.2 27);
+  /* Status roles. Same lightness logic as the button families. */
+  --color-success: oklch(0.7 0.17 152);
+  --color-success-foreground: var(--color-smooth-1000);
+  --color-warning: oklch(0.77 0.16 75);
+  --color-warning-foreground: var(--color-smooth-1000);
+  --color-info: oklch(0.56 0.2 256);
+  --color-info-foreground: #fff;
   /* Perceptually uniform neutral ramp. Even oklch-L spacing so mid-tones
-     exist for legible borders and secondary text. See DS-AUDIT.md. */
+     exist for legible borders and secondary text. Mirrored in
+     apps/docs/lib/registry-themes.ts (a test keeps the two in sync). */
   --color-smooth-50: oklch(0.985 0 0);
   --color-smooth-100: oklch(0.972 0 0);
   --color-smooth-200: oklch(0.955 0 0);
@@ -121,29 +158,33 @@
   --shimmer-highlight: var(--color-smooth-200);
   --shimmer-base: var(--color-smooth-1000);
   --radius: 0.625rem;
+  /* Dividers are decorative and stay subtle. Control boundaries (`input`)
+     match the `border-foreground/25` edge that input, textarea, otp-field and
+     the other form primitives already draw, so every control reads the same. */
   --color-border: oklch(0.91 0 0);
-  --color-input: oklch(0.91 0 0);
+  --color-input: color-mix(in oklch, var(--color-foreground) 25%, transparent);
   --color-sidebar-border: oklch(0.91 0 0);
   --color-ring: oklch(0.56 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --sidebar-accent: var(--color-smooth-200);
-  /* The page paints `bg-background`, which Tailwind inlines to smooth-50 from
-     the @theme above. Anything reading this variable directly (the blur veils,
-     the navbar) has to land on that same colour, or it shows as a grey box. */
+  /* Semantic roles, one value each (see the @theme inline note above).
+     `primary` is SmoothUI's soft neutral surface, not shadcn's ink: the
+     library uses `bg-primary` as a light wash. `card` and `popover` are white
+     so they lift off the 0.985 canvas. */
   --color-background: var(--color-smooth-50);
-  --color-foreground: oklch(0.16 0 0);
+  --color-foreground: var(--color-smooth-1000);
   --color-card: oklch(1 0 0);
-  --color-card-foreground: oklch(0.16 0 0);
+  --color-card-foreground: var(--color-smooth-1000);
   --color-popover: oklch(1 0 0);
-  --color-popover-foreground: oklch(0.16 0 0);
-  --color-primary: oklch(0.16 0 0);
-  --color-primary-foreground: oklch(1 0 0);
-  --color-secondary: oklch(0.955 0 0);
-  --color-secondary-foreground: oklch(0.16 0 0);
-  --color-muted: oklch(0.955 0 0);
-  --color-muted-foreground: oklch(0.34 0 0);
-  --color-sidebar: oklch(0.965 0 0);
-  --color-sidebar-foreground: oklch(0.16 0 0);
+  --color-popover-foreground: var(--color-smooth-1000);
+  --color-primary: var(--color-smooth-100);
+  --color-primary-foreground: var(--color-smooth-950);
+  --color-secondary: var(--color-smooth-200);
+  --color-secondary-foreground: var(--color-smooth-900);
+  --color-muted: var(--color-smooth-200);
+  --color-muted-foreground: var(--color-smooth-950);
+  --color-sidebar: var(--color-smooth-100);
+  --color-sidebar-foreground: var(--color-smooth-1000);
   --color-fd-card: oklch(1 0 0);
   --border-illustration: color-mix(
     in oklch,
@@ -154,17 +195,21 @@
 
 .dark {
   --color-border: color-mix(in oklch, var(--color-foreground) 10%, transparent);
-  --color-input: color-mix(in oklch, var(--color-foreground) 15%, transparent);
+  --color-input: color-mix(in oklch, var(--color-foreground) 25%, transparent);
   --color-sidebar-border: color-mix(
     in oklch,
     var(--color-foreground) 10%,
     transparent
   );
+  /* Lifted so `text-destructive` reads on dark surfaces; the fill then needs
+     dark text (6.3:1) instead of white (2.9:1). */
   --destructive: oklch(0.704 0.191 22.216);
+  --color-destructive-fg: oklch(0.2 0 0);
   --color-thumb: #fff;
-  /* DS Button color families — dark mode (lift base L, amber keeps dark fg). */
-  --color-blue: oklch(0.66 0.18 256);
-  --color-blue-hover: oklch(0.72 0.16 256);
+  /* DS Button color families — dark mode. Blue keeps white text, so it keeps
+     the light-mode lightness; amber and green lift and take dark text. */
+  --color-blue: oklch(0.56 0.2 256);
+  --color-blue-hover: oklch(0.5 0.2 256);
   --color-blue-fg: #fff;
   --color-amber: oklch(0.8 0.15 75);
   --color-amber-hover: oklch(0.85 0.14 72);
@@ -172,6 +217,18 @@
   --color-green: oklch(0.73 0.16 152);
   --color-green-hover: oklch(0.79 0.15 152);
   --color-green-fg: oklch(0.2 0 0);
+  /* Text-role inks on dark surfaces: the lifted fills already read. */
+  --color-brand-ink: var(--color-brand);
+  --color-amber-ink: var(--color-amber);
+  --color-green-ink: var(--color-green);
+  --color-blue-ink: oklch(0.7 0.15 256);
+  --color-destructive-ink: var(--destructive);
+  --color-success: oklch(0.73 0.16 152);
+  --color-success-foreground: oklch(0.2 0 0);
+  --color-warning: oklch(0.8 0.15 75);
+  --color-warning-foreground: oklch(0.2 0 0);
+  --color-info: oklch(0.56 0.2 256);
+  --color-info-foreground: #fff;
   /* Perceptually uniform dark ramp (50 darkest → 1000 lightest). */
   --color-smooth-50: oklch(0.16 0 0);
   --color-smooth-100: oklch(0.21 0 0);
@@ -187,21 +244,21 @@
   --color-smooth-1000: oklch(0.96 0 0);
   --shimmer-highlight: var(--color-smooth-200);
   --shimmer-base: var(--color-smooth-1000);
-  --color-background: oklch(0.16 0 0);
-  --color-foreground: oklch(0.96 0 0);
-  --color-card: oklch(0.21 0 0);
-  --color-card-foreground: oklch(0.96 0 0);
-  --color-popover: oklch(0.21 0 0);
-  --color-popover-foreground: oklch(0.96 0 0);
-  --color-primary: oklch(0.96 0 0);
-  --color-primary-foreground: oklch(0.16 0 0);
-  --color-secondary: oklch(0.25 0 0);
-  --color-secondary-foreground: oklch(0.96 0 0);
-  --color-muted: oklch(0.25 0 0);
-  --color-muted-foreground: oklch(0.72 0 0);
+  --color-background: var(--color-smooth-50);
+  --color-foreground: var(--color-smooth-1000);
+  --color-card: var(--color-smooth-100);
+  --color-card-foreground: var(--color-smooth-1000);
+  --color-popover: var(--color-smooth-100);
+  --color-popover-foreground: var(--color-smooth-1000);
+  --color-primary: var(--color-smooth-100);
+  --color-primary-foreground: var(--color-smooth-950);
+  --color-secondary: var(--color-smooth-200);
+  --color-secondary-foreground: var(--color-smooth-900);
+  --color-muted: var(--color-smooth-200);
+  --color-muted-foreground: var(--color-smooth-950);
   --color-ring: oklch(0.66 0 0);
-  --color-sidebar: oklch(0.16 0 0);
-  --color-sidebar-foreground: oklch(0.96 0 0);
+  --color-sidebar: var(--color-smooth-100);
+  --color-sidebar-foreground: var(--color-smooth-1000);
   --color-fd-card: oklch(0.21 0 0);
   --border-illustration: color-mix(
     in oklch,

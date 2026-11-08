@@ -30,7 +30,6 @@ const CONSTANT_TOKENS: Record<string, string> = {
   "btn-drop": "rgb(0 0 0 / 0.4)",
   "btn-sheen": "rgb(255 255 255 / 0.2)",
   "destructive-edge": "#f61418",
-  "destructive-fg": "#fff",
   "destructive-hover":
     "color-mix(in oklab, var(--color-destructive) 85%, black)",
   "destructive-top": "#fd4b4e",
@@ -48,17 +47,40 @@ const MODE_TOKENS: Record<string, { dark: string; light: string }> = {
   amber: { dark: "oklch(0.8 0.15 75)", light: "oklch(0.77 0.16 75)" },
   "amber-fg": { dark: "oklch(0.2 0 0)", light: LIGHT_SCALE[1000] },
   "amber-hover": { dark: "oklch(0.85 0.14 72)", light: "oklch(0.71 0.17 70)" },
-  blue: { dark: "oklch(0.66 0.18 256)", light: "oklch(0.62 0.19 256)" },
+  "amber-ink": { dark: "oklch(0.8 0.15 75)", light: "oklch(0.5 0.12 75)" },
+  // Blue keeps white text (4.7:1), so it holds L 0.56 in both modes.
+  blue: { dark: "oklch(0.56 0.2 256)", light: "oklch(0.56 0.2 256)" },
   "blue-fg": { dark: "#fff", light: "#fff" },
-  "blue-hover": { dark: "oklch(0.72 0.16 256)", light: "oklch(0.56 0.2 256)" },
+  "blue-hover": { dark: "oklch(0.5 0.2 256)", light: "oklch(0.5 0.2 256)" },
+  "blue-ink": { dark: "oklch(0.7 0.15 256)", light: "oklch(0.5 0.2 256)" },
+  // Text-role inks: coloured text that clears 4.5:1 (fills are too light).
+  "brand-ink": {
+    dark: "oklch(0.72 0.2 352.53)",
+    light: "oklch(0.54 0.2 352.53)",
+  },
+  // Dark mode lifts the destructive fill for `text-destructive`, so its
+  // foreground flips to dark ink (6.3:1 instead of white at 2.9:1).
+  "destructive-fg": { dark: "oklch(0.2 0 0)", light: "#fff" },
+  "destructive-ink": {
+    dark: "oklch(0.704 0.191 22.216)",
+    light: "oklch(0.5 0.2 27)",
+  },
   green: { dark: "oklch(0.73 0.16 152)", light: "oklch(0.7 0.17 152)" },
-  "green-fg": { dark: "oklch(0.2 0 0)", light: "#fff" },
+  "green-fg": { dark: "oklch(0.2 0 0)", light: LIGHT_SCALE[1000] },
   "green-hover": {
     dark: "oklch(0.79 0.15 152)",
     light: "oklch(0.64 0.18 152)",
   },
+  "green-ink": { dark: "oklch(0.73 0.16 152)", light: "oklch(0.5 0.14 152)" },
+  // Status roles for badges, alerts and toasts.
+  info: { dark: "oklch(0.56 0.2 256)", light: "oklch(0.56 0.2 256)" },
+  "info-foreground": { dark: "#fff", light: "#fff" },
+  success: { dark: "oklch(0.73 0.16 152)", light: "oklch(0.7 0.17 152)" },
+  "success-foreground": { dark: "oklch(0.2 0 0)", light: LIGHT_SCALE[1000] },
   // Switch and slider thumb surface.
   thumb: { dark: "#fff", light: "#fff" },
+  warning: { dark: "oklch(0.8 0.15 75)", light: "oklch(0.77 0.16 75)" },
+  "warning-foreground": { dark: "oklch(0.2 0 0)", light: LIGHT_SCALE[1000] },
   ...Object.fromEntries(
     SMOOTH_STEPS.map((step) => [
       `smooth-${step}`,

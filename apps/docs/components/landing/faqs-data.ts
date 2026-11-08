@@ -1,8 +1,8 @@
-import { BLOCK_COUNT, COMPONENT_COUNT } from "@docs/lib/generated/counts";
+import { BLOCK_COUNT, UI_COUNT } from "@docs/lib/generated/counts";
 
 export const faqs = [
   {
-    answer: `Yes, SmoothUI is completely free and open source under the MIT license. You can use all ${COMPONENT_COUNT} animated React components in personal and commercial projects without any cost. There are no premium tiers or hidden fees - every component, block, and animation is available to everyone.`,
+    answer: `Yes, SmoothUI is completely free and open source under the MIT license. You can use all ${UI_COUNT} animated primitives and components in personal and commercial projects without any cost. There are no premium tiers or hidden fees - every component, block, and animation is available to everyone.`,
     question: "Is SmoothUI free to use?",
   },
   {
@@ -16,12 +16,12 @@ export const faqs = [
     question: "How is SmoothUI different from shadcn/ui?",
   },
   {
-    answer: `SmoothUI offers ${COMPONENT_COUNT} components and ${BLOCK_COUNT} blocks including smooth animations powered by Motion (Framer Motion) and GSAP, responsive design that works on all devices, TypeScript support with full type definitions, easy customization with Tailwind CSS utility classes, built-in dark mode support, and accessibility features including reduced motion support. Components range from animated buttons and cards to complex interactive elements like Dynamic Island and expandable cards.`,
+    answer: `SmoothUI offers ${UI_COUNT} primitives and components and ${BLOCK_COUNT} blocks including smooth animations powered by Motion (Framer Motion) and GSAP, responsive design that works on all devices, TypeScript support with full type definitions, easy customization with Tailwind CSS utility classes, built-in dark mode support, and accessibility features including reduced motion support. Components range from animated buttons and cards to complex interactive elements like Dynamic Island and expandable cards.`,
     question: "What features does SmoothUI offer?",
   },
   {
     answer:
-      "Installing SmoothUI is simple with the shadcn CLI. Run 'npx shadcn@latest add https://smoothui.dev/r/component-name.json' to add any component directly to your project. You can also manually copy components from the documentation. Required dependencies include React, Tailwind CSS, Motion (framer-motion), and clsx/tailwind-merge for class utilities. Some components also use GSAP for advanced animations.",
+      "Installing SmoothUI is simple with the shadcn CLI. Run 'npx shadcn@latest add @smoothui/component-name' (for example '@smoothui/siri-orb') to add any component directly to your project. You can also manually copy components from the documentation. Required dependencies include React, Tailwind CSS, Motion (the `motion` package), and clsx/tailwind-merge for class utilities. Some components also use GSAP for advanced animations.",
     question: "How do I install SmoothUI components?",
   },
   {

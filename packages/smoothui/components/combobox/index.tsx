@@ -120,7 +120,7 @@ const CommandInput = ({
     <SearchIcon className="size-4 shrink-0 opacity-50" />
     <CommandPrimitive.Input
       className={cn(
-        "flex h-9 w-full rounded-md bg-transparent py-3 text-sm outline-hidden placeholder:text-muted-foreground/70 disabled:cursor-not-allowed disabled:text-muted-foreground/60",
+        "flex h-9 w-full rounded-md bg-transparent py-3 text-base outline-hidden placeholder:text-muted-foreground/70 disabled:cursor-not-allowed disabled:text-muted-foreground/60 md:text-sm",
         className
       )}
       data-slot="command-input"

@@ -331,7 +331,7 @@ export default function FaviconSearch({
           aria-expanded={isOpen}
           aria-haspopup="listbox"
           aria-label="Search"
-          className="min-h-[44px] w-full rounded-lg border bg-background pr-16 pl-9 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          className="min-h-[44px] w-full rounded-lg border bg-background pr-16 pl-9 text-base outline-none transition-colors focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:text-sm"
           onChange={(event) => handleChange(event.target.value)}
           onFocus={() => setIsOpen(true)}
           onKeyDown={handleKeyDown}

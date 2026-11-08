@@ -45,7 +45,7 @@
   --shadow-lg: 0 8px 16px -6px rgb(0 0 0 / 0.12);
   --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-b.png");
-  --color-fd-primary: var(--color-brand);
+  --color-fd-primary: var(--color-brand-ink);
   --color-fd-secondary: var(--color-smooth-50);
   /* Motion spine — match .cursor/rules/animations.mdc. Exit ~75% of enter;
      always honor prefers-reduced-motion. See .ui-craft/tokens.md. */
@@ -75,23 +75,13 @@
   --tw-shadow: var(--shadow-lg);
 }
 
-/* Site chrome. Primary is ink, so a light hover wash becomes a card. */
+/* Site chrome. */
 .tracking-tight {
   letter-spacing: 0;
 }
 
 h1 .text-muted-foreground {
   color: var(--color-foreground);
-}
-
-.bg-primary\/40 {
-  background-color: var(--color-card);
-  box-shadow: var(--shadow-sm);
-}
-
-.hover\:bg-primary:hover {
-  background-color: color-mix(in oklch, var(--color-muted) 50%, transparent);
-  transition-duration: 200ms;
 }
 
 .trigger:hover,
@@ -199,8 +189,9 @@ article.group p {
   }
 }
 
+/* Pink wash, ink text: brand text on the wash was about 2.2:1. */
 ::selection {
-  @apply bg-brand-secondary/20 text-brand;
+  @apply bg-brand-secondary/20 text-foreground;
 }
 
 .shiki {
@@ -429,30 +420,38 @@ article.group p {
   line-height: 2rem;
   letter-spacing: -0.025em;
 }
+/* Each level steps down from the one above, and h3 (used for every
+   Accessibility subsection) stays distinct from the 15px body text. */
 #nd-page h2 {
-  font-size: 1.125rem;
-  font-weight: 400;
+  font-size: 1.25rem;
+  font-weight: 500;
   line-height: 1.75rem;
   letter-spacing: -0.011em;
 }
 #nd-page h3 {
-  font-size: 0.9375rem;
-  font-weight: 400;
+  font-size: 1.0625rem;
+  font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: normal;
 }
 #nd-page h4 {
-  font-size: var(--text-lg);
+  font-size: 0.9375rem;
   font-weight: 600;
-  line-height: var(--leading-tight);
+  line-height: 1.5rem;
 }
 #nd-page h5 {
-  font-size: var(--text-base);
+  font-size: 0.875rem;
   font-weight: 600;
 }
 #nd-page h6 {
-  font-size: var(--text-sm);
+  font-size: 0.8125rem;
   font-weight: 600;
+}
+
+/* Reading measure: running text stops near 70 characters even though the
+   column is wider (previews and tables keep the full width). */
+#nd-page .prose > :is(p, ul, ol, blockquote) {
+  max-width: 70ch;
 }
 
 /* Docs chrome: white surfaces and hairline borders from our tokens. */
@@ -501,9 +500,11 @@ html[data-split-docs] #nd-toc-popover {
     grid-template-columns: 0px 0px 1fr 0px 0px !important;
   }
 }
+/* Below xl the TOC is hidden (the popover replaces it), so no column is
+   reserved for it: the article gets the width back. */
 @media (min-width: 768px) and (max-width: 1279px) {
   #nd-notebook-layout {
-    grid-template-columns: 0px var(--fd-sidebar-col) 1fr var(--fd-toc-width) 0px !important;
+    grid-template-columns: 0px var(--fd-sidebar-col) 1fr 0px 0px !important;
   }
 
   #nd-notebook-layout:has(#nd-page[data-full="true"]) {
@@ -619,4 +620,12 @@ html[data-split-docs] #nd-toc-popover {
   ::view-transition-new(*) {
     animation: none !important;
   }
+}
+
+/* Fumadocs accordion triggers only tint their parent on focus (about 1.2:1).
+   Give them the project's focus ring, inset because the card clips overflow.
+   Unlayered, so it beats the trigger's focus-visible:outline-none utility. */
+#nd-page button[aria-controls][aria-expanded]:focus-visible {
+  outline: 2px solid var(--color-ring);
+  outline-offset: -2px;
 }

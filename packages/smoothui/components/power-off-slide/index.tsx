@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { Power } from "lucide-react";
 import {
   motion,
@@ -72,7 +73,7 @@ export default function PowerOffSlide({
   };
 
   return (
-    <div className={`flex h-auto items-center justify-center ${className}`}>
+    <div className={cn("flex h-auto items-center justify-center", className)}>
       <div className="w-56">
         {isPoweringOff ? (
           <div className="text-center text-foreground">
@@ -91,7 +92,12 @@ export default function PowerOffSlide({
             <motion.div
               animate={controls}
               aria-disabled={disabled}
-              className={`absolute top-1 left-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-background shadow-md ${disabled ? "cursor-not-allowed opacity-50" : "cursor-grab active:cursor-grabbing"}`}
+              className={cn(
+                "absolute top-1 left-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-background shadow-md",
+                disabled
+                  ? "cursor-not-allowed opacity-50"
+                  : "cursor-grab active:cursor-grabbing"
+              )}
               drag={disabled || shouldReduceMotion ? false : "x"}
               dragConstraints={{ left: 0, right: SLIDE_MAX_DISTANCE }}
               dragElastic={0}

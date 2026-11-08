@@ -61,7 +61,7 @@ export const TemplateGallery = ({ templates }: TemplateGalleryProps) => {
           </p>
           <Link
             aria-label={template.title}
-            className="absolute inset-0 z-10"
+            className="absolute inset-0 z-10 rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/80 focus-visible:ring-inset"
             href={template.href}
           />
         </motion.article>

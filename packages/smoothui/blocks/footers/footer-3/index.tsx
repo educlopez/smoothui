@@ -1,11 +1,9 @@
 "use client";
 
-import Field, { FieldLabel } from "@repo/smoothui/components/field";
-import Input from "@repo/smoothui/components/input";
-import SmoothButton from "@repo/smoothui/components/smooth-button";
 import { Github, Linkedin, Twitter, Youtube } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
+import { NewsletterForm } from "../../shared";
 
 const ANIMATION_DURATION = 0.25;
 const DELAY_INCREMENT = 0.05;
@@ -28,6 +26,8 @@ export interface FooterMegaProps {
     placeholder: string;
     buttonText: string;
   };
+  /** Called with the email when the newsletter form submits */
+  onSubscribe?: (email: string) => Promise<void> | void;
   socialLinks?: Array<{
     icon: ReactNode;
     href: string;
@@ -106,6 +106,7 @@ export const FooterMega = ({
     placeholder: "Enter your email",
     title: "Subscribe to our newsletter",
   },
+  onSubscribe,
   socialLinks = defaultSocialLinks,
   copyright = "© 2024 SmoothUI. All rights reserved.",
 }: FooterMegaProps) => {
@@ -200,22 +201,13 @@ export const FooterMega = ({
             <p className="mb-4 text-foreground/70 text-sm">
               {newsletter.description}
             </p>
-            <form
-              className="flex flex-col gap-3 sm:flex-row"
-              onSubmit={(e) => e.preventDefault()}
-            >
-              <Field className="min-w-0 flex-1 gap-0">
-                <FieldLabel className="sr-only">Email address</FieldLabel>
-                <Input
-                  className="h-auto rounded-lg border-border bg-background px-4 py-2.5 text-sm shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
-                  placeholder={newsletter.placeholder}
-                  type="email"
-                />
-              </Field>
-              <SmoothButton type="submit" variant="candy">
-                {newsletter.buttonText}
-              </SmoothButton>
-            </form>
+            <NewsletterForm
+              buttonText={newsletter.buttonText}
+              className="flex-col gap-3 sm:flex-row"
+              inputClassName="h-auto rounded-lg border-border bg-background px-4 py-2.5 shadow-none placeholder:text-foreground/50 focus-visible:border-brand focus-visible:ring-2 focus-visible:ring-brand/20"
+              onSubscribe={onSubscribe}
+              placeholder={newsletter.placeholder}
+            />
           </motion.div>
         </motion.div>
 

@@ -13,7 +13,7 @@ export function InstallCopyButton({ slug }: { slug: string }) {
   return (
     <span title={command}>
       <ButtonCopy
-        className="grid size-7! min-h-7! min-w-7! shrink-0 place-items-center rounded-md p-0! text-foreground transition-colors hover:bg-primary"
+        className="grid size-7! min-h-7! min-w-7! shrink-0 place-items-center rounded-md p-0! text-foreground transition-colors hover:bg-muted/50"
         idleIcon={<IconCopy2Fill24 className="size-3.5" />}
         loadingIcon={<IconDotsLoaderFill24 className="size-3.5 animate-spin" />}
         onCopy={() => navigator.clipboard.writeText(command)}

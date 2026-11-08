@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -33,7 +34,10 @@ export function DotMorphButton({
 
   return (
     <SmoothButton
-      className={`flex items-center gap-3 rounded-full border bg-background ${className}`}
+      className={cn(
+        "flex items-center gap-3 rounded-full border bg-background",
+        className
+      )}
       onClick={onClick}
       onMouseEnter={() => {
         if (isHoverDevice) {

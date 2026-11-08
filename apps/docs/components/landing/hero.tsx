@@ -1,5 +1,6 @@
 "use client";
 
+import { CommandCopy } from "@docs/components/landing/command-copy";
 import { HeroDither } from "@docs/components/landing/hero-dither";
 import { HeroStage } from "@docs/components/landing/hero-stage";
 import { Button } from "@docs/components/smoothbutton";
@@ -15,6 +16,8 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const BACKGROUND_SRC = "/hero/pink-dunes.jpg";
 
 preload(BACKGROUND_SRC, { as: "image", fetchPriority: "high" });
+
+const INSTALL_COMMAND = "npx shadcn@latest add @smoothui/siri-orb";
 
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
@@ -71,7 +74,7 @@ export function Hero() {
         <div className="relative z-10 mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
           <motion.div
             animate={shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }}
-            className="flex flex-col items-center"
+            className="flex w-full flex-col items-center"
             initial={
               shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 12 }
             }
@@ -81,7 +84,7 @@ export function Hero() {
                 : { duration: 0.35, ease: EASE_OUT }
             }
           >
-            <h1 className="text-balance font-semibold font-title text-5xl text-foreground tracking-tight md:text-6xl lg:text-7xl lg:leading-[1.05]">
+            <h1 className="text-balance font-semibold font-title text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl lg:text-7xl lg:leading-[1.05]">
               React components.
               <span className="mt-1 block">Made to move.</span>
             </h1>
@@ -95,7 +98,7 @@ export function Hero() {
               <Button
                 asChild
                 onClick={() => playClick()}
-                size="sm"
+                size="lg"
                 variant="candy"
               >
                 <Link href="/docs/primitives">Browse primitives</Link>
@@ -103,11 +106,24 @@ export function Hero() {
               <Button
                 asChild
                 onClick={() => playClick()}
-                size="sm"
+                size="lg"
                 variant="outline"
               >
                 <Link href="/docs/guides">Read the docs</Link>
               </Button>
+            </div>
+
+            {/* The one thing a visitor needs to try it: the install command. */}
+            <div className="mt-6 inline-flex max-w-full items-center gap-1 rounded-lg border border-border bg-background/80 py-0.5 pl-4 font-mono text-muted-foreground text-sm backdrop-blur-sm">
+              {/* Wraps instead of truncating, so the whole command stays
+                  readable at 320px. */}
+              <code className="min-w-0 break-all py-1.5 text-start">
+                <span aria-hidden="true" className="select-none">
+                  ${" "}
+                </span>
+                {INSTALL_COMMAND}
+              </code>
+              <CommandCopy command={INSTALL_COMMAND} />
             </div>
 
             <a

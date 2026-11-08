@@ -173,7 +173,7 @@ export function PricingSimple() {
                 animate={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 1, y: 0 }
                 }
-                className="group relative flex h-[650px] cursor-pointer flex-col overflow-hidden rounded-2xl border bg-background p-8"
+                className="group relative flex h-[650px] flex-col overflow-hidden rounded-2xl border bg-background p-8"
                 data-animate-card
                 initial={
                   shouldReduceMotion ? { opacity: 1 } : { opacity: 0, y: 40 }

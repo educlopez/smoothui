@@ -29,8 +29,9 @@ const lead = {
   title: "Smooth animations",
 };
 
+// White card on the pink band. No hover fill: these cards are not links.
 const cardBase =
-  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+  "group relative flex flex-col rounded-2xl border bg-card p-6 shadow-sm";
 
 const CardHeading = ({
   icon: Icon,
@@ -62,7 +63,8 @@ const DrawingStage = ({
   onActiveChange: (active: boolean) => void;
 }) => (
   <div
-    className="mb-5 flex min-h-40 items-center justify-center"
+    aria-hidden="true"
+    className="mb-5 flex min-h-40 select-none items-center justify-center"
     onBlur={() => onActiveChange(false)}
     onFocus={() => onActiveChange(true)}
     onMouseEnter={() => onActiveChange(true)}
@@ -84,7 +86,7 @@ export function Features() {
         description="Built on the foundations you already love, with the polish you've been wishing for."
         title={
           <>
-            Why choose Smooth<span className="text-brand">UI</span>?
+            Why choose Smooth<span className="text-brand-ink">UI</span>?
           </>
         }
       />

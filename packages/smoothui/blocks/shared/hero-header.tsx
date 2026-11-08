@@ -1,10 +1,14 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
-import { cn } from "@repo/smoothui-utils";
 import { Menu, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useId, useState } from "react";
+
+const actionItems = [
+  { href: "#login", id: "login", name: "Login", variant: "ghost" },
+  { href: "#signup", id: "signup", name: "Sign Up", variant: undefined },
+] as const;
 
 const menuItems = [
   { href: "#link", id: "features", name: "Features" },
@@ -34,6 +38,18 @@ const TRANSLATE_X_OFFSET = -10;
 export const HeroHeader = () => {
   const shouldReduceMotion = useReducedMotion();
   const [menuState, setMenuState] = useState(false);
+  const menuId = useId();
+
+  // Login / Sign Up are navigation, so they render as links. On desktop they
+  // sit in the bar; on mobile they live inside the menu panel.
+  const renderActions = (onNavigate?: () => void) =>
+    actionItems.map((action) => (
+      <SmoothButton asChild key={action.id} size="sm" variant={action.variant}>
+        <a href={action.href} onClick={onNavigate}>
+          <span>{action.name}</span>
+        </a>
+      </SmoothButton>
+    ));
 
   return (
     <div className="relative">
@@ -42,31 +58,17 @@ export const HeroHeader = () => {
           <div className="mx-auto max-w-5xl px-6">
             <div className="relative flex flex-wrap items-center justify-between gap-6 py-6 transition-all duration-200 lg:gap-0">
               <div className="flex w-full justify-between gap-6 lg:w-auto">
-                <a
-                  aria-label="SmoothUI home"
-                  className="flex items-center gap-2"
-                  href="/"
-                >
-                  <span className="sr-only">SmoothUI</span>
-                  <img
-                    alt="SmoothUI logo"
-                    className={cn("h-6 w-auto", "dark:hidden")}
-                    draggable={false}
-                    height={120}
-                    src="/brand/logo-smoothui-light-1000w.png"
-                    width={609}
-                  />
-                  <img
-                    alt="SmoothUI logo"
-                    className={cn("hidden h-6 w-auto", "dark:block")}
-                    draggable={false}
-                    height={120}
-                    src="/brand/logo-smoothui-dark-1000w.png"
-                    width={609}
-                  />
+                <a className="flex items-center gap-2" href="/">
+                  {/* Text wordmark: an image under /brand only exists on
+                      smoothui.dev, so it broke in installed projects. */}
+                  <span className="font-semibold font-title text-foreground text-lg tracking-tight">
+                    SmoothUI
+                  </span>
                 </a>
 
                 <SmoothButton
+                  aria-controls={menuId}
+                  aria-expanded={menuState}
                   aria-label={menuState === true ? "Close Menu" : "Open Menu"}
                   className="relative z-20 -m-2.5 -mr-4 block lg:hidden"
                   onClick={() => setMenuState(!menuState)}
@@ -168,6 +170,8 @@ export const HeroHeader = () => {
                 </div>
               </div>
 
+              <div className="hidden lg:flex lg:gap-3">{renderActions()}</div>
+
               <AnimatePresence>
                 {menuState ? (
                   <motion.div
@@ -176,12 +180,13 @@ export const HeroHeader = () => {
                         ? { opacity: 1 }
                         : { opacity: 1, scale: SCALE_MAX, y: 0 }
                     }
-                    className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent"
+                    className="mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border bg-background p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:hidden dark:shadow-none"
                     exit={
                       shouldReduceMotion
                         ? { opacity: 0, transition: { duration: 0 } }
                         : { opacity: 0, scale: 0.95, y: TRANSLATE_Y_OFFSET }
                     }
+                    id={menuId}
                     initial={
                       shouldReduceMotion
                         ? { opacity: 1 }
@@ -196,7 +201,7 @@ export const HeroHeader = () => {
                           }
                     }
                   >
-                    <div className="lg:hidden">
+                    <div>
                       <ul className="space-y-6 text-base">
                         {menuItems.map((item, index) => (
                           <motion.li
@@ -256,21 +261,7 @@ export const HeroHeader = () => {
                             }
                       }
                     >
-                      <SmoothButton
-                        onClick={() => setMenuState(false)}
-                        size="sm"
-                        type="button"
-                        variant="ghost"
-                      >
-                        <span>Login</span>
-                      </SmoothButton>
-                      <SmoothButton
-                        onClick={() => setMenuState(false)}
-                        size="sm"
-                        type="button"
-                      >
-                        <span>Sign Up</span>
-                      </SmoothButton>
+                      {renderActions(() => setMenuState(false))}
                     </motion.div>
                   </motion.div>
                 ) : null}

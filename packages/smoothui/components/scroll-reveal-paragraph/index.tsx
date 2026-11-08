@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import {
   type MotionValue,
   motion,
@@ -29,7 +30,7 @@ export default function ScrollRevealParagraph({
   const words = paragraph.split(" ");
 
   return (
-    <p className={`text-lg leading-relaxed ${className}`} ref={container}>
+    <p className={cn("text-lg leading-relaxed", className)} ref={container}>
       {words.map((word, i) => {
         const start = i / words.length;
         const end = start + 1 / words.length;

@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import type React from "react";
 import { useMemo, useState } from "react";
@@ -264,7 +265,7 @@ export function ContributionGraph({
   };
 
   return (
-    <div className={`contribution-graph ${className}`}>
+    <div className={cn("contribution-graph", className)}>
       <div className="overflow-x-auto">
         <table className="border-separate border-spacing-1 text-xs">
           <caption className="sr-only">Contribution Graph for {year}</caption>
@@ -324,9 +325,11 @@ export function ContributionGraph({
                       }
                     >
                       <div
-                        className={`h-2.5 w-2.5 rounded-sm ${
-                          CONTRIBUTION_COLORS[dayData.level]
-                        } hover:ring-2 hover:ring-background`}
+                        className={cn(
+                          "h-2.5 w-2.5 rounded-sm",
+                          CONTRIBUTION_COLORS[dayData.level],
+                          "hover:ring-2 hover:ring-background"
+                        )}
                       />
                     </td>
                   );
@@ -374,7 +377,7 @@ export function ContributionGraph({
           <div className="flex items-center gap-1">
             {CONTRIBUTION_LEVELS.map((level) => (
               <div
-                className={`h-3 w-3 rounded-sm ${CONTRIBUTION_COLORS[level]}`}
+                className={cn("h-3 w-3 rounded-sm", CONTRIBUTION_COLORS[level])}
                 key={level}
               />
             ))}

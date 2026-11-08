@@ -1,3 +1,4 @@
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
 
@@ -84,7 +85,7 @@ export default function FloatInput({
   };
 
   return (
-    <div className={`relative flex items-center ${className}`}>
+    <div className={cn("relative flex items-center", className)}>
       {icon ? (
         <span
           aria-hidden="true"
@@ -95,7 +96,11 @@ export default function FloatInput({
       ) : null}
       <input
         aria-label={label}
-        className={`peer w-full rounded-sm border bg-background px-3 py-2 text-sm outline-none transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ${icon ? "pl-10" : ""} ${inputClassName}`}
+        className={cn(
+          "peer w-full rounded-sm border bg-background px-3 py-2 text-base outline-none transition focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 md:text-sm",
+          icon ? "pl-10" : "",
+          inputClassName
+        )}
         disabled={disabled}
         id={inputId}
         onBlur={() => setIsFocused(false)}
@@ -113,7 +118,10 @@ export default function FloatInput({
       />
       <motion.label
         animate={getLabelAnimation()}
-        className={`pointer-events-none absolute top-1/2 left-3 origin-left -translate-y-1/2 rounded-sm border border-transparent bg-background px-1 text-foreground transition-all ${labelClassName}`}
+        className={cn(
+          "pointer-events-none absolute top-1/2 left-3 origin-left -translate-y-1/2 rounded-sm border border-transparent bg-background px-1 text-foreground",
+          labelClassName
+        )}
         htmlFor={inputId}
         style={{
           zIndex: 2,

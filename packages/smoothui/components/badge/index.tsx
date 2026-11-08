@@ -69,10 +69,10 @@ const DOT_SIZE: Record<StatusDotSize, string> = {
 };
 
 const DOT_COLOR: Record<StatusDotStatus, string> = {
-  away: "bg-amber-500",
+  away: "bg-warning",
   busy: "bg-destructive",
-  offline: "bg-zinc-400 dark:bg-zinc-600",
-  online: "bg-emerald-500",
+  offline: "bg-smooth-600",
+  online: "bg-success",
 };
 
 /**

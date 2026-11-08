@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import {
   motion,
   useMotionValue,
@@ -90,7 +91,7 @@ const CursorFollow: React.FC<CursorFollowProps> = ({
   return (
     // biome-ignore lint/a11y/noNoninteractiveElementInteractions: Interactive cursor tracking widget requires mouse events
     <div
-      className={`relative h-full w-full ${className}`}
+      className={cn("relative h-full w-full", className)}
       onBlur={handleBlur}
       onFocus={handleFocus}
       onMouseOut={handleMouseOut}

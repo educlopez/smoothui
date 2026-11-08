@@ -30,8 +30,8 @@ export function FaqsAccordion({
   faqs = [
     {
       answer:
-        "Smoothui is a modern UI component library that provides beautiful, animated components for building stunning user interfaces. It includes pre-built components with smooth animations and customizable themes.",
-      question: "What is Smoothui?",
+        "SmoothUI is a modern UI component library that provides beautiful, animated components for building stunning user interfaces. It includes pre-built components with smooth animations and customizable themes.",
+      question: "What is SmoothUI?",
     },
     {
       answer:
@@ -40,7 +40,7 @@ export function FaqsAccordion({
     },
     {
       answer:
-        "Yes! Smoothui is completely free and open source. You can use it in both personal and commercial projects without any restrictions. We believe in making beautiful UI components accessible to everyone.",
+        "Yes! SmoothUI is completely free and open source. You can use it in both personal and commercial projects without any restrictions. We believe in making beautiful UI components accessible to everyone.",
       question: "Is it free to use?",
     },
     {
@@ -50,7 +50,7 @@ export function FaqsAccordion({
     },
     {
       answer:
-        "Currently, Smoothui supports React and Next.js. We're working on expanding support to other popular frameworks like Vue, Svelte, and Angular in the coming months.",
+        "Currently, SmoothUI supports React and Next.js. We're working on expanding support to other popular frameworks like Vue, Svelte, and Angular in the coming months.",
       question: "What frameworks are supported?",
     },
     {

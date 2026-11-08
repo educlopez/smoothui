@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { ChevronDown } from "lucide-react";
 import {
   AnimatePresence,
@@ -9,6 +10,7 @@ import {
   useReducedMotion,
 } from "motion/react";
 import { useCallback, useMemo, useState } from "react";
+import { EASE_LINEAR } from "../../lib/animation";
 
 export interface AppData {
   icon: string;
@@ -78,11 +80,8 @@ export default function AppDownloadStack({
   const selected = controlledSelected ?? internalSelected;
 
   const setExpanded = (val: boolean) => {
-    if (onExpandChange) {
-      onExpandChange(val);
-    } else {
-      setInternalExpanded(val);
-    }
+    setInternalExpanded(val);
+    onExpandChange?.(val);
   };
 
   const toggleApp = useCallback(
@@ -90,11 +89,8 @@ export default function AppDownloadStack({
       const newSelected = selected.includes(id)
         ? selected.filter((appId) => appId !== id)
         : [...selected, id];
-      if (onChange) {
-        onChange(newSelected);
-      } else {
-        setInternalSelected(newSelected);
-      }
+      setInternalSelected(newSelected);
+      onChange?.(newSelected);
     },
     [selected, onChange]
   );
@@ -108,7 +104,7 @@ export default function AppDownloadStack({
       shineControls.start({
         transition: {
           duration: 1,
-          ease: "linear",
+          ease: EASE_LINEAR,
           repeat: Number.POSITIVE_INFINITY,
         },
         x: ["0%", "100%"],
@@ -118,16 +114,10 @@ export default function AppDownloadStack({
       shineControls.stop();
       setDownloadComplete(true);
       setTimeout(() => {
-        if (onExpandChange) {
-          onExpandChange(false);
-        } else {
-          setInternalExpanded(false);
-        }
-        if (onChange) {
-          onChange([]);
-        } else {
-          setInternalSelected([]);
-        }
+        setInternalExpanded(false);
+        onExpandChange?.(false);
+        setInternalSelected([]);
+        onChange?.([]);
         setIsDownloading(false);
         setDownloadComplete(false);
       }, RESET_DELAY_MS);
@@ -198,7 +188,10 @@ export default function AppDownloadStack({
 
   return (
     <div
-      className={`flex h-auto flex-col items-center justify-center ${className}`}
+      className={cn(
+        "flex h-auto flex-col items-center justify-center",
+        className
+      )}
     >
       <motion.div
         className="flex flex-col items-center justify-center"
@@ -296,11 +289,12 @@ export default function AppDownloadStack({
                     }
                   >
                     <div
-                      className={`pointer-events-none absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid ${
+                      className={cn(
+                        "pointer-events-none absolute top-2 right-2 flex h-4 w-4 items-center justify-center rounded-full border border-solid",
                         selected.includes(app.id)
                           ? "border-blue-500 bg-blue-500"
                           : "border-white/60"
-                      }`}
+                      )}
                     >
                       {selected.includes(app.id) && (
                         <motion.svg
@@ -324,11 +318,12 @@ export default function AppDownloadStack({
                       )}
                     </div>
                     <button
-                      className={`group flex h-full w-full flex-col items-center justify-center gap-1 rounded-xl border-2 border-transparent bg-background/80 p-2 transition-all duration-200 hover:border-blue-500 ${
+                      className={cn(
+                        "group state-transition flex h-full w-full flex-col items-center justify-center gap-1 rounded-xl border-2 border-transparent bg-background/80 p-2 hover:border-blue-500",
                         selected.includes(app.id)
                           ? "border-blue-500 bg-blue-500/10"
                           : ""
-                      }`}
+                      )}
                       onClick={() => toggleApp(app.id)}
                       type="button"
                     >

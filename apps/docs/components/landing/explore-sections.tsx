@@ -14,7 +14,7 @@ export function ExploreSections() {
         description="Drawings of what each area holds — components, blocks, and templates at a glance."
         title={
           <>
-            Browse Smooth<span className="text-brand">UI</span>
+            Browse Smooth<span className="text-brand-ink">UI</span>
           </>
         }
       />

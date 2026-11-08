@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { SVGProps } from "react";
 import { useEffect, useRef, useState } from "react";
@@ -245,7 +246,7 @@ export default function JobListingComponent({
           </div>
         ) : null}
       </AnimatePresence>
-      <div className={`relative flex items-start p-6 ${className || ""}`}>
+      <div className={cn("relative flex items-start p-6", className)}>
         <div className="relative flex w-full flex-col items-center gap-4 px-2">
           {jobs.map((role) => (
             <motion.div

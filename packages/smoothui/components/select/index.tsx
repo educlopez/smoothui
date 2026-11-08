@@ -3,6 +3,7 @@
 import { cn } from "@repo/smoothui-utils";
 import { Check, ChevronDown } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import type { ComponentPropsWithRef } from "react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import {
@@ -102,7 +103,7 @@ export interface SelectGroupOption {
   options: SelectOptionProps[];
 }
 
-export interface SelectProps {
+interface SelectOwnProps {
   /** Accessible label for the select */
   "aria-label"?: string;
   /** ID of element that labels this select */
@@ -133,6 +134,24 @@ export interface SelectProps {
   value?: string;
 }
 
+/**
+ * Native `<button>` attributes forwarded to the trigger: `ref`, `id`,
+ * `aria-describedby`, `aria-invalid`, `data-*`, `onBlur`, `onFocus` and the
+ * rest. `onClick` stays internal because it opens the listbox.
+ */
+type SelectNativeProps = Omit<
+  ComponentPropsWithRef<"button">,
+  | keyof SelectOwnProps
+  | "children"
+  | "defaultValue"
+  | "onChange"
+  | "onClick"
+  | "role"
+  | "type"
+>;
+
+export type SelectProps = SelectOwnProps & SelectNativeProps;
+
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
@@ -152,6 +171,8 @@ export default function Select({
   size = "default",
   "aria-label": ariaLabel,
   "aria-labelledby": ariaLabelledBy,
+  ref,
+  ...props
 }: SelectProps) {
   const shouldReduceMotion = useReducedMotion();
   const listboxId = useId();
@@ -167,7 +188,21 @@ export default function Select({
     width: 0,
   });
 
-  const triggerRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
+  // The trigger needs its own ref for positioning and focus return; the
+  // consumer's ref (react-hook-form `register`, focus management) gets the
+  // same node.
+  const setTriggerRef = useCallback(
+    (node: HTMLButtonElement | null) => {
+      triggerRef.current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        ref.current = node;
+      }
+    },
+    [ref]
+  );
   const wrapperRef = useRef<HTMLDivElement>(null);
   const portalRef = useRef<HTMLDivElement>(null);
 
@@ -406,9 +441,11 @@ export default function Select({
                   exit={
                     shouldReduceMotion
                       ? { opacity: 0, transition: { duration: 0 } }
-                      : { opacity: 0, scale: 0 }
+                      : { opacity: 0, scale: 0.95 }
                   }
-                  initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0 }}
+                  initial={
+                    shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }
+                  }
                   transition={
                     shouldReduceMotion
                       ? DURATION_INSTANT
@@ -547,6 +584,7 @@ export default function Select({
         ) : null}
 
         <button
+          {...props}
           aria-activedescendant={activeOption}
           aria-controls={isOpen ? listboxId : undefined}
           aria-expanded={isOpen}
@@ -562,7 +600,7 @@ export default function Select({
           data-placeholder={!selectedLabel || undefined}
           disabled={disabled}
           onClick={handleToggle}
-          ref={triggerRef}
+          ref={setTriggerRef}
           role="combobox"
           type="button"
         >

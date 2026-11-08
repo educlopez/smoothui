@@ -15,7 +15,6 @@ import {
   landingStageImageClass,
 } from "@docs/lib/landing-backgrounds";
 import { cn } from "@repo/shadcn-ui/lib/utils";
-import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRightFill24 } from "nucleo-core-fill-24";
@@ -39,11 +38,11 @@ const aiFeatures = [
   },
 ] as const;
 
+// White card on the pink band. No hover fill: these cards are not links.
 const cardBase =
-  "group relative flex flex-col rounded-2xl border bg-primary/40 p-6 transition-colors hover:bg-primary";
+  "group relative flex flex-col rounded-2xl border bg-card p-6 shadow-sm";
 
 export function AISection() {
-  const shouldReduceMotion = useReducedMotion();
   const [mcpActive, setMcpActive] = useState(false);
   const [apiActive, setApiActive] = useState(false);
   const [llmsActive, setLlmsActive] = useState(false);
@@ -52,7 +51,7 @@ export function AISection() {
     <section className="relative bg-background px-8 py-40 transition">
       <div className="mx-auto w-full max-w-7xl">
         <SectionHeader
-          description="The first component library designed for AI agents. Discover, search, and install components programmatically."
+          description="An MCP server, a public search API and llms.txt, so agents can discover, search and install components programmatically."
           title="Built for AI-assisted development"
         />
 
@@ -97,7 +96,10 @@ export function AISection() {
             onMouseEnter={() => setApiActive(true)}
             onMouseLeave={() => setApiActive(false)}
           >
-            <div className="mb-5 flex justify-center">
+            <div
+              aria-hidden="true"
+              className="mb-5 flex select-none justify-center"
+            >
               <ApiDrawing active={apiActive} />
             </div>
             <h3 className="font-semibold text-foreground text-lg tracking-tight">
@@ -115,7 +117,10 @@ export function AISection() {
             onMouseEnter={() => setLlmsActive(true)}
             onMouseLeave={() => setLlmsActive(false)}
           >
-            <div className="mb-4 flex justify-center">
+            <div
+              aria-hidden="true"
+              className="mb-4 flex select-none justify-center"
+            >
               <LlmsDrawing active={llmsActive} />
             </div>
             <h3 className="font-semibold text-foreground text-lg tracking-tight">
@@ -127,17 +132,7 @@ export function AISection() {
           </div>
         </div>
 
-        <motion.div
-          className="mt-8 flex justify-center"
-          initial={shouldReduceMotion ? { opacity: 1 } : { opacity: 0 }}
-          transition={
-            shouldReduceMotion
-              ? { duration: 0 }
-              : { bounce: 0.1, delay: 0.5, duration: 0.25, type: "spring" }
-          }
-          viewport={{ amount: 0.5, once: true }}
-          whileInView={shouldReduceMotion ? { opacity: 1 } : { opacity: 1 }}
-        >
+        <div className="mt-8 flex justify-center">
           <Button
             asChild
             className="group"
@@ -153,7 +148,7 @@ export function AISection() {
               />
             </Link>
           </Button>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

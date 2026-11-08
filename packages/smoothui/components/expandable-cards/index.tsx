@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { Play } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef, useState } from "react";
@@ -52,17 +53,11 @@ export default function ExpandableCards({
 
   const handleCardClick = (id: number) => {
     if (selectedCard === id) {
-      if (onSelect) {
-        onSelect(null);
-      } else {
-        setInternalSelected(null);
-      }
+      setInternalSelected(null);
+      onSelect?.(null);
     } else {
-      if (onSelect) {
-        onSelect(id);
-      } else {
-        setInternalSelected(id);
-      }
+      setInternalSelected(id);
+      onSelect?.(id);
       // Center the clicked card in view
       const cardElement = document.querySelector(`[data-card-id="${id}"]`);
       if (cardElement) {
@@ -77,7 +72,10 @@ export default function ExpandableCards({
 
   return (
     <div
-      className={`flex w-full flex-col gap-4 overflow-scroll p-4 ${className}`}
+      className={cn(
+        "flex w-full flex-col gap-4 overflow-scroll p-4",
+        className
+      )}
     >
       <div
         className="scrollbar-hide mx-auto flex overflow-x-auto pt-4 pb-8"
@@ -92,7 +90,10 @@ export default function ExpandableCards({
             animate={{
               width: selectedCard === card.id ? "500px" : "200px",
             }}
-            className={`relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg ${cardClassName}`}
+            className={cn(
+              "relative mr-4 h-[300px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border bg-background shadow-lg",
+              cardClassName
+            )}
             data-card-id={card.id}
             key={card.id}
             layout

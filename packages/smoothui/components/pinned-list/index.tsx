@@ -19,9 +19,9 @@ const ENTER_SPRING = { bounce: 0.1, duration: 0.25, type: "spring" as const };
 /** Leaving is the user's decision already made — get out of the way faster. */
 const EXIT_TRANSITION = { duration: 0.15, ease: EASE_OUT };
 /** The row launching into (or back out of) the pinned group — real overshoot. */
-const LAUNCH_SPRING = { bounce: 0.3, duration: 0.4, type: "spring" as const };
+const LAUNCH_SPRING = { bounce: 0.1, duration: 0.4, type: "spring" as const };
 /** The pin icon's own, snappier spring. */
-const PIN_SPRING = { bounce: 0.32, duration: 0.2, type: "spring" as const };
+const PIN_SPRING = { bounce: 0.1, duration: 0.2, type: "spring" as const };
 /** Rows closing the gap settle one after the other instead of as a rigid block. */
 const STAGGER_STEP = 0.025;
 const MAX_STAGGER = 0.1;

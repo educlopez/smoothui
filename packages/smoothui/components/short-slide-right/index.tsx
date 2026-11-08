@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -38,7 +39,7 @@ export default function ShortSlideRight({
   return (
     <span
       aria-live="polite"
-      className={`relative inline-block overflow-hidden ${className}`}
+      className={cn("relative inline-block overflow-hidden", className)}
     >
       <AnimatePresence mode="wait">
         <motion.span

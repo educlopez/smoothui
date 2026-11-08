@@ -6,6 +6,7 @@ import {
   Root as TabsRoot,
   Trigger as TabsTrigger,
 } from "@radix-ui/react-tabs";
+import { cn } from "@repo/smoothui-utils";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useLayoutEffect, useRef, useState } from "react";
 
@@ -93,14 +94,20 @@ export default function Phototab({
 
   return (
     <TabsRoot
-      className={`group relative aspect-square w-auto overflow-hidden ${className}`}
+      className={cn(
+        "group relative aspect-square w-auto overflow-hidden",
+        className
+      )}
       defaultValue={toTabValue(defaultTab || (tabs[0]?.name ?? ""))}
       orientation="horizontal"
       style={{ height: `${height}px` }}
     >
       <TabsList
         aria-label="Phototab Tabs"
-        className={`absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full bg-primary/40 px-3 py-2 font-medium text-sm ring ring-border/70 backdrop-blur-sm transition hover:text-foreground md:translate-y-20 md:group-hover:translate-y-0 ${tabListClassName}`}
+        className={cn(
+          "absolute right-0 bottom-2 left-0 mx-auto flex w-40 -translate-y-10 flex-row items-center justify-between rounded-full bg-primary/40 px-3 py-2 font-medium text-sm ring ring-border/70 backdrop-blur-sm transition hover:text-foreground md:translate-y-20 md:group-hover:translate-y-0",
+          tabListClassName
+        )}
         ref={listRef}
         style={{ pointerEvents: "auto" }}
       >
@@ -135,7 +142,10 @@ export default function Phototab({
         {tabs.map((tab, index) => (
           <TabsTrigger
             aria-label={tab.name}
-            className={`relative z-10 cursor-pointer rounded-full p-2 data-[state='active']:bg-background ${tabTriggerClassName}`}
+            className={cn(
+              "relative z-10 cursor-pointer rounded-full p-2 data-[state='active']:bg-background",
+              tabTriggerClassName
+            )}
             key={tab.name}
             onMouseEnter={() => {
               setHoveredIndex(index);
@@ -163,7 +173,10 @@ export default function Phototab({
         >
           <img
             alt={tab.name}
-            className={`h-full w-full rounded-2xl bg-primary object-cover ${imageClassName}`}
+            className={cn(
+              "h-full w-full rounded-2xl bg-primary object-cover",
+              imageClassName
+            )}
             draggable={false}
             height={height}
             loading="lazy"

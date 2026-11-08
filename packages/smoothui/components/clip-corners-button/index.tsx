@@ -1,6 +1,7 @@
 "use client";
 
 import SmoothButton from "@repo/smoothui/components/smooth-button";
+import { cn } from "@repo/smoothui-utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 
@@ -36,7 +37,10 @@ export function ClipCornersButton({
 
   return (
     <SmoothButton
-      className={`relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90 ${className}`}
+      className={cn(
+        "relative overflow-hidden rounded-none border-none bg-foreground px-8 py-4 font-mono text-2xl text-background hover:bg-foreground/90",
+        className
+      )}
       onClick={onClick}
       onMouseEnter={() => {
         if (isHoverDevice) {
