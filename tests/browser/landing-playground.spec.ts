@@ -283,7 +283,7 @@ for (const width of [390, 1440]) {
     const expectedWidth = Math.min(width, 1280) - 64;
     const headings = [
       "Built for AI-assisted development",
-      "What they say about us",
+      "From people who shipped with it",
       "Featured across the community",
       "From the blog",
     ];

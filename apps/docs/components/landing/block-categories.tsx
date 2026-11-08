@@ -116,14 +116,7 @@ export function BlockCategories() {
     <section className="relative bg-background px-8 py-24 transition">
       <div className="mx-auto max-w-7xl">
         <SectionHeader
-          description={
-            <>
-              <span className="font-medium text-foreground">Customizable</span>{" "}
-              blocks that seamlessly{" "}
-              <span className="font-medium text-foreground">adapt</span> to your
-              project needs
-            </>
-          }
+          description="Heroes, pricing, FAQs, footers and more. Paste one in and edit the source."
           title="Page sections, ready to paste"
         />
 

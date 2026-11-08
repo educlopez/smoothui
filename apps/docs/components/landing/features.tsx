@@ -83,12 +83,8 @@ export function Features() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <SectionHeader
-        description="Built on the foundations you already love, with the polish you've been wishing for."
-        title={
-          <>
-            Why choose Smooth<span className="text-brand-ink">UI</span>?
-          </>
-        }
+        description="React, Motion and Tailwind tokens. The source lands in your project, so nothing is hidden in a package."
+        title="Motion you can read in the source"
       />
       <div className="mt-16 grid w-full gap-4 md:grid-cols-2 lg:grid-cols-4 lg:items-start">
         <VividLeadCard
