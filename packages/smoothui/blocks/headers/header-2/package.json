@@ -1,6 +1,6 @@
 {
   "name": "@repo/header-2",
-  "description": "Premium header block with gradient logo and smooth animations",
+  "description": "Header block with gradient logo and smooth animations",
   "version": "0.0.0",
   "private": true,
   "dependencies": {
@@ -23,13 +23,12 @@
       "hero",
       "navigation",
       "gradient",
-      "premium",
       "animated"
     ],
     "complexity": "moderate",
     "animationType": "spring",
     "useCases": [
-      "Premium hero header with gradient logo",
+      "Hero header with gradient logo",
       "Product landing page header with smooth entrance animations",
       "Marketing page hero with animated text and CTAs"
     ],

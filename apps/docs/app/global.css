@@ -47,6 +47,25 @@
   --lines-page: url("/lines-b.png");
   --color-fd-primary: var(--color-brand-ink);
   --color-fd-secondary: var(--color-smooth-50);
+  /* Fumadocs chrome reads the SmoothUI roles, so docs and components share one
+     neutral system. The roles flip per mode, so no .dark copy is needed. */
+  --color-fd-background: var(--color-background);
+  --color-fd-foreground: var(--color-foreground);
+  --color-fd-muted: var(--color-muted);
+  --color-fd-muted-foreground: var(--color-muted-foreground);
+  --color-fd-popover: var(--color-popover);
+  --color-fd-popover-foreground: var(--color-popover-foreground);
+  --color-fd-card-foreground: var(--color-card-foreground);
+  --color-fd-border: var(--color-border);
+  --color-fd-ring: var(--color-ring);
+  --color-fd-primary-foreground: var(--color-on-brand);
+  --color-fd-secondary-foreground: var(--color-secondary-foreground);
+  --color-fd-accent: color-mix(
+    in oklch,
+    var(--color-foreground) 8%,
+    transparent
+  );
+  --color-fd-accent-foreground: var(--color-foreground);
   /* Motion spine — match .cursor/rules/animations.mdc. Exit ~75% of enter;
      always honor prefers-reduced-motion. See .ui-craft/tokens.md. */
   --duration-fast: 0.15s;
@@ -63,6 +82,8 @@
   --shadow-lg: 0 8px 16px -8px rgb(0 0 0 / 0.45);
   --shadow-custom: var(--shadow-sm);
   --lines-page: url("/lines-w.png");
+  /* fd-primary is the light brand pink in dark mode: pair it with dark ink. */
+  --color-fd-primary-foreground: var(--color-background);
 }
 
 .shadow-sm {
@@ -76,10 +97,6 @@
 }
 
 /* Site chrome. */
-.tracking-tight {
-  letter-spacing: 0;
-}
-
 h1 .text-muted-foreground {
   color: var(--color-foreground);
 }

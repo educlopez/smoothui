@@ -265,7 +265,7 @@ const DockIcon = ({
   const sharedProps = {
     "aria-label": item.active ? `${item.label} (running)` : item.label,
     className:
-      "flex size-full items-center justify-center rounded-[26%] bg-foreground/[0.07] text-foreground outline-none ring-1 ring-foreground/10 ring-inset transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-brand active:scale-[0.94] motion-reduce:transition-none motion-reduce:active:scale-100",
+      "flex size-full items-center justify-center rounded-[26%] bg-foreground/[0.07] text-foreground outline-none ring-1 ring-foreground/10 ring-inset transition-transform duration-150 ease-out focus-visible:ring-2 focus-visible:ring-brand active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100",
     onClick: handleSelect,
     onFocus: onFocusItem,
     onKeyDown,

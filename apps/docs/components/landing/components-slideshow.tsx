@@ -41,7 +41,7 @@ export function ComponentsSlideshow() {
     <section className="relative bg-background px-8 py-24 transition">
       <SectionHeader
         description="Real components from the registry — preview the motion, then install with one command."
-        title="Components showcase"
+        title="What you see is what you install"
       />
       <div className="mt-16 columns-1 gap-4 md:columns-2 lg:columns-3">
         {SHOWCASE_COMPONENTS.map(({ name, slug }) => (

@@ -151,7 +151,7 @@ export default function InteractiveImageSelector({
           onClick={handleReset}
           transition={shouldReduceMotion ? { duration: 0 } : { duration: 0.25 }}
           whileHover={shouldReduceMotion ? {} : { scale: 1.05 }}
-          whileTap={shouldReduceMotion ? {} : { scale: 0.95 }}
+          whileTap={shouldReduceMotion ? {} : { scale: 0.97 }}
         >
           {isResetting ? "Resetting..." : "Reset"}
         </motion.button>
@@ -186,7 +186,7 @@ export default function InteractiveImageSelector({
           transition={{ duration: 0.3 }}
           type="button"
           whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
+          whileTap={{ scale: 0.97 }}
         >
           {isSelecting ? "Cancel" : "Select"}
         </motion.button>

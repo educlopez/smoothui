@@ -32,7 +32,7 @@
     "useCases": [
       "Celebrate a successful publish or submit flow",
       "Punctuate major route changes with a shader-inspired liquid sweep",
-      "Wrap demos, previews, or onboarding steps with a premium liquid state transition"
+      "Wrap demos, previews, or onboarding steps with a liquid state transition"
     ],
     "compositionHints": [
       "Trigger sparingly for meaningful state changes, not every hover or click",

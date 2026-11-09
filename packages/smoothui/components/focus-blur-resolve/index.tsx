@@ -14,7 +14,7 @@ export interface FocusBlurResolveProps {
 
 const DURATION_S = 0.76;
 const MS = 1000;
-// Smooth deceleration — premium focus-pull ease-out.
+// Smooth deceleration — focus-pull ease-out.
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 /**

@@ -283,7 +283,7 @@ for (const width of [390, 1440]) {
     const expectedWidth = Math.min(width, 1280) - 64;
     const headings = [
       "Built for AI-assisted development",
-      "What they say about us",
+      "From people who shipped with it",
       "Featured across the community",
       "From the blog",
     ];
@@ -328,7 +328,7 @@ for (const width of [390, 1440]) {
       .locator("footer.relative")
       .screenshot({ path: `/tmp/smoothui-footer-${width}.png` });
     const faq = page
-      .getByRole("heading", { name: "Frequently Asked Questions" })
+      .getByRole("heading", { name: "Frequently asked questions" })
       .locator("xpath=ancestor::section[1]")
       .locator(".max-w-3xl");
     const faqBounds = await faq.boundingBox();

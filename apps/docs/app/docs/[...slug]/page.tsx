@@ -267,7 +267,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
     <>
       <DocsTitle>{brandify(page.data.title)}</DocsTitle>
       {isSplit ? null : (
-        <DocsDescription className="mb-2 text-foreground/70 text-md">
+        <DocsDescription className="mb-2 max-w-[70ch] text-pretty text-foreground/70 text-md">
           {brandify(page.data.description)}
         </DocsDescription>
       )}
@@ -276,7 +276,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const introCopy =
     isSplit && page.data.description ? (
-      <p className="mb-[9vh] text-foreground/70 text-md leading-relaxed">
+      <p className="mb-[9vh] max-w-[70ch] text-pretty text-foreground/70 text-md leading-relaxed">
         {brandify(page.data.description)}
       </p>
     ) : null;

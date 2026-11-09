@@ -29,7 +29,7 @@
     "animationType": "ease",
     "useCases": [
       "Apple-style hero title reveal",
-      "Premium headline entrance with soft blur",
+      "Headline entrance with soft blur",
       "Section heading animated on scroll"
     ],
     "compositionHints": [
