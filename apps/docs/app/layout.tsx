@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         alt: "SmoothUI: real components fanning out between Smooth and UI",
         height: 630,
         type: "image/gif",
-        url: "https://smoothui.dev/og/og-animated.gif",
+        url: "https://smoothui.dev/social/og-animated.gif",
         width: 1200,
       },
     ],
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
       {
         height: 630,
         type: "video/mp4",
-        url: "https://smoothui.dev/og/og-animated.mp4",
+        url: "https://smoothui.dev/social/og-animated.mp4",
         width: 1200,
       },
     ],
@@ -87,7 +87,7 @@ export const metadata: Metadata = {
       {
         alt: "SmoothUI: real components fanning out between Smooth and UI",
         height: 630,
-        url: "https://smoothui.dev/og/og-animated-poster.png",
+        url: "https://smoothui.dev/social/og-animated-poster.png",
         width: 1200,
       },
     ],
