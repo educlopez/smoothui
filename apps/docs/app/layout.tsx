@@ -41,9 +41,10 @@ export const metadata: Metadata = {
     description: SOCIAL_DESCRIPTION,
     images: [
       {
-        alt: "SmoothUI Cover",
+        alt: "SmoothUI: real components fanning out between Smooth and UI",
         height: 630,
-        url: "https://smoothui.dev/og-optimized.webp",
+        type: "image/gif",
+        url: "https://smoothui.dev/og/og-animated.gif",
         width: 1200,
       },
     ],
@@ -52,6 +53,14 @@ export const metadata: Metadata = {
     title: "SmoothUI - Animated React Components for shadcn/ui",
     type: "website",
     url: "https://smoothui.dev",
+    videos: [
+      {
+        height: 630,
+        type: "video/mp4",
+        url: "https://smoothui.dev/og/og-animated.mp4",
+        width: 1200,
+      },
+    ],
   },
   robots: {
     follow: true,
@@ -73,11 +82,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     creator: "@educalvolpz",
     description: SOCIAL_DESCRIPTION,
+    // X does not animate GIFs or play og:video, so it gets the static poster.
     images: [
       {
-        alt: "SmoothUI Cover",
+        alt: "SmoothUI: real components fanning out between Smooth and UI",
         height: 630,
-        url: "https://smoothui.dev/og-optimized.webp",
+        url: "https://smoothui.dev/og/og-animated-poster.png",
         width: 1200,
       },
     ],
