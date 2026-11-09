@@ -7,7 +7,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
+  openGraph: {
+    images: [],
+    videos: [],
+  },
   robots: { follow: false, index: false },
+  twitter: {
+    images: [],
+  },
 };
 
 const TSX_EXTENSION_REGEX = /\.tsx$/;
