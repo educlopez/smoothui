@@ -18,7 +18,14 @@ import { notFound } from "next/navigation";
  * browser tab just falls back to white, which would break dark mode.
  */
 export const metadata: Metadata = {
+  openGraph: {
+    images: [],
+    videos: [],
+  },
   robots: { follow: false, index: false },
+  twitter: {
+    images: [],
+  },
 };
 
 const TSX_EXTENSION_REGEX = /\.tsx$/;

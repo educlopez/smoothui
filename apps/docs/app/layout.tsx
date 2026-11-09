@@ -41,9 +41,10 @@ export const metadata: Metadata = {
     description: SOCIAL_DESCRIPTION,
     images: [
       {
-        alt: "SmoothUI Cover",
+        alt: "SmoothUI — React components. Made to move.",
         height: 630,
-        url: "https://smoothui.dev/og-optimized.webp",
+        type: "image/gif",
+        url: "https://smoothui.dev/og/og.gif",
         width: 1200,
       },
     ],
@@ -52,6 +53,14 @@ export const metadata: Metadata = {
     title: "SmoothUI - Animated React Components for shadcn/ui",
     type: "website",
     url: "https://smoothui.dev",
+    videos: [
+      {
+        height: 630,
+        type: "video/mp4",
+        url: "https://smoothui.dev/og/og.mp4",
+        width: 1200,
+      },
+    ],
   },
   robots: {
     follow: true,
@@ -75,9 +84,9 @@ export const metadata: Metadata = {
     description: SOCIAL_DESCRIPTION,
     images: [
       {
-        alt: "SmoothUI Cover",
+        alt: "SmoothUI — React components. Made to move.",
         height: 630,
-        url: "https://smoothui.dev/og-optimized.webp",
+        url: "https://smoothui.dev/og/og-poster.png",
         width: 1200,
       },
     ],
