@@ -49,7 +49,7 @@ export interface TooltipContentProps {
 }
 
 const POPUP_CLASS =
-  "z-50 origin-(--radix-tooltip-content-transform-origin) rounded-md bg-foreground px-3 py-1.5 text-background text-xs shadow-md outline-none";
+  "z-50 origin-(--radix-tooltip-content-transform-origin) rounded-md border overlay-surface bg-popover px-3 py-1.5 text-popover-foreground text-xs outline-none";
 
 const overlayMotion = (shouldReduceMotion: boolean | null) => ({
   animate: shouldReduceMotion

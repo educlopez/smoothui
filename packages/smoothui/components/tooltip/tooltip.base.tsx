@@ -43,7 +43,7 @@ export interface TooltipContentProps {
 }
 
 const POPUP_CLASS =
-  "origin-[var(--transform-origin)] rounded-md bg-foreground px-3 py-1.5 text-background text-xs shadow-md outline-none transition-[opacity,transform] duration-150 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0";
+  "origin-[var(--transform-origin)] rounded-md border overlay-surface bg-popover px-3 py-1.5 text-popover-foreground text-xs outline-none transition-[opacity,transform] duration-150 data-[starting-style]:scale-95 data-[starting-style]:opacity-0 data-[ending-style]:scale-95 data-[ending-style]:opacity-0";
 
 type TriggerComponent = (props: {
   children?: ReactNode;

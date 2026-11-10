@@ -2,11 +2,25 @@
 
 import { Toast as ToastPrimitive } from "@base-ui/react/toast";
 import { cn } from "@repo/smoothui-utils";
+import {
+  CircleCheck,
+  CircleX,
+  Info,
+  LoaderCircle,
+  type LucideIcon,
+  TriangleAlert,
+} from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { ComponentProps, ReactNode } from "react";
 import { SPRING_DEFAULT } from "../../lib/animation";
 
-export type ToastKind = "default" | "success" | "error" | "loading";
+export type ToastKind =
+  | "default"
+  | "success"
+  | "error"
+  | "warning"
+  | "info"
+  | "loading";
 
 export interface ToastOptions {
   /** Extra props for the action button, e.g. `{ children: "Undo", onClick }` */
@@ -89,11 +103,49 @@ export const toast = Object.assign(add, {
   close: (id?: string) => toastManager.close(id),
   error: (title: string, options?: ToastOptions) =>
     add({ ...options, title, type: "error" }),
+  info: (title: string, options?: ToastOptions) =>
+    add({ ...options, title, type: "info" }),
   promise: toastManager.promise,
   success: (title: string, options?: ToastOptions) =>
     add({ ...options, title, type: "success" }),
   update: toastManager.update,
+  warning: (title: string, options?: ToastOptions) =>
+    add({ ...options, title, type: "warning" }),
 });
+
+/* Status icon per kind. The colour is a detail, not the message: the title
+   carries the meaning, so the icon is decorative. */
+const KIND_ICON: Record<string, { className: string; icon: LucideIcon }> = {
+  error: { className: "text-destructive-ink", icon: CircleX },
+  info: { className: "text-blue-ink", icon: Info },
+  loading: {
+    className: "animate-spin text-muted-foreground motion-reduce:animate-none",
+    icon: LoaderCircle,
+  },
+  success: { className: "text-green-ink", icon: CircleCheck },
+  warning: { className: "text-amber-ink", icon: TriangleAlert },
+};
+
+export type ToastIconProps = {
+  /** Toast kind; `default` and unknown kinds render nothing. */
+  type?: string;
+  className?: string;
+};
+
+export const ToastIcon = ({ className, type }: ToastIconProps) => {
+  const entry = type ? KIND_ICON[type] : undefined;
+  if (!entry) {
+    return null;
+  }
+  const Icon = entry.icon;
+  return (
+    <Icon
+      aria-hidden="true"
+      className={cn("mt-0.5 size-4 shrink-0", entry.className, className)}
+      data-slot="toast-icon"
+    />
+  );
+};
 
 export const ToastProvider = (props: ToastProviderProps) => (
   <ToastPrimitive.Provider toastManager={toastManager} {...props} />
@@ -122,7 +174,7 @@ export const ToastRoot = ({ className, ...props }: ToastRootProps) => {
   return (
     <ToastPrimitive.Root
       className={cn(
-        "pointer-events-auto relative w-full min-w-0 touch-none select-none rounded-lg border bg-popover p-4 text-popover-foreground shadow-lg outline-none [translate:var(--toast-swipe-movement-x,0px)_var(--toast-swipe-movement-y,0px)] data-[type=error]:border-destructive/50 data-[type=loading]:border-border data-[type=success]:border-emerald-500/50 data-[type=loading]:bg-muted/40",
+        "overlay-surface pointer-events-auto relative w-full min-w-0 touch-none select-none rounded-lg border bg-popover p-4 text-popover-foreground outline-none [translate:var(--toast-swipe-movement-x,0px)_var(--toast-swipe-movement-y,0px)]",
         className
       )}
       data-slot="toast"
@@ -214,6 +266,7 @@ export const ToastList = () => {
   return toasts.map((item) => (
     <ToastRoot key={item.id} toast={item}>
       <ToastContent>
+        <ToastIcon type={item.type} />
         <div className="min-w-0 flex-1">
           <ToastTitle />
           <ToastDescription />

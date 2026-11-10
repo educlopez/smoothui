@@ -157,7 +157,7 @@ const ContextMenuSubContent = ({
           <motion.div
             animate={motionProps.animate}
             className={cn(
-              "z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+              "overlay-surface z-50 min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground",
               className
             )}
             exit={motionProps.exit}
@@ -191,7 +191,7 @@ const ContextMenuContent = ({
         <motion.div
           animate={motionProps.animate}
           className={cn(
-            "z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+            "overlay-surface z-50 max-h-(--radix-context-menu-content-available-height) min-w-[8rem] origin-(--radix-context-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground",
             className
           )}
           exit={motionProps.exit}

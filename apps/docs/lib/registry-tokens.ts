@@ -90,6 +90,71 @@ const MODE_TOKENS: Record<string, { dark: string; light: string }> = {
 };
 
 /**
+ * The inverted grey panel every floating surface wears (popover, menus,
+ * select, combobox, command, preview card, toast, tooltip). It re-scopes the
+ * roles its children read under both the shadcn names (`--popover`) and the
+ * SmoothUI names (`--color-popover`), so it works in any project. Must match
+ * `@utility overlay-surface` in apps/docs/app/smoothui.css (tested).
+ */
+export const OVERLAY_SURFACE: Record<string, unknown> = {
+  "--accent": "var(--overlay-raised)",
+  "--accent-foreground": "oklch(0.99 0 0)",
+  "--amber-ink": "oklch(0.86 0.14 80)",
+  "--background": "var(--overlay-raised)",
+  "--blue-ink": "oklch(0.8 0.11 256)",
+  "--border": "oklch(1 0 0 / 0.1)",
+  "--brand-ink": "oklch(0.82 0.13 352.53)",
+  "--card": "var(--overlay-raised)",
+  "--card-foreground": "var(--overlay-fg)",
+  "--color-accent": "var(--accent)",
+  "--color-accent-foreground": "var(--accent-foreground)",
+  "--color-amber-ink": "var(--amber-ink)",
+  "--color-background": "var(--background)",
+  "--color-blue-ink": "var(--blue-ink)",
+  "--color-border": "var(--border)",
+  "--color-brand-ink": "var(--brand-ink)",
+  "--color-card": "var(--card)",
+  "--color-card-foreground": "var(--card-foreground)",
+  "--color-destructive-fg": "var(--destructive-fg)",
+  "--color-destructive-ink": "var(--destructive-ink)",
+  "--color-foreground": "var(--foreground)",
+  "--color-green-ink": "var(--green-ink)",
+  "--color-input": "var(--input)",
+  "--color-muted": "var(--muted)",
+  "--color-muted-foreground": "var(--muted-foreground)",
+  "--color-popover": "var(--popover)",
+  "--color-popover-foreground": "var(--popover-foreground)",
+  "--color-ring": "var(--ring)",
+  "--color-secondary": "var(--secondary)",
+  "--color-secondary-foreground": "var(--secondary-foreground)",
+  "--destructive": "oklch(0.8 0.13 22)",
+  "--destructive-fg": "oklch(0.2 0 0)",
+  "--destructive-ink": "var(--destructive)",
+  "--foreground": "var(--overlay-fg)",
+  "--green-ink": "oklch(0.82 0.15 152)",
+  "--input": "oklch(1 0 0 / 0.16)",
+  "--muted": "var(--overlay-raised)",
+  "--muted-foreground": "oklch(0.82 0 0)",
+  "--overlay": "oklch(0.4 0 0)",
+  "--overlay-fg": "oklch(0.97 0 0)",
+  "--overlay-raised": "oklch(0.47 0 0)",
+  "--popover": "var(--overlay)",
+  "--popover-foreground": "var(--overlay-fg)",
+  "--ring": "oklch(0.82 0 0)",
+  "--secondary": "var(--overlay-raised)",
+  "--secondary-foreground": "oklch(0.92 0 0)",
+  "@variant dark": {
+    "--overlay": "oklch(0.29 0 0)",
+    "--overlay-raised": "oklch(0.36 0 0)",
+    "box-shadow":
+      "inset 0 1px 0 oklch(1 0 0 / 0.08), 0 0 0 1px oklch(0 0 0 / 0.5), 0 16px 32px -8px oklch(0 0 0 / 0.6)",
+  },
+  "box-shadow":
+    "inset 0 1px 0 oklch(1 0 0 / 0.08), 0 0 0 1px oklch(0 0 0 / 0.18), 0 4px 8px -4px oklch(0 0 0 / 0.2), 0 16px 32px -8px oklch(0 0 0 / 0.32)",
+  "color-scheme": "dark",
+};
+
+/**
  * Shared utilities this item ships in its `css` field, so a single installed
  * primitive carries them too. Mirrors the `@utility` blocks in smoothui.css.
  * `focus-ring` is the 3px ring at 80% (3:1 non-text contrast);
@@ -102,6 +167,7 @@ export const SHARED_UTILITIES: Record<string, Record<string, unknown>> = {
   "focus-ring-within": {
     "&:has(:focus-visible)": { "@apply ring-[3px] ring-ring/80": {} },
   },
+  "overlay-surface": OVERLAY_SURFACE,
   "state-transition": {
     "@apply transition-[background-color,border-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none":
       {},

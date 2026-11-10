@@ -54,8 +54,8 @@
   --color-ring: var(--color-ring);
   --color-input: var(--color-input);
   --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--color-on-brand);
-  --color-accent: var(--color-brand);
+  --color-accent-foreground: var(--color-accent-foreground);
+  --color-accent: var(--color-accent);
   /* Semantic roles. Each name points at the variable of the same name, and
      that variable is defined once per mode in :root / .dark below. Utilities
      (`bg-card`) and direct reads (`var(--color-card)`) therefore always agree. */
@@ -89,6 +89,9 @@
 }
 
 :root {
+  /* Self-referencing so a surface (the overlay scope) can re-point it. */
+  --color-accent: var(--color-brand);
+  --color-accent-foreground: var(--color-on-brand);
   --color-brand: oklch(0.72 0.2 352.53);
   --color-brand-secondary: oklch(0.66 0.21 354.31);
   --color-brand-light: oklch(0.78 0.15 352.53);
@@ -290,6 +293,78 @@
    hover, focus and selection. Never ease-in; off with reduced motion. */
 @utility state-transition {
   @apply transition-[background-color,border-color,color,box-shadow] duration-150 ease-out motion-reduce:transition-none;
+}
+
+/* Overlay surface: the inverted grey panel for everything that floats above
+   the page (popover, menus, select, combobox, command, preview card, toast,
+   tooltip). Dark on the light page, a lifted grey on the dark page. It
+   re-scopes the roles its children read, so item hovers, dividers, inputs and
+   status inks follow without per-component colours. Each value is set under
+   the shadcn name (`--popover`) and the SmoothUI name (`--color-popover`) so
+   it works in this site and in an installer's project. Mirrored in
+   apps/docs/lib/registry-tokens.ts. */
+@utility overlay-surface {
+  --overlay: oklch(0.4 0 0);
+  --overlay-raised: oklch(0.47 0 0);
+  --overlay-fg: oklch(0.97 0 0);
+  --popover: var(--overlay);
+  --popover-foreground: var(--overlay-fg);
+  --foreground: var(--overlay-fg);
+  --background: var(--overlay-raised);
+  --card: var(--overlay-raised);
+  --card-foreground: var(--overlay-fg);
+  --muted: var(--overlay-raised);
+  --muted-foreground: oklch(0.82 0 0);
+  --secondary: var(--overlay-raised);
+  --secondary-foreground: oklch(0.92 0 0);
+  --accent: var(--overlay-raised);
+  --accent-foreground: oklch(0.99 0 0);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.16);
+  --ring: oklch(0.82 0 0);
+  /* Coloured text and status icons: lifted inks, 4.5:1 or more on the fill. */
+  --destructive: oklch(0.8 0.13 22);
+  --destructive-fg: oklch(0.2 0 0);
+  --destructive-ink: var(--destructive);
+  --brand-ink: oklch(0.82 0.13 352.53);
+  --green-ink: oklch(0.82 0.15 152);
+  --amber-ink: oklch(0.86 0.14 80);
+  --blue-ink: oklch(0.8 0.11 256);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive-fg: var(--destructive-fg);
+  --color-destructive-ink: var(--destructive-ink);
+  --color-brand-ink: var(--brand-ink);
+  --color-green-ink: var(--green-ink);
+  --color-amber-ink: var(--amber-ink);
+  --color-blue-ink: var(--blue-ink);
+  color-scheme: dark;
+  box-shadow:
+    inset 0 1px 0 oklch(1 0 0 / 0.08),
+    0 0 0 1px oklch(0 0 0 / 0.18),
+    0 4px 8px -4px oklch(0 0 0 / 0.2),
+    0 16px 32px -8px oklch(0 0 0 / 0.32);
+  @variant dark {
+    --overlay: oklch(0.29 0 0);
+    --overlay-raised: oklch(0.36 0 0);
+    box-shadow:
+      inset 0 1px 0 oklch(1 0 0 / 0.08),
+      0 0 0 1px oklch(0 0 0 / 0.5),
+      0 16px 32px -8px oklch(0 0 0 / 0.6);
+  }
 }
 
 /* Component NumberFlow */

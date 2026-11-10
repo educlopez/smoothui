@@ -89,7 +89,7 @@ export type PreviewCardArrowProps = Omit<
 > & { className?: string };
 
 const POPUP_CLASS =
-  "w-64 min-w-0 origin-[var(--transform-origin)] rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
+  "w-64 min-w-0 origin-[var(--transform-origin)] rounded-md border overlay-surface bg-popover p-4 text-popover-foreground outline-none";
 
 const ARROW_CLASS =
   "size-2 rotate-45 border-border bg-popover data-[side=bottom]:top-[-5px] data-[side=bottom]:border-t data-[side=bottom]:border-l data-[side=left]:right-[-5px] data-[side=left]:border-t data-[side=left]:border-r data-[side=right]:left-[-5px] data-[side=right]:border-b data-[side=right]:border-l data-[side=top]:bottom-[-5px] data-[side=top]:border-r data-[side=top]:border-b";

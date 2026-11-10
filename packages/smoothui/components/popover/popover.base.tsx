@@ -50,7 +50,7 @@ export interface PopoverContentProps {
 }
 
 const POPUP_CLASS =
-  "w-72 origin-[var(--transform-origin)] rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
+  "w-72 origin-[var(--transform-origin)] rounded-md border overlay-surface bg-popover p-4 text-popover-foreground outline-none";
 
 const overlayMotion = (shouldReduceMotion: boolean | null) => ({
   animate: shouldReduceMotion
