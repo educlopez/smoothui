@@ -36,7 +36,7 @@ pnpm capture:posters --force --only <slug>
 
 `pnpm` comes from corepack (`packageManager` in package.json). If it is not on PATH, the husky pre-commit hook fails: run `npm install -g corepack@latest && corepack enable`. Install corepack from npm even when Node bundles it: Node 25 and later ship without it (`corepack: command not found`). If npm fails with `EEXIST`, a global pnpm or Yarn owns that binary: check `npm ls -g --depth=0` and `npm uninstall -g pnpm` (or `yarn`) before retrying. Node is 24.15 or later (`.nvmrc`); Node 25 is not supported.
 
-Next 16 has breaking changes from older versions. Read `apps/docs/node_modules/next/dist/docs/` before writing Next-specific code.
+Next 16 has breaking changes from older versions. Read `apps/docs/node_modules/next/dist/docs/` before writing Next-specific code. The `nextjs-agent-rules` block in `apps/docs/AGENTS.md` is rewritten by `next dev` (`agentRules` option); commit its changes, never revert them.
 
 ## Design system
 
@@ -148,6 +148,7 @@ Run `pnpm fix` before committing. Beyond what Biome catches:
 
 - Integration branch is `develop`; `main` receives `develop` at release time.
 - Conventional Commits in English (`feat:`, `fix:`, `docs:`…).
+- `main` requires an up-to-date branch (`gh pr update-branch <n>`) and every review thread resolved. CodeRabbit reviews each push to a release PR, so answer or resolve its threads before merging.
 
 <!-- friction-log:agents -->
 
