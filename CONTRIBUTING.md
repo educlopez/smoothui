@@ -5,7 +5,7 @@ Thank you for your interest in contributing to SmoothUI! This guide covers every
 ## Prerequisites
 
 - **Node.js** >= 22.13 (`.nvmrc` pins the major, `nvm use` picks it up)
-- **pnpm** 11 (the exact version is pinned in `packageManager`; run `corepack enable` to get it. Node 25 and later no longer bundle corepack: install it first with `npm install -g corepack`. Or see [pnpm.io/installation](https://pnpm.io/installation))
+- **pnpm** 11 (the exact version is pinned in `packageManager`). Get it with `npm install -g corepack@latest && corepack enable`. Install corepack from npm even if your Node bundles it: Node 25 and later ship without it, and the copy bundled with Node 22 is too old to verify the pnpm 11 signature. Or see [pnpm.io/installation](https://pnpm.io/installation)
 - **Git**
 
 ## Getting Started

@@ -34,7 +34,7 @@ pnpm test:risk              # registry, tokens and docs tests (fast)
 pnpm capture:posters --force --only <slug>
 ```
 
-`pnpm` comes from corepack (`packageManager` in package.json). If it is not on PATH, the husky pre-commit hook fails: run `corepack enable`. Node 25 and later no longer bundle corepack, so `corepack: command not found` means install it first with `npm install -g corepack`.
+`pnpm` comes from corepack (`packageManager` in package.json). If it is not on PATH, the husky pre-commit hook fails: run `npm install -g corepack@latest && corepack enable`. Install corepack from npm even when Node bundles it: Node 25 and later ship without it (`corepack: command not found`), and the copy bundled with Node 22 is too old to verify the pnpm 11 signature.
 
 Next 16 has breaking changes from older versions. Read `apps/docs/node_modules/next/dist/docs/` before writing Next-specific code.
 
