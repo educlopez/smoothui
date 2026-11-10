@@ -1,5 +1,34 @@
 # Changelog
 
+## [4.1.0](https://github.com/educlopez/smoothui/compare/v4.0.0...v4.1.0) (2026-11-10)
+
+
+### Features
+
+* inverted overlay surface for every floating component ([13b4994](https://github.com/educlopez/smoothui/commit/13b499472817c74c13ad71fbe40e0fc97a49106c))
+* inverted overlay surface for every floating component ([a25efdd](https://github.com/educlopez/smoothui/commit/a25efdd70df442cc1604cb738f9cfb61f9cfd2b5))
+
+
+### Bug Fixes
+
+* **a11y:** restore keyboard focus and repair broken blocks ([3df3791](https://github.com/educlopez/smoothui/commit/3df3791a261f84a236611bb86ed47eedbdbcbcb1))
+* **a11y:** restore keyboard focus and repair broken blocks ([ac61d22](https://github.com/educlopez/smoothui/commit/ac61d22d9bf8d1a516b5a42771a3b3bb8226c913))
+* **accordion:** type Radix single-mode value and onValueChange as string ([#166](https://github.com/educlopez/smoothui/issues/166)) ([a22bb64](https://github.com/educlopez/smoothui/commit/a22bb6411324548591623e8a94840d4529e32143))
+* **deps:** patch undici, fast-uri, body-parser, and vitest ([#173](https://github.com/educlopez/smoothui/issues/173)) ([bf389d1](https://github.com/educlopez/smoothui/commit/bf389d13ae5cd01108dd7fb79782cafffc250a91))
+* **forms:** 16px inputs on touch, native prop forwarding, listener state bug ([ba2f6cf](https://github.com/educlopez/smoothui/commit/ba2f6cf3d437c385af4679d1d058907a88ee4a4f))
+* **forms:** 16px inputs on touch, native prop forwarding, listener state bug ([8a19472](https://github.com/educlopez/smoothui/commit/8a194725dbf6e471cd973b7c5266fad8672b2c29))
+* **interface:** resolve the better-interface review blockers ([ee9b0e7](https://github.com/educlopez/smoothui/commit/ee9b0e7fd28273864a1c63c24500172e70f3132d))
+* **interface:** resolve the better-interface review blockers ([2069b2b](https://github.com/educlopez/smoothui/commit/2069b2b566a2db3a7dfce8839f322c9d53eaace5))
+* **polish:** drop global utility overrides, docs type scale, motion sweep ([a53fc2d](https://github.com/educlopez/smoothui/commit/a53fc2d6e81e261f09fc8dab3dc263de323e43ca))
+* **polish:** drop global utility overrides, docs type scale, motion sweep ([1b08c39](https://github.com/educlopez/smoothui/commit/1b08c398378186708e299b8df4573c99abc7c872))
+* resolve CodeRabbit findings on the release PR ([f644b32](https://github.com/educlopez/smoothui/commit/f644b329c65b3cbb5303d07f5e12c3ab0e8e763c))
+* resolve CodeRabbit findings on the release PR ([76cf9b5](https://github.com/educlopez/smoothui/commit/76cf9b512e4b729c8c32561d665178808d2a454c))
+* resolve the MEDIUM/LOW findings from the interface review ([4b09833](https://github.com/educlopez/smoothui/commit/4b098332d54a7fcd6bcc8f1f3c7c9c10f32d2245))
+* resolve the MEDIUM/LOW findings from the interface review ([c63a4ae](https://github.com/educlopez/smoothui/commit/c63a4ae4f0e6a05b04a8ceb81ce7571b666a7275))
+* **security:** CodeQL ReDoS and identity-replacement ([#170](https://github.com/educlopez/smoothui/issues/170)) ([c810932](https://github.com/educlopez/smoothui/commit/c810932a29cd58287748798ccbed77a8ca7b0f8d))
+* **tokens:** give each semantic token one value and fix fill contrast ([84c13f7](https://github.com/educlopez/smoothui/commit/84c13f783f589fc299e9f6f11e7548fa1246fc08))
+* **tokens:** give each semantic token one value and fix fill contrast ([bace13c](https://github.com/educlopez/smoothui/commit/bace13c2e841ff5a5a519283fbc1773d025aeae9))
+
 ## [4.0.0](https://github.com/educlopez/smoothui/compare/v3.9.1...v4.0.0) (2026-10-15)
 
 
