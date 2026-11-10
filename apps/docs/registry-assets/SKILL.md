@@ -9,7 +9,7 @@ SmoothUI is a registry of animated React components (buttons, inputs, cards, AI 
 
 ## Installing components
 
-Every item installs through the shadcn CLI. Browse names at https://smoothui.dev/doc or fetch the machine-readable index at https://smoothui.dev/r/registry.json
+Every item installs through the shadcn CLI. Browse names at https://smoothui.dev/docs or fetch the machine-readable index at https://smoothui.dev/r/registry.json
 
 ```bash
 # Single component
