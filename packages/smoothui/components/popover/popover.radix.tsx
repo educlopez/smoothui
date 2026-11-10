@@ -49,7 +49,7 @@ export interface PopoverContentProps {
 }
 
 const POPUP_CLASS =
-  "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
+  "z-50 w-72 origin-(--radix-popover-content-transform-origin) rounded-md border overlay-surface bg-popover p-4 text-popover-foreground outline-none";
 
 const overlayMotion = (shouldReduceMotion: boolean | null) => ({
   animate: shouldReduceMotion

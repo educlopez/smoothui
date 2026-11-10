@@ -24,7 +24,7 @@ describe("Tooltip (Base) surface", () => {
     );
     const surface = surfaceOf();
     expect(surface).not.toBeNull();
-    expect(surface.classList.contains("bg-foreground")).toBe(true);
+    expect(surface.classList.contains("bg-popover")).toBe(true);
     expect(surface.classList.contains("data-[starting-style]:opacity-0")).toBe(
       true
     );
@@ -44,7 +44,7 @@ describe("Tooltip (Radix) surface", () => {
     );
     const surface = surfaceOf();
     expect(surface).not.toBeNull();
-    expect(surface.classList.contains("bg-foreground")).toBe(true);
+    expect(surface.classList.contains("bg-popover")).toBe(true);
     expect(surface.style.opacity).not.toBe("");
     expect(Number(surface.style.opacity)).toBeLessThan(1);
   });

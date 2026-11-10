@@ -71,7 +71,7 @@ export const NavigationMenuRoot = ({
     {children}
     <div className="absolute top-full left-0 flex w-full justify-center">
       <NavPrimitive.Viewport
-        className="data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top overflow-hidden rounded-xl border bg-popover text-popover-foreground shadow-md transition-[width,height] duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in motion-reduce:transition-none md:w-[var(--radix-navigation-menu-viewport-width)]"
+        className="data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90 overlay-surface relative mt-2 h-[var(--radix-navigation-menu-viewport-height)] w-full origin-top overflow-hidden rounded-xl border bg-popover text-popover-foreground transition-[width,height] duration-200 data-[state=closed]:animate-out data-[state=open]:animate-in motion-reduce:transition-none md:w-[var(--radix-navigation-menu-viewport-width)]"
         data-slot="navigation-menu-viewport"
       />
     </div>

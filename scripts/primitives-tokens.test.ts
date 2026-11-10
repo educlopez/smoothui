@@ -22,12 +22,14 @@ const ruleBody = (selector: string): string => {
   return css.slice(start, css.indexOf("\n}", start));
 };
 
+const byText = (a: string, b: string): number => a.localeCompare(b);
+
 const squash = (value: string): string => value.replace(/\s+/g, " ").trim();
 
-/** Flatten a registry rule object into selector and `@apply` lines, in order. */
+/** Flatten a registry rule object into selector, `@apply` and declaration lines, in order. */
 const flattenRules = (rules: Record<string, unknown>): string[] =>
   Object.entries(rules).flatMap(([key, value]) => [
-    squash(key),
+    typeof value === "string" ? squash(`${key}: ${value}`) : squash(key),
     ...(value && typeof value === "object"
       ? flattenRules(value as Record<string, unknown>)
       : []),
@@ -42,6 +44,7 @@ const cssUtilityRules = (name: string): string[] => {
   const end = css.indexOf("\n}\n", start);
   const body = css.slice(css.indexOf("{", start) + 1, end);
   return body
+    .replace(/\/\*[\s\S]*?\*\//g, "")
     .split(/(?<=[{;])/)
     .map((part) => squash(part.replace(/[;{}]/g, "")))
     .filter((part) => part !== "");
@@ -148,19 +151,22 @@ describe("primitive tokens in the registry tokens item", () => {
     expect(DARK).not.toContain("--color-destructive-hover");
   });
 
-  it("ships exactly the three shared utilities", () => {
+  it("ships exactly the four shared utilities", () => {
     expect(Object.keys(SHARED_UTILITIES).sort()).toEqual([
       "focus-ring",
       "focus-ring-within",
+      "overlay-surface",
       "state-transition",
     ]);
   });
 
   it("keeps the full body of each utility identical in the css and the registry", () => {
     for (const name of Object.keys(SHARED_UTILITIES)) {
-      expect(flattenRules(SHARED_UTILITIES[name] ?? {})).toEqual(
-        cssUtilityRules(name)
-      );
+      // Sorted: Biome orders the registry object's keys, the css keeps
+      // reading order. The lines themselves must match one for one.
+      expect(
+        flattenRules(SHARED_UTILITIES[name] ?? {}).toSorted(byText)
+      ).toEqual(cssUtilityRules(name).toSorted(byText));
     }
   });
 

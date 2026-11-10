@@ -58,7 +58,7 @@ export default function Command({ className, ...props }: CommandProps) {
   return (
     <CommandPrimitive
       className={cn(
-        "flex w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
+        "overlay-surface flex w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground",
         className
       )}
       data-slot="command"

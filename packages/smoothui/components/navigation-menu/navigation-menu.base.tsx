@@ -146,7 +146,7 @@ export const NavigationMenuViewport = ({
       sideOffset={8}
       collisionPadding={16}
     >
-      <NavPrimitive.Popup className="origin-[var(--transform-origin)] overflow-hidden rounded-xl border bg-popover text-popover-foreground shadow-md transition-[scale,opacity] duration-150 ease-out data-ending-style:scale-[0.98] data-starting-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none">
+      <NavPrimitive.Popup className="overlay-surface origin-[var(--transform-origin)] overflow-hidden rounded-xl border bg-popover text-popover-foreground transition-[scale,opacity] duration-150 ease-out data-ending-style:scale-[0.98] data-starting-style:scale-[0.98] data-ending-style:opacity-0 data-starting-style:opacity-0 motion-reduce:transition-none">
         <NavPrimitive.Viewport
           className={cn(
             "relative h-[var(--popup-height)] w-[var(--popup-width)] overflow-hidden transition-[width,height] duration-200 ease-out motion-reduce:transition-none",

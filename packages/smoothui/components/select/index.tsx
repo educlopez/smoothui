@@ -488,7 +488,7 @@ export default function Select({
                 : { opacity: 1, scale: 1, y: 0 }
             }
             className={cn(
-              "fixed z-[60] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
+              "overlay-surface fixed z-[60] overflow-hidden rounded-md border bg-popover text-popover-foreground",
               openUp ? "origin-bottom" : "origin-top",
               contentClassName
             )}
