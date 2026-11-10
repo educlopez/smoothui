@@ -294,7 +294,7 @@ npx shadcn@latest mcp init --client claude
 - "Install the SiriOrb component from smoothui"
 - "Create a landing page using smoothui components"
 
-[Learn more about MCP support →](https://smoothui.dev/doc/mcp)
+[Learn more about MCP support →](https://smoothui.dev/docs/guides/mcp)
 
 ## Registry System
 
