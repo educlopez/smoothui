@@ -94,7 +94,7 @@ export type PreviewCardArrowProps = Omit<
 > & { className?: string };
 
 const POPUP_CLASS =
-  "w-64 min-w-0 origin-(--radix-hover-card-content-transform-origin) rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none";
+  "w-64 min-w-0 origin-(--radix-hover-card-content-transform-origin) rounded-md border overlay-surface bg-popover p-4 text-popover-foreground outline-none";
 
 const ARROW_CLASS = "fill-popover stroke-border";
 

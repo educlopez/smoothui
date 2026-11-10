@@ -35,7 +35,7 @@ const TRIGGER_CLASS =
   "inline-flex h-8 select-none items-center rounded-md px-2.5 font-medium text-sm outline-none transition-colors hover:bg-muted focus:bg-muted data-[state=open]:bg-muted";
 
 const POPUP_CLASS =
-  "z-50 min-w-40 rounded-md border bg-popover p-1 text-popover-foreground shadow-md";
+  "z-50 min-w-40 rounded-md border overlay-surface bg-popover p-1 text-popover-foreground";
 
 const ITEM_CLASS =
   "relative flex cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden data-[disabled]:pointer-events-none data-[disabled]:opacity-50 data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground";

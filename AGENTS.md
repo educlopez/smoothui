@@ -49,7 +49,8 @@ Never hardcode a colour (hex, `rgb()`, `zinc-*`, `emerald-*`…) in a component 
 | Need | Use | Notes |
 |---|---|---|
 | Page canvas | `bg-background` | smooth-50 |
-| Raised surface (card, popover, menu) | `bg-card`, `bg-popover` | white in light, 0.21 in dark |
+| Raised surface (card, panel) | `bg-card` | white in light, 0.21 in dark |
+| Floating surface (popover, menu, select, combobox, command, preview card, toast, tooltip) | `overlay-surface bg-popover text-popover-foreground` | Inverted grey panel in both modes. The utility re-scopes the roles inside it (muted, accent, border, input, inks) and owns the shadow, so do not add `shadow-*`. Check new ones on `/overlays` |
 | Soft neutral wash, selected row, chip | `bg-primary` + `text-primary-foreground` | **Not shadcn's ink.** `primary` is SmoothUI's light grey surface |
 | Quieter surface / hover wash | `bg-muted`, `bg-secondary` | |
 | Body text / secondary text | `text-foreground` / `text-muted-foreground` | |

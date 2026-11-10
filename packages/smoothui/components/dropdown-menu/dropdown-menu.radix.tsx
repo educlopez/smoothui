@@ -116,7 +116,7 @@ const DropdownMenuContent = ({
         <motion.div
           animate={motionProps.animate}
           className={cn(
-            "z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md",
+            "overlay-surface z-50 max-h-(--radix-dropdown-menu-content-available-height) min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground",
             className
           )}
           exit={motionProps.exit}
@@ -254,7 +254,7 @@ const DropdownMenuSubContent = ({
           <motion.div
             animate={motionProps.animate}
             className={cn(
-              "z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-lg",
+              "overlay-surface z-50 min-w-[8rem] origin-(--radix-dropdown-menu-content-transform-origin) overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground",
               className
             )}
             exit={motionProps.exit}
