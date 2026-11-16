@@ -23,7 +23,6 @@ jobs:
     timeout-minutes: 5
     permissions:
       pull-requests: read # Read the PR title to validate it
-    if: github.event.pull_request.draft == false
     steps:
       - name: 📝 Lint PR title against Conventional Commits
         uses: amannn/action-semantic-pull-request@0723387faaf9b38adef4775cd42cfd5155ed6017 # v5.5.3
