@@ -50,7 +50,7 @@ const PORTAL = [
 
 export default function DocsPage() {
   return (
-    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 pt-16 pb-16 md:pt-24">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 pt-28 pb-16 md:pt-24">
       <div className="mx-auto w-full max-w-3xl text-center">
         <h1 className="font-semibold text-3xl text-foreground md:text-4xl">
           SmoothUI documentation
