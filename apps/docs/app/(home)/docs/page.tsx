@@ -27,13 +27,59 @@ export const metadata: Metadata = {
   },
 };
 
+const PORTAL = [
+  {
+    description: "The guides for SmoothUI.",
+    href: "/docs/guides",
+    icon: <IconBooksFill24 className="size-full" />,
+    name: "Documentation",
+  },
+  {
+    description: "The library of SmoothUI components.",
+    href: "/docs/components",
+    icon: <IconPencilFill24 className="size-full" />,
+    name: "Components",
+  },
+  {
+    description: "The library of SmoothUI blocks.",
+    href: "/docs/blocks",
+    icon: <IconPencilFill24 className="size-full" />,
+    name: "Blocks",
+  },
+] as const;
+
 export default function DocsPage() {
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-24 md:py-32">
-      <h1 className="font-semibold text-3xl text-foreground md:text-4xl">
-        SmoothUI documentation
-      </h1>
-      <div className="mt-8 space-y-4 text-base text-foreground/80 leading-relaxed">
+    <main className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-6 pt-16 pb-16 md:pt-24">
+      <div className="mx-auto w-full max-w-3xl text-center">
+        <h1 className="font-semibold text-3xl text-foreground md:text-4xl">
+          SmoothUI documentation
+        </h1>
+        <p className="mt-3 text-balance text-base text-foreground/70 leading-relaxed">
+          Guides, components and blocks. Pick a section, or keep reading for how
+          to install them.
+        </p>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        {PORTAL.map((item) => (
+          <Item
+            className="flex flex-row gap-4"
+            href={item.href}
+            key={item.name}
+          >
+            <Icon>{item.icon}</Icon>
+            <div className="flex flex-col">
+              <h2 className="mb-1 font-semibold text-foreground">
+                {item.name}
+              </h2>
+              <p className="text-foreground/70 text-sm">{item.description}</p>
+            </div>
+          </Item>
+        ))}
+      </div>
+
+      <div className="mx-auto mt-16 w-full max-w-3xl space-y-4 text-base text-foreground/80 leading-relaxed">
         <p>
           SmoothUI is a library of animated React components, blocks and
           templates. You install them into your own project the same way you
@@ -58,12 +104,12 @@ export default function DocsPage() {
           animation engine is a different question, and it lives on the blog
           post linked below. This page is the map.
         </p>
-      </div>
 
-      <h2 className="mt-12 font-semibold text-2xl text-foreground">
-        How to install
-      </h2>
-      <div className="mt-4 space-y-4 text-base text-foreground/80 leading-relaxed">
+        <h2 className="mt-12 font-semibold text-2xl text-foreground">
+          How to install
+        </h2>
+      </div>
+      <div className="mx-auto mt-4 w-full max-w-3xl space-y-4 text-base text-foreground/80 leading-relaxed">
         <p>
           You need a React project with Tailwind CSS. If shadcn is not
           initialized yet, the{" "}
@@ -96,10 +142,12 @@ export default function DocsPage() {
         </p>
       </div>
 
-      <h2 className="mt-12 font-semibold text-2xl text-foreground">
-        Where to go next
-      </h2>
-      <div className="mt-4 space-y-4 text-base text-foreground/80 leading-relaxed">
+      <div className="mx-auto mt-12 w-full max-w-3xl">
+        <h2 className="font-semibold text-2xl text-foreground">
+          Where to go next
+        </h2>
+      </div>
+      <div className="mx-auto mt-4 w-full max-w-3xl space-y-4 text-base text-foreground/80 leading-relaxed">
         <p>
           Components are the individual pieces: buttons, text, inputs, cards.
           Blocks are full sections for a marketing page. Guides explain setup,
@@ -143,43 +191,6 @@ export default function DocsPage() {
             it.
           </li>
         </ul>
-      </div>
-
-      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
-        {[
-          {
-            description: "Setup, themes and animation guides.",
-            href: "/docs/guides",
-            icon: <IconBooksFill24 className="size-full" />,
-            name: "Guides",
-          },
-          {
-            description: "The library of SmoothUI components.",
-            href: "/docs/components",
-            icon: <IconPencilFill24 className="size-full" />,
-            name: "Components",
-          },
-          {
-            description: "The library of SmoothUI blocks.",
-            href: "/docs/blocks",
-            icon: <IconPencilFill24 className="size-full" />,
-            name: "Blocks",
-          },
-        ].map((item) => (
-          <Item
-            className="flex flex-row gap-4"
-            href={item.href}
-            key={item.name}
-          >
-            <Icon>{item.icon}</Icon>
-            <div className="flex flex-col">
-              <h2 className="mb-2 font-semibold text-foreground">
-                {item.name}
-              </h2>
-              <p className="text-foreground/70 text-sm">{item.description}</p>
-            </div>
-          </Item>
-        ))}
       </div>
     </main>
   );

@@ -7,6 +7,7 @@ import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
 const COMPARISON_POST = "/blog/best-react-animation-libraries";
 const COMPARISON_ANCHOR = "react animation library comparison";
+const COMPARISON_CARD_HEADING = "React animation library comparison";
 
 export async function LatestPosts() {
   const posts = blogSource
@@ -40,7 +41,7 @@ export async function LatestPosts() {
               className="focus-ring rounded-sm font-medium text-foreground underline underline-offset-4 outline-none"
               href="/blog/best-react-animation-libraries"
             >
-              react animation library comparison
+              {COMPARISON_ANCHOR}
             </Link>
             .
           </>
@@ -77,7 +78,7 @@ export async function LatestPosts() {
                     <span>{readingTime} min read</span>
                   </div>
                   <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand-ink">
-                    {isComparison ? COMPARISON_ANCHOR : post.data.title}
+                    {isComparison ? COMPARISON_CARD_HEADING : post.data.title}
                   </h3>
                   {isComparison ? null : (
                     <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
