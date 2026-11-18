@@ -1,7 +1,60 @@
 ---
 title: UI Blocks
-description: "20+ production-ready UI blocks: headers, footers, pricing tables, testimonials, and more. React components with smooth animations."
+description: "{{blocks}} animated React blocks in {{blockCategories}} groups: heroes, pricing, testimonials, footers. Install a section with the SmoothUI CLI."
 full: true
 ---
 
+import { BLOCK_CATEGORY_COUNT, BLOCK_COUNT } from "@docs/lib/generated/counts";
+
 <BlocksGallery />
+
+<div className="mx-auto mt-16 max-w-3xl">
+
+A **component** in SmoothUI is one control: a button, an input, a card, a tab list. A **block** is a whole section of a page. It is still React, still Tailwind, and still installed as source you own, but it is composed for a job a marketing or product page repeats: the first screen, the price table, the footer. You drop a block in when you want that section finished, then edit the copy and the tokens. You reach for a component when you are building a section that does not match one of these layouts.
+
+There are {BLOCK_COUNT} blocks across {BLOCK_CATEGORY_COUNT} categories. That count is installable sections, not the number of cards on this page. Use a block when the section is a known pattern and the animation should already be there. Use components when the layout is your own. Blocks fit the public pages around a product — landing, pricing, about — better than application chrome such as settings or data tables.
+
+Motion runs underneath every block. The block itself is the section: entrances stay on transform and opacity, and reduced motion turns the movement off. SmoothUI is not a separate animation engine.
+
+## Blocks by type
+
+Each group below is one page of the catalogue. Open it for the live previews, then install the block whose layout you actually want.
+
+- [Hero blocks](/docs/blocks/hero) — the first screen: a headline, a short supporting line, and a background or text motion that introduces the product.
+- [Feature blocks](/docs/blocks/features) — grids of product points, with a scroll entrance or a hover state on each card.
+- [Pricing blocks](/docs/blocks/pricing) — plan columns, a monthly/yearly toggle, and the feature list under each price.
+- [Testimonial blocks](/docs/blocks/testimonial) — quotes from customers, including layouts that rotate through more than one card.
+- [FAQ blocks](/docs/blocks/faqs) — question lists and tabbed categories, with an accordion that is keyboard accessible.
+- [CTA blocks](/docs/blocks/cta) — a closing band: one claim, one action, and a background that keeps the band from looking like leftover space.
+- [Footer blocks](/docs/blocks/footer) — link columns, a short blurb, and social icons, in a layout that stacks on a narrow screen.
+- [Logo cloud blocks](/docs/blocks/logo-clouds) — a row or grid of partner and customer marks.
+- [Stats blocks](/docs/blocks/stats) — three or four metrics, with a count-up when the section enters the viewport.
+- [Team section blocks](/docs/blocks/team-sections) — people on the team, as cards with a hover state for the role or a short bio.
+
+## How to add a block
+
+A block installs like a component. The name in the command is the block id from its preview, not the category. Pricing 1 is the concrete example: a three-plan table from the pricing group.
+
+SmoothUI CLI:
+
+```bash
+npx smoothui-cli@latest add pricing-1
+```
+
+shadcn registry, same block:
+
+```bash
+npx shadcn@latest add @smoothui/pricing-1
+```
+
+The CLI copies the section into your project and installs what it imports, including Motion when the block animates. Run `npx smoothui-cli@latest list` to see ids before you add one. The [installation guide](/docs/guides/installation) covers registry setup and the interactive picker.
+
+Render the block from the path the CLI printed. Prices, quotes and links are text in the file: change those, and leave the motion unless you mean to retune it.
+
+## Where to go next
+
+If the section you need is not in the list, build it from [components](/docs/components) instead of forcing a block to fit. The [animated components](/docs/guides/animated-components) guide explains what that motion is doing, and when a component is enough without a full section around it.
+
+The cards above are those {BLOCK_CATEGORY_COUNT} groups, each with a still from one block.
+
+</div>

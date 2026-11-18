@@ -5,6 +5,10 @@ import { blogSource, formatDate, getReadingTime } from "@docs/lib/blog-source";
 import Link from "next/link";
 import { IconChevronRightFill24 } from "nucleo-core-fill-24";
 
+const COMPARISON_POST = "/blog/best-react-animation-libraries";
+const COMPARISON_ANCHOR = "react animation library comparison";
+const COMPARISON_CARD_HEADING = "React animation library comparison";
+
 export async function LatestPosts() {
   const posts = blogSource
     .getPages()
@@ -29,49 +33,70 @@ export async function LatestPosts() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <SectionHeader
-        description="Tutorials, deep dives and case studies on building beautifully animated React components."
+        description={
+          <>
+            Tutorials and deep dives on animated React components for shadcn/ui.
+            For engines, read the{" "}
+            <Link
+              className="focus-ring rounded-sm font-medium text-foreground underline underline-offset-4 outline-none"
+              href="/blog/best-react-animation-libraries"
+            >
+              {COMPARISON_ANCHOR}
+            </Link>
+            .
+          </>
+        }
         title="From the blog"
       />
 
       <div className="mx-auto mt-16 grid w-full max-w-7xl gap-4 md:grid-cols-3">
-        {withMeta.map(({ post, readingTime }) => (
-          <article className="group relative" key={post.url}>
-            <Link
-              className="flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-colors hover:bg-muted/50"
-              href={post.url}
-              transitionTypes={["nav-forward"]}
-            >
-              <PostCover
-                alt={post.data.title}
-                className="aspect-video border-border border-b"
-                image={post.data.image as string | undefined}
-                seed={post.url}
-              />
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-center gap-2 text-muted-foreground text-sm">
-                  <time dateTime={post.data.date as string}>
-                    {formatDate(post.data.date as string)}
-                  </time>
-                  <span aria-hidden="true">·</span>
-                  <span>{readingTime} min read</span>
+        {withMeta.map(({ post, readingTime }) => {
+          // This post is the canonical URL for "animation library". The card
+          // must not repeat its title or meta description, or the home starts
+          // competing for that query. The anchor is the only wording.
+          const isComparison = post.url === COMPARISON_POST;
+
+          return (
+            <article className="group relative" key={post.url}>
+              <Link
+                className="flex h-full flex-col overflow-hidden rounded-2xl border bg-card shadow-sm transition-colors hover:bg-muted/50"
+                href={post.url}
+                transitionTypes={["nav-forward"]}
+              >
+                <PostCover
+                  alt={isComparison ? "" : post.data.title}
+                  className="aspect-video border-border border-b"
+                  image={post.data.image as string | undefined}
+                  seed={post.url}
+                />
+                <div className="flex flex-1 flex-col p-6">
+                  <div className="flex items-center gap-2 text-muted-foreground text-sm">
+                    <time dateTime={post.data.date as string}>
+                      {formatDate(post.data.date as string)}
+                    </time>
+                    <span aria-hidden="true">·</span>
+                    <span>{readingTime} min read</span>
+                  </div>
+                  <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand-ink">
+                    {isComparison ? COMPARISON_CARD_HEADING : post.data.title}
+                  </h3>
+                  {isComparison ? null : (
+                    <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
+                      {post.data.description}
+                    </p>
+                  )}
+                  <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand-ink text-sm">
+                    Read
+                    <IconChevronRightFill24
+                      aria-hidden="true"
+                      className="size-3.5 translate-y-px transition-transform group-hover:translate-x-0.5"
+                    />
+                  </span>
                 </div>
-                <h3 className="mt-3 font-semibold text-foreground tracking-tight transition-colors group-hover:text-brand-ink">
-                  {post.data.title}
-                </h3>
-                <p className="mt-2 line-clamp-3 text-muted-foreground text-sm leading-relaxed">
-                  {post.data.description}
-                </p>
-                <span className="mt-auto flex items-center gap-1 pt-6 font-medium text-brand-ink text-sm">
-                  Read
-                  <IconChevronRightFill24
-                    aria-hidden="true"
-                    className="size-3.5 translate-y-px transition-transform group-hover:translate-x-0.5"
-                  />
-                </span>
-              </div>
-            </Link>
-          </article>
-        ))}
+              </Link>
+            </article>
+          );
+        })}
       </div>
 
       <div className="mx-auto mt-8 flex justify-center">
