@@ -29,7 +29,19 @@ export async function LatestPosts() {
   return (
     <section className="relative bg-background px-8 py-24 transition">
       <SectionHeader
-        description="Tutorials, deep dives and case studies on building beautifully animated React components."
+        description={
+          <>
+            Tutorials and deep dives on animated React components for shadcn/ui.
+            For engines, read the{" "}
+            <Link
+              className="focus-ring rounded-sm font-medium text-foreground underline underline-offset-4 outline-none"
+              href="/blog/best-react-animation-libraries"
+            >
+              react animation library comparison
+            </Link>
+            .
+          </>
+        }
         title="From the blog"
       />
 

@@ -3,33 +3,155 @@ import type { Metadata } from "next";
 import Link, { type LinkProps } from "next/link";
 import { IconBooksFill24, IconPencilFill24 } from "nucleo-core-fill-24";
 
+const DOCS_DESCRIPTION =
+  "Docs for SmoothUI: animated React components on Motion and Tailwind, installed from the shadcn registry.";
+
 export const metadata: Metadata = {
   alternates: {
     canonical: "/docs",
   },
-  description:
-    "Guides, component reference and blocks for SmoothUI. Start with installation, then browse every animated React component.",
+  description: DOCS_DESCRIPTION,
   // Without these, this page inherited the root layout's title and description
-  // verbatim, so / and /docs were duplicates of each other.
+  // verbatim, so / and /docs were duplicates of each other. Open Graph and
+  // Twitter are set too: the root layout defines them absolutely, and a child
+  // title does not replace that social title on its own.
+  openGraph: {
+    description: DOCS_DESCRIPTION,
+    title: "Documentation",
+    url: "/docs",
+  },
   title: "Documentation",
+  twitter: {
+    description: DOCS_DESCRIPTION,
+    title: "Documentation",
+  },
 };
 
 export default function DocsPage() {
   return (
-    <main className="container z-2 flex flex-1 flex-col items-center justify-center py-24 text-center md:py-36">
-      <h1 className="mb-4 font-semibold text-3xl md:text-4xl">
-        Getting Started
+    <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col px-6 py-24 md:py-32">
+      <h1 className="font-semibold text-3xl text-foreground md:text-4xl">
+        SmoothUI documentation
       </h1>
-      <p className="text-foreground/70 text-md">
-        Portal to different sections of docs.
-      </p>
-      <div className="mt-8 grid grid-cols-1 gap-4 text-start md:grid-cols-3">
+      <div className="mt-8 space-y-4 text-base text-foreground/80 leading-relaxed">
+        <p>
+          SmoothUI is a library of animated React components, blocks and
+          templates. You install them into your own project the same way you
+          install shadcn/ui: the files land in your repo, you own the code, and
+          you change whatever the design needs. It is for people who already
+          ship React interfaces and want motion that feels finished, without
+          designing every spring by hand.
+        </p>
+        <p>
+          The stack is React, Motion and Tailwind CSS. Components follow shadcn
+          patterns and install from the SmoothUI registry, so a button, an input
+          or a whole pricing section arrives with its animation, its
+          reduced-motion behaviour and its design tokens. Motion is the
+          animation engine. SmoothUI is the set of components on top of it:
+          primitives, interactive components, and page sections you can read and
+          edit.
+        </p>
+        <p>
+          Use the docs when a shadcn project needs motion, when a marketing page
+          needs a hero or a pricing table, or when you want a component you can
+          open in the editor. A one-off fade is often just CSS. Choosing an
+          animation engine is a different question, and it lives on the blog
+          post linked below. This page is the map.
+        </p>
+      </div>
+
+      <h2 className="mt-12 font-semibold text-2xl text-foreground">
+        How to install
+      </h2>
+      <div className="mt-4 space-y-4 text-base text-foreground/80 leading-relaxed">
+        <p>
+          You need a React project with Tailwind CSS. If shadcn is not
+          initialized yet, the{" "}
+          <TextLink href="/docs/guides/getting-started">
+            getting started guide
+          </TextLink>{" "}
+          walks through that first. The{" "}
+          <TextLink href="/docs/guides/installation">
+            installation guide
+          </TextLink>{" "}
+          covers the CLI, the registry and a manual copy. Two commands cover
+          almost every component.
+        </p>
+        <p>SmoothUI CLI:</p>
+        <pre className="overflow-x-auto rounded-xl border border-border bg-card p-4 font-mono text-foreground text-sm">
+          <code>npx smoothui-cli@latest add smooth-button</code>
+        </pre>
+        <p>The same component from the shadcn registry:</p>
+        <pre className="overflow-x-auto rounded-xl border border-border bg-card p-4 font-mono text-foreground text-sm">
+          <code>npx shadcn@latest add @smoothui/smooth-button</code>
+        </pre>
+        <p>
+          Both copy the component into your project and pull in what it needs,
+          including Motion. Run{" "}
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground text-sm">
+            npx smoothui-cli@latest add
+          </code>{" "}
+          with no name to pick from a list. After the first component, browse
+          the catalogue instead of installing blindly.
+        </p>
+      </div>
+
+      <h2 className="mt-12 font-semibold text-2xl text-foreground">
+        Where to go next
+      </h2>
+      <div className="mt-4 space-y-4 text-base text-foreground/80 leading-relaxed">
+        <p>
+          Components are the individual pieces: buttons, text, inputs, cards.
+          Blocks are full sections for a marketing page. Guides explain setup,
+          themes and how motion should behave in a shadcn project.
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <TextLink href="/docs/components">Components</TextLink> — every
+            animated component, with a live preview and the install command.
+          </li>
+          <li>
+            <TextLink href="/docs/blocks">Blocks</TextLink> — heroes, pricing,
+            testimonials, footers and the other page sections.
+          </li>
+          <li>
+            <TextLink href="/docs/guides/animated-components">
+              Animated components
+            </TextLink>{" "}
+            — what the motion in the catalogue actually does.
+          </li>
+          <li>
+            <TextLink href="/docs/guides/themes">Themes</TextLink> — colour
+            themes you can install into any shadcn project.
+          </li>
+          <li>
+            <TextLink href="/docs/guides/add-animations-to-shadcn">
+              Add animations to shadcn
+            </TextLink>{" "}
+            — CSS, hand-rolled Motion, or a pre-animated component.
+          </li>
+          <li>
+            <TextLink href="/blog/best-react-animation-libraries">
+              Best react animation libraries
+            </TextLink>{" "}
+            — the comparison of animation engines, and where SmoothUI sits on
+            top of Motion.
+          </li>
+          <li>
+            <TextLink href="/blog/ai-design-slop">AI design slop</TextLink> —
+            why generated UI looks the same, and what to check before you ship
+            it.
+          </li>
+        </ul>
+      </div>
+
+      <div className="mt-12 grid grid-cols-1 gap-4 md:grid-cols-3">
         {[
           {
-            description: "The guides for SmoothUI.",
+            description: "Setup, themes and animation guides.",
             href: "/docs/guides",
             icon: <IconBooksFill24 className="size-full" />,
-            name: "Documentation",
+            name: "Guides",
           },
           {
             description: "The library of SmoothUI components.",
@@ -51,7 +173,9 @@ export default function DocsPage() {
           >
             <Icon>{item.icon}</Icon>
             <div className="flex flex-col">
-              <h2 className="mb-2 font-semibold">{item.name}</h2>
+              <h2 className="mb-2 font-semibold text-foreground">
+                {item.name}
+              </h2>
               <p className="text-foreground/70 text-sm">{item.description}</p>
             </div>
           </Item>
@@ -61,9 +185,26 @@ export default function DocsPage() {
   );
 }
 
+function TextLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      className="focus-ring rounded-sm font-medium text-foreground underline underline-offset-4 outline-none"
+      href={href}
+    >
+      {children}
+    </Link>
+  );
+}
+
 function Icon({ children }: { children: React.ReactNode }) {
   return (
-    <div className="mb-2 size-8 rounded-lg border bg-primary p-1 text-foreground/70">
+    <div className="mb-2 size-8 shrink-0 rounded-lg border border-border bg-primary p-1 text-foreground/70">
       {children}
     </div>
   );
@@ -76,7 +217,7 @@ function Item(
     <Link
       {...props}
       className={cn(
-        "rounded-2xl border bg-card p-4 shadow-lg",
+        "focus-ring rounded-2xl border border-border bg-card p-4 shadow-lg outline-none",
         props.className
       )}
     >

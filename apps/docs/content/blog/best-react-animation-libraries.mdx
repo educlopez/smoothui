@@ -1,6 +1,6 @@
 ---
-title: "Best React Animation Libraries in 2026: A Complete Comparison"
-description: "A detailed comparison of the top React animation libraries — Motion, React Spring, GSAP, SmoothUI, and more. Learn which library fits your project with real examples and performance benchmarks."
+title: "React animation library comparison, 2026"
+description: "Picking a react animation library? Compare the options, then install SmoothUI: ready-made components built on Motion."
 date: "2026-04-16"
 author: "Eduardo Calvo"
 image: "/blog/best-react-animation-libraries.webp"
@@ -10,7 +10,21 @@ import { COMPONENT_COUNT } from "@docs/lib/generated/counts";
 
 import { Installer } from "@docs/components/installer";
 
-Choosing the right animation library for your React project can make or break the user experience. Too heavy, and your bundle bloats. Too minimal, and you're writing raw CSS keyframes for every micro-interaction. This guide compares the **most popular React animation libraries in 2026** so you can pick the right tool — or skip the decision entirely with a pre-built component library.
+A **react animation library** is the engine under an interface: springs, timelines and gestures. SmoothUI is not another engine. It is a set of ready-made React components built on Motion, installed from the shadcn registry, so the motion already lives in the component.
+
+## Comparison table
+
+The grid is the short version. SmoothUI is the first row because it is components on top of an engine, not a second engine. The notes for each option follow further down.
+
+| Library | Bundle size (gzip) | API style | Spring physics | Layout animation | Gesture support | SSR safe |
+|---|---|---|---|---|---|---|
+| SmoothUI | The component you install, plus Motion | Ready-made components | Yes, through Motion | Yes | Varies by component | Yes |
+| Motion | ~16KB | Declarative JSX | Yes | Yes | Yes | Partial |
+| React Spring | ~12KB | Hooks | Yes (native) | No | No | Yes |
+| GSAP | ~24KB | Imperative | No (easing only) | No | No | Yes |
+| AutoAnimate | ~2KB | Ref-based | No | No | No | Yes |
+| CSS native | 0KB | Stylesheet | No | Via View Transitions | No | Yes |
+| Remotion | ~50KB+ | Component-per-frame | No | N/A | N/A | No |
 
 ## Why animations matter
 
@@ -119,16 +133,27 @@ A completely different category: Remotion renders React components as MP4/WebM v
 
 **Best for:** Programmatic video generation, not UI.
 
-## Comparison table
+## Best animation library for React
 
-| Library | Bundle size (gzip) | API style | Spring physics | Layout animation | Gesture support | SSR safe |
-|---|---|---|---|---|---|---|
-| Motion | ~16KB | Declarative JSX | Yes | Yes | Yes | Partial |
-| React Spring | ~12KB | Hooks | Yes (native) | No | No | Yes |
-| GSAP | ~24KB | Imperative | No (easing only) | No | No | Yes |
-| AutoAnimate | ~2KB | Ref-based | No | No | No | Yes |
-| CSS native | 0KB | Stylesheet | No | Via View Transitions | No | Yes |
-| Remotion | ~50KB+ | Component-per-frame | No | N/A | N/A | No |
+The **best animation library for react** is the one that matches the job, not the one with the longest feature list. A marketing page with scroll-driven sequences wants a timeline. A product UI that only needs list reordering wants something smaller. A team that needs buttons, tabs, dialogs and cards this week does not need to pick an engine and then rebuild those patterns: that is what SmoothUI is for, on top of Motion.
+
+## React JS animation library
+
+**React js animation library** and **animation library react** are the same search in a different order. Both mean "which engine should this React app depend on?" This article is that comparison. SmoothUI sits one layer up: install a component when you want the interaction, and keep Motion as the engine underneath it.
+
+## FAQ
+
+### Is SmoothUI a react animation library?
+
+No. A react animation library exposes primitives (`animate`, springs, timelines). SmoothUI copies finished components into your repo. Those components are built on Motion, and they already follow the reduced-motion and transform-and-opacity rules below.
+
+### What is the best animation library for react if I only need UI?
+
+If the deliverable is interface, not a custom timeline, skip the engine decision and install a SmoothUI component. [How to choose](#how-to-choose) is the decision tree for when you really are choosing an engine.
+
+### Do "react js animation library" and "animation library react" point somewhere else?
+
+No. Both phrases land on this comparison. There is no separate page for each wording.
 
 ## Skip the boilerplate: use pre-built animated components
 
