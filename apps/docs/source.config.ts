@@ -47,9 +47,20 @@ export const docs = defineDocs({
        * the body can — and this is the text search engines show.
        */
       description: z.string().transform(substituteCounts).optional(),
+      /**
+       * Visible H1 override. `title` still names the page in the sidebar,
+       * breadcrumbs and cards; use this when the page should lead with the
+       * search phrase people use for it (e.g. "Animated Tabs" for Tabs).
+       */
+      heading: z.string().optional(),
       installer: z.string().optional(),
       new: z.coerce.date().optional(),
       references: z.array(z.string()).optional(),
+      /**
+       * `<title>` override (the layout appends " | SmoothUI"). Falls back to
+       * `heading`, then `title`.
+       */
+      seoTitle: z.string().optional(),
       /**
        * Opt into the split layout: MDX scrolls on the left, the live preview
        * sticks on the right. Temporary — it exists so the layout can be judged on
@@ -76,6 +87,11 @@ export const blog = defineDocs({
       date: z.string(),
       description: z.string().transform(substituteCounts).optional(),
       image: z.string().optional(),
+      /**
+       * `<title>` override (the layout appends " | SmoothUI"). Keeps the
+       * visible H1 as `title` while fitting the search result length.
+       */
+      seoTitle: z.string().optional(),
     }),
   },
 });
