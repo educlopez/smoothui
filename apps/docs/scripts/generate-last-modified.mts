@@ -11,7 +11,7 @@
 // files git cannot date: a file's mtime on a build machine is checkout time.
 import { execFileSync } from "node:child_process";
 import { readdir, readFile, writeFile } from "node:fs/promises";
-import { join, relative } from "node:path";
+import { join, relative, resolve } from "node:path";
 
 const DOCS_ROOT = join(import.meta.dirname, "..");
 const CONTENT_ROOT = join(DOCS_ROOT, "content", "docs");
@@ -35,7 +35,7 @@ const shallowBoundaries = async (): Promise<Set<string>> => {
     if (git(["rev-parse", "--is-shallow-repository"]) !== "true") {
       return new Set();
     }
-    const shallowFile = join(
+    const shallowFile = resolve(
       REPO_ROOT,
       git(["rev-parse", "--git-path", "shallow"])
     );
