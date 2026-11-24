@@ -266,7 +266,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
 
   const heading = (
     <>
-      <DocsTitle>{brandify(page.data.title)}</DocsTitle>
+      <DocsTitle>{brandify(page.data.heading ?? page.data.title)}</DocsTitle>
       {isSplit ? null : (
         <DocsDescription className="mb-2 max-w-[70ch] text-pretty text-foreground/70 text-md">
           {brandify(page.data.description)}
@@ -600,7 +600,7 @@ export async function generateMetadata(
       images: [image],
       url: pageUrl,
     },
-    title: page.data.title,
+    title: page.data.seoTitle ?? page.data.heading ?? page.data.title,
     twitter: {
       images: [image],
     },

@@ -33,10 +33,8 @@ export default async function BlogPostPage({ params }: PageProps) {
   return (
     <>
       <ArticleSchema
-        author={post.data.author as string | undefined}
         date={post.data.date as string}
         description={post.data.description ?? ""}
-        image={post.data.image as string | undefined}
         title={post.data.title}
         url={post.url}
       />
@@ -172,7 +170,7 @@ export async function generateMetadata({
       type: "article",
       url: `/blog/${slug}`,
     },
-    title: post.data.title,
+    title: post.data.seoTitle ?? post.data.title,
     twitter: {
       images: [{ height: 630, url: image, width: 1200 }],
     },
