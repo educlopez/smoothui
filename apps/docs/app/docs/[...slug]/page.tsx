@@ -214,6 +214,7 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
   // preview column off screen instead of scrolling inside the code pane.
   // The index galleries are wall-to-wall previews, same as a block page, so
   // they get the whole track rather than the reading-width cap.
+  const isBlocksIndex = type === "block" && page.slugs.length === 1;
   const isGalleryIndex =
     (isComponentOrBlock || isTemplate) && page.slugs.length === 1;
   let contentWidth = "min-w-0";
@@ -406,13 +407,16 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
         footer={isSplit || isGalleryIndex ? { enabled: false } : undefined}
         full={page.data.full ?? isSplit}
         tableOfContent={
-          isSplit
+          isSplit || isBlocksIndex
             ? { enabled: false }
             : {
                 footer: footerContent,
                 style: "clerk",
               }
         }
+        // Headings below the blocks gallery must not mount an extra mobile
+        // TOC row above the catalogue, even in full-width mode.
+        tableOfContentPopover={isBlocksIndex ? { enabled: false } : undefined}
         toc={isSplit ? [] : updatedToc}
       >
         {isSplit && previewData ? (
@@ -482,14 +486,16 @@ export default async function Page(props: PageProps<"/docs/[...slug]">) {
                     that is only collapsed on wide screens; on a phone the navbar
                     already carries the drawer toggle, and showing both would
                     offer the same sidebar twice. */}
-                <div className="not-prose sticky top-16 z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:mb-36 lg:flex">
+                <div
+                  className={`not-prose sticky top-16 z-10 mb-6 hidden items-center py-2 lg:-mt-14 lg:flex ${isBlocksIndex ? "lg:mb-12" : "lg:mb-36"}`}
+                >
                   {/* The module only blurs; painting the page colour under the
                       mask is what makes the text dissolve instead of staying
                       legible-but-smudged. */}
                   <BlurMagic
                     background="var(--color-background)"
                     blur="6px"
-                    className="absolute! inset-x-0! -top-2! -z-10 h-[178px]! w-auto!"
+                    className={`absolute! inset-x-0! -top-2! -z-10 w-auto! ${isBlocksIndex ? "h-20!" : "h-[178px]!"}`}
                     side="top"
                     stop="25%"
                     style={{
