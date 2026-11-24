@@ -42,6 +42,8 @@ export function createMetadata(override: Metadata): Metadata {
       url: "https://smoothui.dev",
       ...(inheritsDefaultImage ? { videos: [defaultOgVideo] } : {}),
       ...override.openGraph,
+      // An explicit `images: undefined` must not wipe the fallback.
+      ...(inheritsDefaultImage ? { images: [defaultOgImage] } : {}),
     },
     twitter: {
       card: "summary_large_image",
