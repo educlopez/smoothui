@@ -466,8 +466,8 @@ article.group p {
 }
 
 /* Reading measure: running text stops near 70 characters even though the
-   column is wider (previews and tables keep the full width). */
-#nd-page .prose > :is(p, ul, ol, blockquote) {
+   column is wider (non-prose galleries and tables keep the full width). */
+#nd-page .prose > :is(p, ul, ol, blockquote):not(.not-prose) {
   max-width: 70ch;
 }
 
