@@ -28,6 +28,11 @@ jobs:
       - id: release
         uses: googleapis/release-please-action@5c625bfb5d1ff62eadeeb3772007f7f66fdcf071 # v4
         with:
+          # A fine-grained PAT scoped to this repo (Contents, Issues and Pull
+          # requests: read and write). Pushes made with GITHUB_TOKEN do not
+          # start workflows, so with it the release PR never ran the required
+          # checks and stayed BLOCKED until someone pushed by hand.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
@@ -35,6 +40,10 @@ jobs:
       # does: the version bump and changelog are the last chance to look at what
       # is about to be published, and that review is worth more than the clicks
       # it costs.
+      #
+      # Note (2026-11-24): the paragraph below predates RELEASE_PLEASE_TOKEN.
+      # With the PAT, the release PR runs CI like any other PR. Merging it by
+      # hand is still the policy.
       #
       # Auto-merging it was tried and removed. It could never work here anyway:
       # CI and Secret Scan on the release PR finish with conclusion
