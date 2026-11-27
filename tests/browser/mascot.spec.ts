@@ -12,6 +12,11 @@ test("a mascot picks up hover when visibility tracking starts under the cursor",
   page,
 }) => {
   await page.addInitScript(() => {
+    const match = window.matchMedia.bind(window);
+    window.matchMedia = (query) =>
+      query === "(hover: hover) and (pointer: fine)"
+        ? match("(pointer: none)")
+        : match(query);
     const { observe } = IntersectionObserver.prototype;
     let unlocked = false;
     window.addEventListener("test:observe-mascots", () => {
@@ -22,6 +27,7 @@ test("a mascot picks up hover when visibility tracking starts under the cursor",
         observe.call(this, target);
         return;
       }
+      document.documentElement.dataset.mascotObservationHeld = "true";
       window.addEventListener(
         "test:observe-mascots",
         () => observe.call(this, target),
@@ -35,6 +41,10 @@ test("a mascot picks up hover when visibility tracking starts under the cursor",
     .filter({ has: page.locator("[data-mascot]"), visible: true })
     .first();
   const mark = link.locator("[data-mascot]");
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-mascot-observation-held",
+    "true"
+  );
   await link.hover();
   await expect(mark).toHaveAttribute("data-expression", "neutral");
   await page.evaluate(() =>
@@ -77,6 +87,14 @@ test("the linked brand mark reacts to pressure without changing navigation", asy
   await expect(mark).toHaveAttribute("data-expression", "curious");
   await page.mouse.down();
   await expect(mark).toHaveAttribute("data-expression", "surprised");
+  await page.evaluate(() => {
+    for (const type of ["pointerup", "pointercancel"]) {
+      window.dispatchEvent(
+        new PointerEvent(type, { pointerId: 99, pointerType: "touch" })
+      );
+    }
+  });
+  await expect(mark).toHaveAttribute("data-expression", "surprised");
   await page.mouse.move(300, 150);
   await page.mouse.up();
   await expect(mark).toHaveAttribute("data-expression", "curious");
@@ -92,6 +110,31 @@ test("reduced motion keeps the ambient mascot still", async ({ page }) => {
   await mark.hover();
   await expect(mark).toHaveAttribute("data-expression", "neutral");
   expect(await gazeX(mark.locator("[data-mascot-gaze]"))).toBe(0);
+});
+
+test("enabling reduced motion on the open page resets the mascot's gaze", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  const footer = page.locator("footer [data-mascot-surface]");
+  const mark = footer.locator("[data-mascot]");
+  await mark.scrollIntoViewIfNeeded();
+  await footer.hover();
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+  const box = await mark.boundingBox();
+  if (!box) {
+    throw new Error("Missing footer mascot");
+  }
+  const gaze = mark.locator("[data-mascot-gaze]");
+  await page.mouse.move(box.x + 75, box.y + box.height / 2);
+  await expect.poll(() => gazeX(gaze)).toBeGreaterThan(15);
+  await expect(mark).toHaveCSS("overflow", "visible");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  await expect.poll(async () => Math.abs(await gazeX(gaze))).toBeLessThan(0.5);
+  await page.mouse.move(box.x + 80, box.y + box.height / 2);
+  expect(await gazeX(gaze)).toBe(0);
 });
 
 async function readyInstaller(page: Page) {
