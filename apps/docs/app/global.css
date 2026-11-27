@@ -12,7 +12,6 @@
 @source "../../../packages/smoothui-utils/**/*.{js,jsx,ts,tsx}";
 
 @theme {
-  --font-title: var(--font-inter);
   --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 0.1), 0 1px 3px rgb(0 0 0 / 0.06);
   --shadow-md:
     0 2px 4px -2px rgb(0 0 0 / 0.08), 0 4px 6px -1px rgb(0 0 0 / 0.1);
@@ -20,12 +19,29 @@
 }
 
 @theme inline {
-  --font-body: var(--font-inter);
+  --font-sans: var(--font-allo), system-ui, sans-serif;
+  --font-body: var(--font-allo), system-ui, sans-serif;
+  --font-title: var(--font-allo), system-ui, sans-serif;
   --shiki-theme: var(--shiki--light);
   --shiki--light: var(--shiki-theme);
   --shiki--dark: var(--shiki-theme);
   --shadow-custom: var(--shadow-custom);
   --shadow-custom-brand: var(--shadow-custom-brand);
+}
+
+@utility font-allo-display {
+  font-family: var(--font-title);
+  font-variation-settings: "opsz" 32;
+  font-optical-sizing: none;
+}
+
+@utility font-allo-wordmark {
+  font-family: var(--font-title);
+  font-variation-settings: "opsz" 32;
+  font-weight: 700;
+  font-optical-sizing: none;
+  font-synthesis: none;
+  letter-spacing: -0.045em;
 }
 
 :root {

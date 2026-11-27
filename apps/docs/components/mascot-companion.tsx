@@ -97,9 +97,12 @@ export function MascotCompanion({
   const isGreeting = copyText === undefined;
   if (isGreeting) {
     return (
-      <div className="not-prose inline-flex shrink-0 items-center gap-2">
+      <div
+        className="not-prose inline-flex shrink-0 items-center gap-2"
+        data-mascot-surface=""
+      >
         <Icon className="h-6 w-auto shrink-0" />
-        <span className="mt-0.5 select-none font-medium font-title text-foreground text-xl leading-none">
+        <span className="select-none font-allo-wordmark text-2xl text-foreground leading-none sm:text-3xl">
           Smooth<span className="text-brand">UI</span>
         </span>
       </div>

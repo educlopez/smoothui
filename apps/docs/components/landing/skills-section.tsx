@@ -80,7 +80,7 @@ export function SkillsSection() {
             UI Craft
           </span>
 
-          <h2 className="max-w-2xl text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
+          <h2 className="max-w-2xl text-balance font-allo-display font-semibold text-3xl text-foreground md:text-4xl">
             The system behind design taste
           </h2>
 

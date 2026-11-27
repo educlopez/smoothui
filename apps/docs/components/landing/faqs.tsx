@@ -12,7 +12,7 @@ import { cn } from "@repo/shadcn-ui/lib/utils";
 export function FAQ() {
   return (
     <section className="relative w-full bg-background px-8 py-24">
-      <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground md:text-4xl">
+      <h2 className="text-balance text-center font-allo-display font-semibold text-3xl text-foreground md:text-4xl">
         Frequently asked questions
       </h2>
       <div className="mx-auto mt-16 max-w-3xl space-y-4">

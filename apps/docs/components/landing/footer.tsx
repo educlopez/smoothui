@@ -7,6 +7,7 @@ import { ReactLogo } from "@docs/components/landing/logos/react-logo";
 import { ShadcnLogo } from "@docs/components/landing/logos/shadcn-logo";
 import { TailwindLogo } from "@docs/components/landing/logos/tailwind-logo";
 import { MascotCompanion } from "@docs/components/mascot-companion";
+import Image from "next/image";
 import Link from "next/link";
 import { IconArrowUpRightFill24 } from "nucleo-core-fill-24";
 import { type RefObject, useEffect, useRef, useState } from "react";
@@ -179,7 +180,7 @@ function GiantMark() {
       aria-hidden
       className="pointer-events-none relative z-10 select-none overflow-hidden"
     >
-      <p className="translate-y-[18%] text-center font-semibold font-title text-[clamp(4.5rem,16vw,12rem)] text-foreground/[0.07] leading-[0.8] tracking-tighter dark:text-foreground/[0.09]">
+      <p className="translate-y-[18%] text-center font-allo-wordmark text-[clamp(4.5rem,16vw,12rem)] text-foreground/[0.07] leading-[0.8] dark:text-foreground/[0.09]">
         SmoothUI
       </p>
     </div>
@@ -233,7 +234,11 @@ function LinkColumn({ column }: { column: FooterColumn }) {
 // Footer — pink band + links + giant mark
 // ---------------------------------------------------------------------------
 
-export default function Footer() {
+export default function Footer({
+  showOssBadge = false,
+}: {
+  showOssBadge?: boolean;
+} = {}) {
   const bandRef = useRef<HTMLDivElement>(null);
   const [band, setBand] = useState({ height: 0, width: 0 });
   const [showPhoto, setShowPhoto] = useState(false);
@@ -266,7 +271,7 @@ export default function Footer() {
       />
 
       <div className="relative z-10 pt-16 pb-10 sm:pt-20 sm:pb-12">
-        <FooterBody showMark={false} />
+        <FooterBody showMark={false} showOssBadge={showOssBadge} />
       </div>
 
       <GiantMark />
@@ -278,7 +283,13 @@ export default function Footer() {
 // Footer body — link columns + bottom bar (also used in docs chrome)
 // ---------------------------------------------------------------------------
 
-export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
+export function FooterBody({
+  showMark = true,
+  showOssBadge = false,
+}: {
+  showMark?: boolean;
+  showOssBadge?: boolean;
+} = {}) {
   return (
     <>
       <div className="mx-auto w-full max-w-7xl px-8">
@@ -289,6 +300,23 @@ export function FooterBody({ showMark = true }: { showMark?: boolean } = {}) {
               Animated React components with smooth Motion animations. Drop-in
               shadcn/ui compatible.
             </p>
+            {showOssBadge ? (
+              <a
+                className="focus-ring flex min-h-11 w-fit max-w-full items-center rounded-md opacity-80 outline-none hover:opacity-100"
+                href="https://vercel.com/blog/vercel-open-source-program-winter-2026-cohort#smoothui"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <Image
+                  alt="Vercel Open Source Software Program"
+                  className="h-auto max-w-full brightness-0 dark:invert"
+                  height={24}
+                  src="/vercel-oss-badge.svg"
+                  unoptimized
+                  width={240}
+                />
+              </a>
+            ) : null}
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3 md:col-span-3">

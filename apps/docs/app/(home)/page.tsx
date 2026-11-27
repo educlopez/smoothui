@@ -86,7 +86,7 @@ export default function Home() {
           <LatestPosts />
         </Suspense>
       </LandingBand>
-      <Footer />
+      <Footer showOssBadge />
     </>
   );
 }
