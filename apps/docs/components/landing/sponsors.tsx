@@ -20,7 +20,7 @@ export function Sponsors() {
                 Thank you to our sponsors
               </span>
             </div>
-            <h2 className="text-balance text-center font-semibold font-title text-3xl text-foreground md:text-4xl">
+            <h2 className="text-balance text-center font-allo-display font-semibold text-3xl text-foreground md:text-4xl">
               Our sponsors
             </h2>
             <p className="mx-auto mt-4 max-w-2xl text-balance text-muted-foreground">

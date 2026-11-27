@@ -61,11 +61,11 @@ function LogoContent({
       className="flex cursor-pointer items-center gap-2 border-none bg-transparent"
       ref={ref}
     >
-      <Icon className={cn("h-6 w-auto cursor-grabbing", classNameIcon)} />
+      <Icon className={cn("h-6 w-auto", classNameIcon)} />
       {mark ? null : (
         <span
           className={cn(
-            "mt-0.5 select-none text-center font-medium font-title text-foreground text-xl transition",
+            "select-none text-center font-allo-wordmark text-2xl text-foreground leading-none sm:text-3xl",
             className
           )}
         >

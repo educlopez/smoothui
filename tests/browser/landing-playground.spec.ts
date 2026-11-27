@@ -1,6 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const PLAYGROUND_TITLE = /Playground/;
+const ALLO_FONT = /allo/i;
 
 test.describe("mobile landing", () => {
   test.use({
@@ -159,6 +160,100 @@ test("island visible pill and controls are vertically balanced", async ({
   ).toBeLessThan(12);
 });
 
+test("hovering the plus gathers the agents into an overlapping cluster", async ({
+  page,
+}) => {
+  await page.setViewportSize({ height: 900, width: 1440 });
+  await page.goto("/");
+  await page.evaluate(() => document.fonts.ready);
+  const agents = page.getByRole("list", { name: "AI agent resources" });
+  const more = agents.getByRole("button", { name: "More AI agents" });
+  const gap = async () => {
+    const bounds = await agents
+      .getByRole("link")
+      .evaluateAll((links) =>
+        links.slice(0, 2).map((link) => link.getBoundingClientRect().left)
+      );
+    return bounds[1] - bounds[0];
+  };
+  const restingGap = await gap();
+  await more.hover();
+  await expect(more).toHaveAttribute("aria-expanded", "true");
+  await expect.poll(gap).toBeLessThan(restingGap - 1);
+  await expect(agents.getByRole("link")).toHaveCount(7);
+  await expect
+    .poll(() =>
+      agents.getByRole("link").evaluateAll((links) => {
+        const [primary, extra] = [links[0], links[4]];
+        const top = primary.firstElementChild?.getBoundingClientRect();
+        const bottom = extra.firstElementChild?.getBoundingClientRect();
+        return (
+          top &&
+          bottom &&
+          top.right > bottom.left &&
+          top.bottom > bottom.top &&
+          extra.getBoundingClientRect().top -
+            primary.getBoundingClientRect().top >=
+            39 &&
+          links.every((link) => {
+            const { x, y, width, height } = link.getBoundingClientRect();
+            return link.contains(
+              document.elementFromPoint(x + width / 2, y + height / 2)
+            );
+          })
+        );
+      })
+    )
+    .toBe(true);
+  const openCode = agents.getByRole("link", { name: "OpenCode" });
+  await expect
+    .poll(() =>
+      openCode.evaluate((link) => {
+        const { x, y, width, height } = link.getBoundingClientRect();
+        return link.contains(
+          document.elementFromPoint(x + width / 2, y + height / 2)
+        );
+      })
+    )
+    .toBe(true);
+  const bounds = await openCode.boundingBox();
+  if (!bounds) {
+    throw new Error("OpenCode has no visible bounds");
+  }
+  await page.mouse.move(
+    bounds.x + bounds.width / 2,
+    bounds.y + bounds.height / 2
+  );
+  await expect
+    .poll(() => openCode.evaluate((link) => link.matches(":hover")))
+    .toBe(true);
+  await expect(agents.getByRole("link")).toHaveCount(7);
+  await page.mouse.move(bounds.x, bounds.y + bounds.height + 4);
+  await expect(more).toHaveAttribute("aria-expanded", "false");
+  await expect(agents.getByRole("link")).toHaveCount(4);
+});
+
+test("Allo is loaded for docs reading while code stays monospace", async ({
+  page,
+}) => {
+  await page.goto("/docs/components/siri-orb");
+  const title = page.locator("#nd-page h1");
+  const paragraph = page.locator("#nd-page .prose p").first();
+  const code = page.locator("#nd-page code").first();
+  await expect(title).toHaveCSS("font-family", ALLO_FONT);
+  await expect(paragraph).toHaveCSS("font-family", ALLO_FONT);
+  await expect(paragraph).toHaveCSS("font-optical-sizing", "auto");
+  await expect(code).toHaveCSS("font-family", /monospace/i);
+  expect(
+    await paragraph.evaluate(async () => {
+      await document.fonts.ready;
+      return [...document.fonts].some(
+        (face) => /allo/i.test(face.family) && face.status === "loaded"
+      );
+    })
+  ).toBe(true);
+});
+
 for (const width of [390, 1440]) {
   test(`expanded previews stay inside content-driven frames at ${width}px`, async ({
     page,
@@ -312,10 +407,72 @@ for (const width of [390, 1440]) {
     await page.goto("/");
     const heading = page.getByRole("heading", { level: 1 });
     await expect(heading).toHaveText("React components.Made to move.");
+    await page.evaluate(() => document.fonts.ready);
+    await expect(heading).toHaveCSS("font-family", ALLO_FONT);
+    await expect(page.locator("h2.font-allo-display").first()).toHaveCSS(
+      "font-family",
+      ALLO_FONT
+    );
+    await expect(page.locator("footer .font-allo-wordmark").first()).toHaveCSS(
+      "font-family",
+      ALLO_FONT
+    );
     const hero = heading.locator("xpath=ancestor::section[1]");
+    const heroIntro = heading.locator("..");
     await expect(
-      hero.getByRole("link", { name: "Browse primitives" })
-    ).toHaveAttribute("href", "/docs/primitives");
+      heroIntro.getByRole("link", { name: "Explore components" })
+    ).toHaveAttribute("href", "/docs/components");
+    await expect(
+      heroIntro.getByRole("link", { name: "1,000+ stars on GitHub" })
+    ).toHaveAttribute("href", "https://github.com/educlopez/smoothui");
+    const agents = heroIntro.getByRole("list", { name: "AI agent resources" });
+    await expect(agents.getByRole("link")).toHaveCount(4);
+    await Promise.all(
+      ["Claude Code", "Cursor", "ChatGPT", "Grok Bot"].map(async (name) => {
+        const agent = agents.getByRole("link", { exact: true, name });
+        await expect(agent).toBeVisible();
+        await expect(agent.locator("img")).toHaveJSProperty("naturalWidth", 96);
+      })
+    );
+    const more = agents.getByRole("button", { name: "More AI agents" });
+    const closedRowBounds = await agents.boundingBox();
+    await more.focus();
+    await page.keyboard.press("Enter");
+    await expect(more).toHaveAttribute("aria-expanded", "true");
+    await expect(agents.getByRole("link")).toHaveCount(7);
+    expect((await agents.boundingBox())?.height).toBe(closedRowBounds?.height);
+    await expect(agents.getByRole("link", { name: "OpenCode" })).toBeFocused();
+    await expect(
+      agents.getByRole("link", { exact: true, name: "Pi" })
+    ).toBeVisible();
+    await expect(
+      agents.getByRole("link", { name: "Gemini CLI" })
+    ).toBeVisible();
+    await page.keyboard.press("Escape");
+    await expect(more).toHaveAttribute("aria-expanded", "false");
+    await expect(agents.getByRole("link")).toHaveCount(4);
+    await expect(more).toBeFocused();
+    await page.keyboard.press("Tab");
+    await expect(
+      heroIntro.getByRole("link", { name: "Explore components" })
+    ).toBeFocused();
+    await expect(heroIntro.getByRole("link")).toHaveCount(6);
+    await expect(heroIntro.locator("code")).toHaveCount(0);
+    await expect(
+      hero.getByRole("img", { name: "Vercel Open Source Software Program" })
+    ).toHaveCount(0);
+    await expect(
+      page
+        .locator("footer")
+        .getByText("Animated React components with smooth Motion animations.", {
+          exact: false,
+        })
+        .locator("..")
+        .getByRole("link", { name: "Vercel Open Source Software Program" })
+    ).toHaveAttribute(
+      "href",
+      "https://vercel.com/blog/vercel-open-source-program-winter-2026-cohort#smoothui"
+    );
     await hero.screenshot({ path: `/tmp/smoothui-hero-refined-${width}.png` });
     const expectedLeft = Math.max(0, (width - 1280) / 2) + 32;
     const expectedWidth = Math.min(width, 1280) - 64;

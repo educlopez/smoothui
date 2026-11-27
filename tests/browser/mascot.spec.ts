@@ -1,6 +1,98 @@
-import { expect, type Page, test } from "@playwright/test";
+import { expect, type Locator, type Page, test } from "@playwright/test";
 
 const SELECTED_CLI = /shadow-sm/;
+
+function gazeX(gaze: Locator) {
+  return gaze.evaluate(
+    (element) => new DOMMatrixReadOnly(getComputedStyle(element).transform).m41
+  );
+}
+
+test("a mascot picks up hover when visibility tracking starts under the cursor", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const { observe } = IntersectionObserver.prototype;
+    let unlocked = false;
+    window.addEventListener("test:observe-mascots", () => {
+      unlocked = true;
+    });
+    IntersectionObserver.prototype.observe = function observeVisible(target) {
+      if (unlocked || !target.hasAttribute("data-mascot")) {
+        observe.call(this, target);
+        return;
+      }
+      window.addEventListener(
+        "test:observe-mascots",
+        () => observe.call(this, target),
+        { once: true }
+      );
+    };
+  });
+  await page.goto("/");
+  const link = page
+    .locator('a[href="/"]')
+    .filter({ has: page.locator("[data-mascot]"), visible: true })
+    .first();
+  const mark = link.locator("[data-mascot]");
+  await link.hover();
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  await page.evaluate(() =>
+    window.dispatchEvent(new Event("test:observe-mascots"))
+  );
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+});
+
+test("SmoothUI looks toward a nearby cursor and settles when it moves away", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const footer = page.locator("footer [data-mascot-surface]");
+  const mark = footer.locator("[data-mascot]");
+  const gaze = mark.locator("[data-mascot-gaze]");
+  await mark.scrollIntoViewIfNeeded();
+  await footer.hover();
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+  const box = await mark.boundingBox();
+  if (!box) {
+    throw new Error("Missing footer mascot");
+  }
+  await page.mouse.move(box.x + 75, box.y + box.height / 2);
+  await expect.poll(() => gazeX(gaze)).toBeGreaterThan(15);
+  await page.mouse.move(box.x + 210, box.y + box.height / 2);
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  await expect.poll(async () => Math.abs(await gazeX(gaze))).toBeLessThan(0.5);
+});
+
+test("the linked brand mark reacts to pressure without changing navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const link = page
+    .locator('a[href="/"]')
+    .filter({ has: page.locator("[data-mascot]"), visible: true })
+    .first();
+  const mark = link.locator("[data-mascot]");
+  await link.hover();
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+  await page.mouse.down();
+  await expect(mark).toHaveAttribute("data-expression", "surprised");
+  await page.mouse.move(300, 150);
+  await page.mouse.up();
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+  await page.getByRole("link", { name: "Explore components" }).focus();
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  await expect(link).toHaveAttribute("href", "/");
+});
+
+test("reduced motion keeps the ambient mascot still", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  const mark = page.locator("footer [data-mascot-surface] [data-mascot]");
+  await mark.hover();
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  expect(await gazeX(mark.locator("[data-mascot-gaze]"))).toBe(0);
+});
 
 async function readyInstaller(page: Page) {
   // Existing contributor-tooltip hydration recovery can replace the docs tree.
@@ -16,7 +108,7 @@ test("footer brand mark is a static logo", async ({ page }) => {
   await page.goto("/");
   const footer = page.locator("footer.relative");
   const logo = footer
-    .locator("span.font-title")
+    .locator("span.font-allo-wordmark")
     .filter({ hasText: "SmoothUI" });
   await logo.scrollIntoViewIfNeeded();
   await expect(logo).toBeVisible();
