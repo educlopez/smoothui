@@ -12,7 +12,7 @@ export const GET = async () => {
   const response: Registry = {
     homepage: "https://smoothui.dev/",
     items: [],
-    name: "SmoothUI Registry",
+    name: "smoothui",
   };
 
   const allPackageNames = await getAllPackageNames();

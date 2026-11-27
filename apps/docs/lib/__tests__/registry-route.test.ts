@@ -38,6 +38,7 @@ vi.mock("@docs/lib/studio-preset", () => ({
 
 import { GET as getStyled } from "../../app/r/[name]/[component]/route";
 import { GET } from "../../app/r/[name]/route";
+import { GET as getIndex } from "../../app/r/registry.json/route";
 import { getRegistryPackageResponse } from "../registry-response";
 import { UNSUPPORTED_ARIA_STYLE_ERROR } from "../registry-style";
 
@@ -46,6 +47,24 @@ const request = () =>
 const context = (name: string) => ({ params: Promise.resolve({ name }) });
 const styleContext = (style: string, component: string) => ({
   params: Promise.resolve({ component, name: style }),
+});
+
+describe("/r/registry.json", () => {
+  it("names the index smoothui so it matches the @smoothui namespace", async () => {
+    mocks.getAllPackageNames.mockResolvedValue([]);
+    mocks.getSkill.mockResolvedValue({
+      name: "skill",
+      type: "registry:file",
+    });
+
+    const response = await getIndex();
+
+    expect(response.status).toBe(200);
+    await expect(response.json()).resolves.toMatchObject({
+      homepage: "https://smoothui.dev/",
+      name: "smoothui",
+    });
+  });
 });
 
 describe("/r/{name}.json", () => {
