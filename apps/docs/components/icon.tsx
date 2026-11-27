@@ -44,7 +44,11 @@ export function Icon({ className, expression, reactionKey = 0 }: IconProps) {
       fill="none"
       height="597"
       ref={ref}
-      style={{ display: "block", transformOrigin: "50% 88%" }}
+      style={{
+        display: "block",
+        overflow: "visible",
+        transformOrigin: "50% 88%",
+      }}
       viewBox="0 0 443 597"
       width="443"
       xmlns="http://www.w3.org/2000/svg"

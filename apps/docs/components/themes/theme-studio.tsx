@@ -823,10 +823,7 @@ function PreviewCanvas({
     () => ({
       ...buildPreviewStyle(palette, mode, state),
       colorScheme: mode,
-      fontFamily:
-        state.font === "sans"
-          ? "var(--font-allo), system-ui, sans-serif"
-          : fontStack(state.font),
+      fontFamily: fontStack(state.font),
     }),
     [palette, mode, state]
   );

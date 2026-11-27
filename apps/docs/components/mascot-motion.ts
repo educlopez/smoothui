@@ -14,7 +14,7 @@ import {
   useReducedMotion,
   useSpring,
 } from "motion/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 export type MascotExpression =
   | "neutral"
@@ -44,6 +44,8 @@ const POSE_BOUNCE = {
 
 const FINE_POINTER = "(any-hover: hover) and (any-pointer: fine)";
 const PRIMARY_FINE_POINTER = "(hover: hover) and (pointer: fine)";
+const COARSE_POINTER = "(any-pointer: coarse)";
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 const HINT_TIME = 440;
 const MIN_IDLE_BLINK = 3300;
 const IDLE_BLINK_RANGE = 2900;
@@ -118,13 +120,31 @@ function gazeAt(point: Point, box: DOMRect): Point {
   return { x: dx * weight * 42, y: dy * weight * 36 };
 }
 
+function subscribeReducedMotion(notify: () => void) {
+  const query = window.matchMedia(REDUCED_MOTION);
+  query.addEventListener("change", notify);
+  return () => query.removeEventListener("change", notify);
+}
+
+const readReducedMotion = () => window.matchMedia(REDUCED_MOTION).matches;
+const readServerReducedMotion = () => null;
+const mascotHost = (svg: SVGSVGElement) =>
+  svg.closest("[data-mascot-surface],a,button") ?? svg;
+
 export function useMascotMotion(
   expression: MascotExpression | undefined,
   reactionKey: number
 ) {
   const ref = useRef<SVGSVGElement>(null);
+  const observedMouseHover = useRef(false);
   const visible = useInView(ref);
-  const reduced = useReducedMotion();
+  const initialReduced = useReducedMotion();
+  const liveReduced = useSyncExternalStore<boolean | null>(
+    subscribeReducedMotion,
+    readReducedMotion,
+    readServerReducedMotion
+  );
+  const reduced = liveReduced ?? initialReduced;
   const controls = useAnimationControls();
   const [localExpression, setLocalExpression] =
     useState<MascotExpression>("neutral");
@@ -134,21 +154,45 @@ export function useMascotMotion(
   const blink = useMotionValue(1);
 
   useEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+    const host = mascotHost(ref.current);
+    const enter = (event: Event) => {
+      observedMouseHover.current =
+        event instanceof PointerEvent && event.pointerType === "mouse";
+    };
+    const leave = (event: Event) => {
+      if (event instanceof PointerEvent && event.pointerType === "mouse") {
+        observedMouseHover.current = false;
+      }
+    };
+    host.addEventListener("pointerenter", enter);
+    host.addEventListener("pointerleave", leave);
+    return () => {
+      host.removeEventListener("pointerenter", enter);
+      host.removeEventListener("pointerleave", leave);
+    };
+  }, []);
+
+  useEffect(() => {
     const svg = ref.current;
     if (!(svg && visible)) {
       return;
     }
 
-    const host = svg.closest("[data-mascot-surface],a,button") ?? svg;
+    const host = mascotHost(svg);
     const interactive = host.matches("a,button");
     const pointer = window.matchMedia(FINE_POINTER);
-    // The visible-only effect can mount after the pointer has entered the host.
+    // Only use CSS hover as a fallback when touch cannot synthesize it.
     let hovered =
       !reduced &&
-      window.matchMedia(PRIMARY_FINE_POINTER).matches &&
-      host.matches(":hover");
+      host.matches(":hover") &&
+      (observedMouseHover.current ||
+        (window.matchMedia(PRIMARY_FINE_POINTER).matches &&
+          !window.matchMedia(COARSE_POINTER).matches));
     let focused = interactive && document.activeElement === host;
-    let pressed = false;
+    let pressedPointer: number | undefined;
     let settle: ReturnType<typeof setTimeout> | undefined;
 
     const rest = () => {
@@ -165,42 +209,49 @@ export function useMascotMotion(
         return;
       }
       hovered = true;
-      if (!(pressed || settle)) {
+      if (pressedPointer === undefined && !settle) {
         rest();
       }
     };
     const leave = () => {
       hovered = false;
-      if (!(pressed || settle)) {
+      if (pressedPointer === undefined && !settle) {
         rest();
       }
     };
     const focus = () => {
       focused = true;
-      if (!(reduced || pressed || settle)) {
+      if (!reduced && pressedPointer === undefined && !settle) {
         rest();
       }
     };
     const blur = () => {
       focused = false;
-      if (!(pressed || settle)) {
+      if (pressedPointer === undefined && !settle) {
         rest();
       }
     };
     const press = (event: Event) => {
-      if (!(event instanceof PointerEvent) || event.button !== 0) {
+      if (
+        !(event instanceof PointerEvent) ||
+        event.button !== 0 ||
+        pressedPointer !== undefined
+      ) {
         return;
       }
       clearTimeout(settle);
       settle = undefined;
-      pressed = true;
+      pressedPointer = event.pointerId;
       setLocalExpression("surprised");
     };
     const release = (event: Event) => {
-      if (!pressed) {
+      if (
+        !(event instanceof PointerEvent) ||
+        event.pointerId !== pressedPointer
+      ) {
         return;
       }
-      pressed = false;
+      pressedPointer = undefined;
       if (event.target instanceof Node && host.contains(event.target)) {
         setLocalExpression("wink");
         settle = setTimeout(() => {
@@ -211,9 +262,16 @@ export function useMascotMotion(
         rest();
       }
     };
-    const cancel = () => {
-      pressed = false;
+    const resetPress = () => {
+      pressedPointer = undefined;
+      clearTimeout(settle);
+      settle = undefined;
       rest();
+    };
+    const cancel = (event: PointerEvent) => {
+      if (event.pointerId === pressedPointer) {
+        resetPress();
+      }
     };
     const track = (point: Point | null) => {
       const box = point && pointer.matches ? svg.getBoundingClientRect() : null;
@@ -232,7 +290,7 @@ export function useMascotMotion(
       host.addEventListener("pointerdown", press);
       window.addEventListener("pointerup", release);
       window.addEventListener("pointercancel", cancel);
-      window.addEventListener("blur", cancel);
+      window.addEventListener("blur", resetPress);
     }
     return () => {
       clearTimeout(settle);
@@ -244,7 +302,7 @@ export function useMascotMotion(
       host.removeEventListener("pointerdown", press);
       window.removeEventListener("pointerup", release);
       window.removeEventListener("pointercancel", cancel);
-      window.removeEventListener("blur", cancel);
+      window.removeEventListener("blur", resetPress);
       eyeX.jump(0);
       eyeY.jump(0);
     };

@@ -37,7 +37,9 @@ describe("GithubStarsAnimation", () => {
   });
 
   it("has no accessibility violations", async () => {
-    const { container } = render(<Component />);
+    const { container } = render(
+      <Component starCount={2} stargazers={stargazers} />
+    );
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
