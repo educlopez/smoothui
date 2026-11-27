@@ -8,6 +8,41 @@ function gazeX(gaze: Locator) {
   );
 }
 
+test("a mascot picks up hover when visibility tracking starts under the cursor", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const { observe } = IntersectionObserver.prototype;
+    let unlocked = false;
+    window.addEventListener("test:observe-mascots", () => {
+      unlocked = true;
+    });
+    IntersectionObserver.prototype.observe = function observeVisible(target) {
+      if (unlocked || !target.hasAttribute("data-mascot")) {
+        observe.call(this, target);
+        return;
+      }
+      window.addEventListener(
+        "test:observe-mascots",
+        () => observe.call(this, target),
+        { once: true }
+      );
+    };
+  });
+  await page.goto("/");
+  const link = page
+    .locator('a[href="/"]')
+    .filter({ has: page.locator("[data-mascot]"), visible: true })
+    .first();
+  const mark = link.locator("[data-mascot]");
+  await link.hover();
+  await expect(mark).toHaveAttribute("data-expression", "neutral");
+  await page.evaluate(() =>
+    window.dispatchEvent(new Event("test:observe-mascots"))
+  );
+  await expect(mark).toHaveAttribute("data-expression", "curious");
+});
+
 test("SmoothUI looks toward a nearby cursor and settles when it moves away", async ({
   page,
 }) => {

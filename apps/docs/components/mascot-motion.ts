@@ -43,6 +43,7 @@ const POSE_BOUNCE = {
 };
 
 const FINE_POINTER = "(any-hover: hover) and (any-pointer: fine)";
+const PRIMARY_FINE_POINTER = "(hover: hover) and (pointer: fine)";
 const HINT_TIME = 440;
 const MIN_IDLE_BLINK = 3300;
 const IDLE_BLINK_RANGE = 2900;
@@ -141,7 +142,11 @@ export function useMascotMotion(
     const host = svg.closest("[data-mascot-surface],a,button") ?? svg;
     const interactive = host.matches("a,button");
     const pointer = window.matchMedia(FINE_POINTER);
-    let hovered = false;
+    // The visible-only effect can mount after the pointer has entered the host.
+    let hovered =
+      !reduced &&
+      window.matchMedia(PRIMARY_FINE_POINTER).matches &&
+      host.matches(":hover");
     let focused = interactive && document.activeElement === host;
     let pressed = false;
     let settle: ReturnType<typeof setTimeout> | undefined;
