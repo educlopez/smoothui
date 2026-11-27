@@ -26,7 +26,7 @@ export function SectionHeader({
           people scrolled to read. */}
       <h2
         className={cn(
-          "text-balance font-semibold font-title text-3xl text-foreground md:text-4xl",
+          "text-balance font-allo-display font-semibold text-3xl text-foreground md:text-4xl",
           isCenter && "text-center"
         )}
       >

@@ -271,7 +271,7 @@ export function WhatTheySay() {
         <div className="mb-12 flex flex-col items-center gap-6 text-center">
           <div className="max-w-2xl">
             {/* Static: the heading should be readable the moment it scrolls in. */}
-            <h2 className="text-balance font-semibold font-title text-3xl text-foreground md:text-4xl">
+            <h2 className="text-balance font-allo-display font-semibold text-3xl text-foreground md:text-4xl">
               From people who shipped with it
             </h2>
             <p className="mt-4 text-balance text-muted-foreground">

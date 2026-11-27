@@ -6,7 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { RootProvider } from "fumadocs-ui/provider/next";
 import type { Metadata } from "next";
 import "./global.css";
-import { inter } from "./fonts";
+import { allo } from "./fonts";
 import { smoothUISchema } from "./utils/schema";
 
 const enableVercelAnalytics =
@@ -98,11 +98,7 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      className={`${inter.className} ${inter.variable}`}
-      lang="en"
-      suppressHydrationWarning
-    >
+    <html className={allo.variable} lang="en" suppressHydrationWarning>
       <head>
         <meta content="SmoothUI" name="apple-mobile-web-app-title" />
         <link
@@ -124,7 +120,7 @@ export default function Layout({ children }: LayoutProps<"/">) {
           type="application/ld+json"
         />
       </head>
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col font-sans">
         {enableVercelAnalytics && <Analytics />}
         {enableVercelAnalytics && <SpeedInsights />}
         <RootProvider>
