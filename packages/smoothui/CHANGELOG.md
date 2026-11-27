@@ -1,5 +1,18 @@
 # Changelog
 
+## [4.2.0](https://github.com/educlopez/smoothui/compare/v4.1.0...v4.2.0) (2026-11-27)
+
+
+### Features
+
+* **web:** release Allo and the refreshed landing ([ef64084](https://github.com/educlopez/smoothui/commit/ef6408426d4fe669581ff5324599f545ff4102a5))
+
+
+### Bug Fixes
+
+* **web:** address landing release review ([2a8b01f](https://github.com/educlopez/smoothui/commit/2a8b01f70552dc64354dd6b26a27faced858bccf))
+* **web:** address landing release review ([e159ed9](https://github.com/educlopez/smoothui/commit/e159ed93567222c3bf6ccc97be7f83eb58933f29))
+
 ## [4.1.0](https://github.com/educlopez/smoothui/compare/v4.0.0...v4.1.0) (2026-11-24)
 
 
