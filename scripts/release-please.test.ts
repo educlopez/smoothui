@@ -38,4 +38,26 @@ describe("release-please", () => {
     expect(packages["packages/smoothui"]?.["package-name"]).toBe("smoothui");
     expect(config["release-type"]).toBe("node");
   });
+
+  it("keeps component-specific release branches without changing tag names", () => {
+    const config = readJson("release-please-config.json");
+    const packages = config.packages as Record<string, Record<string, unknown>>;
+
+    // The shared release branch loses the component when only SmoothUI is due
+    // (PR #226). A component-specific branch lets Release Please find it again
+    // after merge, without adding a component prefix to the public tag.
+    expect(config["separate-pull-requests"]).toBe(true);
+    expect(config["include-component-in-tag"]).toBe(false);
+    expect(config["include-v-in-tag"]).toBe(true);
+    expect(
+      packages["packages/smoothui"]?.["include-component-in-tag"]
+    ).toBeUndefined();
+    expect(packages["packages/smoothui"]?.["separate-pull-requests"]).not.toBe(
+      false
+    );
+    expect(packages["packages/cli"]).toMatchObject({
+      component: "cli",
+      "include-component-in-tag": true,
+    });
+  });
 });
